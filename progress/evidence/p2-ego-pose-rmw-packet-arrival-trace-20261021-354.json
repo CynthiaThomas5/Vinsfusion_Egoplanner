@@ -1,0 +1,428 @@
+{
+  "schema": "p2-ego-pose-rmw-packet-arrival-trace/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-packet-arrival-trace-20261021-354",
+  "status": "completed_diagnostic",
+  "goal_criterion": "GOAL C diagnostic only; GOAL C remains pending and P2 remains passed.",
+  "question": "During the EGO pose DataReader empty-history take gap, do UDP datagrams addressed to its participant receive socket continue reaching the host packet-capture point?",
+  "configuration": {
+    "command": "bash artifacts/runs/p2-ego-pose-rmw-packet-arrival-trace-20261021-354/run-container.sh",
+    "exit_code": 0,
+    "docker_image": "d435i-vins:dev",
+    "ros_domain_id": 220,
+    "gazebo_partition": "d435i_ego_packet_arrival_trace_354_01",
+    "ego_vpid": 514,
+    "mapping_input_adapter_vpid": 424,
+    "transport_environment": {
+      "ego": {
+        "FASTDDS_BUILTIN_TRANSPORTS": "UDPv4",
+        "FASTDDS_DEFAULT_PROFILES_FILE": null,
+        "FASTRTPS_DEFAULT_PROFILES_FILE": "/workspace/artifacts/runs/p2-ego-pose-rmw-packet-arrival-trace-20261021-354/fastdds-recv-buffer.xml",
+        "RMW_FASTRTPS_USE_QOS_FROM_XML": null
+      },
+      "mapping": {
+        "FASTDDS_BUILTIN_TRANSPORTS": "UDPv4",
+        "FASTDDS_DEFAULT_PROFILES_FILE": null,
+        "FASTRTPS_DEFAULT_PROFILES_FILE": null,
+        "RMW_FASTRTPS_USE_QOS_FROM_XML": null
+      }
+    },
+    "ego_pose_reader_qos": "reliable/volatile/keep_last_25",
+    "mapping_pose_publisher_qos": "reliable/volatile/keep_last_50",
+    "qos_changed": false,
+    "canonical_source_or_config_changed": false,
+    "ego_profile": "same run-local Fast DDS participant profile as #353; listenSocketBufferSize=212992 bytes",
+    "actual_callback_socket_rb_bytes": {
+      "425984": 46
+    },
+    "profile_environment_variable": "FASTRTPS_DEFAULT_PROFILES_FILE",
+    "RMW_FASTRTPS_USE_QOS_FROM_XML": null,
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_control_nodes": [],
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "px4_started": false
+  },
+  "packet_capture": {
+    "command": "tcpdump -i any -nn -tt -l -q \"udp dst port 62427\"",
+    "capture_environment": "Temporary d435i-vins:dev container with --network host and --cap-add NET_RAW; tcpdump installed only in that ephemeral container.",
+    "filter": "UDP destination port 62427, matched to EGO callback thread dds.udp.62427 and its local UDP socket",
+    "persisted_format": "Text metadata only: epoch timestamp, interface/direction, source/destination IP:port and UDP length. No PCAP file and no payload formatter.",
+    "snaplen_bytes": 262144,
+    "payload_bytes_persisted": false,
+    "tcpdump_statistics": [
+      "58820 packets captured",
+      "124992 packets received by filter",
+      "7062 packets dropped by kernel"
+    ],
+    "capture_qualification": "tcpdump reports kernel capture drops; packet records are incomplete and loopback count semantics are not treated as exact wire packet totals."
+  },
+  "result": {
+    "topic": "/drone_0_camera_pose",
+    "duration_s": 2.4849566919874633,
+    "interval_time_of_day_s": [
+      73267.231175438,
+      73269.71613213
+    ],
+    "adapter_rmw_publish_count": 48,
+    "adapter_max_publish_gap_s": 0.19342265000159387,
+    "independent_pose_receipts": 48,
+    "independent_pose_max_source_gap_s": 0.066,
+    "map_ready_epoch_stable": true,
+    "map_id_stable": true,
+    "ego_wait_returns": 674,
+    "ego_ready_counts": {
+      "0": 673,
+      "1": 1
+    },
+    "ego_unread_count_distribution": {
+      "0": 673,
+      "15": 1
+    },
+    "ego_successful_pose_takes": 0,
+    "reader_status_samples_inside_gap": 42,
+    "reader_status_sample_lost_total_values": {
+      "0": 1142
+    },
+    "reader_status_sample_rejected_total_values": {
+      "0": 1142
+    },
+    "listener_event_count": 449,
+    "listener_event_counts": {
+      "data_available": 449
+    },
+    "listener_events_inside_gap": [
+      {
+        "time_of_day_s": 73269.716039285,
+        "vpid": 514,
+        "vtid": 522,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x590F3EC72880",
+        "event_type": 1,
+        "unread_count": 15,
+        "total_count": 0,
+        "total_count_change": 0
+      },
+      {
+        "time_of_day_s": 73269.716102324,
+        "vpid": 514,
+        "vtid": 522,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x590F3EC72880",
+        "event_type": 1,
+        "unread_count": 15,
+        "total_count": 0,
+        "total_count_change": 0
+      }
+    ],
+    "sample_lost_callback_count_inside_gap": 0,
+    "sample_rejected_callback_count_inside_gap": 0
+  },
+  "receiver_thread_and_socket": {
+    "callback_thread": {
+      "tid": 522,
+      "comm": "dds.udp.62427",
+      "runtime_delta_ns": 53240674,
+      "runqueue_wait_delta_ns": 6164280,
+      "timeslices_delta": 2400,
+      "voluntary_context_switch_delta": 2390,
+      "nonvoluntary_context_switch_delta": 10,
+      "state_sample_counts_inside_gap": {
+        "S (sleeping)": 21,
+        "R (running)": 3
+      },
+      "wchan_sample_counts_inside_gap": {
+        "__skb_wait_for_more_packets": 22,
+        "0": 2
+      }
+    },
+    "thread_samples_inside_gap": 24,
+    "thread_monitor_bracket_s": 2.502905522,
+    "host_ss_samples_inside_gap": 46,
+    "rb_distribution_bytes": {
+      "425984": 46
+    },
+    "rx_memory_bytes_max": 465220,
+    "socket_drops_first_last_inside_gap": [
+      1052,
+      1142
+    ],
+    "socket_drop_delta_inside_gap": 90,
+    "socket_drop_delta_bracket": 90
+  },
+  "packet_arrival_alignment": {
+    "schema": "ego-udp-arrival-metadata-alignment/v1",
+    "filter": "udp dst port 62427",
+    "capture_format": "tcpdump text only: epoch timestamp, interface/direction, IP endpoints, UDP length; no pcap and no payload output",
+    "capture_file": {
+      "path": "ego-udp-arrival.log",
+      "nonempty_line_count": 58820,
+      "parsed_packet_line_count": 58820,
+      "unparsed_line_count": 0
+    },
+    "tcpdump_statistics": [
+      "58820 packets captured",
+      "124992 packets received by filter",
+      "7062 packets dropped by kernel"
+    ],
+    "take_gap": {
+      "time_of_day_s": [
+        73267.231175438,
+        73269.71613213
+      ],
+      "epoch_s": [
+        1792527667.2311754,
+        1792527669.7161322
+      ],
+      "duration_s": 2.484956741333008
+    },
+    "gap_packet_arrivals": {
+      "captured_metadata_records": 2592,
+      "first_epoch_s": 1792527667.231451,
+      "last_epoch_s": 1792527669.71613,
+      "first_offset_from_gap_start_s": 0.00027561187744140625,
+      "last_offset_from_gap_start_s": 2.484954595565796,
+      "max_interarrival_gap_s": 0.025367021560668945,
+      "median_interarrival_gap_s": 0.0009520053863525391,
+      "p95_interarrival_gap_s": 0.0010530948638916016,
+      "interface_counts": {
+        "lo": 2592
+      },
+      "direction_counts": {
+        "In": 2592
+      },
+      "source_port_counts": {
+        "38078": 1654,
+        "42534": 25,
+        "49855": 913
+      },
+      "udp_length_counts": {
+        "128": 1654,
+        "65500": 775,
+        "65468": 47,
+        "53208": 44,
+        "232": 40,
+        "904": 23,
+        "248": 3,
+        "936": 2,
+        "264": 2,
+        "112": 2
+      },
+      "captured_records_in_first_last_100ms": [
+        103,
+        125
+      ]
+    },
+    "qualification": "A captured UDP datagram addressed to the callback thread socket port confirms traffic reached the host packet-capture point. It does not prove socket enqueue, successful recvmsg, Fast DDS acceptance, topic identity, or reader-history insertion. tcpdump reported kernel capture drops, so absence and exact counts are incomplete."
+  },
+  "interpretation": "The host packet-capture point observed 2592 UDP datagram records addressed to EGO socket port 62427 over the 2.485 s successful-take gap; records bracketed almost the full interval and the largest observed inter-record gap was 25.4 ms. EGO RMW wait still returned unread_count=0 673 times, then ready with 15 at the interval end. This rules against a complete absence of UDP traffic to that participant port at the host capture point during the interval. It does not prove these datagrams were camera_pose DATA, that the UDP socket accepted them, or that Fast DDS inserted them into the DataReader history. The socket drop count rose by 90 and sampled receive memory peaked at 465220 bytes, while sample_lost/rejected status remained zero. Capture kernel drops, socket-level counters, and the lack of RTPS/topic parsing prevent a causal attribution.",
+  "trace_integrity": {
+    "ctf_file_count": 32,
+    "ctf_total_bytes": 16833816,
+    "primary_trace_file_count": 32,
+    "primary_trace_bytes": 16833816,
+    "listener_smoke_trace_file_count": 0,
+    "listener_smoke_trace_bytes": 0,
+    "ctf_file_hash_manifest": {
+      "path": "analysis/ctf-file-hashes.sha256",
+      "sha256": "7f90376d2f99ad23b55bba022a39f734f9d1e17df345b299a3305dd04a52c575",
+      "size_bytes": 3724
+    },
+    "wait_trace_event_count": 18259,
+    "wait_trace_sequence_range": [
+      0,
+      18264
+    ],
+    "missing_wait_sequences": [
+      101,
+      102,
+      103,
+      104,
+      105,
+      106
+    ],
+    "selected_gap_wait_sequence_bounds": [
+      7668,
+      8341
+    ],
+    "missing_sequences_overlap_selected_gap": false,
+    "overall_wait_summary_exit_code": 1,
+    "selected_gap_analyzers_exit_code": 0,
+    "analyzer_exit_codes": {
+      "rmw-wait-summary": 1,
+      "rmw-status-summary": 0,
+      "publisher-take-alignment": 0,
+      "rmw-take-alignment": 0,
+      "rmw-status-alignment": 0,
+      "ego-rclcpp-summary": 0,
+      "rmw-unread-alignment": 0,
+      "reader-listener-events": 0,
+      "ego-schedstat-alignment": 0,
+      "host-socket-buffer-alignment": 0,
+      "wait-sequence-gaps": 0
+    },
+    "ctf_sha256_check": "all listed primary CTF data files match"
+  },
+  "probe_library_reused_from_353": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-rx-buffer-trace-20261021-353/probe-install/lib/librmw_wait_probe.so",
+    "sha256": "82cdb8c83d961ca4eeedaca8d3061e2413b248d09181632e08b34f6422294e2c",
+    "rebuilt_for_this_run": false
+  },
+  "runtime_scope": {
+    "planner_goal_sent": true,
+    "planner_bspline_count": 2,
+    "trajectory_executed": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "px4_started": false,
+    "truth_topics": [],
+    "control_topics": [],
+    "target_voxel_changed_unknown_to_free": true
+  },
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-packet-arrival-trace-20261021-354/run-manifest.json",
+    "sha256": "63b161e73a9d2ab7f8a3ee6ab67f904d5d4496afb254b920c406beffa4435bbd",
+    "size_bytes": 18990
+  },
+  "workspace_snapshot": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-packet-arrival-trace-20261021-354/workspace-status-after-354.txt",
+    "sha256": "0a4647d6ed0630d23d9d107d3c58bc92ec26f99736dd248afb988e250beae916",
+    "size_bytes": 45636
+  },
+  "key_artifacts": {
+    "analysis/publisher-take-alignment.json": {
+      "path": "analysis/publisher-take-alignment.json",
+      "sha256": "9e66f2aca35b893c8b2d59275b02929cd68e6f5eaff35826e59086b67c72f0c9",
+      "size_bytes": 1927
+    },
+    "analysis/rmw-unread-alignment.json": {
+      "path": "analysis/rmw-unread-alignment.json",
+      "sha256": "b27d25bf5012f1270ae9d27eb549dba544909d57b7cac3f51495c0d47dcc247b",
+      "size_bytes": 11659
+    },
+    "analysis/rmw-status-alignment.json": {
+      "path": "analysis/rmw-status-alignment.json",
+      "sha256": "003ca6a56b4c759b4f5e37c872b2e483eb4efbce91e13cf45d6e80b1cbeda1a6",
+      "size_bytes": 18213
+    },
+    "analysis/reader-listener-events.json": {
+      "path": "analysis/reader-listener-events.json",
+      "sha256": "4130e905649770465d54938f0f4722a4e134bfd4d6c851dd8c6d81c9be3c24a1",
+      "size_bytes": 3259
+    },
+    "analysis/ego-thread-schedstat-alignment.json": {
+      "path": "analysis/ego-thread-schedstat-alignment.json",
+      "sha256": "d9050dad3ea7bf8a6ba0f71c806852d6eec62f633e1688249f23694c5f3943ee",
+      "size_bytes": 9581
+    },
+    "analysis/host-socket-buffer-alignment.json": {
+      "path": "analysis/host-socket-buffer-alignment.json",
+      "sha256": "30d157d987aab194d353ac4ac38b422f4245101fd76874480b81a51e648500fd",
+      "size_bytes": 1670
+    },
+    "analysis/packet-arrival-alignment.json": {
+      "path": "analysis/packet-arrival-alignment.json",
+      "sha256": "43c571703dfc4fb07eb5e294c27ec6c075f07d5c83b46015b2edb3e686439813",
+      "size_bytes": 1984
+    },
+    "analysis/rmw-wait-sequence-gaps.json": {
+      "path": "analysis/rmw-wait-sequence-gaps.json",
+      "sha256": "bdca060605c29ed41dd8bd9373c8ace67c0211e539a925a9708648f4ad48bb8b",
+      "size_bytes": 451
+    },
+    "analysis/analyzer-exit-codes.txt": {
+      "path": "analysis/analyzer-exit-codes.txt",
+      "sha256": "e62062f3179c76b847d5f69522e78d78b95608c49a2f5739c0874f3b909c27e1",
+      "size_bytes": 258
+    },
+    "analysis/ctf-file-hashes.sha256": {
+      "path": "analysis/ctf-file-hashes.sha256",
+      "sha256": "7f90376d2f99ad23b55bba022a39f734f9d1e17df345b299a3305dd04a52c575",
+      "size_bytes": 3724
+    },
+    "analysis/ctf-sha256-check.txt": {
+      "path": "analysis/ctf-sha256-check.txt",
+      "sha256": "8eff234f4d69ba915469d32ee1bd60fca0391eb394802454cb087419c0a2df12",
+      "size_bytes": 1740
+    },
+    "analysis/independent-reader-gap-alignment.stdout.json": {
+      "path": "analysis/independent-reader-gap-alignment.stdout.json",
+      "sha256": "63c4d0d97c35ab44950a2e7916c66d801380716a347af032b5a1b973c0c867b5",
+      "size_bytes": 1505
+    },
+    "runtime-summary.json": {
+      "path": "runtime-summary.json",
+      "sha256": "5121e7cfc79051cc73fb0a984359a2d79081f05c4dc2f5c96cc74ed0145e3424",
+      "size_bytes": 2056
+    },
+    "planner-goal-result.json": {
+      "path": "planner-goal-result.json",
+      "sha256": "0676dcae70ee64618452c80dea9cbdd13c2f4fc7deabe2139f857330316c37bd",
+      "size_bytes": 36694
+    },
+    "transport-env.json": {
+      "path": "transport-env.json",
+      "sha256": "b01e09c7c3c201e1c7b7257e5fd1a301b63425981d297dffbb2fe27a6a53e8e5",
+      "size_bytes": 745
+    },
+    "host-net-readonly.json": {
+      "path": "host-net-readonly.json",
+      "sha256": "2f741b65f54b2d56715ce974e3c7d780cf779cf93750409f2744a508a27306b1",
+      "size_bytes": 176
+    },
+    "host-udp-skmem.jsonl": {
+      "path": "host-udp-skmem.jsonl",
+      "sha256": "263ae5a6a172d1c0ded2b6f8489e01dfa9632ec7a57160346cc095db00b41cbc",
+      "size_bytes": 33364487
+    },
+    "ego-udp-arrival.log": {
+      "path": "ego-udp-arrival.log",
+      "sha256": "5c2f91628094a12d06ae261ecaaf72fa1bcec303d126593d57d8c653e09c30d3",
+      "size_bytes": 4857079
+    },
+    "tcpdump-stderr.log": {
+      "path": "tcpdump-stderr.log",
+      "sha256": "b18e5ac5cf5c7a85014c1a31e458485aa624f7eb1ac32a8bd817e04e782d74ef",
+      "size_bytes": 284
+    },
+    "tcpdump-version.txt": {
+      "path": "tcpdump-version.txt",
+      "sha256": "4e5a2356a1fb3c231ebe2415624fffd7985dea275b8d73fd0be4d92940090a8b",
+      "size_bytes": 91
+    },
+    "tcpdump-install.log": {
+      "path": "tcpdump-install.log",
+      "sha256": "9b4d1b07bd0d311e761146b41b86fa87b1ea204a583560a7f6fd4d4b36728031",
+      "size_bytes": 911
+    },
+    "fastdds-recv-buffer.xml": {
+      "path": "fastdds-recv-buffer.xml",
+      "sha256": "ca52438d11b68080801beb67e4444006040d27857573cf0be39e11dac9a57a3d",
+      "size_bytes": 340
+    },
+    "probe-library.sha256": {
+      "path": "probe-library.sha256",
+      "sha256": "5aca3f2a53eb773bd90aff1f2c4b6ff3b70fbb1ec62a9adea7785262c449c120",
+      "size_bytes": 165
+    },
+    "container-run.log": {
+      "path": "container-run.log",
+      "sha256": "625e1273f7d41eec222b9f05512a91d7fbae45bb268273d12c0f12581897b382",
+      "size_bytes": 3193
+    },
+    "capture-ready.txt": {
+      "path": "capture-ready.txt",
+      "sha256": "485f29bfee47e46130f459a26177c4bdef93af9562a302537be79e0472f3cc8d",
+      "size_bytes": 61
+    }
+  },
+  "limitations": [
+    "Host packet capture saw datagrams at the loopback packet-capture point before UDP socket delivery; this does not establish successful socket enqueue or recvmsg.",
+    "All DDS traffic to the EGO participant UDP socket shares this port; the text capture cannot identify ROS topic, RTPS writer, sequence number, or payload.",
+    "tcpdump reported 7062 packets dropped by its capture kernel path over the run, so observed record counts and inter-arrival gaps are incomplete.",
+    "The UDP socket sk_drops counter is participant-socket level; it increased by 90 during the gap but is not attributable to camera_pose.",
+    "The wait trace missed sequence values 101–106 outside the selected gap; global continuity failed while selected-gap analyzers passed.",
+    "Single run with capture instrumentation; planner-only emitted two splines, neither executed. No controller, trajectory server, PX4, runtime truth, or control topic."
+  ]
+}

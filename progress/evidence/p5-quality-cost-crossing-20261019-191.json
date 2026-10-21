@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "run_id": "p5-px4-vio-ego-hover-20261019-191",
+  "classification": "DIAGNOSTIC_ONLY_VISUAL_COST_DOMINATED_DURING_ACTIVE_TRANSLATION_UPSTREAM_CAUSE_UNRESOLVED",
+  "scope": "Read-only offline analysis of the first normalized_cost crossing, matching raw VINS telemetry, truth-only evaluator samples, commanded trajectory, and fixed-SE(3) alignment. No flight, parameter, control, or health-gate behavior changed.",
+  "result": {
+    "first_crossing": {
+      "sim_time_s": 38.116,
+      "wall_elapsed_s": 25.875,
+      "normalized_cost": 1.1526926065,
+      "reason": "normalized_cost_exceeded",
+      "aligned_position_error_m": 0.0269995,
+      "active_position_command_enu_m": [0.26979, 0.00267, 1.03632],
+      "goal_target_enu_m": [0.29523, 0.00267, 1.03730],
+      "truth_central_difference_velocity_m_s": [0.11364, 0.01766, 0.10713],
+      "vehicle_nav_state": 14,
+      "vehicle_arming_state": 2,
+      "next_unsafe_command_canceled_after_s": 0.08078
+    },
+    "feature_tracking": "At crossing, input/stereo/long-track counts were 70/70/43 versus previous-ten medians 58.5/50.5/36; this does not indicate a feature-count collapse.",
+    "single_sample_cost_decomposition": {
+      "visual_cost_share": 0.890326,
+      "imu_cost_share": 0.001041,
+      "marginalization_cost_share": 0.108633,
+      "decomposed_samples_in_capture": 1,
+      "qualification": "The available sample is visual-dominated, but only one sample has group costs; this does not identify why the visual cost rose."
+    },
+    "whole_flight_alignment": {
+      "paired_samples": 322,
+      "normalized_cost_position_error_pearson_r": 0.928404,
+      "position_error_p95_m": 0.134373,
+      "position_error_max_m": 0.160985,
+      "qualification": "Correlation spans the full recorded interval, including the post-abort landing; it is not causal evidence."
+    }
+  },
+  "interpretation": {
+    "supported": [
+      "The first gate crossing occurred during the requested low-speed translation and climb, not during a static hover.",
+      "Tracked-feature counts were above their immediately preceding medians, while the single available grouped cost sample was dominated by the visual group and had very small IMU cost.",
+      "The action was aborted and the position command canceled about 81 ms after the first over-limit quality sample."
+    ],
+    "unresolved": [
+      "The specific visual residual source is unknown; images and per-feature residual distributions were not captured, and group-cost decomposition exists for only one sample.",
+      "This run does not justify changing the 1.0 health threshold or adding a debounce policy."
+    ]
+  },
+  "qualification": {
+    "P5": "IN_PROGRESS; the goal action aborted and is not a P5 pass.",
+    "parameters_and_thresholds": "Unchanged.",
+    "truth_isolation": "Truth was used only by the offline evaluator; it was not an input to navigation or PX4 control."
+  },
+  "reproduction": {
+    "command": "python3 artifacts/runs/p5-px4-vio-ego-hover-20261019-191/analyze-quality-crossing.py --run-dir artifacts/runs/p5-px4-vio-ego-hover-20261019-191 --output /tmp/p5-quality-crossing-replay.json",
+    "note": "The regenerated JSON at /tmp was byte-compared with the saved run-local output.",
+    "result": "PASS: Python AST parse succeeded and deterministic output matched byte-for-byte."
+  },
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/analyze-quality-crossing.py": {
+      "bytes": 7765,
+      "sha256": "b50bfc6f32b4e045cf436e47d6d62596e82babdd6c9e16903d6cefe6d48a444a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/quality-crossing-analysis.json": {
+      "bytes": 4791,
+      "sha256": "f302d79b79c524dd443589fe3841d3deb8d7bdddcd8ea86d8da508257f85307d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-ego-flight-report.json": {
+      "bytes": 1956732,
+      "sha256": "2fad0913f886a8fd4478637867527be2e66df537d3fbfd28cccab5396d15b920"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-quality-alignment.json": {
+      "bytes": 155459,
+      "sha256": "5a1b85ff948b6bb8400ec7561ccbad26c36f4f13a77567b931d1b7e2fa965181"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-truth-capture/telemetry.json": {
+      "bytes": 580560,
+      "sha256": "411d79482300151d9827e451f3507dad3e1557af501c47e44544a2e08b06a700"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-truth-capture/truth-motion.json": {
+      "bytes": 5534896,
+      "sha256": "1ec9be743e995818000973d8b465b19a5be44ded6121f669a02ae52319dcb80e"
+    }
+  }
+}

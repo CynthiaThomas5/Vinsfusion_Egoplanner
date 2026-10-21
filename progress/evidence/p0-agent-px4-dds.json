@@ -1,0 +1,110 @@
+{
+  "scope": "P0 short headless Gazebo SITL and Micro XRCE-DDS Agent interoperability smoke; read-only topic graph and PX4 status only.",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "software": {
+    "px4_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_msgs_revision": "86d8239e962f6939e05c3737784f60c02fa884db",
+    "agent_revision": "73622810d984349b80bbac0ef55fc0b694d62222",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8"
+  },
+  "run": {
+    "artifact_directory": "artifacts/runs/p0-agent-px4-dds-20261016-02",
+    "agent_command": "MicroXRCEAgent udp4 -p 8888",
+    "gazebo_command": "gz sim -s -r <pinned PX4-gazebo-models>/worlds/default.sdf",
+    "px4_command": "PX4_SIMULATOR=gz PX4_SIM_MODEL=gz_x500 PX4_GZ_WORLD=default ./bin/px4 -d",
+    "ros_domain_id": 0,
+    "gazebo_partition": "px4_p0_dds_20261016_retry",
+    "vehicle_control_messages_sent": false,
+    "cleanup": "Run script terminated PX4, Gazebo, and Agent; container exited and was removed. No PX4/Gazebo process remains."
+  },
+  "observed": {
+    "ros_topic_count": 67,
+    "px4_output_topic_count": 27,
+    "status_topic_runtime_name": "/fmu/out/vehicle_status_v1",
+    "status_topic_ros_type": "px4_msgs/msg/VehicleStatus",
+    "status_publisher_count": 1,
+    "status_sample_received": true,
+    "status_sample_fields": {
+      "arming_state": 1,
+      "pre_flight_checks_pass": false,
+      "gcs_connection_lost": true
+    },
+    "external_visual_odometry_topic": "/fmu/in/vehicle_visual_odometry",
+    "external_visual_odometry_ros_type": "px4_msgs/msg/VehicleOdometry",
+    "px4_subscription_count": 1,
+    "agent_created_px4_dds_endpoints": true,
+    "message_version_name_rule": "PX4 utilities.hpp appends _vN to the configured topic name when the message declares a nonzero MESSAGE_VERSION. VehicleStatus declares MESSAGE_VERSION=1; the runtime graph therefore exposes /fmu/out/vehicle_status_v1 although dds_topics.yaml lists /fmu/out/vehicle_status."
+  },
+  "artifacts": {
+    "run_script": "artifacts/runs/p0-agent-px4-dds-20261016-02/run-agent-px4-gz.sh",
+    "run_script_sha256": "199f0b23ab5cc93e7b283e97c43911049fbceff1294d93af1a219caed4744e9a",
+    "run_log": "artifacts/runs/p0-agent-px4-dds-20261016-02/run.log",
+    "run_log_sha256": "bfcd7e8fced37043e29edbfd969d0a62e67bc954a54b3f7ce8f4fc53bfbf3cfc",
+    "agent_log": "artifacts/runs/p0-agent-px4-dds-20261016-02/agent.log",
+    "agent_log_sha256": "4c3682496de468170b814a65cec76aaef761c3588453313b4c250b4b3a833197",
+    "gazebo_log": "artifacts/runs/p0-agent-px4-dds-20261016-02/gazebo.log",
+    "gazebo_log_sha256": "327e37a0375e9632707b85946d61e3c1eff498e24cf4ee392ed103361153b774",
+    "px4_log": "artifacts/runs/p0-agent-px4-dds-20261016-02/px4.log",
+    "px4_log_sha256": "3ce26eb29711a5b86298a078289100d5f1ca4ecbfafad71ac3e6af0cd6ac21bf",
+    "ros_topics": "artifacts/runs/p0-agent-px4-dds-20261016-02/ros-topics.txt",
+    "ros_topics_sha256": "b62ab322c672b4c927b37dca7e25e0bc4a05f6d5e052eb6f9f74671d950e47e0",
+    "status_sample": "artifacts/runs/p0-agent-px4-dds-20261016-02/vehicle-status-sample.txt",
+    "status_sample_sha256": "06181d6876e1f052b27c14139d23dc80e6daa29e42e81469bc3c4f8edf11ad95",
+    "status_topic_info_sha256": "01e3d97324fbec24bbbf38c5842100a2ea38d0907ebd02e32faafcc131969d9c",
+    "visual_odometry_topic_info_sha256": "04dfc29e0f94283af5b49ae246f494980cc50f83feccded98a9c6e485d138f99",
+    "status_topic_info": "artifacts/runs/p0-agent-px4-dds-20261016-02/vehicle-status-topic-info.txt",
+    "visual_odometry_topic_info": "artifacts/runs/p0-agent-px4-dds-20261016-02/vehicle-visual-odometry-topic-info.txt"
+  },
+  "initial_attempts": [
+    {
+      "status": "FAILED_BEFORE_START, corrected",
+      "reason": "ROS setup was sourced with Bash nounset enabled; no simulator processes started.",
+      "log": "artifacts/runs/p0-agent-px4-dds-20261016-01/run.log"
+    },
+    {
+      "status": "FAILED_PROBE, corrected",
+      "reason": "The first smoke waited for /fmu/out/vehicle_status, but PX4 v1.17 runtime appends _v1 because VehicleStatus declares MESSAGE_VERSION=1. Running the interactive PX4 shell without a TTY also flooded its log with prompts.",
+      "observed_topic_list": "artifacts/runs/p0-agent-px4-dds-20261016-01/ros-topic-probe.txt",
+      "px4_log_compressed": "artifacts/runs/p0-agent-px4-dds-20261016-01/px4.log.gz",
+      "px4_log_original_sha256": "dd00b84b5e27617a79a68d6559682d1cc701e4ec7398f85c21e8bd16d5d7cad0",
+      "px4_log_gzip_sha256": "e7ff13572b3f8252ec79bd855d25e96943d0c01718cd05336aba1493a1f0e6ff"
+    }
+  ],
+  "qualification": {
+    "agent_udp4_px4_client_connection": "PASS",
+    "px4_ros2_outbound_data": "PASS",
+    "px4_visual_odometry_inbound_endpoint": "PASS",
+    "offboard_or_vehicle_control": "NOT_RUN",
+    "vehicle_arm_or_flight": "NOT_RUN",
+    "navigation_or_mapping": "NOT_RUN",
+    "final_no_truth_acceptance": "NOT_RUN",
+    "limits": [
+      "This verifies a short default x500 SITL DDS smoke only. It does not validate map, VINS, planner, EKF2 external-vision fusion, offboard control, obstacle avoidance, or flight acceptance.",
+      "The vehicle remained disarmed; pre_flight_checks_pass was false and no control commands were published."
+    ]
+  },
+  "source_topic_version": {
+    "runtime_rule_source": {
+      "path": "external/PX4-Autopilot/src/modules/uxrce_dds_client/utilities.hpp",
+      "sha256": "1dd318dfa41e0868d4aaf2b0b25a1da4514d572951b2fa59f4cf3914655568ac"
+    },
+    "versioned_messages": [
+      {
+        "path": "external/PX4-Autopilot/msg/versioned/VehicleStatus.msg",
+        "sha256": "ceece55d0104452a199018918fe96dfb560f91bef3f57f31e8fa90a0c4232b1f",
+        "version": 1,
+        "runtime_topic": "/fmu/out/vehicle_status_v1",
+        "observed": true
+      },
+      {
+        "path": "external/PX4-Autopilot/msg/versioned/VehicleLocalPosition.msg",
+        "sha256": "87d7540cb4207d044d69ff9af11c51f7cd2883f4160fc62650e17d80cbbec5db",
+        "version": 1,
+        "runtime_topic": "/fmu/out/vehicle_local_position_v1",
+        "observed": false
+      }
+    ],
+    "qualification": "VehicleLocalPosition runtime topic is inferred from pinned source definitions and naming code; the smoke did not subscribe to it."
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "phase": "P3",
+  "status": "PARTIAL_IMPLEMENTATION",
+  "scope": "Pure, profile-gated ENU-to-NED conversion core only; P3 flight chain remains in progress.",
+  "implementation": {
+    "package": "src/own/uav_px4_bridge",
+    "functions": [
+      "debug_truth-only profile and frame-contract validation",
+      "epoch/frame-checked PositionCommand conversion",
+      "ENU position/velocity/acceleration to PX4 NED",
+      "ENU yaw/yaw rate to PX4 NED"
+    ],
+    "configuration": "config/components/px4_bridge/frames.json",
+    "safety_boundary": "No PX4 ROS publishers, Offboard state machine, arm/takeoff/land control, estimator input, or launch entrypoint exists yet. Final VIO profile is rejected."
+  },
+  "build": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "fresh_build_install": true,
+    "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p3-px4-bridge-frame-core-20261017-04/colcon-log build --base-paths src/own --packages-up-to uav_px4_bridge --build-base artifacts/runs/p3-px4-bridge-frame-core-20261017-04/build --install-base artifacts/runs/p3-px4-bridge-frame-core-20261017-04/install --event-handlers console_direct+",
+    "result": "PASS: 2 packages finished (uav_interfaces, uav_px4_bridge), fresh build/install directories.",
+    "log": "artifacts/runs/p3-px4-bridge-frame-core-20261017-04/build.log",
+    "log_sha256": "b533831d74471ab48676a2deb1d0b4dc68410c6e8d059f1b7c3d1b0688e25154"
+  },
+  "tests": {
+    "host_command": "python3 tools/test_px4_bridge_frames.py",
+    "host_result": "PASS: 8 tests",
+    "host_log": "artifacts/runs/p3-px4-bridge-frame-core-20261017-04/frame-tests-host.log",
+    "jazzy_result": "PASS: same 8 tests, installed-package import/conversion smoke, and conversion of generated uav_interfaces/PositionCommand",
+    "jazzy_log": "artifacts/runs/p3-px4-bridge-frame-core-20261017-04/frame-tests-jazzy.log",
+    "checks": [
+      "ENU/NED axis mapping",
+      "ENU/NED yaw cardinal mapping",
+      "trajectory field conversion",
+      "terminal trajectory suppression",
+      "debug_truth profile enforcement",
+      "epoch frame matching",
+      "non-finite input rejection",
+      "unsupported frame-contract rejection"
+    ]
+  },
+  "excluded_attempt": {
+    "run": "artifacts/runs/p3-px4-bridge-frame-core-20261017-01",
+    "reason": "The command used bash set -u before sourcing ROS Jazzy; setup.bash requires an initialized AMENT_TRACE_SETUP_FILES. It exited before colcon began and produced no build result.",
+    "log_sha256": "630a2fd3f3929bb8ba3df9a037630ce99002ed2fc041e7d330a295ff624f9e82"
+  },
+  "source_sha256": {
+    "src/own/uav_px4_bridge/package.xml": "85b458f475b48e88531feefb247360bdf6281fbbfd67757ceff7009be2088eb3",
+    "src/own/uav_px4_bridge/setup.py": "c7e3466cf03d6aabdeda477f14fd0b76391837270edfa952d218f5134bcac94b",
+    "src/own/uav_px4_bridge/setup.cfg": "f91f747283d530da7f3151f9887649cb6e45455040a3aaba6e8ce56c3ea4caa1",
+    "src/own/uav_px4_bridge/resource/uav_px4_bridge": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "src/own/uav_px4_bridge/uav_px4_bridge/__init__.py": "81bc7e55748298b1b393a91a1425081bbb2a2f3b855bf4998f587dbb89704f59",
+    "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": "65a4772685caf5d5e9f60d331d52e86ff8df328400e3c2fbc7bc94c75823c67d",
+    "src/own/uav_px4_bridge/README.md": "dc07d0007ed450dfe379a2b08e913b3cafa4598fc5cd5a7e68b2e55329dc6d5f",
+    "config/components/px4_bridge/frames.json": "9ac9933e00fd656a995ba36c2eb7cbce4bde5ccd8ceee7cc4c4c7165a257a52e",
+    "config/profiles/debug_truth.json": "6abac4deaf69d37596137da8c9598c60d19542898a38652ae226e8bbb86ecdfb",
+    "config/profiles/vio_closed_loop.json": "2749f219340e7a5f734e3748af197e0ca53e0a58d670a700f1d1d2c4bc250ca2",
+    "tools/test_px4_bridge_frames.py": "60586ff710a9fa58de3c524a702129b154040b1ba645e07b9ef6d689fdeb9933"
+  },
+  "artifact_sha256": {
+    "build.log": "b533831d74471ab48676a2deb1d0b4dc68410c6e8d059f1b7c3d1b0688e25154",
+    "frame-tests-host.log": "f8f7b0ac7f2b53ac4e96000f166430c488f2c37e059ad5502b09d60f29d363b8",
+    "frame-tests-jazzy.log": "6ba77e0a7afd9f39d0733ed3a281215483451733334a787d3f4ec5068952fec7"
+  },
+  "limitations": [
+    "No PX4 messages were published and no simulator/control process was launched.",
+    "P3 remains in progress; this core does not demonstrate SITL, map/EGO-to-PX4 integration, takeoff, goal arrival, or landing.",
+    "The debug frame contract assumes ENU truth coordinates; VINS local-frame alignment is not handled.",
+    "GPS/EKF2 aiding configuration and external odometry fusion remain unverified."
+  ]
+}

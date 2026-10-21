@@ -1,0 +1,240 @@
+{
+  "date": "2026-10-19",
+  "run_id": "p6-handoff-interfaces-sitl-20261019-05",
+  "status": "PASS_GOAL_G_INTERFACE_HANDOFF_SCOPE",
+  "qualification": "Closes GOAL G only. P6 and overall GOAL A-H remain in progress; this is an interface handoff run, not navigation, obstacle, mapping, or flight acceptance.",
+  "goal_g": {
+    "status": "PASS",
+    "criteria": {
+      "G1_documented_interfaces_and_examples": {
+        "result": "PASS",
+        "evidence": [
+          "docs/contracts.md",
+          "src/own/uav_interfaces/README.md",
+          "tools/probe_handoff_interfaces.py",
+          "tools/test_navigation_adapter.py",
+          "tools/test_trajectory_server.py"
+        ],
+        "notes": "Documents goal, feedback, cancellation, localization/epoch, map status and RGB-D keyframe APIs. The live no-control probe demonstrates reading and submitting; existing synthetic adapter tests exercise explicit action cancellation and stale-epoch goal rejection."
+      },
+      "G2_independent_live_minimal_caller": {
+        "result": "PASS",
+        "runtime_report": "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/handoff-interfaces-report.json",
+        "notes": "The probe read a current map status and one RGB-D keyframe with finite per-image poses, submitted the observed localization pose as the navigation target, received 61 feedback samples and a successful terminal action result."
+      },
+      "G3_reject_stale_or_invalid_inputs": {
+        "result": "PASS",
+        "runtime_evidence": "A GetMapStatus request with a deliberately different expected_epoch returned accepted=false and reason=epoch_mismatch. Existing P4 action tests reject a previous-epoch goal; mapping reset/gating evidence covers invalid localization and epoch changes.",
+        "evidence": [
+          "progress/evidence/p4-navigation-ego-action-cancel.json",
+          "progress/evidence/p2-ego-map-epoch-switch.json",
+          "progress/evidence/p2-clock-rollback.json"
+        ]
+      }
+    }
+  },
+  "p6_stage": {
+    "status": "IN_PROGRESS",
+    "remaining": [
+      "No map snapshot export/readback or geometry coverage acceptance was performed.",
+      "The occupied cloud was received but contained 0 points during this probe; free and unknown counts are not exposed by plan_env.",
+      "The action target equaled the observed pose, so success verifies task API handoff and terminal reporting, not displacement, obstacle avoidance, trajectory tracking, or PX4 response.",
+      "P6 scenarios, repeated cold starts, long-load and final A-H acceptance remain outstanding."
+    ]
+  },
+  "build": {
+    "image": "d435i-vins:dev",
+    "image_digest": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "command": "colcon --log-base artifacts/runs/p6-handoff-interfaces-build-20261019-02/log build --base-paths src/own --packages-up-to uav_mapping uav_navigation --build-base artifacts/runs/p6-handoff-interfaces-build-20261019-02/build --install-base artifacts/runs/p6-handoff-interfaces-build-20261019-02/install --merge-install --parallel-workers 2",
+    "result": "PASS: uav_interfaces, uav_sim, uav_mapping, uav_navigation (4 packages), exit code 0.",
+    "overlay": "artifacts/runs/p6-handoff-interfaces-build-20261019-02/install",
+    "log": "artifacts/runs/p6-handoff-interfaces-build-20261019-02/build.log"
+  },
+  "runtime": {
+    "image": "d435i-vins:dev",
+    "image_digest": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 207,
+    "truth": "No /debug_truth topic was present in the saved ROS topic list, and /uav_px4_bridge graph had no debug_truth subscription.",
+    "bridge": "Launch log states control stays disabled until explicit service enable and bridge phase DISABLED/service_enable_required. Probe published only /parameter_events and /rosout; probe_control_topics was empty. Probe did not call enable_offboard or publish PX4 control.",
+    "px4": "SITL started and exited. PX4 log contains initial preflight warnings and no arming transition; probe did not request arming or Offboard. No ULog disarmed-state claim is made.",
+    "map_status": {
+      "accepted": true,
+      "input_ready": true,
+      "occupancy_cloud_received": true,
+      "occupied_point_count": 0,
+      "forwarded_depth_count": 7,
+      "expected_epoch_match": true,
+      "stale_expected_epoch_result": "accepted=false, reason=epoch_mismatch"
+    },
+    "rgbd_keyframe": {
+      "received": true,
+      "epoch": "276f484fa1224dcaa7d97edb56cdbdf5",
+      "map_id": "276f484fa1224dcaa7d97edb56cdbdf5-eb82cbbe022a4582aae82fbc0b2db02b",
+      "rgb_depth_stamp_delta_s": 0.0,
+      "color_frame": "color_optical_frame",
+      "depth_frame": "depth_optical_frame",
+      "pose_frames": [
+        "odom_276f484fa1224dcaa7d97edb56cdbdf5"
+      ],
+      "both_poses_finite": true,
+      "calibration_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "navigation_action": {
+      "accepted": true,
+      "target_source": "observed_localization_odometry_pose",
+      "feedback_samples": 61,
+      "terminal_status": "succeeded",
+      "terminal_reason": "position_yaw_tolerance_held",
+      "success": true
+    }
+  },
+  "excluded_or_intermediate_runs": [
+    {
+      "run_id": "p6-handoff-interfaces-sitl-20261019-01",
+      "reason": "ROS_DOMAIN_ID 241 was outside the supported range; failed before DDS startup."
+    },
+    {
+      "run_id": "p6-handoff-interfaces-sitl-20261019-02",
+      "reason": "Setup collision while generating the copied world; no runtime result."
+    },
+    {
+      "run_id": "p6-handoff-interfaces-sitl-20261019-03",
+      "reason": "Found a depth-image header aliasing defect in the keyframe path; retained as diagnostic, not accepted."
+    },
+    {
+      "run_id": "p6-handoff-interfaces-sitl-20261019-04",
+      "reason": "Corrected header test passed, but submitted a 0.5 m offset target rather than the observed pose required by GOAL G; superseded by #05."
+    }
+  ],
+  "workspace_state": "The repository had a pre-existing dirty working tree and no initial commit; this increment did not stage, commit, or push changes. The complete initial status snapshot was not preserved, so GOAL H handoff evidence remains incomplete.",
+  "artifact_hashes": {
+    "tools/probe_handoff_interfaces.py": {
+      "bytes": 13644,
+      "sha256": "83bf7e2fef7c57ef0d9b438cc537dff3c3f7a8992f0e0ce598db302ff2d9d1ce"
+    },
+    "src/own/uav_interfaces/CMakeLists.txt": {
+      "bytes": 844,
+      "sha256": "322bc642bab93d4198f77b20ffd4344834dde689539cc53194562c04609119ce"
+    },
+    "src/own/uav_interfaces/package.xml": {
+      "bytes": 710,
+      "sha256": "b7fce596f7dd079f842caacad5fb5cb2bc3b3ee99d6d4913120935f19dcbfbd3"
+    },
+    "src/own/uav_interfaces/msg/MapStatus.msg": {
+      "bytes": 591,
+      "sha256": "44b02ae896f765fa65eaa2a1397f2af2fc487970d6c6444277eb60e6df1c1060"
+    },
+    "src/own/uav_interfaces/msg/RGBDKeyframe.msg": {
+      "bytes": 432,
+      "sha256": "041fc27bc58393709937c78a2da588b8b4eef30c97a410a85c3f526d7427a6a6"
+    },
+    "src/own/uav_interfaces/srv/GetMapStatus.srv": {
+      "bytes": 168,
+      "sha256": "82538f3d6fca2f0a0570c3a3db334df6b0f327a8ab662ae8e7cb06428318c85e"
+    },
+    "src/own/uav_interfaces/README.md": {
+      "bytes": 2716,
+      "sha256": "a23cdcda1cc4a426c56f1fadaf71638b5842870d83d5083c3ebae85fa7555372"
+    },
+    "src/own/uav_mapping/uav_mapping/adapter.py": {
+      "bytes": 23012,
+      "sha256": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f"
+    },
+    "src/own/uav_mapping/README.md": {
+      "bytes": 2524,
+      "sha256": "cef64074bde40745fc3b9efc1c096d94dd5a7e8e141e45970803bc0e119293ac"
+    },
+    "config/components/mapping/ego_input.json": {
+      "bytes": 1205,
+      "sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba"
+    },
+    "docs/contracts.md": {
+      "bytes": 13616,
+      "sha256": "5f1fac6f90b91ee0c9c9b86b2d14f0fd3fab08b2f686e10aa75c069b40bc8f77"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/run-handoff-interfaces.sh": {
+      "bytes": 6329,
+      "sha256": "85f089adc260d20d13f182d40f4951bc578b53dc25328314caef20504e2a539b"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/handoff-interfaces-report.json": {
+      "bytes": 2892,
+      "sha256": "c503967ee8dc013e21c633dfa5ac2ff95bd4fb284244cc779b7b5076276f9dec"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/handoff-interfaces-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/handoff-interfaces-probe.log": {
+      "bytes": 2892,
+      "sha256": "c503967ee8dc013e21c633dfa5ac2ff95bd4fb284244cc779b7b5076276f9dec"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/px4-bridge-node-info.txt": {
+      "bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/ros-topics.txt": {
+      "bytes": 3762,
+      "sha256": "7d6b31d8adbce6f0135769ed1c95665021c4d6332f77d7a267d2d3b8ba7efd11"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/node-list-before-probe.txt": {
+      "bytes": 227,
+      "sha256": "94927b90d7c560068faf889ecb263e33e9e62de1efffb4087f7e797ca71c37f8"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/node-list-at-end.txt": {
+      "bytes": 227,
+      "sha256": "94927b90d7c560068faf889ecb263e33e9e62de1efffb4087f7e797ca71c37f8"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/map-status-topic-info.txt": {
+      "bytes": 537,
+      "sha256": "38904754b34072e6459fafafdc0ffea6242f5fbdf21750a687dcb56bdd75f687"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/keyframe-topic-info.txt": {
+      "bytes": 536,
+      "sha256": "79fe29c6356774bcc6c3468e62ec7d388bbad4dfc9c7ae716a0c6b018c04c46f"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/occupancy-topic-info.txt": {
+      "bytes": 987,
+      "sha256": "b200dc18edde64eebfb49395a486c23d9724dbcf52e6c28eb5501089284d76f1"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/offboard-topic-info.txt": {
+      "bytes": 959,
+      "sha256": "c028f7d4e2dab82d1b9c52afd104cd6419e166ac73b854931f31378d693c5456"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/setpoint-topic-info.txt": {
+      "bytes": 956,
+      "sha256": "7a81bbddde97f29bca87fc587863ef29bfe464da329f3fb8ecb5d4a91c60ae35"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/vio-launch.log": {
+      "bytes": 1163485,
+      "sha256": "9fe08eb86b63957e0a8e4f2921ec6147d8a0cbe01cdd32ba2252b6fa1ff25408"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/px4.log": {
+      "bytes": 4993,
+      "sha256": "c1f153bf40c7627c6502500e5b325aa8134e04fb2a9fdbd8dead0b8d516b1a8d"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/agent.log": {
+      "bytes": 41563,
+      "sha256": "79fdfd1c497c4930f00e50163e4ed9fe74e204598ef313acd92f80e7ad8e34e2"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/gazebo.log": {
+      "bytes": 2802,
+      "sha256": "d2bc5423e6ce8dac1c63037669bf4e5e47926c469800f222a32f1c6250714f0a"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/px4-param-stage.json": {
+      "bytes": 713,
+      "sha256": "544bca1ccff7030d76ecd60e37f52b8c1c3ccd3b32ad3562065864c437ec97ea"
+    },
+    "artifacts/runs/p6-handoff-interfaces-sitl-20261019-05/world-generation.json": {
+      "bytes": 1435,
+      "sha256": "ecf68d12f8598f10424d21aec727ed6a1502c55ffafa62fcc3fdf9e4c2638774"
+    },
+    "artifacts/runs/p6-handoff-interfaces-build-20261019-02/build.log": {
+      "bytes": 112753,
+      "sha256": "8a65521cbefdd962853466727a773bd60fe97d44e1b988b99805dd26e92ea577"
+    },
+    "artifacts/runs/p6-handoff-interfaces-build-20261019-02/build-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  }
+}

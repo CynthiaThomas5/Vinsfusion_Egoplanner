@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-17",
+  "run_id": "p5-vio-bridge-profile-20261017-86",
+  "scope": "Experimental VINS-only PX4 bridge runtime profile support and node initialization.",
+  "status": "PASS_BUILD_AND_VIO_PROFILE_LOAD",
+  "stage_status": "P5 in_progress; this is not P5 acceptance.",
+  "qualification": "Partial P5 implementation evidence only; no PX4 SITL, EKF2 fusion, GNSS-disabled flight or trajectory control was run.",
+  "environment": {
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ephemeral": true,
+    "network": "bridge",
+    "shm_size_bytes": 536870912,
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 221
+  },
+  "behavior": {
+    "profile": "vio_closed_loop",
+    "profile_runtime_ready": false,
+    "subscribed_source_topics": [
+      "/clock",
+      "/localization/status",
+      "/localization/optimized_imu_odom"
+    ],
+    "debug_truth_subscriptions": false,
+    "offboard_default_phase": "DISABLED",
+    "explicit_enable_required": true,
+    "fused_ev_and_no_gnss_readiness_gates": "Covered by synthetic state-machine tests only.",
+    "shared_control_settings_reference": "config/components/px4_bridge/debug_truth.json; all debug_truth-prefixed fields are filtered from the VIO runtime configuration before topic creation."
+  },
+  "verification": {
+    "colcon": "uav_px4_bridge: 1 package built in fresh run-specific directories.",
+    "installed_source_matches_current": {
+      "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": true,
+      "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": true,
+      "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py": true,
+      "src/own/uav_px4_bridge/uav_px4_bridge/vision_odometry.py": true,
+      "src/own/uav_px4_bridge/launch/vio_closed_loop_px4.launch.py": true
+    },
+    "profile_load_smoke": "PASS for both debug_truth and vio_closed_loop; VIO input topics are canonical and no truth source subscription exists.",
+    "regression_tests": {
+      "bridge_control": 11,
+      "bridge_frames": 19,
+      "clock_mapping": 6,
+      "debug_params": 1,
+      "vio_profile": 6,
+      "localization_health": 9,
+      "total": 52
+    },
+    "run_inputs_path": "artifacts/runs/p5-vio-bridge-profile-20261017-86/run-inputs.json",
+    "run_inputs_sha256": "4f6cfe3f2c9d04a1d492f72c5b91f5b0ee1d4cacf4f3c19ca324fe2c513ed556",
+    "build_log_sha256": "2873327a5142b4438eaf7c81887abeea9d5ac32834e8fd10eb84eb1a17df4d1e",
+    "regression_log_sha256": "f612450229bc4f2a54201540ebcfc666403d658b0d79dafe786a2aad6746c7bf",
+    "profile_load_smoke_log_sha256": "1644fcebd1f65c057efe15da93b5c8ff54aa448d7e3a9e1ebbea87a5f3b16f5c",
+    "profile_config_sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+    "installed_source_matches": {
+      "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": true,
+      "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": true,
+      "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py": true,
+      "src/own/uav_px4_bridge/uav_px4_bridge/vision_odometry.py": true,
+      "src/own/uav_px4_bridge/launch/vio_closed_loop_px4.launch.py": true
+    },
+    "source_sha256": {
+      "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "2d8e6e42bb882023c33b3586a50379e08785c4e67aeb044c60fceca4f87d630c",
+      "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": "f92583bfb3a7a70e8fb31962be08a871ebc6991b962bdd63929062d9195c1903",
+      "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py": "17581a7ad3fff3ee1574258dfd14d439edbbdc9a0d397f18cacc1553c1b49b37",
+      "src/own/uav_px4_bridge/uav_px4_bridge/vision_odometry.py": "2e9d76144c428220a1896c92ff7c1aa62e58822b02841120ffd1ccae1fecbbc8",
+      "src/own/uav_px4_bridge/launch/vio_closed_loop_px4.launch.py": "919cd882c4734d7190fde88895cf1592f2d47165613b076e97d4205700fc44ab",
+      "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+      "config/components/px4_bridge/vio_closed_loop.json": "8bac06850f0d66f44310202d17e597dbd8ab1ac8a654af0d2c17ebe30f4db791",
+      "config/components/px4_bridge/frames_vio_closed_loop.json": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822",
+      "tools/test_px4_bridge_vio_profile.py": "993e2366276b426f7e700ecbee5c60c6f6cfdb4f8fa3cd51cf2823dae4b82b7a",
+      "tools/test_px4_bridge_control.py": "636690c098306789dd0c79cb0d59756783bae12e69d7bf33eb31ba0774f68908",
+      "tools/probe_px4_bridge_profile_load.py": "614bb2ac5d75a8b93d206d1d1d27b5c3fdca48771af79ed85a100476060172b2"
+    }
+  },
+  "limitations": [
+    "No PX4 SITL was started and no visual-odometry sample was delivered to PX4.",
+    "EKF2 external-vision fusion, GPS/GNSS disabling in PX4, arming, takeoff, tracking, arrival and landing remain unverified.",
+    "VIO covariance and operational age limits remain PROVISIONAL; profile runtime_ready is false.",
+    "No final composite VINS/mapping/EGO/PX4 launch or 10-minute load run exists yet."
+  ]
+}

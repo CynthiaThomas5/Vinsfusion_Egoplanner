@@ -1,0 +1,162 @@
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -10,6 +10,7 @@
+ #include "estimator.h"
+ #include <sstream>
+ #include <iomanip>
++#include <cstdlib>
+ #include "../utility/visualization.h"
+ 
+ namespace
+@@ -20,8 +21,14 @@
+     bool available = false, usable = false;
+     double stamp = -1, initial_cost = 0, final_cost = 0, seconds = 0;
+     int termination = -1, residuals = 0, iterations = 0, visual_observations = 0;
++    std::string cost_components_json = "null";
+ };
+ thread_local SolveTelemetry observed_solve;
++bool costGroupDiagnosticsEnabled()
++{
++    static const char *enabled = std::getenv("VINS_DIAGNOSTIC_COST_GROUPS");
++    return enabled != nullptr && std::string(enabled) == "1";
++}
+ std::string jsonNumber(double value)
+ {
+     if (!std::isfinite(value)) return "null";
+@@ -422,7 +429,9 @@
+                 << ",\"residual_components\":" << observed_solve.residuals
+                 << ",\"visual_observations\":" << observed_solve.visual_observations
+                 << ",\"iterations\":" << observed_solve.iterations
+-                << ",\"solve_seconds\":" << jsonNumber(observed_solve.seconds) << "}";
++                << ",\"solve_seconds\":" << jsonNumber(observed_solve.seconds)
++                << ",\"cost_components\":"
++                << (solve_current ? observed_solve.cost_components_json : "null") << "}";
+             pubEstimatorTelemetry(telemetry.str());
+ 
+             pubOdometry(*this, header);
+@@ -1161,6 +1170,9 @@
+     vector2double();
+ 
+     ceres::Problem problem;
++    std::vector<ceres::ResidualBlockId> marginalization_residual_blocks;
++    std::vector<ceres::ResidualBlockId> imu_residual_blocks;
++    std::vector<ceres::ResidualBlockId> visual_residual_blocks;
+     ceres::LossFunction *loss_function;
+     //loss_function = NULL;
+     loss_function = new ceres::HuberLoss(1.0);
+@@ -1200,8 +1212,8 @@
+     {
+         // construct new marginlization_factor
+         MarginalizationFactor *marginalization_factor = new MarginalizationFactor(last_marginalization_info);
+-        problem.AddResidualBlock(marginalization_factor, NULL,
+-                                 last_marginalization_parameter_blocks);
++        marginalization_residual_blocks.push_back(problem.AddResidualBlock(
++            marginalization_factor, NULL, last_marginalization_parameter_blocks));
+     }
+     if(USE_IMU)
+     {
+@@ -1211,7 +1223,8 @@
+             if (pre_integrations[j]->sum_dt > 10.0)
+                 continue;
+             IMUFactor* imu_factor = new IMUFactor(pre_integrations[j]);
+-            problem.AddResidualBlock(imu_factor, NULL, para_Pose[i], para_SpeedBias[i], para_Pose[j], para_SpeedBias[j]);
++            imu_residual_blocks.push_back(problem.AddResidualBlock(
++                imu_factor, NULL, para_Pose[i], para_SpeedBias[i], para_Pose[j], para_SpeedBias[j]));
+         }
+     }
+ 
+@@ -1237,7 +1250,9 @@
+                 Vector3d pts_j = it_per_frame.point;
+                 ProjectionTwoFrameOneCamFactor *f_td = new ProjectionTwoFrameOneCamFactor(pts_i, pts_j, it_per_id.feature_per_frame[0].velocity, it_per_frame.velocity,
+                                                                  it_per_id.feature_per_frame[0].cur_td, it_per_frame.cur_td);
+-                problem.AddResidualBlock(f_td, loss_function, para_Pose[imu_i], para_Pose[imu_j], para_Ex_Pose[0], para_Feature[feature_index], para_Td[0]);
++                visual_residual_blocks.push_back(problem.AddResidualBlock(
++                    f_td, loss_function, para_Pose[imu_i], para_Pose[imu_j], para_Ex_Pose[0],
++                    para_Feature[feature_index], para_Td[0]));
+             }
+ 
+             if(STEREO && it_per_frame.is_stereo)
+@@ -1247,13 +1262,17 @@
+                 {
+                     ProjectionTwoFrameTwoCamFactor *f = new ProjectionTwoFrameTwoCamFactor(pts_i, pts_j_right, it_per_id.feature_per_frame[0].velocity, it_per_frame.velocityRight,
+                                                                  it_per_id.feature_per_frame[0].cur_td, it_per_frame.cur_td);
+-                    problem.AddResidualBlock(f, loss_function, para_Pose[imu_i], para_Pose[imu_j], para_Ex_Pose[0], para_Ex_Pose[1], para_Feature[feature_index], para_Td[0]);
++                    visual_residual_blocks.push_back(problem.AddResidualBlock(
++                        f, loss_function, para_Pose[imu_i], para_Pose[imu_j], para_Ex_Pose[0],
++                        para_Ex_Pose[1], para_Feature[feature_index], para_Td[0]));
+                 }
+                 else
+                 {
+                     ProjectionOneFrameTwoCamFactor *f = new ProjectionOneFrameTwoCamFactor(pts_i, pts_j_right, it_per_id.feature_per_frame[0].velocity, it_per_frame.velocityRight,
+                                                                  it_per_id.feature_per_frame[0].cur_td, it_per_frame.cur_td);
+-                    problem.AddResidualBlock(f, loss_function, para_Ex_Pose[0], para_Ex_Pose[1], para_Feature[feature_index], para_Td[0]);
++                    visual_residual_blocks.push_back(problem.AddResidualBlock(
++                        f, loss_function, para_Ex_Pose[0], para_Ex_Pose[1],
++                        para_Feature[feature_index], para_Td[0]));
+                 }
+                
+             }
+@@ -1302,6 +1321,63 @@
+     observed_solve.residuals = summary.num_residuals;
+     observed_solve.iterations = static_cast<int>(summary.iterations.size());
+     observed_solve.visual_observations = f_m_cnt;
++    observed_solve.cost_components_json = "null";
++
++    static bool emitted_cost_group_diagnostics = false;
++    const double normalized_cost = summary.num_residuals > 0
++        ? std::sqrt(2.0 * summary.final_cost / summary.num_residuals) : 0.0;
++    if (costGroupDiagnosticsEnabled() && !emitted_cost_group_diagnostics
++        && summary.num_residuals > 0 && normalized_cost >= 1.0)
++    {
++        emitted_cost_group_diagnostics = true;
++        struct GroupCost
++        {
++            bool available = false;
++            double cost = 0.0;
++            int residual_components = 0;
++        };
++        auto evaluate_group = [&problem](const std::vector<ceres::ResidualBlockId> &blocks) {
++            GroupCost result;
++            ceres::Problem::EvaluateOptions evaluate_options;
++            evaluate_options.residual_blocks = blocks;
++            evaluate_options.apply_loss_function = true;
++            for (ceres::ResidualBlockId block : blocks)
++                result.residual_components +=
++                    problem.GetCostFunctionForResidualBlock(block)->num_residuals();
++            result.available = blocks.empty()
++                || problem.Evaluate(evaluate_options, &result.cost, nullptr, nullptr, nullptr);
++            return result;
++        };
++        const GroupCost marginalization_cost = evaluate_group(marginalization_residual_blocks);
++        const GroupCost imu_cost = evaluate_group(imu_residual_blocks);
++        const GroupCost visual_cost = evaluate_group(visual_residual_blocks);
++        const bool all_groups_available = marginalization_cost.available
++            && imu_cost.available && visual_cost.available;
++        const double grouped_cost = marginalization_cost.cost + imu_cost.cost + visual_cost.cost;
++        const int grouped_residuals = marginalization_cost.residual_components
++            + imu_cost.residual_components + visual_cost.residual_components;
++        std::ostringstream components;
++        auto write_group = [&components](const char *name, const GroupCost &group) {
++            components << "\"" << name << "\":{";
++            if (group.available)
++                components << "\"cost\":" << jsonNumber(group.cost)
++                           << ",\"residual_components\":" << group.residual_components;
++            else
++                components << "\"cost\":null,\"residual_components\":null";
++            components << "}";
++        };
++        components << "{";
++        write_group("marginalization", marginalization_cost);
++        components << ",";
++        write_group("imu", imu_cost);
++        components << ",";
++        write_group("visual", visual_cost);
++        components << ",\"evaluation_ok\":" << (all_groups_available ? "true" : "false")
++                   << ",\"grouped_cost_sum\":" << jsonNumber(grouped_cost)
++                   << ",\"grouped_cost_error\":" << jsonNumber(grouped_cost - summary.final_cost)
++                   << ",\"grouped_residual_components\":" << grouped_residuals << "}";
++        observed_solve.cost_components_json = components.str();
++    }
+ 
+     double2vector();
+     //printf("frame_count: %d \n", frame_count);

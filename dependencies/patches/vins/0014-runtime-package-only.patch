@@ -1,0 +1,55 @@
+--- a/vins/CMakeLists.txt
++++ b/vins/CMakeLists.txt
+@@ -61,50 +61,7 @@
+ ament_target_dependencies(vins_node rclcpp rcpputils std_msgs visualization_msgs geometry_msgs nav_msgs tf2 tf2_ros cv_bridge camera_models image_transport)
+ target_link_libraries(vins_node vins_lib) 
+ 
+-add_executable(kitti_odom_test src/KITTIOdomTest.cpp)
+-ament_target_dependencies(kitti_odom_test rclcpp rcpputils std_msgs visualization_msgs geometry_msgs nav_msgs tf2 tf2_ros cv_bridge camera_models image_transport)
+-target_link_libraries(kitti_odom_test vins_lib) 
+-
+-add_executable(kitti_gps_test src/KITTIGPSTest.cpp)
+-ament_target_dependencies(kitti_gps_test rclcpp rcpputils std_msgs visualization_msgs geometry_msgs nav_msgs tf2 tf2_ros cv_bridge camera_models image_transport)
+-target_link_libraries(kitti_gps_test vins_lib) 
+-
+-# added from DEBUG
+-
+-# Install launch files
+-install(
+-  DIRECTORY launch/
+-  DESTINATION share/${PROJECT_NAME}/launch/
+-)
+-
+-# Install config files (includes .rviz and YAML configs)
+-install(
+-  DIRECTORY ../config/
+-  DESTINATION share/${PROJECT_NAME}/config/
+-)
+-
+-# Install nodes
+-install(
+-  TARGETS vins_node
+-  DESTINATION lib/${PROJECT_NAME}
+-)
+-
+-
+-
+-# Install binaries
+-#install(TARGETS vins_node kitti_odom_test kitti_gps_test vins_lib
+-#    ARCHIVE DESTINATION lib
+-#    LIBRARY DESTINATION lib
+-#    RUNTIME DESTINATION bin
+-#)
+-
+-# Install launch files
+-#install(DIRECTORY
+-#    launch
+-#    # config
+-#    # rviz
+-#    DESTINATION share/${PROJECT_NAME}
+-#    )
+-
++# Runtime configuration and launch belong to this project's config/ and own packages.
++install(TARGETS vins_node DESTINATION lib/${PROJECT_NAME})
+ 
+ ament_package()

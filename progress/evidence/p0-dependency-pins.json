@@ -1,0 +1,221 @@
+{
+  "scope": "P0 source revision and PX4 DDS topic-set audit. The selected Agent source/build state is recorded in p0-agent-build.json; PX4 build, connection, SITL, and flight qualification remain outside this report.",
+  "date": "2026-10-16",
+  "verification": {
+    "method": "git ls-remote tag/branch resolution against official remotes; local read-only PX4 tag tree examined for dds_topics and submodule gitlink",
+    "source_probe_outputs": {
+      "PX4 v1.17.0": [
+        "a5eb12d2ab591251faa009f76b2685b8cc64405d refs/tags/v1.17.0",
+        "d6f12ad1c4f70ad3230afd7d86e971421e02fef4 refs/tags/v1.17.0^{}"
+      ],
+      "px4_msgs v1.17.0": [
+        "35a005a86b82cae28bd7a2eb58c4bb7a840830c9 refs/tags/v1.17.0",
+        "86d8239e962f6939e05c3737784f60c02fa884db refs/tags/v1.17.0^{}"
+      ],
+      "Micro-XRCE-DDS-Agent v2.4.3": [
+        "73622810d984349b80bbac0ef55fc0b694d62222 refs/tags/v2.4.3"
+      ],
+      "EGO Planner ros2_version": [
+        "23a8d5a191711dd65633df689bd00f55d4dea8f9 refs/heads/ros2_version"
+      ]
+    }
+  },
+  "selected_revisions": {
+    "px4": {
+      "url": "https://github.com/PX4/PX4-Autopilot",
+      "version": "v1.17.0",
+      "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+      "imported": true,
+      "built": true,
+      "license": "BSD-3-Clause",
+      "submodules_count_recursive": 39,
+      "submodules_manifest": "artifacts/runs/p0-px4-source-20261016-01/submodules.json",
+      "build_evidence": "progress/evidence/p0-px4-firmware-build.json"
+    },
+    "px4_msgs": {
+      "url": "https://github.com/PX4/px4_msgs",
+      "branch": "release/1.17",
+      "version": "v1.17.0",
+      "commit": "86d8239e962f6939e05c3737784f60c02fa884db",
+      "imported": true,
+      "built": true,
+      "release_sync_claim": "Official v1.17.0 release states message/service definitions synchronized with PX4 Autopilot 1.17.0.",
+      "build_evidence": "progress/evidence/p0-px4-msgs-build.json"
+    },
+    "micro_xrce_dds_agent": {
+      "url": "https://github.com/eProsima/Micro-XRCE-DDS-Agent",
+      "version": "v2.4.3",
+      "commit": "73622810d984349b80bbac0ef55fc0b694d62222",
+      "imported": true,
+      "built": true,
+      "license": "Apache-2.0",
+      "build_evidence": "progress/evidence/p0-agent-build.json",
+      "selection_reason": "PX4 v1.17 docs identify the PX4 uXRCE client as v2.x and recommend Agent v2.4.3; v3 is incompatible. SITL transport uses UDP4 port 8888."
+    },
+    "ego_planner": {
+      "url": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm",
+      "branch": "ros2_version",
+      "commit": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+      "imported": true,
+      "build_evidence": "progress/evidence/p0-ego-planner-build.json"
+    }
+  },
+  "px4_dds_topic_audit": {
+    "source": "PX4 v1.17.0:src/modules/uxrce_dds_client/dds_topics.yaml",
+    "sha256": "7e9c730d45b22af92acfebbb81cb5de4e4a69ac0ca46b012b71ed8fa5c89cbc0",
+    "px4_tagged_client_submodule": "160000 commit 711aef423edd1820347b866d1e4164832df35d04\tsrc/modules/uxrce_dds_client/Micro-XRCE-DDS-Client",
+    "local_px4_release_branch_dds_topics_diff_vs_tag": "clean",
+    "required_available_topics": {
+      "out": [
+        "/fmu/out/vehicle_status",
+        "/fmu/out/vehicle_local_position",
+        "/fmu/out/vehicle_odometry",
+        "/fmu/out/vehicle_command_ack",
+        "/fmu/out/vehicle_land_detected"
+      ],
+      "in": [
+        "/fmu/in/offboard_control_mode",
+        "/fmu/in/trajectory_setpoint",
+        "/fmu/in/vehicle_visual_odometry",
+        "/fmu/in/vehicle_command"
+      ]
+    },
+    "missing": [],
+    "qualification": "Definitions are present in the pinned PX4 topic list. A separate short headless x500 SITL smoke observed VehicleStatus on /fmu/out/vehicle_status_v1 and PX4 subscription to /fmu/in/vehicle_visual_odometry; no visual-odometry sample, control, flight, or EKF2 fusion was tested. See progress/evidence/p0-agent-px4-dds.json.",
+    "runtime_observation": {
+      "evidence": "progress/evidence/p0-agent-px4-dds.json",
+      "status_topic": "/fmu/out/vehicle_status_v1",
+      "visual_odometry_input": "/fmu/in/vehicle_visual_odometry",
+      "message_version_rule": "PX4 appends _vN at runtime to configured names for messages with nonzero MESSAGE_VERSION; VehicleStatus and VehicleLocalPosition declare version 1.",
+      "qualification": "read-only endpoint and outbound sample smoke only; not an EKF2 or flight qualification"
+    }
+  },
+  "local_px4_source_observation": {
+    "path": "/home/ac/PX4-Autopilot",
+    "head": "2c355919e4ff0ffb0b68a138038f205b6dbefa97",
+    "describe": "v1.17.0-7-g2c355919e4",
+    "branch": "release/1.17",
+    "dirty_untracked": "Tools/setup/xtensa-esp-elf-13.2.0_20240530-x86_64-linux-gnu.tar.xz",
+    "decision": "Keep this local source read-only and unmodified; project selects official v1.17.0 tag, aligned to px4_msgs v1.17.0."
+  },
+  "limitations": [
+    "sources.json is a partial lock; ROS/system package versions and a portable full container rebuild are not included.",
+    "A short PX4 v1.17.0 x500 SITL + Gazebo Harmonic + Agent v2.4.3 DDS smoke passed; it did not publish visual odometry, test EKF2 fusion, offboard control, navigation, or flight.",
+    "No PX4 source was imported into the ROS workspace or modified."
+  ],
+  "artifact_hash_scope": "artifact_hashes preserves hashes captured with the referenced evidence runs. Current hashes for source files that may have evolved are listed separately.",
+  "current_source_hashes": {
+    "tools/probe_mapping_runtime.py": "4ea820001dfecd0e0b72d37c31b7232a9306ff7ecbcadb89e5d054029ebf3c34"
+  },
+  "artifact_hashes": {
+    "progress/evidence/p0-ego-planner-build.json": "fdbab0fd633016fe79ee90207d42425689214bb5aae99a0c5b547a098981d6dc",
+    "artifacts/runs/p0-ego-build-20261016-02/px4-v1.17.0-dds_topics.yaml": "7e9c730d45b22af92acfebbb81cb5de4e4a69ac0ca46b012b71ed8fa5c89cbc0",
+    "artifacts/runs/p0-ego-build-20261016-02/px4-v1.17.0-uxrce-client-gitlink.txt": "560f11e6c1d2fdd1d84ecdc8bf6f4d2860071404905018fe18a3f479f7d733b1",
+    "progress/evidence/p0-px4-msgs-build.json": "287cc57cb756ae547e0cbe0906e5e11d86c3794d3911a17c0c0c50c2881d3afe",
+    "artifacts/runs/p0-ego-build-20261016-02/px4-msgs-source-sha256.txt": "b9f0897a30ce7c1493e3584b167c6a4d6eb0afffca9cfb769c8dc406f25be708",
+    "progress/evidence/p0-px4-firmware-build.json": "7e00e101c4c66a5c6c03070ca95c7438028e2d5d33e823290a258e1f0dca2d9c",
+    "artifacts/runs/p0-px4-source-20261016-01/submodules.json": "d5a27ad5273a5575457650c1096e65d21850d694e82539d92b2b760278c6f577",
+    "artifacts/runs/p0-px4-sitl-build-20261016-02/build/px4_sitl_default/bin/px4": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "progress/evidence/p0-final-colcon-build.json": "c724b9ca2f413c994e62ded32900623ba5acbd1a5491f848001e05f6ed40c03b",
+    "progress/evidence/p0-colcon-16-build.json": "5d6b309ce1f23a4c88bb1da7f1b727a6897a89e1dabd34916d209db0ff7bfae4",
+    "artifacts/runs/p0-final-colcon-build-20261016-07/packages.txt": "a16d9e465ec2e5b3b5a4ffaab10df83972264935934c396f337b50ee342443bc",
+    "artifacts/runs/p0-final-colcon-build-20261016-07/log/build_2026-10-16_13-14-01/events.log": "104b76d7e394342490427f00abd9ac496862e530cac74dd6f33596c2df68e6bf",
+    "artifacts/runs/p0-final-colcon-build-20261016-07/log/build_2026-10-16_13-14-01/logger_all.log": "533cfeb4f446174b795b40b435cd7d9e782345e58e3acd2481565ac61b432095",
+    "artifacts/runs/p0-final-colcon-build-20261016-06/log/build_2026-10-16_13-11-23/events.log": "8e5beb69b3d28471f2dfcd37588bd5a38690aa1617640daedab6fb2fe4d462da",
+    "artifacts/runs/p0-final-colcon-build-20261016-06/log/build_2026-10-16_13-11-23/logger_all.log": "3ccf05e161fd8a551033ee07dc11950a6fb2b64699bbdb6c274b12d582f2d8c0",
+    "progress/evidence/p0-agent-build.json": "e0c4d14889544cd820bee4a16bb02cfa82f24f54081211f2688ff9bce575d440",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/run-agent-px4-gz.sh": "199f0b23ab5cc93e7b283e97c43911049fbceff1294d93af1a219caed4744e9a",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/run.log": "bfcd7e8fced37043e29edbfd969d0a62e67bc954a54b3f7ce8f4fc53bfbf3cfc",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/agent.log": "4c3682496de468170b814a65cec76aaef761c3588453313b4c250b4b3a833197",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/gazebo.log": "327e37a0375e9632707b85946d61e3c1eff498e24cf4ee392ed103361153b774",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/px4.log": "3ce26eb29711a5b86298a078289100d5f1ca4ecbfafad71ac3e6af0cd6ac21bf",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/ros-topics.txt": "b62ab322c672b4c927b37dca7e25e0bc4a05f6d5e052eb6f9f74671d950e47e0",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/vehicle-status-sample.txt": "06181d6876e1f052b27c14139d23dc80e6daa29e42e81469bc3c4f8edf11ad95",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/vehicle-status-topic-info.txt": "01e3d97324fbec24bbbf38c5842100a2ea38d0907ebd02e32faafcc131969d9c",
+    "artifacts/runs/p0-agent-px4-dds-20261016-02/vehicle-visual-odometry-topic-info.txt": "04dfc29e0f94283af5b49ae246f494980cc50f83feccded98a9c6e485d138f99",
+    "progress/evidence/p0-agent-px4-dds.json": "614e3575cb02d8e3f3fa939c65b2f700ac431141234e3b2bda088e5821f4d1ae",
+    "progress/evidence/p2-ego-map-input.json": "e695a3b17c9eb0361d6ef87b9e169c7f5571b17b5bdc6c239b873790557def39",
+    "dependencies/patches/ego/0004-mapping-input-safety.patch": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+    "artifacts/runs/p2-map-input-build-20261016-01/mapping-smoke.json": "47c672448714bfa032aba27b7598738c1b5aab643e00930b39e336064105b80d",
+    "artifacts/runs/p2-map-input-build-20261016-01/ego-smoke.log": "7befe8af42dce7ca66f8a8228702527019c17bb67fcf0dfacf6655418b590b4d",
+    "artifacts/runs/p2-map-input-build-20261016-01/mapping-adapter-smoke.log": "e1660f9431343c3b8c2bd54bd8dbb30b5cdf74423566625441a9495fad49cd0b",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-43-26/events.log": "0bb599cbacfc165b1738bd96d6384115d1866cde3842509bd50bd29b70755444",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-43-26/logger_all.log": "759afcfa3170adbe8e1e4cc09b340ac41808a0b1cdf8ccbe157b61046e056fbe",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-57-27/events.log": "e020623a5eb1fa1b31a7aa14080f4e547a167e456d8fff44c2144fbde081742f",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-57-27/logger_all.log": "957f828c167604c47fa7e3f16532e7fb6203f637ab7d817f4bad4bec49122db4",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_14-07-36/events.log": "692078586bc4721601db6af619a87473529a085bd942ab717d7e6e24e5bc15dc",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_14-07-36/logger_all.log": "589e2107bb2dad1ee502dd4cb0c9e817e21a3a3d4bb4b7482701005049cd86ad",
+    "progress/evidence/p2-ego-map-live.json": "d130114a626941dcf517ccc10bcf7c12813045303fb7c345acd9275aa79baed4",
+    "tools/probe_mapping_runtime.py": "02f857da9780975fd8aaca6a810e3c42b11c208733a71562f75ed9d030dea481",
+    "artifacts/runs/p2-map-live-20261016-01/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+    "artifacts/runs/p2-map-live-20261016-01/probe.json": "7d3e2ef40a68bae8a296f10e13066ef3616d7c390cffa372c68d66ac01fb992c",
+    "artifacts/runs/p2-map-live-20261016-01/motion.json": "077201cb3082bb54265152218d9bd6c427e24fa4bf10f4b52b3aa114c72bc623",
+    "artifacts/runs/p2-map-live-20261016-01/motion-driver.log": "8ddf05a4ea847da7607786fd9fa034864b7af341e7fb361d5bb452ef07b55f8f",
+    "artifacts/runs/p2-map-live-20261016-01/sensors.log": "52017a0ba78f63acbf99fde6c3a6151e56bf45f411f1a51710e6da500d5f3259",
+    "artifacts/runs/p2-map-live-20261016-01/ego.log": "076723e0b2bb95f26c5eecd257aca56b2494083467783f5a8eb40ba66d962f66",
+    "artifacts/runs/p2-map-live-20261016-01/depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-map-live-20261016-01/mapping-adapter.log": "c166fc06f2e89b40ec88dc59bd39262fca5290b6f9688aa226afff5a3196a227",
+    "artifacts/runs/p2-map-live-20261016-01/localization-adapter.log": "43b62654dfab756a9287fe1891d40e4ac9d3984cd1cfa0957ddd51968a0cf10d",
+    "artifacts/runs/p2-map-live-20261016-01/vins.log": "240559d5a773c731789d4f60bdfbc7f08e5699f96aaea3832b44176f68168b1f",
+    "artifacts/runs/p2-map-live-20261016-01/session/session.json": "c59975b5aa44d5cf979c906c76f4387fb272d1413b234f7490542357bf8d6c2e",
+    "artifacts/runs/p2-map-live-20261016-01/session/vins.yaml": "a38d9ec37df682c7f78150f5301ca554f7d89d2e549aa4ef8cb3030eeb7a2c18",
+    "artifacts/runs/p2-map-live-20261016-01/session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+    "artifacts/runs/p2-map-live-20261016-01/session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+    "artifacts/runs/p2-map-live-20261016-02/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+    "artifacts/runs/p2-map-live-20261016-02/probe.json": "3689cd3e1773ef8b2a0c174037cac1597ac28395c779fc7c1cc3d7a966712fd9",
+    "artifacts/runs/p2-map-live-20261016-02/motion.json": "f5158169792660b4ef211ebc9bd428c7013dfa839c956ce0ee0e0787981d126a",
+    "artifacts/runs/p2-map-live-20261016-02/motion-driver.log": "9be98a4e6bf968f426f7cbe7e67f89beaf1a34ad3a3b1d041f36ec0f81f38721",
+    "artifacts/runs/p2-map-live-20261016-02/sensors.log": "0156587d097d2ab41b600eeef81fd06e3963edbd4a48b7d4ef8019efa3e75da3",
+    "artifacts/runs/p2-map-live-20261016-02/ego.log": "1a365f436a18025d537f717713d6b887602b4baa7b3aa7b825fe5f7c351d895b",
+    "artifacts/runs/p2-map-live-20261016-02/depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-map-live-20261016-02/mapping-adapter.log": "e0ddffe0c43795da07d2b87bce2e4df2bed5c65edea1c40498ee7d3aa7a7e126",
+    "artifacts/runs/p2-map-live-20261016-02/localization-adapter.log": "50beea738cdab86ca4cd6c88a8465ba557ac7139c913a0c6c6d0dded7b90220e",
+    "artifacts/runs/p2-map-live-20261016-02/vins.log": "0c10d4d8aae66fb977ab97a01a6dcba3e01877fa3125e40b776e921750218553",
+    "artifacts/runs/p2-map-live-20261016-02/session/session.json": "0f742da91c906dabc3fa8f251ac1cd49a4bfd895136a31a8709d785c050574a7",
+    "artifacts/runs/p2-map-live-20261016-02/session/vins.yaml": "6210038e09f13d612f5a69516a1cdd4d1bf2e768e0dd1270a35d52402931b3e4",
+    "artifacts/runs/p2-map-live-20261016-02/session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+    "artifacts/runs/p2-map-live-20261016-02/session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+    "dependencies/sources.json": "6e6a451b80901bbc61098fcf2067119c6f42ce157520635317fbc3fc4488dc66",
+    "dependencies/patches/ego/0006-ego-odometry-topic.patch": "e9c8671ac61d75a90a7da42d7a2ccd47708f67f65ee571a785f640c9d7e51342",
+    "dependencies/patches/ego/README.md": "d5a309d7332ff98638f2c20423b19d214ee952e517b8d6d92003962ffdc3087c",
+    "progress/evidence/p2-ego-odom-qos.json": "d2c2b3323612a7c97f46f5b82e6cac7dd342cccc1cd7d80a21d76d0f4d3bebb5",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "artifacts/runs/p2-ego-odom-wire-20261016-03/colcon-build.txt": "b312901915b1118bbbd85b69d83b80fb0552281eee8ae0d012c1bbef760548d5",
+    "artifacts/runs/p2-ego-odom-wire-20261016-03/colcon-log/latest_build/events.log": "d84f51113f0ac3bdf50debda348364d3b23f3a03f8cd872ff9d77a3690cb17a3",
+    "artifacts/runs/p2-ego-odom-wire-20261016-03/probe.json": "40ab0d6b303db31a1244b27296111d5a218701734c109dc60ae738cbc51f64ff",
+    "artifacts/runs/p2-ego-odom-wire-20261016-03/ego-odometry-topic-info.txt": "2352de108e96c1cff2ececac8cff079fc973a789762daec4f7c0f0ac31b66d0c",
+    "artifacts/runs/p2-ego-odom-wire-20261016-03/ego.log": "40bc3e70044a18e3db56a363e123d75e3d0e21fd966ff8861f2b92e1c639d7d4",
+    "artifacts/runs/p2-ego-odom-wire-20261016-03/run-live-used.sh": "0cc7db9c07c91eb6cd4f5edaeb79388e749d14dfc0224d1850610e9478e8764d",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/run-live.sh": "34d3fd7ac295cae7e77d770477df3495f4a8ec797f7a8d046c39c6cb2cc1f43d",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/cleanup.log": "c8c5cf7f2726a7e4cbe687c9d246d98a9e72ebd71f3c1e8cf6905d445a89e7b9",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/probe.json": "8f8fb2fb18745a875b2600b5e47ac0b429c41fb659c57735e69dccecb69c4af9",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/ego-odometry-topic-info.txt": "7392380a457214910671934d0df47c23fd71679e8ed829c3abdafaa6c237bf2a",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/ego.log": "1b280822e8e9e29ebd1c376e2dddd58d26e8ed72fd4e42daa5359047668edb76",
+    "progress/milestones.json": "ac9cf63d2b8aae6269bb6e9eff98389ee08fd56bd2c36b54d0b42a02a8e1ba0a",
+    "progress/goal-checklist.json": "67ce065c25fefc0ad529e15eaabb83dd610f9c4796b51ce0ae6477aeefb0f7b9",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/ego-node-info.txt": "82c9f999e10d2bcbbfd2e79e297f258c3972c0978f5210f4a2ceeccf57b2dd55",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/optimized-odometry.json": "2eb699f833bbe5b064c27d071c08bce0070bd25924fd409cb114136d9ce7df55",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/map-cloud.json": "5d2de03ef1141e4eb3f7cf96b01dd69c0ebf8f4c9feebeac4308ba27e33b480a",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/motion.json": "9a02bc42f0cd9229a295a0ff29094922aadfa5fffb5f8005fab2784a7780ab09",
+    "artifacts/runs/p2-ego-odom-wire-20261016-08/session/session.json": "376d35297807d0c40073e7cbce26c4629f172947c6425e7fca04cd08f54149f4",
+    "artifacts/runs/p2-ego-odom-wire-20261016-04/run-live-used.sh": "76adcbf767418512d9ce8a77d38b2f8866f33307b244254d04f1d64a1b28126a",
+    "artifacts/runs/p2-ego-odom-wire-20261016-04/probe.json": "11d9c0c3943d53c1dc89919c79276540d23fd04321da92990e1386418112e819",
+    "artifacts/runs/p2-ego-odom-wire-20261016-04/ego.log": "46a4a4b1ea94e281d28f6dbd4cacd1516003d0491f5b87a02c9e62850ff86d18",
+    "artifacts/runs/p2-ego-odom-wire-20261016-05/run-live.sh": "56848810945110929f95bc2a27b44f4a2ae7e05db114c831dca0c60213ad28e3",
+    "artifacts/runs/p2-ego-odom-wire-20261016-05/probe.json": "38d871a28d53eba0eca273e8fe3076c2e8c93a67a2d9cc1d566276e8f2694eff",
+    "artifacts/runs/p2-ego-odom-wire-20261016-05/ego.log": "9007efe7883ca0de8650ff0e9b357a4900fe86d5c03a5bb611adced8a1ac05db",
+    "artifacts/runs/p2-ego-odom-wire-20261016-06/run-live.sh": "50c04e21228c77a72810ad08071aeee5ca5fab7dca53748621bcb09223d48c48",
+    "artifacts/runs/p2-ego-odom-wire-20261016-06/probe.json": "e66fec103323dd71a911df867b3d0085e0cb75cc54d15d139f2bae2e259ae003",
+    "artifacts/runs/p2-ego-odom-wire-20261016-06/ego.log": "73bf43c3a76f765a4f544d41d04f92351e464ff47ef3f6c9e9aa826583c9e70d",
+    "artifacts/runs/p2-ego-odom-wire-20261016-07/run-live.sh": "6ee9f63fce20cb4b23f27119df59d49486ea5a11dcae746ccb59d6716058d443",
+    "artifacts/runs/p2-ego-odom-wire-20261016-07/probe.json": "235433ba52d4022c4307cd7aff28a95d0b517a7d9bec2ffada31c3ce34e40abc",
+    "artifacts/runs/p2-ego-odom-wire-20261016-07/ego.log": "51b212d2f1d8ab1caf92aa7d8ad6b3c020272e1e0247cfbb862cde999af8914b"
+  },
+  "px4_recursive_submodules": {
+    "count": 39,
+    "all_checked_out_at_pinned_gitlinks": true,
+    "manifest": "artifacts/runs/p0-px4-source-20261016-01/submodules.json",
+    "manifest_sha256": "d5a27ad5273a5575457650c1096e65d21850d694e82539d92b2b760278c6f577",
+    "status_manifest_sha256": "3f37d006dff691196090e7456803773a5804bdb7a05c2cd83c6ed3c86eeba01a"
+  }
+}

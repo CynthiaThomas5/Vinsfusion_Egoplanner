@@ -1,0 +1,101 @@
+{
+  "scope": "P2 dynamic motion replay through the actual raw VINS process and localization health adapter; not formal flight acceptance.",
+  "status": "PASS for one independent movement-bag integration replay. This run alone does not establish the P2 phase verdict, which is recorded in p2-stage-exit-audit.json.",
+  "run_id": "p2-localization-adapter-motion-20261017-01",
+  "run_inputs": "artifacts/runs/p2-localization-adapter-motion-20261017-01/run-inputs.json",
+  "run_inputs_sha256": "20cc5bdc8c0a8cc24653ad6a82295d0fcb01c8f131bd7c2e653aa3af7cbc23ab",
+  "input": {
+    "path": "artifacts/runs/p2-force-motion-20261017-05/input-bag/input-bag_0.mcap",
+    "sha256": "dd1e094247c41175f5d202769da8b67e8b5e992f5942c3cfc6fa4da93ea93dbb",
+    "topics": [
+      "/clock",
+      "/sensors/d435i/imu",
+      "/sensors/d435i/infra1/image_rect",
+      "/sensors/d435i/infra2/image_rect"
+    ],
+    "truth_in_bag": false,
+    "physical_calibration_report": "progress/evidence/p2-repeat-calibration.json"
+  },
+  "binary_sha256": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+  "epoch": "2f69a3bf07f9495ea4bfb4975a1e51ca",
+  "namespace": "/vins_raw/s_2f69a3bf07f9495ea4bfb4975a1e51ca",
+  "health_policy_sha256": "8632f7ab96f438efa55384b10e8d330b9f7be60ce89651f29c00dd79165c1eb9",
+  "transitions": [
+    {
+      "state": "INITIALIZING",
+      "reason": "waiting_for_inputs",
+      "valid": false
+    },
+    {
+      "state": "TRACKING",
+      "reason": "fresh_inputs_and_usable_solver",
+      "valid": true,
+      "first_seen_wall_s": 2.792965272994479,
+      "good_pairs": 10
+    },
+    {
+      "state": "LOST",
+      "reason": "imu_stale",
+      "valid": false,
+      "first_seen_wall_s": 41.94382765900809
+    },
+    {
+      "state": "LOCKED",
+      "reason": "imu_stale",
+      "valid": false,
+      "first_seen_wall_s": 41.993628484982764
+    }
+  ],
+  "outputs": {
+    "optimized_count": 386,
+    "propagated_count": 5087,
+    "optimized_rate_hz": 15.152,
+    "propagated_rate_hz": 200.0,
+    "strictly_increasing": true,
+    "all_finite": true,
+    "epoch_frames": {
+      "world": "odom_2f69a3bf07f9495ea4bfb4975a1e51ca",
+      "body": "d435i_imu_2f69a3bf07f9495ea4bfb4975a1e51ca"
+    },
+    "contract_errors": []
+  },
+  "lockout": {
+    "reason": "imu_stale",
+    "state": "LOCKED",
+    "accepted_optimized": 386,
+    "accepted_propagated": 5087,
+    "good_pairs": 395,
+    "counters_constant_for_locked_rows": true,
+    "locked_observation_seconds": 23.0
+  },
+  "files_sha256": {
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/adapter-probe.json": "cea7eef62c46e53f1e7c0db87d9252f074cf9a6abfb2a12805ffd745f98758cf",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/vins.log": "c00fe216a999a4fb34ccca14b6d7b58d581020386825f595c95816c5f2d98691",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/replay.log": "cd0702c6ded2e19785f14646918277cfcd4f9507209af194b82ec6edbb5a15f3",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/probe.log": "cea7eef62c46e53f1e7c0db87d9252f074cf9a6abfb2a12805ffd745f98758cf",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/run-container.sh": "d2a454493c86d872c3fb7ff87406234b0f292ebd4f0969270b903efb8a59caab",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/source-sha256.txt": "93d4b6dd508242ba285357dbb6990979204157e2b3cfe1447d37db65991cc1ac",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/repository-source-sha256.txt": "2ad43a58d8961186d03fdf221a79ac626c21a7e9f196be33e8210c6dc12f6b36",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/vins_node-matched-binary": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/session/session.json": "940dfcb778f5a1ab8f8a233b8b9ec2fd1b6d2598789cd2ea24a22ac036cc241b",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/session/vins.yaml": "4866d703e58fea3fcd7e934c8e71f38a372121232f0b677c66e8a09663836df4",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/session/.localization-used": "e1ea55103f6febe2340d89e1e2c3fa2b104e34a546f53a714ce276295eef62f4",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/run-inputs.json": "20cc5bdc8c0a8cc24653ad6a82295d0fcb01c8f131bd7c2e653aa3af7cbc23ab",
+    "artifacts/runs/p2-localization-adapter-motion-20261017-01/test-localization-health.log": "603db52fd0016ca5cdcf83b2588160ae92bde08c66ba4c61dfc8a2a74cdb95c9"
+  },
+  "limitations": [
+    "LOST/LOCKED occurs because the recorded input bag ends; this is freshness/fail-closed evidence, not a detector for silent visual drift.",
+    "No live PX4 mode/goal cancellation or map reset was observed in this replay.",
+    "No final thresholds, map geometry, EKF2 fusion, flight or real-camera behavior is established."
+  ],
+  "health_logic_tests": {
+    "command": "python3 tools/test_localization_health.py",
+    "result": "PASS",
+    "tests": 9,
+    "log": "artifacts/runs/p2-localization-adapter-motion-20261017-01/test-localization-health.log",
+    "log_sha256": "603db52fd0016ca5cdcf83b2588160ae92bde08c66ba4c61dfc8a2a74cdb95c9"
+  }
+}

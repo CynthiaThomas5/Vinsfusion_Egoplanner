@@ -1,0 +1,614 @@
+{
+  "schema": "p2-map-snapshot-temporal-repeat-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-map-voxel-snapshot-service-20261020-296",
+  "status": "EXPLORATORY_SAME_LAYOUT_INDEPENDENT_EPOCH_REPEAT; GOAL_C_PENDING",
+  "qualification": "A second independent run of the same alternate layout reproduces a near-one-voxel wall-center oscillation. This is a repeatability signal requiring explanation, not a validated ghosting or safety result.",
+  "environment": {
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 145,
+    "gazebo_partition": "d435i_map_voxel_snapshot_296_01",
+    "scope": "same-epoch multi-time occupancy snapshots during planner-only D435i/VINS sensor motion; no PX4, trajectory server, or controller launch",
+    "same_layout_as_run": "p2-map-voxel-snapshot-service-20261020-295",
+    "same_exact_sdf_sha256": "23b8ba2543b96fd2e6a7249681987ed29831419d15dfd0de2554a78dc1a9510c",
+    "new_epoch": true
+  },
+  "build": {
+    "candidate_install_reused_from": "p2-map-voxel-snapshot-service-20261020-292",
+    "build_repeated_for_this_run": false,
+    "ego_planner_node_sha256": "691471c8e6679bf9eb867f9724407cb4f23f09675367bd44353084e65fbe6530",
+    "libplan_env_sha256": "c2f3c5d409fa3138c400feb0884750b2c3b64c1183989ef981c3f772dc9617b0",
+    "patch_sha256": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8",
+    "canonical_vendor_modified": false,
+    "dependencies_sources_json_modified": false
+  },
+  "grid": {
+    "epoch": "161742efd4f84697a82f02a1f731e421",
+    "map_id": "161742efd4f84697a82f02a1f731e421-2ebe6720117d436c851b73c38b1e3069",
+    "frame_id": "odom_161742efd4f84697a82f02a1f731e421",
+    "dimensions_xyz": [
+      240,
+      240,
+      60
+    ],
+    "origin_m": [
+      -12.0,
+      -12.0,
+      -0.15
+    ],
+    "resolution_m": 0.1,
+    "total_voxels": 3456000,
+    "same_epoch_map_id_frame_origin_and_resolution": true
+  },
+  "snapshots": [
+    {
+      "index": "01",
+      "epoch": "161742efd4f84697a82f02a1f731e421",
+      "map_id": "161742efd4f84697a82f02a1f731e421-2ebe6720117d436c851b73c38b1e3069",
+      "frame_id": "odom_161742efd4f84697a82f02a1f731e421",
+      "snapshot_stamp_ns": 9235000000,
+      "source_depth_count_before_after": [
+        151,
+        154
+      ],
+      "source_age_s": 0.126,
+      "service_duration_ms": 42.68874700028391,
+      "voxel_counts": {
+        "unknown": 3439753,
+        "free": 14180,
+        "occupied": 2067,
+        "inflated": 7803
+      },
+      "known_voxel_count": 16247,
+      "known_voxel_fraction": 0.004701099537037037,
+      "archive_readback_exact": true,
+      "archive_sha256": "002ce3fe56fc363a1616ea9b72c6d4e8b5afc9fe0523efcc9bf9f48ca32b4f90",
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      },
+      "nearest_sdf_surface_residual_m": {
+        "median": 0.040421308700910166,
+        "p95": 0.09694644728033378,
+        "maximum": 0.11298838004645999,
+        "fraction_within_0_10m": 0.965166908563135,
+        "occupied_centers_over_0_10m": 72
+      },
+      "surface_assignment_counts": {
+        "calibration_wall": 1958,
+        "calibration_box": 60,
+        "calibration_cylinder": 49,
+        "ground_plane": 0
+      },
+      "central_wall_face_x_m": {
+        "sample_count": 314,
+        "median_voxel_center_x_m": 3.0342970468012025,
+        "target_front_face_x_m": 3.0,
+        "median_center_to_front_face_abs_m": 0.051097252042904495
+      }
+    },
+    {
+      "index": "02",
+      "epoch": "161742efd4f84697a82f02a1f731e421",
+      "map_id": "161742efd4f84697a82f02a1f731e421-2ebe6720117d436c851b73c38b1e3069",
+      "frame_id": "odom_161742efd4f84697a82f02a1f731e421",
+      "snapshot_stamp_ns": 11980000000,
+      "source_depth_count_before_after": [
+        232,
+        232
+      ],
+      "source_age_s": 0.099,
+      "service_duration_ms": 39.13308000028337,
+      "voxel_counts": {
+        "unknown": 3434270,
+        "free": 19400,
+        "occupied": 2330,
+        "inflated": 9029
+      },
+      "known_voxel_count": 21730,
+      "known_voxel_fraction": 0.00628761574074074,
+      "archive_readback_exact": true,
+      "archive_sha256": "ca97072fe4f4d34e3999ec76fcd67aa795f24f02e94b8b02f63a0ff4e2b7ae6c",
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      },
+      "nearest_sdf_surface_residual_m": {
+        "median": 0.03736164004856568,
+        "p95": 0.07830500259043337,
+        "maximum": 0.10028278243851955,
+        "fraction_within_0_10m": 0.9991416309012876,
+        "occupied_centers_over_0_10m": 2
+      },
+      "surface_assignment_counts": {
+        "calibration_wall": 2249,
+        "calibration_box": 35,
+        "calibration_cylinder": 46,
+        "ground_plane": 0
+      },
+      "central_wall_face_x_m": {
+        "sample_count": 353,
+        "median_voxel_center_x_m": 2.9659198573250483,
+        "target_front_face_x_m": 3.0,
+        "median_center_to_front_face_abs_m": 0.05055163203085522
+      }
+    },
+    {
+      "index": "03",
+      "epoch": "161742efd4f84697a82f02a1f731e421",
+      "map_id": "161742efd4f84697a82f02a1f731e421-2ebe6720117d436c851b73c38b1e3069",
+      "frame_id": "odom_161742efd4f84697a82f02a1f731e421",
+      "snapshot_stamp_ns": 14866000000,
+      "source_depth_count_before_after": [
+        313,
+        319
+      ],
+      "source_age_s": 0.114,
+      "service_duration_ms": 50.35667599986482,
+      "voxel_counts": {
+        "unknown": 3433931,
+        "free": 20287,
+        "occupied": 1782,
+        "inflated": 8513
+      },
+      "known_voxel_count": 22069,
+      "known_voxel_fraction": 0.006385706018518519,
+      "archive_readback_exact": true,
+      "archive_sha256": "5a6051ccedea8e76373d8ae69938dadaa20c4d553cf1029f40e082144bdd4976",
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      },
+      "nearest_sdf_surface_residual_m": {
+        "median": 0.038830788050317325,
+        "p95": 0.08664991134757853,
+        "maximum": 0.10172580266971414,
+        "fraction_within_0_10m": 0.9971941638608305,
+        "occupied_centers_over_0_10m": 5
+      },
+      "surface_assignment_counts": {
+        "calibration_wall": 1676,
+        "calibration_box": 60,
+        "calibration_cylinder": 46,
+        "ground_plane": 0
+      },
+      "central_wall_face_x_m": {
+        "sample_count": 337,
+        "median_voxel_center_x_m": 3.032994818806413,
+        "target_front_face_x_m": 3.0,
+        "median_center_to_front_face_abs_m": 0.051754081811941965
+      }
+    }
+  ],
+  "temporal_deltas": [
+    {
+      "from_snapshot": "01",
+      "to_snapshot": "02",
+      "known_voxel_delta": 5483,
+      "new_known_voxels": 6444,
+      "known_to_unknown_voxels": 961,
+      "state_transitions": {
+        "unknown_to_unknown": 3433309,
+        "unknown_to_free": 6298,
+        "unknown_to_occupied": 146,
+        "free_to_unknown": 561,
+        "free_to_free": 13005,
+        "free_to_occupied": 614,
+        "occupied_to_unknown": 400,
+        "occupied_to_free": 97,
+        "occupied_to_occupied": 1570
+      },
+      "occupied_voxel_retained": 1570,
+      "occupied_voxel_added": 760,
+      "occupied_voxel_removed": 497,
+      "occupied_voxel_jaccard": 0.5553590378493102,
+      "central_wall_median_center_shift_m": 0.06837718947615423
+    },
+    {
+      "from_snapshot": "02",
+      "to_snapshot": "03",
+      "known_voxel_delta": 339,
+      "new_known_voxels": 339,
+      "known_to_unknown_voxels": 0,
+      "state_transitions": {
+        "unknown_to_unknown": 3433931,
+        "unknown_to_free": 314,
+        "unknown_to_occupied": 25,
+        "free_to_free": 19299,
+        "free_to_occupied": 101,
+        "occupied_to_free": 674,
+        "occupied_to_occupied": 1656
+      },
+      "occupied_voxel_retained": 1656,
+      "occupied_voxel_added": 126,
+      "occupied_voxel_removed": 674,
+      "occupied_voxel_jaccard": 0.6742671009771987,
+      "central_wall_median_center_shift_m": 0.0670749614813646
+    }
+  ],
+  "trajectory_alignment": {
+    "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+    "paired_samples": 372,
+    "overlap_seconds": 24.486,
+    "truth_position_span_m": [
+      0.24404705980757538,
+      0.325932680192636,
+      0.12202353000001431
+    ],
+    "truth_yaw_span_deg": 23.30711550332177,
+    "position_rmse_m": 0.005035975018318268,
+    "position_p95_m": 0.008128043565184435,
+    "position_max_m": 0.00950424326397312,
+    "orientation_rmse_deg": 1.1817468649016427,
+    "alignment_rotation": [
+      [
+        0.999828423260287,
+        0.014430202311945493,
+        -0.011614357583842327
+      ],
+      [
+        -0.014458446888274672,
+        0.999892705931012,
+        -0.0023515823476269447
+      ],
+      [
+        0.011579177623129322,
+        0.0025191044430618688,
+        0.9999297859141796
+      ]
+    ],
+    "alignment_translation": [
+      -0.0010134773699673333,
+      -0.004882356040285266,
+      0.999566928903504
+    ]
+  },
+  "same_layout_repeat_comparison": {
+    "schema": "p2-map-same-layout-temporal-repeat-analysis/v1",
+    "date": "2026-10-20",
+    "qualification": "Two-run exploratory repeatability diagnostic; not a frozen ghosting metric, map completeness criterion, planner, or GOAL C acceptance.",
+    "runs": [
+      "p2-map-voxel-snapshot-service-20261020-295",
+      "p2-map-voxel-snapshot-service-20261020-296"
+    ],
+    "checks": {
+      "obstacle_geometry_identical": true,
+      "sdf_sha256_identical": true,
+      "sdf_sha256": "23b8ba2543b96fd2e6a7249681987ed29831419d15dfd0de2554a78dc1a9510c",
+      "grid_geometry_identical": true,
+      "new_epoch_and_map_id": true,
+      "epoch_ids": [
+        "b212b2ca339c4df186e6a0bc7854bd35",
+        "161742efd4f84697a82f02a1f731e421"
+      ],
+      "map_ids": [
+        "b212b2ca339c4df186e6a0bc7854bd35-350617aa66f04314b51e4e6c0dad0673",
+        "161742efd4f84697a82f02a1f731e421-2ebe6720117d436c851b73c38b1e3069"
+      ]
+    },
+    "snapshot_seconds_after_first_force_command": {
+      "p2-map-voxel-snapshot-service-20261020-295": [
+        1.7489999999999997,
+        4.356000000000001,
+        7.055000000000001
+      ],
+      "p2-map-voxel-snapshot-service-20261020-296": [
+        1.4069999999999991,
+        4.152,
+        7.037999999999999
+      ]
+    },
+    "central_wall_median_voxel_center_x_m": {
+      "p2-map-voxel-snapshot-service-20261020-295": [
+        3.035660563755402,
+        2.9623949622557118,
+        3.033622372087931
+      ],
+      "p2-map-voxel-snapshot-service-20261020-296": [
+        3.0342970468012025,
+        2.9659198573250483,
+        3.032994818806413
+      ],
+      "absolute_between_run_difference_m": [
+        0.0013635169541994507,
+        0.003524895069336509,
+        0.0006275532815180895
+      ]
+    },
+    "adjacent_snapshot_wall_center_shift_m": {
+      "p2-map-voxel-snapshot-service-20261020-295": [
+        0.07326560149969019,
+        0.0712274098322192
+      ],
+      "p2-map-voxel-snapshot-service-20261020-296": [
+        0.06837718947615423,
+        0.0670749614813646
+      ],
+      "absolute_between_run_difference_m": [
+        0.00488841202353596,
+        0.004152448350854598
+      ],
+      "pattern": "Both runs show positive-to-negative-to-positive wall-center offsets around x=3.0 m; this repeatable pattern is near one 0.1 m voxel but does not identify its cause."
+    },
+    "raw_occupied_jaccard_by_interval": {
+      "p2-map-voxel-snapshot-service-20261020-295": [
+        0.6008614501076812,
+        0.6831479192418624
+      ],
+      "p2-map-voxel-snapshot-service-20261020-296": [
+        0.5553590378493102,
+        0.6742671009771987
+      ]
+    },
+    "occupied_centers_over_0_10m_sdf_distance": {
+      "p2-map-voxel-snapshot-service-20261020-295": [
+        0,
+        0,
+        0
+      ],
+      "p2-map-voxel-snapshot-service-20261020-296": [
+        72,
+        2,
+        5
+      ]
+    },
+    "trajectory_alignment_position_rmse_m": {
+      "p2-map-voxel-snapshot-service-20261020-295": 0.00379839299389712,
+      "p2-map-voxel-snapshot-service-20261020-296": 0.005035975018318268
+    },
+    "interpretation": [
+      "The wall-center oscillation repeated across independent epochs and the same exact SDF; it is a real repeatable map/sampling observation that needs explanation.",
+      "The first snapshot of the repeat had 72 occupied voxel centers over 0.10 m from the nearest analytic surface; later snapshots had 2 and 5. Preserve these outliers rather than filtering them.",
+      "Different capture phases and visible voxel subsets can affect these metrics; they do not alone prove persistent duplicate surfaces or unsafe free space."
+    ],
+    "limitations": [
+      "Only two motion runs in one obstacle layout were compared.",
+      "Truth was used only offline for independent fixed-scale SE(3) alignment in each run.",
+      "No ROI completeness threshold, false-positive threshold, or temporal ghosting criterion is frozen.",
+      "Neither run sent a goal or tested planning, vehicle clearance, control, PX4, or flight."
+    ]
+  },
+  "runtime_diagnostics": {
+    "goal_sent": false,
+    "planner_state": "WAIT_TARGET observed",
+    "forbidden_control_nodes": [],
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "ego_odom_or_depth_lost_count": 0,
+    "ego_odom_or_depth_lost_episodes": [],
+    "clean_sigint_exit": true,
+    "interpretation": "No EGO odom/depth lost warning appeared. No goal was sent, so planner readiness was not tested."
+  },
+  "isolation": {
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "forbidden_control_nodes": [],
+    "goal_sent": false,
+    "truth_use": "Separate fixture truth was used only offline for a fixed-scale SE(3) fit in each run."
+  },
+  "artifacts": {
+    "run_report": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/run-report.json",
+      "sha256": "2ca3533b3d270e34175df0556cfae2e90e4594829365d7efe9f2951b97078726",
+      "bytes": 26796
+    },
+    "source_manifest": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/source-manifest.json",
+      "sha256": "d6d5d918e19d994fc561fd4382df6e054c3d9e3e509f150e7323fabda0646ac4",
+      "bytes": 15937
+    },
+    "source_manifest_build": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/source-manifest-build.json",
+      "sha256": "9629dd0a7e429982692e13cb6d0e6ddfa202aedc1dcf5fa3326396716e61676a",
+      "bytes": 14369
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/runtime-summary.json",
+      "sha256": "2396aaf4f244f9591e10c3b1fb7daa7931849359964d6c4c6e1fc490ac331db8",
+      "bytes": 3454
+    },
+    "scene_description": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/scene-01.json",
+      "sha256": "808941ad353a5374e276eef7c534065b45185b333526807703e16d779e8a217a",
+      "bytes": 747
+    },
+    "temporal_analysis": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/temporal-map-analysis.json",
+      "sha256": "904ae6db9320b89af9a618b258558345355493adfef21c5a1becfad65637c68c",
+      "bytes": 12364
+    },
+    "temporal_analysis_script": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/analyze_temporal_maps.py",
+      "sha256": "0efe8f42fc747b3052e797b20d54800d16c4ec88dec66733c2fc5b6e0676f679",
+      "bytes": 11871
+    },
+    "same_layout_repeat_analysis": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/same-layout-repeat-analysis.json",
+      "sha256": "16885f1ff5fd3fd1af5a6e8e118e8b02e481d54a7c74375521e78368bc056104",
+      "bytes": 5282
+    },
+    "same_layout_repeat_script": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/compare_same_layout_repeat.py",
+      "sha256": "2f6846a1e741f7759d1def416e4b7abd4b12d086ec4806621d540fdedeea1881",
+      "bytes": 8241
+    },
+    "ego_log": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/ego-01.log",
+      "sha256": "3c19327805547500710c0aed0d3660c6c6ebf0fb4ddd9af419f600825f83fc86",
+      "bytes": 4287
+    },
+    "motion_and_fixture_truth": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/motion-01.json",
+      "sha256": "cce9af76e2c3206ecf41a9870a31ee19c0ee583ed0c60c860f40b2933a875c90",
+      "bytes": 1935002
+    },
+    "world_sdf": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/debug-motion-01.sdf",
+      "sha256": "23b8ba2543b96fd2e6a7249681987ed29831419d15dfd0de2554a78dc1a9510c",
+      "bytes": 10559
+    },
+    "vins_log": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/vins-01.log",
+      "sha256": "a6cfb8231cb24c5382aafafb4af03c74f63b00b5420ce720a06721e8d1b2460a",
+      "bytes": 75798
+    },
+    "extracted_vins_odometry": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/vins-odometry-extracted.json",
+      "sha256": "094dab8eaa9ecd36a4c1c42089382c9526cbd7bb3da7dddd9106b18d1d54a91f",
+      "bytes": 86681
+    },
+    "previous_run_report": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/run-report.json",
+      "sha256": "74e29c7b347d5d0b8b9bfbbfc78ccc2000eff03fb1fe07fcf4b2648f51c527fd",
+      "bytes": 17956
+    },
+    "previous_temporal_analysis": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/temporal-map-analysis.json",
+      "sha256": "32820140089936e30728f70c7295f000592121b335c952504750ebe65e0687c1",
+      "bytes": 12323
+    },
+    "previous_same_world_sdf": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/debug-motion-01.sdf",
+      "sha256": "23b8ba2543b96fd2e6a7249681987ed29831419d15dfd0de2554a78dc1a9510c",
+      "bytes": 10559
+    },
+    "snapshot_01_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-01/metadata.json",
+      "sha256": "61f8a6887fbc8fe7c56a6985e86c5f12df483799a6246df8195291869d8dc6db",
+      "bytes": 4962
+    },
+    "snapshot_01_archive": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-01/occupancy_snapshot.npz",
+      "sha256": "002ce3fe56fc363a1616ea9b72c6d4e8b5afc9fe0523efcc9bf9f48ca32b4f90",
+      "bytes": 9910
+    },
+    "snapshot_02_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-02/metadata.json",
+      "sha256": "bbd6ebabae4e818d4f0376af0f5c2e22978f1ea708163bfd73ebb3381618326d",
+      "bytes": 4972
+    },
+    "snapshot_02_archive": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-02/occupancy_snapshot.npz",
+      "sha256": "ca97072fe4f4d34e3999ec76fcd67aa795f24f02e94b8b02f63a0ff4e2b7ae6c",
+      "bytes": 10191
+    },
+    "snapshot_03_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-03/metadata.json",
+      "sha256": "aae051512660a0b65c6256ccf9be5feb6f1a5ec869acd583d41356869926eb93",
+      "bytes": 5007
+    },
+    "snapshot_03_archive": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-03/occupancy_snapshot.npz",
+      "sha256": "5a6051ccedea8e76373d8ae69938dadaa20c4d553cf1029f40e082144bdd4976",
+      "bytes": 10112
+    },
+    "sdf_outlier_location_analysis": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/sdf-outlier-location-analysis.json",
+      "sha256": "71fef66453d709acd44cbc17d236fbedff122d5c91a2f38268382652dc62449e",
+      "bytes": 18701
+    },
+    "sdf_outlier_location_analysis_script": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/analyze_sdf_outlier_locations.py",
+      "sha256": "f1dca2de177fd290b61cc99124c45b74fd9779ee9b7ccd5daf0d17e2f7144d9f",
+      "bytes": 4414
+    }
+  },
+  "limitations": [
+    "Only one motion sequence and one obstacle arrangement were tested.",
+    "Nearest distance to known SDF surfaces can flag possible outliers but cannot distinguish map ghosting from depth/noise or alignment error by itself.",
+    "Map coverage was computed over the full configured volume; the large unknown fraction is expected for a local camera view but no acceptance ROI or threshold is frozen.",
+    "No planner goal, vehicle geometry clearance, control, PX4, or final no-truth acceptance was tested.",
+    "The same-layout wall-center oscillation repeated in two independent epochs: each showed x≈3.03→2.96→3.03 m, with adjacent shifts of 6.7–7.3 cm; the cause and safety meaning remain unknown.",
+    "The repeat run first snapshot has 72/2,067 occupied centers beyond 0.10 m to the nearest analytic surface; later snapshots have 2 and 5. These samples are retained, not filtered.",
+    "The two sequences have similar but non-identical snapshot phases; no frozen surface coverage, ghosting, or completeness threshold exists.",
+    "The full configured volume is more than 99% unknown, and no navigation goal or control was tested.",
+    "Candidate patch 0021 remains outside the canonical dependency list.",
+    "All 72 first-snapshot >0.10 m centers map to the large calibration wall and lie outside the current central-wall sample window (y=-2.80 to -1.80 m, z=1.83 to 3.03 m); their visibility and cause are untested."
+  ],
+  "next_step": "Investigate the repeatable wall-center phase pattern and the first-snapshot SDF outliers in a bounded visible-surface ROI with matched capture phases; only then freeze GOAL C coverage and ghosting thresholds.",
+  "sdf_outlier_location_analysis": {
+    "outlier_counts_by_snapshot": [
+      72,
+      2,
+      5
+    ],
+    "nearest_surface_assignment_counts_by_snapshot": [
+      {
+        "calibration_wall": 72,
+        "calibration_box": 0,
+        "calibration_cylinder": 0,
+        "ground_plane": 0
+      },
+      {
+        "calibration_wall": 2,
+        "calibration_box": 0,
+        "calibration_cylinder": 0,
+        "ground_plane": 0
+      },
+      {
+        "calibration_wall": 5,
+        "calibration_box": 0,
+        "calibration_cylinder": 0,
+        "ground_plane": 0
+      }
+    ],
+    "first_snapshot_outlier_world_bounds_xyz_m": [
+      [
+        2.88701161995354,
+        2.8999988020342906
+      ],
+      [
+        -2.8014725638967066,
+        -1.8020501744352202
+      ],
+      [
+        1.8267417944046591,
+        3.0291766419447366
+      ]
+    ],
+    "outliers_in_existing_central_wall_sample_window": [
+      0,
+      0,
+      0
+    ],
+    "sample_window_qualification": "Diagnostic window from the analyzer only; not a formal GOAL C ROI."
+  },
+  "grid_boundary_alignment_hypothesis": {
+    "grid_origin_x_m": -12.0,
+    "resolution_m": 0.1,
+    "wall_front_face_x_is_nominal_grid_boundary": true,
+    "nominal_boundary_index": 150,
+    "per_run": {
+      "p2-map-voxel-snapshot-service-20261020-295": {
+        "wall_front_face_world_x_m": 3.0,
+        "nominal_local_x_grid_boundary_index": 150.0,
+        "central_patch_nearest_x_boundary_distance_mm_median_p95_max": [
+          8.253122442926044,
+          16.273296923429825,
+          18.49585303997685
+        ],
+        "map_x_axis_to_world_wall_normal_angle_deg": 0.6308985339139674,
+        "samples": 91
+      },
+      "p2-map-voxel-snapshot-service-20261020-296": {
+        "wall_front_face_world_x_m": 3.0,
+        "nominal_local_x_grid_boundary_index": 150.0,
+        "central_patch_nearest_x_boundary_distance_mm_median_p95_max": [
+          11.85579063069895,
+          25.74548636319776,
+          31.384009014252
+        ],
+        "map_x_axis_to_world_wall_normal_angle_deg": 1.06138524414037,
+        "samples": 91
+      }
+    },
+    "interpretation": "The 3.0 m wall front face coincides with the nominal x grid boundary at index 150; after each independent offline alignment, the sampled central wall patch stays within about 18 mm / 31 mm of a local x boundary. This makes one-cell side selection a plausible explanation for the alternating voxel-center median, but does not prove the cause or rule out mapping artifacts."
+  }
+}

@@ -1,0 +1,574 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "title": "P5 VINS quality-gate transition audit across SITL runs #175-178",
+  "qualification": "DIAGNOSTIC_ANALYSIS_ONLY; no health policy or flight behavior change; P5 and GOAL criteria remain incomplete",
+  "method": {
+    "normalized_cost": "sqrt(2 * Ceres final_cost / residual_components), matching uav_localization Health.telemetry",
+    "gate_selection": "First localization_quality_history row with reason normalized_cost_exceeded; pair to nearest exact quality cost and source stamp as implemented in evaluate_vio_quality_alignment.py",
+    "pose_alignment": "One rigid SE(3) at first paired pose; scale fixed to 1; no segment realignment",
+    "followup_window_s": 2.0,
+    "caveat": "Telemetry after the first gate is collected while the fail-closed controller is canceling the task and landing; follow-up peaks are not an uncontrolled continuation of the original command."
+  },
+  "health_policy": {
+    "max_normalized_cost": 1.0,
+    "qualification": "PROVISIONAL P2 operational guards; propagated source age is 0.12 s after live SITL #81 measured up to 0.108 s receipt age and a false stale latch at 0.063 s; not frozen final acceptance limits",
+    "changed": false,
+    "single_sample_behavior": "Health.quality reports normalized_cost_exceeded for a sample over the limit; Health.tick permanently locks a TRACKING session on a quality failure."
+  },
+  "cross_run_summary": {
+    "run_count": 4,
+    "first_gate_normalized_cost_range": [
+      1.0260053678713499,
+      1.1964640281079921
+    ],
+    "immediately_previous_sample_cost_range": [
+      0.3594917601621818,
+      0.5573909983940677
+    ],
+    "first_gate_position_error_m_range": [
+      0.011024705450332349,
+      0.024455547089889118
+    ],
+    "final_cost_increase_from_previous_sample_range": [
+      832.4742143131227,
+      1074.4592523926472
+    ],
+    "residual_component_increase_range": [
+      68,
+      112
+    ],
+    "visual_observation_increase_range": [
+      20,
+      32
+    ],
+    "first_recovery_at_or_below_limit_delay_s_range": [
+      0.064,
+      0.132000001
+    ],
+    "first_position_error_over_0_30m_after_gate_s_range": [
+      2.508000001,
+      4.028
+    ]
+  },
+  "observations": [
+    "Each gate row is a large objective jump relative to its immediately previous solve; residual dimensions and visual observation count also increase. This is consistent with a visual/window update coinciding with the cost rise, but aggregate telemetry cannot attribute cost to visual, IMU, or marginalization-prior factors.",
+    "The gate-frame aligned position error is only about 0.011-0.024 m in these runs. The next raw telemetry sample returns below 1.0 within 0.064-0.132 s, but each two-second follow-up still has additional samples above the threshold.",
+      "The first flight-window position error above 0.30 m occurs 2.508-4.028 s after the quality telemetry stamp used for the gate pairing. These trajectories are short and the controller begins fail-closed landing at the gate, so they neither prove the gate is a false positive nor establish the threshold as predictive.",
+    "All four crossing rows report termination_type=1 and iterations=9. Those raw solver fields are retained without assigning a termination cause.",
+    "The targets are dispatched 0.769-1.512 wall seconds before the gate, while cost is already rising before dispatch. Timing alone does not attribute the cost rise to the target motion."
+  ],
+  "runs": [
+    {
+      "run_id": 175,
+      "original_evidence": "progress/evidence/p5-vio-truth-error-diagnostic-20261019-172-175.json",
+      "original_evidence_sha256": "9b14b01195803c93dc3b446574e5ba5867abc4a33d5424d74b2b74b1ffc98c2c",
+      "goal_sent_wall_elapsed_s": 18.925237968000147,
+      "first_gate_wall_elapsed_s": 20.09094427900027,
+      "seconds_from_goal_dispatch_to_gate": 1.1657063110001218,
+      "gate": {
+        "localization_status_stamp_ns": 35472000000,
+        "localization_status_source_stamp_ns": 35460000000,
+        "quality_telemetry_stamp_ns": 35411999999,
+        "quality_to_status_source_gap_s": -0.048000001,
+        "normalized_cost": 1.1460447435859369,
+        "reason": "normalized_cost_exceeded",
+        "aligned_position_error_m": 0.011024705450332349
+      },
+      "quality_gate_dynamics": {
+        "threshold": 1.0,
+        "crossing": {
+          "stamp_ns": 35411999999,
+          "normalized_cost": 1.1460447435859369,
+          "final_cost": 1189.957210196666,
+          "residual_components": 1812,
+          "visual_observations": 416,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "previous_sample": {
+          "stamp_ns": 35344000000,
+          "normalized_cost": 0.36393926206511246,
+          "final_cost": 115.49795780401875,
+          "residual_components": 1744,
+          "visual_observations": 396,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "change_from_previous": {
+          "normalized_cost": 0.7821054815208244,
+          "final_cost": 1074.4592523926472,
+          "residual_components": 68,
+          "visual_observations": 20
+        },
+        "first_recovery_at_or_below_threshold": {
+          "stamp_ns": 35475999999,
+          "normalized_cost": 0.9619332600972866,
+          "final_cost": 826.3068280150849,
+          "residual_components": 1786,
+          "visual_observations": 408,
+          "termination_type": 1,
+          "iterations": 9,
+          "delay_s": 0.064
+        },
+        "followup_horizon_s": 2.0,
+        "followup_sample_count": 30,
+        "followup_samples_above_threshold": 7,
+        "peak_within_followup": {
+          "stamp_ns": 37392000000,
+          "normalized_cost": 3.4048208510137195,
+          "final_cost": 1588.214288767197,
+          "residual_components": 274,
+          "visual_observations": 12,
+          "termination_type": 1,
+          "iterations": 9
+        }
+      },
+      "first_position_error_over_0_30m_after_gate": {
+        "stamp_ns": 37920000000,
+        "position_error_m": 0.31018385454660785,
+        "seconds_after_gate": 2.508000001
+      },
+      "flight_position_error_m": {
+        "count": 269,
+        "rmse": 0.37581959702666984,
+        "median": 0.0029604433834600256,
+        "p95": 1.0531645678147517,
+        "max": 1.3578277271469832
+      },
+      "flight_orientation_error_deg": {
+        "count": 269,
+        "rmse": 0.36950964939372943,
+        "median": 0.20766863607392452,
+        "p95": 0.7277152089454816,
+        "max": 0.7478890490018085
+      },
+      "result": null,
+      "failure": null,
+      "landed_and_disarmed": null,
+      "truth_graph": {
+        "publisher_count": 1,
+        "subscriber_count": 1,
+        "subscriber_nodes": [
+          "raw_vins_readonly_probe"
+        ],
+        "px4_bridge_debug_truth_subscription": false
+      },
+      "raw_input_sha256": {
+        "vio-truth-capture/telemetry.json": {
+          "sha256": "ea889c1ecce299090461a70b7dabfc900fefa0f2c71cf7085a57df75788fad9a",
+          "size_bytes": 544670
+        },
+        "vio-truth-capture/raw-odometry.json": {
+          "sha256": "595cd83b547e30071ccefb0218ac9844e1d3c15005127a9744614b3680d4a7cc",
+          "size_bytes": 7069193
+        },
+        "vio-truth-capture/truth-motion.json": {
+          "sha256": "213ce37f6c050d9e9417d7e4a47baa075c1d1dec8bac716e68bbd8af9d13f9df",
+          "size_bytes": 5487395
+        },
+        "vio-truth-capture/summary.json": {
+          "sha256": "260afa6430095d1b887fa77b80b9d8bc9f304512a8c43ca3d66aef8aced2f150",
+          "size_bytes": 10568
+        },
+        "vio-ego-flight-report.json": {
+          "sha256": "19fb2dcae1303b5ca38e31d46bd1964247fa701f1042bf011bd206e5cd2be22b",
+          "size_bytes": 1456103
+        }
+      }
+    },
+    {
+      "run_id": 176,
+      "original_evidence": "progress/evidence/p5-vio-truth-error-repeat-20261019-176.json",
+      "original_evidence_sha256": "9063b8cca4d45e45ed345b565fc3fb8627b5549c0a79ae6827c9cd674042b901",
+      "goal_sent_wall_elapsed_s": 18.07460186699973,
+      "first_gate_wall_elapsed_s": 19.58632614299995,
+      "seconds_from_goal_dispatch_to_gate": 1.5117242760002227,
+      "gate": {
+        "localization_status_stamp_ns": 35676000000,
+        "localization_status_source_stamp_ns": 35652000000,
+        "quality_telemetry_stamp_ns": 35607999999,
+        "quality_to_status_source_gap_s": -0.044000001,
+        "normalized_cost": 1.1964640281079921,
+        "reason": "normalized_cost_exceeded",
+        "aligned_position_error_m": 0.018072204668839364
+      },
+      "quality_gate_dynamics": {
+        "threshold": 1.0,
+        "crossing": {
+          "stamp_ns": 35607999999,
+          "normalized_cost": 1.1964640281079921,
+          "final_cost": 1338.476969470236,
+          "residual_components": 1870,
+          "visual_observations": 432,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "previous_sample": {
+          "stamp_ns": 35543999999,
+          "normalized_cost": 0.5573909983940677,
+          "final_cost": 275.2666664303917,
+          "residual_components": 1772,
+          "visual_observations": 404,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "change_from_previous": {
+          "normalized_cost": 0.6390730297139244,
+          "final_cost": 1063.2103030398443,
+          "residual_components": 98,
+          "visual_observations": 28
+        },
+        "first_recovery_at_or_below_threshold": {
+          "stamp_ns": 35740000000,
+          "normalized_cost": 0.8190473032716787,
+          "final_cost": 603.0837980119518,
+          "residual_components": 1798,
+          "visual_observations": 412,
+          "termination_type": 1,
+          "iterations": 9,
+          "delay_s": 0.132000001
+        },
+        "followup_horizon_s": 2.0,
+        "followup_sample_count": 30,
+        "followup_samples_above_threshold": 14,
+        "peak_within_followup": {
+          "stamp_ns": 37524000000,
+          "normalized_cost": 4.230424068881816,
+          "final_cost": 2022.3031216909278,
+          "residual_components": 226,
+          "visual_observations": 0,
+          "termination_type": 1,
+          "iterations": 9
+        }
+      },
+      "first_position_error_over_0_30m_after_gate": {
+        "stamp_ns": 38183999999,
+        "position_error_m": 0.3036076456896157,
+        "seconds_after_gate": 2.576
+      },
+      "flight_position_error_m": {
+        "count": 279,
+        "rmse": 0.31443176434730924,
+        "median": 0.0031557312300880633,
+        "p95": 0.8834546658976397,
+        "max": 1.1642503473811883
+      },
+      "flight_orientation_error_deg": {
+        "count": 279,
+        "rmse": 0.3150349256186358,
+        "median": 0.2399184632891303,
+        "p95": 0.5195040664063965,
+        "max": 0.6391007242974291
+      },
+      "result": "FAIL",
+      "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "landed_and_disarmed": true,
+      "truth_graph": {
+        "publisher_count": 1,
+        "subscriber_count": 1,
+        "subscriber_nodes": [
+          "raw_vins_readonly_probe"
+        ],
+        "px4_bridge_debug_truth_subscription": false
+      },
+      "raw_input_sha256": {
+        "vio-truth-capture/telemetry.json": {
+          "sha256": "00ca9305fe3b00b1c9f7d8891ed5ec5d253522ec6d8bde5bdb2949c2e1c487a1",
+          "size_bytes": 562523
+        },
+        "vio-truth-capture/raw-odometry.json": {
+          "sha256": "c42bf9c5deb9fc41d94587f6e4e6b2dfde37c3ba76a891ca99828bda42877608",
+          "size_bytes": 7283839
+        },
+        "vio-truth-capture/truth-motion.json": {
+          "sha256": "02820b94716fc7cb4b8ee91116a92805a926c63e6e08bce27702e5a12f90ce79",
+          "size_bytes": 5650368
+        },
+        "vio-truth-capture/summary.json": {
+          "sha256": "57f856c2a5cfee590d93bc2a461d2e4c26500e198c4bc668b39f79569d3eaf8b",
+          "size_bytes": 10568
+        },
+        "vio-ego-flight-report.json": {
+          "sha256": "57d12a8080591736bad408a401b777ba32b6da7df36f33d6e6472c3ca345b7a2",
+          "size_bytes": 1417464
+        }
+      }
+    },
+    {
+      "run_id": 177,
+      "original_evidence": "progress/evidence/p5-vio-truth-error-lateral-yaw-20261019-177.json",
+      "original_evidence_sha256": "5a4ea88f90a174f63f4f51cea491e591f385471eedad47d6d394e051881d6197",
+      "goal_sent_wall_elapsed_s": 17.905930452999655,
+      "first_gate_wall_elapsed_s": 19.278554442999848,
+      "seconds_from_goal_dispatch_to_gate": 1.3726239900001929,
+      "gate": {
+        "localization_status_stamp_ns": 33768000000,
+        "localization_status_source_stamp_ns": 33752000000,
+        "quality_telemetry_stamp_ns": 33695999999,
+        "quality_to_status_source_gap_s": -0.056000001,
+        "normalized_cost": 1.0260053678713499,
+        "reason": "normalized_cost_exceeded",
+        "aligned_position_error_m": 0.024455547089889118
+      },
+      "quality_gate_dynamics": {
+        "threshold": 1.0,
+        "crossing": {
+          "stamp_ns": 33695999999,
+          "normalized_cost": 1.0260053678713499,
+          "final_cost": 976.8935498279645,
+          "residual_components": 1856,
+          "visual_observations": 428,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "previous_sample": {
+          "stamp_ns": 33628000000,
+          "normalized_cost": 0.40696253393989706,
+          "final_cost": 144.4193355148418,
+          "residual_components": 1744,
+          "visual_observations": 396,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "change_from_previous": {
+          "normalized_cost": 0.6190428339314529,
+          "final_cost": 832.4742143131227,
+          "residual_components": 112,
+          "visual_observations": 32
+        },
+        "first_recovery_at_or_below_threshold": {
+          "stamp_ns": 33759999999,
+          "normalized_cost": 0.9015754400065028,
+          "final_cost": 744.5598590049939,
+          "residual_components": 1832,
+          "visual_observations": 421,
+          "termination_type": 1,
+          "iterations": 9,
+          "delay_s": 0.064
+        },
+        "followup_horizon_s": 2.0,
+        "followup_sample_count": 30,
+        "followup_samples_above_threshold": 7,
+        "peak_within_followup": {
+          "stamp_ns": 35676000000,
+          "normalized_cost": 1.870536981088782,
+          "final_cost": 3051.0482971252804,
+          "residual_components": 1744,
+          "visual_observations": 396,
+          "termination_type": 1,
+          "iterations": 9
+        }
+      },
+      "first_position_error_over_0_30m_after_gate": {
+        "stamp_ns": 36927999999,
+        "position_error_m": 0.3048536296578801,
+        "seconds_after_gate": 3.232
+      },
+      "flight_position_error_m": {
+        "count": 271,
+        "rmse": 0.1815171054889625,
+        "median": 0.004161730872244753,
+        "p95": 0.49988630732509276,
+        "max": 0.5351239507937186
+      },
+      "flight_orientation_error_deg": {
+        "count": 271,
+        "rmse": 0.49072975937594765,
+        "median": 0.24592614905524224,
+        "p95": 1.1716515318994367,
+        "max": 1.2343054234787603
+      },
+      "result": "FAIL",
+      "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "landed_and_disarmed": true,
+      "truth_graph": {
+        "publisher_count": 1,
+        "subscriber_count": 1,
+        "subscriber_nodes": [
+          "raw_vins_readonly_probe"
+        ],
+        "px4_bridge_debug_truth_subscription": false
+      },
+      "raw_input_sha256": {
+        "vio-truth-capture/telemetry.json": {
+          "sha256": "256e99061abb96a89e22573700cc9b613a47b22b2fc03d4e1b49acd52bc8588f",
+          "size_bytes": 570683
+        },
+        "vio-truth-capture/raw-odometry.json": {
+          "sha256": "32e96cdf7933c32801e4fb820998e2df5035b3df46900da3b296fdcf606fa0ea",
+          "size_bytes": 7439128
+        },
+        "vio-truth-capture/truth-motion.json": {
+          "sha256": "090bad294c112fdeadb15a237b8b74c42d88264c0b847f603da0c9038010800e",
+          "size_bytes": 5701086
+        },
+        "vio-truth-capture/summary.json": {
+          "sha256": "75d21b40006e7c66910fb70ec87628cd4ba9c3e2dd2e5c17d34e43a023b26fcb",
+          "size_bytes": 7793
+        },
+        "vio-ego-flight-report.json": {
+          "sha256": "0d06946317e93feb2f81e367545ccd247b051f7f35ac935bef03ffa32f69935d",
+          "size_bytes": 1390667
+        }
+      }
+    },
+    {
+      "run_id": 178,
+      "original_evidence": "progress/evidence/p5-vio-truth-error-command-trace-20261019-178.json",
+      "original_evidence_sha256": "7813b31ecdd9b322f74c92cb66bc09270e217cd69c3be124dbe9abb7f6076158",
+      "goal_sent_wall_elapsed_s": 20.124493457000426,
+      "first_gate_wall_elapsed_s": 20.89321210900016,
+      "seconds_from_goal_dispatch_to_gate": 0.768718651999734,
+      "gate": {
+        "localization_status_stamp_ns": 36492000000,
+        "localization_status_source_stamp_ns": 36460000000,
+        "quality_telemetry_stamp_ns": 36399999999,
+        "quality_to_status_source_gap_s": -0.060000001,
+        "normalized_cost": 1.0876168883353434,
+        "reason": "normalized_cost_exceeded",
+        "aligned_position_error_m": 0.01573926756266657
+      },
+      "quality_gate_dynamics": {
+        "threshold": 1.0,
+        "crossing": {
+          "stamp_ns": 36399999999,
+          "normalized_cost": 1.0876168883353434,
+          "final_cost": 1072.899819683575,
+          "residual_components": 1814,
+          "visual_observations": 416,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "previous_sample": {
+          "stamp_ns": 36335999999,
+          "normalized_cost": 0.3594917601621818,
+          "final_cost": 112.69233194456719,
+          "residual_components": 1744,
+          "visual_observations": 396,
+          "termination_type": 1,
+          "iterations": 9
+        },
+        "change_from_previous": {
+          "normalized_cost": 0.7281251281731616,
+          "final_cost": 960.2074877390079,
+          "residual_components": 70,
+          "visual_observations": 20
+        },
+        "first_recovery_at_or_below_threshold": {
+          "stamp_ns": 36468000000,
+          "normalized_cost": 0.8000144009194027,
+          "final_cost": 584.9810600940858,
+          "residual_components": 1828,
+          "visual_observations": 420,
+          "termination_type": 1,
+          "iterations": 9,
+          "delay_s": 0.068000001
+        },
+        "followup_horizon_s": 2.0,
+        "followup_sample_count": 30,
+        "followup_samples_above_threshold": 7,
+        "peak_within_followup": {
+          "stamp_ns": 37851999999,
+          "normalized_cost": 1.146205607181911,
+          "final_cost": 1182.4085645417276,
+          "residual_components": 1800,
+          "visual_observations": 412,
+          "termination_type": 1,
+          "iterations": 9
+        }
+      },
+      "first_position_error_over_0_30m_after_gate": {
+        "stamp_ns": 40427999999,
+        "position_error_m": 0.30921026762666964,
+        "seconds_after_gate": 4.028
+      },
+      "flight_position_error_m": {
+        "count": 287,
+        "rmse": 0.136744785816054,
+        "median": 0.003898819909447572,
+        "p95": 0.3941849919974018,
+        "max": 0.4164859264114445
+      },
+      "flight_orientation_error_deg": {
+        "count": 287,
+        "rmse": 0.3815861178727628,
+        "median": 0.14606723214909095,
+        "p95": 0.8612119313867526,
+        "max": 0.9480123902986983
+      },
+      "result": "FAIL",
+      "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "landed_and_disarmed": true,
+      "truth_graph": {
+        "publisher_count": 1,
+        "subscriber_count": 1,
+        "subscriber_nodes": [
+          "raw_vins_readonly_probe"
+        ],
+        "px4_bridge_debug_truth_subscription": false
+      },
+      "raw_input_sha256": {
+        "vio-truth-capture/telemetry.json": {
+          "sha256": "d3fc055b89d4c0a0b9217cd5ed8571491bb3e70e6f264a0237669c9d313d9fb6",
+          "size_bytes": 573007
+        },
+        "vio-truth-capture/raw-odometry.json": {
+          "sha256": "d0ee7d5856671ffcfeddb54ae9ae691ce376afdb6e49e706b5c9928892b28a33",
+          "size_bytes": 7462333
+        },
+        "vio-truth-capture/truth-motion.json": {
+          "sha256": "1e399ae2b8ec7dcabb3b052eebe6a6cd124e35b8ca0096d83c5ccdcbea5dea23",
+          "size_bytes": 5755730
+        },
+        "vio-truth-capture/summary.json": {
+          "sha256": "879050182ce3eae7bd837b74113e99affd6de2c4ea5078a47e645c0d014ca1b1",
+          "size_bytes": 10569
+        },
+        "vio-ego-flight-report.json": {
+          "sha256": "63e9d5807b99dd1c56ce446e00351fc8005c2c2d2a999a43d2090c19cf457ac9",
+          "size_bytes": 1604293
+        }
+      }
+    }
+  ],
+  "source_sha256": {
+    "tools/evaluate_vio_quality_alignment.py": "7e859b134242a75ef76b58ccf4b72d82ace85789401a7dcdfd3e56e07ad515fb",
+    "tools/test_vio_quality_alignment.py": "fb2a5083ad75210bd39ac69dccba15d8cc213cb3ba1e9770bbd7f012da1fb452",
+    "src/own/uav_localization/uav_localization/health.py": "98e1cfa4e53825ba71f6929d2af007d69e2d7671155c9ed1b161db0e26932255",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/localization/vins_sim.json": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+    "src/vendor/vins_fusion/vins/src/estimator/estimator.cpp": "0ec4a67e48b2c0a4879ae0708c9e4d982a81e192fb8720eb353d8f9049e43e59",
+    "dependencies/patches/vins/0002-telemetry.patch": "60cf747645b6fabc5b48aa32fa35beb07c0ff59fb8aecf4851598f79c38ed3f8"
+  },
+  "container_image_id": null,
+  "verification": {
+    "commands": [
+      {
+        "command": "python3 tools/evaluate_vio_quality_alignment.py --capture <run>/vio-truth-capture --flight-report <run>/vio-ego-flight-report.json --output /tmp/p5-vio-quality-analysis-<run>.json",
+        "result": "PASS for runs #175, #176, #177, #178"
+      },
+      {
+        "command": "python3 tools/test_vio_quality_alignment.py",
+        "result": "3 tests PASS"
+      },
+      {
+        "command": "python3 -m py_compile tools/evaluate_vio_quality_alignment.py tools/test_vio_quality_alignment.py",
+        "result": "PASS"
+      },
+      {
+        "command": "python3 tools/project_status.py",
+        "result": "PASS; structural check only"
+      },
+      {
+        "command": "git diff --check",
+        "result": "PASS"
+      }
+    ]
+  },
+  "limits_and_next_step": [
+    "No max_normalized_cost adjustment was made. The 1.0 guard remains PROVISIONAL and fail-closed.",
+    "No camera frames or per-factor residual costs were recorded in #175-178; the current evidence cannot distinguish visual residuals, IMU factors, marginalization prior, or a true motion-model mismatch.",
+    "Next: add run-local factor-group cost telemetry (visual, IMU, marginalization prior), retain camera/feature timing, and compare a matched hover segment with a target-motion segment under the unchanged safety gate. Do not use truth as navigation or control input."
+  ]
+}

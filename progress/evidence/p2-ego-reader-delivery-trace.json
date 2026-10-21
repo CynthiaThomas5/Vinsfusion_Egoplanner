@@ -1,0 +1,262 @@
+{
+  "scope": "P2 diagnostic of the EGO camera-pose input delivery gap using ROS tracing; no production source or runtime parameters changed.",
+  "date": "2026-10-17",
+  "status": "POSE_PUBLISH_TO_EGO_TAKE_DELAY_CONFIRMED; HISTORY_100_NOT_A_FIX; ROOT_CAUSE_PENDING; 0.4_SIM_S_TIMEOUT_REMAINS_PROVISIONAL",
+  "configuration": {
+    "ego_pose_reader_history_depth": 100,
+    "configured_odom_depth_timeout_sim_s": 0.4,
+    "ground_height_m": -0.15,
+    "qualification": "Both are diagnostic settings; neither is frozen for acceptance."
+  },
+  "run_43_minimal_trace": {
+    "run_directory": "artifacts/runs/p2-ego-map-pose-history100-20261017-43",
+    "session_epoch": "8e49961d73c94a57ae733c1a8325a955",
+    "harness": "Same #37 runtime harness, domain, partition, and world; only run output directory and EGO install overlay changed.",
+    "trace_events": [
+      "rcl_node_init",
+      "rcl_publisher_init",
+      "rcl_subscription_init",
+      "rmw_publish",
+      "rmw_take"
+    ],
+    "probe_window_s": 60.026,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "paired_input_count": 553,
+    "paired_source_interval_s": {
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.363
+    },
+    "max_occupied_points": 1838,
+    "timeout_lines": {
+      "total": 37,
+      "inside_probe_window": 31,
+      "after_probe_window": 6,
+      "groups_inside_window": [
+        {
+          "pose_input_count": 90,
+          "last_pose_stamp_s": 10.165,
+          "now_s": [
+            10.726,
+            10.845
+          ],
+          "lines": 5
+        },
+        {
+          "pose_input_count": 337,
+          "last_pose_stamp_s": 26.236,
+          "now_s": [
+            26.752,
+            27.054
+          ],
+          "lines": 11
+        },
+        {
+          "pose_input_count": 612,
+          "last_pose_stamp_s": 44.056,
+          "now_s": [
+            44.569,
+            44.988
+          ],
+          "lines": 15
+        }
+      ]
+    },
+    "trace_delivery_counts": {
+      "mapping_adapter_publish_depth": 690,
+      "mapping_adapter_publish_pose": 690,
+      "ego_take_depth": 690,
+      "ego_take_pose": 690,
+      "probe_take_depth_in_window": 553,
+      "probe_take_pose_in_window": 553,
+      "pose_reader_history_depth_from_rcl_subscription_init": 100,
+      "trace_discarded_events": 0,
+      "full_trace_exact_source_timestamp_matches": {
+        "/drone_0_depth_image": 690,
+        "/drone_0_camera_pose": 690
+      },
+      "unmatched_publisher_samples": 0,
+      "unmatched_ego_takes": 0
+    },
+    "publish_to_ego_rmw_take_s": {
+      "/drone_0_camera_pose": {
+        "count": 553,
+        "p50": 0.000678,
+        "p95": 0.143372,
+        "max": 1.323832,
+        "over_0_4_s": 19
+      },
+      "/drone_0_depth_image": {
+        "count": 553,
+        "p50": 0.001181,
+        "p95": 0.013376,
+        "max": 0.024243,
+        "over_0_4_s": 0
+      }
+    },
+    "artifact_manifest": {
+      "path": "artifacts/runs/p2-ego-map-pose-history100-20261017-43/run-artifact-manifest.json",
+      "sha256": "7384947d8196ef879d5cdd9ef5e9f1426a1605ba8a0e21cbe0a93fcb12f5af6f"
+    }
+  },
+  "run_44_callback_trace": {
+    "run_directory": "artifacts/runs/p2-ego-map-pose-history100-callback-trace-20261017-44",
+    "session_epoch": "95411d6290e947b0ac10b839a51d3d2b",
+    "harness": "Same healthy-input harness and patch 0016 overlay; adds callback and executor tracepoints to the minimal publisher/take trace.",
+    "trace_events": [
+      "rcl_node_init",
+      "rcl_publisher_init",
+      "rcl_subscription_init",
+      "rmw_publish",
+      "rmw_take",
+      "callback_start",
+      "callback_end",
+      "rclcpp_executor_get_next_ready",
+      "rclcpp_executor_wait_for_work",
+      "rclcpp_executor_execute"
+    ],
+    "probe_window_s": 60.038,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "paired_input_count": 493,
+    "paired_source_interval_s": {
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.264
+    },
+    "max_occupied_points": 1811,
+    "timeout_lines": {
+      "total": 97,
+      "inside_probe_window": 90,
+      "after_probe_window": 7,
+      "groups_inside_window": [
+        {
+          "pose_input_count": 164,
+          "last_pose_stamp_s": 16.765,
+          "now_s": [
+            17.283,
+            18.5
+          ],
+          "lines": 41
+        },
+        {
+          "pose_input_count": 419,
+          "last_pose_stamp_s": 36.169,
+          "now_s": [
+            36.706,
+            36.706
+          ],
+          "lines": 1
+        },
+        {
+          "pose_input_count": 452,
+          "last_pose_stamp_s": 38.413,
+          "now_s": [
+            38.941,
+            40.36
+          ],
+          "lines": 48
+        }
+      ],
+      "post_window_group": {
+        "pose_input_count": 630,
+        "last_pose_stamp_s": 50.293,
+        "now_s": [
+          50.793,
+          50.958
+        ],
+        "lines": 7
+      }
+    },
+    "trace_delivery_counts": {
+      "mapping_adapter_publish_depth": 630,
+      "mapping_adapter_publish_pose": 630,
+      "ego_take_depth": 630,
+      "ego_take_pose": 630,
+      "trace_discarded_events": 0
+    },
+    "publish_to_ego_rmw_take_s": {
+      "/drone_0_camera_pose": {
+        "count": 630,
+        "p50": 0.000787,
+        "p95": 0.945829,
+        "max": 3.001072,
+        "over_0_4_s": 45
+      },
+      "/drone_0_depth_image": {
+        "count": 630,
+        "p50": 0.001259,
+        "p95": 0.013047,
+        "max": 0.024762,
+        "over_0_4_s": 0
+      }
+    },
+    "timeout_group_sample_delivery": [
+      {
+        "pose_input_count": 164,
+        "timeout_now_s": [
+          17.283,
+          18.5
+        ],
+        "pose_publications_during_group": 15,
+        "pose_takes_delayed_until_after_group": 15,
+        "pose_delivery_delay_max_s": 1.989629,
+        "pose_delays_over_0_4_s": 11
+      },
+      {
+        "pose_input_count": 419,
+        "timeout_now_s": [
+          36.706,
+          36.706
+        ],
+        "pose_publications_during_group": 3,
+        "pose_delivery_delay_max_s": 0.036464,
+        "interpretation": "This isolated timeout coincided with short input spacing; it did not show a long pose take delay."
+      },
+      {
+        "pose_input_count": 452,
+        "timeout_now_s": [
+          38.941,
+          40.36
+        ],
+        "pose_publications_during_group": 23,
+        "pose_takes_delayed_until_after_group": 23,
+        "pose_delivery_delay_max_s": 2.357682,
+        "pose_delays_over_0_4_s": 20
+      }
+    ],
+    "callback_and_executor_observations": {
+      "ego_callback_spans_observed": 60850,
+      "callback_duration_p95_s": 7.785e-06,
+      "callback_duration_max_s": 0.016664,
+      "executor_wait_to_ready_p95_s": 0.010106,
+      "executor_wait_to_ready_max_s": 0.090352,
+      "qualification": "The trace does not show a multi-hundred-millisecond callback or executor wait. It does not prove the pose subscription was ready but skipped by the executor, nor reveal the DDS reader's internal availability state."
+    },
+    "artifact_manifest": {
+      "path": "artifacts/runs/p2-ego-map-pose-history100-callback-trace-20261017-44/run-artifact-manifest.json",
+      "sha256": "29a989f857934fc46378786a3d3cb2642ac7beea459232fc46667cce8c380108"
+    }
+  },
+  "assessment": [
+    "In both traces, every mapping-adapter pose/depth RMW publication matched an eventual EGO RMW take by the same middleware source timestamp; this is evidence of delayed consumption rather than a permanent missing sample in these traces.",
+    "Pose publication-to-EGO-take delay was repeatedly much larger than depth delay. In #44, 15 and 23 pose messages were taken in a burst after the corresponding timeout groups, with maximum delays of 1.99 s and 2.36 s. The pose writer continued publishing during those groups.",
+    "The external probe's wall receipt intervals alone are not treated as publisher timing; #42 showed the probe callback itself can lag. #43/#44 use writer and EGO RMW events for the delivery comparison.",
+    "The evidence localizes the symptom to delayed pose consumption inside EGO's subscription path. It does not distinguish DDS reader availability/notification from executor ready-entity selection or another RMW behavior. No multithreaded change was attempted because EGO's input, map timer, and reset paths share unprotected GridMap state.",
+    "No PX4 control, arming, actuator, real flight, or scheduled depth-fault window was part of these runs. These are development diagnostics, not P2 acceptance."
+  ],
+  "limitations": [
+    "Runs #43 and #44 are single 60 s observations; timeout frequency and latency are not statistically qualified.",
+    "Callback tracing can perturb timing. #43 used only five tracepoint classes and reproduced >0.4 s pose take delays, but that does not quantify the perturbation in either run.",
+    "RMW tracepoints do not expose Fast DDS sample-rejected counters or prove when a received sample became executable by the ROS executor.",
+    "Patch 0016 remains optional diagnostic-only; the 0.4 s timeout and -0.15 m map lower bound remain PROVISIONAL.",
+    "A targeted kernel scheduler probe was attempted but unavailable: LTTng kernel tracing is not provided in the build container, and host perf tracepoint access is denied. Process run-queue state is therefore unmeasured."
+  ],
+  "scheduler_probe_capability": {
+    "container_lttng_kernel_trace": "unavailable: lttng list -k reports \"Kernel tracer not available\"",
+    "host_perf_tracepoint": "denied: perf sched:sched_switch cannot read /sys/kernel/tracing/events/sched/sched_switch",
+    "perf_event_paranoid": 4,
+    "consequence": "No kernel runnable/running-state evidence was collected; RMW/ROS executor traces do not resolve process scheduling versus DDS reader readiness."
+  }
+}

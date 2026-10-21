@@ -1,0 +1,570 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "status": "diagnostic_inconclusive",
+  "qualification": "P2 diagnostic evidence only; does not qualify EGO mapping, planner behavior, PX4, flight, or acceptance thresholds.",
+  "question": "Does reducing EGO use_sim_time /clock callback rate explain delayed EGO camera-pose rmw_take events?",
+  "measurement": "Align mapper rmw_publish and EGO rmw_take by message source timestamp; latency population is the probe-window camera-pose samples selected by source-timestamp sequence alignment. Depth is measured identically. Five UST ROS trace events were enabled; all analyzed runs report zero trace loss.",
+  "runs": [
+    {
+      "run_id": "p2-ego-map-pose-history100-clock-throttle-20261017-45",
+      "artifact_directory": "artifacts/runs/p2-ego-map-pose-history100-clock-throttle-20261017-45",
+      "run_manifest": "artifacts/runs/p2-ego-map-pose-history100-clock-throttle-20261017-45/run-manifest.json",
+      "run_manifest_sha256": "e7b0c1344cd13f8e2eaa280b11aca350b8f098bf04422bddc3fcb3bd6b91d1c9",
+      "run_manifest_file_count": 79,
+      "ros_domain_id": 186,
+      "gazebo_partition": "d435i_healthy_map_input_37",
+      "ego_clock_mode": "throttled_wall_rate_cap_100_hz",
+      "probe": {
+        "wall_seconds": 60.028,
+        "depth_input_count": 424,
+        "optimized_odom_count": 547,
+        "paired_output_stamp_count": 434,
+        "max_occupied_points": 1981
+      },
+      "pose_publish_to_ego_rmw_take_s": {
+        "matched_count": 434,
+        "p50": 0.00020145400776527822,
+        "p95": 0.0003691360034281388,
+        "max": 0.5302961540000979,
+        "over_0_1_s": 3,
+        "over_0_2_s": 3,
+        "over_0_4_s": 3
+      },
+      "depth_publish_to_ego_rmw_take_s": {
+        "matched_count": 434,
+        "p50": 0.0006146520026959479,
+        "p95": 0.01108943899453152,
+        "max": 0.023991098001715727,
+        "over_0_1_s": 0,
+        "over_0_2_s": 0,
+        "over_0_4_s": 0
+      },
+      "pose_max_mapper_publish_gap_s": 0.762721552993753,
+      "pose_full_stream_source_timestamp_match": {
+        "publish_count": 556,
+        "ego_take_count": 556,
+        "exact_source_timestamp_matches": 556,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "depth_full_stream_source_timestamp_match": {
+        "publish_count": 556,
+        "ego_take_count": 556,
+        "exact_source_timestamp_matches": 556,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "ego_clock_take_count": 4586,
+      "trace_loss": {
+        "interval_count": 0,
+        "events_lost": 0,
+        "intervals": []
+      },
+      "ego_timeout_log_line_count": 34,
+      "ego_timeout_groups_sim_s": [
+        {
+          "start": 8.782,
+          "end": 9.529,
+          "lines": 26
+        },
+        {
+          "start": 10.255,
+          "end": 10.255,
+          "lines": 1
+        },
+        {
+          "start": 43.452,
+          "end": 43.452,
+          "lines": 1
+        },
+        {
+          "start": 50.649,
+          "end": 50.782,
+          "lines": 6
+        }
+      ],
+      "mapping_probe_exit": 0
+    },
+    {
+      "run_id": "p2-ego-map-pose-history100-clock-throttle-20261017-46",
+      "artifact_directory": "artifacts/runs/p2-ego-map-pose-history100-clock-throttle-20261017-46",
+      "run_manifest": "artifacts/runs/p2-ego-map-pose-history100-clock-throttle-20261017-46/run-manifest.json",
+      "run_manifest_sha256": "92fb4206fca25bdbf88c7a4dcfd6445c92a65000b035aaa289f1bf4a7167d11a",
+      "run_manifest_file_count": 162,
+      "ros_domain_id": 186,
+      "gazebo_partition": "d435i_healthy_map_input_37",
+      "ego_clock_mode": "throttled_wall_rate_cap_100_hz",
+      "probe": {
+        "wall_seconds": 60.022,
+        "depth_input_count": 401,
+        "optimized_odom_count": 540,
+        "paired_output_stamp_count": 423,
+        "max_occupied_points": 1897
+      },
+      "pose_publish_to_ego_rmw_take_s": {
+        "matched_count": 423,
+        "p50": 0.00025745099992491305,
+        "p95": 0.0005242179904598743,
+        "max": 2.0622194799943827,
+        "over_0_1_s": 14,
+        "over_0_2_s": 14,
+        "over_0_4_s": 14
+      },
+      "depth_publish_to_ego_rmw_take_s": {
+        "matched_count": 423,
+        "p50": 0.0007910759886726737,
+        "p95": 0.010268144993460737,
+        "max": 0.012878549008746631,
+        "over_0_1_s": 0,
+        "over_0_2_s": 0,
+        "over_0_4_s": 0
+      },
+      "pose_max_mapper_publish_gap_s": 0.6626945860043634,
+      "pose_full_stream_source_timestamp_match": {
+        "publish_count": 559,
+        "ego_take_count": 559,
+        "exact_source_timestamp_matches": 559,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "depth_full_stream_source_timestamp_match": {
+        "publish_count": 559,
+        "ego_take_count": 559,
+        "exact_source_timestamp_matches": 559,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "ego_clock_take_count": 4445,
+      "trace_loss": {
+        "interval_count": 0,
+        "events_lost": 0,
+        "intervals": []
+      },
+      "ego_timeout_log_line_count": 32,
+      "ego_timeout_groups_sim_s": [
+        {
+          "start": 33.182,
+          "end": 33.961,
+          "lines": 27
+        },
+        {
+          "start": 52.585,
+          "end": 52.686,
+          "lines": 5
+        }
+      ],
+      "mapping_probe_exit": 0,
+      "clock_relay": {
+        "minimum_wall_period_s": 0.01,
+        "input_clock_messages": 44185,
+        "forwarded_clock_messages": 4646,
+        "wall_runtime_s": 90.55886515701422,
+        "forward_wall_interval_s": {
+          "count": 4645,
+          "p50": 0.010820810974109918,
+          "p95": 0.03508268197765574,
+          "max": 0.35862795999855734
+        },
+        "last_forwarded_sim_stamp": [
+          52,
+          716000000
+        ]
+      }
+    },
+    {
+      "run_id": "p2-ego-map-pose-history100-clock-control-20261017-47",
+      "artifact_directory": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-47",
+      "run_manifest": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-47/run-manifest.json",
+      "run_manifest_sha256": "e40c1af02f8a647fa4f6230551952ce83536f3ff0e0a9cce29d35246c277e34a",
+      "run_manifest_file_count": 78,
+      "ros_domain_id": 187,
+      "gazebo_partition": "d435i_healthy_map_control_47",
+      "ego_clock_mode": "unthrottled_source_clock",
+      "probe": {
+        "wall_seconds": 60.03,
+        "depth_input_count": 467,
+        "optimized_odom_count": 545,
+        "paired_output_stamp_count": 540,
+        "max_occupied_points": 2010
+      },
+      "pose_publish_to_ego_rmw_take_s": {
+        "matched_count": 540,
+        "p50": 0.00020326000230852515,
+        "p95": 0.0003649120044428855,
+        "max": 0.003640295995865017,
+        "over_0_1_s": 0,
+        "over_0_2_s": 0,
+        "over_0_4_s": 0
+      },
+      "depth_publish_to_ego_rmw_take_s": {
+        "matched_count": 540,
+        "p50": 0.0006489030056400225,
+        "p95": 0.010221951000858098,
+        "max": 0.04222097799356561,
+        "over_0_1_s": 0,
+        "over_0_2_s": 0,
+        "over_0_4_s": 0
+      },
+      "pose_max_mapper_publish_gap_s": 0.5501403840025887,
+      "pose_full_stream_source_timestamp_match": {
+        "publish_count": 698,
+        "ego_take_count": 698,
+        "exact_source_timestamp_matches": 698,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "depth_full_stream_source_timestamp_match": {
+        "publish_count": 698,
+        "ego_take_count": 698,
+        "exact_source_timestamp_matches": 698,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "ego_clock_take_count": 46803,
+      "trace_loss": {
+        "interval_count": 0,
+        "events_lost": 0,
+        "intervals": []
+      },
+      "ego_timeout_log_line_count": 28,
+      "ego_timeout_groups_sim_s": [
+        {
+          "start": 7.467,
+          "end": 8.059,
+          "lines": 21
+        },
+        {
+          "start": 50.121,
+          "end": 50.283,
+          "lines": 7
+        }
+      ],
+      "mapping_probe_exit": 0
+    },
+    {
+      "run_id": "p2-ego-map-pose-history100-clock-control-20261017-48",
+      "artifact_directory": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-48",
+      "run_manifest": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-48/run-manifest.json",
+      "run_manifest_sha256": "0a7cdf2a548eae7bd900a50ce1d3a176b44b4542fb86684f58c648d5f7840fe4",
+      "run_manifest_file_count": 78,
+      "ros_domain_id": 186,
+      "gazebo_partition": "d435i_healthy_map_input_37",
+      "ego_clock_mode": "unthrottled_source_clock",
+      "probe": {
+        "wall_seconds": 60.042,
+        "depth_input_count": 405,
+        "optimized_odom_count": 542,
+        "paired_output_stamp_count": 498,
+        "max_occupied_points": 1808
+      },
+      "pose_publish_to_ego_rmw_take_s": {
+        "matched_count": 498,
+        "p50": 0.0007639290124643594,
+        "p95": 0.3227282690058928,
+        "max": 1.5407878440018976,
+        "over_0_1_s": 30,
+        "over_0_2_s": 28,
+        "over_0_4_s": 23
+      },
+      "depth_publish_to_ego_rmw_take_s": {
+        "matched_count": 498,
+        "p50": 0.00133951599127613,
+        "p95": 0.015593210991937667,
+        "max": 0.02526239700091537,
+        "over_0_1_s": 0,
+        "over_0_2_s": 0,
+        "over_0_4_s": 0
+      },
+      "pose_max_mapper_publish_gap_s": 0.6607337269961135,
+      "pose_full_stream_source_timestamp_match": {
+        "publish_count": 676,
+        "ego_take_count": 676,
+        "exact_source_timestamp_matches": 676,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "depth_full_stream_source_timestamp_match": {
+        "publish_count": 676,
+        "ego_take_count": 676,
+        "exact_source_timestamp_matches": 676,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "ego_clock_take_count": 44874,
+      "trace_loss": {
+        "interval_count": 0,
+        "events_lost": 0,
+        "intervals": []
+      },
+      "ego_timeout_log_line_count": 35,
+      "ego_timeout_groups_sim_s": [
+        {
+          "start": 12.297,
+          "end": 12.638,
+          "lines": 12
+        },
+        {
+          "start": 38.952,
+          "end": 39.487,
+          "lines": 19
+        },
+        {
+          "start": 46.627,
+          "end": 46.659,
+          "lines": 2
+        },
+        {
+          "start": 49.93,
+          "end": 49.963,
+          "lines": 2
+        }
+      ],
+      "mapping_probe_exit": 0
+    },
+    {
+      "run_id": "p2-ego-map-pose-history100-clock-control-20261017-49",
+      "artifact_directory": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-49",
+      "run_manifest": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-49/run-manifest.json",
+      "run_manifest_sha256": "a3fea4bc63f61fcd1e495595f381e1dc4388ff0930fbdfeb0c108661c83e39e7",
+      "run_manifest_file_count": 81,
+      "ros_domain_id": 186,
+      "gazebo_partition": "d435i_healthy_map_control_49",
+      "ego_clock_mode": "unthrottled_source_clock",
+      "probe": {
+        "wall_seconds": 60.028,
+        "depth_input_count": 435,
+        "optimized_odom_count": 541,
+        "paired_output_stamp_count": 536,
+        "max_occupied_points": 1699
+      },
+      "pose_publish_to_ego_rmw_take_s": {
+        "matched_count": 536,
+        "p50": 0.0007556049968115985,
+        "p95": 0.2289074489963241,
+        "max": 1.958379973002593,
+        "over_0_1_s": 32,
+        "over_0_2_s": 29,
+        "over_0_4_s": 25
+      },
+      "depth_publish_to_ego_rmw_take_s": {
+        "matched_count": 536,
+        "p50": 0.0012944030022481456,
+        "p95": 0.0135151290014619,
+        "max": 0.023457850009435788,
+        "over_0_1_s": 0,
+        "over_0_2_s": 0,
+        "over_0_4_s": 0
+      },
+      "pose_max_mapper_publish_gap_s": 0.6570849779964192,
+      "pose_full_stream_source_timestamp_match": {
+        "publish_count": 705,
+        "ego_take_count": 705,
+        "exact_source_timestamp_matches": 705,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "depth_full_stream_source_timestamp_match": {
+        "publish_count": 705,
+        "ego_take_count": 705,
+        "exact_source_timestamp_matches": 705,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "ego_clock_take_count": 46999,
+      "trace_loss": {
+        "interval_count": 0,
+        "events_lost": 0,
+        "intervals": []
+      },
+      "ego_timeout_log_line_count": 58,
+      "ego_timeout_groups_sim_s": [
+        {
+          "start": 13.696,
+          "end": 14.356,
+          "lines": 23
+        },
+        {
+          "start": 20.687,
+          "end": 21.554,
+          "lines": 30
+        },
+        {
+          "start": 49.93,
+          "end": 50.062,
+          "lines": 5
+        }
+      ],
+      "mapping_probe_exit": 0,
+      "runtime_node_list": [
+        "/d435i_bridge",
+        "/depth_health_monitor",
+        "/drone_0_ego_planner_node",
+        "/localization_adapter",
+        "/mapping_input_adapter",
+        "/robot_state_publisher",
+        "/vins_raw/s_31a0313e82c64d44970548e34fb94af8/vins_estimator"
+      ]
+    },
+    {
+      "run_id": "p2-ego-map-pose-history100-udp-control-20261017-50",
+      "artifact_directory": "artifacts/runs/p2-ego-map-pose-history100-udp-control-20261017-50",
+      "run_manifest": "artifacts/runs/p2-ego-map-pose-history100-udp-control-20261017-50/run-manifest.json",
+      "run_manifest_sha256": "784058a732dc37fc405f34365a03b321e682cc522f1c2631f92a8a3cbb2af603",
+      "run_manifest_file_count": 81,
+      "ros_domain_id": 186,
+      "gazebo_partition": "d435i_healthy_map_udp_50",
+      "ego_clock_mode": "unthrottled_source_clock",
+      "fastdds_builtin_transports": "UDPv4",
+      "probe": {
+        "wall_seconds": 60.025,
+        "depth_input_count": 300,
+        "optimized_odom_count": 408,
+        "paired_output_stamp_count": 241,
+        "max_occupied_points": 1519
+      },
+      "pose_publish_to_ego_rmw_take_s": {
+        "matched_count": 241,
+        "p50": 0.00020378500630613416,
+        "p95": 1.9248656779964222,
+        "max": 2.820099479999044,
+        "over_0_1_s": 49,
+        "over_0_2_s": 48,
+        "over_0_4_s": 44
+      },
+      "depth_publish_to_ego_rmw_take_s": {
+        "matched_count": 241,
+        "p50": 0.0010534339962759987,
+        "p95": 0.010920932996668853,
+        "max": 0.02299936300551053,
+        "over_0_1_s": 0,
+        "over_0_2_s": 0,
+        "over_0_4_s": 0
+      },
+      "pose_max_mapper_publish_gap_s": 1.0443165759934345,
+      "pose_full_stream_source_timestamp_match": {
+        "publish_count": 284,
+        "ego_take_count": 284,
+        "exact_source_timestamp_matches": 284,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "depth_full_stream_source_timestamp_match": {
+        "publish_count": 284,
+        "ego_take_count": 284,
+        "exact_source_timestamp_matches": 284,
+        "publisher_without_matching_take": 0,
+        "take_without_matching_publisher": 0
+      },
+      "ego_clock_take_count": 48413,
+      "trace_loss": {
+        "interval_count": 0,
+        "events_lost": 0,
+        "intervals": []
+      },
+      "ego_timeout_log_line_count": 241,
+      "ego_timeout_groups_sim_s": [
+        {
+          "start": 7.624,
+          "end": 7.789,
+          "lines": 6
+        },
+        {
+          "start": 8.226,
+          "end": 9.649,
+          "lines": 46
+        },
+        {
+          "start": 10.768,
+          "end": 11.551,
+          "lines": 26
+        },
+        {
+          "start": 12.904,
+          "end": 13.438,
+          "lines": 18
+        },
+        {
+          "start": 13.878,
+          "end": 15.313,
+          "lines": 47
+        },
+        {
+          "start": 15.903,
+          "end": 15.963,
+          "lines": 3
+        },
+        {
+          "start": 22.375,
+          "end": 22.441,
+          "lines": 3
+        },
+        {
+          "start": 27.259,
+          "end": 28.348,
+          "lines": 36
+        },
+        {
+          "start": 39.172,
+          "end": 39.378,
+          "lines": 8
+        },
+        {
+          "start": 39.805,
+          "end": 41.261,
+          "lines": 48
+        }
+      ],
+      "mapping_probe_exit": 0,
+      "middleware_env_file": "artifacts/runs/p2-ego-map-pose-history100-udp-control-20261017-50/middleware-env.txt"
+    }
+  ],
+  "runtime_graph_check_run_49": {
+    "node_list_file": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-49/node-list.txt",
+    "clock_topic_info_file": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-49/runtime-clock-topic-info.txt",
+    "camera_pose_topic_info_file": "artifacts/runs/p2-ego-map-pose-history100-clock-control-20261017-49/pose-topic-info.txt",
+    "observed": "Only the expected application nodes were listed. /clock had one publisher (d435i_bridge); camera_pose had one publisher (mapping_input_adapter) and one subscription (EGO)."
+  },
+  "interpretation": [
+    "Throttling EGO clock to a wall-limited relay did not remove pose-take stalls: #46 had 14/423 probe-window pose samples over 0.1 s, with a 2.062 s maximum; #45 had 3/434 over 0.1 s, with a 0.530 s maximum. Their typical latency remained below 1 ms.",
+    "The unthrottled run in ROS domain 187 (#47) had no pose delay above 0.1 s (maximum 3.64 ms). Two unthrottled runs in ROS domain 186 (#48/#49) reproduced long, batched pose takes, with 30/498 and 32/536 samples over 0.1 s and maxima 1.541/1.958 s. #49 used a new Gazebo partition, so the association is with domain 186 or another correlated run-environment difference, not specifically the old Gazebo partition.",
+    "This is not a controlled proof that ROS_DOMAIN_ID itself causes the issue: the runs are sequential, and domain, partition, startup timing, and machine load can interact. The clock-rate hypothesis is not established as root cause.",
+    "The analyzer matched every mapper pose/depth publication to one EGO RMW take in the full trace for all five runs. This points to delayed take timing rather than permanent message loss. The depths were much less delayed than poses.",
+    "UDP-only run #50 on domain186 worsened the result: 49/241 pose samples exceeded 0.1 s (P95 1.925 s, max 2.820 s), and mapper pose publish gaps reached 1.044 s. Every published source timestamp still reached EGO take and trace loss was zero. The paired count dropped to 241, so this transport change also degraded source cadence; it does not isolate stale SHM state and is not a project configuration candidate."
+  ],
+  "limitations": [
+    "Single 60 s probe windows per run; tracing and simulation load may perturb timing.",
+    "No kernel scheduler trace was available, and no in-process DDS reader readiness or executor-ready-entity state was captured.",
+    "EGO clock throttle was diagnostic-only, run-local, BEST_EFFORT KeepLast(1); it was not added to project source or runtime configuration.",
+    "Timeout counts are log lines grouped by gaps in the simulation-time `now` field; they are not a formal mapping acceptance metric.",
+    "Persistent Fast DDS shared-memory files and ROS CLI daemons were observed in the container. Their causal role has not been tested; no shared-memory files or daemons were removed.",
+    "Run #50 changed the Fast DDS builtin transport for the whole run. Its much slower mapper publication and lower pair count make its latency comparison confounded by transport load, especially for large image samples.",
+    "A follow-up attempt to isolate only the ROS CLI daemon with run-local ROS_HOME was invalid: the existing domain186 daemon remained in use and the localization adapter locked imu_stale. It is retained as an excluded run, not latency evidence."
+  ],
+  "next": [
+    "Repeat the domain comparison with a fresh isolated middleware state, while preserving identical source revisions, startup order, domain/partition matrix, and trace events.",
+    "The run-local ROS_HOME attempt did not isolate the existing domain186 ROS CLI daemon and had no valid localization/mapping samples. Use a verified daemon-isolation method or a separate container, and require TRACKING plus nonzero paired EGO samples before analyzing latency.",
+    "If transport comparison is repeated, use a small synthetic pose/depth workload or otherwise hold mapper source cadence constant; do not adopt UDPv4-only from this run.",
+    "Capture Fast DDS reader availability/notification and executor ready-entity selection or reproduce with an isolated DDS transport configuration.",
+    "Do not change EGO threading or promote the 0.4 s timeout / ground_height values; P2 remains in progress."
+  ],
+  "transport_configuration_source": {
+    "title": "Fast DDS 2.14.6 environment variables",
+    "url": "https://fast-dds.docs.eprosima.com/en/v2.14.6/fastdds/env_vars/env_vars.html",
+    "local_package_version": "ros-jazzy-fastrtps 2.14.6-1noble.20260303.233638",
+    "supported_setting": "FASTDDS_BUILTIN_TRANSPORTS=UDPv4 selects UDPv4 only when builtin transports are enabled; the documented DEFAULT mode enables UDPv4 plus SHM and prioritizes SHM."
+  },
+  "excluded_attempts": [
+    {
+      "run_id": "p2-ego-map-pose-history100-cli-isolation-20261017-51",
+      "artifact_directory": "artifacts/runs/p2-ego-map-pose-history100-cli-isolation-20261017-51",
+      "run_manifest": "artifacts/runs/p2-ego-map-pose-history100-cli-isolation-20261017-51/run-manifest.json",
+      "run_manifest_sha256": "06b30e220a2f7f704cd133f69601e654e2adb4fc82781676014cdab8f9526e89",
+      "run_manifest_file_count": 95,
+      "ros_domain_id": 186,
+      "attempted_isolation": "ROS_HOME redirected to run-local directory",
+      "outcome": "Excluded: ROS 2 CLI reported an existing daemon was already running; localization state locked imu_stale; mapping probe exit 1 with zero optimized odometry and zero paired EGO outputs; no valid delivery latency summary. The domain 186 CLI daemon was restarted afterward.",
+      "raw_vins_probe_observation": "initialized VINS output existed in the standalone probe, but localization adapter output remained locked; this does not validate the EGO mapping input chain."
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "scope": "Targeted Jazzy overlays for EGO timeout callback diagnostics, configurable map lower boundary, and steady-clock callback/timer diagnostics. This evidence covers source buildability only; it does not establish map quality, planner safety, or flight readiness.",
+  "date": "2026-10-17",
+  "status": "PATCH0016_BUILD_PASS; RUN40_HISTORY100_GAP_PERSISTS; ROOT_CAUSE_PENDING",
+  "source": {
+    "upstream": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm",
+    "revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch_order": "Canonical patches 0001 through 0013; patch 0014 is a separate QoS experiment based on 0013; patch 0015 is an alternative to 0014 based on post-0013 source and must not be applied after 0014.",
+    "patches": {
+      "0010": {
+        "path": "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch",
+        "sha256": "d07022de2c81acd45788e38a84fc570356c4d94b9ecf956f4f52d902df726134",
+        "pre_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "6f757c672d78b0f548b11f9c92a47b1484cedf6f9af98401477b73c9ae751281",
+          "planner/plan_env/src/grid_map.cpp": "42c858f1e0562f32163c9d85ea2a15966607174021538a39ca61ed4190d7319e"
+        },
+        "post_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "54adddebf62089271255be8670abfdca8380ca63221e66f9e7143eda62c80e39",
+          "planner/plan_env/src/grid_map.cpp": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c"
+        }
+      },
+      "0011": {
+        "path": "dependencies/patches/ego/0011-configurable-map-ground-height.patch",
+        "sha256": "1d151ecc1e8ae352d6f67515d2c2db76ede8fbe0c5937ec61f0d894a0dabfd81",
+        "pre_patch_hash": "fc2c66b753b01ead351963aee9a3ac4dac5a1e6ebbe5367ea386d678d056b2bc",
+        "post_patch_hash": "5037d007b525325b36e9764617ca572f9130530c3902279b85c8bd409c99c438"
+      },
+      "validation": "Both patches replayed against their recorded post-0009/post-0010 baselines and reproduced the current vendor files byte-for-byte, including CRLF line endings in advanced_param.launch.py.",
+      "0012": {
+        "path": "dependencies/patches/ego/0012-grid-map-scheduling-diagnostics.patch",
+        "sha256": "2c9ea857cbbb1cd3bd4b2b8a678a3bf59e60bfac4bf9f8db7d24eab0c800b833",
+        "pre_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "54adddebf62089271255be8670abfdca8380ca63221e66f9e7143eda62c80e39",
+          "planner/plan_env/src/grid_map.cpp": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c"
+        },
+        "post_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "7f5ce3bba8ef5dbf4eb127a92055a227aa470228727a314a156e2c81f45a8df5",
+          "planner/plan_env/src/grid_map.cpp": "99f759f7cfcb5874558ede1d2c15bb3c5c279b92a03080c07473cc7994a80845"
+        },
+        "behavior": "Adds steady_clock measurements for synchronized depth/pose callback wall duration and age, occupancy timer start-to-start wall gap, and the latest occupancy fusion wall duration to timeout diagnostics. It does not change mapping or timeout behavior."
+      },
+      "0013": {
+        "path": "dependencies/patches/ego/0013-grid-map-sync-input-diagnostics.patch",
+        "sha256": "cb049c85b196cf30a022936455b8ba25410ac2b8b1575ab4e5630b348a93c5d0",
+        "pre_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "7f5ce3bba8ef5dbf4eb127a92055a227aa470228727a314a156e2c81f45a8df5",
+          "planner/plan_env/src/grid_map.cpp": "99f759f7cfcb5874558ede1d2c15bb3c5c279b92a03080c07473cc7994a80845"
+        },
+        "post_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "c20ef4e8387e85763bf3019575d05465e8d677461572cfc175b3bcd7d4cdee84",
+          "planner/plan_env/src/grid_map.cpp": "fc2e8a8dafbfcf43ca414be11f626a3f4ea035e8d0cd7ab4c56c4a7cd7c8a666"
+        },
+        "behavior": "Adds read-only depth and pose receipt counters/stamps via matching diagnostic subscriptions and includes them in timeout diagnostics. It does not change mapping or timeout policy; duplicate image subscription may add diagnostic runtime load."
+      },
+      "0014": {
+        "path": "dependencies/patches/ego/0014-pose-reader-history-diagnostic.patch",
+        "sha256": "db140ba6a6c64da335d382a4aad9044049d178395895ee0664740154bbe90b37",
+        "pre_patch_hashes": {
+          "planner/plan_env/src/grid_map.cpp": "fc2e8a8dafbfcf43ca414be11f626a3f4ea035e8d0cd7ab4c56c4a7cd7c8a666"
+        },
+        "post_patch_hashes": {
+          "planner/plan_env/src/grid_map.cpp": "3a0e7df87a008ee8b38beed3c774978b7b76fda529b98a008b5ac1d6c2fba84d"
+        },
+        "behavior": "Diagnostic experiment increasing EGO and diagnostic PoseStamped subscriber history depth from 25 to 100; it does not change the synchronization policy."
+      },
+      "0015": {
+        "path": "dependencies/patches/ego/0015-filter-receipt-and-message-lost-diagnostics.patch",
+        "sha256": "43c82f406729fe9aa2e69ec2c353e702f2b7d4642d123838ed3d7717d0491dd1",
+        "pre_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "c20ef4e8387e85763bf3019575d05465e8d677461572cfc175b3bcd7d4cdee84",
+          "planner/plan_env/src/grid_map.cpp": "fc2e8a8dafbfcf43ca414be11f626a3f4ea035e8d0cd7ab4c56c4a7cd7c8a666"
+        },
+        "post_patch_hashes": {
+          "planner/plan_env/include/plan_env/grid_map.h": "9715ca9b7e8d5ec92552dd778fec532101fec158cee2acd2e308002bcd9f15eb",
+          "planner/plan_env/src/grid_map.cpp": "116dec03a262bacecf94520a4ec8fd6e3681a7abaf69c579085b9c256ce65543"
+        },
+        "behavior": "Replaces the duplicate diagnostic depth/pose subscriptions from patch 0013 with per-message callbacks registered on the existing message_filters subscribers, and counts RMW message-lost events on those same subscriptions. It does not change map or timeout policy."
+      }
+    }
+  },
+  "builds": [
+    {
+      "run_directory": "artifacts/runs/p2-ego-map-timeout-diagnostic-build-20261017-02",
+      "container": "d435i-vins-build",
+      "ros_distro": "Jazzy",
+      "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-map-timeout-build-20261017-01/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-map-timeout-diagnostic-build-20261017-02/log build --base-paths src/vendor/ego_planner --packages-up-to ego_planner --build-base artifacts/runs/p2-ego-map-timeout-diagnostic-build-20261017-02/build --install-base artifacts/runs/p2-ego-map-timeout-diagnostic-build-20261017-02/install --event-handlers console_direct+",
+      "exit_code": 0,
+      "packages_finished": [
+        "plan_env",
+        "traj_utils",
+        "bspline_opt",
+        "path_searching",
+        "ego_planner"
+      ],
+      "packages_finished_count": 5,
+      "build_wall_seconds": 134,
+      "event_log": "artifacts/runs/p2-ego-map-timeout-diagnostic-build-20261017-02/log/build_2026-10-16_17-41-47/events.log",
+      "event_log_sha256": "2800b33dcfef3ff68bdf1f1c0051f52f5483e091e6024986e33eb44bce87a352",
+      "installed_artifacts": {
+        "plan_env/lib/libplan_env.so": "d558ddced41f25dc0a047372cacb5ef019b0e6c74b46e6ddb469b0dc3ded9842",
+        "ego_planner/lib/ego_planner/ego_planner_node": "efb18400be1fd210dd9a9b312ab9afe4a9e205d53ade3b120aff405b95f7b20c"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-map-ground-height-build-20261017-03",
+      "container": "d435i-vins-build",
+      "ros_distro": "Jazzy",
+      "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-map-timeout-diagnostic-build-20261017-02/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-map-ground-height-build-20261017-03/log build --base-paths src/vendor/ego_planner --packages-select ego_planner --build-base artifacts/runs/p2-ego-map-ground-height-build-20261017-03/build --install-base artifacts/runs/p2-ego-map-ground-height-build-20261017-03/install --event-handlers console_direct+",
+      "exit_code": 0,
+      "packages_finished": [
+        "ego_planner"
+      ],
+      "packages_finished_count": 1,
+      "build_wall_seconds": 43.3,
+      "dependency_overlay": "The plan_env and other EGO dependencies are provided by the preceding isolated diagnostic overlay ending in -02.",
+      "event_log": "artifacts/runs/p2-ego-map-ground-height-build-20261017-03/log/build_2026-10-16_17-50-29/events.log",
+      "event_log_sha256": "dd24120e39ec148ac31ad3459ac65e4280d0c7b6e40d08acc037365fc40f18f0",
+      "installed_artifacts": {
+        "ego_planner/launch/advanced_param.launch.py": "5037d007b525325b36e9764617ca572f9130530c3902279b85c8bd409c99c438",
+        "ego_planner/lib/ego_planner/ego_planner_node": "225a14a962b35ed3a049924b4ed1c1772f0db58b7f6a53f9bf3390e871546cd7"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-timeout-scheduling-diagnostic-build-20261017-04",
+      "container": "d435i-vins-build",
+      "ros_distro": "Jazzy",
+      "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-map-ground-height-build-20261017-03/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-timeout-scheduling-diagnostic-build-20261017-04/log build --base-paths artifacts/runs/p2-ego-timeout-scheduling-diagnostic-build-20261017-04/source/ego_planner --packages-up-to ego_planner --build-base artifacts/runs/p2-ego-timeout-scheduling-diagnostic-build-20261017-04/build --install-base artifacts/runs/p2-ego-timeout-scheduling-diagnostic-build-20261017-04/install --event-handlers console_direct+",
+      "exit_code": 0,
+      "packages_finished": [
+        "plan_env",
+        "traj_utils",
+        "bspline_opt",
+        "path_searching",
+        "ego_planner"
+      ],
+      "packages_finished_count": 5,
+      "build_wall_seconds": 134.93,
+      "event_log": "artifacts/runs/p2-ego-timeout-scheduling-diagnostic-build-20261017-04/log/build_2026-10-16_18-15-33/events.log",
+      "event_log_sha256": "31062e0fad8f32a92b7cc6c8a1cf6b29e2367a2961816eb1457a9ec781a7d50f",
+      "installed_artifacts": {
+        "plan_env/lib/libplan_env.so": "682d57db22b7dea32330076be84105fa0e260f315cd771af49e479abfb7c5c08",
+        "ego_planner/lib/ego_planner/ego_planner_node": "ffd741a3e05bd6e4d1afbd74856cb7732b9c64c7b33a8fab0baf3fc18e1297b6"
+      },
+      "source_copy": "The current vendor source was copied to the run directory, patch 0012 replayed there, and the isolated copy was built. No vendor source file in the project tree was modified."
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05",
+      "container": "d435i-vins-build",
+      "ros_distro": "Jazzy",
+      "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-timeout-scheduling-diagnostic-build-20261017-04/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/log build --base-paths artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/source/ego_planner --packages-up-to ego_planner --build-base artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/build --install-base artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/install --event-handlers console_direct+",
+      "exit_code": 0,
+      "packages_finished": [
+        "plan_env",
+        "traj_utils",
+        "bspline_opt",
+        "path_searching",
+        "ego_planner"
+      ],
+      "packages_finished_count": 5,
+      "build_wall_seconds": 137,
+      "event_log": "artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/log/build_2026-10-16_18-35-40/events.log",
+      "event_log_sha256": "1d15e579d00d9b0daa54be8bf35c3af651771a411809fb2201dfb530f571459c",
+      "installed_artifacts": {
+        "plan_env/lib/libplan_env.so": "4675469695302e2afdd3c27be06f942a0cae422021f94bf6e8cf6bdde68f36fe",
+        "ego_planner/lib/ego_planner/ego_planner_node": "c2a815acdcb0adf50a4e119525042309373b6ce515b79d702abfc7bdf280e557"
+      },
+      "source_copy": "Patch 0013 replayed on the post-0012 source copy and byte-compared. The Jazzy build used an isolated copy under artifacts; vendor source was not changed."
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-timeout-pose-qos-diagnostic-build-20261017-06",
+      "container": "d435i-vins-build",
+      "ros_distro": "Jazzy",
+      "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-timeout-pose-qos-diagnostic-build-20261017-06/log build --base-paths artifacts/runs/p2-ego-timeout-pose-qos-diagnostic-build-20261017-06/source/ego_planner --packages-up-to ego_planner --build-base artifacts/runs/p2-ego-timeout-pose-qos-diagnostic-build-20261017-06/build --install-base artifacts/runs/p2-ego-timeout-pose-qos-diagnostic-build-20261017-06/install --event-handlers console_direct+",
+      "exit_code": 0,
+      "packages_finished": [
+        "plan_env",
+        "traj_utils",
+        "bspline_opt",
+        "path_searching",
+        "ego_planner"
+      ],
+      "packages_finished_count": 5,
+      "build_wall_seconds": 138,
+      "event_log": "artifacts/runs/p2-ego-timeout-pose-qos-diagnostic-build-20261017-06/log/build_2026-10-16_18-45-33/events.log",
+      "event_log_sha256": "e31107b0284879d5ec3c925d8dcdc74b79eb9139daf6578b78d08d5159dbcad9",
+      "installed_artifacts": {
+        "plan_env/lib/libplan_env.so": "96091a016dc8971bd651b19ab874d59e7e2054647ad0df209052d184f535dd77",
+        "ego_planner/lib/ego_planner/ego_planner_node": "4d15c9e3d906ba39ba7529f45b5355c63aa9d73110be3ef48ec0bd885d1dee1f"
+      },
+      "source_copy": "Patch 0014 replayed byte-for-byte on the post-0013 copy and built in an isolated source/install tree. Project vendor source was not modified."
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07",
+      "container": "d435i-vins-build",
+      "ros_distro": "Jazzy",
+      "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07/log build --base-paths artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07/source/ego_planner --packages-up-to ego_planner --build-base artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07/build --install-base artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07/install --event-handlers console_direct+",
+      "exit_code": 0,
+      "packages_finished": [
+        "plan_env",
+        "traj_utils",
+        "bspline_opt",
+        "path_searching",
+        "ego_planner"
+      ],
+      "packages_finished_count": 5,
+      "build_wall_seconds": 137,
+      "event_log": "artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07/log/build_2026-10-16_18-56-01/events.log",
+      "event_log_sha256": "7492e9c221542facb6ee3c57291b7276e0b614570c4e424cc0f6af9405537e25",
+      "installed_artifacts": {
+        "plan_env/lib/libplan_env.so": "e60b22aff6cbb861d1c74f9de7ceb858fd12a9fb253a07636e12246ff02f1259",
+        "ego_planner/lib/ego_planner/ego_planner_node": "e2cd2e34466d957a427056837c194aa95c9ab1f62f9a51554ff594e3da050c78"
+      },
+      "source_copy": "Patch 0015 was applied to the post-0013 copy, byte-compared after replay, and built in an isolated source/install tree. It does not apply the patch 0014 QoS experiment. Project vendor source was not modified."
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-timeout-filter-history100-diagnostic-build-20261017-08",
+      "container": "d435i-vins-build",
+      "ros_distro": "Jazzy",
+      "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-timeout-receive-diagnostic-build-20261017-05/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-timeout-filter-history100-diagnostic-build-20261017-08/log build --base-paths artifacts/runs/p2-ego-timeout-filter-history100-diagnostic-build-20261017-08/source/ego_planner --packages-up-to ego_planner --build-base artifacts/runs/p2-ego-timeout-filter-history100-diagnostic-build-20261017-08/build --install-base artifacts/runs/p2-ego-timeout-filter-history100-diagnostic-build-20261017-08/install --event-handlers console_direct+",
+      "exit_code": 0,
+      "packages_finished": [
+        "plan_env",
+        "traj_utils",
+        "bspline_opt",
+        "path_searching",
+        "ego_planner"
+      ],
+      "packages_finished_count": 5,
+      "build_wall_seconds": 137,
+      "event_log": "artifacts/runs/p2-ego-timeout-filter-history100-diagnostic-build-20261017-08/log/build_2026-10-16_19-25-45/events.log",
+      "event_log_sha256": "ab15e9a339aa3682bb0cbe095a5d2f4ca8687aa00c47296bbd3a2bb3811ef216",
+      "installed_artifacts": {
+        "plan_env/lib/libplan_env.so": "67ee0c27022a966966655feb46ed26c921dfc0942147f2ab48351fef63ef5eff",
+        "ego_planner/lib/ego_planner/ego_planner_node": "93c5c265f3bde4d0dd98d0b615caf5e8d8ef5148e09480e8a65da2d2287fee84"
+      },
+      "diagnostic_patch": {
+        "file": "dependencies/patches/ego/0016-pose-history100-filter-diagnostic.patch",
+        "sha256": "f42193488d33320e25e78a0ee29d518c1b088e570cc5b5f633d7ace6ca504562",
+        "base": "post-0015 source from isolated build #07; do not apply after 0014",
+        "pre_source_sha256": "116dec03a262bacecf94520a4ec8fd6e3681a7abaf69c579085b9c256ce65543",
+        "post_source_sha256": "03adc3367a1fc13464343bae0703df7133220e982bed7fc1adedba856e617916",
+        "unchanged_grid_map_header_sha256": "9715ca9b7e8d5ec92552dd778fec532101fec158cee2acd2e308002bcd9f15eb",
+        "patch_replay_byte_comparison": "passed"
+      },
+      "source_copy": "Patch 0016 changes only EGO pose_sub_ reader history from 25 to 100 on the post-0015 diagnostic branch. It was replayed against the post-0015 source and byte-compared; the isolated source/install tree is under artifacts. Project vendor source was not modified."
+    }
+  ],
+  "launch_argument_check": {
+    "command": "source /opt/ros/jazzy/setup.bash && source the base and both EGO overlays && ros2 launch ego_planner advanced_param.launch.py --show-args",
+    "result": "ground_height is listed with description 'Lower map boundary in odometry-frame meters'."
+  },
+  "qualification": "Build evidence only. Patch 0013 duplicates subscriptions and may add load; patch 0014 is a QoS experiment; patch 0015 avoids duplicate subscriptions and observes the existing filters. No target, controller, PX4 bridge, or actuator was present.",
+  "validation": "Patches 0010–0015 have recorded source baselines/builds; patches 0013 and 0015 are alternate receipt diagnostic forms, and 0014 is an optional QoS experiment only. Run 34 lost localization health before EGO inputs; run 35 failed its launch precondition because copied helper files were missing; run 36 had a reset-service response timeout; run 37 produced a valid 60.026 s mapping window and recorded zero RMW message-lost callbacks during the EGO pose-filter receipt gap. All remain diagnostic evidence only; no target, controller, PX4 bridge, or actuator was present. Patch 0016 applies after 0015 only and builds 5/5 packages in #08; #40 shows this diagnostic history change does not eliminate EGO pose-filter receipt gaps. Runtime is recorded in p2-ego-input-interval-diagnostic.json."
+}

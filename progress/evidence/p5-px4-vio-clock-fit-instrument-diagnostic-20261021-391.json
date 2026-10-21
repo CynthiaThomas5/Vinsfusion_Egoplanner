@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-21",
+  "run_id": "p5-vio-px4-clock-fit-instrument-20261021-391",
+  "run_manifest": "artifacts/runs/p5-vio-px4-clock-fit-instrument-20261021-391/run-manifest.json",
+  "run_manifest_sha256": "4bd865fc10aa420578d5df0953427dd8fae5fb9a1cd3cc41665e7b63ea9e8f1f",
+  "qualification": "diagnostic-only; no P5 stage exit and no final GOAL A–H acceptance",
+  "verification": {
+    "run_local_synthetic_instrumentation_check": "PASS",
+    "run_local_shell_syntax": "PASS",
+    "attempt_03_colcon_build": {
+      "result": "PASS",
+      "packages": 6
+    },
+    "attempt_03_vio_px4_harness": "PASS",
+    "no_truth_ros_graph_check": "PASS",
+    "single_control_publisher_check": "PASS"
+  },
+  "attempts": [
+    {
+      "attempt": "01",
+      "status": "failed_before_sim_launch",
+      "exit_code": 1,
+      "cause": "run-local copied uav_sim/setup.py could not resolve ../../../simulation/models/x500_d435i/model.sdf; no simulator or control graph started.",
+      "artifact_directory": "artifacts/runs/p5-vio-px4-clock-fit-instrument-20261021-391"
+    },
+    {
+      "attempt": "02",
+      "status": "failed_before_sim_launch",
+      "exit_code": 1,
+      "cause": "simulation symlink pointed at an absolute host path not visible inside the container; colcon could not resolve the same model file. No simulator or control graph started.",
+      "artifact_directory": "artifacts/runs/p5-vio-px4-clock-fit-instrument-20261021-391/attempt-02"
+    },
+    {
+      "attempt": "03",
+      "status": "completed",
+      "exit_code": 0,
+      "cause": null,
+      "artifact_directory": "artifacts/runs/p5-vio-px4-clock-fit-instrument-20261021-391/attempt-03"
+    }
+  ],
+  "findings": [
+    "Attempt 03 passed the diagnostic 5 s telemetry/localization gate, took off, submitted the smoke navigation action, received position_yaw_tolerance_held success, and ended landed/disarmed.",
+    "PX4 ULog recorded external-vision aiding fused; EKF2_GPS_CTRL was zero and GNSS position/velocity/height fusion flags were zero. GPS sensor messages remained present in the PX4 log.",
+    "No clock_mapping_rate_out_of_bounds error recurred in the installed instrumented mapper. Five detail samples reported clock_mapping_not_converged during startup; subsequent sampled mapper errors were empty.",
+    "After the action success, normalized_cost_exceeded closed localization health and the bridge entered its landing path."
+  ],
+  "configuration": {
+    "profile": "vio_closed_loop",
+    "run_local_threshold_overlay_only": true,
+    "overlay_path": "artifacts/runs/p5-vio-px4-clock-fit-instrument-20261021-391/attempt-03/threshold-overlay.json",
+    "overlay_sha256": "5c65b5f494894b9407633e3cd69d0660e39b693bdd3740463d3bc91d31cc8abf",
+    "canonical_config_sha256": {
+      "config/components/px4_bridge/debug_truth.json": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf",
+      "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f"
+    },
+    "diagnostic_overrides": {
+      "px4_estimator_flags_max_receipt_age_wall_s": 4.0,
+      "px4_land_detected_max_receipt_age_wall_s": 4.0
+    },
+    "canonical_values": {
+      "px4_estimator_flags_max_receipt_age_wall_s": 3.0,
+      "px4_land_detected_max_receipt_age_wall_s": 3.0
+    },
+    "unchanged_limits": {
+      "px4_source_timestamp_max_age_sim_s": 1.5,
+      "px4_source_timestamp_max_future_sim_s": 0.02,
+      "px4_max_receipt_age_wall_s": 0.5,
+      "px4_status_max_receipt_age_wall_s": 3.0
+    }
+  },
+  "limitations": [
+    "The 4.0 s estimator_flags and land_detected wall receipt limits are run-local diagnostics; canonical values remain 3.0 s, and this flight cannot qualify against them.",
+    "The mapper rate-out-of-bounds error from #390 was not reproduced; this run only observed startup clock_mapping_not_converged entries.",
+    "The action target was a near-origin 0.87 m altitude smoke goal; no obstacle bypass, lateral displacement, body-envelope clearance, truth-error evaluation, repeated cold-start test, fault campaign, or ten-minute load test was performed.",
+    "After the action success the localization health gate reported normalized_cost_exceeded and the bridge entered LANDING; the vehicle ended landed and disarmed.",
+    "PX4 ULog contains an internal vehicle_local_position_groundtruth dataset, but no project ROS truth topic was present or subscribed in this no-truth run; the dataset was not used by project control or localization nodes."
+  ],
+  "next_step": "Run a control-free same-load capture with canonical 3.0 s thresholds, pairing bridge callback receipt/source timestamps for estimator_flags and land_detected with /clock receipt intervals and RTF; preserve all fail-closed limits."
+}

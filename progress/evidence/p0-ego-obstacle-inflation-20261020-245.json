@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p0-ego-obstacle-inflation-config-build-20261020-245",
+  "status": "PASS_STATIC_GEOMETRY_AUDIT_AND_CONFIG_BUILD",
+  "scope": "Static x500 collision-envelope audit, project config-to-EGO inflation parameter wiring, and targeted Jazzy build.",
+  "qualification": "Preliminary GOAL F evidence only. No obstacle collision, clearance, planner response, trajectory tracking, PX4 control, or flight acceptance was tested; no quantitative acceptance threshold is frozen.",
+  "environment": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ego_upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "px4_model_source_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4"
+  },
+  "vehicle_collision_envelope": {
+    "reference_frame": "d435i_imu_frame, matching the child frame of /localization/optimized_imu_odom",
+    "d435i_mount_pose_relative_to_x500_base_link_xyzrpy": [
+      0.12,
+      0.0,
+      0.08,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "calculation": "Enumerated all eight corners of each supported SDF box collision; composed each link and collision pose; transformed points into the IMU frame using the d435i_mount joint and IMU sensor pose.",
+    "collision_box_count": 9,
+    "collision_bounds_xyz_m": [
+      [
+        -0.4336153846153846,
+        0.19361538461538463
+      ],
+      [
+        -0.18246153846153845,
+        0.18246153846153845
+      ],
+      [
+        -0.307,
+        -0.019576923076923082
+      ]
+    ],
+    "maximum_horizontal_radius_level_m": 0.4704407665082815,
+    "orientation_invariant_sphere_radius_m": 0.47088386770402885,
+    "planner_grid_resolution_m": 0.1,
+    "grid_cells_for_model_collision_radius": 5,
+    "limitations": [
+      "The D435i SDF contains no collision geometry for the camera housing or mount.",
+      "The x500 rotor collision boxes are static thin boxes and do not model the rotating propeller swept volume.",
+      "The result excludes map error, localization error, trajectory tracking error, data age, braking distance, and hardware variation."
+    ]
+  },
+  "planner_inflation": {
+    "configured_value_m": 0.099,
+    "resolution_m": 0.1,
+    "ceil_inflation_steps": 1,
+    "implementation": "plan_env computes ceil(obstacles_inflation / resolution); the occupancy inflation helper marks index offsets from -step to +step on x, y, and z. The effective cell set is not a measured physical clearance.",
+    "assessment": "The current one-step occupancy dilation is smaller than the SDF collision-envelope radius around the actual EGO odometry body frame, before uncertainty or stopping margins. The value remains unchanged and PROVISIONAL pending calibration."
+  },
+  "configuration_and_runtime_check": {
+    "project_configs": {
+      "config/components/mapping/ego_planner.json": 0.099,
+      "config/components/mapping/ego_planner_slow_probe.json": 0.099
+    },
+    "project_launch_paths": [
+      "vio_closed_loop_ego_px4.launch.py resolves the selected planner JSON and passes obstacles_inflation to advanced_param.launch.py.",
+      "debug_truth_ego_px4.launch.py reads the same planner JSON and passes obstacles_inflation to advanced_param.launch.py."
+    ],
+    "launch_argument_visible": true,
+    "isolated_ego_parameter_query": {
+      "command": "ros2 param get /drone_0_ego_planner_node grid_map/obstacles_inflation",
+      "ros_domain_id": 72,
+      "result": "Double value is: 0.099",
+      "scope": "EGO planner only; flight_type=2; no sensor publishers, trajectory server, PX4, controller, truth source, or vehicle control publisher; node remained INIT with no odometry."
+    }
+  },
+  "validation": {
+    "dependency_patch_replay": "PASS byte-exact replay from pre-patch advanced_param.launch.py SHA256 5037d007b525325b36e9764617ca572f9130530c3902279b85c8bd409c99c438",
+    "dependency_patch_sha256": "86d88544bdeda3348ba64c2f146f3b291512e7d5128c6596c2e6a98d12fcabe9",
+    "config_tests": "PASS 7/7: python3 tools/test_vio_ego_bringup_config.py",
+    "python_syntax": "PASS for advanced_param.launch.py, vio_ego_bringup.py, and debug_truth_ego_px4.launch.py",
+    "jazzy_build": "PASS: 14 packages via --packages-up-to ego_planner uav_px4_bridge in a fresh build/install directory; final incremental uav_px4_bridge rebuild 1/1 passed.",
+    "launch_argument_listing": "PASS: ros2 launch ego_planner advanced_param.launch.py --show-args includes obstacles_inflation.",
+    "project_structure": "PASS: python3 tools/project_status.py; structural check only.",
+    "diff_check": "PASS: git diff --check and git diff --cached --check."
+  },
+  "excluded_attempts": [
+    "Build attempt artifacts/runs/p0-ego-obstacle-inflation-config-build-20261020-244 ended before a terminal build summary and is not counted.",
+    "An EGO-only parameter attempt with ROS_DOMAIN_ID=247 was excluded because Fast DDS rejected the domain before the node started; the final query used valid domain 72."
+  ],
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p0-ego-obstacle-inflation-config-build-20261020-245",
+    "sha256": {
+      "colcon-build.log": "b82d1663d6dc99b14fbe3c34f215dc628ba1bbcf7aac70d02950b16527d873f9",
+      "colcon-build-final-uav-px4-bridge.log": "21085abdd019325b3184f428095cd12e3c49005ec078307e60e661f8cdf4a6b3",
+      "ego-launch-args.txt": "602cf10020559d1e2d4c90b23f8a1d9259f1060938652831eeb4c2e21a65ff6a",
+      "ego-param-value-domain072-final.txt": "d5e2858379003a1a22f36a661c60c59aa28e8196e14d2ea39652cb5942ab9725",
+      "vehicle-collision-envelope.json": "a257ad3bfa18600473e9ce21d43cf632ea609489c5e026333d12c145547f1e05",
+      "bringup-config-test.log": "bba69393211f4e9c0af4bc3ed09a15509753129438f4a83e1fe47a01ef65333e",
+      "project-status.log": "1e41d5e96f372f8ee6aa89f66847b9e8e59e521828b816d9b924e1d6a04051a2"
+    }
+  },
+  "source_sha256": {
+    "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "simulation/models/d435i/model.sdf": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": "54adddebf62089271255be8670abfdca8380ca63221e66f9e7143eda62c80e39",
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c",
+    "src/own/uav_px4_bridge/uav_px4_bridge/vio_ego_bringup.py": "aa438b29ac4f2536022dc39653fd6dc30f904c58dc2fee7c0fa23c9619d08998",
+    "src/own/uav_px4_bridge/launch/debug_truth_ego_px4.launch.py": "665d92a69df1cfd11f6c47d6f55ad4dba50a95e3ad8cac8d1677ae83254546ed",
+    "config/components/mapping/ego_planner.json": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6",
+    "config/components/mapping/ego_planner_slow_probe.json": "513b2d01af15d6c5a0d284f965d2589c0a53eb6bb42470b07937081e60eada65",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba"
+  },
+  "next_step": "Measure multiple obstacle geometries and same-run map/localization/tracking error and braking distance; then derive the complete GOAL F clearance and freshness/timing thresholds before formal D/E runs."
+}

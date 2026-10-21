@@ -1,0 +1,331 @@
+{
+  "schema": "p2-canonical-ego-planner-detour-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-canonical-wall-phase-goal-20261020-304",
+  "status": "EXPLORATORY_CANONICAL_PLANNER_OUTPUT; GOAL_C_PENDING",
+  "qualification": "One planner-only canonical EGO target test emitted two splines detouring around a direct box collision. Their nominal sphere clearances differ; a later spline intersects the nominal sphere at the wall, so this is not a pass.",
+  "environment": {
+    "ros": "Jazzy",
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 161,
+    "runtime_scope": "current reconstructed EGO + one D435i/VINS/localization/mapping stack; no PX4, trajectory server, or controller."
+  },
+  "build": {
+    "canonical_build_evidence": "progress/evidence/p0-ego-snapshot-canonical-build-20261020-297.json",
+    "canonical_build_evidence_sha256": "105332308fef34697c3e45581345c21cf9f73403b59e981fa899118828b9327a",
+    "install_used": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/install-reconstructed",
+    "source_manifest_sha256": "9e36867a2bc0c952ca758569518eb33ac6001658e5ddd8bf4a755c63ae949497"
+  },
+  "configuration": {
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "goal_z_odom_m": 1.0,
+    "map_resolution_m": 0.1,
+    "ego_obstacles_inflation_m": 0.099,
+    "config_sha256": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6",
+    "nominal_vehicle_sphere_radius_m": 0.48193587,
+    "goal_map_status": {
+      "wall_elapsed_s": 2.96422,
+      "stamp_ns": 5149000000,
+      "epoch": "2ca744493da34d93aa8bf199332c6936",
+      "map_id": "2ca744493da34d93aa8bf199332c6936-cbd6bdfc887342fa8d848753ffadf15f",
+      "input_ready": true,
+      "reason": "ready",
+      "occupied_point_count": 1052,
+      "forwarded_depth_count": 20,
+      "keyframe_count": 1,
+      "occupancy_cloud_received": true
+    },
+    "goal_raw_occupancy_points": 1052,
+    "goal_inflated_occupancy_points": 3584
+  },
+  "planner": {
+    "status": "bspline_received",
+    "goal_sent": true,
+    "spline_count": 2,
+    "spline_epoch_ids": [
+      "2ca744493da34d93aa8bf199332c6936",
+      "2ca744493da34d93aa8bf199332c6936"
+    ],
+    "localization_last": {
+      "wall_elapsed_s": 4.563344,
+      "stamp_ns": 6304000000,
+      "epoch": "2ca744493da34d93aa8bf199332c6936",
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "good_pairs": 39,
+      "normalized_cost": 0.3287479807896735,
+      "accepted_optimized": 30,
+      "accepted_propagated": 389,
+      "frame_id": "odom_2ca744493da34d93aa8bf199332c6936"
+    },
+    "offline_alignment": {
+      "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+      "paired_samples": 30,
+      "overlap_seconds": 1.9140000009999998,
+      "truth_position_span_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "position_rmse_m": 0.001614271481409108,
+      "position_p95_m": 0.002612856758035476,
+      "position_max_m": 0.0027560368367222916,
+      "orientation_rmse_deg": 0.0810082908518896,
+      "alignment_rotation": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "alignment_translation": [
+        0.006358645880490508,
+        0.0038016981540171255,
+        1.001713907901045
+      ],
+      "truth_yaw_span_in_overlap_deg": 0.0,
+      "truth_yaw_span_full_run_deg": 0.4136341047218717
+    },
+    "trajectories": [
+      {
+        "traj_id": 1,
+        "epoch": "2ca744493da34d93aa8bf199332c6936",
+        "start_time_ns": 5248000000,
+        "planned_endpoint_error_m": 0.013473314290526185,
+        "maximum_deviation_from_start_goal_chord_m": 0.6168951053002358,
+        "planned_nominal_sphere_clearance_by_obstacle_m": {
+          "calibration_wall": 0.07329389285146731,
+          "calibration_box": 0.13336953645053012,
+          "calibration_cylinder": 1.3486666231051074
+        },
+        "straight_chord_nominal_sphere_clearance_by_obstacle_m": {
+          "calibration_wall": 0.0617054841195091,
+          "calibration_box": -0.4350144011290674,
+          "calibration_cylinder": 0.8810130537810092
+        },
+        "map_centerline_cell_counts": [
+          {
+            "snapshot": "01",
+            "sample_count": 1201,
+            "unknown": 230,
+            "free": 971,
+            "occupied": 0,
+            "outside_map": 0,
+            "inflated_mask_nonzero": 0
+          },
+          {
+            "snapshot": "02",
+            "sample_count": 1201,
+            "unknown": 179,
+            "free": 1022,
+            "occupied": 0,
+            "outside_map": 0,
+            "inflated_mask_nonzero": 0
+          },
+          {
+            "snapshot": "03",
+            "sample_count": 1201,
+            "unknown": 179,
+            "free": 1022,
+            "occupied": 0,
+            "outside_map": 0,
+            "inflated_mask_nonzero": 0
+          }
+        ]
+      },
+      {
+        "traj_id": 2,
+        "epoch": "2ca744493da34d93aa8bf199332c6936",
+        "start_time_ns": 6260000000,
+        "planned_endpoint_error_m": 0.23890962628664641,
+        "maximum_deviation_from_start_goal_chord_m": 1.196885058692526,
+        "planned_nominal_sphere_clearance_by_obstacle_m": {
+          "calibration_wall": -0.0283820279946424,
+          "calibration_box": 0.19145825559944246,
+          "calibration_cylinder": 1.4063089885046376
+        },
+        "straight_chord_nominal_sphere_clearance_by_obstacle_m": {
+          "calibration_wall": 0.0617054841195091,
+          "calibration_box": -0.40328959044546975,
+          "calibration_cylinder": 0.907117098909231
+        },
+        "map_centerline_cell_counts": [
+          {
+            "snapshot": "01",
+            "sample_count": 1201,
+            "unknown": 413,
+            "free": 788,
+            "occupied": 0,
+            "outside_map": 0,
+            "inflated_mask_nonzero": 0
+          },
+          {
+            "snapshot": "02",
+            "sample_count": 1201,
+            "unknown": 0,
+            "free": 1201,
+            "occupied": 0,
+            "outside_map": 0,
+            "inflated_mask_nonzero": 0
+          },
+          {
+            "snapshot": "03",
+            "sample_count": 1201,
+            "unknown": 0,
+            "free": 1201,
+            "occupied": 0,
+            "outside_map": 0,
+            "inflated_mask_nonzero": 0
+          }
+        ]
+      }
+    ]
+  },
+  "snapshots": [
+    {
+      "index": "01",
+      "epoch": "2ca744493da34d93aa8bf199332c6936",
+      "map_id": "2ca744493da34d93aa8bf199332c6936-cbd6bdfc887342fa8d848753ffadf15f",
+      "frame_id": "odom_2ca744493da34d93aa8bf199332c6936",
+      "stamp_ns": 10891000000,
+      "source_age_s": 0.132,
+      "service_duration_ms": 43.061483000201406,
+      "depth_count_before_after": [
+        190,
+        193
+      ],
+      "voxel_counts": {
+        "unknown": 3441483,
+        "free": 13222,
+        "occupied": 1295,
+        "inflated": 6783
+      },
+      "archive_sha256": "e41cff9dac57c6d4cf8924ce8496b93f8a1f2ae9b959cd7a632094f23c003ea5",
+      "archive_readback_exact": true,
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      }
+    },
+    {
+      "index": "02",
+      "epoch": "2ca744493da34d93aa8bf199332c6936",
+      "map_id": "2ca744493da34d93aa8bf199332c6936-cbd6bdfc887342fa8d848753ffadf15f",
+      "frame_id": "odom_2ca744493da34d93aa8bf199332c6936",
+      "stamp_ns": 13597000000,
+      "source_age_s": 0.132,
+      "service_duration_ms": 37.19481299958716,
+      "depth_count_before_after": [
+        272,
+        275
+      ],
+      "voxel_counts": {
+        "unknown": 3434907,
+        "free": 19929,
+        "occupied": 1164,
+        "inflated": 7436
+      },
+      "archive_sha256": "0c6e76de12ea80aeec4c90e92bcf06fc717f791b574c59e254b76fc4d68b10d8",
+      "archive_readback_exact": true,
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      }
+    },
+    {
+      "index": "03",
+      "epoch": "2ca744493da34d93aa8bf199332c6936",
+      "map_id": "2ca744493da34d93aa8bf199332c6936-cbd6bdfc887342fa8d848753ffadf15f",
+      "frame_id": "odom_2ca744493da34d93aa8bf199332c6936",
+      "stamp_ns": 16277000000,
+      "source_age_s": 0.073,
+      "service_duration_ms": 39.73703699921316,
+      "depth_count_before_after": [
+        354,
+        354
+      ],
+      "voxel_counts": {
+        "unknown": 3434491,
+        "free": 20300,
+        "occupied": 1209,
+        "inflated": 7612
+      },
+      "archive_sha256": "b4aca1b0908b736b17da6c7d54d61ac5acbb38e5f68c9896ac5151b5775891a2",
+      "archive_readback_exact": true,
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      }
+    }
+  ],
+  "goal_time_snapshot_correlation": null,
+  "runtime_isolation": {
+    "forbidden_control_nodes": [],
+    "truth_topics": [],
+    "control_topics": []
+  },
+  "analysis_artifacts": {
+    "trajectory_clearance": "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/trajectory-clearance-01.json",
+    "spline_map_overlap": "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/spline-map-overlap-01.json",
+    "temporal_map_analysis": "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/temporal-map-analysis.json",
+    "runtime_summary": "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/runtime-summary.json",
+    "artifact_sha256": {
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/runtime-summary.json": "c3add63c2d6b51ad345a851998add73da72c99e71f6e2adf571b654395ea984f",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/planner-goal-result-01.json": "d3bfb46ec3ff3d0c927b33e5496a00ee79d6c5344e8ca2f0f6dce8d931f36f6b",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/trajectory-clearance-01.json": "1047723c455f8d9203b2a4bca0b669527bc318f8c38f7462c2ad3d90ae68ebfb",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/spline-map-overlap-01.json": "7e535d2cba2aa7928d5943e870fee53b8c2ce7252e22d97bc25750b3b0fde1be",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/temporal-map-analysis.json": "db588b5ac8c83f20629ae90088c0db3b5a6c6ed1b8042d5eba0e2b0e94871de0",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/source-manifest-build.json": "9e36867a2bc0c952ca758569518eb33ac6001658e5ddd8bf4a755c63ae949497",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/debug-motion-01.sdf": "3b6d2f6615b7d07ceb16ac837c98f4cf071dac78d3d96dbcfd771c90aae82f98",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/motion-01.json": "b8c43a57947d505ce1d5de6ab6be6b2cf590ad32324f3f09d1d233e6da257a5c",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/optimized-odometry-01.json": "90706343e1b85bb8581f64fa6968ee2894717aa46077a74440c5e6e2fc433b33",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/run-live-01.sh": "1bb13bea547b9a79cfd236ad99ee6ef50bc819668f346374113a8e4a11bb4fca",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/run-container-01.sh": "b8c9c9e30edecde689b0cf4cbf72781decd84a29cc9f928df385de8dd72d4993",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/probe_ego_goal.py": "247168027ac7ac5724310299ad803040838921ffe85a83a6f65bdd7b1dd8a9f0",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/evaluate_planner_path.py": "5dc968cbb521fb5181b2f3bf67bc7a221c0bf242bdeadf19283e2f083c96412e",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/evaluate_spline_map_overlap.py": "ec4be358a2b316c6c6a2c9ff288c183f8da42a3cadc4514b955cf339f6fc9858",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/analyze_temporal_maps.py": "2dd05d6c623117f3ba38653117141f62d146a8cc340343b26c90fb7ec17a29c5",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/snapshot-01/metadata.json": "173df77ae585e49815135f86890495b67a0185cd44263c5ee00dfdac95d34a88",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/snapshot-02/metadata.json": "b19e98d0ab86af18a0f2b0b9757dfe90ad8123c579102407666380cedb5f8ef8",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/snapshot-03/metadata.json": "020227a589ef54a72506ef0628e4c784797beeef6485a2630cefb3c158ddc976",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/snapshot-01/occupancy_snapshot.npz": "e41cff9dac57c6d4cf8924ce8496b93f8a1f2ae9b959cd7a632094f23c003ea5",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/snapshot-02/occupancy_snapshot.npz": "0c6e76de12ea80aeec4c90e92bcf06fc717f791b574c59e254b76fc4d68b10d8",
+      "artifacts/runs/p2-ego-canonical-wall-phase-goal-20261020-304/snapshot-03/occupancy_snapshot.npz": "b4aca1b0908b736b17da6c7d54d61ac5acbb38e5f68c9896ac5151b5775891a2"
+    },
+    "embedded_source_hash_count": 12,
+    "all_embedded_source_hashes_match": true
+  },
+  "validation": [
+    "Planner probe sent one goal after localization/map readiness and captured all emitted B-splines.",
+    "All same-epoch snapshot archives read back exactly and epoch/map_id mismatch requests were rejected.",
+    "All embedded source SHA-256 entries in the trajectory, occupancy-overlap, and temporal reports independently match."
+  ],
+  "limitations": [
+    "Planner output was not executed; no trajectory server, controller, PX4, or vehicle collision/contact measurement was active.",
+    "The offline transform uses one static/short SE(3) overlap with zero truth translation/yaw span; spatial clearance is diagnostic and not an independent calibration.",
+    "The 0.099 m planner inflation remains PROVISIONAL and is smaller than the 0.482 m nominal vehicle sphere. Unknown-cell path samples do not prove the exact map contents at goal time because snapshots lack per-voxel observation stamps.",
+    "One layout and one target do not establish coverage, unknown-space safety, repeated cold-start reliability, or formal GOAL C/D/E/F acceptance."
+  ],
+  "status_effect": "GOAL C remains pending; no P0–P6 milestone or GOAL A–H criterion status changed."
+}

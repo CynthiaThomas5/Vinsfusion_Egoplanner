@@ -1,0 +1,300 @@
+{
+  "schema": "ego-room-crossing-repair/v1",
+  "date": "2026-10-21",
+  "status": "REPAIR07_PARTIAL_MOTION_ABORTED_ALIGNMENT_DRIFT",
+  "result_so_far": "repair07 verifies first yaw boundary and 12 replans / 2208 READY commands; estimated x=4.06 m then alignment drift landing, later pose_stale and normalized cost lock; PX4 landed/disarmed. Bridge landing completion source fix tested/built separately.",
+  "gpu_fix": {
+    "default_glx": {
+      "vendor": "Mesa",
+      "renderer": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "version": "4.5 (Compatibility Profile) Mesa 25.2.8-0ubuntu0.24.04.2"
+    },
+    "offload_glx": {
+      "vendor": "NVIDIA Corporation",
+      "renderer": "NVIDIA GeForce RTX 3060 Laptop GPU/PCIe/SSE2",
+      "version": "4.6.0 NVIDIA 580.178.04"
+    },
+    "server": "Explicit --headless-rendering; actual Ogre NVIDIA renderer lines archived in repair-02.",
+    "reference": "https://download.nvidia.com/XFree86/Linux-x86_64/535.171.04/README/primerenderoffload.html"
+  },
+  "runs": {
+    "01": {
+      "preflight": {
+        "passed": false,
+        "rtf": 0.2543790977485741,
+        "max_stable_wall_s": 3.0975124090036843,
+        "max_optimized_odom_receipt_gap_wall_s": 0.30153836499812314
+      },
+      "bias_max_during_preflight": 0.008113401630853787,
+      "last_features": 36
+    },
+    "02": {
+      "preflight": {
+        "passed": false,
+        "rtf": 0.6256248259841897,
+        "max_stable_wall_s": 9.433964558003936,
+        "max_optimized_odom_receipt_gap_wall_s": 0.11937569700239692
+      },
+      "bias_max_during_preflight": 0.17187502929230938,
+      "last_features": 36
+    },
+    "03": {
+      "preflight": {
+        "passed": true,
+        "rtf": 0.5967285339302908,
+        "max_stable_wall_s": 37.65065492699796,
+        "max_optimized_odom_receipt_gap_wall_s": 0.13269962400227087
+      },
+      "bias_max_during_preflight": 0.0065971027208843085,
+      "last_features": 141,
+      "hover": {
+        "result": "FAIL",
+        "failure": "localization_lost_or_bridge_failed_during_takeoff",
+        "takeoff_active_observed": false,
+        "landed_and_disarmed": true,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "accel_bias_norm_exceeded"
+        },
+        "service_calls": [
+          {
+            "accepted": true,
+            "enable": true,
+            "reason": "prestreaming_offboard_setpoints"
+          }
+        ],
+        "action_goal_sent": false
+      }
+    },
+    "04": {
+      "preflight": {
+        "passed": true,
+        "rtf": 0.6086064285811533,
+        "max_stable_wall_s": 38.86216401300044,
+        "max_optimized_odom_receipt_gap_wall_s": 0.1747886169978301
+      },
+      "bias_max_during_preflight": 0.006644721072611464,
+      "last_features": 142,
+      "hover": {
+        "result": "FAIL",
+        "failure": "localization_lost_or_bridge_failed_during_takeoff",
+        "takeoff_active_observed": false,
+        "landed_and_disarmed": true,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        },
+        "service_calls": [
+          {
+            "accepted": true,
+            "enable": true,
+            "reason": "prestreaming_offboard_setpoints"
+          }
+        ],
+        "action_goal_sent": false
+      }
+    },
+    "05": {
+      "preflight": {
+        "passed": true,
+        "rtf": 0.6333785575860507,
+        "max_stable_wall_s": 37.74208890600005,
+        "max_optimized_odom_receipt_gap_wall_s": 0.40592827599999737
+      },
+      "flight": {
+        "result": "PASS",
+        "failure": null,
+        "action_goal_sent": false,
+        "action_success": false,
+        "matching_ready_trajectory_samples": null,
+        "takeoff_active_observed": true,
+        "landed_and_disarmed": true,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "accel_bias_norm_exceeded"
+        },
+        "service_calls": [
+          {
+            "accepted": true,
+            "enable": true,
+            "reason": "prestreaming_offboard_setpoints"
+          },
+          {
+            "accepted": true,
+            "enable": false,
+            "reason": "operator_disable"
+          }
+        ],
+        "hover_duration_sim_s": 10.0,
+        "hover_completed_without_quality_abort": true,
+        "action_result": null,
+        "goal": null
+      }
+    },
+    "06": {
+      "preflight": {
+        "passed": true,
+        "rtf": 0.63139539213914,
+        "max_stable_wall_s": 38.059489344999974,
+        "max_optimized_odom_receipt_gap_wall_s": 0.1614809630000309
+      },
+      "flight": {
+        "result": "FAIL",
+        "failure": "navigation_action_not_successful:pose_stale",
+        "action_goal_sent": true,
+        "action_success": false,
+        "matching_ready_trajectory_samples": 114,
+        "takeoff_active_observed": true,
+        "landed_and_disarmed": true,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        },
+        "service_calls": [
+          {
+            "accepted": true,
+            "enable": true,
+            "reason": "prestreaming_offboard_setpoints"
+          },
+          {
+            "accepted": true,
+            "enable": false,
+            "reason": "external_odometry_stale"
+          }
+        ],
+        "hover_duration_sim_s": null,
+        "hover_completed_without_quality_abort": null,
+        "action_result": {
+          "final_position": [
+            -0.027242940144552537,
+            -0.031294534393487734,
+            0.9228847700967697
+          ],
+          "outcome": "aborted",
+          "reason": "pose_stale",
+          "status": 6,
+          "success": false
+        },
+        "goal": {
+          "frame": "odom_c9f2a61f74d843879bdf8a7dfdb55f2c",
+          "position_tolerance_m": 0.25,
+          "target_enu": [
+            15.96909082208492,
+            0.012337378199112067,
+            0.8911616868073307
+          ],
+          "timeout_s": 120.0,
+          "yaw_enu": -0.0010621409261129169,
+          "yaw_offset_rad": 0.0,
+          "yaw_tolerance_rad": 0.35
+        }
+      }
+    }
+  },
+  "scope": "SIMULATION only, bridge is sole control publisher, no truth/GNSS online input and no health/freshness threshold changes.",
+  "texture_status": "Run-local visual-only experiment; collision XML hash preserved; imported canonical ego.sdf unchanged; not promoted as a flight fix.",
+  "climb_status": "Diagnostic config maximum upward speed0.5m/s, applied via hashed generated-airframe overlay in repair04 only; not default shared stage params.",
+  "candidate": "artifacts/runs/ego-vins-lm-candidate-20261021-01/provenance.json; strategy-only candidate, not applied to vendor or source lock.",
+  "limitations": [
+    "Actual takeoff/disarm confirmed by PX4 logs and bridge states; PX4 height estimates are not independent physical ground truth.",
+    "Static texture improvement does not prove dynamic VINS robustness or causality.",
+    "First LM build container exited255 without OOMKilled flag; cause undetermined. Separate single-job build is in progress.",
+    "No path/clearance/arrival or full-room acceptance evidence."
+  ],
+  "sha256": {
+    "tools/run_gpu_viewer.sh": "1cc5163d6928bfa737eddcd4c0c0b94f53b716b1e5fe507847f27e9aa313eebc",
+    "tools/run_gpu_vio_sitl_runtime.sh": "f116c07fd24423f8cda5d1dc33fa7e67f2b4733947d1d419a25596ea3545b55b",
+    "config/components/px4_bridge/vio_climb_probe.json": "6941fb3d7b36d77538a01c28aa70e75b8999991a6e54b45ae0990f4520b68824",
+    "dependencies/patches/vins/0009-lm-trust-region-experiment.patch": "606386c9e262884d1dec4fe2228bede216d1aefa9daa74160e39ed9cb268f376",
+    "artifacts/runs/ego-room-crossing-repair-20261021-01/glx-default.json": "74715ae4b6df03fb2ffc04e2a5ca6d0f48dffc5c98de1849ad6f8928e645df5a",
+    "artifacts/runs/ego-room-crossing-repair-20261021-01/glx-offload.json": "f5e119ce19d3baffd5b038b177396683ed6cc51a1b35627e99ce20deaac22937",
+    "artifacts/runs/ego-room-crossing-repair-20261021-01/preflight.json": "73793b29acc8784b00c70ca462f218c385ca9fba57811df7df0401800fe9666b",
+    "artifacts/runs/ego-room-crossing-repair-20261021-02/preflight.json": "09e43900e17de1e6b6066b09e3dca1ead17d8a0886bd7ab765e3c2a601507760",
+    "artifacts/runs/ego-room-crossing-repair-20261021-02/ogre-renderer-lines.json": "133a3631e2dccccd0b50daacea8343d24470419a2270e36c0aedf9bdfcf07a0d",
+    "artifacts/runs/ego-room-crossing-repair-20261021-03/preflight.json": "9a6bf076684a50232280ea56479afd9f72320450b56503bfbba12cb988c081e5",
+    "artifacts/runs/ego-room-crossing-repair-20261021-03/hover.json": "8b4c9a0435459a2a44cf5c9735604ce8861cc2d8110ac70e6fe068983b70d6b8",
+    "artifacts/runs/ego-room-crossing-repair-20261021-03/texture-ablation.json": "c6224656ddaf68acd468d6dc3580c0bfcb56a7b5e2c7ddda35e1f984ab0daee0",
+    "artifacts/runs/ego-room-crossing-repair-20261021-04/preflight.json": "d1ad4f932d9a62be167a79e90422253b4c336d91772517180b5974b0b766f32e",
+    "artifacts/runs/ego-room-crossing-repair-20261021-04/hover.json": "03a2d805c643180e3d7180898370167112356b762d4124674bf389e01a2a6208",
+    "artifacts/runs/ego-room-crossing-repair-20261021-04/texture-ablation.json": "a63e7505e9980f0f6f4982c409b90f42ed618be14bd2ff59f97a34178f26ba5e",
+    "artifacts/runs/ego-room-crossing-repair-20261021-04/climb-overlay.json": "f86ab494852c8678ab4ce7cd0569f69456fff5f4c90bcbe3f81107903b57b1c0",
+    "artifacts/runs/ego-room-crossing-repair-20261021-04/flight-metrics.json": "0b5686e1213c6f4dc3c7f699c10aa805f79cb9c007df773ed57998fe9fff466d",
+    "artifacts/runs/ego-room-crossing-repair-20261021-05/preflight.json": "4714aa42dcc1c9f3a311702930a8dab6f49682d47e8bb2c4d93ae01c9f31bbc8",
+    "artifacts/runs/ego-room-crossing-repair-20261021-05/hover.json": "32777a478d24b34380abd17715157642bb9589755b4c4ae86a0ca41225c2e5bb",
+    "artifacts/runs/ego-room-crossing-repair-20261021-05/flight-metrics.json": "72414ae3f65f6644ac5c06f02e3824584c351eb34c18e418930d4c003348f7d4",
+    "artifacts/runs/ego-room-crossing-repair-20261021-05/vins-package-prefix.txt": "bfc8de817ab7e60ede7cc636611ce7306c1d68de9924761dfc884be08225014f",
+    "artifacts/runs/ego-room-crossing-repair-20261021-06/preflight.json": "13c51dff96052f918568a40fc4cb8bcbb178d7d41bc678a88cc27f77e75bb6af",
+    "artifacts/runs/ego-room-crossing-repair-20261021-06/flight.json": "c4de552c797b5a37b0fbca58477d95e6690c387b31df6889ea017e6d1609c3b9",
+    "artifacts/runs/ego-room-crossing-repair-20261021-06/flight-metrics.json": "08d0c4ae9a42342a5333d7a8b8743159e62d2303a8041caacce8195b1e71e860",
+    "artifacts/runs/ego-room-crossing-repair-20261021-06/vins-package-prefix.txt": "bfc8de817ab7e60ede7cc636611ce7306c1d68de9924761dfc884be08225014f",
+    "artifacts/runs/ego-room-crossing-repair-20261021-06/planner-observation.json": "eab715f2dc6204a7326380b57a9d0f9c641d9c7f29a8b863fed80560a7275dd5",
+    "config/components/mapping/ego_planner.json": "eec8677a67c29d3ae499689f16672dbb4dac2da0a57175c3f792e71c350a8dbb",
+    "config/components/navigation/room_crossing_goal.json": "ddc8cb3589ae0ff7c19179d3b9c86e63a5f2567b690ebe1c757a2fc6cd0ef3f1",
+    "dependencies/patches/ego/0035-yaw-start-boundary-experiment.patch": "fa069cab747a0c0e02023683d18c7ff2d948ba2b93077c233ed9cc1e67ec65d5"
+  },
+  "lm_candidate_provenance": {
+    "status": "isolated candidate, not applied to canonical vendor or source lock",
+    "base_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "base_file_sha256": "15adf0b2f3a0e8f1a2f506e2b6480e41c860aeb0c05ce37dc63e9bb0175ec3ad",
+    "candidate_file_sha256": "e337c5ca0f4363665616872d5274f07bfc4a2694e1c9184c7f28d40a806c0689",
+    "patch_sha256": "606386c9e262884d1dec4fe2228bede216d1aefa9daa74160e39ed9cb268f376",
+    "difference": "Ceres DOGLEG to LEVENBERG_MARQUARDT; same iteration/time/health gates",
+    "apply_after": "current canonical VINS patches 0001-0005; see dependencies/sources.json",
+    "build_result": "PASS",
+    "build_summary": "1 package finished [2min 53s]",
+    "binary_path": "artifacts/runs/ego-vins-lm-candidate-20261021-01/install/vins/lib/vins/vins_node",
+    "binary_sha256": "2fbd29b15ec54468eed05c9cd8f5fd21c28fc3ec7b79a3863331963baee46682",
+    "build_log_sha256": "0bd630eba05c3f780f154fad1d2544d6f34883bad2440b608fe21bdfb2098c62",
+    "runtime_comparison_limit": "Earlier runtime used #181 timing instrumentation; this candidate is canonical source plus strategy change. Logging overhead differs; not a strict one-variable binary A/B against #181."
+  },
+  "yaw_candidate": {
+    "status": "isolated candidate; not applied to canonical sources",
+    "base_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "base": "current canonical EGO patch chain in sources.json",
+    "baseline_file_sha256": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+    "candidate_file_sha256": "47ff46666c3d52c52a03122d64f76e62dcaf9d2d41f6f51e3f1ca916c4bd026f",
+    "patch": "dependencies/patches/ego/0035-yaw-start-boundary-experiment.patch",
+    "patch_sha256": "fa069cab747a0c0e02023683d18c7ff2d948ba2b93077c233ed9cc1e67ec65d5",
+    "qualification": "Fix initial cubic yaw value/rate for hover handoff; dynamic replan derivatives and short-spline terminal yaw remain unqualified"
+  },
+  "yaw_boundary_replay": {
+    "scope": "Independent cubic start-value/rate math from actual repair06 spline; not live patched behavior proof",
+    "recorded_goal_yaw": -0.0010621409261129169,
+    "recorded_first_command_yaw": -0.7695645275801393,
+    "old_spline_start_yaw": -0.7747021812664853,
+    "seeded_start_yaw": -0.0010621409261129169,
+    "seeded_start_yaw_rate": 0.0
+  },
+  "canonical_map_config": {
+    "size_m": [
+      40,
+      40,
+      6
+    ],
+    "inflation_m": 0.5,
+    "status": "PROVISIONAL simulation parameters; not swept-body/unknown-space acceptance"
+  },
+  "viewer_repair07": {
+    "container": "d435i-ego-room-crossing-repair-20261021-07",
+    "display_fix": "Current desktop Xauthority mounted path was stale; current authorization copied to ephemeral container file, contents excluded from evidence. Both viewers relaunched.",
+    "screenshots": {
+      "artifacts/runs/ego-room-crossing-repair-20261021-07/gazebo-window.png": "6f971c0a88b577f3cd551a4f0be63b30047d3389870eaa6a33fa65993aaaf1c8",
+      "artifacts/runs/ego-room-crossing-repair-20261021-07/rviz-window.png": "4e8780575eaa108081a667542af2de49de9235c7160567689aa58617635cc18e"
+    },
+    "observed": "Gazebo room with cylinders; RViz D435i images and inflated occupancy pointcloud; no mission launched.",
+    "screenshot_note": "Screenshots refreshed during flight; current hashes replace initial startup captures."
+  },
+  "repair07_evidence": "progress/evidence/ego-room-crossing-yaw-check-20261021-07.json"
+}

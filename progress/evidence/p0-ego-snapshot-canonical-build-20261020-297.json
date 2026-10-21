@@ -1,0 +1,206 @@
+{
+  "schema": "p0-ego-canonical-snapshot-build-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-snapshot-canonical-build-20261020-297",
+  "qualification": "The pinned upstream EGO source was reconstructed with the recorded canonical patch sequence, the five-package subset was built in a fresh 16-package workspace, and the new service interface was introspected. This does not qualify map completeness, ghosting, unknown-space safety, planning, clearance, PX4, or GOAL C.",
+  "source_reconstruction": {
+    "tool": "tools/fetch_ego.py",
+    "offline_test": "tools/test_fetch_ego.py passed",
+    "upstream_url": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "license": "GPL-3.0-only",
+    "canonical_patches": [
+      "dependencies/patches/ego/0001-project-interface-and-license.patch",
+      "dependencies/patches/ego/0002-package-descriptions.patch",
+      "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch",
+      "dependencies/patches/ego/0004-mapping-input-safety.patch",
+      "dependencies/patches/ego/0005-occupancy-publication-stamp.patch",
+      "dependencies/patches/ego/0006-ego-odometry-topic.patch",
+      "dependencies/patches/ego/0007-shutdown-safe-planner.patch",
+      "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch",
+      "dependencies/patches/ego/0009-recoverable-depth-timeout.patch",
+      "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch",
+      "dependencies/patches/ego/0011-configurable-map-ground-height.patch",
+      "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch",
+      "dependencies/patches/ego/0018-sim-clock-consistency.patch",
+      "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch",
+      "dependencies/patches/ego/0021-occupancy-snapshot-service.patch"
+    ],
+    "patch_sha256": {
+      "dependencies/patches/ego/0001-project-interface-and-license.patch": "67aec2b58d692084382561b71fee8f82481054b05cb88d2f9aa6cf6fab79009c",
+      "dependencies/patches/ego/0002-package-descriptions.patch": "3febdfcef3d21253ecb8936a479c1f07fdc99214d65ae4d0a345ff0979fd2c15",
+      "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch": "74fe30110d95772327a5258a56512a60762a5dd624eb87c5a6e84100287b541f",
+      "dependencies/patches/ego/0004-mapping-input-safety.patch": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+      "dependencies/patches/ego/0005-occupancy-publication-stamp.patch": "0ae6beea38db10c16a185147cb01a080d90f627779b043122a69dff1330195b4",
+      "dependencies/patches/ego/0006-ego-odometry-topic.patch": "e9c8671ac61d75a90a7da42d7a2ccd47708f67f65ee571a785f640c9d7e51342",
+      "dependencies/patches/ego/0007-shutdown-safe-planner.patch": "36f878b84f6481cf74c2598de79c3c073e753c704d87321d9a3e7c20c91deb00",
+      "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch": "c21529e2b42aad6cc4330267cf9045132bae06f92f87f53d23149344903e48d1",
+      "dependencies/patches/ego/0009-recoverable-depth-timeout.patch": "63c2be9f58293076f7757c2006d7145b5d5ce02d7deed7efa58050cd44520c51",
+      "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch": "d07022de2c81acd45788e38a84fc570356c4d94b9ecf956f4f52d902df726134",
+      "dependencies/patches/ego/0011-configurable-map-ground-height.patch": "1d151ecc1e8ae352d6f67515d2c2db76ede8fbe0c5937ec61f0d894a0dabfd81",
+      "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch": "e82a26df1d5a1113e7b19b3e8556f81ef2bc09cf07db5670f3094e9afad68dc1",
+      "dependencies/patches/ego/0018-sim-clock-consistency.patch": "d38f608832fd54e51404731dadb737a27da92d00a279fcd47bceec511daae151",
+      "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch": "86d88544bdeda3348ba64c2f146f3b291512e7d5128c6596c2e6a98d12fcabe9",
+      "dependencies/patches/ego/0021-occupancy-snapshot-service.patch": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8"
+    },
+    "patch_application_contexts": {
+      "dependencies/patches/ego/0001-project-interface-and-license.patch": {
+        "working_directory": ".",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0002-package-descriptions.patch": {
+        "working_directory": ".",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch": {
+        "working_directory": ".",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0004-mapping-input-safety.patch": {
+        "working_directory": "src",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0005-occupancy-publication-stamp.patch": {
+        "working_directory": "src",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0006-ego-odometry-topic.patch": {
+        "working_directory": "src",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0007-shutdown-safe-planner.patch": {
+        "working_directory": "src",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch": {
+        "working_directory": "src",
+        "strip": 1
+      },
+      "dependencies/patches/ego/0009-recoverable-depth-timeout.patch": {
+        "working_directory": "src",
+        "strip": 4
+      },
+      "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch": {
+        "working_directory": "src",
+        "strip": 4
+      },
+      "dependencies/patches/ego/0011-configurable-map-ground-height.patch": {
+        "working_directory": "src",
+        "strip": 4
+      },
+      "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch": {
+        "working_directory": "src",
+        "strip": 4
+      },
+      "dependencies/patches/ego/0018-sim-clock-consistency.patch": {
+        "working_directory": "src",
+        "strip": 4
+      },
+      "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch": {
+        "working_directory": "src",
+        "strip": 4
+      },
+      "dependencies/patches/ego/0021-occupancy-snapshot-service.patch": {
+        "working_directory": "src",
+        "strip": 1
+      }
+    },
+    "experimental_patch_0020_applied": false,
+    "materialized_packages": [
+      "bspline_opt",
+      "path_searching",
+      "plan_env",
+      "plan_manage",
+      "traj_utils"
+    ],
+    "output_manifest": {
+      "path": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/ego-source-manifest.json",
+      "sha256": "1b3a0f5af1467e1d8f393db978eb18a0dcd86578af454c2e9eb01672049cf074",
+      "size_bytes": 10027
+    },
+    "fetch_log": {
+      "path": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/fetch-ego-license-verified.log",
+      "sha256": "db4b62ba94004330426409df206f7585e9e7507fbf30b74e8811ca0b1ff4da00",
+      "size_bytes": 5222
+    },
+    "vendor_source_modified": false,
+    "comparison_to_previous_clean_copy": {
+      "common_files": 52,
+      "common_files_identical": 52,
+      "differing_common_files": [],
+      "prior_copy_only_files": [
+        "README.md",
+        "planner/plan_manage/launch/__pycache__/advanced_param.launch.cpython-310.pyc",
+        "planner/plan_manage/launch/__pycache__/run_in_sim.launch.cpython-310.pyc",
+        "planner/plan_manage/launch/__pycache__/single_run_in_sim.launch.cpython-310.pyc"
+      ],
+      "reconstructed_only_files": []
+    },
+    "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "fresh_license_verified_reconstruction_matches_build_source": {
+      "files": 52,
+      "byte_identical": true
+    }
+  },
+  "build": {
+    "command": "bash artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/build-reconstructed.sh",
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "environment": "ROS Jazzy only; no previous workspace install overlay sourced",
+    "fresh_build_install_dirs": [
+      "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/build-reconstructed",
+      "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/install-reconstructed"
+    ],
+    "package_count": 16,
+    "packages": [
+      "bspline_opt",
+      "camera_models",
+      "ego_planner",
+      "microxrcedds_agent",
+      "path_searching",
+      "plan_env",
+      "px4_msgs",
+      "spdlog",
+      "traj_utils",
+      "uav_interfaces",
+      "uav_localization",
+      "uav_mapping",
+      "uav_navigation",
+      "uav_px4_bridge",
+      "uav_sim",
+      "vins"
+    ],
+    "exit_code": 0,
+    "duration": "4m45s",
+    "log": {
+      "path": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/build-reconstructed.log",
+      "sha256": "0f89fbcb03378f75d86f39aa077f257611922d9b080820bdf49d81fcdd400560",
+      "size_bytes": 134238
+    },
+    "binary_sha256": {
+      "vins_node": "f27fb218f6a5bd895d06a8797fcb00db66a95af203b03289d84a0be409109cf2",
+      "ego_planner_node": "896f6fab654f4b61efd4e8db0b0b44544e3684783c45c36cc154254eca84be20",
+      "libplan_env.so": "2c58e8373738e69a503844c456f21033dc531c86e2d2276d40f521fac0470d62"
+    },
+    "compiler_warnings": "Seven packages emitted compiler stderr warnings; all 16 finished successfully."
+  },
+  "interface_check": {
+    "command": "ros2 interface show uav_interfaces/srv/GetOccupancySnapshot",
+    "status": "passed",
+    "install_prefix": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/install-reconstructed",
+    "service_type": "uav_interfaces/srv/GetOccupancySnapshot"
+  },
+  "runtime_evidence_references": [
+    "progress/evidence/p2-map-voxel-snapshot-service-20261020-292.json",
+    "progress/evidence/p2-map-snapshot-temporal-growth-20261020-294.json",
+    "progress/evidence/p2-map-snapshot-temporal-growth-20261020-295.json",
+    "progress/evidence/p2-map-snapshot-temporal-repeat-20261020-296.json"
+  ],
+  "limitations": [
+    "The runtime snapshot runs #292-#296 used isolated source/install copies of the same patch; this build proves reconstruction and compilation, not an additional live run.",
+    "Configured map volume remains more than 99% unknown; no acceptance ROI or frozen completeness/ghosting threshold exists.",
+    "The repeated one-voxel wall-center shift and retained >0.10 m outliers remain unexplained.",
+    "No navigation goal, trajectory execution, vehicle-clearance test, PX4 runtime, or final no-truth acceptance was performed.",
+    "P0 source reconstruction and this build advance Goal A; Goals A-H and stages P4-P6 remain incomplete."
+  ]
+}

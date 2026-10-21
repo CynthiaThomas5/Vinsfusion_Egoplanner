@@ -1,0 +1,17 @@
+uint8 INITIALIZING=0
+uint8 TRACKING=1
+uint8 DEGRADED=2
+uint8 LOST=3
+uint8 LOCKED=4
+std_msgs/Header header
+string epoch
+uint8 state
+bool valid
+string reason
+builtin_interfaces/Time source_stamp
+string body_frame
+bool covariance_valid
+float64 normalized_cost
+uint32 good_pairs
+uint64 accepted_optimized
+uint64 accepted_propagated

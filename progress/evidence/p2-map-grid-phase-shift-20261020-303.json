@@ -1,0 +1,253 @@
+{
+  "schema": "p2-map-grid-phase-shift-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-map-grid-phase-shift-20261020-303",
+  "status": "EXPLORATORY_GRID_PHASE_INTERVENTION; GOAL_C_PENDING",
+  "qualification": "A half-voxel wall phase intervention changes repeated map-cell side selection in three shifted runs; #302 is the phase-targeted repeat. This diagnoses a likely quantization/alignment interaction and is not a coverage, ghosting, map-accuracy, or planner acceptance result.",
+  "design": {
+    "baseline_wall_front_face_x_m": 3.0,
+    "shifted_wall_front_face_x_m": 3.05,
+    "wall_shift_m": 0.05,
+    "map_resolution_m": 0.1,
+    "grid_origin_x_m": -12.0,
+    "baseline_front_face_grid_boundary_index": 150,
+    "shifted_front_face_at_cell_center": true,
+    "box_cylinder_settings_identical": true,
+    "force_acceleration_profiles_identical": true,
+    "canonical_runtime_build_evidence": "progress/evidence/p0-ego-snapshot-canonical-build-20261020-297.json",
+    "canonical_runtime_build_evidence_sha256": "105332308fef34697c3e45581345c21cf9f73403b59e981fa899118828b9327a",
+    "runtime_scope": "D435i/VINS/localization/mapping/current canonical EGO snapshot service and planner-only scene motion; no PX4, controller, or trajectory server."
+  },
+  "comparison": {
+    "baseline_run_ids": [
+      "p2-map-voxel-snapshot-service-20261020-295",
+      "p2-map-voxel-snapshot-service-20261020-296"
+    ],
+    "shifted_wall_run_ids": [
+      "p2-map-voxel-snapshot-wall-phase-20261020-299",
+      "p2-map-voxel-snapshot-wall-phase-20261020-301",
+      "p2-map-voxel-snapshot-wall-phase-20261020-302"
+    ],
+    "baseline_map_frame_wall_x_m_sequences": {
+      "p2-map-voxel-snapshot-service-20261020-295": [
+        3.050000000000004,
+        2.9500000000000046,
+        3.050000000000004
+      ],
+      "p2-map-voxel-snapshot-service-20261020-296": [
+        3.050000000000003,
+        2.9500000000000037,
+        3.050000000000003
+      ]
+    },
+    "shifted_map_frame_wall_x_m_sequences": {
+      "p2-map-voxel-snapshot-wall-phase-20261020-299": [
+        3.0499999999999994,
+        3.0499999999999994,
+        3.0499999999999994
+      ],
+      "p2-map-voxel-snapshot-wall-phase-20261020-301": [
+        3.0500000000000025,
+        3.050000000000002,
+        3.050000000000002
+      ],
+      "p2-map-voxel-snapshot-wall-phase-20261020-302": [
+        3.0500000000000007,
+        3.0500000000000007,
+        3.0500000000000007
+      ]
+    },
+    "baseline_wall_outlier_counts_over_0_10m": {
+      "p2-map-voxel-snapshot-service-20261020-295": [
+        0,
+        0,
+        0
+      ],
+      "p2-map-voxel-snapshot-service-20261020-296": [
+        72,
+        2,
+        5
+      ]
+    },
+    "shifted_wall_outlier_counts_over_0_10m": {
+      "p2-map-voxel-snapshot-wall-phase-20261020-299": [
+        0,
+        0,
+        0
+      ],
+      "p2-map-voxel-snapshot-wall-phase-20261020-301": [
+        0,
+        0,
+        0
+      ],
+      "p2-map-voxel-snapshot-wall-phase-20261020-302": [
+        0,
+        0,
+        0
+      ]
+    },
+    "phase_targeted_run_id": "p2-map-voxel-snapshot-wall-phase-20261020-302",
+    "phase_targeted_source_offsets_s": [
+      1.7479999999999993,
+      4.157,
+      6.8629999999999995
+    ],
+    "delta_vs_295_s": [
+      0.06499999999999861,
+      -0.10000000000000053,
+      -0.06700000000000106
+    ],
+    "delta_vs_296_s": [
+      0.46699999999999964,
+      0.10400000000000009,
+      -0.06100000000000083
+    ],
+    "excluded_or_nonmatched_attempts": [
+      {
+        "run_id": "p2-map-voxel-snapshot-wall-phase-20261020-300",
+        "reason": "Driver config path resolved relative to the run folder; failed before motion and produced no snapshots."
+      },
+      {
+        "run_id": "p2-map-voxel-snapshot-wall-phase-20261020-299",
+        "reason": "Completed, but samples were 1.42–1.92 s later than baseline phases."
+      },
+      {
+        "run_id": "p2-map-voxel-snapshot-wall-phase-20261020-301",
+        "reason": "Completed, but snapshot 01 preceded motion and later samples were 1.30–1.43 s earlier than baseline."
+      }
+    ]
+  },
+  "phase_targeted_run_302": {
+    "epoch": "78502a1665034f768f59f065cd6d404c",
+    "map_id": "78502a1665034f768f59f065cd6d404c-b1f6b56cbdaa4ef08aeb79f9a1da58fa",
+    "frame_id": "odom_78502a1665034f768f59f065cd6d404c",
+    "snapshots": [
+      {
+        "index": "01",
+        "source_phase_s": 1.7479999999999993,
+        "forwarded_depth_count_before_after": [
+          193,
+          206
+        ],
+        "voxel_counts": {
+          "unknown": 3438476,
+          "free": 16158,
+          "occupied": 1366,
+          "inflated": 7146
+        },
+        "occupied_sdf_median_p95_max_m": [
+          0.007549990369424497,
+          0.014277010277000526,
+          0.05760427479094191
+        ],
+        "occupied_centers_over_0_10m": 0,
+        "wall_map_local_x_median_m": 3.0500000000000007,
+        "wall_outliers_over_0_10m": 0,
+        "snapshot_stamp_ns": 11669000000,
+        "source_age_s": 0.118,
+        "service_duration_ms": 42.70992599958845,
+        "archive_sha256": "bc3142f7655e86399bb44a00a401af6c79d0075956ce824069017b75f93a2f64",
+        "archive_readback_exact": true,
+        "epoch_mismatch_rejected": true,
+        "map_id_mismatch_rejected": true
+      },
+      {
+        "index": "02",
+        "source_phase_s": 4.157,
+        "forwarded_depth_count_before_after": [
+          275,
+          276
+        ],
+        "voxel_counts": {
+          "unknown": 3434465,
+          "free": 20339,
+          "occupied": 1196,
+          "inflated": 7553
+        },
+        "occupied_sdf_median_p95_max_m": [
+          0.007174097335740107,
+          0.01581183783639646,
+          0.0663100368412877
+        ],
+        "occupied_centers_over_0_10m": 0,
+        "wall_map_local_x_median_m": 3.0500000000000007,
+        "wall_outliers_over_0_10m": 0,
+        "snapshot_stamp_ns": 14059000000,
+        "source_age_s": 0.099,
+        "service_duration_ms": 39.727256000333,
+        "archive_sha256": "088345438fd7988c02227c3443ab3e1edb0a38cce1ce28f04c850cbce8e23ab8",
+        "archive_readback_exact": true,
+        "epoch_mismatch_rejected": true,
+        "map_id_mismatch_rejected": true
+      },
+      {
+        "index": "03",
+        "source_phase_s": 6.8629999999999995,
+        "forwarded_depth_count_before_after": [
+          354,
+          355
+        ],
+        "voxel_counts": {
+          "unknown": 3434178,
+          "free": 20584,
+          "occupied": 1238,
+          "inflated": 7617
+        },
+        "occupied_sdf_median_p95_max_m": [
+          0.006461869716895441,
+          0.015555716963687936,
+          0.05760427479094191
+        ],
+        "occupied_centers_over_0_10m": 0,
+        "wall_map_local_x_median_m": 3.0500000000000007,
+        "wall_outliers_over_0_10m": 0,
+        "snapshot_stamp_ns": 16780000000,
+        "source_age_s": 0.114,
+        "service_duration_ms": 60.402422001061495,
+        "archive_sha256": "f7c7ec126b1cf17371ba8cb67c2783da4c49a43231569ca67ec69b065e8df68f",
+        "archive_readback_exact": true,
+        "epoch_mismatch_rejected": true,
+        "map_id_mismatch_rejected": true
+      }
+    ],
+    "forbidden_control_nodes": [],
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "snapshot_services": [
+      "/mapping/get_map_status",
+      "/mapping/get_occupancy_snapshot"
+    ],
+    "motion_command_count": 8,
+    "same_acceleration_profile_as_baselines": true
+  },
+  "interpretation": [
+    "Both baseline epochs at front face x=3.00 m select map-local wall x centers 3.05, 2.95, 3.05 m; all three shifted-wall runs at front face x=3.05 m select x=3.05 m at each snapshot.",
+    "In #296, all 72 first-snapshot wall centers beyond the exploratory 0.10 m SDF distance inverse-transform to map x=2.95 m; alignment shifts their x by median −54.5 mm (P05/P95 −61.2/−50.4 mm). #302 has no occupied center beyond 0.10 m; its SDF median/P95/maximum are 0.75/1.43/5.76 cm, 0.72/1.58/6.63 cm, and 0.65/1.56/5.76 cm.",
+    "The phase-targeted #302 samples occur 1.748, 4.157, and 6.863 s after the first force command, within 0.1 s of #295 at all three samples. This strongly supports wall/grid phase as a driver of the side switch and #296 threshold tail, but does not prove root cause or rule out other map errors or ghosting."
+  ],
+  "limitations": [
+    "Only #302 closely matched the baseline sampling phase; #299 was later and #301 snapshot 01 was pre-motion.",
+    "The ROI is a frustum projection, not an occlusion-aware visible-surface or depth-return coverage mask. Snapshots have no per-voxel observation timestamps.",
+    "Fixture truth/SDF is used only for offline analysis. Alignment is fitted to the same short VINS/truth trajectory, not an independent calibration; #302 runtime had no truth/control topics and launched no control nodes.",
+    "The 0.10 m SDF cutoff is exploratory and equals one voxel width. No acceptance threshold, navigation ROI, coverage, ghosting, or unknown-space criterion is frozen.",
+    "No planner goal, trajectory execution, vehicle clearance, PX4/control, or final no-truth navigation acceptance was tested."
+  ],
+  "analysis_artifacts": {
+    "comparison_report": "artifacts/runs/p2-map-voxel-snapshot-wall-phase-20261020-302/wall-grid-phase-comparison.json",
+    "comparison_report_sha256": "8e286cc251e0de1356780204feaecae61001e34aa164a7f4948e7c74cbbb81dd",
+    "comparison_tool": "artifacts/runs/p2-map-voxel-snapshot-wall-phase-20261020-302/compare_wall_grid_phase.py",
+    "comparison_tool_sha256": "9d0029e7e290459f1af2e77a0f8f719f1779f5fed87425576357392b1a6068ff",
+    "runtime_summary": "artifacts/runs/p2-map-voxel-snapshot-wall-phase-20261020-302/runtime-summary.json",
+    "runtime_summary_sha256": "5b1efc1eb9e782f5ae1dd45b5ccb92ba64e840b0a00c2c091f588296d646d370",
+    "provenance_hash_count": 88,
+    "all_provenance_hashes_match": true,
+    "spatial_analysis": "artifacts/runs/p2-map-voxel-snapshot-wall-phase-20261020-302/analyze_temporal_maps.py",
+    "visible_roi_analysis": "artifacts/runs/p2-map-voxel-snapshot-wall-phase-20261020-302/visible-wall-roi-analysis.json"
+  },
+  "validation": [
+    "python3 artifacts/runs/p2-map-voxel-snapshot-wall-phase-20261020-302/compare_wall_grid_phase.py: passed; phase summaries reproduced",
+    "All 88 comparison source SHA-256 entries independently match",
+    "Run #302: all snapshots share epoch/map_id/frame; archives read back exactly; epoch/map-id mismatch requests were rejected; no control nodes, control topics, or truth topics were present."
+  ],
+  "status_effect": "No P0–P6 milestone or GOAL A–H criterion status changed. GOAL C remains pending."
+}

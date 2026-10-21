@@ -1,0 +1,32 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -1023,6 +1023,9 @@
+   sensor_msgs::msg::PointCloud2 cloud_msg;
+ 
+   pcl::toROSMsg(cloud, cloud_msg);
++  const auto stamp_ns = node_->now().nanoseconds();
++  cloud_msg.header.stamp.sec = static_cast<int32_t>(stamp_ns / 1000000000LL);
++  cloud_msg.header.stamp.nanosec = static_cast<uint32_t>(stamp_ns % 1000000000LL);
+   map_pub_->publish(cloud_msg);
+ }
+ 
+@@ -1073,6 +1076,9 @@
+   sensor_msgs::msg::PointCloud2 cloud_msg;
+ 
+   pcl::toROSMsg(cloud, cloud_msg);
++  const auto stamp_ns = node_->now().nanoseconds();
++  cloud_msg.header.stamp.sec = static_cast<int32_t>(stamp_ns / 1000000000LL);
++  cloud_msg.header.stamp.nanosec = static_cast<uint32_t>(stamp_ns % 1000000000LL);
+   map_inf_pub_->publish(cloud_msg);
+ 
+   // RCLCPP_INFO(rclcpp::get_logger("publishMapInflate"), "pub map");
+--- a/planner/plan_manage/launch/advanced_param.launch.py
++++ b/planner/plan_manage/launch/advanced_param.launch.py
+@@ -112,6 +112,7 @@
+             ('grid_map/occupancy_inflate', ['drone_', drone_id, '_grid/grid_map/occupancy_inflate'])
+         ],
+         parameters=[
++            {'use_sim_time': True},
+             {'fsm/flight_type': flight_type},
+             {'fsm/thresh_replan_time': 1.0},
+             {'fsm/thresh_no_replan_meter': 1.0},

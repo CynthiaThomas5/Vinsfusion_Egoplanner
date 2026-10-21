@@ -1,0 +1,429 @@
+{
+  "schema": "p2-ego-pose-rmw-recv-syscall-trace/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-recv-syscall-trace-20261021-355",
+  "status": "completed_diagnostic",
+  "outcome": "long_take_gap_not_reproduced_under_strace_instrumentation",
+  "goal_criterion": "GOAL C diagnostic only; GOAL C remains pending and P2 remains passed.",
+  "question": "During an EGO UDP receiver empty-history interval, does the callback thread successfully return datagrams from the socket?",
+  "configuration": {
+    "command": "bash artifacts/runs/p2-ego-pose-rmw-recv-syscall-trace-20261021-355/run-container.sh",
+    "exit_code": 0,
+    "docker_image": "d435i-vins:dev",
+    "ros_domain_id": 220,
+    "gazebo_partition": "d435i_ego_recv_syscall_trace_355_01",
+    "ego_vpid": 771,
+    "mapping_input_adapter_vpid": 671,
+    "transport_environment": {
+      "ego": {
+        "FASTDDS_BUILTIN_TRANSPORTS": "UDPv4",
+        "FASTDDS_DEFAULT_PROFILES_FILE": null,
+        "FASTRTPS_DEFAULT_PROFILES_FILE": "/workspace/artifacts/runs/p2-ego-pose-rmw-recv-syscall-trace-20261021-355/fastdds-recv-buffer.xml",
+        "RMW_FASTRTPS_USE_QOS_FROM_XML": null
+      },
+      "mapping": {
+        "FASTDDS_BUILTIN_TRANSPORTS": "UDPv4",
+        "FASTDDS_DEFAULT_PROFILES_FILE": null,
+        "FASTRTPS_DEFAULT_PROFILES_FILE": null,
+        "RMW_FASTRTPS_USE_QOS_FROM_XML": null
+      }
+    },
+    "ego_pose_reader_qos": "reliable/volatile/keep_last_25",
+    "mapping_pose_publisher_qos": "reliable/volatile/keep_last_50",
+    "qos_changed": false,
+    "canonical_source_or_config_changed": false,
+    "ego_profile": "same run-local Fast DDS participant profile as #353/#354; listenSocketBufferSize=212992 bytes",
+    "actual_callback_socket_rb_bytes": {
+      "425984": 7
+    },
+    "profile_environment_variable": "FASTRTPS_DEFAULT_PROFILES_FILE",
+    "strace_version": "strace -- version 6.8\nCopyright (c) 1991-2024 The strace developers <https://strace.io>.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\nOptional features enabled: stack-trace=libunwind stack-demangle m32-mpers mx32-mpers",
+    "strace_command": "strace -f -ttt -T -e trace=socket,bind,getsockname,recvfrom,recvmsg,recvmmsg -e raw=recvfrom,recvmsg,recvmmsg",
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_control_nodes": [],
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "px4_started": false
+  },
+  "capture_scope": {
+    "recorded": "socket creation/bind/getsockname and raw recvfrom/recvmsg/recvmmsg arguments, syscall timestamps and return values",
+    "receive_buffer_contents_decoded_or_persisted": false,
+    "participant_socket": "UDP port 62427; successful bind on fd 70 in process 771",
+    "callback_thread": {
+      "tid": 808,
+      "comm": "dds.udp.62427"
+    },
+    "syscall_log_bytes": 13004109,
+    "qualification": "strace follows the EGO launch process and can perturb scheduling; raw receive arguments are pointers and lengths, not buffer contents."
+  },
+  "selected_gap": {
+    "topic": "/drone_0_camera_pose",
+    "duration_s": 0.3924288650014205,
+    "interval_time_of_day_s": [
+      73693.086304438,
+      73693.478733303
+    ],
+    "long_gap_reproduced": false,
+    "freshness_threshold_s": 0.4,
+    "adapter_rmw_publish_count": 1,
+    "independent_pose_receipts": 1,
+    "independent_pose_max_source_gap_s": null,
+    "map_epoch_stable": true,
+    "map_id_stable": false,
+    "map_status_before": {
+      "channel": "map_status",
+      "receipt_wall_time_ns": 1792528092942465691,
+      "receipt_monotonic_ns": 21947530525063,
+      "receipt_sim_time_ns": 8977000000,
+      "source_stamp_ns": 8977000000,
+      "frame_id": "odom_de3e710bdabb44739476020200efb6e2",
+      "epoch": "de3e710bdabb44739476020200efb6e2",
+      "map_id": "de3e710bdabb44739476020200efb6e2-40e00e9a8bce4097861f5ca87aca2508",
+      "input_ready": true,
+      "reason": "ready",
+      "forwarded_depth_count": 48,
+      "last_depth_source_stamp_ns": 8878000000
+    },
+    "map_status_after": {
+      "channel": "map_status",
+      "receipt_wall_time_ns": 1792528093642054636,
+      "receipt_monotonic_ns": 21948230113777,
+      "receipt_sim_time_ns": 9472000000,
+      "source_stamp_ns": 9472000000,
+      "frame_id": "odom_de3e710bdabb44739476020200efb6e2",
+      "epoch": "de3e710bdabb44739476020200efb6e2",
+      "map_id": "de3e710bdabb44739476020200efb6e2-c8370436dfd64217b4f5b8e906e1e385",
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "forwarded_depth_count": 54,
+      "last_depth_source_stamp_ns": 0
+    },
+    "ego_wait_returns": 97,
+    "ego_ready_counts": {
+      "0": 96,
+      "1": 1
+    },
+    "ego_unread_count_distribution": {
+      "0": 96,
+      "1": 1
+    },
+    "reader_status_samples_inside_gap": 6,
+    "reader_status_lost_total_values_inside_gap": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "reader_status_rejected_total_values_inside_gap": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "listener_event_count": 14,
+    "listener_event_counts": {
+      "data_available": 13,
+      "sample_lost": 1
+    },
+    "listener_events_inside_gap": [
+      {
+        "time_of_day_s": 73693.478652702,
+        "vpid": 771,
+        "vtid": 808,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x5ECB8E18A870",
+        "event_type": 1,
+        "unread_count": 1,
+        "total_count": 0,
+        "total_count_change": 0
+      }
+    ],
+    "sample_lost_callbacks_inside_gap": []
+  },
+  "receiver_thread_and_socket": {
+    "callback_thread": {
+      "tid": 808,
+      "comm": "dds.udp.62427",
+      "runtime_delta_ns": 16531040,
+      "runqueue_wait_delta_ns": 1475262,
+      "timeslices_delta": 2249,
+      "voluntary_context_switch_delta": 2242,
+      "nonvoluntary_context_switch_delta": 7,
+      "state_sample_counts_inside_gap": {
+        "S (sleeping)": 4
+      },
+      "wchan_sample_counts_inside_gap": {
+        "__skb_wait_for_more_packets": 4
+      }
+    },
+    "thread_samples_inside_gap": 4,
+    "thread_monitor_bracket_s": 0.500732992,
+    "host_ss_samples_inside_gap": 7,
+    "rb_distribution_bytes": {
+      "425984": 7
+    },
+    "rx_memory_bytes_max": 0,
+    "socket_drops_first_last_inside_gap": [
+      495,
+      495
+    ],
+    "socket_drop_delta_inside_gap": 0
+  },
+  "recv_syscall_alignment": {
+    "schema": "ego-recv-syscall-alignment/v1",
+    "syscall_log": "ego-recv-syscalls.log",
+    "trace_format": "strace raw syscall arguments for receive calls; records FD and return value without decoding receive buffers",
+    "callback_thread": {
+      "tid": 808,
+      "comm": "dds.udp.62427",
+      "udp_local_port": 62427
+    },
+    "socket_bind": {
+      "pid": 771,
+      "fd": 70,
+      "local_udp_port": 62427,
+      "successful_bind_count_for_port": 1
+    },
+    "selected_pose_take_gap": {
+      "duration_s": 0.3924288749694824,
+      "time_of_day_s": [
+        73693.086304438,
+        73693.478733303
+      ],
+      "pose_callback_start_count_interior": 1
+    },
+    "target_socket_receive_calls": {
+      "whole_run_counts": {
+        "recvfrom_success": 104439
+      },
+      "selected_gap_total": 308,
+      "selected_gap_successful": 308,
+      "selected_gap_errors": 0,
+      "selected_gap_call_counts": {
+        "recvfrom": 308
+      },
+      "selected_gap_return_byte_counts": {
+        "128": 282,
+        "65500": 20,
+        "112": 2,
+        "124": 1,
+        "65468": 1,
+        "53208": 1,
+        "232": 1
+      },
+      "first_epoch_s": 1792528093.087724,
+      "last_epoch_s": 1792528093.478677,
+      "first_offset_from_gap_start_s": 0.0014195442199707031,
+      "last_offset_from_gap_start_s": 0.39237260818481445,
+      "max_intercall_gap_s": 0.01978611946105957,
+      "median_intercall_gap_s": 0.0009899139404296875
+    },
+    "qualification": "This run did not reproduce a multi-second take gap: its maximum gap was below the 0.4 s freshness threshold. Successful recvfrom calls on the participant socket during this shorter empty-history interval establish kernel-to-process receive returns for datagrams, not that they carried camera_pose DATA or entered its DataReader history. strace instrumentation can alter scheduling."
+  },
+  "interpretation": "This run did not reproduce the multi-second take gap: the maximum interval was 0.392429 s, below the 0.4 s freshness threshold. During that shorter 0.392 s interval, 96 RMW waits returned unread_count=0 and the callback thread successfully returned 308 datagrams from fd 70 bound to UDP port 62427; no receive syscall errors were recorded. This establishes kernel-to-process delivery of datagrams to the participant receive thread in this shorter window, not camera_pose topic identity or insertion into its DataReader history. The interval crossed a map_id reset: MapStatus changed from ready to map_reset_acknowledged and the independent reader saw only one pose. The planner goal probe timed out before ready; instrumentation, map reset, and sparse matched input make this run non-comparable to the #353/#354 long-gap runs.",
+  "trace_integrity": {
+    "ctf_file_count": 32,
+    "ctf_total_bytes": 36312672,
+    "primary_trace_file_count": 32,
+    "primary_trace_bytes": 36312672,
+    "listener_smoke_trace_file_count": 0,
+    "listener_smoke_trace_bytes": 0,
+    "ctf_file_hash_manifest": {
+      "path": "analysis/ctf-file-hashes.sha256",
+      "sha256": "db3ef00444d64f3c3f1daf5991bf7eac7c9ab25a15efec7605ed14c8de60d879",
+      "size_bytes": 3724
+    },
+    "wait_trace_event_count": 37044,
+    "wait_trace_sequence_range": [
+      0,
+      37043
+    ],
+    "missing_wait_sequences": [],
+    "selected_gap_wait_sequence_bounds": [
+      1473,
+      1569
+    ],
+    "missing_sequences_overlap_selected_gap": false,
+    "overall_wait_summary_exit_code": 0,
+    "analyzer_exit_codes": {
+      "rmw-wait-summary": 0,
+      "rmw-status-summary": 0,
+      "publisher-take-alignment": 0,
+      "rmw-take-alignment": 0,
+      "rmw-status-alignment": 0,
+      "ego-rclcpp-summary": 0,
+      "rmw-unread-alignment": 0,
+      "reader-listener-events": 0,
+      "ego-schedstat-alignment": 0,
+      "host-socket-buffer-alignment": 0,
+      "wait-sequence-gaps": 0
+    },
+    "ctf_sha256_check": "all listed primary CTF data/index files match"
+  },
+  "probe_library_reused_from_353": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-packet-arrival-trace-20261021-354/probe-install/lib/librmw_wait_probe.so",
+    "sha256": "82cdb8c83d961ca4eeedaca8d3061e2413b248d09181632e08b34f6422294e2c",
+    "rebuilt_for_this_run": false
+  },
+  "runtime_scope": {
+    "planner_goal_sent": false,
+    "planner_status": "timeout_before_ready",
+    "planner_bspline_count": 0,
+    "trajectory_executed": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "px4_started": false,
+    "localization_last_state": 4,
+    "localization_last_valid": false,
+    "localization_last_reason": "propagated_from_future",
+    "mapping_last_ready": false,
+    "mapping_last_reason": "map_reset_acknowledged",
+    "truth_topics": [],
+    "control_topics": []
+  },
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-recv-syscall-trace-20261021-355/run-manifest.json",
+    "sha256": "5a56a822afb4b8d518f8718666b7ebba7194368c040b0e087611193ed734943d",
+    "size_bytes": 19481
+  },
+  "workspace_snapshot": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-recv-syscall-trace-20261021-355/workspace-status-after-355.txt",
+    "sha256": "b4ae33c35d6e2783b618de225dcd217d89c855bd881186143eefcf3e7452490c",
+    "size_bytes": 45869
+  },
+  "key_artifacts": {
+    "analysis/publisher-take-alignment.json": {
+      "path": "analysis/publisher-take-alignment.json",
+      "sha256": "0c2890688b53e4fd0ea65a8c979aa0e3ec63e4861c01c6309e3b46bf034c2d9a",
+      "size_bytes": 1707
+    },
+    "analysis/rmw-unread-alignment.json": {
+      "path": "analysis/rmw-unread-alignment.json",
+      "sha256": "c801f499a3d449a15069b136bd35ea3e84afe8c49e889ed152849da89822c99e",
+      "size_bytes": 4452
+    },
+    "analysis/rmw-status-alignment.json": {
+      "path": "analysis/rmw-status-alignment.json",
+      "sha256": "2f4df0c94883410470cfa2c738b6ea47e64024080e10ea7ad41d2bf247022e69",
+      "size_bytes": 4477
+    },
+    "analysis/reader-listener-events.json": {
+      "path": "analysis/reader-listener-events.json",
+      "sha256": "66c95f1d4ce98abcd20e8bc300d161e5b1f8406b7315d43b9bd584e7abbed799",
+      "size_bytes": 2771
+    },
+    "analysis/ego-thread-schedstat-alignment.json": {
+      "path": "analysis/ego-thread-schedstat-alignment.json",
+      "sha256": "e6964a5eb42bf4bdb41da91d35189714273ac3a7784d44f2fb7780889a12f8b1",
+      "size_bytes": 9418
+    },
+    "analysis/host-socket-buffer-alignment.json": {
+      "path": "analysis/host-socket-buffer-alignment.json",
+      "sha256": "b31e119ac397dae30727c290dda860b2ce8464b39bf324a32cbd429beb3aa821",
+      "size_bytes": 1658
+    },
+    "analysis/recv-syscall-alignment.json": {
+      "path": "analysis/recv-syscall-alignment.json",
+      "sha256": "23f0071c785e0e0e400d2a93d7dd28521f70c2fbd05773d48d8659e6b4f8ec5d",
+      "size_bytes": 1770
+    },
+    "analysis/rmw-wait-sequence-gaps.json": {
+      "path": "analysis/rmw-wait-sequence-gaps.json",
+      "sha256": "815519f3dd37f5aa2054ff7d02a64430105c6f41292e79fd9c35253a05c2f2de",
+      "size_bytes": 359
+    },
+    "analysis/analyzer-exit-codes.txt": {
+      "path": "analysis/analyzer-exit-codes.txt",
+      "sha256": "218296de3018a709bbf9250a9d9456422eff2f67c17c68dccca7b43cc68b9592",
+      "size_bytes": 258
+    },
+    "analysis/ctf-file-hashes.sha256": {
+      "path": "analysis/ctf-file-hashes.sha256",
+      "sha256": "db3ef00444d64f3c3f1daf5991bf7eac7c9ab25a15efec7605ed14c8de60d879",
+      "size_bytes": 3724
+    },
+    "analysis/independent-reader-gap-alignment.stdout.json": {
+      "path": "analysis/independent-reader-gap-alignment.stdout.json",
+      "sha256": "728be860bc138b1d8a827535432b67ca87f8380d371ac9b91c0baa119de8f2e5",
+      "size_bytes": 1503
+    },
+    "analysis/ctf-sha256-check.txt": {
+      "path": "analysis/ctf-sha256-check.txt",
+      "sha256": "8eff234f4d69ba915469d32ee1bd60fca0391eb394802454cb087419c0a2df12",
+      "size_bytes": 1740
+    },
+    "ego-recv-syscalls.log": {
+      "path": "ego-recv-syscalls.log",
+      "sha256": "397fe454e2577df9e3305c2db6c4d6dd1723c261e42444a974d4998e4bf39a85",
+      "size_bytes": 13004109
+    },
+    "strace-install.log": {
+      "path": "strace-install.log",
+      "sha256": "fda39488415bd4fc90c9d70c5eee025a302f9b42ad9ef9e30829b6378e79d36f",
+      "size_bytes": 874
+    },
+    "strace-version.txt": {
+      "path": "strace-version.txt",
+      "sha256": "9cbcd41c9492f2188db6a3fae935c7211b826b655fed03b41259cfdd22725da4",
+      "size_bytes": 326
+    },
+    "host-udp-skmem.jsonl": {
+      "path": "host-udp-skmem.jsonl",
+      "sha256": "2e3f7895592414eb4216fffab9c3d9aafeb6f17c29dc5fadc0d5d8c501201fe3",
+      "size_bytes": 75614375
+    },
+    "host-net-readonly.json": {
+      "path": "host-net-readonly.json",
+      "sha256": "2f741b65f54b2d56715ce974e3c7d780cf779cf93750409f2744a508a27306b1",
+      "size_bytes": 176
+    },
+    "runtime-summary.json": {
+      "path": "runtime-summary.json",
+      "sha256": "8569eb18116aa664526b9d11a2950e4ad60751140c7bc0a2ee0c351d116e7608",
+      "size_bytes": 1090
+    },
+    "planner-goal-result.json": {
+      "path": "planner-goal-result.json",
+      "sha256": "0f73f59ecd7eb922ea185cb8b985769188165e32e420425d59e1b7160d727019",
+      "size_bytes": 254905
+    },
+    "transport-env.json": {
+      "path": "transport-env.json",
+      "sha256": "ea042a6cda6bfca722a9d50d56b9fd4fa0c782113c6080731a88881e87345a70",
+      "size_bytes": 743
+    },
+    "fastdds-recv-buffer.xml": {
+      "path": "fastdds-recv-buffer.xml",
+      "sha256": "3b5ab23f7871aa2dc8f348c2b8862e6c96ae1857e72eb4fb229cf8da66be8fee",
+      "size_bytes": 340
+    },
+    "probe-library.sha256": {
+      "path": "probe-library.sha256",
+      "sha256": "5aca3f2a53eb773bd90aff1f2c4b6ff3b70fbb1ec62a9adea7785262c449c120",
+      "size_bytes": 165
+    },
+    "container-run.log": {
+      "path": "container-run.log",
+      "sha256": "6687acd24dc6da1b88d52ff9de0082e82968e5d73118b20464c950f1ec8049b1",
+      "size_bytes": 2906
+    },
+    "ego.log": {
+      "path": "ego.log",
+      "sha256": "112d5128359fa07bcc594f1dc07cc9778c2592afcfa53b38a9437830f0128b04",
+      "size_bytes": 15363
+    }
+  },
+  "limitations": [
+    "The original multi-second take gap was not reproduced; the selected 0.392 s interval is below the 0.4 s freshness gate.",
+    "The selected interval crossed a MapStatus map_id reset and had only one independent pose receipt and one adapter RMW publish, so it is not a matched-data reproduction of #354.",
+    "The strace wrapper can change scheduling; results are diagnostic and not a passive timing measurement.",
+    "Datagrams returned from the participant UDP socket include all DDS traffic; syscall returns cannot identify ROS topic or RTPS sample.",
+    "The planner goal probe timed out before ready; localization later reported propagated_from_future and MapStatus ended map_reset_acknowledged. No trajectory was emitted or executed.",
+    "The CTF wait trace is complete for this run, but the run is not equivalent to the long-gap runs and does not establish resolution."
+  ]
+}

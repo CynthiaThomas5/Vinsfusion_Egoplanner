@@ -1,0 +1,104 @@
+{
+  "schema": "p2-ego-current-vendor-manual-goal-health-diagnostic/v2",
+  "date": "2026-10-20",
+  "status": "DIAGNOSTIC_ONLY_NO_GOAL_ACCEPTANCE",
+  "objective": "Assess current locked EGO manual-goal spline publication and offline known-obstacle geometry, then capture a post-spline localization, mapping, and VINS telemetry health timeline. No control or trajectory execution.",
+  "build": {
+    "run_report": "artifacts/runs/p2-ego-current-vendor-build-20261020-280/run-report.json",
+    "source_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "source_tree_sha256": "c5caa40fd9c89ccb31deccc35277985e95e0be781f760f2a8e77ab1212d435ec",
+    "image_digest": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ego_planner_node_sha256": "d4d6abb66acf8b20edbc3ec78a6bc4f93c6efe9268e5bbd3ba03c63a1e635f81",
+    "plan_env_sha256": "ae2b8152c84b113c97972a61edd649553f4b6fed781d338f6c05b8437affa71b"
+  },
+  "runs": [
+    {
+      "run_id": "p2-ego-current-vendor-manual-goal-20261020-282",
+      "status": "EXCLUDED_BEFORE_GOAL_LOCALIZATION_LOCK",
+      "run_report": "artifacts/runs/p2-ego-current-vendor-manual-goal-20261020-282/run-report.json",
+      "run_report_sha256": "4b4b48f87f32e99d200dc1ee8bad9da62cf8cfb69eaa14ea003dbc780c4a1295",
+      "finding": "Delayed goal probe started after localization locked with right_stale; map had reset and zero occupied points. No goal/spline; excluded from planner result."
+    },
+    {
+      "run_id": "p2-ego-current-vendor-manual-goal-20261020-283",
+      "status": "DIAGNOSTIC_PLANNER_SPLINE_CAPTURED_CLEARANCE_EVALUATED_NOT_ACCEPTANCE",
+      "run_report": "artifacts/runs/p2-ego-current-vendor-manual-goal-20261020-283/run-report.json",
+      "run_report_sha256": "398717d5885071f03a323333aa25402bc9e35fd5d76d8df4e50941376b6b3ba6",
+      "finding": {
+        "goal_sent": true,
+        "goal_sent_wall_elapsed_s": 6.290178,
+        "localization_at_dispatch": "TRACKING, good_pairs=10",
+        "map_status": "ready, 902 occupied points",
+        "inflated_occupancy_points": 15360,
+        "bspline_count": 1,
+        "spline_order": 3,
+        "spline_control_points": 15,
+        "offline_fixed_scale_se3_position_rmse_m": 0.006635046925865404,
+        "offline_fixed_scale_se3_position_p95_m": 0.01108776940890563,
+        "nominal_sphere_clearance_m": {
+          "calibration_box": 0.5743510561896275,
+          "calibration_cylinder": 1.6400231035090358
+        },
+        "later_input_failure": "mapping gate closed on normalized_cost_exceeded; EGO logged odom/depth loss and EMERGENCY_STOP."
+      }
+    },
+    {
+      "run_id": "p2-ego-current-vendor-goal-health-timeline-20261020-284",
+      "status": "DIAGNOSTIC_SPLINES_AND_HEALTH_TIMELINE_CAPTURED_NO_ACCEPTANCE",
+      "run_report": "artifacts/runs/p2-ego-current-vendor-goal-health-timeline-20261020-284/run-report.json",
+      "run_report_sha256": "860da46173178685913c8f4b7de544dc96a13bd098d72975adecbad5c82fc1ed",
+      "health_timeline_analysis": "artifacts/runs/p2-ego-current-vendor-goal-health-timeline-20261020-284/health-timeline-analysis.json",
+      "health_timeline_analysis_sha256": "9af4cd9ea7537a9a9ae46792cc2f0086ba479d0470e240c7296532b0e12d0b17",
+      "finding": {
+        "goal_sent": true,
+        "goal_sent_wall_elapsed_s": 6.827334,
+        "ready_map_occupied_points": 921,
+        "inflated_occupancy_points": 15569,
+        "ego_goal_subscribers": 1,
+        "bspline_count_over_62_863_s": 8,
+        "first_spline_fixed_scale_se3_position_rmse_m": 0.005757523202162481,
+        "first_spline_fixed_scale_se3_position_p95_m": 0.009030462133105821,
+        "first_spline_nominal_sphere_clearance_m": {
+          "calibration_box": 0.6186233072851226,
+          "calibration_cylinder": 1.6304650105966
+        },
+        "telemetry_samples": 545,
+        "telemetry_parse_errors": 0,
+        "negative_solve_seconds_samples": 1,
+        "negative_solve_seconds_sample": {
+          "wall_elapsed_s": 47.473168,
+          "stamp_ns": 32374000000,
+          "solve_seconds": -0.5448720455169678,
+          "normalized_cost": 0.7975608120434661,
+          "input_features": 35,
+          "stereo_features": 22,
+          "long_tracks": 22,
+          "solver_usable": true
+        },
+        "localization_locked_wall_elapsed_s": 47.508421,
+        "localization_lock_reason": "solve_seconds_exceeded",
+        "normalized_cost_max": 0.9661718185168953,
+        "earlier_ego_input_timeouts": 8,
+        "runtime_control_nodes": [],
+        "runtime_control_topics": []
+      },
+      "interpretation": "The telemetry and health code explain why this sample caused the current fail-closed gate. The reason for the single negative Ceres timing value is unknown. EGO depth/pose synchronization loss was logged earlier in the run and has not been causally linked to the later localization lock."
+    }
+  ],
+  "preflight": "artifacts/runs/p2-ego-current-vendor-manual-goal-20261020-283/corridor-preflight.json",
+  "qualification": "Planner-only diagnostics and offline comparisons to known SDF collision primitives. No trajectory server, controller, PX4 bridge, setpoint publisher, runtime truth input, or trajectory execution. Does not establish map coverage, free/unknown-space safety, actual vehicle clearance, trajectory tracking, or GOAL D/E/F acceptance.",
+  "control_isolation": "The run harness launches the debug sensor stack, VINS, localization, mapping adapters, and ego_planner advanced_param.launch.py only. That launch file starts ego_planner_node; no trajectory server, controller, PX4 bridge, setpoint publisher, or runtime truth subscriber was launched. #283 runtime node/topic list was not captured because the container-side post-run evaluator lacked scipy; offline geometry was completed on the host with SciPy 1.8.0.",
+  "next_step": "Reproduce and instrument the negative solve_seconds sample while retaining the fail-closed gate; diagnose the earlier EGO occupancy/pose synchronization stall separately; then collect free/unknown, coverage, and persistence evidence before freezing GOAL F thresholds and formal D/E tests.",
+  "milestones_unchanged": {
+    "P2": "passed (stage criteria only; GOAL A-H remain pending except G)",
+    "P6": "in_progress",
+    "GOAL_D": "pending",
+    "GOAL_F": "pending; thresholds not frozen"
+  },
+  "health_policy": {
+    "path": "config/components/localization/health.json",
+    "qualification": "PROVISIONAL; unchanged",
+    "max_solve_s": 0.1,
+    "max_normalized_cost": 1.0
+  }
+}

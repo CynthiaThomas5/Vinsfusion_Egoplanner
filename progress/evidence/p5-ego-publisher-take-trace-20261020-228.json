@@ -1,0 +1,532 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228",
+  "scope": "Run-local no-truth single-D435i VINS/EGO/PX4 SITL diagnostic tracing the mapping_input_adapter camera-pose publisher and EGO subscriber.",
+  "classification": "UPSTREAM_RMW_PUBLISH_CONTINUES_DURING_EGO_TAKE_GAP; ACTION_ABORTED_ACCEL_BIAS; AUTO_LAND; LANDED_DISARMED; EV_FUSION; ZERO_GNSS_AIDING; P5_NOT_PASSED",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-pose-receipt-rclcpp-trace-20261020-227",
+    "ego_overlay_reused_from": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225",
+    "patch_order": [
+      "0012-grid_map_timeout",
+      "0013_grid_map_sync_input",
+      "0015_filter_receipt_and_message_lost"
+    ],
+    "patch_sha256": {
+      "0012-grid_map_timeout": "2c9ea857cbbb1cd3bd4b2b8a678a3bf59e60bfac4bf9f8db7d24eab0c800b833",
+      "0013_grid_map_sync_input": "cb049c85b196cf30a022936455b8ba25410ac2b8b1575ab4e5630b348a93c5d0",
+      "0015_filter_receipt_and_message_lost": "43c82f406729fe9aa2e69ec2c353e702f2b7d4642d123838ed3d7717d0491dd1"
+    },
+    "ego_binary_sha256": "3749967321ed90c987cba2bc2faeb0515b8794cabe021be767806fb97f5adf53",
+    "plan_env_library_sha256": "7d28b84ee39984c7b2b431e0f9c527b539fb5e48207e230d7702bd13f46c67c2",
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "filter_threshold": 0.01,
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.5235987755982988,
+    "ros_domain_id": 232,
+    "gazebo_partition": "d435i_p5_vio_ego_pose_receipt_publisher_trace_228",
+    "container_image": {
+      "tag": "d435i-vins:dev",
+      "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8"
+    },
+    "harness_subscriptions": {
+      "raw_depth_image": false,
+      "ego_depth_image": false,
+      "occupancy_pointcloud": false,
+      "mapping_status": true,
+      "depth_health": true,
+      "ego_camera_pose": true,
+      "px4_status": true,
+      "localization_status": true
+    },
+    "truth_input_started": false,
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "canonical_safety_or_algorithm_thresholds_changed": false,
+    "trace": {
+      "method": "ROS 2 core LTTng UST tracepoints",
+      "session": "pose-publisher-ego-228",
+      "ego_vpid": 909,
+      "mapping_input_adapter_vpid": 908,
+      "selected_after_graph_initialization": [
+        "EGO",
+        "mapping_input_adapter"
+      ],
+      "post_selection_ros_event_counts_by_vpid": {
+        "909": 295208,
+        "908": 64146
+      },
+      "window_after_selection_s": 32.5,
+      "raw_ctf_file_count": 33,
+      "raw_ctf_size_bytes": 9623992,
+      "raw_ctf_sha256_manifest": "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/ego-rclcpp-trace-sha256.txt",
+      "publisher_topic": "/drone_0_camera_pose",
+      "events": [
+        "ros2:rcl_init",
+        "ros2:rcl_node_init",
+        "ros2:rcl_subscription_init",
+        "ros2:rmw_subscription_init",
+        "ros2:rclcpp_subscription_init",
+        "ros2:rclcpp_subscription_callback_added",
+        "ros2:rclcpp_callback_register",
+        "ros2:rcl_publisher_init",
+        "ros2:rmw_publisher_init",
+        "ros2:rclcpp_publisher_init",
+        "ros2:rcl_publish",
+        "ros2:rmw_publish",
+        "ros2:rclcpp_publish",
+        "ros2:rclcpp_intra_publish",
+        "ros2:rmw_take",
+        "ros2:rcl_take",
+        "ros2:rclcpp_take",
+        "ros2:callback_start",
+        "ros2:callback_end",
+        "ros2:rclcpp_executor_get_next_ready",
+        "ros2:rclcpp_executor_wait_for_work",
+        "ros2:rclcpp_executor_execute"
+      ]
+    }
+  },
+  "run": {
+    "preconditions_ready": true,
+    "localization_tracking_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "harness_result": "FAIL",
+    "action_goal_sent": true,
+    "action_success": false,
+    "action_result": {
+      "final_position": [
+        0.10090523937277876,
+        0.07403601154453063,
+        0.8794564496539219
+      ],
+      "outcome": "aborted",
+      "reason": "localization_accel_bias_norm_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "goal": {
+      "frame": "odom_09e2572fcc0f485e9c71ab1bbbd09010",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        0.2904950474769086,
+        0.00040032656254018306,
+        0.885035255686392
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": 0.5225900157041071,
+      "yaw_offset_rad": 0.5235987755982988,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "landed_and_disarmed": true,
+    "bridge_phase_history": [
+      [
+        "DISABLED",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "PRESTREAM",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_OFFBOARD",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_ARM",
+        "requesting_arm",
+        false,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        false
+      ],
+      [
+        "ACTIVE",
+        "takeoff_complete_waiting_for_trajectory",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "trajectory_4",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "accel_bias_norm_exceeded",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "accel_bias_norm_exceeded",
+        true,
+        true
+      ],
+      [
+        "LANDED",
+        "accel_bias_norm_exceeded",
+        false,
+        true
+      ]
+    ],
+    "latest_localization_status": {
+      "accepted_optimized": 303,
+      "accepted_propagated": 4003,
+      "epoch": "09e2572fcc0f485e9c71ab1bbbd09010",
+      "reason": "accel_bias_norm_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "latest_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "accel_bias_norm_exceeded"
+    }
+  },
+  "observations": {
+    "publisher_trace": {
+      "camera_pose_rcl_publish_count": 575,
+      "camera_pose_rmw_publish_count": 575,
+      "camera_pose_rmw_publish_timing": {
+        "count": 575,
+        "first_time_of_day_s": 72633.420696988,
+        "last_time_of_day_s": 72664.916212586,
+        "max_gap_s": 0.26879401798942126,
+        "max_gap_from_time_of_day_s": 72664.307196313,
+        "max_gap_to_time_of_day_s": 72664.575990331
+      }
+    },
+    "ego_trace": {
+      "camera_pose_successful_take_count": 548,
+      "camera_pose_taken_zero_count": 0,
+      "depth_successful_take_count": 575,
+      "optimized_odometry_successful_take_count": 594,
+      "camera_pose_callback": {
+        "count": 548,
+        "p95_duration_ms": 1.543219,
+        "max_duration_ms": 6.134355
+      },
+      "unmatched_callback_starts": 0,
+      "executor_tracepoint_payloads": "rclcpp_executor_get_next_ready/wait_for_work/execute events have no event fields for the selected entity"
+    },
+    "publisher_take_alignment": {
+      "ego_pose_take_timing": {
+        "count": 548,
+        "first_time_of_day_s": 72633.421461444,
+        "last_time_of_day_s": 72664.917497563,
+        "max_gap_s": 2.52182709799672,
+        "max_gap_from_time_of_day_s": 72641.917227861,
+        "max_gap_to_time_of_day_s": 72644.439054959
+      },
+      "publisher_rmw_publish_timing": {
+        "count": 575,
+        "first_time_of_day_s": 72633.420696988,
+        "last_time_of_day_s": 72664.916212586,
+        "max_gap_s": 0.26879401798942126,
+        "max_gap_from_time_of_day_s": 72664.307196313,
+        "max_gap_to_time_of_day_s": 72664.575990331
+      },
+      "largest_take_gap_interval": {
+        "from_time_of_day_s": 72641.917227861,
+        "to_time_of_day_s": 72644.439054959,
+        "from_after_selection_s": 8.539768,
+        "to_after_selection_s": 11.061595,
+        "publisher_rmw_publish_count": 50,
+        "publisher_rmw_publish_timing": {
+          "count": 50,
+          "first_time_of_day_s": 72642.015106747,
+          "last_time_of_day_s": 72644.428697946,
+          "max_gap_s": 0.12240100400231313,
+          "max_gap_from_time_of_day_s": 72642.631952432,
+          "max_gap_to_time_of_day_s": 72642.754353436
+        },
+        "ego_pose_callback_start_count_interior": 1,
+        "ego_pose_callback_start_context": [
+          {
+            "callback_start_time_of_day_s": 72641.917228753,
+            "offset_from_gap_start_s": 8.919887477532029e-07,
+            "prior_successful_take_time_of_day_s": 72641.917227861,
+            "following_successful_take_time_of_day_s": 72644.439054959
+          }
+        ],
+        "executor_event_counts": {
+          "rclcpp_executor_get_next_ready": 2235,
+          "rclcpp_executor_execute": 889,
+          "rclcpp_executor_wait_for_work": 1099
+        }
+      },
+      "rmw_publish_count_inside_gap": 50,
+      "rmw_publish_max_gap_inside_gap_s": 0.12240100400231313,
+      "camera_pose_callback_start_count_inside_gap": 1,
+      "callback_boundary_context": [
+        {
+          "callback_start_time_of_day_s": 72641.917228753,
+          "offset_from_gap_start_s": 8.919887477532029e-07,
+          "prior_successful_take_time_of_day_s": 72641.917227861,
+          "following_successful_take_time_of_day_s": 72644.439054959
+        }
+      ],
+      "executor_event_counts_inside_gap": {
+        "rclcpp_executor_get_next_ready": 2235,
+        "rclcpp_executor_execute": 889,
+        "rclcpp_executor_wait_for_work": 1099
+      }
+    },
+    "independent_camera_pose_observer": {
+      "count": 459,
+      "first_stamp_ns": 13432000000,
+      "first_wall_elapsed_s": 0.525658990998636,
+      "large_gaps": [
+        {
+          "receipt_gap_s": 0.2275975529992138,
+          "stamp_gap_s": 0.068,
+          "stamp_ns": 26272000000,
+          "wall_elapsed_s": 20.57650809700135
+        },
+        {
+          "receipt_gap_s": 0.26700981999601936,
+          "stamp_gap_s": 0.032,
+          "stamp_ns": 28712000000,
+          "wall_elapsed_s": 24.551147345999198
+        }
+      ],
+      "last_stamp_ns": 28944000000,
+      "last_wall_elapsed_s": 24.891281766998873,
+      "max_receipt_gap_s": 0.26700981999601936,
+      "max_stamp_gap_s": 0.068
+    },
+    "depth_health_observer": {
+      "count": 1296,
+      "max_receipt_gap_s": 0.05242893600370735,
+      "last_status": {
+        "reason": "fresh_structurally_valid_depth",
+        "state": 1,
+        "valid": true
+      }
+    },
+    "single_control_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "px4_ulog": {
+      "duration_sim_s": 29.748,
+      "dropouts": 0,
+      "parameters": {
+        "UXRCE_DDS_SYNCT": 0,
+        "UXRCE_DDS_SYNCC": 0,
+        "SYS_AUTOSTART": 5011,
+        "EKF2_EV_CTRL": 15,
+        "EKF2_GPS_CTRL": 0
+      },
+      "estimator_flag_counts": {
+        "cs_ev_pos": {
+          "true": 24,
+          "samples": 40
+        },
+        "cs_ev_yaw": {
+          "true": 24,
+          "samples": 40
+        },
+        "cs_ev_vel": {
+          "true": 24,
+          "samples": 40
+        },
+        "cs_gnss_pos": {
+          "true": 0,
+          "samples": 40
+        },
+        "cs_gnss_vel": {
+          "true": 0,
+          "samples": 40
+        },
+        "cs_gnss_yaw": {
+          "true": 0,
+          "samples": 40
+        },
+        "cs_gps_hgt": {
+          "true": 0,
+          "samples": 40
+        }
+      },
+      "vehicle_status_transitions": [
+        {
+          "sim_time_s": 5.684,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 4,
+          "nav_state_name": "AUTO_LOITER",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 17.588,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 17.636,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 29.168,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 18,
+          "nav_state_name": "AUTO_LAND",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 33.608,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 12,
+          "nav_state_name": "DESCEND",
+          "failsafe": true
+        },
+        {
+          "sim_time_s": 34.928,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        }
+      ],
+      "land_transitions": [
+        {
+          "sim_time_s": 5.636,
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        {
+          "sim_time_s": 19.372,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 19.38,
+          "landed": false,
+          "ground_contact": false,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 32.244,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 32.58,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        {
+          "sim_time_s": 32.916,
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        }
+      ],
+      "battery_warning_values": [
+        0
+      ],
+      "battery_fault_values": [
+        0
+      ],
+      "final_vehicle_status": {
+        "arming_state": 1,
+        "nav_state": 14,
+        "failsafe": false
+      },
+      "final_land_status": {
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      }
+    }
+  },
+  "interpretation": {
+    "finding": "During the largest 2.521827 s gap between EGO successful takes, the upstream mapping_input_adapter recorded 50 camera-pose rmw_publish events; the largest gap between those writer events was 0.122401 s. The EGO RMW trace had no camera-pose taken=0 event, so it did not record failed take attempts for that reader; the long interval has no mapped take attempt between its endpoints. This rules out publisher silence at the RMW publish boundary as the explanation for this interval, but does not show whether Fast DDS delivered samples to the EGO DataReader or whether the executor wait set selected that subscription.",
+    "navigation_outcome": "The run passed preconditions and dispatched the same 0.30 m/+30 degree goal, then aborted on the existing localization_accel_bias_norm_exceeded gate. PX4 entered AUTO_LAND, later briefly recorded DESCEND/failsafe, touched down and disarmed. ULog shows EV position/yaw/velocity fusion, zero GNSS aiding and zero dropout. These flight events are separate from the publisher/take timing result.",
+    "root_cause": "UNRESOLVED between DDS DataReader delivery/readiness and ROS executor wait-set selection/scheduling. The generic executor tracepoints contain no selected-entity fields.",
+    "limitations": [
+      "RMW publish timestamps show calls at the writer boundary, not delivery or sample availability in the EGO reader.",
+      "No message-header stamp was recorded at both ends, so individual published samples were not paired with EGO take records.",
+      "This is one diagnostic run with a run-local EGO overlay. The action did not succeed because the existing accel-bias gate fired.",
+      "The executor tracepoints provide activity counts but no subscription handle or ready-entity identity."
+    ],
+    "next_step": "Before another flight, inspect an isolated Fast DDS/RMW DataReader readiness or data-available observation for the EGO camera-pose reader. If it can be captured without changing QoS or adding high-bandwidth subscribers, run a bounded #229 comparison against EGO rmw_take and executor wait events."
+  },
+  "files_sha256": {
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/launch-publisher-ego-trace.sh": "6ee070c3c7c2fd2efe57cccb2e8a76fe6936c4b08db29eb796dea54014916d11",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/run-filtered-horizontal-goal.sh": "1563f4b585f7a366cc51925b90a1dccf2949f739f7fb8829bb384731e6c5ca23",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/run-variant-manifest.json": "5c8439dde3987dccb9a59c965a10cd6ebcd50135906edc565687494f12b2581e",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/run_vio_ego_flight_harness.py": "390576b3715e13361d804297e7d8743b0d53e5cc934cddf419ed456e59ddee18",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/capture_vins_odom_trace.py": "0aef1fa7280ff6ab477825d9fced4f66d46685bf8c54f187c2db1e1ac0d7ca5e",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/analyze_px4_ulog.py": "51b54b4fd19b4b6d1ce300ca15e7224a12bf1adad99e13b7877680b084509ca3",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/analyze_ego_rclcpp_trace.py": "39a95bd65acb57263c76f3c64abab1728b50f79ff75db8820c75797e2a7eee14",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/analyze_camera_pose_publisher_trace.py": "5fa712cd6fa988d8cdfba9f47ece9319af48d607943d448fcb1477bf0f9a2e48",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/analyze_camera_pose_publisher_take_alignment.py": "754d14462f52b094a11f86d09313721d42aa7c91b94fd1c35e38733efff9443f",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/ego-trace-selection.txt": "4d68227f3a230553624969b70667e6139bfbad665d1e23bd0634a2ef964b4e81",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/ego-rclcpp-trace-analysis.json": "8585f0f7237fef5b83e3f3b5dc960635f84a766351d4366921676d5db522da69",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/camera-pose-publisher-analysis.json": "dadb2e6d7bf45c9f83baf422ea2b6a565af28e827d6e11f0b85493930ea9ff4c",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/publisher-take-alignment.json": "3ebbbe7ad9acee69b83ff4c736d7b66103faf6873a38fcfddf36ab20e6f5c6e7",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/ego-rclcpp-trace-sha256.txt": "22ca5ca3d9a968b386d3e55aea1c92fa00017e85e819f6cf95363a5231b672ed",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/truth-and-control-isolation.txt": "cf559c5846e362136ecfed1a2ae9b2e1f661aa46dde6366752751d7fc0764ec1",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/vio_closed_loop_smoke_goal.json": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/vio-ego-flight-report.json": "3ec482f2d255f3a282f11f972f4b792094aef511687c328f90b48504aadc0702",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/vio-launch.log": "336f7d00f6e94469574927dbf4e715e0f0f8ef20fac1180fa9d80d56caf68f65",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/vio-ego-flight.log": "3ec482f2d255f3a282f11f972f4b792094aef511687c328f90b48504aadc0702",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/vins-odom-trace.json": "b587451e349c7970cfe42a173a8aacdb6a669b5fcc70782e971f81c1ed4bef81",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/landing-failsafe-timeline.json": "a6e0a7828ef979e56151fe1f36ce8e15c820e7270ecb59fe86eeab921119c5a8",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/px4-bridge-live.json": "2a326e5e6ce475734b54d9dc9c005c521c71871428dd92507c45618df2a478b4",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/topic-info_drone_0_camera_pose.txt": "0a11645e91a50c43fdea423ce2263fdb7449725904f95fcd83b882fb70b24a7c",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/topic-info_drone_0_depth_image.txt": "ff32832b7852e7823eb4814d64c132799d7d68d104cee626d280322c15896d09",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/package-prefixes.txt": "520713e2fb8b95e6f87e529b3599499c0e417698d6af9dee0ac5615b8e7a23d9",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228/px4_sitl_default/log/2026-10-19/20_10_28.ulg": "cdca3d459e4520d55d36dd7a7acfe593b3e9edc5e4b489df59d2a477c1b38d3a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/ego-colcon-build.log": "60d8980e12cf3faddb20b216040f30b71be48f103ba87deac69154357d6b72c2",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/source-patch-manifest.json": "228cc484c1bc704a7eedf426e8e89eb1081e3ab3d86a1fb05f484931794f1bde",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/ego-install/ego_planner/lib/ego_planner/ego_planner_node": "3749967321ed90c987cba2bc2faeb0515b8794cabe021be767806fb97f5adf53",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/ego-install/plan_env/lib/libplan_env.so": "7d28b84ee39984c7b2b431e0f9c527b539fb5e48207e230d7702bd13f46c67c2",
+    "dependencies/patches/ego/0012-grid-map-scheduling-diagnostics.patch": "2c9ea857cbbb1cd3bd4b2b8a678a3bf59e60bfac4bf9f8db7d24eab0c800b833",
+    "dependencies/patches/ego/0013-grid-map-sync-input-diagnostics.patch": "cb049c85b196cf30a022936455b8ba25410ac2b8b1575ab4e5630b348a93c5d0",
+    "dependencies/patches/ego/0015-filter-receipt-and-message-lost-diagnostics.patch": "43c82f406729fe9aa2e69ec2c353e702f2b7d4642d123838ed3d7717d0491dd1"
+  }
+}

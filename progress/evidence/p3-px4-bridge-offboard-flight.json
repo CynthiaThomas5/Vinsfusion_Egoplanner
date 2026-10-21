@@ -1,0 +1,212 @@
+{
+  "phase": "P3",
+  "status": "PARTIAL_IMPLEMENTATION",
+  "run_id": "p3-px4-bridge-node-20261017-32",
+  "scope": "Live debug_truth SITL verification of the ROS PX4 bridge, EKF2 external-vision fusion, service-gated Offboard takeoff, and landing/disarm. Does not yet include EGO-produced goal trajectory, online-map obstacle avoidance, or final no-truth profile.",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros": "Jazzy",
+    "px4": "v1.17.0",
+    "px4_source_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4"
+  },
+  "implementation": {
+    "node": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+    "state_machine": "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py",
+    "trajectory_conversion": "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py",
+    "launch": "src/own/uav_px4_bridge/launch/debug_truth_px4.launch.py",
+    "flight_probe": "tools/run_px4_debug_flight.py",
+    "control_owner": "uav_px4_bridge is the only ROS publisher for each PX4 input topic in this run; enable/disable ROS service is the only control-path trigger.",
+    "truth_profile": "debug_truth; external odometry source is Gazebo truth through the isolated adapter; not valid evidence for final vision-only navigation."
+  },
+  "build": {
+    "command": "colcon build --base-paths src/own --packages-up-to uav_px4_bridge --build-base artifacts/runs/p3-px4-bridge-node-20261017-32/build --install-base artifacts/runs/p3-px4-bridge-node-20261017-32/install",
+    "result": "PASS: 3 packages finished in fresh build/install directories.",
+    "log": "artifacts/runs/p3-px4-bridge-node-20261017-32/build.log",
+    "log_sha256": "33bbb099d86800339f943cc2545cb434dc90d413b9a5aa93f0dde14b2566e9b7"
+  },
+  "configuration": {
+    "staged_parameters": "artifacts/runs/p3-px4-bridge-node-20261017-32/px4-param-stage.json",
+    "staged_parameters_sha256": "f8e48357f740c53269c2a3b0f25366bded54dbef4dd5d10e1a9647911d227f88",
+    "values": {
+      "COM_ARM_WO_GPS": 2,
+      "COM_OBL_RC_ACT": 4,
+      "COM_OF_LOSS_T": 1.0,
+      "COM_RC_IN_MODE": 4,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_EV_POS_X": 0.12,
+      "EKF2_EV_POS_Y": -0.0,
+      "EKF2_EV_POS_Z": -0.08,
+      "EKF2_GPS_CTRL": 0,
+      "EKF2_HGT_REF": 3,
+      "NAV_DLL_ACT": 0,
+      "SIM_GZ_EN_ODOM": 0
+    },
+    "note": "SIM_GZ_EN_ODOM=0 disables PX4 GazeboBridge duplicate truth odometry; EKF2_GPS_CTRL=0, COM_ARM_WO_GPS=2; EV position offset is derived from the x500_D435i SDF mount."
+  },
+  "live_probe": {
+    "command": "bash artifacts/runs/p3-px4-bridge-node-20261017-32/run-debug-flight-sitl.sh (executed in d435i-vins:dev with Docker host networking)",
+    "result": "PASS",
+    "control_path": "enable_offboard service only",
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "operator_disable"
+      }
+    ],
+    "counts": {
+      "control_mode": 214,
+      "local_position": 864,
+      "px4_status": 40,
+      "trajectory_setpoint": 214,
+      "vehicle_command": 3,
+      "visual_odometry_input": 843
+    },
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1
+    },
+    "max_climb_m_ros": 0.9114861413836479,
+    "takeoff_phase_observed": true,
+    "takeoff_complete_observed": true,
+    "landed_and_disarmed": true,
+    "preflight_candidate_samples": 5,
+    "final_state": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false
+    },
+    "assertions": "PASS: one ROS publisher on all four PX4 input topics; EV, Offboard and trajectory samples observed; takeoff climbed >=0.4m; landed and disarmed."
+  },
+  "px4_ulog": {
+    "path": "artifacts/runs/p3-px4-bridge-node-20261017-32/px4.ulg",
+    "sha256": "eefc34f5d6ecee0bb1fc74e4bcd2348c6eec4c58333603e9878266eb1b977632",
+    "duration_s": 30.376,
+    "visual_odometry_input_samples": 661,
+    "external_vision_aid_sources": {
+      "estimator_aid_src_ev_pos": {
+        "fused": 978,
+        "samples": 980
+      },
+      "estimator_aid_src_ev_vel": {
+        "fused": 977,
+        "samples": 978
+      },
+      "estimator_aid_src_ev_yaw": {
+        "fused": 979,
+        "samples": 980
+      }
+    },
+    "estimator_flags": {
+      "cs_ev_pos": {
+        "true": 24,
+        "samples": 39
+      },
+      "cs_ev_hgt": {
+        "true": 24,
+        "samples": 39
+      },
+      "cs_ev_yaw": {
+        "true": 24,
+        "samples": 39
+      },
+      "cs_ev_vel": {
+        "true": 24,
+        "samples": 39
+      },
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 39
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 39
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 39
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 39
+      }
+    },
+    "vehicle_status_samples": 66,
+    "arming_state_enum_counts": {
+      "1": 33,
+      "2": 33
+    },
+    "arming_transitions": [
+      {
+        "t_s": 14.604,
+        "from": 1,
+        "to": 2
+      },
+      {
+        "t_s": 30.072,
+        "from": 2,
+        "to": 1
+      }
+    ],
+    "preflight_pass_range_s": {
+      "first_s": 14.568,
+      "last_s": 29.568,
+      "samples": 34
+    },
+    "failsafe_samples": 0,
+    "local_position_samples": 3798,
+    "local_z_start_end_min_max_m": [
+      0.0008,
+      0.0933,
+      -0.8183,
+      0.0959
+    ],
+    "offboard_control_mode_samples": 108,
+    "trajectory_setpoint_samples": 153,
+    "gnss_interpretation": "No GNSS EKF aid flags in estimator_status_flags and EKF2_GPS_CTRL=0. Raw SITL sensor_gps samples exist; this is not a no-GNSS sensor run."
+  },
+  "tests": {
+    "python3 tools/test_px4_bridge_control.py": "PASS: 11 tests",
+    "python3 tools/test_px4_bridge_frames.py": "PASS: 19 tests",
+    "python3 tools/test_px4_bridge_time_mapping.py": "PASS: 6 tests",
+    "python3 tools/test_sim_geometry.py": "PASS: 3 tests",
+    "python3 tools/test_px4_debug_params.py": "PASS: 1 test",
+    "python3 tools/project_status.py": "PASS: structure/design consistency only",
+    "py_compile_and_json_parse": "PASS"
+  },
+  "artifacts": {
+    "artifacts/runs/p3-px4-bridge-node-20261017-32/run.log": "b5ca36dc6fbbb6637e0221953fd9dc8b83205ffadb84d0748246b2e962dee3d7",
+    "artifacts/runs/p3-px4-bridge-node-20261017-32/flight-report.json": "64863124590199e23f96f7469eb7dd13e53cce7057ffa3aabe6b16122139adec",
+    "artifacts/runs/p3-px4-bridge-node-20261017-32/px4.log": "482a606848f50db266f11b4e7367dbeed1b3ff90e5a0c102315d549c2c6b87ae",
+    "artifacts/runs/p3-px4-bridge-node-20261017-32/px4.ulg": "eefc34f5d6ecee0bb1fc74e4bcd2348c6eec4c58333603e9878266eb1b977632",
+    "artifacts/runs/p3-px4-bridge-node-20261017-32/build.log": "33bbb099d86800339f943cc2545cb434dc90d413b9a5aa93f0dde14b2566e9b7",
+    "artifacts/runs/p3-px4-bridge-node-20261017-32/px4-param-stage.json": "f8e48357f740c53269c2a3b0f25366bded54dbef4dd5d10e1a9647911d227f88"
+  },
+  "source_sha256": {
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "492b308345f6b9017396992f41c3f5f3caede1dd16d8de409f296a0c9f490266",
+    "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py": "d70282b6c1646429ca1a9afe5901306b98b69a06ef8532ef4aacb8ec0a30647b",
+    "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": "52bc98cc53d2b03524b6bd424ad94cab2875dbead06cc14e0cac6dd66bfada08",
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": "5bcade2ab3ac9e15417513c0d8988487607d1ae13066760251598744e0450641",
+    "src/own/uav_px4_bridge/launch/debug_truth_px4.launch.py": "ae7585513e938bcc3cae0f1f4977887d77babaa835ffbc530669db0092144f14",
+    "tools/run_px4_debug_flight.py": "922312d79112a3e1ec8d2a5350bc3d109553485b0eb60ab3ff457b894a5d29d7",
+    "tools/test_px4_bridge_control.py": "b93685d1d20f7e280598c82823808872c8d7567e9682eb69c40271d80e54a1ff",
+    "config/components/px4_bridge/debug_truth.json": "6f8ab8de732562269a0f6ac88bbdb37a86d462c910870f90d7ab300dd50df26c",
+    "config/components/px4_bridge/ekf2_debug_truth.json": "676643279f048e192f411944b7cf9aed7bd7d6c5928eaa9d922c31f22e330843",
+    "config/components/px4_bridge/frames.json": "ab8378ada733ef831132e6bd15cdf9762b31464a6227b08cd2cd44b43329b12a"
+  },
+  "limitations": [
+    "This run supplies Gazebo truth to EKF2 through the debug_truth adapter; it does not establish final visual-only localization.",
+    "The vehicle executed the bridge takeoff/hold/land test path; no EGO PositionCommand was sent, no obstacle was avoided, and no goal-arrival feedback was tested.",
+    "The reported climb is a SITL smoke criterion, not a calibrated flight-performance metric.",
+    "P3 remains in progress; P4 through P6 and GOAL A-H are not complete."
+  ]
+}

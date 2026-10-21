@@ -1,0 +1,83 @@
+{
+  "phase": "P3",
+  "status": "PARTIAL_IMPLEMENTATION",
+  "run_id": "p3-px4-bridge-final-core-20261017-07",
+  "scope": "Pure coordinate, debug-truth external-odometry conversion, and ROS simulation clock to PX4 timestamp mapping core only.",
+  "container": {
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8"
+  },
+  "worktree_snapshot": {
+    "path": "artifacts/runs/p3-px4-bridge-final-core-20261017-07/git-status.txt",
+    "sha256": "5c2e69aaf31a99b3323fec511a25e86ff1b4334da4791b53f467ed85c41d737f",
+    "status_lines": 296,
+    "staged_this_run": false
+  },
+  "implementation": {
+    "package": "src/own/uav_px4_bridge",
+    "coordinate_conversion": [
+      "debug_truth-only profile and frame-contract gate",
+      "epoch/frame-checked ENU PositionCommand to PX4 NED",
+      "NED translation offset for an explicitly paired local origin",
+      "ROS ENU/FLU quaternion to PX4 NED/FRD quaternion",
+      "external VehicleOdometry field conversion with explicit positive variances"
+    ],
+    "time_mapping": [
+      "least-squares ROS /clock to host monotonic mapping using observed clock rate",
+      "sample age computed in wall time rather than equating simulation and PX4 time",
+      "host system time translated with PX4 TimesyncStatus estimated_offset",
+      "rejects stale or regressed ROS clock, stale/high-RTT PX4 timesync, out-of-history samples, excessive age, poor fit, and out-of-range clock rate",
+      "timestamp_sample_us must be explicitly mapped before external odometry conversion"
+    ],
+    "configuration": "config/components/px4_bridge/debug_truth.json"
+  },
+  "build": {
+    "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p3-px4-bridge-final-core-20261017-07/colcon-log build --base-paths src/own --packages-up-to uav_px4_bridge --build-base artifacts/runs/p3-px4-bridge-final-core-20261017-07/build --install-base artifacts/runs/p3-px4-bridge-final-core-20261017-07/install --event-handlers console_direct+",
+    "result": "PASS: 2 packages finished (uav_interfaces, uav_px4_bridge) in fresh build/install/log directories.",
+    "console_log": "artifacts/runs/p3-px4-bridge-final-core-20261017-07/build-and-tests.log",
+    "console_log_sha256": "024d90f8219ebc6508970690ea9c7effe5f099885d862808b3f9764c1e6796ba",
+    "colcon_events_log": "artifacts/runs/p3-px4-bridge-final-core-20261017-07/colcon-log/build_2026-10-17_03-51-08/events.log",
+    "colcon_events_log_sha256": "946fd45f70d2fa33492a87d40ea8428c5582551fd6b4ca6724140da3f9d8a3f8"
+  },
+  "tests": {
+    "coordinate_command": "python3 tools/test_px4_bridge_frames.py",
+    "coordinate_result": "PASS: 13 tests",
+    "time_mapping_command": "python3 tools/test_px4_bridge_time_mapping.py",
+    "time_mapping_result": "PASS: 6 tests",
+    "installed_overlay_smoke": "PASS: installed package import, generated uav_interfaces/PositionCommand and nav_msgs/Odometry conversion, and ROS/PX4 time mapping.",
+    "installed_overlay_log": "artifacts/runs/p3-px4-bridge-final-core-20261017-07/installed-smoke-retry.log",
+    "installed_overlay_log_sha256": "10782ae3a751bbcf5ad61610af24e329ec02d93c86ad7b40fc78755f1a120d2a"
+  },
+  "repository_checks": {
+    "project_status": "PASS: structural/design consistency only",
+    "python_compile": "PASS",
+    "json_parse": "PASS",
+    "git_diff_check": "PASS for staged and unstaged tracked diffs; new-file whitespace was inspected separately"
+  },
+  "source_sha256": {
+    "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": "1b8287e1ec83530af6d7a19a1bb99b42c86380b8b9c8962d363fb800192d23f0",
+    "src/own/uav_px4_bridge/uav_px4_bridge/vision_odometry.py": "50f5405de6da068d909be36a1cd0e20abce999b35998dd9cfda99c2c34ebf180",
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": "5bcade2ab3ac9e15417513c0d8988487607d1ae13066760251598744e0450641",
+    "tools/test_px4_bridge_frames.py": "4d663f3c9933505c1f4e45ac22c3ecd939370fa381afe74982b60c752ce6bd49",
+    "tools/test_px4_bridge_time_mapping.py": "c0557f006e35b383506827ee10617be264ded1735083980f7397caa0d037ee21",
+    "config/components/px4_bridge/debug_truth.json": "1dcd5b22f28aa238f8fe6b81372bcf01976c861644f862534597bd9174204552",
+    "src/own/uav_px4_bridge/README.md": "772127f5b1b3e02bb59a6605f1f52fe065c0f54ef1c855638b810e57d3d674e6"
+  },
+  "excluded_attempts": [
+    {
+      "run": "p3-px4-bridge-time-core-20261017-05",
+      "reason": "An installed-message smoke harness tried to assign a generated ROS constant on an instance and failed before conversion; the harness was corrected to use the class constant. The original output remains at artifacts/runs/p3-px4-bridge-time-core-20261017-05/installed-smoke.log."
+    },
+    {
+      "run": "p3-px4-bridge-final-core-20261017-07",
+      "reason": "The first installed-overlay smoke snippet had a syntax typo and did not run; the corrected snippet passed and is preserved as installed-smoke-retry.log. The failed output remains as installed-smoke.log."
+    }
+  ],
+  "limitations": [
+    "No ROS control node, PX4 publisher, Offboard state machine, arm/takeoff/land logic, or launch entrypoint exists.",
+    "The PX4 timestamp offset mapping is unit-tested but has not been observed in a live PX4/DDS session; thresholds remain PROVISIONAL.",
+    "The existing localization adapter emits d435i_imu_<epoch> child frames while the debug external-odometry contract requires base_link. No camera-to-airframe extrinsic or truth odometry adapter exists yet.",
+    "No Gazebo/PX4 process was launched; no estimator fusion, flight, goal arrival, or landing was tested.",
+    "P3 remains in progress; P4 through P6 and GOAL A-H are not complete."
+  ]
+}

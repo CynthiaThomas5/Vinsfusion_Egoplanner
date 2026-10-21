@@ -1,0 +1,25 @@
+--- a/vins/src/featureTracker/feature_tracker.cpp
++++ b/vins/src/featureTracker/feature_tracker.cpp
+@@ -268,7 +268,7 @@
+ 
+     if (1)
+     {
+-        //rejectWithF();
++        rejectWithF();
+         ROS_DEBUG("set mask begins");
+         TicToc t_m;
+         setMask();
+@@ -521,10 +521,12 @@
+ 
+         vector<uchar> status;
+         cv::findFundamentalMat(un_cur_pts, un_prev_pts, cv::FM_RANSAC, F_THRESHOLD, 0.99, status);
++        if (status.size() != cur_pts.size())
++            return;
+         int size_a = cur_pts.size();
+         reduceVector(prev_pts, status);
+         reduceVector(cur_pts, status);
+-        reduceVector(cur_un_pts, status);
++        // Normalized points are recomputed after filtering and replenishment.
+         reduceVector(ids, status);
+         reduceVector(track_cnt, status);
+         ROS_DEBUG("FM ransac: %d -> %lu: %f", size_a, cur_pts.size(), 1.0 * cur_pts.size() / size_a);

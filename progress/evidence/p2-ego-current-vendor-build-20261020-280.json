@@ -1,0 +1,56 @@
+{
+  "schema": "p2-ego-current-vendor-build-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-current-vendor-build-20261020-280",
+  "status": "PASS_TARGETED_VENDOR_REBUILD",
+  "qualification": "The current pinned EGO source and canonical patches build in a fresh overlay against the current uav_interfaces. This updates compile evidence; it does not alone establish live planner behavior.",
+  "source_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+  "source_tree_aggregate_sha256": "c5caa40fd9c89ccb31deccc35277985e95e0be781f760f2a8e77ab1212d435ec",
+  "canonical_patches": [
+    "dependencies/patches/ego/0001-project-interface-and-license.patch",
+    "dependencies/patches/ego/0002-package-descriptions.patch",
+    "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch",
+    "dependencies/patches/ego/0004-mapping-input-safety.patch",
+    "dependencies/patches/ego/0005-occupancy-publication-stamp.patch",
+    "dependencies/patches/ego/0006-ego-odometry-topic.patch",
+    "dependencies/patches/ego/0007-shutdown-safe-planner.patch",
+    "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch",
+    "dependencies/patches/ego/0009-recoverable-depth-timeout.patch",
+    "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch",
+    "dependencies/patches/ego/0011-configurable-map-ground-height.patch",
+    "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch",
+    "dependencies/patches/ego/0018-sim-clock-consistency.patch",
+    "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch"
+  ],
+  "build": {
+    "result": "PASS 5/5",
+    "packages": [
+      "traj_utils",
+      "plan_env",
+      "path_searching",
+      "bspline_opt",
+      "ego_planner"
+    ],
+    "command": "colcon --base-paths src/vendor/ego_planner --packages-up-to ego_planner --build-base <run>/build-02 --install-base <run>/install-02 --merge-install --parallel-workers 2",
+    "log": "artifacts/runs/p2-ego-current-vendor-build-20261020-280/ego-overlay-build-attempt-02.log",
+    "log_sha256": "c8941678b78b38f71ddebfdfc9ede18fdc88a7c1f7ecc8f98bdaf1d66e082866",
+    "fresh_build_install_dirs": true
+  },
+  "binary_sha256": {
+    "ego_planner_node": "d4d6abb66acf8b20edbc3ec78a6bc4f93c6efe9268e5bbd3ba03c63a1e635f81",
+    "plan_env": "ae2b8152c84b113c97972a61edd649553f4b6fed781d338f6c05b8437affa71b"
+  },
+  "failed_attempts_retained": [
+    {
+      "id": "harness_attempt_01",
+      "result": "SHELL_SETUP_ABORTED_BEFORE_COLCON",
+      "reason": "nounset hit AMENT_TRACE_SETUP_FILES while sourcing ROS setup; no build began."
+    },
+    {
+      "id": "build_attempt_01",
+      "result": "FAILED_STALE_INTERFACE_UNDERLAY",
+      "reason": "The Oct 16 base install lacked uav_interfaces NavigationCommand and TrajectoryCancel headers required by the current pinned vendor source. Four dependencies compiled before ego_planner failed. Fresh build/install retained under build and install."
+    }
+  ],
+  "limitation": "Targeted package rebuild only. Full workspace rebuild and goal/trajectory behavior are not inferred; runtime recheck is recorded separately."
+}

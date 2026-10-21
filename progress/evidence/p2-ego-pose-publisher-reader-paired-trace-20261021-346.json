@@ -1,0 +1,240 @@
+{
+  "schema": "p2-ego-pose-publisher-reader-paired-trace-evidence/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "diagnostic_pass_with_limits_ego_pose_reader_gap_reproduced_root_cause_unresolved_goal_c_pending",
+  "run_id": "p2-ego-pose-publisher-reader-paired-trace-20261021-346",
+  "question": "When EGO reports depth/pose timeout and its message_filters pose receipt count stalls, do adapter forwarding and an independent reader of the same camera-pose topic continue?",
+  "result": {
+    "timeout_log_count": 52,
+    "plateau_count": 2,
+    "aligned_gap_windows": [
+      {
+        "ego_sim_interval_s": [
+          9.62,
+          10.828
+        ],
+        "wall_duration_s": 1.80002526,
+        "ego_pose_input_count": 116,
+        "ego_last_pose_stamp_s": 9.109,
+        "ego_sync_count": [
+          116,
+          116
+        ],
+        "ego_depth_input_count": [
+          129,
+          165
+        ],
+        "ego_rmw_message_lost_counts": {
+          "depth": [
+            0
+          ],
+          "pose": [
+            0
+          ]
+        },
+        "independent_camera_pose_receipts": {
+          "count": 36,
+          "first_source_stamp_s": 9.571,
+          "last_source_stamp_s": 10.726,
+          "max_positive_source_stamp_gap_s": 0.033
+        },
+        "adapter_forwarded_count_before_after": [
+          125,
+          166
+        ],
+        "adapter_map_status_samples_during": 8
+      },
+      {
+        "ego_sim_interval_s": [
+          22.623,
+          23.097
+        ],
+        "wall_duration_s": 0.699995252,
+        "ego_pose_input_count": 459,
+        "ego_last_pose_stamp_s": 22.111,
+        "ego_sync_count": [
+          459,
+          459
+        ],
+        "ego_depth_input_count": [
+          495,
+          507
+        ],
+        "ego_rmw_message_lost_counts": {
+          "depth": [
+            0
+          ],
+          "pose": [
+            0
+          ]
+        },
+        "independent_camera_pose_receipts": {
+          "count": 12,
+          "first_source_stamp_s": 22.573,
+          "last_source_stamp_s": 22.969,
+          "max_positive_source_stamp_gap_s": 0.066
+        },
+        "adapter_forwarded_count_before_after": [
+          492,
+          509
+        ],
+        "adapter_map_status_samples_during": 3
+      }
+    ],
+    "checks": {
+      "ego_timeouts_found": true,
+      "at_least_one_pose_count_plateau_with_depth_progress": true,
+      "at_least_one_plateau_with_adapter_and_independent_pose_progress": true,
+      "no_truth_or_control_subscription": true
+    },
+    "interpretation": "If the checks pass together, the adapter continued counting paired depth/pose publish calls and a separate reader received camera poses while EGO depth callbacks advanced but EGO message_filters pose receipt stayed fixed. This localizes the observed gap to the EGO-side pose subscription/callback delivery or scheduling path; it does not distinguish DDS reader history from executor/callback scheduling and does not establish a root cause.",
+    "adapter_output_receipts": {
+      "map_status_topic": "/mapping/status",
+      "camera_pose_topic": "/drone_0_camera_pose",
+      "independent_pose_subscription_qos": "reliable/volatile/keep_last_50",
+      "map_status_subscription_qos": "reliable/transient_local/keep_last_1",
+      "observer_received_pose_count": 894,
+      "observer_received_map_status_count": 227,
+      "adapter_forwarded_depth_count_final": 890
+    },
+    "planner_probe": {
+      "goal_sent": true,
+      "status": "bspline_received",
+      "bspline_count": 1,
+      "goal_xyz_m": [
+        0.25,
+        -0.15,
+        0.4
+      ],
+      "epoch": "5521ad8afdf64362af8c9519a1a29072",
+      "map_id": "5521ad8afdf64362af8c9519a1a29072-f30988830dd1444fab50320c5873d83b",
+      "frame_id": "odom_5521ad8afdf64362af8c9519a1a29072",
+      "spline_start_time_ns": 36133000000,
+      "snapshot_stamp_ns": 36205000000,
+      "snapshot_minus_spline_start_s": 0.072,
+      "depth_source_age_s": 0.069,
+      "centerline_samples": 103,
+      "centerline_sample_class_counts": {
+        "unknown": 41,
+        "free": 62
+      },
+      "unknown_voxel_indices_xyz": [
+        [
+          120,
+          119,
+          1
+        ]
+      ],
+      "endpoint_distance_to_goal_m": 0.013249004909009496,
+      "all_snapshot_audit_checks_passed": true
+    },
+    "isolation": {
+      "truth_input": false,
+      "truth_topics_in_graph": [],
+      "control_topics_in_graph": [],
+      "forbidden_control_nodes": [],
+      "trajectory_server_or_controller": false,
+      "px4": false
+    }
+  },
+  "provenance": {
+    "run_manifest": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/run-manifest.json",
+    "run_manifest_sha256": "d866972a9db911bb0bf5c1cd353190394a814d4b6956d41bdc91d0ab73f0f267",
+    "ego_upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "ego_source_manifest_sha256": "67a7b5078e09f5a641151f2c84dc55c1ff660672d0442ba6321daf458f4dc380",
+    "ego_binary_sha256": "3702e5b5443d6260837b035a9ae5487704ad51de76ebf1ee5aa7c4f8e806fe50",
+    "patch_0033_sha256": "b33d3f32af9fb3314744e1db7854c6af389c2f8b05800a538ad89b54016742a7",
+    "patch_0034_sha256": "5c100f8c96a50d9fef0745d6db146bb2658dd6077c83ec0c145e97354f6247c3",
+    "dirty_git_status_sha256": "3c742b4da7cc3785a9da8097684558106d5e956c55164587c7a3c0d245480d3e",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "key_output_hashes": {
+      "ego.log": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/ego.log",
+        "sha256": "62ce65374c56c428534aadf4a077225cec9ffa51e2d04844490e123f6dd1a7d6",
+        "size_bytes": 36965
+      },
+      "mapping-adapter.log": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/mapping-adapter.log",
+        "sha256": "2bf79643d0e72fbeb77cc391ea35db371930a502ef00c774db961c48006e2150",
+        "size_bytes": 687
+      },
+      "runtime-summary.json": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/runtime-summary.json",
+        "sha256": "2cf336a7a7d3062926d9a19f35b0e0a2f7a06bba6e145c0c8fbe0d83c2636a42",
+        "size_bytes": 2061
+      },
+      "reader-trace/events.jsonl": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/reader-trace/events.jsonl",
+        "sha256": "01bddfd55aa1742dafe03ff47e3654e15740b60640345c3351cfd1d7ee274443",
+        "size_bytes": 299320
+      },
+      "reader-trace/summary.json": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/reader-trace/summary.json",
+        "sha256": "7525705bf485b644bb8f9897cf7875855983ef35afe1dfccef5f6dd1753a9036",
+        "size_bytes": 1156
+      },
+      "reader-trace-analysis.json": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/reader-trace-analysis.json",
+        "sha256": "83f55892eed234df0ce086be689c82cb07b71a4d7fbefdd259c8778fec9fc42d",
+        "size_bytes": 7659
+      },
+      "planner-goal-result.json": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/planner-goal-result.json",
+        "sha256": "9aa716082431a345b629c67b20b345c4eca00cedc3fa1ffdc1ae7e449e464ea9",
+        "size_bytes": 43457
+      },
+      "spline-snapshot-analysis.json": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/spline-snapshot-analysis.json",
+        "sha256": "0e4bf11212ab9948fa227c9e1d2e941f75de25af199cd0a59081b03dac81f468",
+        "size_bytes": 6055
+      },
+      "planner-snapshots/spline-1-occupancy.npz": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/planner-snapshots/spline-1-occupancy.npz",
+        "sha256": "a5734dcacca8c0ab45ad798079cda3a10d8bb16a644d356a2826e76a50e44c40",
+        "size_bytes": 6912520
+      },
+      "snapshots/baseline-occupancy.npz": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/snapshots/baseline-occupancy.npz",
+        "sha256": "22f569bdd0c798bca4a419d1271ca193e7a124addceae58a8f836a20307cfb42",
+        "size_bytes": 10149
+      },
+      "snapshots/post-occupancy.npz": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/snapshots/post-occupancy.npz",
+        "sha256": "7003ba867d72c165b8ca88d98939c915ae427434cb2dba464084daaeb812af31",
+        "size_bytes": 11686
+      },
+      "snapshots/report.json": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/snapshots/report.json",
+        "sha256": "c5a59c4c6196aa5b94e8bbb9c9a24d72ef75a8a7ddbe7e786f99ed9c811a5c45",
+        "size_bytes": 7299
+      },
+      "workspace-status-at-346.txt": {
+        "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/workspace-status-at-346.txt",
+        "sha256": "3c742b4da7cc3785a9da8097684558106d5e956c55164587c7a3c0d245480d3e",
+        "size_bytes": 44217
+      }
+    },
+    "dirty_git_status_snapshot": {
+      "path": "artifacts/runs/p2-ego-pose-publisher-reader-paired-trace-20261021-346/workspace-status-at-346.txt",
+      "sha256": "3c742b4da7cc3785a9da8097684558106d5e956c55164587c7a3c0d245480d3e",
+      "size_bytes": 44217
+    }
+  },
+  "validation": {
+    "command": "python3 -m py_compile observe_pose_reader_trace.py analyze_reader_trace.py analyze_spline_snapshot.py; python3 analyze_reader_trace.py; python3 analyze_spline_snapshot.py",
+    "reader_trace_analysis": "52 timeout rows in two pose-count plateaus; all four per-window attribution checks pass",
+    "spline_snapshot_analysis": "8/8 diagnostic checks pass; same epoch/map_id/frame; 72 ms after spline start; source age 69 ms",
+    "runtime_isolation": "no truth topics, control topics, forbidden control nodes, trajectory server, or PX4"
+  },
+  "limitations": [
+    "The independent reader adds one low-bandwidth reliable subscriber and may affect scheduling slightly.",
+    "MapStatus forwarded_depth_count increments after the adapter calls both depth and pose publish; it is not a per-reader DDS delivery acknowledgment.",
+    "A single repeated run does not establish a general rate or root cause.",
+    "The planner is not connected to a trajectory controller or PX4; the B-spline is not executed.",
+    "This run reuses the #345 EGO build and experimental patches 0033/0034; it does not constitute a fresh dependency rebuild.",
+    "The one current-start unknown voxel remains admitted only by experimental patch 0033; 41 spline centerline samples fall in that voxel.",
+    "No airframe sweep, trajectory execution, controller, PX4, landing, or collision evidence was collected."
+  ],
+  "next": "Audit EGO-side RMW reader readiness, sample-lost/rejected events, and executor/callback scheduling during a matched gap; preserve QoS and the 0.4 s freshness gate. Keep unknown fail-closed and do not treat centerline samples as vehicle clearance."
+}

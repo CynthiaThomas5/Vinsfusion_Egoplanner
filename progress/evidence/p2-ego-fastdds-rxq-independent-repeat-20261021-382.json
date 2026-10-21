@@ -1,0 +1,197 @@
+{
+  "schema": "p2-ego-fastdds-rxq-independent-repeat-evidence/v1",
+  "date": "2026-10-21",
+  "status": "diagnostic_repeat_complete_no_goal_acceptance_credit",
+  "question": "Does the first-send/ACKNACK/retransmission timeline repeat, and does socket-drop counting align near the missing first DATA?",
+  "scope": {
+    "runtime": "planner-only simulation; no goal, PX4 bridge/control, trajectory server, or debug_truth input",
+    "ros_domain_id": 222,
+    "gazebo_partition": "d435i_ego_fastdds_rxq_382_01",
+    "canonical_source_or_config_changed": false,
+    "pcap_or_serialized_payload_persisted": false
+  },
+  "provenance": {
+    "parent_run_manifest": "artifacts/runs/p2-ego-fastdds-rxq-overflow-sequence-diagnostic-20261021-381/run-manifest.json",
+    "parent_run_manifest_sha256": "938a43f91af7b2103486bb834066504ad6f36601e3fd03ffa0c83e6fc91671d7",
+    "run_manifest": "artifacts/runs/p2-ego-fastdds-rxq-overflow-sequence-diagnostic-20261021-382/run-manifest.json",
+    "run_manifest_sha256": "5b2a72af2629bcd01250ee866f8e76aebba2cc36872766bb7a319968b51fb141",
+    "source_manifest": "artifacts/runs/p2-ego-fastdds-rxq-overflow-sequence-diagnostic-20261021-382/source-manifest.json",
+    "source_manifest_sha256": "65aee1db4e67ccf9076b517ec19941e7003570926fb9a45e68fc414f99011a47",
+    "run_manifest_file_count": 163,
+    "run_manifest_total_bytes": 19707701,
+    "run_local_input_count": 27,
+    "rxq_sequence_analysis": "artifacts/runs/p2-ego-fastdds-rxq-overflow-sequence-diagnostic-20261021-382/analysis/rxq-sequence-correlation.json",
+    "rxq_sequence_analysis_sha256": "b9ee1e156396ae4c99773cd83c65eafdba76d356c05a8852dbb849b38ccd40d6",
+    "acknack_analysis": "artifacts/runs/p2-ego-fastdds-rxq-overflow-sequence-diagnostic-20261021-382/acknack-gap-correlation.json",
+    "acknack_analysis_sha256": "53b97d5250d505ee223b11d0c0d5bdc18e619d0f4a670c0cdaa7dd4b2874607b"
+  },
+  "synthetic_probe_validation": {
+    "report": "artifacts/runs/p2-ego-fastdds-rxq-overflow-sequence-diagnostic-20261021-382/parser-self-test.stdout.json",
+    "sha256": "11f6ff0f2a12389f1dca76f2251bf98ad234baa8f06e3cdd6084303bcf10fc42",
+    "status": "passed",
+    "datagrams_sent_before_marker": 5000,
+    "datagrams_received_before_marker": 9,
+    "rxq_overflow_total_on_marker_sequence": 4991,
+    "application_ancillary_data_exposed": false,
+    "msg_ctrunc_count": 0
+  },
+  "take_gap": {
+    "duration_s": 2.386490828000035,
+    "publisher_rmw_publish_count_interior": 47,
+    "ego_recvfrom_records": 47,
+    "rows_with_rxq_counter": 47,
+    "rxq_counter_min_max": [
+      525,
+      547
+    ],
+    "rxq_counter_monotonic_by_receive_time": true,
+    "socket_drop_counter_before_after_delta": {
+      "before": 511,
+      "after": 547,
+      "delta_across_bracket": 36
+    },
+    "equal_duration_socket_windows": {
+      "preceding_interval": {
+        "actual_bracket_duration_s": 2.412642966,
+        "drop_counter_before": 472,
+        "drop_counter_after": 511,
+        "drop_counter_delta": 39,
+        "maximum_rx_queue_bytes_inside_interval": 199348,
+        "sample_count_inside_interval": 119
+      },
+      "take_gap": {
+        "actual_bracket_duration_s": 2.412180748,
+        "drop_counter_before": 511,
+        "drop_counter_after": 547,
+        "drop_counter_delta": 36,
+        "maximum_rx_queue_bytes_inside_interval": 3840,
+        "sample_count_inside_interval": 119
+      },
+      "following_interval": {
+        "actual_bracket_duration_s": 2.393325883,
+        "drop_counter_before": 547,
+        "drop_counter_after": 547,
+        "drop_counter_delta": 0,
+        "maximum_rx_queue_bytes_inside_interval": 0,
+        "sample_count_inside_interval": 118
+      }
+    }
+  },
+  "acknack": {
+    "messages": [
+      {
+        "realtime_ns": 1792541131738123764,
+        "offset_from_gap_start_ms": 2381.03746,
+        "flags": "0x01",
+        "bitmap_endianness": "little",
+        "requested_sequences": [
+          573,
+          603
+        ]
+      }
+    ],
+    "first_delivery_windows": [
+      {
+        "sequence_number": 573,
+        "first_loopback_capture_offset_from_gap_start_ms": 87.785026,
+        "first_capture_reader_entity_ids": [
+          "0x00000000"
+        ],
+        "first_capture_udp_destination_port": 62929,
+        "receive_api_return_before_acknack": false,
+        "acknack_to_matching_data_ms": 5.132985,
+        "first_receive_api_after_acknack": {
+          "receive_complete_realtime_ns": 1792541131743270052,
+          "receive_api": "recvfrom",
+          "rxq_overflow_total": 547
+        },
+        "previous_received_data": {
+          "sequence_number": 572,
+          "receive_complete_realtime_ns": 1792541129356891607,
+          "rxq_overflow_total": 511
+        },
+        "next_received_data": {
+          "sequence_number": 574,
+          "receive_complete_realtime_ns": 1792541129536438677,
+          "rxq_overflow_total": 525
+        },
+        "socket_drop_samples_near_first_capture": [
+          {
+            "realtime_ns": 1792541129445281304,
+            "offset_from_gap_start_ms": 88.195,
+            "delta_from_first_packet_ms": 0.409974,
+            "socket_drops": 518
+          },
+          {
+            "realtime_ns": 1792541129545707304,
+            "offset_from_gap_start_ms": 188.621,
+            "delta_from_first_packet_ms": 100.835974,
+            "socket_drops": 525
+          }
+        ]
+      },
+      {
+        "sequence_number": 603,
+        "first_loopback_capture_offset_from_gap_start_ms": 1599.390868,
+        "first_capture_reader_entity_ids": [
+          "0x00000000"
+        ],
+        "first_capture_udp_destination_port": 62929,
+        "receive_api_return_before_acknack": false,
+        "acknack_to_matching_data_ms": 5.192567,
+        "first_receive_api_after_acknack": {
+          "receive_complete_realtime_ns": 1792541131743454107,
+          "receive_api": "recvfrom",
+          "rxq_overflow_total": 547
+        },
+        "previous_received_data": {
+          "sequence_number": 602,
+          "receive_complete_realtime_ns": 1792541130867428840,
+          "rxq_overflow_total": 543
+        },
+        "next_received_data": {
+          "sequence_number": 604,
+          "receive_complete_realtime_ns": 1792541130960991405,
+          "rxq_overflow_total": 547
+        },
+        "socket_drop_samples_near_first_capture": [
+          {
+            "realtime_ns": 1792541130973440304,
+            "offset_from_gap_start_ms": 1616.354,
+            "delta_from_first_packet_ms": 16.963132,
+            "socket_drops": 547
+          }
+        ]
+      }
+    ]
+  },
+  "sequence_set_comparison_limitation": "A sequence appearing in both loopback and receive-API sets proves only that it was returned at least once in the interval; an ACKNACK retransmission received before gap end can mask a missing first transmission. Use acknack_requested_first_delivery_windows to compare first capture, ACKNACK, and receive-API times.",
+  "analysis_exit_codes": [
+    "ego-rclcpp-summary 0",
+    "camera-pose-publisher-take-alignment 0",
+    "rmw-wait-summary 1",
+    "rmw-status-summary 0",
+    "rmw-take-gap 0",
+    "rmw-unread-gap 0",
+    "rmw-status-gap 0",
+    "reader-listener-take-gap 0",
+    "rtps-sequence-analysis 0",
+    "ego-received-rtps-data-metadata-alignment 0",
+    "fastdds-reader-stage-alignment 0",
+    "ego-udp-socket-drop-window-alignment 0"
+  ],
+  "interpretation": "In this independent run, ACKNACK requested sequences 573 and 603. Their first DATA packets appeared in loopback metadata with readerEntityId 0x00000000, but the EGO receive probe returned neither sequence before ACKNACK. The writer then sent exact-reader retransmissions 5.133 and 5.193 ms after ACKNACK, and recvfrom returned those copies. Socket counter increases were sampled near both first captures. This repeats a receive-side gap before EGO recvfrom; socket queue overflow is plausible, but the aggregate counter and adjacent-window drops do not prove that these two packets were the dropped datagrams or that overflow is the unique cause.",
+  "limitations": [
+    "SO_RXQ_OVFL is a cumulative socket-wide count, not a per-topic or per-sequence drop identifier.",
+    "The loopback capture records packet metadata before EGO recvfrom; observing the packet there does not prove it entered the UDP receive queue.",
+    "The gap counter delta (+36) is similar to the preceding equal-duration interval (+39); the following interval had no increase. These intervals do not isolate queue pressure to the take gap.",
+    "The maximum sampled receive queue in the gap was 3,840 bytes; 20 ms sampling can miss shorter bursts.",
+    "One independent repeat does not characterize long-term loss or qualify a stage exit. Kernel eBPF/perf tracing is unavailable because CAP_BPF and CAP_PERFMON are absent.",
+    "No canonical QoS, socket buffer, freshness threshold, or control behavior was changed."
+  ],
+  "next_step": "Treat pre-recv loss as established for the ACKNACK-requested first transmissions, with socket overflow still a leading but unproven mechanism. Continue other GOAL C safety/trajectory evidence while preserving this P2 limitation; exact kernel drop attribution requires a per-socket kernel trace or an equivalent privileged probe.",
+  "references": {
+    "so_rxq_ovfl": "https://www.man7.org/linux/man-pages/man7/socket.7.html",
+    "rtps_acknack": "https://www.omg.org/spec/DDSI-RTPS/2.0/PDF"
+  }
+}

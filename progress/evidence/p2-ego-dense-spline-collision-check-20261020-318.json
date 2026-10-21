@@ -1,0 +1,122 @@
+{
+  "schema": "ego-dense-spline-collision-check-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-dense-spline-collision-check-20261020-318",
+  "result": "experimental_build_passed_and_blocked_candidates_rejected",
+  "patch": {
+    "path": "dependencies/patches/ego/0029-dense-spline-inflation-check-experiment.patch",
+    "sha256": "1903e9ed4d2fa5a6044f1fb6167e3b82a89215524ffcfb32f9c8b3230f761abb",
+    "license": "GPL-3.0-only",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "application_base": "isolated #315 source tree after patch 0028",
+    "patch_order": [
+      "0020",
+      "0022",
+      "0023",
+      "0024",
+      "0025",
+      "0026",
+      "0027",
+      "0028",
+      "0029"
+    ],
+    "canonical_dependency_chain": false,
+    "src_vendor_modified": false,
+    "behavior": "After final optimization/refinement and before updateTrajInfo, check first two-thirds of the final B-spline at 10 ms intervals using getInflateOccupancy; out-of-map, unknown and inflated samples reject the candidate."
+  },
+  "build": {
+    "report": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/build-report-0029.json",
+    "report_sha256": "eea6d3ac6984976189631992819a5b7699d5e9a2a7c99e6aa80a2052875433e3",
+    "source_manifest": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/source-manifest-experiment-0029.json",
+    "source_manifest_sha256": "239a26ff0bf4caaea1cefd7b3c158855bbd14adde8c3f710724c1221750b7f9a",
+    "source_tree_sha256": "7b6037df077fa8f55eb840d584bd859158516b5437175c9cadd2608b55bf2dc9",
+    "five_release_packages_passed": true,
+    "astar_endpoint_cases_passed": 4,
+    "test_log_sha256": "bd42ac09a79ba999c0b56b6bb6256110df4edcf31f2e7864fe7558ef04971319",
+    "patch_apply_check": "passed on isolated #315 tree; applying patch and comparing modified source file produced byte-identical candidate."
+  },
+  "runtime": {
+    "command": "bash artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/run-container.sh",
+    "goal_status": "bspline_received",
+    "goal_sent": true,
+    "published_spline_count": 1,
+    "guard_rejection_count": 3,
+    "guard_rejections": [
+      {
+        "line": 1840,
+        "time_s": 1.72,
+        "position_m": [
+          0.499852,
+          0.905226,
+          0.472514
+        ],
+        "in_map": true,
+        "unknown": true,
+        "raw_occupancy_code": 0,
+        "inflated_occupancy_value": 1,
+        "epoch": "118231473f1249ad9a4143fa6ed9b387",
+        "map_id": "118231473f1249ad9a4143fa6ed9b387-d46c4043ede94be3af7c03929225f040"
+      },
+      {
+        "line": 1938,
+        "time_s": 1.7,
+        "position_m": [
+          0.4888,
+          0.902231,
+          0.368063
+        ],
+        "in_map": true,
+        "unknown": true,
+        "raw_occupancy_code": 0,
+        "inflated_occupancy_value": 1,
+        "epoch": "118231473f1249ad9a4143fa6ed9b387",
+        "map_id": "118231473f1249ad9a4143fa6ed9b387-d46c4043ede94be3af7c03929225f040"
+      },
+      {
+        "line": 2087,
+        "time_s": 1.54,
+        "position_m": [
+          1.492626,
+          -0.595861,
+          1.152073
+        ],
+        "in_map": true,
+        "unknown": true,
+        "raw_occupancy_code": 0,
+        "inflated_occupancy_value": 1,
+        "epoch": "118231473f1249ad9a4143fa6ed9b387",
+        "map_id": "118231473f1249ad9a4143fa6ed9b387-d46c4043ede94be3af7c03929225f040"
+      }
+    ],
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_nodes": [],
+    "trajectory_executed": false
+  },
+  "follow_up": "Run #319 reused the same #318 binary in a new epoch and sampled the accepted spline against an exact-start-time occupancy snapshot; see progress/evidence/p2-ego-dense-spline-snapshot-validation-20261020-319.json.",
+  "artifacts": {
+    "build_log": {
+      "path": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/build-and-test.log",
+      "sha256": "db0bb50da7f3192c06b2f7406c7e7a5559be1a348aff2a91b57db8731a61a248",
+      "size_bytes": 226341
+    },
+    "collision_guard_runtime": {
+      "path": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/collision-guard-runtime-01.json",
+      "sha256": "242f7b19c2f9f82b193969ac0f7486bc498aac952748f0486a8061abbe37fc39"
+    },
+    "planner_log": {
+      "path": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/ego-01.log",
+      "sha256": "9cce822815ed3ce40fd16cb15ef60038cff7661fbcd0de9aab52472e6c7fcb1d",
+      "size_bytes": 204469
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/runtime-summary-01.json",
+      "sha256": "fcb0dd8c7159a953e7cab95844093de0d39605df2328fdc2042c5d03fdbdafec"
+    },
+    "goal_probe": {
+      "path": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/planner-goal-result-01.json",
+      "sha256": "873cc83aa7909f6bf99600766fe2ed6e93abf06a7682295344a2b6d0a0076e4c"
+    }
+  },
+  "qualification": "Experimental planner-only behavior. Three final candidates were rejected at unknown/inflated samples before trajectory info update; one later spline passed and was published. No controller, trajectory server, PX4, truth or control topics were present. #319 shows one accepted spline centerline clear in its paired snapshot, but this is not body-sweep or safety qualification. Keep patch outside canonical sources."
+}

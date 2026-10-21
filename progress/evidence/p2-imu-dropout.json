@@ -1,0 +1,149 @@
+{
+  "scope": "Replay-only camera-IMU dropout behavior for the P2 localization adapter; does not pass P2 or GOAL.md E as a whole.",
+  "status": "two_independent_camera_imu_dropout_injections_passed; other fault modes remain incomplete",
+  "formal_acceptance": false,
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e"
+  },
+  "build": {
+    "command": "colcon --log-base artifacts/runs/p2-localization-health-clock-rate-20261016/log build --base-paths src/own --packages-select uav_interfaces uav_sim uav_localization --build-base artifacts/runs/p2-localization-health-clock-rate-20261016/build --install-base artifacts/runs/p2-localization-health-clock-rate-20261016/install",
+    "result": "passed",
+    "log": "artifacts/runs/p2-localization-health-clock-rate-20261016/build.log",
+    "log_sha256": "3f3826f850a87c6af05f824a9803d00f84a2d2833a17ee9e5a7e6d33041bcc86",
+    "logic_test_command": "python3 tools/test_localization_health.py",
+    "logic_test_result": "9 tests passed",
+    "relay_test_command": "python3 tools/test_fault_relay.py in Jazzy container",
+    "relay_test_result": "1 test passed",
+    "source_sha256": {
+      "src/own/uav_localization/uav_localization/health.py": "7d9189a4fb30d4c82a92d6fd5d015f12d8ce18c95f34c3615b98746825b60a76",
+      "config/components/localization/health.json": "8632f7ab96f438efa55384b10e8d330b9f7be60ce89651f29c00dd79165c1eb9",
+      "tools/test_localization_health.py": "0002c03c6bb4087fa17421d0a8654edb461927297db9fab146827e9b33e6cf30",
+      "tools/fault_relay.py": "4c2874c5cda0a93e170e4aa4f92d32f6b6efdee4f8115430b0e934ac6437de29",
+      "tools/test_fault_relay.py": "d3a143494622fde848020b67438ed6a88a61864cbd5456fe36880de0db8f6061",
+      "tools/probe_localization.py": "4b3d584b992720723911976775978772e7c389db4bead986bb7b76a419928911"
+    }
+  },
+  "input": {
+    "bag": "artifacts/runs/p2-force-motion-20261016/input-bag",
+    "bag_sha256": "9ffb8d60f099c59fedc34317c80aa2435c6fae681046dc8a3111e95995640d37",
+    "truth_in_bag_or_subscriptions": false,
+    "stereo_images_remain_connected": true
+  },
+  "fault_injection": {
+    "type": "D435i camera IMU stream dropped for 1.0 source-second in a fresh replay session while stereo image streams continued.",
+    "drop_after_source_s": 2.5,
+    "drop_for_source_s": 1.0,
+    "playback_rate": 0.2,
+    "recorded_clock_replayed_without_rosbag_clock_override": true,
+    "runs": {
+      "p2-localization-imu-drop-20261016-15": {
+        "epoch": "e94195c87c25430eb9d13114e969c731",
+        "namespace": "/vins_raw/s_e94195c87c25430eb9d13114e969c731",
+        "ros_domain_id": 95,
+        "fault_window": {
+          "source_origin_ns": 1000000,
+          "start_ns": 2501000000,
+          "end_ns": 3501000000,
+          "received": 1334,
+          "forwarded_before": 501,
+          "dropped": 200,
+          "drop_first_stamp_ns": 2505000000,
+          "drop_last_stamp_ns": 3500000000,
+          "forwarded_after": 633,
+          "forwarded_after_first_stamp_ns": 3505000000,
+          "window_observed": true
+        },
+        "adapter": {
+          "tracking": {
+            "wall_elapsed_s": 16.086948390002362,
+            "clock_stamp_ns": 1321000000,
+            "source_stamp_ns": 1320000000,
+            "good_pairs": 10,
+            "accepted_optimized": 1,
+            "accepted_propagated": 1
+          },
+          "locked": {
+            "wall_elapsed_s": 26.13612711901078,
+            "clock_stamp_ns": 2562000000,
+            "source_stamp_ns": 2500000000,
+            "reason": "imu_stale",
+            "accepted_optimized": 19,
+            "accepted_propagated": 237
+          },
+          "optimized_count_after_full_observation": 19,
+          "propagated_count_after_full_observation": 237,
+          "no_contract_errors": true,
+          "strictly_increasing_finite_outputs": true,
+          "locked_state_persisted_after_imu_forwarding_resumed": true
+        },
+        "wall_seconds": 65.01716734500951,
+        "artifacts_sha256": {
+          "artifacts/runs/p2-localization-imu-drop-20261016-15/fault.json": "8d1c19447726165fc6edc28149a43a1374ca1b7aae0cef8d21d263c103200860",
+          "artifacts/runs/p2-localization-imu-drop-20261016-15/probe.json": "d8ad4b2644709c1cbea8ac99bb60eacb73ca13eb76118641a0c914cbb4891005",
+          "artifacts/runs/p2-localization-imu-drop-20261016-15/replay.log": "812b90935b8de092273cd3b76dd099a7f11909007e1525db2a83b14321e747e7",
+          "artifacts/runs/p2-localization-imu-drop-20261016-15/vins.log": "287cea5d77851fe8b43d43e48ee682597266b01816e558de09bce8194a70c10d",
+          "artifacts/runs/p2-localization-imu-drop-20261016-15/adapter.log": "71d9be0a6cbbc5076fe9513b86b7976dcc1f78b976b807161abd6bae03b758a2",
+          "artifacts/runs/p2-localization-imu-drop-20261016-15/session/session.json": "8489abecee856ef4f4cd7ce8a56e6bbe0416f1b4d5c999f5b01ae3e10c24e807",
+          "artifacts/runs/p2-localization-imu-drop-20261016-15/session/vins.yaml": "9a23e17c73e7efe7a9b261e34faa2a5955aacc80e32fcb9fbcbb832458e7f1cf"
+        }
+      },
+      "p2-localization-imu-drop-20261016-16": {
+        "epoch": "080b12a4a51144209a7416cb3da16f98",
+        "namespace": "/vins_raw/s_080b12a4a51144209a7416cb3da16f98",
+        "ros_domain_id": 96,
+        "fault_window": {
+          "source_origin_ns": 1000000,
+          "start_ns": 2501000000,
+          "end_ns": 3501000000,
+          "received": 1334,
+          "forwarded_before": 501,
+          "dropped": 200,
+          "drop_first_stamp_ns": 2505000000,
+          "drop_last_stamp_ns": 3500000000,
+          "forwarded_after": 633,
+          "forwarded_after_first_stamp_ns": 3505000000,
+          "window_observed": true
+        },
+        "adapter": {
+          "tracking": {
+            "wall_elapsed_s": 16.086556221009232,
+            "clock_stamp_ns": 1321000000,
+            "source_stamp_ns": 1320000000,
+            "good_pairs": 10,
+            "accepted_optimized": 1,
+            "accepted_propagated": 1
+          },
+          "locked": {
+            "wall_elapsed_s": 26.136267004010733,
+            "clock_stamp_ns": 2563000000,
+            "source_stamp_ns": 2500000000,
+            "reason": "imu_stale",
+            "accepted_optimized": 19,
+            "accepted_propagated": 237
+          },
+          "optimized_count_after_full_observation": 19,
+          "propagated_count_after_full_observation": 237,
+          "no_contract_errors": true,
+          "strictly_increasing_finite_outputs": true,
+          "locked_state_persisted_after_imu_forwarding_resumed": true
+        },
+        "wall_seconds": 65.01659489699523,
+        "artifacts_sha256": {
+          "artifacts/runs/p2-localization-imu-drop-20261016-16/fault.json": "e0e91d921cf01e076c3e741fed299dc6df146143629b90549a3dded7df4f1b60",
+          "artifacts/runs/p2-localization-imu-drop-20261016-16/probe.json": "8f6b29a823c7fe3ed10ad8ea7a92d209a8825ab7865fb4b52b013cf8b611b28c",
+          "artifacts/runs/p2-localization-imu-drop-20261016-16/replay.log": "992c11c5155ac4ab7eed7953fee0b7c14e52381666752679abfd047291fc7d5e",
+          "artifacts/runs/p2-localization-imu-drop-20261016-16/vins.log": "bcddb61cb7d48caf7bbd9f6f1d225938e7e80e03f992ceb90aca386604c3690e",
+          "artifacts/runs/p2-localization-imu-drop-20261016-16/adapter.log": "71d9be0a6cbbc5076fe9513b86b7976dcc1f78b976b807161abd6bae03b758a2",
+          "artifacts/runs/p2-localization-imu-drop-20261016-16/session/session.json": "1f9de53740fc8001152639755fc1537cab2dc2cb9a4e4147ad0b90d95f506eeb",
+          "artifacts/runs/p2-localization-imu-drop-20261016-16/session/vins.yaml": "001a5f0e6b9d0833032a9fcf2a353ca8c9e66993932e486310e73c470944323b"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Only camera-IMU dropout has two independent injections in this report. Depth dropout, a second VINS restart, planner exit, and clock rollback remain incomplete.",
+    "Health thresholds remain provisional P2 guards, not frozen GOAL.md F limits or a pose-accuracy certificate.",
+    "Replay evidence does not establish live SITL behavior, mapping, EGO, PX4/EKF2 fusion, or final no-truth navigation."
+  ]
+}

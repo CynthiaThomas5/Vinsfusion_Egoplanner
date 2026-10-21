@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "run_id": "p5-px4-vio-ego-hover-20261019-192",
+  "classification": "DIAGNOSTIC_GATE_REPEATED_WITHOUT_CLIMB_PHYSICAL_TRANSLATION_NOT_ESTABLISHED_AS_CAUSE",
+  "scope": "Independent no-GPS D435i VIO/EGO/PX4 SITL ablation against #191. The relative target's vertical offset alone changed from 0.15 m to 0 m; horizontal offset, yaw, controller/planner config, PX4 parameters, health thresholds, image, VINS/PX4 binaries, and read-only truth observer were held fixed.",
+  "result": {
+    "action": {
+      "goal_sent": true,
+      "goal_success": false,
+      "failure": "localization_normalized_cost_exceeded",
+      "landed_and_disarmed": true,
+      "flight_harness_exit_code": 1,
+      "truth_capture_exit_code": 0,
+      "qualification": "Safety-terminated diagnostic run; not a P5 pass."
+    },
+    "first_quality_crossing": {
+      "sim_time_s": 36.664,
+      "wall_elapsed_s": 22.6647,
+      "seconds_after_goal_dispatch": 1.4818,
+      "normalized_cost": 1.09435174498,
+      "aligned_position_error_m": 0.02992896,
+      "active_position_command_enu_m": [0.11533, -0.01705, 0.87291],
+      "goal_target_enu_m": [0.29697, -0.00176, 0.89247],
+      "requested_vertical_offset_m": 0.0,
+      "truth_world_velocity_m_s": [0.00808, 0.00152, -0.02189],
+      "truth_speed_norm_m_s": 0.0234,
+      "previous_10_quality_samples_medians": {
+        "input_features": 65.0,
+        "stereo_features": 64.0,
+        "long_tracks": 38.5
+      },
+      "crossing_feature_counts": {
+        "input_features": 74,
+        "stereo_features": 73,
+        "long_tracks": 48
+      },
+      "first_position_command_cancelled_after_s": 0.05045,
+      "next_quality_sample_normalized_cost": 0.80925170912,
+      "next_quality_sample_delay_s": 0.068
+    },
+    "single_sample_grouped_cost": {
+      "visual_cost_share": 0.862267,
+      "imu_cost_share": 0.000990,
+      "marginalization_cost_share": 0.136743,
+      "decomposed_samples_in_process": 1,
+      "qualification": "The one available decomposition is visual-dominated and has very small IMU cost. It cannot explain why visual cost rose."
+    },
+    "cross_run_comparison_to_191": {
+      "only_goal_field_changed": "target_offset_enu_m[2]: 0.15 m to 0 m",
+      "run_191_first_cost_and_visual_share": [1.1526926065, 0.890326],
+      "run_192_first_cost_and_visual_share": [1.0943517450, 0.862267],
+      "run_191_truth_velocity_m_s_at_crossing": [0.11364, 0.01766, 0.10713],
+      "run_192_truth_velocity_m_s_at_crossing": [0.00808, 0.00152, -0.02189],
+      "interpretation": "Removing the climb did not prevent the gate. In #192, the gate also occurred before appreciable truth-measured translation, while #191 crossed during motion. Translation or climb alone is therefore not established as the common cause; both first-crossing decompositions are visually dominated."
+    },
+    "px4_landing_and_failsafe": {
+      "external_land_command_sim_s": 36.780,
+      "land_ack_sim_s": 36.784,
+      "auto_land_entered_sim_s": 36.796,
+      "offboard_signal_lost_sim_s": 37.768,
+      "landed_at_rest_sim_s": 40.480,
+      "local_position_invalid_sim_s": 40.684,
+      "relaxed_local_position_invalid_sim_s": 41.224,
+      "auto_land_to_descend_failsafe_sim_s": 41.236,
+      "disarmed_by_landing_sim_s": 42.496,
+      "battery_warning_or_unhealthy_flags": false,
+      "interpretation": "The same post-LAND fallback sequence observed in #191 repeated: after touchdown, relaxed local position became invalid and PX4 left AUTO_LAND for DESCEND with failsafe set. Offboard signal loss occurred while AUTO_LAND was already active."
+    }
+  },
+  "qualification": {
+    "P5": "IN_PROGRESS; the navigation goal aborted.",
+    "health_threshold": "The 1.0 normalized_cost limit remains unchanged. A later 2 s horizon contained 8/30 samples over the limit, so this run does not justify a debounce change.",
+    "truth_isolation": "Truth was routed only to the independent read-only evaluator; the graph check recorded zero PX4 bridge debug_truth subscriptions.",
+    "whole_flight_alignment": "The reported 2.12 m P95 / 2.79 m maximum includes post-gate samples after PX4 external-vision input ceased and the landing sequence; it is not used as healthy-flight accuracy evidence."
+  },
+  "reproduction": {
+    "analysis": "The fixed-SE(3) evaluator, run-local quality-crossing analyzer, and offline ULog timeline extractor were each rerun; saved outputs matched byte-for-byte.",
+    "static_run_setup": "Run shell syntax passed; JSON target comparison confirmed only the vertical goal offset differed; PX4 SITL binary SHA matched #189/#191.",
+    "container_image": "d435i-vins:dev@sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8"
+  },
+  "limits_and_next_step": [
+    "No camera images or per-feature residual distributions were recorded. The grouped-cost diagnostic intentionally emits only the first over-limit sample per process.",
+    "The temporal coincidence between a navigation target and the crossing does not establish that EGO or physical motion caused the visual cost change.",
+    "Next isolate target dispatch from displacement with a same-profile no-motion goal/hold; keep all PX4 and localization safety limits unchanged."
+  ],
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/run-comparison.json": {"bytes": 2443, "sha256": "b93ed6c1953316c2c39038506bd8fa271725af2e762dec6cec3acc42e6f8c344"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio_closed_loop_smoke_goal.json": {"bytes": 429, "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/run-px4-vio-ego-flight.sh": {"bytes": 12424, "sha256": "4759b9b7bf40716627b7057bbe146185af5628bc411f4a240a3625af37257d79"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/quality-crossing-analysis.json": {"bytes": 4795, "sha256": "84cc3c62444c2f4785c4690b725a779cecac3fb7bf4fc9edaba8789412e5e9d4"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/analyze-quality-crossing.py": {"bytes": 7765, "sha256": "b50bfc6f32b4e045cf436e47d6d62596e82babdd6c9e16903d6cefe6d48a444a"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio-quality-alignment.json": {"bytes": 153130, "sha256": "8dcc5d2252dd371443053c8343dc7e9312f457db99ce7bd92d53299c48643389"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio-ego-flight-report.json": {"bytes": 1794905, "sha256": "fd5ca71bd52e2c37c5ad89305b0516adbcb181583f01a64425ddaf64b784ee7d"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio-truth-capture/telemetry.json": {"bytes": 610296, "sha256": "45168a80a1b9a2e5f34319894786f70b497edccd04fa101ba3c29c4d3130e79b"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio-truth-capture/truth-motion.json": {"bytes": 5750882, "sha256": "5a3a8fb877cd46dad7981a52c3e9b9cc32bb3ee2529d4fbb604f1f9456cc2871"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio-truth-capture/summary.json": {"bytes": 10568, "sha256": "3e8545b46e43b6a0a43e4edacab84ac3b1f7f72b292440500a60800949ebe03d"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/truth-input-graph-check.txt": {"bytes": 111, "sha256": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/px4.log": {"bytes": 5675, "sha256": "7c38c966e42aa7207c2c6d580aab873b2d653b9220e3063bff21effd579b265a"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/px4_sitl_default/log/2026-10-19/15_19_05.ulg": {"bytes": 10040140, "sha256": "c4ae5bc97dd975515dbe19a005032da63868f1bc757fc30af0be35ba692f4634"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/landing-failsafe-timeline.json": {"bytes": 4542, "sha256": "e138ab7b1771084a2ecd8c5d93bb3862471d97d6c5e61e542a10f0210a5d1cad"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/analyze-landing-failsafe.py": {"bytes": 6316, "sha256": "ac92e75118c33234a10d776e3f1a627e6909b69613aa31e79f9a4c93e7e4aaf2"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/px4_sitl_default/bin/px4": {"bytes": 57466288, "sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"},
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install/lib/vins/vins_node": {"bytes": 12276928, "sha256": "1ba7f8bfd017d6b795a183da2930fd749755f89ed6165ac3d36a71a2ee794024"},
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/source/vins/src/estimator/estimator.cpp": {"bytes": 69376, "sha256": "0a6863a66cb8d5608fb23cf85c75e6fe17b2fdf3b8b16969ab4596747bac899b"},
+    "config/components/mapping/ego_planner_slow_probe.json": {"bytes": 793, "sha256": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb"}
+  }
+}

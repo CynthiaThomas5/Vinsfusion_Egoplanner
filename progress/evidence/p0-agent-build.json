@@ -1,0 +1,121 @@
+{
+  "scope": "P0 standalone Micro XRCE-DDS Agent source import, build and CLI dependency smoke check only; no UDP server or PX4 connection was started.",
+  "date": "2026-10-16",
+  "agent_source": {
+    "url": "https://github.com/eProsima/Micro-XRCE-DDS-Agent",
+    "version": "v2.4.3",
+    "revision": "73622810d984349b80bbac0ef55fc0b694d62222",
+    "target": "src/vendor/micro_xrce_dds_agent",
+    "license": "Apache-2.0",
+    "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "patches": [
+      "dependencies/patches/agent/0001-colcon-build-integration.patch"
+    ],
+    "submodules": [],
+    "source_file_count": 213,
+    "source_manifest": "artifacts/runs/p0-agent-build-20261016-02/agent-source-sha256.txt",
+    "source_manifest_sha256": "ef2b85efe23f2de52ad5594380c64a313df422a4c5d832c95331e2cf9ada263d",
+    "git_worktree": "clean except for the documented colcon.pkg integration patch"
+  },
+  "build_dependency": {
+    "name": "spdlog",
+    "url": "https://github.com/gabime/spdlog",
+    "version": "v1.9.2",
+    "revision": "eb3220622e73a4889eee355ffa37972b3cac3df5",
+    "target": "src/vendor/spdlog",
+    "license": "MIT",
+    "license_sha256": "a7241a379cb98d37788f82c2fc2e484c3ae85dae881fd3406f0637644850926f",
+    "patches": [
+      "dependencies/patches/spdlog/0001-colcon-build-integration.patch"
+    ],
+    "source_file_count": 158,
+    "source_manifest": "artifacts/runs/p0-agent-build-20261016-02/spdlog-source-sha256.txt",
+    "source_manifest_sha256": "7db37a877e8c8d049c10b4431339f37889a06673cfaff6a164900e06234bac0a",
+    "build_log": "artifacts/runs/p0-agent-build-20261016-02/spdlog-build-install.log",
+    "build_log_sha256": "1cb4ebc6a3f6ea87688fb2048e1d102a6fa2c79dfe7d5f650be27da7c04ec902",
+    "installed_library_sha256": "fd27aa196537d92313b494d0bc5fe2acfba3057c84d66113be1ee68f971cce59"
+  },
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "system_fastdds": "2.14.6 from ros-jazzy-fastrtps=2.14.6-1noble.20260303.233638",
+    "system_fastcdr": "2.2.7 from ros-jazzy-fastcdr=2.2.7-1noble.20260225.051855",
+    "agent_logger": "pinned and separately built spdlog 1.9.2 with bundled fmt",
+    "agent_install_prefix": "artifacts/runs/p0-agent-build-20261016-02/agent-install"
+  },
+  "configuration": {
+    "command": "source /opt/ros/jazzy/setup.bash && cmake -S src/vendor/micro_xrce_dds_agent -B artifacts/runs/p0-agent-build-20261016-02/agent-build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/workspace/artifacts/runs/p0-agent-build-20261016-02/agent-install -DCMAKE_PREFIX_PATH=/workspace/artifacts/runs/p0-agent-build-20261016-02/spdlog-install -Dspdlog_DIR=/workspace/artifacts/runs/p0-agent-build-20261016-02/spdlog-install/lib/cmake/spdlog -DUAGENT_SUPERBUILD=OFF -DUAGENT_USE_SYSTEM_FASTDDS=ON -DUAGENT_USE_SYSTEM_FASTCDR=ON -DUAGENT_USE_SYSTEM_LOGGER=OFF -DUAGENT_P2P_PROFILE=OFF -DUAGENT_DISCOVERY_PROFILE=OFF -DUAGENT_SOCKETCAN_PROFILE=OFF -DUAGENT_SECURITY_PROFILE=OFF",
+    "build_command": "source /opt/ros/jazzy/setup.bash && cmake --build artifacts/runs/p0-agent-build-20261016-02/agent-build --parallel 2 && cmake --install artifacts/runs/p0-agent-build-20261016-02/agent-build",
+    "status": "PASS",
+    "configure_log": "artifacts/runs/p0-agent-build-20261016-02/agent-configure.log",
+    "configure_log_sha256": "52e2cdf754bbdd18e530b308708ad9be37fa58d5c76830f764a94f5b97b0563e",
+    "build_install_log": "artifacts/runs/p0-agent-build-20261016-02/agent-build-install.log",
+    "build_install_log_sha256": "4d173bb7a9866d98e8197d72e6cea6a877401995aef782d64cfc92ae293e280b",
+    "build_config_manifest": "artifacts/runs/p0-agent-build-20261016-02/build-config.txt",
+    "build_config_manifest_sha256": "5620f281607acb98e1f6e8beddf05d291900cc16ee78dc4aeb0d295c8ea08526",
+    "built_outputs": {
+      "agent_library_sha256": "d9b275e5611e1f925d40bd4623afbff2153baaee40a76ed2e348c2cc0b758f73",
+      "agent_executable_sha256": "4c65d48d3eadaf53f366e0bcbc6f862256bc541bdc96db8d0c661ea516d6c1ec"
+    },
+    "profiles": {
+      "enabled": [
+        "Fast DDS middleware",
+        "UDPv4",
+        "TCP",
+        "serial",
+        "DDS logger"
+      ],
+      "disabled": [
+        "P2P discovery/client",
+        "Discovery profile",
+        "SocketCAN",
+        "Security",
+        "Agent tests"
+      ]
+    }
+  },
+  "initial_attempt": {
+    "status": "FAIL, corrected",
+    "reason": "Using the image's spdlog 1.12/fmt 9 could not format Agent endpoint types in v2.4.3 source.",
+    "configure_log": "artifacts/runs/p0-agent-build-20261016-01/cmake-configure.log",
+    "configure_log_sha256": "57da60f9f1dec49f8106c0ad581fd40ae2d3a0a5aaa792b68833246d5c38c4c8",
+    "build_log": "artifacts/runs/p0-agent-build-20261016-01/cmake-build-install.log",
+    "build_log_sha256": "4b50cbeb0c72d7117ef6cf4f781d92fe1d525cb912039b571708ee57c4c3bf52",
+    "resolution": "Build the Agent-required spdlog 1.9.2 from a separately pinned upstream commit; do not patch Agent source."
+  },
+  "cli_smoke": {
+    "command": "LD_LIBRARY_PATH=<agent-install>/lib:<spdlog-install>/lib:$LD_LIBRARY_PATH <agent-install>/bin/MicroXRCEAgent udp4 --help",
+    "status": "PASS",
+    "exit_code": 0,
+    "runtime_dependencies": "ldd found no missing shared libraries",
+    "log": "artifacts/runs/p0-agent-build-20261016-02/cli-smoke.log",
+    "log_sha256": "d84b9c1a400a5ee675525899ecb82be66b070fe89928f9088881e9c5ff19e592",
+    "ldd_output": "artifacts/runs/p0-agent-build-20261016-02/agent-ldd.txt"
+  },
+  "qualification": {
+    "source_revision_and_license": "PASS",
+    "cmake_configure_build_install": "PASS",
+    "binary_load_and_udp4_cli_help": "PASS",
+    "udp_server_start": "NOT_RUN",
+    "px4_client_interoperability": "NOT_RUN",
+    "dds_topic_graph": "NOT_RUN",
+    "sitl": "NOT_RUN",
+    "real_hardware": "NOT_RUN",
+    "limitations": [
+      "The build uses the locally pinned base image's Fast-DDS/Fast-CDR packages and a pinned spdlog source build; full OS/ROS package snapshot and portable base image reconstruction remain pending.",
+      "The P2P Agent profile is disabled; it is not needed for PX4's UDP4 client transport. This configuration has not been tested against PX4 traffic."
+    ]
+  },
+  "workspace_integration": {
+    "status": "PASS",
+    "evidence": "progress/evidence/p0-final-colcon-build.json",
+    "build_run": "artifacts/runs/p0-final-colcon-build-20261016-05",
+    "agent_patch_sha256": "232e46de6fe23be8adc96d633ae172b86babbb73e58ee2a64cacb82114dac05b",
+    "spdlog_patch_sha256": "618f89ae68f5b07c51d04129546703d25bbd043762c8dbd84676df388bdf4a83",
+    "reconstructed_patched_source_manifests_match_vendor": true,
+    "agent_patched_manifest_sha256": "69185bf43cf61c0b99e6f5d860ca388ffb2dceb41a205956e088373c782a4497",
+    "spdlog_patched_manifest_sha256": "b0fe287626a43b9331919172d29e38a76bba80783e8e1f1b5b67390fd0890377",
+    "packages_finished": 15,
+    "qualification": "The Agent and spdlog colcon packages built from patched source metadata in a fresh full-workspace build; no Agent service was started."
+  }
+}

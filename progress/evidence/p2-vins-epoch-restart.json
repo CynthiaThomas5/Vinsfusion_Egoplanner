@@ -1,0 +1,284 @@
+{
+  "date": "2026-10-17",
+  "scope": "Two independent live Gazebo D435i/VINS runs stop the active VINS process, observe localization fail-closed and EGO map reset, then launch a fresh VINS session with a new epoch and observe recovery.",
+  "status": "PASS_TWO_INDEPENDENT_LIVE_VINS_RESTART_EPOCH_RESET_RUNS",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "runtime_overlays": [
+      "artifacts/runs/p2-ego-odom-wire-20261016-03/install",
+      "artifacts/runs/p2-map-input-build-20261016-01/install",
+      "artifacts/runs/p2-ego-map-ground-height-build-20261017-03/install",
+      "artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07/install"
+    ],
+    "own_localization_and_mapping_sources_match_runtime_overlays": true,
+    "runtime_scope": "Gazebo D435i sensors, VINS, localization adapter, depth health monitor, mapping adapter and EGO plan_env. No PX4, control, or task-goal node was launched."
+  },
+  "implementation": {
+    "probe": "tools/probe_vins_epoch_restart.py",
+    "probe_sha256": "9a976e63f4276b4f605838aa5e7c6969744eea51c54d1c3dbe60a5d8d8569554",
+    "runtime_source_sha256": {
+      "tools/probe_vins_epoch_restart.py": "9a976e63f4276b4f605838aa5e7c6969744eea51c54d1c3dbe60a5d8d8569554",
+      "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+      "src/own/uav_localization/uav_localization/health.py": "4d2e4b80e794e8e2ce27f8e5c918d503b8bb5ac094dc33ac862b722a0a1a4d76",
+      "src/own/uav_mapping/uav_mapping/adapter.py": "a28e09030e3726c16439327941ecf31d2852d5203bd7fd28ede138689309be97",
+      "src/own/uav_mapping/uav_mapping/depth_gate.py": "77d7bb2d845251585a1961bfea0a396d113ac29310713ad8c8dd152cc553f360"
+    },
+    "overlay_source_matches": {
+      "src/own/uav_localization/uav_localization/node.py": true,
+      "src/own/uav_localization/uav_localization/health.py": true,
+      "src/own/uav_mapping/uav_mapping/adapter.py": true,
+      "src/own/uav_mapping/uav_mapping/depth_gate.py": true
+    },
+    "build_evidence": [
+      "progress/evidence/p2-localization-adapter.json",
+      "progress/evidence/p2-ego-map-input.json",
+      "progress/evidence/p0-ego-map-timeout-diagnostic-build.json"
+    ],
+    "run_command": "docker exec -w /workspace d435i-vins-build bash /workspace/artifacts/runs/<run_id>/run-vins-epoch-restart.sh"
+  },
+  "fault_protocol": {
+    "initial_condition": "Wait for valid TRACKING, nonempty EGO occupancy map, and depth/pose outputs before injecting the restart.",
+    "injection": "Send SIGINT to the active VINS process. Keep the localization adapter running until it reports LOCKED and the EGO occupancy map is empty with output counters stable; then stop the old adapter, generate a new session manifest/epoch, and start a fresh VINS process plus adapter.",
+    "isolation_check": "Observe an empty map for the new epoch before rebuilt occupancy; count post-switch pose/odometry frames and check their frame IDs use only the new epoch.",
+    "truth_and_control": "Probe subscribes only to localization status, occupancy, EGO depth/pose, and localization odometry. It does not read truth or publish control. Debug motion inputs/logs remain run-local."
+  },
+  "runs": [
+    {
+      "run_id": "p2-vins-epoch-restart-20261017-01",
+      "ros_domain_id": 195,
+      "gazebo_partition": "p2_vins_epoch_restart_01",
+      "wall_seconds": 12.946,
+      "old_epoch": "5956a330c3d748609cf709091075f3bb",
+      "new_epoch": "fa0cdf1763d847a6babe402fd26176e7",
+      "epochs_differ": true,
+      "initial_tracking_and_nonempty_map": {
+        "wall_elapsed_s": 5.942,
+        "map_points": 920,
+        "output_counts": {
+          "ego_depth": 12,
+          "ego_pose": 12,
+          "optimized_odometry": 8,
+          "propagated_odometry": 104
+        }
+      },
+      "old_vins_stop_response": {
+        "localization_state": 4,
+        "reason": "optimized_publisher_missing_or_ambiguous",
+        "wall_elapsed_s": 6.024,
+        "map_empty_wall_elapsed_s": 6.043,
+        "outputs_stable_after_confirm": true,
+        "output_counts_at_settle": {
+          "ego_depth": 15,
+          "ego_pose": 15,
+          "optimized_odometry": 9,
+          "propagated_odometry": 111
+        },
+        "output_counts_after_confirm": {
+          "ego_depth": 15,
+          "ego_pose": 15,
+          "optimized_odometry": 9,
+          "propagated_odometry": 111
+        }
+      },
+      "new_session": {
+        "manifest_epoch_matches_observed": true,
+        "empty_map_observed": true,
+        "tracking_wall_elapsed_s": 10.825,
+        "nonempty_map_wall_elapsed_s": 11.442,
+        "pose_frame_count_after_epoch": 37,
+        "odometry_frame_count_after_epoch": 298,
+        "pose_frame_ids": [
+          "odom_fa0cdf1763d847a6babe402fd26176e7"
+        ],
+        "odometry_frame_ids": [
+          "odom_fa0cdf1763d847a6babe402fd26176e7"
+        ],
+        "old_pose_frame_after_epoch": false,
+        "old_odometry_frame_after_epoch": false
+      },
+      "peak_map_points": 999,
+      "final_output_counts": {
+        "ego_depth": 52,
+        "ego_pose": 52,
+        "optimized_odometry": 30,
+        "propagated_odometry": 388
+      },
+      "artifact_files": {
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/run-vins-epoch-restart.sh": {
+          "bytes": 6464,
+          "sha256": "ad05cbcf32e1ee71fc6e56894d40f33f610111e4c228e70657e1522d020d2e47"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/session1/session.json": {
+          "bytes": 654,
+          "sha256": "02cecbd1606e8f752643991d0a380e6063827ae839d312a3e7e53e8a65f40801"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/session2/session.json": {
+          "bytes": 654,
+          "sha256": "38a67c42e33b28a02461d29e856a10368f01bc2e906e650dbff15b6f7606061c"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/phase1-ready.json": {
+          "bytes": 225,
+          "sha256": "db1c383f2f1a4f4783148f447f65060c1e77431634e4296f674cfe3a58941f38"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/phase1-failed.json": {
+          "bytes": 1768,
+          "sha256": "44e6863164c7a16ce5eba0df43f9cd151dbcfd4949e6296221973bae525d49c4"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/vins-epoch-restart-probe.json": {
+          "bytes": 46875,
+          "sha256": "055040f65c5be24b28b5c7cd302550e35a9407e48ea4990bac5d7ce78c8f2ed4"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/mapping-adapter.log": {
+          "bytes": 996,
+          "sha256": "903a309777bf327b0b89acf07e1a7b9f718148e3cb80f07d01904d5c97417ede"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/ego.log": {
+          "bytes": 2717,
+          "sha256": "b06d6fdd638bd00749d34e7539ef9746e9ea54dc50f9f1f3345883d12f662db1"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/vins-session1.log": {
+          "bytes": 5206,
+          "sha256": "016a52d300db4e6013680073efdf78d19967e9502e0f3fc0850d32cad3dc2b94"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/vins-session2.log": {
+          "bytes": 9186,
+          "sha256": "6f89bf161d2c536190b6f9f93e3f5d4e63de8d072420aa904830a49270d72145"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/sensors.log": {
+          "bytes": 5017,
+          "sha256": "bd5937098a512c2639edb4afdaef11c82cc36a4f76698a0b550228694002b738"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/mapping-adapter-node-info.txt": {
+          "bytes": 1209,
+          "sha256": "2120b95b5b2c48d47bc8e64f2d7b5ee8d2125b5a38f725903503c486fdcb7b9a"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-01/ego-node-info.txt": {
+          "bytes": 2038,
+          "sha256": "7a3bbfe89bed1837e5d2ef6fa7a392d4d75334f02027873cee3339c6cc73d800"
+        }
+      }
+    },
+    {
+      "run_id": "p2-vins-epoch-restart-20261017-02",
+      "ros_domain_id": 196,
+      "gazebo_partition": "p2_vins_epoch_restart_02",
+      "wall_seconds": 15.19,
+      "old_epoch": "a950905284bd4f719d865ecfc3a5d6d8",
+      "new_epoch": "41e31f895a484f4c957d18f8a9ca718c",
+      "epochs_differ": true,
+      "initial_tracking_and_nonempty_map": {
+        "wall_elapsed_s": 6.869,
+        "map_points": 601,
+        "output_counts": {
+          "ego_depth": 8,
+          "ego_pose": 8,
+          "optimized_odometry": 17,
+          "propagated_odometry": 217
+        }
+      },
+      "old_vins_stop_response": {
+        "localization_state": 4,
+        "reason": "optimized_publisher_missing_or_ambiguous",
+        "wall_elapsed_s": 6.923,
+        "map_empty_wall_elapsed_s": 6.943,
+        "outputs_stable_after_confirm": true,
+        "output_counts_at_settle": {
+          "ego_depth": 8,
+          "ego_pose": 8,
+          "optimized_odometry": 17,
+          "propagated_odometry": 223
+        },
+        "output_counts_after_confirm": {
+          "ego_depth": 8,
+          "ego_pose": 8,
+          "optimized_odometry": 17,
+          "propagated_odometry": 223
+        }
+      },
+      "new_session": {
+        "manifest_epoch_matches_observed": true,
+        "empty_map_observed": true,
+        "tracking_wall_elapsed_s": 11.858,
+        "nonempty_map_wall_elapsed_s": 13.689,
+        "pose_frame_count_after_epoch": 19,
+        "odometry_frame_count_after_epoch": 458,
+        "pose_frame_ids": [
+          "odom_41e31f895a484f4c957d18f8a9ca718c"
+        ],
+        "odometry_frame_ids": [
+          "odom_41e31f895a484f4c957d18f8a9ca718c"
+        ],
+        "old_pose_frame_after_epoch": false,
+        "old_odometry_frame_after_epoch": false
+      },
+      "peak_map_points": 858,
+      "final_output_counts": {
+        "ego_depth": 27,
+        "ego_pose": 27,
+        "optimized_odometry": 50,
+        "propagated_odometry": 648
+      },
+      "artifact_files": {
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/run-vins-epoch-restart.sh": {
+          "bytes": 6464,
+          "sha256": "349d77f41008d16d4fac5aa6f7922fbaef95ff0f9e91575abc04c6430ab2a351"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/session1/session.json": {
+          "bytes": 654,
+          "sha256": "b83ff5f3f57b0dc13cd35f0b77ddc6f4eef3e4de84724a9e82af8d9398dee802"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/session2/session.json": {
+          "bytes": 654,
+          "sha256": "5b781cbfd8755d87d23e0a12cb115fde450d4e291c1a62adcf2795842bdac01d"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/phase1-ready.json": {
+          "bytes": 224,
+          "sha256": "f64674c1a4311d07ff53aeb09a78fe9e0b74d80f0bbf14a365af933a573a02a3"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/phase1-failed.json": {
+          "bytes": 1704,
+          "sha256": "301e8ca70aad861481e216a15904e961d67af4459f2091ac2ff56f11d1cdfd5e"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/vins-epoch-restart-probe.json": {
+          "bytes": 62729,
+          "sha256": "727d12ecbe6d05a96914e165115eac638382844efc8d00b2d1aa5897640bd4f4"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/mapping-adapter.log": {
+          "bytes": 996,
+          "sha256": "272a5e8371c3378746c2c54800cfaf983ee6902e4b9a5b33df35497966b0f7d2"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/ego.log": {
+          "bytes": 4084,
+          "sha256": "fb597c0b9ce8adffa2e09068fddbb6f3f936bb72b86ceb4e8c03db5e7ba4ed90"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/vins-session1.log": {
+          "bytes": 6729,
+          "sha256": "d2b94d9bb3a4b95c91b98dddca215e46d0ebf5c12386377281a428299c57e080"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/vins-session2.log": {
+          "bytes": 11251,
+          "sha256": "749498303dd1b3a62a3c65c017d7490c28612dc977276bfacef6528b0c211480"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/sensors.log": {
+          "bytes": 5017,
+          "sha256": "66a1ecec60fd1cd7edb6038a8dce2eb41e2f21b39e0f4084a56e6788194bcb5c"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/mapping-adapter-node-info.txt": {
+          "bytes": 1209,
+          "sha256": "2120b95b5b2c48d47bc8e64f2d7b5ee8d2125b5a38f725903503c486fdcb7b9a"
+        },
+        "artifacts/runs/p2-vins-epoch-restart-20261017-02/ego-node-info.txt": {
+          "bytes": 2038,
+          "sha256": "7a3bbfe89bed1837e5d2ef6fa7a392d4d75334f02027873cee3339c6cc73d800"
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Two independent simulation runs establish restart/map-reset/new-epoch recovery observations, not a repeated-restart stress campaign or full GOAL E pass.",
+    "No task-goal or trajectory state machine was launched, so target/trajectory cancellation is unverified.",
+    "No PX4 failure action, Offboard/Land response, 10-minute loaded run, flight, or real-hardware evidence is included.",
+    "The simulation uses generated ideal-camera configuration; these runs do not qualify real-camera calibration, metric map geometry, planner response, or control behavior."
+  ]
+}

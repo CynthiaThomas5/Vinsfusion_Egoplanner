@@ -1,0 +1,53 @@
+--- a/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
++++ b/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
+@@ -66,6 +66,8 @@
+ 
+     /* planning data */
+     bool have_trigger_, have_target_, have_odom_, have_new_target_, have_recv_pre_agent_;
++    bool have_pending_manual_target_{false};
++    Eigen::Vector3d pending_manual_target_;
+     FSM_EXEC_STATE exec_state_;
+     int continously_called_times_{0};
+ 
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -239,13 +239,8 @@
+     if (msg->pose.position.z < -0.1)
+       return;
+ 
+-    cout << "Triggered!" << endl;
+-
+-    init_pt_ = odom_pos_;
+-
+-    Eigen::Vector3d end_wp(msg->pose.position.x, msg->pose.position.y, 1.0);
+-
+-    planNextWaypoint(end_wp);
++    pending_manual_target_ = Eigen::Vector3d(msg->pose.position.x, msg->pose.position.y, 1.0);
++    have_pending_manual_target_ = true;
+   }
+ 
+   void EGOReplanFSM::odometryCallback(const std::shared_ptr<const nav_msgs::msg::Odometry> &msg)
+@@ -468,6 +463,23 @@
+     exec_timer_->cancel(); // To avoid blockage
+ 
+     static int fsm_num = 0;
++
++    if (have_pending_manual_target_ &&
++        (exec_state_ == WAIT_TARGET || exec_state_ == EXEC_TRAJ))
++    {
++      const Eigen::Vector3d target = pending_manual_target_;
++      have_pending_manual_target_ = false;
++      init_pt_ = odom_pos_;
++      planNextWaypoint(target);
++      goto force_return;
++    }
++
++    if (have_pending_manual_target_ && exec_state_ == EMERGENCY_STOP)
++    {
++      have_pending_manual_target_ = false;
++      RCLCPP_WARN(node_->get_logger(), "Ignoring manual target while in EMERGENCY_STOP");
++    }
++
+     fsm_num++;
+     if (fsm_num == 100)
+     {

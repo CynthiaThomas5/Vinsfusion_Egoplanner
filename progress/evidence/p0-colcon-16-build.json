@@ -1,0 +1,75 @@
+{
+  "scope": "P0 current clean ROS source-workspace build, including the patched Micro XRCE-DDS Agent, pinned spdlog, and the new uav_mapping package.",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "build_directories": "Fresh run-specific build and install directories under artifacts/runs/p0-final-colcon-build-20261016-07/",
+    "discovery_scope": "colcon --base-paths src; excludes the external PX4 checkout and generated build artifacts",
+    "container_base_limit": "The pinned base image is available only in the local Docker cache; see p0-clean-container-build.json."
+  },
+  "command": "source /opt/ros/jazzy/setup.bash && MAKEFLAGS=-j2 CMAKE_BUILD_PARALLEL_LEVEL=2 colcon --log-base artifacts/runs/p0-final-colcon-build-20261016-07/log build --base-paths src --build-base artifacts/runs/p0-final-colcon-build-20261016-07/build --install-base artifacts/runs/p0-final-colcon-build-20261016-07/install --executor sequential --parallel-workers 1 --event-handlers console_direct+",
+  "result": {
+    "packages_discovered": 16,
+    "packages_finished": 16,
+    "exit_code": 0,
+    "elapsed": "13 minutes 49 seconds",
+    "packages": [
+      "bspline_opt",
+      "camera_models",
+      "ego_planner",
+      "global_fusion",
+      "loop_fusion",
+      "microxrcedds_agent",
+      "path_searching",
+      "plan_env",
+      "px4_msgs",
+      "spdlog",
+      "traj_utils",
+      "uav_interfaces",
+      "uav_localization",
+      "uav_mapping",
+      "uav_sim",
+      "vins"
+    ]
+  },
+  "artifacts": {
+    "package_list": "artifacts/runs/p0-final-colcon-build-20261016-07/packages.txt",
+    "package_list_sha256": "a16d9e465ec2e5b3b5a4ffaab10df83972264935934c396f337b50ee342443bc",
+    "events_log": "artifacts/runs/p0-final-colcon-build-20261016-07/log/build_2026-10-16_13-14-01/events.log",
+    "events_log_sha256": "104b76d7e394342490427f00abd9ac496862e530cac74dd6f33596c2df68e6bf",
+    "full_colcon_log": "artifacts/runs/p0-final-colcon-build-20261016-07/log/build_2026-10-16_13-14-01/logger_all.log",
+    "full_colcon_log_sha256": "533cfeb4f446174b795b40b435cd7d9e782345e58e3acd2481565ac61b432095"
+  },
+  "warnings": [
+    "Nine third-party packages emitted compiler or CMake stderr warnings; all package targets completed successfully.",
+    "Affected packages: bspline_opt, camera_models, ego_planner, global_fusion, loop_fusion, path_searching, plan_env, traj_utils, and vins.",
+    "Warnings include deprecated ROS ConstPtr aliases, legacy variable-length arrays, unused parameters, and optional dependency notices."
+  ],
+  "supersedes": "The current 16-package workspace result supersedes progress/evidence/p0-final-colcon-build.json for current package coverage; that report remains the historical 15-package build record.",
+  "invalid_attempts": [
+    {
+      "run": "artifacts/runs/p0-final-colcon-build-20261016-06/",
+      "status": "ABORTED_INVALID_SCOPE",
+      "reason": "Without --base-paths src, colcon discovered generated build-cache packages OpticalFlow and microcdr and the external PX4 package, then failed on PX4 Git dubious-ownership protection. The run was stopped and is not counted as a source-workspace build.",
+      "events_log": "artifacts/runs/p0-final-colcon-build-20261016-06/log/build_2026-10-16_13-11-23/events.log",
+      "events_log_sha256": "8e5beb69b3d28471f2dfcd37588bd5a38690aa1617640daedab6fb2fe4d462da",
+      "full_colcon_log": "artifacts/runs/p0-final-colcon-build-20261016-06/log/build_2026-10-16_13-11-23/logger_all.log",
+      "full_colcon_log_sha256": "3ccf05e161fd8a551033ee07dc11950a6fb2b64699bbdb6c274b12d582f2d8c0"
+    }
+  ],
+  "qualification": {
+    "static_ros_build": "PASS",
+    "tests": "NOT_RUN_BY_COLCON_BUILD",
+    "launch_or_runtime_graph": "NOT_RUN",
+    "agent_udp_server_or_px4_connection": "NOT_RUN_IN_THIS_BUILD",
+    "planner_replay": "NOT_RUN",
+    "sitl": "NOT_RUN_IN_THIS_BUILD",
+    "real_hardware": "NOT_RUN",
+    "limits": [
+      "This report proves only that all 16 ROS source packages compiled and installed in the specified environment; it does not qualify tests, runtime behavior, mapping behavior, DDS, flight, or hardware.",
+      "The base image and complete transitive OS/ROS dependency set are not yet distributably locked, so portable clean-machine reconstruction remains incomplete."
+    ]
+  }
+}

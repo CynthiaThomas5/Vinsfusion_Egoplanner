@@ -1,0 +1,1290 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-203",
+  "classification": "VALID_VISUAL_FEATURE_RESIDUAL_DIAGNOSTIC; ZERO_OFFSET_ACTION_ABORTED_BY_EXISTING_NORMALIZED_COST_GATE; P5_NOT_PASSED",
+  "scope": "Isolated optional post-solve VINS visual residual diagnostic on the canonical no-truth VIO/EGO/PX4 graph. It captured feature/observation IDs, source frame times, tracked pixel coordinates, raw weighted residuals, and Huber costs at the first normalized-cost crossing. It does not identify an image-content or motion root cause.",
+  "setup": {
+    "container_image": "d435i-vins:dev",
+    "px4_firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "vins_source_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "vins_diagnostic_overlay": "patches 0001-0005 plus the #181 run-local image/cost timing overlay and optional #0006 feature residual patch",
+    "vins_binary_sha256": "8d3328e9acf6e936c0bcf6de424393e3d53d4e793ab386c84ed21edd414868d1",
+    "vins_environment": [
+      "VINS_DIAGNOSTIC_COST_GROUPS=1",
+      "VINS_DIAGNOSTIC_FEATURE_RESIDUALS=1"
+    ],
+    "clock_domain": "Gazebo lockstep /clock equals PX4 HRT; UXRCE_DDS_SYNCT=0 and UXRCE_DDS_SYNCC=0",
+    "localization_cost_limit": 1.0,
+    "px4_source_future_tolerance_s": 0.065,
+    "truth_input_started": false,
+    "px4_bridge_subscribed_debug_truth": false,
+    "launch_manifest": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203-stack/launch-manifest.json",
+    "active_config_sha256": {
+      "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+      "config/components/simulation/d435i_bridge.yaml": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed",
+      "config/components/localization/vins_sim.json": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+      "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+      "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "config/components/mapping/ego_planner_slow_probe.json": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+      "config/components/navigation/task_supervisor.json": "85d8b254ec0e2dee0c955437fd5210b6ebc5fbdbca7f949841d00019cebdc4f7",
+      "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f",
+      "config/components/px4_bridge/frames_vio_closed_loop.json": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822",
+      "simulation/models/d435i/model.sdf": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "vins_session_epoch": "e8ad90e06515456cb065f8277ae57ac5",
+    "model_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "vins_patch_manifest": {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-203",
+      "base_source": "VINS-Fusion-ROS2 commit 72023bc5d2abb14faa4c02a5c040d84f996b587a with project patches 0001-0005 and run-local image/cost timing overlay from run 181",
+      "file": "source/vins/src/estimator/estimator.cpp",
+      "baseline_sha256": "0a6863a66cb8d5608fb23cf85c75e6fe17b2fdf3b8b16969ab4596747bac899b",
+      "patched_sha256": "51c7c7768184f047734c0f4ea75529590c1450f0482e0fe3a9c4d969c161dfd2",
+      "diagnostic_patch": "dependencies/patches/vins/0006-feature-residual-diagnostics.patch",
+      "diagnostic_patch_sha256": "dd17d34bacc09da4a472959fdb4e3abb625c8b2810f4bd40b2f54461d0b8dc73",
+      "env": "VINS_DIAGNOSTIC_FEATURE_RESIDUALS=1",
+      "scope": "run-local optional post-solve visual residual evaluation; normal fetch_vins source stack unchanged"
+    }
+  },
+  "build": {
+    "run_local_own_packages_finished": 6,
+    "run_local_vins_packages_finished": 2,
+    "run_local_vins_package_prefix": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vins-install/vins",
+    "package_prefixes_recorded": true,
+    "vins_clean_build": "camera_models and vins built in isolated build/install directories; no VINS source or binary from prior install used",
+    "patch_dry_run": "passed against the #181 source snapshot before apply",
+    "patch_replay": "applied 0006 to the saved #181 estimator source baseline; patched source SHA matches source-patch-manifest"
+  },
+  "run": {
+    "qualification": "VALID_DIAGNOSTIC_GOAL_ABORTED_BY_EXISTING_QUALITY_GATE",
+    "preconditions_ready": true,
+    "px4_telemetry_stability_passed": true,
+    "localization_tracking_stability_passed": true,
+    "takeoff_active_observed": true,
+    "action_goal_sent": true,
+    "goal_sent_wall_elapsed_s": 20.937497840001015,
+    "action_result": {
+      "final_position": [
+        -0.013802578364210628,
+        -0.007284958586174662,
+        0.8675865490784567
+      ],
+      "outcome": "aborted",
+      "reason": "localization_normalized_cost_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "landed_and_disarmed": true,
+    "px4_timestamp_error_values": [
+      ""
+    ],
+    "vins_first_normalized_cost_crossing": {
+      "stamp_ns": 25940000000,
+      "wall_elapsed_s": 23.41467709599965,
+      "normalized_cost": 1.0871998994407757,
+      "final_cost": 1153.6355344317758,
+      "residual_components": 1952
+    },
+    "grouped_vins_cost": {
+      "cost": {
+        "evaluation_ms": 0.21288700000000002,
+        "evaluation_ok": true,
+        "grouped_cost_error": -4.547473508864641e-13,
+        "grouped_cost_sum": 1153.6355344317753,
+        "grouped_residual_components": 1952,
+        "imu": {
+          "cost": 2.411484199266578,
+          "residual_components": 150
+        },
+        "marginalization": {
+          "cost": 124.75388231642079,
+          "residual_components": 82
+        },
+        "visual": {
+          "cost": 1026.470167916088,
+          "residual_components": 1720
+        }
+      },
+      "shares_pct": {
+        "visual": 88.977,
+        "marginalization": 10.814,
+        "imu": 0.209
+      },
+      "sum_matches_final_cost_error": -4.547473508864641e-13,
+      "grouped_residual_components": 1952
+    },
+    "feature_residual_diagnostic": {
+      "sample_stamp_ns": 25940000000,
+      "sample_normalized_cost": 1.0871998994407757,
+      "available": true,
+      "evaluation_ms": 0.2313,
+      "visual_block_count": 860,
+      "residual_components": 1720,
+      "unique_feature_count": 51,
+      "huber_visual_cost_from_residuals": 1026.470167916088,
+      "visual_group_cost": 1026.470167916088,
+      "huber_sum_matches_group_cost": true,
+      "raw_visual_cost_without_loss": 7863.570080837935,
+      "non_finite_blocks": 0,
+      "blocks_over_1_5px": 97,
+      "blocks_over_3px": 94,
+      "blocks_over_5px": 86,
+      "pixel_equivalent_norm_percentiles": {
+        "max": 42.68328385740327,
+        "p50": 0.19603501135787102,
+        "p95": 15.103348199434624,
+        "p99": 33.80016702069305
+      },
+      "coordinate_pattern_in_top_observations": {
+        "image_resolution_px": [
+          640,
+          480
+        ],
+        "top_observation_count": 20,
+        "anchor_uv_bounds_px": {
+          "x": [
+            28.263914108276367,
+            162
+          ],
+          "y": [
+            358,
+            370.00286865234375
+          ]
+        },
+        "target_uv_bounds_px": {
+          "x": [
+            18.35590934753418,
+            155.97537231445312
+          ],
+          "y": [
+            357.97418212890625,
+            370.0124816894531
+          ]
+        },
+        "residual_x_positive_count": 20,
+        "residual_y_negative_count": 20
+      },
+      "top_features_by_robust_cost": [
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59700,
+          "feature_index": 37,
+          "max_pixel_equivalent_norm": 39.43155247934818,
+          "rms_pixel_equivalent_norm": 26.03449911768983,
+          "robust_cost_sum": 102.44972705191272,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59729,
+          "feature_index": 40,
+          "max_pixel_equivalent_norm": 36.925122557975314,
+          "rms_pixel_equivalent_norm": 24.35806707270676,
+          "robust_cost_sum": 95.76406935570785,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59811,
+          "feature_index": 45,
+          "max_pixel_equivalent_norm": 35.78714200038047,
+          "rms_pixel_equivalent_norm": 23.639630124657007,
+          "robust_cost_sum": 92.90054210532001,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59808,
+          "feature_index": 43,
+          "max_pixel_equivalent_norm": 35.09014120885801,
+          "rms_pixel_equivalent_norm": 23.000898793591933,
+          "robust_cost_sum": 90.31911775956218,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59774,
+          "feature_index": 41,
+          "max_pixel_equivalent_norm": 33.091476266062195,
+          "rms_pixel_equivalent_norm": 21.524072796284166,
+          "robust_cost_sum": 84.34853979630203,
+          "start_frame": 7
+        },
+        {
+          "block_count": 6,
+          "end_frame": 10,
+          "feature_id": 59813,
+          "feature_index": 46,
+          "max_pixel_equivalent_norm": 42.68328385740327,
+          "rms_pixel_equivalent_norm": 24.799523123904258,
+          "robust_cost_sum": 80.61496720019304,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 60025,
+          "feature_index": 50,
+          "max_pixel_equivalent_norm": 30.47008738461443,
+          "rms_pixel_equivalent_norm": 19.309424315697783,
+          "robust_cost_sum": 74.45470374123302,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59702,
+          "feature_index": 38,
+          "max_pixel_equivalent_norm": 22.21291653897442,
+          "rms_pixel_equivalent_norm": 13.941660324711247,
+          "robust_cost_sum": 53.05099224684202,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59726,
+          "feature_index": 39,
+          "max_pixel_equivalent_norm": 22.133902632783627,
+          "rms_pixel_equivalent_norm": 13.780172835508592,
+          "robust_cost_sum": 52.55931181496578,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59816,
+          "feature_index": 48,
+          "max_pixel_equivalent_norm": 21.16051400829548,
+          "rms_pixel_equivalent_norm": 13.067994737994006,
+          "robust_cost_sum": 50.00983361833981,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59788,
+          "feature_index": 42,
+          "max_pixel_equivalent_norm": 20.787755733186902,
+          "rms_pixel_equivalent_norm": 12.79830579058808,
+          "robust_cost_sum": 49.00101892400882,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59818,
+          "feature_index": 49,
+          "max_pixel_equivalent_norm": 20.55348838260524,
+          "rms_pixel_equivalent_norm": 12.36413154474599,
+          "robust_cost_sum": 48.48596507571331,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59956,
+          "feature_index": 36,
+          "max_pixel_equivalent_norm": 20.053101091424754,
+          "rms_pixel_equivalent_norm": 12.336760896532153,
+          "robust_cost_sum": 47.62835376812626,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59810,
+          "feature_index": 44,
+          "max_pixel_equivalent_norm": 20.1720415910965,
+          "rms_pixel_equivalent_norm": 12.260472426943268,
+          "robust_cost_sum": 47.611051667203,
+          "start_frame": 7
+        },
+        {
+          "block_count": 7,
+          "end_frame": 10,
+          "feature_id": 59814,
+          "feature_index": 47,
+          "max_pixel_equivalent_norm": 20.01967981376918,
+          "rms_pixel_equivalent_norm": 12.34096979648923,
+          "robust_cost_sum": 47.38890150386191,
+          "start_frame": 7
+        },
+        {
+          "block_count": 21,
+          "end_frame": 10,
+          "feature_id": 17,
+          "feature_index": 17,
+          "max_pixel_equivalent_norm": 0.6488472249430097,
+          "rms_pixel_equivalent_norm": 0.36754942706965177,
+          "robust_cost_sum": 0.6304320462497365,
+          "start_frame": 0
+        },
+        {
+          "block_count": 21,
+          "end_frame": 10,
+          "feature_id": 15,
+          "feature_index": 15,
+          "max_pixel_equivalent_norm": 0.7111820640921398,
+          "rms_pixel_equivalent_norm": 0.35997887479220075,
+          "robust_cost_sum": 0.6047290213844085,
+          "start_frame": 0
+        },
+        {
+          "block_count": 21,
+          "end_frame": 10,
+          "feature_id": 35,
+          "feature_index": 35,
+          "max_pixel_equivalent_norm": 0.5905544465007041,
+          "rms_pixel_equivalent_norm": 0.35530138325601884,
+          "robust_cost_sum": 0.5891156737369885,
+          "start_frame": 0
+        },
+        {
+          "block_count": 21,
+          "end_frame": 10,
+          "feature_id": 20,
+          "feature_index": 20,
+          "max_pixel_equivalent_norm": 0.7201204080634529,
+          "rms_pixel_equivalent_norm": 0.29830745549563104,
+          "robust_cost_sum": 0.4152742440199634,
+          "start_frame": 0
+        },
+        {
+          "block_count": 21,
+          "end_frame": 10,
+          "feature_id": 13,
+          "feature_index": 13,
+          "max_pixel_equivalent_norm": 0.5570488901226054,
+          "rms_pixel_equivalent_norm": 0.2857074450053875,
+          "robust_cost_sum": 0.3809341392803636,
+          "start_frame": 0
+        }
+      ],
+      "top_observations_by_pixel_equivalent_norm": [
+        {
+          "anchor_uv": [
+            28.263914108276367,
+            370.00286865234375
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59813,
+          "feature_index": 46,
+          "huber_cost": 27.95552257160218,
+          "norm_pixel_equivalent": 42.68328385740327,
+          "residual_pixel_equivalent": [
+            42.54107134028216,
+            -3.4813747389051843
+          ],
+          "residual_weighted": [
+            28.36071422685477,
+            -2.3209164926034562
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            18.35590934753418,
+            369.9980773925781
+          ]
+        },
+        {
+          "anchor_uv": [
+            65.22554016113281,
+            367.033935546875
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59700,
+          "feature_index": 37,
+          "huber_cost": 25.787701652898786,
+          "norm_pixel_equivalent": 39.43155247934818,
+          "residual_pixel_equivalent": [
+            39.290735362781575,
+            -3.3294812784358068
+          ],
+          "residual_weighted": [
+            26.193823575187718,
+            -2.219654185623871
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            56.101383209228516,
+            367.0277404785156
+          ]
+        },
+        {
+          "anchor_uv": [
+            65.22554016113281,
+            367.033935546875
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59700,
+          "feature_index": 37,
+          "huber_cost": 25.151517767093598,
+          "norm_pixel_equivalent": 38.4772766506404,
+          "residual_pixel_equivalent": [
+            38.33175137442842,
+            -3.3433000192805333
+          ],
+          "residual_weighted": [
+            25.554500916285615,
+            -2.2288666795203556
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            49.188846588134766,
+            367.0378723144531
+          ]
+        },
+        {
+          "anchor_uv": [
+            89.16427612304688,
+            365.0218505859375
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59729,
+          "feature_index": 40,
+          "huber_cost": 24.116748371983544,
+          "norm_pixel_equivalent": 36.925122557975314,
+          "residual_pixel_equivalent": [
+            36.79489129994432,
+            -3.0984915921750216
+          ],
+          "residual_weighted": [
+            24.529927533296213,
+            -2.0656610614500144
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            80.7679214477539,
+            364.9857177734375
+          ]
+        },
+        {
+          "anchor_uv": [
+            89.16427612304688,
+            365.0218505859375
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59729,
+          "feature_index": 40,
+          "huber_cost": 23.44155750682669,
+          "norm_pixel_equivalent": 35.91233626024004,
+          "residual_pixel_equivalent": [
+            35.778588432530626,
+            -3.0965311954083585
+          ],
+          "residual_weighted": [
+            23.852392288353748,
+            -2.064354130272239
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            74.064208984375,
+            364.9842834472656
+          ]
+        },
+        {
+          "anchor_uv": [
+            105.80659484863281,
+            363.00518798828125
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59811,
+          "feature_index": 45,
+          "huber_cost": 23.358094666920316,
+          "norm_pixel_equivalent": 35.78714200038047,
+          "residual_pixel_equivalent": [
+            35.66040694012189,
+            -3.0091376539306083
+          ],
+          "residual_weighted": [
+            23.773604626747925,
+            -2.0060917692870723
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            97.57138061523438,
+            362.9895935058594
+          ]
+        },
+        {
+          "anchor_uv": [
+            121.96270751953125,
+            362.0014343261719
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59808,
+          "feature_index": 43,
+          "huber_cost": 22.893427472572004,
+          "norm_pixel_equivalent": 35.09014120885801,
+          "residual_pixel_equivalent": [
+            34.964753613794635,
+            -2.963783862603614
+          ],
+          "residual_weighted": [
+            23.309835742529756,
+            -1.9758559084024094
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            113.63429260253906,
+            362.0143127441406
+          ]
+        },
+        {
+          "anchor_uv": [
+            105.80659484863281,
+            363.00518798828125
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59811,
+          "feature_index": 45,
+          "huber_cost": 22.746849980615185,
+          "norm_pixel_equivalent": 34.87027497092278,
+          "residual_pixel_equivalent": [
+            34.739281692017116,
+            -3.0196662183837333
+          ],
+          "residual_weighted": [
+            23.15952112801141,
+            -2.0131108122558223
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            90.81437683105469,
+            362.997314453125
+          ]
+        },
+        {
+          "anchor_uv": [
+            121.96270751953125,
+            362.0014343261719
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59808,
+          "feature_index": 43,
+          "huber_cost": 22.033444680462033,
+          "norm_pixel_equivalent": 33.80016702069305,
+          "residual_pixel_equivalent": [
+            33.67085770377501,
+            -2.9537488246092805
+          ],
+          "residual_weighted": [
+            22.447238469183343,
+            -1.9691658830728536
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            107.17505645751953,
+            362.0069580078125
+          ]
+        },
+        {
+          "anchor_uv": [
+            146.09339904785156,
+            360.02716064453125
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59774,
+          "feature_index": 41,
+          "huber_cost": 21.560984177374795,
+          "norm_pixel_equivalent": 33.091476266062195,
+          "residual_pixel_equivalent": [
+            32.963166466728765,
+            -2.911263978770379
+          ],
+          "residual_weighted": [
+            21.975444311152508,
+            -1.940842652513586
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            138.5822296142578,
+            360.0216064453125
+          ]
+        },
+        {
+          "anchor_uv": [
+            146.09339904785156,
+            360.02716064453125
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59774,
+          "feature_index": 41,
+          "huber_cost": 20.33503778333105,
+          "norm_pixel_equivalent": 31.252556674996576,
+          "residual_pixel_equivalent": [
+            31.11735416617696,
+            -2.903888500025872
+          ],
+          "residual_weighted": [
+            20.744902777451305,
+            -1.9359256666839146
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            132.16310119628906,
+            360.0162048339844
+          ]
+        },
+        {
+          "anchor_uv": [
+            162,
+            358
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 60025,
+          "feature_index": 50,
+          "huber_cost": 19.813391589742952,
+          "norm_pixel_equivalent": 30.47008738461443,
+          "residual_pixel_equivalent": [
+            30.338096700430178,
+            -2.8330396787526335
+          ],
+          "residual_weighted": [
+            20.225397800286785,
+            -1.8886931191684224
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            155.97537231445312,
+            357.98089599609375
+          ]
+        },
+        {
+          "anchor_uv": [
+            162,
+            358
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 60025,
+          "feature_index": 50,
+          "huber_cost": 18.31038338635851,
+          "norm_pixel_equivalent": 28.215575079537764,
+          "residual_pixel_equivalent": [
+            28.07390901530771,
+            -2.823882021129241
+          ],
+          "residual_weighted": [
+            18.715939343538473,
+            -1.8825880140861604
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            149.74600219726562,
+            357.97418212890625
+          ]
+        },
+        {
+          "anchor_uv": [
+            28.263914108276367,
+            370.00286865234375
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59813,
+          "feature_index": 46,
+          "huber_cost": 18.09414969009878,
+          "norm_pixel_equivalent": 27.891224535148172,
+          "residual_pixel_equivalent": [
+            27.789460121161426,
+            -2.3804016981236717
+          ],
+          "residual_weighted": [
+            18.52630674744095,
+            -1.5869344654157813
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 9,
+          "target_stamp_ns": 25876000000,
+          "target_uv": [
+            23.743350982666016,
+            370.0124816894531
+          ]
+        },
+        {
+          "anchor_uv": [
+            28.263914108276367,
+            370.00286865234375
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59813,
+          "feature_index": 46,
+          "huber_cost": 17.06714938759513,
+          "norm_pixel_equivalent": 26.350724081392695,
+          "residual_pixel_equivalent": [
+            26.263956964756986,
+            -2.136638520452654
+          ],
+          "residual_weighted": [
+            17.509304643171323,
+            -1.4244256803017694
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 10,
+          "target_stamp_ns": 25940000000,
+          "target_uv": [
+            23.029464721679688,
+            369.0122985839844
+          ]
+        },
+        {
+          "anchor_uv": [
+            65.22554016113281,
+            367.033935546875
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59700,
+          "feature_index": 37,
+          "huber_cost": 16.76598776739645,
+          "norm_pixel_equivalent": 25.898981651094672,
+          "residual_pixel_equivalent": [
+            25.797128316837345,
+            -2.294650554739749
+          ],
+          "residual_weighted": [
+            17.19808554455823,
+            -1.529767036493166
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 9,
+          "target_stamp_ns": 25876000000,
+          "target_uv": [
+            60.972694396972656,
+            367.0487060546875
+          ]
+        },
+        {
+          "anchor_uv": [
+            65.22554016113281,
+            367.033935546875
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59700,
+          "feature_index": 37,
+          "huber_cost": 16.021176504654967,
+          "norm_pixel_equivalent": 24.78176475698245,
+          "residual_pixel_equivalent": [
+            24.675036207375747,
+            -2.2974883318775055
+          ],
+          "residual_weighted": [
+            16.450024138250498,
+            -1.5316588879183368
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 9,
+          "target_stamp_ns": 25876000000,
+          "target_uv": [
+            54.13298034667969,
+            367.05078125
+          ]
+        },
+        {
+          "anchor_uv": [
+            89.16427612304688,
+            365.0218505859375
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59729,
+          "feature_index": 40,
+          "huber_cost": 15.681059198008672,
+          "norm_pixel_equivalent": 24.27158879701301,
+          "residual_pixel_equivalent": [
+            24.176743145878437,
+            -2.143621605952768
+          ],
+          "residual_weighted": [
+            16.117828763918958,
+            -1.4290810706351786
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 9,
+          "target_stamp_ns": 25876000000,
+          "target_uv": [
+            85.27411651611328,
+            365.0180358886719
+          ]
+        },
+        {
+          "anchor_uv": [
+            105.80659484863281,
+            363.00518798828125
+          ],
+          "factor_kind": "two_frame_left",
+          "feature_id": 59811,
+          "feature_index": 45,
+          "huber_cost": 15.175160164392686,
+          "norm_pixel_equivalent": 23.51274024658903,
+          "residual_pixel_equivalent": [
+            23.420794716910997,
+            -2.077336932681198
+          ],
+          "residual_weighted": [
+            15.613863144607333,
+            -1.3848912884541318
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 9,
+          "target_stamp_ns": 25876000000,
+          "target_uv": [
+            101.96867370605469,
+            363.0093994140625
+          ]
+        },
+        {
+          "anchor_uv": [
+            89.16427612304688,
+            365.0218505859375
+          ],
+          "factor_kind": "two_frame_stereo_right",
+          "feature_id": 59729,
+          "feature_index": 40,
+          "huber_cost": 14.922902953222186,
+          "norm_pixel_equivalent": 23.13435442983328,
+          "residual_pixel_equivalent": [
+            23.03546101541942,
+            -2.1367944899401947
+          ],
+          "residual_weighted": [
+            15.356974010279613,
+            -1.4245296599601298
+          ],
+          "start_frame": 7,
+          "start_stamp_ns": 25676000000,
+          "target_frame": 9,
+          "target_stamp_ns": 25876000000,
+          "target_uv": [
+            78.62039184570312,
+            365.0130310058594
+          ]
+        }
+      ],
+      "pixel_equivalent_note": "The residual factors weight normalized coordinates by FOCAL_LENGTH/1.5; multiplying their norm by 1.5 yields an approximate pixel-equivalent norm. It is a diagnostic scale, not an independent pixel-space ground truth."
+    },
+    "px4_ulog": {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-203",
+      "ulog": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/px4_sitl_default/log/2026-10-19/16_47_48.ulg",
+      "ulog_sha256": "f26ed124d8d6757e6d3442e6078196cbf3d23b90b38181a72181547650ed2f7c",
+      "duration_sim_s": 26.844,
+      "dropouts": 0,
+      "px4_parameters": {
+        "UXRCE_DDS_SYNCT": 0,
+        "UXRCE_DDS_SYNCC": 0,
+        "SYS_AUTOSTART": 5011,
+        "EKF2_EV_CTRL": 15,
+        "EKF2_GPS_CTRL": 0
+      },
+      "estimator_flag_counts": {
+        "cs_ev_pos": {
+          "true": 21,
+          "samples": 39
+        },
+        "cs_ev_yaw": {
+          "true": 21,
+          "samples": 39
+        },
+        "cs_ev_vel": {
+          "true": 21,
+          "samples": 39
+        },
+        "cs_gnss_pos": {
+          "true": 0,
+          "samples": 39
+        },
+        "cs_gnss_vel": {
+          "true": 0,
+          "samples": 39
+        },
+        "cs_gnss_yaw": {
+          "true": 0,
+          "samples": 39
+        },
+        "cs_gps_hgt": {
+          "true": 0,
+          "samples": 39
+        }
+      },
+      "vehicle_status_transitions": [
+        {
+          "sim_time_s": 5.38,
+          "arming_state": "DISARMED",
+          "nav_state": "AUTO_LOITER",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 15.116,
+          "arming_state": "DISARMED",
+          "nav_state": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 15.2,
+          "arming_state": "ARMED",
+          "nav_state": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 26.036,
+          "arming_state": "ARMED",
+          "nav_state": "AUTO_LAND",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 30.476,
+          "arming_state": "ARMED",
+          "nav_state": "DESCEND",
+          "failsafe": true
+        },
+        {
+          "sim_time_s": 31.7,
+          "arming_state": "DISARMED",
+          "nav_state": "OFFBOARD",
+          "failsafe": false
+        }
+      ],
+      "land_transitions": [
+        {
+          "sim_time_s": 5.336,
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        {
+          "sim_time_s": 16.972,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 16.98,
+          "landed": false,
+          "ground_contact": false,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 29.02,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 29.356,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        {
+          "sim_time_s": 29.692,
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        }
+      ],
+      "battery_warning_values": [
+        0
+      ],
+      "battery_fault_values": [
+        0
+      ],
+      "failsafe_battery_warning_values": [
+        0
+      ],
+      "failsafe_battery_unhealthy_values": [
+        0
+      ],
+      "final_vehicle_status": {
+        "arming_state": "DISARMED",
+        "nav_state": "OFFBOARD",
+        "failsafe": false
+      },
+      "final_land_status": {
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      },
+      "interpretation": "The existing normalized-cost guard aborted the zero-offset action; PX4 entered AUTO_LAND, touched down, briefly entered DESCEND/failsafe after touchdown, and disarmed. EV fusion was present and GNSS aiding flags remained zero. This diagnostic does not qualify navigation success."
+    }
+  },
+  "interpretation": {
+    "supported": [
+      "The direct-current lockstep control timestamp path remained valid; no px4_timestamp_error was reported in this run.",
+      "The zero-offset action was sent after preconditions, takeoff and Offboard; the existing normalized_cost > 1.0 guard aborted it and PX4 landed/disarmed.",
+      "The diagnostic evaluated 860 two-component visual residual blocks in one batch in 0.2313 ms. Recomputed Huber visual cost matches the Ceres visual group cost within 1e-9.",
+      "The largest residual observations are spatially clustered in the left/lower portion of the 640x480 tracked image and share a positive horizontal residual direction in the top-20 ranking; this indicates a structured residual pattern rather than only isolated random outliers."
+    ],
+    "not_established": [
+      "No raw image frame or photometric patch was saved alongside the tracked pixel coordinates, so image-content, border distortion, feature matching, and calibration explanations are not distinguished.",
+      "No truth observer was connected, so true vehicle displacement and its relation to the residual pattern are unknown.",
+      "One run cannot establish whether the spatial concentration is repeatable or causal. No health threshold was changed."
+    ]
+  },
+  "qualification": {
+    "P5": "in_progress; the action aborted on the unchanged normalized_cost > 1.0 gate; EV fusion was observed with GNSS aiding flags zero, but navigation did not succeed.",
+    "P4": "in_progress; no successful target tracking or obstacle avoidance was qualified.",
+    "P6": "in_progress; existing interface handoff evidence remains partial.",
+    "thresholds": "No localization, PX4 freshness, future-stamp, or mapping threshold was changed."
+  },
+  "reproduction": {
+    "run_script": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/launch-diagnostic-run.sh",
+    "flight_script": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/run-direct-no-motion.sh",
+    "vins_build_script": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/build-feature-diagnostic.sh",
+    "feature_diagnostic_patch": "dependencies/patches/vins/0006-feature-residual-diagnostics.patch",
+    "source_patch_manifest": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/source-patch-manifest.json",
+    "goal_config": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vio_closed_loop_smoke_goal.json",
+    "collector": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/run_vio_ego_flight_harness.py",
+    "group_cost_patch": "dependencies/patches/vins/0005-diagnostic-cost-components.patch"
+  },
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/launch-diagnostic-run.sh": {
+      "bytes": 453,
+      "sha256": "ca06922c46ec52dff3415e73a5ba4a2699ceda908502b8807a7c55aedb760b1b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/run-direct-no-motion.sh": {
+      "bytes": 9317,
+      "sha256": "55651a872d9273b092e17645d42888e721a4e3d920b747a850765c768179d654"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/build-feature-diagnostic.sh": {
+      "bytes": 713,
+      "sha256": "068daeaf2082ec968b3b3dc3a2b36db31089f49d37961f83e6f450c29cea4fea"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "bd174934edb86b925f39d186b48ceff084d80e93a4fd1307d41000e44582ef7c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/container.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vins-build-container.log": {
+      "bytes": 228152,
+      "sha256": "411da82e4bbc84b61e6fcdbd4c0f8e82565ac0ece8aace46391ea3a1dcb46a3c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/package-prefixes.txt": {
+      "bytes": 650,
+      "sha256": "c18236b6def92859ade3b0a29f41387e7e08ad7b18bd86c05164c619a87716b7"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vins-diagnostics-env.txt": {
+      "bytes": 66,
+      "sha256": "dae3174c46a9e9610ddae348c33e536cc734c45b00d6e28fc288f6aae6e33226"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vins-diagnostics-env.old": {
+      "bytes": 30,
+      "sha256": "1ddfd4e612d9aceabf0edae0f54769dd403283c4193481ab03614f9d49bbeac0"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/truth-and-control-isolation.txt": {
+      "bytes": 239,
+      "sha256": "03ec89cbafd3c05fb63276f04996bd4c5ed2603059adc5f67ce6f5a6b68db0b8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vio-ego-flight-report.json": {
+      "bytes": 1807312,
+      "sha256": "9d76d2b8c3d47cfb7c9c73ea4f8ac980595e0b32477a9b75f169878969cf2ab2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vio-launch.log": {
+      "bytes": 740878,
+      "sha256": "828ad99cf9c76f025cc6860b397bbb25317c2016554147d7c3ddf00ff2886274"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/px4-bridge-live.json": {
+      "bytes": 8948054,
+      "sha256": "960e5bc05f7672e9f965dc3fb67d124eeaacd8b1b6d5f00f0f2af9bdb8f9e3b7"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/px4-bridge-node-info-final.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/px4-param-stage.json": {
+      "bytes": 750,
+      "sha256": "112b83fd7be1c3e9dfedd34c5070de295e26b99ba3dc60c212a48dc6e717118f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/px4.log": {
+      "bytes": 5365,
+      "sha256": "5261f35e4461755c7548a7ce529191637061305761a10761449975773f044b82"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/agent.log": {
+      "bytes": 41562,
+      "sha256": "ae8e177a5fea36f994d942721e2d94b809f79762549571c3e737780eef95d9fd"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/gazebo.log": {
+      "bytes": 2902,
+      "sha256": "73ecee6619e4e61015841bf8f26d094a09739086c8d1b20f307d0a03945fae35"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vio_initialization.sdf": {
+      "bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/world-generation.json": {
+      "bytes": 1441,
+      "sha256": "19f270c310bc000c23aaba4102485afa4dcd2f85551426844da7bf0c3a63848c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/source-patch-manifest.json": {
+      "bytes": 811,
+      "sha256": "6f218a483f86230f8e702e033aeb2b4df46c889e206357c08c1c54b9ceacdb62"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/source-baseline-estimator.cpp": {
+      "bytes": 69376,
+      "sha256": "0a6863a66cb8d5608fb23cf85c75e6fe17b2fdf3b8b16969ab4596747bac899b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/source/vins/src/estimator/estimator.cpp": {
+      "bytes": 81153,
+      "sha256": "51c7c7768184f047734c0f4ea75529590c1450f0482e0fe3a9c4d969c161dfd2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/vins-install/vins/lib/vins/vins_node": {
+      "bytes": 12308952,
+      "sha256": "8d3328e9acf6e936c0bcf6de424393e3d53d4e793ab386c84ed21edd414868d1"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/run_vio_ego_flight_harness.py": {
+      "bytes": 30336,
+      "sha256": "69309133c3eded2aecfe43ec776105fc3bf8d8f91aa65c35015336ee5d805f57"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/run_vio_ego_flight.py": {
+      "bytes": 30336,
+      "sha256": "69309133c3eded2aecfe43ec776105fc3bf8d8f91aa65c35015336ee5d805f57"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/landing-failsafe-timeline.json": {
+      "bytes": 3210,
+      "sha256": "f9f1ba6c21120b84836c8c3e7805e31068490bf2bad8767ae3375f96d3426ae9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203/px4_sitl_default/log/2026-10-19/16_47_48.ulg": {
+      "bytes": 7212726,
+      "sha256": "f26ed124d8d6757e6d3442e6078196cbf3d23b90b38181a72181547650ed2f7c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203-stack/launch-manifest.json": {
+      "bytes": 3138,
+      "sha256": "7ef2a7b76cad8a0848ad51b21dd898788fdeee97f1294e8121dd4e281f00f2d4"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203-stack/session/session.json": {
+      "bytes": 654,
+      "sha256": "3792a860cd963fa8e621326c3851ab2152e0b763bb29ac85d2edafa09921943b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203-stack/session/vins.yaml": {
+      "bytes": 1277,
+      "sha256": "a112fdbb2beaf50e4eaf3207c139e90ad02652c0b026e6054c9de956e71961b0"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203-stack/session/left.yaml": {
+      "bytes": 257,
+      "sha256": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-203-stack/session/right.yaml": {
+      "bytes": 257,
+      "sha256": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d"
+    }
+  },
+  "source_hashes": {
+    "dependencies/patches/vins/0006-feature-residual-diagnostics.patch": {
+      "bytes": 17073,
+      "sha256": "dd17d34bacc09da4a472959fdb4e3abb625c8b2810f4bd40b2f54461d0b8dc73"
+    },
+    "dependencies/patches/vins/README.md": {
+      "bytes": 3257,
+      "sha256": "1dad69c9efdbaa5db33a2090327c904058a4919d69398a73bbd5ce06afa8c1bc"
+    },
+    "dependencies/sources.json": {
+      "bytes": 11384,
+      "sha256": "801c8b5c6804abe00740bdc9d77996056e7eec090158f5b9d6819bc3597b1801"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": {
+      "bytes": 12292,
+      "sha256": "e0223d96867f76a0826e86424035220666d863daae3a3699bc7872c727d628b5"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47269,
+      "sha256": "32bc816585f68bef59ba92c00f333d1fb52cf4ae08280782b6bd91c5810c06b1"
+    },
+    "tools/test_px4_bridge_time_mapping.py": {
+      "bytes": 11846,
+      "sha256": "1082617900cd610f31787e0e57974a7738098a4f0cd3c9e87153d86ff26bab9e"
+    },
+    "tools/test_px4_bridge_control.py": {
+      "bytes": 10164,
+      "sha256": "00a3d7a9c6abdd4540108a29d4f0691730fd8c500cbeb7c2180b855192f71534"
+    },
+    "tools/test_px4_bridge_vio_profile.py": {
+      "bytes": 7762,
+      "sha256": "4d2800879ee7308e69838cec171779d29b34bad644fea3a1a9afd174c4d02f2b"
+    },
+    "tools/test_px4_bridge_frames.py": {
+      "bytes": 11625,
+      "sha256": "0234a81e9e1cf442bd60209110235f399d4ddb9226874d66c1117bebd03197c7"
+    },
+    "tools/probe_px4_bridge_live.py": {
+      "bytes": 13775,
+      "sha256": "fe446ec3bbdf6cbe7ef3e1a3f8e49b4d01e0d58094c938a4809e5b50b66042c5"
+    },
+    "tools/stage_px4_debug_params.py": {
+      "bytes": 6479,
+      "sha256": "d70a6ded5d092a2ea57a36ea746b7263c3bc0077ccd1262b1447a822e5199fda"
+    },
+    "config/profiles/vio_closed_loop.json": {
+      "bytes": 562,
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "config/components/px4_bridge/vio_closed_loop.json": {
+      "bytes": 720,
+      "sha256": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f"
+    },
+    "config/components/px4_bridge/debug_truth.json": {
+      "bytes": 3147,
+      "sha256": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf"
+    },
+    "simulation/models/d435i/model.sdf": {
+      "bytes": 3355,
+      "sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    }
+  }
+}

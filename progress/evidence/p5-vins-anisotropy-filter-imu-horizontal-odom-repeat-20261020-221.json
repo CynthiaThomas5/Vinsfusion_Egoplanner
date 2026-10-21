@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221",
+  "classification": "RAW_VINS_ODOMETRY_CONTINUOUS; LOCALIZATION_TRACKING_VALID; EGO_DEPTH_TIMEOUT; GOAL_TIMEOUT; SAFE_LANDING; P5_NOT_PASSED",
+  "scope": "Run-local single-D435i VIO/EGO/PX4 SITL diagnostic using the #192 horizontal target; no truth subscriptions or health/PX4 threshold changes.",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220",
+    "ros_domain_id": 232,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_horizontal_221",
+    "filter_threshold": 0.01,
+    "goal_config_source": "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio_closed_loop_smoke_goal.json",
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.5235987755982988,
+    "health_thresholds_changed": false,
+    "px4_parameters_changed": false,
+    "truth_input_started": false,
+    "px4_bridge_debug_truth_subscription": false,
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "run_local_colcon_build": "6 packages finished"
+  },
+  "run": {
+    "preconditions_ready": true,
+    "localization_tracking_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "action_goal_sent": true,
+    "action_success": false,
+    "action_result": {
+      "final_position": [
+        -0.00448749660403795,
+        -0.0023325145821805025,
+        0.8744504163579726
+      ],
+      "outcome": "aborted",
+      "reason": "goal_timeout",
+      "status": 6,
+      "success": false
+    },
+    "goal": {
+      "frame": "odom_d9077e73d813409da361a09addd23925",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        0.2923052197574095,
+        0.001559794185339062,
+        0.8921481018902758
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": 0.52300785987884,
+      "yaw_offset_rad": 0.5235987755982988,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "goal_sent_wall_elapsed_s": 22.83091491400046,
+    "landed_and_disarmed": true,
+    "final_localization_status": {
+      "accepted_optimized": 575,
+      "accepted_propagated": 7619,
+      "epoch": "d9077e73d813409da361a09addd23925",
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "localization_status_samples": 1110,
+    "localization_valid_samples": 1110,
+    "localization_source_stamp_ns_range": [
+      12640000000,
+      46615999999
+    ]
+  },
+  "observations": {
+    "raw_vins_odometry": {
+      "topic": "/vins_raw/s_d9077e73d813409da361a09addd23925/odometry",
+      "message_type": "nav_msgs/msg/Odometry",
+      "publisher_endpoints_at_first_sample": [
+        {
+          "node_name": "vins_estimator",
+          "node_namespace": "/vins_raw/s_d9077e73d813409da361a09addd23925",
+          "topic_type": "nav_msgs/msg/Odometry"
+        }
+      ],
+      "publisher_endpoints_at_shutdown": [
+        {
+          "node_name": "vins_estimator",
+          "node_namespace": "/vins_raw/s_d9077e73d813409da361a09addd23925",
+          "topic_type": "nav_msgs/msg/Odometry"
+        }
+      ],
+      "sample_count": 945,
+      "source_rate_hz": 15.151515151758339,
+      "first_stamp_ns": 11288000000,
+      "last_stamp_ns": 73591999999,
+      "positive_stamp_gap_s": {
+        "median": 0.066,
+        "p95": 0.068000001,
+        "max": 0.068000001
+      },
+      "nonpositive_stamp_gap_count": 0,
+      "all_numeric_samples_finite": true
+    },
+    "ego_depth_timeout": {
+      "timeout_sim_s": 0.4,
+      "observed_warning": {
+        "now_sim_s": 26.956,
+        "last_occ_update_time_sim_s": 26.536,
+        "age_sim_s": 0.42
+      },
+      "depth_lost_emergency_stop_logged": true
+    },
+    "px4_ulog": {
+      "duration_sim_s": 41.384,
+      "dropouts": 0,
+      "ev_position_flags": {
+        "true": 43,
+        "samples": 49
+      },
+      "gnss_position_flags": {
+        "true": 0,
+        "samples": 49
+      },
+      "vehicle_status_transitions": [
+        {
+          "sim_time_s": 6.204,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 4,
+          "nav_state_name": "AUTO_LOITER",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 16.5,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 16.62,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 40.86,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 18,
+          "nav_state_name": "AUTO_LAND",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 46.62,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        }
+      ]
+    }
+  },
+  "interpretation": "In this run raw optimized VINS odometry continued through source stamp 73.592 s, and all captured localization status samples remained valid. The navigation goal nevertheless timed out after EGO logged an internal odometry/depth freshness warning; without a raw depth/mapper-to-EGO trace this run does not locate the loss within the depth or EGO callback path.",
+  "limitations": [
+    "Navigation goal did not succeed; final position remained outside the requested 0.25 m tolerance.",
+    "The run does not establish the cause of the EGO depth/odometry timeout or fulfill P5 navigation acceptance."
+  ],
+  "files_sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/source-patch-manifest.json": "88addf1391635ed0a1c649c86d79533894a7658fbfa35da37d6288c238bb7e4a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/colcon-build.log": "fd314c6ec566a3643da9539b39b39fb854c2526b0326b4a17cea85fe99d6ec7c",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/package-prefixes.txt": "59519f325743de56436726165d08c2209812688cf4ecf6e037248a80d6c915ef",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/vins-odom-topic-info.txt": "cdbafe96359a0f706e22e633f17a8ff060a5356f982345c43878d99b8c774235",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/vins-odom-trace.json": "720a84e232f954f0bd97e2feb6de6c5867dc369eba2b75472cfb94531c77bf34",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/vins-odom-capture.log": "e10eb70be4b9b2b70b3d853156e3d6053a42d6f9efc7414fa40d33012f7db591",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/imu-topic-info.txt": "689192b395113f4f21bd3671e9a2527b3d3f31fdae04ee3fc51e5a3630463119",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/imu-trace.json": "b93e8bfeeec79ead4bcdc093c3fe2b477f29ebb3609c7beacf17fbd4c30373af",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/imu-capture.log": "e6c569ded10b27be290aeb705fa8840187d6210511d46b86f3eaab76e17011f8",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/vio-ego-flight-report.json": "0878190d7449f9afb453e2b6008ac643d9c7c438796fef55a43c4f3ef6d3ec12",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/vio-ego-flight-exit-code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/truth-and-control-isolation.txt": "f831d534efae9c63e0ca684a2751908e26cebf2e7ef42fa2e0d83c2fce4725da",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/px4-bridge-live.json": "46e7670ee5dc371594984719b93ce67284f12a313f1dd88c2edea22682c28a1e",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/landing-failsafe-timeline.json": "732b2db07d71163b3e9abe5307a32926f90e058fbfa7bd5904fe3b8d1ebfb99d",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/vio-launch.log": "3ef65c4f8ad03ab51bb2673f697056ab02f70c1fd59468b655fda6ea5772b1a6",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221/analyze_px4_ulog.py": "1fcd545492f5f46c3140b21e7d11515c74b1a0429485799e43ab6d7fde657c07"
+  }
+}

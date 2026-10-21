@@ -1,0 +1,148 @@
+{
+  "scope": "P4 live integration only: dynamic D435i/VINS/map to EGO goal planning and keyed trajectory cancellation; no controller or PX4",
+  "date": "2026-10-17",
+  "status": "PASS_LIVE_EGO_PLAN_AND_CANCEL; CLOCK_DOMAIN_ALIGNED; TRACKING_AND_FLIGHT_UNQUALIFIED",
+  "run_id": "p4-navigation-live-ego-20261017-06",
+  "upstream": {
+    "ego_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch": "dependencies/patches/ego/0018-sim-clock-consistency.patch",
+    "patch_sha256": "d38f608832fd54e51404731dadb737a27da92d00a279fcd47bceec511daae151",
+    "reconstruction": "PASS: patch 0018 replayed on the reconstructed post-0017 files; all five changed vendor files matched byte-for-byte. Vendor source remains an ignored build input; this report records the patch and resulting source hashes.",
+    "changed_vendor_files_sha256": {
+      "src/vendor/ego_planner/planner/plan_manage/include/ego_planner/planner_manager.h": "8530e8fa1bd3def18528b146a2351b9c13e95fb8a7f7e3345fb7fffb0a58a61f",
+      "src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp": "1235f8cf55b9575ac6f2331550b4b96bc309e3b3feaf46cb01113acd28e958bd",
+      "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+      "src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp": "69fed9dc78c37ad5d60b1826c10de2e888b6fc29279bfea843646ce920154c3e",
+      "src/vendor/ego_planner/planner/traj_utils/src/planning_visualization.cpp": "0fce4e83c3cfa2faa801a53cdf863eccdcf7fabc37fc9ee0e51d9d44ab412a06"
+    }
+  },
+  "environment": {
+    "ros_distribution": "Jazzy",
+    "container_image_digest": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "build_workspace": "artifacts/runs/p4-navigation-live-ego-20261017-03",
+    "live_run_directory": "artifacts/runs/p4-navigation-live-ego-20261017-06",
+    "ros_domain_id": 205,
+    "gazebo_partition": "d435i_p4_navigation_live_06",
+    "live_fastdds_transport": "default",
+    "control_nodes": "Not launched; no PX4 bridge, PX4, or trajectory follower"
+  },
+  "build": {
+    "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p4-navigation-live-ego-20261017-03/clock-build-log-final build --base-paths src/own src/vendor/ego_planner/planner --packages-up-to uav_navigation ego_planner --build-base artifacts/runs/p4-navigation-live-ego-20261017-03/build --install-base artifacts/runs/p4-navigation-live-ego-20261017-03/install --event-handlers console_direct+",
+    "result": "PASS: 7 packages finished; fresh isolated build/install directories",
+    "packages": [
+      "uav_interfaces",
+      "traj_utils",
+      "uav_navigation",
+      "plan_env",
+      "path_searching",
+      "bspline_opt",
+      "ego_planner"
+    ],
+    "event_log": "artifacts/runs/p4-navigation-live-ego-20261017-03/clock-build-log-final/latest_build/events.log",
+    "event_log_sha256": "3ce92cb5b22cf1508f7019029775ffced5fcbf5597525046b8186239e487fe19",
+    "notes": "Build completed with existing upstream warnings in EGO and traj_utils; no build failure."
+  },
+  "synthetic_tests": {
+    "commands": [
+      "python3 tools/test_navigation_task_state.py",
+      "python3 tools/test_navigation_adapter.py",
+      "python3 tools/test_trajectory_server.py"
+    ],
+    "environment": "ROS_DOMAIN_ID=206 FASTDDS_BUILTIN_TRANSPORTS=UDPv4 for isolated ROS integration tests",
+    "result": "PASS: 9 task-state tests; action goal route, explicit cancellation, stale-epoch rejection, and clock-regression abort; traj_server epoch frame, yaw spline, stale-cancel rejection, and matching ABORT",
+    "log": "artifacts/runs/p4-navigation-live-ego-20261017-06/tests.log",
+    "log_sha256": "aab3fac075e45b88716c2786710ca7b43dd2d56212871301598ff956adedcb0a"
+  },
+  "live_run": {
+    "command": "P4_RUN_DIR=artifacts/runs/p4-navigation-live-ego-20261017-06 P4_BUILD_OVERLAY=artifacts/runs/p4-navigation-live-ego-20261017-03/install P4_NAV_PROBE=artifacts/runs/p4-navigation-live-ego-20261017-02/probe_navigation_live.py ROS_DOMAIN_ID=205 GZ_PARTITION=d435i_p4_navigation_live_06 bash artifacts/runs/p4-navigation-live-ego-20261017-02/run-live-navigation.sh",
+    "goal_id": "2a0393676580452397dd433ee0c48b41",
+    "epoch": "4e6367eb0ebf451abff07db3cac0ab48",
+    "target": {
+      "frame_id": "odom_4e6367eb0ebf451abff07db3cac0ab48",
+      "position_m": [
+        0.99989324228822,
+        -0.0002521858815193539,
+        0.8004152881676673
+      ],
+      "yaw_rad": 0.7
+    },
+    "observations": {
+      "localization_tracking": true,
+      "depth_health_valid_at_goal_submission": true,
+      "paired_input_wall_age_at_goal_submission_s": 0.0765,
+      "initial_map_points": 559,
+      "observed_map_points_peak_in_navigation_probe": 870,
+      "matching_bspline_count": 1,
+      "trajectory_id": 1,
+      "yaw_sample_count": 10,
+      "terminal_yaw_rad": 0.7,
+      "action_cancel_accepted": true,
+      "action_result": {
+        "status": 5,
+        "outcome": "canceled",
+        "reason": "caller_cancel"
+      },
+      "matching_traj_server_abort": true,
+      "ready_samples_after_abort": 0
+    },
+    "trajectory_clock_check": {
+      "result": "PASS",
+      "report_field_note": "The raw report's top-level latest_clock_ns is null; the recorded nested trajectory_clock_check values are used here without changing the raw run artifact.",
+      "latest_clock_ns": 3969000000,
+      "bspline_start_ns": 3961000000,
+      "first_ready_command_ns": 3968000000,
+      "bspline_to_ready_delta_ms": 7,
+      "bspline_age_at_latest_clock_ms": 8,
+      "ready_age_at_latest_clock_ms": 1,
+      "clock_regressions_observed": 0
+    },
+    "separate_mapping_probe": {
+      "wall_seconds": 6.13,
+      "optimized_odometry_messages": 53,
+      "paired_depth_pose_outputs": 29,
+      "paired_source_interval_p95_s": 0.396,
+      "paired_source_interval_max_s": 0.495,
+      "pose_wall_receipt_interval_p95_s": 0.737989,
+      "pose_wall_receipt_interval_max_s": 0.883522,
+      "qualification": "Short integration-window timing only; demonstrates long-tail input cadence, not stable map freshness."
+    },
+    "shutdown": {
+      "qualification": "Not cleanly qualified",
+      "observation": "navigation-supervisor.log ends with two 'cannot use Destroyable because destruction was requested' async exceptions during teardown; no clean-shutdown claim is made."
+    },
+    "artifacts": {
+      "navigation_probe": "artifacts/runs/p4-navigation-live-ego-20261017-06/navigation-probe.json",
+      "mapping_probe": "artifacts/runs/p4-navigation-live-ego-20261017-06/mapping-probe.json",
+      "build_event_log": "artifacts/runs/p4-navigation-live-ego-20261017-03/clock-build-log-final/latest_build/events.log",
+      "synthetic_tests": "artifacts/runs/p4-navigation-live-ego-20261017-06/tests.log",
+      "ego_log": "artifacts/runs/p4-navigation-live-ego-20261017-06/ego.log",
+      "navigation_supervisor_log": "artifacts/runs/p4-navigation-live-ego-20261017-06/navigation-supervisor.log",
+      "traj_server_log": "artifacts/runs/p4-navigation-live-ego-20261017-06/traj-server.log",
+      "run_wrapper": "artifacts/runs/p4-navigation-live-ego-20261017-02/run-live-navigation.sh",
+      "probe_source": "artifacts/runs/p4-navigation-live-ego-20261017-02/probe_navigation_live.py"
+    }
+  },
+  "artifact_sha256": {
+    "dependencies/patches/ego/0018-sim-clock-consistency.patch": "d38f608832fd54e51404731dadb737a27da92d00a279fcd47bceec511daae151",
+    "artifacts/runs/p4-navigation-live-ego-20261017-03/clock-build-log-final/latest_build/events.log": "3ce92cb5b22cf1508f7019029775ffced5fcbf5597525046b8186239e487fe19",
+    "artifacts/runs/p4-navigation-live-ego-20261017-06/tests.log": "aab3fac075e45b88716c2786710ca7b43dd2d56212871301598ff956adedcb0a",
+    "artifacts/runs/p4-navigation-live-ego-20261017-06/navigation-probe.json": "c2a04a7e0b5870b5837999b4e763cd6724c0c24b9cde9205d46d5885b20be64e",
+    "artifacts/runs/p4-navigation-live-ego-20261017-06/mapping-probe.json": "c549255c2992da8d4d2b5b3af6355083bd46944df8962cd63fc95d0bd25326a3",
+    "artifacts/runs/p4-navigation-live-ego-20261017-06/ego.log": "db21285fc632a6d99f650bb1e6238b198689cc211d2a60fcfdf881b7febfa393",
+    "artifacts/runs/p4-navigation-live-ego-20261017-06/navigation-supervisor.log": "8f3b330f22e555b1cb46acbc9b499cb6a169e18ce36e96410151574d4a1b3855",
+    "artifacts/runs/p4-navigation-live-ego-20261017-06/traj-server.log": "5f753e1d74c6a0d4d72cb7c4fc4a2cb8ab2474bdaca25f03ab2014ae39813318",
+    "artifacts/runs/p4-navigation-live-ego-20261017-02/run-live-navigation.sh": "878d7ef22145d4ce5626565287ed65b6985182c6e185e6582004b5b296fd410a",
+    "artifacts/runs/p4-navigation-live-ego-20261017-02/probe_navigation_live.py": "3e5464fa992b3655f6582a7e05259479a79ae8b88f9f9879f0c5326574d9ec3a"
+  },
+  "qualification": {
+    "ego_goal_plan_from_live_vins_map": "PASS_ONCE",
+    "simulated_clock_alignment_for_bspline_and_traj_server": "PASS_ONCE",
+    "action_cancel_and_matching_abort": "PASS_ONCE",
+    "trajectory_tracking_or_goal_arrival": "NOT_RUN",
+    "obstacle_course_or_collision_evaluation": "NOT_RUN",
+    "px4_bridge_or_sitl_control": "NOT_RUN",
+    "clean_supervisor_shutdown": "NOT_QUALIFIED",
+    "real_hardware": "NOT_RUN",
+    "formal_p4_or_goal_acceptance": "NOT_PASSED"
+  }
+}

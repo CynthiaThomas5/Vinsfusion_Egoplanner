@@ -1,0 +1,749 @@
+{
+  "scope": "Two independent fresh-epoch P2 visual-quality failure injections on recorded D435i-equivalent sensor input; debug-only, no accuracy scoring.",
+  "status": "PASS for adapter detection of sustained zero-feature VINS telemetry while source timestamps continue. The P2 phase verdict is recorded in p2-stage-exit-audit.json; formal F thresholds and full GOAL A-H remain outstanding.",
+  "method": {
+    "input": "Same verified force-driven MCAP, only /clock, stereo infrared images and camera IMU.",
+    "fault": "After sim time 12.0 s, relay zeroes image pixel bytes but preserves source header/stamp/frame/encoding/dimensions; no timestamp rewrite.",
+    "estimator": "Same VINS binary SHA as the matched calibration baseline, fresh session and epoch per run; VINS receives remapped relayed images while adapter receives original timely sensor topics and VINS telemetry.",
+    "control": "No truth topic, mapping, EGO, PX4 or control publisher/process."
+  },
+  "runs": [
+    {
+      "run_id": "p2-localization-visual-degradation-20261017-01",
+      "run_inputs": "artifacts/runs/p2-localization-visual-degradation-20261017-01/run-inputs.json",
+      "run_inputs_sha256": "7a6256941d14ab5a54c136f3baa656fa7bbcb436454b2f42658f7f763e3b4cb3",
+      "epoch": "a5f4f5b98141458c936df59e7d170790",
+      "ros_domain_id": 227,
+      "vins_binary_sha256": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+      "settings_sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+      "model_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+      "degradation": {
+        "degrade_after_sim_s": 12.0,
+        "method": "copy each Image message and replace data with zero bytes while preserving its original header, stamp, frame, encoding and dimensions",
+        "counts": {
+          "left": {
+            "total": 793,
+            "passed_original": 346,
+            "blackened": 447,
+            "black_bytes": 137318400,
+            "first_stamp_ns": 595000000,
+            "last_stamp_ns": 26731000000
+          },
+          "right": {
+            "total": 792,
+            "passed_original": 346,
+            "blackened": 446,
+            "black_bytes": 137011200,
+            "first_stamp_ns": 595000000,
+            "last_stamp_ns": 26698000000
+          }
+        }
+      },
+      "result": {
+        "tracking_entered": true,
+        "tracking_first_wall_s": 3.690935685997829,
+        "locked_reason": "input_features_insufficient",
+        "lock_wall_s": 19.141208305984037,
+        "locked_rows": 918,
+        "locked_counters_constant": true,
+        "accepted_optimized": 154,
+        "accepted_propagated": 2034,
+        "optimized_output_count": 154,
+        "propagated_output_count": 2034,
+        "output_finite_monotonic": true,
+        "raw_vins_telemetry_count": 396,
+        "raw_vins_zero_feature_telemetry_count": 223,
+        "solver_usable_true_for_zero_feature_rows": true,
+        "first_zero_feature_stamp_ns": 12045999999,
+        "last_zero_feature_stamp_ns": 26698000000,
+        "contract_errors": [],
+        "vins_graph": {
+          "subscriptions": [
+            [
+              "/clock",
+              [
+                "rosgraph_msgs/msg/Clock"
+              ]
+            ],
+            [
+              "/degraded/d435i/infra1/image_rect",
+              [
+                "sensor_msgs/msg/Image"
+              ]
+            ],
+            [
+              "/degraded/d435i/infra2/image_rect",
+              [
+                "sensor_msgs/msg/Image"
+              ]
+            ],
+            [
+              "/feature_tracker/feature",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ],
+            [
+              "/parameter_events",
+              [
+                "rcl_interfaces/msg/ParameterEvent"
+              ]
+            ],
+            [
+              "/sensors/d435i/imu",
+              [
+                "sensor_msgs/msg/Imu"
+              ]
+            ],
+            [
+              "/vins_cam_switch",
+              [
+                "std_msgs/msg/Bool"
+              ]
+            ],
+            [
+              "/vins_imu_switch",
+              [
+                "std_msgs/msg/Bool"
+              ]
+            ],
+            [
+              "/vins_restart",
+              [
+                "std_msgs/msg/Bool"
+              ]
+            ]
+          ],
+          "publishers": [
+            [
+              "/parameter_events",
+              [
+                "rcl_interfaces/msg/ParameterEvent"
+              ]
+            ],
+            [
+              "/rosout",
+              [
+                "rcl_interfaces/msg/Log"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/camera_pose",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/camera_pose_visual",
+              [
+                "visualization_msgs/msg/MarkerArray"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/estimator_telemetry",
+              [
+                "std_msgs/msg/String"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/extrinsic",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/image_track",
+              [
+                "sensor_msgs/msg/Image"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/imu_propagate",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/key_poses",
+              [
+                "visualization_msgs/msg/Marker"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/keyframe_point",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/keyframe_pose",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/margin_cloud",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/odometry",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/path",
+              [
+                "nav_msgs/msg/Path"
+              ]
+            ],
+            [
+              "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/point_cloud",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ]
+          ]
+        }
+      },
+      "node_graph": {
+        "subscriptions": [
+          [
+            "/clock",
+            [
+              "rosgraph_msgs/msg/Clock"
+            ]
+          ],
+          [
+            "/degraded/d435i/infra1/image_rect",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/degraded/d435i/infra2/image_rect",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/feature_tracker/feature",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/parameter_events",
+            [
+              "rcl_interfaces/msg/ParameterEvent"
+            ]
+          ],
+          [
+            "/sensors/d435i/imu",
+            [
+              "sensor_msgs/msg/Imu"
+            ]
+          ],
+          [
+            "/vins_cam_switch",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ],
+          [
+            "/vins_imu_switch",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ],
+          [
+            "/vins_restart",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ]
+        ],
+        "publishers": [
+          [
+            "/parameter_events",
+            [
+              "rcl_interfaces/msg/ParameterEvent"
+            ]
+          ],
+          [
+            "/rosout",
+            [
+              "rcl_interfaces/msg/Log"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/camera_pose",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/camera_pose_visual",
+            [
+              "visualization_msgs/msg/MarkerArray"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/estimator_telemetry",
+            [
+              "std_msgs/msg/String"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/extrinsic",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/image_track",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/imu_propagate",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/key_poses",
+            [
+              "visualization_msgs/msg/Marker"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/keyframe_point",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/keyframe_pose",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/margin_cloud",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/odometry",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/path",
+            [
+              "nav_msgs/msg/Path"
+            ]
+          ],
+          [
+            "/vins_raw/s_a5f4f5b98141458c936df59e7d170790/point_cloud",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ]
+        ]
+      },
+      "key_file_sha256": {
+        "blackout-report.json": "07d8ada3e94e4cd78f8350a02a7c0e6c7f2ede3e777b09da809850063f95168b",
+        "adapter-probe.json": "d3c49f79d75194f2c6ec21ad979e8577bc10a608ca382cd51c6a37668b91f481",
+        "raw-vins/summary.json": "7f2f423e42f1a8c7f95380adc1aa54691776175a3a01b649f7417cdb37253efe",
+        "raw-vins/raw-odometry.json": "292a7fcd9e765c307f0c6a29cd75d43f643b5fc1f18349961793bf1cf58efb1f",
+        "raw-vins/telemetry.json": "9340d301c8f9e455b2f37a77ebb02f3f4c3078d157970f99812f5b86c375b488",
+        "vins.log": "bb23d261eb9dbb25bc862d90382195b67390af55d21d3bc5d77a33de841a35c0",
+        "run-container.sh": "de37687f4415033648088c9e98c28c7f08a90e91569b28fb70de7268af671324",
+        "source-sha256.txt": "83cfc1093c19af1a7fe556df7c3c808a75593e92e2d85e1e9313b76d9937d079",
+        "repository-source-sha256.txt": "aeaf34abfa6b5001c9d9e51dfaa59b272c78b866ff98d0b90e330e7585a65d2a",
+        "vins_node-matched-binary": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010"
+      }
+    },
+    {
+      "run_id": "p2-localization-visual-degradation-20261017-02",
+      "run_inputs": "artifacts/runs/p2-localization-visual-degradation-20261017-02/run-inputs.json",
+      "run_inputs_sha256": "475de47926430516c6650e5bba0ba55870eecd5765ad428f4d0db4ee957c8793",
+      "epoch": "544872078fa54481873d00becde05119",
+      "ros_domain_id": 226,
+      "vins_binary_sha256": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+      "settings_sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+      "model_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+      "degradation": {
+        "degrade_after_sim_s": 12.0,
+        "method": "copy each Image message and replace data with zero bytes while preserving its original header, stamp, frame, encoding and dimensions",
+        "counts": {
+          "left": {
+            "total": 793,
+            "passed_original": 346,
+            "blackened": 447,
+            "black_bytes": 137318400,
+            "first_stamp_ns": 595000000,
+            "last_stamp_ns": 26731000000
+          },
+          "right": {
+            "total": 792,
+            "passed_original": 346,
+            "blackened": 446,
+            "black_bytes": 137011200,
+            "first_stamp_ns": 595000000,
+            "last_stamp_ns": 26698000000
+          }
+        }
+      },
+      "result": {
+        "tracking_entered": true,
+        "tracking_first_wall_s": 3.690204479993554,
+        "locked_reason": "input_features_insufficient",
+        "lock_wall_s": 19.140691182983574,
+        "locked_rows": 518,
+        "locked_counters_constant": true,
+        "accepted_optimized": 154,
+        "accepted_propagated": 2034,
+        "optimized_output_count": 154,
+        "propagated_output_count": 2034,
+        "output_finite_monotonic": true,
+        "raw_vins_telemetry_count": 396,
+        "raw_vins_zero_feature_telemetry_count": 223,
+        "solver_usable_true_for_zero_feature_rows": true,
+        "first_zero_feature_stamp_ns": 12045999999,
+        "last_zero_feature_stamp_ns": 26698000000,
+        "contract_errors": [],
+        "vins_graph": {
+          "subscriptions": [
+            [
+              "/clock",
+              [
+                "rosgraph_msgs/msg/Clock"
+              ]
+            ],
+            [
+              "/degraded/d435i/infra1/image_rect",
+              [
+                "sensor_msgs/msg/Image"
+              ]
+            ],
+            [
+              "/degraded/d435i/infra2/image_rect",
+              [
+                "sensor_msgs/msg/Image"
+              ]
+            ],
+            [
+              "/feature_tracker/feature",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ],
+            [
+              "/parameter_events",
+              [
+                "rcl_interfaces/msg/ParameterEvent"
+              ]
+            ],
+            [
+              "/sensors/d435i/imu",
+              [
+                "sensor_msgs/msg/Imu"
+              ]
+            ],
+            [
+              "/vins_cam_switch",
+              [
+                "std_msgs/msg/Bool"
+              ]
+            ],
+            [
+              "/vins_imu_switch",
+              [
+                "std_msgs/msg/Bool"
+              ]
+            ],
+            [
+              "/vins_restart",
+              [
+                "std_msgs/msg/Bool"
+              ]
+            ]
+          ],
+          "publishers": [
+            [
+              "/parameter_events",
+              [
+                "rcl_interfaces/msg/ParameterEvent"
+              ]
+            ],
+            [
+              "/rosout",
+              [
+                "rcl_interfaces/msg/Log"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/camera_pose",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/camera_pose_visual",
+              [
+                "visualization_msgs/msg/MarkerArray"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/estimator_telemetry",
+              [
+                "std_msgs/msg/String"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/extrinsic",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/image_track",
+              [
+                "sensor_msgs/msg/Image"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/imu_propagate",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/key_poses",
+              [
+                "visualization_msgs/msg/Marker"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/keyframe_point",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/keyframe_pose",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/margin_cloud",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/odometry",
+              [
+                "nav_msgs/msg/Odometry"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/path",
+              [
+                "nav_msgs/msg/Path"
+              ]
+            ],
+            [
+              "/vins_raw/s_544872078fa54481873d00becde05119/point_cloud",
+              [
+                "sensor_msgs/msg/PointCloud"
+              ]
+            ]
+          ]
+        }
+      },
+      "node_graph": {
+        "subscriptions": [
+          [
+            "/clock",
+            [
+              "rosgraph_msgs/msg/Clock"
+            ]
+          ],
+          [
+            "/degraded/d435i/infra1/image_rect",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/degraded/d435i/infra2/image_rect",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/feature_tracker/feature",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/parameter_events",
+            [
+              "rcl_interfaces/msg/ParameterEvent"
+            ]
+          ],
+          [
+            "/sensors/d435i/imu",
+            [
+              "sensor_msgs/msg/Imu"
+            ]
+          ],
+          [
+            "/vins_cam_switch",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ],
+          [
+            "/vins_imu_switch",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ],
+          [
+            "/vins_restart",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ]
+        ],
+        "publishers": [
+          [
+            "/parameter_events",
+            [
+              "rcl_interfaces/msg/ParameterEvent"
+            ]
+          ],
+          [
+            "/rosout",
+            [
+              "rcl_interfaces/msg/Log"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/camera_pose",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/camera_pose_visual",
+            [
+              "visualization_msgs/msg/MarkerArray"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/estimator_telemetry",
+            [
+              "std_msgs/msg/String"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/extrinsic",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/image_track",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/imu_propagate",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/key_poses",
+            [
+              "visualization_msgs/msg/Marker"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/keyframe_point",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/keyframe_pose",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/margin_cloud",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/odometry",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/path",
+            [
+              "nav_msgs/msg/Path"
+            ]
+          ],
+          [
+            "/vins_raw/s_544872078fa54481873d00becde05119/point_cloud",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ]
+        ]
+      },
+      "key_file_sha256": {
+        "blackout-report.json": "07d8ada3e94e4cd78f8350a02a7c0e6c7f2ede3e777b09da809850063f95168b",
+        "adapter-probe.json": "75bad506e7b9f5a1b4726a047ac34076034f6f07b0907d4ccdc0f99089f6faba",
+        "raw-vins/summary.json": "092b0d25b2ec361397197ddc5a290782c6d3fee6f66c1e9c8473e9121578fbd2",
+        "raw-vins/raw-odometry.json": "f0d4f283c3cc9632f8656651ad2f79f49287e7830d8a55cd270b369604da7c79",
+        "raw-vins/telemetry.json": "4c1205d79ae3a0912b0c54de8afc8952bc416e8dea3129ff3b33645ea997beef",
+        "vins.log": "f7d9f9d3275a614bc324d85e25984f99a57581a62280c0999cc1ded7bfc7a093",
+        "run-container.sh": "d027fbe11bc761112abe8a2bd2ec4bd1dea824ab7649d3d3e65c6efb4604b4b0",
+        "source-sha256.txt": "cead141dd3d87db448bce15b7a0fa525c9ecb6379af99ef2c8a65e39c835286a",
+        "repository-source-sha256.txt": "aeaf34abfa6b5001c9d9e51dfaa59b272c78b866ff98d0b90e330e7585a65d2a",
+        "vins_node-matched-binary": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010"
+      }
+    }
+  ],
+  "reproducibility": {
+    "same_blackened_frame_counts": true,
+    "same_status_and_accept_counts": true,
+    "independent_epochs": true,
+    "input_stamps_preserved": true
+  },
+  "limitations": [
+    "A full black image is a synthetic debug fault, not a measured camera failure distribution.",
+    "The adapter reacts to its configured feature-count guard; the raw VINS `solver_usable` bit remains true despite zero current features, so it is not a standalone accuracy health signal.",
+    "Policy thresholds are operational PROVISIONAL guards. The paired test does not freeze GOAL F or prove final flight behavior."
+  ]
+}

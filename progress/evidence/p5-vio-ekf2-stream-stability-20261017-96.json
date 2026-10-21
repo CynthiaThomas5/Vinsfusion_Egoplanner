@@ -1,0 +1,244 @@
+{
+  "artifacts": {
+    "generated_world": {
+      "path": "vio_initialization.sdf",
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "localization_probe": {
+      "path": "localization-probe.json",
+      "sha256": "dc091e97dad0a65b213e4f1b8896e3caba21caaca4d8941e9fdc91451aa45d87"
+    },
+    "parameter_stage": {
+      "path": "px4-param-stage.json",
+      "sha256": "61101e27225ecda6cd5693ef2b52cb5f5d31a548fa245944734cfa29fc4be0d2"
+    },
+    "px4_live_probe": {
+      "path": "px4-live-probe.json",
+      "sha256": "4071d54dfd38a039eeb47fb4b59a10e081ff870dc5a6b2ec9ae8b6747630e01d"
+    },
+    "qualification": {
+      "path": "qualification.json",
+      "sha256": "979e8001c6d78e50001fb0b8e8335c594924c606341251ce44a0a6033d01f3e6"
+    },
+    "raw_stream_probe": {
+      "path": "raw-stream-freshness.json",
+      "sha256": "a8fb3f72a835afa94e9fd43beca0a9cfe3639c0afcbdc3cb21d3e28f7017124c"
+    },
+    "run_harness": {
+      "path": "run-vio-ekf2-smoke.sh",
+      "sha256": "1a041e230abe3c2c27109a9d3906e8276f860421253414bc3592717fe8e2f00e"
+    },
+    "sdf_validation": {
+      "path": "sdf-validation.log",
+      "sha256": "581e1adf70bd048b67b37b74d7e86c4914095ff3f6ca4164e452e18465907d34"
+    },
+    "stream_probe_source": {
+      "path": "../../../tools/probe_vio_stream_freshness.py",
+      "sha256": "04b70b61dfbef403b775b7ff80f1632dc1e7dfb6c0de0b155fa1afebb9e85b8b"
+    },
+    "ulog": {
+      "path": "px4_sitl_default/log/2026-10-17/07_40_40.ulg",
+      "sha256": "d57cd607cb7d863b306d3ead02291dd1383e999458502f5b1d3d8eaedd246895"
+    },
+    "ulog_analysis": {
+      "path": "ulog-analysis.json",
+      "sha256": "325f2642ff7ec7896b8c5620e6c5b62ecdb9bdcc73eedd92056b1ac5ac6b4972"
+    },
+    "world_generation": {
+      "path": "world-generation.json",
+      "sha256": "76ee86bb30fed7f29901e2c1038a6c51a818fdd094152e56664a299a0359018d"
+    },
+    "world_generator_source": {
+      "path": "../../../tools/prepare_px4_vio_bootstrap_world.py",
+      "sha256": "639b1b75fe8eb14c14c4c29f147f27156e4152d589e87e310b12e57fc2a64c9c"
+    },
+    "world_generator_test": {
+      "path": "../../../tools/test_px4_vio_bootstrap_world.py",
+      "sha256": "52da9f1dc59631d0d945ca49b69d520e879aa40b142118b94ab07f71988fca31"
+    }
+  },
+  "checks": {
+    "control_remained_disabled": true,
+    "ekf2_ev_position_fused": true,
+    "ekf2_ev_yaw_fused": true,
+    "localization_tracking_at_end": true,
+    "no_gnss_aiding": true,
+    "no_truth_bridge_subscription": true,
+    "no_truth_ros_topics": true,
+    "vehicle_remained_disarmed": true,
+    "vio_odometry_in_ulog": true
+  },
+  "date": "2026-10-17",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ephemeral_container": true,
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 231
+  },
+  "limitations": [
+    "No EGO, Offboard, arming, flight, navigation or landing was run.",
+    "Bridge readiness remained false at end due px4_timesync_stale, so no control loop was enabled.",
+    "P5 remains in_progress; sustained health is demonstrated for this run, but no repeated acceptance campaign or final visual flight is complete."
+  ],
+  "localization": {
+    "bridge_reason_counts": {
+      "ev_position_not_fused": 2,
+      "external_odometry_stale": 158,
+      "px4_frame_unaligned": 45,
+      "px4_local_position_invalid": 47,
+      "px4_preflight_failed": 48,
+      "px4_telemetry_stale": 228,
+      "px4_timesync_stale": 53
+    },
+    "bridge_state_counts": {
+      "ev_position_fused": 213,
+      "ev_yaw_fused": 160,
+      "gnss_aiding_active": 0,
+      "local_position_valid": 160,
+      "ready": 0
+    },
+    "final_bridge_status": {
+      "alignment_drift_m": 0.0017342588295522214,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "acae55bd2b814edaa0b67dbdadfc9781",
+      "ev_position_fused": true,
+      "ev_yaw_fused": true,
+      "frame_offset_ned": [
+        -0.00048504290417032204,
+        -0.0001742721989188684,
+        0.0011876084415829917
+      ],
+      "frame_yaw_offset_ned": 0.03490603894035438,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": true,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "px4_timesync_stale"
+    },
+    "final_status": {
+      "accepted_optimized": 515,
+      "accepted_propagated": 6879,
+      "good_pairs": 524,
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    }
+  },
+  "px4_profile": {
+    "airframe_sha256": "d6d3c8c0df50357c5162c80543b574abb01ec7b3dc8cf2573e48233bec9cb54c",
+    "autostart_id": 5011,
+    "name": "vio_closed_loop",
+    "parameters": {
+      "COM_ARM_WO_GPS": 2,
+      "COM_OBL_RC_ACT": 4,
+      "COM_OF_LOSS_T": 1.0,
+      "COM_RC_IN_MODE": 4,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_EV_POS_X": 0.12,
+      "EKF2_EV_POS_Y": -0.0,
+      "EKF2_EV_POS_Z": -0.08,
+      "EKF2_GPS_CTRL": 0,
+      "EKF2_HGT_REF": 3,
+      "NAV_DLL_ACT": 0,
+      "SIM_GZ_EN_ODOM": 0
+    }
+  },
+  "qualification": "This run observed live VIO tracking, 345 PX4 ULog external odometry samples, EV position/yaw fusion and zero GNSS aiding flags. The run ended disarmed with bridge control disabled; bridge readiness remained false because px4_timesync_stale was the latest reason. This is a run-scope fusion pass, not P5 acceptance.",
+  "raw_stream_probe": {
+    "duration_wall_s": 45.024285953026265,
+    "publishes": [],
+    "read_only": true,
+    "state_transitions": [
+      {
+        "good_pairs": 56,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 22080000000,
+        "state": 1,
+        "valid": true,
+        "wall_elapsed_s": 1.0179691759985872
+      }
+    ],
+    "topics": {
+      "/sensors/d435i/imu": {
+        "count": 3732,
+        "last_receipt_age_s": 0.009841342049185187,
+        "max_clock_age_s": 0.004,
+        "max_receipt_gap_s": 0.3405588119640015,
+        "max_source_gap_s": 0.12000000000000001,
+        "receipt_gap_p95_s": 0.05273811798542738
+      },
+      "/sensors/d435i/infra1/image_rect": {
+        "count": 564,
+        "last_receipt_age_s": 4.882103530690074e-05,
+        "max_clock_age_s": 0.036000000000000004,
+        "max_receipt_gap_s": 0.46168444299837574,
+        "max_source_gap_s": 0.2,
+        "receipt_gap_p95_s": 0.08191607799381018
+      },
+      "/sensors/d435i/infra2/image_rect": {
+        "count": 565,
+        "last_receipt_age_s": 0.04154365899739787,
+        "max_clock_age_s": 0.052000000000000005,
+        "max_receipt_gap_s": 0.36589680396718904,
+        "max_source_gap_s": 0.132,
+        "receipt_gap_p95_s": 0.0819140329840593
+      },
+      "vins_optimized_odom": {
+        "count": 279,
+        "last_receipt_age_s": 0.09829643199918792,
+        "max_clock_age_s": 0.2,
+        "max_receipt_gap_s": 0.49125522398389876,
+        "max_source_gap_s": 0.199999999,
+        "receipt_gap_p95_s": 0.16479578998405486,
+        "topic": "/vins_raw/s_acae55bd2b814edaa0b67dbdadfc9781/odometry"
+      },
+      "vins_telemetry": {
+        "count": 279,
+        "last_receipt_age_s": 0.09849853999912739,
+        "max_clock_age_s": 0.2,
+        "max_receipt_gap_s": 0.49127188499551266,
+        "max_source_gap_s": 0.199999999,
+        "receipt_gap_p95_s": 0.16470394801581278,
+        "topic": "/vins_raw/s_acae55bd2b814edaa0b67dbdadfc9781/estimator_telemetry"
+      }
+    }
+  },
+  "result": "PASS_RUN_SCOPE_ONLY",
+  "run_id": "p5-vio-ekf2-stream-diagnostic-20261017-96",
+  "scope": "75-second disarmed VINS-to-EKF2 fusion smoke plus 45-second read-only raw-stream freshness probe.",
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "ulog": {
+    "estimator_status_flags_samples": 127,
+    "ev_position_aid_samples": 346,
+    "ev_position_fused_samples": 306,
+    "ev_yaw_aid_samples": 346,
+    "ev_yaw_fused_samples": 253,
+    "flag_true_samples": {
+      "cs_aux_gpos": 0,
+      "cs_ev_pos": 65,
+      "cs_ev_yaw": 45,
+      "cs_gnss_pos": 0,
+      "cs_gnss_vel": 0,
+      "cs_gnss_yaw": 0,
+      "cs_gps_hgt": 0
+    },
+    "path": "px4_sitl_default/log/2026-10-17/07_40_40.ulg",
+    "sensor_baro_samples": 47,
+    "sensor_combined_samples": 11759,
+    "sensor_mag_samples": 47,
+    "sha256": "d57cd607cb7d863b306d3ead02291dd1383e999458502f5b1d3d8eaedd246895",
+    "vehicle_visual_odometry_samples": 345
+  },
+  "world": {
+    "name": "vio_initialization",
+    "sdf_validation": "Valid.",
+    "source": "PX4 default world plus project calibration wall and 13 PX4 server.config plugins",
+    "truth_source_in_ros_graph": false
+  }
+}

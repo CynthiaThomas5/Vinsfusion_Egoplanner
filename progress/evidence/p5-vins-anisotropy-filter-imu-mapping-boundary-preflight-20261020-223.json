@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223",
+  "classification": "PREFLIGHT_TELEMETRY_STALE; RAW_ODOMETRY_CONTINUED; MAPPING_OBSERVER_STARTUP_FAILED; NO_GOAL; P5_NOT_PASSED",
+  "scope": "Independent same-goal diagnostic attempt in a fresh partition; no action goal was sent.",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221",
+    "ros_domain_id": 232,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_horizontal_223",
+    "filter_threshold": 0.01,
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "health_thresholds_changed": false,
+    "px4_parameters_changed": false,
+    "truth_input_started": false
+  },
+  "run": {
+    "preconditions_ready": false,
+    "action_goal_sent": false,
+    "action_success": false,
+    "failure": "vio_bridge_map_preconditions_not_ready",
+    "latest_localization_status": {
+      "accepted_optimized": 61,
+      "accepted_propagated": 864,
+      "epoch": "25c62939e70f427cbd1bace8470e5a7f",
+      "reason": "telemetry_stale",
+      "state": 4,
+      "valid": false
+    },
+    "first_invalid_localization": {
+      "accepted_optimized": 61,
+      "accepted_propagated": 864,
+      "epoch": "25c62939e70f427cbd1bace8470e5a7f",
+      "good_pairs": 70,
+      "normalized_cost": 0.010293715702782964,
+      "reason": "telemetry_stale",
+      "source_stamp_ns": 12875999999,
+      "stamp_ns": 13004000000,
+      "state": 4,
+      "valid": false,
+      "wall_elapsed_s": 0.07020125199778704
+    },
+    "vins_telemetry_count": 565,
+    "vins_telemetry_first_stamp_ns": 13003999999,
+    "vins_telemetry_last_stamp_ns": 50228000000,
+    "vins_telemetry_last_solver_usable": true
+  },
+  "observations": {
+    "raw_vins_odometry": {
+      "topic": "/vins_raw/s_25c62939e70f427cbd1bace8470e5a7f/odometry",
+      "sample_count": 956,
+      "publisher_endpoints_at_first_sample": [
+        {
+          "node_name": "_NODE_NAME_UNKNOWN_",
+          "node_namespace": "_NODE_NAMESPACE_UNKNOWN_",
+          "topic_type": "nav_msgs/msg/Odometry"
+        }
+      ],
+      "publisher_endpoints_at_shutdown": [],
+      "first_stamp_ns": 12576000000,
+      "last_stamp_ns": 75903999999,
+      "positive_stamp_gap_s": {
+        "median": 0.067999999,
+        "p95": 0.068000001,
+        "max": 0.363999999
+      },
+      "nonpositive_stamp_gap_count": 0,
+      "all_numeric_samples_finite": true
+    },
+    "mapping_boundary_observer_initialization_error": "AttributeError: rclpy Node subscriptions property has no setter. A corrected recorder was started late, but stack shutdown interrupted it before a trace file was written."
+  },
+  "interpretation": "The localization adapter locked with telemetry_stale at source stamp 12.875999999 s in this run while the direct raw VINS odometry recorder continued receiving messages through 75.904 s, and VINS telemetry continued through 50.228 s with solver_usable=true. This supports an adapter-side freshness/acceptance boundary rather than a complete VINS odometry publisher stop for this run. It is not a same-run capture for #220 and does not identify the exact adapter condition.",
+  "limitations": [
+    "The mapping boundary observer did not produce data in this run.",
+    "Raw odometry endpoint identity was unknown to the recorder at first sample and absent at shutdown; the startup topic-info snapshot and recorded messages are the available evidence.",
+    "This preflight did not dispatch an action or validate navigation."
+  ],
+  "files_sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/source-patch-manifest.json": "c0c2174bb2faa9dd0a0daa82efbbd815d7d6ac6a3194004e2bc85e1901a087ba",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/colcon-build.log": "f0467713f3e7fa4ea7da7be41260d506366991c611d450b6b2077118b8fd233b",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/vins-odom-topic-info.txt": "d33d4d513858692e69e7dafef9d5369e68e07a3de91d25878d3225e44896567a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/vins-odom-trace.json": "32240e15d931136d8d14788015c702e342f223dcac03778d724cd5e15fa22d0e",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/vins-odom-capture.log": "da9c627867b4f88dfd719f1581cf14bda27440a48b5ad0267164d2fb68b5cea1",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/vio-ego-flight-report.json": "11c24f29141427b9ad98a35d38a427c429d41a06b01643e3dd2b5646769469b7",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/vio-ego-flight-exit-code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/mapping-boundary-capture.log": "eb51c21d6bbcac7c29e794b77e3fa00a58c6df1621d28aad1004abc5f6f8c396",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/mapping-boundary-capture-recovery.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/imu-trace.json": "5f63632314c0df1ec3951e7754ef9b7b95546d6b9037eae8c61c90587c43259a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/imu-capture.log": "f60b359279b2c3bc72b3ce7ab29ece5f896ac5bb9aacaca367d81195f0234c13",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/px4-bridge-live.json": "e4edcd3d1c1c9117dd5cf921e486e2720f2361d91e9fc63136c514c221e5db08",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/vio-launch.log": "3ff54589bc84ac754d242939baa9f9f787a3ffb6510cf54c75a75e9e92cadaa4",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-223/truth-and-control-isolation.txt": "47babbcd1570cfd423398f876ef85af78985dda99c3e8655f6d55441717cbd3f"
+  }
+}

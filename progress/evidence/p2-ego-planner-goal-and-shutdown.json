@@ -1,0 +1,132 @@
+{
+  "scope": "P2 exploratory EGO planning and shutdown diagnosis with live D435i, VINS, localization adapter, depth gate, mapping adapter, and plan_env. No PX4, trajectory server, controller, or control publisher was launched.",
+  "qualification": "partial development evidence only; P2/P4 and GOAL A-H remain in progress",
+  "environment": {
+    "container": "d435i-vins-build",
+    "ros_distribution": "Jazzy",
+    "derived_image_digest": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "upstream": "ZJU-FAST-Lab/ego-planner-swarm ros2_version",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9"
+  },
+  "diagnosis": {
+    "previous_run": "artifacts/runs/p2-ego-odom-wire-20261016-03",
+    "launch_mode": "flight_type=2 (upstream preset target default), waypoint_num=1, point0=(0,0,0)",
+    "first_optimized_position_m": [
+      -0.00022537713571707557,
+      -0.0005514999411024132,
+      0.00041959998601626846
+    ],
+    "initial_distance_to_default_goal_m": 0.0007287051438029314,
+    "planner_close_to_goal_guard_m": 0.2,
+    "log_sha256": "40bc3e70044a18e3db56a363e123d75e3d0e21fd966ff8861f2b92e1c639d7d4",
+    "assessment": "The measured initial VIO pose was within the planner close-to-goal guard of the default preset waypoint. The early repeated first-trajectory failures are explained by this degenerate test goal. Later optimizer failures seen after motion remain unexplained; the manual-goal test below is one successful planning observation, not a stability result."
+  },
+  "manual_goal_run": {
+    "run_directory": "artifacts/runs/p2-ego-odom-wire-20261016-09",
+    "ros_domain_id": 120,
+    "gazebo_partition": "d435i_ego_odom_09",
+    "epoch": "441aed1196144d1898d37ae6bf59b537",
+    "flight_type": 1,
+    "goal_topic": "/move_base_simple/goal",
+    "goal_message": {
+      "frame_id": "world",
+      "position_m": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "orientation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "observations": {
+      "fsm_transitions": [
+        "WAIT_TARGET -> GEN_NEW_TRAJ",
+        "GEN_NEW_TRAJ -> EXEC_TRAJ",
+        "EXEC_TRAJ -> WAIT_TARGET"
+      ],
+      "successful_initial_trajectory_count": 1,
+      "plan_success_one_count": 1,
+      "optimized_odometry_count": 385,
+      "paired_depth_pose_count": 669,
+      "map_point_count_min": 953,
+      "map_point_count_max": 1683,
+      "localization_history": [
+        {
+          "wall_elapsed_s": 1.084,
+          "epoch": "441aed1196144d1898d37ae6bf59b537",
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "frame_id": "odom_441aed1196144d1898d37ae6bf59b537"
+        }
+      ],
+      "depth_health_history": [
+        {
+          "wall_elapsed_s": 1.086,
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 1792165971641329807
+        }
+      ]
+    },
+    "interpretation": "The planner generated one B-spline for a nonzero manual goal. EGO returned to WAIT_TARGET after its trajectory-duration logic elapsed; no trajectory follower or vehicle was present, so this does not mean the goal was reached. The upstream waypointCallback currently ignores input z and yaw and sets target z to 1.0 m.",
+    "ego_node_publishers": "artifacts/runs/p2-ego-odom-wire-20261016-09/ego-node-info.txt",
+    "artifacts_sha256": {
+      "run_script": "d0b203decd8f3e545e19a47a5518cdea3f11b4af8023531848f7ff32a6e4fc14",
+      "ego_log": "c97a1e34ef586e74440c2545f434c553b5207a3abffa393b4124564177e5c461",
+      "probe": "a0fd8e556329bb026821694db0cb20b9fd1c9d67e45dcc1e75962879e343cf44",
+      "node_info": "7a3bbfe89bed1837e5d2ef6fa7a392d4d75334f02027873cee3339c6cc73d800",
+      "goal_publisher_log": "789ae7c66e775a8ebc9a65f5e94cf637ba5b7815131c2fce7b40058c2cb4c4af"
+    }
+  },
+  "shutdown_patch": {
+    "patch": "dependencies/patches/ego/0007-shutdown-safe-planner.patch",
+    "patch_sha256": "36f878b84f6481cf74c2598de79c3c073e753c704d87321d9a3e7c20c91deb00",
+    "applied_after": "dependencies/patches/ego/0006-ego-odometry-topic.patch",
+    "pre_patch_file_sha256": {
+      "planner/plan_manage/src/ego_replan_fsm.cpp": "3d28a838ebd2e3649b2dcc8c8d9ae1208ba5419cdd142fd04775f184c289bacf",
+      "planner/plan_manage/src/ego_planner_node.cpp": "b1dcb78c07114513920b0f709ea04194ed38e1a590a37f359116ac1c24403c4a"
+    },
+    "post_patch_file_sha256": {
+      "planner/plan_manage/src/ego_replan_fsm.cpp": "ae42afa4b7a99ca12b6d26d8f87c23fc08695a12bd6e0ea825d3802593c55c07",
+      "planner/plan_manage/src/ego_planner_node.cpp": "708fe826c0e16471abdf56c4362bdf33b5b4b683475d9f33ea07baab4d54f3eb"
+    },
+    "behavior": "The synchronous startup wait for EXEC_TRAJ now observes rclcpp::ok() and returns after shutdown; main skips spin when the ROS context was already shut down.",
+    "build": {
+      "status": "PASS",
+      "package": "ego_planner",
+      "command": "source /opt/ros/jazzy/setup.bash && source artifacts/runs/p2-map-input-build-20261016-01/install/setup.bash && source artifacts/runs/p2-ego-odom-wire-20261016-03/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-shutdown-20261016-10/colcon-log build --base-paths src/vendor/ego_planner/planner --packages-select ego_planner --build-base artifacts/runs/p2-ego-shutdown-20261016-10/build --install-base artifacts/runs/p2-ego-shutdown-20261016-10/install --event-handlers console_direct+",
+      "log": "artifacts/runs/p2-ego-shutdown-20261016-10/colcon-log/latest_build/events.log",
+      "log_sha256": "a6748a67a82b13b4a059ab5b4a32a886b242e62606e52006c65f19714d62b9e7",
+      "scope_limit": "Only ego_planner was rebuilt; dependency packages were resolved from the existing Jazzy install."
+    },
+    "runtime_test": {
+      "run_directory": "artifacts/runs/p2-ego-shutdown-20261016-11",
+      "ros_domain_id": 121,
+      "gazebo_partition": "d435i_ego_shutdown_11",
+      "default_preset_goal": "point0=(0,0,0), flight_type=2",
+      "close_to_goal_retry_count": 440,
+      "signal": "SIGINT sent to EGO launch process group during repeated close-to-goal failures",
+      "ego_launch_process": "process has finished cleanly; wait_status=0",
+      "active_processes_after_sigint_in_ego_group": 0,
+      "escalated_to_sigterm_or_sigkill": false,
+      "ego_absent_from_post_stop_ros_node_list": true,
+      "ego_log_sha256": "03eac9bb9e4ccfeee7752b9fdbeaa9ea46fba220ebf1fc846e486ec6365fc4f9",
+      "cleanup_log_sha256": "6467312227a67f578e25969ae8e5503b9f33f843db5f499e276539a9fab0fc2d",
+      "harness_limit": "The subsequent 5-second mapping probe recorded valid localization, depth, odometry, and paired inputs but no occupied points in this static scene. Its map-output check returned nonzero, so the shell run exited 1 although the EGO SIGINT shutdown check passed. This run is not a map or planner acceptance test. The original test script also omitted its sensor launch PID from final cleanup; that residual sensor group was found and stopped during the next test setup.",
+      "test_script_sha256": "eac282f3ed2a9c7e397110fc3b76677667daea12201781b911ed329d35135a45",
+      "residual_process_cleanup": "The test script cleared its launch_pids array after stopping EGO, leaving the separate sensor launch group active. A later process audit found it; the sensor group was then stopped, and no active test processes remained. This does not change the EGO process exit result but limits the original harness cleanup claim."
+    }
+  },
+  "limitations": [
+    "One manual-goal planning run and one shutdown run do not establish repeatability or formal acceptance.",
+    "No goal execution, actual position/yaw arrival, collision clearance, obstacle course, or PX4 behavior was tested.",
+    "The sequential-start close-to-goal retry remains when the configured goal is within 0.2 m; production launch must provide a validated goal and finite caller-visible failure behavior.",
+    "Controlled depth-stale, epoch reset, clock regression, map snapshot readback, and multi-scene geometry remain untested."
+  ]
+}

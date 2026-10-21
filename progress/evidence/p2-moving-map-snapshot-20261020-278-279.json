@@ -1,0 +1,249 @@
+{
+  "schema": "p2-moving-map-live-snapshot-geometry/v1",
+  "date": "2026-10-20",
+  "run_ids": [
+    "#278",
+    "#279"
+  ],
+  "status": "PARTIAL_DYNAMIC_MAP_AND_SNAPSHOT_GEOMETRY",
+  "qualification": "#279 confirms occupied-map updates during recorded force-driven motion and one exact same-epoch ready MapStatus/cloud archive with exact float32 PCD readback. The saved snapshot was captured after the driver-recorded motion interval. Geometry and trajectory values are exploratory diagnostics; this does not pass GOAL B/C/F, obstacle avoidance, or final A–H acceptance.",
+  "scope": {
+    "world": "Run-local debug-motion.sdf derived from simulation/worlds/sensor_calibration.sdf with a calibration box and cylinder.",
+    "truth": "The motion driver recorded Gazebo pose only for offline alignment. VINS, localization, depth gate, mapping, EGO, and probes did not subscribe to truth.",
+    "control": "No PX4, controller, goal client, or control publisher was launched; both runs used manual EGO WAIT_TARGET mode.",
+    "odometry_wiring_audit": "#247, #273, #275, and #277 launch scripts used odometry_topic:=odom instead of /localization/optimized_imu_odom; EGO states from those runs do not establish planner readiness. #278 and #279 used the adapter output topic."
+  },
+  "runs": {
+    "#278": {
+      "run_report": "artifacts/runs/p2-moving-map-clock-observation-20261020-278/run-report.json",
+      "run_report_sha256": "eb991ad49f3f7e2a79d2f936db03a2916f71bc47dc453734b2ed40d9da9c95fd",
+      "build": "PASS, fresh overlay 4/4 own packages; see artifacts/runs/p2-moving-map-clock-observation-20261020-278/build-overlay.log.",
+      "motion": {
+        "driver": "tools/run_sensor_motion.py",
+        "wall_seconds": 36.30920127599893,
+        "truth_samples": 2503,
+        "imu_samples": 5006,
+        "force_commands": 8,
+        "recorded_clock_start_s": 7.146,
+        "recorded_clock_end_s": 32.176,
+        "truth_position_span_m": [
+          0.25152198012001725,
+          0.329763399720217,
+          0.12576099000007668
+        ],
+        "qualification": "Physics-force-driven diagnostic motion; truth record used only for offline alignment, not as a system input."
+      },
+      "runtime": {
+        "probe_wall_seconds": 50.032,
+        "map_status_sample_count": 217,
+        "ready_map_status_count": 3,
+        "max_status_occupied_points": 864,
+        "localization_history": [
+          {
+            "wall_elapsed_s": 0.112,
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver"
+          },
+          {
+            "wall_elapsed_s": 0.823,
+            "state": 4,
+            "valid": false,
+            "reason": "telemetry_stale"
+          }
+        ],
+        "map_samples": 456,
+        "captured_cloud": {
+          "file": "artifacts/runs/p2-moving-map-clock-observation-20261020-278/map-cloud.json",
+          "sha256": "4929d60d5f4340369dc30a09a17d831a09e19b21b58b45ad3fa4de16ccd3a79e",
+          "stamp_ns": 7242000000,
+          "frame_id": "odom_2a1a2b15dfdf4d03b8d9da7517ad51ed",
+          "point_count": 864,
+          "embedded_map_status": false
+        },
+        "map_status_cloud_pair": {
+          "matched": false,
+          "snapshot_stamp_ns": null,
+          "snapshot_frame_id": null,
+          "map_id": null,
+          "map_status_sample_count": 217
+        },
+        "EGO": {
+          "odometry_topic_matches_adapter_output": true,
+          "state": "WAIT_TARGET",
+          "goal_sent": false,
+          "startup_no_odom_messages": 1,
+          "odom_or_depth_timeout_messages": 0
+        }
+      },
+      "finding": "The localization probe changed from valid TRACKING at 0.112 s to LOCKED/telemetry_stale at 0.823 s. Three ready MapStatus samples were observed, but the captured 864-point cloud lacked embedded MapStatus and no exact ready status/cloud pair was established. A later reset reduced observed map points to zero. No snapshot was exported; this run is excluded from snapshot and geometry acceptance.",
+      "artifacts": {
+        "probe": "artifacts/runs/p2-moving-map-clock-observation-20261020-278/probe.json",
+        "probe_sha256": "546403138e6d686b1c0203e01c135208fa9526e4fe6aaf24e643cee95e23dfd7",
+        "cloud": "artifacts/runs/p2-moving-map-clock-observation-20261020-278/map-cloud.json",
+        "cloud_sha256": "4929d60d5f4340369dc30a09a17d831a09e19b21b58b45ad3fa4de16ccd3a79e",
+        "motion": "artifacts/runs/p2-moving-map-clock-observation-20261020-278/motion.json",
+        "motion_sha256": "75e62b688a9c1009c809eac57e77e170890c94306dd8824dd35c8e749c7b1b9e",
+        "ego_log": "artifacts/runs/p2-moving-map-clock-observation-20261020-278/ego.log"
+      }
+    },
+    "#279": {
+      "run_report": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/run-report.json",
+      "run_report_sha256": "6976bdc216959e32909de342469f2f1ea36e9570196c22a2041d307396259f5e",
+      "build": "PASS, fresh overlay 4/4 own packages; see artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/build-overlay.log.",
+      "motion": {
+        "driver": "tools/run_sensor_motion.py",
+        "truth_samples": 2502,
+        "imu_samples": 5003,
+        "force_commands": 8,
+        "recorded_clock_start_s": 7.328,
+        "recorded_clock_end_s": 32.342,
+        "truth_position_span_m": [
+          0.2498443802891989,
+          0.3212806001911295,
+          0.12492219000010518
+        ],
+        "qualification": "Physics-force-driven diagnostic motion; truth record used only for offline alignment, not as a system input."
+      },
+      "runtime": {
+        "probe_wall_seconds": 35.023,
+        "map_status_sample_count": 153,
+        "map_status_ready_count": 153,
+        "all_status_ready": true,
+        "localization_status_sample_count": 692,
+        "all_localization_valid_tracking": true,
+        "depth_health_sample_count": 1317,
+        "all_depth_health_ready": true,
+        "optimized_odom_count": 470,
+        "future_observation_log_count": 0,
+        "map_updates_during_motion": {
+          "recorded_motion_clock_interval_s": [
+            7.328,
+            32.342
+          ],
+          "sample_count": 264,
+          "minimum_occupied_points": 778,
+          "median_occupied_points": 942,
+          "maximum_occupied_points": 1229,
+          "unique_occupied_point_counts": 92,
+          "point_count_changes": 122,
+          "qualification": "Uses observer clock-at-receipt samples within the motion driver recorded interval; point-count changes show update activity, not coverage or geometric correctness."
+        },
+        "snapshot": {
+          "cloud": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/map-cloud.json",
+          "cloud_sha256": "895cf1b5895ce6052d70b89d23a5032a144847cd58edd7c5008470f3518f3583",
+          "map_id": "09a611e0bb214baa8ffc5a1fc732d346-ab312dbb2e4741d2a3ec4c7f6ca8fc9c",
+          "frame_id": "odom_09a611e0bb214baa8ffc5a1fc732d346",
+          "source_stamp_ns": 34061000000,
+          "point_count": 1191,
+          "status_header_stamp_ns": 34123000000,
+          "status_minus_cloud_stamp_ms": 62.0,
+          "probe_clock_at_status_receipt_ns": 34058000000,
+          "cloud_minus_probe_clock_at_status_receipt_ms": 3.0,
+          "calibration_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+          "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+          "keyframe_count": 29,
+          "keyframe_dropped_count": 64
+        },
+        "map_export": {
+          "status": "PASS",
+          "pcd": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/map-snapshot/occupied_snapshot.pcd",
+          "pcd_sha256": "100043f267e70c4ccf01338d581feb31cdb31c317ede7cf168e1b645ee71893c",
+          "point_count": 1191,
+          "float32_coordinates_roundtrip_exact": true,
+          "metadata": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/map-snapshot/metadata.json",
+          "qualification": "Occupied-only single sample archive/readback; no free/unknown or coverage claim."
+        },
+        "geometry": {
+          "file": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/multi-geometry-report.json",
+          "sha256": "b55b1ad10f7707bfe4241a5192744e9d0c5a448436b65fe0e38c84a16d0a592b",
+          "trajectory_alignment_method": "single SE(3), scale fixed to 1, no segment realignment",
+          "trajectory_paired_samples": 379,
+          "position_rmse_m": 0.008161189325204512,
+          "position_p95_m": 0.014925630248101398,
+          "position_max_m": 0.016158133431577255,
+          "orientation_rmse_deg": 0.9553116579364137,
+          "box_roi_points": 45,
+          "box_surface_residual_median_m": 0.007941709737032288,
+          "box_surface_residual_p95_m": 0.0555531493644893,
+          "box_fraction_within_0_10m": 1.0,
+          "cylinder_roi_points": 31,
+          "cylinder_surface_residual_median_m": 0.018035386240555135,
+          "cylinder_surface_residual_p95_m": 0.10997736423901333,
+          "cylinder_fraction_within_0_10m": 0.7096774193548387,
+          "roi_margin_m": 0.25,
+          "qualification": "Descriptive offline diagnostic; no acceptance thresholds."
+        },
+        "EGO": {
+          "odometry_topic": "/localization/optimized_imu_odom",
+          "matches_adapter_output": true,
+          "startup_no_odom_messages": 3,
+          "odom_or_depth_lost_messages": 51,
+          "first_timeout_sim_s": 15.451,
+          "last_timeout_sim_s": 34.651,
+          "goal_sent": false,
+          "interpretation": "Correct topic wiring is verified, but the timeout source is unresolved; these logs do not demonstrate planner readiness."
+        },
+        "ego_build_provenance": {
+          "prefix": "artifacts/runs/p2-map-input-build-20261016-01/install",
+          "ego_planner_node_sha256": "935eb544f0d24e73c395dfa632831aa5640c762e2d104b58fe7f71e440f371d6",
+          "plan_env_library_sha256": "54dfdce842e5f46aedd8a92db4b4ce10ff12a16f86aafc1994223e37b41bc316",
+          "matches_current_locked_vendor_build": false,
+          "patch_0010_sync_diagnostic_string_present": false,
+          "qualification": "These dynamic runs used the Oct 16 prebuilt EGO underlay. The current pinned vendor source was separately rebuilt in #280; #281 uses that fresh overlay."
+        }
+      },
+      "artifacts": {
+        "probe": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/probe.json",
+        "probe_sha256": "5703b5e0246955198e2eae2ce5e78e00619c8a0690aa91635bd7d5b4ae03d70f",
+        "cloud": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/map-cloud.json",
+        "cloud_sha256": "895cf1b5895ce6052d70b89d23a5032a144847cd58edd7c5008470f3518f3583",
+        "motion": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/motion.json",
+        "motion_sha256": "e3fa4339a27563107273a448f4d2845fa455febcb994fa0dd2f867bc01128209",
+        "geometry_report": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/multi-geometry-report.json",
+        "geometry_report_sha256": "b55b1ad10f7707bfe4241a5192744e9d0c5a448436b65fe0e38c84a16d0a592b",
+        "pcd": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/map-snapshot/occupied_snapshot.pcd",
+        "pcd_sha256": "100043f267e70c4ccf01338d581feb31cdb31c317ede7cf168e1b645ee71893c",
+        "snapshot_metadata": "artifacts/runs/p2-moving-map-snapshot-low-load-20261020-279/map-snapshot/metadata.json",
+        "snapshot_metadata_sha256": "bf8ac85adb52cce8565f456f26ad62782702e862f323681b8653b0558bf30a4d",
+        "metadata_run_report_hash_matches": true
+      }
+    }
+  },
+  "interpretation": [
+    "During the driver-recorded motion interval [7.328, 32.342] s, 264 observer clock-aligned map samples had 778–1229 occupied points, 92 unique counts, and 122 point-count changes. This shows online map output changing during motion, not map coverage or geometric correctness.",
+    "The archived #279 snapshot was captured at source stamp 34.061 s, after the motion driver recorded motion through 32.342 s. MapStatus and cloud share epoch, map_id, frame, source stamp, and 1191 point count; the ready MapStatus header is 62 ms later. The observer recorded /clock at 34.058 s on receipt, 3 ms before the cloud stamp; this probe-side reading does not substitute for adapter-internal clock instrumentation.",
+    "PCD archive contains occupied points only. All 1191 float32 coordinates read back exactly. The map does not represent exported free/unknown voxels.",
+    "Single fixed-scale SE(3) offline alignment gives 379 paired trajectory samples, position RMSE 8.16 mm, P95 14.93 mm, maximum 16.16 mm, and orientation RMSE 0.955°. This is one diagnostic alignment against offline truth, not a final localization threshold.",
+    "Within 0.25 m ROIs, the box has 45 points with 5.56 cm P95 surface residual; the cylinder has 31 points with 11.00 cm P95 and 70.97% within 10 cm. These sparse single-run samples do not establish map coverage or avoidance clearance.",
+    "EGO was wired to /localization/optimized_imu_odom in #279 and reached WAIT_TARGET, but logged 51 odom/depth timeout warnings from simulation time 15.451 to 34.651 s. No goal was sent and the timeout source remains unresolved.",
+    "Version audit: #278/#279 used the Oct 16 prebuilt EGO binaries from the base install; their timeout/INIT behavior is not a current-vendor source result. #280 rebuilt the current pinned EGO packages, and #281 is the current-source no-goal follow-up; see progress/evidence/p2-ego-current-vendor-runtime-20261020-280-281.json."
+  ],
+  "limitations": [
+    "#278 is excluded: localization locked telemetry_stale within 0.823 s of the observation window and an exact ready MapStatus/cloud sample was not retained.",
+    "#279 snapshot time is after the motion driver recorded interval; map count changes during motion show update activity only.",
+    "Only occupied points from one sample were archived. Free/unknown state, map coverage, persistence across views, clear-path classification, inflation safety, and collision clearance remain unverified.",
+    "The geometry ROIs are limited to 0.25 m around two ideal obstacles and contain only 45/31 points; no formal F acceptance threshold was applied.",
+    "EGO timeout warnings under correct topic wiring remain unexplained. EGO stayed WAIT_TARGET without goal or trajectory, so planner response and avoidance are untested.",
+    "No PX4, controller, truth input, or flight acceptance was part of these runs; no acceptance thresholds were changed.",
+    "EGO behavior in #278/#279 came from the Oct 16 prebuilt binary, not the freshly rebuilt current locked vendor source; #281 provides one current-source recheck."
+  ],
+  "source_sha256": {
+    "snapshot_probe": "87603378b1a5c180147fcea9d1cfb610b67a6484e8a030f4e2d2815aa28aaa29",
+    "snapshot_exporter": "d1073138f7cfc2a622d63a0b44f54f65154ea76861d38f8d830ba36dbc2dced6",
+    "geometry_evaluator": "39ad9c28b360fe993e3c56ed487f76085b8410c0b77fc6796c730b64f4ec1a50",
+    "localization_health_policy": "2716ab8f3892ce43e0b4cb59f531860997f020a4efd8f973097ea10ce7dcdd71",
+    "localization_health_node": "7d60867a42e9e462cee4fb8230ff07f532dd6ff8e3d90acc7157d76614628223",
+    "mapping_input_config": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "camera_model": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819"
+  },
+  "next_step": "Trace the EGO occupancy/pose input callback boundary in a correct-topic no-goal run; then define and measure map coverage/free-unknown and clear-path behavior with explicit reviewable thresholds before any avoidance acceptance.",
+  "follow_up_current_vendor_run": {
+    "report": "progress/evidence/p2-ego-current-vendor-runtime-20261020-280-281.json",
+    "run_ids": [
+      "#280",
+      "#281"
+    ],
+    "finding": "The current-source run #281 had zero odom/depth timeout warnings over 35.015 s; no causal explanation is established."
+  }
+}

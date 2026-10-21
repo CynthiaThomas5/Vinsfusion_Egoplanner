@@ -1,0 +1,56 @@
+{
+  "scope": "P0 static workspace compilation in the existing fixed ROS 2 Jazzy container; this is not a container rebuild or runtime qualification.",
+  "date": "2026-10-16",
+  "environment": {
+    "container": "d435i-vins-build",
+    "image_digest": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "ros_distribution": "Jazzy",
+    "build_directories": "Fresh run-specific build and install directories under artifacts/runs/p0-full-colcon-build-20261016/"
+  },
+  "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p0-full-colcon-build-20261016/log build --build-base artifacts/runs/p0-full-colcon-build-20261016/build --install-base artifacts/runs/p0-full-colcon-build-20261016/install --executor sequential --parallel-workers 1 --event-handlers console_direct+",
+  "build_limits": {
+    "MAKEFLAGS": "-j2",
+    "CMAKE_BUILD_PARALLEL_LEVEL": "2",
+    "packages_discovered": 13,
+    "packages_finished": 13,
+    "exit_code": 0
+  },
+  "packages": [
+    "bspline_opt",
+    "camera_models",
+    "ego_planner",
+    "global_fusion",
+    "loop_fusion",
+    "path_searching",
+    "plan_env",
+    "px4_msgs",
+    "traj_utils",
+    "uav_interfaces",
+    "uav_localization",
+    "uav_sim",
+    "vins"
+  ],
+  "result": "PASS",
+  "artifacts": {
+    "package_list": "artifacts/runs/p0-full-colcon-build-20261016/packages.txt",
+    "package_list_sha256": "16f5af05cb7c752d88ddb6af180a9d203371c9df24f2ccfdc5f7f66a0283638e",
+    "colcon_log": "artifacts/runs/p0-full-colcon-build-20261016/colcon.log",
+    "colcon_log_sha256": "12e604a0d0025306d918acaa6d28c3c84640dc38891be6ac7e7dfad218fd557d"
+  },
+  "warnings": [
+    "Nine packages emitted compiler or CMake stderr warnings; the build completed successfully.",
+    "Warnings include deprecated ROS message ConstPtr aliases, legacy variable-length arrays and unused parameters, PCL CMP0144 developer notices, and unavailable optional Pcap support."
+  ],
+  "qualification": {
+    "static_ros_build": "PASS",
+    "unit_or_integration_tests": "NOT_RUN",
+    "ros_launch_or_runtime_graph": "NOT_RUN",
+    "sensor_or_planner_replay": "NOT_RUN",
+    "sitl": "NOT_RUN",
+    "real_hardware": "NOT_RUN",
+    "limits": [
+      "The run compiles and installs the 13 packages discoverable in the current workspace using the already-provisioned container image; it does not prove a clean image rebuild or complete operating-system dependency lock.",
+      "PX4 firmware and Micro XRCE-DDS Agent are not among the workspace packages and remain unbuilt; DDS interoperability, mapping/planner behavior, control ownership at runtime, SITL, and hardware remain unverified."
+    ]
+  }
+}

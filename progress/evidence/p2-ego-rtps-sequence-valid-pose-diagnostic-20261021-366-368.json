@@ -1,0 +1,206 @@
+{
+  "schema": "p2-ego-rtps-sequence-diagnostic/v1",
+  "date": "2026-10-21",
+  "evidence_id": "p2-ego-rtps-sequence-valid-pose-diagnostic-20261021-366-368",
+  "objective": "Check whether metadata-only RTPS DATA sequence records from the mapping camera-pose writer are visible during an exact EGO camera-pose successful-take gap while an independently observed D435i pose stream remains valid.",
+  "scope": {
+    "project_scope": "P0-P6 single-D435i simulation",
+    "run_366_ros_domain_id": 226,
+    "run_367_ros_domain_id": 227,
+    "run_367_gazebo_partition": "d435i_ego_rtps_sequence_367_01",
+    "run_368_ros_domain_id": 228,
+    "run_368_gazebo_partition": "d435i_ego_rtps_sequence_368_01",
+    "goal_sent": false,
+    "px4_started": false,
+    "trajectory_server_started": false,
+    "truth_subscribed": false,
+    "control_subscribed": false,
+    "pcap_persisted": false,
+    "application_payload_fields_requested": false,
+    "canonical_source_or_config_changed": false
+  },
+  "run_manifests": [
+    {
+      "run_id": "p2-ego-rtps-header-sequence-calibration-20261021-366",
+      "path": "artifacts/runs/p2-ego-rtps-header-sequence-calibration-20261021-366/run-manifest.json",
+      "sha256": "c97d5407b57c041ced54d2c80bd835d96b9bc0d209d9859bbbf358fd60391c6f"
+    },
+    {
+      "run_id": "p2-ego-rtps-sequence-valid-pose-diagnostic-20261021-367",
+      "path": "artifacts/runs/p2-ego-rtps-sequence-valid-pose-diagnostic-20261021-367/run-manifest.json",
+      "sha256": "3c8b7984918494264bca0b7ca8825a925c833ed1ae910b997bb19aef4b0b38e7"
+    },
+    {
+      "run_id": "p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368",
+      "path": "artifacts/runs/p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368/run-manifest.json",
+      "sha256": "f99f183f11d3e86a3d7d876427be91df7c6c89d7ca54876b077e2e31d053bcaf"
+    }
+  ],
+  "calibration_366": {
+    "topic": "/rtps_header_calibration",
+    "type": "geometry_msgs/msg/PoseStamped",
+    "qos": "RELIABLE publisher and subscriber",
+    "unfiltered_capture": {
+      "field_records": 205,
+      "matched_exact_endpoint_data_records": 159,
+      "unique_sequences": 159,
+      "sequence_range": [50, 208],
+      "duplicates": 0,
+      "missing_within_observed_range": [],
+      "monotonic_by_capture_time": true
+    },
+    "source_guid_filtered_capture": {
+      "field_records": 104,
+      "matched_exact_endpoint_data_records": 97,
+      "unique_sequences": 97,
+      "sequence_range": [218, 314],
+      "duplicates": 0,
+      "missing_within_observed_range": [],
+      "monotonic_by_capture_time": true
+    },
+    "writer_gid": "010fe76776059f720000000000000703",
+    "reader_gid": "010fe7677705b12a0000000000000704",
+    "payload_fields_requested": false
+  },
+  "run_367": {
+    "attempt_001": {
+      "status": "excluded_preflight_failure",
+      "reason": "The endpoint parser assumed ROS topic-info fields appeared in a different order; the required mapping publisher endpoint was not resolved. No valid capture evidence was produced. The attempt is preserved under the run directory."
+    },
+    "attempt_002": {
+      "status": "completed",
+      "exit_code": 0,
+      "observer": {
+        "camera_pose_count": 917,
+        "maximum_source_gap_s": 0.066,
+        "map_status_count": 214,
+        "unique_epoch_count": 1,
+        "unique_map_id_count": 1
+      },
+      "readiness_gap": {
+        "duration_s": 2.308402413,
+        "rmw_wait_events_not_ready_and_unread_zero": 630,
+        "listener_unread_count_at_gap_end": [9, 10, 16],
+        "target_data_unique_sequences": 47,
+        "target_data_sequence_range": [244, 292],
+        "tshark_packets_captured": 23206,
+        "tshark_packets_reported_dropped": 1720,
+        "status_lost_total_was_already_one_before_gap_and_did_not_increase_inside_gap": true,
+        "exact_successful_take_alignment_available": false
+      },
+      "interpretation_limit": "Use as prior readiness-gap evidence only; sequence holes cannot be interpreted because TShark dropped packets, and the exact take gap could not be aligned because the subscription-init event was not in the narrowed trace."
+    }
+  },
+  "run_368": {
+    "status": "completed_exact_take_and_rtps_header_diagnostic",
+    "exit_code": 0,
+    "trace_selection": {
+      "ego_vpid": 510,
+      "mapping_input_adapter_vpid": 425,
+      "camera_pose_subscription_init_captured_before_pid_filtering": true,
+      "selected_window_s": 32.5
+    },
+    "independent_valid_stream": {
+      "camera_pose_count": 911,
+      "source_stamp_range_s": [5.842, 36.862],
+      "maximum_source_gap_s": 0.066,
+      "maximum_wall_receipt_gap_s": 0.195542201,
+      "out_of_order_source_stamp_count": 0,
+      "map_status_count": 218,
+      "map_status_ready_count": 199,
+      "unique_epoch_count": 1,
+      "unique_map_id_count": 1,
+      "forwarded_depth_count_range": [0, 908]
+    },
+    "exact_endpoints": {
+      "topic": "/drone_0_camera_pose",
+      "mapping_writer_gid": "010fe767a9011db80000000000001503",
+      "ego_reader_gid": "010fe767fe01f9b90000000000001c04",
+      "ego_reader_data_destination_port_inferred": 64429,
+      "capture_interface": "lo",
+      "display_filter": "rtps.sm.id == 0x15 && rtps.sm.wrEntityId == 0x00001503"
+    },
+    "exact_take_gap": {
+      "duration_s": 2.365682520,
+      "selection_relative_interval_s": [5.017168, 7.382850],
+      "publisher_rmw_publish_count": 46,
+      "publisher_max_rmw_publish_gap_s": 0.100673155,
+      "ego_rmw_wait_count_inside_open_gap": 645,
+      "wait_not_ready_and_unread_zero": 644,
+      "final_ready_return_unread_count": 25,
+      "gap_status_samples": 40,
+      "matched_current_through_gap": 1,
+      "sample_lost_total_through_gap": 0,
+      "sample_rejected_total_through_gap": 0,
+      "listener_data_available_events_at_gap_end": [20, 25],
+      "ego_log_pose_input_count_held_at": 40,
+      "ego_log_depth_input_count_advanced_from": 78,
+      "ego_log_depth_input_count_advanced_to": 111
+    },
+    "rtps_capture": {
+      "metadata_field_records": 1866,
+      "tshark_packets_captured_reported": 1866,
+      "tshark_dropped_packet_count": null,
+      "tshark_stderr_contains_numeric_drop_count": false,
+      "all_observed_target_data_unique_sequences": 911,
+      "all_observed_target_sequence_range": [1, 911],
+      "all_observed_target_duplicate_records": 44,
+      "missing_sequences_within_all_observed_range": [],
+      "exact_take_gap_packet_records": 49,
+      "exact_take_gap_unique_sequences": 46,
+      "exact_take_gap_sequence_range": [66, 111],
+      "exact_take_gap_duplicate_records": 3,
+      "missing_sequences_within_exact_gap_observed_range": [],
+      "payload_fields_requested": false,
+      "pcap_persisted": false
+    },
+    "interpretation": "Target mapping-writer DATA sequence headers were visible at the loopback capture point during the exact successful-take gap. The EGO reader wait/history probes stayed not-ready with unread_count=0 until the gap's final ready/read transition, when history contained 25 samples. This supports a sample-delivery or history-insertion delay after the loopback observation point, but the capture does not prove delivery to the EGO UDP socket. The equal count of 46 RMW publishes and 46 unique gap sequence values is not a per-sample sequence-to-publish correlation.",
+    "capture_completeness_limit": "TShark reported 1866 captured packets but emitted no numeric kernel-drop count. No missing sequence was observed within the captured sequence ranges; this does not prove that no packets were missed."
+  },
+  "standard_reference": {
+    "title": "OMG DDSI-RTPS Specification Version 2.5",
+    "url": "https://www.omg.org/spec/DDSI-RTPS/2.5/PDF",
+    "relevant_rule": "A DATA submessage readerId of ENTITYID_UNKNOWN applies to readers in the participant identified by the receiver destination GUID prefix. In this run the EGO reader UDP port was inferred from DATA rows carrying its exact reader entity ID; unknown-reader rows to that port were treated as participant-scoped candidates."
+  },
+  "p2_goal_state": {
+    "p2_status": "passed",
+    "p2_health_thresholds": "PROVISIONAL",
+    "goal_c_status": "pending",
+    "milestones_changed": false,
+    "goal_complete": false
+  },
+  "key_files": [
+    {
+      "path": "artifacts/runs/p2-ego-rtps-header-sequence-calibration-20261021-366/rtps-header-analysis.json",
+      "sha256": "6c883ee5023c9722bd827be6f6ea13d5022a1b224c54244064abc59624ec7cf7"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rtps-sequence-valid-pose-diagnostic-20261021-367/attempt-002/analysis/rtps-sequence-analysis.json",
+      "sha256": "71b65a9bef301c59ad95ff8c62c4b2b76d9bd5fff74e12a7afdb22fe384f1619"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368/analysis/camera-pose-publisher-take-alignment.json",
+      "sha256": "ed5c43306695e4d6b7dea7891669180cbd2071d19a9513faa24bad1b16e38558"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368/analysis/rmw-unread-gap.json",
+      "sha256": "a4bd2be6923b76f811c2064f001d91ceb4f139cff525afa21906caec04bc53d8"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368/analysis/rmw-status-gap.json",
+      "sha256": "eaa2cc39da02a35728fad0b43693eb1e44d49e0353da5dd0b745a1d3aafcdb09"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368/analysis/reader-listener-take-gap.json",
+      "sha256": "079fac98937c97d7ee5162353287cfda6d5d835557b9018fae2daaf390418440"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368/analysis/rtps-sequence-analysis.json",
+      "sha256": "6f1188a961cbbdb5202978f945a2a506a8b4c72bc34a456287b4904bb71dfa92"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rtps-sequence-exact-take-rtps-diagnostic-20261021-368/reader-trace/summary.json",
+      "sha256": "7b28943d1aa9ccf86263bb8d950909c87ea03cdfe8cece05a3dc060b1178326a"
+    }
+  ]
+}

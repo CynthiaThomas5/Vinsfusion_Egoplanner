@@ -1,0 +1,282 @@
+{
+  "scope": "Two independent live D435i/VINS/uav_mapping/plan_env runs with a source-stamp scheduled depth dropout. EGO was running but was idle in WAIT_TARGET at the injected stale interval. No PX4, trajectory server, controller, or control publisher was launched.",
+  "date": "2026-10-17",
+  "status": "PASS_DEPTH_GATE_AND_MAP_INVALIDATION_RECOVERY_TWICE; NOT_EGO_ACTIVE_GOAL_OR_FLIGHT_ACCEPTANCE",
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container": "d435i-vins-build",
+    "derived_image_digest": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "base_build": "artifacts/runs/p2-map-input-build-20261016-01/install",
+    "own_overlay": "artifacts/runs/p2-ego-odom-wire-20261016-03/install",
+    "ego_overlay": "artifacts/runs/p2-ego-shutdown-20261016-10/install"
+  },
+  "injection": {
+    "relay": "tools/fault_relay.py",
+    "route": "Gazebo bridge depth remapped to /fault/input/depth; relay republishes to /sensors/d435i/depth",
+    "source_stamp_window": "[first_received_stamp + 12 s, +17 s)",
+    "fresh_relay_and_VINS_epoch_each_run": true
+  },
+  "runs": [
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-02",
+      "command": "docker exec d435i-vins-build bash /workspace/artifacts/runs/p2-ego-depth-stale-20261017-02/run-depth-stale.sh",
+      "ros_domain_id": 125,
+      "gazebo_partition": "d435i_depth_stale_02",
+      "epoch": "ed376d9f86ca478ea67991050c7a130f",
+      "relay": {
+        "report": "artifacts/runs/p2-ego-depth-stale-20261017-02/depth-fault-report.json",
+        "window_observed": true,
+        "drop_after_source_s": 12.0,
+        "drop_for_source_s": 5.0,
+        "source_origin_ns": 1420000000,
+        "drop_window_start_ns": 13420000000,
+        "drop_window_end_ns": 18420000000,
+        "received": 626,
+        "forwarded_before": 201,
+        "dropped": 71,
+        "forwarded_after": 354,
+        "drop_first_stamp_ns": 13531000000,
+        "drop_last_stamp_ns": 18382000000,
+        "first_forwarded_after_stamp_ns": 18448000000
+      },
+      "depth_health_transitions": [
+        {
+          "state": "WAITING",
+          "valid": false,
+          "reason": "waiting_for_depth",
+          "source_stamp_ns": 0,
+          "received_count": 0,
+          "wall_s": 0.31362647499190643
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 1651000000,
+          "received_count": 1,
+          "wall_s": 0.5866630879754666
+        },
+        {
+          "state": "STALE",
+          "valid": false,
+          "reason": "depth_stale",
+          "source_stamp_ns": 13399000000,
+          "received_count": 176,
+          "wall_s": 19.84314060298493
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 18448000000,
+          "received_count": 177,
+          "wall_s": 26.710761556983925
+        }
+      ],
+      "mapping": {
+        "adapter_gate_closed_depth_stale": true,
+        "plan_env_clear_count": 2,
+        "map_ids": [
+          "ed376d9f86ca478ea67991050c7a130f-21028557efaf423b934497f36516ba66",
+          "ed376d9f86ca478ea67991050c7a130f-155850429f524d09ada624b6ebd71df9"
+        ],
+        "depth_input_count": 270,
+        "optimized_odometry_count": 385,
+        "paired_depth_pose_count": 280,
+        "map_frame_ids": [
+          "odom_ed376d9f86ca478ea67991050c7a130f"
+        ],
+        "max_occupied_points": 1405,
+        "zero_point_snapshots": [
+          {
+            "index": 24,
+            "wall_elapsed_s": 11.85,
+            "points": 0,
+            "frame_id": "odom_ed376d9f86ca478ea67991050c7a130f"
+          }
+        ],
+        "first_nonzero_snapshot_after_clear": {
+          "wall_elapsed_s": 19.707,
+          "points": 846,
+          "frame_id": "odom_ed376d9f86ca478ea67991050c7a130f"
+        },
+        "map_point_sample_count": 110
+      },
+      "ego": {
+        "fsm_transitions": [
+          "INIT -> WAIT_TARGET",
+          "WAIT_TARGET -> SEQUENTIAL_START",
+          "SEQUENTIAL_START -> EXEC_TRAJ",
+          "REPLAN_TRAJ -> EXEC_TRAJ",
+          "EXEC_TRAJ -> REPLAN_TRAJ",
+          "REPLAN_TRAJ -> EXEC_TRAJ",
+          "REPLAN_TRAJ -> WAIT_TARGET"
+        ],
+        "successful_plan_count": 3,
+        "depth_lost_messages": 0,
+        "emergency_stop_state_count": 0,
+        "state_at_map_reset": "WAIT_TARGET",
+        "qualification": "EGO had left its first active trajectory and returned to WAIT_TARGET before the stale interval; no active-task stale response is inferred."
+      },
+      "bridge_depth_remap_verified": false,
+      "artifacts_sha256": {
+        "runner": "71314183784c54e762c9b011ad6a929336a4ea248aa563c9487fc7092d7cceb0",
+        "test_launch": "0afe3584812fa3b19684116c39ab0fd8f7dfd578bd17f9e7ca386cc416173619",
+        "run_script": "627a96a7b2ae8e881079d923ddb6be26956b3f32e738c5a675bcca5ad5f9a915",
+        "relay_report": "0c44c71ffa45d4ea2d03a1699d4632e49c49cdeb55501f417b020deddfb66c44",
+        "health_probe": "8f551dd04bffd82fdfe4681d761f1c7383901fae6ff06ff242c76f5c1cbaf400",
+        "mapping_probe": "e2c4bb1e6ed7326d45b133e9e55a47eed2003e0f9b01c480ed49fa1becd0fd62",
+        "mapping_adapter_log": "359087564254517a549fd5b8f0704aa7b2c653739c29f7c282c34f599bd2dcc5",
+        "ego_log": "c42cc8f6147e477557d07e2e5214b03dcb80a53adeb6c3fd3ff24e13b0a9c972",
+        "bridge_node_info": "b61a8410920c73c5fd0d93f25a99b729186a4d02d86f78ac403b246d414a69ec",
+        "session_manifest": "0be6b1ccc156582c7e9bcd6077bf4c6d0a5e2c01a78a62922916eaadcb1ccbca"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-03",
+      "command": "docker exec d435i-vins-build bash /workspace/artifacts/runs/p2-ego-depth-stale-20261017-03/run-depth-stale.sh",
+      "ros_domain_id": 127,
+      "gazebo_partition": "d435i_depth_stale_03",
+      "epoch": "c88a32256b03438089ed2d2c4d810c7e",
+      "relay": {
+        "report": "artifacts/runs/p2-ego-depth-stale-20261017-03/depth-fault-report.json",
+        "window_observed": true,
+        "drop_after_source_s": 12.0,
+        "drop_for_source_s": 5.0,
+        "source_origin_ns": 2971000000,
+        "drop_window_start_ns": 14971000000,
+        "drop_window_end_ns": 19971000000,
+        "received": 1043,
+        "forwarded_before": 345,
+        "dropped": 148,
+        "forwarded_after": 550,
+        "drop_first_stamp_ns": 14983000000,
+        "drop_last_stamp_ns": 19966000000,
+        "first_forwarded_after_stamp_ns": 19999000000
+      },
+      "depth_health_transitions": [
+        {
+          "state": "WAITING",
+          "valid": false,
+          "reason": "waiting_for_depth",
+          "source_stamp_ns": 0,
+          "received_count": 0,
+          "wall_s": 0.32147288700798526
+        },
+        {
+          "state": "STALE",
+          "valid": false,
+          "reason": "depth_missing",
+          "source_stamp_ns": 0,
+          "received_count": 0,
+          "wall_s": 2.498707774997456
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 3004000000,
+          "received_count": 1,
+          "wall_s": 2.657942437013844
+        },
+        {
+          "state": "STALE",
+          "valid": false,
+          "reason": "depth_stale",
+          "source_stamp_ns": 14917000000,
+          "received_count": 238,
+          "wall_s": 22.49463400201057
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 20032000000,
+          "received_count": 239,
+          "wall_s": 29.4582913670165
+        }
+      ],
+      "mapping": {
+        "adapter_gate_closed_depth_stale": true,
+        "plan_env_clear_count": 2,
+        "map_ids": [
+          "c88a32256b03438089ed2d2c4d810c7e-2fd582927b294e83886ea542da6bdebc",
+          "c88a32256b03438089ed2d2c4d810c7e-9fbd414168ae43699d6b446e10606fb9"
+        ],
+        "depth_input_count": 325,
+        "optimized_odometry_count": 382,
+        "paired_depth_pose_count": 371,
+        "map_frame_ids": [
+          "odom_c88a32256b03438089ed2d2c4d810c7e"
+        ],
+        "max_occupied_points": 1439,
+        "zero_point_snapshots": [
+          {
+            "index": 52,
+            "wall_elapsed_s": 14.507,
+            "points": 0,
+            "frame_id": "odom_c88a32256b03438089ed2d2c4d810c7e"
+          }
+        ],
+        "first_nonzero_snapshot_after_clear": {
+          "wall_elapsed_s": 22.259,
+          "points": 753,
+          "frame_id": "odom_c88a32256b03438089ed2d2c4d810c7e"
+        },
+        "map_point_sample_count": 114
+      },
+      "ego": {
+        "fsm_transitions": [
+          "INIT -> WAIT_TARGET",
+          "WAIT_TARGET -> SEQUENTIAL_START",
+          "SEQUENTIAL_START -> EXEC_TRAJ",
+          "REPLAN_TRAJ -> EXEC_TRAJ",
+          "EXEC_TRAJ -> REPLAN_TRAJ",
+          "REPLAN_TRAJ -> EXEC_TRAJ",
+          "REPLAN_TRAJ -> WAIT_TARGET"
+        ],
+        "successful_plan_count": 3,
+        "depth_lost_messages": 0,
+        "emergency_stop_state_count": 0,
+        "state_at_map_reset": "WAIT_TARGET",
+        "qualification": "EGO had left its first active trajectory and returned to WAIT_TARGET before the stale interval; no active-task stale response is inferred."
+      },
+      "bridge_depth_remap_verified": false,
+      "artifacts_sha256": {
+        "runner": "71314183784c54e762c9b011ad6a929336a4ea248aa563c9487fc7092d7cceb0",
+        "test_launch": "3413cc39535e5f6e547d6f4f2d26afbb52342da1734ccdaf48031585aa642db2",
+        "run_script": "6df81d2722affe049f67fb0fbe1d9993ecda4d9b55e565e155156d7d3544cf0f",
+        "relay_report": "49097467d9152d388b13747704812f0e2bc6865831f811f8189da0c75503cd4b",
+        "health_probe": "1ff0fc36bd92901525ac542acb142c87d4a7520ad1b4fa58b33b3604749cf808",
+        "mapping_probe": "8bc1193326ca4ed3bdff8759f27499ce8edf2d2fc830d2e1e23681d49a8ff845",
+        "mapping_adapter_log": "719de5603825624f5ef41d8b25bc118f0d3534334711264762712d096a97e215",
+        "ego_log": "b8d5f7178670eb5d7ff8733f13015225cd1930768521e7fad5af6eb28f15d0eb",
+        "bridge_node_info": "b61a8410920c73c5fd0d93f25a99b729186a4d02d86f78ac403b246d414a69ec",
+        "session_manifest": "dc0e54fa43a8432906bcbcc86dcb2692cf4b750e8f3dea5cd0ef9db3099c2db0"
+      }
+    }
+  ],
+  "excluded_development_trial": {
+    "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-01",
+    "failure": "The first test-only LaunchService runner passed PythonLaunchDescriptionSource instead of loading its LaunchDescription. Sensor launch failed with an attribute error; the run was terminated and excluded.",
+    "launch_log_sha256": "631224a36167ca7dad38e903ea81f2d76de297cd7901fbe5075a2bdff137c1c7",
+    "runner_sha256": "210235e38a7006ee3f9c0185a8e902d1276e773d01541b9fb8fe66f563371366",
+    "test_script_sha256": "cd62389be0135a2835d602d4936504c462d60f836f4cb1091b9271b475baa305",
+    "cleanup": "The failed attempt and residual processes were stopped before the two counted runs."
+  },
+  "qualification": {
+    "source_timestamp_depth_drop_observed": "PASS, both relay reports contain before/drop/after samples",
+    "depth_health_READY_to_STALE_to_READY": "PASS, both runs",
+    "mapping_adapter_resets_plan_env_on_depth_stale": "PASS, both runs; a new map_id was acknowledged",
+    "published_occupancy_cleared_then_repopulated": "PASS, each probe observed a zero-point snapshot and later nonzero points in the same epoch frame",
+    "EGO_active_task_response": "NOT_TESTED; EGO had returned to WAIT_TARGET before the drop and emitted no Depth Lost or EMERGENCY_STOP message",
+    "PX4_or_vehicle_response": "NOT_TESTED; no controller or PX4 node was launched",
+    "GOAL_E_complete": "NO"
+  },
+  "limitations": [
+    "Each configuration has only one measured cold start in this report; repeated test validation is not formal multi-scenario acceptance.",
+    "The moving sensor rig is a debug physics fixture; truth is recorded offline and never fed to localization, mapping, or EGO.",
+    "This confirms stale-depth gate closure, map reset, and same-epoch recovery only. It does not establish map accuracy, obstacle clearance, trajectory stop/hold, caller-visible goal failure, or PX4 fail-safe behavior.",
+    "The test-specific launch remap is stored under the run directory; the canonical sensor bridge configuration was not changed."
+  ]
+}

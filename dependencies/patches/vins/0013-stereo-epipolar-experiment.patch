@@ -1,0 +1,60 @@
+--- a/vins/src/featureTracker/feature_tracker.h
++++ b/vins/src/featureTracker/feature_tracker.h
+@@ -58,6 +58,7 @@
+     void readIntrinsicParameter(const vector<string> &calib_file);
+     void showUndistortion(const string &name);
+     void rejectWithF();
++    void rejectStereoWithE(vector<uchar> &status);
+     void undistortedPoints();
+     vector<cv::Point2f> undistortedPts(vector<cv::Point2f> &pts, camodocal::CameraPtr cam);
+     vector<cv::Point2f> ptsVelocity(vector<int> &ids, vector<cv::Point2f> &pts, 
+--- a/vins/src/featureTracker/feature_tracker.cpp
++++ b/vins/src/featureTracker/feature_tracker.cpp
+@@ -419,6 +419,7 @@
+                 // printf("gpu left right optical flow cost %fms\n",t_og1.toc());
+             }
+ #endif
++            rejectStereoWithE(status);
+             ids_right = ids;
+             reduceVector(cur_right_pts, status);
+             reduceVector(ids_right, status);
+@@ -498,6 +499,39 @@
+     return featureFrame;
+ }
+ 
++// Fixed stereo calibration supplies geometry even without temporal parallax.
++void FeatureTracker::rejectStereoWithE(vector<uchar> &status)
++{
++    if (ESTIMATE_EXTRINSIC != 0 || RIC.size() < 2 || TIC.size() < 2)
++        return;
++    if (status.size() != cur_pts.size() || cur_right_pts.size() != cur_pts.size())
++        throw std::runtime_error("stereo correspondence sizes differ");
++    const Matrix3d R = RIC[1].transpose() * RIC[0];
++    const Vector3d t = RIC[1].transpose() * (TIC[0] - TIC[1]);
++    if (!R.allFinite() || !t.allFinite() || t.norm() < 1e-9)
++        throw std::runtime_error("invalid fixed stereo calibration");
++    Matrix3d tx;
++    tx << 0, -t.z(), t.y(), t.z(), 0, -t.x(), -t.y(), t.x(), 0;
++    const Matrix3d E = tx * R;
++    const double limit = F_THRESHOLD / FOCAL_LENGTH;
++    for (size_t i = 0; i < status.size(); ++i)
++    {
++        if (!status[i]) continue;
++        Vector3d left, right;
++        m_camera[0]->liftProjective(Vector2d(cur_pts[i].x, cur_pts[i].y), left);
++        m_camera[1]->liftProjective(Vector2d(cur_right_pts[i].x, cur_right_pts[i].y), right);
++        left /= left.z();
++        right /= right.z();
++        const Vector3d a = E * left;
++        const Vector3d b = E.transpose() * right;
++        const double denominator = a.head<2>().squaredNorm() + b.head<2>().squaredNorm();
++        const double residual = right.dot(a);
++        if (!left.allFinite() || !right.allFinite() || denominator <= 1e-20
++            || residual * residual > limit * limit * denominator)
++            status[i] = 0;
++    }
++}
++
+ void FeatureTracker::rejectWithF()
+ {
+     if (cur_pts.size() >= 8)

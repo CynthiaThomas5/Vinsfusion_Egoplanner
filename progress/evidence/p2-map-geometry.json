@@ -1,0 +1,218 @@
+{
+  "scope": "Exploratory P2 dynamic map geometry and publication-time verification for one simulated D435i/VINS/plan_env run",
+  "date": "2026-10-16",
+  "status": "PASS_EXPLORATORY_DYNAMIC_GEOMETRY_ONLY",
+  "qualification": "This is descriptive evidence only. It does not pass P2, P4, GOAL.md B/C/D/E, planner behavior, or flight acceptance.",
+  "environment": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 116,
+    "gz_partition": "d435i_map_live_08",
+    "run_directory": "artifacts/runs/p2-map-live-20261016-08",
+    "session_epoch": "ffed95c5352d4bc7981a25c755d2c9fc",
+    "ego_source_revision": "ZJU-FAST-Lab/ego-planner-swarm ros2_version 23a8d5a191711dd65633df689bd00f55d4dea8f9 plus project patches through 0005",
+    "truth_isolation": "Gazebo truth is recorded only by the debug motion tool for offline evaluation; VINS, localization adapter, mapping adapter, depth gate, and plan_env receive no truth pose or complete world map.",
+    "control_scope": "No PX4, control bridge, or vehicle control publisher was started."
+  },
+  "implementation": {
+    "ego_patch": "dependencies/patches/ego/0005-occupancy-publication-stamp.patch",
+    "ego_patch_sha256": "0ae6beea38db10c16a185147cb01a080d90f627779b043122a69dff1330195b4",
+    "patch_effects": [
+      "Both plan_env occupancy PointCloud2 outputs receive a ROS-clock publication stamp.",
+      "EGO advanced_param.launch.py sets use_sim_time=true so node_->now() uses the Gazebo /clock in this simulation launch."
+    ],
+    "patch_application_check": "Applied to a reconstructed post-0004 source tree; both changed EGO files compared byte-for-byte.",
+    "localization_discovery_fix": {
+      "source": "src/own/uav_localization/uav_localization/health.py and node.py",
+      "behavior": "Jazzy unknown publisher node-name/namespace sentinels are treated as unresolved metadata and retried; the adapter binds only after identity is available, while actual identity changes still lock the epoch.",
+      "trigger": "Run 07 logged expected (_NODE_NAME_UNKNOWN_, _NODE_NAMESPACE_UNKNOWN_) followed by the real vins_estimator identity; earlier run 05 locked on that discovery transition."
+    }
+  },
+  "build_and_unit_checks": {
+    "plan_env": {
+      "status": "PASS",
+      "command": "colcon --log-base artifacts/runs/p2-map-live-20261016-05/colcon-log-fixed build --base-paths src --packages-up-to plan_env --build-base artifacts/runs/p2-map-input-build-20261016-01/build --install-base artifacts/runs/p2-map-input-build-20261016-01/install",
+      "packages_succeeded": [
+        "uav_interfaces",
+        "plan_env"
+      ],
+      "events": "artifacts/runs/p2-map-live-20261016-05/colcon-log-fixed/build_2026-10-16_14-45-34/events.log"
+    },
+    "ego_planner_launch_install": {
+      "status": "PASS",
+      "command": "colcon --log-base artifacts/runs/p2-map-live-20261016-05/colcon-log-launch build --base-paths src --packages-select ego_planner --build-base artifacts/runs/p2-map-input-build-20261016-01/build --install-base artifacts/runs/p2-map-input-build-20261016-01/install",
+      "packages_succeeded": [
+        "ego_planner"
+      ],
+      "events": "artifacts/runs/p2-map-live-20261016-05/colcon-log-launch/build_2026-10-16_14-49-15/events.log"
+    },
+    "localization_adapter": {
+      "status": "PASS",
+      "command": "colcon --log-base artifacts/runs/p2-map-live-20261016-07/colcon-log-localization-fixed build --base-paths src --packages-select uav_localization --build-base artifacts/runs/p2-map-input-build-20261016-01/build --install-base artifacts/runs/p2-map-input-build-20261016-01/install",
+      "packages_succeeded": [
+        "uav_localization"
+      ],
+      "events": "artifacts/runs/p2-map-live-20261016-07/colcon-log-localization-fixed/build_2026-10-16_14-57-26/events.log"
+    },
+    "localization_health_tests": {
+      "command": "python3 tools/test_localization_health.py",
+      "result": "9 tests passed, including unresolved DDS identity sentinels.",
+      "log": "artifacts/runs/p2-map-live-20261016-07/localization-health-tests.txt"
+    },
+    "python_compile": "Passed for localization health/node/tests and the offline map geometry evaluator."
+  },
+  "excluded_diagnostic_attempts": [
+    {
+      "run": "artifacts/runs/p2-map-live-20261016-05",
+      "result": "FAILED; no valid mapping evidence",
+      "reason": "The adapter bound Jazzy temporary _NODE_NAME_UNKNOWN_ / _NODE_NAMESPACE_UNKNOWN_ endpoint metadata, then locked when the same publisher resolved as vins_estimator.",
+      "probe": "artifacts/runs/p2-map-live-20261016-05/probe.json"
+    },
+    {
+      "run": "artifacts/runs/p2-map-live-20261016-06",
+      "result": "DIAGNOSTIC ONLY",
+      "finding": "At inspection time all three VINS output topics had one publisher with node vins_estimator in the session namespace; the adapter had already locked on an earlier unresolved identity.",
+      "topics": "artifacts/runs/p2-map-live-20261016-06/topic-odometry.txt, topic-imu_propagate.txt, topic-estimator_telemetry.txt"
+    },
+    {
+      "run": "artifacts/runs/p2-map-live-20261016-07",
+      "result": "DIAGNOSTIC ONLY",
+      "finding": "The added log captured the temporary unknown identity and later resolved identity, confirming the discovery race; no geometry result was taken from this run.",
+      "log": "artifacts/runs/p2-map-live-20261016-07/localization-adapter.log"
+    },
+    {
+      "run": "artifacts/runs/p2-map-live-20261016-05 initial compile",
+      "result": "FAILED AND FIXED",
+      "reason": "Jazzy rclcpp::Time has no to_msg(); patch now writes sec/nanosec from nanoseconds().",
+      "events": "artifacts/runs/p2-map-live-20261016-05/colcon-log/build_2026-10-16_14-42-04/events.log"
+    }
+  ],
+  "dynamic_run": {
+    "run_directory": "artifacts/runs/p2-map-live-20261016-08",
+    "launch_script": "artifacts/runs/p2-map-live-20261016-08/run-live.sh",
+    "motion": {
+      "sim_time_interval_s": [
+        5.651,
+        30.677
+      ],
+      "simulated_motion_duration_s": 25.026,
+      "truth_samples": 2502,
+      "imu_samples": 5005
+    },
+    "runtime_probe": {
+      "wall_seconds": 50.023,
+      "depth_input_count": 180,
+      "depth_health_history": [
+        {
+          "wall_elapsed_s": 0.08,
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 1792162677425054473
+        }
+      ],
+      "localization_history": [
+        {
+          "wall_elapsed_s": 0.49,
+          "epoch": "ffed95c5352d4bc7981a25c755d2c9fc",
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "frame_id": "odom_ffed95c5352d4bc7981a25c755d2c9fc"
+        }
+      ],
+      "optimized_odom_count": 484,
+      "paired_depth_pose_stamp_count": 233,
+      "max_occupancy_point_count": 1787,
+      "occupancy_point_count_changed_during_run": true,
+      "map_frame_ids": [
+        "odom_ffed95c5352d4bc7981a25c755d2c9fc"
+      ],
+      "mapping_adapter_reset_ack": "Confirmed in mapping-adapter.log before accepting mapping input."
+    },
+    "map_publication_time": {
+      "topic": "/grid_map/occupancy",
+      "stamp_s": 19.838,
+      "uses_recorded_sim_time": true,
+      "nearest_optimized_odometry_stamp_delta_s": 0.004000001,
+      "note": "This verifies a nonzero stamp on the same simulation time line; map update latency was not measured."
+    },
+    "trajectory_evaluation": {
+      "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+      "paired_samples": 375,
+      "overlap_seconds": 24.684,
+      "truth_position_span_m": [
+        0.25224491980747543,
+        0.32981480019276527,
+        0.1261224600000006
+      ],
+      "truth_yaw_span_deg": 24.08854972702722,
+      "position_rmse_m": 0.020860447634982727,
+      "position_p95_m": 0.03863536875762195,
+      "position_max_m": 0.044675222128427804,
+      "orientation_rmse_deg": 0.60594810155833
+    },
+    "map_geometry": {
+      "map_point_count": 1787,
+      "frame_id": "odom_ffed95c5352d4bc7981a25c755d2c9fc",
+      "world_bounds_xyz_m": [
+        [
+          2.91754483004274,
+          3.20233309553856
+        ],
+        [
+          -1.8687764237885949,
+          3.6287820215702578
+        ],
+        [
+          1.052068545019845,
+          2.7554549694166894
+        ]
+      ],
+      "reference_wall_faces_x_m": [
+        3.0,
+        3.0999999999999996
+      ],
+      "nearest_wall_face_abs_residual_m": {
+        "median": 0.03633679926003186,
+        "p95": 0.07312057310434582,
+        "maximum": 0.1023330955385604,
+        "fraction_within_0_10m": 0.9966424174594292
+      },
+      "alignment": "Single SE(3), scale fixed to 1, no segment realignment"
+    },
+    "planner_status": "EGO stayed in INIT and logged no odom; no goal was sent and no planner response is demonstrated.",
+    "shutdown": "Run container exited and was removed; no Python traceback or process-has-died message was found. EGO emitted its existing odom/depth timeout log after its final occupancy update; clean planner shutdown and fault behavior remain unqualified."
+  },
+  "artifacts": {
+    "probe": "artifacts/runs/p2-map-live-20261016-08/probe.json",
+    "motion": "artifacts/runs/p2-map-live-20261016-08/motion.json",
+    "optimized_odometry": "artifacts/runs/p2-map-live-20261016-08/optimized-odometry.json",
+    "map_cloud": "artifacts/runs/p2-map-live-20261016-08/map-cloud.json",
+    "vins_evaluation": "artifacts/runs/p2-map-live-20261016-08/vins-evaluation.json",
+    "map_geometry": "artifacts/runs/p2-map-live-20261016-08/map-geometry.json",
+    "session": "artifacts/runs/p2-map-live-20261016-08/session/session.json",
+    "logs": [
+      "artifacts/runs/p2-map-live-20261016-08/sensors.log",
+      "artifacts/runs/p2-map-live-20261016-08/vins.log",
+      "artifacts/runs/p2-map-live-20261016-08/localization-adapter.log",
+      "artifacts/runs/p2-map-live-20261016-08/depth-health.log",
+      "artifacts/runs/p2-map-live-20261016-08/mapping-adapter.log",
+      "artifacts/runs/p2-map-live-20261016-08/ego.log",
+      "artifacts/runs/p2-map-live-20261016-08/motion-driver.log",
+      "artifacts/runs/p2-map-live-20261016-08/probe-console.log"
+    ]
+  },
+  "limitations": [
+    "The only alignment is the single rigid SE(3) trajectory alignment; map points do not influence the alignment.",
+    "The probe selects the largest occupancy PointCloud2 observed during one run, not a persistent map snapshot.",
+    "This compares distance to the two x faces of one planar wall and does not score coverage, unknown/free classification, inflation, obstacle clearance, or planner response.",
+    "The publication stamp is checked against the recorded simulation clock and optimized odometry time range; mapping latency is not separately measured.",
+    "No acceptance thresholds are frozen; these values are descriptive only.",
+    "The dynamic occupancy cloud is a probe-selected maximum published cloud, not a persistent or replayed map snapshot.",
+    "Only one planar calibration wall and one motion profile were assessed; repeated cold starts, other obstacles, map ghosts, unknown/free classification, inflation, and clearance are not evaluated.",
+    "EGO did not receive the expected localization odometry topic and remained INIT; planning behavior is not qualified.",
+    "No controlled depth stale injection, epoch reset test, clock regression, PX4 EKF2 fusion, flight control, or ten-minute run occurred.",
+    "Health and mapping thresholds remain PROVISIONAL; the geometry statistics are descriptive and no acceptance thresholds are frozen."
+  ]
+}

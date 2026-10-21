@@ -1,0 +1,117 @@
+<sdf version="1.9">
+  <model name="d435i">
+    <link name="d435i_link">
+      <inertial>
+        <mass>0.072</mass>
+        <inertia>
+          <ixx>6e-05</ixx>
+          <iyy>3e-06</iyy>
+          <izz>6e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="d435i_housing_collision">
+        <geometry>
+          <box>
+            <!-- Sensor baseline lies on link Y; Intel nominal body size is 90 x 25 x 25 mm. -->
+            <size>0.025 0.09 0.025</size>
+          </box>
+        </geometry>
+      </collision>
+      <sensor name="infra1" type="camera">
+        <pose>0 0.025 0 0 0 0</pose>
+        <gz_frame_id>infra1_optical_frame</gz_frame_id>
+        <topic>/sensors/d435i/infra1/image_rect</topic>
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1.5184364492350666</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>L8</format>
+          </image>
+          <clip>
+            <!-- Intensity images must retain near-floor texture during landing. -->
+            <near>0.02</near>
+            <far>10</far>
+          </clip>
+          <camera_info_topic>/sensors/d435i/infra1/camera_info</camera_info_topic>
+        </camera>
+      </sensor>
+      <sensor name="infra2" type="camera">
+        <pose>0 -0.025 0 0 0 0</pose>
+        <gz_frame_id>infra2_optical_frame</gz_frame_id>
+        <topic>/sensors/d435i/infra2/image_rect</topic>
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1.5184364492350666</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>L8</format>
+          </image>
+          <clip>
+            <!-- Intensity images must retain near-floor texture during landing. -->
+            <near>0.02</near>
+            <far>10</far>
+          </clip>
+          <camera_info_topic>/sensors/d435i/infra2/camera_info</camera_info_topic>
+        </camera>
+      </sensor>
+      <sensor name="depth" type="depth_camera">
+        <pose>0 0.025 0 0 0 0</pose>
+        <gz_frame_id>depth_optical_frame</gz_frame_id>
+        <topic>/sensors/d435i/depth</topic>
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1.5184364492350666</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R_FLOAT32</format>
+          </image>
+          <clip>
+            <near>0.2</near>
+            <far>10</far>
+          </clip>
+          <camera_info_topic>/sensors/d435i/depth/camera_info</camera_info_topic>
+        </camera>
+      </sensor>
+      <sensor name="color" type="camera">
+        <pose>0 0 0 0 0 0</pose>
+        <gz_frame_id>color_optical_frame</gz_frame_id>
+        <topic>/sensors/d435i/color/image_raw</topic>
+        <always_on>true</always_on>
+        <update_rate>30</update_rate>
+        <camera>
+          <horizontal_fov>1.5184364492350666</horizontal_fov>
+          <image>
+            <width>640</width>
+            <height>480</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <!-- Intensity images must retain near-floor texture during landing. -->
+            <near>0.02</near>
+            <far>10</far>
+          </clip>
+          <camera_info_topic>/sensors/d435i/color/camera_info</camera_info_topic>
+        </camera>
+      </sensor>
+      <sensor name="imu" type="imu">
+        <pose>0 0 0 0 0 0</pose>
+        <gz_frame_id>d435i_imu_frame</gz_frame_id>
+        <topic>/sensors/d435i/imu</topic>
+        <always_on>true</always_on>
+        <!-- Match the 250 Hz flight physics tick; retain contact impulses. -->
+        <update_rate>250</update_rate>
+        <imu />
+      </sensor>
+    </link>
+  </model>
+</sdf>

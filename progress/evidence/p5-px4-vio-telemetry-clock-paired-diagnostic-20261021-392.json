@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-21",
+  "run_id": "p5-vio-px4-telemetry-clock-paired-20261021-392",
+  "run_manifest": "artifacts/runs/p5-vio-px4-telemetry-clock-paired-20261021-392/run-manifest.json",
+  "run_manifest_sha256": "68e1e11706b99d8a944b0b9c7de9618276eed7444b87b706807ff8e28047bed8",
+  "qualification": "negative/control-free diagnostic evidence only; P5 and final GOAL A–H acceptance remain pending",
+  "static_checks": {
+    "instrumented_node_py_compile": "PASS",
+    "run_script_bash_n": "PASS",
+    "canonical_config_hash_unchanged": true
+  },
+  "runtime": {
+    "attempt_02_build_packages": 6,
+    "no_control_probe_result": "FAIL",
+    "preconditions_ready": true,
+    "telemetry_5s_stability_passed": false,
+    "enable_offboard_called": false,
+    "navigation_goal_sent": false,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "px4_telemetry_stale"
+    }
+  },
+  "findings": [
+    "Across 68.542839 wall seconds, /clock advanced 19.864000 simulation seconds (RTF 0.289804).",
+    "Estimator flags and land-detected messages had source timestamp increments near 1.0 simulated second and receipt intervals near 3.4 wall seconds; callback source age stayed near zero (maximum 0.136 s and 0.088 s respectively). The canonical 3.0 s wall receipt gate therefore expires before the next normally paced update.",
+    "After the 64-sample mapper fit window filled, exact reconstructed wall-per-simulation slopes ranged 3.242629–5.292608, inside configured [0.1,10]. No clock regression occurred. 27 partial-window startup fits were above 10 while the ring held only 5–31 points; bridge detail reported no odometry-time error in this run.",
+    "The no-control probe found VIO/map preconditions ready but did not pass the five-second PX4 freshness window. It made no EnableOffboard call and sent no navigation goal; PX4 remained disarmed and bridge DISABLED."
+  ],
+  "configuration": {
+    "profile": "vio_closed_loop",
+    "canonical_config_copied_without_override": true,
+    "threshold_overlay_report": "artifacts/runs/p5-vio-px4-telemetry-clock-paired-20261021-392/attempt-02/threshold-overlay.json",
+    "threshold_overlay_report_sha256": "a000c49fe12609fddc9daedde7df5283b3d5dc86d8c0f4bfdd94d928d5c432e8",
+    "effective_config_sha256": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf",
+    "canonical_debug_truth_config_sha256": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf",
+    "canonical_vio_profile_sha256": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f",
+    "receipt_limits_s": {
+      "estimator_flags": 3.0,
+      "land_detected": 3.0,
+      "source_age_sim": 1.5,
+      "source_future_sim": 0.02,
+      "odometry_receipt_wall": 0.5
+    }
+  },
+  "limitations": [
+    "The 3.0 s estimator_flags/land_detected wall-age limits caused the 5 s telemetry stability gate to fail; this no-control run cannot be counted as a flight.",
+    "The callback timestamps show about 1.0 s simulated updates arriving about every 3.4 s wall time, with source age near zero at arrival. This strongly supports low simulation RTF plus PX4 publication cadence as the freshness cause; it does not prove there were no isolated transport losses.",
+    "The 27 offline out-of-range fits occurred only in partial startup windows before the 64-sample fit ring filled; no full-window fit exceeded configured bounds and the bridge report recorded no odometry_time_error. The #390 takeoff-time mapper exception remains unexplained.",
+    "No obstacle, movement goal, body-envelope clearance, truth error, fault injection, repeated cold-start suite, frozen acceptance threshold or ten-minute load test was performed.",
+    "The PX4 ULog contains an internal groundtruth dataset; project ROS topic list and bridge info show no debug_truth input in this run. The dataset was not used by the project navigation/control graph."
+  ],
+  "next_step": "Measure how to raise full-stack RTF above the 0.333 threshold implied by 1.0 simulated-second PX4 status cadence and the unchanged 3.0 s wall-age gate; test available GPU acceleration/runtime scheduling with the same no-control paired probe before changing any canonical threshold."
+}

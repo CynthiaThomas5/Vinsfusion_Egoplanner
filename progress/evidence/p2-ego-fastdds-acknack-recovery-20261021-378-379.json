@@ -1,0 +1,561 @@
+{
+  "schema": "p2-ego-fastdds-acknack-recovery-diagnostic/v1",
+  "date": "2026-10-21",
+  "question": "Do RTPS reliability control messages explain the late EGO pose-reader sequence holes observed in the depth A/B runs?",
+  "decision": {
+    "finding": "An EGO ACKNACK requests an exact missing writer sequence; a same-sequence DATA retransmission follows about 5.12 ms later, reaches the EGO receive API, then causes ordered Fast DDS DataReader delivery. In the second run, delayed retransmissions for 399 and 402 arrive at the EGO receive API only just after the next successful take, while DataReader history in the gap stops at 398.",
+    "root_cause_boundary": "RTPS reliable-recovery/head-of-line delay is directly observed as the mechanism spanning the missing sequence and stale take interval. Why the first DATA copy was not returned by the EGO receive API remains unresolved; participant socket counters cannot assign the loss to those packet sequences.",
+    "canonical_change": "none",
+    "status": "P2 remains passed with health thresholds PROVISIONAL; GOAL C and overall A-H remain pending."
+  },
+  "runs": [
+    {
+      "run_id": "p2-ego-fastdds-acknack-recovery-diagnostic-20261021-378",
+      "ros_domain_id": 227,
+      "planner_only": true,
+      "take_gap_s": 2.478834106994327,
+      "gap_publisher_rmw_publish_count": 49,
+      "ego_receive_api_sequences_missing_within_gap": [
+        399,
+        402
+      ],
+      "stateful_reader_process_sequences_in_gap": [
+        374,
+        375,
+        376,
+        377,
+        378,
+        379,
+        380,
+        381,
+        382,
+        383,
+        384,
+        385,
+        386,
+        387,
+        388,
+        389,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398,
+        400,
+        401,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408,
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        418,
+        419,
+        420,
+        421,
+        422
+      ],
+      "datareader_history_sequences_accepted_in_gap": [
+        374,
+        375,
+        376,
+        377,
+        378,
+        379,
+        380,
+        381,
+        382,
+        383,
+        384,
+        385,
+        386,
+        387,
+        388,
+        389,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398
+      ],
+      "reader_listener_sequences_in_gap": [
+        374,
+        375,
+        376,
+        377,
+        378,
+        379,
+        380,
+        381,
+        382,
+        383,
+        384,
+        385,
+        386,
+        387,
+        388,
+        389,
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398
+      ],
+      "acknack_decode": {
+        "capture_file": "rtps-target-reader-fields.csv",
+        "offset_from_gap_start_ms": 2473.488194,
+        "acknack_count": 23,
+        "bitmap_base_sequence": 374,
+        "bitmap_num_bits": 29,
+        "bitmap_wire_hex": "48010080",
+        "submessage_flags_captured_in_target_run": false,
+        "endianness_basis": {
+          "observed_in_repeat_run": {
+            "run_id": "p2-ego-fastdds-acknack-bitmap-flags-diagnostic-20261021-379",
+            "acknack_submessage_flag": "0x01",
+            "endianness": "little",
+            "matched_writer_and_reader": "same Fast DDS 2.14.6 diagnostic setup, isolated run-specific GUIDs"
+          },
+          "qualification": "The target run omitted rtps.sm.flags. Its bitmap is decoded using the little-endian submessage flag directly observed in the follow-up repeat, not from target-run flags."
+        },
+        "set_bit_offsets": [
+          0,
+          23,
+          25,
+          28
+        ],
+        "requested_missing_sequences": [
+          374,
+          397,
+          399,
+          402
+        ]
+      },
+      "requested_sequence_retransmission_and_receive_times": [
+        {
+          "sequence": 374,
+          "first_data_in_take_gap_ms": 92.577605,
+          "same_sequence_retransmission_ms": 2478.603905,
+          "ego_receive_api_ms": 2478.620407
+        },
+        {
+          "sequence": 397,
+          "first_data_in_take_gap_ms": 1237.579492,
+          "same_sequence_retransmission_ms": 2478.637651,
+          "ego_receive_api_ms": 2478.796413
+        },
+        {
+          "sequence": 399,
+          "first_data_in_take_gap_ms": 1422.453989,
+          "same_sequence_retransmission_ms": 2478.663242,
+          "ego_receive_api_ms": 2478.838586
+        },
+        {
+          "sequence": 402,
+          "first_data_in_take_gap_ms": 1520.324616,
+          "same_sequence_retransmission_ms": 2478.684543,
+          "ego_receive_api_ms": 2478.876741
+        }
+      ],
+      "take_gap_and_history": {
+        "gap_end_ms": 2478.834107,
+        "399_receive_after_following_successful_take_us": 4.479,
+        "402_receive_after_following_successful_take_us": 42.634,
+        "history_update_sequences_inside_gap": [
+          374,
+          375,
+          376,
+          377,
+          378,
+          379,
+          380,
+          381,
+          382,
+          383,
+          384,
+          385,
+          386,
+          387,
+          388,
+          389,
+          390,
+          391,
+          392,
+          393,
+          394,
+          395,
+          396,
+          397,
+          398
+        ],
+        "history_updates_for_399_402_inside_gap": false,
+        "loopback_sequences_not_returned_by_ego_receive_api_inside_gap": [
+          399,
+          402
+        ]
+      },
+      "socket_aggregate": {
+        "drop_delta_across_gap_bracket": 109,
+        "preceding_same_duration_delta": 0,
+        "following_same_duration_delta": 35,
+        "max_rx_queue_bytes": 465220,
+        "per_sequence_attribution": false
+      },
+      "loopback_writer_sequence_range_in_gap": [
+        374,
+        422
+      ]
+    },
+    {
+      "run_id": "p2-ego-fastdds-acknack-bitmap-flags-diagnostic-20261021-379",
+      "ros_domain_id": 226,
+      "planner_only": true,
+      "take_gap_s": 2.316622,
+      "first_sequence_packet": {
+        "realtime_ns": 1792538808984097582,
+        "offset_from_take_gap_start_ms": -0.121758,
+        "sequence_number": 615,
+        "reader_entity_ids": [
+          "0x00000000"
+        ],
+        "udp_destination_port": 63929
+      },
+      "acknack_and_recovery": {
+        "realtime_ns": 1792538811295421037,
+        "offset_from_take_gap_start_ms": 2311.201697,
+        "source_guid_prefixes": [
+          "010fe767b102e77900000000",
+          "010fe767af01c7d100000000"
+        ],
+        "udp_source_port": "32924",
+        "udp_destination_port": "63925",
+        "reader_entity_id": "0x00001c04",
+        "writer_entity_id": "0x00001503",
+        "acknack_count": 38,
+        "submessage_flags": [
+          "0x01",
+          "0x01"
+        ],
+        "acknack_submessage_flag": "0x01",
+        "bitmap_endianness": "little",
+        "bitmap_base_sequence": 615,
+        "bitmap_num_bits": 1,
+        "bitmap_wire_hex": "00000080",
+        "set_bit_offsets": [
+          0
+        ],
+        "requested_missing_sequences": [
+          615
+        ]
+      },
+      "requested_sequence_recovery": {
+        "requested_sequence": 615,
+        "first_target_writer_packet_in_capture": {
+          "realtime_ns": 1792538808984097582,
+          "offset_from_take_gap_start_ms": -0.121758,
+          "sequence_number": 615,
+          "reader_entity_ids": [
+            "0x00000000"
+          ],
+          "udp_destination_port": 63929
+        },
+        "target_writer_packet_after_acknack": {
+          "realtime_ns": 1792538811300540970,
+          "offset_from_take_gap_start_ms": 2316.32163,
+          "sequence_number": 615,
+          "reader_entity_ids": [
+            "0x00001c04"
+          ],
+          "udp_destination_port": 63929
+        },
+        "data_after_acknack_delay_ms": 5.119933,
+        "ego_receive_api_rows_inside_gap": [
+          {
+            "sequence_number": 615,
+            "realtime_ns": 1792538811300551099,
+            "local_udp_port": 63929
+          }
+        ],
+        "fastdds_stage_events_inside_gap": [
+          {
+            "stage": "reader_listener_available_enter",
+            "realtime_ns": 1792538811300634997,
+            "offset_from_take_gap_start_ms": 2316.415657,
+            "result": "-1",
+            "sequence_first": "615",
+            "sequence_last": "662"
+          },
+          {
+            "stage": "dds_history_update_return",
+            "realtime_ns": 1792538811300643213,
+            "offset_from_take_gap_start_ms": 2316.423873,
+            "result": "1",
+            "sequence_first": "615",
+            "sequence_last": "615"
+          },
+          {
+            "stage": "dds_on_data_available_return",
+            "realtime_ns": 1792538811300792243,
+            "offset_from_take_gap_start_ms": 2316.572903,
+            "result": "1",
+            "sequence_first": "615",
+            "sequence_last": "662"
+          },
+          {
+            "stage": "reader_listener_available_return",
+            "realtime_ns": 1792538811300800950,
+            "offset_from_take_gap_start_ms": 2316.58161,
+            "result": "0",
+            "sequence_first": "615",
+            "sequence_last": "662"
+          },
+          {
+            "stage": "rtps_process_data_return",
+            "realtime_ns": 1792538811300804256,
+            "offset_from_take_gap_start_ms": 2316.584916,
+            "result": "1",
+            "sequence_first": "615",
+            "sequence_last": "615"
+          }
+        ]
+      },
+      "datareader_history_sequences_accepted_in_gap": [
+        615,
+        616,
+        617,
+        618,
+        619,
+        620,
+        621,
+        622,
+        623,
+        624,
+        625,
+        626,
+        627,
+        628,
+        629,
+        630,
+        631,
+        632,
+        633,
+        634,
+        635,
+        636,
+        637,
+        638,
+        639,
+        640,
+        641,
+        642,
+        643,
+        644,
+        645,
+        646,
+        647,
+        648,
+        649,
+        650,
+        651,
+        652,
+        653,
+        654,
+        655,
+        656,
+        657,
+        658,
+        659,
+        660,
+        661,
+        662
+      ],
+      "reader_listener_sequences_in_gap": [
+        615,
+        616,
+        617,
+        618,
+        619,
+        620,
+        621,
+        622,
+        623,
+        624,
+        625,
+        626,
+        627,
+        628,
+        629,
+        630,
+        631,
+        632,
+        633,
+        634,
+        635,
+        636,
+        637,
+        638,
+        639,
+        640,
+        641,
+        642,
+        643,
+        644,
+        645,
+        646,
+        647,
+        648,
+        649,
+        650,
+        651,
+        652,
+        653,
+        654,
+        655,
+        656,
+        657,
+        658,
+        659,
+        660,
+        661,
+        662
+      ],
+      "receive_api_unique_sequences_in_gap": [
+        615,
+        616,
+        617,
+        618,
+        619,
+        620,
+        621,
+        622,
+        623,
+        624,
+        625,
+        626,
+        627,
+        628,
+        629,
+        630,
+        631,
+        632,
+        633,
+        634,
+        635,
+        636,
+        637,
+        638,
+        639,
+        640,
+        641,
+        642,
+        643,
+        644,
+        645,
+        646,
+        647,
+        648,
+        649,
+        650,
+        651,
+        652,
+        653,
+        654,
+        655,
+        656,
+        657,
+        658,
+        659,
+        660,
+        661,
+        662
+      ],
+      "socket_aggregate": {
+        "drop_delta_across_gap_bracket": 33,
+        "preceding_same_duration_delta": 79,
+        "following_same_duration_delta": 51,
+        "max_rx_queue_bytes": 66460,
+        "per_sequence_attribution": false
+      }
+    }
+  ],
+  "capture_method": {
+    "interface": "loopback",
+    "metadata_only": true,
+    "submessages": [
+      "DATA",
+      "ACKNACK",
+      "HEARTBEAT",
+      "GAP"
+    ],
+    "participant_and_endpoint_filtering": "Exact writer/reader GUIDs and participant GUID prefixes resolved at runtime.",
+    "fields": "RTPS participant prefix, submessage IDs/flags, endpoint IDs, sequence values, ACKNACK count, bitmap bit count and bitmap bytes.",
+    "pcap_persisted": false,
+    "rtps_or_application_payload_persisted": false,
+    "truth_or_control_runtime": false,
+    "goal_published": false,
+    "px4_or_trajectory_server_started": false
+  },
+  "protocol_basis": {
+    "acknack_bitmap": "OMG DDSI-RTPS section 9.4.2.6 defines SequenceNumberSet bitmap membership by base sequence plus bit offset; section 8.3.7.1 defines ACKNACK as requesting represented missing sequence numbers.",
+    "source": "https://www.omg.org/spec/DDSI-RTPS/2.0/PDF",
+    "fastdds_ordering_source": "https://github.com/eProsima/Fast-DDS/blob/v2.14.6/src/cpp/rtps/reader/StatefulReader.cpp#L1107-L1164",
+    "wireshark_fields": "https://www.wireshark.org/docs/dfref/r/rtps.html"
+  },
+  "evidence_strength": {
+    "run379": "direct: submessage flag 0x01 decodes the exact requested sequence 615; matching DATA 615 follows, is returned by EGO receive API, and is followed by ordered history/listener delivery.",
+    "run378": "cross-run endian decoding: target run omitted flags, so it uses the little-endian flag directly recorded in run379; target ACK bitmap includes missing 399/402 and matching endpoint-directed DATA retransmissions follow.",
+    "kernel_or_socket_root_cause": "not established"
+  },
+  "limitations": [
+    "The socket drop counter and receive queue samples cover the participant UDP socket aggregate; they cannot map an individual drop to a topic or sequence.",
+    "Run #378 did not persist ACKNACK submessage flags. Its bitmap interpretation is explicitly cross-run and is corroborated by the run #379 same-sequence recovery observation.",
+    "This is a two-run planner-only simulation diagnosis, not a reliability-rate characterization, map-integrity test, vehicle-clearance test, SITL flight, or hardware acceptance."
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/runs/p2-ego-fastdds-acknack-recovery-diagnostic-20261021-378/run-manifest.json",
+      "sha256": "a02b75a3596e25faca51201aa0e58969e84a9c82ad4b29c3c567bdaebb9716a5"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-fastdds-acknack-recovery-diagnostic-20261021-378/source-manifest.json",
+      "sha256": "60a4105df4f3b5b1106dbc1c9026c6b2b5d92131ba030634d0ff45341b673e32"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-fastdds-acknack-recovery-diagnostic-20261021-378/acknack-cross-run-decoding.json",
+      "sha256": "3d6121c35275a6d15063c25ec5cd2fcfe1853c5787cecfdfe3ca6a427b01dd5d"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-fastdds-acknack-bitmap-flags-diagnostic-20261021-379/run-manifest.json",
+      "sha256": "345e8fa0450167ed31c4fe25ae9e7e077729a9d9724b0c0b276313a3146da089"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-fastdds-acknack-bitmap-flags-diagnostic-20261021-379/source-manifest.json",
+      "sha256": "e46a24316814b01f99c3923564260ee0c2026e711bd45c4d5faa945a60db9cb0"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-fastdds-acknack-bitmap-flags-diagnostic-20261021-379/acknack-gap-correlation.json",
+      "sha256": "4594dec39f03b689ce26341c37ea3a66621a1094bf333988becadd30c5eada78"
+    }
+  ]
+}

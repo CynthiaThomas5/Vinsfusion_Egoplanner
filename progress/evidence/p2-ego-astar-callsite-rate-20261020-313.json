@@ -1,0 +1,161 @@
+{
+  "schema": "p2-ego-astar-callsite-rate-diagnostic/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-astar-callsite-rate-20261020-313",
+  "result": "A* failure amplification inside collision-check optimization confirmed; diagnostic-only build; safe rejection not yet tested.",
+  "build_report": {
+    "path": "artifacts/runs/p2-ego-astar-callsite-rate-20261020-313/build-report-0026.json",
+    "sha256": "8c281c279807ae0a3764a0fb3d6e3d2eddba6e7b3d9bef234e535f3aadd25477",
+    "size_bytes": 4361
+  },
+  "source_manifest": {
+    "path": "artifacts/runs/p2-ego-astar-callsite-rate-20261020-313/source-manifest-experiment-0026.json",
+    "sha256": "6b2f6acdcb3e766bdd2ee4fbac0af2b77175509ecfc727d653d1d4f14ee2c9a1",
+    "size_bytes": 12238
+  },
+  "patch": {
+    "path": "dependencies/patches/ego/0026-astar-callsite-rate-diagnostic-experiment.patch",
+    "sha256": "0b4d25480fb0fd30a4a4829a30814694c83fd87eb86bb1cad90adc3390983cb0",
+    "size_bytes": 12879
+  },
+  "project_git_status_snapshot": {
+    "path": "artifacts/runs/p2-ego-astar-callsite-rate-20261020-313/git-status.snapshot.txt",
+    "sha256": "2bd46a6dfae6e88dccdc6dc4e47cd84733ae58edfaa235756409aa785f2245ba",
+    "size_bytes": 39084
+  },
+  "configuration": {
+    "path": "artifacts/runs/p2-ego-astar-callsite-rate-20261020-313/planner-config.json",
+    "sha256": "34a776d7eab1c15f9eab9982d67edba7d26feda7a10778b956400886ca103ff1",
+    "inflation_m": 0.5,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "scene_geometry_identical_to_control": true,
+    "wall_phase_identical_to_control": true
+  },
+  "runtime": {
+    "goal_probe": {
+      "status": "bspline_received",
+      "goal_sent": true,
+      "bspline_count": 3,
+      "wall_seconds": 23.459904,
+      "epoch": "36f76511683844aeb943062955ab8971",
+      "map_id": "36f76511683844aeb943062955ab8971-5aaa9b18112c48b3ad6422a4712558df",
+      "map_reason": "ready",
+      "occupied_point_count": 1020,
+      "forwarded_depth_count": 441,
+      "raw_occupancy_points_last": 1020,
+      "inflated_occupancy_points_last": 17340,
+      "telemetry_sample_count": 239,
+      "trajectory_executed": false
+    },
+    "motion": {
+      "clock": [
+        2.814,
+        35.827
+      ],
+      "imu_samples": 6603,
+      "force_commands": 8,
+      "truth_subscription": false
+    },
+    "astar_counts": {
+      "total": 209658,
+      "other_calls": 0,
+      "other_endpoint_rejects": 0,
+      "other_success": 0,
+      "other_search_failures": 0,
+      "init_calls": 4519,
+      "init_endpoint_rejects": 2729,
+      "init_success": 1730,
+      "init_search_failures": 60,
+      "collision_calls": 205139,
+      "collision_endpoint_rejects": 137241,
+      "collision_success": 27446,
+      "collision_search_failures": 40452,
+      "other_timeouts": 0,
+      "init_timeouts": 0,
+      "collision_timeouts": 0
+    },
+    "window_normalized_astar_calls_per_second": 8936.9,
+    "endpoint_rejection_sampled_log_lines": 19,
+    "rebound_start_in_obstacle_errors": 112265,
+    "rebound_logger_lines": 129637,
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-astar-callsite-rate-20261020-313/ego-01.log",
+      "sha256": "068d92ecf37896d9c67a568002c93a9f91c27099bed2655b06d3ace25ae26b58",
+      "size_bytes": 35450589
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-astar-callsite-rate-20261020-313/runtime-summary-01.json",
+      "sha256": "506b1503b124b2dc4dc61724050ea471ed477ddd78cf595117a21b0ab09ba04c",
+      "size_bytes": 275590
+    },
+    "goal_result": {
+      "path": "artifacts/runs/p2-ego-astar-callsite-rate-20261020-313/planner-goal-result-01.json",
+      "sha256": "dfc32fdec632c5840de2dd15a40c1519d40cc7f43e0c608582026de8078fcd55",
+      "size_bytes": 257321
+    },
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_control_nodes": [],
+    "snapshot_service_called": false
+  },
+  "paired_control": {
+    "run_id": "p2-ego-astar-fail-closed-20261020-312",
+    "attempt": "02",
+    "source_patch": "0025",
+    "goal_probe": {
+      "status": "bspline_received",
+      "bspline_count": 3,
+      "wall_seconds": 24.247889
+    },
+    "motion": {
+      "clock": [
+        2.642,
+        35.668
+      ],
+      "imu_samples": 6605,
+      "force_commands": 8,
+      "truth_subscription": false
+    },
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-astar-fail-closed-20261020-312/ego-02.log",
+      "sha256": "89b1972a67703158e065bb5f7bdb447d94227f3901e20a70271a06b94735ff38",
+      "size_bytes": 132000635
+    },
+    "endpoint_rejection_log_lines": 122983,
+    "last_logged_astar_round": 181358,
+    "optimizer_astar_error_lines": 155072,
+    "rebound_start_in_obstacle_errors": 95791,
+    "goal_result": {
+      "path": "artifacts/runs/p2-ego-astar-fail-closed-20261020-312/planner-goal-result-02.json",
+      "sha256": "736cc408f13392ecbae0d6fc53d2a90ea53e53de504680b4e9f5abe100b1b5af",
+      "size_bytes": 238758
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-astar-fail-closed-20261020-312/runtime-summary-02.json",
+      "sha256": "334803d1a07a60a7fbfc2165596d5b4fe364c9750a3bff944bcdde1bdeed94be",
+      "size_bytes": 255777
+    }
+  },
+  "observed_log_size_reduction_fraction": 0.731436,
+  "interpretation": "The caller-tagged A* summary shows 97.85% of calls from check_collision_and_rebound. That call is reached from calcDistanceCostRebound during L-BFGS objective evaluation. More than 112k start-in-obstacle errors remain in the candidate log, and endpoint failures continue while the planner publishes 3 unexecuted B-splines. The paired runs used the same obstacle geometry, wall phase, run-local planner configuration, target, and force-command sequence; simulation timing and sensor samples were not exact replay, so count differences are descriptive, not causal.",
+  "isolation": {
+    "px4_started": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "trajectory_executed": false,
+    "truth_topics_subscribed": false,
+    "control_topics_published": false,
+    "snapshot_service_invoked": false
+  },
+  "limitations": [
+    "Patch 0026 changes diagnostics and counters only; it does not change planner decisions.",
+    "The candidate log is still 35.45 MB because the repeated start-in-obstacle error lies outside the throttled A* logs.",
+    "The 0.5 m inflation remains run-local and provisional; no synchronized voxel snapshot or truth clearance is included.",
+    "A received B-spline is not an executed safe route; no trajectory, PX4, collision, or final acceptance evidence was gathered.",
+    "The runs do not establish whether logging changed runtime timing, and the paired simulation is not deterministic replay."
+  ],
+  "next_step": "In experimental patch 0027, turn missing pre-collision free points and failed A* searches into STOP_FOR_ERROR; build and run planner-only to verify no B-spline is published on this blocked start, then investigate observed occupancy and safe-clearance cause."
+}

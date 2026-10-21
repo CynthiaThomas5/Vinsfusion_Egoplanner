@@ -1,0 +1,188 @@
+{
+  "schema": "p2-ego-clear-target-preflight-v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-clear-target-retry-20261020-258",
+  "status": "excluded_before_goal_publication",
+  "scope": "One short clear-space EGO target guarded by localization and map readiness; full mapper/EGO stack, no auxiliary map-cloud sampling observer, no trajectory execution.",
+  "comparison_reference": {
+    "run_256": "Same 0.5 m inflation and -0.05 m map floor; failed before goal on left_stale with separate map sampling active.",
+    "run_257": "Low-load sensor/VINS/localization run recorded continuous stereo input and no left_stale; it omitted mapper and EGO.",
+    "difference_from_256": "This run removed the auxiliary map-cloud sampling probe and used a no-truth, clock-driven motion helper; it retained mapper/EGO and the 0.5 m run-local inflation."
+  },
+  "parameters": {
+    "goal_xy_m": [
+      0.7,
+      0.0
+    ],
+    "goal_callback_z_m": 1.0,
+    "obstacles_inflation_m": 0.5,
+    "map_resolution_m": 0.1,
+    "ground_height_m": -0.05,
+    "health_policy_changed": false,
+    "stable_ready_seconds": 0.5,
+    "minimum_occupied_points": 500
+  },
+  "runtime": {
+    "epoch": "e93cada01c8b4988949af3eadccbf7ee",
+    "planner_probe": {
+      "status": "timeout_before_ready",
+      "goal_sent": false,
+      "goal_sent_wall_elapsed_s": null,
+      "localization_events": [
+        {
+          "wall_elapsed_s": 0.407879,
+          "epoch": "e93cada01c8b4988949af3eadccbf7ee",
+          "state": 4,
+          "valid": false,
+          "reason": "imu_stale",
+          "good_pairs": 116,
+          "normalized_cost": 0.5086481348596381,
+          "frame_id": "odom_e93cada01c8b4988949af3eadccbf7ee"
+        }
+      ],
+      "localization_last": {
+        "wall_elapsed_s": 39.978714,
+        "epoch": "e93cada01c8b4988949af3eadccbf7ee",
+        "state": 4,
+        "valid": false,
+        "reason": "imu_stale",
+        "good_pairs": 116,
+        "normalized_cost": 0.5086481348596381,
+        "frame_id": "odom_e93cada01c8b4988949af3eadccbf7ee"
+      },
+      "mapping_status_last": {
+        "wall_elapsed_s": 39.928571,
+        "epoch": "e93cada01c8b4988949af3eadccbf7ee",
+        "map_id": "e93cada01c8b4988949af3eadccbf7ee-d521932de8934bfeb82bfa95e361c574",
+        "input_ready": false,
+        "reason": "map_reset_acknowledged",
+        "occupied_point_count": 0,
+        "forwarded_depth_count": 204,
+        "keyframe_count": 7,
+        "occupancy_cloud_received": true
+      },
+      "raw_occupancy_points_last": 0,
+      "inflated_occupancy_points_last": 0,
+      "bspline_count": 0
+    },
+    "raw_vins": {
+      "wall_seconds": 65.00039988000026,
+      "counts": {
+        "optimized": 634,
+        "propagated": 8359
+      },
+      "telemetry_count": 644,
+      "initialized_telemetry_count": 634,
+      "truth_sample_count": 0,
+      "imu_sample_count": 0,
+      "source_rates_hz": {
+        "optimized": 15.080045740423099,
+        "propagated": 198.90528319374334
+      },
+      "all_output_finite": true,
+      "parse_errors": []
+    },
+    "raw_output_max_gaps": {
+      "optimized": {
+        "stamp_ns_max_gap_ms": 264.0,
+        "receipt_wall_ns_max_gap_ms": 373.823
+      },
+      "propagated": {
+        "stamp_ns_max_gap_ms": 135.0,
+        "receipt_wall_ns_max_gap_ms": 332.466
+      }
+    },
+    "motion": {
+      "clock_range_s": [
+        14.687,
+        39.7
+      ],
+      "command_count": 8,
+      "wall_seconds": 38.086404074999336,
+      "truth_subscribed": false
+    },
+    "world_sdf_valid": true
+  },
+  "interpretation": "The health gate reported imu_stale and the map reset before a goal could be published. Raw VINS continued to produce optimized and propagated odometry and telemetry during the 65 s capture. Its propagated output had a maximum 135 ms source-stamp gap and 332.5 ms wall receipt gap, but this is downstream of the IMU topic and does not prove what the localization adapter received. Together with #257, this raises scheduling/input-age pressure under the mapper/EGO profile as a candidate; the variable was not isolated and #255 previously remained healthy longer under a related profile.",
+  "truth_isolation": {
+    "runtime_truth_subscriptions": 0,
+    "raw_vins_probe_truth_enabled": false,
+    "motion_driver": "Run-local prescribed wrench changes use /clock only; no model pose or truth subscriptions.",
+    "controllers_px4_setpoints": 0
+  },
+  "qualification": "No goal, B-spline, trajectory execution or clearance evidence. Run-local inflation is not frozen; GOAL B/C/D/F and stage acceptance remain pending.",
+  "limitations": [
+    "No direct run-local IMU image/callback observer was active, so imu_stale source age and per-subscriber receipt are not independently measured.",
+    "Raw VINS output timing cannot substitute for adapter input timing.",
+    "No map-cloud sampling observer was active; only the manual-goal probe recorded map readiness and occupied counts.",
+    "The safety gate was not relaxed."
+  ],
+  "next_step": "Run the same 0.5 m full stack with a run-local direct observer for left/right image and IMU source stamps, wall receipt intervals and /clock age. Keep the health gate and map readiness requirement; publish a single short goal only if localization and nonempty MapStatus remain stable. Do not start a controller or PX4.",
+  "execution_validation": {
+    "container_exit_code": 0,
+    "world_sdf_check": "gz sdf -k reported Valid; existing gz_frame_id schema warnings remain.",
+    "goal_probe": "Completed 40 s window as timeout_before_ready; no goal or spline.",
+    "raw_vins": "65 s read-only capture completed; finite output and no parse errors.",
+    "container_cleanup": "docker ps empty after run.",
+    "run_local_syntax": "Pre-run bash -n passed for two shell files; Python compile check passed for three run-local scripts."
+  },
+  "source_sha256": {
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/localization/vins_sim.json": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "config/components/mapping/ego_planner.json": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "simulation/worlds/sensor_calibration.sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "src/own/uav_localization/uav_localization/health.py": "98e1cfa4e53825ba71f6929d2af007d69e2d7671155c9ed1b161db0e26932255",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f",
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c",
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": "54adddebf62089271255be8670abfdca8380ca63221e66f9e7143eda62c80e39",
+    "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+    "src/vendor/vins_fusion/vins/src/estimator/estimator.cpp": "15adf0b2f3a0e8f1a2f506e2b6480e41c860aeb0c05ce37dc63e9bb0175ec3ad",
+    "src/vendor/vins_fusion/vins/src/rosNodeTest.cpp": "674df2fcd02df0fa98f3fb01432ce8ee34132800cc36f274392bc8043c17f8db",
+    "tools/generate_vins_config.py": "b98c1730bcfedb18079ce75a50fa6ba51c3a175fc53937766b14693675fa9e06",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c"
+  },
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p2-ego-clear-target-retry-20261020-258",
+    "sha256": {
+      "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+      "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+      "depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ego-inflation-params.txt": "def8f3592bab8eeac69d9991b89448efda8901d6cc898b5042252ae248725c53",
+      "ego.log": "68b1e9df4fea3fe60b0c5824efd51b1da64442e3b66241e8359c15a9126da97c",
+      "inflated-topic-info.txt": "81f72411e60d4365a3155ff4496bc6c81985afa5db9c5b51c033b2dd534c52f5",
+      "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mapping-adapter.log": "6b853c0a0440aec58eb94d4f86a524ab458a883dbb30914512681ec134e8c626",
+      "motion-driver.log": "af5a46eacc2397bdccb8f70323b23248a21f74e0caa6b7b3f0f75f0b1e8bed30",
+      "motion.json": "be76ba8ffcf34a32eac97369c3607a33b826daa782970e8b10f808aeae1a6514",
+      "optimized-odom-topic-info.txt": "e62531e6f2df7ece838c86464b7a6475212fe701fd53f0afdeffec16158148c5",
+      "planner-goal-result.json": "15d1470377f17f88ec3bb0920545b6b10f02d8ad0c7d10ced035e64d70d3d8e2",
+      "planner-probe.log": "e72c0d042941400c4902057d8d1ebf9778fbb69e3adc1e7e661fa6cb88460083",
+      "probe_ego_goal.py": "b80678993e47ef2e4a05d2344b57a6de5059ff821417bacc0ab977acf59e3e84",
+      "raw-vins-capture/raw-odometry.json": "3251faabdf053fe3db21e3db7e5f86a94f84f50317a7f40e17bd5c26b8c2ea52",
+      "raw-vins-capture/summary.json": "c87bc9edbe1db29463d2935163e061d0b308f2526bce5456f9b53de4ba9b2640",
+      "raw-vins-capture/telemetry.json": "5f8f97ed3ae264d42254e6ff974297c95563ddb905f465a9e4fa63d547f39ecb",
+      "raw-vins-probe.log": "00031897e897a283104e53ab33708e8af5e64e366bf9032b7f7d9a32833ba797",
+      "run-container.sh": "615dab97b6b86ff94c88514246840b797a7097f43eacf02253711978a415fd34",
+      "run-live.sh": "777673a3bb0f8ad4ab39cec700880129fa7958cd9579e5ebee804c58c0d7a412",
+      "run-variant-manifest.json": "d3acca16b54107264ccf225dde1f073d008de4b8640eecadc6370f1bf4b7a49b",
+      "run_sensor_motion_no_truth.py": "c58937838159014a480e5f8dc2f8ee3146a28f6ff0d1ecfceec0941e5ef5821d",
+      "sensors.log": "d2981f0310889e436eedf732a31221be8d61eedc22606103ab30f197a8ab9fa5",
+      "session/.localization-used": "b451f90fbf165ab180b75a917b668204c9a1da30041343c2795437baca05d36d",
+      "session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+      "session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+      "session/session.json": "ff0a588d23827c8f3dd21f1e605a50107fdab770520f8ea0a07247fb67369a41",
+      "session/vins.yaml": "568ba5df63e82b1e4a319cbbc4975f11a67a519ea860aad7c632090d15aadc2f",
+      "session/vio.csv": "761d6f8b534eb93325c1d3e3cf3c51b23764760ff753e72545d883abcaeec5e7",
+      "session-binding.json": "059df055e18d0db7c0e00ea904d19b2273b5b43e7e5212d81434126d81507836",
+      "stereo-topic-info.txt": "faa7f7f2f603eb6fa2ff70a86454f0053aa35af2e1fea8454c5adb81178a83c1",
+      "vins.log": "265a57f9307a175216b65a22f440758dc0c4a432a0a85dde5a2520f1c3e605e2",
+      "world-sdf-check.log": "d9348af56494bb3983f6ebe7ff5c19fe6e06d01a0bd63a89ea5140755477083b"
+    }
+  }
+}

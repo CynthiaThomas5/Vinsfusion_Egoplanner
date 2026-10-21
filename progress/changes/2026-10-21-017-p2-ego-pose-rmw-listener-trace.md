@@ -1,0 +1,12 @@
+# GOAL C EGO DataReader listener trace #351
+
+- **范围**：复用 #350 的场景、EGO binary、RMW probe、QoS、timeout、planner-only目标探针及双端 UDPv4 环境。新增 run-local Fast DDS `DataReaderListener` 代理，记录回调类型、reader地址、回调时 unread count 和 status计数，再转发给原 listener；未改 canonical 源码、QoS、config 或控制路径。
+- **代理验证**：在 domain 217 的独立 smoke 中安装成功，保存到非空原 listener 指针，收到800/800条消息，0 gap、0 invalid，并记录800次 `data_available`。主运行中代理安装返回0且reader地址唯一。
+- **运行结果**：domain 216，LTTng筛选 EGO VPID 514 和 mapping adapter VPID 421。最长 EGO camera-pose successful-take 间隔为2.239734 s（70,744.349312–70,746.589046墙钟秒）。该窗内 adapter 有44次 `rmw_publish`，最大间隔101.199 ms；独立 observer 收到44帧，源戳17.359–18.844 s、最大间隔66 ms；before/after MapStatus 保持ready且 epoch/map_id相同，adapter forwarded-depth 增加51。
+- **reader时间线**：选中窗口共609次 `rmw_wait`返回，608次not-ready、unread count=0；一次ready返回的unread count=10；窗口内没有successful pose take。Listener总计587个回调且全部是 `data_available`。gap末端的3次回调时间为70,746.588990162、70,746.589018004、70,746.589033924 s，分别看到unread=1、10、25；最后一次take发生于70,746.589045787 s。`on_sample_lost`和`on_sample_rejected`回调为0；全程reader状态采样中matched为1，sample-lost和sample-rejected累计值均为0。
+- **解释**：发布端和独立reader在EGO gap期间仍有数据，EGO自身 DataReader history大部分时间为空，直到窗口末端才出现一批可读数据。此结果排除publisher-wide outage作为这次窗口的解释，并把观察位置收窄到EGO participant/reader接收路径；单次追踪不能区分传输端点、Fast DDS reader内部和线程调度，也不能推出UDPv4是原因。
+- **Trace完整性**：主CTF共33文件、17,255,776 bytes；listener smoke trace另33文件、116,096 bytes；66个文件逐个SHA-256见运行目录 `analysis/ctf-file-hashes.sha256`。RMW wait trace有20,923条记录、序号范围0–20,928，缺76–81六个序号（均位于选中gap前）；全局连续性分析按设计返回1，selected-gap和其余reader/publisher对齐分析返回0。不能将全局完整性检查记作通过。
+- **附带运行边界**：地图输入ready且同一目标体素由unknown变free；planner-only probe输出一条B-spline。该样条未执行；运行没有PX4、controller、trajectory server、truth topic或control topic。
+- **验证**：probe在 `d435i-vins:dev` 的 Jazzy 环境中构建成功；listener proxy smoke与主容器均退出0。66个CTF文件（17,371,872 bytes）逐个SHA-256复核无误；运行清单SHA-256为`fdbd46484053220a95382670300383b11abb20ef53dc7b4548179b3cdddcb66a`。新增报告、运行清单和里程碑JSON均可解析，`python3 tools/project_status.py`返回`PASS`，`git diff --check`和cached diff检查通过；与#350开始时的50个index path对照相同，未新增暂存路径。
+- **证据**：[报告 #351](../evidence/p2-ego-pose-rmw-listener-event-trace-20261021-351.json)、[运行清单](../../artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/run-manifest.json)、[对话摘要](../../collaboration/dialogues/2026-10-21-017-p2-ego-pose-reader-listener-trace.md)。
+- **限制与下一步**：单次run且有observer/probe开销；listener callback只说明DataReader何时被通知有数据，未识别具体publisher样本。下一轮检查EGO接收线程与participant在窗口内的调度/endpoint证据，维持QoS、0.4 s freshness门及unknown fail-closed策略。GOAL C保持pending，P2阶段继续passed。

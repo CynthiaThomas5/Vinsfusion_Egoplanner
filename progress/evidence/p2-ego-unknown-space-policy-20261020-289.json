@@ -1,0 +1,48 @@
+{
+  "schema": "p2-ego-unknown-space-policy-experiment/v1",
+  "date": "2026-10-20",
+  "status": "EXPERIMENTAL_UNKNOWN_BLOCKED_PLANNING_CAPTURED_RUNTIME_HEALTH_UNQUALIFIED",
+  "objective": "Verify that the EGO planner does not interpret unobserved map voxels as free, while preserving the pinned vendor source and control boundary.",
+  "run_report": "artifacts/runs/p2-ego-unknown-as-obstacle-experiment-20261020-289/run-report.json",
+  "run_report_sha256": "80862d29105690d28f3ecec81091b25adb43a53f860d0b26c2e4b25229bc2c98",
+  "analysis": "artifacts/runs/p2-ego-unknown-as-obstacle-experiment-20261020-289/unknown-space-analysis.json",
+  "analysis_sha256": "549f73e329c591adea44d34fb5acec2b6ae80483a0b885db8dd22e7758643732",
+  "candidate_patch": "dependencies/patches/ego/0020-unknown-as-obstacle-experiment.patch",
+  "candidate_patch_sha256": "1041f74fd2b8c0409f348f272d7e48f0d7a62d9552e31a741b9296aa8ffdb0b8",
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "license": "GPL-3.0-only",
+    "canonical_patch_base": "post-0019-configurable-obstacle-inflation",
+    "included_in_dependencies_sources_json": false,
+    "src_vendor_modified": false
+  },
+  "finding": {
+    "goal_sent": true,
+    "ready_map_occupied_points": 902,
+    "inflated_occupancy_points": 15360,
+    "bsplines": 91,
+    "offline_position_rmse_m": 0.00752664899974527,
+    "offline_position_p95_m": 0.01349256790304805,
+    "nominal_sphere_clearance_m": {
+      "calibration_box": 0.22189545080112155,
+      "calibration_cylinder": 0.346391918998264
+    },
+    "ego_input_timeout_messages": 82,
+    "depth_lost_emergency_messages": 81,
+    "terminal_point_in_obstacle_warnings": 2747,
+    "suddenly_discovered_obstacle_messages": 22,
+    "first_two_timeout_clusters_upstream_map_and_odometry_active": true,
+    "last_cluster_sync_count_advanced_but_last_sync_outside_map": true,
+    "normalized_cost_gate_closed_at_wall_elapsed_s": 45.769862,
+    "control_nodes": [],
+    "control_topics": []
+  },
+  "interpretation": "Static source inspection shows baseline getInflateOccupancy exposed only the inflation byte; unknown cells had zero and were treated free in boolean planner collision checks. Candidate patch maps unknown to blocked. The run still generated splines, but repeated EGO timeout and terminal-in-obstacle logs leave the behavior unqualified. Early EGO sync stalls occurred while adapter MapStatus and odometry outputs continued; a later cluster had last_sync_in_map=false. DDS/executor vs local-map bounds remain unresolved.",
+  "qualification": "Run-local experiment only; candidate is not in the canonical dependency chain and is not applied to src/vendor. No trajectory execution, PX4, runtime truth, or GOAL C/D/E/F acceptance.",
+  "milestones_unchanged": {
+    "P2": "passed; stage audit unchanged",
+    "P6": "in_progress",
+    "GOAL_C": "pending",
+    "GOAL_D_E_F": "pending"
+  }
+}

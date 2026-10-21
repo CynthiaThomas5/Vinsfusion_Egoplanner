@@ -1,0 +1,88 @@
+{
+  "scope": "P0 fixed PX4 v1.17.0 source import, complete recursive gitlink capture, and PX4 SITL firmware/Gazebo plugin build.",
+  "date": "2026-10-16",
+  "source": {
+    "url": "https://github.com/PX4/PX4-Autopilot.git",
+    "tag": "v1.17.0",
+    "commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "target": "external/PX4-Autopilot",
+    "checkout_mode": "shallow tag checkout with recursive shallow submodules",
+    "git_worktree": "clean",
+    "license": "BSD-3-Clause",
+    "license_sha256": "4f486239f62804b2190ff52b3005f087cf1033342012152e6383bdad6b891cc4",
+    "clone_command": "git clone --filter=blob:none --depth 1 --branch v1.17.0 --recurse-submodules --shallow-submodules https://github.com/PX4/PX4-Autopilot.git external/PX4-Autopilot",
+    "clone_log": "artifacts/runs/p0-px4-source-20261016-01/clone.log",
+    "clone_log_sha256": "aff123d1867cdb77c9953b38f43a9162e0893145a9559409686087179be39f96",
+    "gitmodules_sha256": "a1d0dd49c4220796126d17346b30370b6b31e68a55a5e9c430faf1c8779ac99d",
+    "recursive_submodules": {
+      "count": 39,
+      "all_checked_out_at_gitlink": true,
+      "manifest": "artifacts/runs/p0-px4-source-20261016-01/submodules.json",
+      "manifest_sha256": "d5a27ad5273a5575457650c1096e65d21850d694e82539d92b2b760278c6f577",
+      "status_manifest": "artifacts/runs/p0-px4-source-20261016-01/submodule-status.txt",
+      "status_manifest_sha256": "3f37d006dff691196090e7456803773a5804bdb7a05c2cd83c6ed3c86eeba01a"
+    }
+  },
+  "build": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "command": "make j=2 px4_sitl_default",
+    "build_configuration": "px4_sitl_default (POSIX SITL); Gazebo Harmonic plugin targets were configured and compiled in the same build.",
+    "container_git_ownership_handling": "The one-shot container marks its mounted source directory safe for Git version metadata; no host Git configuration or PX4 source files were changed.",
+    "build_directory": "artifacts/runs/p0-px4-sitl-build-20261016-02/build/px4_sitl_default",
+    "build_log": "artifacts/runs/p0-px4-sitl-build-20261016-02/make-px4-sitl.log",
+    "build_log_sha256": "e3b089add87d1e45baddecba2ea72e759be54c37468702122ab440f09ce537ef",
+    "ninja_targets_completed": 1141,
+    "incremental_verification": {
+      "command": "make j=2 px4_sitl_default",
+      "exit_code": 0,
+      "output": "ninja: no work to do.",
+      "log": "artifacts/runs/p0-px4-sitl-build-20261016-02/incremental-check.log",
+      "log_sha256": "8c35b1682f73592d30612d7b0fabdb384fcfff35cb5a076cb48b85b1368aa794"
+    },
+    "binary": {
+      "path": "artifacts/runs/p0-px4-sitl-build-20261016-02/build/px4_sitl_default/bin/px4",
+      "sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"
+    },
+    "cli_smoke": {
+      "command": "px4 -h",
+      "exit_code": 0,
+      "log": "artifacts/runs/p0-px4-sitl-build-20261016-02/px4-cli-help.txt",
+      "log_sha256": "885258182ffde2469cdfbf77c3a59bcc9c95cece91444250ec290780e5a18cc6"
+    }
+  },
+  "initial_attempts": [
+    {
+      "status": "FAIL, corrected",
+      "reason": "Git marked the host-owned mounted PX4 source as dubious inside the root container, causing PX4_GIT_TAG=v0.0.0 and stopping the first build.",
+      "log": "artifacts/runs/p0-px4-sitl-build-20261016-01/make-px4-sitl.log",
+      "log_sha256": "6c30b49dc9cb6aa1deae839458b7fdc07a9dbf9fc0129fff15c785b502b99dee"
+    },
+    {
+      "status": "FAILED_VERIFICATION_COMMAND, corrected",
+      "reason": "An incremental CMake command was run from the physical artifacts path instead of PX4's configured build path, so CMake detected a path mismatch. The partial generated cache was moved under artifacts without touching source. A fresh-path make check then returned exit code 0.",
+      "preserved_partial_cache": "artifacts/runs/p0-px4-sitl-build-20261016-03/partial-build-cache"
+    },
+    {
+      "status": "CLI_PROBE_MISUSE, corrected",
+      "reason": "PX4's server does not implement --version; the supported -h help probe returned exit code 0.",
+      "corrected_probe": "px4 -h",
+      "log": "artifacts/runs/p0-px4-sitl-build-20261016-02/unsupported-version-probe.txt",
+      "log_sha256": "8f28df5cc93839b80d0585e9ef4e4c08dc4037160f96d5a59f0abdb973913e3a"
+    }
+  ],
+  "qualification": {
+    "source_revision_and_all_recursive_submodule_gitlinks": "PASS",
+    "sitl_firmware_build": "PASS",
+    "gazebo_harmonic_plugin_build": "PASS",
+    "firmware_executable_help": "PASS",
+    "px4_process_start": "NOT_RUN",
+    "gazebo_world_or_vehicle_launch": "NOT_RUN",
+    "agent_interoperability_or_dds_graph": "NOT_RUN",
+    "flight_or_control": "NOT_RUN",
+    "limitations": [
+      "This is a source and static firmware build result only. No PX4 process, Gazebo world, DDS Agent, ROS topic graph, vehicle control, SITL flight, or hardware was run.",
+      "The pinned container base and transitive OS/ROS packages are still not distributably locked."
+    ]
+  }
+}

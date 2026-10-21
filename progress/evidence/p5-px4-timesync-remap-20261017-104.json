@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-17",
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "result": "DIAGNOSTIC_ONLY_FUSION_AND_TIMESTAMP_MAPPING_OBSERVED",
+  "run_id": "p5-px4-timesync-remap-20261017-104",
+  "qualification": "A 75-second disarmed SITL run observed VINS-to-PX4 external odometry, preserved sample timestamps, EKF2 EV position/yaw fusion, and zero GNSS aiding. Bridge readiness was not qualified; controls stayed disabled and no flight occurred.",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "ros_domain_id": 225,
+    "ephemeral_container": true
+  },
+  "checks": {
+    "px4_timesync_max_age_sim_s": 0.004,
+    "timesync_stale_status_count": 0,
+    "ulog_external_visual_odometry_samples": 506,
+    "sample_timestamp_preserved": true,
+    "sample_to_receive_delay_ms_median": 64.0,
+    "sample_to_receive_delay_ms_p95": 138.23275,
+    "ekf2_ev_position_fused_samples": 37,
+    "ekf2_ev_yaw_fused_samples": 37,
+    "gnss_aiding_flags_all_zero": true,
+    "ros_truth_topics_present": false,
+    "bridge_truth_subscription_present": false,
+    "px4_frame_unaligned_status_count": 0,
+    "px4_telemetry_stale_status_count": 66,
+    "bridge_ready_final_10s_coverage": 0.0,
+    "bridge_control_enabled": false,
+    "control_topic_sample_counts_all_zero": true,
+    "vehicle_remained_disarmed": true,
+    "preflight_checks_pass": false
+  },
+  "preflight_context": {
+    "current_bridge_phase": "DISABLED",
+    "final_bridge_reason": "px4_preflight_failed",
+    "ulog_power_input_valid": 1,
+    "observed_mode_check_events": [
+      "No manual control input",
+      "No connection to the ground control station",
+      "No valid mission available",
+      "No valid global position estimate",
+      "No offboard signal"
+    ],
+    "interpretation": "PX4 reports current-mode preflight failures while the bridge remains DISABLED and no Offboard prestream is sent. The existing supervisor intentionally starts its disarmed prestream without requiring this mode-specific preflight result, then requires PX4 approval before arming. This run did not call the enable service."
+  },
+  "validation": {
+    "tests": {
+      "tools/test_px4_bridge_time_mapping.py": "10 passed",
+      "tools/test_px4_bridge_vio_profile.py": "6 passed",
+      "tools/test_px4_bridge_control.py": "11 passed",
+      "py_compile": "passed",
+      "config_json_validation": "passed",
+      "read_only_probe_constructor_smoke": "ROS 2 Jazzy node initialized with status-detail subscriber; zero-duration output schema check passed",
+      "colcon_build": "uav_px4_bridge 1/1 passed in isolated Jazzy overlay artifacts/runs/p5-px4-timesync-remap-20261017-105"
+    },
+    "runtime_command": "docker run --rm --init --name p5-px4-timesync-remap-20261017-104 --shm-size=512m -v $PWD:/workspace -w /workspace d435i-vins:dev bash -lc 'bash /workspace/artifacts/runs/p5-px4-timesync-remap-20261017-104/run-px4-timesync-remap.sh'",
+    "static_test_commands": [
+      "python3 tools/test_px4_bridge_time_mapping.py",
+      "python3 tools/test_px4_bridge_vio_profile.py",
+      "python3 tools/test_px4_bridge_control.py",
+      "python3 -m py_compile src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py tools/probe_px4_bridge_live.py"
+    ]
+  },
+  "artifacts": {
+    "run_harness": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/run-px4-timesync-remap.sh",
+      "sha256": "8eefdfdc79ffadcbcee061022c15741e745d7c1f0667421c2fbdd3191d68d11e"
+    },
+    "px4_live_probe": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/px4-live-probe.json",
+      "sha256": "938ff5db4b4e464b8a4128d774380583f68c27fdb8362a26f50f4ac79bf438b5"
+    },
+    "qualification": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/qualification.json",
+      "sha256": "12c28c02b5b9e5f1f91e603d38840d50648834ebdd1716e91d7db1893e4d2427"
+    },
+    "localization_probe": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/localization-probe.json",
+      "sha256": "b43d98ffa91a0304cd47fe7174d353c78f513437cc789ccf0b32bfbfefb51093"
+    },
+    "raw_stream_probe": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/raw-stream-freshness.json",
+      "sha256": "44cff74eceb039c56e24d44b35880d5bb2107e900e906e4ec6cf4571a27085f1"
+    },
+    "ulog": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/px4_sitl_default/log/2026-10-17/08_21_10.ulg",
+      "sha256": "12c396e24b5c699c20f832f0cd988021e1415f94b7c9065d64dc1dbf60fa6544"
+    },
+    "ulog_analysis": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/ulog-analysis.json",
+      "sha256": "3dbd1a251888c4f72cbad7462a702cc7876f284f824e78ff3b2d38fbf853cc0e"
+    },
+    "px4_bridge_build_log": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-105/build/uav_px4_bridge/install.log",
+      "sha256": "c789254f3dec115f8e5d67f1ad0103e2e4100df1fe0cdc222bac3405a7fd8a61"
+    },
+    "px4_bridge_run_install": {
+      "path": "artifacts/runs/p5-px4-timesync-remap-20261017-104/install/lib/python3.12/site-packages/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "f22ea2fe31811ca3c1dc03f2625a7a5b90e1d1df8f653246db5a3e19a0efe517",
+      "note": "Installed bridge implementation used for #104 runtime."
+    },
+    "px4_bridge_source_after_run": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "de16f74ad4458cea90835ea2f1b797e4baad1503efd02d6ae523ffdbc61f6fc8",
+      "note": "Per-message source-age detail was added after #104 and built in #105; behavior used by #104 is otherwise unchanged."
+    },
+    "time_mapping_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "sha256": "89042ff142b9ed95b4720c799bc468fae2e3941c469b615b4d1c8f792769d61c"
+    },
+    "bridge_config": {
+      "path": "config/components/px4_bridge/debug_truth.json",
+      "sha256": "23994c778027e252b358e8c4c69afbb403030e343012d54893f492c91b37ebd6"
+    },
+    "time_mapping_tests": {
+      "path": "tools/test_px4_bridge_time_mapping.py",
+      "sha256": "5f2e62fade01e560443f9c42297bb2f098952584436354b5ee700ec86bc880ab"
+    },
+    "live_probe_source_after_run": {
+      "path": "tools/probe_px4_bridge_live.py",
+      "sha256": "63aed42a653f00c6b10aa8cd614b83589e76634a02480e9fbcf74ba4a3ff0b8f",
+      "note": "Read-only bridge-detail subscription was added after #104; #104 probe JSON is the actual run output."
+    }
+  },
+  "limitations": [
+    "Readiness was not achieved. PX4 telemetry freshness still failed on 66 of 570 status samples; a later diagnostic detail field records per-source wall and simulation ages but needs a live capture.",
+    "The final reason was px4_preflight_failed in the DISABLED mode. The run intentionally did not call enable_offboard; no Offboard prestream, arming, flight, navigation, or landing was tested.",
+    "The PX4 preflight state is mode-specific. This run does not prove that the safe prestream path will reach Offboard preflight approval.",
+    "This does not complete P5, P4, P6, or GOAL.md A-H. Keep the P5 milestone in_progress and do not infer flight readiness from EV fusion."
+  ]
+}

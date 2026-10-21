@@ -1,0 +1,281 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "title": "P5 VIO read-only truth-error correlation repeat #176",
+  "qualification": "DIAGNOSTIC_ONLY; P5 and GOAL criteria remain incomplete",
+  "run": {
+    "id": 176,
+    "status": "diagnostic_failed_closed",
+    "profile": "vio_closed_loop",
+    "stack_run_id": "p5-px4-vio-ego-flight-20261019-176-stack",
+    "result": "FAIL",
+    "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+    "action_goal_sent": true,
+    "goal_sent_wall_elapsed_s": 18.07460186699973,
+    "preconditions_ready": true,
+    "localization_tracking_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "takeoff_active_observed": true,
+    "action_result": {
+      "final_position": [
+        -0.010184126486077728,
+        -0.012976983994063978,
+        0.8408669114181023
+      ],
+      "outcome": "aborted",
+      "reason": "localization_normalized_cost_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "bridge_final_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "normalized_cost_exceeded"
+    },
+    "landed_and_disarmed": true,
+    "final_vehicle_failsafe": false,
+    "position_command_flag_counts": {
+      "1": 142,
+      "4": 1
+    },
+    "matching_ready_trajectory_samples": 142,
+    "map_point_count_max": 1824,
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    }
+  },
+  "truth_graph": {
+    "topic": "/debug_truth/base_odometry",
+    "publisher_count": 1,
+    "publisher_nodes": [
+      "ros_gz_bridge"
+    ],
+    "subscription_count": 1,
+    "subscriber_nodes": [
+      "raw_vins_readonly_probe"
+    ],
+    "navigation_profile": "vio_closed_loop",
+    "px4_bridge_debug_truth_subscription": false,
+    "observer_role": "read-only VINS/truth/IMU recorder; no ROS publishers"
+  },
+  "capture": {
+    "wall_seconds": 90.00122695800019,
+    "optimized_samples": 910,
+    "propagated_samples": 12005,
+    "telemetry_samples": 910,
+    "truth_samples": 3046,
+    "imu_samples": 12017,
+    "optimized_rate_hz": 15.151010067590356,
+    "propagated_rate_hz": 199.99999999666778,
+    "all_output_finite": true,
+    "parse_errors": []
+  },
+  "evaluator": {
+    "flight_window_stamp_ns": [
+      22796000000,
+      41164000000
+    ],
+    "paired_samples": 279,
+    "alignment": "One rigid SE(3) anchored at the first paired pose; scale fixed to 1; no segment realignment",
+    "position_error_m": {
+      "count": 279,
+      "rmse": 0.31443176434730924,
+      "median": 0.0031557312300880633,
+      "p95": 0.8834546658976397,
+      "max": 1.164250347381188
+    },
+    "orientation_error_deg": {
+      "count": 279,
+      "rmse": 0.31503492561866064,
+      "median": 0.2399184632891303,
+      "p95": 0.5195040664052732,
+      "max": 0.6391007242974291
+    },
+    "normalized_cost_position_error_pearson_r": 0.7135620279917895,
+    "quality_metrics_position_error_pearson_r": {
+      "input_features_position_error_pearson_r": 0.2349905290038942,
+      "stereo_features_position_error_pearson_r": 0.10529909004784005,
+      "continued_tracks_position_error_pearson_r": -0.2682872666336258,
+      "long_tracks_position_error_pearson_r": -0.7496135866202693,
+      "accel_bias_norm_position_error_pearson_r": 0.5544719839678937,
+      "gyro_bias_norm_position_error_pearson_r": 0.770705832643485
+    },
+    "samples_above_health_limit": 69,
+    "first_health_gate_crossing": {
+      "localization_status_stamp_ns": 35676000000,
+      "localization_status_source_stamp_ns": 35652000000,
+      "quality_telemetry_stamp_ns": 35607999999,
+      "quality_to_status_source_gap_s": -0.044000001,
+      "normalized_cost": 1.1964640281079921,
+      "reason": "normalized_cost_exceeded",
+      "aligned_position_error_m": 0.018072204668839388
+    },
+    "first_position_error_over_0_30m": {
+      "stamp_ns": 38183999999,
+      "position_error_m": 0.3036076456896157,
+      "normalized_cost": 1.987637098289386,
+      "long_tracks": 11
+    },
+    "seconds_from_first_health_source_stamp_to_0_30m_error": 2.531999999,
+    "interpretation_limit": "One run can show temporal association but cannot establish a universal quality-to-error threshold."
+  },
+  "repeat_comparison_to_175": {
+    "reference_evidence": "progress/evidence/p5-vio-truth-error-diagnostic-20261019-172-175.json",
+    "position_rmse_m": {
+      "run_175": 0.3758195970266699,
+      "run_176": 0.31443176434730924
+    },
+    "position_p95_m": {
+      "run_175": 1.0531645678147517,
+      "run_176": 0.8834546658976397
+    },
+    "normalized_cost_position_error_pearson_r": {
+      "run_175": 0.5603935240771258,
+      "run_176": 0.7135620279917895
+    },
+    "long_tracks_position_error_pearson_r": {
+      "run_175": -0.8129721315944185,
+      "run_176": -0.7496135866202693
+    },
+    "accel_bias_norm_position_error_pearson_r": {
+      "run_175": 0.7880927587555315,
+      "run_176": 0.5544719839678937
+    },
+    "gyro_bias_norm_position_error_pearson_r": {
+      "run_175": 0.845810194489874,
+      "run_176": 0.770705832643485
+    },
+    "interpretation": "Both diagnostic runs show cost crossing before position error grows above 0.30 m; long-track correlation is negative and bias correlations are positive in both. This is repeatable temporal association in two short runs, not causal evidence or a universal threshold."
+  },
+  "health_policy": {
+    "max_normalized_cost": 1.0,
+    "changed": false,
+    "vio_px4_future_tolerance_s": 0.065,
+    "changed_in_this_run": false
+  },
+  "ulog": {
+    "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/px4_sitl_default/log/2026-10-19/11_57_59.ulg",
+    "size_bytes": 9726743,
+    "sha256": "19b7e7f35687b5ae84899c47ae09470ad3f50726523d4807c8d33d1404afaf29"
+  },
+  "verification": {
+    "commands": [
+      {
+        "command": "bash -n artifacts/runs/p5-px4-vio-ego-flight-20261019-176/run-px4-vio-ego-flight.sh",
+        "result": "PASS"
+      },
+      {
+        "command": "python3 tools/test_vio_quality_alignment.py",
+        "result": "2 tests PASS"
+      },
+      {
+        "command": "python3 tools/test_vins_alignment.py",
+        "result": "3 tests PASS"
+      },
+      {
+        "command": "python3 -m py_compile tools/probe_vins.py tools/evaluate_vio_quality_alignment.py tools/test_vio_quality_alignment.py",
+        "result": "PASS"
+      },
+      {
+        "command": "docker run ... python3 tools/evaluate_vio_quality_alignment.py --capture ...176/vio-truth-capture --flight-report ...176/vio-ego-flight-report.json",
+        "result": "PASS; 279 paired poses"
+      },
+      {
+        "command": "git diff --check",
+        "result": "PASS"
+      }
+    ]
+  },
+  "source_sha256": {
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c",
+    "tools/evaluate_vio_quality_alignment.py": "ebf9389664134e974698391f79e5bd94e4321b8e5e80ead4a77a3c2b6ece399e",
+    "tools/test_vio_quality_alignment.py": "59569b2522a0e2daa74f44ecd61caab42ea51966c2fb902fb245f40b81c8e2db",
+    "src/own/uav_px4_bridge/launch/vio_closed_loop_ego_px4.launch.py": "ee62ab3a55b5536f7b35adda42abf64217a8299cc2e3d2495cc2c498feaea367",
+    "src/own/uav_px4_bridge/uav_px4_bridge/vio_ego_bringup.py": "d9cf75749b1d426447b2b135a0d41b83b975b4dbb26e950b58ee0a7bf8436cb0",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f",
+    "config/components/simulation/debug_truth_bridge.yaml": "bd572a590f2a3606e16e1e7359cc6ee8fbdf08341d8339dfeef1154ee7d8c48d",
+    "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+    "simulation/models/d435i/model.sdf": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/run-px4-vio-ego-flight.sh": "bd789f3ce709800ebdc3aaebed6d2680d20412d2b355f163e882fc6bbf6abe81",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/run_vio_ego_flight.py": "210b32c3bc0ace1c1b8beaaa731cde33b206d46fb8cf05672196811439eece60",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio_closed_loop_smoke_goal.json": "27a8915e42d715d8c5f9ea9c7b0c6e054de666d19cacceda3eb5c9532dcf4d82"
+  },
+  "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+  "artifacts": [
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/truth-evaluator-topic-info.txt",
+      "size_bytes": 963,
+      "sha256": "9913956c7d02cbfc74801de12ea6aee361554ca23a0bd31efb90c21334a6a7da"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/truth-input-graph-check.txt",
+      "size_bytes": 111,
+      "sha256": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/px4-bridge-node-info-at-end.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio-ego-flight-report.json",
+      "size_bytes": 1417464,
+      "sha256": "57d12a8080591736bad408a401b777ba32b6da7df36f33d6e6472c3ca345b7a2"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio-launch.log",
+      "size_bytes": 314461,
+      "sha256": "dd943b3a598598be16422a0d65aa667025dfcaa9fedb2a0228bd58366a401aa7"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/truth-evaluator-bridge.log",
+      "size_bytes": 254,
+      "sha256": "f3ae2109e8d0013f1056122b72bceae07198f2f22741123f45bfbaae34341050"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio-truth-capture/summary.json",
+      "size_bytes": 10568,
+      "sha256": "57f856c2a5cfee590d93bc2a461d2e4c26500e198c4bc668b39f79569d3eaf8b"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio-truth-capture/raw-odometry.json",
+      "size_bytes": 7283839,
+      "sha256": "c42bf9c5deb9fc41d94587f6e4e6b2dfde37c3ba76a891ca99828bda42877608"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio-truth-capture/telemetry.json",
+      "size_bytes": 562523,
+      "sha256": "00ca9305fe3b00b1c9f7d8891ed5ec5d253522ec6d8bde5bdb2949c2e1c487a1"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio-truth-capture/truth-motion.json",
+      "size_bytes": 5650368,
+      "sha256": "02820b94716fc7cb4b8ee91116a92805a926c63e6e08bce27702e5a12f90ce79"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/vio-truth-capture/vio-quality-error-evaluation.json",
+      "size_bytes": 133834,
+      "sha256": "b8dc68b51fa5801cdf7545438b5ec9446d2c8ecf8fc0d46f9396fee332092628"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-176/px4_sitl_default/log/2026-10-19/11_57_59.ulg",
+      "size_bytes": 9726743,
+      "sha256": "19b7e7f35687b5ae84899c47ae09470ad3f50726523d4807c8d33d1404afaf29"
+    }
+  ]
+}

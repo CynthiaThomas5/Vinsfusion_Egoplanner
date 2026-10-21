@@ -1,0 +1,68 @@
+{
+  "schema": "p2-ego-pose-rmw-transport-ablation/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-transport-ablation-20261021-349",
+  "status": "excluded_setup_failure",
+  "goal_criterion": "GOAL C diagnostic only; not a valid transport comparison; GOAL C remains pending.",
+  "question": "Was the EGO-only UDPv4 attempt a usable pipeline comparison against #348?",
+  "result": {
+    "comparison_valid": false,
+    "ros_domain_id": 214,
+    "ego_transport": "UDPv4",
+    "mapping_transport": "default",
+    "container_exit_code": 0,
+    "map_reset_acknowledged": false,
+    "observer_camera_pose_count": 0,
+    "observer_map_status_count": 678,
+    "observer_forwarded_depth_count": 0,
+    "goal_probe": "timed out before ready",
+    "reason": "Mapping adapter observed a new epoch and requested map reset, but never logged plan_env cleared; no camera-pose publishing/take window was available."
+  },
+  "interpretation": "Exclude this run from any causal transport claim. The failure may reflect setup/run variability; the run does not show that different endpoint transports caused the map reset failure.",
+  "raw_trace": {
+    "file_count": 33,
+    "total_bytes": 35796720,
+    "file_hash_manifest": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-transport-ablation-20261021-349/analysis/ctf-file-hashes.sha256",
+      "sha256": "83fa83d0cdf8bbf7a8a9ff3ae34648345c870ec65295a9750392bcbba0db97c1",
+      "size_bytes": 3833
+    }
+  },
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-transport-ablation-20261021-349/run-manifest.json",
+    "sha256": "43c2aa77867407452cd815dead72c98be657ca33118f6428849f904b107979fe",
+    "size_bytes": 9529
+  },
+  "key_artifacts": {
+    "transport_environment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-transport-ablation-20261021-349/transport-env.json",
+      "sha256": "e098fd10ea56b1e8141c8176a45b86a2d6628f18f9c0992f1d43a01db55a8eb8",
+      "size_bytes": 582
+    },
+    "container_log": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-transport-ablation-20261021-349/container-run.log",
+      "sha256": "de69938c58b8802bfed90298a289233d736976f35b127e5070a1326a6ceaadbf",
+      "size_bytes": 2766
+    },
+    "mapping_log": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-transport-ablation-20261021-349/mapping-adapter.log",
+      "sha256": "7487d57753812a496f0b2200f73cb7d333bcc578d10f6f2ae70e619096ac1fb1",
+      "size_bytes": 288
+    },
+    "observer_summary": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-transport-ablation-20261021-349/reader-trace/summary.json",
+      "sha256": "5787112b56a9746435f29011098c6a13f03af03afc74057118919d39c8643e83",
+      "size_bytes": 1115
+    },
+    "analysis_exit_codes": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-transport-ablation-20261021-349/analysis/analyzer-exit-codes.txt",
+      "sha256": "aafcc8a5512af71de7e3fa628679017e2504225684aa2a76bcf49aecf1f8479b",
+      "size_bytes": 155
+    }
+  },
+  "limitations": [
+    "No exact pre-documentation workspace snapshot was retained for #349.",
+    "No planner readiness, camera-pose take interval, or valid transport comparison.",
+    "No truth, control, trajectory execution, or PX4."
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "scope": "P1: fresh runtime verification of the single D435i-equivalent static calibration sensor chain. No dynamic VINS, planner, PX4, or flight qualification.",
+  "date": "2026-10-17",
+  "status": "PASS",
+  "run_id": "p1-static-sensors-20261017-02",
+  "environment": {
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo_sim_version": "8.14.0",
+    "workspace_install": "artifacts/runs/p0-container-image-build-20261017-01/install",
+    "ros_domain_id": 229,
+    "gz_partition": "d435i-p1-20261017-02",
+    "container_shm_bytes": 536870912,
+    "run_manifest": "artifacts/runs/p1-static-sensors-20261017-02/run-inputs.json",
+    "run_manifest_sha256": "0b1076df69a5a2c94b9b8dd48b69e5bc6563d8bb730105dfe38bc46ffd39beaa"
+  },
+  "command": {
+    "launch": "ros2 launch uav_sim sensors.launch.py project_root:=/workspace",
+    "probe": "python3 tools/check_sensors.py --project-root /workspace --output artifacts/runs/p1-static-sensors-20261017-02/sensor-report.json --seconds 15",
+    "result": "PASS; probe returned result PASS with no failed checks"
+  },
+  "result": {
+    "checks_passed": 31,
+    "checks_failed": 0,
+    "check_names": [
+      "infra1_data", "infra1_frame", "infra1_info_frame", "infra1_size", "infra1_intrinsics",
+      "infra2_data", "infra2_frame", "infra2_info_frame", "infra2_size", "infra2_intrinsics",
+      "depth_data", "depth_frame", "depth_info_frame", "depth_size", "depth_intrinsics",
+      "color_data", "color_frame", "color_info_frame", "color_size", "color_intrinsics",
+      "encodings", "depth_meters_plane", "imu_gravity", "imu_zero_rotation", "imu_frame",
+      "fixed_tf", "clock_advances", "monotonic_source_stamps", "stereo_paired",
+      "source_sim_time", "stereo_geometric_disparity"
+    ],
+    "depth_median_m": 2.999850034713745,
+    "stereo_disparity_px": 5.704598448748731,
+    "expected_disparity_px": 5.620160668165133,
+    "stereo_paired_samples": 308,
+    "mean_imu_acceleration_m_s2": [0.0, 0.0, 9.80665],
+    "source_rates_by_simulation_stamp_hz": {
+      "infra1": 30.303030303030305,
+      "infra2": 30.303030303030305,
+      "imu": 200.0,
+      "depth": 13.345374272526591,
+      "color": 25.367683348139373
+    },
+    "simulation_clock_span_s": 10.179,
+    "probe_wall_seconds": 15.009380242991028,
+    "simulation_to_wall_factor": 0.6781759030159367,
+    "model_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+  },
+  "source_manifest": {
+    "path": "artifacts/runs/p1-static-sensors-20261017-02/source-sha256.txt",
+    "sha256": "c3d6e82ce26d405a2e46618c6ef3d3f6e04e0e872d5d2bdc27e140459e7f20d9",
+    "verification_log": "artifacts/runs/p1-static-sensors-20261017-02/source-hash-check.log",
+    "verification_log_sha256": "a1f6d72f14f0802fd304fcbce512aacb6a7505d8180c9d8ec3533829f45c0b1c"
+  },
+  "artifacts": {
+    "sensor_report": {
+      "path": "artifacts/runs/p1-static-sensors-20261017-02/sensor-report.json",
+      "sha256": "40504daef379a8d1aaa17f39691d508ca7d0ae50eab1c2857a439f0a1cb23b20"
+    },
+    "run_console": {
+      "path": "artifacts/runs/p1-static-sensors-20261017-02/run-console.log",
+      "sha256": "81dc8489d80fa92841913e3ee8cb11ff162291bba3cb47f5bee8ab259e16259d"
+    },
+    "gazebo_launch_log": {
+      "path": "artifacts/runs/p1-static-sensors-20261017-02/gazebo-launch.log",
+      "sha256": "231784c0c525222aeab7109f72d349c7ccba9a22a59d16d273cc22404bb3ba4f"
+    },
+    "working_tree_status": {
+      "path": "artifacts/runs/p1-static-sensors-20261017-02/working-tree-status.txt",
+      "sha256": "2c93936c8f12579a4e677908f94b9eac3d89a8fb94a2100b445f5f79434d71ee"
+    },
+    "fresh_install_setup": {
+      "path": "artifacts/runs/p0-container-image-build-20261017-01/install/setup.bash",
+      "sha256": "d1552370ac06943878b92be07f1ff59443d00a60275f687ddd08683f1cff795f"
+    }
+  },
+  "excluded_attempts": [
+    {
+      "run_id": "p1-static-sensors-20261017-01",
+      "result": "EXCLUDED_BEFORE_SENSOR_SAMPLING",
+      "reason": "ROS_DOMAIN_ID=242 exceeded the Fast DDS port range; nodes exited before the probe sampled sensor data.",
+      "logs": [
+        "artifacts/runs/p1-static-sensors-20261017-01/run-console.log",
+        "artifacts/runs/p1-static-sensors-20261017-01/gazebo-launch.log"
+      ]
+    }
+  ],
+  "limitations": [
+    "This run verifies the fixed sensor fixture only; it does not qualify body-mounted motion, VINS, mapping behavior, PX4, or flight.",
+    "The model is ideal and does not reproduce real D435i image noise, infrared texture, exposure, active projection, or missing-depth behavior.",
+    "Software rendering advanced simulation at about 0.68x wall time. RGB and depth source-stamp rates were about 25.37 Hz and 13.35 Hz; final acceptance thresholds are not yet frozen.",
+    "The first failed attempt is retained and excluded because its ROS domain was invalid."
+  ]
+}

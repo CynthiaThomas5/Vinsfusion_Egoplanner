@@ -1,0 +1,312 @@
+{
+  "capture": {
+    "clock_regressions": 0,
+    "duplicate_clock_samples": 0,
+    "fit_ring": {
+      "full_64_fit_count": 9428,
+      "full_64_out_of_bounds_count": 0,
+      "full_64_wall_per_sim_s": {
+        "max": 1.968471,
+        "median": 1.52943,
+        "min": 1.387293,
+        "p95": 1.748756
+      },
+      "max_samples": 64,
+      "min_samples": 5,
+      "partial_fit_count": 59,
+      "partial_out_of_bounds_count": 5,
+      "wall_per_sim_bounds": [
+        0.1,
+        10.0
+      ]
+    },
+    "observed_rtf": 0.641667,
+    "px4_status_callback_intervals": {
+      "estimator_flags": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.136,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 43,
+        "positive_source_intervals": 42,
+        "receipt_gap_wall_s": {
+          "max": 1.724947,
+          "median": 1.545565,
+          "min": 0.007629,
+          "p95": 1.626789
+        },
+        "source_gap_sim_s": {
+          "max": 1.0,
+          "median": 1.0,
+          "min": 0.008,
+          "p95": 1.0
+        }
+      },
+      "land_detected": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.0,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 41,
+        "positive_source_intervals": 40,
+        "receipt_gap_wall_s": {
+          "max": 1.707546,
+          "median": 1.546429,
+          "min": 0.042299,
+          "p95": 1.628977
+        },
+        "source_gap_sim_s": {
+          "max": 1.0,
+          "median": 1.0,
+          "min": 0.024,
+          "p95": 1.0
+        }
+      },
+      "vehicle_status": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.0,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 77,
+        "positive_source_intervals": 76,
+        "receipt_gap_wall_s": {
+          "max": 0.885646,
+          "median": 0.776347,
+          "min": 0.503945,
+          "p95": 0.84244
+        },
+        "source_gap_sim_s": {
+          "max": 0.504,
+          "median": 0.504,
+          "min": 0.372,
+          "p95": 0.504
+        }
+      }
+    },
+    "run_sim_span_s": 37.96,
+    "run_wall_span_s": 59.158406,
+    "trace_rows": 9652,
+    "trace_rows_by_source": {
+      "clock": 9491,
+      "estimator_flags": 43,
+      "land_detected": 41,
+      "vehicle_status": 77
+    },
+    "trace_sha256": "64af16bad3ca422dfedb76bb010e7b2a3d03414df8d56b5f24ec8cde69e3e740"
+  },
+  "container_gpu": {
+    "device": "GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU (UUID: GPU-dcea8a0d-46b2-7ef8-e11b-025c00ddc830)",
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "samples": 87,
+    "utilization_percent": {
+      "max": 52.0,
+      "median": 22.0,
+      "min": 0.0,
+      "p95": 35.0
+    }
+  },
+  "date": "2026-10-21",
+  "limitations": [
+    "No goal or control service was used; the diagnostic gate is not flight acceptance.",
+    "GPU RTF evidence is machine-specific and does not establish CPU-only behavior.",
+    "No obstacle detour, body-envelope clearance, frozen acceptance threshold, fault injection, repeated flight suite or ten-minute load test was performed.",
+    "PX4 ULog contains internal groundtruth; no project ROS truth topic or bridge subscription was present, and project nodes did not use that dataset."
+  ],
+  "next_step": "Use a hover-only controlled run to separate flight dynamics from navigation goal execution while preserving the 3-second gate and no-truth path.",
+  "px4_ulog": {
+    "duration_s": 39.04,
+    "estimator_status_flags": {
+      "cs_ev_hgt": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.668,
+        "last_true_timestamp_s": 44.732,
+        "total_samples": 45,
+        "true_samples": 39
+      },
+      "cs_ev_pos": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.668,
+        "last_true_timestamp_s": 44.732,
+        "total_samples": 45,
+        "true_samples": 39
+      },
+      "cs_ev_vel": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.668,
+        "last_true_timestamp_s": 44.732,
+        "total_samples": 45,
+        "true_samples": 39
+      },
+      "cs_ev_yaw": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.668,
+        "last_true_timestamp_s": 44.732,
+        "total_samples": 45,
+        "true_samples": 39
+      },
+      "cs_gnss_pos": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 45,
+        "true_samples": 0
+      },
+      "cs_gnss_vel": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 45,
+        "true_samples": 0
+      },
+      "cs_gnss_yaw": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 45,
+        "true_samples": 0
+      },
+      "cs_gps_hgt": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 45,
+        "true_samples": 0
+      }
+    },
+    "internal_groundtruth_dataset": {
+      "present": true,
+      "samples": 1954,
+      "used_by_project_nodes": false
+    },
+    "local_position_ned_z_m": {
+      "final": 0.081017,
+      "maximum_relative_height_from_min_z": 0.027674,
+      "minimum": -0.027674
+    },
+    "parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "path": "artifacts/runs/p5-vio-px4-gpu-canonical-idle-observation-20261021-395/px4_sitl_default/log/2026-10-21/02_47_45.ulg",
+    "sha256": "f72e7e9aec307b9bca2de4a410d9717b633a6b6c44eb4f691b6e1fc3b2e15442",
+    "vehicle_status": {
+      "arming_state_counts": {
+        "1": 78
+      },
+      "pre_flight_checks_pass_true_samples": 0,
+      "sample_count": 78
+    }
+  },
+  "qualification": "no-control GPU full-stack post-gate observation; not P5 acceptance",
+  "run_analysis": "artifacts/runs/p5-vio-px4-gpu-canonical-idle-observation-20261021-395/run-analysis.json",
+  "run_analysis_sha256": "74486b4d8878a4c739d02d1134fdf5492a118e95bd75cf139d1f91921bbc2e77",
+  "run_id": "p5-vio-px4-gpu-canonical-idle-observation-20261021-395",
+  "run_manifest": "artifacts/runs/p5-vio-px4-gpu-canonical-idle-observation-20261021-395/run-manifest.json",
+  "run_manifest_sha256": "75371c37b8ba7338730b1773defeebf23b593bfc48eb29a2973ede83dea41034",
+  "runtime": {
+    "action_goal_sent": false,
+    "action_result": null,
+    "action_success": false,
+    "enable_offboard_skipped": true,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "final_localization_status": {
+      "accepted_optimized": 546,
+      "accepted_propagated": 7197,
+      "epoch": "fe7f0a4f1ac64799be99a4ff2014a2b1",
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "final_vehicle_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 4,
+      "pre_flight_checks_pass": false,
+      "timestamp": 44212000
+    },
+    "first_invalid_localization_status": null,
+    "fresh_samples_at_enable": 49,
+    "localization_tracking_stability_passed": true,
+    "map_max_point_count": 1404,
+    "matching_ready_trajectory_samples": 0,
+    "post_gate_observation": {
+      "elapsed_wall_s": 45.006066803995054,
+      "final_localization_status": {
+        "accepted_optimized": 546,
+        "accepted_propagated": 7197,
+        "epoch": "fe7f0a4f1ac64799be99a4ff2014a2b1",
+        "good_pairs": 555,
+        "normalized_cost": 0.026906368177982594,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 44479999999,
+        "stamp_ns": 44480000000,
+        "state": 1,
+        "valid": true,
+        "wall_elapsed_s": 51.29837894599768
+      },
+      "final_vins_telemetry": {
+        "continued_tracks": 36,
+        "final_cost": 0.6312867095174226,
+        "initialized": true,
+        "input_features": 180,
+        "iterations": 1,
+        "long_tracks": 36,
+        "normalized_cost": 0.026906368177982594,
+        "residual_components": 1744,
+        "solve_current": true,
+        "solve_seconds": 0.002213001251220703,
+        "solver_usable": true,
+        "stamp_ns": 44420000000,
+        "state_finite": true,
+        "stereo_features": 36,
+        "visual_observations": 396,
+        "wall_elapsed_s": 51.27833831200405
+      },
+      "first_invalid_localization_status": null,
+      "localization_status_samples": 901,
+      "max_vins_normalized_cost": 0.026906368177982594,
+      "requested_wall_s": 45.0,
+      "vins_telemetry_samples": 440
+    },
+    "preconditions_ready": true,
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "px4_telemetry_stability_passed": true,
+    "result": "PASS_DIAGNOSTIC_GATE",
+    "service_calls": [],
+    "stability_required_s": 5.0,
+    "timesync_status_samples": 0
+  },
+  "static_checks": {
+    "canonical_bridge_source_hash_unchanged": true,
+    "canonical_config_hash_unchanged": true,
+    "instrumented_bridge_build": "PASS (6 packages)",
+    "run_script_bash_n": "PASS"
+  },
+  "truth_and_control_isolation": {
+    "bridge_debug_truth_subscription_present": false,
+    "debug_truth_ros_topic_present": false,
+    "truth_input_started": false
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "scope": "P2 D435i depth message freshness and structural health state; not an occupancy-map or vehicle-response test",
+  "date": "2026-10-16",
+  "status": "PASS_HEALTH_GATE_ONLY",
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "build_run": "artifacts/runs/p2-depth-health-gate-20261016-01",
+    "runtime_run": "artifacts/runs/p2-depth-health-gate-20261016-02"
+  },
+  "implementation": {
+    "package": "uav_mapping",
+    "node": "depth_health_monitor",
+    "input": "/sensors/d435i/depth",
+    "output": "/mapping/depth_health",
+    "message": "uav_interfaces/msg/DepthHealth",
+    "checks": [
+      "expected depth_optical_frame",
+      "32FC1 encoding",
+      "configured width and height",
+      "minimum row step and payload length",
+      "strictly increasing source stamp within the process session",
+      "steady-wall receipt freshness"
+    ],
+    "policy": "config/components/mapping/depth_gate.json",
+    "max_receipt_age_wall_s": 1.0,
+    "startup_timeout_wall_s": 2.0,
+    "qualification": "PROVISIONAL; tuned to tolerate irregularities in the captured/replayed software-rendered input, not frozen acceptance criteria"
+  },
+  "build": {
+    "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p2-depth-health-gate-20261016-01/log build --base-paths src/own --packages-up-to uav_mapping --build-base artifacts/runs/p2-depth-health-gate-20261016-01/build --install-base artifacts/runs/p2-depth-health-gate-20261016-01/install --executor sequential --parallel-workers 1 --event-handlers console_direct+",
+    "packages": [
+      "uav_interfaces",
+      "uav_mapping"
+    ],
+    "clean_build_then_final_incremental": "PASS, 2 packages finished; final source changes rebuilt at 2026-10-16 13:01:40",
+    "final_build_events": "artifacts/runs/p2-depth-health-gate-20261016-01/log/build_2026-10-16_13-01-40/events.log",
+    "final_build_events_sha256": "5f930b20506ef6b22c08d3c2babcf0d11f1f04333d3c7573de1a2943ab7bfc6b",
+    "package_build_logs": {
+      "uav_interfaces_stdout": {
+        "path": "artifacts/runs/p2-depth-health-gate-20261016-01/log/build_2026-10-16_13-01-40/uav_interfaces/stdout.log",
+        "sha256": "d3f191216856f317327d73698ef18a02259159d5f64acb552d2cf720c3b23d91"
+      },
+      "uav_mapping_stdout": {
+        "path": "artifacts/runs/p2-depth-health-gate-20261016-01/log/build_2026-10-16_13-01-40/uav_mapping/stdout.log",
+        "sha256": "d233f51dcee0fb9f2407674b4ee733ad89961576d74fa23424175377a5012463"
+      },
+      "uav_mapping_command": {
+        "path": "artifacts/runs/p2-depth-health-gate-20261016-01/log/build_2026-10-16_13-01-40/uav_mapping/command.log",
+        "sha256": "4f6492ecfe0ae87aadf4907bb8c22093384239807e67e9184c0bc145573efd9b"
+      }
+    }
+  },
+  "unit_tests": {
+    "command": "python3 tools/test_depth_gate.py",
+    "final_result": "4 tests passed",
+    "coverage": [
+      "invalid policy rejected",
+      "startup wait and timeout",
+      "freshness expiry and recovery",
+      "invalid layout closes gate and valid data reopens it",
+      "source timestamp regression locks the process session"
+    ],
+    "development_note": "An initial run exposed a missing status_period_wall_s field in the pure test fixture after config validation was added; the fixture was corrected and all four tests then passed."
+  },
+  "input": {
+    "bag": "artifacts/runs/p2-depth-dropout-20261016-01/depth-input",
+    "mcap_sha256": "9f046ce56e05693f70aa8f55354a8378a2eb1912455aca698464ee0b63050fe1",
+    "capture_scope": "Gazebo D435i /clock and depth only; 1036 depth messages over about 160 seconds",
+    "capture_limit": "rosbag reported 2344 transport-layer messages lost; this bag qualifies only as a fault-replay input, not as a frequency or completeness source",
+    "fault_schedule": "fresh relay per run; drop source-stamped depth frames from +3s to +8s; same 20s bag prefix; one-second configured freshness timeout"
+  },
+  "runs": [
+    {
+      "run_id": "p2-depth-health-gate-replay-20261016-02-01",
+      "ros_domain_id": 111,
+      "relay_counts": {
+        "received": 120,
+        "forwarded_before": 25,
+        "dropped": 50,
+        "forwarded_after": 45
+      },
+      "source_window_ns": {
+        "start": 3166000000,
+        "end": 8166000000
+      },
+      "actual_drop_ns": {
+        "first": 3169000000,
+        "last": 8152000000
+      },
+      "first_forwarded_after_ns": 8383000000,
+      "health_transitions": [
+        {
+          "state": "WAITING",
+          "reason": "waiting_for_depth",
+          "wall_s": 0.089
+        },
+        {
+          "state": "STALE",
+          "reason": "depth_missing",
+          "wall_s": 2.024
+        },
+        {
+          "state": "READY",
+          "source_stamp_ns": 199000000,
+          "wall_s": 2.71
+        },
+        {
+          "state": "STALE",
+          "reason": "depth_stale",
+          "source_stamp_ns": 3136000000,
+          "wall_s": 7.874
+        },
+        {
+          "state": "READY",
+          "source_stamp_ns": 8383000000,
+          "wall_s": 14.273
+        }
+      ],
+      "relay_report": "artifacts/runs/p2-depth-health-gate-20261016-02/relay-01.json",
+      "relay_report_sha256": "e40aec542e9604bf9e88a62e3303e0d6e7a2ca9a6ff9dc9ee23789121da7da0b",
+      "probe_report": "artifacts/runs/p2-depth-health-gate-20261016-02/probe-01.json",
+      "probe_report_sha256": "7db5f40486ad6594437372e94fd9acdfd958f3b63ed2bace51d9aecb99dc7106"
+    },
+    {
+      "run_id": "p2-depth-health-gate-replay-20261016-02-02",
+      "ros_domain_id": 112,
+      "relay_counts": {
+        "received": 125,
+        "forwarded_before": 26,
+        "dropped": 52,
+        "forwarded_after": 47
+      },
+      "source_window_ns": {
+        "start": 3166000000,
+        "end": 8166000000
+      },
+      "actual_drop_ns": {
+        "first": 3169000000,
+        "last": 8152000000
+      },
+      "first_forwarded_after_ns": 8383000000,
+      "health_transitions": [
+        {
+          "state": "WAITING",
+          "reason": "waiting_for_depth",
+          "wall_s": 0.251
+        },
+        {
+          "state": "STALE",
+          "reason": "depth_missing",
+          "wall_s": 2.02
+        },
+        {
+          "state": "READY",
+          "source_stamp_ns": 199000000,
+          "wall_s": 2.809
+        },
+        {
+          "state": "STALE",
+          "reason": "depth_stale",
+          "source_stamp_ns": 3136000000,
+          "wall_s": 7.97
+        },
+        {
+          "state": "READY",
+          "source_stamp_ns": 8383000000,
+          "wall_s": 14.371
+        }
+      ],
+      "relay_report": "artifacts/runs/p2-depth-health-gate-20261016-02/relay-02.json",
+      "relay_report_sha256": "40e315fbcfb20b42f0d796b14f8af6e67a65eab858674c67ad39f21b3afaaa23",
+      "probe_report": "artifacts/runs/p2-depth-health-gate-20261016-02/probe-02.json",
+      "probe_report_sha256": "164a4606a473fcbc7c29b976ca7f7d2f2eecb6a28aad805c0fcf55a1c625694f"
+    }
+  ],
+  "artifacts_sha256": {
+    "artifacts/runs/p2-depth-health-gate-20261016-01/replay-depth-gate.sh": "2905569cee2241ff43c12255affc011b215508bfa68a9703d8a615b0fe8735ea",
+    "artifacts/runs/p2-depth-health-gate-20261016-02/play-01.log": "da62242297323a9cdebc7dd3fb333234bac4488278d60d232c101053b65f0ef6",
+    "artifacts/runs/p2-depth-health-gate-20261016-02/play-02.log": "53f28dc436a27f30d17409b5d271915e4b905688091cc5c7c63df3b41fb2428d",
+    "artifacts/runs/p2-depth-health-gate-20261016-02/monitor-01.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-depth-health-gate-20261016-02/monitor-02.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/own/uav_interfaces/CMakeLists.txt": "77e850ea9d44f8ba429e2199a6ed13528d702d3c9400cfced8940ea8448844ed",
+    "src/own/uav_interfaces/msg/DepthHealth.msg": "0d8f9d2204fab6ceb68d56e36239d80717eca0d1c3851d2fb6878a8e5616a894",
+    "src/own/uav_mapping/uav_mapping/depth_gate.py": "77d7bb2d845251585a1961bfea0a396d113ac29310713ad8c8dd152cc553f360",
+    "src/own/uav_mapping/uav_mapping/node.py": "b5c4faa9a6b2259dd22564888592f5df86ece91e46452542a754f11ffa136a12",
+    "src/own/uav_mapping/package.xml": "b486b110155bc8881d3591981b7b65b0326157b77761bd31c60b4660f7a984d7",
+    "src/own/uav_mapping/setup.py": "36d2ea58e8a358d8788bb706aa92d9fc24d697775a2290145ea1aec44a9899a7",
+    "tools/test_depth_gate.py": "1835806d82e7e89925b96a07996c31efdecbfb157fc40f21cc915f8bd0014084",
+    "tools/probe_depth_health.py": "3163baa8b9f635fff4f5d2ce22498fcb1873c85a2ad5fded0cb032d36ab5931e",
+    "config/components/mapping/depth_gate.json": "590db91cbda0de2cd3419c208c75373d6cb19a53322d19ad0838d28fc4b16017",
+    "src/own/uav_mapping/setup.cfg": "ae663893c5d95bcfb77526c844d091096a12463e43df65a8fc0b17494da0f9e4"
+  },
+  "development_trials": {
+    "exploratory_receipt_limit_s": 0.5,
+    "finding": "In the lossy software-rendered capture replay, the shorter exploratory limit caused additional stale/ready transitions outside the scheduled five-second drop; the guard was raised to a still-PROVISIONAL 1.0s and then passed two isolated stale/recovery runs.",
+    "monitor_shutdown": "An initial SIGTERM stop printed ExternalShutdownException; the monitor now handles executor shutdown cleanly.",
+    "first_probe_files": "Exploratory reports shared filenames with a rerun and were overwritten; this report uses only the later clean two-run reports, and the overwrite is recorded in the dialogue/change note."
+  },
+  "qualification": {
+    "depth_health_state_closes_during_injected_gap": "PASS, two independent monitor/relay/player sessions",
+    "depth_health_state_reopens_after_new_frames": "PASS, both sessions",
+    "occupancy_map_creation_or_invalidation": "NOT_IMPLEMENTED",
+    "finite_pixel_fraction_or_depth_accuracy": "NOT_TESTED",
+    "localization_epoch_and_sample_time_alignment": "NOT_IMPLEMENTED",
+    "planner_protection_or_px4_state": "NOT_TESTED",
+    "P2_or_GOAL_E_complete": "NO"
+  },
+  "limitations": [
+    "The same captured Gazebo bag is replayed into fresh processes and separate ROS domains; capture transport loss and software-rendering cadence limit what can be inferred.",
+    "READY checks the Image structure and receipt freshness only. It does not inspect NaN/Inf/zero pixels or prove useful range and depth accuracy.",
+    "No map builder consumes DepthHealth yet, so this does not prove old map clearing, unknown/free safety, stopping EGO, vehicle handling, or PX4 fail-safe behavior."
+  ]
+}

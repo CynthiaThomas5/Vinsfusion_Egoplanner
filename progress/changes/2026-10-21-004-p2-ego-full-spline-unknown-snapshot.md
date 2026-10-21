@@ -1,0 +1,13 @@
+# 修改与验证记录
+
+- 任务 ID／日期：GOAL C full-spline guard 首次拒绝点同 epoch 快照诊断 #329 / 2026-10-21。
+- 对话摘要：[2026-10-21-004 对话摘要](../../collaboration/dialogues/2026-10-21-004-p2-ego-full-spline-unknown-snapshot.md)。
+- 修改文件：只在新建的 `artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/` 中增加 run-local probe、分析器与两次隔离运行；新增 [#329 轻量证据](../evidence/p2-ego-full-spline-guard-first-reject-snapshot-20261021-329.json)、本记录与对话摘要；更新 GOAL C checklist、证据索引和 CURRENT。复用 #328 planner binary；未改 `src/vendor/ego_planner`、项目控制节点、`dependencies/sources.json` 或 milestones。
+- 行为变化及原因：probe 在首个 `DIAG final_spline_collision_reject` rosout 事件后异步发起一次只读 snapshot 请求，并将请求绑定到当前 `epoch/map_id`；它不改规划器、地图或定位输入。attempt 01 因 `telemetry_stale` 未过目标前置门而排除。attempt 02 goal 于7.4009秒发送，首条 t=0 unknown 拒绝约12 ms后被观察到；快照在该日志后55 ms返回，和 goal 的 epoch/map_id一致。拒绝点 voxel `[119,119,1]` 值为 `-1`（unknown）、inflation mask为0；3×3×3邻域有24 unknown、3 free、0 occupied及0 inflated。该轮392次guard拒绝全为in-map unknown/raw-free/not-inflated，未输出B-spline；known coverage仅0.2357%。
+- 验证类型：run-local Python `py_compile` 与 shell `bash -n`；同一#328 Release binary上的两次 Gazebo D435i/VINS/EGO planner-only live尝试；首拒绝点同 epoch/map snapshot及离线 voxel 分析。非 PX4 SITL／实机验证。
+- 命令与环境：`python3 -m py_compile .../probe_ego_goal_with_snapshot.py`；`bash -n .../run-live-with-snapshot.sh .../run-container-snapshot.sh`；`bash .../run-container-snapshot.sh`；`python3 .../analyze_guard_snapshot.py --result .../planner-goal-result-02.json --snapshot .../snapshots-02/guard-first-reject-occupancy.npz --output .../guard-snapshot-analysis-02.json`。attempt 01 使用 ROS domain184，attempt 02 使用185；均无控制节点、控制话题或真值话题。
+- 结果及证据位置：见 [#329 证据](../evidence/p2-ego-full-spline-guard-first-reject-snapshot-20261021-329.json)、[run manifest](../../artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/run-manifest.json)、[attempt 02 结果](../../artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/planner-goal-result-02.json)、[snapshot archive](../../artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/snapshots-02/guard-first-reject-occupancy.npz)与[离线分析](../../artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/guard-snapshot-analysis-02.json)。源码沿用#328清单与 binary；probe SHA-256为`310818226b7003e9d5e7555f1e700323191a41f86716d6b05393ce4ae9af5559`。
+- 未验证与 PROVISIONAL：snapshot不是独立真值，距 depth source 142 ms；known coverage只有0.236%。EGO仍有32条 odom/depth lost警告且无样条，故只确认起点映射 cell 在近同刻 snapshot 中是unknown，不证明整体无输出只有该原因。没有完整轨迹净空、路径执行、vehicle-sweep、tracking/制动、控制、PX4或实机证据；unknown策略不放宽。GOAL C保持pending。
+- 下一步：保持 unknown fail-closed，延长目标派发前的传感器运动／建图观察窗口，检查当前起点体素是否变known；只有收到样条并获取其同 epoch快照后，才分析全曲线占据与inflation。
+
+未提交；保留工作树中已有用户修改，本轮无暂存或提交。

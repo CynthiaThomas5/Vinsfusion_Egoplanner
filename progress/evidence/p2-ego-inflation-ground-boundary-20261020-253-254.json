@@ -1,0 +1,382 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_ids": [
+    "p2-map-odom-remap-multi-obstacle-20261020-252",
+    "p2-map-odom-remap-ground-boundary-20261020-253",
+    "p2-map-odom-remap-ground-boundary-repeat-20261020-254"
+  ],
+  "status": "GROUND_BOUNDARY_PROFILE_OBSERVED_IN_VALID_REPEAT; LOCALIZATION_LOCKED; MAP_GEOMETRY_AND_PLANNER_NOT_QUALIFIED",
+  "scope": "Run-local 0.5 m EGO depth/pose inflation profile compared with the -0.01 m map floor, followed by two -0.05 m boundary runs; MANUAL_TARGET with no goal, no PX4/controller, and no project configuration change.",
+  "qualification": "Exploratory P2/GOAL B/C/F diagnostic evidence only. The profile was not committed to project config, no trajectory was generated, and no clearance or avoidance threshold was accepted.",
+  "comparison": {
+    "baseline_252": {
+      "evidence": "progress/evidence/p2-ego-inflation-profile-20261020-252.json",
+      "ground_height_m": -0.01,
+      "obstacles_inflation_m": 0.5,
+      "resolution_m": 0.1,
+      "max_inflated_points": 17255,
+      "same_stamp_raw_points": 1113,
+      "inflated_to_raw_ratio": 15.5031,
+      "last_sync_in_map": false,
+      "camera_z_m_at_last_sync": -0.02630235777498936,
+      "map_update_stopped_sim_s": 31.417,
+      "localization_locked_wall_s": 40.933
+    },
+    "boundary_run_253": {
+      "directory": "artifacts/runs/p2-map-odom-remap-ground-boundary-20261020-253",
+      "run_result": "EXCLUDED_FOR_BOUNDARY_COMPARISON",
+      "ground_height_m": -0.05,
+      "obstacles_inflation_m": 0.5,
+      "resolution_m": 0.1,
+      "probe_wall_seconds": 50.022,
+      "depth_input_count": 988,
+      "localization_history": [
+        {
+          "wall_elapsed_s": 0.098,
+          "wall_epoch_s": 1792467386.281132,
+          "epoch": "4b22f14f628a41b690885729400b062a",
+          "state": 4,
+          "valid": false,
+          "reason": "propagated_stale",
+          "frame_id": "odom_4b22f14f628a41b690885729400b062a"
+        }
+      ],
+      "optimized_odom_count": 0,
+      "ego_depth_pose_pairs": 0,
+      "max_raw_occupancy_points": 0,
+      "max_inflated_points": 0,
+      "raw_vins_counts": {
+        "optimized": 630,
+        "propagated": 8306
+      },
+      "raw_vins_telemetry_count": 640,
+      "exclusion_reason": "The adapter was already invalid with propagated_stale at observer start and did not forward optimized odometry; the mapper recorded no paired EGO depth/pose or occupied points. This does not assess the map floor."
+    },
+    "boundary_repeat_254": {
+      "directory": "artifacts/runs/p2-map-odom-remap-ground-boundary-repeat-20261020-254",
+      "run_result": "PROFILE_OBSERVED_LOCALIZATION_LOCKED_NO_PLANNER_QUALIFICATION",
+      "observer_started_before_motion": true,
+      "ground_height_m": -0.05,
+      "obstacles_inflation_m": 0.5,
+      "resolution_m": 0.1,
+      "expected_inf_step": 5,
+      "wall_seconds": 50.023,
+      "depth_input_count": 1059,
+      "accepted_optimized_odom_count": 504,
+      "ego_depth_pose_pairs": 1000,
+      "max_raw_occupancy_points": 1288,
+      "inflated_cloud_sample_count": 456,
+      "max_inflated_occupancy_points": 18027,
+      "max_inflated_sample": {
+        "stamp_ns": 38829000000,
+        "wall_elapsed_s": 37.575534,
+        "wall_epoch_s": 1792467597.051812,
+        "points": 18027,
+        "frame_id": "odom_d36a5d238c9b4095a883398b6a1509f1",
+        "width": 18027,
+        "height": 1
+      },
+      "nearest_raw_occupancy_same_stamp": {
+        "stamp_ns": 38829000000,
+        "wall_elapsed_s": 37.57499,
+        "wall_epoch_s": 1792467597.051268,
+        "clock_stamp_ns_at_receipt": 38822000000,
+        "points": 1262,
+        "frame_id": "odom_d36a5d238c9b4095a883398b6a1509f1"
+      },
+      "inflated_to_raw_point_ratio_at_same_stamp": 14.2845,
+      "camera_position_in_odom_m_before_lock": {
+        "sample_count": 1000,
+        "min_xyz": [
+          -0.0275693627343857,
+          0.00649492335132831,
+          -0.0039319747234384484
+        ],
+        "max_xyz": [
+          0.22397931800579368,
+          0.33047347102019803,
+          0.12985926795743175
+        ],
+        "ground_height_m": -0.05
+      },
+      "localization_history": [
+        {
+          "wall_elapsed_s": 0.217,
+          "wall_epoch_s": 1792467559.693439,
+          "epoch": "d36a5d238c9b4095a883398b6a1509f1",
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "frame_id": "odom_d36a5d238c9b4095a883398b6a1509f1"
+        },
+        {
+          "wall_elapsed_s": 46.067,
+          "wall_epoch_s": 1792467605.543254,
+          "epoch": "d36a5d238c9b4095a883398b6a1509f1",
+          "state": 4,
+          "valid": false,
+          "reason": "normalized_cost_exceeded",
+          "frame_id": "odom_d36a5d238c9b4095a883398b6a1509f1"
+        }
+      ],
+      "ego_input_timeout_warnings": {
+        "count": 24,
+        "unique_last_sync_states": [
+          {
+            "ego_sim_now_s": 39.942,
+            "last_occupancy_update_sim_s": 38.908,
+            "last_sync_in_map": true,
+            "camera_xyz_m": [
+              0.001915,
+              0.044735,
+              0.022133
+            ]
+          },
+          {
+            "ego_sim_now_s": 41.835,
+            "last_occupancy_update_sim_s": 40.832,
+            "last_sync_in_map": true,
+            "camera_xyz_m": [
+              0.005347,
+              0.05118,
+              0.025223
+            ]
+          }
+        ]
+      },
+      "pose_source_age_at_receipt_s": {
+        "count": 1000,
+        "p50": 0.071,
+        "p95": 0.123,
+        "max": 1.133
+      },
+      "pose_wall_receipt_interval_s": {
+        "count": 999,
+        "p50": 0.016399,
+        "p95": 0.102251,
+        "max": 1.432723
+      },
+      "paired_source_interval_s": {
+        "count": 999,
+        "p50": 0.033,
+        "p95": 0.033,
+        "max": 0.066
+      },
+      "ego_fsm_transition_counts": {
+        "INIT->WAIT_TARGET": 1
+      },
+      "planner_success_count": 0
+    }
+  },
+  "offline_geometry_254": {
+    "trajectory_alignment": {
+      "method": "Single SE(3), scale fixed to 1, no segment realignment",
+      "paired_samples": 378,
+      "position_rmse_m": 0.008086197607843707,
+      "position_p95_m": 0.015479126885593013,
+      "position_max_m": 0.01717552701228528,
+      "orientation_rmse_deg": 0.9884074632361177
+    },
+    "obstacle_surface_comparison": [
+      {
+        "name": "calibration_box",
+        "kind": "box",
+        "center_world_m": [
+          1.55,
+          0.5,
+          1.1
+        ],
+        "size_m": [
+          0.35,
+          0.5,
+          0.8
+        ],
+        "roi_margin_m": 0.25,
+        "map_points_in_roi": 34,
+        "nearest_surface_residual_m": {
+          "median": 0.0019977432043058185,
+          "p95": 0.028588335036249433,
+          "maximum": 0.030331663522391916,
+          "fraction_within_0_10m": 1.0
+        }
+      },
+      {
+        "name": "calibration_cylinder",
+        "kind": "cylinder",
+        "center_world_m": [
+          2.25,
+          -0.5,
+          1.0
+        ],
+        "radius_m": 0.18,
+        "length_m": 0.9,
+        "roi_margin_m": 0.25,
+        "map_points_in_roi": 35,
+        "nearest_surface_residual_m": {
+          "median": 0.07283681020339303,
+          "p95": 0.14902446759118632,
+          "maximum": 0.15080364756489845,
+          "fraction_within_0_10m": 0.5714285714285714
+        }
+      }
+    ],
+    "mapping_runtime": {
+      "depth_output_count": 1059,
+      "ego_depth_output_count": 1000,
+      "ego_pose_output_count": 1000,
+      "max_occupied_points": 1288,
+      "interrupted": false,
+      "map_cloud_points": 1288,
+      "map_frame_id": "odom_d36a5d238c9b4095a883398b6a1509f1",
+      "map_stamp_ns": 26221000000,
+      "map_stamp_within_sim_clock": true,
+      "nearest_optimized_odom_stamp_delta_s": 0.015000000000000001,
+      "map_bounds_world_xyz_m": [
+        [
+          1.3750814144348404,
+          3.0704684514337646
+        ],
+        [
+          -1.9171687536692879,
+          3.687107629705797
+        ],
+        [
+          0.9727887191349197,
+          2.831640440823695
+        ]
+      ]
+    },
+    "qualification": "Single fixed-scale SE(3) offline comparison; descriptive only because localization locked and no plan/goal was produced."
+  },
+  "truth_isolation": "Gazebo pose was sampled only by the run-local diagnostic motion/evaluator. VINS raw probe recorded diagnostic_truth_enabled=false and truth_topic=null; localization, mapping, EGO, PX4, and control nodes had no truth input.",
+  "control_scope": "Both boundary runs used flight_type=1 (MANUAL_TARGET) and published no goal. No PX4, uav_px4_bridge, controller, or setpoint publisher was launched.",
+  "interpretation": [
+    "The valid #254 window received 1,000 matched EGO depth/pose pairs and occupancy updates while the observed camera pose z range (-0.0039 to 0.1299 m) stayed above the run-local -0.05 m map floor. EGO logs before localization lock reported last_sync_in_map=1. This is consistent with the lower boundary no longer excluding the sampled camera poses in this run; differing localization trajectories mean this is not a causal proof that the parameter alone fixed mapping.",
+    "At the maximum inflated cloud stamp 38.829 s, EGO published 18,027 inflated points and raw occupancy had 1,262 points at the same stamp (14.28x). This is a published point count, not planner clearance or pure kernel compute time.",
+    "EGO logged 24 odom/depth timeout warnings in two input-gap clusters while the last synchronized camera pose was still in map. The last map update and EGO input delivery therefore remain intermittent even before the localization quality gate locked at 46.067 wall seconds with normalized_cost_exceeded.",
+    "The cylinder surface residual remains high (median 7.28 cm, P95 14.90 cm; 57.1% within 10 cm). No planner goal or trajectory was produced, and no body distance, collision, tracking, or braking measurement exists.",
+    "Run #253 is retained as an invalid comparison because the health gate was already invalid at probe startup; it does not contradict or qualify #254."
+  ],
+  "limitations": [
+    "All 0.5 m and -0.05 m overrides were run-local; project config, third-party source, and canonical launch defaults were unchanged.",
+    "The #254 run ended with localization normalized_cost_exceeded; it is not sustained localization, planner, clearance, or avoidance evidence.",
+    "The inflated point cloud is an observed topic message, not a persistent occupancy/free-space map; this run also adds serialization/transport work.",
+    "No trajectory goal was published, so planner success, minimum vehicle clearance, collision contact, tracking error, and braking distance were not measured.",
+    "The observed camera z range is relative to this epoch and scene; brackets, cables, physical rotor geometry, localization uncertainty, and stop distance remain unmeasured."
+  ],
+  "source_sha256": {
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "simulation/worlds/sensor_calibration.sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f",
+    "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c",
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": "54adddebf62089271255be8670abfdca8380ca63221e66f9e7143eda62c80e39",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/run_sensor_motion.py": "190c7be9200f68d8c2d58413b9f9c7f7a115d4cbf96d621283c7629ca5bd8d7e",
+    "tools/probe_mapping_runtime.py": "cde1f7f8cee7d94327a7851b08dc32b4bc227189e1f84d872d9eea681b01c85f",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c"
+  },
+  "raw_artifacts": {
+    "run_253": {
+      "directory": "artifacts/runs/p2-map-odom-remap-ground-boundary-20261020-253",
+      "sha256": {
+        "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+        "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+        "depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "ego-inflation-params.txt": "def8f3592bab8eeac69d9991b89448efda8901d6cc898b5042252ae248725c53",
+        "ego.log": "f085363ca3e56643ba2b980342582f70cf75dbfa33a4970a3eedac2a2e983e21",
+        "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+        "inflated-map-samples.json": "738d276622aa3be9a73e2cc0e5d24f4c1bbf1a7de31af3e212e318aa98349c5a",
+        "inflated-topic-info.txt": "40be6e5c9de5f76e5e67fb3bbb7e4e7e23b38e718bac549c0afb16d3d41614a9",
+        "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mapping-adapter.log": "9d06b2697a8a81ed8c2fef3895e3bdf1753b5f962b812243efa47f99b100fc51",
+        "motion-driver.log": "78bef569b148bc47849e00afa2215f2d6be29f71da2afbbe94e9dbf76cb56775",
+        "motion.json": "6583f041ecedc77dfb4b4996bf89369a7015610a727768821313e5579c50874c",
+        "optimized-odom-topic-info.txt": "2cb120e4f3fb8183a05e68fc5e3dc25f658b3d6c4f8b41cbf8ad32dde7038582",
+        "optimized-odometry.json": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c",
+        "probe-console.log": "6f20335dca7bfc7b015a19a55a9d0d385fc5a71086de69f31e7e109a5a1b7e63",
+        "probe.json": "79c1a87e741681762b689629d7d9c0337cd96f739bb7430c2d63fd89d6a2e8d4",
+        "probe_mapping_inflation.py": "366fddd201e319e1771d2d3e13741ec1518179e32907336849a76d4bbcd04d34",
+        "raw-vins-capture/raw-odometry.json": "9f75feff05f33dbacae5767900061f9bf72d0a5a6165205ef40e67806b30db44",
+        "raw-vins-capture/summary.json": "9e7b6b58aa46b888896d19eba68975c00370a8514b090420e96e21106d0c72ba",
+        "raw-vins-capture/telemetry.json": "de0a6310c3adc7496c0eea536691e65adc928ee230d8cbb6c0e70dcee0ec8d28",
+        "raw-vins-probe.log": "cb7e1ad0555dee46df0399b5d256402c55a09c12b8ec1f109b79787f274b10cf",
+        "run-container.sh": "3847851928672aac7e05de13facd5b2b8e1ad83e5614cae2f29432570ee27705",
+        "run-live.sh": "cf0fe4d629bebf64d03dfca36308bdf49bb261765398c5421d92c7a4bbd74483",
+        "run-variant-manifest.json": "60512a09ce075c1c18f347634f81b6713b25caf18fc84fa0283bc6b79566ce09",
+        "sensors.log": "34517514cc02862d150cfcd8c94b9648c57ebea919808e50daa73950327a8581",
+        "session/.localization-used": "c0b7e6e4fa8ebfb6bb0947078c12e909ca3d845ff81ce9eeeb30ac32deba694f",
+        "session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+        "session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+        "session/session.json": "25d582163fe2f337376383819851a9d7fb9164acf505b9152f41e425316874ad",
+        "session/vins.yaml": "02b1cc7cdf8629280fc1661513180f8322f44097089dc4d6884de051fb2ed768",
+        "session/vio.csv": "71bceed0477de8e44c41db2aa489ac3d9fcf6e4a077a3db6e584121d86ad0333",
+        "session-binding.json": "1b34ebda00d8952f1a6b7b1d7d465f9aa39ec953d71d2a46c821e4074d6d87e6",
+        "stereo-topic-info.txt": "fa2f27643adf5152db0516dfabe76aeaf8fe7fdc002335cc19625cfac54b39f3",
+        "vins.log": "c3bd97903363a9aa1ab8f5e75c71dc4657630f0265f608da4dc30902d9b06265",
+        "world-sdf-check.log": "124df67abb8bb6362b72767334a8131cefa79c972021afdfae8c7c0d627a19a3"
+      }
+    },
+    "run_254": {
+      "directory": "artifacts/runs/p2-map-odom-remap-ground-boundary-repeat-20261020-254",
+      "sha256": {
+        "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+        "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+        "depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "ego-inflation-params.txt": "def8f3592bab8eeac69d9991b89448efda8901d6cc898b5042252ae248725c53",
+        "ego.log": "306d38eeb0366f09dc0231fa3e5a903218c13b56a9e95357f55a66f5c0f4b577",
+        "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+        "inflated-map-samples.json": "b8a57dbdea60ba4feb87247fde32545a1120181fc7abe7b4f1a3edc61593b882",
+        "inflated-topic-info.txt": "f9822724d66cb36a6e638779b3ef29f213528b5d22645f085c24afa2a3bc86c1",
+        "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "map-cloud.json": "d3b6347951aa72b139167a89fb23e97d60f11f13ecaf93fb286079677e4bc14b",
+        "mapping-adapter.log": "167b8334bca03fd0498ffcff905e059ba3f215998e84b805f796708ac9bf37ed",
+        "motion-driver.log": "117f7996d182c354886962f3fe6811140db05b61d4871fce35f0082d82a3e187",
+        "motion.json": "c2679a546d8b01da13768e2817194d8aec7a924215932b72d5a18b0750e06c76",
+        "multi-geometry-evaluation.json": "8aac3a32bbab92451f8545da3b9e69e5374a1faa0656db49c3d3598ca5f9ad55",
+        "optimized-odom-topic-info.txt": "3a92fbc768787ab74c1da1fe6a5755572175ce10c3e57c54199053c1443dca2b",
+        "optimized-odometry.json": "47caf26cd2e0ea6cc19cece57c2d722dc158011b197db165ba8e9d8dc9b8b767",
+        "probe-console.log": "b0ca9067ded5a3ad96a2cc4fdd9ea77d2f19a449645889d118730337e5091984",
+        "probe.json": "b0ca9067ded5a3ad96a2cc4fdd9ea77d2f19a449645889d118730337e5091984",
+        "probe_mapping_inflation.py": "366fddd201e319e1771d2d3e13741ec1518179e32907336849a76d4bbcd04d34",
+        "raw-vins-capture/raw-odometry.json": "19f671c8f2190eca483302b1834bb02ab3984e1a0335167ddc44faffeebd0a63",
+        "raw-vins-capture/summary.json": "61b549f170cee1f8389138c8291ba82c8ccb7a8f647c81f3877d6f72095d2b48",
+        "raw-vins-capture/telemetry.json": "1960b32e862f631500d467ba24e45410437a573030ab5cb85d92690fa1529335",
+        "raw-vins-probe.log": "40978e3f652e0fa1104a70e35adf7f97aed46da6782cb3535a3d072528152161",
+        "run-container.sh": "b3694eec962a36c489272062ecc5c1b204213fbbe75ce99bbe0971fb0920b9bf",
+        "run-live.sh": "7739b4189b2a35187c4cd4bd4303ebd69f1988afe76187961c8eb77497075176",
+        "run-variant-manifest.json": "66aafb3882cb60aa5dbcca0f6028832912403cc92b6174e98eed40cd39b777c0",
+        "sensors.log": "11b35816b720a9bb3dfb58ed75731d44f8729e4378904492c06bbdecf4876835",
+        "session/.localization-used": "0e3a474c5b5371f5d6fb840f54a77c18806a73ef3ef1e961cd5dabe5a3cc25ce",
+        "session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+        "session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+        "session/session.json": "72ad0d23d23c50455cbd227e6a98ca56bcebe2c9db910daf7db4a282f0188570",
+        "session/vins.yaml": "b3c73d76c0300e88b0171e2a4e9802be48282e2b2edb0476e1ae376d91261bd2",
+        "session/vio.csv": "49166c906db751c3288a9b027a82e2fa02f0da3df9ee393fdf5804413b0efa3c",
+        "session-binding.json": "709c36eb1278d26978678992d7a4a6f61998ef9f84c7deb9562b56e675b00acd",
+        "stereo-topic-info.txt": "166beb102f04fac8468e4788736ddaec6357627a784ab171af779b6cd819553f",
+        "vins.log": "e63393821bcfbce8085031490f94256b278947a22c01acd4903c8930c90db7a8",
+        "world-sdf-check.log": "14037919c2169aa160bf946971de0c48bc4e0ae0fa2914279bcc814d7fffc4b8"
+      }
+    }
+  },
+  "next_step": "Keep the profile diagnostic-only. In a fresh no-goal run, retain -0.05 m ground_height and five-step inflation while tracing the EGO depth/pose receipt gaps and mapping update stamps through the existing localization health gate. Then test an actual EGO target in a clear mapped corridor with no controller/PX4, and improve/repeat cylinder coverage before any clearance threshold is frozen.",
+  "execution_validation": {
+    "run_252_exit_code": 0,
+    "run_253_exit_code": 1,
+    "run_253_failure_classification": "expected diagnostic exclusion: propagated_stale with zero forwarded odometry/map output",
+    "run_254_exit_code": 0,
+    "world_sdf_preflight": "PASS for both boundary-run worlds; gz sdf returned Valid (retained gz_frame_id schema warnings)",
+    "run_254_offline_evaluator": "PASS; output stored in raw run directory",
+    "run_scripts_bash_n": "PASS",
+    "run_local_python_syntax": "PASS",
+    "container_cleanup": "PASS; no active test container remains",
+    "runtime_truth_subscribers": 0,
+    "runtime_control_publishers": 0
+  }
+}

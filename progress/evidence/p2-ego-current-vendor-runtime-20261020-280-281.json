@@ -1,0 +1,192 @@
+{
+  "schema": "p2-current-ego-build-runtime-followup/v1",
+  "date": "2026-10-20",
+  "run_ids": [
+    "#280",
+    "#281"
+  ],
+  "status": "PASS_CURRENT_VENDOR_BUILD_AND_PARTIAL_RUNTIME",
+  "qualification": "The pinned current EGO vendor packages rebuilt 5/5 and ran in a no-goal dynamic D435i mapping profile. The 35.015 s current-source run had zero `odom or depth lost!` warnings, while the prior #279 run using the Oct 16 prebuilt EGO binary had 51. This difference is a useful versioned comparison, not a proven single-variable causal result. It does not establish planner response, obstacle avoidance, or formal A–H acceptance.",
+  "source_and_build": {
+    "vendor_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "canonical_patches": [
+      "dependencies/patches/ego/0001-project-interface-and-license.patch",
+      "dependencies/patches/ego/0002-package-descriptions.patch",
+      "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch",
+      "dependencies/patches/ego/0004-mapping-input-safety.patch",
+      "dependencies/patches/ego/0005-occupancy-publication-stamp.patch",
+      "dependencies/patches/ego/0006-ego-odometry-topic.patch",
+      "dependencies/patches/ego/0007-shutdown-safe-planner.patch",
+      "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch",
+      "dependencies/patches/ego/0009-recoverable-depth-timeout.patch",
+      "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch",
+      "dependencies/patches/ego/0011-configurable-map-ground-height.patch",
+      "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch",
+      "dependencies/patches/ego/0018-sim-clock-consistency.patch",
+      "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch"
+    ],
+    "source_tree_file_count": 56,
+    "source_tree_aggregate_sha256": "c5caa40fd9c89ccb31deccc35277985e95e0be781f760f2a8e77ab1212d435ec",
+    "build_result": "PASS 5/5",
+    "build_log": "artifacts/runs/p2-ego-current-vendor-build-20261020-280/ego-overlay-build-attempt-02.log",
+    "build_log_sha256": "c8941678b78b38f71ddebfdfc9ede18fdc88a7c1f7ecc8f98bdaf1d66e082866",
+    "current_ego_planner_node_sha256": "d4d6abb66acf8b20edbc3ec78a6bc4f93c6efe9268e5bbd3ba03c63a1e635f81",
+    "current_plan_env_sha256": "ae2b8152c84b113c97972a61edd649553f4b6fed781d338f6c05b8437affa71b",
+    "oct16_ego_planner_node_sha256": "935eb544f0d24e73c395dfa632831aa5640c762e2d104b58fe7f71e440f371d6",
+    "oct16_plan_env_sha256": "54dfdce842e5f46aedd8a92db4b4ce10ff12a16f86aafc1994223e37b41bc316",
+    "patch_0010_diagnostic_string_current": true,
+    "patch_0010_diagnostic_string_oct16": false,
+    "run_report": "artifacts/runs/p2-ego-current-vendor-build-20261020-280/run-report.json",
+    "run_report_sha256": "dde1512352121f3b48815bfc43589b414bdfda3a13b14fe0252035572b53cb33"
+  },
+  "comparison": {
+    "prior_run": "#279",
+    "prior_ego_prefix": "artifacts/runs/p2-map-input-build-20261016-01/install",
+    "prior_ego_timeout_messages": 51,
+    "prior_ego_binary_sha256": "935eb544f0d24e73c395dfa632831aa5640c762e2d104b58fe7f71e440f371d6",
+    "current_run": "#281",
+    "current_ego_timeout_messages": 0,
+    "current_ego_binary_sha256": "d4d6abb66acf8b20edbc3ec78a6bc4f93c6efe9268e5bbd3ba03c63a1e635f81",
+    "current_duration_s": 35.015,
+    "same_optimized_odometry_topic": true,
+    "both_without_goal_or_control": true,
+    "interpretation": "Timeout warnings were not reproduced with the current pinned vendor build in this one low-load run. No specific patch or root cause is isolated; the runs are not a repeated causal experiment."
+  },
+  "run_281": {
+    "run_report": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/run-report.json",
+    "run_report_sha256": "ac7197913f28cb1fab550e0aff7edf907e18ddf32ae86ff40cd2e14a18a6ff13",
+    "runtime": {
+      "probe_wall_seconds": 35.015,
+      "map_status_sample_count": 153,
+      "map_status_ready_count": 153,
+      "localization_status_sample_count": 695,
+      "all_localization_valid_tracking": true,
+      "depth_health_sample_count": 1338,
+      "all_depth_health_ready": true,
+      "map_updates_during_motion": {
+        "clock_interval_s": [
+          7.578,
+          32.605
+        ],
+        "sample_count": 271,
+        "minimum": 830,
+        "median": 1015,
+        "maximum": 1263,
+        "unique_counts": 129,
+        "point_count_changes": 159
+      },
+      "snapshot": {
+        "cloud": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/map-cloud.json",
+        "cloud_sha256": "92d0cfd488710b74ab92d4a30a54c928d3d1e432a3e2133804e1f51b0b10499c",
+        "point_count": 1193,
+        "source_stamp_ns": 33644000000,
+        "frame_id": "odom_56e2c1cc3d994ebb95eecdeced807e26",
+        "status_header_stamp_ns": 33694000000,
+        "status_minus_cloud_stamp_ms": 50.0,
+        "clock_stamp_ns_at_status_receipt": 33644000000,
+        "calibration_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+        "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+        "keyframe_count": 29,
+        "keyframe_dropped_count": 6
+      },
+      "map_export": {
+        "status": "PASS",
+        "pcd": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/map-snapshot/occupied_snapshot.pcd",
+        "pcd_sha256": "d928d082a15e92327f2127d21a23b6cb87fd8d9f81bbd81a1832ee7d4f043afe",
+        "point_count": 1193,
+        "float32_coordinates_roundtrip_exact": true,
+        "metadata": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/map-snapshot/metadata.json",
+        "qualification": "One occupied-only live sample; not coverage or free/unknown classification."
+      },
+      "ego": {
+        "odometry_topic": "/localization/optimized_imu_odom",
+        "timeout_messages": 0,
+        "startup_no_odom_messages": 3,
+        "state": "WAIT_TARGET",
+        "goal_sent": false,
+        "clean_sigint_shutdown": true
+      },
+      "future_observation_log_count": 0,
+      "trajectory_alignment": {
+        "method": "Single SE(3), scale fixed to 1, no segment realignment",
+        "paired_samples": 377,
+        "position_rmse_m": 0.009307974121824396,
+        "position_p95_m": 0.016516898800899706,
+        "position_max_m": 0.017645965185128502,
+        "orientation_rmse_deg": 1.0253908811761887
+      },
+      "obstacle_surface_comparison": [
+        {
+          "name": "calibration_box",
+          "kind": "box",
+          "center_world_m": [
+            1.55,
+            0.5,
+            1.1
+          ],
+          "size_m": [
+            0.35,
+            0.5,
+            0.8
+          ],
+          "roi_margin_m": 0.25,
+          "map_points_in_roi": 41,
+          "nearest_surface_residual_m": {
+            "median": 0.0023321478626028846,
+            "p95": 0.034397651908610494,
+            "maximum": 0.05127572271263342,
+            "fraction_within_0_10m": 1.0
+          }
+        },
+        {
+          "name": "calibration_cylinder",
+          "kind": "cylinder",
+          "center_world_m": [
+            2.25,
+            -0.5,
+            1.0
+          ],
+          "radius_m": 0.18,
+          "length_m": 0.9,
+          "roi_margin_m": 0.25,
+          "map_points_in_roi": 35,
+          "nearest_surface_residual_m": {
+            "median": 0.07198952129084502,
+            "p95": 0.11636941764666442,
+            "maximum": 0.11760146500798022,
+            "fraction_within_0_10m": 0.6285714285714286
+          }
+        }
+      ]
+    },
+    "artifacts": {
+      "probe": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/probe.json",
+      "probe_sha256": "717cb4de75c801c855d8bc41017e82e1e6a9e36aff83d400be36035caeb87168",
+      "motion": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/motion.json",
+      "motion_sha256": "d9a3dad4e7dac02ce2cd1dd2450ef353a81fcdb8fb928592932a9b352c98d09c",
+      "geometry_report": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/multi-geometry-report.json",
+      "geometry_report_sha256": "412e95f2711670d96cf81821c6384cbea33086cb9b6baa7edad915bb81685b8d",
+      "pcd": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/map-snapshot/occupied_snapshot.pcd",
+      "pcd_sha256": "d928d082a15e92327f2127d21a23b6cb87fd8d9f81bbd81a1832ee7d4f043afe",
+      "snapshot_metadata": "artifacts/runs/p2-moving-map-current-ego-vendor-20261020-281/map-snapshot/metadata.json",
+      "snapshot_metadata_sha256": "bfd8e898233a25d070a7433aa2ded0b034046359322afced7af8163df98afa48",
+      "metadata_run_report_hash_matches": true
+    }
+  },
+  "interpretation": [
+    "The current source run observed 153/153 ready MapStatus samples, 695/695 valid TRACKING localization samples, and 1338/1338 ready depth-health samples.",
+    "During the recorded force-motion interval 7.578–32.605 s, 271 observer clock-aligned map samples ranged from 830 to 1263 occupied points, with 129 unique counts and 159 point-count changes. The archived 1193-point snapshot stamp is 33.644 s, after the motion driver recorded interval; the sample only demonstrates map updates during movement, not coverage.",
+    "The #281 cloud and MapStatus exactly match epoch, map_id, frame, occupancy source stamp and point count. Status header is 50 ms after the cloud stamp; the snapshot was exported to PCD and all 1193 float32 coordinates read back exactly.",
+    "Single rigid SE(3) alignment with scale fixed to 1 gives 377 paired truth/odometry samples, position RMSE 9.31 mm, P95 16.52 mm, maximum 17.65 mm and orientation RMSE 1.025 degrees. This remains one offline diagnostic alignment.",
+    "Within 0.25 m ROIs, box and cylinder provide 41 and 35 points; surface residual P95 is 3.44 cm and 11.64 cm, respectively. Sparse local samples do not measure coverage or safe clearance.",
+    "Current EGO reaches WAIT_TARGET after three startup no-odom messages, then has zero `odom or depth lost!` messages and clean SIGINT shutdown. No goal was sent, so this is not planner readiness evidence."
+  ],
+  "limitations": [
+    "One current-vendor runtime only; zero timeout messages does not establish a repeatable rate or prove why #279 warned.",
+    "No planner goal, trajectory, controller, PX4, or flight was run.",
+    "Only occupied points from one sample were exported. Free/unknown state, coverage, persistence, inflation safety, and collision clearance remain unverified.",
+    "Geometry ROIs are sparse and exploratory; formal thresholds remain unfrozen.",
+    "The #281 snapshot was captured after the force-motion driver recorded its interval."
+  ],
+  "next_step": "Use the current EGO overlay for a planner-only, no-control goal test after checking the map and body-envelope clearance, then measure the actual trajectory against obstacles; keep it diagnostic until GOAL F thresholds are frozen."
+}

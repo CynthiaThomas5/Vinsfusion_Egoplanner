@@ -1,0 +1,156 @@
+{
+  "schema": "ego-second-layout-dense-spline-snapshot-validation/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-dense-spline-layout-snapshot-retry-20261020-321",
+  "result": "diagnostic_two_centerlines_clear_in_paired_voxel_snapshots",
+  "source": {
+    "patch_0029": "dependencies/patches/ego/0029-dense-spline-inflation-check-experiment.patch",
+    "patch_0029_sha256": "1903e9ed4d2fa5a6044f1fb6167e3b82a89215524ffcfb32f9c8b3230f761abb",
+    "planner_binary_sha256": "9040507b33ee2a0d0657874f9f4cece358a0c69723672cd881dbe090bfd8f866",
+    "build_report": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/build-report-0029.json",
+    "build_report_sha256": "eea6d3ac6984976189631992819a5b7699d5e9a2a7c99e6aa80a2052875433e3"
+  },
+  "layout": {
+    "schema": "ego-diagnostic-layout-variant/v1",
+    "run_id": "p2-ego-dense-spline-layout-snapshot-retry-20261020-321",
+    "base_layout": "p2-ego-dense-spline-snapshot-validation-20261020-319",
+    "unchanged": [
+      "goal_xy_m=[2.5,1.4]",
+      "box dimensions",
+      "cylinder radius/length",
+      "wall model",
+      "planner config",
+      "runtime parameters",
+      "patch 0029 binary"
+    ],
+    "changed": [
+      {
+        "name": "calibration_box",
+        "pose_xyz_rpy": [
+          1.55,
+          0.9,
+          1.1,
+          0,
+          0,
+          0
+        ],
+        "size_m": [
+          0.35,
+          0.5,
+          0.8
+        ]
+      },
+      {
+        "name": "calibration_cylinder",
+        "pose_xyz_rpy": [
+          2.25,
+          0.05,
+          1.0,
+          0,
+          0,
+          0
+        ],
+        "radius_m": 0.18,
+        "length_m": 0.9
+      }
+    ],
+    "purpose": "Move two obstacles across the approach corridor for a second-layout planner-only collision-check diagnostic."
+  },
+  "runtime": {
+    "status": "bspline_received",
+    "goal_sent": true,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "spline_count": 2,
+    "snapshot_requests": 2,
+    "snapshot_accepted_count": 2,
+    "snapshot_request_attempts": [
+      1,
+      1
+    ],
+    "snapshot_deltas_s": [
+      0.001,
+      0.0
+    ],
+    "source_ages_s": [
+      0.13,
+      0.099
+    ],
+    "curves": [
+      {
+        "traj_id": 1,
+        "samples_10ms": 447,
+        "in_map": 447,
+        "out_of_map": 0,
+        "unknown": 0,
+        "known_free": 447,
+        "raw_occupied": 0,
+        "inflated_mask_hits": 0,
+        "minimum_centerline_to_occupied_voxel_box_m": 0.5424220609704469,
+        "nominal_sphere_radius_m": 0.482,
+        "centerline_box_margin_over_nominal_sphere_m": 0.06042206097044689,
+        "max_10ms_chord_m": 0.010180353524452096
+      },
+      {
+        "traj_id": 2,
+        "samples_10ms": 458,
+        "in_map": 458,
+        "out_of_map": 0,
+        "unknown": 0,
+        "known_free": 458,
+        "raw_occupied": 0,
+        "inflated_mask_hits": 0,
+        "minimum_centerline_to_occupied_voxel_box_m": 0.5922593892458352,
+        "nominal_sphere_radius_m": 0.482,
+        "centerline_box_margin_over_nominal_sphere_m": 0.11025938924583523,
+        "max_10ms_chord_m": 0.01029639054381146
+      }
+    ],
+    "known_coverage_fraction": [
+      0.005835358796296296,
+      0.005890625
+    ],
+    "final_spline_collision_reject_count": 1
+  },
+  "graph": {
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_nodes": [],
+    "trajectory_executed": false
+  },
+  "artifacts": {
+    "runtime_manifest": {
+      "path": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/runtime-manifest-01.json",
+      "sha256": "11199b7b48f011bd76c3e82e3a5ded8f3d068dea8ebf12a7eac4f8d3f3e053c7"
+    },
+    "analysis": {
+      "path": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/spline-snapshot-clearance-analysis.json",
+      "sha256": "0ff496b279bc5980649354c1ddc3e05b6d11a2d9d79c90c46a4a562b39e01f55"
+    },
+    "probe": {
+      "path": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/planner-goal-result-01.json",
+      "sha256": "b1b5a68ebe0251345aa4f02c4b4f30a4b0e0ed2638946bec4e4000729e9a1e3e"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/runtime-summary-01.json",
+      "sha256": "53f91370a90c71bef749c74e6554ddca941d93a5164b04031b3cd5410f2ffb2b"
+    },
+    "logs": {
+      "path": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/ego-01.log",
+      "sha256": "45854865ed681a8cb33ceba44afa8ea1249ec6f831b83f35c5d97e5cc0a5f31f"
+    },
+    "snapshots": [
+      {
+        "path": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/snapshots-01/spline-1-occupancy.npz",
+        "sha256": "245a77e8d3b3a13ba6cedeec098950f5259b1bc431ff38842046d4b06c8b0087"
+      },
+      {
+        "path": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/snapshots-01/spline-2-occupancy.npz",
+        "sha256": "f05d6c10b2880e516a749022a599b3f2ef1437dbb249494631ffcc0a9a170b94"
+      }
+    ]
+  },
+  "qualification": "Both B-spline centerlines had no 10 ms samples in out-of-map, unknown, raw occupied or inflated voxels in their paired snapshots. Their nearest sampled centerline-to-occupied voxel-box distances were 0.542 m and 0.592 m. Snapshot stamps differed from spline start by 1 ms and 0 ms; depth source ages were 130 ms and 99 ms. Global known coverage was about 0.58–0.59%. This is a centerline-to-current-map diagnostic only: no vehicle body sweep, map accuracy/completeness, tracking error, controller, PX4, truth or execution evidence."
+}

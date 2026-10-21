@@ -1,0 +1,97 @@
+{
+  "schema": "p2-vins-monotonic-solve-diagnostic/v1",
+  "date": "2026-10-20",
+  "status": "DIAGNOSTIC_ONLY_MONOTONIC_COMPARISON_CAPTURED_NEGATIVE_WALL_TIME_NOT_REPRODUCED",
+  "objective": "Resolve whether the #284 negative solve_seconds was a realtime clock artifact or telemetry corruption, without changing canonical health policy.",
+  "runs": [
+    {
+      "run_id": "p2-vins-monotonic-solve-diagnostic-20261020-287",
+      "path": "artifacts/runs/p2-vins-monotonic-solve-diagnostic-20261020-287/run-report.json",
+      "sha256": "cb99fd4ea6bda0c5ecb52aedea88f0808f25a845e8fbf04c2086319c7f1ca7d6",
+      "status": "DIAGNOSTIC_RUNTIME_OK_MONOTONIC_FIELD_NOT_RETAINED_BY_PROBE"
+    },
+    {
+      "run_id": "p2-vins-monotonic-solve-diagnostic-20261020-288",
+      "path": "artifacts/runs/p2-vins-monotonic-solve-diagnostic-20261020-288/run-report.json",
+      "sha256": "7a40544541b54485a88f9a5be1b250f0e3807b7fa72406d1650d546d589411a0",
+      "status": "DIAGNOSTIC_PLANNER_SPLINES_DUAL_TIMING_CAPTURED_NO_ACCEPTANCE"
+    }
+  ],
+  "build": {
+    "run_report": "artifacts/runs/p2-vins-monotonic-solve-diagnostic-20261020-287/run-report.json",
+    "instrumented_binary_sha256": "c06850ad9c1c3e40155af265427f2af9c542fa4acb52b28bb826566f10c0a739",
+    "upstream_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "license": "GPL-3.0",
+    "canonical_patches": [
+      "0001-fully-fixed.patch",
+      "0002-telemetry.patch",
+      "0003-jazzy-cv-bridge.patch",
+      "0004-initialize-excitation-sum.patch",
+      "0005-diagnostic-cost-components.patch"
+    ],
+    "run_local_patch": "artifacts/runs/p2-vins-monotonic-solve-diagnostic-20261020-287/0001-run-local-steady-clock-telemetry.patch",
+    "run_local_patch_sha256": "920917188ad92720a0d412c8392db6982f6e44556af01da3df09721534894795",
+    "vendor_source_modified": false
+  },
+  "finding": {
+    "planner_goal_sent": true,
+    "bspline_count": 41,
+    "ready_map_occupied_points": 902,
+    "telemetry_total": 644,
+    "startup_records_excluded": 10,
+    "paired_positive_solve_samples": 634,
+    "negative_ceres_wall_duration_count": 0,
+    "negative_steady_duration_count": 0,
+    "ceres_wall_duration_max_s": 0.011255025863647461,
+    "steady_duration_max_s": 0.01129299,
+    "wall_minus_steady_min_us": -65.63641308593785,
+    "wall_minus_steady_median_us": -27.078987670898016,
+    "wall_minus_steady_max_us": -17.149552612305033,
+    "absolute_difference_p95_us": 38.703111816406135,
+    "host_clock_samples": 8085,
+    "host_clock_coverage_s": 81.510093315,
+    "host_clock_offset_range_ns": 14737,
+    "largest_adjacent_offset_change_ns": 14246,
+    "localization_lock_reason": "normalized_cost_exceeded",
+    "max_normalized_cost": 1.068459439397521,
+    "ego_timeout_logs": 6,
+    "ego_emergency_stop_logs": 68,
+    "control_nodes": [],
+    "control_topics": [],
+    "ego_timeout_count": 6,
+    "ego_depth_lost_count": 6,
+    "ego_last_sync_count": 963,
+    "ego_last_sync_stamp_s": 36.532,
+    "ego_last_occupancy_update_s": 36.648,
+    "ego_terminal_point_in_obstacle_warnings": 1507,
+    "ego_suddenly_discovered_obstacle_messages": 13,
+    "ego_timeout_to_gate_close_s": 4.294373512268066,
+    "ego_sync_count_at_timeout": 963,
+    "mapping_forwarded_depth_counts_near_stall": [
+      984,
+      997,
+      1014
+    ],
+    "optimized_odom_stamps_near_stall_ns": [
+      37621000000,
+      37686999999,
+      37753000000,
+      37819000000
+    ],
+    "ego_boundary_inference": "EGO synchronization stalled after adapter outputs; DDS reader vs EGO callback/executor remains unresolved."
+  },
+  "interpretation": "The negative #284 sample was not reproduced in #286 or #288. In #288 all 634 positive-duration pairs were nonnegative; Ceres wall time was 17–66 microseconds shorter than the outer steady-clock interval. This confirms close agreement during this run, but cannot retrospectively identify the cause of #284. The host clock offset also remained stable during the observed runs.",
+  "qualification": "Planner-only diagnostic; no trajectory execution, controller, PX4, runtime truth input, or GOAL C/D/E/F acceptance. Canonical health gate and thresholds remain unchanged and PROVISIONAL.",
+  "raw_hash_validation": {
+    "run287_raw_artifacts_verified": 27,
+    "run288_raw_artifacts_verified": 35
+  },
+  "milestones_unchanged": {
+    "P2": "passed; stage audit unchanged",
+    "P6": "in_progress",
+    "GOAL_A_H": "not accepted by this diagnostic"
+  },
+  "ego_interpretation": "At EGO now=37.671–37.852 s, the EGO depth/pose sync counter remains 963 and occupancy last updated at 36.648 s. At the matching source-time window, MapStatus is still ready and forwarded_depth_count rises 984→1014, while the independent optimized-odometry subscriber receives stamps 37.621–37.819 s. Mapping closes only later with normalized_cost_exceeded; its host log timestamp is 4.044 s after the last EGO timeout (4.294 s after the first), and MapStatus remains ready through wall_elapsed 54.659 s before reset acknowledgement at 54.908 s. This places the observed stall downstream of the self-maintained mapping/localization adapter outputs and before EGO synchronized occupancy refresh; an EGO subscription/message-filter/DDS/executor issue is plausible. It does not distinguish reader delivery from EGO callback/synchronizer behavior. The later localization lock/reset did not trigger these earlier timeout messages. EGO also repeatedly rejected terminal points in its inflated obstacle map; no vehicle control was present.",
+  "ego_detail": "artifacts/runs/p2-vins-monotonic-solve-diagnostic-20261020-288/ego-timeout-detail.json",
+  "ego_detail_sha256": "49a0616d4eac2e67f8b1fb05d5ead1950b8214b34d981ae8814a5b5638108275"
+}

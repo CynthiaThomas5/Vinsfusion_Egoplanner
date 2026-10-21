@@ -1,0 +1,394 @@
+{
+  "schema": "p2-map-snapshot-temporal-growth-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-map-voxel-snapshot-service-20261020-295",
+  "status": "EXPLORATORY_SECOND_LAYOUT_TEMPORAL_MAP_DIAGNOSTIC; GOAL_C_PENDING",
+  "qualification": "Three same-epoch snapshots from one motion sequence in a second obstacle layout. Supports a second-layout geometry check only; not repeatability, coverage, ghosting acceptance, clearance, planner, flight, or GOAL C acceptance.",
+  "environment": {
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 144,
+    "gazebo_partition": "d435i_map_voxel_snapshot_295_01",
+    "scope": "same-epoch multi-time occupancy snapshots during planner-only D435i/VINS sensor motion; no PX4, trajectory server, or controller launch",
+    "scene": "Same wall and sensor motion profile as #294; box at (1.70,-0.65,1.05)m sized 0.48×0.38×0.70m; cylinder at (2.10,0.72,0.98)m with 0.22m radius and 0.78m length."
+  },
+  "build": {
+    "candidate_install_reused_from": "p2-map-voxel-snapshot-service-20261020-292",
+    "build_repeated_for_this_run": false,
+    "ego_planner_node_sha256": "691471c8e6679bf9eb867f9724407cb4f23f09675367bd44353084e65fbe6530",
+    "libplan_env_sha256": "c2f3c5d409fa3138c400feb0884750b2c3b64c1183989ef981c3f772dc9617b0",
+    "patch_sha256": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8",
+    "canonical_vendor_modified": false,
+    "dependencies_sources_json_modified": false
+  },
+  "grid": {
+    "epoch": "b212b2ca339c4df186e6a0bc7854bd35",
+    "map_id": "b212b2ca339c4df186e6a0bc7854bd35-350617aa66f04314b51e4e6c0dad0673",
+    "frame_id": "odom_b212b2ca339c4df186e6a0bc7854bd35",
+    "dimensions_xyz": [
+      240,
+      240,
+      60
+    ],
+    "origin_m": [
+      -12.0,
+      -12.0,
+      -0.15
+    ],
+    "resolution_m": 0.1,
+    "total_voxels": 3456000,
+    "same_epoch_map_id_frame_origin_and_resolution": true
+  },
+  "first_force_command_stamp_s": 7.954,
+  "snapshots": [
+    {
+      "index": "01",
+      "epoch": "b212b2ca339c4df186e6a0bc7854bd35",
+      "map_id": "b212b2ca339c4df186e6a0bc7854bd35-350617aa66f04314b51e4e6c0dad0673",
+      "frame_id": "odom_b212b2ca339c4df186e6a0bc7854bd35",
+      "snapshot_stamp_ns": 9703000000,
+      "source_depth_count_before_after": [
+        155,
+        155
+      ],
+      "source_age_s": 0.066,
+      "service_duration_ms": 42.9925029993683,
+      "voxel_counts": {
+        "unknown": 3438522,
+        "free": 15325,
+        "occupied": 2153,
+        "inflated": 8099
+      },
+      "known_voxel_count": 17478,
+      "known_voxel_fraction": 0.0050572916666666665,
+      "archive_readback_exact": true,
+      "archive_sha256": "07aa66cc9724417dd39368652db9aabc645da075794beec5047622ed1719d79c",
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      },
+      "nearest_sdf_surface_residual_m": {
+        "median": 0.04312355935021346,
+        "p95": 0.0774798801636538,
+        "maximum": 0.0858278041890597,
+        "fraction_within_0_10m": 1.0,
+        "occupied_centers_over_0_10m": 0
+      },
+      "surface_assignment_counts": {
+        "calibration_wall": 2051,
+        "calibration_box": 60,
+        "calibration_cylinder": 42,
+        "ground_plane": 0
+      },
+      "central_wall_face_x_m": {
+        "sample_count": 327,
+        "median_voxel_center_x_m": 3.035660563755402,
+        "target_front_face_x_m": 3.0,
+        "median_center_to_front_face_abs_m": 0.05039159441925012
+      }
+    },
+    {
+      "index": "02",
+      "epoch": "b212b2ca339c4df186e6a0bc7854bd35",
+      "map_id": "b212b2ca339c4df186e6a0bc7854bd35-350617aa66f04314b51e4e6c0dad0673",
+      "frame_id": "odom_b212b2ca339c4df186e6a0bc7854bd35",
+      "snapshot_stamp_ns": 12310000000,
+      "source_depth_count_before_after": [
+        231,
+        232
+      ],
+      "source_age_s": 0.099,
+      "service_duration_ms": 41.15087499940273,
+      "voxel_counts": {
+        "unknown": 3434323,
+        "free": 19370,
+        "occupied": 2307,
+        "inflated": 9020
+      },
+      "known_voxel_count": 21677,
+      "known_voxel_fraction": 0.006272280092592592,
+      "archive_readback_exact": true,
+      "archive_sha256": "24eff677bfe41a8a22fd833cfbca41309ef9a8c11f8f7fab14d59c3e6c49581b",
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      },
+      "nearest_sdf_surface_residual_m": {
+        "median": 0.03820715346818675,
+        "p95": 0.06470882600731921,
+        "maximum": 0.07707292179527662,
+        "fraction_within_0_10m": 1.0,
+        "occupied_centers_over_0_10m": 0
+      },
+      "surface_assignment_counts": {
+        "calibration_wall": 2228,
+        "calibration_box": 35,
+        "calibration_cylinder": 44,
+        "ground_plane": 0
+      },
+      "central_wall_face_x_m": {
+        "sample_count": 357,
+        "median_voxel_center_x_m": 2.9623949622557118,
+        "target_front_face_x_m": 3.0,
+        "median_center_to_front_face_abs_m": 0.05020645880518826
+      }
+    },
+    {
+      "index": "03",
+      "epoch": "b212b2ca339c4df186e6a0bc7854bd35",
+      "map_id": "b212b2ca339c4df186e6a0bc7854bd35-350617aa66f04314b51e4e6c0dad0673",
+      "frame_id": "odom_b212b2ca339c4df186e6a0bc7854bd35",
+      "snapshot_stamp_ns": 15009000000,
+      "source_depth_count_before_after": [
+        311,
+        314
+      ],
+      "source_age_s": 0.125,
+      "service_duration_ms": 38.395937999666785,
+      "voxel_counts": {
+        "unknown": 3434017,
+        "free": 20205,
+        "occupied": 1778,
+        "inflated": 8578
+      },
+      "known_voxel_count": 21983,
+      "known_voxel_fraction": 0.00636082175925926,
+      "archive_readback_exact": true,
+      "archive_sha256": "85adc0e168766ba437fcd5b5d2eea2019a51f8c4e44e021e643c81242e469321",
+      "identity_rejection_checks": {
+        "mismatched_epoch_rejected": true,
+        "mismatched_epoch_reason": "epoch_mismatch",
+        "mismatched_map_id_rejected": true,
+        "mismatched_map_id_reason": "map_id_mismatch"
+      },
+      "nearest_sdf_surface_residual_m": {
+        "median": 0.04214829119206494,
+        "p95": 0.06888045257593615,
+        "maximum": 0.07707292179527662,
+        "fraction_within_0_10m": 1.0,
+        "occupied_centers_over_0_10m": 0
+      },
+      "surface_assignment_counts": {
+        "calibration_wall": 1672,
+        "calibration_box": 60,
+        "calibration_cylinder": 46,
+        "ground_plane": 0
+      },
+      "central_wall_face_x_m": {
+        "sample_count": 345,
+        "median_voxel_center_x_m": 3.033622372087931,
+        "target_front_face_x_m": 3.0,
+        "median_center_to_front_face_abs_m": 0.051038419196911544
+      }
+    }
+  ],
+  "temporal_deltas": [
+    {
+      "from_snapshot": "01",
+      "to_snapshot": "02",
+      "known_voxel_delta": 4199,
+      "new_known_voxels": 5146,
+      "known_to_unknown_voxels": 947,
+      "state_transitions": {
+        "unknown_to_unknown": 3433376,
+        "unknown_to_free": 5076,
+        "unknown_to_occupied": 70,
+        "free_to_unknown": 551,
+        "free_to_free": 14211,
+        "free_to_occupied": 563,
+        "occupied_to_unknown": 396,
+        "occupied_to_free": 83,
+        "occupied_to_occupied": 1674
+      },
+      "occupied_voxel_retained": 1674,
+      "occupied_voxel_added": 633,
+      "occupied_voxel_removed": 479,
+      "occupied_voxel_jaccard": 0.6008614501076812,
+      "central_wall_median_center_shift_m": 0.07326560149969019
+    },
+    {
+      "from_snapshot": "02",
+      "to_snapshot": "03",
+      "known_voxel_delta": 306,
+      "new_known_voxels": 306,
+      "known_to_unknown_voxels": 0,
+      "state_transitions": {
+        "unknown_to_unknown": 3434017,
+        "unknown_to_free": 288,
+        "unknown_to_occupied": 18,
+        "free_to_free": 19268,
+        "free_to_occupied": 102,
+        "occupied_to_free": 649,
+        "occupied_to_occupied": 1658
+      },
+      "occupied_voxel_retained": 1658,
+      "occupied_voxel_added": 120,
+      "occupied_voxel_removed": 649,
+      "occupied_voxel_jaccard": 0.6831479192418624,
+      "central_wall_median_center_shift_m": 0.0712274098322192
+    }
+  ],
+  "trajectory_alignment": {
+    "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+    "paired_samples": 374,
+    "overlap_seconds": 24.618000000000002,
+    "truth_position_span_m": [
+      0.2628595498069306,
+      0.326242140191983,
+      0.13142977500000197
+    ],
+    "truth_yaw_span_deg": 25.101705273401866,
+    "position_rmse_m": 0.00379839299389712,
+    "position_p95_m": 0.007282014661559316,
+    "position_max_m": 0.008484661984695543,
+    "orientation_rmse_deg": 1.047282364478458,
+    "alignment_rotation": [
+      [
+        0.9999393767258931,
+        0.010190958337355123,
+        -0.004169801098369175
+      ],
+      [
+        -0.010242730597051022,
+        0.9998682933960555,
+        -0.01258897657382172
+      ],
+      [
+        0.004040958172253306,
+        0.012630923538137828,
+        0.9999120613472094
+      ]
+    ],
+    "alignment_translation": [
+      -0.00011818812565432546,
+      -0.0034591383356731564,
+      1.0004675895253297
+    ]
+  },
+  "runtime_diagnostics": {
+    "goal_sent": false,
+    "planner_state": "WAIT_TARGET observed",
+    "forbidden_control_nodes": [],
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "ego_odom_or_depth_lost_count": 0,
+    "ego_odom_or_depth_lost_episodes": [],
+    "clean_sigint_exit": true,
+    "interpretation": "No EGO odom/depth timeout warning appeared in this run. No goal or control was sent, so planner behavior was not evaluated."
+  },
+  "isolation": {
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "forbidden_control_nodes": [],
+    "goal_sent": false,
+    "truth_use": "Fixture truth was recorded separately and used only offline for one fixed-scale SE(3) trajectory alignment."
+  },
+  "artifacts": {
+    "run_report": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/run-report.json",
+      "sha256": "74e29c7b347d5d0b8b9bfbbfc78ccc2000eff03fb1fe07fcf4b2648f51c527fd",
+      "bytes": 17956
+    },
+    "source_manifest": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/source-manifest.json",
+      "sha256": "f7f2cfc6d7fd2f5c174a24fd7755b5e4ad0085813e2f69c195fb58527e58f26d",
+      "bytes": 15412
+    },
+    "source_manifest_build": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/source-manifest-build.json",
+      "sha256": "9ba13b91b797436ddb13332c2d7ea59f9a71c60d8a16525aa00f3ffbe3121938",
+      "bytes": 14369
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/runtime-summary.json",
+      "sha256": "9151e5b3c75604433f83ba75d0c2ff627f3e4fe7479696cc5af2698efc1fcfe4",
+      "bytes": 3454
+    },
+    "scene_description": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/scene-01.json",
+      "sha256": "bef97ba926f07892450e972297994930922001a3f92e3d6fe0e8674790345043",
+      "bytes": 747
+    },
+    "temporal_analysis": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/temporal-map-analysis.json",
+      "sha256": "32820140089936e30728f70c7295f000592121b335c952504750ebe65e0687c1",
+      "bytes": 12323
+    },
+    "analysis_script": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/analyze_temporal_maps.py",
+      "sha256": "0efe8f42fc747b3052e797b20d54800d16c4ec88dec66733c2fc5b6e0676f679",
+      "bytes": 11871
+    },
+    "ego_log": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/ego-01.log",
+      "sha256": "d913a95482f5a8f5e01145f3e2b862cc747ebd9a9a9c3e6b87a6c371855c77ff",
+      "bytes": 4264
+    },
+    "motion_and_fixture_truth": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/motion-01.json",
+      "sha256": "4e2ecbf0e1bf7981ca4a6c120ec8eb64f8ea461fb584b7e194f5086f3cd23088",
+      "bytes": 1935804
+    },
+    "world_sdf": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/debug-motion-01.sdf",
+      "sha256": "23b8ba2543b96fd2e6a7249681987ed29831419d15dfd0de2554a78dc1a9510c",
+      "bytes": 10559
+    },
+    "vins_log": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/vins-01.log",
+      "sha256": "f883e235486ff0021af7d43f7e8d28b2416a14eea75d46ad6fcdc52e70b21e75",
+      "bytes": 76204
+    },
+    "extracted_vins_odometry": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/vins-odometry-extracted.json",
+      "sha256": "4c85b1ce9c215c9dfc3d96d54f7fb29e08d17ef945f7bdd56e0d8f2ad4c7d6ff",
+      "bytes": 87554
+    },
+    "snapshot_01_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-01/metadata.json",
+      "sha256": "471d63676eaa4f92c8340142fea55eafc5d8c7034def127ff6fa2b988404fb07",
+      "bytes": 4958
+    },
+    "snapshot_01_archive": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-01/occupancy_snapshot.npz",
+      "sha256": "07aa66cc9724417dd39368652db9aabc645da075794beec5047622ed1719d79c",
+      "bytes": 9980
+    },
+    "snapshot_02_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-02/metadata.json",
+      "sha256": "f02aac158113ae3d70c003015fe9abfd85af5ffda764829d2813b09abb6589cb",
+      "bytes": 4970
+    },
+    "snapshot_02_archive": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-02/occupancy_snapshot.npz",
+      "sha256": "24eff677bfe41a8a22fd833cfbca41309ef9a8c11f8f7fab14d59c3e6c49581b",
+      "bytes": 10123
+    },
+    "snapshot_03_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-03/metadata.json",
+      "sha256": "e81535fac1145cb58c13a62a4cb351c0d141d57c785c338d67aed4977eaeb346",
+      "bytes": 4972
+    },
+    "snapshot_03_archive": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-03/occupancy_snapshot.npz",
+      "sha256": "85adc0e168766ba437fcd5b5d2eea2019a51f8c4e44e021e643c81242e469321",
+      "bytes": 10128
+    }
+  },
+  "limitations": [
+    "Only one motion sequence and one obstacle arrangement were tested.",
+    "Nearest distance to known SDF surfaces can flag possible outliers but cannot distinguish map ghosting from depth/noise or alignment error by itself.",
+    "Map coverage was computed over the full configured volume; the large unknown fraction is expected for a local camera view but no acceptance ROI or threshold is frozen.",
+    "No planner goal, vehicle geometry clearance, control, PX4, or final no-truth acceptance was tested.",
+    "One motion sequence in a second layout is not an independent repeat; the measured wall-center median changed by 7.1–7.3 cm between adjacent snapshots, approximately one voxel, so temporal stability remains unresolved.",
+    "Raw occupied Jaccard is 0.601 then 0.683. These values describe this sequence and are not frozen ghosting thresholds.",
+    "Configured-volume coverage is below 0.7%; no bounded acceptance ROI or completeness threshold is defined.",
+    "No goal, controller, trajectory server, PX4, vehicle clearance, or final no-truth navigation acceptance was tested.",
+    "Candidate patch 0021 remains isolated outside the canonical dependency list."
+  ],
+  "next_step": "Repeat this second layout in a new epoch to assess the one-voxel-scale wall-center shifts; define an ROI-based surface coverage and ghosting metric before formal GOAL C acceptance and canonical dependency integration."
+}

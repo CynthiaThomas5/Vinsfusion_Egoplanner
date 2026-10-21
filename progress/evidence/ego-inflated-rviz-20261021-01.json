@@ -1,0 +1,56 @@
+{
+  "schema": "inflated-occupancy-rviz/v1",
+  "date": "2026-10-21",
+  "result": "PASS_LIVE_DISPLAY",
+  "source_reference": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm/blob/23a8d5a191711dd65633df689bd00f55d4dea8f9/src/planner/plan_env/src/grid_map.cpp",
+  "implementation": "Reuse existing EGO publishMapInflate; no third-party source, inflation, health or control algorithm changes.",
+  "display_topic": "/drone_0_grid/grid_map/occupancy_inflate",
+  "display_style": "PointCloud2 Boxes 0.1 m; AxisColor Z",
+  "epoch": "5b0d931e56b44d24ac3508a23601b19a",
+  "probe_both_nonempty": true,
+  "topics": {
+    "/drone_0_grid/grid_map/occupancy_inflate": {
+      "received_samples": 101,
+      "max_points": 2182,
+      "all_finite": true,
+      "last": {
+        "frame": "odom_5b0d931e56b44d24ac3508a23601b19a",
+        "stamp_ns": 142100000000,
+        "count": 2182,
+        "finite": true
+      }
+    },
+    "/grid_map/occupancy": {
+      "received_samples": 100,
+      "max_points": 515,
+      "all_finite": true,
+      "last": {
+        "frame": "odom_5b0d931e56b44d24ac3508a23601b19a",
+        "stamp_ns": 142100000000,
+        "count": 515,
+        "finite": true
+      }
+    }
+  },
+  "runtime_container": "d435i-ego-room-mapping-20261021-01",
+  "runtime_stack": "artifacts/runs/ego-inflated-rviz-20261021-02-stack",
+  "runtime_kept_running": true,
+  "control": "No enable request, goal dispatch or arming performed.",
+  "failures_and_limits": [
+    "Initial unnamespaced inflate subscription had no publisher; corrected to EGO drone_0 remapping.",
+    "Old session crossed normalized_cost=1.00030767450667 at source ~90.356 sim seconds; localization locked and cleared map; both original and inflated clouds were zero. The earlier finite observation window remains historical, not sustained evidence.",
+    "First stack restart omitted GZ_PARTITION and had no sensor inputs; retained its log, excluded from success. Restart 02 restored same partition and uses a new epoch.",
+    "Successful display and finite point clouds do not qualify mapping geometry, long-term stability, vehicle clearance or flight.",
+    "RViz global TF warning remains; epoch-fixed map displayed successfully."
+  ],
+  "sha256": {
+    "config/rviz/mapping.rviz": "c0194dcb5d025cefeeb227d0ddec2e29c7e85da75d54351d50b73153088380e2",
+    "tools/prepare_mapping_rviz.py": "50f087378a22e964122a89955dfa749d6374119c056fc1e0ab59d65aae23dd1d",
+    "artifacts/runs/ego-inflated-rviz-20261021-01/session-02-preview.rviz": "818581c7f6790eee057cb1e24a282e829d2b7b0ed89974e2236844a0859b7ea4",
+    "artifacts/runs/ego-inflated-rviz-20261021-01/cloud-probe.json": "0d41c7bfc56b802e81cd09de405739b8567d9ed8abfc94fdb2d17457b5a1dccd",
+    "artifacts/runs/ego-inflated-rviz-20261021-01/rviz-window.png": "f30cd1c56ccb00021d5c3fa8a59ed4be5dbbe7ebb153981cbc4f471323fd965b",
+    "artifacts/runs/ego-inflated-rviz-20261021-01/localization-before.yaml": "02c269df6135672c6427a5175bb75286e11f963018a02501cc968b9c620c8e24",
+    "artifacts/runs/ego-inflated-rviz-20261021-01/map-before.yaml": "1812152b1b4d50444410219d91cbb299458a4e9023af50f0be278ab012cf9730",
+    "artifacts/runs/ego-inflated-rviz-20261021-01/rviz-final.log": "02527430123677dbb7d8809d56e1cec1049ee03dd2359791631e82fdbb9289a7"
+  }
+}

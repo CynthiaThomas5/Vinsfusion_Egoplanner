@@ -1,0 +1,1564 @@
+{
+  "scope": "Diagnostic calibration of the provisional EGO depth/odometry map timeout. This report separates valid fault-run prefixes, an unexplained EGO update gap, and one excluded no-fault attempt.",
+  "date": "2026-10-17",
+  "status": "RUN40_HISTORY100_GAP_PERSISTS; RUN38_RUN39_EXCLUDED; ROOT_CAUSE_PENDING; 0.4_SIM_S_REMAINS_PROVISIONAL",
+  "configured_timeout": {
+    "value_sim_s": 0.4,
+    "path": "config/components/mapping/ego_planner.json",
+    "hash": "6cf639d4971b06e06133f179a5193040cf177e2009a20bf84ebbdc3077f046ae",
+    "qualification": "PROVISIONAL; run 23 had one no-timeout 40 s window, while run 24 produced in-window EGO timeouts despite in-map poses and continuously observed paired inputs. Repeatability and active-fault margin are still unqualified."
+  },
+  "paired_input_interval_observations": [
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-12",
+      "window": "all paired adapter-to-EGO source stamps through, but not after, the scheduled depth-fault start",
+      "fault_start_source_s": 23.156,
+      "paired_sample_count": 312,
+      "interval_count": 311,
+      "interval_s": {
+        "p50": 0.033,
+        "p95": 0.132,
+        "max": 0.231
+      },
+      "margin_below_configured_0_4_s": 0.169,
+      "source_artifacts": {
+        "probe.json": {
+          "path": "artifacts/runs/p2-ego-depth-stale-20261017-12/probe.json",
+          "sha256": "a897a625ccb698c8ff3b01db25278865830458f9ef36ed8307bfede5a3c70bdf"
+        },
+        "depth-fault-report.json": {
+          "path": "artifacts/runs/p2-ego-depth-stale-20261017-12/depth-fault-report.json",
+          "sha256": "0dbc80df65ef7b6329ec582db8d47275bd90aed54d9819601e455719f020041b"
+        }
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-15",
+      "window": "all paired adapter-to-EGO source stamps through, but not after, the scheduled depth-fault start",
+      "fault_start_source_s": 22.674,
+      "paired_sample_count": 301,
+      "interval_count": 300,
+      "interval_s": {
+        "p50": 0.033,
+        "p95": 0.132,
+        "max": 0.264
+      },
+      "margin_below_configured_0_4_s": 0.136,
+      "source_artifacts": {
+        "probe.json": {
+          "path": "artifacts/runs/p2-ego-depth-stale-20261017-15/probe.json",
+          "sha256": "46cd1daadfe04de236971f5e469472bc8d1b4a6b63453b8c6ce63cb6bcf3c9ad"
+        },
+        "depth-fault-report.json": {
+          "path": "artifacts/runs/p2-ego-depth-stale-20261017-15/depth-fault-report.json",
+          "sha256": "ae3ac95ce87350a4f96007eeb5ef02e6f179f966d463b24777694f398f02cb69"
+        }
+      }
+    }
+  ],
+  "run14_pre_fault_ego_update_gap": {
+    "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-14",
+    "injection_window_start_source_s": 24.641,
+    "last_successful_ego_occupancy_update_s": 22.408,
+    "first_logged_timeout_for_that_update": {
+      "now_s": 22.837,
+      "last_occ_update_time_s": 22.408,
+      "timeout_s": 0.4,
+      "gap_s": 0.4289999999999985
+    },
+    "paired_input_stamps_near_last_update": [
+      {
+        "from_s": 22.342,
+        "to_s": 22.408,
+        "interval_s": 0.066
+      },
+      {
+        "from_s": 22.408,
+        "to_s": 22.441,
+        "interval_s": 0.033
+      }
+    ],
+    "derived_camera_pose_at_last_update": {
+      "source_s": 22.408,
+      "position_xyz_m": [
+        0.20052437524089106,
+        0.16488026069980297,
+        0.10642339377635397
+      ]
+    },
+    "configured_map_bounds_xyz_m": [
+      [
+        -21.0,
+        21.0
+      ],
+      [
+        -15.0,
+        15.0
+      ],
+      [
+        -0.01,
+        4.99
+      ]
+    ],
+    "assessment": "The reconstructed camera pose is inside the configured map at the last successful update; subsequent paired adapter outputs continue at 0.066 s and 0.033 s intervals before the 0.4 s EGO timeout. The evidence points to an unresolved EGO callback/synchronization/update gap, not an out-of-bounds pose at this timestamp.",
+    "qualification": "Run excluded from causal active-stale validation; this is a diagnostic observation only.",
+    "artifact_sha256": {
+      "probe.json": "2d511e682497a6f73b07d08b51e92482404de9352e9975950a860acd148fafe1",
+      "optimized-odometry.json": "2f75ee4fca64fd842ece9bfbb5ade75ac7aaf9650cbd85d4216fcd9b08a60d23",
+      "ego.log": "dc8edfb299a0af5d0e82ceebfdcd798d1376c8742f70fd3f5ad00aacc2e6d097",
+      "depth-fault-report.json": "53e5028f7978094e496c7a14d028484d53fb0d8942d59113382a635e099c9d62",
+      "mapping-adapter.log": "1ee18b069dc4598063bd13bfc4bca44e99563c59423b1af664f40ece7e80dfe3"
+    }
+  },
+  "run15_camera_pose_envelope": {
+    "derived_from": "optimized IMU-frame Odometry plus SDF-derived depth camera translation (0, 0.025, 0) m; camera pose topic was not directly recorded",
+    "sample_count": 379,
+    "position_min_xyz_m": [
+      -0.0004688197052075748,
+      0.011057182736667765,
+      0.00034778554935228494
+    ],
+    "position_max_xyz_m": [
+      0.23936197973789541,
+      0.3390156820913458,
+      0.12598503450224144
+    ],
+    "configured_map_bounds_xyz_m": [
+      [
+        -21.0,
+        21.0
+      ],
+      [
+        -15.0,
+        15.0
+      ],
+      [
+        -0.01,
+        4.99
+      ]
+    ],
+    "minimum_axis_clearance_to_bounds_m": [
+      20.760638020262103,
+      14.660984317908655,
+      0.010347785549352286
+    ],
+    "odometry_artifact": {
+      "path": "artifacts/runs/p2-ego-depth-stale-20261017-15/optimized-odometry.json",
+      "sha256": "02d05b341c65ab4d259db2c720b2e83c8d69fe5e0b535f04d91f3d9acc56f37b"
+    }
+  },
+  "excluded_no_fault_run16": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-16",
+    "ros_domain_id": 162,
+    "gazebo_partition": "d435i_healthy_map_input_16",
+    "depth_input_count": 700,
+    "depth_health_history": [
+      {
+        "wall_elapsed_s": 0.404,
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "source_stamp_ns": 1792170944889605277
+      }
+    ],
+    "localization_history": [
+      {
+        "wall_elapsed_s": 0.075,
+        "epoch": "44e4063f8e874d34a778ec5594a49d09",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_44e4063f8e874d34a778ec5594a49d09"
+      },
+      {
+        "wall_elapsed_s": 0.74,
+        "epoch": "44e4063f8e874d34a778ec5594a49d09",
+        "state": 4,
+        "valid": false,
+        "reason": "propagated_stale",
+        "frame_id": "odom_44e4063f8e874d34a778ec5594a49d09"
+      }
+    ],
+    "adapter_optimized_odom_count": 0,
+    "paired_ego_input_stamp_count": 0,
+    "map_max_occupied_points": 0,
+    "vio_csv_rows": 452,
+    "vio_last_source_s": 32.0,
+    "reason_excluded": "The localization adapter closed on propagated_stale before it published optimized odometry or paired EGO input; therefore this run did not measure healthy GridMap updates.",
+    "run_artifact_sha256": {
+      "probe.json": "7684298e4a947274250fa1174f250d140b5f0a4d2bb20d93f0d08e6f0a263f7d",
+      "probe-console.log": "d983f3bae424d43dcb08e4bc8edc2d986fc09fef42595ba2b579348a0283418c",
+      "mapping-adapter.log": "a68f1e677f74d455c86a80787d8a2df2fa83dd544cf867381d393f7d4cdd72cc",
+      "ego.log": "c093dd4accbd0e699f967a02830c98277d76438e423746d2fd14829194a04193",
+      "ego-parameters.yaml": "b06ac3a957bc081d8d4586a8fdcd479d92ecaf34872126302a6595a6c1f5b533",
+      "motion.json": "ce61b653ee1a77de7b0577d3e455ac1f6cfdf618e2f494b330e460013df0e7ed",
+      "healthy-mapping-input-run-attempted.sh": "5fd3662787c4672e41973af2855d4faabbfa67ddb947b3d7bef5c12725a77518"
+    },
+    "process_cleanup": "The run-specific Gazebo, bridge, and robot_state_publisher children were terminated after the shell trap failed to stop the isolated LaunchService process group. The run script now signals launch process groups. Post-cleanup audit found no active simulation, VINS, planner, mapping adapter, or motion probe processes; historic defunct entries remain.",
+    "repaired_runner_sha256": "1e8c713a7572ff06938d5040b1bcb0718aaac2a43beacd2d354e44d5687302f7"
+  },
+  "interpretation": [
+    "Run 20 directly reproduced the EGO timeout cause: synchronized depth/pose callbacks continued, but each logged camera pose was below the old effective z minimum (-0.0099 m), so occupancy updates stopped at sim time 27.985 s.",
+    "The provisional ground_height change to -0.15 m was accepted by EGO at runtime. Run 21 warning-time poses were in bounds; its warnings fell before or after the measured probe window.",
+    "Run 23 used a continuously spinning observer executor, separate sensor/clock callback group, and deferred map point decoding. During its 40.024 s measured window, 332 paired outputs were observed, pair-source interval p95/max were 0.165/0.297 s, source age p95/max were 0.110/0.183 s, and no EGO timeout warning occurred.",
+    "Run 23 had eight EGO timeout log lines starting 11.145 s after the measured window ended, during runner follow-up/cleanup. They are not part of the no-fault observation window.",
+    "Run 24 did not activate its scheduled depth fault and maintained depth READY/localization TRACKING, but 73 EGO timeout warnings fell inside the 40.026 s probe window. At every warning snapshot the most recent synchronized camera pose was in the expanded map. The independent probe continued receiving paired depth/pose outputs through the same intervals; the source-level EGO single-threaded executor and 50 ms occupancy timer make callback scheduling/backlog a plausible mechanism, not yet confirmed.",
+    "Runs 25–28 did not test EGO timing: their copied run script kept VINS_NS bound to run 24 session manifest (epoch 183aa...), while the localization adapter read each current run manifest. Run 28 raw graph confirms the VINS node in the stale namespace and no publisher endpoints for the run 28 namespace. These attempts are excluded as harness namespace errors, not VINS startup failures.",
+    "Run 29 used a corrected current-session namespace: the raw VINS node and expected odometry, propagated-odometry, and telemetry publisher endpoints all matched epoch 1c939f97e8b74e32b2995ba2c2767220. Depth was READY, localization TRACKING, and 397 paired EGO input stamps were observed. Forty-two timeout log lines occurred inside the 40.059 s probe window. The first two coincided with a 0.429 s paired source interval; a later in-window group held EGO sync count at 400/last stamp 25.213 s while the independent probe saw paired topic outputs continue through 26.797 s. Three more timeout lines occurred after the probe window. Callback duration, occupancy timer gap, and fusion duration remained 0.983–1.304 ms, 48.832–51.439 ms, and 3.388–4.463 ms at warning snapshots. This disproves the old-namespace explanation for #25–#28 and does not support timer/fusion overrun as the #29 cause.",
+    "Run 30 provided a valid 40.032 s no-fault observation with READY depth, TRACKING localization, 314 paired inputs, and 1,786 maximum occupied points, without an EGO timeout inside the probe window. Five later timeout log lines occurred after the observer stopped while the 60 s relay lifetime was ending; the post-window group is not part of the measured window.",
+    "Run 31 is excluded as a 60 s no-fault baseline: the test itself configured the depth relay to exit after 60 wall seconds, before the 60 s mapping probe finished. At probe wall 50.86 s the last paired output was stamp 37.390 s, the depth health gate then reported depth_stale, and EGO counters stopped at 523. No scheduled fault window was activated.",
+    "Runs 32 and 33 used an 80 s relay lifetime and a 60 s observer, so the scheduled depth fault (source 90 s) was not active during measurement. Patch 0013 counted EGO node depth/pose receipts directly. In run 32, three in-window groups had depth receipt counts advance while pose receipt and synchronized callback counts stayed fixed (19, 50, and 46 warning lines); the independent probe received subsequent same-topic camera-pose/depth outputs during those groups. A separate 0.462 s pair gap also produced a short timeout group. The occupancy timer remained 47.258–52.676 ms, callback duration 0.597–0.987 ms, and fusion 3.048–3.921 ms at warning snapshots.",
+    "Run 33 increased the EGO PoseStamped reader history from 25 to 100 using patch 0014. The external 60.027 s probe observed 513 paired outputs with maximum source interval 0.297 s, but two in-window groups (49 warning lines) again showed depth receipts advancing while the EGO pose receipt/sync counters remained fixed, despite subsequent pose outputs at the external observer. The larger pose history did not remove the observed receive gap. Six later timeout lines coincided with relay lifetime expiration outside the probe window.",
+    "The evidence narrows the repeated timeout to intermittent pose-message receipt within the EGO node while a separate reader sees the same topic continue; occupancy timer scheduling and fusion are not the source in these captures. Why the EGO pose subscription misses those messages remains unresolved. The 0.4 s timeout and -0.15 m map lower bound remain PROVISIONAL; mapping quality, active stale response, floor geometry, long-run drift, and all control/flight behavior remain unqualified.",
+    "Run 40 tested patch 0016 (pose reader history 100) on top of patch 0015 with the #37 harness. The healthy 60.034 s window produced 554 pairs and 29 in-window timeout warnings; a diagnostic group froze EGO pose receipts at 73 while depth receipts advanced from 79 to 92. This reproduces the gap, so history 100 did not eliminate it. One run cannot quantify improvement over history 25 or identify the cause.",
+    "A zero RMW message-lost count only means no message-lost event was reported. Fast DDS distinguishes reader sample rejection due to resource limits from sample loss; the ROS 2 RMW event used here exposes message_lost, not a sample_rejected event. Therefore zero message-lost does not rule out reader resource rejection or executor delay."
+  ],
+  "limitations": [
+    "Only runs 23 and 30 had 40 s no-timeout windows. Run 24 and run 29 had in-window EGO timeouts; runs 32 and 33 reproduced EGO pose receipt/synchronization gaps even though an independent subscriber saw continued same-topic outputs. The suspected timer/fusion overrun is rejected by measured wall-clock intervals; the pose reader delivery path still needs diagnosis.",
+    "Runs 25–28 used a stale VINS namespace and are excluded as harness errors, not VINS initialization failures. Run 31 is excluded as a no-fault baseline because its 60 s relay wall-time limit ended the depth stream before the 60 s observer finished. Run 30’s post-window timeout lines also coincide with its relay ending, after its measured 40 s window.",
+    "Run 29 had a correct VINS epoch and raw publisher graph. Patch 0013’s duplicate diagnostic depth subscription may add runtime load; patch 0014’s QoS history change was tested only as a diagnostic experiment. Neither is a production-accepted EGO fix.",
+    "The -0.15 m lower map bound has only short runtime checks. Floor geometry and long-duration vertical drift have not been evaluated. No map geometry, obstacle clearance, planner response, active fault response, SITL flight, or formal acceptance was tested.",
+    "Run 38 is excluded because its copied launch helper referenced a missing world path and stopped before VINS/EGO startup. Run 39 is excluded because localization locked telemetry_stale after 5.908 wall seconds and the map gate cleared; its 60 s probe contained only 18 pairs. The corrected #40 run is the only valid history=100 comparison on the patch0015 filter instrumentation branch.",
+    "History 100 still produced in-window gaps in #40; the single valid run is insufficient to compare severity statistically. No reader-rejection counter or executor scheduling trace was available, so the cause remains unresolved."
+  ],
+  "source_hashes": {
+    "localization_health_policy": "8632f7ab96f438efa55384b10e8d330b9f7be60ce89651f29c00dd79165c1eb9",
+    "ego_mapping_input_contract": "8266ec6c41ba89a3857718ba448cb4393a91b20477b3cfa345a1dc5b0d38ae49",
+    "ego_advanced_parameter_launch": "5037d007b525325b36e9764617ca572f9130530c3902279b85c8bd409c99c438",
+    "d435i_model": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "ego_mapping_config": "6cf639d4971b06e06133f179a5193040cf177e2009a20bf84ebbdc3077f046ae",
+    "probe_mapping_runtime": "5fc4e5bd7bf8809765f7e4a967e1f02aa9b186e940dcb25d7f87ef1a275309c4",
+    "ego_grid_map_diagnostic_source": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c",
+    "ego_sync_input_diagnostic_patch_0013": "cb049c85b196cf30a022936455b8ba25410ac2b8b1575ab4e5630b348a93c5d0",
+    "ego_pose_reader_history_patch_0014": "db140ba6a6c64da335d382a4aad9044049d178395895ee0664740154bbe90b37"
+  },
+  "no_fault_run17": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-17",
+    "ros_domain_id": 163,
+    "gazebo_partition": "d435i_healthy_map_input_17",
+    "scheduled_fault": {
+      "drop_after_source_s": 60.0,
+      "window_observed": false,
+      "source_origin_ns": 1387000000
+    },
+    "qualification": "Valid 40 s no-fault sensor/localization/adapter/EGO-map-output observation without a goal or control publisher; not a clean EGO timeout baseline because plan_env still logged timeout intervals.",
+    "depth_input_count_observed": 384,
+    "depth_health_history": [
+      {
+        "wall_elapsed_s": 0.902,
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "source_stamp_ns": 1792171685635754216
+      }
+    ],
+    "localization_history": [
+      {
+        "wall_elapsed_s": 0.756,
+        "epoch": "c6b8258a8ed14f11a536ddfab6a1b47a",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_c6b8258a8ed14f11a536ddfab6a1b47a"
+      }
+    ],
+    "optimized_odom_count": 375,
+    "paired_input_count": 470,
+    "paired_source_interval_s": {
+      "count": 469,
+      "p50": 0.03300000000000125,
+      "p95": 0.13199999999999967,
+      "max": 0.4950000000000001,
+      "intervals_over_0_4_s": [
+        {
+          "from_s": 7.294,
+          "to_s": 7.789,
+          "interval_s": 0.4950000000000001
+        }
+      ]
+    },
+    "max_occupied_points": 1799,
+    "map_point_count_change_events": 164,
+    "direct_camera_pose_envelope": {
+      "sample_count": 470,
+      "frame_ids": [
+        "odom_c6b8258a8ed14f11a536ddfab6a1b47a"
+      ],
+      "min_xyz_m": [
+        -0.02473827283944592,
+        -0.03386434837184478,
+        -0.00940499477098527
+      ],
+      "max_xyz_m": [
+        0.23206561013637478,
+        0.3248710115919798,
+        0.11986786223095887
+      ],
+      "map_bounds_xyz_m": [
+        [
+          -21.0,
+          21.0
+        ],
+        [
+          -15.0,
+          15.0
+        ],
+        [
+          -0.01,
+          4.99
+        ]
+      ],
+      "all_samples_inside_map": true,
+      "minimum_axis_clearance_to_bounds_m": [
+        20.767934389863626,
+        14.67512898840802,
+        0.0005950052290147299
+      ]
+    },
+    "ego_timeout_logs": {
+      "count": 25,
+      "groups_by_last_occ_update_time_s": [
+        {
+          "last_occ_update_time_s": 4.72,
+          "first_now_s": 5.137,
+          "last_now_s": 5.644,
+          "log_count": 17,
+          "timeout_s": 0.4
+        },
+        {
+          "last_occ_update_time_s": 7.382,
+          "first_now_s": 7.798,
+          "last_now_s": 7.862,
+          "log_count": 3,
+          "timeout_s": 0.4
+        },
+        {
+          "last_occ_update_time_s": 39.315,
+          "first_now_s": 39.733,
+          "last_now_s": 39.862,
+          "log_count": 5,
+          "timeout_s": 0.4
+        }
+      ],
+      "qualification": "Warning records only; no target was active, so no EGO safety transition was expected or evaluated."
+    },
+    "source_artifact_sha256": {
+      "probe.json": "75aa3a96a56106f5ad409b1e45b2a2e7abed35f4fd160914c2a400c023336d70",
+      "ego.log": "55eca1af9176968a57492165d684c234c7d743c2d2cb109efc7d3f0ce3cf324b",
+      "ego-parameters.yaml": "b06ac3a957bc081d8d4586a8fdcd479d92ecaf34872126302a6595a6c1f5b533",
+      "depth-health-probe.json": "1d51614c7ebc27b4a7f64646c48e9e931de9065069f149d40f8678122e51f712",
+      "depth-fault-report.json": "4f599a95890b6a07c6889b069386af092d84ad90395bb6d050b9298353b99582",
+      "mapping-adapter.log": "428224ed1d47103a0215ba5dce689bb7613b96fb1f1b69dcf71d80391c535a45",
+      "motion.json": "70e975c9d492c34612297cf8c5e6ff4e0961c6f6b429e866b2b06fef7fe1c616",
+      "healthy-mapping-input-baseline.sh": "b8dee0cfa66c6ce47012999b1b83a682a31fc07a0e74f70befe19edca9ddff65"
+    }
+  },
+  "excluded_no_fault_run18": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-18",
+    "ros_domain_id": 165,
+    "gazebo_partition": "d435i_healthy_map_input_18",
+    "depth_input_count": 610,
+    "depth_health_history": [
+      {
+        "wall_elapsed_s": 0.118,
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "source_stamp_ns": 1792171935718050376
+      }
+    ],
+    "localization_history": [
+      {
+        "wall_elapsed_s": 0.097,
+        "epoch": "a09bff2b25c444e5812dba5a4d27bc77",
+        "state": 4,
+        "valid": false,
+        "reason": "propagated_stale",
+        "frame_id": "odom_a09bff2b25c444e5812dba5a4d27bc77"
+      }
+    ],
+    "optimized_odom_count": 0,
+    "paired_output_stamp_count": 0,
+    "max_occupied_points": 0,
+    "reason_excluded": "Localization adapter reported propagated_stale within 0.1 wall s; no valid EGO mapping inputs. This shows the no-fault initialization is not repeatable yet.",
+    "depth_fault_report": "Absent; run stopped after the mapping probe failed its evidence gate.",
+    "source_artifact_sha256": {
+      "probe.json": "7511a516be492bf2178296ee6c60d8e0e579af50ef972220bf75ca98d27b04d1",
+      "probe-console.log": "0da85ee4ad1439968f338361f19e702bf393507751f764ed72cf177d2e913f72",
+      "ego.log": "72fe35d81a3f17f168d494772874858eeb2081c6cb71e7b622529ef1c5557857",
+      "mapping-adapter.log": "1560e2da404196816916a52655714bc13fcf542461ab21c1e4a3a6f035623d45",
+      "depth-health-probe.json": "df7af83d41770cdd2aced06e9c4a9560e311d7070739309e06685136e33bbf46",
+      "healthy-mapping-input-baseline.sh": "352178773f8557cd0bcd117f709467e5593136a02082e6f1347ade49c94dd4e1"
+    }
+  },
+  "configured_ground_height": {
+    "value_m": -0.15,
+    "map_size_z_m": 5.0,
+    "resulting_z_bounds_m": [
+      -0.15,
+      4.85
+    ],
+    "path": "config/components/mapping/ego_planner.json",
+    "hash": "6cf639d4971b06e06133f179a5193040cf177e2009a20bf84ebbdc3077f046ae",
+    "qualification": "PROVISIONAL diagnostic margin derived from run 20; floor geometry and longer-run VIO drift remain unvalidated."
+  },
+  "diagnostic_patches": {
+    "timeout_callback_observation": {
+      "path": "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch",
+      "sha256": "d07022de2c81acd45788e38a84fc570356c4d94b9ecf956f4f52d902df726134",
+      "build_evidence": "progress/evidence/p0-ego-map-timeout-diagnostic-build.json"
+    },
+    "ground_height_launch_argument": {
+      "path": "dependencies/patches/ego/0011-configurable-map-ground-height.patch",
+      "sha256": "1d151ecc1e8ae352d6f67515d2c2db76ede8fbe0c5937ec61f0d894a0dabfd81",
+      "build_evidence": "progress/evidence/p0-ego-map-timeout-diagnostic-build.json"
+    }
+  },
+  "run20_out_of_map_timeout_cause": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-20",
+    "ros_domain_id": 167,
+    "probe_window_s": 40.023,
+    "depth_ready_and_localization_tracking": true,
+    "paired_output_stamp_count": 315,
+    "paired_interval_s": {
+      "p50": 0.066,
+      "p95": 0.198,
+      "max": 0.429
+    },
+    "max_occupied_points": 1843,
+    "map_point_count_change_events": 118,
+    "configured_bounds_before_trial_m": [
+      [
+        -21.0,
+        21.0
+      ],
+      [
+        -15.0,
+        15.0
+      ],
+      [
+        -0.01,
+        4.99
+      ]
+    ],
+    "effective_lower_z_boundary_for_is_in_map_m": -0.0099,
+    "ego_timeout_logs": {
+      "count": 355,
+      "group_count": 1,
+      "last_successful_occupancy_update_s": 27.985,
+      "first_now_s": 28.392,
+      "last_now_s": 39.492,
+      "sync_callback_count_at_first_last_warning": [
+        315,
+        476
+      ],
+      "all_last_sync_poses_out_of_map": true,
+      "last_sync_camera_z_range_m": [
+        -0.027773,
+        -0.013268
+      ],
+      "callback_source_stamp_to_ego_clock_lag_s": "approximately 0.06 to 0.09 at logged callbacks"
+    },
+    "assessment": "Direct EGO instrumentation shows the synchronized callback continued while every logged camera pose was rejected by isInMap below the effective -0.0099 m boundary. The occupancy update time stayed at 27.985 s. This reproduces the map-boundary cause for this no-fault run; it is distinct from a missing callback.",
+    "source_artifact_sha256": {
+      "probe.json": "a5f003feae2d93f9eff93b8e1d43f5552e7710eeaeb30cee6245c7491b8d1e5f",
+      "ego.log": "dc570a1d44de19180a26a74a7ce38c5404a1f55da759ee40cbcf14206928a67d",
+      "mapping-adapter.log": "04cf16f806b08659309c0bf7f4efccb96178d9ed92a12976abb1b39f3ee7b7b2",
+      "depth-fault-report.json": "3dabc0130a2bf8e5afcf8af6b3bbc5d4c2778a587cc1c2f12c456df15f853325",
+      "run_script": "1fbb0ca87c542b8e93b004e228c1990d30554941f6fc43d49c884cd83631b855"
+    }
+  },
+  "run21_ground_height_retest": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-21",
+    "ros_domain_id": 168,
+    "ground_height_m": -0.15,
+    "z_bounds_m": [
+      -0.15,
+      4.85
+    ],
+    "probe_window_s": 40.03,
+    "paired_output_stamp_count": 333,
+    "paired_interval_s": {
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.363
+    },
+    "max_occupied_points": 1834,
+    "map_point_count_change_events": 152,
+    "camera_pose_min_z_m": -0.01762,
+    "ego_timeout_logs": {
+      "count": 53,
+      "all_last_sync_poses_in_map": true,
+      "groups_relative_to_probe_window_s": [
+        [
+          -2.593,
+          -0.493
+        ],
+        [
+          44.207,
+          44.507
+        ],
+        [
+          50.707,
+          50.807
+        ]
+      ]
+    },
+    "assessment": "No EGO timeout warning fell inside the nominal 40 s probe interval, and timeout-time poses were inside the expanded bounds. This run used the earlier single-callback observer, so its source timing is retained as supporting evidence only; run 23 is the timing-quality retest.",
+    "source_artifact_sha256": {
+      "probe.json": "dfdc7e5cfe2536f489c6c40d305f02c5e803c5f869bd65de6c1de76700a7353a",
+      "ego.log": "c6beeed43e1f2e90c1f1c1363d0bc0128f972741b1965bb02d89a4cba84f6140",
+      "ego-parameters.yaml": "f51d8f37d0048479a00a15b8c7d9211ffb662f17ed1c357e5b7fa7b7f827e958",
+      "depth-fault-report.json": "156666ded4517a0c86d5da21c09944955ec93186d6bae5f118278c6f9e0d16b3",
+      "run_script": "cff190c6d54991a17a55d16e2bd0dc3995dbf2e1df0e84c50412e48426eb0b2b"
+    }
+  },
+  "excluded_run22_probe_backpressure": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-22",
+    "reason": "The probe still used one mutually exclusive callback group and decoded point clouds in the subscription callback. It processed paired samples in bursts and reported pose source age p95 0.528 s, max 1.798 s, and wall receipt interval max 2.812 s. Do not use it to calibrate upstream/EGO timing.",
+    "probe_code_hash": "e6e7738860835b45bab75c56127cffe70563525ae651467d9251ebbc5fc014b5",
+    "probe_sha256": "5c1449c4e62782dd11023d023ac2a1a9e456af0011cd90b8886641e4ba84d6ee"
+  },
+  "run23_no_fault_runtime_probe_v3": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-23",
+    "ros_domain_id": 172,
+    "probe_window_s": 40.024,
+    "configured_ground_height_m": -0.15,
+    "configured_timeout_sim_s": 0.4,
+    "depth_ready_and_localization_tracking": true,
+    "ego_depth_and_pose_message_count": 332,
+    "paired_output_stamp_count": 332,
+    "paired_source_interval_s": {
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.297
+    },
+    "pose_wall_receipt_interval_s": {
+      "p50": 0.106124,
+      "p95": 0.311002,
+      "max": 0.429494
+    },
+    "pose_source_age_at_receipt_s": {
+      "p50": 0.074,
+      "p95": 0.11,
+      "max": 0.183
+    },
+    "camera_pose_min_xyz_m": [
+      -0.004078,
+      -0.058849,
+      0.00037
+    ],
+    "camera_pose_max_xyz_m": [
+      0.234841,
+      0.323815,
+      0.124253
+    ],
+    "max_occupied_points": 1775,
+    "map_point_count_change_events": 180,
+    "map_frame_id": "odom_4f60d77f7be541f8b7097ef701298d26",
+    "ego_timeout_logs_inside_probe_window": 0,
+    "ego_timeout_logs_after_probe_window": {
+      "count": 8,
+      "first_offset_s_after_probe_start": 51.169,
+      "last_offset_s_after_probe_start": 51.519,
+      "probe_window_end_offset_s": 40.024,
+      "last_sync_in_map": true,
+      "qualification": "Post-observation log tail during runner follow-up/cleanup; excluded from the 40 s no-fault window."
+    },
+    "scheduled_depth_fault_observed": false,
+    "no_goal_controller_px4_or_actuator": true,
+    "assessment": "One 40 s no-fault window with valid depth/localization, continuously changing EGO occupancy output, source interval maximum 0.297 s, source age maximum 0.183 s, and no EGO timeout warnings during the measured window. This supports retaining 0.4 s as provisional for the next repeat; it is not formal calibration or acceptance.",
+    "source_artifact_sha256": {
+      "probe.json": "3644a0071c2611dd29b1b376cc83cb7a6021411cdd7487e29647b671b4daebeb",
+      "ego.log": "2b95855511dcbeaee7d64ceabaa1a4d3b33fdfd629ed7607faee30444c0d3e03",
+      "ego-parameters.yaml": "f51d8f37d0048479a00a15b8c7d9211ffb662f17ed1c357e5b7fa7b7f827e958",
+      "mapping-adapter.log": "1567bb0960f11c7f69e0b1b75b15bc406fdd60205f1ed43fcfc08561d9899178",
+      "depth-fault-report.json": "7b0922a66392e55b61a273a6585171d97f9204da354433031b3f37ac779f2bc2",
+      "map-cloud.json": "20fdc701332520a2c3c2b4851aaf7bf088dff74abfcfb534436936d9fa91a624",
+      "motion.json": "0930180b1309f8a3b9ef564580bce5bcec5cf0f37d7288437064f57478216fad",
+      "run_script": "bcac83e7ba161ad1f13f82f73cf5e2072fe658df2fb05bbc3caae108f1be5000",
+      "probe_source": "5fc4e5bd7bf8809765f7e4a967e1f02aa9b186e940dcb25d7f87ef1a275309c4"
+    }
+  },
+  "run24_no_fault_mapping_timeout_retest": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-24",
+    "ros_domain_id": 173,
+    "gazebo_partition": "d435i_healthy_map_input_24",
+    "probe_window_s": 40.026,
+    "observer_clock_first_receipt_s": 7.8,
+    "observer_clock_last_receipt_s": 31.424,
+    "configured_ground_height_m": -0.15,
+    "configured_timeout_sim_s": 0.4,
+    "depth_ready_and_localization_tracking": true,
+    "ego_depth_and_pose_message_count": 415,
+    "paired_output_stamp_count": 415,
+    "paired_source_interval_s": {
+      "p50": 0.033,
+      "p95": 0.132,
+      "max": 0.429
+    },
+    "paired_source_interval_around_first_three_timeout_groups_s": {
+      "p95": 0.132,
+      "max": 0.231
+    },
+    "pose_source_age_at_receipt_s": {
+      "p50": 0.074,
+      "p95": 0.11,
+      "max": 0.638
+    },
+    "camera_pose_min_xyz_m": [
+      -0.000494,
+      -0.059203,
+      0.000421
+    ],
+    "camera_pose_max_xyz_m": [
+      0.246382,
+      0.326339,
+      0.129989
+    ],
+    "max_occupied_points": 1973,
+    "map_point_count_change_events": 140,
+    "ego_timeout_logs": {
+      "total_run_count": 79,
+      "inside_probe_window_count": 73,
+      "after_probe_window_count": 6,
+      "all_logged_camera_poses_in_map": true,
+      "groups": [
+        {
+          "count": 14,
+          "first_now_s": 13.729,
+          "last_now_s": 14.125,
+          "last_occ_update_s": 13.297,
+          "depth_pose_sync_count": 187,
+          "last_sync_stamp_s": 13.168,
+          "camera_xyz_m": [
+            0.031262,
+            0.045183,
+            0.017276
+          ]
+        },
+        {
+          "count": 29,
+          "first_now_s": 15.115,
+          "last_now_s": 15.973,
+          "last_occ_update_s": 14.686,
+          "depth_pose_sync_count": 208,
+          "last_sync_stamp_s": 14.587,
+          "camera_xyz_m": [
+            0.167861,
+            0.135235,
+            0.086259
+          ]
+        },
+        {
+          "count": 30,
+          "first_now_s": 22.375,
+          "last_now_s": 23.266,
+          "last_occ_update_s": 21.946,
+          "depth_pose_sync_count": 341,
+          "last_sync_stamp_s": 21.847,
+          "camera_xyz_m": [
+            0.094697,
+            0.259747,
+            0.052208
+          ]
+        },
+        {
+          "count": 6,
+          "first_now_s": 38.875,
+          "last_now_s": 39.007,
+          "last_occ_update_s": 38.454,
+          "depth_pose_sync_count": 643,
+          "last_sync_stamp_s": 38.38,
+          "camera_xyz_m": [
+            0.019536,
+            -0.113235,
+            0.010103
+          ],
+          "qualification": "After probe observation ended; runner follow-up/cleanup tail."
+        }
+      ]
+    },
+    "scheduled_depth_fault_observed": false,
+    "no_goal_controller_px4_or_actuator": true,
+    "source_inspection": "ego_planner_node.cpp uses rclcpp::spin(node), while GridMap synchronized inputs and a 50 ms occupancy timer use the default callback group. The timer projects depth and raycasts on the same single-threaded executor. This makes EGO-side scheduling/backlog plausible but is not a runtime-proven cause.",
+    "assessment": "Negative no-fault repeat: depth/localization stayed healthy and observer input pairs continued during the first three warning groups, with local source gaps no larger than 0.231 s; EGO emitted 73 in-window timeout warnings while its latest recorded camera pose was in bounds. Do not count as a clean mapping window or use to calibrate the 0.4 s threshold. Measure EGO callback and timer wall durations next.",
+    "source_artifact_sha256": {
+      "probe.json": "53b22399efa56a2000a312271e568fd5b098ffca23b2de455047ce43348a7b6d",
+      "ego.log": "65ea95ebe0a90707a9d1a737f7678362784e43e79487410c2b79ef676649ef74",
+      "ego-parameters.yaml": "f51d8f37d0048479a00a15b8c7d9211ffb662f17ed1c357e5b7fa7b7f827e958",
+      "mapping-adapter.log": "1ae0bca7d78142e6357b81e2f0ebedc47ec2e213547981191734a239d0e4d5a6",
+      "depth-fault-report.json": "daa8a9d60854a1fec41eae2e736e97a083f9df976d42e47f0508a5ac06be2fbd",
+      "map-cloud.json": "d509bd971b550a1dec2c6538bb21adb715488f7eac38b086f9f0563250ad3bef",
+      "optimized-odometry.json": "19ff0712d29e4dc041c8bc0a1b6e65409d38a11a58cb5d303042dbde4346565e",
+      "motion.json": "9a9894f4d67660f0d089a5fcf48bb6d2fa88f6abd1d0b12dcbe7f468997fa3fb",
+      "run_script": "5245707cdfdd0b00a5b7a6eab7063175e82f984630798a1d0891b0d9660146be",
+      "probe_source": "5fc4e5bd7bf8809765f7e4a967e1f02aa9b186e940dcb25d7f87ef1a275309c4"
+    }
+  },
+  "excluded_no_fault_run25_stale_vins_namespace": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-25",
+    "ros_domain_id": 174,
+    "gazebo_partition": "d435i_healthy_map_input_25",
+    "probe_window_s": 40.059,
+    "depth_health_history": [
+      {
+        "state": "READY",
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "wall_elapsed_s": 0.745
+      }
+    ],
+    "localization_history": [
+      {
+        "epoch": "eba37c2cc52341ce8ccc7fac074a6416",
+        "state": "WAITING",
+        "valid": false,
+        "reason": "waiting_for_inputs",
+        "wall_elapsed_s": 1.083
+      },
+      {
+        "epoch": "eba37c2cc52341ce8ccc7fac074a6416",
+        "state": "LOCKED",
+        "valid": false,
+        "reason": "initialization_timeout",
+        "wall_elapsed_s": 12.183
+      }
+    ],
+    "optimized_odom_count": 0,
+    "ego_depth_output_count": 0,
+    "ego_pose_output_count": 0,
+    "paired_output_stamp_count": 0,
+    "max_occupied_points": 0,
+    "ego_timeout_diagnostic_count": 0,
+    "reason_excluded": "Copied run script read VINS_NS from run 24 session manifest (epoch 183aa722ef62497c918daf71b53d2ed1) instead of the current run manifest; raw VINS outputs therefore did not reach the current localization adapter.",
+    "scheduled_depth_fault": "Not evaluated; the probe failed its localization/map evidence gate and the depth relay report was not produced.",
+    "no_goal_controller_px4_or_actuator": true,
+    "source_artifact_sha256": {
+      "probe.json": "edcf74ab6678c238686008eead67f1e8e34806e6e8a6be8cb6999528b7387fe3",
+      "ego.log": "b5e3066076c43fd0953bb641d43ddb79d946a2d88ba12ebc73659232ad25c353",
+      "ego-parameters.yaml": "f51d8f37d0048479a00a15b8c7d9211ffb662f17ed1c357e5b7fa7b7f827e958",
+      "vins.log": "45c978d1441a0f73909eaadb2a27bc6e952f412802a38be4a1ae9828eb690a4b",
+      "mapping-adapter.log": "f6ff84fc94bc9e351f3b4af5607e4263c998e2ff0565d9ba9e7523a73a6bed48",
+      "depth-health-probe.json": "305857f18eb804ef391036b69c2d3f70e72823f7c559a978d88a04309b312fcf",
+      "healthy-mapping-input-probe-v3.sh": "2c92e49416017cc3a0af0706082b6a99c10ea11babcc04e95d15df8c861577cf",
+      "probe_source": "5fc4e5bd7bf8809765f7e4a967e1f02aa9b186e940dcb25d7f87ef1a275309c4"
+    },
+    "vins_session_epoch": "eba37c2cc52341ce8ccc7fac074a6416",
+    "vins_namespace_used_by_script": "/vins_raw/s_183aa722ef62497c918daf71b53d2ed1",
+    "adapter_session_namespace": "/vins_raw/s_eba37c2cc52341ce8ccc7fac074a6416",
+    "interpretation": "Harness namespace mismatch; not evidence of VINS initialization instability."
+  },
+  "excluded_no_fault_run26_stale_vins_namespace": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-26",
+    "ros_domain_id": 175,
+    "gazebo_partition": "d435i_healthy_map_input_26",
+    "probe_window_s": 40.026,
+    "depth_health_history": [
+      {
+        "state": "READY",
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "wall_elapsed_s": 0.409
+      }
+    ],
+    "localization_history": [
+      {
+        "epoch": "0f817fa1ab8246f89884462da16f8d89",
+        "state": "WAITING",
+        "valid": false,
+        "reason": "waiting_for_inputs",
+        "wall_elapsed_s": 0.41
+      },
+      {
+        "epoch": "0f817fa1ab8246f89884462da16f8d89",
+        "state": "DEGRADED",
+        "valid": false,
+        "reason": "initialization_timeout",
+        "wall_elapsed_s": 11.182
+      },
+      {
+        "epoch": "0f817fa1ab8246f89884462da16f8d89",
+        "state": "LOCKED",
+        "valid": false,
+        "reason": "initialization_timeout",
+        "wall_elapsed_s": 11.233
+      }
+    ],
+    "optimized_odom_count": 0,
+    "ego_depth_output_count": 0,
+    "ego_pose_output_count": 0,
+    "paired_output_stamp_count": 0,
+    "max_occupied_points": 0,
+    "ego_timeout_diagnostic_count": 0,
+    "reason_excluded": "Copied run script read VINS_NS from run 24 session manifest (epoch 183aa722ef62497c918daf71b53d2ed1) instead of the current run manifest; raw VINS outputs therefore did not reach the current localization adapter.",
+    "scheduled_depth_fault": "Not evaluated; probe failed its localization/map evidence gate and the depth relay report was not produced.",
+    "no_goal_controller_px4_or_actuator": true,
+    "source_artifact_sha256": {
+      "probe.json": "f4bf4d93962003f1073a4aacc8919655088ab7c11606f99c1f7978aacb13318c",
+      "ego.log": "5b9e81cf1983bc6f5100fd6c95794334309aae1867687eaa78d8e3abf60ece64",
+      "ego-parameters.yaml": "f51d8f37d0048479a00a15b8c7d9211ffb662f17ed1c357e5b7fa7b7f827e958",
+      "vins.log": "e5cc97bb8b6c21a7690cb6390bb4d10cd1e994b19e8719fb47bc5fea72904d6f",
+      "mapping-adapter.log": "3dfac4a0159dddb60cb052d5dcc225cd8011c06a5d3506cb804c7f2d45f397e7",
+      "depth-health-probe.json": "5591f0250d4fb98ae653eec8b585faf3d390cdf9366e7723d9b378965134b43c",
+      "healthy-mapping-input-probe-v3.sh": "923b6af7c427d84b366de5c4c72bb27bad7dfea4f72d9fea178731db82bc85d5",
+      "probe_source": "5fc4e5bd7bf8809765f7e4a967e1f02aa9b186e940dcb25d7f87ef1a275309c4"
+    },
+    "vins_session_epoch": "0f817fa1ab8246f89884462da16f8d89",
+    "vins_namespace_used_by_script": "/vins_raw/s_183aa722ef62497c918daf71b53d2ed1",
+    "adapter_session_namespace": "/vins_raw/s_0f817fa1ab8246f89884462da16f8d89",
+    "interpretation": "Harness namespace mismatch; not evidence of VINS initialization instability."
+  },
+  "excluded_no_fault_run27_stale_vins_namespace": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-27",
+    "ros_domain_id": 176,
+    "gazebo_partition": "d435i_healthy_map_input_27",
+    "probe_window_s": 40.024,
+    "session_epoch": "2dc8f451ffe740088f033d8f16881fb4",
+    "script_vins_namespace": "/vins_raw/s_183aa722ef62497c918daf71b53d2ed1",
+    "adapter_session_namespace": "/vins_raw/s_2dc8f451ffe740088f033d8f16881fb4",
+    "depth_ready": true,
+    "adapter_optimized_odom_count": 0,
+    "ego_depth_output_count": 0,
+    "ego_pose_output_count": 0,
+    "paired_output_stamp_count": 0,
+    "max_occupied_points": 0,
+    "raw_vins_output_counts": {
+      "optimized": 0,
+      "propagated": 0
+    },
+    "raw_vins_telemetry_count": 0,
+    "raw_vins_probe_discovered_vins_node_namespace": null,
+    "raw_vins_publishers_for_current_session": null,
+    "reason_excluded": "Run script computed VINS_NS from run 24 session.json while the adapter and raw probe subscribed to this run session. Run 28 directly saw the VINS node under the run 24 namespace and zero publishers in the run 28 namespace.",
+    "interpretation": "Harness namespace mismatch; not a VINS initialization or adapter-quality failure.",
+    "source_artifact_sha256": {
+      "probe.json": "08897c0a10453c5800737ab14210b09bef9ad686afc066d63920b2ddfffbcc67",
+      "ego.log": "f75d77b568d3b8049a7b6e793458d6de4afe5373a88b9bac81ed93c25fe51fcc",
+      "vins.log": "7814f41d17cd83526c91c4dd38a8d81219f85d6aeb2c593f089d2e150029ed59",
+      "mapping-adapter.log": "27dbffcca0539b2a204119362fe9880232e2bf38cce6126cee21ba25c95ad91c",
+      "healthy-mapping-input-probe-v3.sh": "1658ba0655510bdb42a05d4abf16f00c7b2c5994f990dee34bb49641d7f1fc70",
+      "probe_source": "5fc4e5bd7bf8809765f7e4a967e1f02aa9b186e940dcb25d7f87ef1a275309c4",
+      "probe_vins_source": "bfcf252713d1df1f826c34727317c811099e268d15e54b48dedb4b138c49c5ae",
+      "raw_vins_summary.json": "1f659709635da17785817219ab7971406485d2c8b41b4063eeef707c31ab5067",
+      "raw_vins_telemetry.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    }
+  },
+  "excluded_no_fault_run28_stale_vins_namespace": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-28",
+    "ros_domain_id": 177,
+    "gazebo_partition": "d435i_healthy_map_input_28",
+    "probe_window_s": 40.03,
+    "session_epoch": "96633582d01243088fcedb036b8271f9",
+    "script_vins_namespace": "/vins_raw/s_183aa722ef62497c918daf71b53d2ed1",
+    "adapter_session_namespace": "/vins_raw/s_96633582d01243088fcedb036b8271f9",
+    "depth_ready": true,
+    "adapter_optimized_odom_count": 0,
+    "ego_depth_output_count": 0,
+    "ego_pose_output_count": 0,
+    "paired_output_stamp_count": 0,
+    "max_occupied_points": 0,
+    "raw_vins_output_counts": {
+      "optimized": 0,
+      "propagated": 0
+    },
+    "raw_vins_telemetry_count": 0,
+    "raw_vins_probe_discovered_vins_node_namespace": "/vins_raw/s_183aa722ef62497c918daf71b53d2ed1",
+    "raw_vins_publishers_for_current_session": {
+      "/vins_raw/s_96633582d01243088fcedb036b8271f9/odometry": [],
+      "/vins_raw/s_96633582d01243088fcedb036b8271f9/imu_propagate": [],
+      "/vins_raw/s_96633582d01243088fcedb036b8271f9/estimator_telemetry": []
+    },
+    "reason_excluded": "Run script computed VINS_NS from run 24 session.json while the adapter and raw probe subscribed to this run session. Run 28 directly saw the VINS node under the run 24 namespace and zero publishers in the run 28 namespace.",
+    "interpretation": "Harness namespace mismatch; not a VINS initialization or adapter-quality failure.",
+    "source_artifact_sha256": {
+      "probe.json": "fde56e09555c04ea75b920d27dade9eddf8e8e1cacff1bd3420b801bc10cf200",
+      "ego.log": "35a9047c2c4fc0fc42938c6c5d7c4f1837e8d128b3c359dec064e26e58f910eb",
+      "vins.log": "7b1ce8d76326eb09b6b07301a986adab437c8a7d835781d436e903b6d0be9412",
+      "mapping-adapter.log": "2c8934706bc43b39423bea6220c520a2320a02db0403151da992a106085dd9bd",
+      "healthy-mapping-input-probe-v3.sh": "b16a3de8c1d421d47e55f8d0a32c9ba8ecc74a3b167233f7af3776b6fe00e422",
+      "probe_source": "5fc4e5bd7bf8809765f7e4a967e1f02aa9b186e940dcb25d7f87ef1a275309c4",
+      "probe_vins_source": "bfcf252713d1df1f826c34727317c811099e268d15e54b48dedb4b138c49c5ae",
+      "raw_vins_summary.json": "5805a0a99f09d9ee7396299e6b8b7a1fb2c0773fd18b7e1a57d3f2ccd1fcae54",
+      "raw_vins_telemetry.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "raw_vins_discovered_nodes": [
+      {
+        "name": "_ros2cli_daemon_177_7efdc691df354409997a5ac1d0395df6",
+        "namespace": "/"
+      },
+      {
+        "name": "d435i_bridge",
+        "namespace": "/"
+      },
+      {
+        "name": "depth_health_monitor",
+        "namespace": "/"
+      },
+      {
+        "name": "depth_health_probe",
+        "namespace": "/"
+      },
+      {
+        "name": "drone_0_ego_planner_node",
+        "namespace": "/"
+      },
+      {
+        "name": "localization_adapter",
+        "namespace": "/"
+      },
+      {
+        "name": "mapping_input_adapter",
+        "namespace": "/"
+      },
+      {
+        "name": "mapping_runtime_probe",
+        "namespace": "/"
+      },
+      {
+        "name": "raw_vins_readonly_probe",
+        "namespace": "/"
+      },
+      {
+        "name": "robot_state_publisher",
+        "namespace": "/"
+      },
+      {
+        "name": "sensor_fault_relay",
+        "namespace": "/"
+      },
+      {
+        "name": "vins_estimator",
+        "namespace": "/vins_raw/s_183aa722ef62497c918daf71b53d2ed1"
+      }
+    ],
+    "raw_vins_discovered_topics_sha256": "be3f5bf4eadf1cc5dbdc68e686060019759d577e0be70c7948266362a242950d"
+  },
+  "corrected_no_fault_run29": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-29",
+    "session_epoch": "1c939f97e8b74e32b2995ba2c2767220",
+    "script_namespace": "/vins_raw/s_1c939f97e8b74e32b2995ba2c2767220",
+    "probe_window_s": 40.059,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "raw_vins_output_counts": {
+      "optimized": 243,
+      "propagated": 3204
+    },
+    "raw_vins_telemetry_count": 253,
+    "expected_publisher_endpoints_present": true,
+    "paired_input_count": 397,
+    "paired_source_interval_s": {
+      "p50": 0.033,
+      "p95": 0.132,
+      "max": 0.429
+    },
+    "pose_wall_receipt_interval_s": {
+      "p50": 0.112657,
+      "p95": 0.241036,
+      "max": 1.716299
+    },
+    "pose_source_age_at_receipt_s": {
+      "p50": 0.074,
+      "p95": 0.115,
+      "max": 0.98
+    },
+    "map_max_occupied_points": 1905,
+    "timeout_log_lines_total": 45,
+    "in_window_timeout_log_lines": 42,
+    "post_window_timeout_log_lines": 3,
+    "timeout_groups": [
+      {
+        "line_count": 2,
+        "now_s": [
+          7.525,
+          7.558
+        ],
+        "last_occ_update_s": 7.096,
+        "last_sync_stamp_s": 7.03,
+        "paired_source_gap_s": 0.429,
+        "callback_wall_s": 0.000983,
+        "timer_gap_wall_s": 0.049954,
+        "fusion_wall_s": 0.004304
+      },
+      {
+        "line_count": 40,
+        "now_s": [
+          25.721,
+          26.797
+        ],
+        "last_occ_update_s": 25.312,
+        "sync_count": 400,
+        "last_sync_stamp_s": 25.213,
+        "independent_probe_saw_paired_topic_outputs_through_s": 26.797,
+        "callback_wall_s": 0.001027,
+        "timer_gap_wall_s": 0.049724,
+        "fusion_wall_s": 0.004463
+      },
+      {
+        "line_count": 3,
+        "now_s": [
+          35.245,
+          35.278
+        ],
+        "window": "after 40.059 s probe; excluded from in-window count"
+      }
+    ],
+    "qualification": "Valid current-epoch healthy input integration, but not a clean no-timeout baseline because in-window EGO timeouts occurred. No goal, controller, PX4, or actuator.",
+    "source_artifact_sha256": {
+      "probe.json": "058d9287d53000d7914550d9f30f7a6c744976720faff2a2f3f7ddb347500879",
+      "ego.log": "c6b10246e56ab48955d8e0b5c3f2af7d0ade30af3797d9fc8e00861b5d715ab2",
+      "raw_vins_summary.json": "1ff48b63c82e7356b587cd8382e3f0b2d40699f9baef06d16eb4fa8fe8a52678",
+      "depth_fault_report.json": "763c7c5b1840a60401fd3c14e96b53c7dd1eb97a5290a305af6c87a7f8f7ecbe",
+      "run_script": "812d2e670ca42edb2998431acf4bc9a99f57cdde2f89568e9ecb4ff39497faa8"
+    }
+  },
+  "no_fault_run30": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-30",
+    "session_epoch": "1c9fdd3512e645f8b8144a97b376101d",
+    "probe_window_s": 40.032,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "paired_input_count": 314,
+    "paired_source_interval_s": {
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.429
+    },
+    "pose_source_age_at_receipt_s": {
+      "p50": 0.073,
+      "p95": 0.109,
+      "max": 0.383
+    },
+    "map_max_occupied_points": 1786,
+    "in_window_ego_timeout_log_lines": 0,
+    "post_window_timeout_log_lines": 5,
+    "post_window_relay_end": {
+      "relay_duration_wall_s": 60,
+      "last_depth_stamp_s": 38.083,
+      "observer_last_stamp_s": 31.219
+    },
+    "qualification": "One valid 40.032 s no-fault EGO map input window without a timeout; not a repeated timing qualification.",
+    "source_artifact_sha256": {
+      "probe.json": "3aa7d364c0d1e105662aa6637f6c9098ac3ed7dc9109b1ef7193a99a483c840b",
+      "ego.log": "7f803bfe8a5c7be9d55a25d80f9bfff16e536f65d115f8279a9137641484e5bb",
+      "raw_vins_summary.json": "70e60c147a085ae0b806d9572bab6065edb8e1550eb889c787107c678e382e1e",
+      "depth_fault_report.json": "ddaf7c582e87eb4d218ef578c9d9374c286d1e6d48a66c738889f10beeb9d3fe",
+      "run_script": "5568b4993fe48530c15413965bc79464ff13123aed61f27dd16fcff0cf7b24c7"
+    }
+  },
+  "excluded_no_fault_run31_relay_ttl": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-31",
+    "probe_window_s": 60.024,
+    "relay_duration_wall_s": 60,
+    "scheduled_fault_source_s": 90,
+    "scheduled_fault_window_observed": false,
+    "last_paired_output_stamp_s": 37.39,
+    "last_paired_output_wall_elapsed_s": 50.86,
+    "depth_health_transition": {
+      "state": "STALE",
+      "reason": "depth_stale",
+      "wall_elapsed_s": 51.898
+    },
+    "ego_timeout_log_lines": 7,
+    "ego_timeout_snapshot": {
+      "now_s": 37.863,
+      "sync_count": 523,
+      "last_sync_stamp_s": 37.39,
+      "depth_input_count": 523,
+      "pose_input_count": 523
+    },
+    "reason_excluded": "The test relay itself exited at its 60 s wall-time limit before the 60 s probe ended, stopping the depth stream and causing depth_stale. This is a harness lifetime error, not a naturally occurring sensor fault or a no-fault timing baseline.",
+    "source_artifact_sha256": {
+      "probe.json": "f418e754714983e84983738fb97fe0b4454737fc8930cdded1c11ddd3573f6f0",
+      "ego.log": "bb4caf23c59149ca55d782939830c52ee221d41f65f40f2082d9dc416b3c3781",
+      "depth_fault_report.json": "f5c7c8d74ddc7e68b8a7b79ae628bd8dc755142dd3c7bda0864c246142a837ec",
+      "run_script": "263c516beb52d19f2b241c69bfbea4f9af1e22153e5c98b6dbe17cd05c1f0847"
+    }
+  },
+  "no_fault_run32_pose_receipt_diagnostic": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-32",
+    "session_epoch": "649578de471340e7b280c874566e5ce6",
+    "probe_window_s": 60.021,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "paired_input_count": 464,
+    "paired_source_interval_s": {
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.462
+    },
+    "pose_source_age_at_receipt_s": {
+      "p50": 0.074,
+      "p95": 0.111,
+      "max": 0.644
+    },
+    "map_max_occupied_points": 1909,
+    "scheduled_fault_source_s": 90,
+    "scheduled_fault_window_observed": false,
+    "timeout_log_lines_total": 129,
+    "in_window_timeout_lines": 118,
+    "pre_window_startup_lines": 9,
+    "post_window_relay_expiry_lines": 2,
+    "in_window_groups": [
+      {
+        "line_count": 3,
+        "now_s": [
+          8.251,
+          8.317
+        ],
+        "last_sync_stamp_s": 7.756,
+        "observer_next_pair_stamp_s": 8.218,
+        "source_gap_s": 0.462
+      },
+      {
+        "line_count": 19,
+        "now_s": [
+          19.404,
+          19.933
+        ],
+        "sync_count": 167,
+        "last_pose_stamp_s": 18.91,
+        "depth_count_start_end": [
+          173,
+          180
+        ],
+        "last_depth_stamp_start_end_s": [
+          19.306,
+          19.768
+        ],
+        "external_probe_received_later_pose_stamps": true
+      },
+      {
+        "line_count": 50,
+        "now_s": [
+          27.589,
+          29.07
+        ],
+        "sync_count": 284,
+        "last_pose_stamp_s": 27.094,
+        "depth_count_start_end": [
+          287,
+          304
+        ],
+        "last_depth_stamp_start_end_s": [
+          27.424,
+          28.942
+        ],
+        "external_probe_received_later_pose_stamps": true
+      },
+      {
+        "line_count": 46,
+        "now_s": [
+          36.829,
+          38.22
+        ],
+        "sync_count": 404,
+        "last_pose_stamp_s": 36.334,
+        "depth_count_start_end": [
+          409,
+          427
+        ],
+        "last_depth_stamp_start_end_s": [
+          36.598,
+          38.017
+        ],
+        "external_probe_received_later_pose_stamps": true
+      }
+    ],
+    "warning_snapshot_metric_ranges": {
+      "callback_wall_s": [
+        0.000597,
+        0.000987
+      ],
+      "timer_gap_wall_s": [
+        0.047258,
+        0.052676
+      ],
+      "fusion_wall_s": [
+        0.003048,
+        0.003921
+      ]
+    },
+    "qualification": "Diagnostic evidence of intermittent EGO pose-reader receipt gaps while the independent observer saw later same-topic outputs. Not a clean timeout baseline; extra diagnostic subscriptions may affect load.",
+    "source_artifact_sha256": {
+      "probe.json": "f0d2a2889bfc8c9edfbcb2db97d743e899bd7628300bf26a3c5d7c7a9c4edeee",
+      "ego.log": "6e597a73bf9584b224172cad6a2873d242e03fd33ba38c6541b165679dc250dd",
+      "raw_vins_summary.json": "c1146b3ce538d943ac0b6bba0b786371f12d649cfa1494dba3c90d139f820848",
+      "depth_fault_report.json": "7deb139e6541f8d9992b9eb8c17603d1fa5ff25ff77deef1a7a5cf10ed3099e4",
+      "run_script": "b6a13b1577cd829e4f9b743707516b772f2bd2e628ae60ce8ba1bd6a71d9f9d9"
+    }
+  },
+  "no_fault_run33_pose_history_100_diagnostic": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-33",
+    "session_epoch": "047b2a5feecb4a52ab25a3ce92b3da6b",
+    "probe_window_s": 60.027,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "paired_input_count": 513,
+    "paired_source_interval_s": {
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.297
+    },
+    "pose_source_age_at_receipt_s": {
+      "p50": 0.072,
+      "p95": 0.108,
+      "max": 0.123
+    },
+    "map_max_occupied_points": 1984,
+    "scheduled_fault_source_s": 90,
+    "scheduled_fault_window_observed": false,
+    "pose_reader_history": 100,
+    "timeout_log_lines_total": 55,
+    "in_window_timeout_lines": 49,
+    "post_window_relay_expiry_lines": 6,
+    "in_window_groups": [
+      {
+        "line_count": 13,
+        "now_s": [
+          16.75,
+          17.109
+        ],
+        "sync_count": 172,
+        "last_pose_stamp_s": 16.237,
+        "depth_count_start_end": [
+          178,
+          182
+        ],
+        "last_depth_stamp_start_end_s": [
+          16.534,
+          16.93
+        ],
+        "external_probe_received_later_pose_stamps": true
+      },
+      {
+        "line_count": 36,
+        "now_s": [
+          23.308,
+          24.374
+        ],
+        "sync_count": 262,
+        "last_pose_stamp_s": 22.771,
+        "depth_count_start_end": [
+          268,
+          283
+        ],
+        "last_depth_stamp_start_end_s": [
+          23.167,
+          24.256
+        ],
+        "external_probe_received_later_pose_stamps": true
+      }
+    ],
+    "warning_snapshot_metric_ranges": {
+      "callback_wall_s": [
+        0.000673,
+        0.000942
+      ],
+      "timer_gap_wall_s": [
+        0.048903,
+        0.051112
+      ],
+      "fusion_wall_s": [
+        0.003355,
+        0.00443
+      ]
+    },
+    "assessment": "Increasing the EGO pose DDS reader history from 25 to 100 did not eliminate the in-window pose receipt/synchronizer gaps observed in run 32. This is a diagnostic comparison, not a production fix.",
+    "source_artifact_sha256": {
+      "probe.json": "657414147a5688b1cb7e2f53778699e375f17876c30fd3f4a59d0f597f16cfae",
+      "ego.log": "464ce12c0147f1102529cac04a0a489eee81ac9f24386bff8dcc2812f1f983ea",
+      "raw_vins_summary.json": "69612ea9244c72053763ce72b0cfcc044e29899a35c876fb9bdc6914e15fbb56",
+      "depth_fault_report.json": "4789adba93a37b4e5e48954c587d1e7e47efaf1dcd899cdcf71c63429e19857a",
+      "run_script": "4dba8cd2c194a39017194b486866fc17a3c041d63c3bf2d6c39923f9f50584ef"
+    }
+  },
+  "excluded_no_fault_run34_localization_imu_stale": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-34",
+    "session_epoch": "de29dd99028142c8bd3a41c834ff5029",
+    "probe_window_s": 60.021,
+    "depth_ready": true,
+    "localization_state": "LOCKED",
+    "localization_reason": "imu_stale",
+    "lock_wall_elapsed_s": 2.921,
+    "raw_vins_output_counts": {
+      "optimized": 245,
+      "propagated": 3259
+    },
+    "raw_vins_telemetry_count": 255,
+    "adapter_optimized_odom_count": 0,
+    "ego_depth_output_count": 0,
+    "ego_pose_output_count": 0,
+    "reason_excluded": "Raw VINS had output, but the localization adapter locked before healthy mapping inputs were formed. No EGO timeout conclusion can be drawn.",
+    "source_artifact_sha256": {
+      "probe.json": "d5e2c993f425328c50b0e516508c6a851ee25f438fa7d3bafec04e1f9c06b589",
+      "ego.log": "63ea708b7732b5ec5bdb95282b2c627c2f9af632cea39d665bea66d1986b4a8e",
+      "raw_vins_summary.json": "cabef1753945919df22470ad50f097ff4c15503abd1e528b6c5d84436d888e52",
+      "mapping_adapter.log": "720358a043b09fe4b54bfd6f2d485bb8c0ca6b80bb2ce87f5d4da03e9fd5dee7",
+      "sensors.log": "d381d993145821845d2e8ccfa8affe792b6a9deb9364f50c22d4c81e930d58ae",
+      "motion.json": "b66d438abbc5a47f650610e18f37d6cb5eb5763ac79466872822094e2cb6e28d",
+      "run_script": "813c47850a147fc2a41e9f5f736c33447302cb92b658c50739f33b9489529451"
+    }
+  },
+  "excluded_no_fault_run35_missing_launch_helpers": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-35",
+    "exit_code": 3,
+    "precondition": "/fault/input/depth topic did not appear because launch_runner.py was missing from the copied run directory; sensors.log records the missing file.",
+    "reason_excluded": "Harness setup failed before VINS or EGO runtime started.",
+    "source_artifact_sha256": {
+      "run_script": "fb3af6c3897cba5879b2c0987c7fba320c52f464cf4b039677d38b5b85c51582",
+      "sensors.log": "13b5e3badbd6b0d63def3378fc32686525638f65eabe5bf2a1175a3aad22eb2b",
+      "launch_precondition.txt": "e23813a8d4b433865f6857f42da268b241c6ba006f80ed0cdab738b0af6bd8f7"
+    }
+  },
+  "excluded_no_fault_run36_reset_response_timeout": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-36",
+    "session_epoch": "42f23230dd9c4e1eab252c0d7805fd0a",
+    "probe_window_s": 60.027,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "raw_vins_output_counts": {
+      "optimized": 269,
+      "propagated": 3547
+    },
+    "map_reset_server_cleared_map": true,
+    "map_reset_client_acknowledged": false,
+    "ego_depth_output_count": 0,
+    "ego_pose_output_count": 0,
+    "reason_excluded": "plan_env logged a cleared map and then a failed service response; mapping_input_adapter never acknowledged reset and kept the input gate closed. Run #37 moved plan_env service startup before the adapter.",
+    "source_artifact_sha256": {
+      "probe.json": "b594f95f8a80a3c077fd89964479814a06ad900f81570dfd9f7f8f8605dc2386",
+      "ego.log": "92e927b4cd2323a35c312e7a440ae877a825210f6d62042706a1fcf032f152df",
+      "raw_vins_summary.json": "b81f41d3acc11aa6e6aea51a65231babab8e383e10a79c5f28a7765c71e469b5",
+      "mapping_adapter.log": "d7f32c86571ae69aed85d421d68dea47693bb95c298dec5d0721463217a32eac",
+      "depth_fault_report.json": "f454ccd9a8a1338120674cd0d2576c93f2750b4c83c270f0d699cf1b1684cffb",
+      "run_script": "f48295847a918410e4fca67042442c6f5078dcb01cc3572cc1dd53807d06995c",
+      "launch_runner.py": "71314183784c54e762c9b011ad6a929336a4ea248aa563c9487fc7092d7cceb0",
+      "depth_relay_sensors.launch.py": "338d5545c3cc369a9e8f2e79ed6172c500400e6c28554cb7ca71846c39f7a1c7"
+    }
+  },
+  "no_fault_run37_filter_receipt_message_lost_diagnostic": {
+    "run_directory": "artifacts/runs/p2-ego-map-healthy-input-20261017-37",
+    "session_epoch": "6ba5fd31196f47d38704eb73e2595ef4",
+    "probe_window_s": 60.026,
+    "plan_env_reset_service_ready_before_mapping_adapter": true,
+    "depth_ready": true,
+    "localization_tracking": true,
+    "raw_vins_output_counts": {
+      "optimized": 269,
+      "propagated": 3549
+    },
+    "paired_output_count": 496,
+    "paired_source_interval_s": {
+      "count": 495,
+      "p50": 0.066,
+      "p95": 0.165,
+      "max": 0.297
+    },
+    "pose_wall_receipt_interval_s": {
+      "count": 495,
+      "p50": 0.107921,
+      "p95": 0.320144,
+      "max": 1.201105
+    },
+    "max_occupied_points": 1905,
+    "in_window_timeout_lines": 46,
+    "post_window_timeout_lines": 6,
+    "in_window_timeout_group": {
+      "now_s": [
+        42.307,
+        43.684
+      ],
+      "last_occ_update_s": 41.878,
+      "last_pose_stamp_s": 41.779,
+      "depth_count_start_end": [
+        522,
+        541
+      ],
+      "last_depth_stamp_start_end_s": [
+        42.142,
+        43.594
+      ],
+      "pose_count_start_end": [
+        514,
+        514
+      ],
+      "pose_stamp_s": 41.779,
+      "depth_message_lost": 0,
+      "pose_message_lost": 0,
+      "callback_wall_s": [
+        0.001031,
+        0.001031
+      ],
+      "occupancy_timer_wall_gap_s": [
+        0.04937,
+        0.050697
+      ],
+      "fusion_wall_s": [
+        0.003754,
+        0.003754
+      ],
+      "independent_observer_later_pose_stamp_s": 45.508
+    },
+    "scheduled_fault_source_s": 90,
+    "last_depth_source_stamp_s": 50.359,
+    "scheduled_fault_window_observed": false,
+    "assessment": "Valid healthy mapping integration with a reproducible EGO filter receipt gap. During the in-window timeout group, the existing message_filters pose callback count froze while its depth count advanced; neither RMW message-lost callback reported loss, and an independent subscriber observed later pose output. This narrows the issue to EGO pose-filter delivery but does not distinguish executor scheduling, reader behavior, or other causes. Not a clean timeout baseline or a production fix.",
+    "source_artifact_sha256": {
+      "probe.json": "e22fa0f6044f58f34d7206c735434e4f06b83d2a719fdeec66cf44f736a8ace6",
+      "ego.log": "650ac2f119ba573457f381de821cbadc7b834963d73940805f147b06bc993529",
+      "raw_vins_summary.json": "5b73f53a656e85cec83091de93b30941cf60794652f3ef9f0c99e1e27372c7eb",
+      "depth_fault_report.json": "743df9f7e433c8ee3dc5e1e6fd375ba1864bc1ce948ab13689561c438db92ff7",
+      "mapping_adapter.log": "e7527fbfa5d13eb4aca9b6d9822b12531e96e67284724ab91f33adb9a1409671",
+      "motion.json": "9ac1f9b1061f19f1ba599d3225eacb5e1b3a19203fdb3e5141dd591fc7c44f69",
+      "run_script": "7d0b6ec5d1db72e226c5c8263f4169a323c9ee53de6806015029097acc83ad9b",
+      "launch_runner.py": "71314183784c54e762c9b011ad6a929336a4ea248aa563c9487fc7092d7cceb0",
+      "depth_relay_sensors.launch.py": "338d5545c3cc369a9e8f2e79ed6172c500400e6c28554cb7ca71846c39f7a1c7",
+      "mapping_probe_exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "static_source_review": {
+      "ego_executor": "ego_planner_node.cpp calls rclcpp::spin(node), which uses the single-threaded executor path.",
+      "callback_groups": "The message_filters subscribers and GridMap wall timers are created without explicit callback groups, so they use the node default group.",
+      "shared_state": "depthPoseCallback writes depth image, camera pose, and occupancy flags; updateOccupancyCallback reads and mutates the same MappingData; resetMap clears those buffers. No mutex protects this shared state.",
+      "qos": "uav_mapping publishes both EGO inputs with reliable keep-last depth 50. EGO uses reliable depth 50 for Image and 25 for PoseStamped; the synchronizer queue is 100. Patch 0014 raised the pose reader history to 100 in run #33 without removing the gap.",
+      "assessment": "Single-threaded dispatch is confirmed, but measured occupancy timer gaps remained about 50 ms and fusion about 3.754 ms during the run #37 warning group. This does not prove executor starvation. A multithreaded experiment would need synchronization for shared map state first."
+    }
+  },
+  "excluded_no_fault_run38_pose_history100_missing_world_path": {
+    "run_directory": "artifacts/runs/p2-ego-map-pose-history100-20261017-38",
+    "exit_code": 3,
+    "precondition": "depth remap bridge topic did not appear; launch helper pointed to a nonexistent run34-derived world path",
+    "reason_excluded": "The launch helper failed before starting VINS/EGO; no localization, mapping, or QoS comparison was made.",
+    "source_artifact_sha256": {
+      "healthy-mapping-input-probe-v3.sh": "f5cbeb71cf9d7f692596f91bcb6051ffbe9692417db2d4f345b9782d9e07963b",
+      "depth_relay_sensors.launch.py": "7c11ffb56c4dc16b96d75b2a21ae405e3eebf42898be36d04a954cc9ffe13016",
+      "launch-precondition.txt": "e23813a8d4b433865f6857f42da268b241c6ba006f80ed0cdab738b0af6bd8f7"
+    }
+  },
+  "excluded_no_fault_run39_pose_history100_localization_stale": {
+    "run_directory": "artifacts/runs/p2-ego-map-pose-history100-20261017-39",
+    "session_epoch": "67c18203b23d4510866cd5eee0cc5ce3",
+    "probe_window_s": 60.023,
+    "depth_ready": true,
+    "localization_tracking": false,
+    "localization_lock_wall_s": 5.908,
+    "localization_lock_reason": "telemetry_stale",
+    "paired_output_count": 18,
+    "max_occupied_points_before_gate_closed": 1002,
+    "map_cleared_after_gate_closed": true,
+    "ego_timeout_lines": 0,
+    "runtime_ros_graph_history_depth": "UNKNOWN for the EGO pose subscription; reliability was RELIABLE. The CLI endpoint report does not reveal the configured history depth.",
+    "reason_excluded": "Localization left TRACKING early and the mapping gate cleared the map; the probe did not measure a sustained healthy EGO input window.",
+    "source_artifact_sha256": {
+      "healthy-mapping-input-probe-v3.sh": "de655f7201979f83de6164339a49db56fc795b5bfef92e596e5fff9a64066a02",
+      "depth_relay_sensors.launch.py": "7713ded2ac99812d5d61d7d6a35148ff4ee9d93148a995d84d884603b7050f8e",
+      "probe.json": "0734bc459f6f0756946468d51c25101af361cb08aa7795fd297a776df8989a25",
+      "ego.log": "37e2e3abb9ee61ce80bfb48557fb378e102015711ef27267f99d92c704227158",
+      "motion.json": "dee621c0f60eff0bd4ccfcdba8a1878d21e45924beeaa3009f850ebeabe02cbe",
+      "ego-pose-qos.txt": "66e2f70d27a6e74d082aea37d2e46d53b25ca90848ef4c5370fe8277cbee919e",
+      "ego-depth-qos.txt": "e7ac6b91757cbd29fd173e0915ce8b99f3fec5ab8449b598e66e21fe2652fd7d"
+    }
+  },
+  "no_fault_run40_pose_history100_filter_diagnostic": {
+    "run_directory": "artifacts/runs/p2-ego-map-pose-history100-20261017-40",
+    "session_epoch": "9816d0b852e5419db33b92d5d12a3b50",
+    "probe_window_s": 60.034,
+    "harness": "Exact #37 launch helper, domain, partition and world path; only run directory and EGO install overlay changed.",
+    "patch_chain": "post-0015 plus optional patch 0016; pose_sub_ source QoS history configured as 100",
+    "depth_ready": true,
+    "localization_tracking": true,
+    "raw_vins_output_counts": {
+      "optimized": 242,
+      "propagated": 3182,
+      "telemetry": 252
+    },
+    "paired_output_count": 554,
+    "paired_source_interval_s": {
+      "count": 553,
+      "p50": 0.033,
+      "p95": 0.165,
+      "max": 0.495
+    },
+    "pose_wall_receipt_interval_s": {
+      "count": 553,
+      "p50": 0.106844,
+      "p95": 0.248998,
+      "max": 0.866541
+    },
+    "pose_source_age_at_receipt_s": {
+      "count": 554,
+      "p50": 0.074,
+      "p95": 0.109,
+      "max": 0.179
+    },
+    "max_occupied_points": 1916,
+    "ego_timeout_lines_total": 33,
+    "in_window_timeout_lines": 29,
+    "post_window_timeout_lines": 4,
+    "in_window_timeout_groups": [
+      {
+        "now_s": [
+          9.603,
+          10.36
+        ],
+        "count": 26,
+        "last_occupancy_update_s": 9.175,
+        "pose_receipt_count": [
+          73,
+          73
+        ],
+        "last_pose_stamp_s": 9.076,
+        "depth_receipt_count": [
+          79,
+          92
+        ],
+        "last_depth_stamp_s": [
+          9.439,
+          10.165
+        ],
+        "message_lost_counts": {
+          "depth": 0,
+          "pose": 0
+        }
+      },
+      {
+        "now_s": [
+          21.682,
+          21.748
+        ],
+        "count": 3,
+        "last_occupancy_update_s": 21.259,
+        "depth_pose_count": 262,
+        "last_pose_stamp_s": 21.187,
+        "message_lost_counts": {
+          "depth": 0,
+          "pose": 0
+        }
+      }
+    ],
+    "post_window_timeout_group": {
+      "now_s": [
+        49.727,
+        49.816
+      ],
+      "count": 4
+    },
+    "scheduled_fault_source_s": 90,
+    "scheduled_fault_window_observed": false,
+    "last_relay_depth_stamp_s": 49.171,
+    "assessment": "A valid healthy 60.034 s mapping window reproduced EGO pose-filter receipt gaps with history=100: 29 timeout warnings occurred in-window, including a group where the EGO pose receipt counter stayed at 73 while depth receipts advanced 79→92. RMW message-lost remained zero. The larger history did not eliminate the gap; this single run cannot establish whether it changed the rate or duration. The gap mechanism remains unlocalized.",
+    "qualification": "Diagnostic runtime only; no goal, controller, PX4, actuator, fault response, or formal acceptance was tested.",
+    "source_artifact_sha256": {
+      "session/session.json": "88f3721e43dc2b5711563fc78fa1932c13b8bbebe47c68199fd2b7ec87d8dfbf",
+      "probe.json": "888474b7b76c14e092e7941d36802b5c7d2cd20eda073bbf78316d8811a9f6e7",
+      "ego.log": "6ac3a06961e4fa1b5044acbf583426083eb02811159c6f561e00b38660a8f82e",
+      "mapping-adapter.log": "0dfad157021fd3107b691d6232b398897b00e848f13b8175398fc06e35aefd8a",
+      "depth-health-probe.json": "7d7c3d09a1302cae263bf2070bc432c0f041de8ac5793cda5dbe021bdaf28177",
+      "raw-vins-probe.log": "b097f5672eba6a11eee78937aa9e86df527c79f50f2b89a752487a1b25d73cac",
+      "depth-fault-report.json": "3de10a19902189214262a472d9ecf3f1b0d0ee819fbc8a05bd6d3d0701ffed41",
+      "healthy-mapping-input-probe-v3.sh": "06b8b2efd867c41176e3d1b86d332f0a31040f3d7e9d2b7a4f931bec801a9f1f",
+      "depth_relay_sensors.launch.py": "338d5545c3cc369a9e8f2e79ed6172c500400e6c28554cb7ca71846c39f7a1c7"
+    }
+  }
+}

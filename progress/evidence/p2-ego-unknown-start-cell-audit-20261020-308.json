@@ -1,0 +1,332 @@
+{
+  "schema": "goal-c-unknown-start-cell-audit/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-start-cell-snapshot-20261020-308",
+  "status": "UNKNOWN_START_COLLISION_CONFIRMED; ASTAR_POOL_CAUSE_UNRESOLVED; GOAL_C_PENDING",
+  "objective": "Separate the unknown-space starting-cell behavior from A* local-pool bounds using the prior run logs, the closest successful same-profile voxel archive, and two additional snapshot-gate attempts.",
+  "scope": "Planner/map diagnostic only. No trajectory server, controller, PX4, online truth subscriber, or control output.",
+  "source_audit": {
+    "astar_pool_size_xyz": [
+      100,
+      100,
+      100
+    ],
+    "astar_center_index_xyz": [
+      50,
+      50,
+      50
+    ],
+    "astar_step_m": 0.1,
+    "usable_neighbor_index_range_each_axis": [
+      1,
+      98
+    ],
+    "usable_search_half_span_approx_m": 4.9,
+    "center_definition": "Each AstarSearch centers the local pool at the midpoint of its start and end points.",
+    "occupied_start_behavior": "AStar first maps raw start/end to indices relative to their midpoint. Occupancy is checked at Index2Coord(start_idx/end_idx), which is the midpoint-relative A* cell center, not the raw start/end coordinates. If that quantized cell is blocked, start moves away from end or end moves away from start by 0.1 m until a free cell is found or Coord2Index rejects an out-of-pool point.",
+    "unknown_candidate_behavior": "Experimental patch 0020 makes getInflateOccupancy return occupied for any unknown voxel; the base map snapshot keeps raw unknown separate from the inflation mask.",
+    "path_vector_guard": "Experimental patch 0023 guards the separately confirmed initControlPoints A* path-vector boundary read; it does not change unknown occupancy or map geometry.",
+    "cell_query_semantics": "The EGO optimizer collision log reports occupancy at a raw control point. That is not necessarily the cell AStar checks after midpoint-relative coordinate quantization."
+  },
+  "same_profile_snapshot": {
+    "run_id": "p2-ego-unknown-policy-wall-goal-20261020-306",
+    "target_xy_z_m": [
+      2.5,
+      1.4,
+      1.0
+    ],
+    "goal_epoch": "ecc0b3bcc9b44d3a98e16b22715663ea",
+    "map_id": "ecc0b3bcc9b44d3a98e16b22715663ea-826d7ae74a63447396f36bdadcd73591",
+    "frame_id": "odom_ecc0b3bcc9b44d3a98e16b22715663ea",
+    "snapshot_stamp_ns": 7261000000,
+    "source_stamp_ns": 7129000000,
+    "source_age_s": 0.132,
+    "origin_m": [
+      -12.0,
+      -12.0,
+      -0.15
+    ],
+    "map_size_m": [
+      24.0,
+      24.0,
+      6.0
+    ],
+    "resolution_m": 0.1,
+    "dimensions_xyz": [
+      240,
+      240,
+      60
+    ],
+    "voxel_counts": {
+      "unknown": 3446862,
+      "free": 7822,
+      "occupied": 1316,
+      "inflated": 32394
+    },
+    "archive_readback_exact": true,
+    "start_cell_queries": {
+      "origin": {
+        "point_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "index": [
+          120,
+          120,
+          1
+        ],
+        "inside": true,
+        "raw_occupancy_code": -1,
+        "class": "unknown",
+        "inflated_mask": false,
+        "voxel_center_m": [
+          0.05000000000000071,
+          0.05000000000000071,
+          2.7755575615628914e-17
+        ]
+      },
+      "prior_collision_point": {
+        "point_m": [
+          -0.00866,
+          -0.005263,
+          -0.002004
+        ],
+        "index": [
+          119,
+          119,
+          1
+        ],
+        "inside": true,
+        "raw_occupancy_code": -1,
+        "class": "unknown",
+        "inflated_mask": false,
+        "voxel_center_m": [
+          -0.049999999999998934,
+          -0.049999999999998934,
+          2.7755575615628914e-17
+        ]
+      }
+    },
+    "immediate_3x3x3_index_neighborhood_counts": {
+      "unknown": 14,
+      "known_free": 13,
+      "occupied": 0,
+      "inflated": 0,
+      "shape_xyz": [
+        3,
+        3,
+        3
+      ]
+    },
+    "qualification": "The archive is a fresh same-profile cross-run sample after a goal, not the exact #307 warning window. The room/target profile and initial local frame are comparable; no cross-session stitching."
+  },
+  "prior_planner_run": {
+    "run_id": "p2-ego-rebound-warning-diagnostic-20261020-307",
+    "goal_sent": true,
+    "first_control_point_collision": {
+      "xyz_m": [
+        -0.00866,
+        -0.005263,
+        -0.002004
+      ],
+      "in_map": true,
+      "unknown": true,
+      "raw_occupancy_bit": 0,
+      "inflated_bit": 1,
+      "epoch": "3cc10fbeb12a4d0dafbcc55a1460879e"
+    },
+    "astar_pool_boundary_errors": 288,
+    "astar_endpoint_rejections": 288,
+    "direction_failures": 38,
+    "init_control_point_boundary_guard_hits": 3,
+    "bspline_count": 0,
+    "post_goal_snapshot": "rejected depth_pose_gate_closed",
+    "sanitizer": "No ASan report in attempt 06; ASan had confirmed the separate vector over-read in attempt 04.",
+    "representative_direction_failed_pair": {
+      "start_m": [
+        -0.009353,
+        -0.005338,
+        -0.001949
+      ],
+      "end_m": [
+        0.078075,
+        0.28985,
+        0.142255
+      ],
+      "source": "#307 DIAG direction_failed segment=0 in=0 out=4; these are optimizer diagnostic coordinates, not direct AstarSearch arguments."
+    }
+  },
+  "additional_capture_attempts": [
+    {
+      "attempt": "308-01",
+      "result": "NO_GOAL_NO_SNAPSHOT",
+      "snapshot_reason_counts": {
+        "no_fresh_fused_depth": 56,
+        "depth_source_stale": 6
+      },
+      "goal_sent": false,
+      "script_revision_preserved": false,
+      "artifacts": [
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/snapshot-client-pre-motion.log",
+          "sha256": "a84dd39c9bed2b55910fc64df36eb94bfbc30d328acfde1b41add2b05c8cbb20",
+          "size_bytes": 511
+        }
+      ],
+      "motion_driver_was_scheduled_after_snapshot": true,
+      "motion_driver_launched": false,
+      "motion_commands_recorded": false,
+      "detail": "The snapshot call occupied control flow until timeout, so the later motion-driver command never ran."
+    },
+    {
+      "attempt": "308-02",
+      "result": "NO_GOAL_NO_SNAPSHOT",
+      "snapshot_reason_counts": {
+        "no_fresh_fused_depth": 62,
+        "depth_source_stale": 6
+      },
+      "motion_driver_launched_before_capture": true,
+      "motion_command_record": "motion-02.json was not produced; actuation of the debug sensor-rig force is therefore unverified.",
+      "goal_sent": false,
+      "artifacts": [
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/snapshot-client-pre-goal.log",
+          "sha256": "5f4cb8fdb258e7442f0e429e835dab3c65e9bc87718355b0666352c7672a40d6",
+          "size_bytes": 511
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/ego-02.log",
+          "sha256": "6cd4deb329b24e01678aa451a7df8cbf69b0a80e3497b327941bdde98bc213ea",
+          "size_bytes": 1467
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/run-live-01.sh",
+          "sha256": "231f06b8b7e48a5d27543dbfa6eef9cd41a3b49d03ffeff4212353547ca57b4b",
+          "size_bytes": 8689
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/run-container-02.sh",
+          "sha256": "553abd89a2b5b4f1bac413f491950a78cd0d050585b2a89afd3e3024d501b23f",
+          "size_bytes": 931
+        }
+      ],
+      "motion_commands_recorded": false
+    }
+  ],
+  "interpretation": [
+    "The #306 cross-run snapshot confirms that the map-origin voxel and the #307 optimizer collision-point voxel are raw unknown; both have inflation-mask value 0. Experimental patch 0020 converts unknown to occupied for EGO collision checks. This explains why that optimizer diagnostic reports the control point as blocked.",
+    "A* does not test the raw control point for its start check: it tests Index2Coord(start_idx), using the midpoint-relative local-grid index. In the representative #307 direction_failed pair projected onto #306, the rounded start cell is known free; the end cell is unknown and one 0.1 m outward adjustment reaches a known-free cell. This pair does not reproduce the pool-boundary error.",
+    "The 288 pool-boundary errors therefore remain unexplained. Other A* input segments, runtime map contents, or endpoints may differ; the current logs do not record per-call start/end/center/index/occupancy. Do not attribute those errors to the unknown launch cell without that trace."
+  ],
+  "limitations": [
+    "The fresh successful archive is from a separate run, although it used the same wall/goal profile.",
+    "Both #308 attempts failed the fresh-fused-depth gate, so they produced no voxel data and sent no goal. Attempt 02 did not retain proof that force commands were published.",
+    "No candidate fix was built or qualified. The 0.5 m inflation and patches 0020/0023 remain experimental; no map coverage, vehicle clearance, trajectory execution, or flight result is claimed.",
+    "The #307 optimizer control-point occupancy and the A* quantized start/end occupancy are different queries; the cross-run snapshot projection cannot substitute for per-call runtime trace."
+  ],
+  "next_diagnostic": "Add isolated low-volume A* diagnostics that record requested start/end, midpoint, quantized start/end indices, queried cell centers, unknown/inflated class, adjustment count, and exact out-of-pool point for every failed AstarSearch. Then rerun the same planner-only target; do not make a root-cause claim until failing calls are matched.",
+  "artifacts": [
+    {
+      "path": "progress/evidence/p2-ego-rebound-warning-diagnostic-20261020-307.json",
+      "sha256": "8391f668d3f2eb9c0edc44570287af4b785849008cd7aefbf4472b5159861d62",
+      "size_bytes": 9774
+    },
+    {
+      "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/ego-06.log",
+      "sha256": "ff43029ea34f7eb2a6c844ef89a5d72f8544f615033fc78b458956b07377933a",
+      "size_bytes": 228310
+    },
+    {
+      "path": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-goal/metadata.json",
+      "sha256": "0f79760e7238a7c292946f2ae2f15f8578d7820929cf676af59fccb8bbbde44a",
+      "size_bytes": 5032
+    },
+    {
+      "path": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-goal/occupancy_snapshot.npz",
+      "sha256": "d185011c80685de25b5fcff21cbccf1412ca2586d573af6951665d421c8e72b7",
+      "size_bytes": 10055
+    },
+    {
+      "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/run-live-01.sh",
+      "sha256": "231f06b8b7e48a5d27543dbfa6eef9cd41a3b49d03ffeff4212353547ca57b4b",
+      "size_bytes": 8689
+    },
+    {
+      "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/start-cell-analysis-306.json",
+      "sha256": "909fb2e9454752a8c106e6d9fe703b71bf6f41477c4c51568023e4ac27bd51be",
+      "size_bytes": 4082
+    },
+    {
+      "path": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/astar-pair-projection-306-307.json",
+      "sha256": "9390291f68d486e7432a551e0f1b9ed6b86986eb0eae2bb9d0023e52483cbd81",
+      "size_bytes": 3126
+    }
+  ],
+  "astar_pair_projection": {
+    "artifact": "artifacts/runs/p2-ego-start-cell-snapshot-20261020-308/astar-pair-projection-306-307.json",
+    "result": "This representative cross-run pair does not reproduce an A* pool exit: its rounded start cell is known free; its end cell is unknown, and one 0.1 m adjustment reaches a known-free cell in this snapshot. It cannot explain the 288 logged #307 pool errors.",
+    "sha256": "9390291f68d486e7432a551e0f1b9ed6b86986eb0eae2bb9d0023e52483cbd81"
+  },
+  "follow_up_runs": [
+    {
+      "run_id": "p2-ego-start-cell-release-snapshot-20261020-309",
+      "result": "NO_GOAL_NO_SNAPSHOT",
+      "status_reason": "MapStatus remained map_reset_acknowledged until the 20 s ready deadline in the no-motion static run.",
+      "files": [
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-release-snapshot-20261020-309/capture-result.txt",
+          "sha256": "1e8b2746b86d2b58b4860d12499906dd2b5778557232d9553e0ca3fb12554e88",
+          "size_bytes": 21
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-release-snapshot-20261020-309/snapshot-client.log",
+          "sha256": "0265b108acf623fad4dd3e1109345376a989b317b0802e6af7ccaf568932119e",
+          "size_bytes": 747
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-release-snapshot-20261020-309/ego.log",
+          "sha256": "3182a54bcce7868e51dcc6fe7b57c3601038679838b53feabf8ae24f00748215",
+          "size_bytes": 3261
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-release-snapshot-20261020-309/nodes.txt",
+          "sha256": "8b14fe54c1fe99650739ac1bb85ffaa9aa46217750462c7ec83cb9b72a487c95",
+          "size_bytes": 153
+        }
+      ]
+    },
+    {
+      "run_id": "p2-ego-start-cell-motion-snapshot-20261020-310",
+      "result": "GAZEBO_RENDERER_CRASH_NO_GOAL_NO_SNAPSHOT",
+      "status_reason": "Gazebo Ogre rendering process exited -11; MapStatus remained map_reset_acknowledged; motion.json was not produced, so force commands are unverified.",
+      "files": [
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-motion-snapshot-20261020-310/capture-result-motion.txt",
+          "sha256": "1e8b2746b86d2b58b4860d12499906dd2b5778557232d9553e0ca3fb12554e88",
+          "size_bytes": 21
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-motion-snapshot-20261020-310/snapshot-client-motion.log",
+          "sha256": "7db50e3399a7cf3c120421b1035320884633ad530085444b07b075df03a73790",
+          "size_bytes": 747
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-motion-snapshot-20261020-310/sensors.log",
+          "sha256": "4de8a562ed1191700b0331320aa1d2f93768b81a2cf13b3b330a073e07b6ea54",
+          "size_bytes": 15723
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-motion-snapshot-20261020-310/ego.log",
+          "sha256": "0dd1efafb62de01aaba0a1ea044c793d0c29139d1be94c081a30a8df3c31d3c4",
+          "size_bytes": 5250
+        },
+        {
+          "path": "artifacts/runs/p2-ego-start-cell-motion-snapshot-20261020-310/topics-motion.txt",
+          "sha256": "5b691a2b4f82ea3e987d0bfffeaeb794f63bfbc8b7d424221ae0a622d2e887ea",
+          "size_bytes": 1670
+        }
+      ]
+    }
+  ]
+}

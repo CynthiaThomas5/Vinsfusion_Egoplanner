@@ -1,0 +1,86 @@
+{
+  "schema": "p2-ego-fastdds-history-latency-diagnostic/v1",
+  "date": "2026-10-21",
+  "run_ids": [
+    "p2-ego-fastdds-history-latency-smoke-20261021-360",
+    "p2-ego-fastdds-history-latency-trace-20261021-361"
+  ],
+  "status": "diagnostic_only_target_pair_not_observed",
+  "goal_criterion": "GOAL C diagnostic only; GOAL C remains pending and P2 remains passed.",
+  "question": "Can Fast DDS history-latency metadata be read without application payloads, and does it report the mapping publisher to EGO camera-pose reader pair during a valid pose stream?",
+  "software": {
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_jazzy_fastrtps": "2.14.6-1noble.20260303.233638",
+    "fastdds_gen": "3.3.2",
+    "fastdds_gen_commit": "500c472a7e4b8976142f34d3fffcc9a3b6154612",
+    "fastdds_gen_license": "Apache-2.0",
+    "fastdds_gen_jar_sha256": "4819ac94ef91ed631eefc645b05adc33dfcacc21e4e457ec5b20613e0df7e53f8",
+    "fastdds_gen_source_migrated": false
+  },
+  "smoke_360": {
+    "run_manifest": "artifacts/runs/p2-ego-fastdds-history-latency-smoke-20261021-360/run-manifest.json",
+    "run_manifest_sha256": "a8404b73337f7ab8181327d5fa31da5683bcb89a93476531395fff59271aadf0",
+    "probe_log": "artifacts/runs/p2-ego-fastdds-history-latency-smoke-20261021-360/probe-smoke.log",
+    "probe_log_sha256": "d7c4a5a5b5afea12a73dba8cf77168245f401cedb27fdefedf23c0353c5838c3",
+    "ros_domain_id": 230,
+    "statistics_topic": "_fastdds_statistics_history2history_latency",
+    "statistics_samples": 67,
+    "outcome": "direct Fast DDS statistics reader received samples while a minimal ROS 2 CLI publisher/subscriber smoke was active",
+    "limitation": "The smoke validates the observation mechanism only; its endpoint pair is unrelated to the EGO camera-pose reader."
+  },
+  "full_diagnostic_361": {
+    "run_manifest": "artifacts/runs/p2-ego-fastdds-history-latency-trace-20261021-361/run-manifest.json",
+    "run_manifest_sha256": "824166ddd635b262046bfcc567326c7c087dcfabacb8ba36b784adff101dd94f",
+    "domain_id": 221,
+    "gazebo_partition": "d435i_ego_history_latency_trace_361_01",
+    "history_latency_probe_injection_verified_before_motion": true,
+    "history_latency_samples": 47,
+    "distinct_writer_reader_guid_pairs": 10,
+    "mapping_publisher_gid": "010fe767b001005800000000.00001503",
+    "ego_camera_pose_reader_gid": "010fe7671802b7a900000000.00001c04",
+    "target_pair_history_samples": 0,
+    "independent_camera_pose_receipts": 0,
+    "map_status_samples": 681,
+    "forwarded_depth_count": 0,
+    "localization_future_observation": {
+      "clock_stamp_ns": 4820000000,
+      "source_stamp_ns": 4879999999,
+      "source_age_ns": -59999999,
+      "future_tolerance_ns": 20000000,
+      "reason": "propagated_from_future"
+    },
+    "localization_valid_at_end": false,
+    "map_input_ready_at_end": false,
+    "planner_status": "timeout_before_ready",
+    "goal_sent": false,
+    "runtime_truth_subscriber": false,
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_control_nodes": [],
+    "qos_or_canonical_threshold_changed": false,
+    "outcome": "The upstream localization/map gate closed before camera-pose samples were published. This run cannot answer whether DDS delivered target samples into EGO DataReader history."
+  },
+  "interpretation": {
+    "confirmed": [
+      "Fast DDS HISTORY_LATENCY_TOPIC is readable by the direct statistics probe in this image.",
+      "The full run was upstream-invalid: the first localization event was about 60 ms ahead of its receipt simulation clock, beyond the unchanged 20 ms future tolerance.",
+      "No camera-pose messages reached the independent observer and no statistics record matched the mapping publisher and EGO reader GIDs."
+    ],
+    "not_established": [
+      "Whether the target DataReader received, rejected, or inserted any camera-pose sample during a valid upstream stream.",
+      "The cause of the propagated timestamp being ahead of the adapter clock.",
+      "Any map coverage, planner safety, trajectory execution, or flight acceptance criterion."
+    ],
+    "next_step": "Diagnose the simulation-clock versus propagated-pose timestamp skew in a run-local trace; preserve the 20 ms guard and recapture the target GUID pair only after localization and MapStatus remain valid and camera-pose publication is observed."
+  },
+  "references": [
+    "https://fast-dds.docs.eprosima.com/en/v2.14.7/fastdds/statistics/dds_layer/topic_names.html",
+    "https://github.com/eProsima/Fast-DDS-Gen/blob/master/RELEASE_SUPPORT.md"
+  ],
+  "limitations": [
+    "No conclusion is drawn from the absence of a target pair record because the upstream adapter published no camera-pose samples.",
+    "The run-local receive-buffer profile from #359 remained enabled for EGO; this diagnostic did not change canonical source, QoS, health thresholds, or acceptance settings.",
+    "No controller, trajectory server, PX4, runtime truth subscriber, or control publisher was present."
+  ]
+}

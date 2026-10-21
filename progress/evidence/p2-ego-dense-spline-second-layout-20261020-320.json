@@ -1,0 +1,107 @@
+{
+  "schema": "ego-second-layout-snapshot-gate-diagnostic/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-dense-spline-second-layout-20261020-320",
+  "result": "two_splines_received_but_snapshot_gate_closed",
+  "source": {
+    "patch_0029": "dependencies/patches/ego/0029-dense-spline-inflation-check-experiment.patch",
+    "patch_0029_sha256": "1903e9ed4d2fa5a6044f1fb6167e3b82a89215524ffcfb32f9c8b3230f761abb",
+    "planner_binary_sha256": "9040507b33ee2a0d0657874f9f4cece358a0c69723672cd881dbe090bfd8f866",
+    "build_report": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/build-report-0029.json",
+    "build_report_sha256": "eea6d3ac6984976189631992819a5b7699d5e9a2a7c99e6aa80a2052875433e3"
+  },
+  "layout": {
+    "schema": "ego-diagnostic-layout-variant/v1",
+    "run_id": "p2-ego-dense-spline-second-layout-20261020-320",
+    "base_layout": "p2-ego-dense-spline-snapshot-validation-20261020-319",
+    "unchanged": [
+      "goal_xy_m=[2.5,1.4]",
+      "box dimensions",
+      "cylinder radius/length",
+      "wall model",
+      "planner config",
+      "runtime parameters",
+      "patch 0029 binary"
+    ],
+    "changed": [
+      {
+        "name": "calibration_box",
+        "pose_xyz_rpy": [
+          1.55,
+          0.9,
+          1.1,
+          0,
+          0,
+          0
+        ],
+        "size_m": [
+          0.35,
+          0.5,
+          0.8
+        ]
+      },
+      {
+        "name": "calibration_cylinder",
+        "pose_xyz_rpy": [
+          2.25,
+          0.05,
+          1.0,
+          0,
+          0,
+          0
+        ],
+        "radius_m": 0.18,
+        "length_m": 0.9
+      }
+    ],
+    "purpose": "Move two obstacles across the approach corridor for a second-layout planner-only collision-check diagnostic."
+  },
+  "runtime": {
+    "status": "bspline_received",
+    "goal_sent": true,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "goal_map_ready": true,
+    "spline_count": 2,
+    "snapshot_requests": 2,
+    "snapshot_records": [
+      {
+        "traj_id": 1,
+        "accepted": false,
+        "reason": "depth_pose_gate_closed"
+      },
+      {
+        "traj_id": 2,
+        "accepted": false,
+        "reason": "depth_pose_gate_closed"
+      }
+    ],
+    "final_spline_collision_reject_count": 0,
+    "depth_lost_emergency_stop": true,
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_nodes": [],
+    "trajectory_executed": false
+  },
+  "artifacts": {
+    "runtime_manifest": {
+      "path": "artifacts/runs/p2-ego-dense-spline-second-layout-20261020-320/runtime-manifest-01.json",
+      "sha256": "c0ef14d790df4d76d6691712719e3e74aa529253937280a44d869b01519342f5"
+    },
+    "planner_log": {
+      "path": "artifacts/runs/p2-ego-dense-spline-second-layout-20261020-320/ego-01.log",
+      "sha256": "6fe359ee5c11df06d510705e544c55c0f5fd6891056413e30bb2a4e317853165"
+    },
+    "planner_probe": {
+      "path": "artifacts/runs/p2-ego-dense-spline-second-layout-20261020-320/planner-goal-result-01.json",
+      "sha256": "5301fe7c03f191633ff7dec536c0c4d75fea6e0ac9189a87a955aee369f81fd2"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-dense-spline-second-layout-20261020-320/runtime-summary-01.json",
+      "sha256": "4d585ec17f31ddc1eb5317963f8356c667bcee8f000ad7fb3fc03a85a553acbb"
+    }
+  },
+  "qualification": "Both read-only snapshot requests were rejected with depth_pose_gate_closed, so no path-to-map overlay or clearance conclusion is available. EGO later entered EMERGENCY_STOP after its depth/odometry freshness timeout; no controller, trajectory server, PX4, truth or control topics were present. Retained as an excluded second-layout attempt; #321 repeats the same geometry in a fresh epoch and obtains paired snapshots."
+}

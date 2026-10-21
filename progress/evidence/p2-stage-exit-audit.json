@@ -1,0 +1,99 @@
+{
+  "phase": "P2",
+  "status": "passed",
+  "scope": "P2 phase-table exit only; this does not pass GOAL.md A-H, GOAL B/E/F, P3-P6 or final flight acceptance.",
+  "goal_reference": "GOAL.md phase table P2: repaired VINS builds in target Jazzy, initializes in simulation, handles translation/turns, reports trajectory error, and verifies failure gating.",
+  "requirements": [
+    {
+      "requirement": "Fixed VINS source/build evidence for Jazzy",
+      "status": "PASS",
+      "evidence": [
+        "progress/evidence/p2-vins-build.json",
+        "progress/evidence/p0-portable-container-rebuild.json"
+      ],
+      "basis": "Patched VINS and dependencies build; a clean 17-package Jazzy install exists. The matched calibration binary SHA is 858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010."
+    },
+    {
+      "requirement": "Simulation initialization from stereo plus camera IMU",
+      "status": "PASS",
+      "evidence": [
+        "progress/evidence/p2-vins-runtime.json",
+        "progress/evidence/p2-localization-adapter.json",
+        "progress/evidence/p2-motion-health-gate-replay.json"
+      ],
+      "basis": "Natural initialization and actual stereo/IMU subscriptions observed; a separate fresh session enters TRACKING after ten valid synchronized pairs."
+    },
+    {
+      "requirement": "Physical translation and turning with independent cold starts",
+      "status": "PASS",
+      "evidence": [
+        "progress/evidence/p2-physical-motion.json",
+        "progress/evidence/p2-repeat-calibration.json"
+      ],
+      "basis": "Two force/torque-driven runs use the same model, settings, and matched VINS executable; each records translation and yaw excitation without truth feedback."
+    },
+    {
+      "requirement": "Measured VIO error without scale fitting or segment realignment",
+      "status": "PASS for P2 measurement; final numeric threshold remains PROVISIONAL",
+      "evidence": [
+        "progress/evidence/p2-physical-motion.json",
+        "progress/evidence/p2-repeat-calibration.json"
+      ],
+      "measurements": {
+        "first_position_rmse_m": 0.025326546369249366,
+        "second_position_rmse_m": 0.025918680459022566,
+        "first_orientation_rmse_deg": 1.5169713390227473,
+        "second_orientation_rmse_deg": 0.7161337263749661,
+        "alignment": "single SE(3), scale fixed to 1, no segment re-alignment"
+      }
+    },
+    {
+      "requirement": "Operational failure and quality gate verification",
+      "status": "PASS at the localization-adapter boundary",
+      "evidence": [
+        "progress/evidence/p2-localization-adapter.json",
+        "progress/evidence/p2-stereo-dropout.json",
+        "progress/evidence/p2-imu-dropout.json",
+        "progress/evidence/p2-vins-restart.json",
+        "progress/evidence/p2-depth-dropout.json",
+        "progress/evidence/p2-depth-health-gate.json",
+        "progress/evidence/p2-clock-rollback.json",
+        "progress/evidence/p2-vins-epoch-restart.json",
+        "progress/evidence/p2-motion-health-gate-replay.json",
+        "progress/evidence/p2-visual-degradation-gate.json"
+      ],
+      "basis": "Nine health-state unit tests pass. Actual adapter replay enters TRACKING and locks on stale input. Two independent new-epoch image-quality injections keep source stamps advancing while VINS feature counts become zero; the adapter locks with input_features_insufficient, even though raw VINS solver_usable remains true."
+    }
+  ],
+  "visual_degradation_repeats": {
+    "count": 2,
+    "independent_epochs": true,
+    "matched_binary": true,
+    "same_reason": "input_features_insufficient",
+    "same_locked_accept_counts": [
+      154,
+      2034
+    ]
+  },
+  "remaining_project_work": [
+    "P2 health limits remain PROVISIONAL and are not a pose-accuracy certificate; final thresholds require GOAL F freeze.",
+    "P2 does not certify aircraft camera installation, covariance, PX4 EKF2 fusion, flight, mapping or planning.",
+    "GOAL A-H remain incomplete; P3 debug flight and remaining P4-P6 acceptance work continue."
+  ],
+  "supporting_report_sha256": {
+    "progress/evidence/p2-vins-build.json": "9cbda7d747c3a33851d4025cc075a951107585ce1c153f6c8aef5bbc649d0682",
+    "progress/evidence/p2-vins-runtime.json": "ad42f7af6680e1d08d5fb1bdd8c657bfcec3e3aa3977080ef1cd84a86fb1b846",
+    "progress/evidence/p2-physical-motion.json": "bb9e600c7243e29cc5e51b0f5dddf908b327ec7c69edf0e4826ec307299dc3df",
+    "progress/evidence/p2-repeat-calibration.json": "fde26fcdaf30a1f40ba57d706d486e62ae58ff87778033aa6041cb7211b964e5",
+    "progress/evidence/p2-localization-adapter.json": "3f70cb5f49375381dd36f2c4dd198fdcbd2e2c7f954d6d2566d1debb34db0bb0",
+    "progress/evidence/p2-stereo-dropout.json": "ce5b133dac481976c71d0a1ae85ee8e1618e11d3d356f3c3edc1f0fba0a3e209",
+    "progress/evidence/p2-imu-dropout.json": "a3523c8ac16a6070153913e60647f7e94ae7135b595e42433a4cda58223867be",
+    "progress/evidence/p2-vins-restart.json": "a82ac1710e9a248f1e20914cc8117fd8d840d6cbbb6ca2da32a860e5291a001c",
+    "progress/evidence/p2-depth-dropout.json": "0ec700ec748ec98cc7e0ee755a8f0749186ccb92f89fb67e40f60ffcf63a8139",
+    "progress/evidence/p2-depth-health-gate.json": "90b2976d4df3149f774c98a4dab5016c47b5157ebe1b249a862fb24bf87aab80",
+    "progress/evidence/p2-clock-rollback.json": "8eae842eebae21718dfcf90e713cca848e90e25da8c34fd71fe5d8981d6469ec",
+    "progress/evidence/p2-vins-epoch-restart.json": "a7f9ebac7fadd3ec3075d37e1872dae5f12b7ead6a9a99bacc35ed3b7a78ffc9",
+    "progress/evidence/p2-motion-health-gate-replay.json": "fd74171e0820439860f50fb2d3f3cc455273aaad24cb7d9f46474e0fbd841af7",
+    "progress/evidence/p2-visual-degradation-gate.json": "13995a252ca3fd0ecdd6d1bb6af35e76189fe29b9c12e4b79bb4b45bbcaa87ac"
+  }
+}

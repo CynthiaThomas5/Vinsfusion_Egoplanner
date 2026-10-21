@@ -1,0 +1,284 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "run_id": "p5-px4-clock-direct-passive-20261019-194",
+  "classification": "PASSIVE_SITL_CLOCK_DOMAIN_VALIDATED_NO_CONTROL",
+  "scope": "20-second passive SITL validation of PX4 timestamp alignment with Gazebo lockstep /clock. No VINS, localization, mapping, navigation action, arming, or control activation was started.",
+  "setup": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 226,
+    "gazebo_partition": "d435i_p5_clock_direct_194",
+    "px4_firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_release_hex": "0x11100ff",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "px4_initial_parameters_from_ulog": {
+      "UXRCE_DDS_SYNCT": 0,
+      "UXRCE_DDS_SYNCC": 0,
+      "SYS_AUTOSTART": 5011,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0
+    },
+    "staged_parameter_profile": "vio_closed_loop",
+    "staged_parameter_report_sha256": "75b2172d81deda0bb954756f92e0812a8fb65aeceadb50bd4ab8f9e821472f6a",
+    "time_configuration": {
+      "px4_clock_domain": "gazebo_lockstep",
+      "uxrce_dds_time_sync_enabled": false,
+      "time_source": "Gazebo /clock and PX4 lockstep HRT",
+      "px4_timestamp_domain_observed": "gazebo_sim_time",
+      "timestamp_offset_projection_us": 0
+    }
+  },
+  "result": {
+    "duration_wall_s": 20.0,
+    "px4_timestamp_minus_ros_clock_abs_us": {
+      "attitude": {
+        "samples": 1994,
+        "p50": 0.0,
+        "p95_nearest_rank": 4000,
+        "max": 4000
+      },
+      "local_position": {
+        "samples": 997,
+        "p50": 4000,
+        "p95_nearest_rank": 8000,
+        "max": 8000
+      },
+      "vehicle_status": {
+        "samples": 40,
+        "p50": 0.0,
+        "p95_nearest_rank": 0,
+        "max": 0
+      },
+      "land_detected": {
+        "samples": 20,
+        "p50": 0.0,
+        "p95_nearest_rank": 0,
+        "max": 0
+      },
+      "estimator_flags": {
+        "samples": 21,
+        "p50": 0,
+        "p95_nearest_rank": 0,
+        "max": 0
+      }
+    },
+    "bridge_detail_source_age": {
+      "attitude": {
+        "samples": 155,
+        "source_age_sim_s_max": 0.008,
+        "source_age_nonnegative_all_samples": true,
+        "receipt_age_wall_s_max": 0.007498953,
+        "source_timestamp_offset_us_values": [
+          0
+        ]
+      },
+      "estimator_flags": {
+        "samples": 155,
+        "source_age_sim_s_max": 0.968,
+        "source_age_nonnegative_all_samples": true,
+        "receipt_age_wall_s_max": 0.971543042,
+        "source_timestamp_offset_us_values": [
+          0
+        ]
+      },
+      "land_detected": {
+        "samples": 155,
+        "source_age_sim_s_max": 0.992,
+        "source_age_nonnegative_all_samples": true,
+        "receipt_age_wall_s_max": 0.995266579,
+        "source_timestamp_offset_us_values": [
+          0
+        ]
+      },
+      "local_position": {
+        "samples": 155,
+        "source_age_sim_s_max": 0.024,
+        "source_age_nonnegative_all_samples": true,
+        "receipt_age_wall_s_max": 0.017146474,
+        "source_timestamp_offset_us_values": [
+          0
+        ]
+      },
+      "vehicle_status": {
+        "samples": 155,
+        "source_age_sim_s_max": 0.5,
+        "source_age_nonnegative_all_samples": true,
+        "receipt_age_wall_s_max": 0.503245758,
+        "source_timestamp_offset_us_values": [
+          0
+        ]
+      }
+    },
+    "timesync_status_samples": 0,
+    "bridge_status_samples": 155,
+    "bridge_reason_counts": {
+      "localization_not_tracking": 155
+    },
+    "bridge_latest": {
+      "phase": "DISABLED",
+      "control_enabled": false,
+      "ready": false,
+      "reason": "localization_not_tracking",
+      "px4_time_domain_valid": true,
+      "uxrce_dds_time_sync_enabled": false
+    },
+    "counts": {
+      "attitude": 1994,
+      "bridge_status": 155,
+      "control_mode": 0,
+      "estimator_flags": 21,
+      "land_detected": 20,
+      "local_position": 997,
+      "px4_status": 40,
+      "timesync_status": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0,
+      "visual_odometry_input": 0
+    },
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "debug_truth_subscriptions": 0
+  },
+  "interpretation": {
+    "supported": [
+      "With UXRCE_DDS_SYNCT=0 and direct lockstep mapping, sampled PX4 timestamps agreed with the latest Gazebo /clock to within 8 ms; no future source ages appeared in bridge detail samples.",
+      "The bridge time domain remained valid while disabled. PX4 telemetry freshness did not trigger a guard during this passive window.",
+      "No timesync-status samples, control samples, or debug_truth subscriptions were observed; PX4 remained disarmed."
+    ],
+    "not_established": [
+      "This run did not include VINS, localization, mapping, EGO, a goal, Offboard activation, or flight.",
+      "It does not validate PX4 timestamp alignment or telemetry freshness under the full VIO/navigation workload, nor does it establish P5 acceptance.",
+      "Readiness was expectedly false because localization was not running; all bridge status samples reported localization_not_tracking."
+    ]
+  },
+  "qualification": {
+    "P5": "IN_PROGRESS; this is passive clock-domain evidence only.",
+    "thresholds": "No PX4, localization, future-timestamp, or normalized-cost threshold changed in this run.",
+    "truth_isolation": "No debug_truth inputs were started; the bridge node graph had zero debug_truth subscriptions."
+  },
+  "reproduction": {
+    "entrypoint": "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/run-direct-clock-passive.sh",
+    "command": "Run the script inside the fixed d435i-vins:dev container with the project mounted at /workspace.",
+    "observations": "px4-bridge-live.json; ULog at px4_sitl_default/log/2026-10-19/15_49_51.ulg; PX4 and bridge logs alongside."
+  },
+  "verification": {
+    "unit_tests": {
+      "python3 tools/test_px4_bridge_time_mapping.py": "18 passed",
+      "python3 tools/test_px4_bridge_control.py": "11 passed",
+      "python3 tools/test_px4_bridge_vio_profile.py": "7 passed",
+      "python3 tools/test_px4_debug_params.py": "2 passed",
+      "python3 tools/test_px4_bridge_frames.py": "19 passed"
+    },
+    "build": "Jazzy colcon build of own packages through uav_px4_bridge: 6/6 packages passed.",
+    "static": [
+      "python3 -m py_compile on changed Python files passed.",
+      "bash -n on run-direct-clock-passive.sh passed."
+    ],
+    "run_probe": "20 seconds; bridge stayed DISABLED and no control samples were emitted."
+  },
+  "source_basis": [
+    "https://docs.px4.io/v1.18/en/ros2/user_guide",
+    "https://github.com/PX4/PX4-Autopilot/blob/d6f12ad1c4f70ad3230afd7d86e971421e02fef4/src/modules/uxrce_dds_client/uxrce_dds_client.cpp",
+    "https://github.com/PX4/PX4-Autopilot/blob/d6f12ad1c4f70ad3230afd7d86e971421e02fef4/src/lib/timesync/Timesync.cpp"
+  ],
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/run-direct-clock-passive.sh": {
+      "bytes": 6195,
+      "sha256": "87120a0a8a2f5c2ddec0235e0c3aeb8d2762415c33ea7d58715d0ab295473182"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/px4-param-stage.json": {
+      "bytes": 746,
+      "sha256": "75b2172d81deda0bb954756f92e0812a8fb65aeceadb50bd4ab8f9e821472f6a"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/px4-bridge-live.json": {
+      "bytes": 2584862,
+      "sha256": "037b3d45b677dc9aaae60237ec52c675abfda07f3a6ef559ea8e08a0e9909607"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/px4.log": {
+      "bytes": 4952,
+      "sha256": "d4fb7024974805ec934175d55cda15db25694954b14860f570451e33a139406c"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/agent.log": {
+      "bytes": 41562,
+      "sha256": "9851d6f90124267164f1e12744b2d14f90730820dcfce18b7d7f641e37566082"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/gazebo.log": {
+      "bytes": 3032,
+      "sha256": "6821c123993e9d53c541b12133e14556fd23610f67957c8f41ddde05f8378bfc"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/bridge-launch.log": {
+      "bytes": 2691,
+      "sha256": "5173c016464a745b818676ffcf0afc9faf7c050e4b23c7211df6961e472e0003"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/px4-bridge-node-info.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/timesync-topic-info.txt": {
+      "bytes": 502,
+      "sha256": "d46cd8a141e8c171f35dba01e71892a625826d66376c4a33f721d37c66407fa8"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/ros-topics.txt": {
+      "bytes": 2382,
+      "sha256": "ab881d7375c4568038aeb5f0fa2daa30352b7ce9a19196f8592e17a6a6a2740c"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/truth-and-control-isolation.txt": {
+      "bytes": 85,
+      "sha256": "4f15627dd058e8724f5e113b3474409ef3be4d795b5ac6fe3d6ea9467d39133a"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/world-generation.json": {
+      "bytes": 1437,
+      "sha256": "ed561dc200e3955e5564f5252c2c258b6ce34db56a89bb45eec3700dde0d894e"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/vio_initialization.sdf": {
+      "bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "d0ad93a6fd28f9a854c35cd04111e1c14cf342da1c466be425da9c1f913bd265"
+    },
+    "artifacts/runs/p5-px4-clock-direct-passive-20261019-194/px4_sitl_default/log/2026-10-19/15_49_51.ulg": {
+      "bytes": 6191777,
+      "sha256": "bc11e3345b50fdf6a87a50988d8a148f3f55ea710c379eb87fe62bf4094d560f"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": {
+      "bytes": 11483,
+      "sha256": "5a44414068995744d32e0cdd0d526c2df56080d216fa694e4c74a67cbb61160c"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 46529,
+      "sha256": "8b1949cd185b09142f363027e35e951f0dbb8b33145ea0e5112059de6020cbee"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py": {
+      "bytes": 13945,
+      "sha256": "a5a91591fcfda9b4e038b17ef67c8cec2651ddfce24ff2aee92b198be075c83f"
+    },
+    "config/components/px4_bridge/debug_truth.json": {
+      "bytes": 3147,
+      "sha256": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf"
+    },
+    "config/components/px4_bridge/ekf2_debug_truth.json": {
+      "bytes": 792,
+      "sha256": "866e6789fa0ac5daa2c43428a0bc07afbd2d2303f921401a745cf8be5017954b"
+    },
+    "tools/stage_px4_debug_params.py": {
+      "bytes": 6479,
+      "sha256": "d70a6ded5d092a2ea57a36ea746b7263c3bc0077ccd1262b1447a822e5199fda"
+    },
+    "tools/project_status.py": {
+      "bytes": 8940,
+      "sha256": "68efa0f357ceefcf5985251fbfe0e8a0d2194c5c773eefebc7c8c7a0c548fc45"
+    },
+    "tools/probe_px4_bridge_live.py": {
+      "bytes": 13775,
+      "sha256": "fe446ec3bbdf6cbe7ef3e1a3f8e49b4d01e0d58094c938a4809e5b50b66042c5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/px4_sitl_default/bin/px4": {
+      "bytes": 57466288,
+      "sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"
+    }
+  },
+  "next_step": "Run the full VIO graph passively with the direct lockstep domain first; if freshness remains valid, repeat the zero-motion goal while retaining all existing health thresholds."
+}

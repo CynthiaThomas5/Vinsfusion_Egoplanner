@@ -1,0 +1,21 @@
+# 修改与验证记录
+
+- 任务 ID／日期：#057 / 2026-10-20
+- 对话摘要：[#057 对话摘要](../../collaboration/dialogues/2026-10-20-057-goal-c-unknown-policy-wall-probe.md)
+- 修改文件：新增 #306 实验运行及 source/build manifest；新增 [#306 轻量证据报告](../evidence/p2-ego-unknown-policy-wall-goal-20261020-306.json) 和 [#306 planner 告警源码审计](../evidence/p2-ego-planner-collision-warning-source-audit-20261020-306.json)；更新 `progress/CURRENT.md`、证据索引、GOAL C checklist evidence、EGO patch provenance README 和系统契约。没有修改功能源码、默认 inflation 配置、canonical `dependencies/sources.json` 或 `src/vendor/ego_planner`。
+- 行为变化及原因：无产品行为变化。对 post-0019 unknown-as-obstacle patch 0020 在 post-0021 canonical源树上做了隔离 replay/build；运行时用目标后地图记录和较大的候选 inflation 对照 #305 路径。候选 patch 与0.5 m值保持实验状态。
+- 验证类型：结构／静态／编译／SITL仿真诊断（planner-only），另有只读上游源码条件审计；不包含轨迹执行、PX4闭环或实机。
+- 命令与环境：
+  - `python3 tools/fetch_ego.py --target /tmp/p2-ego-unknown-policy-wall-goal-20261020-306/ego_planner`：固定 EGO revision及15个canonical patch重建成功；独立源树与 #297 canonical tree只有候选修改文件不同。
+  - 候选 patch 正向 dry-run/apply 与反向 dry-run通过；`artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/build.sh`：固定 `d435i-vins:dev` 镜像中 EGO 五包 overlay build 5/5通过。
+  - `artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/run-container-01.sh`：exit 0。ROS graph无控制节点、控制topic或truth topic；goal/map/snapshot identity检查和NPZ逐数组回读通过。
+  - `evaluate_planner_path.py`、`evaluate_spline_map_overlap.py`、`analyze_temporal_maps.py`：分析完成。规划输出4条B-spline；四份快照同 epoch/map_id/frame；最后快照比首条spline start早0.910 s。
+- 结果及证据位置：
+  - 关键证据：[progress/evidence/p2-ego-unknown-policy-wall-goal-20261020-306.json](../evidence/p2-ego-unknown-policy-wall-goal-20261020-306.json)；运行文件在 `artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/`；证据报告 SHA-256=`4780a92de6c6acf5780ef3d2190cec43b823b0445f8ae36624822d518e390fe2`。
+  - #306 unknown patch post-0021 source header从`a70c3567…`变为`4ffa9720…`；已知源文件校验仅发现该候选文件变化。候选 patch SHA256=`1041f74f…ffdb0b8`。告警源码审计报告 SHA-256=`babd6f034fa5376133b8dbf7c9bddefd41c34031e0a1da2bf3794c1759055755`。
+  - #306 用0.5 m inflation，目标后快照 inflation mask有32,394 voxel；#305同近似仿真时刻、0.099 m时有6,673 voxel。#306运动后已知voxel为9,688→10,338→15,077；首条spline前快照中四条轨迹的中心线样本全部为known/free，但仍各有6–171个样本落在单独 inflation mask。
+  - 离线固定尺度SE(3)比较492对位置样本，RMSE 13.2 mm、姿态RMSE 1.137°；墙面名义球余量0.3–33 mm，箱体0.193–0.272 m。直接目标弦对箱体名义球余量约−0.433至−0.452 m。以上仅为该 run 的离线几何描述。
+  - EGO日志没有输入同步timeout；同时记录6,290条“前三控制点在障碍”、3,395条方向生成告警、583条轨迹终点在障碍告警及一次 `EXEC_TRAJ→EMERGENCY_STOP→GEN_NEW_TRAJ`。这些告警未因获得spline而消失。
+- 未验证与 PROVISIONAL：目标后快照源戳比goal晚2.299 s，虽然场景在15.676 s前保持静止，仍不是同刻planning-time快照；无逐voxel observation timestamp。SDF对齐是离线夹具评估而非经验证的机体间隙上界。0.5 m仅为略高于0.48194 m名义球的候选，未覆盖地图误差、跟踪、制动、旋翼或线缆不确定性。反复告警及 inflation-mask 重叠使 unknown安全、稳定规划、净空和GOAL C仍未验收；patch 0020仍不在canonical chain，默认config不变。
+- 静态复核：6,290条首段告警均为`t=0`；source 中 unknown返回1、越界返回-1，而优化器的bool判定把两者都当作occupied。#03中最终四条spline首样点均为known/free且未膨胀，但快照早于spline start约0.91秒，不能反推告警时地图。终点告警在找不到后续free控制点时退出；方向告警表示未找到可用A*交点。方向搜索循环还存在待核实的向量越界读取风险，未证明运行时触发。
+- 下一步：在隔离overlay记录每次规划的碰撞位置/体素状态、epoch/map_id与最后融合深度和occupancy更新时间；给A*路径索引加边界保护并做sanitizer对照，然后重复同目标和第二布局。验收前不把候选patch或参数接入闭环组合。

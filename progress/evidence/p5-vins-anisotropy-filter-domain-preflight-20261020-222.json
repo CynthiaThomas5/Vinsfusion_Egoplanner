@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222",
+  "classification": "INVALID_ROS_DOMAIN; DDS_STARTUP_REJECTED; NO_NAVIGATION_RUN; P5_NOT_PASSED",
+  "scope": "Run startup/preflight record only; no VIO/EGO navigation or control action was started.",
+  "setup": {
+    "ros_domain_id": 233,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_horizontal_222",
+    "requested_profile": "vio_closed_loop",
+    "filter_threshold": 0.01,
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "health_thresholds_changed": false,
+    "px4_parameters_changed": false,
+    "truth_input_started": false
+  },
+  "run": {
+    "run_local_colcon_build": "6 packages finished",
+    "dds_ready": false,
+    "launcher_exit_code": 20,
+    "action_goal_sent": false,
+    "navigation_stack_started": false
+  },
+  "observations": {
+    "px4_log": "XRCE-DDS participant creation failed at participant 255 and PX4 exited.",
+    "agent_log": "Fast-DDS reported calculated RTPS multicast port too high for domain IDs above 232."
+  },
+  "interpretation": "ROS_DOMAIN_ID 233 is outside the supported DDS port mapping range. The failure occurred before navigation and provides no flight or VIO acceptance evidence. #223/#224 use legal domains.",
+  "limitations": [
+    "No ROS sensor graph, harness, EGO planner, control publisher, or flight outcome was exercised."
+  ],
+  "files_sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222/source-patch-manifest.json": "a988a8961ad093b6bac36eafa2e225128f3fe6926c553d15995d14edfaa7fe3f",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222/colcon-build.log": "4e75b1e5f8c102d8885c08475318874d0cf631ba8f9190d8ea35d6b802b5334a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222/px4.log": "a185120762d799f95ffb87c537436e89cf46692c1e9eca7f66da25fe72c6c27e",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222/agent.log": "5dd88e59bbab6d79b8ae996df537250d98cce452a48086803892fe1270a03456",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222/launch-exit-code.txt": "5378796307535df3ec8d8b15a2e2dc5641419c3d3060cfe32238c0fa973f7aa3",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222/run-filtered-horizontal-goal.sh": "7ffda1f7273a10627c7f5e2ed78cada31e7dfc55716d13f75468865b3292f684",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-222/launch-horizontal-imu-trace.sh": "4c3da37303fd17a5ede646446e56b606883332a65ee42b99b050e7d0399c73b7"
+  }
+}

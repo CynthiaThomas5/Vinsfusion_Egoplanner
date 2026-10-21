@@ -1,0 +1,106 @@
+{
+  "scope": "P2 synthetic ROS integration of localization epoch changes across the mapping adapter and EGO plan_env reset service",
+  "date": "2026-10-17",
+  "status": "PASS_SYNTHETIC_ROS_EPOCH_SWITCH_ONLY",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 188,
+    "run_directory": "artifacts/runs/p2-mapping-epoch-switch-20261017-01",
+    "installed_overlay": "artifacts/runs/p2-map-input-build-20261016-01/install",
+    "runtime_scope": "EGO advanced_param.launch.py, depth_health_monitor, mapping_input_adapter, and a synthetic ROS publisher; no Gazebo, VINS, or PX4 nodes launched"
+  },
+  "probe": {
+    "script": "tools/probe_mapping_epoch.py",
+    "script_sha256": "4c3b70c8b9a9d00c3b2cff23ac6f2b3a8bed99833a21b4025d5834ce354d70c8",
+    "runner": "artifacts/runs/p2-mapping-epoch-switch-20261017-01/run-epoch-switch.sh",
+    "runner_sha256": "dd46eb10d557153819f578d1e2bf6be48788eb76714759aee061ccbb8eb79bee",
+    "runtime_command": "docker exec -w /workspace d435i-vins-build bash /workspace/artifacts/runs/p2-mapping-epoch-switch-20261017-01/run-epoch-switch.sh",
+    "probe_exit_code": 0
+  },
+  "implementation": {
+    "mapping_adapter": "src/own/uav_mapping/uav_mapping/adapter.py",
+    "mapping_adapter_sha256": "a28e09030e3726c16439327941ecf31d2852d5203bd7fd28ede138689309be97",
+    "installed_adapter_sha256": "a28e09030e3726c16439327941ecf31d2852d5203bd7fd28ede138689309be97",
+    "source_matches_runtime_overlay": true,
+    "build_evidence": "progress/evidence/p2-ego-map-input.json"
+  },
+  "observations": {
+    "old_epoch": "979064b327554245817a8ca447d32c49",
+    "new_epoch": "cdfd688878f1486aaf5e5eb7bbb4d93b",
+    "occupied_points_before_switch": 4,
+    "empty_map_observed_after_switch": true,
+    "outputs_before_switch_depth_pose": [5, 8],
+    "outputs_after_reset_hold_without_sensor_samples_depth_pose": [5, 8],
+    "reset_barrier_blocked_outputs": true,
+    "new_epoch_paired_output_stamps": 7,
+    "new_epoch_pose_frames": 8,
+    "all_post_switch_pose_frames_use_new_epoch": true,
+    "old_epoch_pose_frame_after_switch": false,
+    "occupied_points_after_new_epoch_rebuild": 4,
+    "adapter_and_plan_env_reset_acknowledgements": 2,
+    "elapsed_wall_seconds": 2.828
+  },
+  "checks": {
+    "mapping_input_unit_tests": "PASS: 4 tests",
+    "depth_gate_unit_tests": "PASS: 4 tests",
+    "localization_health_unit_tests": "PASS: 9 tests, including latched clock_regression behavior",
+    "probe_python_compile": "PASS",
+    "project_structure_check": "PASS; structure/design only",
+    "runtime_epoch_reset_barrier": "PASS: old map cleared, output counts stayed unchanged until new samples were supplied, and all subsequent pose frames carried the new epoch"
+  },
+  "attempts": [
+    {
+      "id": "setup_attempt_01",
+      "result": "HARNESS_SETUP_FAILURE_BEFORE_NODE_LAUNCH",
+      "reason": "The harness enabled nounset before sourcing /opt/ros/jazzy/setup.bash; AMENT_TRACE_SETUP_FILES was unbound.",
+      "record": "artifacts/runs/p2-mapping-epoch-switch-20261017-01/setup-attempt-01.log"
+    },
+    {
+      "id": "runtime_attempt_02",
+      "result": "PASS",
+      "reason": "The harness sources ROS overlays before enabling nounset and the synthetic epoch-switch probe exits zero."
+    }
+  ],
+  "artifacts": {
+    "artifacts/runs/p2-mapping-epoch-switch-20261017-01/mapping-epoch-smoke.json": {
+      "bytes": 1717,
+      "sha256": "dc077d78d24ed1ac1ae73e1f31ad0a42ee65b835ddb3508929bd3c1cec735637"
+    },
+    "artifacts/runs/p2-mapping-epoch-switch-20261017-01/probe.log": {
+      "bytes": 1942,
+      "sha256": "9c0b653b8133cffd696492c37d85b55c966be3884c7570129702957adc850867"
+    },
+    "artifacts/runs/p2-mapping-epoch-switch-20261017-01/mapping-adapter.log": {
+      "bytes": 730,
+      "sha256": "56fb1acff4203b8c67de732872ca3bbaaa40e72b25cf66366f0fe46c6d6e409d"
+    },
+    "artifacts/runs/p2-mapping-epoch-switch-20261017-01/depth-health.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "artifacts/runs/p2-mapping-epoch-switch-20261017-01/ego.log": {
+      "bytes": 2115,
+      "sha256": "03d6a9fedcda48c1cc95112eb8e700865c1d231f284f6bd9e3b72464b80c8303"
+    },
+    "artifacts/runs/p2-mapping-epoch-switch-20261017-01/setup-attempt-01.log": {
+      "bytes": 457,
+      "sha256": "7deb2410661a19bbb57a0a6509ed9c9e07bb663c5dafad2fef16c21f67f19daf"
+    }
+  },
+  "qualification": {
+    "epoch_switch_and_map_reset": "PASS_AS_SINGLE_SYNTHETIC_INTEGRATION_OBSERVATION",
+    "system_clock_rollback_replay_twice": "NOT_RUN",
+    "actual_vins_restart_with_epoch_change": "NOT_RUN",
+    "physical_geometry_or_map_accuracy": "NOT_EVALUATED",
+    "planner_goal_or_obstacle_avoidance": "NOT_RUN",
+    "px4_sitl_or_flight": "NOT_RUN",
+    "limitations": [
+      "Only one synthetic epoch switch was observed; this is not the repeated failure-injection acceptance required by GOAL.md.",
+      "No ROS /clock rollback or real VINS restart was injected. The localization health unit test separately verifies that clock_regression latches without recovery.",
+      "The synthetic odometry publisher used best-effort QoS, so EGO's reliable planner-odometry subscriptions logged incompatible-QoS warnings. This run evaluates the adapter-to-plan_env depth/pose/reset path only; it does not evaluate planner odometry or planning.",
+      "Synthetic sparse depth does not validate moving camera geometry, obstacle clearance, map completeness, or free/unknown classification.",
+      "No PX4 or control node was started."
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+std_msgs/Header header
+string epoch
+string phase
+string reason
+bool ready
+bool control_enabled
+bool armed
+bool landed
+bool local_position_valid
+bool ev_position_fused
+bool ev_yaw_fused
+bool gnss_aiding_active
+float64[3] frame_offset_ned
+float64 frame_yaw_offset_ned
+float64 alignment_drift_m
+uint32 last_command
+uint8 last_command_result

@@ -1,0 +1,91 @@
+{
+  "schema": "room-crossing-yaw-fix-verification/v1",
+  "date": "2026-10-21",
+  "status": "PARTIAL_MOTION_ABORTED_ALIGNMENT_DRIFT",
+  "container": "d435i-ego-room-crossing-repair-20261021-07",
+  "epoch": "9c67fde0be054a119ad91b1f73e50416",
+  "summary": {
+    "preflight": {
+      "passed": true,
+      "rtf": 0.5776482790834396,
+      "max_stable_wall_s": 39.61236996100001,
+      "max_optimized_odom_receipt_gap_wall_s": 0.1428070370000114
+    },
+    "first_goal_yaw_rad": -0.001068783721292225,
+    "first_ready_yaw_rad": -0.0010687872782576477,
+    "first_yaw_error_rad": -3.5569654227227132e-09,
+    "bspline_count": 12,
+    "ready_commands": 2208,
+    "last_navigation_position_enu_m": [
+      4.058874330348964,
+      1.318683774662175,
+      0.9091657507463834
+    ],
+    "remaining_goal_distance_m": 11.990300672852772,
+    "physical_landing": {
+      "px4_log_landing_detected": true,
+      "px4_log_disarmed": true,
+      "bridge_final": {
+        "armed": false,
+        "landed": true,
+        "phase": "LANDING",
+        "ready": false,
+        "reason": "px4_frame_alignment_drift"
+      },
+      "script_landed_and_disarmed": false,
+      "note": "PX4 landed/disarmed confirmed; bridge LANDING did not complete under latched alignment fault. Fixed source separately, not hotpatched into this run."
+    },
+    "captured_yaw_offset_rad": 0.03612738025504303,
+    "approx_error_captured_alignment_m": {
+      "median": 0.053660742436562325,
+      "max": 0.14368252700109546
+    },
+    "approx_error_zero_yaw_offset_m": {
+      "median": 0.005114148074595124,
+      "max": 0.009555630839381763
+    },
+    "hypothesis": "Initial frame yaw alignment was captured before EKF yaw settled. Diagnose with fresh same-time attitude and odometry before changing alignment acquisition; do not increase drift threshold or force zero yaw offset."
+  },
+  "order_of_events": {
+    "clock": "flight probe monotonic elapsed wall seconds; planner observer has separate start origin",
+    "first_bridge_landing_wall_s": 55.14129598799991,
+    "first_landing_reason": "px4_frame_alignment_drift",
+    "first_alignment_drift_m": 0.1501337504299266,
+    "optimized_odom_gap_wall_s": [
+      {
+        "receipt_gap_s": 0.43366204800008745,
+        "stamp_gap_s": 0.064,
+        "stamp_ns": 159919999999,
+        "wall_elapsed_s": 56.03053129199998
+      }
+    ],
+    "first_invalid_localization_wall_s": 58.91806805399983,
+    "first_invalid_localization_reason": "normalized_cost_exceeded"
+  },
+  "source_fix": {
+    "file": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+    "behavior": "Latched bridge/alignment fault disables flight, but LANDING continues supervisor.step to observe landed/disarmed and reach LANDED. Fault remains latched.",
+    "tests": "Actual bridge timer regression: 1 test with bridge_fault/alignment_fault subcases PASS; existing supervisor tests 11 PASS.",
+    "build": "uav_px4_bridge isolated colcon build 1 package PASS [2.03s]",
+    "runtime": "Not applied to already-running repair07 process; no fresh SITL validation of this fix yet."
+  },
+  "limitations": [
+    "No full room crossing or arrival.",
+    "Position values are VINS estimates, not independent truth or clearance verification.",
+    "Approximate alignment diagnostic ignores roll/pitch in lever arm and interpolates printed six-decimal VINS states; only supports hypothesis.",
+    "No change to drift/freshness/quality thresholds; alignment acquisition fix remains unimplemented.",
+    "No phase upgraded. Gazebo and RViz retained, mission ended and PX4 disarmed."
+  ],
+  "artifacts_sha256": {
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/preflight.json": "849df40e92b4760979cc507b3a9aa9ecaec8043a2429e1f8919c705d9850f456",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/flight.json": "c0023a7667ed5efbbf510c5abdd21e1d4a33e9931b134bff4b4b57c1059eb35d",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/planner-observation.json": "95cea1d4c012565053cf22eb68b2ae5779e0035e16d99880ea3ababc288037aa",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/flight-metrics.json": "ce9c0432d05a7efde7660e969861b5266df57ab4ccd8d953026d9d8d4f27a253",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/analysis.json": "3b421ee53d992de3d5910daa9c2756c52bf63465f5b4af44cdf1c7579ede8506",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/analyze-flight.py": "0504fc18887b14f967c73467c24b36c7341ad8f06530e0aaef0c5fb4a90f56ea",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/px4.log": "c575012b81bad27850370a038ec07c0e16f3e249bd621d6173282a92e4408c5d",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/bridge-fix-build.log": "8b4ecbbe8d8e13b09bf067f648ccea2ac74083cfa569845047a7d74010a8cb7b",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/gazebo-window.png": "6f971c0a88b577f3cd551a4f0be63b30047d3389870eaa6a33fa65993aaaf1c8",
+    "artifacts/runs/ego-room-crossing-repair-20261021-07/rviz-window.png": "4e8780575eaa108081a667542af2de49de9235c7160567689aa58617635cc18e"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-17",
+  "scope": "Build and unit-test evidence for the runtime-neutral epoch-aware navigation task state core.",
+  "status": "PASS_UNIT_TEST_AND_SINGLE_PACKAGE_BUILD",
+  "qualification": "Partial P4/D/E implementation evidence only. No ROS runtime adapter, EGO integration, PX4 bridge, or navigation flight behavior was tested.",
+  "environment": {
+    "container": "d435i-vins-build",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "build_scope": "uav_navigation only, in a fresh build/install directory; not a full workspace rebuild."
+  },
+  "implementation": {
+    "package": "src/own/uav_navigation",
+    "core": "src/own/uav_navigation/uav_navigation/task_state.py",
+    "source_sha256": "26792f13b5f698bd3723b35d95ac96fe9d23d4dd9bc1e3a179d102967f061b4a",
+    "installed_source_matches_build": true,
+    "behaviors_tested": [
+      "Reject goals until localization is valid TRACKING and target epoch matches.",
+      "Abort and clear the associated trajectory on epoch change, invalid localization, or ROS clock regression; same-session validity does not resume an aborted goal.",
+      "Keep the old-goal cancel/trajectory-clear event ordered before acceptance of a replacement goal.",
+      "Support explicit cancellation, stale trajectory rejection, stale pose failure, and goal timeout.",
+      "Require position and wrapped yaw tolerances to remain satisfied for the configured dwell interval before success."
+    ]
+  },
+  "verification": {
+    "unit_test_command": "python3 tools/test_navigation_task_state.py",
+    "unit_tests": "9 passed",
+    "build_command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p4-navigation-task-core-build-20261017-01/colcon-log build --base-paths src --packages-select uav_navigation --build-base artifacts/runs/p4-navigation-task-core-build-20261017-01/build --install-base artifacts/runs/p4-navigation-task-core-build-20261017-01/install --event-handlers console_direct+",
+    "build_result": "1 package finished; clean Jazzy container build/install directories.",
+    "runtime_validation": "NOT_RUN"
+  },
+  "artifact_files": {
+    "src/own/uav_navigation/uav_navigation/task_state.py": {
+      "bytes": 9047,
+      "sha256": "26792f13b5f698bd3723b35d95ac96fe9d23d4dd9bc1e3a179d102967f061b4a"
+    },
+    "src/own/uav_navigation/package.xml": {
+      "bytes": 440,
+      "sha256": "05780b142b4430200b460ba4701c5e2289d8ccb4644f1393a80fa7f3f6af79c6"
+    },
+    "src/own/uav_navigation/setup.py": {
+      "bytes": 335,
+      "sha256": "c87d74ed51e0628605cebab7f5fe9237ca9b73fc2a6fbaad7a0a70c45c604406"
+    },
+    "tools/test_navigation_task_state.py": {
+      "bytes": 5855,
+      "sha256": "cbcaedfe86e455a0a94f8ad54534e1d35d797272dff0b1c677febe478b259214"
+    },
+    "artifacts/runs/p4-navigation-task-core-build-20261017-01/install/uav_navigation/lib/python3.12/site-packages/uav_navigation/task_state.py": {
+      "bytes": 9047,
+      "sha256": "26792f13b5f698bd3723b35d95ac96fe9d23d4dd9bc1e3a179d102967f061b4a"
+    },
+    "artifacts/runs/p4-navigation-task-core-build-20261017-01/unit-test.log": {
+      "bytes": 107,
+      "sha256": "42f237d7abc9eb371abada54db94861f647b2fd2e4008b692ec18dfdcc2e00d5"
+    },
+    "artifacts/runs/p4-navigation-task-core-build-20261017-01/colcon-log/build_2026-10-16_21-27-45/events.log": {
+      "bytes": 8804,
+      "sha256": "20f47051ba74af38a8fab6420b9d5f8758c1507e432b9395f18a2684f8dbb6ee"
+    },
+    "artifacts/runs/p4-navigation-task-core-build-20261017-01/colcon-log/build_2026-10-16_21-27-45/uav_navigation/stdout.log": {
+      "bytes": 2269,
+      "sha256": "b444d4b6aaaac749003bf2f1882e843afae9a4e51c54894a6730e3ac205f6a3e"
+    },
+    "artifacts/runs/p4-navigation-task-core-build-20261017-01/colcon-log/build_2026-10-16_21-27-45/uav_navigation/command.log": {
+      "bytes": 1966,
+      "sha256": "96dac13f6524a18ab1ac7411639638780dd5b0beef2d93684abda030095201c1"
+    }
+  },
+  "limitations": [
+    "Task events are returned by a pure Python core and are not yet published through a ROS action, service, or topic.",
+    "EGO currently ignores requested target z/yaw and has no trajectory-cancel service; no third-party source was modified in this increment.",
+    "No EGO goal replacement/cancel, target/trajectory invalidation, control bridge, PX4 response, or flight behavior was exercised.",
+    "Tolerance, dwell, and timeout values are caller-supplied; formal acceptance values remain unfrozen."
+  ]
+}

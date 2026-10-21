@@ -1,0 +1,130 @@
+{
+  "schema": "p2-ego-filter-callback-receipt-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-filter-callback-receipt-20261020-291",
+  "status": "NO_EGO_SYNC_TIMEOUT_REPRODUCED_FILTER_COUNTERS_NOT_EMITTED",
+  "scope": "Fresh-domain planner-only EGO filter-input diagnostic. No trajectory execution, PX4 control, truth input, or GOAL C/D/E/F acceptance.",
+  "run_report": {
+    "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/run-report.json",
+    "sha256": "6fcd50c339be08af39157246c4299f84fd66f85d1927f3fafa12e2d31ae02d73"
+  },
+  "environment": {
+    "ros": "Jazzy",
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 138,
+    "gazebo_partition": "d435i_ego_filter_callback_receipt_291",
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU"
+  },
+  "build": {
+    "fresh_install_base": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/install-01",
+    "exit_code": 0,
+    "packages_finished": 5,
+    "packages": [
+      "traj_utils",
+      "plan_env",
+      "path_searching",
+      "bspline_opt",
+      "ego_planner"
+    ],
+    "patch_dry_run_and_application": "PASS",
+    "ego_planner_node_sha256": "f884323cbc003b18f5146ea6f1bc681c9262453b748bed9bb652abd883620b00",
+    "libplan_env_sha256": "58e59c48d5263a7fb34b5702520ed6e64002295e1997b9cb47344dc7fba8d9dc"
+  },
+  "source": {
+    "manifest": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/source-manifest.json",
+    "manifest_sha256": "1a8f5103c0054ac176a82d76f440a74ab5418daa2aad778ae062049e20de3d8c",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "candidate_unknown_patch_sha256": "1041f74fd2b8c0409f348f272d7e48f0d7a62d9552e31a741b9296aa8ffdb0b8",
+    "diagnostic_patch_order": [
+      "0012",
+      "0013",
+      "0015"
+    ],
+    "canonical_vendor_modified": false,
+    "dependencies_sources_json_modified": false
+  },
+  "instrumentation": {
+    "existing_message_filters_subscriber_callbacks_count_pose_and_depth": true,
+    "rmw_message_lost_events_counted": true,
+    "timeout_lines_include_receipt_counts": true,
+    "periodic_receipt_summary_added": false,
+    "independent_pose_observer": true,
+    "observer_pose_samples": 1204,
+    "observer_heartbeat_count": 70,
+    "observer_clean_shutdown": true
+  },
+  "execution": {
+    "goal_sent": true,
+    "planner_status": "bspline_received",
+    "bspline_count": 120,
+    "map_points_at_dispatch": 902,
+    "inflated_map_points_at_dispatch": 15360,
+    "ego_timeout_count": 0,
+    "filter_timeout_clusters": 0,
+    "localization_final_reason": "normalized_cost_exceeded",
+    "control_nodes": [],
+    "control_topics": [],
+    "truth_related_topics": []
+  },
+  "observer_delivery": {
+    "max_host_receipt_gap_s": 0.2073073387145996,
+    "max_header_stamp_gap_s": 0.09900000000000375,
+    "header_stamp_nonincreasing_pairs": 0,
+    "frame_ids": [
+      "odom_1bfeffd9f816495ba6b5997654117375"
+    ]
+  },
+  "host_clock_monitor": {
+    "samples": 8314,
+    "coverage_s": 83.8154843,
+    "realtime_minus_monotonic_range_ns": 20208,
+    "largest_adjacent_change_ns": 19847,
+    "observed_large_backward_step": false
+  },
+  "interpretation": "No EGO odom/depth sync timeout occurred in this fresh ROS domain during the observation window. The 0015 counters are emitted only on timeout warnings, so this run validates the diagnostic build and does not reveal filter receipt counts during a failure. Compared with #290, ROS domain and Gazebo partition are now unique; #290 reused #289 identifiers sequentially, so domain reuse and run-to-run variability remain confounded.",
+  "limitations": [
+    "The unknown-as-obstacle patch remains experimental and is not in the canonical dependency chain.",
+    "The pose observer does not subscribe to depth images; filter receipt counters were not logged because no timeout trigger occurred.",
+    "A planner spline is not an executed trajectory or clearance result.",
+    "The localization gate closed on normalized_cost_exceeded before the end of the observation window.",
+    "No repeated paired run isolates domain reuse from ordinary run variation."
+  ],
+  "key_artifacts": {
+    "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/diagnostic-patch-application.log": {
+      "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/diagnostic-patch-application.log",
+      "sha256": "49631490a5a885152e80ce38e9ff098ad32f626e5fafff615aa503172bcb408b",
+      "size_bytes": 642
+    },
+    "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/build.log": {
+      "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/build.log",
+      "sha256": "30ad546e919571c8be3a3679a05e5d39163c7f325ab5ef5c2ac0a455aa161fd9",
+      "size_bytes": 48005
+    },
+    "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/camera-pose-observer.jsonl": {
+      "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/camera-pose-observer.jsonl",
+      "sha256": "c2bfa366fdf4b7385e15bc15fee43cf5da6cea87f6ed0b195be4ee140da9a6c5",
+      "size_bytes": 321453
+    },
+    "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/pose-delivery-analysis.json": {
+      "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/pose-delivery-analysis.json",
+      "sha256": "c6cf579d8d8fc61ec2f2c0c111f89474a9fab4c1b20d06ebc2c09d6d1a486c64",
+      "size_bytes": 1056
+    },
+    "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/filter-receipt-analysis.json": {
+      "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/filter-receipt-analysis.json",
+      "sha256": "5ffa2018ccdcdc0d52a96f803f639bc56ec83f8787e44ef209350214c75c07ec",
+      "size_bytes": 834
+    },
+    "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/ego.log": {
+      "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/ego.log",
+      "sha256": "51c6701df681df18bf1d6cd43671b3bec991d2141c5b55ea4fd44db3170b61cf",
+      "size_bytes": 47492851
+    },
+    "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/topics-after-run.txt": {
+      "path": "artifacts/runs/p2-ego-filter-callback-receipt-20261020-291/topics-after-run.txt",
+      "sha256": "2cc984db48421fe97466522080cfff0a9d5abf8c518ce53503613adbadb8ce57",
+      "size_bytes": 1786
+    }
+  }
+}

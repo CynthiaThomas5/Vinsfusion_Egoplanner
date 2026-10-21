@@ -1,0 +1,181 @@
+{
+  "schema": "p2-ego-pose-rmw-listener-event-trace/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-listener-event-trace-20261021-351",
+  "status": "completed_diagnostic",
+  "goal_criterion": "GOAL C diagnostic only; GOAL C remains pending and P2 remains passed.",
+  "question": "During an EGO camera-pose take gap, does its actual Fast DDS DataReader receive data while rmw_wait is not ready, and do sample-lost/rejected callbacks explain the gap?",
+  "configuration": {
+    "ros_domain_id": 216,
+    "ego_vpid": 514,
+    "mapping_input_adapter_vpid": 421,
+    "ego_and_mapping_transport_environment": "FASTDDS_BUILTIN_TRANSPORTS=UDPv4",
+    "xml_profiles": null,
+    "ego_pose_reader_qos": "reliable/volatile/keep_last_25",
+    "mapping_pose_publisher_qos": "reliable/volatile/keep_last_50",
+    "qos_changed": false,
+    "canonical_source_or_config_changed": false
+  },
+  "listener_proxy_smoke": {
+    "domain_id": 217,
+    "install_return_code": 0,
+    "previous_listener_nonnull": true,
+    "listener_events": 800,
+    "data_available_callbacks": 800,
+    "publisher_messages": 800,
+    "subscriber_received": 800,
+    "gaps": 0,
+    "invalid": 0,
+    "trace_exit_code": 0
+  },
+  "result": {
+    "max_pose_take_gap_s": 2.239734104994568,
+    "gap_interval_time_of_day_s": [
+      70744.349311682,
+      70746.589045787
+    ],
+    "adapter_rmw_publish_count_in_gap": 44,
+    "adapter_max_publish_gap_s": 0.10119919500721153,
+    "independent_pose_receipts_in_gap": 44,
+    "independent_pose_source_stamp_range_s": [
+      17.359,
+      18.844
+    ],
+    "independent_pose_max_source_stamp_gap_s": 0.066,
+    "map_status_before_after": {
+      "ready": true,
+      "epoch_stable": true,
+      "map_id_stable": true,
+      "adapter_forwarded_depth_delta": 51
+    },
+    "ego_reader": {
+      "reader_address": "0x569706FDD2E0",
+      "listener_proxy_install_count": 1,
+      "listener_proxy_install_return_code": 0,
+      "listener_callback_count_in_window": 587,
+      "listener_event_counts": {
+        "data_available": 587,
+        "subscription_matched": 0,
+        "sample_lost": 0,
+        "sample_rejected": 0
+      },
+      "listener_events_inside_gap": [
+        {
+          "time_of_day_s": 70746.588990162,
+          "event": "data_available",
+          "unread_count": 1
+        },
+        {
+          "time_of_day_s": 70746.589018004,
+          "event": "data_available",
+          "unread_count": 10
+        },
+        {
+          "time_of_day_s": 70746.589033924,
+          "event": "data_available",
+          "unread_count": 25
+        }
+      ],
+      "rmw_wait_returns_inside_gap": {
+        "total": 609,
+        "not_ready": 608,
+        "ready": 1,
+        "unread_count_distribution": {
+          "0": 608,
+          "10": 1
+        }
+      },
+      "successful_pose_takes_inside_gap": 0,
+      "sample_lost_status_values_all_polls": {
+        "0": 1308
+      },
+      "sample_rejected_status_values_all_polls": {
+        "0": 1308
+      },
+      "matched_current_values_all_polls": {
+        "1": 1303,
+        "0": 5
+      }
+    },
+    "listener_callback_to_next_successful_take_us": 55.625
+  },
+  "conclusion": "The publisher and an independent reader continued to receive poses throughout the selected gap, while the EGO DataReader history was empty at 608 of 609 wait returns. Its first data_available callbacks appeared only in the final 55.625 microseconds before the next successful take, with unread history rising from 1 to 25. This localizes the observed gap to the EGO participant/reader receive path but does not identify whether scheduling, transport endpoint behavior, or another Fast DDS reader mechanism caused it. One run does not establish UDPv4 causality.",
+  "runtime_scope": {
+    "planner_spline_count": 1,
+    "trajectory_executed": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "px4_started": false,
+    "truth_topics": [],
+    "control_topics": [],
+    "target_voxel_changed_unknown_to_free": true
+  },
+  "trace_integrity": {
+    "primary_trace_file_count": 33,
+    "primary_trace_total_bytes": 17255776,
+    "listener_smoke_trace_file_count": 33,
+    "listener_smoke_trace_total_bytes": 116096,
+    "all_trace_file_hash_manifest": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/analysis/ctf-file-hashes.sha256",
+      "sha256": "da0b4eab8d5a3e26c9db82d79d385d01471fed19c0cbabb441fd672df4b3874f",
+      "size_bytes": 8260
+    },
+    "wait_trace_event_count": 20923,
+    "wait_trace_sequence_range": [
+      0,
+      20928
+    ],
+    "missing_wait_sequence_values": [
+      76,
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "missing_sequences_overlap_selected_gap": false,
+    "overall_wait_summary_exit_code": 1,
+    "selected_gap_and_other_alignment_analyzers_exit_code": 0
+  },
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/run-manifest.json",
+    "sha256": "fdbd46484053220a95382670300383b11abb20ef53dc7b4548179b3cdddcb66a",
+    "size_bytes": 8730
+  },
+  "workspace_snapshot": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/workspace-status-at-351.txt",
+    "sha256": "6c5b79929df9d6599fb5142a68a2c797618618eca67c54519b0aa07a6b795352",
+    "size_bytes": 44975
+  },
+  "probe_library": {
+    "sha256": "82cdb8c83d961ca4eeedaca8d3061e2413b248d09181632e08b34f6422294e2c"
+  },
+  "key_artifacts": {
+    "publisher_take_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/analysis/publisher-take-alignment.json",
+      "sha256": "701252f3e6d07f99ecc1c49d906d9a6e9f5cfd28b525ba32e933c3d90121b83a",
+      "size_bytes": 1925
+    },
+    "rmw_unread_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/analysis/rmw-unread-alignment.json",
+      "sha256": "4faa0d63c281743f3dce12dfe5ea180dd42507474299a7cec9384f72a1d68899",
+      "size_bytes": 10880
+    },
+    "reader_listener_events": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/analysis/reader-listener-events.json",
+      "sha256": "a67bbd39f4c807dbc8cfce3d0c408d9f6132096e093ad1c65982f99a4d90269f",
+      "size_bytes": 3677
+    },
+    "independent_reader_gap_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-listener-event-trace-20261021-351/independent-reader-gap-alignment.json",
+      "sha256": "0f6c6b6d862fbd52ba1ff9a8a6634b9104eae55567ea5329998161e4aca08619",
+      "size_bytes": 1506
+    }
+  },
+  "limitations": [
+    "Single instrumented run; extra probe and observer load may affect timing.",
+    "Listener callbacks timestamp DataReader notifications, not individual publisher sample identity or the exact transport drop point.",
+    "Six wait trace sequence values are absent before the selected gap; the global continuity analyzer correctly exits 1.",
+    "The planner spline was not executed and provides no clearance, goal-arrival, or flight evidence."
+  ]
+}

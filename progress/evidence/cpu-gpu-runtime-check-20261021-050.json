@@ -1,0 +1,64 @@
+{
+  "schema": "cpu-gpu-runtime-check/v1",
+  "date": "2026-10-21",
+  "scope": "Read-only runtime/source dependency capability check; no CUDA algorithm build or GPU navigation validation.",
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "sample_utilization_percent": 38,
+    "sample_memory_used_MiB": 1630,
+    "gazebo_ogre_renderer": "NVIDIA GeForce RTX 3060 Laptop GPU/PCIe/SSE2",
+    "driver": "580.178.04"
+  },
+  "modules": {
+    "gazebo_sensor_rendering": "GPU confirmed by actual Ogre GL_RENDERER",
+    "gazebo_physics": "CPU",
+    "rviz": "GPU viewer entry with NVIDIA PRIME/GLX offload; prior visual/GLX check #047",
+    "vins": "CPU, GPU flags 0",
+    "ego_map_and_planner": "CPU implementation",
+    "px4_and_ros_control": "CPU"
+  },
+  "dependencies": {
+    "opencv": "4.6.0",
+    "opencv_cuda_device_count": 0,
+    "opencv_cuda_build_fields": [],
+    "ceres_no_cuda": true,
+    "ceres_components": "EigenSparse;SparseLinearAlgebraLibrary;LAPACK;SuiteSparse;SchurSpecializations",
+    "nvcc_on_path_host_or_container": false
+  },
+  "gpu_frontend_prerequisites": [
+    "CUDA toolchain and CUDA-enabled OpenCV modules",
+    "VINS GPU_MODE compile definition and correct linking",
+    "Validate CPU/GPU measurements and timestamps before flight",
+    "Keep cv_bridge/OpenCV ABI and single dependency versions consistent"
+  ],
+  "runtime_flags": {
+    "imu": 1,
+    "num_of_cam": 2,
+    "imu_topic": "/sensors/d435i/imu",
+    "image0_topic": "/sensors/d435i/infra1/image_rect",
+    "image1_topic": "/sensors/d435i/infra2/image_rect",
+    "use_gpu": 0,
+    "use_gpu_acc_flow": 0,
+    "use_gpu_ceres": 0,
+    "estimate_extrinsic": 0,
+    "multiple_thread": 1,
+    "max_cnt": 180,
+    "min_dist": 15,
+    "F_threshold": 1.0,
+    "show_track": 0,
+    "flow_back": 1,
+    "max_solver_time": 0.04,
+    "max_num_iterations": 8,
+    "keyframe_parallax": 10.0,
+    "acc_n": 0.01,
+    "gyr_n": 0.001,
+    "acc_w": 0.0001,
+    "gyr_w": 1e-05,
+    "g_norm": 9.80665,
+    "estimate_td": 0,
+    "td": 0.0,
+    "load_previous_pose_graph": 0,
+    "save_image": 0
+  },
+  "limitation": "GPU offload can address supported computation, not automatically lock waits or message-delivery stalls. No prediction of navigation success from GPU utilization."
+}

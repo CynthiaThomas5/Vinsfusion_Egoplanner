@@ -1,0 +1,67 @@
+Panels:
+- Class: rviz_common/Displays
+  Name: Displays
+Visualization Manager:
+  Class: ''
+  Global Options:
+    Fixed Frame: __ODOM_FRAME__
+    Background Color: 30; 30; 35
+    Frame Rate: 20
+  Displays:
+  - Class: rviz_default_plugins/Grid
+    Name: Grid
+    Enabled: true
+    Cell Size: 1.0
+    Plane Cell Count: 30
+  - Class: rviz_default_plugins/PointCloud2
+    Name: Inflated Occupancy Map
+    Enabled: true
+    Topic:
+      Value: /drone___DRONE_ID___grid/grid_map/occupancy_inflate
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+    Size (m): 0.1
+    Style: Boxes
+    Color Transformer: AxisColor
+    Axis: Z
+    Autocompute Value Bounds:
+      Value: true
+      Min Value: -1
+      Max Value: 3
+    Use rainbow: true
+    Color: 60; 200; 240
+  - Class: rviz_default_plugins/Image
+    Name: D435i RGB
+    Enabled: true
+    Topic:
+      Value: /sensors/d435i/color/image_raw
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+  - Class: rviz_default_plugins/Image
+    Name: D435i left
+    Enabled: true
+    Topic:
+      Value: /sensors/d435i/infra1/image_rect
+      Depth: 5
+      History Policy: Keep Last
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 10.0
+      Pitch: 0.6
+      Yaw: 3.8
+      Focal Point:
+        X: 1.5
+        Y: 0.0
+        Z: 0.5
+Window Geometry:
+  Width: 1600
+  Height: 950
+  X: 600
+  Y: 80

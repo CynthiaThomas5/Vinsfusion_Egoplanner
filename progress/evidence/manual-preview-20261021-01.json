@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-21",
+  "run_id": "manual-preview-20261021-01",
+  "scope": "GUI preview only; no flight or stage acceptance",
+  "container": "d435i-preview-20261021-01",
+  "ros_domain_id": 211,
+  "gazebo_partition": "d435i_manual_preview_20261021_01",
+  "build": {
+    "self_maintained_packages": 6,
+    "result": "PASS",
+    "log": "artifacts/runs/manual-preview-20261021-01/build.log"
+  },
+  "attempt_1": {
+    "epoch": "1ccdc5849a9542e2af1212d7c934b387",
+    "result": "initialization_timeout",
+    "observation": "first VINS averaged acceleration approximately zero before model settled; no accepted localization or map input"
+  },
+  "attempt_2": {
+    "epoch": "6837ad19d5314976b7566fe81c4861c4",
+    "observation": "restarted ROS/VINS session after model settled; first averaged acceleration z=9.8",
+    "localization": {
+      "sim_stamp_s": 30.284,
+      "valid": true,
+      "state": "TRACKING",
+      "normalized_cost": 0.011473844719766488
+    },
+    "map": {
+      "sim_stamp_s": 30.592,
+      "input_ready": true,
+      "occupied_point_count": 1398,
+      "forwarded_depth_count": 136,
+      "keyframes": 8
+    },
+    "bridge": {
+      "sim_stamp_s": 30.924,
+      "phase": "DISABLED",
+      "reason": "px4_telemetry_stale",
+      "armed": false,
+      "landed": true,
+      "control_enabled": false
+    }
+  },
+  "gui": {
+    "gazebo_window_verified": true,
+    "rviz_window_verified": true,
+    "image_subscription_views": "RGB and infrared left; dock heights may be resized by user"
+  },
+  "limitations": [
+    "GUI preview reduces observed real-time factor (screenshot about 17.5%); telemetry gate not ready.",
+    "Intermittent depth_stale logs occurred; live preview is not sustained mapping acceptance.",
+    "No enable service or navigation goal was called by preview scripts.",
+    "Container and windows intentionally remain running for user inspection."
+  ],
+  "artifacts_sha256": {
+    "artifacts/runs/manual-preview-20261021-01/start-preview.sh": "1cb183dc46b2c20d9ef5aa301040053930605af5e96b0f1faa73560674dc6033",
+    "artifacts/runs/manual-preview-20261021-01/restart-vio.sh": "1e16f23ee9bb80f70339ada79ea97dd7de96832918f5784b7655f2d0ca4680a8",
+    "artifacts/runs/manual-preview-20261021-01/write-rviz.py": "90236eb46053d964f076fae3d39dc4b5f7e5917f28c89e135552b71be7b950de",
+    "artifacts/runs/manual-preview-20261021-01/build.log": "9625e2066dbb3d64fffd7a21ac9f9ff7cacf03a8294017397de36ff3977cd55a",
+    "artifacts/runs/manual-preview-20261021-01/gazebo-window.png": "64bac10b08bc124809fdbe7816c4f525b240da4c932e9d3fe581847e28af76e6",
+    "artifacts/runs/manual-preview-20261021-01/rviz-window.png": "05d3e3cdd53ab780266e4573a7b873b7bb917abb63840e5167f479660e940f93"
+  }
+}

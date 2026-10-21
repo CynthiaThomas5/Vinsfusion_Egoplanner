@@ -1,0 +1,243 @@
+{
+  "schema": "p2-ego-astar-callsite-diagnostics/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-astar-callsite-diagnostics-20261020-311",
+  "status": "EXPERIMENTAL_UNKNOWN_BLOCKED_START_TO_POOL_EXIT_REPRODUCED; CANONICAL_ACCEPTANCE_PENDING",
+  "objective": "Record actual AstarSearch inputs, midpoint-relative occupancy checks, adjustment steps, and out-of-pool points after the #308 projection could not reproduce the prior pool exits.",
+  "scope": "Planner-only D435i/VINS simulation with an isolated EGO source overlay. No PX4, controller, trajectory server, truth subscriber, control publisher, or occupancy-snapshot service call.",
+  "source_identity": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "canonical_underlay_run": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297",
+    "canonical_patch_order": [
+      "0001",
+      "0002",
+      "0003",
+      "0004",
+      "0005",
+      "0006",
+      "0007",
+      "0008",
+      "0009",
+      "0010",
+      "0011",
+      "0017",
+      "0018",
+      "0019",
+      "0021"
+    ],
+    "experimental_patch_order": [
+      "0020",
+      "0022",
+      "0023",
+      "0024"
+    ],
+    "experimental_patch_0024_sha256": "911dec13b73a84e64770aa3b02d5f24c67515b452a0198a71f3336399b971b35",
+    "source_manifest": {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/source-manifest-experiment-0024.json",
+      "sha256": "355ea5156f7c42cf81bc7c625a50d71eb6fe7b3dabe4361bf3689865551ce38a",
+      "size_bytes": 11706
+    },
+    "source_tree_sha256_before_0024": "33aaeee59980b55419b7dba280bf885cc8b55d13f78590774cf6cf66e05b58bb",
+    "source_tree_sha256_after_0024": "3e77d752ecbabe68ce405388b7756015589a2a80097da47cb37bd41219e080c7",
+    "path_searching_header_pre_0024_sha256": "7d782f3abdd45bb518a3d16656890a4c6acf1e3d329f2fe213d84cd77c9e820f",
+    "path_searching_cpp_pre_0024_sha256": "59359ae1ae683e97a9807aa093bec80f3826b960c51be305845a2efd711dcef2",
+    "path_searching_header_post_0024_sha256": "2badb00485e5643e7c55192224f5ad77fc386f01004b25777b409b1e3ae9460a",
+    "path_searching_cpp_post_0024_sha256": "2d53b16a54440d1d39bb6fe7052d25ba6308d1e062e35aa18af516c9bdffee31",
+    "disposition": "Disposable /tmp copy and run-local overlay. Patches 0020, 0022, 0023, and 0024 are not in dependencies/sources.json and are not applied to src/vendor/ego_planner."
+  },
+  "build": {
+    "report": {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/build-report-0024.json",
+      "sha256": "9b89e212df3fa9e43abe6c2118b34789077a4e82b5ad90dc8388f3247342f4de",
+      "size_bytes": 2873
+    },
+    "result": "passed",
+    "packages": [
+      "traj_utils",
+      "plan_env",
+      "path_searching",
+      "bspline_opt",
+      "ego_planner"
+    ],
+    "build_type": "Release compiler flags observed (-O3 -DNDEBUG); CMAKE_BUILD_TYPE cache string is empty"
+  },
+  "runtime": {
+    "attempt": "07",
+    "target_xy_z_m": [
+      2.5,
+      1.4,
+      1.0
+    ],
+    "goal_published": true,
+    "goal_sent_wall_elapsed_s": 3.133974,
+    "goal_stamp_ns": 5215000000,
+    "epoch": "20ceb18a3e6d4721835d123e0bda55a4",
+    "map_id": "20ceb18a3e6d4721835d123e0bda55a4-e2b4f4859f554298a8b8f82ca9b18857",
+    "frame_id": "odom_20ceb18a3e6d4721835d123e0bda55a4",
+    "map_status_at_goal": {
+      "wall_elapsed_s": 3.081862,
+      "stamp_ns": 5182000000,
+      "epoch": "20ceb18a3e6d4721835d123e0bda55a4",
+      "map_id": "20ceb18a3e6d4721835d123e0bda55a4-e2b4f4859f554298a8b8f82ca9b18857",
+      "input_ready": true,
+      "reason": "ready",
+      "occupied_point_count": 1052,
+      "forwarded_depth_count": 23,
+      "keyframe_count": 1,
+      "occupancy_cloud_received": true
+    },
+    "map_status_last": {
+      "wall_elapsed_s": 22.784104,
+      "stamp_ns": 18621000000,
+      "epoch": "20ceb18a3e6d4721835d123e0bda55a4",
+      "map_id": "20ceb18a3e6d4721835d123e0bda55a4-e2b4f4859f554298a8b8f82ca9b18857",
+      "input_ready": true,
+      "reason": "ready",
+      "occupied_point_count": 934,
+      "forwarded_depth_count": 419,
+      "keyframe_count": 14,
+      "occupancy_cloud_received": true
+    },
+    "planner_probe_status": "bspline_received",
+    "bspline_count": 3,
+    "bsplines": [
+      {
+        "wall_elapsed_s": 21.438892,
+        "traj_id": 1,
+        "start_time_ns": 17719000000
+      },
+      {
+        "wall_elapsed_s": 21.439968,
+        "traj_id": 2,
+        "start_time_ns": 17720000000
+      },
+      {
+        "wall_elapsed_s": 21.488744,
+        "traj_id": 3,
+        "start_time_ns": 17750000000
+      }
+    ],
+    "motion": {
+      "force_command_count": 8,
+      "imu_sample_count": 6601,
+      "clock_first_last_s": [
+        2.7350000000000003,
+        35.74
+      ],
+      "truth_input_subscribed": false
+    },
+    "runtime_graph_audit": {
+      "forbidden_control_nodes": [],
+      "truth_topics": [],
+      "control_topics": [],
+      "snapshot_service_called": false
+    },
+    "localization_before_goal": {
+      "wall_elapsed_s": 1.883847,
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver"
+    }
+  },
+  "findings": {
+    "astar_adjust_pool_exits": 44870,
+    "astar_search_rejects": 44870,
+    "initial_input_out_of_pool": 0,
+    "coord2index_pool_errors": 44870,
+    "direction_failed": 11086,
+    "search_rounds_through": 113774,
+    "pool_exit_side_counts": {
+      "start": 38348,
+      "end": 6522
+    },
+    "failed_adjustment_blocked_cell_class": {
+      "unknown_get_occupancy_0_inflated_1": 43149,
+      "known_get_occupancy_0_inflated_1": 1721,
+      "matched_exit_records": 44870,
+      "unmatched_exit_records": 0
+    },
+    "failed_adjustment_steps": {
+      "min": 39,
+      "median": 58.0,
+      "mean": 58.156,
+      "max": 88
+    },
+    "epoch_counts": {
+      "20ceb18a3e6d4721835d123e0bda55a4": 44870
+    },
+    "map_id_counts": {
+      "20ceb18a3e6d4721835d123e0bda55a4-e2b4f4859f554298a8b8f82ca9b18857\n": 44870
+    },
+    "representative_failure": {
+      "blocked_cell_log": "[ego_planner_node-1] [WARN] [1792503181.990345653] [AstarSearch]: DIAG astar_cell side=start phase=blocked start=(-0.024257 -0.016255 -0.003218) end=(0.357090 -0.223173 0.216859) center=(0.166417 -0.119714 0.106821) index=(49 51 50) cell=(0.066417 -0.019714 0.106821) in_map=1 unknown=1 raw=0 inflate=1",
+      "adjustment_pool_exit_log": "[ego_planner_node-1] [ERROR] [1792503181.990364660] [AstarSearch]: DIAG astar_adjust_pool_exit side=start start=(-0.024257 -0.016255 -0.003218) end=(0.357090 -0.223173 0.216859) attempted=(-5.041025 2.705843 -2.898424) steps=64 center=(0.166417 -0.119714 0.106821) index=(-1 78 21)",
+      "search_reject_log": "[ego_planner_node-1] [ERROR] [1792503181.990548855] [AstarSearch]: DIAG astar_search_reject round=83211 start=(-0.024257 -0.016255 -0.003218) end=(0.129665 -0.076947 0.073628) center=(0.052704 -0.046601 0.035205) step=0.100 epoch=20ceb18a3e6d4721835d123e0bda55a4 map_id=20ceb18a3e6d4721835d123e0bda55a4-e2b4f4859f554298a8b8f82ca9b18857",
+      "explanation": "For this recorded call the midpoint-relative start cell is index (50,50,50), an in-map unknown voxel. Patch 0020 makes it occupied. The existing endpoint-adjustment loop moves the start away from the goal by 0.1 m while cells remain blocked; after 61 moves it reaches x=-5.171001 m, outside the local pool."
+    }
+  },
+  "interpretation": "The #311 trace directly reproduces the pool failure mechanism for the isolated patch-0020 unknown-as-obstacle candidate. All 44,870 recorded A* endpoint rejections are adjustment-loop pool exits; 43,149 begin at cells reported unknown=1, getOccupancy=0, inflate=1, and 1,721 begin at known cells with getOccupancy=0, inflate=1. This strongly explains the #307 pool errors under the same candidate policy. It does not establish that canonical EGO has this failure because patch 0020 is experimental.",
+  "limitations": [
+    "The run uses experimental patches 0020/0022/0023/0024 and run-local 0.5 m inflation; none is canonical production behavior.",
+    "The diagnostic patch emitted 113,180 blocked-cell lines and a 106,725,459-byte EGO log. Logging load may have affected timing and throughput; counts describe this run, not a performance rate.",
+    "No same-time occupancy snapshot was requested, so this is not an independent map coverage or collision-clearance acceptance.",
+    "Three B-splines were observed, but no trajectory server, controller, or PX4 was launched and no spline was executed. One scene/run cannot establish repeatability or A-H acceptance."
+  ],
+  "next_diagnostic": "Retain the failure coordinates and occupancy classification while reducing logging to pool-exit cases. Then design a bounded, fail-closed start/end policy with an explicit known-free initial footprint, test its known-free/unknown/inflated cases offline, and repeat the isolated live goal before considering any canonical patch.",
+  "artifacts": [
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/ego-07.log",
+      "sha256": "0e0d5cdf889689600fdfedd58dac854cc8a7ac4bb7f420ba9c420dc9806e1500",
+      "size_bytes": 106725459
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/planner-goal-result-07.json",
+      "sha256": "ba20043b0720f0d9b51b44274a88b9243ec7e9375275a3d7fa85e409208848fc",
+      "size_bytes": 257262
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/goal-sent-marker-07.json",
+      "sha256": "a17cda42154d4e647c082dbf16d71350d865a3dae6eebd9ae0cfeff6bc9554c7",
+      "size_bytes": 702
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/motion-07.json",
+      "sha256": "a2ad7984e4de5756b3b47886cae0cf2281cecde684d0e4119fc59d17bd089654",
+      "size_bytes": 1525338
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/runtime-summary-07.json",
+      "sha256": "7e28ae9566be6ae683667b3f1822ee7cf30a85722370a98583606f71f997a31b",
+      "size_bytes": 275522
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/nodes-after-run-07.txt",
+      "sha256": "6b7fce72cd893ca81fb1a28b3fbafaf39541370435c6e003b3bda80afa7e8d55",
+      "size_bytes": 190
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/topics-after-run-07.txt",
+      "sha256": "b246eab6b1bf45c8d31ba25d3118de7f1edd084034553235e5fe1bf1e379aef9",
+      "size_bytes": 1786
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/services-after-run-07.txt",
+      "sha256": "9ace436866c501d7cae28f1b63f71fb71842aab0de489f77a49933a0dfbffdc3",
+      "size_bytes": 2336
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/experiment-plan.json",
+      "sha256": "2788b718433d273235edebf7224f9f49acb039ba363ffea1685a100b2d6bb6a9",
+      "size_bytes": 1052
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/run-live-no-snapshot.sh",
+      "sha256": "c043416da83e93cdacc9aab4c5f84030181fbdaa38db5a21996ba12ba785f1a6",
+      "size_bytes": 7743
+    },
+    {
+      "path": "artifacts/runs/p2-ego-astar-callsite-diagnostics-20261020-311/run_sensor_motion_delayed.py",
+      "sha256": "37041d1b071edc163da91cef3b2d47ef3e40245e03133fc424f0bce3fc8884c9",
+      "size_bytes": 4064
+    }
+  ]
+}

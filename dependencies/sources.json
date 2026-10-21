@@ -1,0 +1,356 @@
+{
+  "status": "source_and_binary_environment_locked; runtime_qualification_pending",
+  "lock_scope": "VINS, EGO planner, PX4, px4_msgs, XRCE-DDS Agent, and spdlog have fixed source revisions; PX4 v1.17.0 and all 39 recursive submodule gitlinks are imported and recorded. A SHA-256-addressed Docker archive contains the Jazzy/Harmonic base and VINS-derived images, with installed Debian package manifests. A fresh 17-package workspace build passed from the archived derived image. The original base image has no source recipe and clean-engine archive import was not independently tested. Runtime interoperability remains outside this source/environment lock.",
+  "container_rebuild": {
+    "recipe": "docker/Dockerfile.vins",
+    "base_reference": "px4-ros2-gz@sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "base_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "base_available_locally_only": false,
+    "base_source_recipe_available": false,
+    "derived_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "status": "portable_image_bundle_checksum_and_load_command_passed; fresh_17_package_workspace_build_passed; clean_engine_import_not_tested",
+    "portable_image_bundle": {
+      "path": "artifacts/runs/p0-container-image-bundle-20261017-01/px4-ros2-gz-and-d435i-vins-images.tar.zst",
+      "sha256": "da3e5fd0c203c4dec89963b147ae997a64872d18831151760549efd2c488b614",
+      "bytes": 1490653184,
+      "images": [
+        {
+          "tag": "px4-ros2-gz:jazzy-harmonic",
+          "image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+          "package_manifest": "artifacts/runs/p0-container-image-bundle-20261017-01/dpkg-installed.tsv",
+          "package_manifest_sha256": "77dde67248ec50458f38bd10bf1bb041c854bb5f3fe06f12350f39faed97cdb7"
+        },
+        {
+          "tag": "d435i-vins:dev",
+          "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+          "package_manifest": "artifacts/runs/p0-container-image-bundle-20261017-01/dpkg-derived-installed.tsv",
+          "package_manifest_sha256": "94bc78f8ca78eba40739f5bcffa921328471c45da8a1e2f7a8dd2fa63b7ec32c"
+        }
+      ],
+      "docker_save_manifest": "artifacts/runs/p0-container-image-bundle-20261017-01/docker-save-manifest.json",
+      "archive_integrity": "zstd_test_passed",
+      "docker_load": "both_repo_tags_reported_loaded; existing image cache was present, so clean-engine reimport remains unverified",
+      "workspace_rebuild": {
+        "evidence": "progress/evidence/p0-portable-container-rebuild.json",
+        "run_id": "p0-container-image-build-20261017-01",
+        "packages_finished": 17,
+        "exit_code": 0,
+        "colcon_source_manifest": "artifacts/runs/p0-container-image-build-20261017-01/colcon-source-sha256.txt",
+        "colcon_source_manifest_sha256": "d9dd6aa78ca9fc56ce4e3c074c850c6ed0d3d345a0b6e0fac4c3872df3f6fe2a",
+        "run_inputs_manifest": "artifacts/runs/p0-container-image-build-20261017-01/run-inputs.json",
+        "run_inputs_manifest_sha256": "6d1e89cf2aac034b3f3c1b9c664134432bd1f36f43917f1b417b8c21989e654d"
+      }
+    },
+    "evidence": [
+      "progress/evidence/p0-clean-container-build.json",
+      "progress/evidence/p0-portable-container-rebuild.json"
+    ]
+  },
+  "sources": [
+    {
+      "id": "legacy_sim",
+      "url": "https://github.com/CynthiaThomas5/PX4-ROS2-SLAM-Control-Deploy",
+      "reference_revision": "92b0030150f8ba35da3b55e57f5b426dd2c22cb0",
+      "dirty_source": true,
+      "role": "read_only_migration_source",
+      "target": "src/own",
+      "imported": false
+    },
+    {
+      "id": "vins_fusion",
+      "url": "https://github.com/zinuok/VINS-Fusion-ROS2",
+      "reference_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+      "target_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+      "patch_status": "Validated CPU room-navigation patch chain promoted; clean-source build and standardized-entry SITL recorded separately in #052.",
+      "target": "src/vendor/vins_fusion",
+      "imported": true,
+      "patches": [
+        "dependencies/patches/vins/0001-fully-fixed.patch",
+        "dependencies/patches/vins/0002-telemetry.patch",
+        "dependencies/patches/vins/0003-jazzy-cv-bridge.patch",
+        "dependencies/patches/vins/0004-initialize-excitation-sum.patch",
+        "dependencies/patches/vins/0005-diagnostic-cost-components.patch",
+        "dependencies/patches/vins/0009-lm-trust-region-experiment.patch",
+        "dependencies/patches/vins/0011-opencv-runtime-threads-experiment.patch",
+        "dependencies/patches/vins/0012-temporal-ransac-experiment.patch",
+        "dependencies/patches/vins/0013-stereo-epipolar-experiment.patch",
+        "dependencies/patches/vins/0014-runtime-package-only.patch"
+      ],
+      "license": "GPL-3.0",
+      "evidence": "progress/evidence/p0-source-audit.json",
+      "runtime_diagnostic_evidence": "progress/evidence/p5-vio-cost-components-20261019-180.json",
+      "license_file": "LICENCE",
+      "license_sha256": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
+      "package_roots": {
+        "camera_models": "camera_models",
+        "vins": "vins"
+      },
+      "patched_files_sha256": {
+        "vins/src/estimator/estimator.cpp": "e337c5ca0f4363665616872d5274f07bfc4a2694e1c9184c7f28d40a806c0689",
+        "vins/src/rosNodeTest.cpp": "fbd29ee7af50090f2ed47a52678221736ad8aacd15d424acce1b16f96a4723e8",
+        "vins/src/featureTracker/feature_tracker.cpp": "701dfdc0a1f600debbed6b4b8a7d59a2ecdc1aa74070d476959d1422e73c3de5",
+        "vins/src/featureTracker/feature_tracker.h": "e0481b7d21ba6b91579a0f41ad5b7fadd0b38e5609f1c0a4754da4d203e1db80",
+        "vins/CMakeLists.txt": "e7b0e692faf377bf81cbe1eee9f5f32eb6e533dea6c16a81b29ad88f5f03cccc"
+      },
+      "patch_sha256": {
+        "dependencies/patches/vins/0001-fully-fixed.patch": "99b286a08f2d55d8da5d1bda9b450ec0d1553386e28577c814861489931f8940",
+        "dependencies/patches/vins/0002-telemetry.patch": "60cf747645b6fabc5b48aa32fa35beb07c0ff59fb8aecf4851598f79c38ed3f8",
+        "dependencies/patches/vins/0003-jazzy-cv-bridge.patch": "334148fb7aa2fd399aa27aca5dda01d9ee270590ac25551331b8d3ecbb621b1d",
+        "dependencies/patches/vins/0004-initialize-excitation-sum.patch": "530091f49e9f6f7ebf03ae4fe5c22e01ca75cc69a8aea5c65c74803dd2bc6f27",
+        "dependencies/patches/vins/0005-diagnostic-cost-components.patch": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72",
+        "dependencies/patches/vins/0009-lm-trust-region-experiment.patch": "606386c9e262884d1dec4fe2228bede216d1aefa9daa74160e39ed9cb268f376",
+        "dependencies/patches/vins/0011-opencv-runtime-threads-experiment.patch": "6126e86035bc1f44b12aa5bda6feaf77c7320f3b7dfd687c7bd1d53f2fc8cb0b",
+        "dependencies/patches/vins/0012-temporal-ransac-experiment.patch": "22acd9d7dcec708672391918ace4566fa77f488d6cb5d608b8d97f3c882b2226",
+        "dependencies/patches/vins/0013-stereo-epipolar-experiment.patch": "44df2603d74e14a0304919010bc7fa0f95f0bb7b0c7f2f681685054d2091d5f1",
+        "dependencies/patches/vins/0014-runtime-package-only.patch": "0963b1310c243ffc693a590517dd00de852e88d2be1e42094fa9e046a61da164"
+      },
+      "packaging_note": "0014 removes unneeded KITTI test executable targets and upstream config/launch install; project generates its own calibrated session. Estimator/tracker numerical source unchanged."
+    },
+    {
+      "id": "ego_planner",
+      "url": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm",
+      "reference_branch": "ros2_version",
+      "reference_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+      "target_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+      "role": "planner_vendor_source",
+      "target": "src/vendor/ego_planner",
+      "source_packages": [
+        "bspline_opt",
+        "path_searching",
+        "plan_env",
+        "plan_manage",
+        "traj_utils"
+      ],
+      "patch_status": "Canonical15 patches plus validated0035/0036; #051 cold-start baseline retained; reconstruction and new build/SITL require #052 evidence.",
+      "patches": [
+        "dependencies/patches/ego/0001-project-interface-and-license.patch",
+        "dependencies/patches/ego/0002-package-descriptions.patch",
+        "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch",
+        "dependencies/patches/ego/0004-mapping-input-safety.patch",
+        "dependencies/patches/ego/0005-occupancy-publication-stamp.patch",
+        "dependencies/patches/ego/0006-ego-odometry-topic.patch",
+        "dependencies/patches/ego/0007-shutdown-safe-planner.patch",
+        "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch",
+        "dependencies/patches/ego/0009-recoverable-depth-timeout.patch",
+        "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch",
+        "dependencies/patches/ego/0011-configurable-map-ground-height.patch",
+        "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch",
+        "dependencies/patches/ego/0018-sim-clock-consistency.patch",
+        "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch",
+        "dependencies/patches/ego/0021-occupancy-snapshot-service.patch",
+        "dependencies/patches/ego/0035-yaw-start-boundary-experiment.patch",
+        "dependencies/patches/ego/0036-stop-position-boundary-experiment.patch"
+      ],
+      "license": "GPL-3.0-only",
+      "imported": true,
+      "evidence": "progress/evidence/p0-ego-planner-build.json",
+      "mapping_runtime_evidence": "progress/evidence/p2-ego-map-live.json",
+      "mapping_geometry_evidence": "progress/evidence/p2-map-geometry.json",
+      "odometry_qos_evidence": "progress/evidence/p2-ego-odom-qos.json",
+      "planner_goal_shutdown_evidence": "progress/evidence/p2-ego-planner-goal-and-shutdown.json",
+      "depth_stale_map_evidence": "progress/evidence/p2-ego-map-depth-stale.json",
+      "active_depth_stale_evidence": "progress/evidence/p2-ego-active-depth-stale.json",
+      "manual_goal_dispatch_build_evidence": "progress/evidence/p0-ego-manual-goal-dispatch-build.json",
+      "timeout_recovery_build_evidence": "progress/evidence/p0-ego-map-timeout-build.json",
+      "navigation_action_evidence": "progress/evidence/p4-navigation-ego-action-cancel.json",
+      "live_planning_evidence": "progress/evidence/p4-navigation-live-clock.json",
+      "simulation_clock_evidence": "progress/evidence/p4-navigation-live-clock.json",
+      "patch_sha256": {
+        "dependencies/patches/ego/0001-project-interface-and-license.patch": "67aec2b58d692084382561b71fee8f82481054b05cb88d2f9aa6cf6fab79009c",
+        "dependencies/patches/ego/0002-package-descriptions.patch": "3febdfcef3d21253ecb8936a479c1f07fdc99214d65ae4d0a345ff0979fd2c15",
+        "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch": "74fe30110d95772327a5258a56512a60762a5dd624eb87c5a6e84100287b541f",
+        "dependencies/patches/ego/0004-mapping-input-safety.patch": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+        "dependencies/patches/ego/0005-occupancy-publication-stamp.patch": "0ae6beea38db10c16a185147cb01a080d90f627779b043122a69dff1330195b4",
+        "dependencies/patches/ego/0006-ego-odometry-topic.patch": "e9c8671ac61d75a90a7da42d7a2ccd47708f67f65ee571a785f640c9d7e51342",
+        "dependencies/patches/ego/0007-shutdown-safe-planner.patch": "36f878b84f6481cf74c2598de79c3c073e753c704d87321d9a3e7c20c91deb00",
+        "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch": "c21529e2b42aad6cc4330267cf9045132bae06f92f87f53d23149344903e48d1",
+        "dependencies/patches/ego/0009-recoverable-depth-timeout.patch": "63c2be9f58293076f7757c2006d7145b5d5ce02d7deed7efa58050cd44520c51",
+        "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch": "d07022de2c81acd45788e38a84fc570356c4d94b9ecf956f4f52d902df726134",
+        "dependencies/patches/ego/0011-configurable-map-ground-height.patch": "1d151ecc1e8ae352d6f67515d2c2db76ede8fbe0c5937ec61f0d894a0dabfd81",
+        "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch": "e82a26df1d5a1113e7b19b3e8556f81ef2bc09cf07db5670f3094e9afad68dc1",
+        "dependencies/patches/ego/0018-sim-clock-consistency.patch": "d38f608832fd54e51404731dadb737a27da92d00a279fcd47bceec511daae151",
+        "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch": "86d88544bdeda3348ba64c2f146f3b291512e7d5128c6596c2e6a98d12fcabe9",
+        "dependencies/patches/ego/0021-occupancy-snapshot-service.patch": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8",
+        "dependencies/patches/ego/0035-yaw-start-boundary-experiment.patch": "fa069cab747a0c0e02023683d18c7ff2d948ba2b93077c233ed9cc1e67ec65d5",
+        "dependencies/patches/ego/0036-stop-position-boundary-experiment.patch": "930447b53d376fed617024e22fd6cf655110ca2d47a3c02528793bbdd2be16bf"
+      },
+      "reconstruction_tool": "tools/fetch_dependencies.py",
+      "patch_contexts": {
+        "dependencies/patches/ego/0001-project-interface-and-license.patch": {
+          "working_directory": ".",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0002-package-descriptions.patch": {
+          "working_directory": ".",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch": {
+          "working_directory": ".",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0004-mapping-input-safety.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0005-occupancy-publication-stamp.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0006-ego-odometry-topic.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0007-shutdown-safe-planner.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0009-recoverable-depth-timeout.patch": {
+          "working_directory": "src",
+          "strip": 4
+        },
+        "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch": {
+          "working_directory": "src",
+          "strip": 4
+        },
+        "dependencies/patches/ego/0011-configurable-map-ground-height.patch": {
+          "working_directory": "src",
+          "strip": 4
+        },
+        "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch": {
+          "working_directory": "src",
+          "strip": 4
+        },
+        "dependencies/patches/ego/0018-sim-clock-consistency.patch": {
+          "working_directory": "src",
+          "strip": 4
+        },
+        "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch": {
+          "working_directory": "src",
+          "strip": 4
+        },
+        "dependencies/patches/ego/0021-occupancy-snapshot-service.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0035-yaw-start-boundary-experiment.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0036-stop-position-boundary-experiment.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": true
+        }
+      },
+      "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "package_roots": {
+        "src/planner/bspline_opt": "planner/bspline_opt",
+        "src/planner/path_searching": "planner/path_searching",
+        "src/planner/plan_env": "planner/plan_env",
+        "src/planner/plan_manage": "planner/plan_manage",
+        "src/planner/traj_utils": "planner/traj_utils"
+      }
+    },
+    {
+      "id": "px4",
+      "url": "https://github.com/PX4/PX4-Autopilot",
+      "target_version": "v1.17.0",
+      "target_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+      "target": "external/PX4-Autopilot",
+      "role": "pinned_external_px4_sitl_source",
+      "imported": true,
+      "license": "BSD-3-Clause",
+      "license_sha256": "4f486239f62804b2190ff52b3005f087cf1033342012152e6383bdad6b891cc4",
+      "patch_status": "official_v1.17.0_tag_unmodified; 39_recursive_submodules_checked_out_at_gitlinks",
+      "submodules_manifest": "artifacts/runs/p0-px4-source-20261016-01/submodules.json",
+      "submodules_manifest_sha256": "d5a27ad5273a5575457650c1096e65d21850d694e82539d92b2b760278c6f577",
+      "submodules_count_recursive": 39,
+      "built": true,
+      "build_evidence": "progress/evidence/p0-px4-firmware-build.json",
+      "recursive_submodules": true
+    },
+    {
+      "id": "px4_msgs",
+      "url": "https://github.com/PX4/px4_msgs",
+      "target_branch": "release/1.17",
+      "target_version": "v1.17.0",
+      "target_revision": "86d8239e962f6939e05c3737784f60c02fa884db",
+      "target": "src/vendor/px4_msgs",
+      "role": "pinned_matching_message_definitions",
+      "patch_status": "pristine_official_tag_jazzy_build_passed",
+      "license": "BSD-3-Clause",
+      "evidence": "progress/evidence/p0-px4-msgs-build.json",
+      "imported": true
+    },
+    {
+      "id": "micro_xrce_dds_agent",
+      "url": "https://github.com/eProsima/Micro-XRCE-DDS-Agent",
+      "target_version": "v2.4.3",
+      "target_revision": "73622810d984349b80bbac0ef55fc0b694d62222",
+      "role": "standalone_px4_uxrce_agent",
+      "target": "src/vendor/micro_xrce_dds_agent",
+      "license": "Apache-2.0",
+      "patch_status": "colcon_metadata_patch_applied; reconstructed source manifest matches; standalone and 16-package workspace builds passed",
+      "build_evidence": "progress/evidence/p0-agent-build.json",
+      "note": "PX4 v1.17 documents recommend Agent v2.4.3 for its v2.x client and UDP4 port 8888 for SITL. A short headless x500 smoke observed PX4 VehicleStatus over ROS and the PX4 visual-odometry input subscription endpoint; no visual odometry sample, control, flight, or EKF2 fusion was tested.",
+      "imported": true,
+      "patches": [
+        "dependencies/patches/agent/0001-colcon-build-integration.patch"
+      ],
+      "workspace_build_evidence": "progress/evidence/p0-colcon-16-build.json",
+      "runtime_evidence": "progress/evidence/p0-agent-px4-dds.json",
+      "patch_sha256": {
+        "dependencies/patches/agent/0001-colcon-build-integration.patch": "232e46de6fe23be8adc96d633ae172b86babbb73e58ee2a64cacb82114dac05b"
+      }
+    },
+    {
+      "id": "spdlog",
+      "url": "https://github.com/gabime/spdlog",
+      "target_version": "v1.9.2",
+      "target_revision": "eb3220622e73a4889eee355ffa37972b3cac3df5",
+      "role": "pinned_agent_logger_dependency",
+      "target": "src/vendor/spdlog",
+      "license": "MIT",
+      "patch_status": "colcon_metadata_patch_applied; reconstructed source manifest matches; full workspace build passed",
+      "build_evidence": "progress/evidence/p0-agent-build.json",
+      "imported": true,
+      "patches": [
+        "dependencies/patches/spdlog/0001-colcon-build-integration.patch"
+      ],
+      "workspace_build_evidence": "progress/evidence/p0-colcon-16-build.json",
+      "patch_sha256": {
+        "dependencies/patches/spdlog/0001-colcon-build-integration.patch": "618f89ae68f5b07c51d04129546703d25bbd043762c8dbd84676df388bdf4a83"
+      }
+    },
+    {
+      "id": "ego_world",
+      "url": "https://github.com/DongnanHu6556/ego-planner-ros2-sim",
+      "reference_revision": "fdbe8743897b04dd0b8d412f60592d4299b69ef3",
+      "upstream_path": "ego.sdf",
+      "upstream_file_url": "https://raw.githubusercontent.com/DongnanHu6556/ego-planner-ros2-sim/fdbe8743897b04dd0b8d412f60592d4299b69ef3/ego.sdf",
+      "upstream_sha256": "92f04e5674bf46fbc7c8fe4fe9cc6b76004305e2877a176c404083fa752250a3",
+      "target": "simulation/worlds/ego.sdf",
+      "target_sha256": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+      "role": "default_navigation_world_geometry_only",
+      "imported": true,
+      "license": "NOT_DECLARED",
+      "license_note": "NOT_DECLARED in pinned repository tree or README; user-directed local import, no project license attribution inferred.",
+      "patches": [
+        "dependencies/patches/simulation/0001-ego-harmonic-static-world.patch"
+      ],
+      "patch_sha256": {
+        "dependencies/patches/simulation/0001-ego-harmonic-static-world.patch": "99e40aeba78939475ebd2075be81416785c1d4d854c3f675d20282289650ab96"
+      },
+      "patch_status": "pinned import and exact patch replay passed; final source/generated SDF valid; x500+D435i raw RGB/left/depth/IMU smoke passed with custom plugins loaded; VINS/map/planning/flight remain unqualified",
+      "import_report": "artifacts/runs/ego-world-import-20261021-01/import-report.json",
+      "evidence": "progress/evidence/ego-world-import-20261021-01.json"
+    }
+  ],
+  "updated": "2026-10-21",
+  "runtime_baseline_evidence": "progress/evidence/cpu-navigation-convergence-20261021-051.json"
+}

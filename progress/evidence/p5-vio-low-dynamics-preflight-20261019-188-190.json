@@ -1,0 +1,291 @@
+{
+  "schema": 1,
+  "updated": "2026-10-19",
+  "stage": "P5",
+  "status": "in_progress",
+  "scope": "Added an optional config-selected EGO planner profile and performed bounded low-dynamics startup/goal diagnostics (#188–#190).",
+  "implementation": {
+    "change": "vio_closed_loop_ego_px4.launch.py accepts project-relative planner_config; default remains config/components/mapping/ego_planner.json. The generated VINS launch manifest records the selected path and source hash. Path traversal/out-of-project configs are rejected.",
+    "diagnostic_profile": "config/components/mapping/ego_planner_slow_probe.json",
+    "planner_values": {
+      "max_velocity_m_s": 0.25,
+      "max_acceleration_m_s2": 0.4
+    },
+    "default_profile_changed": false,
+    "localization_or_PX4_thresholds_changed": false,
+    "run_190_harness_change": "Run-local only: wait for PX4 pre_flight_checks_pass before requesting enable; no product bridge behavior changed."
+  },
+  "validation": {
+    "config_tests": "6/6 passed (including selected profile, manifest hash, and project-root path guard).",
+    "uav_px4_bridge_jazzy_build": "1/1 package passed in isolated planner overlay.",
+    "launch_overlay_smoke": "Installed uav_px4_bridge prefix and planner_config launch argument verified.",
+    "project_status": "PASS; structure/design check only.",
+    "py_compile": "PASS for resolver, launch file, and config tests."
+  },
+  "runs": {
+    "188": {
+      "result": "FAIL",
+      "failure": "vio_bridge_map_preconditions_not_ready",
+      "action_goal_sent": false,
+      "action_success": false,
+      "preconditions_ready": false,
+      "takeoff_active_observed": null,
+      "service_calls": [],
+      "latest_localization_status": {
+        "accepted_optimized": 102,
+        "accepted_propagated": 1383,
+        "epoch": "d03f7e13eecd469da09e4635f8b1eda4",
+        "reason": "telemetry_stale",
+        "state": 4,
+        "valid": false
+      },
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "DISABLED",
+        "ready": false,
+        "reason": "localization_not_tracking"
+      },
+      "latest_vehicle_status": {
+        "arming_state": 1,
+        "failsafe": false,
+        "nav_state": 4,
+        "pre_flight_checks_pass": false,
+        "timestamp": 1792418696290654
+      },
+      "single_control_publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "truth_samples": 3056,
+      "imu_samples": 12035,
+      "optimized_samples": 911,
+      "propagated_samples": 12029,
+      "truth_parse_errors": [],
+      "truth_observer_only": true,
+      "localization_lock": {
+        "source_age_s": 0.304000001,
+        "limit_s": 0.3,
+        "samples": {
+          "optimized": 0.304000001,
+          "telemetry": 0.304000001,
+          "propagated": 0.008000001,
+          "imu": 0.0,
+          "left": 0.172,
+          "right": 0.04
+        },
+        "interpretation": "Freshness gate locked before takeoff; only 4 ms beyond configured age. No goal was sent."
+      },
+      "selected_planner_config": "config/components/mapping/ego_planner_slow_probe.json",
+      "planner_max_velocity_m_s": 0.25,
+      "planner_max_acceleration_m_s2": 0.4,
+      "planner_config_sha256": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+      "planner_config_sha256_matches_source": true
+    },
+    "189": {
+      "result": "FAIL",
+      "failure": "bridge_did_not_reach_active_after_takeoff",
+      "action_goal_sent": false,
+      "action_success": false,
+      "preconditions_ready": true,
+      "takeoff_active_observed": false,
+      "service_calls": [
+        {
+          "accepted": true,
+          "enable": true,
+          "reason": "prestreaming_offboard_setpoints"
+        }
+      ],
+      "latest_localization_status": {
+        "accepted_optimized": 611,
+        "accepted_propagated": 8056,
+        "epoch": "cab63a5bc0824c298c9c80abba1e7da1",
+        "reason": "fresh_inputs_and_usable_solver",
+        "state": 1,
+        "valid": true
+      },
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "DISABLED",
+        "ready": false,
+        "reason": "px4_preflight_failed"
+      },
+      "latest_vehicle_status": {
+        "arming_state": 1,
+        "failsafe": false,
+        "nav_state": 4,
+        "pre_flight_checks_pass": false,
+        "timestamp": 1792418886846134
+      },
+      "single_control_publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "truth_samples": 3072,
+      "imu_samples": 12405,
+      "optimized_samples": 940,
+      "propagated_samples": 12405,
+      "truth_parse_errors": [],
+      "truth_observer_only": true,
+      "preflight": {
+        "pre_flight_checks_pass_true_samples": 0,
+        "vehicle_status_samples": 65,
+        "px4_log_reasons": [
+          "Preflight Fail: ekf2 missing data",
+          "Preflight Fail: system power unavailable"
+        ],
+        "interpretation": "Action harness requested enable once; bridge remained DISABLED and PX4 never armed. No navigation goal."
+      },
+      "selected_planner_config": "config/components/mapping/ego_planner_slow_probe.json",
+      "planner_max_velocity_m_s": 0.25,
+      "planner_max_acceleration_m_s2": 0.4,
+      "planner_config_sha256": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+      "planner_config_sha256_matches_source": true
+    },
+    "190": {
+      "result": "FAIL",
+      "failure": "px4_preflight_checks_not_passed",
+      "action_goal_sent": false,
+      "action_success": false,
+      "preconditions_ready": false,
+      "takeoff_active_observed": null,
+      "service_calls": [],
+      "latest_localization_status": {
+        "accepted_optimized": 699,
+        "accepted_propagated": 9213,
+        "epoch": "b732457e761842d68d1f10f7f96896cc",
+        "reason": "fresh_inputs_and_usable_solver",
+        "state": 1,
+        "valid": true
+      },
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "DISABLED",
+        "ready": false,
+        "reason": "px4_preflight_failed"
+      },
+      "latest_vehicle_status": {
+        "arming_state": 1,
+        "failsafe": false,
+        "nav_state": 4,
+        "pre_flight_checks_pass": false,
+        "timestamp": 1792419112256978
+      },
+      "single_control_publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "truth_samples": 2932,
+      "imu_samples": 11699,
+      "optimized_samples": 885,
+      "propagated_samples": 11683,
+      "truth_parse_errors": [],
+      "truth_observer_only": true,
+      "preflight": {
+        "pre_flight_checks_pass": false,
+        "guard": "Run-local harness requires PX4 preflight pass before enable request",
+        "interpretation": "60 s precondition wait ended before any enable service call or navigation goal."
+      },
+      "selected_planner_config": "config/components/mapping/ego_planner_slow_probe.json",
+      "planner_max_velocity_m_s": 0.25,
+      "planner_max_acceleration_m_s2": 0.4,
+      "planner_config_sha256": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+      "planner_config_sha256_matches_source": true
+    }
+  },
+  "conclusions": [
+    "The low-dynamics profile was present in the #188–#190 launch manifests, with 0.25 m/s and 0.4 m/s^2 values and matching config SHA-256.",
+    "#188 locked localization before takeoff at an observed 0.304 s optimized/telemetry source age against the unchanged 0.300 s limit; no goal was sent.",
+    "#189 localization and map preconditions passed, but PX4 preflight remained false in all 65 captured vehicle-status samples; its log reported EKF2 missing data and system power unavailable. The bridge did not arm and no goal was sent.",
+    "#190 required pre_flight_checks_pass before calling enable. The 60 s wait ended with preflight false, no enable request, no arm, and no goal.",
+    "These runs do not test low-dynamics trajectory behavior and do not complete P5. Their independent read-only truth captures completed without parse errors."
+  ],
+  "next": "Diagnose why PX4 preflight and early VINS telemetry freshness vary between independent cold starts. Keep fail-closed gates and the default EGO profile unchanged; only then retry the slow-profile goal.",
+  "artifacts": {
+    "run_directories": [
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190"
+    ],
+    "sha256": {
+      "config/components/mapping/ego_planner_slow_probe.json": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+      "src/own/uav_px4_bridge/uav_px4_bridge/vio_ego_bringup.py": "4226bb5ffd5d33f9a9b2d0ad21fd91956b99a8c47d79ae2c062a9445566fd1a1",
+      "src/own/uav_px4_bridge/launch/vio_closed_loop_ego_px4.launch.py": "6d0e6abe77fb4eff5ab43bd52de06016c0eef24cb607aa6573d719e471af91b8",
+      "tools/test_vio_ego_bringup_config.py": "b70ff5b00fae460e6f16878f7e55f7d151755c34d175191fef76b4b389efaefe",
+      "config/README.md": "50524dcbcb6584de4b5caa8852c29c7ae585cf69373c33e51380534dda13b75a",
+      "src/own/uav_px4_bridge/README.md": "458036be1f68ea1a0fcb845e4a0251d943473e68bacc848d1e788680d65f52c6",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/attempt-context.txt": "0058ea5b0ef256237123686bafaed5b0336db549e4ca2f652af4f007e808f384",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/vio-ego-flight-report.json": "38c87077e25de45c5bb1e56e5b58f4085083a539f4cb30d1d3af1be94875a1e3",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/vio-truth-capture/summary.json": "a116ac8903f51759e7525734d0f81083b8c11782f7725b73ee08832c13fb8952",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/vio-truth-capture-exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/px4.log": "252d173350bf2d61bb7e3daaeba8a77ca1e508f716832b21ab74eb7dab6f6c0a",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/vio-launch.log": "279f8f5e88452f54786fd8d172b719b8680e87432e0265527d3256372469f071",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/run-px4-vio-ego-flight.sh": "7ba154aec5a225899b590da633a134eeb025a550f9bda4937272b003667efa79",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/run_vio_ego_flight.py": "d794e853ae7dc93ba3b77d75b7b41757d5fbace78040063e13a4f438ec1bb3ac",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/vio_closed_loop_smoke_goal.json": "9caaac5975e6c3510b90b6731a8fb0e794b2c198faa4d89213ed9712cd521b82",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/localization-package-prefix.txt": "7e6508d68dcf6c09c5749689b92e8208395a01bf13d75cab20d8ea46f36db8f4",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/px4-bridge-package-prefix.txt": "878d2444fe34d8ddd6c624b6cf8927dbd235a14147a6fa4d4406d010edcc437c",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188-stack/launch-manifest.json": "117649e20a39eb8d4c32033b05928ccc53cccac80d55f0eaf61a6e2701c5c572",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/px4_sitl_default/log/2026-10-19/14_03_40.ulg": "907582d160d0ba4a8dee02010bd3be0e0aaa59d55cf84069dd50039343bdaec1",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/planner-colcon-build.log": "9ce10517396e431ac599c85673279ec976c1077f2903c8db4e4babe94721fe24",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/planner-colcon-command.txt": "a1ef130e79ba5bf982fb5f26e66585ebbf5227e27fbb1516f88e3b0380e8ef94",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/planner-overlay-smoke-repeat.log": "2fdacbd646ff1291ec50d530b80c9a743e46b458532b94bc98f4bb1ae2706088",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/planner-profile-test.log": "c57bdec5f19166a93690118c71d5c3ee68b3bfc2827da2e950a0cdc421d4bd4f",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/project-status.log": "1e41d5e96f372f8ee6aa89f66847b9e8e59e521828b816d9b924e1d6a04051a2",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-188/container-startup-permission-failure.log": "27b0e857a084246297998f5e2aee92e7833ec881b4000467a1f61eb57ccf2a6a",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/attempt-context.txt": "29d79e7ae09bbcc3690e47548215de3da98c34cb78dcc30863594d2df60071e6",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/vio-ego-flight-report.json": "a3a1f40415f3aeb81ab7732421948a6a383871ef8d0649fa6d91d6d5be2f65f5",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/vio-truth-capture/summary.json": "d2452ece2f30dd6929c0fc84f0093f0dcdb6863feba0d3a39fcf9c6ea57c62ba",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/vio-truth-capture-exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/px4.log": "fc35e2f15e458093d02b2c56e07c6735aee58a86d758e63460f884d58b4f75c7",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/vio-launch.log": "05df2e5e3062c8ac3002801d259ead3eda2c2288d996e1c6724dad62afc3e4fc",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/run-px4-vio-ego-flight.sh": "67d83f659f1827aad02c79a5e6950a24ebe29f7f0998cea0d1539c60e658441f",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/run_vio_ego_flight.py": "d794e853ae7dc93ba3b77d75b7b41757d5fbace78040063e13a4f438ec1bb3ac",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/vio_closed_loop_smoke_goal.json": "9caaac5975e6c3510b90b6731a8fb0e794b2c198faa4d89213ed9712cd521b82",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/localization-package-prefix.txt": "1cfdbc0b4f472071d414132ecd1c4350afea77f41ff43e0f153f04202cb5091c",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/px4-bridge-package-prefix.txt": "3226996b03301a08da66c950663bbc4aed0c93ee9dd7d3d3c16bfebfc0f71cfd",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189-stack/launch-manifest.json": "98879ebe0842ecd856892bfcde5d1d3014260d272525ec9ad908935160c80fef",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/px4_sitl_default/log/2026-10-19/14_06_59.ulg": "59b67542f27509db3c0c8206a7b2e06a147bc5d58ab3347bd8c1d541ff0710a6",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/planner-colcon-build.log": "9ce10517396e431ac599c85673279ec976c1077f2903c8db4e4babe94721fe24",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/planner-colcon-command.txt": "a1ef130e79ba5bf982fb5f26e66585ebbf5227e27fbb1516f88e3b0380e8ef94",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/planner-overlay-smoke-repeat.log": "2fdacbd646ff1291ec50d530b80c9a743e46b458532b94bc98f4bb1ae2706088",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/attempt-context.txt": "dbed3983d2ecad5cd6605b1cc9ea80776bb18df6cb491fcd4b392456ae9bdc1a",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/vio-ego-flight-report.json": "64d0e224e86b7322e8e67e38c3d436f9e117ec35bc8ff3cdce76a7f228605f72",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/vio-truth-capture/summary.json": "88216e87087cbceee96f9baf98659ed42494bf6a2af4a2119d4c4899e3edb9f2",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/vio-truth-capture-exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/px4.log": "dde22e6869b0ffb4f98d853ba79b604ffbdf42f69e8dbc0e4045cfa7342c6253",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/vio-launch.log": "73accecc2a63fb17e01910f03652187b6a1dd32203d1c72a5de0c90161538d7f",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/run-px4-vio-ego-flight.sh": "1089b412ecac59ea23aa01e40a2290b7810f6da0e421f92f07eeba9d1142c623",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/run_vio_ego_flight.py": "5ff147034cc5ec0d8712433b00ab9163d6fee0507ebee6b94e69c28507f67001",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/vio_closed_loop_smoke_goal.json": "9caaac5975e6c3510b90b6731a8fb0e794b2c198faa4d89213ed9712cd521b82",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/localization-package-prefix.txt": "31c199899e32bf393b5cd50ffba3d77d880ab40c8cfac3b9e052cffe3ee5ad4e",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/px4-bridge-package-prefix.txt": "5a23b836c031ff7b684f1c983f7865983853d6d2b5f20d8856f570248ef69e07",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190-stack/launch-manifest.json": "3855da2d215d51b47c548d8b6a3f9cfbc7546aaa60da17aca486c58fd79e943e",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/px4_sitl_default/log/2026-10-19/14_10_36.ulg": "ae1711e629afe72207f6636a66fe85ee2cac9320777d94db1fa500af0019e49b",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/planner-colcon-build.log": "9ce10517396e431ac599c85673279ec976c1077f2903c8db4e4babe94721fe24",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/planner-colcon-command.txt": "a1ef130e79ba5bf982fb5f26e66585ebbf5227e27fbb1516f88e3b0380e8ef94",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/planner-overlay-smoke-repeat.log": "2fdacbd646ff1291ec50d530b80c9a743e46b458532b94bc98f4bb1ae2706088",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/localization-diagnostic.patch": "0de8e3e40837b62eafd45dd42f98cd75a4362d9d15b57e3a61bcecb0f712335f"
+    }
+  }
+}

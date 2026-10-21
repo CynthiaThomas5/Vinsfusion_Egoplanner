@@ -1,0 +1,253 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "run_id": "p5-px4-vio-ego-hover-20261019-181",
+  "classification": "diagnostic_only_not_stage_acceptance",
+  "scope": "Matched single-D435i SITL no-goal hover under the canonical vio_closed_loop profile. The run-local VINS overlay records stereo callback-to-pair queue age, feature-tracker duration, and one grouped Ceres cost-evaluation duration. Debug truth is evaluator-only.",
+  "source": {
+    "repository": "VINS-Fusion-ROS2",
+    "revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "canonical_source_baseline_sha256_file": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/source-baseline-sha256.json",
+    "canonical_source_baseline_sha256_file_hash": "379a0d371dca5e212c932218cf22fee408c16a3034aa057181055e05ce8ef09d",
+    "run_local_source_sha256_file": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/run-source-sha256.json",
+    "run_local_source_sha256_file_hash": "b39191cc765d41b8327461283f1b3780fdf3d3fdcfe61afd4a0c817439e6afdc",
+    "run_local_patch": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/run-local-image-cost-timing.patch",
+    "run_local_patch_sha256": "b27bfa6b357eea06037eb9466b2185019ad1ea2be7dc1f4d10903bd218c05ec5",
+    "canonical_estimator_cpp_sha256": "15adf0b2f3a0e8f1a2f506e2b6480e41c860aeb0c05ce37dc63e9bb0175ec3ad",
+    "canonical_ros_node_cpp_sha256": "674df2fcd02df0fa98f3fb01432ce8ee34132800cc36f274392bc8043c17f8db",
+    "run_local_estimator_cpp_sha256": "0a6863a66cb8d5608fb23cf85c75e6fe17b2fdf3b8b16969ab4596747bac899b",
+    "run_local_ros_node_cpp_sha256": "fc212b343fb0d1dc77328dae7c484491774e395f655868fe0d1a8c0f37529ec1",
+    "build_image": "d435i-vins:dev",
+    "build_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "build_command": "colcon build --base-paths artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/source/camera_models artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/source/vins --build-base artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/build --install-base artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install --merge-install --parallel-workers 1",
+    "build_result": {
+      "exit_code": 0,
+      "packages_finished": 2
+    },
+    "runtime_package_prefix": "/workspace/artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install",
+    "runtime_binary": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install/lib/vins/vins_node",
+    "runtime_binary_sha256": "1ba7f8bfd017d6b795a183da2930fd749755f89ed6165ac3d36a71a2ee794024",
+    "canonical_source_modified": false
+  },
+  "run": {
+    "profile": "vio_closed_loop",
+    "ros_domain_id": 230,
+    "gazebo_partition": "d435i_p5_vio_ego_hover_181",
+    "epoch": "94be869840ca4227b287d7715e8d38ef",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "px4_build_source": "artifacts/runs/p0-px4-sitl-build-20261016-02/build/px4_sitl_default",
+    "probe_mode": "Enable Offboard through uav_px4_bridge, hold without a navigation action goal for 20 seconds, then request bridge disable/land.",
+    "navigation_action_goal_sent": false,
+    "diagnostic_cost_groups_enabled": true,
+    "health_threshold_changed": false,
+    "px4_control_owner": "uav_px4_bridge"
+  },
+  "hover": {
+    "probe_result": "PASS_for_requested_20_second_dwell",
+    "preconditions_ready": true,
+    "takeoff_active_observed": true,
+    "hover_start_wall_elapsed_s": 18.143237995999698,
+    "hover_end_wall_elapsed_s": 38.15449051399992,
+    "hover_duration_wall_s": 20.01125251800022,
+    "quality_abort_during_dwell": false,
+    "hover_normalized_cost": {
+      "samples": 206,
+      "median": 0.5184514247650578,
+      "p95": 0.5369685974650479,
+      "max": 0.5444168916490651
+    },
+    "px4_local_position_during_dwell": {
+      "samples": 676,
+      "x_range_m": [-0.00872267410159111, 0.0017837460618466139],
+      "y_range_m": [-0.17643244564533234, -0.1261085718870163],
+      "z_range_m": [-0.8196791410446167, -0.7007536888122559],
+      "maximum_speed_m_s": 0.05204271527691242
+    },
+    "fixed_run_start_se3_alignment_hold_subset": {
+      "samples": 206,
+      "position_error_rmse_m": 0.00724801647788373,
+      "position_error_median_m": 0.00546527016700455,
+      "position_error_p95_m": 0.012294433874343773,
+      "position_error_max_m": 0.013835201148751301,
+      "orientation_error_median_deg": 0.24674366713614507,
+      "orientation_error_p95_deg": 0.31219899306459437,
+      "alignment_anchor": "first paired pose in the complete probe window; one rigid SE(3), fixed scale, no segment realignment"
+    },
+    "position_command_history_count": 0,
+    "reported_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/position_cmd": 1
+    }
+  },
+  "image_and_feature_timing": {
+    "scope": "Samples whose source stamps fall between the nearest VINS quality samples at hover start/end; timings are callback-to-pair queue age and trackImage duration, not end-to-end camera latency.",
+    "source_stamp_window_ns": [33036000000, 46564000000],
+    "stereo_pairs": 411,
+    "left_right_stamp_skew_ms": {
+      "median": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "left_callback_to_pair_age_ms": {
+      "median": 19.501,
+      "p95": 23.908,
+      "max": 28.812
+    },
+    "right_callback_to_pair_age_ms": {
+      "median": 0.951,
+      "p95": 1.941,
+      "max": 2.055
+    },
+    "feature_tracker_duration_ms": {
+      "samples": 411,
+      "median": 7.58,
+      "p95": 9.062,
+      "max": 11.302
+    },
+    "additional_full_resolution_image_subscriber": false
+  },
+  "first_quality_gate_crossing": {
+    "source_stamp_ns": 48280000000,
+    "wall_elapsed_s": 40.660731107000174,
+    "seconds_after_hover_end_wall": 2.5062405930002537,
+    "bridge_phase_at_crossing": "LANDING",
+    "normalized_cost": 1.0164064296927133,
+    "previous_sample": {
+      "stamp_ns": 48216000000,
+      "normalized_cost": 0.6710649681472787,
+      "final_cost": 392.6861829657711,
+      "residual_components": 1744,
+      "visual_observations": 396
+    },
+    "crossing_sample": {
+      "final_cost": 900.8475304396405,
+      "residual_components": 1744,
+      "visual_observations": 396,
+      "evaluation_ms": 0.189506,
+      "evaluation_ok": true,
+      "grouped_cost_sum": 900.8475304396407,
+      "grouped_cost_error": 1.1368683772161603e-13,
+      "grouped_residual_components": 1744,
+      "groups": {
+        "visual": {
+          "cost": 555.3570118271765,
+          "share": 0.6164828043166702,
+          "residual_components": 1512
+        },
+        "marginalization": {
+          "cost": 343.0000102053266,
+          "share": 0.3807525675714872,
+          "residual_components": 82
+        },
+        "imu": {
+          "cost": 2.490508407137575,
+          "share": 0.00276462811184278,
+          "residual_components": 150
+        }
+      }
+    },
+    "localization_status_gate_wall_elapsed_s": 40.67523276599968,
+    "bridge_phase_reason_changed_to_normalized_cost_exceeded_wall_elapsed_s": 40.69477028500023,
+    "bridge_landed_disarmed": true,
+    "no_quality_recovery_within_followup_2s": true,
+    "aligned_position_error_at_crossing_m": 0.0675141433291738,
+    "first_aligned_position_error_above_0_30m": {
+      "source_stamp_ns": 48676000000,
+      "normalized_cost": 3.705492773421226,
+      "position_error_m": 0.3314807939049181,
+      "delay_from_cost_crossing_sim_s": 0.396
+    }
+  },
+  "truth_isolation": {
+    "scope": "Read-only diagnostic capture; Gazebo truth is an evaluator input only, never a navigation or control input.",
+    "wall_seconds": 90.01162955899963,
+    "truth_samples": 3021,
+    "imu_samples": 12210,
+    "optimized_telemetry_samples": 924,
+    "all_output_finite": true,
+    "parse_errors": [],
+    "truth_topic_single_subscriber": "raw_vins_readonly_probe",
+    "px4_bridge_debug_truth_subscription": false,
+    "capture_evaluation_full_probe_window": {
+      "paired_samples": 476,
+      "position_error_rmse_m": 0.5856136307228083,
+      "position_error_p95_m": 1.7151506675654313,
+      "position_error_max_m": 2.7664544641291817,
+      "normalized_cost_position_error_pearson_r": 0.7595272234560041,
+      "interpretation": "Evaluator-only single-run temporal association over takeoff, hover, landing, and post-gate degradation; not formal acceptance or causal evidence."
+    }
+  },
+  "comparison_to_run_180": {
+    "run_180_first_gate": {
+      "source_stamp_ns": 34256000000,
+      "normalized_cost": 1.0370627910391197,
+      "final_cost": 998.0632878136837,
+      "residual_components": 1856,
+      "visual_observations": 428,
+      "cost_shares": {
+        "visual": 0.8859570545320754,
+        "marginalization": 0.11377991294013781,
+        "imu": 0.0002630325277850499
+      }
+    },
+    "interpretation_limit": "Run 180 had a lateral/yaw goal; run 181 had a 20-second no-goal dwell and the first gate occurred after hover, during landing. This pair does not isolate causality or establish a general threshold."
+  },
+  "outcome": {
+    "navigation_goal_dispatched": false,
+    "hover_dwell_completed": true,
+    "bridge_final_phase": "LANDED",
+    "bridge_final_reason": "normalized_cost_exceeded",
+    "landed_and_disarmed": true,
+    "vehicle_failsafe": false,
+    "vehicle_final_arming_state": 1,
+    "flight_report_result": "PASS",
+    "classification": "successful_requested_hover_dwell_followed_by_quality_gate_during_landing; not navigation acceptance"
+  },
+  "limitations": [
+    "One hover run cannot identify why prior target runs crossed the quality threshold; the observed crossing here happened after the commanded hover dwell while already landing.",
+    "The one-shot Ceres component evaluation time is a single-sample measurement and does not quantify general runtime overhead.",
+    "Queue age is measured from image callback receipt to stereo pair formation, and feature time covers trackImage; neither is full sensor-to-estimator latency.",
+    "The full-probe truth comparison includes takeoff, landing, and post-gate degradation, so its aggregate error is not a hover-only accuracy measure.",
+    "No navigation goal, obstacle-clearance course, map snapshot acceptance, repeated cold-start matrix, long-duration run, or real-hardware run was performed. P5 and GOAL A-H remain incomplete."
+  ],
+  "artifacts": {
+    "run_directory": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181",
+    "build_directory": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181",
+    "hover_report": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-ego-flight-report.json",
+    "truth_capture_summary": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-truth-capture/summary.json",
+    "truth_capture_telemetry": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-truth-capture/telemetry.json",
+    "truth_motion": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-truth-capture/truth-motion.json",
+    "quality_error_evaluation": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-quality-error-evaluation.json",
+    "vio_launch_log": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-launch.log",
+    "px4_log": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/px4.log",
+    "px4_ulog": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/px4_sitl_default/log/2026-10-19/12_57_40.ulg",
+    "bridge_graph": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/px4-bridge-node-info.txt",
+    "truth_graph": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/truth-evaluator-topic-info.txt",
+    "truth_input_graph_check": "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/truth-input-graph-check.txt"
+  },
+  "sha256": {
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install/lib/vins/vins_node": "1ba7f8bfd017d6b795a183da2930fd749755f89ed6165ac3d36a71a2ee794024",
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/run-local-image-cost-timing.patch": "b27bfa6b357eea06037eb9466b2185019ad1ea2be7dc1f4d10903bd218c05ec5",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/launch-diagnostic-run.sh": "9f3e4ff5dc484e20344e52bab5ea0e298684a99d49e12510a50f0a5476e743c5",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/run-px4-vio-ego-flight.sh": "14191ec51e0de952ba3b39ee5621930c0cafbc9044313324c661a2f1c6271656",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/run_vio_hover.py": "81fe5d80ad6db9ebb62d53140978e7c746a36b348fa371d002fae4956af63146",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio_closed_loop_smoke_goal.json": "09c3f77fbdaa4cb290c52ef08e3f59027e6974945cb0be0eed14c0a9b63ecd10",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vins-diagnostic-mode.txt": "eadd91373c020f590a84a906b584952eedc31889c64934aa556ef57d2b4a4339",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-ego-flight-report.json": "fa3b6cb7ec4ae16fbdc72f6c3470296f931936810d93f501861d76c8ec0764aa",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-truth-capture/summary.json": "16eee9440221605a3ec898768c52bc6b7e72761190f477aa362a537db9ce1b17",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-truth-capture/telemetry.json": "3e81828206431dd67bb688285d9fa4a8fecef0872f6a10641a657ae50caccc2f",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-truth-capture/truth-motion.json": "c33ed04253817ed467a46c35da597e8e50fe1c2287b960c35f3b6250eb172ae3",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-quality-error-evaluation.json": "045db5ef2e8eaf67cb5ed1002fc87a849f78de314cdb1ac1617ba65403182b5f",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/vio-launch.log": "d5eebc44c0f31ba73a59a4ddf0befc38e2e268d235ef3401e9c77339b8e798bc",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/px4_sitl_default/bin/px4": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/px4_sitl_default/log/2026-10-19/12_57_40.ulg": "4ac1a2265e70243ca32cb95ac6c3bc55fa26f5fe8b999d8aac10b3bfa5ede323",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/px4-bridge-node-info.txt": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/truth-evaluator-topic-info.txt": "087990ee2bac187e293d05c6fc80003822047b1d06542f55a95e2f5f57dc2e8f",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-181/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/source-baseline-sha256.json": "379a0d371dca5e212c932218cf22fee408c16a3034aa057181055e05ce8ef09d",
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/run-source-sha256.json": "b39191cc765d41b8327461283f1b3780fdf3d3fdcfe61afd4a0c817439e6afdc"
+  }
+}

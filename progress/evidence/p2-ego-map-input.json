@@ -1,0 +1,238 @@
+{
+  "scope": "P2 mapping-input adapter and EGO plan_env synthetic integration smoke; partial runtime evidence only",
+  "date": "2026-10-16",
+  "status": "PASS_SYNTHETIC_ROS_INTEGRATION_ONLY",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 126,
+    "run_directory": "artifacts/runs/p2-map-input-build-20261016-01",
+    "source_revision": "EGO ros2_version 23a8d5a191711dd65633df689bd00f55d4dea8f9 plus project patches; uncommitted workspace",
+    "runtime_scope": "EGO advanced_param.launch.py, depth_health_monitor, mapping_input_adapter, and a synthetic ROS probe; no Gazebo or PX4 nodes launched"
+  },
+  "implementation": {
+    "adapter": "src/own/uav_mapping/uav_mapping/adapter.py",
+    "configuration": "config/components/mapping/ego_input.json",
+    "depth_health_configuration": "config/components/mapping/depth_gate.json",
+    "ego_patch": "dependencies/patches/ego/0004-mapping-input-safety.patch",
+    "ego_patch_sha256": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+    "patch_application": "Applied after EGO patches 0001-0003 to pinned upstream commit; reconstructed post-0003 application and compared changed files.",
+    "behavior": [
+      "Checks depth health and localization status before accepting current depth frames.",
+      "Interpolates optimized IMU-frame odometry at each depth source stamp without extrapolation and applies model-derived IMU-to-depth optical extrinsics.",
+      "Waits for /mapping/reset_map acknowledgement before publishing paired depth and camera pose to the existing EGO plan_env mapper.",
+      "Requests a fresh map_id and clears pending inputs when the localization epoch changes or an active map is invalidated.",
+      "The EGO patch resets occupancy and raycast state and skips zero-valued depth pixels rather than marking them as free rays."
+    ],
+    "provisional_policy": "Interpolation bracket, status receipt age, pending limits, and valid-pixel sampling thresholds remain PROVISIONAL."
+  },
+  "build": {
+    "workspace_directories": {
+      "build": "artifacts/runs/p2-map-input-build-20261016-01/build",
+      "install": "artifacts/runs/p2-map-input-build-20261016-01/install",
+      "log": "artifacts/runs/p2-map-input-build-20261016-01/log",
+      "qualification": "Initially empty run-specific build/install directories; full source discovery restricted to --base-paths src."
+    },
+    "package_set": [
+      "bspline_opt",
+      "camera_models",
+      "ego_planner",
+      "global_fusion",
+      "loop_fusion",
+      "microxrcedds_agent",
+      "path_searching",
+      "plan_env",
+      "px4_msgs",
+      "spdlog",
+      "traj_utils",
+      "uav_interfaces",
+      "uav_localization",
+      "uav_mapping",
+      "uav_sim",
+      "vins"
+    ],
+    "attempts": [
+      {
+        "id": "initial_full_build",
+        "status": "FAILED_AND_REPAIRED",
+        "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p2-map-input-build-20261016-01/log build --base-paths src --build-base artifacts/runs/p2-map-input-build-20261016-01/build --install-base artifacts/runs/p2-map-input-build-20261016-01/install --executor sequential --parallel-workers 1 --event-handlers console_direct+",
+        "event_result": {
+          "packages_ended": 14,
+          "packages_succeeded": 13,
+          "failed_packages": [
+            {
+              "name": "path_searching",
+              "exit_code": 2
+            }
+          ]
+        },
+        "reason": "path_searching could not include the generated ResetMapping service header leaked from the public plan_env GridMap header. The service include and callback were moved into grid_map.cpp; the public header now exposes only rclcpp ServiceBase.",
+        "events_log": "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-43-26/events.log",
+        "full_colcon_log": "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-43-26/logger_all.log"
+      },
+      {
+        "id": "full_build_after_header_fix",
+        "status": "PASS",
+        "command": "same full workspace command and run-specific build/install directories as initial_full_build",
+        "event_result": {
+          "packages_ended": 16,
+          "packages_succeeded": 16,
+          "failed_packages": []
+        },
+        "elapsed_seconds": 133.864,
+        "events_log": "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-57-27/events.log",
+        "full_colcon_log": "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-57-27/logger_all.log"
+      },
+      {
+        "id": "adapter_guard_followup",
+        "status": "PASS",
+        "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p2-map-input-build-20261016-01/log build --base-paths src --packages-up-to uav_mapping --build-base artifacts/runs/p2-map-input-build-20261016-01/build --install-base artifacts/runs/p2-map-input-build-20261016-01/install",
+        "event_result": {
+          "packages_ended": 3,
+          "packages_succeeded": 3,
+          "failed_packages": []
+        },
+        "elapsed_seconds": 2.05,
+        "reason": "Rebuilt the latest adapter readiness guard and its two source dependencies after the 16-package full build.",
+        "events_log": "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_14-07-36/events.log",
+        "full_colcon_log": "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_14-07-36/logger_all.log"
+      }
+    ]
+  },
+  "unit_checks": {
+    "commands": [
+      "python3 tools/test_mapping_input.py",
+      "python3 tools/test_depth_gate.py",
+      "python3 -m py_compile src/own/uav_mapping/uav_mapping/adapter.py src/own/uav_mapping/uav_mapping/mapping_input.py tools/probe_mapping_adapter.py",
+      "python3 tools/project_status.py"
+    ],
+    "results": [
+      "4 mapping-input tests passed",
+      "4 depth-gate tests passed",
+      "py_compile passed",
+      "project structure check passed"
+    ]
+  },
+  "synthetic_ros_smoke": {
+    "launches": [
+      "ros2 launch ego_planner advanced_param.launch.py",
+      "ros2 run uav_mapping depth_health_monitor --ros-args -p project_root:=/workspace",
+      "ros2 run uav_mapping mapping_input_adapter --ros-args -p project_root:=/workspace"
+    ],
+    "probe_command": "timeout 20s python3 tools/probe_mapping_adapter.py --output artifacts/runs/p2-map-input-build-20261016-01/mapping-smoke.json",
+    "result": {
+      "epoch": "f56c92bcf1d84043a4f955ea056026d3",
+      "elapsed_wall_s": 1.696,
+      "depth_health_ready_observed": true,
+      "depth_outputs": 5,
+      "pose_outputs": 7,
+      "paired_output_stamp_count": 5,
+      "paired_output_stamps": [
+        [
+          20,
+          400000000
+        ],
+        [
+          20,
+          500000000
+        ],
+        [
+          20,
+          700000000
+        ],
+        [
+          20,
+          800000000
+        ],
+        [
+          20,
+          900000000
+        ]
+      ],
+      "last_pose_frame": "odom_f56c92bcf1d84043a4f955ea056026d3",
+      "map_messages": 18,
+      "map_point_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_occupied_points": 4,
+      "gate_invalidated_after_mapping": true,
+      "outputs_at_invalidation": [
+        5,
+        7
+      ],
+      "outputs_after_invalidation": [
+        5,
+        7
+      ],
+      "empty_map_after_invalidation": true,
+      "qualification": "synthetic ROS integration smoke only; no physical geometry, planner response, or PX4 qualification"
+    },
+    "observations": [
+      "The probe found 5 exact shared depth/pose source stamps and frame odom_<epoch>.",
+      "plan_env emitted a map with 4 occupied points from sparse synthetic 32FC1 depth.",
+      "After an invalid localization status, plan_env emitted an empty occupancy map; the probe continued publishing depth and observed no further depth or pose outputs.",
+      "The reset service acknowledgement and map clear are also recorded in the adapter and EGO launch logs."
+    ],
+    "artifacts": {
+      "probe_report": "artifacts/runs/p2-map-input-build-20261016-01/mapping-smoke.json",
+      "ego_log": "artifacts/runs/p2-map-input-build-20261016-01/ego-smoke.log",
+      "depth_health_log": "artifacts/runs/p2-map-input-build-20261016-01/depth-monitor-smoke.log",
+      "mapping_adapter_log": "artifacts/runs/p2-map-input-build-20261016-01/mapping-adapter-smoke.log"
+    }
+  },
+  "artifact_sha256": {
+    "dependencies/patches/ego/0004-mapping-input-safety.patch": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "b0d28c97a0407067782b81ea3c8da3e89ca99708bfbf5c4754783b03336f1f36",
+    "tools/probe_mapping_adapter.py": "583355226e6488857c79fce02db556b77e75e9f59498c883275e39657c074faa",
+    "config/components/mapping/ego_input.json": "a9c6291020ea16c248c502bf328e9bfc5907ec87de4be4eb43108bb158827dd9",
+    "config/components/mapping/depth_gate.json": "590db91cbda0de2cd3419c208c75373d6cb19a53322d19ad0838d28fc4b16017",
+    "artifacts/runs/p2-map-input-build-20261016-01/mapping-smoke.json": "47c672448714bfa032aba27b7598738c1b5aab643e00930b39e336064105b80d",
+    "artifacts/runs/p2-map-input-build-20261016-01/ego-smoke.log": "7befe8af42dce7ca66f8a8228702527019c17bb67fcf0dfacf6655418b590b4d",
+    "artifacts/runs/p2-map-input-build-20261016-01/depth-monitor-smoke.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-map-input-build-20261016-01/mapping-adapter-smoke.log": "e1660f9431343c3b8c2bd54bd8dbb30b5cdf74423566625441a9495fad49cd0b",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-43-26/events.log": "0bb599cbacfc165b1738bd96d6384115d1866cde3842509bd50bd29b70755444",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-43-26/logger_all.log": "759afcfa3170adbe8e1e4cc09b340ac41808a0b1cdf8ccbe157b61046e056fbe",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-57-27/events.log": "e020623a5eb1fa1b31a7aa14080f4e547a167e456d8fff44c2144fbde081742f",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_13-57-27/logger_all.log": "957f828c167604c47fa7e3f16532e7fb6203f637ab7d817f4bad4bec49122db4",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_14-07-36/events.log": "692078586bc4721601db6af619a87473529a085bd942ab717d7e6e24e5bc15dc",
+    "artifacts/runs/p2-map-input-build-20261016-01/log/build_2026-10-16_14-07-36/logger_all.log": "589e2107bb2dad1ee502dd4cb0c9e817e21a3a3d4bb4b7482701005049cd86ad"
+  },
+  "debug_history": [
+    "An early synthetic probe used volatile durability for /localization/status and received no adapter output; the probe publisher was corrected to reliable transient-local QoS before the reported run.",
+    "The first full build failure is retained as a repaired attempt and is excluded from the successful build result."
+  ],
+  "qualification": {
+    "static_build": "PASS: all 16 workspace packages, followed by a successful rebuild of uav_interfaces, uav_sim, and uav_mapping after the last adapter code change.",
+    "unit_tests": "PASS: 8 focused tests across mapping-input interpolation/depth checks and depth-health gate.",
+    "synthetic_mapping_input_and_reset": "PASS: paired source stamps, occupancy output, and clear-on-invalid-localization behavior observed.",
+    "real_vins_or_d435i_input": "NOT_RUN",
+    "moving_geometry_accuracy_or_map_ghosting": "NOT_RUN",
+    "stale_depth_or_epoch_restart_replay_through_plan_env": "NOT_RUN",
+    "planner_stop_or_navigation_response": "NOT_RUN",
+    "map_snapshot_metadata_and_readback": "NOT_IMPLEMENTED",
+    "px4_sitl_or_flight": "NOT_RUN",
+    "limitations": [
+      "Synthetic probe does not validate camera calibration against moving geometry or prove obstacle-clearance quality.",
+      "Four occupied points validate data reaches the existing mapper; they do not validate free/unknown classification, map completeness, inflation, or planner use.",
+      "The invalid-status case is one integration smoke, not the repeated fault-injection requirement in GOAL.md.",
+      "No PX4 or control node was started; no planner response, snapshot, VINS replay, SITL, or hardware claim is made."
+    ]
+  }
+}

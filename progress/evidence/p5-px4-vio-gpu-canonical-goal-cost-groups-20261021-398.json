@@ -1,0 +1,418 @@
+{
+  "date": "2026-10-21",
+  "run_id": "p5-vio-px4-gpu-canonical-goal-cost-groups-20261021-398",
+  "classification": "VALID_RUN_LOCAL_CERES_GROUP_COST_DIAGNOSTIC; ACTION_ABORTED_BY_EXISTING_QUALITY_GATE; P5_NOT_PASSED",
+  "qualification": "Run-local first-crossing Ceres cost-group diagnostic on the canonical-config zero-relative-motion goal; not P5 acceptance.",
+  "run_analysis": "artifacts/runs/p5-vio-px4-gpu-canonical-goal-cost-groups-20261021-398/run-analysis.json",
+  "run_analysis_sha256": "b7b03ce9126befc69427ea93c4866c0058cf579019c046d7461611a712b0a631",
+  "run_manifest": "artifacts/runs/p5-vio-px4-gpu-canonical-goal-cost-groups-20261021-398/run-manifest.json",
+  "run_manifest_sha256": "655461060e75b81b06c42a0522096d00f295a2204fdc61617a76ef78815d4096",
+  "runtime": {
+    "result": "FAIL",
+    "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+    "preconditions_ready": true,
+    "px4_telemetry_stability_passed": true,
+    "px4_telemetry_stability_required_s": 5.0,
+    "localization_tracking_stability_passed": true,
+    "action_goal_sent": true,
+    "goal_sent_wall_elapsed_s": 21.224952466000104,
+    "goal": {
+      "frame": "odom_45b8c677f6d0498588355ba60d6aa8aa",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        -0.007432492569580439,
+        0.006680154108393021,
+        0.8922718932076428
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": -0.0009006186322783565,
+      "yaw_offset_rad": 0.0,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "action_result": {
+      "final_position": [
+        0.008951126065311947,
+        0.004902704099262828,
+        0.8583625820206844
+      ],
+      "outcome": "aborted",
+      "reason": "localization_normalized_cost_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "action_success": false,
+    "localization_first_invalid_status": {
+      "accepted_optimized": 299,
+      "accepted_propagated": 3947,
+      "epoch": "45b8c677f6d0498588355ba60d6aa8aa",
+      "good_pairs": 308,
+      "normalized_cost": 1.0253957227709198,
+      "reason": "normalized_cost_exceeded",
+      "source_stamp_ns": 28492000000,
+      "stamp_ns": 28528000000,
+      "state": 4,
+      "valid": false,
+      "wall_elapsed_s": 24.225645138998516
+    },
+    "matching_ready_trajectory_samples": 298,
+    "position_command_count": 299,
+    "map_point_count_max": 1896,
+    "takeoff_active_observed": true,
+    "landed_and_disarmed": true,
+    "latest_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "normalized_cost_exceeded"
+    },
+    "latest_localization_status": {
+      "accepted_optimized": 299,
+      "accepted_propagated": 3947,
+      "epoch": "45b8c677f6d0498588355ba60d6aa8aa",
+      "reason": "normalized_cost_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "latest_vehicle_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false,
+      "timestamp": 34180000
+    },
+    "bridge_phases": [
+      [
+        "DISABLED",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "PRESTREAM",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_OFFBOARD",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_ARM",
+        "requesting_arm",
+        false,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        false
+      ],
+      [
+        "ACTIVE",
+        "takeoff_complete_waiting_for_trajectory",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "normalized_cost_exceeded",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "normalized_cost_exceeded",
+        true,
+        true
+      ],
+      [
+        "LANDED",
+        "normalized_cost_exceeded",
+        false,
+        true
+      ]
+    ],
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "localization_not_tracking"
+      }
+    ],
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "vins_telemetry_samples": 318,
+    "localization_status_samples": 628
+  },
+  "capture": {
+    "trace_rows": 6953,
+    "trace_rows_by_source": {
+      "clock": 6821,
+      "estimator_flags": 32,
+      "land_detected": 39,
+      "vehicle_status": 61
+    },
+    "trace_sha256": "09d7720c29421ec81447204e7f298621043dd3add9faaac5542b87874bfd02c9",
+    "clock_regressions": 0,
+    "duplicate_clock_samples": 0,
+    "observed_rtf": 0.6614911097257254,
+    "sim_span_s": 27.456,
+    "wall_span_s": 41.50622676,
+    "fit_ring": {
+      "max_samples": 64,
+      "full_64_fit_count": 6758,
+      "full_64_out_of_bounds_count": 0,
+      "wall_per_sim_bounds": [
+        0.1,
+        10.0
+      ],
+      "full_64_wall_per_sim_s": {
+        "min": 1.1669364246031746,
+        "median": 1.4665391706349207,
+        "p95": 1.7936953214285716,
+        "max": 2.563449384920635
+      }
+    }
+  },
+  "vins_diagnostic": {
+    "source_repository": "VINS-Fusion-ROS2",
+    "source_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "source_file": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/source/vins/src/estimator/estimator.cpp",
+    "source_sha256": "0a6863a66cb8d5608fb23cf85c75e6fe17b2fdf3b8b16969ab4596747bac899b",
+    "optional_patch": "dependencies/patches/vins/0005-diagnostic-cost-components.patch",
+    "patch_sha256": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72",
+    "binary": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install/lib/vins/vins_node",
+    "binary_sha256": "1ba7f8bfd017d6b795a183da2930fd749755f89ed6165ac3d36a71a2ee794024",
+    "environment": "VINS_DIAGNOSTIC_COST_GROUPS=1",
+    "run_local_rebuild_in_398": false,
+    "raw_observer": "artifacts/runs/p5-vio-px4-gpu-canonical-goal-cost-groups-20261021-398/capture_raw_vins_telemetry.py",
+    "topic": "/vins_raw/s_45b8c677f6d0498588355ba60d6aa8aa/estimator_telemetry",
+    "telemetry_sample_count": 405,
+    "diagnostic_group_sample_count": 1,
+    "first_normalized_cost_crossing": {
+      "stamp_ns": 28448000000,
+      "normalized_cost": 1.0253957227709198,
+      "final_cost": 588.8043774350624,
+      "residual_components": 1120,
+      "input_features": 62,
+      "stereo_features": 53,
+      "continued_tracks": 43,
+      "long_tracks": 30,
+      "visual_observations": 241,
+      "iterations": 9,
+      "solver_usable": true,
+      "state_finite": true,
+      "previous_sample": {
+        "stamp_ns": 28384000000,
+        "normalized_cost": 0.9302483763965367,
+        "final_cost": 449.1228996881757,
+        "residual_components": 1038,
+        "input_features": 56,
+        "stereo_features": 51,
+        "continued_tracks": 45
+      },
+      "next_sample": {
+        "stamp_ns": 28515999999,
+        "normalized_cost": 1.0894182896982636,
+        "final_cost": 707.3519971177375,
+        "residual_components": 1192,
+        "input_features": 78,
+        "stereo_features": 67,
+        "continued_tracks": 49
+      },
+      "cost_components": {
+        "evaluation_ms": 0.176543,
+        "evaluation_ok": true,
+        "grouped_cost_error": 0,
+        "grouped_cost_sum": 588.8043774350624,
+        "grouped_residual_components": 1120,
+        "imu": {
+          "cost": 1.9436464621834209,
+          "residual_components": 150
+        },
+        "marginalization": {
+          "cost": 309.8324747477088,
+          "residual_components": 82
+        },
+        "visual": {
+          "cost": 277.0282562251702,
+          "residual_components": 888
+        }
+      },
+      "cost_shares": {
+        "marginalization": 0.5262061333466892,
+        "imu": 0.003301005455581519,
+        "visual": 0.47049286119772926
+      },
+      "grouped_cost_matches_final_cost": true,
+      "grouped_residual_components_match": true,
+      "diagnostic_evaluation_ms": 0.176543
+    },
+    "health_transition": {
+      "previous_valid_status": {
+        "accepted_optimized": 299,
+        "accepted_propagated": 3947,
+        "epoch": "45b8c677f6d0498588355ba60d6aa8aa",
+        "good_pairs": 308,
+        "normalized_cost": 0.9302483763965367,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 28492000000,
+        "stamp_ns": 28492000000,
+        "state": 1,
+        "valid": true,
+        "wall_elapsed_s": 24.175953716003278
+      },
+      "first_invalid_status": {
+        "accepted_optimized": 299,
+        "accepted_propagated": 3947,
+        "epoch": "45b8c677f6d0498588355ba60d6aa8aa",
+        "good_pairs": 308,
+        "normalized_cost": 1.0253957227709198,
+        "reason": "normalized_cost_exceeded",
+        "source_stamp_ns": 28492000000,
+        "stamp_ns": 28528000000,
+        "state": 4,
+        "valid": false,
+        "wall_elapsed_s": 24.225645138998516
+      },
+      "health_status_header_stamp_ns": 28528000000,
+      "health_status_source_stamp_ns": 28492000000,
+      "raw_vins_telemetry_stamp_ns": 28448000000,
+      "health_cost_equals_raw_cost": true
+    },
+    "raw_capture_summary": {
+      "group_sample_count": 1,
+      "kind": "capture_summary",
+      "receipt_monotonic_ns": 45892070242129,
+      "sample_count": 415,
+      "topic": "/vins_raw/s_45b8c677f6d0498588355ba60d6aa8aa/estimator_telemetry"
+    }
+  },
+  "container_gpu": {
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "device": "GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU (UUID: GPU-dcea8a0d-46b2-7ef8-e11b-025c00ddc830)",
+    "utilization_percent": {
+      "sample_count": 70,
+      "median": 23.0,
+      "p95": 46,
+      "max": 69
+    }
+  },
+  "px4_ulog": {
+    "path": "artifacts/runs/p5-vio-px4-gpu-canonical-goal-cost-groups-20261021-398/px4_sitl_default/log/2026-10-21/03_06_31.ulg",
+    "sha256": "c19009512d2fa2c6dcd68e82073db812ba66cfe75354a3b4c35031759b8de189",
+    "duration_s": 34.884,
+    "parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "estimator_status_flags": {
+      "cs_ev_pos": {
+        "true_samples": 22,
+        "total_samples": 39,
+        "first_true_timestamp_s": 9.192,
+        "last_true_timestamp_s": 28.332
+      },
+      "cs_ev_yaw": {
+        "true_samples": 22,
+        "total_samples": 39,
+        "first_true_timestamp_s": 9.192,
+        "last_true_timestamp_s": 28.332
+      },
+      "cs_ev_hgt": {
+        "true_samples": 22,
+        "total_samples": 39,
+        "first_true_timestamp_s": 9.192,
+        "last_true_timestamp_s": 28.332
+      },
+      "cs_ev_vel": {
+        "true_samples": 22,
+        "total_samples": 39,
+        "first_true_timestamp_s": 9.192,
+        "last_true_timestamp_s": 28.332
+      },
+      "cs_gnss_pos": {
+        "true_samples": 0,
+        "total_samples": 39,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null
+      },
+      "cs_gnss_vel": {
+        "true_samples": 0,
+        "total_samples": 39,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null
+      },
+      "cs_gnss_yaw": {
+        "true_samples": 0,
+        "total_samples": 39,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null
+      },
+      "cs_gps_hgt": {
+        "true_samples": 0,
+        "total_samples": 39,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null
+      }
+    },
+    "internal_groundtruth_dataset": {
+      "present": true,
+      "samples": 1439,
+      "used_by_project_nodes": false
+    },
+    "dropout_count": 0,
+    "vehicle_local_position_ned_z_m": {
+      "sample_count": 3593,
+      "minimum": -0.8234642744064331,
+      "maximum": 0.08729273080825806
+    }
+  },
+  "truth_and_control_isolation": {
+    "truth_input_started": false,
+    "debug_truth_ros_topic_present": false,
+    "bridge_debug_truth_subscription_present": false,
+    "internal_groundtruth_dataset_used_by_project_nodes": false,
+    "control_topics_single_publisher": true,
+    "bridge_is_only_px4_control_publisher": true
+  },
+  "static_checks": {
+    "six_own_packages_built": true,
+    "runtime_goal_harness_exit_code": 1,
+    "raw_telemetry_group_sum_matches": true,
+    "raw_telemetry_residual_count_matches": true
+  },
+  "limitations": [
+    "This run aborts on the existing normalized-cost health limit and is not a navigation success or P5 acceptance.",
+    "The exact crossing sample is dominated by marginalization cost (52.62%) with a substantial visual share (47.05%); the single sample does not identify the originating image, track, calibration, motion, or prior-state cause.",
+    "The raw telemetry sample stamp (28.448 s), propagated-odometry status source stamp (28.492 s), and first invalid status header stamp (28.528 s) are distinct clocks/events; the status source stamp is not the VINS telemetry stamp.",
+    "Only one Ceres group sample is available in this run because the optional diagnostic emits once at the first threshold crossing.",
+    "No obstacle route, displacement acceptance, truth-based VIO error measurement, or vehicle-clearance evaluation was performed."
+  ],
+  "next_step": "Repeat the same GPU zero-relative-motion goal with this read-only capture to assess whether the marginalization-heavy crossing recurs; keep canonical health/control settings unchanged."
+}

@@ -1,0 +1,301 @@
+{
+  "schema": "p2-visible-wall-roi-projection-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-visible-wall-roi-projection-20261020-298",
+  "scope": "Offline, same-layout comparison of #295 and #296 map wall samples projected into the D435i image frustum at each last-fused depth source timestamp.",
+  "qualification": "Exploratory coordinate/quantization diagnostic. It is not a frozen coverage or ghosting metric and does not change GOAL C status.",
+  "method": [
+    "Interpolate the recorded VINS body pose at each last_fused_depth_source_stamp_ns; compose the recorded body-to-depth transform and 640x480 pinhole intrinsics.",
+    "Project analytic calibration-wall front-face samples at x=3.0 m to bound the per-snapshot camera frustum on that plane. Select occupied centers assigned to the calibration wall whose same-y/z front-face sample lies in the current image rectangle.",
+    "Transform those occupied centers back through the existing single fixed-scale full-run SE(3) alignment to inspect their map-grid x centers. This is offline truth-based evaluation only; truth did not enter localization or mapping."
+  ],
+  "camera": {
+    "image_size_px": [
+      640,
+      480
+    ],
+    "fx_fy_px": [
+      337.20964008990796,
+      337.20964008990796
+    ],
+    "horizontal_vertical_fov_deg": [
+      87.0,
+      70.88069798464743
+    ],
+    "depth_clip_m": [
+      0.2,
+      10.0
+    ],
+    "calibration_source": "Run session left.yaml/vins.yaml; simulation/models/d435i/model.sdf gives the same 640x480 FOV, optical mount and 0.2–10 m clip for infra1 and depth."
+  },
+  "runs": [
+    {
+      "run_id": "p2-map-voxel-snapshot-service-20261020-295",
+      "alignment_rotation_angle_deg": 0.9592125949892529,
+      "alignment_yaw_component_deg": -0.5868802879408207,
+      "snapshots": [
+        {
+          "index": "01",
+          "depth_source_stamp_s": 9.637,
+          "source_time_wall_front_frustum_yz_bounds_m": {
+            "y_m": [
+              -2.05,
+              3.6500000000000004
+            ],
+            "z_m": [
+              -1.25,
+              3.5
+            ]
+          },
+          "source_time_frustum_wall_samples_5cm_grid": 9740,
+          "frustum_roi_occupied_centers": 1671,
+          "frustum_roi_aligned_world_x_median_m": 3.040709334042366,
+          "frustum_roi_map_frame_x_median_m": 3.050000000000004,
+          "frustum_roi_nearest_sdf_median_p95_m": [
+            0.04395145724247644,
+            0.07021610442382435
+          ],
+          "frustum_roi_centers_over_0_10m": 0,
+          "all_wall_sdf_outliers_over_0_10m": 0,
+          "outlier_map_frame_x_median_m": null,
+          "outlier_alignment_x_shift_median_p05_p95_m": null,
+          "outlier_nearest_sdf_median_p95_m": null,
+          "outlier_centers_projected_in_current_frame": 0,
+          "outlier_same_yz_front_face_projected_in_current_frame": 0,
+          "outlier_centers_projected_at_any_logged_pose_after_motion_command": 0
+        },
+        {
+          "index": "02",
+          "depth_source_stamp_s": 12.211,
+          "source_time_wall_front_frustum_yz_bounds_m": {
+            "y_m": [
+              -0.8499999999999996,
+              6.0
+            ],
+            "z_m": [
+              -2.15,
+              4.6000000000000005
+            ]
+          },
+          "source_time_frustum_wall_samples_5cm_grid": 13665,
+          "frustum_roi_occupied_centers": 1885,
+          "frustum_roi_aligned_world_x_median_m": 2.9836108391500957,
+          "frustum_roi_map_frame_x_median_m": 2.9500000000000046,
+          "frustum_roi_nearest_sdf_median_p95_m": [
+            0.03848600676083365,
+            0.05686679895828552
+          ],
+          "frustum_roi_centers_over_0_10m": 0,
+          "all_wall_sdf_outliers_over_0_10m": 0,
+          "outlier_map_frame_x_median_m": null,
+          "outlier_alignment_x_shift_median_p05_p95_m": null,
+          "outlier_nearest_sdf_median_p95_m": null,
+          "outlier_centers_projected_in_current_frame": 0,
+          "outlier_same_yz_front_face_projected_in_current_frame": 0,
+          "outlier_centers_projected_at_any_logged_pose_after_motion_command": 0
+        },
+        {
+          "index": "03",
+          "depth_source_stamp_s": 14.884,
+          "source_time_wall_front_frustum_yz_bounds_m": {
+            "y_m": [
+              -2.15,
+              3.5
+            ],
+            "z_m": [
+              -1.15,
+              3.3000000000000007
+            ]
+          },
+          "source_time_frustum_wall_samples_5cm_grid": 9568,
+          "frustum_roi_occupied_centers": 1628,
+          "frustum_roi_aligned_world_x_median_m": 3.0431878602605305,
+          "frustum_roi_map_frame_x_median_m": 3.050000000000004,
+          "frustum_roi_nearest_sdf_median_p95_m": [
+            0.043326286992879395,
+            0.06939675183814223
+          ],
+          "frustum_roi_centers_over_0_10m": 0,
+          "all_wall_sdf_outliers_over_0_10m": 0,
+          "outlier_map_frame_x_median_m": null,
+          "outlier_alignment_x_shift_median_p05_p95_m": null,
+          "outlier_nearest_sdf_median_p95_m": null,
+          "outlier_centers_projected_in_current_frame": 0,
+          "outlier_same_yz_front_face_projected_in_current_frame": 0,
+          "outlier_centers_projected_at_any_logged_pose_after_motion_command": 0
+        }
+      ]
+    },
+    {
+      "run_id": "p2-map-voxel-snapshot-service-20261020-296",
+      "alignment_rotation_angle_deg": 1.0705192417471618,
+      "alignment_yaw_component_deg": -0.8284923971523389,
+      "snapshots": [
+        {
+          "index": "01",
+          "depth_source_stamp_s": 9.109,
+          "source_time_wall_front_frustum_yz_bounds_m": {
+            "y_m": [
+              -2.4,
+              3.25
+            ],
+            "z_m": [
+              -1.15,
+              3.3000000000000007
+            ]
+          },
+          "source_time_frustum_wall_samples_5cm_grid": 9573,
+          "frustum_roi_occupied_centers": 1761,
+          "frustum_roi_aligned_world_x_median_m": 3.020254123331329,
+          "frustum_roi_map_frame_x_median_m": 3.050000000000003,
+          "frustum_roi_nearest_sdf_median_p95_m": [
+            0.04141769510632427,
+            0.09275099894259346
+          ],
+          "frustum_roi_centers_over_0_10m": 30,
+          "all_wall_sdf_outliers_over_0_10m": 72,
+          "outlier_map_frame_x_median_m": 2.9500000000000033,
+          "outlier_alignment_x_shift_median_p05_p95_m": [
+            -0.054453501962129724,
+            -0.06121631306824893,
+            -0.0503990462447111
+          ],
+          "outlier_nearest_sdf_median_p95_m": [
+            0.10445350196212648,
+            0.11121631306824546
+          ],
+          "outlier_centers_projected_in_current_frame": 16,
+          "outlier_same_yz_front_face_projected_in_current_frame": 30,
+          "outlier_centers_projected_at_any_logged_pose_after_motion_command": 72
+        },
+        {
+          "index": "02",
+          "depth_source_stamp_s": 11.881,
+          "source_time_wall_front_frustum_yz_bounds_m": {
+            "y_m": [
+              -0.8999999999999995,
+              6.0
+            ],
+            "z_m": [
+              -2.15,
+              4.550000000000001
+            ]
+          },
+          "source_time_frustum_wall_samples_5cm_grid": 13690,
+          "frustum_roi_occupied_centers": 1925,
+          "frustum_roi_aligned_world_x_median_m": 2.9950618464217498,
+          "frustum_roi_map_frame_x_median_m": 2.9500000000000037,
+          "frustum_roi_nearest_sdf_median_p95_m": [
+            0.03841511952409489,
+            0.06782559705748471
+          ],
+          "frustum_roi_centers_over_0_10m": 0,
+          "all_wall_sdf_outliers_over_0_10m": 2,
+          "outlier_map_frame_x_median_m": 2.9500000000000033,
+          "outlier_alignment_x_shift_median_p05_p95_m": [
+            -0.05014199020211785,
+            -0.050268703214882506,
+            -0.05001527718935319
+          ],
+          "outlier_nearest_sdf_median_p95_m": [
+            0.10014199020211438,
+            0.10026870321487903
+          ],
+          "outlier_centers_projected_in_current_frame": 0,
+          "outlier_same_yz_front_face_projected_in_current_frame": 0,
+          "outlier_centers_projected_at_any_logged_pose_after_motion_command": 2
+        },
+        {
+          "index": "03",
+          "depth_source_stamp_s": 14.752,
+          "source_time_wall_front_frustum_yz_bounds_m": {
+            "y_m": [
+              -2.1999999999999997,
+              3.4000000000000004
+            ],
+            "z_m": [
+              -1.0999999999999999,
+              3.25
+            ]
+          },
+          "source_time_frustum_wall_samples_5cm_grid": 9567,
+          "frustum_roi_occupied_centers": 1633,
+          "frustum_roi_aligned_world_x_median_m": 3.032396551993649,
+          "frustum_roi_map_frame_x_median_m": 3.050000000000003,
+          "frustum_roi_nearest_sdf_median_p95_m": [
+            0.04013972422809982,
+            0.08738015585317817
+          ],
+          "frustum_roi_centers_over_0_10m": 5,
+          "all_wall_sdf_outliers_over_0_10m": 5,
+          "outlier_map_frame_x_median_m": 2.9500000000000033,
+          "outlier_alignment_x_shift_median_p05_p95_m": [
+            -0.05056436691133337,
+            -0.05166948577515553,
+            -0.050057514860274745
+          ],
+          "outlier_nearest_sdf_median_p95_m": [
+            0.1005643669113299,
+            0.10166948577515207
+          ],
+          "outlier_centers_projected_in_current_frame": 3,
+          "outlier_same_yz_front_face_projected_in_current_frame": 5,
+          "outlier_centers_projected_at_any_logged_pose_after_motion_command": 5
+        }
+      ]
+    }
+  ],
+  "interpretation": [
+    "Both independent epochs select map-frame wall x centers 3.05, 2.95, 3.05 m across snapshots 01–03. The alternating side of the wall-aligned 0.1 m cell boundary is repeatable; this is consistent with grid-side quantization but does not identify the mapping cause.",
+    "All 72 #296 snapshot-01 >0.10 m wall SDF outliers inverse-transform to the same 2.95 m map-frame x center. The run alignment shifts their world x by a median −54.5 mm (P05/P95 −61.2/−50.4 mm), producing nearest-SDF distances with median 104.5 mm and P95 111.2 mm. One-cell quantization combined with the evaluation alignment is therefore a strong candidate explanation for this threshold crossing.",
+    "At #296 snapshot 01, the same-y/z analytic front face for 30 of those 72 samples projects inside the source-time image rectangle; 16 voxel centers themselves project inside. All 72 centers project inside at least one logged pose after the first motion command, but snapshots do not preserve per-voxel observation times."
+  ],
+  "limitations": [
+    "The wall ROI is frustum-only; analytic sample projection does not ray-cast box/cylinder occlusion or model missing/invalid depth returns.",
+    "A voxel snapshot has no per-voxel observation timestamps. Historic visibility checks only show that a logged VINS pose could project the point into the image after the first recorded motion command.",
+    "The single rigid alignment is fitted to the full VINS/truth trajectory. Its small rotation can shift distant wall samples by several centimetres; this is a diagnostic coordinate transform, not online map correction.",
+    "The 0.10 m nearest-SDF distance is exploratory and equals one configured voxel width; no acceptance threshold or formal visible ROI is frozen.",
+    "The ROI is a pinhole frustum bound, not an occlusion-aware visible surface or a depth-return coverage count; it does not prove completeness or exclude duplicated surfaces.",
+    "The 0.10 m SDF cutoff equals one voxel width and is diagnostic only. A small full-run alignment rotation is poorly constrained by this short trajectory and is not an independent map calibration."
+  ],
+  "analysis_artifacts": {
+    "report": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/visible-wall-roi-analysis.json",
+    "report_sha256": "d50377420db8c7e7864f71a6143961df9b81577472bce816fe1350685211c683",
+    "tool": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/analyze_visible_wall_roi.py",
+    "tool_sha256": "ec0f71c71916c724653c1d47381e971cb1779ef1cdee96332b7752f5205a673e",
+    "source_hashes_verified": 25,
+    "all_source_hashes_match": true,
+    "source_sha256": {
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/temporal-map-analysis.json": "32820140089936e30728f70c7295f000592121b335c952504750ebe65e0687c1",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/motion-01.json": "4e2ecbf0e1bf7981ca4a6c120ec8eb64f8ea461fb584b7e194f5086f3cd23088",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/vins-01.log": "f883e235486ff0021af7d43f7e8d28b2416a14eea75d46ad6fcdc52e70b21e75",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/debug-motion-01.sdf": "23b8ba2543b96fd2e6a7249681987ed29831419d15dfd0de2554a78dc1a9510c",
+      "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/session-01/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/session-01/vins.yaml": "af6e63977930b77bbb980e72f79139f73bbcdb5c996a6066a81ed2bb90378ce0",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-01/metadata.json": "471d63676eaa4f92c8340142fea55eafc5d8c7034def127ff6fa2b988404fb07",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-02/metadata.json": "f02aac158113ae3d70c003015fe9abfd85af5ffda764829d2813b09abb6589cb",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-03/metadata.json": "e81535fac1145cb58c13a62a4cb351c0d141d57c785c338d67aed4977eaeb346",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-01/occupancy_snapshot.npz": "07aa66cc9724417dd39368652db9aabc645da075794beec5047622ed1719d79c",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-02/occupancy_snapshot.npz": "24eff677bfe41a8a22fd833cfbca41309ef9a8c11f8f7fab14d59c3e6c49581b",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-295/snapshot-03/occupancy_snapshot.npz": "85adc0e168766ba437fcd5b5d2eea2019a51f8c4e44e021e643c81242e469321",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/temporal-map-analysis.json": "904ae6db9320b89af9a618b258558345355493adfef21c5a1becfad65637c68c",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/motion-01.json": "cce9af76e2c3206ecf41a9870a31ee19c0ee583ed0c60c860f40b2933a875c90",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/vins-01.log": "a6cfb8231cb24c5382aafafb4af03c74f63b00b5420ce720a06721e8d1b2460a",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/debug-motion-01.sdf": "23b8ba2543b96fd2e6a7249681987ed29831419d15dfd0de2554a78dc1a9510c",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/session-01/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/session-01/vins.yaml": "0896232d8841cf059f367736b692878595a43e178a3de99ffd65e2d56ab96bc0",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-01/metadata.json": "61f8a6887fbc8fe7c56a6985e86c5f12df483799a6246df8195291869d8dc6db",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-02/metadata.json": "bbd6ebabae4e818d4f0376af0f5c2e22978f1ea708163bfd73ebb3381618326d",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-03/metadata.json": "aae051512660a0b65c6256ccf9be5feb6f1a5ec869acd583d41356869926eb93",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-01/occupancy_snapshot.npz": "002ce3fe56fc363a1616ea9b72c6d4e8b5afc9fe0523efcc9bf9f48ca32b4f90",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-02/occupancy_snapshot.npz": "ca97072fe4f4d34e3999ec76fcd67aa795f24f02e94b8b02f63a0ff4e2b7ae6c",
+      "artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/snapshot-03/occupancy_snapshot.npz": "5a6051ccedea8e76373d8ae69938dadaa20c4d553cf1029f40e082144bdd4976"
+    }
+  },
+  "validation": [
+    "python3 -m py_compile artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/analyze_visible_wall_roi.py: passed",
+    "python3 artifacts/runs/p2-map-voxel-snapshot-service-20261020-296/analyze_visible_wall_roi.py: passed; all 25 report source hashes independently match"
+  ],
+  "status_effect": "No P0–P6 milestone or GOAL A–H criterion status changed. GOAL C remains pending."
+}

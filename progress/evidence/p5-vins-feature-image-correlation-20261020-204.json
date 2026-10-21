@@ -1,0 +1,758 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-204",
+  "classification": "VALID_SITL_FEATURE_IMAGE_CORRELATION; EDGE_ALIGNED_TOP_RESIDUALS; ACTION_ABORTED_BY_EXISTING_QUALITY_GATE; ROOT_CAUSE_UNCONFIRMED; P5_NOT_PASSED",
+  "scope": "Read-only stereo image capture and offline residual-to-image-edge correlation at the first VINS quality crossing. The observer subscribed only to rectified left/right images and VINS estimator telemetry; it did not subscribe to truth or publish. It tests spatial correspondence, not navigation success or a unique root cause.",
+  "setup": {
+    "container_image": "d435i-vins:dev",
+    "px4_firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "vins_source_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "vins_diagnostic_overlay": "patches 0001-0005 plus the #181 run-local image/cost timing overlay and optional #0006 feature residual patch",
+    "vins_binary_sha256": "8d3328e9acf6e936c0bcf6de424393e3d53d4e793ab386c84ed21edd414868d1",
+    "vins_install_reused_from_run": "p5-px4-vio-ego-no-motion-direct-20261020-203",
+    "vins_environment": [
+      "VINS_DIAGNOSTIC_COST_GROUPS=1",
+      "VINS_DIAGNOSTIC_FEATURE_RESIDUALS=1"
+    ],
+    "ros_domain_id": 230,
+    "gazebo_partition": "d435i_p5_vio_ego_no_motion_direct_204",
+    "clock_domain": "Gazebo lockstep /clock equals PX4 HRT; UXRCE_DDS_SYNCT=0 and UXRCE_DDS_SYNCC=0",
+    "truth_input_started": false,
+    "px4_bridge_subscribed_debug_truth": false,
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "prior_vins_build_evidence": "progress/evidence/p5-vins-feature-residual-diagnostic-20261020-203.json",
+    "active_config_sha256": {
+      "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+      "config/components/simulation/d435i_bridge.yaml": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed",
+      "config/components/localization/vins_sim.json": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+      "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+      "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "config/components/mapping/ego_planner_slow_probe.json": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+      "config/components/navigation/task_supervisor.json": "85d8b254ec0e2dee0c955437fd5210b6ebc5fbdbca7f949841d00019cebdc4f7",
+      "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f",
+      "config/components/px4_bridge/frames_vio_closed_loop.json": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822",
+      "simulation/models/d435i/model.sdf": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "vins_session_epoch": "da676b32e93442a0b0c72eb3aeca098c",
+    "model_sha256_observed_by_bridge": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "package_prefixes_file": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/package-prefixes.txt"
+  },
+  "build": {
+    "run_local_own_packages_finished": 6,
+    "build_result": "passed; 6/6 packages finished in the run-local bridge overlay",
+    "vins_build": "reused the isolated #203 diagnostic VINS install; no VINS rebuild in #204",
+    "package_prefixes_recorded": true,
+    "observer_publishers": 0,
+    "observer_subscriptions": [
+      "/sensors/d435i/infra1/image_rect",
+      "/sensors/d435i/infra2/image_rect",
+      "/vins_raw/<epoch>/estimator_telemetry"
+    ],
+    "offline_annotation_runtime_effect": "none"
+  },
+  "capture": {
+    "trigger": "first VINS telemetry sample with available visual_feature_residuals",
+    "telemetry_stamp_ns": 29175999999,
+    "telemetry_normalized_cost": 1.0665178731994835,
+    "image_pairs_saved": 4,
+    "unique_stereo_pair_stamps_ns": [
+      28912000000,
+      29108000000,
+      29176000000
+    ],
+    "stereo_skew_ns": [
+      0
+    ],
+    "crossing_pair_stamp_ns": 29176000000,
+    "crossing_pair_delta_from_telemetry_ns": 1,
+    "left_topic": "/sensors/d435i/infra1/image_rect",
+    "right_topic": "/sensors/d435i/infra2/image_rect",
+    "encoding": "mono8",
+    "resolution_px": [
+      640,
+      480
+    ],
+    "residual_diagnostic": {
+      "evaluation_ms": 0.225732,
+      "visual_block_count": 860,
+      "residual_components": 1720,
+      "unique_feature_count": 51,
+      "huber_visual_cost": 963.7656172801893,
+      "raw_visual_cost_without_loss": 6322.885350438845,
+      "blocks_over_1_5px": 97,
+      "blocks_over_3px": 95,
+      "blocks_over_5px": 92,
+      "pixel_equivalent_norm_percentiles": {
+        "p50": 0.24131238064632363,
+        "p95": 16.372474438033272,
+        "p99": 25.84513497671317,
+        "max": 33.93504309510978
+      }
+    },
+    "observer_overlay_note": "The observer also emitted grayscale overlays with color tuples, so those original overlay files are not relied on. Raw mono PNGs are valid. Corrected colored BGR residual annotations were generated offline and separately hashed; no flight or estimator behavior changed."
+  },
+  "run": {
+    "qualification": "VALID_IMAGE_CORRELATION_RUN; ZERO_OFFSET_ACTION_ABORTED_BY_EXISTING_QUALITY_GATE",
+    "preconditions_ready": true,
+    "px4_telemetry_stability_passed": true,
+    "localization_tracking_stability_passed": true,
+    "takeoff_active_observed": true,
+    "action_goal_sent": true,
+    "goal_sent_wall_elapsed_s": 23.902558122998016,
+    "goal": {
+      "frame": "odom_da676b32e93442a0b0c72eb3aeca098c",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        -0.0065930394969206515,
+        -0.0008555133500080452,
+        0.8900711817225834
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": -0.0008913846852958499,
+      "yaw_offset_rad": 0.0,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "action_result": {
+      "final_position": [
+        -0.013874017551768187,
+        -0.007060143527802921,
+        0.8702973253887544
+      ],
+      "outcome": "aborted",
+      "reason": "localization_normalized_cost_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "landed_and_disarmed": true,
+    "px4_timestamp_error_values": [
+      ""
+    ],
+    "px4_ulog": {
+      "duration_sim_s": 29.82,
+      "dropouts": 0,
+      "parameters": {
+        "UXRCE_DDS_SYNCT": 0,
+        "UXRCE_DDS_SYNCC": 0,
+        "SYS_AUTOSTART": 5011,
+        "EKF2_EV_CTRL": 15,
+        "EKF2_GPS_CTRL": 0
+      },
+      "estimator_flag_counts": {
+        "cs_ev_pos": {
+          "true": 24,
+          "samples": 41
+        },
+        "cs_ev_yaw": {
+          "true": 24,
+          "samples": 41
+        },
+        "cs_ev_vel": {
+          "true": 24,
+          "samples": 41
+        },
+        "cs_gnss_pos": {
+          "true": 0,
+          "samples": 41
+        },
+        "cs_gnss_vel": {
+          "true": 0,
+          "samples": 41
+        },
+        "cs_gnss_yaw": {
+          "true": 0,
+          "samples": 41
+        },
+        "cs_gps_hgt": {
+          "true": 0,
+          "samples": 41
+        }
+      },
+      "vehicle_status_transitions": [
+        {
+          "sim_time_s": 6.112,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 4,
+          "nav_state_name": "AUTO_LOITER",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 18.304,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 18.412,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 29.296,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 18,
+          "nav_state_name": "AUTO_LAND",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 33.736,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 12,
+          "nav_state_name": "DESCEND",
+          "failsafe": true
+        },
+        {
+          "sim_time_s": 34.96,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        }
+      ],
+      "land_transitions": [
+        {
+          "sim_time_s": 5.576,
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        {
+          "sim_time_s": 20.16,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 20.168,
+          "landed": false,
+          "ground_contact": false,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 32.272,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": false
+        },
+        {
+          "sim_time_s": 32.608,
+          "landed": false,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        {
+          "sim_time_s": 32.944,
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        }
+      ],
+      "battery_warning_values": [
+        0
+      ],
+      "battery_fault_values": [
+        0
+      ],
+      "interpretation": "The existing normalized-cost guard aborted the zero-offset action. PX4 entered AUTO_LAND, touched down, briefly entered DESCEND/failsafe after touchdown, and disarmed. EV fusion was present and GNSS aiding flags remained zero. This diagnostic does not qualify navigation success."
+    },
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "truth_input_started": false
+  },
+  "image_edge_correlation": {
+    "method": "For each saved grayscale image, select the maximum absolute vertical intensity gradient at each x within y=270..419, fit an ordinary least-squares line to the selected edge points across x=10..629, then compare each top observation's target_uv and residual_pixel_equivalent with that fitted line.",
+    "top_observation_count": 20,
+    "unique_feature_ids": 12,
+    "median_abs_edge_distance_px": 0.21156372341178553,
+    "max_abs_edge_distance_px": 0.4627757498944334,
+    "observations_within_1_px": 20,
+    "observations_with_along_component_larger_than_normal": 20,
+    "observations_with_positive_along_component": 20,
+    "edge_candidates": {
+      "left": {
+        "image": "quality-images/image_29176000000_left.png",
+        "image_sha256": "1912998e5ef316a38c84b4a11462585910fe9cae37c21dcf54780c2f55a9cb8a",
+        "line_y_equals_slope_x_plus_intercept": {
+          "slope": -0.09054814141348583,
+          "intercept": 373.50563005776155
+        },
+        "fit_rmse_px": 0.2883668601575294,
+        "edge_y_min_px": 316.5,
+        "edge_y_max_px": 372.5,
+        "gradient_sampling": {
+          "x_start_px": 10,
+          "x_stop_exclusive_px": 630,
+          "x_step_px": 3,
+          "y_start_px": 270,
+          "y_stop_exclusive_px": 420
+        },
+        "observation_summary": {
+          "count": 14,
+          "median_abs_edge_distance_px": 0.20009768174983833,
+          "p90_abs_edge_distance_px": 0.3045938794294103,
+          "max_abs_edge_distance_px": 0.4564198470986298,
+          "median_abs_residual_along_edge_px": 25.445995583811026,
+          "median_residual_normal_to_edge_px": 0.33313239783007353,
+          "observations_with_along_component_larger_than_normal": 14,
+          "observations_with_positive_along_component": 14
+        }
+      },
+      "right": {
+        "image": "quality-images/image_29176000000_right.png",
+        "image_sha256": "41d383ad6e7f4f44e147572f61b7ad0861a37f2ccbb2c16b3031adf58aff3c18",
+        "line_y_equals_slope_x_plus_intercept": {
+          "slope": -0.09011655175648402,
+          "intercept": 372.8558756624922
+        },
+        "fit_rmse_px": 0.2884674055235976,
+        "edge_y_min_px": 316.5,
+        "edge_y_max_px": 371.5,
+        "gradient_sampling": {
+          "x_start_px": 10,
+          "x_stop_exclusive_px": 630,
+          "x_step_px": 3,
+          "y_start_px": 270,
+          "y_stop_exclusive_px": 420
+        },
+        "observation_summary": {
+          "count": 6,
+          "median_abs_edge_distance_px": 0.2515579413128535,
+          "p90_abs_edge_distance_px": 0.3964223040910895,
+          "max_abs_edge_distance_px": 0.4627757498944334,
+          "median_abs_residual_along_edge_px": 24.817946297771464,
+          "median_residual_normal_to_edge_px": 0.40801747876612693,
+          "observations_with_along_component_larger_than_normal": 6,
+          "observations_with_positive_along_component": 6
+        }
+      }
+    },
+    "interpretation": "All 20 top residual observations lie within 0.463 px of a fitted high-contrast image edge in both cameras; each residual vector is dominated by a same-sign component tangent to that edge. This strongly supports an edge-aligned image ambiguity hypothesis for this sample. It does not prove the semantic edge is the wall-floor boundary or establish causality; multiple rows reuse 12 feature IDs and tracking, calibration, motion, and scene texture can contribute."
+  },
+  "interpretation": {
+    "supported": "Top residuals are spatially concentrated on a strong slanted image edge and point mainly along it.",
+    "not_established": [
+      "unique visual-tracking cause",
+      "calibration error",
+      "motion-estimation error",
+      "general repeatability across independent flights",
+      "navigation success"
+    ],
+    "next_step": "Repeat with an independent run and quantify the full visual feature distribution against edge/corner strength, including low-cost pre-crossing frames; keep the existing quality gate and PX4 freshness limits unchanged."
+  },
+  "qualification": {
+    "normalized_cost_limit_unchanged": true,
+    "px4_freshness_and_65_ms_future_tolerance_unchanged": true,
+    "thresholds_or_control_changed": false,
+    "p5_passed": false,
+    "scope_limit": "SITL image correlation and safety timeline only; no replay, real-hardware, or P5 navigation-success evidence."
+  },
+  "reproduction": [
+    "bash artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/launch-diagnostic-run.sh",
+    "python3 artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/analyze_image_edge_correlation.py",
+    "python3 artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/analyze_px4_ulog.py"
+  ],
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/launch-diagnostic-run.sh": {
+      "bytes": 453,
+      "sha256": "8aeac457a96a9d73e0f375d60ac3231c8391f07afd23b8f7caba57dae4c63b72"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/run-direct-no-motion.sh": {
+      "bytes": 9986,
+      "sha256": "7aa21d5854bfe282946cc5642f0deb297c98f6ee48749194f4e5b1b0971f429d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/run_vio_ego_flight.py": {
+      "bytes": 30336,
+      "sha256": "69309133c3eded2aecfe43ec776105fc3bf8d8f91aa65c35015336ee5d805f57"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/capture_quality_crossing_images.py": {
+      "bytes": 7911,
+      "sha256": "05bb8765d4e85a6a39752ca731f2b6c8d127d7d182db41f66636f51239b93feb"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/annotate_quality_crossing_images.py": {
+      "bytes": 3591,
+      "sha256": "fd3a2dafb60c88c839e368e77028937c6c19359d39d82733f01f31f63b342541"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/analyze_image_edge_correlation.py": {
+      "bytes": 5816,
+      "sha256": "027f1f1b198b5e5ffb6d2f0ac6cb32a309f5c24438e80252ca07ad7bc92d0ac7"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/analyze_px4_ulog.py": {
+      "bytes": 4535,
+      "sha256": "6f913af687a2771be47f80f398426136f6437ca4ff92c554a97a7d54534175e1"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "aed18377a9f0c4ebd9f678e41a77388ed70e59dd2a22d0d442cb2b92b0f9a09a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/container.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/agent.log": {
+      "bytes": 41562,
+      "sha256": "f39cffa2a5c0349a824c1bb32f553ab9e3ea7e7908e8d0d21f9eaa0b8983ef76"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/gazebo.log": {
+      "bytes": 2902,
+      "sha256": "73ecee6619e4e61015841bf8f26d094a09739086c8d1b20f307d0a03945fae35"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4.log": {
+      "bytes": 5365,
+      "sha256": "8893c41aba06a98c3d9f1bcddaaab0bdd813ced5cf12b7c64238b53dd9b07ef8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/vio-launch.log": {
+      "bytes": 766796,
+      "sha256": "01c53f356e08be6ddc8d04068ba5ad02b4f8c1b3cfb29bb186b8ed497b921b37"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/vio-ego-flight.log": {
+      "bytes": 1916847,
+      "sha256": "69a1c3e307c348bbcb693cb2a969f87158860df694cd274b19197afef8295179"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/vio-ego-flight-report.json": {
+      "bytes": 1916847,
+      "sha256": "69a1c3e307c348bbcb693cb2a969f87158860df694cd274b19197afef8295179"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4-bridge-live.json": {
+      "bytes": 9013951,
+      "sha256": "087f47a767061dd4e39da9272250add386c0f25e0e2820c8fc46ef0d47e2f6ac"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4-bridge-live.stdout.json": {
+      "bytes": 9013951,
+      "sha256": "087f47a767061dd4e39da9272250add386c0f25e0e2820c8fc46ef0d47e2f6ac"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4-param-stage.json": {
+      "bytes": 750,
+      "sha256": "7b9c584b3d0a50f498a8da2af019037a5b1fd8435855093387cc2919b1d3641f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4-param-stage.stdout.json": {
+      "bytes": 750,
+      "sha256": "7b9c584b3d0a50f498a8da2af019037a5b1fd8435855093387cc2919b1d3641f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/package-prefixes.txt": {
+      "bytes": 650,
+      "sha256": "265a0ee0095632cafd4cda442af9b1d930269079f3d5de6b084f3d8c4725c47d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/truth-and-control-isolation.txt": {
+      "bytes": 239,
+      "sha256": "f1455b0e8a87d851f7a6805bab9cbddfdbfa760f07df8de48dec4f4bb82982ad"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/vins-diagnostics-env.txt": {
+      "bytes": 66,
+      "sha256": "dae3174c46a9e9610ddae348c33e536cc734c45b00d6e28fc288f6aae6e33226"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/navigation-action-info.txt": {
+      "bytes": 93,
+      "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/navigation-action-info-final.txt": {
+      "bytes": 93,
+      "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/node-list.txt": {
+      "bytes": 227,
+      "sha256": "ae7f490865edf6b31fe08a474eb54a91c2082252b06aeb9f5606b8c5411cead9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4-bridge-node-info.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4-bridge-node-info-final.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/ros-topics.txt": {
+      "bytes": 3762,
+      "sha256": "a7bb3dc2a8b7706a2158432d655bee9daab7fb10c383dfa615653a54f36be4a7"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/timesync-topic-info.txt": {
+      "bytes": 502,
+      "sha256": "af902607ee445eaba9e30449e0e769931e0e0c989f5273b455e802e9bb4fc6cd"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/world-generation.json": {
+      "bytes": 1441,
+      "sha256": "68841ad54c8d240b5cac8516e51ba29d550e083f165590d9a7fd88ec9dea4c38"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/world-generation.stdout.json": {
+      "bytes": 1441,
+      "sha256": "68841ad54c8d240b5cac8516e51ba29d550e083f165590d9a7fd88ec9dea4c38"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/vio_initialization.sdf": {
+      "bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/quality-crossing-image-manifest.json": {
+      "bytes": 30230,
+      "sha256": "43d14ff72e7c2f9974e355bec82643c5f6f13ad22d9ed1d8f817a330884a5614"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/annotation-manifest.json": {
+      "bytes": 2600,
+      "sha256": "857801a23bcd355fc7f2813256507c45255c21c98715b74b25943040a9e71263"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/image-edge-correlation.json": {
+      "bytes": 12053,
+      "sha256": "4b971bc58ae31ec1725ab7f24f8bc3adbdef3f3732c1c6145e7688b5238b2ac2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/landing-failsafe-timeline.json": {
+      "bytes": 3459,
+      "sha256": "90ea498ee3eab49fa9c8360deeb148a347c4e69bbe625fa64f753c4acb8089c3"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/px4_sitl_default/log/2026-10-19/16_56_53.ulg": {
+      "bytes": 8011527,
+      "sha256": "186b4b2772199d704a8e221c5f200ac8e5f00d52c7bdb749c138a6d85469a05b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_28912000000_left.png": {
+      "bytes": 4995,
+      "sha256": "0d4470aa4cb72d622fe8443e251f0377f069f6cf9473f94b6fce101c23af4cbc"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_28912000000_right.png": {
+      "bytes": 5075,
+      "sha256": "6212135f19d2823042ae10613b02814756f8fedd84d1b826cea83e7ffb6013a8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_29108000000_left.png": {
+      "bytes": 4971,
+      "sha256": "196f5ec38a7ebef8afd09fc4fb4ffcaacc8a820db2d561bc663166ac32ba167e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_29108000000_right.png": {
+      "bytes": 4915,
+      "sha256": "5af175e5f87fe9b17ccc1e37cf7c5c10345d14623ef25e6fabb3b0cf6f9d7b70"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_29175999999_left.png": {
+      "bytes": 4954,
+      "sha256": "1912998e5ef316a38c84b4a11462585910fe9cae37c21dcf54780c2f55a9cb8a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_29175999999_right.png": {
+      "bytes": 4954,
+      "sha256": "41d383ad6e7f4f44e147572f61b7ad0861a37f2ccbb2c16b3031adf58aff3c18"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_29176000000_left.png": {
+      "bytes": 4954,
+      "sha256": "1912998e5ef316a38c84b4a11462585910fe9cae37c21dcf54780c2f55a9cb8a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/image_29176000000_right.png": {
+      "bytes": 4954,
+      "sha256": "41d383ad6e7f4f44e147572f61b7ad0861a37f2ccbb2c16b3031adf58aff3c18"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29108000000_left_80300.png": {
+      "bytes": 5952,
+      "sha256": "32ae74b91748dabd70b6b9629261a007cde6980fcbef7dd3361a0853e6d85c80"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29108000000_left_80490.png": {
+      "bytes": 5087,
+      "sha256": "50bcabf56d72265268597badab01b5e6635d39961ec210c8f14c3b44c5c75ba1"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29108000000_right_80300.png": {
+      "bytes": 5892,
+      "sha256": "b029c7a516009b66952bb62573e97f3f4706ac484ac721d903c83af79e08a3f5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80300.png": {
+      "bytes": 5972,
+      "sha256": "991247060ca9f51a2aa8ebc20ca44643e937ab90c30e2c30e3042b83790da19e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80308.png": {
+      "bytes": 5948,
+      "sha256": "1332934ca3fe9fbc4ebcde98363d3d0add57b3773f21384b5ff341031eb9cc66"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80328.png": {
+      "bytes": 5961,
+      "sha256": "7befabf55d474ef3eb5da891af256490a1032d0e387b484d7eb38796650bf815"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80330.png": {
+      "bytes": 5839,
+      "sha256": "b1b66d4ed49dc0f3cdc19b8803676345fc59bbc96f73ecb79f5f5d6d2c7d26b9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80337.png": {
+      "bytes": 5935,
+      "sha256": "29f3fa6734d026e552dfccb28e44cf340bfd238bf8232adb057a17c81768bc72"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80364.png": {
+      "bytes": 5942,
+      "sha256": "ba472884a9ed43500cd7c057105623feb129e6411122fe2d5fd9d57ca6c40b5c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80365.png": {
+      "bytes": 5971,
+      "sha256": "ea57f73db28fb5e9a5829d270e19adf92f65159e66014bc4fb784a2ab6f56df9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80383.png": {
+      "bytes": 5979,
+      "sha256": "d6194cb69ecf33e65db94bf0cb15ef7024e6e9c4a86368cd0eb470c08145d778"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80404.png": {
+      "bytes": 5680,
+      "sha256": "3a2ff132418705761826638ee3de63b95f78ad52dd5d3fa20a3e478d1307ef9e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80413.png": {
+      "bytes": 5912,
+      "sha256": "ae148b9c74926cc8fbd2d2df971c4770e89b66624690453814afe7c86328b9e8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80490.png": {
+      "bytes": 5062,
+      "sha256": "f4f16aeb97e5ee18237dc1e4d780fed781a08fd60e9c9c4b53b79d03102b1a90"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_left_80491.png": {
+      "bytes": 5971,
+      "sha256": "ae0eeeac097ac6c155902aff2c5b4e6cb549f40d92142b129a66d0bb868bc77b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_right_80337.png": {
+      "bytes": 5950,
+      "sha256": "e3811e194617ddeb6fb3922bcddf44cc2fc76a9f4fbc4017b959a9cde2ae6636"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_right_80364.png": {
+      "bytes": 5985,
+      "sha256": "ba3b19f8be941e4366a13d36a964367d8fd5eca028fdd1a134376ab460cafc20"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_right_80383.png": {
+      "bytes": 5956,
+      "sha256": "bb6c0322bb66d29385165d672960fb153630c3fe0467ac71b680979a90df7358"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_right_80413.png": {
+      "bytes": 5928,
+      "sha256": "5f5680fbfb294b03c8bb0e49ec98fade16835004439e608f8babb4a51d82623b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-images/overlay_29176000000_right_80491.png": {
+      "bytes": 5903,
+      "sha256": "2f1bb14efeae2d9ecbab65c6db482f6f6f15ae093d63e268e8ce2747c52d940f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/crop_29108000000_left.png": {
+      "bytes": 4195,
+      "sha256": "57679bc6b273b1f9d6f953354ce711f5d8ffc6a8632367141eeb130375282466"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/crop_29108000000_right.png": {
+      "bytes": 4112,
+      "sha256": "027dbb89e96df368162a155fae3205f86fa8982c9a2e5f0e0bac5ab4d245e6de"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/crop_29176000000_left.png": {
+      "bytes": 8936,
+      "sha256": "957b729a061b8aba8cac542310b72b96f1bd1f5b16a6ab6aaab395d3b030e6fc"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/crop_29176000000_right.png": {
+      "bytes": 7814,
+      "sha256": "415d2027f1a53138fa018f5b1f26cb7f755e4ab9b3dea34f4f247198eaa26b1f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/overlay_29108000000_left.png": {
+      "bytes": 12390,
+      "sha256": "564471e8a36cf16d5d1a586d385eedf87ec6a85d14ddaf890f2e2126c9811a3f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/overlay_29108000000_right.png": {
+      "bytes": 12062,
+      "sha256": "1dd50eff6733bd280f6e8a1f1f870c5e75fe1adf7351aef235e9690ea6bf709e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/overlay_29176000000_left.png": {
+      "bytes": 29159,
+      "sha256": "38903ce021646d2f6cf64f45c075a5bcd9980afe46b07db0c4e5279e9f0b90e9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-204/quality-overlays-corrected/overlay_29176000000_right.png": {
+      "bytes": 17705,
+      "sha256": "9b9ded518dc2ebac42a122fa50022d27a0c3f7e3e19bff50372168f855f83bf2"
+    }
+  },
+  "source_hashes": {
+    "config/profiles/vio_closed_loop.json": {
+      "bytes": 562,
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "config/components/simulation/d435i_bridge.yaml": {
+      "bytes": 2248,
+      "sha256": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed"
+    },
+    "config/components/localization/vins_sim.json": {
+      "bytes": 651,
+      "sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc"
+    },
+    "config/components/localization/health.json": {
+      "bytes": 800,
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "config/components/mapping/ego_input.json": {
+      "bytes": 1205,
+      "sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba"
+    },
+    "config/components/mapping/ego_planner_slow_probe.json": {
+      "bytes": 793,
+      "sha256": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb"
+    },
+    "config/components/navigation/task_supervisor.json": {
+      "bytes": 465,
+      "sha256": "85d8b254ec0e2dee0c955437fd5210b6ebc5fbdbca7f949841d00019cebdc4f7"
+    },
+    "config/components/px4_bridge/vio_closed_loop.json": {
+      "bytes": 720,
+      "sha256": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f"
+    },
+    "config/components/px4_bridge/frames_vio_closed_loop.json": {
+      "bytes": 528,
+      "sha256": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822"
+    },
+    "simulation/models/d435i/model.sdf": {
+      "bytes": 3355,
+      "sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "dependencies/sources.json": {
+      "bytes": 11384,
+      "sha256": "801c8b5c6804abe00740bdc9d77996056e7eec090158f5b9d6819bc3597b1801"
+    },
+    "dependencies/patches/vins/0006-feature-residual-diagnostics.patch": {
+      "bytes": 17073,
+      "sha256": "dd17d34bacc09da4a472959fdb4e3abb625c8b2810f4bd40b2f54461d0b8dc73"
+    },
+    "tools/probe_px4_bridge_live.py": {
+      "bytes": 13775,
+      "sha256": "fe446ec3bbdf6cbe7ef3e1a3f8e49b4d01e0d58094c938a4809e5b50b66042c5"
+    },
+    "tools/stage_px4_debug_params.py": {
+      "bytes": 6479,
+      "sha256": "d70a6ded5d092a2ea57a36ea746b7263c3bc0077ccd1262b1447a822e5199fda"
+    },
+    "tools/prepare_px4_vio_bootstrap_world.py": {
+      "bytes": 5441,
+      "sha256": "639b1b75fe8eb14c14c4c29f147f27156e4152d589e87e310b12e57fc2a64c9c"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": {
+      "bytes": 12292,
+      "sha256": "e0223d96867f76a0826e86424035220666d863daae3a3699bc7872c727d628b5"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47269,
+      "sha256": "32bc816585f68bef59ba92c00f333d1fb52cf4ae08280782b6bd91c5810c06b1"
+    },
+    "tools/test_px4_bridge_time_mapping.py": {
+      "bytes": 11846,
+      "sha256": "1082617900cd610f31787e0e57974a7738098a4f0cd3c9e87153d86ff26bab9e"
+    },
+    "tools/test_px4_bridge_control.py": {
+      "bytes": 10164,
+      "sha256": "00a3d7a9c6abdd4540108a29d4f0691730fd8c500cbeb7c2180b855192f71534"
+    },
+    "tools/test_px4_bridge_vio_profile.py": {
+      "bytes": 7762,
+      "sha256": "4d2800879ee7308e69838cec171779d29b34bad644fea3a1a9afd174c4d02f2b"
+    },
+    "tools/test_px4_bridge_frames.py": {
+      "bytes": 11625,
+      "sha256": "0234a81e9e1cf442bd60209110235f399d4ddb9226874d66c1117bebd03197c7"
+    }
+  }
+}

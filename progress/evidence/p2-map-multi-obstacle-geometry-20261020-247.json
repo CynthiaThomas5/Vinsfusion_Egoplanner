@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p2-map-multi-obstacle-geometry-20261020-247",
+  "status": "INCOMPLETE_LOCALIZATION_LOCK_AFTER_MULTI_GEOMETRY_MAP_SAMPLE",
+  "scope": "Exploratory live D435i/VINS/localization/depth-map/EGO occupancy sampling with one static box and one static cylinder before a broad calibration wall.",
+  "qualification": "Preliminary GOAL B/C/F geometry evidence only. The run does not qualify planning, tracking, clearance, collision avoidance, PX4 control, or any formal threshold.",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo_sim_version": "8.14.0",
+    "runtime_gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "ros_domain_id": 118,
+    "gz_partition": "d435i_map_multi_247",
+    "session_epoch": "9568a1e570274064aa8325a93520fae9",
+    "truth_isolation": "Gazebo pose is recorded by the diagnostic motion/evaluation process for offline alignment only. Raw VINS probe reports diagnostic_truth_enabled=false and truth_topic=null; VINS, localization, mapping and EGO receive no truth input.",
+    "control_scope": "No PX4, control bridge, trajectory tracking controller, or control publisher was started."
+  },
+  "scene": {
+    "box": {
+      "center_xyz_m": [
+        1.55,
+        0.5,
+        1.1
+      ],
+      "size_xyz_m": [
+        0.35,
+        0.5,
+        0.8
+      ]
+    },
+    "cylinder": {
+      "center_xyz_m": [
+        2.25,
+        -0.5,
+        1.0
+      ],
+      "radius_m": 0.18,
+      "length_m": 0.9
+    },
+    "reference_wall": "Existing 0.1 x 12 x 8 m calibration wall centered at [3.05, 0, 1] m."
+  },
+  "runtime": {
+    "observation_window_wall_s": 50.023,
+    "localization_history": [
+      {
+        "wall_elapsed_s": 1.861,
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver"
+      },
+      {
+        "wall_elapsed_s": 41.255,
+        "state": 4,
+        "valid": false,
+        "reason": "normalized_cost_exceeded"
+      }
+    ],
+    "depth_input_count": 1038,
+    "ego_depth_output_count": 857,
+    "ego_pose_output_count": 857,
+    "max_occupied_points": 1264,
+    "map_cloud_stamp_ns": 23068000000,
+    "map_stamp_within_sim_clock": true,
+    "nearest_optimized_odom_stamp_delta_s": 0.0,
+    "ego_planner_state": "INIT; repeated 'no odom' / 'wait for goal or trigger' messages; no goal was submitted.",
+    "run_interrupted": false,
+    "ego_odometry_wiring": {
+      "launch_topic": "odom",
+      "adapter_output_topic": "/localization/optimized_imu_odom",
+      "matches": false,
+      "qualification": "EGO INIT/no-goal observations from this run do not establish planner readiness; occupancy and offline geometry observations remain independently usable."
+    }
+  },
+  "offline_geometry_evaluation": {
+    "alignment": "Single SE(3), fixed scale 1, no segment realignment; alignment uses the diagnostic truth trajectory and does not use map points.",
+    "trajectory": {
+      "paired_samples": 355,
+      "position_rmse_m": 0.008142165981714937,
+      "position_p95_m": 0.01494000357526407,
+      "position_max_m": 0.01619090993943224,
+      "orientation_rmse_deg": 1.039485391458271
+    },
+    "map_cloud": {
+      "point_count": 1264,
+      "frame_id": "odom_9568a1e570274064aa8325a93520fae9",
+      "world_bounds_xyz_m": [
+        [
+          1.3723696662030958,
+          3.0772741628416154
+        ],
+        [
+          -2.029854662797883,
+          3.580461791416835
+        ],
+        [
+          1.0329460944921938,
+          2.798364492476827
+        ]
+      ]
+    },
+    "obstacle_surface_residuals": {
+      "box": {
+        "map_points_in_0_25m_region": 30,
+        "median_m": 0.001609767650794569,
+        "p95_m": 0.023150029044979807,
+        "maximum_m": 0.02497948534470019,
+        "fraction_within_0_10m": 1.0
+      },
+      "cylinder": {
+        "map_points_in_0_25m_region": 34,
+        "median_m": 0.07600675514677009,
+        "p95_m": 0.1447319095497414,
+        "maximum_m": 0.14837117053800727,
+        "fraction_within_0_10m": 0.7352941176470589
+      }
+    }
+  },
+  "interpretation": "The captured occupancy cloud contains points within the configured 0.25 m regions around both primitive obstacles. The sample gives a second geometry type beyond the wall, but the run's localization health gate later locked and EGO stayed INIT; these residuals are descriptive and do not establish planner use or clearance.",
+  "excluded_attempts": [
+    "An initial standalone gz sdf check rejected the generated wall link's pre-existing duplicate collision/visual name. The generated diagnostic scene now renames only that collision to wall_collision; source calibration world is unchanged, and the second scene preflight reports Valid.",
+    "The first offline evaluator invocation failed while converting relative artifact paths to repository-relative hashes; path resolution was corrected and the report was regenerated from the same run inputs."
+  ],
+  "limitations": [
+    "One exploratory run only; localization locked at 41.255 wall seconds due to normalized_cost_exceeded.",
+    "The occupancy cloud stores the largest observed PointCloud2, not a persistent snapshot. Object regions contain only 30 box points and 34 cylinder points.",
+    "EGO remained INIT and no navigation goal, planner response, trajectory tracking, collision contact, or minimum vehicle clearance was measured. The launch used odometry_topic:=odom, which did not match /localization/optimized_imu_odom; its INIT/no-goal state is not planner-readiness evidence.",
+    "No map free/unknown classification, inflation coverage, latency budget, braking distance, or failure exit timing was evaluated.",
+    "No GOAL F thresholds are frozen; this report cannot start or pass formal D/E acceptance."
+  ],
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p2-map-multi-obstacle-geometry-20261020-247",
+    "sha256": {
+      "run-variant-manifest.json": "899996759f79a94a8b67a766dab4d99d93d0712eb519a1cd072ea6a6d5448d00",
+      "run-container.sh": "7ce11eadcc7d803cb3f183d2afc843d71bb720fa500481dbd7e4064e230bf836",
+      "run-live.sh": "9f2b174f715b23f972c997f9b250a233167358b20b1289431f90c98963935b54",
+      "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+      "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+      "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+      "motion.json": "8b64ac847a63f5a318aa4446642e3aa0283b010073016deb9a5132033251ec79",
+      "optimized-odometry.json": "948e2f937f86153fe3aa65d7778d608e4b0d6e3f36d96d80adfd45e8f2073cec",
+      "map-cloud.json": "bca084241c536adc4a57203c27e1d0df16c3c1349e7ad2804f601eb0a4d95fba",
+      "probe.json": "bff1f968009e87432f49c916988bfec382ee171c469d7c61f88ca898caeb75e4",
+      "multi-geometry-report.json": "93fe6a52e81ccf6c42588697515f9966922bc8156e3ee04df697a10267ce1c2e",
+      "session-binding.json": "8679154c18ea700ca89c1fe41184ade88d44755adec67716e39f5ebc0d47eb63",
+      "session/session.json": "36b9eb5fd2451b074056072538033147fbdae948f7937bcce99cc62ffe99df59",
+      "raw-vins-capture/summary.json": "393a4a7cde3d845cf90dfe2b2735ff52572da9cb6740946180d580d095bea121",
+      "raw-vins-capture/raw-odometry.json": "9f973b7f8cef244c6033ad7d295656ead41ab2c6ae3da436e11bb8ed01d6b89c",
+      "raw-vins-capture/telemetry.json": "a7e8db92ecc14013fb13afcf8498eff3dfe99bbd8a211730b1f9775a3cfc24b7",
+      "sensors.log": "0bf7070909ff7352d0dff3aadf818dd9d09ba5506bb97aae1ed6ce0a59504856",
+      "vins.log": "d3d55c6c0a9209d1ad93a767b3a5845352fcf3038982f7fdff7a253692d3e82e",
+      "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mapping-adapter.log": "c73a3015e1e229592bf506f4ffa2efc1bb2760fea447216ba10b69825312f9a2",
+      "ego.log": "021bc26f8cca3c759e24929384ad78364b660160d745ea6a3731300839142879",
+      "motion-driver.log": "4dc2b77c8ed8967a30c3f2bef5dc3e63e56b042d4a92428ad8db0c2cd83c8a6e",
+      "raw-vins-probe.log": "b248eb7d01317303a0b9301ce419710c0fcd1f36dcea6fef2aeba566d6d5a03d",
+      "probe-console.log": "bff1f968009e87432f49c916988bfec382ee171c469d7c61f88ca898caeb75e4",
+      "world-sdf-check-02.log": "47bfa12fb7a45b3b6801412403ccc7ae2fd030d2bc112eaf3e271238f656099f",
+      "xvfb-readiness.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "source_sha256": {
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "simulation/worlds/sensor_calibration.sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/run_sensor_motion.py": "190c7be9200f68d8c2d58413b9f9c7f7a115d4cbf96d621283c7629ca5bd8d7e",
+    "tools/evaluate_vins_motion.py": "2fb7aa9fc934fa210ea9c6926af72b8fe69a6d57b11730508aaf456170db43d8",
+    "tools/probe_mapping_runtime.py": "cde1f7f8cee7d94327a7851b08dc32b4bc227189e1f84d872d9eea681b01c85f",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c"
+  },
+  "next_step": "Follow-up runs #248–#251 corrected the odometry topic/install diagnosis and verified the reliable QoS path; #251 kept EGO in manual WAIT_TARGET with no goal and produced a multi-geometry occupancy sample. Continue with quantified obstacle representation/inflation, end-of-window stale-input cause, repeatable localization, and measured clearance/tracking before freezing GOAL F.",
+  "execution_validation": {
+    "container_exit_code": 0,
+    "generated_world_sdf": "PASS on scene-preflight-02.sdf with gz sdf -k; the actual debug-motion.sdf was launched by Gazebo in the run.",
+    "xvfb": "PASS after authenticated xdpyinfo readiness check and targeted SIGUSR1 to container PID 1.",
+    "offline_evaluator": "PASS after path-resolution correction; output is multi-geometry-report.json.",
+    "container_cleanup": "PASS; no active container remained after wrapper exit."
+  }
+}

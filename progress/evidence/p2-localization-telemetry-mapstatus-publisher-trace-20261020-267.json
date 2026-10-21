@@ -1,0 +1,316 @@
+{
+  "schema": "p2-localization-telemetry-mapstatus-publisher-trace/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-localization-telemetry-mapstatus-publisher-trace-20261020-267",
+  "scope": "Run-local, no-goal diagnostic of localization health, publisher-side MapStatus, and EGO input scheduling under mapper/EGO load.",
+  "status": "diagnostic_only",
+  "comparison_runs": [
+    "p2-localization-telemetry-mapstatus-ready-retry-20261020-265",
+    "p2-localization-telemetry-mapstatus-observer-repeat-20261020-266"
+  ],
+  "runtime": {
+    "runtime_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo_sim_version": "8.14.0",
+    "ros_domain_id": 138,
+    "gz_partition": "d435i_loc_mapstatus_publisher_267",
+    "map_status_cli_subscriber": false,
+    "direct_image_imu_observer": false,
+    "health_policy_changed": false,
+    "goal_published": false,
+    "run_local_parameters": {
+      "obstacles_inflation_m": 0.5,
+      "resolution_m": 0.1,
+      "ground_height_m": -0.05
+    }
+  },
+  "localization": {
+    "state": "LOCKED",
+    "tracking_snapshots": 30,
+    "tracking_sim_start_s": 4.005,
+    "tracking_sim_end_s": 25.574,
+    "first_lock": {
+      "reason": "normalized_cost_exceeded",
+      "sim_time_s": 26.335,
+      "state": "LOCKED",
+      "logger_stamp_s": 1792472476.113857,
+      "stream_ages": {
+        "telemetry": {
+          "source_age_s": 0.231,
+          "receipt_age_s": 0.195
+        },
+        "optimized": {
+          "source_age_s": 0.297,
+          "receipt_age_s": 0.254
+        },
+        "imu": {
+          "source_age_s": 0.195,
+          "receipt_age_s": 0.197
+        }
+      }
+    },
+    "tracking_max_ages_and_callback_gaps": {
+      "telemetry": {
+        "health_source_age_s": 0.099,
+        "health_receipt_age_s": 0.066,
+        "max_callback_wall_gap_s": 0.1593
+      },
+      "optimized": {
+        "health_source_age_s": 0.099,
+        "health_receipt_age_s": 0.066,
+        "max_callback_wall_gap_s": 0.159
+      },
+      "propagated": {
+        "health_source_age_s": 0.004,
+        "health_receipt_age_s": 0.004,
+        "max_callback_wall_gap_s": 0.0977
+      },
+      "imu": {
+        "health_source_age_s": 0.004,
+        "health_receipt_age_s": 0.004,
+        "max_callback_wall_gap_s": 0.192
+      },
+      "left": {
+        "health_source_age_s": 0.049,
+        "health_receipt_age_s": 0.031,
+        "max_callback_wall_gap_s": 0.1235
+      },
+      "right": {
+        "health_source_age_s": 0.066,
+        "health_receipt_age_s": 0.035,
+        "max_callback_wall_gap_s": 0.1238
+      }
+    },
+    "overlay_reused_from_run": "p2-localization-telemetry-mapstatus-observer-repeat-20261020-266"
+  },
+  "mapping_status": {
+    "trace_source": "MAP_STATUS_PUBLISH_TRACE from the run-local mapping_input_adapter, logged after its existing publish call; no MapStatus CLI subscription.",
+    "trace_count": 47,
+    "ready_trace_count": 27,
+    "first_ready": {
+      "wall_s": 8519.266747,
+      "input_ready": true,
+      "reason": "ready",
+      "epoch": "47dfdd6240444c898c2aef7035666fdf",
+      "map_id": "47dfdd6240444c898c2aef7035666fdf-1d646016b57e405e9fdf336659ab5c3f",
+      "reset_acknowledged": true,
+      "loc_ok": true,
+      "depth_ok": true,
+      "depth_content_ok": true,
+      "latched": false,
+      "localization_receipt_age_wall_s": 0.004185,
+      "depth_health_receipt_age_wall_s": 0.007751,
+      "last_depth_source_stamp_ns": 4588000000,
+      "last_occupancy_stamp_ns": 4621000000,
+      "occupancy_cloud_received": true,
+      "occupied_point_count": 0,
+      "forwarded_depth_count": 4,
+      "dropped_depth_count": 0
+    },
+    "last_ready": {
+      "wall_s": 8548.866905,
+      "input_ready": true,
+      "reason": "ready",
+      "epoch": "47dfdd6240444c898c2aef7035666fdf",
+      "map_id": "47dfdd6240444c898c2aef7035666fdf-1d646016b57e405e9fdf336659ab5c3f",
+      "reset_acknowledged": true,
+      "loc_ok": true,
+      "depth_ok": true,
+      "depth_content_ok": true,
+      "latched": false,
+      "localization_receipt_age_wall_s": 0.003843,
+      "depth_health_receipt_age_wall_s": 0.007876,
+      "last_depth_source_stamp_ns": 25873000000,
+      "last_occupancy_stamp_ns": 25939000000,
+      "occupancy_cloud_received": true,
+      "occupied_point_count": 1088,
+      "forwarded_depth_count": 619,
+      "dropped_depth_count": 0
+    },
+    "ready_occupied_point_max": 1282,
+    "ready_forwarded_depth_count_max": 619,
+    "transitions": [
+      {
+        "logger_stamp_s": 1792472443.2685807,
+        "input_ready": false,
+        "reason": "resetting_new_epoch",
+        "map_id": "47dfdd6240444c898c2aef7035666fdf-1d646016b57e405e9fdf336659ab5c3f",
+        "occupied_point_count": 0,
+        "forwarded_depth_count": 0,
+        "last_depth_source_stamp_ns": null,
+        "last_occupancy_stamp_ns": null
+      },
+      {
+        "logger_stamp_s": 1792472443.4686458,
+        "input_ready": false,
+        "reason": "map_reset_acknowledged",
+        "map_id": "47dfdd6240444c898c2aef7035666fdf-1d646016b57e405e9fdf336659ab5c3f",
+        "occupied_point_count": 0,
+        "forwarded_depth_count": 0,
+        "last_depth_source_stamp_ns": null,
+        "last_occupancy_stamp_ns": 2440000000
+      },
+      {
+        "logger_stamp_s": 1792472446.0182934,
+        "input_ready": true,
+        "reason": "ready",
+        "map_id": "47dfdd6240444c898c2aef7035666fdf-1d646016b57e405e9fdf336659ab5c3f",
+        "occupied_point_count": 0,
+        "forwarded_depth_count": 4,
+        "last_depth_source_stamp_ns": 4588000000,
+        "last_occupancy_stamp_ns": 4621000000
+      },
+      {
+        "logger_stamp_s": 1792472475.8689954,
+        "input_ready": false,
+        "reason": "normalized_cost_exceeded",
+        "map_id": "47dfdd6240444c898c2aef7035666fdf-86de626fe6c54447b616120e39ec7afa",
+        "occupied_point_count": 0,
+        "forwarded_depth_count": 624,
+        "last_depth_source_stamp_ns": null,
+        "last_occupancy_stamp_ns": null
+      },
+      {
+        "logger_stamp_s": 1792472476.1204069,
+        "input_ready": false,
+        "reason": "map_reset_acknowledged",
+        "map_id": "47dfdd6240444c898c2aef7035666fdf-86de626fe6c54447b616120e39ec7afa",
+        "occupied_point_count": 0,
+        "forwarded_depth_count": 624,
+        "last_depth_source_stamp_ns": null,
+        "last_occupancy_stamp_ns": 26265000000
+      }
+    ]
+  },
+  "raw_vins": {
+    "wall_seconds": 50.0024099989987,
+    "optimized_count": 533,
+    "propagated_count": 7029,
+    "telemetry_count": 543,
+    "initialized_telemetry_count": 533,
+    "telemetry_stamp_start_s": 2.607,
+    "telemetry_stamp_end_s": 38.38,
+    "telemetry_max_source_gap_ms": 67.0,
+    "truth_sample_count": 0,
+    "parse_error_count": 0,
+    "all_outputs_finite": true
+  },
+  "ego": {
+    "states": [
+      "INIT",
+      "WAIT_TARGET"
+    ],
+    "odom_or_depth_lost_log_groups": {
+      "count": 0,
+      "groups": []
+    },
+    "goal_published": false,
+    "trajectory_generated": false
+  },
+  "truth_isolation": {
+    "runtime_truth_subscriptions": false,
+    "motion_driver_truth_subscriptions": false,
+    "trajectory_server_or_controller": false,
+    "px4_or_control_bridge": false,
+    "setpoint_publishers": false
+  },
+  "interpretation": "No CLI MapStatus observer runs in either publisher-trace trial. #267 held MapStatus ready through source stamp 25.873 s before a normalized_cost_exceeded localization lock at sim 26.335 s; telemetry/optimized/IMU were below their freshness limits at lock. #268 remained TRACKING through sim 38.479 s and MapStatus was still ready at source stamp 38.413 s. Both runs differ from #265/#266, which locked early on telemetry_stale/imu_stale while a low-bandwidth CLI observer was active, but two unpaired runs do not establish that reader load caused the difference. #268 also retained EGO odom/depth timeout reports while inputs were ready; no goal was sent, so no planner response or execution was tested.",
+  "qualification": "Diagnostic only. Does not pass GOAL B/C, map geometry, EGO planning, trajectory execution, or health-threshold qualification. Thresholds remain PROVISIONAL.",
+  "limitations": [
+    "Two independent publisher-trace runs have different VINS epochs and observed quality-gate outcomes; CLI observer comparison is not randomized or paired.",
+    "The run-local mapping logger adds low-rate file/logging work, so it is not a zero-overhead measurement.",
+    "EGO stayed in WAIT_TARGET and no goal or trajectory was exercised.",
+    "#267 required an Xvfb readiness signal workaround before run-live started; see startup-events.json.",
+    "#268 has odom/depth lost messages in WAIT_TARGET; source identifies an EGO occupancy/input timeout but this run does not localize its downstream cause."
+  ],
+  "next_step": "Keep thresholds and topics unchanged. If causal attribution to MapStatus reader load is needed, run paired repetitions with and without the CLI reader under the same mapper/EGO workload while retaining the publisher-side trace; separately trace the EGO occupancy reader during an explicit no-goal baseline.",
+  "source_sha256": {
+    "src/own/uav_mapping/uav_mapping/adapter.py": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f",
+    "src/own/uav_mapping/uav_mapping/node.py": "a83f33a4cd5f6e0e8c42dd47bca9ad78e858685333f1ec09dcaad2f5295b6c32",
+    "src/own/uav_mapping/setup.py": "153cb98dc152cc1b2b4fbb3f6e0096356963847f468bc2b0a111762ce9624b95",
+    "src/own/uav_mapping/package.xml": "0f642ec4c1f9138e24965016b746b5e513876ea4cc285c25f60a59ff10cb9680",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "config/components/mapping/depth_gate.json": "590db91cbda0de2cd3419c208c75373d6cb19a53322d19ad0838d28fc4b16017",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/generate_vins_config.py": "b98c1730bcfedb18079ce75a50fa6ba51c3a175fc53937766b14693675fa9e06",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c"
+  },
+  "startup_events": "startup-events.json",
+  "execution_validation": {
+    "mapping_overlay_build_exit_code": 0,
+    "mapping_overlay_build": "PASS; run-local uav_mapping built 1/1.",
+    "container_exit_code": 0,
+    "world_sdf_preflight": "PASS; gz sdf -k reported Valid with existing gz_frame_id warnings.",
+    "raw_vins": "PASS; outputs finite, no parse errors, no truth samples.",
+    "run_local_syntax": "PASS; bash -n on run scripts and Python in-memory compile of instrumented adapter.",
+    "map_status_observer": "Publisher-side low-frequency trace only; no separate MapStatus ROS subscriber.",
+    "test_container_cleanup": "PASS; docker ps empty after run.",
+    "project_source_changes": false,
+    "startup_events": "startup-events.json"
+  },
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p2-localization-telemetry-mapstatus-publisher-trace-20261020-267",
+    "sha256": {
+      "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+      "build-mapping-overlay-container.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "build-mapping-overlay-container.sh": "1adf66ce3ec01983853803bcc9a90e2cab9a9d554624240e3fa2e3dc4267374f",
+      "build-mapping-overlay.sh": "cdd902f6c0cd1d5342fb58aab2c6ead5f7756d9a9baa4e2a6ec421f7f66b327d",
+      "container-exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "container.stdout.log": "77dd00e75092276f0da1eceb86027451b055910a0808a1d1636183a0111f1d12",
+      "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+      "depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ego.log": "7052eeb9d175dda2a99942aa96c4776fb3edc2ebb5199627d47a108e134e7461",
+      "localization-adapter.log": "c29346d3c4f513cab2ac9c9d5cfd4cc63f14c682a4dd28fb1f2894e985771163",
+      "localization-overlay-prefix.txt": "e9cf9bcb6c6b806963af39a8201633b8078e9682ab3981f5dba2a2d43c4e9106",
+      "mapping-adapter-publisher-trace-manifest.json": "718f4f275417029f11791ccac37f14ad406d6c07ae40c5602f7570aa4945b672",
+      "mapping-adapter-publisher-trace.diff": "beecac3dc6af7cf7aef9f33d9d0073c599c7835f57d3732a3cb294fe5b036800",
+      "mapping-adapter.log": "72770aa44db505ae6d1a30ae134a65ecf34a11100f6f35d1260a48437623401e",
+      "mapping-colcon-build.log": "183de9fc0109907dd1222d8cdbe9e798920594b83bf50b2c72460dfd66c442b5",
+      "mapping-overlay-prefix-build.txt": "cd30872677c8b2cde158219fc1afc4b0500ec8b2d6a86cfda958fb0347f87ff2",
+      "mapping-overlay-prefix.txt": "cd30872677c8b2cde158219fc1afc4b0500ec8b2d6a86cfda958fb0347f87ff2",
+      "motion-driver.log": "b208401d49645387b85e396da06126e90df13be85302dad0e7c15c25d13dddd1",
+      "motion.json": "6ec95589bcbc590428b7102ae3af313d89aa3626059c20f6363bbe9f47b72ddb",
+      "raw-vins-probe.log": "afb7b6a8ee2edb7e43572d37dddc254a9795c53681c5b145d6633f4ec8610b1e",
+      "run-container.sh": "61bd2f569744a86fad8125f3544b7ac25a4850006cacd2a52d43fcbefc84163b",
+      "run-live.sh": "1301ce055cad1f2aa77d77a6787cb1ec5b78894a5f2c91c3a42d05744923a224",
+      "run-variant-manifest.json": "961d1cef98a36e64138c9437212dfd1f9578473ff70934edf9eda07f2193cdc3",
+      "run_sensor_motion_no_truth.py": "c58937838159014a480e5f8dc2f8ee3146a28f6ff0d1ecfceec0941e5ef5821d",
+      "sensors.log": "90649e8e10338e034cd5c3fcdc81c2757d23d1e55985eb2103f6213eb1329f9f",
+      "session-binding.json": "143893ab8da932dbd723a0364ae5423d0e4dcc7c421f7c9fd5147a6387479f3e",
+      "startup-events.json": "937bbe5c8259c971a50261c761251ee0f79ea3894961e475fcc3d6923048482a",
+      "vins.log": "c37042f37a7f4dbe56cb80b749efce793b1a76439dee2f94769b28884ce7f9d7",
+      "world-sdf-check.log": "0d2ecc1af6795bb17aac148b56ec92a11534431dc0792470ee44f461dbbe3bb5",
+      "xvfb-preflight.txt": "5478d1c39e9d5f12c29103d90f3d98784edf1d0cdd3353cfe50352c2a92786a2"
+    },
+    "directory_tree_sha256": {
+      "mapping-source": {
+        "sha256": "55e7615cc359571d4c69e7f105ea6ab830a9ed64822d9e72615d3ee9096e0c31",
+        "file_count": 10
+      },
+      "mapping-build": {
+        "sha256": "45844db99b5d5348373d078b5765d0166ce1f1ab98e3a29f94eef5d0508bd50f",
+        "file_count": 20
+      },
+      "mapping-colcon-log": {
+        "sha256": "70759bde30223f624da888608e36aa3d81af999044026f9787637f60645dd1bc",
+        "file_count": 8
+      },
+      "mapping-install": {
+        "sha256": "ab4cbed7c88ff9272667b5f965e4f37a4ed666eed731a2955798e7a0031c17ab",
+        "file_count": 45
+      },
+      "raw-vins-capture": {
+        "sha256": "9def0df0b4494a1211d257462011df9017ef93d9139f3f08ed55de7a3911c838",
+        "file_count": 3
+      },
+      "session": {
+        "sha256": "8b88c4a5fff7cdd56b3dc5cc677f46583a74c6e5e6caab28084413fa1c099b64",
+        "file_count": 6
+      }
+    }
+  }
+}

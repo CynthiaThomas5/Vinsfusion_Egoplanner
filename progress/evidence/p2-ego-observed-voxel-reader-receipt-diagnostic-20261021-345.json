@@ -1,0 +1,89 @@
+{
+  "schema": "p2-ego-observed-voxel-reader-receipt-diagnostic-evidence/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "planner_spline_snapshot_diagnostic_pass_with_limits_reader_pose_gap_start_unknown_goal_c_pending",
+  "run_id": "p2-ego-observed-voxel-target-reader-receipt-diagnostic-20261021-345",
+  "result": {
+    "epoch": "3b8c79f2a9d141d2ac431e1af638f4a7",
+    "map_id": "3b8c79f2a9d141d2ac431e1af638f4a7-daf773a380a4402da4309278ed6f6291",
+    "target_xyz_m": [
+      0.25,
+      -0.15,
+      0.4
+    ],
+    "target_voxel_index_xyz": [
+      122,
+      118,
+      5
+    ],
+    "target_before": "unknown",
+    "target_after_pitch": "known_free_uninflated",
+    "reader_gap": {
+      "timeout_warnings": 27,
+      "sim_interval_s": [
+        18.658,
+        19.552
+      ],
+      "sync_count": 379,
+      "pose_input_count": 379,
+      "last_pose_stamp_s": 18.184,
+      "depth_input_count_first_last": [
+        390,
+        417
+      ],
+      "depth_stamp_first_last_s": [
+        18.547,
+        19.438
+      ],
+      "depth_message_lost": 0,
+      "pose_message_lost": 0,
+      "sender_side_pose_publish_receipt_at_exact_interval": "not independently recorded",
+      "cause": "unresolved"
+    },
+    "bspline_count": 1,
+    "accepted_spline_snapshots": 1,
+    "spline_start_time_ns": 36273000000,
+    "snapshot_stamp_ns": 36273000000,
+    "snapshot_minus_spline_start_s": 0.0,
+    "depth_source_age_s": 0.104,
+    "sample_count": 103,
+    "unknown_samples": 42,
+    "unknown_voxel_indices_xyz": [
+      [
+        120,
+        119,
+        1
+      ]
+    ],
+    "known_free_samples": 61,
+    "occupied_samples": 0,
+    "inflated_samples": 0,
+    "out_of_map_samples": 0,
+    "target_voxel_occupancy": 0,
+    "target_voxel_inflated": 0,
+    "endpoint_distance_to_requested_goal_m": 0.01018503491166111,
+    "truth_topics": [],
+    "control_topics": [],
+    "px4_or_controller": false
+  },
+  "run_manifest": "artifacts/runs/p2-ego-observed-voxel-target-reader-receipt-diagnostic-20261021-345/run-manifest.json",
+  "run_manifest_sha256": "a768c151694c923dba92bced7c2a3d7990472f06613af0ba5c3740177d5e06c4",
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "source_manifest": "artifacts/runs/p2-ego-observed-voxel-target-reader-receipt-diagnostic-20261021-345/source-manifest.json",
+    "source_manifest_sha256": "67a7b5078e09f5a641151f2c84dc55c1ff660672d0442ba6321daf458f4dc380",
+    "experimental_start_voxel_patch": "dependencies/patches/ego/0033-current-start-voxel-exception-experiment.patch",
+    "experimental_start_voxel_patch_sha256": "b33d3f32af9fb3314744e1db7854c6af389c2f8b05800a538ad89b54016742a7",
+    "reader_receipt_diagnostic_patch": "dependencies/patches/ego/0034-depth-pose-reader-receipt-diagnostic-experiment.patch",
+    "reader_receipt_diagnostic_patch_sha256": "5c100f8c96a50d9fef0745d6db146bb2658dd6077c83ec0c145e97354f6247c3",
+    "ego_binary_sha256": "3702e5b5443d6260837b035a9ae5487704ad51de76ebf1ee5aa7c4f8e806fe50"
+  },
+  "limitations": [
+    "The reader gap was measured before the pitch/goal phase; the sender-side camera-pose output was not independently sampled at matching stamps during that exact interval, so the cause is unresolved.",
+    "Patch 0033 allows only the initial contiguous current-start unknown voxel in this run-local planner experiment; unknown elsewhere remains blocked.",
+    "Spline samples classify only the planned centerline against a separate same-stamp snapshot; no airframe swept volume, tracking, execution, PX4, or flight qualification.",
+    "One simulated scene and run do not establish repeatability or mapping completeness."
+  ],
+  "next": "Pair adapter-side depth/camera-pose publication timestamps with the EGO reader counters through the same transient gap, without changing QoS or freshness thresholds; retain unknown fail-closed and defer second-layout acceptance until the input gate is stable."
+}

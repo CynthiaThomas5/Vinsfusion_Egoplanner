@@ -1,0 +1,214 @@
+{
+  "schema": "p2-ego-pose-rmw-unread-history-trace-evidence/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "diagnostic_pass_with_limits_ego_reader_history_empty_during_gap_exact_cause_unresolved_goal_c_pending",
+  "run_id": "p2-ego-pose-rmw-unread-history-trace-20261021-348",
+  "question": "During an EGO camera-pose take gap, does Fast DDS DataReader history contain unread samples while rmw_wait reports not-ready?",
+  "result": {
+    "runtime": {
+      "attempt_status": "completed",
+      "container_exit_code": 0,
+      "ros_domain_id": 213,
+      "gazebo_partition": "d435i_ego_unread_history_348_01",
+      "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+      "truth_subscribed": false,
+      "truth_topics": [],
+      "control_topics": [],
+      "forbidden_control_nodes": [],
+      "trajectory_server_or_controller": false,
+      "px4": false,
+      "ego_runtime_parameters": {
+        "odom_depth_timeout_s": 0.4,
+        "obstacles_inflation_m": 0.5,
+        "qos_changed": false
+      },
+      "sensor_pitch_pulse_sim_s": [
+        30.007,
+        32.02
+      ]
+    },
+    "first_ego_timeout_plateau": {
+      "rows": 26,
+      "sim_interval_s": [
+        4.885,
+        5.795
+      ],
+      "wall_duration_s": 1.249977489,
+      "ego_pose_count_before_after": [
+        10,
+        10
+      ],
+      "ego_sync_count_before_after": [
+        10,
+        10
+      ],
+      "ego_depth_input_count_before_after": [
+        22,
+        49
+      ],
+      "independent_pose_receipts": {
+        "count": 27,
+        "max_positive_source_stamp_gap_s": 0.099
+      },
+      "adapter_forwarded_depth_count_increased": true,
+      "epoch_and_map_id_stable": true
+    },
+    "max_ego_rmw_take_gap": {
+      "interval_time_of_day_s": [
+        68807.606613769,
+        68809.522572108
+      ],
+      "duration_wall_s": 1.915958339,
+      "publisher_rmw_publish_count": 40,
+      "publisher_max_gap_s": 0.169321116,
+      "independent_pose_receipts": 40,
+      "independent_pose_source_stamp_range_s": [
+        4.39,
+        5.743
+      ],
+      "independent_pose_max_source_stamp_gap_s": 0.099,
+      "adapter_forwarded_depth_delta_across_bracket": 47,
+      "epoch_stable": true,
+      "map_id_stable": true,
+      "ego_rmw_wait_event_count": 527,
+      "ready_counts": {
+        "0": 526,
+        "1": 1
+      },
+      "unread_count_distribution": {
+        "0": 526,
+        "25": 1
+      },
+      "unread_count_nonzero_events": 1,
+      "endpoint_event": {
+        "ready": 1,
+        "unread_count": 25
+      },
+      "successful_ego_camera_pose_takes_inside_gap": 0,
+      "executor_events": {
+        "get_next_ready": 3779,
+        "execute": 1715,
+        "wait_for_work": 1877
+      },
+      "fastdds_status_samples_inside_gap": 33,
+      "matched_current_values_inside_gap": [
+        1
+      ],
+      "sample_lost_total_values_inside_gap": [
+        0
+      ],
+      "sample_rejected_total_values_inside_gap": [
+        0
+      ],
+      "next_status_after_gap": {
+        "matched_current": 1,
+        "sample_lost_total": 0,
+        "sample_rejected_total": 0
+      },
+      "whole_trace_status_samples": 1144,
+      "whole_trace_sample_lost_total_values": [
+        0
+      ],
+      "whole_trace_sample_rejected_total_values": [
+        0
+      ]
+    },
+    "trace_completeness": {
+      "wait_event_count": 18294,
+      "wait_seq_range": [
+        0,
+        18295
+      ],
+      "missing_sequences": [
+        70,
+        71
+      ],
+      "missing_sequences_overlap_selected_gap": false,
+      "wait_summary_exit_code": 1,
+      "all_other_analyzer_exit_codes": 0
+    },
+    "interpretation": "At each sampled rmw_wait return in the selected gap, the EGO DataReader reported zero unread history for all 526 not-ready results. The sole ready result at the gap endpoint reported 25 unread samples. This supports that no persistent unread backlog had accumulated in the EGO reader history during the sampled interval; the observation is more consistent with an EGO-reader delivery/history delay than with a wait set failing to surface already queued samples. The exact reason those samples were not visible in that DataReader remains unresolved.",
+    "planner_probe": {
+      "goal_status": "bspline_received",
+      "goal_xyz_m": [
+        0.25,
+        -0.15,
+        0.4
+      ],
+      "epoch": "bbb8c9b0c29e498091f7d5768a69098b",
+      "map_id": "bbb8c9b0c29e498091f7d5768a69098b-610d3182b1f741f2d1a4d555739b0ea264",
+      "snapshot_minus_spline_start_s": 0.0,
+      "depth_source_age_at_snapshot_s": 0.075,
+      "centerline_sample_count": 103,
+      "centerline_sample_classes": {
+        "unknown": 41,
+        "free": 62
+      },
+      "unknown_voxel_indices_xyz": [
+        [
+          120,
+          119,
+          1
+        ]
+      ],
+      "occupied_sample_count": 0,
+      "inflated_sample_count": 0,
+      "out_of_map_sample_count": 0,
+      "nearest_start_odometry_delta_ns": -9000001,
+      "endpoint_distance_to_goal_m": 0.010306059884633042,
+      "trajectory_executed": false
+    },
+    "checks": {
+      "instrument_package_clean_build": true,
+      "rmw_unread_alignment_analysis_passed": true,
+      "planner_centerline_audit_passed_with_limits": true,
+      "fastdds_root_cause_resolved": false,
+      "goal_c_pass": false
+    }
+  },
+  "limitations": [
+    "One simulated run does not establish incidence or root cause.",
+    "get_unread_count is sampled immediately after each rmw_wait return and does not trace internal Fast DDS receive operations continuously.",
+    "Publisher rmw_publish and independent-reader receipt do not prove that every sample reached the EGO DataReader.",
+    "Matched/lost/rejected status showed no loss or rejection in this interval but does not explain the reader-specific delivery gap.",
+    "Wait trace sequence 70 and 71 are missing outside the selected gap, so the complete-trace wait summary exits 1.",
+    "The independent low-bandwidth observer may slightly affect scheduling.",
+    "The planner spline was not executed; centerline classification does not test airframe swept volume, collision, arrival, or PX4 flight.",
+    "41/103 centerline samples remain in one current-start unknown voxel admitted only by experimental patch 0033; GOAL C remains pending.",
+    "The frequent get_unread_count calls may add small observation overhead; this is not measured."
+  ],
+  "provenance": {
+    "run_manifest": "artifacts/runs/p2-ego-pose-rmw-unread-history-trace-20261021-348/run-manifest.json",
+    "run_manifest_sha256": "838b513a0f36e317aabb196954512bd97d3417ee9990d5e0646a997264752985",
+    "ego_upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "ego_source_manifest_sha256": "67a7b5078e09f5a641151f2c84dc55c1ff660672d0442ba6321daf458f4dc380",
+    "ego_binary_sha256": "3702e5b5443d6260837b035a9ae5487704ad51de76ebf1ee5aa7c4f8e806fe50",
+    "patch_0033_sha256": "b33d3f32af9fb3314744e1db7854c6af389c2f8b05800a538ad89b54016742a7",
+    "patch_0034_sha256": "5c100f8c96a50d9fef0745d6db146bb2658dd6077c83ec0c145e97354f6247c3",
+    "rmw_probe_library_sha256": "5f34c3b378f2c29ec7e3100a847c035775e2c97345034802fbeaf28db2fbfa8c",
+    "probe_source_manifest_sha256": "6e88ebb366128edf24670b74dea695900ef95180b1766daf98995349bbd09dc4",
+    "ctf_file_manifest_sha256": "d80ab2016564a5ea286c81169cb05f030ac8327b66ff8d7f98d278066d32abca",
+    "ctf_file_count": 33,
+    "ctf_total_bytes": 16989248,
+    "workspace_status_snapshot_sha256": "32716604a6bc94f23d7d8a8ebf7b495ee4a7fa36f799ade776d5f4bfd2dc6d58",
+    "workspace_status_snapshot_lines": 713,
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-unread-history-trace-20261021-348/runtime-summary.json",
+      "sha256": "178fb784266480ac21bb306e1ef89999b5d137749f07c8562f913ebd3e229388",
+      "size_bytes": 2056
+    },
+    "unread_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-unread-history-trace-20261021-348/analysis/rmw-unread-alignment.json",
+      "sha256": "c82b1c9a86b1df338918b10693b925d0d3d7614e1b446ded75da888a6cb40538",
+      "size_bytes": 9873
+    },
+    "spline_snapshot_analysis": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-unread-history-trace-20261021-348/spline-snapshot-analysis.json",
+      "sha256": "962957a2c5c5d8cb9a9431a85080003bb0df41b5fedbf4bbfb538eb4cf698149",
+      "size_bytes": 6433
+    },
+    "babeltrace2_version": "2.0.5-3build2",
+    "planner_configuration_note": "The copied diagnostic config retains run_id=p2-ego-pose-rmw-readiness-trace-20261021-347 as a non-consumed label. Runtime launch values were resolved from explicit planner fields and are preserved in ego-launch-arguments.json; the live EGO parameter dump confirms the 0.4 s timeout and 0.5 m inflation."
+  }
+}

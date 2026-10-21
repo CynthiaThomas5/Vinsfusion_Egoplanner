@@ -1,0 +1,686 @@
+{
+  "schema": "p2-localization-telemetry-callback-trace-v1",
+  "date": "2026-10-20",
+  "run_id": "p2-localization-telemetry-callback-trace-20261020-261",
+  "scope": "Health-gated full mapper/EGO profile with direct sensor/raw-VINS observers and a run-local diagnostic copy of the self-maintained localization adapter. The adapter instrumentation counts callback entries and records source stamps, callback receipt gaps and health ages; health policy and single-threaded executor remain unchanged. No controller, PX4, setpoint, or online truth.",
+  "status": "excluded_before_goal_publication",
+  "comparison_reference": {
+    "run_260": "Independent sensors and raw VINS remained fresh while the uninstrumented adapter locked on telemetry_stale and reset the map. This run repeats the condition with adapter-local callback diagnostics.",
+    "scope_difference": "The adapter is instrumented only in a run-local copy; callback counters add small per-message overhead and one low-rate log per second."
+  },
+  "runtime": {
+    "runtime_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo_sim_version": "8.14.0",
+    "ros_domain_id": 132,
+    "gz_partition": "d435i_loc_telemetry_trace_261",
+    "run_local_parameters": {
+      "obstacles_inflation_m": 0.5,
+      "resolution_m": 0.1,
+      "ground_height_m": -0.05,
+      "health_policy_changed": false
+    },
+    "adapter_lock_snapshot": {
+      "reason": "telemetry_stale",
+      "sim_time_s": 11.583,
+      "state": "LOCKED",
+      "streams": {
+        "clock": {
+          "callbacks": 6955,
+          "health_receipt_age_s": null,
+          "health_source_age_s": null,
+          "last_source_stamp_s": 11.583,
+          "max_callback_wall_gap_s": 0.2942,
+          "wall_age_s": 0.0003
+        },
+        "imu": {
+          "callbacks": 1427,
+          "health_receipt_age_s": 0.011,
+          "health_source_age_s": 0.028,
+          "last_source_stamp_s": 11.58,
+          "max_callback_wall_gap_s": 0.2971,
+          "wall_age_s": 0.001
+        },
+        "left": {
+          "callbacks": 224,
+          "health_receipt_age_s": 0.245,
+          "health_source_age_s": 0.263,
+          "last_source_stamp_s": 11.551,
+          "max_callback_wall_gap_s": 0.3082,
+          "wall_age_s": 0.0036
+        },
+        "optimized": {
+          "callbacks": 96,
+          "health_receipt_age_s": 0.281,
+          "health_source_age_s": 0.329,
+          "last_source_stamp_s": 11.386,
+          "max_callback_wall_gap_s": 0.3591,
+          "wall_age_s": 0.0077
+        },
+        "propagated": {
+          "callbacks": 1244,
+          "health_receipt_age_s": 0.233,
+          "health_source_age_s": 0.233,
+          "last_source_stamp_s": 11.58,
+          "max_callback_wall_gap_s": 0.2987,
+          "wall_age_s": 0.0008
+        },
+        "right": {
+          "callbacks": 227,
+          "health_receipt_age_s": 0.23,
+          "health_source_age_s": 0.263,
+          "last_source_stamp_s": 11.551,
+          "max_callback_wall_gap_s": 0.2915,
+          "wall_age_s": 0.0019
+        },
+        "status_timer": {
+          "callbacks": 250,
+          "health_receipt_age_s": null,
+          "health_source_age_s": null,
+          "last_source_stamp_s": null,
+          "max_callback_wall_gap_s": 0.2879,
+          "wall_age_s": 0.0
+        },
+        "telemetry": {
+          "callbacks": 106,
+          "health_receipt_age_s": 0.281,
+          "health_source_age_s": 0.329,
+          "last_source_stamp_s": 11.254,
+          "max_callback_wall_gap_s": 0.3581,
+          "wall_age_s": 0.0091
+        }
+      },
+      "wall_monotonic_s": 6789.793574
+    },
+    "sensor_freshness": {
+      "scope": "Read-only left/right image and IMU source timing under mapper/EGO load; no control, PX4, setpoint, or truth subscriptions",
+      "wall_seconds": 55.042773,
+      "latest_clock_stamp_ns": 41579000000,
+      "subscriptions": [
+        "/clock",
+        "/sensors/d435i/infra1/image_rect",
+        "/sensors/d435i/infra2/image_rect",
+        "/sensors/d435i/imu",
+        "/localization/status"
+      ],
+      "health_limits": {
+        "source_age_s": {
+          "left": 0.3,
+          "right": 0.3,
+          "imu": 0.05
+        },
+        "receipt_age_sim_s": {
+          "left": 0.5,
+          "right": 0.5,
+          "imu": 0.2
+        }
+      },
+      "stereo_pairs_within_3ms": 1172,
+      "streams": {
+        "left": {
+          "source_stamp": {
+            "count": 1173,
+            "first_ns": 2623000000,
+            "last_ns": 41548000000,
+            "span_s": 38.925,
+            "interval_ms": {
+              "p50": 33.0,
+              "p95": 33.0,
+              "max": 132.0
+            },
+            "intervals_over_50ms": 5,
+            "intervals_over_300ms": 0
+          },
+          "wall_receipt": {
+            "count": 1173,
+            "first_ns": 6777662551211,
+            "last_ns": 6831623919104,
+            "span_s": 53.961368,
+            "interval_ms": {
+              "p50": 45.357,
+              "p95": 66.365,
+              "max": 368.879
+            },
+            "intervals_over_50ms": 378,
+            "intervals_over_300ms": 2
+          },
+          "simulation_clock_at_receipt": {
+            "count": 1173,
+            "first_ns": 2624000000,
+            "last_ns": 41562000000,
+            "span_s": 38.938,
+            "interval_ms": {
+              "p50": 33.0,
+              "p95": 47.0,
+              "max": 233.0
+            },
+            "intervals_over_50ms": 19,
+            "intervals_over_300ms": 0
+          },
+          "source_age_at_receipt_ms": {
+            "p95": 29.0,
+            "max": 146.0,
+            "over_source_age_limit": 0
+          },
+          "clock_receipt_intervals_over_receipt_limit": 0,
+          "limits": {
+            "source_age_s": 0.3,
+            "receipt_age_sim_s": 0.5
+          },
+          "metadata": [
+            [
+              640,
+              480,
+              "mono8"
+            ]
+          ]
+        },
+        "right": {
+          "source_stamp": {
+            "count": 1174,
+            "first_ns": 2623000000,
+            "last_ns": 41548000000,
+            "span_s": 38.925,
+            "interval_ms": {
+              "p50": 33.0,
+              "p95": 33.0,
+              "max": 132.0
+            },
+            "intervals_over_50ms": 4,
+            "intervals_over_300ms": 0
+          },
+          "wall_receipt": {
+            "count": 1174,
+            "first_ns": 6777666806249,
+            "last_ns": 6831641767831,
+            "span_s": 53.974962,
+            "interval_ms": {
+              "p50": 45.582,
+              "p95": 62.491,
+              "max": 360.663
+            },
+            "intervals_over_50ms": 297,
+            "intervals_over_300ms": 2
+          },
+          "simulation_clock_at_receipt": {
+            "count": 1174,
+            "first_ns": 2625000000,
+            "last_ns": 41578000000,
+            "span_s": 38.953,
+            "interval_ms": {
+              "p50": 33.0,
+              "p95": 38.0,
+              "max": 248.0
+            },
+            "intervals_over_50ms": 25,
+            "intervals_over_300ms": 0
+          },
+          "source_age_at_receipt_ms": {
+            "p95": 38.0,
+            "max": 179.0,
+            "over_source_age_limit": 0
+          },
+          "clock_receipt_intervals_over_receipt_limit": 0,
+          "limits": {
+            "source_age_s": 0.3,
+            "receipt_age_sim_s": 0.5
+          },
+          "metadata": [
+            [
+              640,
+              480,
+              "mono8"
+            ]
+          ]
+        },
+        "imu": {
+          "source_stamp": {
+            "count": 7407,
+            "first_ns": 2622000000,
+            "last_ns": 41580000000,
+            "span_s": 38.958,
+            "interval_ms": {
+              "p50": 5.0,
+              "p95": 5.0,
+              "max": 220.0
+            },
+            "intervals_over_50ms": 9,
+            "intervals_over_300ms": 0
+          },
+          "wall_receipt": {
+            "count": 7407,
+            "first_ns": 6777468476967,
+            "last_ns": 6831643883799,
+            "span_s": 54.175407,
+            "interval_ms": {
+              "p50": 4.633,
+              "p95": 22.571,
+              "max": 346.131
+            },
+            "intervals_over_50ms": 25,
+            "intervals_over_300ms": 2
+          },
+          "simulation_clock_at_receipt": {
+            "count": 7407,
+            "first_ns": 2620000000,
+            "last_ns": 41579000000,
+            "span_s": 38.959,
+            "interval_ms": {
+              "p50": 4.0,
+              "p95": 15.0,
+              "max": 217.0
+            },
+            "intervals_over_50ms": 14,
+            "intervals_over_300ms": 0
+          },
+          "source_age_at_receipt_ms": {
+            "p95": 14.0,
+            "max": 35.0,
+            "over_source_age_limit": 0
+          },
+          "clock_receipt_intervals_over_receipt_limit": 1,
+          "limits": {
+            "source_age_s": 0.05,
+            "receipt_age_sim_s": 0.2
+          },
+          "metadata": []
+        }
+      },
+      "localization_status_history": [
+        {
+          "wall_elapsed_s": 0.57385,
+          "epoch": "97ff54b1cea847ba9dfc3bcace514f1a",
+          "state": 0,
+          "valid": false,
+          "reason": "waiting_for_inputs",
+          "good_pairs": 0,
+          "accepted_optimized": 0,
+          "accepted_propagated": 0
+        },
+        {
+          "wall_elapsed_s": 3.981186,
+          "epoch": "97ff54b1cea847ba9dfc3bcace514f1a",
+          "state": 0,
+          "valid": false,
+          "reason": "waiting_for_propagated",
+          "good_pairs": 1,
+          "accepted_optimized": 0,
+          "accepted_propagated": 0
+        },
+        {
+          "wall_elapsed_s": 4.825332,
+          "epoch": "97ff54b1cea847ba9dfc3bcace514f1a",
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "good_pairs": 10,
+          "accepted_optimized": 1,
+          "accepted_propagated": 4
+        },
+        {
+          "wall_elapsed_s": 13.175548,
+          "epoch": "97ff54b1cea847ba9dfc3bcace514f1a",
+          "state": 4,
+          "valid": false,
+          "reason": "telemetry_stale",
+          "good_pairs": 94,
+          "accepted_optimized": 85,
+          "accepted_propagated": 1122
+        }
+      ],
+      "limitations": [
+        "The observer is a separate DDS subscriber and does not prove that the localization adapter callback received each sample.",
+        "The image/IMU observer adds serialization and callback scheduling load to this full-stack diagnostic."
+      ]
+    },
+    "raw_vins": {
+      "wall_seconds": 65.00201653300064,
+      "optimized_count": 661,
+      "propagated_count": 8734,
+      "telemetry_count": 671,
+      "initialized_telemetry_count": 661,
+      "telemetry_source_stamp_span_s": [
+        5.115999999,
+        48.841
+      ],
+      "telemetry_source_gap_max_s": 0.165000001000001,
+      "telemetry_source_gaps_over_100ms": 1,
+      "telemetry_stamps_near_adapter_lock": [
+        11.056,
+        11.122,
+        11.188,
+        11.254,
+        11.32,
+        11.386,
+        11.551,
+        11.617,
+        11.683,
+        11.749
+      ],
+      "optimized_source_gap_max_s": 0.165000001,
+      "all_output_finite": true,
+      "parse_errors": [],
+      "truth_sample_count": 0
+    },
+    "goal_probe": {
+      "scope": "One read-only EGO planner goal in manual-target mode; no controller or PX4.",
+      "wall_seconds": 40.001128,
+      "status": "timeout_before_ready",
+      "goal_sent": false,
+      "goal_sent_wall_elapsed_s": null,
+      "goal_context": null,
+      "localization_events": [
+        {
+          "wall_elapsed_s": 2.297896,
+          "epoch": "97ff54b1cea847ba9dfc3bcace514f1a",
+          "state": 4,
+          "valid": false,
+          "reason": "telemetry_stale",
+          "good_pairs": 94,
+          "normalized_cost": 0.45869695354028156,
+          "frame_id": "odom_97ff54b1cea847ba9dfc3bcace514f1a"
+        }
+      ],
+      "localization_last": {
+        "wall_elapsed_s": 39.99804,
+        "epoch": "97ff54b1cea847ba9dfc3bcace514f1a",
+        "state": 4,
+        "valid": false,
+        "reason": "telemetry_stale",
+        "good_pairs": 94,
+        "normalized_cost": 0.45869695354028156,
+        "frame_id": "odom_97ff54b1cea847ba9dfc3bcace514f1a"
+      },
+      "mapping_status_last": {
+        "wall_elapsed_s": 39.948498,
+        "epoch": "97ff54b1cea847ba9dfc3bcace514f1a",
+        "map_id": "97ff54b1cea847ba9dfc3bcace514f1a-b378c07b249a4669b2420cc65cd19e71",
+        "input_ready": false,
+        "reason": "map_reset_acknowledged",
+        "occupied_point_count": 0,
+        "forwarded_depth_count": 148,
+        "keyframe_count": 6,
+        "occupancy_cloud_received": true
+      },
+      "raw_occupancy_points_last": 0,
+      "inflated_occupancy_points_last": 0,
+      "bspline_count": 0,
+      "bsplines": [],
+      "ego_log_events": [],
+      "qualification": "A published B-spline proves planner output only. No trajectory server, PX4 bridge, controller, setpoint publisher, or runtime truth subscriber is included."
+    },
+    "mapping_adapter_log": "Gate closed on telemetry_stale, then plan_env was cleared; no ready map at probe timeout.",
+    "ego_log": {
+      "timeout_log_count": 1126,
+      "wait_target_lines": 62,
+      "stable_map_window": false
+    },
+    "motion": {
+      "scope": "Physics force-driven debug sensor rig; clock-driven commands; no truth subscriptions or PX4 control",
+      "clock": [
+        16.253,
+        41.281
+      ],
+      "commands": [
+        {
+          "stamp": 21.281,
+          "world_acceleration_command": [
+            0.06,
+            0.04,
+            0.03,
+            0.1
+          ],
+          "delta_wrench": [
+            0.004319999999999999,
+            0.0028799999999999997,
+            0.0021599999999999996,
+            6e-06
+          ]
+        },
+        {
+          "stamp": 23.262,
+          "world_acceleration_command": [
+            -0.06,
+            -0.04,
+            -0.03,
+            -0.1
+          ],
+          "delta_wrench": [
+            -0.008639999999999998,
+            -0.0057599999999999995,
+            -0.004319999999999999,
+            -1.2e-05
+          ]
+        },
+        {
+          "stamp": 25.279,
+          "world_acceleration_command": [
+            -0.06,
+            0.04,
+            -0.03,
+            -0.1
+          ],
+          "delta_wrench": [
+            0.0,
+            0.0057599999999999995,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stamp": 27.268,
+          "world_acceleration_command": [
+            0.06,
+            -0.04,
+            0.03,
+            0.1
+          ],
+          "delta_wrench": [
+            0.008639999999999998,
+            -0.0057599999999999995,
+            0.004319999999999999,
+            1.2e-05
+          ]
+        },
+        {
+          "stamp": 31.285,
+          "world_acceleration_command": [
+            -0.06,
+            0.04,
+            -0.03,
+            -0.1
+          ],
+          "delta_wrench": [
+            -0.008639999999999998,
+            0.0057599999999999995,
+            -0.004319999999999999,
+            -1.2e-05
+          ]
+        },
+        {
+          "stamp": 33.265,
+          "world_acceleration_command": [
+            -0.06,
+            -0.04,
+            -0.03,
+            -0.1
+          ],
+          "delta_wrench": [
+            0.0,
+            -0.0057599999999999995,
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "stamp": 35.283,
+          "world_acceleration_command": [
+            0.06,
+            0.04,
+            0.03,
+            0.1
+          ],
+          "delta_wrench": [
+            0.008639999999999998,
+            0.0057599999999999995,
+            0.004319999999999999,
+            1.2e-05
+          ]
+        },
+        {
+          "stamp": 37.28,
+          "world_acceleration_command": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "delta_wrench": [
+            -0.004319999999999999,
+            -0.0028799999999999997,
+            -0.0021599999999999996,
+            -6e-06
+          ]
+        }
+      ],
+      "wall_seconds": 35.01444533100039
+    },
+    "localization_overlay": {
+      "classification": "RUN_LOCAL_DIAGNOSTIC_OVERLAY_ONLY",
+      "source_path": "src/own/uav_localization/uav_localization/node.py",
+      "source_sha256": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+      "instrumented_path": "artifacts/runs/p2-localization-telemetry-callback-trace-20261020-261/localization-source/uav_localization/uav_localization/node.py",
+      "instrumented_sha256": "01927263cb518d081a979ac6db700833d895e2e73d4f14eb2fbb952b226d1695",
+      "diff_path": "artifacts/runs/p2-localization-telemetry-callback-trace-20261020-261/localization-node-diagnostic.diff",
+      "diff_sha256": "18f2931abf9bdf87516e72844f73a51bd77a1aba16d01a476d4f3a4dbb2a56b7",
+      "instrumentation": [
+        "Counts callback entry and source stamps for /clock, both stereo images, IMU, VINS telemetry, optimized/propagated odometry, and the status timer.",
+        "Once per wall-clock second logs callback counts, wall receipt ages/gaps, latest source stamps and health source/receipt ages.",
+        "Emits one structured snapshot at first health lock."
+      ],
+      "execution_model": "Preserves the original rclpy.spin(node) single-threaded executor.",
+      "health_policy_changed": false,
+      "callback_order_changed": false,
+      "topics_or_qos_changed": false,
+      "messages_or_frames_changed": false,
+      "publishers_or_control_changed": false
+    }
+  },
+  "interpretation": "At sim time 11.583 s, the adapter locked because its latest accepted telemetry source stamp (11.254 s) was 329 ms old, exceeding the configured 300 ms source-age limit; its measured sim receipt age was 281 ms, below the 500 ms limit. The adapter-local telemetry callback had entered 9 ms before the lock, but its latest accepted source stamp was still 11.254 s. Other accepted inputs at that instant remained within their guards. A separate raw VINS subscriber saw initialized telemetry continue through 48.841 s; its maximum source-stamp gap was 165 ms, including a 165 ms interval around the lock. This supports a delivery/scheduling delay or backlog at the adapter telemetry intake rather than a demonstrated VINS source outage. The data does not separate DDS reader behavior, executor scheduling, or header age at the publisher-to-adapter boundary. The run-local diagnostic added counters and did not alter the health decision.",
+  "truth_isolation": {
+    "runtime_truth_subscriptions": 0,
+    "raw_vins_truth_samples": 0,
+    "motion_driver": "Clock-driven wrench only; no model-pose or truth subscriptions.",
+    "trajectory_server_or_controller": false,
+    "px4_or_control_bridge": false,
+    "setpoint_publishers": 0
+  },
+  "qualification": "Localization health-gate diagnostic only. No goal, B-spline, map availability, trajectory execution, or obstacle clearance is qualified. GOAL B/C/D/F and P2 health limits remain pending/PROVISIONAL.",
+  "limitations": [
+    "Raw VINS is a separate DDS subscriber and cannot prove which samples reached the adapter.",
+    "The adapter callback counters show entry and last accepted source stamps, not Fast DDS reader queue contents or exact publisher-to-reader delivery latency.",
+    "Run-local instrumentation adds a small amount of callback work; #260 reproduced telemetry_stale without adapter instrumentation.",
+    "EGO had no stable mapped input after reset, so the EGO timeout boundary was not measured in this run."
+  ],
+  "next_step": "Run a reduced-load isolation with the same callback-instrumented adapter and raw VINS observer but without the direct image/IMU observer and EGO/map stack. Compare telemetry callback gap and source age; then make any adapter scheduling change only if the boundary is reproduced and the timing cause is supported. Preserve the health thresholds and control ownership.",
+  "execution_validation": {
+    "overlay_build_exit_code": 0,
+    "overlay_build": "PASS; run-local uav_localization package built (1/1).",
+    "container_exit_code": 0,
+    "world_sdf_preflight": "PASS; gz sdf -k reported Valid with existing gz_frame_id schema warnings.",
+    "sensor_freshness": "Separate observer: stereo 1172 pairs within 3 ms; left/right source ages max 146.0/179.0 ms (no >300 ms crossing); IMU source age max 35.0 ms, with one observed simulation receipt interval above the 200 ms observer limit. At adapter lock, IMU health source/receipt ages were 28/11 ms.",
+    "localization_callback_trace": "PASS; entered TRACKING then locked at sim 11.583 s on telemetry_stale. At lock, adapter accepted telemetry source stamp 11.254 s (source age 329 ms > 300 ms policy; receipt age 281 ms < 500 ms policy); its callback entry was 9 ms earlier. Separate raw VINS probe observed initialized telemetry through sim stamp 48.841 s with max source gap 165 ms.",
+    "goal_probe": "timeout_before_ready; no goal or B-spline. Final map was reset/not ready with 0 occupied points.",
+    "ego_followup": "EGO remained WAIT_TARGET; 1126 repeated timeout log lines occurred after map/input reset, with no stable mapped input window; not used as EGO-boundary evidence.",
+    "raw_vins": "PASS; 661 optimized, 8734 propagated, 671 telemetry; finite outputs, no parse errors or truth samples.",
+    "truth_and_control": "No truth subscription, trajectory server/controller, PX4, or setpoint publisher; wrench motion driven by /clock only.",
+    "run_local_syntax": "Four shell scripts passed bash -n; instrumented adapter Python source passed compile check; one-package colcon build passed.",
+    "test_container_cleanup": "docker ps empty after run.",
+    "project_source_changes": false
+  },
+  "source_sha256": {
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/localization/vins_sim.json": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "config/components/mapping/ego_planner.json": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "simulation/worlds/sensor_calibration.sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "src/own/uav_localization/uav_localization/health.py": "98e1cfa4e53825ba71f6929d2af007d69e2d7671155c9ed1b161db0e26932255",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f",
+    "src/own/uav_interfaces/msg/LocalizationStatus.msg": "82eeeef97be749c0a110619cab4aa90717c16f8fd8006ada9c3630a31033c2d2",
+    "src/own/uav_interfaces/msg/MapStatus.msg": "44b02ae896f765fa65eaa2a1397f2af2fc487970d6c6444277eb60e6df1c1060",
+    "src/own/uav_sim/launch/sensors.launch.py": "61a9c68132fb22d443f0a1530e0fb77cfdf4a4e0ecf4abdfe377cb0c388f0314",
+    "tools/generate_vins_config.py": "b98c1730bcfedb18079ce75a50fa6ba51c3a175fc53937766b14693675fa9e06",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c"
+  },
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p2-localization-telemetry-callback-trace-20261020-261",
+    "sha256": {
+      "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+      "build-localization-overlay-container.sh": "68cb4c414885a9870fb93acc7530356c1f88674d55f40bcff4707a514f8a3948",
+      "build-localization-overlay.sh": "4afb128838e296fdaa8803f1510310b66459883916287bc9e51ceb711ebb8939",
+      "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+      "depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ego-inflation-params.txt": "def8f3592bab8eeac69d9991b89448efda8901d6cc898b5042252ae248725c53",
+      "ego.log": "2229238891a281679d80b19e1ce9bc30c5b2bfaf9f022f8f92e68e35a20b9c5d",
+      "inflated-topic-info.txt": "f6257d07c258d2bdb0b037fe2fa02a6627f2e21532387fdf1f29fb4635d3dbce",
+      "input-freshness-probe.log": "bf06dab135f691657c88f051d4e1754ec03cbb8f5cfbd8952e0207ce6dea4241",
+      "input-freshness-samples.json": "83d5489be9d7ef3935c49d572970b2de5c80cdb594cc9d5a3f9fa40b565375d0",
+      "input-freshness.json": "3516c52d298274499801fb0241e3e9549d8b2ac29a6a590e5d7696416a567418",
+      "input-topic-info.txt": "1e8b3a8972a75004f2aaa39d7dbfb199579d5437c8350af2a3856466fe0e7440",
+      "localization-adapter.log": "ea0dc1e0d1bc293726b2caea8dbbe8afdd3b4896c6803686e2d57c4ceab604fd",
+      "localization-colcon-build.log": "6cde2d7e69fd450a563ff67c3d4e82b743e12638a27c763af9a968a89a25cb65",
+      "localization-node-diagnostic.diff": "18f2931abf9bdf87516e72844f73a51bd77a1aba16d01a476d4f3a4dbb2a56b7",
+      "localization-overlay-prefix-build.txt": "74cd77ebea90b28b21339b0e13e67bc69fd93cab31db7bb025fb47fe0d0e39fc",
+      "localization-overlay-prefix.txt": "74cd77ebea90b28b21339b0e13e67bc69fd93cab31db7bb025fb47fe0d0e39fc",
+      "localization-source-patch-manifest.json": "2003cf688d2a27c114215870870598446b770f6f6746950f1ee7e9a5bc6c82d1",
+      "mapping-adapter.log": "f52e18bdc2cb9a152f1e06f011c66dafd4a47c315644c5559333087ec9aca6df",
+      "motion-driver.log": "37665eacaf8ffa58f39ec6528aee959e0ef76c1d2b6a7be87d61c2229e4ba01f",
+      "motion.json": "007a660f523dccbe33f0a6a0150bdeeea0060ce8f9d309f76feb72d9e9b78714",
+      "optimized-odom-topic-info.txt": "31a30f5c1b1ef921c0519870cb7e8faef6e14c1778c3126aaad6e2dd281950ce",
+      "planner-goal-result.json": "1de39a2309687dc2bd6c1fd4abf5936cdf620aca454460980be4f452e51e6730",
+      "planner-probe.log": "109ee2471c1b5d7ad4c8d529728adb9a524e0609fe7186ed355e198c4843521c",
+      "probe_ego_goal.py": "b80678993e47ef2e4a05d2344b57a6de5059ff821417bacc0ab977acf59e3e84",
+      "probe_sensor_freshness.py": "78f322accd111a65f417f92ef63a4716897ec2446065cada18d1380249413816",
+      "raw-vins-probe.log": "674cf30537e60df0447f1dc0d0bb880f41cf094bebee5a9111505edc9c37aeaf",
+      "run-container.sh": "e6abbe62f20b06a10a40c31cd722899edcb28cb9be9d455070f5292733d71b89",
+      "run-live.sh": "9fa7bc9fe27f3e4b5ea52329a4532fe290b99cf7e6ab476fa8df0c6857ed54ca",
+      "run-variant-manifest.json": "81e5acad284a9acd97024ba6d0b48b7463d3d200f366cfa1d5d996a155d2c7f0",
+      "run_sensor_motion_no_truth.py": "c58937838159014a480e5f8dc2f8ee3146a28f6ff0d1ecfceec0941e5ef5821d",
+      "sensors.log": "14d97de51749a1c72a107d98064fe3cb649155fd9e8b6b40ac3a97783cdf6439",
+      "session-binding.json": "185af67ac9944e5b966b8c5081a987bc0b878c01a2b05dc32c7fdd344681a575",
+      "vins.log": "a9c87b6c4780aed6204a2d4a527643334a5498ac4e9784e060811c93997305b5",
+      "world-sdf-check.log": "361425c8256bafccdff927792941ccb906e64c3eebaeb7aa1d8f8cd3b6e686c4",
+      "raw-vins-capture/raw-odometry.json": "25d0dd914b0e2f18b955aa49cdde88ddf97c0c6edb41317cc32bd979639670df",
+      "raw-vins-capture/summary.json": "028fa1c7a7b5faffb7006e97a956aa8d442c5c8c88939fe6beb2bfc9fcae0e23",
+      "raw-vins-capture/telemetry.json": "b81e8dea7e2c8abd107d46202a9c85aa8e7dc7183d6ea62360f2aefe07b943ab",
+      "session/.localization-used": "b40fbcee605a2ac7fb85a6d3d4a1b749d94a0c973895fdc1119afa417e1e176f",
+      "session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+      "session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+      "session/session.json": "79ad2e47f4bbcc0e4de884e9c32b8717c407d585ac0fe01fc28bc9a5a5a28031",
+      "session/vins.yaml": "ff0119f3c581079cfb585f8d5bd76a4da72831ebcfb9ea878ac7456a3e716376",
+      "session/vio.csv": "c0958d7670eb3153cb11fb7abf3c2180794f8c57fd670c9ee8db981bcab54475"
+    },
+    "directory_tree_sha256": {
+      "localization-build": {
+        "sha256": "9f95c3f49ce73f607e618f70cf97821dadf44f846a11a7541ab15d4cd425f714",
+        "file_count": 18
+      },
+      "localization-colcon-log": {
+        "sha256": "d09256fbdcdca8371d41db9b15cbe4fbf4720b7ee4ed77dbcb34104124896cc0",
+        "file_count": 8
+      },
+      "localization-install": {
+        "sha256": "e7b968dd5bbe6fb448a1fc84fb8845af2da3759c955a2cd59fd8fb78ae76edb3",
+        "file_count": 40
+      },
+      "localization-source": {
+        "sha256": "3ef64b47b4201c33b571c5c11c495cae1e7e1b0523930fff69838e3e17f83cac",
+        "file_count": 13
+      }
+    }
+  }
+}

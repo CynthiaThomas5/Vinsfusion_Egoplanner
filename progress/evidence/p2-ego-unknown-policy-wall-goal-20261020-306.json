@@ -1,0 +1,524 @@
+{
+  "schema": "p2-ego-unknown-policy-wall-goal-experiment/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-unknown-policy-wall-goal-20261020-306",
+  "status": "EXPERIMENTAL_UNKNOWN_BLOCKED_REPLANNING_CAPTURED_BUT_COLLISION_WARNINGS_AND_CLEARANCE_UNQUALIFIED",
+  "objective": "Repeat the #305 manual-goal wall scene with unknown voxels blocked in EGO collision queries and a run-local 0.5 m inflation candidate; compare spline output with same-epoch map snapshots.",
+  "candidate": {
+    "patch": "dependencies/patches/ego/0020-unknown-as-obstacle-experiment.patch",
+    "sha256": "1041f74fd2b8c0409f348f272d7e48f0d7a62d9552e31a741b9296aa8ffdb0b8",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "canonical_patch_count": 15,
+    "canonical_tree_match_except_candidate": true,
+    "canonical_pre_candidate_grid_map_h_sha256": "a70c35670eb536ba3232dc7b2215b35f9e3f82dbb6a1f4daf988b3cc5fddb80e",
+    "candidate_grid_map_h_sha256": "4ffa9720c8096dbd49dfdddbe3252ccd56d88089350ea1136146fba8ee007dc9",
+    "applied_after": "dependencies/patches/ego/0021-occupancy-snapshot-service.patch",
+    "added_to_canonical_chain": false,
+    "applied_to_src_vendor": false,
+    "isolated_overlay": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/ego-overlay",
+    "license": "GPL-3.0-only",
+    "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+  },
+  "build": {
+    "schema": "ego-unknown-policy-wall-probe-build/v1",
+    "run_id": "p2-ego-unknown-policy-wall-goal-20261020-306",
+    "result": "PASS_5_OF_5",
+    "packages": [
+      "traj_utils",
+      "plan_env",
+      "path_searching",
+      "bspline_opt",
+      "ego_planner"
+    ],
+    "canonical_underlay": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/install-reconstructed",
+    "candidate_overlay": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/ego-overlay",
+    "build_log": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/build.log",
+    "build_log_sha256": "a02c4a62fed55ce64bd036727845e86755f2a4fefd556384176eeec9a48a8465",
+    "patch_reverse_check": "PASS",
+    "patch_reverse_check_log_sha256": "7838f864075c0d348beb66fc284649dc795d54b026a904d2d8dc33bcca18b366",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_binaries": {
+      "ego_planner_node": "37aaee3131627c3afc14a75e634f22aa89b749e23819842ab17c4da8fcfa83a3",
+      "libplan_env.so": "23d43c756ad01a08d3c89fcbfd1a178bca01ab227f0a8c4083f2325190b27ba5"
+    },
+    "known_warnings": "Existing upstream deprecation, VLA and unused-parameter warnings; no build errors."
+  },
+  "runtime": {
+    "scope": "Goal-time plus three post-motion occupancy snapshots during planner-only D435i/VINS sensor motion using canonical EGO plus run-local unknown-blocking overlay; no PX4, trajectory server, or controller launch",
+    "goal_sent": true,
+    "goal_stamp_ns": 4830000000,
+    "goal_epoch": "ecc0b3bcc9b44d3a98e16b22715663ea",
+    "goal_frame_id": "odom_ecc0b3bcc9b44d3a98e16b22715663ea",
+    "goal_xy_z_m": [
+      2.5,
+      1.4,
+      1.0
+    ],
+    "goal_map_status": {
+      "wall_elapsed_s": 2.521587,
+      "stamp_ns": 4786000000,
+      "epoch": "ecc0b3bcc9b44d3a98e16b22715663ea",
+      "map_id": "ecc0b3bcc9b44d3a98e16b22715663ea-826d7ae74a63447396f36bdadcd73591",
+      "input_ready": true,
+      "reason": "ready",
+      "occupied_point_count": 1052,
+      "forwarded_depth_count": 24,
+      "keyframe_count": 1,
+      "occupancy_cloud_received": true
+    },
+    "runtime_obstacles_inflation_m": 0.5,
+    "baseline_305_runtime_obstacles_inflation_m": 0.099,
+    "baseline_305_goal_snapshot_inflated_voxels": 6673,
+    "goal_snapshot_inflated_voxels": 32394,
+    "first_force_command_stamp_s": 15.676,
+    "goal_to_goal_snapshot_stamp_lag_s": 2.431,
+    "goal_to_goal_snapshot_source_lag_s": 2.299,
+    "goal_scene_static_until_first_force_command": true,
+    "first_spline_start_s": 17.661,
+    "snapshot_03_to_first_spline_start_s": 0.9100000000000001,
+    "spline_count": 4,
+    "spline_traj_ids": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "last_localization_valid": true,
+    "last_localization_reason": "fresh_inputs_and_usable_solver",
+    "last_map_status_ready": true,
+    "map_snapshots": [
+      {
+        "index": "goal",
+        "epoch": "ecc0b3bcc9b44d3a98e16b22715663ea",
+        "map_id": "ecc0b3bcc9b44d3a98e16b22715663ea-826d7ae74a63447396f36bdadcd73591",
+        "frame_id": "odom_ecc0b3bcc9b44d3a98e16b22715663ea",
+        "snapshot_stamp_ns": 7261000000,
+        "last_fused_depth_source_stamp_ns": 7129000000,
+        "source_age_at_response_s": 0.132,
+        "service_duration_ms": 81.65636800003995,
+        "forwarded_depth_count_before_after": [
+          84,
+          90
+        ],
+        "voxel_counts": {
+          "unknown": 3446862,
+          "free": 7822,
+          "occupied": 1316,
+          "inflated": 32394
+        },
+        "archive_sha256": "d185011c80685de25b5fcff21cbccf1412ca2586d573af6951665d421c8e72b7",
+        "archive_readback_exact": true,
+        "identity_rejection_checks": {
+          "mismatched_epoch_rejected": true,
+          "mismatched_epoch_reason": "epoch_mismatch",
+          "mismatched_map_id_rejected": true,
+          "mismatched_map_id_reason": "map_id_mismatch"
+        }
+      },
+      {
+        "index": "01",
+        "epoch": "ecc0b3bcc9b44d3a98e16b22715663ea",
+        "map_id": "ecc0b3bcc9b44d3a98e16b22715663ea-826d7ae74a63447396f36bdadcd73591",
+        "frame_id": "odom_ecc0b3bcc9b44d3a98e16b22715663ea",
+        "snapshot_stamp_ns": 10900000000,
+        "last_fused_depth_source_stamp_ns": 10759000000,
+        "source_age_at_response_s": 0.141,
+        "service_duration_ms": 60.87192899940419,
+        "forwarded_depth_count_before_after": [
+          191,
+          194
+        ],
+        "voxel_counts": {
+          "unknown": 3446312,
+          "free": 8408,
+          "occupied": 1280,
+          "inflated": 32421
+        },
+        "archive_sha256": "32a5ddfa54e280539392bff177fa083ecfb18ddbb9576af13f9371248eabde83",
+        "archive_readback_exact": true,
+        "identity_rejection_checks": {
+          "mismatched_epoch_rejected": true,
+          "mismatched_epoch_reason": "epoch_mismatch",
+          "mismatched_map_id_rejected": true,
+          "mismatched_map_id_reason": "map_id_mismatch"
+        }
+      },
+      {
+        "index": "02",
+        "epoch": "ecc0b3bcc9b44d3a98e16b22715663ea",
+        "map_id": "ecc0b3bcc9b44d3a98e16b22715663ea-826d7ae74a63447396f36bdadcd73591",
+        "frame_id": "odom_ecc0b3bcc9b44d3a98e16b22715663ea",
+        "snapshot_stamp_ns": 13729000000,
+        "last_fused_depth_source_stamp_ns": 13630000000,
+        "source_age_at_response_s": 0.099,
+        "service_duration_ms": 101.93055300078413,
+        "forwarded_depth_count_before_after": [
+          275,
+          276
+        ],
+        "voxel_counts": {
+          "unknown": 3445662,
+          "free": 9057,
+          "occupied": 1281,
+          "inflated": 32443
+        },
+        "archive_sha256": "7ffe96e3ed0a832470b30ba7fe9f0073577c8e5d793a808495b641b988f3caf2",
+        "archive_readback_exact": true,
+        "identity_rejection_checks": {
+          "mismatched_epoch_rejected": true,
+          "mismatched_epoch_reason": "epoch_mismatch",
+          "mismatched_map_id_rejected": true,
+          "mismatched_map_id_reason": "map_id_mismatch"
+        }
+      },
+      {
+        "index": "03",
+        "epoch": "ecc0b3bcc9b44d3a98e16b22715663ea",
+        "map_id": "ecc0b3bcc9b44d3a98e16b22715663ea-826d7ae74a63447396f36bdadcd73591",
+        "frame_id": "odom_ecc0b3bcc9b44d3a98e16b22715663ea",
+        "snapshot_stamp_ns": 16751000000,
+        "last_fused_depth_source_stamp_ns": 16666000000,
+        "source_age_at_response_s": 0.085,
+        "service_duration_ms": 51.65886400027375,
+        "forwarded_depth_count_before_after": [
+          350,
+          362
+        ],
+        "voxel_counts": {
+          "unknown": 3440923,
+          "free": 13707,
+          "occupied": 1370,
+          "inflated": 33182
+        },
+        "archive_sha256": "2d66daf6e0e76376d94f283ff500e26ef8324f231e4b0dbdc985b5cc0a472b5a",
+        "archive_readback_exact": true,
+        "identity_rejection_checks": {
+          "mismatched_epoch_rejected": true,
+          "mismatched_epoch_reason": "epoch_mismatch",
+          "mismatched_map_id_rejected": true,
+          "mismatched_map_id_reason": "map_id_mismatch"
+        }
+      }
+    ],
+    "runtime_control_nodes": [],
+    "runtime_truth_topics": [],
+    "runtime_control_topics": [],
+    "log_counts": {
+      "input_timeout_messages": 0,
+      "first_three_control_points_in_obstacles": 6290,
+      "failed_direction_warnings": 3395,
+      "terminal_point_in_obstacle_warnings": 583,
+      "suddenly_discovered_obstacle_emergency_warnings": 1,
+      "exec_to_emergency_stop_transitions": 1,
+      "emergency_stop_recovery_transitions": 1
+    }
+  },
+  "planner_geometry_offline": {
+    "scope": "Exploratory SDF comparison only; fixture truth was recorded offline and never entered the ROS graph. Fixed-scale SE(3) fit uses 492 paired samples over 32.406 s; not a flight-clearance measurement.",
+    "alignment": {
+      "paired_samples": 492,
+      "overlap_seconds": 32.406,
+      "truth_position_span_m": [
+        0.2690335798064188,
+        0.3260578801911814,
+        0.13451678999999417
+      ],
+      "position_rmse_m": 0.013162284266943556,
+      "position_p95_m": 0.024624983344649305,
+      "orientation_rmse_deg": 1.1371988537567526
+    },
+    "truth_yaw_span_deg": 25.693891536039814,
+    "per_spline": [
+      {
+        "traj_id": 1,
+        "start_time_s": 17.661,
+        "planned_endpoint_error_m": 0.1953972074209656,
+        "max_deviation_from_requested_chord_m": 1.1174030674096895,
+        "nominal_sphere_clearance_m": {
+          "calibration_wall": 0.0003170729781606374,
+          "calibration_box": 0.19325075256419794,
+          "calibration_cylinder": 0.4139537552318962
+        },
+        "direct_chord_box_nominal_sphere_clearance_m": -0.4483596685446914
+      },
+      {
+        "traj_id": 2,
+        "start_time_s": 17.662,
+        "planned_endpoint_error_m": 0.201472369540666,
+        "max_deviation_from_requested_chord_m": 1.1795674834756182,
+        "nominal_sphere_clearance_m": {
+          "calibration_wall": 0.016319944987191692,
+          "calibration_box": 0.26312273199960096,
+          "calibration_cylinder": 0.25894962384764025
+        },
+        "direct_chord_box_nominal_sphere_clearance_m": -0.4517944720451018
+      },
+      {
+        "traj_id": 3,
+        "start_time_s": 18.679,
+        "planned_endpoint_error_m": 0.038479718591971204,
+        "max_deviation_from_requested_chord_m": 1.1398562700809234,
+        "nominal_sphere_clearance_m": {
+          "calibration_wall": 0.033278167952209003,
+          "calibration_box": 0.22738319118436195,
+          "calibration_cylinder": 0.3183892999177648
+        },
+        "direct_chord_box_nominal_sphere_clearance_m": -0.43282093787916454
+      },
+      {
+        "traj_id": 4,
+        "start_time_s": 18.679,
+        "planned_endpoint_error_m": 0.30497559343612085,
+        "max_deviation_from_requested_chord_m": 1.1947259027722004,
+        "nominal_sphere_clearance_m": {
+          "calibration_wall": 0.008736512171754973,
+          "calibration_box": 0.27260791764266706,
+          "calibration_cylinder": 0.31436366434957635
+        },
+        "direct_chord_box_nominal_sphere_clearance_m": -0.43287380378287094
+      }
+    ]
+  },
+  "spline_map_overlap": [
+    {
+      "index": "goal",
+      "stamp_s": 7.261,
+      "source_age_s": 0.132,
+      "splines": [
+        {
+          "traj_id": 1,
+          "unknown_samples": 389,
+          "free_samples": 812,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 171,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 2,
+          "unknown_samples": 490,
+          "free_samples": 711,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 100,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 3,
+          "unknown_samples": 726,
+          "free_samples": 475,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 6,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 4,
+          "unknown_samples": 605,
+          "free_samples": 596,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 125,
+          "outside_map_samples": 0
+        }
+      ]
+    },
+    {
+      "index": "01",
+      "stamp_s": 10.9,
+      "source_age_s": 0.141,
+      "splines": [
+        {
+          "traj_id": 1,
+          "unknown_samples": 386,
+          "free_samples": 815,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 171,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 2,
+          "unknown_samples": 423,
+          "free_samples": 778,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 100,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 3,
+          "unknown_samples": 567,
+          "free_samples": 634,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 6,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 4,
+          "unknown_samples": 587,
+          "free_samples": 614,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 125,
+          "outside_map_samples": 0
+        }
+      ]
+    },
+    {
+      "index": "02",
+      "stamp_s": 13.729,
+      "source_age_s": 0.099,
+      "splines": [
+        {
+          "traj_id": 1,
+          "unknown_samples": 206,
+          "free_samples": 995,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 171,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 2,
+          "unknown_samples": 160,
+          "free_samples": 1041,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 100,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 3,
+          "unknown_samples": 279,
+          "free_samples": 922,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 6,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 4,
+          "unknown_samples": 348,
+          "free_samples": 853,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 125,
+          "outside_map_samples": 0
+        }
+      ]
+    },
+    {
+      "index": "03",
+      "stamp_s": 16.751,
+      "source_age_s": 0.085,
+      "splines": [
+        {
+          "traj_id": 1,
+          "unknown_samples": 0,
+          "free_samples": 1201,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 171,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 2,
+          "unknown_samples": 0,
+          "free_samples": 1201,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 100,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 3,
+          "unknown_samples": 0,
+          "free_samples": 1201,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 6,
+          "outside_map_samples": 0
+        },
+        {
+          "traj_id": 4,
+          "unknown_samples": 0,
+          "free_samples": 1201,
+          "occupied_samples": 0,
+          "inflated_mask_samples": 125,
+          "outside_map_samples": 0
+        }
+      ]
+    }
+  ],
+  "temporal_map_analysis": {
+    "known_voxels": 9688,
+    "known_voxels_over_time": [
+      9688,
+      10338,
+      15077
+    ],
+    "occupied_voxels_over_time": [
+      1280,
+      1281,
+      1370
+    ],
+    "central_wall_median_center_shift_m": [
+      0.0,
+      0.0
+    ]
+  },
+  "interpretation": "The candidate produced four B-splines after camera motion and map growth. The first goal-adjacent snapshot and the two subsequent pre-motion snapshots still had unknown samples along the later spline centerlines; snapshot 03, 0.91 s before the first spline start, classified all sampled centerline cells as known free. This is consistent with conservative unknown handling awaiting observation, but voxel timestamps and exact planner-time map readback are absent. Inflation increased the goal snapshot mask from 6,673 voxels in #305 to 32,394 here. Offline SDF analysis reports only 0.3–33 mm nominal-sphere wall clearance across the four splines, with 0.19–0.27 m box clearance; direct chords intersect the box. Repeated optimizer collision/rebound warnings, one internal emergency-stop/recovery transition and centerline overlap with the separate inflation mask prevent safety or planning acceptance.",
+  "qualification": "Planner-only experiment; no trajectory server, controller, PX4, actuator, online truth subscription, or GOAL C/D/E/F acceptance.",
+  "limitations": [
+    "The goal-adjacent snapshot source stamp was 2.299 s after the goal; the scene remained stationary until the first force command at 15.676 s. It is near-goal static-scene context, not exact same-stamp evidence.",
+    "No voxel retains its individual observation time. Snapshot 03 precedes the first spline by 0.910 s but is not an exact planning-time map.",
+    "Offline alignment is one fixed-scale SE(3) fit across 492 pairs; it is a diagnostic measure of this force-driven sensor fixture, not a validated world-frame clearance bound.",
+    "The 0.5 m inflation is a rounded nominal-sphere candidate only; it adds 18 mm beyond the nominal 0.48194 m sphere and excludes map, tracking, braking, rotor and cable margins.",
+    "EGO recorded 6,290 first-three-control-points-in-obstacle warnings, 3,395 direction-generation warnings, 583 terminal-point-in-obstacle warnings, and one internal emergency stop followed by recovery; no EGO odom/depth timeout was recorded.",
+    "All four published centerlines had zero occupied samples in the archived snapshots; at snapshot 03 they had zero unknown samples but 6–171 samples overlapping the separate inflated mask."
+  ],
+  "milestones_unchanged": {
+    "P0": "passed; isolated candidate 5/5 package build",
+    "P2": "passed; stage audit unchanged",
+    "GOAL_C": "pending",
+    "GOAL_D_E_F": "pending"
+  },
+  "source_sha256": {
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/experiment-plan.json": "dcd59a2e0b9547f72ea07b0bd5775912c7e8b9b8e0c6d704be3c41cc1d0c0e69",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/planner-config.json": "8d8106d58c59742e8b07ec8431526c7ea827f1201da4f09557f08b648a3e11b3",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/source-manifest-experiment.json": "1039d2b998ebb335fdf5cb702d2fe44e10c72ee0bee79b8954f96f318581df4c",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/source-manifest-build.json": "1b70e2636fdd23837a36335205750da155e89305e6f2108fd161433bfb7524ae",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/build-report.json": "426a8a73f388fd6ae353513e936a598a8212eee12b1a34c0be1999b35ae384af",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/build.log": "a02c4a62fed55ce64bd036727845e86755f2a4fefd556384176eeec9a48a8465",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/candidate-patch-dry-run.log": "7838f864075c0d348beb66fc284649dc795d54b026a904d2d8dc33bcca18b366",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/candidate-patch-apply.log": "7be483ae78cbfc3dd2f2468e7923e48503a91a69c4456c5b7c13fd321adabb40",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/candidate-patch-reverse-check.log": "7838f864075c0d348beb66fc284649dc795d54b026a904d2d8dc33bcca18b366",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/run-live-01.sh": "4d3eff5e5d95c305c4044050f8a854d08bbcabd94b3b0ed279f89f7fb84b79d5",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/run-container-01.sh": "bec7ad7cd505af6d90e645d76a41ce1993e6230f5670dfaaa0551184cb455c74",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/debug-motion-01.sdf": "3b6d2f6615b7d07ceb16ac837c98f4cf071dac78d3d96dbcfd771c90aae82f98",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/motion-01.json": "5e7cc0f6cdf83964c9d7535c6ff0caabbd8c6e071a446748505179cddd8fa8a7",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/goal-sent-marker-01.json": "429b632871a35279314db314e8aa097a6bd4b38a6a9275d1d59e81deef2e51c8",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/planner-goal-result-01.json": "defc52720e7a234fe12e2333119a5e6a9ec6f73a7a4e7986040473ce8b2fbedd",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/ego-01.log": "906bae88633ddd7f4f46a5813618b26f03969c1cf41e6550e7f4feb0456bd23d",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/ego-runtime-params-01.yaml": "7fab3f9beabf66ea1a3eadf322c1b620c9491a8b2c82e30af9ab7107e184e68f",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/runtime-summary.json": "0fb0517caf7ef14642fa2dd579eae2d46db66f6b41564828d327e45fc487ad50",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/optimized-odometry-01.json": "42b93ad1352e89b80cffb6212c747fc7cb7967812ea375d4f9a7da9eea927782",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/vins-odometry-extracted.json": "7d7fc2f5eabdeb0ca9588c5bab1c453482f1a4978a35901443614e968ad21157",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/trajectory-clearance-01.json": "bfd9fe724490e3deeaca7b41ec70e714d7541d3ddc7c62a1fa90cd980fde410e",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/trajectory-clearance-console-01.log": "cb7c36c602175e1c140432fcc0a6908164a58899f360009c9b69cd71f9cc068d",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/spline-map-overlap-01.json": "2ca33174817518ac6f255e1910b555c3deec98d470cc5459b367247a4b23171c",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/temporal-map-analysis.json": "8dc33b31d3bd0c47e05cffa3971a0b70c6d9e0d6e3d68bee0874e2d84997271c",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/evaluate_planner_path.py": "5dc968cbb521fb5181b2f3bf67bc7a221c0bf242bdeadf19283e2f083c96412e",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/evaluate_spline_map_overlap.py": "898f1e5a06a720e8910e8b3cae8ff034c5e428d314839cacf421c6b074e96ca2",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/analyze_temporal_maps.py": "2dd05d6c623117f3ba38653117141f62d146a8cc340343b26c90fb7ec17a29c5",
+    "dependencies/patches/ego/0020-unknown-as-obstacle-experiment.patch": "1041f74fd2b8c0409f348f272d7e48f0d7a62d9552e31a741b9296aa8ffdb0b8",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-goal/metadata.json": "0f79760e7238a7c292946f2ae2f15f8578d7820929cf676af59fccb8bbbde44a",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-goal/occupancy_snapshot.npz": "d185011c80685de25b5fcff21cbccf1412ca2586d573af6951665d421c8e72b7",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-01/metadata.json": "e5f2a02dab95989b188bbf6c3dcd7722892d034a55852a052d2f8e2d5fead1f3",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-01/occupancy_snapshot.npz": "32a5ddfa54e280539392bff177fa083ecfb18ddbb9576af13f9371248eabde83",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-02/metadata.json": "8188b509caffa3fb407ad26606bce8a8da2de26beb51ace296a1b7b515f74a4b",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-02/occupancy_snapshot.npz": "7ffe96e3ed0a832470b30ba7fe9f0073577c8e5d793a808495b641b988f3caf2",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-03/metadata.json": "388b0e69b177bb4ede5a790aa511148a89dd1ae361acf57b4c60a9a4f4aeccbe",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-03/occupancy_snapshot.npz": "2d66daf6e0e76376d94f283ff500e26ef8324f231e4b0dbdc985b5cc0a472b5a",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/build.sh": "c014e75af043703087d8d215870e26e315f21636ed7bb61ba2344a701ca4363c",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/build-container.sh": "70752339c3486f880ab902a6affc8644640bdec6396842268cd732fedcbd2e73",
+    "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/fetch-canonical.log": "f4dc70220de78a78c4c9bf428940b02b53b71ec3a6ba81eaa854aa21180e0340",
+    "dependencies/sources.json": "e1df2f4d4d624dcd5c006578eff694b06809144490dd6c085aef9d46d59f0e7d",
+    "tools/fetch_ego.py": "9146bce98ac56c46ac1256e7c7b1447903da23e4d9ec0f20c9f49f30bede5b55",
+    "config/components/mapping/ego_planner.json": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297/ego-source-manifest.json": "1b3a0f5af1467e1d8f393db978eb18a0dcd86578af454c2e9eb01672049cf074",
+    "progress/evidence/p0-ego-snapshot-canonical-build-20261020-297.json": "105332308fef34697c3e45581345c21cf9f73403b59e981fa899118828b9327a",
+    "artifacts/runs/p2-ego-canonical-goal-map-phase-20261020-305/snapshot-goal/metadata.json": "281f7b3aa4e66b8d44e81402dfee540ad79e86d7918492b619228fa9c3a06ee3",
+    "artifacts/runs/p2-ego-canonical-goal-map-phase-20261020-305/ego-runtime-params-01.yaml": "5a7beb8dc042a671a88f680dd886af57f057ca9804d1126adbd89871edf454aa",
+    "progress/evidence/p2-ego-planner-goal-map-alignment-20261020-305.json": "4b28ef79ad5fc93ecfd80ce6d44463b4d877337b7e5f996003464497c4b47e1f"
+  }
+}

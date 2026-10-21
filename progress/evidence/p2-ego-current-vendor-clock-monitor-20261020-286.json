@@ -1,0 +1,46 @@
+{
+  "schema": "p2-ego-current-vendor-wall-clock-repeat/v1",
+  "date": "2026-10-20",
+  "status": "DIAGNOSTIC_ONLY_NEGATIVE_CERES_TIME_NOT_REPRODUCED",
+  "objective": "Repeat #284 while independently monitoring host realtime-minus-monotonic offset; isolate solver-time telemetry without changing the health gate or publishing control.",
+  "run_report": "artifacts/runs/p2-ego-current-vendor-clock-monitor-20261020-286/run-report.json",
+  "run_report_sha256": "492ea2bf68618fa8b5f7b2ab315a428a1a992aa3703f50800c78233909a395d7",
+  "analysis": "artifacts/runs/p2-ego-current-vendor-clock-monitor-20261020-286/clock-offset-analysis.json",
+  "analysis_sha256": "fae7b96e333642e6181aaec1b06bd9f2aaeb85244b6f3ef4a22c297eaed49472",
+  "finding": {
+    "goal_sent": true,
+    "goal_wall_elapsed_s": 5.715085,
+    "ready_map_occupied_points": 902,
+    "bspline_count": 27,
+    "telemetry_sample_count": 644,
+    "telemetry_parse_errors": 0,
+    "negative_ceres_solve_seconds_samples": 0,
+    "max_positive_ceres_solve_seconds": 0.010560035705566406,
+    "host_clock_sample_count": 8470,
+    "host_clock_coverage_s": 85.386776125,
+    "realtime_monotonic_offset_range_ns": 17713,
+    "largest_adjacent_offset_change_ns": 17432,
+    "large_backward_step_observed": false,
+    "localization_lock_reason": "normalized_cost_exceeded",
+    "localization_lock_cost": 1.003403741425989,
+    "ego_input_timeout_logs": 19,
+    "control_nodes": [],
+    "control_topics": []
+  },
+  "clock_source_basis": {
+    "installed_ceres_package": "2.2.0+dfsg-4.1ubuntu2",
+    "upstream_solver_source": "https://github.com/ceres-solver/ceres-solver/blob/2.2.0/internal/ceres/solver.cc",
+    "upstream_linux_wall_time_source": "https://raw.githubusercontent.com/ceres-solver/ceres-solver/2.2.0/internal/ceres/wall_time.cc",
+    "source_observation": "Ceres Solver::Solve computes total_time_in_seconds as WallTimeInSeconds() minus the start sample; the Linux upstream WallTimeInSeconds implementation calls gettimeofday. A backwards realtime adjustment during Solve can therefore produce a negative elapsed value.",
+    "qualification": "This describes a plausible mechanism; #284 did not record CLOCK_REALTIME or CLOCK_MONOTONIC, so it does not prove that a clock step caused that sample."
+  },
+  "interpretation": "The non-reproduction plus stable sampled host-clock offset is consistent with, but does not prove, a one-off realtime clock step in #284. The run cannot retrospectively establish the #284 clock state. Keep the current fail-closed gate unchanged until an instrumented repeat or monotonic telemetry comparison resolves the source.",
+  "raw_artifact_count": 39,
+  "raw_artifact_hashes_verified": true,
+  "milestones_unchanged": {
+    "P2": "passed; stage audit unchanged",
+    "P6": "in_progress",
+    "GOAL_A_H": "not accepted by this diagnostic"
+  },
+  "qualification": "Planner-only diagnostic; no trajectory execution, PX4 control, runtime truth source, or GOAL C/D/E/F acceptance."
+}

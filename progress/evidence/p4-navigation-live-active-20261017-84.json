@@ -1,0 +1,223 @@
+{
+  "scope": "Canonical-/clock P4 live D435i -> VINS -> localization -> depth/map -> EGO -> navigation action and matched shutdown ABORT; no controller or PX4.",
+  "date": "2026-10-17",
+  "result": "PASS_ACTIVE_GOAL_SHUTDOWN_ABORT_WITH_CURRENT_SOURCE_DIAGNOSTICS",
+  "qualification": "Limited live integration evidence only. P4 remains in_progress; this does not prove trajectory tracking, arrival, obstacle clearance, long-duration stability, PX4 behavior, or formal GOAL acceptance.",
+  "environment": {
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "container": "fresh ephemeral Docker container, --network bridge, --shm-size=512m",
+    "ros_domain_id": 213,
+    "gazebo_partition": "d435i_p4_navigation_normal_clock_observer_first_84",
+    "clock": "canonical /clock from the D435i simulation bridge; no relay or clock throttle",
+    "nav_build_overlay": "artifacts/runs/p4-navigation-lock-log-outside-20261017-77/nav-install-final",
+    "nav_source_sha256": "0c2789a1d434ce302d5a3716119a8d54b902a90a0d4c34507eeb79b1c678d9c9",
+    "instrumented_module_sha256": "6228b7b9d81e1adfe386ee1427e52bb476c98758a8723e4372b8fa440f90439d",
+    "health_policy_sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "truth_boundary": "Navigation and localization consumed D435i/VINS topics. Debug motion truth was recorded only by the run-private fixture driver and was not fed to navigation, mapping, localization, or control."
+  },
+  "localization_and_map": {
+    "epoch": "7b73c7cd5b994bd0b81246df78fd25c2",
+    "tracking": true,
+    "localization_status_samples": 33,
+    "localization_status_values": "all valid TRACKING / fresh_inputs_and_usable_solver",
+    "map_points_at_goal": 1414,
+    "pre_goal_gate": {
+      "stable_duration_required_s": 1.0,
+      "timeout_s": 30.0,
+      "failure_check_counts": {
+        "tracking_status": 0,
+        "status_receipt_fresh": 0,
+        "odom_epoch_match": 0,
+        "odom_receipt_fresh": 0,
+        "nonempty_map": 0,
+        "map_receipt_fresh": 0,
+        "depth_health_ready": 0,
+        "depth_health_receipt_fresh": 0,
+        "pose_depth_pair_fresh": 0
+      },
+      "latest_checks": {
+        "tracking_status": true,
+        "status_receipt_fresh": true,
+        "odom_epoch_match": true,
+        "odom_receipt_fresh": true,
+        "nonempty_map": true,
+        "map_receipt_fresh": true,
+        "depth_health_ready": true,
+        "depth_health_receipt_fresh": true,
+        "pose_depth_pair_fresh": true
+      },
+      "latest_receipt_ages_s": {
+        "status": 0.0484,
+        "odom": 0.0505,
+        "map": 0.0754,
+        "depth_health": 0.0183,
+        "pose_depth_pair": 0.0347
+      }
+    },
+    "navigation_callback_input_gate": {
+      "stable_duration_required_s": 0.5,
+      "timeout_s": 20.0,
+      "elapsed_s": 0.504,
+      "failure_check_counts": {
+        "navigation_status_fresh": 0,
+        "navigation_status_epoch_match": 0,
+        "navigation_odom_fresh": 0,
+        "navigation_odom_epoch_match": 0,
+        "external_status_fresh": 0,
+        "external_odom_fresh": 0
+      },
+      "latest": {
+        "checks": {
+          "navigation_status_fresh": true,
+          "navigation_status_epoch_match": true,
+          "navigation_odom_fresh": true,
+          "navigation_odom_epoch_match": true,
+          "external_status_fresh": true,
+          "external_odom_fresh": true
+        },
+        "navigation_status_age_s": 0.053124254,
+        "navigation_odom_age_s": 0.002214228,
+        "external_status_age_s": 0.05063354398589581,
+        "external_odom_age_s": 3.0463997973129153e-05,
+        "epoch": "7b73c7cd5b994bd0b81246df78fd25c2",
+        "navigation_status_source_stamp_ns": 8095000000,
+        "navigation_odom_source_stamp_ns": 8086000000
+      },
+      "passed": true
+    }
+  },
+  "goal_and_trajectory": {
+    "goal_id": "63a7a9bc14fa4e6c82aee879db775482",
+    "target": {
+      "frame_id": "odom_7b73c7cd5b994bd0b81246df78fd25c2",
+      "position": [
+        0.9996987285297764,
+        -0.0007682730607278815,
+        0.8004223047986588
+      ],
+      "yaw": 0.7
+    },
+    "observed_bspline_count": 1,
+    "observed_position_command_count": 2,
+    "matching_bspline": {
+      "goal_id": "63a7a9bc14fa4e6c82aee879db775482",
+      "epoch": "7b73c7cd5b994bd0b81246df78fd25c2",
+      "trajectory_id": 1,
+      "yaw_count": 10,
+      "yaw_terminal": 0.7,
+      "stamp_ns": 8145000000
+    },
+    "matching_ready_command": {
+      "goal_id": "63a7a9bc14fa4e6c82aee879db775482",
+      "epoch": "7b73c7cd5b994bd0b81246df78fd25c2",
+      "trajectory_id": 1,
+      "flag": 1,
+      "yaw": 0.00016213602726540956,
+      "frame_id": "odom_7b73c7cd5b994bd0b81246df78fd25c2",
+      "stamp_ns": 8146000000,
+      "wall_elapsed_s": 2.6426
+    },
+    "matching_abort_command": {
+      "goal_id": "63a7a9bc14fa4e6c82aee879db775482",
+      "epoch": "7b73c7cd5b994bd0b81246df78fd25c2",
+      "trajectory_id": 1,
+      "flag": 4,
+      "yaw": 0.0,
+      "frame_id": "odom_7b73c7cd5b994bd0b81246df78fd25c2",
+      "stamp_ns": 8151000000,
+      "wall_elapsed_s": 2.6474
+    },
+    "ready_after_abort_count": 0
+  },
+  "shutdown": {
+    "action_result": {
+      "status": 6,
+      "outcome": "aborted",
+      "success": false,
+      "reason": "navigation_node_shutdown"
+    },
+    "navigation_process_exit_code": 0,
+    "probe_exit_code": 0,
+    "run_result": "PASS_ACTIVE_GOAL_SHUTDOWN_ABORT; no controller/PX4/control node observed"
+  },
+  "callback_and_lock_diagnostics": {
+    "events": {
+      "executor_entity_ready": 628,
+      "callback_enter": 74,
+      "callback_exit": 74
+    },
+    "slow_state_lock_events_over_5ms": 0,
+    "odometry_warning_calls": 0,
+    "qualification": "The correct source-derived diagnostic module observed no state-lock wait or hold over 5 ms in this short active-goal run. This run did not exercise a slow warning logger; the synthetic logger-blocking regressions are recorded in build #77."
+  },
+  "independent_observer_max_receipt_gap_ms": {
+    "localization_status": 53.517,
+    "optimized_odometry": 114.018,
+    "occupancy_map": 111.588,
+    "depth_health": 51.124,
+    "ros_clock": 32.331
+  },
+  "single_position_command_publisher": true,
+  "px4_or_controller_nodes_or_input_topics_observed": false,
+  "run_83_exclusion": {
+    "run_id": "p4-navigation-live-ego-20261017-83",
+    "functional_result": "PASS_ACTIVE_GOAL_SHUTDOWN_ABORT",
+    "excluded_from_logger_fix_live_qualification": true,
+    "reason": "The run-private PYTHONPATH copy came from the earlier diagnostic revision and retained accepted-goal/logger statements inside the state lock, bypassing the current built source. Its 2.55 s measured _execute_goal_impl hold reflects stale instrumentation code. #84 regenerates instrumentation from the current source SHA above."
+  },
+  "artifacts": {
+    "navigation-probe.json": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/navigation-probe.json",
+      "sha256": "f0cd41aded4e61f4bca48bafb62113fbb387c01af105a5b6c88575b072be57c0"
+    },
+    "observer-timeline.jsonl": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/observer-timeline.jsonl",
+      "sha256": "d94c8ce5a9b95dd3110eefd65283d5f761a84f568d95834b3c1a754c6d3bf672"
+    },
+    "run-wrapper.sh": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/run-wrapper.sh",
+      "sha256": "a0da93ad8526645dfa9885203fcd42f49cee2dc8ae25b8ac97a13bb962d5c508"
+    },
+    "probe_navigation_live_shutdown.py": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/probe_navigation_live_shutdown.py",
+      "sha256": "0026a8f1917502ac89e8cde9d57561c446ac01cf31e62349a0f34bff130b57f7"
+    },
+    "prepare-instrumentation.py": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/prepare-instrumentation.py",
+      "sha256": "c3e055c1ee4cb2f4c9010687b857047991be041fb2f1bfc39ed16e79493f1433"
+    },
+    "instrumented_py/uav_navigation/node.py": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/instrumented_py/uav_navigation/node.py",
+      "sha256": "6228b7b9d81e1adfe386ee1427e52bb476c98758a8723e4372b8fa440f90439d"
+    },
+    "debug-motion.sdf": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/debug-motion.sdf",
+      "sha256": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a"
+    },
+    "session/session.json": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/session/session.json",
+      "sha256": "faceeb0393b06cf45d0dd04f5982a9bceefb03228ace4b1c1aefcfef19baf629"
+    },
+    "navigation-process-exit-code.txt": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/navigation-process-exit-code.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "navigation-probe-exit-code.txt": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/navigation-probe-exit-code.txt",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "run-result.txt": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/run-result.txt",
+      "sha256": "7ea2f9dd5c0203141604005ea3f6b82f42e876dc6194b01c340e84a0f96ae807"
+    },
+    "px4-control-topic-audit.txt": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/px4-control-topic-audit.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "navigation-executor-trace.jsonl": {
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/navigation-executor-trace.jsonl",
+      "sha256": "930b076d76a7f98fce0144df34402a5e0c89f5c0e5074c7fe81bc45361579c66"
+    }
+  }
+}

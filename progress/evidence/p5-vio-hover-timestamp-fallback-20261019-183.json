@@ -1,0 +1,127 @@
+{
+  "artifacts": {
+    "bridge_build_log": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/bridge-colcon-build.log",
+    "bridge_graph": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4-bridge-node-info.txt",
+    "flight_report": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-ego-flight-report.json",
+    "px4_log": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4.log",
+    "px4_ulog": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4_sitl_default/log/2026-10-19/13_25_57.ulg",
+    "run_directory": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183",
+    "truth_capture_summary": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-truth-capture/summary.json",
+    "truth_graph": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/truth-evaluator-topic-info.txt"
+  },
+  "classification": "safety_abort_excluded_from_hover_baseline",
+  "date": "2026-10-19",
+  "diagnosis_of_run_182": {
+    "assessment": "The stale timestamp maps to PX4 HRT 1.024 s before the health-check event, consistent with the unchanged 1.0 s Offboard freshness limit. PX4 local position remained valid and battery warning flags were zero in #182.",
+    "bridge_probe_wall_elapsed_s": 20.586,
+    "com_of_loss_t_s": 1.0,
+    "derived_timestamp_age_at_loss_s": 1.024,
+    "fallback_regression_us": -5557062,
+    "fallback_trajectory_setpoint_timestamp_us": 1792415296721053,
+    "next_trajectory_setpoint_timestamp_us": 1792415302377713,
+    "offboard_signal_lost_ulog_hrt_us": 36184000,
+    "previous_trajectory_setpoint_timestamp_us": 1792415302278115,
+    "px4_estimated_offset_us": -1792415261561053,
+    "timestamp_after_px4_xrce_conversion_us": 35160000
+  },
+  "implementation": {
+    "behavior": "When ROS lockstep timestamp mapping fails but PX4 timesync remains fresh, use the current system/Agent timestamp already used by the mapper. Do not reuse TimesyncStatus.timestamp, which is the time of an older sample. If timesync is stale or the system timestamp is nonpositive, publish no control timestamp.",
+    "changed_files": [
+      "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "tools/test_px4_bridge_time_mapping.py"
+    ],
+    "checks": {
+      "bridge_control_tests": "11 passed",
+      "bridge_frame_tests": "19 passed",
+      "bridge_vio_profile_tests": "7 passed",
+      "colcon": "uav_px4_bridge built successfully, 1/1 package",
+      "python_compile": "passed",
+      "runtime_overlay_prefix": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/bridge-install/uav_px4_bridge",
+      "time_mapping_tests": "16 passed"
+    },
+    "source_hashes": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/bridge-source-sha256.json"
+  },
+  "interpretation_limit": "Run #183 did not complete a hover dwell and is excluded from hover statistics. Its observed setpoint stream had no timestamp regression, but the run did not record an explicit fallback-branch counter; the fallback helper is covered by unit tests. The primary abort was an independent localization/odometry freshness failure at the unchanged 0.3 s limit. P5 remains in progress.",
+  "run": {
+    "bridge_package_prefix_verified": true,
+    "configured_odometry_receipt_limit_s": 0.3,
+    "control_owner": "uav_px4_bridge",
+    "failure": "localization_lost_or_bridge_failed_during_takeoff",
+    "final_vehicle_state": "landed_and_disarmed",
+    "first_landing_reason": "external_odometry_stale",
+    "first_landing_wall_elapsed_s": 15.192871313,
+    "gazebo_partition": "d435i_p5_vio_ego_hover_183",
+    "hover_completed": false,
+    "localization_status": {
+      "accepted_optimized_count": 251,
+      "accepted_propagated_count": 3350,
+      "reason": "telemetry_stale",
+      "transition_clock_stamp_ns": 31776000000
+    },
+    "navigation_action_goal_sent": false,
+    "odometry_wall_age_at_landing_s": 0.371890793,
+    "preconditions_ready": true,
+    "profile": "vio_closed_loop",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "px4_parameter_values_match_run_182": true,
+    "px4_ulog": {
+      "com_of_loss_t_s": 1.0,
+      "file": "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4_sitl_default/log/2026-10-19/13_25_57.ulg",
+      "interpretation": "Offboard loss appears 1.032 s after the bridge stopped its Offboard stream on the earlier external-odometry-stale landing path; it is downstream of the primary bridge landing reason.",
+      "offboard_control_mode_last_timestamp_s": 31.708,
+      "offboard_control_mode_max_inter_sample_gap_s": 0.128,
+      "offboard_control_mode_samples": 79,
+      "offboard_signal_lost_became_true_at_s": 32.74
+    },
+    "read_only_truth_capture": {
+      "bridge_debug_truth_subscription": false,
+      "imu_samples": 12023,
+      "parse_errors": 0,
+      "truth_samples": 3016,
+      "truth_topic_single_subscriber": "raw_vins_readonly_probe",
+      "wall_seconds": 90.000491242
+    },
+    "result": "FAIL",
+    "ros_domain_id": 228,
+    "setpoint_inter_message_delta_us_min_max": [
+      48890,
+      51034
+    ],
+    "setpoint_observations": 236,
+    "setpoint_timestamp_regressions": 0,
+    "takeoff_active_observed": false
+  },
+  "run_id": "p5-px4-vio-ego-hover-20261019-183",
+  "schema": 1,
+  "scope": "Diagnose #182 Offboard signal-loss event, fix the bridge timestamp fallback, and attempt an independent no-goal hover repeat. #183 did not complete a dwell and is retained only as fault-path evidence.",
+  "sha256": {
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/agent.log": "97fee3b6f970fe835eb5d362c48d32e656a9d64961b24472eb125be6a87b6f3b",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/attempt-context.txt": "21a48a80f7e27c42f5e5e140eac3d1a418a44a2582f10176cfa0c8f22a5d6581",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/bridge-colcon-build-command.txt": "e7e9fcb32f30e811c5e65b8686d2db21c2596cb43e0ce015ee59a69fe655430a",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/bridge-colcon-build.log": "7068781b49265f0b20fc0b41725e6f11094bac6127c78f492518132e7bf39bb8",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/bridge-source-sha256.json": "7836adaacd93b889528b4d189780852076a3e40a7ba57c6b87903c964c5a4cdd",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/launch-diagnostic-run.sh": "9b155f5a08fff7de63dcfc4458a284ec8bc6baad7e28398fd450fcda4982b956",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4-bridge-node-info-at-end.txt": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4-bridge-node-info.txt": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4-bridge-package-prefix.txt": "6ff8dabde3017ac490a1a7ba52e6f9b4c03c386e0157fc33aad84d5c02a4dcf8",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4.log": "118c87b058583e35ba0c61f1d32a4304b90fe489971614d742d67f1a1836585b",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4_sitl_default/bin/px4": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/px4_sitl_default/log/2026-10-19/13_25_57.ulg": "f6f07b71e3127e61b7ca96e7ad27bc70c82acd2765f2d13006eb896ed988eb99",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/run-px4-vio-ego-flight.sh": "f7d74a2e370c83ef6a37152b739428e12340edd32a49384fc99a1910147c64e6",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/run_vio_ego_flight.py": "d794e853ae7dc93ba3b77d75b7b41757d5fbace78040063e13a4f438ec1bb3ac",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/run_vio_hover.py": "81fe5d80ad6db9ebb62d53140978e7c746a36b348fa371d002fae4956af63146",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/truth-evaluator-topic-info.txt": "993ce99cdf0f77b48fbac0c2cccf54703bb4cb4bc0c3b2c69a9f5a609b74197a",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-ego-flight-exit-code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-ego-flight-report.json": "8f705057bd12e18b9ae590dc80f5ed2daec769ef69592723fd264daa66435780",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-ego-flight.log": "dab48f2edfff7c27aa343a5254fd5ebab520ed065f7d2802c21a7f67ea2bc636",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-launch.log": "101a1c161f57173d00722b4aacab17261f509ab109ccf1e857f1f617c4df49f6",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-truth-capture-exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-truth-capture/summary.json": "bf168fb31c97e6b19df189442acf7a9eb7f53a83856c174f69222f7e172c33b3",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-183/vio-truth-capture/telemetry.json": "25f7f8d59dc80ca7cb48b7b64d1f65c48a7f179abb3484264c8bc72a504d4145",
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "0ae5449c121482fc7d2b44f80719fe36df3bc77c082143b324bc3cfe6219d8b1",
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": "349e1c020ea5da7ee9e726c5aedaef98344d15ced241415314ebadc4b38bc854",
+    "tools/test_px4_bridge_time_mapping.py": "b30a7f342bbdcce36423aadfcf2d208768cac49a0daf40b8c40eaef9627e68d2"
+  }
+}

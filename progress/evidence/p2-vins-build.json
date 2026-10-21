@@ -1,0 +1,49 @@
+{
+  "scope": "VINS Jazzy build and no-argument executable smoke only; not P2 passed",
+  "run_id": "p2-build-20261016",
+  "base_image": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+  "packages": [
+    "camera_models",
+    "vins"
+  ],
+  "source_evidence": "progress/evidence/p0-source-audit.json",
+  "attempts": [
+    {
+      "log": "build.log",
+      "result": "FAIL: cv_bridge.h missing"
+    },
+    {
+      "log": "build-retry.log",
+      "result": "PASS after patch 0003; diagnostic sum_g warning identified"
+    },
+    {
+      "log": "build-final.log",
+      "result": "PASS after patch 0004; 2 packages finished"
+    }
+  ],
+  "link_check": "PASS: ldd contains no not found",
+  "cli_check": {
+    "exit_code": 1,
+    "result": "usage printed; no sensor inputs or estimation exercised"
+  },
+  "files_sha256": {
+    "artifacts/runs/p2-build-20261016/build.log": "28f42e34b8b33f8fe8a866cb3531bbcdc9299278982da7c7ce3c4f69ee886581",
+    "artifacts/runs/p2-build-20261016/build-retry.log": "92ff3c9858e82e3bced36a0e8ef0dc4651b3256408c91e3f76825342cd6b9236",
+    "artifacts/runs/p2-build-20261016/build-final.log": "51610cd44443463375b9d3f389754c8c22c76f77fec5af861bd88d36a2aced43",
+    "artifacts/runs/p2-build-20261016/dpkg-packages.txt": "9dd72c83bad4a57582afe2e81df1b7977dbfca3f9f4c15963bad9ece366ed593",
+    "artifacts/runs/p2-build-20261016/compiler.txt": "88b7c4b67564a146863224148116065fee418539f0a408f3636a68f3bde51805",
+    "artifacts/runs/p2-build-20261016/ldd.txt": "3a6ed6035c73f6226198e4f2aa576fa86065a40527c4d22c0c83ed3600644253",
+    "artifacts/runs/p2-build-20261016/cli.log": "cdc974b02ec3d99b8141aeebbe6e378d3fbf52e7781ecb052989dd277f420fd0",
+    "artifacts/runs/p2-build-20261016/cli-exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "artifacts/runs/p2-build-20261016/install/vins/lib/vins/vins_node": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010"
+  },
+  "not_verified": [
+    "simulation initialization",
+    "trajectory accuracy",
+    "sensor fault gating",
+    "EKF2 fusion",
+    "SITL flight",
+    "clean Dockerfile rebuild",
+    "full-system reproducibility"
+  ]
+}

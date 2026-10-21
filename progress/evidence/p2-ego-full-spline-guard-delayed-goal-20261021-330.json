@@ -1,0 +1,171 @@
+{
+  "schema": "goal-c-ego-full-spline-guard-delayed-goal/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-full-spline-guard-delayed-goal-20261021-330",
+  "result": "diagnostic_delayed_goal_still_blocked_by_unknown_start_volume",
+  "source": {
+    "parent_run": "p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329",
+    "planner_binary_source_run": "p2-ego-dense-spline-canonical-full-spline-guard-20261021-328",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "source_tree_sha256": "09e1ccae79b08279ab55e6fbd1ee550ec4267dda955de51420f1aca392feaad4",
+    "planner_binary_sha256": "712f8702db4454388ba424d3297b36d7e64a1e9572388006a9a170d79433d18b",
+    "experimental_patches": ["0029", "0030", "0031", "0028", "0032"],
+    "planner_source_modified": false,
+    "vendor_tree_modified": false,
+    "canonical_sources_manifest_modified": false
+  },
+  "configuration": {
+    "goal_xy_m": [2.5, 1.4],
+    "box_pose_xyz_m": [1.55, 0.9, 1.1],
+    "cylinder_pose_xyz_m": [2.25, 0.05, 1.0],
+    "run_local_obstacle_inflation_m": 0.5,
+    "retry_cooldown_s": 1.0,
+    "stable_ready_before_goal_s": 25.0,
+    "probe_timeout_s": 75.0,
+    "sensor_motion_initial_hold_s": 13.0,
+    "qualification": "All planner and map parameters remain diagnostic and PROVISIONAL."
+  },
+  "runtime": {
+    "ros_domain_id": 186,
+    "gazebo_partition": "d435i_dense_spline_delayed_goal_330_01",
+    "wall_seconds": 75.020843,
+    "goal_sent": true,
+    "goal_sent_wall_elapsed_s": 27.643583,
+    "goal_map_status_stamp_ns": 22012000000,
+    "goal_map_status": {
+      "ready": true,
+      "occupied_point_count": 998,
+      "forwarded_depth_count": 512,
+      "keyframe_count": 17
+    },
+    "motion_phases_before_goal": 4,
+    "total_force_phase_commands": 8,
+    "probe_status": "goal_sent_no_bspline_before_timeout",
+    "bspline_count": 0,
+    "snapshot_request_count": 1,
+    "localization_at_timeout": {
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.9068665474529549
+    },
+    "mapping_at_timeout": {
+      "ready": true,
+      "reason": "ready",
+      "occupied_point_count": 1731,
+      "forwarded_depth_count": 1471,
+      "keyframe_count": 49
+    },
+    "ego_odom_or_depth_lost_warnings": 0,
+    "final_spline_guard_rejections": 425,
+    "guard_rejection_classes": {
+      "in_map_unknown_raw_free_not_inflated": 425
+    },
+    "rejections_at_spline_time_zero": 367,
+    "nonzero_first_blocked_samples": 58,
+    "maximum_first_blocked_spline_time_s": 1.59,
+    "runtime_graph": {
+      "forbidden_control_nodes": [],
+      "truth_topics": [],
+      "control_topics": []
+    }
+  },
+  "paired_snapshot": {
+    "accepted": true,
+    "epoch": "541c90c3cc8b451785d1dc53bb0160d5",
+    "map_id": "541c90c3cc8b451785d1dc53bb0160d5-950b9757617149b2bddc0e31123b219d",
+    "header_frame_id": "odom_541c90c3cc8b451785d1dc53bb0160d5",
+    "goal_map_status_stamp_ns": 22012000000,
+    "snapshot_stamp_ns": 22108000000,
+    "snapshot_after_goal_map_status_s": 0.096,
+    "snapshot_after_first_guard_log_s": 0.048202,
+    "last_depth_source_stamp_ns": 22012000000,
+    "depth_source_age_at_response_s": 0.096,
+    "resolution_m": 0.1,
+    "origin_m": [-12.0, -12.0, -0.15],
+    "shape": [240, 240, 60],
+    "first_guard_rejection": {
+      "spline_time_s": 0.0,
+      "xyz_m": [0.071759, 0.237569, 0.040489],
+      "in_map": true,
+      "unknown": true,
+      "raw_occupied": false,
+      "inflated": false
+    },
+    "guard_sample_voxel": {
+      "index_xyz": [120, 122, 1],
+      "center_m": [0.05, 0.25, 0.0],
+      "occupancy_value": -1,
+      "occupancy_label": "unknown",
+      "inflated_mask_value": 0,
+      "sample_to_cell_center_m": 0.04761662485939093,
+      "neighborhood_3x3x3": {
+        "unknown_cells": 14,
+        "free_cells": 13,
+        "occupied_cells": 0,
+        "inflated_cells": 0
+      },
+      "nearest_known_voxel_center_distance_m": 0.0645719982887317,
+      "nearest_occupied_voxel_center_distance_m": 1.3437405787439047
+    },
+    "map_voxels": {
+      "unknown": 3434691,
+      "free": 20108,
+      "occupied": 1201,
+      "inflated": 35748,
+      "total": 3456000,
+      "known_fraction": 0.0061657986111111115
+    },
+    "snapshot_archive": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/snapshots-01/guard-first-reject-occupancy.npz",
+    "snapshot_sha256": "85b46fd3be2d1aa97c72024b3e0afb8ed8fcec6bb5e298b56bee550f2f46fb94",
+    "analysis_report": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/guard-snapshot-analysis-01.json",
+    "analysis_report_sha256": "a5d69c216fa6b301debbc34904c3406488af02126885db1a52309d0a11201d09"
+  },
+  "artifacts": {
+    "run_manifest": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/run-manifest.json",
+      "sha256": "760468f591d4386cad2ba8dee4fbe9e338ed308e8e025401b2d9acafd8ad2b6f"
+    },
+    "planner_goal_result": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/planner-goal-result-01.json",
+      "sha256": "e7f07404c9be01c28e3c196e52f6d8f0701f7701cd8fd6cc8d2804a711539303"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/runtime-summary-01.json",
+      "sha256": "09cdd9b800b27897defb218d73be043d18f89eb48aff0a9272946c78cdfe9a0a"
+    },
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/ego-01.log",
+      "sha256": "54acfaac246a4060d602b7e11905a9a725a639f67ef193272a1d1d3f58a64819"
+    },
+    "motion_driver": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/motion-01.json",
+      "sha256": "6eb5c070bce7096123a75be9340c88484ab9dd98d6d0b940b000f094d4356fd2"
+    },
+    "snapshot_archive": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/snapshots-01/guard-first-reject-occupancy.npz",
+      "sha256": "85b46fd3be2d1aa97c72024b3e0afb8ed8fcec6bb5e298b56bee550f2f46fb94"
+    },
+    "analysis_report": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/guard-snapshot-analysis-01.json",
+      "sha256": "a5d69c216fa6b301debbc34904c3406488af02126885db1a52309d0a11201d09"
+    },
+    "ros_nodes": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/nodes-after-run-01.txt",
+      "sha256": "d085a995560de9be9339b4a1e0d39bab692bccef059e66f3ca36a102ba36d16a"
+    },
+    "ros_topics": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/topics-after-run-01.txt",
+      "sha256": "b6a7b7efddc61b6cf2fedb93b04a40a252eff2654c5455bb2cf4ac89d80a7a8d"
+    }
+  },
+  "interpretation": "After 25 s of continuous ready localization/mapping and four force-driven sensor-motion phase changes, the full-active guard still received no publishable spline. Its 425 candidate rejections were all in-map unknown/raw-free/not-inflated; 367 first-blocked samples were at t=0 and the remainder extended to 1.59 s. The immediate same-epoch snapshot confirms the current start voxel is unknown while 13 of 27 neighboring cells are free and none are occupied/inflated. Known coverage rose to 0.617% in this longer run, but the start sample remained unknown. No odom/depth-lost warning occurred. This supports the unknown local start volume as the blocking condition in this run; it does not establish that unknown space is physically free or qualify a trajectory.",
+  "limitations": [
+    "The map snapshot is readback from the online map, not independent ground truth; unseen voxels remain unresolved.",
+    "The same run-local planner binary was reused; no package rebuild was needed because only the observer timing and readout changed.",
+    "The run used a separate epoch and longer motion/map accumulation than #329; its larger known fraction is descriptive, not a controlled estimate of the waiting-time effect.",
+    "No B-spline was emitted, so no full-curve snapshot or clearance result exists.",
+    "No path execution, vehicle sweep, tracking error, braking distance, controller, PX4 SITL, hardware flight, truth input, or full-world-map input was used.",
+    "Patch 0032, the unknown guard and all diagnostic map/inflation settings remain experimental and PROVISIONAL; GOAL C remains pending."
+  ],
+  "next_step": "Audit why the online depth map leaves a local unknown volume around the estimated vehicle position despite free neighboring voxels. Preserve unknown-as-blocked; evaluate only geometry- and contract-supported ways to represent the vehicle's occupied footprint and initialize traversable space before further planner acceptance attempts."
+}

@@ -1,0 +1,244 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p2-map-geometry-calibration-20261020-243",
+  "status": "PASS_EXPLORATORY_DYNAMIC_GEOMETRY_REPEAT_ONLY",
+  "scope": "Independent descriptive repeat of the single-wall P2 D435i/VINS/EGO map geometry and optimized trajectory evaluation.",
+  "qualification": "This is one independent repeat on the same single-wall profile. It supports exploratory calibration only; no formal map, localization, tracking, clearance, timing, or GOAL F threshold is frozen.",
+  "environment": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 116,
+    "gz_partition": "d435i_map_calib_243",
+    "session_epoch": "4716d43be87347f285e0f12452e81727",
+    "runtime_gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "truth_isolation": "Truth is recorded only by run_sensor_motion.py for offline evaluation. VINS, localization, mapping, and EGO do not subscribe to truth; raw VINS probe ran without truth/IMU topics.",
+    "control_scope": "No PX4, control bridge, or control publisher was started.",
+    "xvfb_runtime_note": "Container Xvfb :100 was verified ready by xdpyinfo; SIGUSR1 released xvfb-run readiness wait before sensor launch."
+  },
+  "session_binding": {
+    "vins_namespace": "/vins_raw/s_4716d43be87347f285e0f12452e81727",
+    "adapter_expected_namespace": "/vins_raw/s_4716d43be87347f285e0f12452e81727",
+    "match": true,
+    "namespace_source": "current run generated session/session.json; asserted before sensor launch",
+    "raw_vins_graph_publisher_count": {
+      "/vins_raw/s_4716d43be87347f285e0f12452e81727/odometry": 1,
+      "/vins_raw/s_4716d43be87347f285e0f12452e81727/imu_propagate": 1,
+      "/vins_raw/s_4716d43be87347f285e0f12452e81727/estimator_telemetry": 1
+    },
+    "all_expected_publishers_are_vins_estimator": true
+  },
+  "localization_and_mapping": {
+    "observation_window_wall_s": 50.036,
+    "localization_history": [
+      {
+        "wall_elapsed_s": 2.011,
+        "wall_epoch_s": 1792445888.704868,
+        "epoch": "4716d43be87347f285e0f12452e81727",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_4716d43be87347f285e0f12452e81727"
+      }
+    ],
+    "depth_health_history": [
+      {
+        "wall_elapsed_s": 0.413,
+        "wall_epoch_s": 1792445887.107485,
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "source_stamp_ns": 1792445886807329260
+      }
+    ],
+    "accepted_optimized_odom_count": 535,
+    "ego_depth_output_count": 1014,
+    "ego_pose_output_count": 1014,
+    "paired_pose_depth_stamp_count": 1014,
+    "maximum_occupied_points": 1924,
+    "map_frame_ids": [
+      "odom_4716d43be87347f285e0f12452e81727"
+    ],
+    "map_stamp_uses_sim_time": true,
+    "map_stamp_delta_to_nearest_optimized_pose_s": 1e-09
+  },
+  "raw_vins_observation": {
+    "wall_window_s": 62.00471998000285,
+    "optimized_odom_count": 677,
+    "propagated_odom_count": 8926,
+    "telemetry_count": 687,
+    "initialized_telemetry_count": 677,
+    "all_output_finite": true,
+    "source_rates_hz": {
+      "optimized": 15.151515151515152,
+      "propagated": 200.0
+    },
+    "truth_sample_count": 0,
+    "imu_sample_count": 0,
+    "telemetry_stamps_strictly_increasing": true
+  },
+  "geometry_evaluation": {
+    "command": "python3 tools/evaluate_ego_map_geometry.py --world <run>/debug-motion.sdf --motion <run>/motion.json --odometry <run>/optimized-odometry.json --map-cloud <run>/map-cloud.json --session <run>/session/session.json --output <run>/map-geometry-report.json",
+    "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+    "trajectory": {
+      "paired_samples": 356,
+      "position_rmse_m": 0.02134368376084677,
+      "position_p95_m": 0.036993317804296634,
+      "position_max_m": 0.04251384407725966,
+      "orientation_rmse_deg": 1.1333835274763375
+    },
+    "map_cloud": {
+      "point_count": 1924,
+      "frame_id": "odom_4716d43be87347f285e0f12452e81727",
+      "header_stamp_ns": 22540000000,
+      "header_stamp_uses_sim_time": true,
+      "nearest_optimized_odometry_stamp_delta_s": 1e-09,
+      "world_bounds_xyz_m": [
+        [
+          2.8940155449089318,
+          3.2388555672487667
+        ],
+        [
+          -2.2076698481376793,
+          3.5984359248528324
+        ],
+        [
+          1.0439343436380621,
+          2.777058064395955
+        ]
+      ]
+    },
+    "reference_wall": {
+      "source_world": "artifacts/runs/p2-map-geometry-calibration-20261020-243/debug-motion.sdf",
+      "center_pose": [
+        3.05,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "box_size_m": [
+        0.1,
+        12.0,
+        8.0
+      ],
+      "visible_face_x_m": [
+        3.0,
+        3.0999999999999996
+      ]
+    },
+    "nearest_wall_face_abs_residual_m": {
+      "median": 0.02562133547445966,
+      "p95": 0.09048809203199529,
+      "maximum": 0.13885556724876702,
+      "fraction_within_0_10m": 0.9838877338877339
+    },
+    "provenance": {
+      "world_sha256": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+      "motion_sha256": "2249b4295f26a70592a432f11b10527695db81c09c8e576762281e7ab1c664d4",
+      "odometry_sha256": "2dc1d44321275fbc67f40296ec9a89acfa59ea7ebb78a0c354e434c0928e345c",
+      "map_cloud_sha256": "3e8b9d7c83156fc867bc008c59f107fc86e40cac875e4e01f414eff3987be4ee",
+      "session_sha256": "57e4cc4bee82d9a8ba532ce273dace6ea795bc36bba3144ec29d69616e2f19a1"
+    },
+    "limitations": [
+      "The only alignment is the single rigid SE(3) trajectory alignment; map points do not influence the alignment.",
+      "The probe selects the largest occupancy PointCloud2 observed during one run, not a persistent map snapshot.",
+      "This compares distance to the two x faces of one planar wall and does not score coverage, unknown/free classification, inflation, obstacle clearance, or planner response.",
+      "The publication stamp is checked against the recorded simulation clock and optimized odometry time range; mapping latency is not separately measured.",
+      "No acceptance thresholds are frozen; these values are descriptive only."
+    ]
+  },
+  "comparison_to_existing_run_08": {
+    "run_08_map_residual": null,
+    "run_243_map_residual": {
+      "median": 0.02562133547445966,
+      "p95": 0.09048809203199529,
+      "maximum": 0.13885556724876702,
+      "fraction_within_0_10m": 0.9838877338877339
+    },
+    "run_08_trajectory": null,
+    "run_243_trajectory": {
+      "paired_samples": 356,
+      "position_rmse_m": 0.02134368376084677,
+      "position_p95_m": 0.036993317804296634,
+      "position_max_m": 0.04251384407725966,
+      "orientation_rmse_deg": 1.1333835274763375
+    },
+    "interpretation": "Both runs are descriptive observations on the same single wall and motion profile. Residuals vary between runs; they do not establish a formal acceptance threshold or scene coverage."
+  },
+  "excluded_followup_attempts": [
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-240",
+      "result": "ABORTED_BEFORE_ROS_OR_GAZEBO",
+      "reason": "Container-internal xvfb-run remained in startup wait; no session, world, sensor process, or dynamic probe output was produced.",
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-240/attempt-report.json": "2f5fbc83d8711fd13e6943d7bfe04991ffe2d76b9dcd9de6303cd9d4887cee2f",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-240/run-variant-manifest.json": "60bc638b3b30932e1cd655d2a52d4ea8f9ffc4860ae6e6b05200de24334be4bc",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-240/run-container.sh": "ed34e9a1b98de322cb4ddd308bff1d6a7ac98a6f5f51146351c50097bde71e44"
+      }
+    },
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-241",
+      "result": "EXCLUDED_TELEMETRY_STALE_AFTER_TRACKING",
+      "reason": "With the corrected namespace, localization entered TRACKING, then locked telemetry_stale 22 ms later; only 2 optimized odometry messages and 3 paired EGO output stamps were captured. The 1,031-point transient map is not used for geometry evaluation.",
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-241/run-variant-manifest.json": "240e9374aa7825c427a0e985931af50359aefb76f7b097551df3a05e0f522f1e",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-241/session-binding.json": "618959828105d10ee6d98915354ff46e45ee368951c6900f160c90f2971870b9",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-241/probe.json": "09bb8ec5a8b807e6bf5206742343f63e50b812cd14f3c5fdf49af51100868553",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-241/optimized-odometry.json": "3171e3ec22ce800439571b860b820161516200550811410dcc98a5215eb75a1b",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-241/map-cloud.json": "40ef240476d494496d777269f17ef94964f33ad6f26f604efd8747f475e96a37",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-241/vins.log": "85fa0f502deb44c63b743da436ad7dd6cefea8e7375840200ad4ac4cbdffec03",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-241/sensors.log": "c2cde02f1b8c2d556fc5057b34967bf4bf6f043cbcb039cd8101e941ed018d00"
+      }
+    },
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-242",
+      "result": "EXCLUDED_RENDERER_CRASH",
+      "reason": "Without Xvfb, Gazebo Ogre2 render initialization segfaulted before valid VINS/mapping observation; run was stopped after the crash.",
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-242/run-variant-manifest.json": "c32085dbc51853976005ec40110b9fdeef9d21cee1ede3afeb5cf86e652e309d",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-242/session-binding.json": "57b627b96f6970186cc84da42f2c638ee51cee5488e25b69a4782148a48c326a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-242/sensors.log": "117f74723c14a108be0b45eacf4068949bc98074459d4556dca16e504f7d9212",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-242/probe.json": "07da2f8eff9c2232810e788ed524ac151276ae4c12f89a973de6cc233f60c437",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-242/container.log": "d3ee8a213def19b00905611004cf2433f2059ec81f92041dd77db6607b7bac80"
+      }
+    }
+  ],
+  "goalf_readiness": {
+    "status": "NOT_READY_TO_FREEZE",
+    "evidence_gained": "The independent repeat adds a second descriptive result for the same wall profile; trajectory and map point geometry are now repeat-observed under matching session namespaces.",
+    "remaining_basis": [
+      "More than one wall/obstacle geometry profile and map coverage assessment.",
+      "Flight trajectory tracking error and minimum body clearance against the model collision envelope.",
+      "Scenario-linked maximum source/receipt age, replanning deadline, and fault detection/exit timeout."
+    ],
+    "decision": "Do not freeze config/acceptance.json yet and do not begin D/E formal runs. Use the two descriptive wall runs as calibration evidence, then collect remaining scene, tracking, clearance, timing, and fault-response baselines."
+  },
+  "artifact_hashes_sha256": {
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/run-variant-manifest.json": "5ec417128af5df577693e346284fd5792091522163035e87972f69b540c62a89",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/run-live.sh": "a6b220c5f1059f6e610e4e0fd048eca6cd66645098c713058effcef737464b48",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/run-container.sh": "8e4bfccecac3e5f0fe7be44cfe196e60687f56b684afac388fe00e9c56680b75",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/session-binding.json": "0f172df8d05d0d9d47976d6c45bfbcaff76303b49623b2e8d60cd2289f547c95",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/session/session.json": "57e4cc4bee82d9a8ba532ce273dace6ea795bc36bba3144ec29d69616e2f19a1",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/session/vins.yaml": "1bb97ca90adca52738eb0e75dcaa661ec3b5884120fd80a8a343523892ad9c46",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/motion.json": "2249b4295f26a70592a432f11b10527695db81c09c8e576762281e7ab1c664d4",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/probe.json": "32e89a4e75b9ecca16924ebda4dbff9b779b3a4c260ff6cbd09f0287fa734b4c",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/optimized-odometry.json": "2dc1d44321275fbc67f40296ec9a89acfa59ea7ebb78a0c354e434c0928e345c",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/map-cloud.json": "3e8b9d7c83156fc867bc008c59f107fc86e40cac875e4e01f414eff3987be4ee",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/map-geometry-report.json": "c825388af69a8f63fbb044a2d0a09d8c184b63a03902d6d9dda58c98c0a28398",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/raw-vins-capture/summary.json": "0d2b290b76848975d8b03e106afd2086864dbff9feb171776b493499d1862b2d",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/raw-vins-capture/raw-odometry.json": "81ef9b1ef568b454f64f730f8cf67679b0d8a7e4455022a949cfcf6368d59cc6",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/raw-vins-capture/telemetry.json": "e479168f16fee160cecb2d6b06c307f239ada97d9594eb31c97ecba87f6e744f",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/raw-vins-probe.log": "ae3caf1310dc8dcc2e93fa9598ce4391117e1721054f7dde05557af31f6a7014",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/vins.log": "4ceebbc3359774ac162f7dd91120b3f36edc3ddf1bff1ac8d723a9ebc8bee7f3",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/sensors.log": "ce915110b297588939c4ca06349a3567f87819c9e82673667fe2e742b1c8a93b",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/mapping-adapter.log": "6aff89ecfca2a6bd3a9909e86d43b56694a94bc63ce1bfa7c85fe242cdb184da",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/ego.log": "e85395b25d33bb70447358fe5053f382a83797e8a52cf8ffe3597da18bbf27b8",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-243/container.log": "ccd7d1f0392fae5938e416068a85d119d5cb84a3026e86fbe90df6410a16b5df"
+  }
+}

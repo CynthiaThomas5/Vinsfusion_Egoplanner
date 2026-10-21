@@ -1,0 +1,625 @@
+{
+  "classification": "LOW_BANDWIDTH_PATCH0015_POSE_RECEIPT_GAPS; NAVIGATION_GOAL_TIMEOUT; NORMALIZED_COST_GATE; AUTO_LAND; LANDED_DISARMED; P5_NOT_PASSED",
+  "date": "2026-10-20",
+  "files_sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/ego-colcon-build.log": "60d8980e12cf3faddb20b216040f30b71be48f103ba87deac69154357d6b72c2",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/ego-install/ego_planner/lib/ego_planner/ego_planner_node": "3749967321ed90c987cba2bc2faeb0515b8794cabe021be767806fb97f5adf53",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/ego-install/plan_env/lib/libplan_env.so": "7d28b84ee39984c7b2b431e0f9c527b539fb5e48207e230d7702bd13f46c67c2",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/run-variant-manifest.json": "c6572241eaa6b07fea753e5f0aa61f2667b0e05ec81fe58bb58c5ced9d3231ee",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/source-patch-manifest.json": "228cc484c1bc704a7eedf426e8e89eb1081e3ab3d86a1fb05f484931794f1bde",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/truth-and-control-isolation.txt": "051f959aea0f8678dc576c40847af1f69d8428027e6f9ba7bc6a6eaeb73125e2",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/landing-failsafe-timeline.json": "cdc6a1c96d199486b1f403efb7b0f27fc28902f396ada62b9dca9915a0ecfbab",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/launch-lightweight-mapstatus.sh": "a3bc3244a8a1dc62d0313e94e508d28c28a17c6852868bcb2a1ff52c7f037950",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/package-prefixes.txt": "520713e2fb8b95e6f87e529b3599499c0e417698d6af9dee0ac5615b8e7a23d9",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/px4-bridge-live.json": "d1727cc390bff18f6be323f0fa0d646589eabe0ce50e28140ce629c749543d33",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/px4_sitl_default/log/2026-10-19/19_36_09.ulg": "42ddfa814702b1759781edf33680f0a60182b43d7c58f56b0e4b491593130790",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/run-filtered-horizontal-goal.sh": "6b3896c6170d52858f6e5648635ead951a9ab665a7a4780e6aaf84e3cda072b9",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/run-variant-manifest.json": "a201fb447bb839fad0a30f9a5bf28d202e0f24a1466ed0f01fce2bcc50423070",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/run_vio_ego_flight_harness.py": "390576b3715e13361d804297e7d8743b0d53e5cc934cddf419ed456e59ddee18",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/topic-info_drone_0_camera_pose.txt": "409d61882d72327cdda6e5a0c5d3cf9e07d77e8c54d78cb2c7797caa0637b2df",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/topic-info_mapping_status.txt": "0181f3980026eb542c657d8e6d0ea0142cb22beb6c78459af7038f54c88f8b73",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/truth-and-control-isolation.txt": "73ec70f87c2de71c6fc4e9ea82aff4a0cc8ae428d75dba6a12d48339b521ad7d",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/vins-odom-trace.json": "62709185f86a3b1327bfc3526d2ec7ddc952fd05103a399cbf6a7f767d762c52",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/vio-ego-flight-report.json": "344d3d2d2d055c66579e0e1fdacf3b9b924162e19e08087a053fe86a6a828fc6",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/vio-ego-flight.log": "344d3d2d2d055c66579e0e1fdacf3b9b924162e19e08087a053fe86a6a828fc6",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226/vio-launch.log": "d15f836f92b25aa583a7976b000be52142183308ca6a67fbff0b05157daa0275",
+    "dependencies/patches/ego/0012-grid-map-scheduling-diagnostics.patch": "2c9ea857cbbb1cd3bd4b2b8a678a3bf59e60bfac4bf9f8db7d24eab0c800b833",
+    "dependencies/patches/ego/0013-grid-map-sync-input-diagnostics.patch": "cb049c85b196cf30a022936455b8ba25410ac2b8b1575ab4e5630b348a93c5d0",
+    "dependencies/patches/ego/0015-filter-receipt-and-message-lost-diagnostics.patch": "43c82f406729fe9aa2e69ec2c353e702f2b7d4642d123838ed3d7717d0491dd1"
+  },
+  "interpretation": {
+    "finding": "With raw-depth, forwarded-depth, and occupancy-cloud harness subscriptions removed, EGO pose receipt still stalled in four recoverable intervals (98 timeout warnings total). During the final interval, EGO last counted pose source stamp 42.704 s while the same forwarded-pose topic was observed through 44.156 s; depth receipts advanced and both message-lost event counters remained zero.",
+    "limitations": [
+      "One low-load repeat does not establish the underlying DDS reader, executor, or callback cause.",
+      "No truth input was used, so target tracking error was not measured against ground truth.",
+      "The goal timeout and subsequent quality-gate failure are recorded as separate events; no causal relationship is claimed."
+    ],
+    "navigation_outcome": "The action goal timed out and did not succeed. Localization later closed on normalized_cost_exceeded. PX4 transitioned through AUTO_LAND, touchdown, and disarm without dropout or GNSS aiding. P5 is not passed.",
+    "root_cause": "UNRESOLVED. The low-load repeat strengthens evidence for a gap at the EGO pose message_filters subscription/callback path and reduces the chance that external image/point-cloud observers caused it. Zero RMW message-lost callbacks do not identify whether samples were not taken or callbacks were delayed."
+  },
+  "observations": {
+    "depth_health_stream": {
+      "count": 2088,
+      "first_stamp_ns": 14440000000,
+      "last_stamp_ns": 48276000000,
+      "last_status": {
+        "reason": "fresh_structurally_valid_depth",
+        "state": 1,
+        "valid": true
+      },
+      "max_stamp_gap_s": 0.036
+    },
+    "ego_pose_filter_timeout_groups": [
+      {
+        "depth_message_lost": 0,
+        "depth_receipt_count_first": 22,
+        "depth_receipt_count_last": 46,
+        "first_timeout_now_s": 9.44,
+        "last_depth_source_stamp_s": 10.232,
+        "last_pose_source_stamp_s": 8.944,
+        "last_timeout_now_s": 10.376,
+        "pose_message_lost": 0,
+        "pose_receipt_count": 14,
+        "timeout_warning_count": 34
+      },
+      {
+        "depth_message_lost": 0,
+        "depth_receipt_count_first": 391,
+        "depth_receipt_count_last": 408,
+        "first_timeout_now_s": 22.772,
+        "last_depth_source_stamp_s": 23.268,
+        "last_pose_source_stamp_s": 22.244,
+        "last_timeout_now_s": 23.376,
+        "pose_message_lost": 0,
+        "pose_receipt_count": 370,
+        "timeout_warning_count": 21
+      },
+      {
+        "depth_message_lost": 0,
+        "depth_receipt_count_first": 541,
+        "depth_receipt_count_last": 574,
+        "first_timeout_now_s": 27.856,
+        "last_depth_source_stamp_s": 28.876,
+        "last_pose_source_stamp_s": 27.328,
+        "last_timeout_now_s": 28.984,
+        "pose_message_lost": 0,
+        "pose_receipt_count": 513,
+        "timeout_warning_count": 38
+      },
+      {
+        "depth_message_lost": 0,
+        "depth_receipt_count_first": 984,
+        "depth_receipt_count_last": 989,
+        "first_timeout_now_s": 43.232,
+        "last_depth_source_stamp_s": 43.264,
+        "last_pose_source_stamp_s": 42.704,
+        "last_timeout_now_s": 43.364,
+        "pose_message_lost": 0,
+        "pose_receipt_count": 935,
+        "timeout_warning_count": 5
+      }
+    ],
+    "ego_pose_filter_timeout_warning_count": 98,
+    "last_vins_telemetry": {
+      "accel_bias_norm": 0.007423007582731313,
+      "continued_tracks": 40,
+      "cost_components": null,
+      "final_cost": 2662.1291571515076,
+      "gyro_bias_norm": 0.0005046088750111112,
+      "initialized": true,
+      "input_features": 41,
+      "iterations": 7,
+      "long_tracks": 28,
+      "normalized_cost": 2.6932801416476813,
+      "residual_components": 734,
+      "solve_current": true,
+      "solve_seconds": 0.005424976348876953,
+      "solver_usable": true,
+      "stamp_ns": 48216000000,
+      "state_finite": true,
+      "stereo_features": 39,
+      "visual_feature_residuals": null,
+      "visual_observations": 140,
+      "wall_elapsed_s": 58.018465924997145
+    },
+    "mapping_occupancy_count_before_enable": 1398,
+    "mapping_occupancy_count_max": 2228,
+    "mapping_status_stream": {
+      "count": 243,
+      "first_stamp_ns": 14428000000,
+      "last_stamp_ns": 48268000000,
+      "last_status": {
+        "input_ready": false,
+        "occupied_point_count": 0,
+        "reason": "map_reset_acknowledged",
+        "reset_acknowledged": true
+      },
+      "max_stamp_gap_s": 0.168
+    },
+    "peer_forwarded_pose_stream": {
+      "count": 878,
+      "first_stamp_ns": 13632000000,
+      "first_wall_elapsed_s": 2.5560596479990636,
+      "last_stamp_ns": 44156000000,
+      "last_wall_elapsed_s": 51.55482252999718,
+      "max_stamp_gap_s": 0.132
+    },
+    "px4_bridge_live": {
+      "bridge_reason_counts": {
+        "normalized_cost_exceeded": 373,
+        "px4_preflight_failed": 67,
+        "requesting_arm": 2,
+        "takeoff_complete_waiting_for_trajectory": 194,
+        "takeoff_setpoint_active": 110,
+        "trajectory_4": 26
+      },
+      "bridge_state_counts": {
+        "ev_position_fused": 404,
+        "ev_yaw_fused": 404,
+        "gnss_aiding_active": 0,
+        "local_position_valid": 404,
+        "ready": 332
+      },
+      "control_samples_zero": false,
+      "counts": {
+        "attitude": 6013,
+        "bridge_status": 772,
+        "control_mode": 818,
+        "estimator_flags": 65,
+        "land_detected": 69,
+        "local_position": 3006,
+        "px4_status": 124,
+        "timesync_status": 0,
+        "trajectory_setpoint": 818,
+        "vehicle_command": 3,
+        "visual_odometry_input": 475
+      },
+      "latest": {
+        "bridge": {
+          "alignment_drift_m": 0.05573139592157418,
+          "armed": false,
+          "control_enabled": false,
+          "epoch": "17c05462c59d4b869de0df4ef3d65ae0",
+          "ev_position_fused": false,
+          "ev_yaw_fused": false,
+          "frame_offset_ned": [
+            -0.0012715561439200793,
+            -6.76502742531614e-05,
+            0.0010105080259401843
+          ],
+          "frame_yaw_offset_ned": 0.04343239942962285,
+          "gnss_aiding_active": false,
+          "landed": true,
+          "local_position_valid": false,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        },
+        "bridge_detail": {
+          "alignment_drift_m": 0.05573139592157418,
+          "alignment_pair_gap_sim_s": 29.596,
+          "alignment_pair_validated_age_wall_s": 48.317459676,
+          "alignment_pair_validated_gap_sim_s": 0.096,
+          "alignment_yaw_error_rad": 0.044558309293158516,
+          "model_sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+          "odometry_time_error": "",
+          "phase": "LANDED",
+          "px4_telemetry_freshness": {
+            "attitude": {
+              "max_receipt_age_wall_s": 0.5,
+              "max_source_age_sim_s": 1.5,
+              "max_source_future_sim_s": 0.065,
+              "receipt_age_wall_s": 0.012048377,
+              "source_age_sim_s": 0.012,
+              "source_stamp_us": 73780000,
+              "source_timestamp_offset_us": 0
+            },
+            "estimator_flags": {
+              "max_receipt_age_wall_s": 3.0,
+              "max_source_age_sim_s": 1.5,
+              "max_source_future_sim_s": 0.065,
+              "receipt_age_wall_s": 0.716986795,
+              "source_age_sim_s": 0.448,
+              "source_stamp_us": 73344000,
+              "source_timestamp_offset_us": 0
+            },
+            "land_detected": {
+              "max_receipt_age_wall_s": 3.0,
+              "max_source_age_sim_s": 1.5,
+              "max_source_future_sim_s": 0.065,
+              "receipt_age_wall_s": 0.982417102,
+              "source_age_sim_s": 0.6,
+              "source_stamp_us": 73192000,
+              "source_timestamp_offset_us": 0
+            },
+            "local_position": {
+              "max_receipt_age_wall_s": 0.5,
+              "max_source_age_sim_s": 1.5,
+              "max_source_future_sim_s": 0.065,
+              "receipt_age_wall_s": 0.003611694,
+              "source_age_sim_s": 0.008,
+              "source_stamp_us": 73784000,
+              "source_timestamp_offset_us": 0
+            },
+            "vehicle_status": {
+              "max_receipt_age_wall_s": 3.0,
+              "max_source_age_sim_s": 1.5,
+              "max_source_future_sim_s": 0.065,
+              "receipt_age_wall_s": 0.622047546,
+              "source_age_sim_s": 0.392,
+              "source_stamp_us": 73400000,
+              "source_timestamp_offset_us": 0
+            }
+          },
+          "px4_time_domain_valid": true,
+          "px4_timestamp_error": "",
+          "reason": "normalized_cost_exceeded",
+          "sensor_leverarm_frd_m": [
+            0.12,
+            -0.0,
+            -0.08
+          ],
+          "timesync_age_sim_s": null,
+          "uxrce_dds_time_sync_enabled": false,
+          "wall_age_s": 48.317459676
+        },
+        "estimator": {
+          "cs_aux_gpos": false,
+          "cs_ev_hgt": false,
+          "cs_ev_pos": false,
+          "cs_ev_vel": false,
+          "cs_ev_yaw": false,
+          "cs_gnss_pos": false,
+          "cs_gnss_vel": false,
+          "cs_gnss_yaw": false,
+          "cs_gps_hgt": false
+        },
+        "land_detected": {
+          "landed": true
+        },
+        "local_position": {
+          "heading": 1.0984992980957031,
+          "heading_good_for_control": false,
+          "position_ned": [
+            -0.04719051346182823,
+            -0.1297515481710434,
+            0.07420187443494797
+          ],
+          "velocity_ned": [
+            -0.0005419834633357823,
+            -0.0003452819073572755,
+            -0.00026060271193273365
+          ],
+          "xy_valid": false,
+          "z_valid": true
+        },
+        "px4_status": {
+          "arming_state": 1,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": false
+        },
+        "visual_odometry": {
+          "pose_frame": 1,
+          "position": [
+            0.008635054342448711,
+            -0.01634889841079712,
+            0.05953982472419739
+          ],
+          "quality": 100,
+          "sample_timestamp": 44188000,
+          "timestamp": 44236000,
+          "velocity_frame": 3
+        }
+      },
+      "vehicle_remained_disarmed": true
+    },
+    "px4_ulog": {
+      "battery_fault_values": [
+        0
+      ],
+      "battery_warning_values": [
+        0
+      ],
+      "dropouts": 0,
+      "duration_sim_s": 43.052,
+      "estimator_flag_counts": {
+        "cs_ev_pos": {
+          "samples": 53,
+          "true": 41
+        },
+        "cs_ev_vel": {
+          "samples": 53,
+          "true": 41
+        },
+        "cs_ev_yaw": {
+          "samples": 53,
+          "true": 41
+        },
+        "cs_gnss_pos": {
+          "samples": 53,
+          "true": 0
+        },
+        "cs_gnss_vel": {
+          "samples": 53,
+          "true": 0
+        },
+        "cs_gnss_yaw": {
+          "samples": 53,
+          "true": 0
+        },
+        "cs_gps_hgt": {
+          "samples": 53,
+          "true": 0
+        }
+      },
+      "land_transitions": [
+        {
+          "ground_contact": true,
+          "landed": true,
+          "maybe_landed": true,
+          "sim_time_s": 5.552
+        },
+        {
+          "ground_contact": true,
+          "landed": false,
+          "maybe_landed": false,
+          "sim_time_s": 20.052
+        },
+        {
+          "ground_contact": false,
+          "landed": false,
+          "maybe_landed": false,
+          "sim_time_s": 20.06
+        },
+        {
+          "ground_contact": true,
+          "landed": false,
+          "maybe_landed": false,
+          "sim_time_s": 45.516
+        },
+        {
+          "ground_contact": true,
+          "landed": false,
+          "maybe_landed": true,
+          "sim_time_s": 45.852
+        },
+        {
+          "ground_contact": true,
+          "landed": true,
+          "maybe_landed": true,
+          "sim_time_s": 46.188
+        }
+      ],
+      "vehicle_status_transitions": [
+        {
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "failsafe": false,
+          "nav_state": 4,
+          "nav_state_name": "AUTO_LOITER",
+          "sim_time_s": 6.1
+        },
+        {
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "failsafe": false,
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "sim_time_s": 18.196
+        },
+        {
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "failsafe": false,
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "sim_time_s": 18.292
+        },
+        {
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "failsafe": false,
+          "nav_state": 18,
+          "nav_state_name": "AUTO_LAND",
+          "sim_time_s": 42.4
+        },
+        {
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "failsafe": false,
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "sim_time_s": 48.196
+        }
+      ]
+    },
+    "raw_vins_odometry": {
+      "all_numeric_samples_finite": true,
+      "child_frame_ids": [
+        "vins_17c05462c59d4b869de0df4ef3d65ae0_imu"
+      ],
+      "duration_wall_s": 104.854583361,
+      "first_stamp_ns": 10992000000,
+      "last_stamp_ns": 74615999999,
+      "message_type": "nav_msgs/msg/Odometry",
+      "node_name": "p5_vins_odom_readonly_capture",
+      "nonpositive_stamp_gap_count": 0,
+      "positive_stamp_gap_s": {
+        "max": 0.068000001,
+        "median": 0.066,
+        "p95": 0.068000001
+      },
+      "publisher_endpoints_at_first_sample": [
+        {
+          "node_name": "_NODE_NAME_UNKNOWN_",
+          "node_namespace": "_NODE_NAMESPACE_UNKNOWN_",
+          "topic_type": "nav_msgs/msg/Odometry"
+        }
+      ],
+      "publisher_endpoints_at_shutdown": [],
+      "receipt_gap_s": {
+        "max": 0.350747569,
+        "median": 0.10571725,
+        "p95": 0.12716476
+      },
+      "sample_count": 965,
+      "schema": 1,
+      "scope": "read-only raw VINS optimized-odometry diagnostic; no truth subscription and no publishers",
+      "source_frame_ids": [
+        "vins_17c05462c59d4b869de0df4ef3d65ae0_world"
+      ],
+      "source_rate_hz": 15.151515151753294,
+      "topic": "/vins_raw/s_17c05462c59d4b869de0df4ef3d65ae0/odometry"
+    },
+    "single_control_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "vins_optimized_odometry_count": 461
+  },
+  "run": {
+    "action_goal_sent": true,
+    "action_result": {
+      "final_position": [
+        -0.011063371522419246,
+        0.0069888617670991115,
+        0.887493021429008
+      ],
+      "outcome": "aborted",
+      "reason": "goal_timeout",
+      "status": 6,
+      "success": false
+    },
+    "action_success": false,
+    "failure": "navigation_action_not_successful:goal_timeout",
+    "first_localization_invalid": {
+      "accepted_optimized": 543,
+      "accepted_propagated": 7168,
+      "epoch": "17c05462c59d4b869de0df4ef3d65ae0",
+      "good_pairs": 552,
+      "normalized_cost": 1.4929247273512638,
+      "reason": "normalized_cost_exceeded",
+      "source_stamp_ns": 44299999999,
+      "stamp_ns": 44320000000,
+      "state": 4,
+      "valid": false,
+      "wall_elapsed_s": 51.71021404199928
+    },
+    "goal": {
+      "frame": "odom_17c05462c59d4b869de0df4ef3d65ae0",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        0.2890279767292999,
+        0.0036783119766314243,
+        0.8870902505646724
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": 0.5229750542023128,
+      "yaw_offset_rad": 0.5235987755982988,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "goal_sent_wall_elapsed_s": 23.423046504998638,
+    "landed_and_disarmed": true,
+    "latest_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "normalized_cost_exceeded"
+    },
+    "latest_localization_status": {
+      "accepted_optimized": 543,
+      "accepted_propagated": 7168,
+      "epoch": "17c05462c59d4b869de0df4ef3d65ae0",
+      "reason": "normalized_cost_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "latest_map_status": {
+      "epoch": "17c05462c59d4b869de0df4ef3d65ae0",
+      "forwarded_depth_count": 1013,
+      "input_ready": false,
+      "map_id": "17c05462c59d4b869de0df4ef3d65ae0-b08923d06bc0481f8e2e5c85c0e84c4c",
+      "occupied_point_count": 0,
+      "reason": "map_reset_acknowledged",
+      "reset_acknowledged": true,
+      "stamp_ns": 48268000000
+    },
+    "latest_vehicle_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false,
+      "timestamp": 48196000
+    },
+    "localization_tracking_stability_passed": true,
+    "preconditions_ready": true,
+    "px4_telemetry_stability_passed": true,
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "trajectory_4"
+      }
+    ],
+    "takeoff_active_observed": true
+  },
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-226",
+  "schema": 1,
+  "scope": "Low-load P5 single-D435i VINS/EGO/PX4 SITL repeat using the existing patch-0015 EGO overlay and the established horizontal target.",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225",
+    "canonical_safety_or_algorithm_thresholds_changed": false,
+    "container_harness_import_preflight": "PASS",
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "ego_binary_sha256": "3749967321ed90c987cba2bc2faeb0515b8794cabe021be767806fb97f5adf53",
+    "ego_overlay_reused_from": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225",
+    "ego_patch_order": [
+      "0012-grid_map_timeout",
+      "0013_grid_map_sync_input",
+      "0015_filter_receipt_and_message_lost"
+    ],
+    "ego_patch_sha256": {
+      "0012-grid_map_timeout": "2c9ea857cbbb1cd3bd4b2b8a678a3bf59e60bfac4bf9f8db7d24eab0c800b833",
+      "0013_grid_map_sync_input": "cb049c85b196cf30a022936455b8ba25410ac2b8b1575ab4e5630b348a93c5d0",
+      "0015_filter_receipt_and_message_lost": "43c82f406729fe9aa2e69ec2c353e702f2b7d4642d123838ed3d7717d0491dd1"
+    },
+    "ego_prefix": "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-225/ego-install/ego_planner",
+    "filter_threshold": 0.01,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_horizontal_226",
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "goal_config_source": "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio_closed_loop_smoke_goal.json",
+    "harness_subscriptions": {
+      "depth_health": true,
+      "ego_camera_pose": true,
+      "ego_depth_image": false,
+      "localization_status": true,
+      "mapping_status": true,
+      "occupancy_pointcloud": false,
+      "px4_status": true,
+      "raw_depth_image": false
+    },
+    "map_precondition": "MapStatus.occupied_point_count >= configured minimum and latest input_ready=true",
+    "plan_env_library_sha256": "7d28b84ee39984c7b2b431e0f9c527b539fb5e48207e230d7702bd13f46c67c2",
+    "px4_bridge_debug_truth_subscription": false,
+    "ros_domain_id": 229,
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "truth_input_started": false,
+    "yaw_offset_rad": 0.5235987755982988
+  }
+}

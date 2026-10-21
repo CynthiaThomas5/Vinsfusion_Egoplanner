@@ -1,0 +1,330 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231",
+  "scope": "Run-local no-truth single-D435i VINS/EGO/PX4 SITL diagnostic measuring camera-pose RMW readiness and Fast DDS DataReader matched/sample-lost/sample-rejected aggregate status.",
+  "classification": "NAVIGATION_ACTION_SUCCEEDED_AND_LANDED; LONG_READER_NOT_READY_GAP_REPRODUCED; READER_STATUS_MATCHED_NO_LOSS_REPORTED; P5_AND_GOAL_STILL_IN_PROGRESS",
+  "setup": {
+    "profile": "vio_closed_loop",
+    "single_camera": "D435i",
+    "goal_relative_enu_offset_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "goal_relative_yaw_offset_rad": 0.5235987755982988,
+    "run_local_anisotropy_filter": 0.01,
+    "ego_overlay_patch_order": [
+      "0012-grid_map_timeout",
+      "0013_grid_map_sync_input",
+      "0015_filter_receipt_and_message_lost"
+    ],
+    "map_precondition": "MapStatus.occupied_point_count >= configured minimum and latest input_ready=true",
+    "high_bandwidth_observers": false,
+    "vins_odom_observer_subscription": true,
+    "qos_or_health_thresholds_changed": false,
+    "canonical_source_modified": false,
+    "truth_input_started": false,
+    "debug_truth_subscription_on_bridge": false,
+    "control_publisher": "uav_px4_bridge exclusively",
+    "rmw": "rmw_fastrtps_cpp 8.4.4",
+    "fastdds": "2.14.6",
+    "runtime_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c973e9b93b03f87aca7ad6f8",
+    "probe_scope": "LD_PRELOAD attached only to ego_planner_node; get matched/sample_lost/sample_rejected once per 128 target-reader wait returns",
+    "synthetic_preflight": {
+      "artifact_directory": "artifacts/runs/p5-ego-reader-fastdds-status-preflight-20261020",
+      "paired_runs": [
+        "raw/preflight-result-pass1.json",
+        "raw/preflight-result.json"
+      ],
+      "payload": "800 reliable synthetic UInt64MultiArray samples at 100 Hz",
+      "baseline_and_instrumented_received_each": 800,
+      "gaps_each": 0,
+      "status_sample_count_pass2": 7,
+      "getter_return_codes_all_zero": true,
+      "sample_lost_and_rejected_total_pass2": 0
+    },
+    "run_directory": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231",
+    "probe_provenance": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/probe-launch-provenance.json",
+    "run_variant_manifest": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/run-variant-manifest.json"
+  },
+  "run": {
+    "flight_report_result": "PASS",
+    "navigation_action": {
+      "success": true,
+      "reason": "position_yaw_tolerance_held",
+      "target_enu": [
+        0.29271259261553234,
+        0.0030371340303028092,
+        0.8809590965808092
+      ],
+      "final_position_enu": [
+        0.33336101886523023,
+        -0.04166616921711203,
+        0.8644033454380785
+      ],
+      "position_error_m": 0.06264800694122269
+    },
+    "landed_and_disarmed": true,
+    "px4_duration_sim_s": 34.056,
+    "px4_ulog_dropouts": 0,
+    "ekf2_ev_flags": {
+      "cs_ev_pos": {
+        "true": 30,
+        "samples": 45
+      },
+      "cs_ev_yaw": {
+        "true": 30,
+        "samples": 45
+      },
+      "cs_ev_vel": {
+        "true": 30,
+        "samples": 45
+      }
+    },
+    "gnss_aiding_flags": {
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 45
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 45
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 45
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 45
+      }
+    },
+    "final_localization_snapshot": {
+      "accepted_optimized": 382,
+      "accepted_propagated": 5035,
+      "epoch": "e77c8cdceced4724ac217fbabd3b4b94",
+      "reason": "normalized_cost_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "final_px4_state": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false,
+      "timestamp": 39144000
+    },
+    "landing_transitions": [
+      {
+        "sim_time_s": 20.388,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 33.396,
+        "arming_state": 2,
+        "arming_state_name": "ARMED",
+        "nav_state": 18,
+        "nav_state_name": "AUTO_LAND",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 39.144,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      }
+    ]
+  },
+  "observations": {
+    "analysis_window_s": 32.5,
+    "pose_rmw_publish_count": 557,
+    "pose_successful_take_count": 536,
+    "max_successful_take_gap_s": 2.5932291969947983,
+    "publisher_max_gap_s": 0.27082643800531514,
+    "rmw_wait_ready_counts_window": {
+      "0": 8511,
+      "1": 536
+    },
+    "ready_to_successful_take_one_to_one": true,
+    "ready_to_take_delay_s": {
+      "count": 536,
+      "min": 2.325003151781857e-06,
+      "median": 9.868002962321043e-06,
+      "p95": 2.5617002393119037e-05,
+      "max": 0.0030367799918167293
+    },
+    "reader_status": {
+      "sample_count": 229,
+      "sampling_wait_call_interval": 128,
+      "matched_current_values": {
+        "0": 1,
+        "1": 228
+      },
+      "sample_lost_total_values": {
+        "0": 229
+      },
+      "sample_rejected_total_values": {
+        "0": 229
+      },
+      "getter_return_codes": {
+        "matched_rc": {
+          "0": 229
+        },
+        "sample_lost_rc": {
+          "0": 229
+        },
+        "sample_rejected_rc": {
+          "0": 229
+        }
+      },
+      "samples_inside_max_take_gap": 5,
+      "gap_samples": [
+        {
+          "time_of_day_s": 75624.370769547,
+          "topic": "rt/drone_0_camera_pose",
+          "reader": "0x5623F7662180",
+          "wait_seq": 4480,
+          "matched_current": 1,
+          "matched_total": 1,
+          "sample_lost_total": 0,
+          "sample_rejected_total": 0,
+          "matched_rc": 0,
+          "sample_lost_rc": 0,
+          "sample_rejected_rc": 0
+        },
+        {
+          "time_of_day_s": 75624.866690189,
+          "topic": "rt/drone_0_camera_pose",
+          "reader": "0x5623F7662180",
+          "wait_seq": 4608,
+          "matched_current": 1,
+          "matched_total": 1,
+          "sample_lost_total": 0,
+          "sample_rejected_total": 0,
+          "matched_rc": 0,
+          "sample_lost_rc": 0,
+          "sample_rejected_rc": 0
+        },
+        {
+          "time_of_day_s": 75625.339407784,
+          "topic": "rt/drone_0_camera_pose",
+          "reader": "0x5623F7662180",
+          "wait_seq": 4736,
+          "matched_current": 1,
+          "matched_total": 1,
+          "sample_lost_total": 0,
+          "sample_rejected_total": 0,
+          "matched_rc": 0,
+          "sample_lost_rc": 0,
+          "sample_rejected_rc": 0
+        },
+        {
+          "time_of_day_s": 75625.820808713,
+          "topic": "rt/drone_0_camera_pose",
+          "reader": "0x5623F7662180",
+          "wait_seq": 4864,
+          "matched_current": 1,
+          "matched_total": 1,
+          "sample_lost_total": 0,
+          "sample_rejected_total": 0,
+          "matched_rc": 0,
+          "sample_lost_rc": 0,
+          "sample_rejected_rc": 0
+        },
+        {
+          "time_of_day_s": 75626.28885027,
+          "topic": "rt/drone_0_camera_pose",
+          "reader": "0x5623F7662180",
+          "wait_seq": 4992,
+          "matched_current": 1,
+          "matched_total": 1,
+          "sample_lost_total": 0,
+          "sample_rejected_total": 0,
+          "matched_rc": 0,
+          "sample_lost_rc": 0,
+          "sample_rejected_rc": 0
+        }
+      ]
+    },
+    "max_take_gap_interval": {
+      "from_time_of_day_s": 75623.980522068,
+      "to_time_of_day_s": 75626.573751265,
+      "from_after_selection_s": 9.369854,
+      "to_after_selection_s": 11.963083,
+      "publisher_rmw_publish_count": 46,
+      "publisher_rmw_publish_timing": {
+        "count": 46,
+        "first_time_of_day_s": 75624.078589394,
+        "last_time_of_day_s": 75626.563272242,
+        "max_gap_s": 0.22367381800722796,
+        "max_gap_from_time_of_day_s": 75624.621335793,
+        "max_gap_to_time_of_day_s": 75624.845009611
+      },
+      "ego_pose_callback_start_count_interior": 1,
+      "ego_pose_callback_start_context": [
+        {
+          "callback_start_time_of_day_s": 75623.980522549,
+          "offset_from_gap_start_s": 4.809990059584379e-07,
+          "prior_successful_take_time_of_day_s": 75623.980522068,
+          "following_successful_take_time_of_day_s": 75626.573751265
+        }
+      ],
+      "executor_event_counts": {
+        "rclcpp_executor_get_next_ready": 2264,
+        "rclcpp_executor_execute": 896,
+        "rclcpp_executor_wait_for_work": 1113
+      },
+      "rmw_wait_event_count": 700,
+      "ready_counts": {
+        "0": 699,
+        "1": 1
+      },
+      "result_counts": {
+        "2": 371,
+        "0": 329
+      },
+      "successful_camera_pose_take_count": 0
+    },
+    "ready_event_inside_max_gap": [
+      {
+        "time": 75626.573728192,
+        "topic": "rt/drone_0_camera_pose",
+        "seq": 5070,
+        "ready": 1,
+        "result": 0
+      }
+    ],
+    "trace_sequence_gaps_overlapping_max_take_gap": []
+  },
+  "interpretation": {
+    "supported": "The 2.593229 s take gap recurred while 46 publisher RMW calls were recorded. During the gap, 699 of 700 target-reader wait returns reported ready=0; the only ready event was 23.073 us before the next successful take. Five status snapshots during the gap all reported matched_current=1, sample_lost_total=0 and sample_rejected_total=0, with successful getters. This places the reproduced pause before RMW reports the target reader ready and shows no observed reader unmatch or counter-reported loss/rejection.",
+    "not_proven": "rmw_publish marks calls reaching the publisher RMW tracepoint, not successful per-sample RTPS delivery. Reader aggregate matched/loss/rejection status does not identify writer history, RTPS transport, resource limits, or another Fast DDS internal cause; no writer acknowledgement trace was collected.",
+    "flight_scope": "The navigation action succeeded and PX4 completed AUTO_LAND, touchdown and disarm; ULog showed EV position/yaw/velocity fusion, zero GNSS aiding and zero dropouts. The final localization snapshot was invalid with normalized_cost_exceeded, so this is diagnostic flight evidence, not long-duration health qualification.",
+    "project_gate": "P5/P6 and GOAL A-H remain incomplete. P5 remains in_progress; F criteria are not frozen and formal D/E testing has not started."
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231",
+    "flight_report": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/vio-ego-flight-report.json",
+    "px4_ulog_summary": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/landing-failsafe-timeline.json",
+    "ctf_trace_directory": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/ego-rclcpp-trace",
+    "rmw_readiness_analysis": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/raw/rmw-take-readiness-alignment.json",
+    "reader_status_analysis": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/raw/status-take-alignment.json",
+    "synthetic_status_preflight": "artifacts/runs/p5-ego-reader-fastdds-status-preflight-20261020/raw/status-analysis-pass2.json",
+    "full_hash_inventory": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/raw/artifact-hashes.json",
+    "hash_verification": "artifacts/runs/p5-px4-vio-ego-pose-receipt-fastdds-status-trace-20261020-231/raw/hash-verification.json"
+  },
+  "artifact_hash_validation": {
+    "passed": 83,
+    "total": 83,
+    "ctf_trace_files": 33,
+    "supporting_preflight_ctf_files": 33,
+    "includes_px4_ulog": true
+  }
+}

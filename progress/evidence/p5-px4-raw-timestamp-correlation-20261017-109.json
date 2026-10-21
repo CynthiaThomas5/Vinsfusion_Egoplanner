@@ -1,0 +1,344 @@
+{
+  "artifacts": {
+    "agent_log": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/agent.log",
+      "sha256": "1d5d5404a815bbaced92f32eebd2209fad955a0c4b8fedc1839072cd27a15a76",
+      "size_bytes": 41563
+    },
+    "gazebo_log": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/gazebo.log",
+      "sha256": "d2bc5423e6ce8dac1c63037669bf4e5e47926c469800f222a32f1c6250714f0a",
+      "size_bytes": 2802
+    },
+    "generated_world": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/vio_initialization.sdf",
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11",
+      "size_bytes": 7845
+    },
+    "harness": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/run-px4-raw-timestamp-correlation.sh",
+      "sha256": "ec78ebb76445bd579ae5cea4bed4d3e73e0bffc98bf912140ed73071d0605417",
+      "size_bytes": 9963
+    },
+    "live_probe": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/px4-live-probe.json",
+      "sha256": "ef44a84828f234948ef9ecc2389b8dc18af8ae04b18905460b158bd6cdf2791d",
+      "size_bytes": 2672479
+    },
+    "localization_probe": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/localization-probe.json",
+      "sha256": "eb49558093fa0253ee158e933647fe99f55451ec3570eeb037883bd8e3d057ec",
+      "size_bytes": 398259
+    },
+    "px4_bridge_graph": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/px4-bridge-node-info.txt",
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+      "size_bytes": 1879
+    },
+    "px4_log": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/px4.log",
+      "sha256": "aaf05f32f82ad7c124f1d4b2252e1ed360f0e8f10fb5a89ddfdca302de58202a",
+      "size_bytes": 4993
+    },
+    "px4_parameter_stage": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/px4-param-stage.json",
+      "sha256": "5d8b23ccf1cf8df2f69c3e966303f577772a7342f9361162f6af426fc019ce26",
+      "size_bytes": 725
+    },
+    "qualification": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/qualification.json",
+      "sha256": "cd0bb441897076367a13f1c0e57c559d577b862f5c0999d3397e3e4aa7878810",
+      "size_bytes": 3237552
+    },
+    "raw_stream_probe": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/raw-stream-freshness.json",
+      "sha256": "db3d3edef6dd308ce3847e4b1bb551c6108211b0dd7bc95e0ec8d1e47f35264d",
+      "size_bytes": 7979
+    },
+    "session_manifest": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/session/session.json",
+      "sha256": "f1fe6fbc019c18a847c990a1aaa4eddc3a23db557fb5c00f45b79e4127e6b15d",
+      "size_bytes": 654
+    },
+    "ulog": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/px4_sitl_default/log/2026-10-17/08_57_43.ulg",
+      "sha256": "9c3c2e161fc3f5e216e3a7651e1ba8a37d23a369b7dd1bd2facbc4d386904824",
+      "size_bytes": 9203635
+    },
+    "vins_log": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/vins.log",
+      "sha256": "9d0e3c6a2e52558f45478684a439cfa83d70c034f3365e595eb35f0306fb90cc",
+      "size_bytes": 67903
+    },
+    "vins_runtime_config": {
+      "path": "artifacts/runs/p5-px4-raw-timestamp-correlation-20261017-109/session/vins.yaml",
+      "sha256": "42833def8f09a1ca69043c964fc14cc2b4d2dfc6eb9025d0dc67d38c0818f339",
+      "size_bytes": 1267
+    }
+  },
+  "changes_under_test": {
+    "control_behavior_changed": false,
+    "live_probe_instrumentation": "Records per-callback PX4 Agent timestamp, latest estimated_offset, recovered PX4 timestamp, latest /clock sample and monotonic receipt time for vehicle status, local position, estimator flags, attitude and land-detected. Read-only; no bridge health threshold or control behavior changed.",
+    "thresholds_changed": false
+  },
+  "checks": {
+    "bridge_control_enabled_final": false,
+    "bridge_phase_final": "DISABLED",
+    "bridge_reason_counts": {
+      "external_odometry_stale": 3,
+      "px4_frame_unaligned": 2,
+      "px4_local_position_invalid": 10,
+      "px4_preflight_failed": 296,
+      "px4_telemetry_stale": 34
+    },
+    "bridge_truth_subscription_present": false,
+    "control_topic_sample_counts_all_zero": true,
+    "ekf2_ev_position_fused": true,
+    "ekf2_ev_yaw_fused": true,
+    "estimated_offset_adjustment_wall_s": {
+      "final_estimated_offset_us": -1792227474851807,
+      "first_adjustment": 15.121,
+      "initial_estimated_offset_us": -1792227456675881,
+      "last_transition": 20.638,
+      "offset_value_transitions": 26
+    },
+    "final_bridge_reason": "px4_preflight_failed",
+    "gnss_aiding_flags_all_zero": true,
+    "localization_tracking_observed": true,
+    "px4_telemetry_stale_first_wall_s": 15.185,
+    "px4_telemetry_stale_last_wall_s": 20.685,
+    "px4_telemetry_stale_status_samples": 34,
+    "px4_telemetry_stale_status_samples_after_last_offset_change": 1,
+    "px4_visual_odometry_samples": 283,
+    "quiet_wall_s_after_last_stale_status": 24.333,
+    "readiness_final_10s_coverage": 0.0,
+    "ros_truth_topics_present": false,
+    "seconds_from_last_offset_change_to_last_stale_status": 0.047,
+    "source_age_at_callback": {
+      "attitude": {
+        "after_last_estimated_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.012018,
+          "min": -0.000572,
+          "p50": 0.001065,
+          "p95": 0.004758,
+          "stale_over_1_5s": 0
+        },
+        "after_last_estimated_offset_change_samples": 1020,
+        "future_over_20ms_all": 176,
+        "future_over_20ms_during_offset_convergence": 176,
+        "usable_samples": 1851
+      },
+      "estimator_flags": {
+        "after_last_estimated_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001349,
+          "min": -0.00028,
+          "p50": 0.00064,
+          "p95": 0.001349,
+          "stale_over_1_5s": 0
+        },
+        "after_last_estimated_offset_change_samples": 11,
+        "future_over_20ms_all": 2,
+        "future_over_20ms_during_offset_convergence": 2,
+        "usable_samples": 21
+      },
+      "land_detected": {
+        "after_last_estimated_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.003606,
+          "min": -3.2e-05,
+          "p50": 0.000637,
+          "p95": 0.003606,
+          "stale_over_1_5s": 0
+        },
+        "after_last_estimated_offset_change_samples": 11,
+        "future_over_20ms_all": 2,
+        "future_over_20ms_during_offset_convergence": 2,
+        "usable_samples": 20
+      },
+      "local_position": {
+        "after_last_estimated_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.012012,
+          "min": -0.00064,
+          "p50": 0.004463,
+          "p95": 0.008847,
+          "stale_over_1_5s": 0
+        },
+        "after_last_estimated_offset_change_samples": 509,
+        "future_over_20ms_all": 100,
+        "future_over_20ms_during_offset_convergence": 100,
+        "usable_samples": 926
+      },
+      "vehicle_status": {
+        "after_last_estimated_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.002455,
+          "min": -0.000151,
+          "p50": 0.000455,
+          "p95": 0.001201,
+          "stale_over_1_5s": 0
+        },
+        "after_last_estimated_offset_change_samples": 21,
+        "future_over_20ms_all": 4,
+        "future_over_20ms_during_offset_convergence": 4,
+        "usable_samples": 37
+      }
+    },
+    "ulog_present": true,
+    "vehicle_remained_disarmed": true
+  },
+  "date": "2026-10-17",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ephemeral_container": true,
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "repository_head": null,
+    "repository_snapshot": "No project HEAD exists; source/config hashes and all relevant run artifacts are recorded below.",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 225
+  },
+  "limitations": [
+    "The correlation is one 45-second run. The observed offset settling interval must be repeated independently before defining any convergence policy.",
+    "No threshold was relaxed. This run does not establish a safe maximum source age or a final PX4 bridge readiness criterion.",
+    "Final readiness coverage is zero because the bridge remained DISABLED and PX4 reported px4_preflight_failed; no Offboard prestream was sent.",
+    "No Offboard enable request, control samples, arming, flight or navigation occurred. No truth topic or bridge truth subscription was present.",
+    "This does not complete P5, P4, P6 or GOAL A-H; the project remains active."
+  ],
+  "px4_source_semantics": [
+    {
+      "behavior": "EKF2 publishes when its estimator status flags change; the source timestamp is not a periodic heartbeat.",
+      "source": "external/PX4-Autopilot/src/modules/ekf2/EKF2.cpp:1907-1986",
+      "topic": "EstimatorStatusFlags"
+    },
+    {
+      "behavior": "LandDetector publishes on state change or after at least 1 simulated second; it is not event-only. This corrects the earlier summary in change 047.",
+      "source": "external/PX4-Autopilot/src/modules/land_detector/LandDetector.cpp:157-183",
+      "topic": "VehicleLandDetected"
+    },
+    {
+      "behavior": "Commander publishes at 2 Hz or immediately when status changes.",
+      "source": "external/PX4-Autopilot/src/modules/commander/Commander.cpp:1932-1944",
+      "topic": "VehicleStatus"
+    }
+  ],
+  "qualification": "45-second passive VIO-to-PX4 SITL with raw PX4 callback timestamps, latest timesync offset and ROS clock receipt times captured. VIO reached PX4 and EKF2 EV position/yaw fusion was observed without GNSS or truth input. All 34 px4_telemetry_stale status-detail samples occurred from 15.185 to 20.685 s; the last estimated-offset transition was at 20.638 s, and no further stale status occurred for the remaining 24.33 s. Readiness remains unqualified because the bridge stayed DISABLED and PX4 current-mode preflight failed.",
+  "result": "DIAGNOSTIC_ONLY_VIO_EKF2_OBSERVED_OFFSET_CONVERGENCE_CORRELATED",
+  "run_id": "p5-px4-raw-timestamp-correlation-20261017-109",
+  "source_sha256": {
+    "bridge_config": {
+      "path": "config/components/px4_bridge/vio_closed_loop.json",
+      "sha256": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601"
+    },
+    "bridge_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9"
+    },
+    "frame_contract": {
+      "path": "config/components/px4_bridge/frames_vio_closed_loop.json",
+      "sha256": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822"
+    },
+    "launch": {
+      "path": "src/own/uav_px4_bridge/launch/vio_closed_loop_px4.launch.py",
+      "sha256": "d07780617a1dabc344a0c0d32771d8f5d0de175724020c2e4355745c42408cc8"
+    },
+    "live_probe": {
+      "path": "tools/probe_px4_bridge_live.py",
+      "sha256": "6704a8883ecec7b8e17ed8aeaab374c797dd996aa134473444630a2cbf028e75"
+    },
+    "profile": {
+      "path": "config/profiles/vio_closed_loop.json",
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "sensor_bridge_config": {
+      "path": "config/components/simulation/d435i_bridge.yaml",
+      "sha256": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed"
+    },
+    "time_mapping_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "sha256": "81d663ab1aa4fbc650971ce61cf71d64660dae7e4bff2a11f7ed726b143eb0db"
+    }
+  },
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "timestamp_analysis": {
+    "estimated_offset_plateau_definition": "The final received estimated_offset_us value remained unchanged from the last observed transition through the final timesync sample. This is only an observed estimate plateau; observed_offset was not captured in this run, so it does not establish timesync convergence. Run 111 later shows that the observed offset can continue drifting while this field is unchanged.",
+    "method": "For each source callback, piecewise-linear interpolation between neighboring /clock samples in the same monotonic-time domain estimates ROS simulation time at receipt; recovered PX4 source time is raw timestamp_agent_us plus the most recently received estimated_offset_us. Startup samples without an offset and one non-positive recovered source timestamp were excluded from age quantiles.",
+    "per_topic": {
+      "attitude": {
+        "future_over_20ms_all": 176,
+        "future_over_20ms_during_offset_convergence": 176,
+        "post_convergence_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.012018,
+          "min": -0.000572,
+          "p50": 0.001065,
+          "p95": 0.004758,
+          "stale_over_1_5s": 0
+        },
+        "post_convergence_samples": 1020,
+        "usable_samples": 1851
+      },
+      "estimator_flags": {
+        "future_over_20ms_all": 2,
+        "future_over_20ms_during_offset_convergence": 2,
+        "post_convergence_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001349,
+          "min": -0.00028,
+          "p50": 0.00064,
+          "p95": 0.001349,
+          "stale_over_1_5s": 0
+        },
+        "post_convergence_samples": 11,
+        "usable_samples": 21
+      },
+      "land_detected": {
+        "future_over_20ms_all": 2,
+        "future_over_20ms_during_offset_convergence": 2,
+        "post_convergence_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.003606,
+          "min": -3.2e-05,
+          "p50": 0.000637,
+          "p95": 0.003606,
+          "stale_over_1_5s": 0
+        },
+        "post_convergence_samples": 11,
+        "usable_samples": 20
+      },
+      "local_position": {
+        "future_over_20ms_all": 100,
+        "future_over_20ms_during_offset_convergence": 100,
+        "post_convergence_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.012012,
+          "min": -0.00064,
+          "p50": 0.004463,
+          "p95": 0.008847,
+          "stale_over_1_5s": 0
+        },
+        "post_convergence_samples": 509,
+        "usable_samples": 926
+      },
+      "vehicle_status": {
+        "future_over_20ms_all": 4,
+        "future_over_20ms_during_offset_convergence": 4,
+        "post_convergence_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.002455,
+          "min": -0.000151,
+          "p50": 0.000455,
+          "p95": 0.001201,
+          "stale_over_1_5s": 0
+        },
+        "post_convergence_samples": 21,
+        "usable_samples": 37
+      }
+    }
+  }
+}

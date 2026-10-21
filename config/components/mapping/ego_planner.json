@@ -1,0 +1,25 @@
+{
+  "qualification": "PROVISIONAL diagnostic map, timeout, and obstacle-inflation settings; none are frozen for acceptance or flight",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.5,
+  "max_acceleration_m_s2": 0.8,
+  "obstacles_inflation_m": 0.5,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -0.15,
+  "rationale": "The 40 m horizontal map covers the 20 m room from a VINS origin near x=-8 m, including a +16 m relative opposite-end goal. The 0.5 m obstacle inflation is a conservative PROVISIONAL simulation margin replacing the old 0.099 m diagnostic value; it is not full vehicle-clearance acceptance. Ground height -0.15 m and odom/depth timeout 0.4 simulation seconds remain unchanged. Full swept-body, unknown-space and braking checks remain pending. #051 current-room CPU candidate reduces motion from0.7m/s,1.5m/s2 to0.5m/s,0.8m/s2 after run42 visual-cost transient near goal; health thresholds unchanged. Pending repeated SITL, not formal acceptance."
+}

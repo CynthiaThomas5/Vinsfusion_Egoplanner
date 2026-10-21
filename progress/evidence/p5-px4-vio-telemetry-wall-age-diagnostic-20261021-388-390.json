@@ -1,0 +1,994 @@
+{
+  "canonical_configuration": {
+    "canonical_files_changed_for_these_runs": false,
+    "files_sha256": {
+      "config/components/px4_bridge/debug_truth.json": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf",
+      "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f"
+    },
+    "shared_debug_truth_receipt_limits": {
+      "odometry_max_receipt_age_wall_s": 0.3,
+      "px4_estimator_flags_max_receipt_age_wall_s": 3.0,
+      "px4_land_detected_max_receipt_age_wall_s": 3.0,
+      "px4_max_receipt_age_wall_s": 0.5,
+      "px4_source_timestamp_max_age_sim_s": 1.5,
+      "px4_source_timestamp_max_future_sim_s": 0.02,
+      "px4_status_max_receipt_age_wall_s": 3.0
+    },
+    "vio_closed_loop_effective_source_future_limit_sim_s": 0.065
+  },
+  "date": "2026-10-21",
+  "diagnostic_method": {
+    "control_gate": "The run-local harnesses exit before enable_offboard. #388 failed VIO/map preconditions and did not enter the stability window; #389 passed the five-second telemetry/localization window, with no service, action goal, or control messages.",
+    "overlay_only": true,
+    "overrides": {
+      "px4_estimator_flags_max_receipt_age_wall_s": 4.0,
+      "px4_land_detected_max_receipt_age_wall_s": 4.0
+    },
+    "safety_limits_retained": {
+      "odometry_max_receipt_age_wall_s": 0.3,
+      "px4_max_receipt_age_wall_s": 0.5,
+      "px4_source_timestamp_max_age_sim_s": 1.5,
+      "px4_source_timestamp_max_future_sim_s_effective_in_vio_closed_loop": 0.065,
+      "px4_status_max_receipt_age_wall_s": 3.0
+    }
+  },
+  "direct_findings": [
+    "The historical #384–#387 failures coincide with 3.0-second wall receipt-age limits being exceeded by low-rate estimator_flags/land_detected while their simulation source ages remain below the retained 1.5-second source-age limit.",
+    "#389 reached the ready map/VIO preconditions and passed the five-second combined gate with the 4.0-second run-local overlay; 39 fresh bridge detail samples fell in the gate window. In the same recorded telemetry, the longest sampled interval meeting all canonical 3.0-second receipt limits was 2.843 seconds, shorter than the required five seconds.",
+    "#390 passed the same five-second gate. PX4 pre_flight_checks_pass became true and the bridge advanced through REQUEST_ARM to TAKEOFF after the accepted EnableOffboard request. During TAKEOFF, clock mapping reported clock_mapping_rate_out_of_bounds; mapped odometry wall age reached 0.434 seconds against its unchanged 0.3-second limit, so the bridge entered LANDING. The vehicle ended LANDED and disarmed. No navigation action goal was sent, and the harness did not observe ACTIVE.",
+    "#388 showed all PX4 telemetry fresh under the overlay, but the VINS adapter locked on propagated_from_future and map occupied point count stayed zero, so it did not test the combined startup gate."
+  ],
+  "historical_runs_384_to_387": {
+    "evidence": "progress/evidence/p5-vio-ego-airborne-preflight-diagnostic-20261021-384-387.json",
+    "finding": "All four failed before EnableOffboard; estimator_flags and land_detected receipt inter-arrival medians were about 3.30–3.42 wall seconds with 3.0-second limits.",
+    "run_summaries": [
+      {
+        "control_samples_zero": true,
+        "localization_5s_stability_passed": false,
+        "offboard_service_calls": [],
+        "px4_preflight_pass_true_samples": 0,
+        "px4_preflight_status_samples": 35,
+        "px4_telemetry_5s_stability_passed": false,
+        "px4_telemetry_interarrival_median_s": {
+          "estimator_flags": 3.4199800539936405,
+          "land_detected": 3.4136656129994662,
+          "local_position": 0.09762712400697637,
+          "px4_status": 1.7160738439997658
+        },
+        "ros_clock_span_rate": 0.291004,
+        "run_id": "p5-vio-ego-airborne-second-layout-20261021-384",
+        "vehicle_remained_disarmed": true
+      },
+      {
+        "control_samples_zero": true,
+        "localization_5s_stability_passed": false,
+        "offboard_service_calls": [],
+        "px4_preflight_pass_true_samples": 0,
+        "px4_preflight_status_samples": 38,
+        "px4_telemetry_5s_stability_passed": false,
+        "px4_telemetry_interarrival_median_s": {
+          "estimator_flags": 3.335289518996433,
+          "land_detected": 3.34004702999664,
+          "local_position": 0.0947389299981296,
+          "px4_status": 1.6740777649974916
+        },
+        "ros_clock_span_rate": 0.298489,
+        "run_id": "p5-vio-ego-airborne-short-goal-20261021-385",
+        "vehicle_remained_disarmed": true
+      },
+      {
+        "control_samples_zero": true,
+        "localization_5s_stability_passed": false,
+        "offboard_service_calls": [],
+        "px4_preflight_pass_true_samples": 0,
+        "px4_preflight_status_samples": 37,
+        "px4_telemetry_5s_stability_passed": false,
+        "px4_telemetry_interarrival_median_s": {
+          "estimator_flags": 3.304528102999029,
+          "land_detected": 3.307119823002722,
+          "local_position": 0.09387319099914748,
+          "px4_status": 1.6558851570007391
+        },
+        "ros_clock_span_rate": 0.301413,
+        "run_id": "p5-vio-ego-airborne-baseline-20261021-386",
+        "vehicle_remained_disarmed": true
+      },
+      {
+        "control_samples_zero": true,
+        "localization_5s_stability_passed": false,
+        "offboard_service_calls": [],
+        "px4_preflight_pass_true_samples": 0,
+        "px4_preflight_status_samples": 37,
+        "px4_telemetry_5s_stability_passed": false,
+        "px4_telemetry_interarrival_median_s": {
+          "estimator_flags": 3.3005944620017544,
+          "land_detected": 3.3029095849997248,
+          "local_position": 0.0937195980004617,
+          "px4_status": 1.6557370500013349
+        },
+        "ros_clock_span_rate": 0.301786,
+        "run_id": "p5-vio-ego-airborne-no-observer-20261021-387",
+        "vehicle_remained_disarmed": true
+      }
+    ]
+  },
+  "limitations": [
+    "The 4.0-second values were diagnostic overlays only and are not validated or promoted project thresholds.",
+    "Run #390 did not reach ACTIVE, did not send a navigation action goal, and did not establish takeoff altitude or landing performance for the goal.",
+    "The clock-mapping rate failure was captured, but its fit rate and triggering /clock sample sequence were not recorded; cause remains unresolved.",
+    "No truth-based localization error, body-envelope clearance, obstacle bypass, repeated cold-start acceptance, fault-injection campaign, or long-duration load evidence was collected.",
+    "Prior no-control /clock probes #385–#387 have offline 64-sample wall-per-sim fits within configured 0.1–10 bounds, but these independent probes are not an exact trace of the bridge mapper and do not explain the #390 in-control rate error."
+  ],
+  "next_step": "Instrument the paired /clock receipt history and odometry mapping fit around clock_mapping_rate_out_of_bounds under the same no-truth baseline; preserve source-age, odometry-age, alignment, and fail-closed gates until the transient is explained.",
+  "no_control_clock_fit_context": [
+    {
+      "clock_probe_path": "artifacts/runs/p5-vio-ego-airborne-short-goal-20261021-385/px4-bridge-live.json",
+      "clock_probe_sha256": "06a5ddf27e1709d2904bf1dc4f2955b800597d0d2758b9d12515d23011106b2f",
+      "clock_samples": 7460,
+      "distinct_sim_time_samples": 7460,
+      "fit_count_outside_configured_0_1_to_10": 0,
+      "qualification": "run-local offline fit from independent probe; not the bridge internal fit and not paired to #390 control events",
+      "rolling_window_distinct_samples": 64,
+      "run_id": "p5-vio-ego-airborne-short-goal-20261021-385",
+      "wall_per_sim_rate_fit_min_max": [
+        0.849132,
+        3.50765
+      ]
+    },
+    {
+      "clock_probe_path": "artifacts/runs/p5-vio-ego-airborne-baseline-20261021-386/px4-bridge-live.json",
+      "clock_probe_sha256": "b563ec8c20dbf3b9f548d22d2fde6564748dc7f16cc412dce4c594a2b571f46f",
+      "clock_samples": 7458,
+      "distinct_sim_time_samples": 7458,
+      "fit_count_outside_configured_0_1_to_10": 0,
+      "qualification": "run-local offline fit from independent probe; not the bridge internal fit and not paired to #390 control events",
+      "rolling_window_distinct_samples": 64,
+      "run_id": "p5-vio-ego-airborne-baseline-20261021-386",
+      "wall_per_sim_rate_fit_min_max": [
+        0.858788,
+        4.459923
+      ]
+    },
+    {
+      "clock_probe_path": "artifacts/runs/p5-vio-ego-airborne-no-observer-20261021-387/px4-bridge-live.json",
+      "clock_probe_sha256": "e5617f40191aa84a64043944533e543776387654e632ec6ad58ee5d9cd533433",
+      "clock_samples": 7541,
+      "distinct_sim_time_samples": 7541,
+      "fit_count_outside_configured_0_1_to_10": 0,
+      "qualification": "run-local offline fit from independent probe; not the bridge internal fit and not paired to #390 control events",
+      "rolling_window_distinct_samples": 64,
+      "run_id": "p5-vio-ego-airborne-no-observer-20261021-387",
+      "wall_per_sim_rate_fit_min_max": [
+        0.94063,
+        3.45491
+      ]
+    }
+  ],
+  "qualification": "negative/diagnostic SITL evidence only; no P4/P5 stage exit and no GOAL C/D/E acceptance",
+  "run_manifest_sha256": {
+    "p5-vio-px4-wall-age-gate-20261021-388": "85e0c46f16500e8b9586c1549b1071c9adfb033342cfb1bb8e427c50c85552c6",
+    "p5-vio-px4-wall-age-gate-flight-20261021-390": "f318e9ba60691bc13ccb28ccaf7a00cb6ad322487ff6a178af4f0dbeeb4d63a0",
+    "p5-vio-px4-wall-age-gate-repeat-20261021-389": "8acf40d0f142ea059fc4a0836c1a14219015e6bf6eab9d596c0400e4542313c5"
+  },
+  "runs": [
+    {
+      "action_goal_sent": false,
+      "action_success": false,
+      "artifacts": {
+        "agent.log": {
+          "sha256": "02b83954b11dd1fc4ce9a14590164e3b44d620e62d76db8850a0b1bdc4e5c2ef",
+          "size_bytes": 41562
+        },
+        "artifacts/runs/p5-vio-px4-wall-age-gate-20261021-388-stack/launch-manifest.json": {
+          "sha256": "bb19710f9a4803be8064e9d2425bb378022916250d40dbd36cd817da93497f7d",
+          "size_bytes": 3227
+        },
+        "artifacts/runs/p5-vio-px4-wall-age-gate-20261021-388-stack/session/session.json": {
+          "sha256": "953eddc18694538108d0a55702c538394d32062a37498052d079c6a47e275be4",
+          "size_bytes": 654
+        },
+        "colcon-build.log": {
+          "sha256": "bb4b68b6b112d10c5b5afded9718e349c5b017618283f1b29b6c626edbb2b5b1",
+          "size_bytes": 406
+        },
+        "gazebo.log": {
+          "sha256": "b66ea35b4a5454e8e221f6fa9bf7fb94af1cede18b86cb8370ff1da99ca599d5",
+          "size_bytes": 2933
+        },
+        "package-prefixes.txt": {
+          "sha256": "3acdfea11d5f35c45668dc52430c2fc413bc2f7a475aeac0b37536242130c340",
+          "size_bytes": 611
+        },
+        "px4-bridge-node-info-final.txt": {
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c",
+          "size_bytes": 1821
+        },
+        "px4-bridge-node-info.txt": {
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c",
+          "size_bytes": 1821
+        },
+        "px4-param-stage.json": {
+          "sha256": "2e6b68bf68fa6e81b58e5605df887784ab5031577ae688449fe0c62d9f7c9ed3",
+          "size_bytes": 750
+        },
+        "px4.log": {
+          "sha256": "4c227f132cb4cd4ae4bd576973dc5ce99f8d8fdb59aa3d68eec9d2d1d1d8b0b5",
+          "size_bytes": 4961
+        },
+        "px4_sitl_default_retry3/log/2026-10-21/01_34_10.ulg": {
+          "sha256": "687513e7db627991246cd9c63a96adb26d7755f4a261f726265885b71baf25f1",
+          "size_bytes": 6041687
+        },
+        "run-vio-px4-wall-age-gate.sh": {
+          "sha256": "61e16d965e0761fb17ad4670dfd8aa1ecb0b4ebbaa8d3bb9c17bdd19879355a9",
+          "size_bytes": 11040
+        },
+        "run_vio_ego_flight.py": {
+          "sha256": "fc089e01ed4b0ec4b552c120307bcefd117cbdd82084453f67ddca89093f120e",
+          "size_bytes": 30320
+        },
+        "scene.json": {
+          "sha256": "7a7e68579d9b33b97b510123d866d7a875f8636cdd694421dd7b461a946e5d40",
+          "size_bytes": 748
+        },
+        "threshold-overlay.json": {
+          "sha256": "5c65b5f494894b9407633e3cd69d0660e39b693bdd3740463d3bc91d31cc8abf",
+          "size_bytes": 746
+        },
+        "timesync-topic-info.txt": {
+          "sha256": "912aa5ad8a3f717f56cbb30e6f1dd8c0967cd2d77f6ec86d226265f541e4dc70",
+          "size_bytes": 502
+        },
+        "truth-and-control-isolation.txt": {
+          "sha256": "c09adb973a2fff6d8822eaa92564850209b2ba00c9b4617ba480d472377b754e",
+          "size_bytes": 319
+        },
+        "vio-ego-flight-report.json": {
+          "sha256": "f34a41b8f7f3932a2d5c69589b13e6dcf01405c7de7c440df093bde850006daa",
+          "size_bytes": 2268444
+        },
+        "vio-ego-flight.log": {
+          "sha256": "f34a41b8f7f3932a2d5c69589b13e6dcf01405c7de7c440df093bde850006daa",
+          "size_bytes": 2268444
+        },
+        "vio-launch.log": {
+          "sha256": "fb79c02da1625dc5a9753028134d50d44b277b6b8d4f207f94530b46974d0efa",
+          "size_bytes": 226590
+        },
+        "vio_closed_loop_smoke_goal.json": {
+          "sha256": "e76a85aed5f8250ad57ceca0be02ca01c08f8f4894ef948a060ec705cf14dc8c",
+          "size_bytes": 343
+        },
+        "vio_freshness_gate_probe.py": {
+          "sha256": "fc089e01ed4b0ec4b552c120307bcefd117cbdd82084453f67ddca89093f120e",
+          "size_bytes": 30320
+        },
+        "vio_initialization.sdf": {
+          "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11",
+          "size_bytes": 7845
+        },
+        "world-generation.json": {
+          "sha256": "cb5241d26defa37abf136eb7c9ea40ba6f6b71393da5573491068b00a2758197",
+          "size_bytes": 1441
+        },
+        "world-generation.stdout.json": {
+          "sha256": "cb5241d26defa37abf136eb7c9ea40ba6f6b71393da5573491068b00a2758197",
+          "size_bytes": 1441
+        }
+      },
+      "bridge_phase_events": [
+        [
+          "DISABLED",
+          "localization_not_tracking",
+          false,
+          true
+        ]
+      ],
+      "bridge_report_samples": 456,
+      "failed_px4_freshness_source_sample_counts": {},
+      "failure": "vio_bridge_map_preconditions_not_ready",
+      "fresh_bridge_samples_in_window": null,
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "DISABLED",
+        "ready": false,
+        "reason": "localization_not_tracking"
+      },
+      "latest_vehicle_status": {
+        "arming_state": 1,
+        "failsafe": false,
+        "nav_state": 4,
+        "pre_flight_checks_pass": false,
+        "timestamp": 28348000
+      },
+      "localization_final": {
+        "accepted_optimized": 3,
+        "accepted_propagated": 34,
+        "epoch": "815ea7078330445083425ccbce366989",
+        "reason": "propagated_from_future",
+        "state": 4,
+        "valid": false
+      },
+      "localization_max_receipt_gap_s": 0.05395074200350791,
+      "localization_samples": 1202,
+      "localization_stability_passed": null,
+      "longest_sampled_all_px4_fresh_interval_under_original_3s_s": 5.0639,
+      "map_max_occupied_points": 0,
+      "map_preconditions_ready": false,
+      "max_px4_source_age_sim_s": {
+        "attitude": 0.012,
+        "estimator_flags": 0.996,
+        "land_detected": 0.996,
+        "local_position": 0.028,
+        "vehicle_status": 0.496
+      },
+      "max_px4_source_receipt_age_wall_s": {
+        "attitude": 0.089432,
+        "estimator_flags": 3.379794,
+        "land_detected": 3.308725,
+        "local_position": 0.098731,
+        "vehicle_status": 1.683874
+      },
+      "median_simulation_rate_from_localization_samples": 0.311253,
+      "position_command_samples": 0,
+      "px4_input_publishers": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "px4_input_samples": {
+        "control_mode": 0,
+        "trajectory_setpoint": 0,
+        "vehicle_command": 0
+      },
+      "px4_telemetry_stability_passed": null,
+      "qualification": "diagnostic_only; no A-H / P4 / P5 acceptance promotion",
+      "required_stability_s": null,
+      "result": "FAIL",
+      "run_directory": "artifacts/runs/p5-vio-px4-wall-age-gate-20261021-388",
+      "run_id": "p5-vio-px4-wall-age-gate-20261021-388",
+      "run_local_receipt_age_overrides": {
+        "original_values": {
+          "px4_estimator_flags_max_receipt_age_wall_s": 3.0,
+          "px4_land_detected_max_receipt_age_wall_s": 3.0
+        },
+        "overlay_config_sha256": "d3a8b61315800fd34f7ac8cf3f575e380248c65a0414c663869e0f48533075ce",
+        "px4_estimator_flags_max_receipt_age_wall_s": 4.0,
+        "px4_land_detected_max_receipt_age_wall_s": 4.0,
+        "source_age_sim_limit_unchanged_s": 1.5
+      },
+      "run_manifest": "artifacts/runs/p5-vio-px4-wall-age-gate-20261021-388/run-manifest.json",
+      "run_manifest_sha256": "85e0c46f16500e8b9586c1549b1071c9adfb033342cfb1bb8e427c50c85552c6",
+      "scenario": "Second obstacle layout; gate-only telemetry diagnostic; no Offboard request",
+      "service_calls": [],
+      "setup_attempts_excluded": [
+        {
+          "attempt": 1,
+          "outcome": "setup aborted before Gazebo/PX4: missing run-local add_obstacles.py helper; helper copied from prior run before retry"
+        },
+        {
+          "attempt": 2,
+          "outcome": "PX4 DDS startup failed because ROS_DOMAIN_ID 238 exceeded Fast DDS port range; no ROS graph/control; retried with supported domain 232"
+        }
+      ],
+      "takeoff_active_observed": null,
+      "truth_input_started": false,
+      "truth_subscription_seen_in_bridge_node_info": false,
+      "vehicle_status_transitions": []
+    },
+    {
+      "action_goal_sent": false,
+      "action_success": false,
+      "artifacts": {
+        "agent.log": {
+          "sha256": "74248c42f1f039c4a7c501384b51bbf119ed773e6f2f5c3694869a7897ef6c13",
+          "size_bytes": 41563
+        },
+        "artifacts/runs/p5-vio-px4-wall-age-gate-repeat-20261021-389-stack/launch-manifest.json": {
+          "sha256": "0c2c8452f0df9e8bcb0c2267cd69b95d0dbfa7edc8a6aeafec160c2ae98f3320",
+          "size_bytes": 3248
+        },
+        "artifacts/runs/p5-vio-px4-wall-age-gate-repeat-20261021-389-stack/session/session.json": {
+          "sha256": "b116522443f88100e95bc13d8627969f161f56331b37b58e03a0e81c16af5e1d",
+          "size_bytes": 654
+        },
+        "colcon-build.log": {
+          "sha256": "bc7b67dac844fd2e8be8317daf3db1af3e0236172103f5b960a78dafa1ec28f3",
+          "size_bytes": 406
+        },
+        "gazebo.log": {
+          "sha256": "b66ea35b4a5454e8e221f6fa9bf7fb94af1cede18b86cb8370ff1da99ca599d5",
+          "size_bytes": 2933
+        },
+        "package-prefixes.txt": {
+          "sha256": "24fbe04f29eae12ea55bf4b427c36218ee08d601cd50d7d9ac09cc204a5dd54f",
+          "size_bytes": 639
+        },
+        "px4-bridge-node-info-final.txt": {
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c",
+          "size_bytes": 1821
+        },
+        "px4-bridge-node-info.txt": {
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c",
+          "size_bytes": 1821
+        },
+        "px4-param-stage.json": {
+          "sha256": "9962d06337d83c76792c9a02fb73a3c741d76d064512237122657151f435791d",
+          "size_bytes": 750
+        },
+        "px4.log": {
+          "sha256": "7f3f8c11454ab20c92d7de9adb6f8a6f636c44c233bb7f4adf1ce57866a7caaa",
+          "size_bytes": 4919
+        },
+        "px4_sitl_default/log/2026-10-21/01_39_56.ulg": {
+          "sha256": "e7ba0c02d6943fddd86aa92bfeb61727d59e4f348e1d1826dd38f1958bb2dd87",
+          "size_bytes": 1346798
+        },
+        "run-vio-px4-wall-age-gate-repeat.sh": {
+          "sha256": "67d442dc367a480f4b1bd34dc07bcc13b713e77e0f958c5215f76c6e05d08090",
+          "size_bytes": 10402
+        },
+        "run_vio_ego_flight.py": {
+          "sha256": "fc089e01ed4b0ec4b552c120307bcefd117cbdd82084453f67ddca89093f120e",
+          "size_bytes": 30320
+        },
+        "threshold-overlay.json": {
+          "sha256": "5c65b5f494894b9407633e3cd69d0660e39b693bdd3740463d3bc91d31cc8abf",
+          "size_bytes": 746
+        },
+        "timesync-topic-info.txt": {
+          "sha256": "ddb0380c8198463e5be3b5b0a93ac8e4f9c479a42c5404315b0919a0db943d1c",
+          "size_bytes": 502
+        },
+        "truth-and-control-isolation.txt": {
+          "sha256": "15846552ba6069f0514ac5522aba7285eca41f76263021839edb1112f9f44d5f",
+          "size_bytes": 292
+        },
+        "vio-ego-flight-report.json": {
+          "sha256": "7aef9bce19d92a3b9c08cbe7255504d508b01dc8d1734d3fe7dffd0392de8899",
+          "size_bytes": 279231
+        },
+        "vio-ego-flight.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        "vio-launch.log": {
+          "sha256": "8a7e5c7e19b7c29c79a180aa5876d6369017ae7e875654f3ed2b8f252a1cecd3",
+          "size_bytes": 45854
+        },
+        "vio_closed_loop_smoke_goal.json": {
+          "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046",
+          "size_bytes": 417
+        },
+        "vio_freshness_gate_probe.py": {
+          "sha256": "fc089e01ed4b0ec4b552c120307bcefd117cbdd82084453f67ddca89093f120e",
+          "size_bytes": 30320
+        },
+        "vio_initialization.sdf": {
+          "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11",
+          "size_bytes": 7845
+        },
+        "world-generation.json": {
+          "sha256": "d2efd00f0bb0627bd171887407124a24166665857a33a4cd85112f2086378467",
+          "size_bytes": 1441
+        },
+        "world-generation.stdout.json": {
+          "sha256": "d2efd00f0bb0627bd171887407124a24166665857a33a4cd85112f2086378467",
+          "size_bytes": 1441
+        }
+      },
+      "bridge_phase_events": [
+        [
+          "DISABLED",
+          "px4_local_position_invalid",
+          false,
+          true
+        ],
+        [
+          "DISABLED",
+          "px4_preflight_failed",
+          false,
+          true
+        ]
+      ],
+      "bridge_report_samples": 56,
+      "failed_px4_freshness_source_sample_counts": {},
+      "failure": null,
+      "fresh_bridge_samples_in_window": 39,
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "DISABLED",
+        "ready": false,
+        "reason": "px4_preflight_failed"
+      },
+      "latest_vehicle_status": {
+        "arming_state": 1,
+        "failsafe": false,
+        "nav_state": 4,
+        "pre_flight_checks_pass": false,
+        "timestamp": 10292000
+      },
+      "localization_final": {
+        "accepted_optimized": 31,
+        "accepted_propagated": 411,
+        "epoch": "916bc946b37f43b5a0050bbd191170a4",
+        "reason": "fresh_inputs_and_usable_solver",
+        "state": 1,
+        "valid": true
+      },
+      "localization_max_receipt_gap_s": 0.052725941997778136,
+      "localization_samples": 119,
+      "localization_stability_passed": true,
+      "longest_sampled_all_px4_fresh_interval_under_original_3s_s": 2.842697,
+      "map_max_occupied_points": 1397,
+      "map_preconditions_ready": true,
+      "max_px4_source_age_sim_s": {
+        "attitude": 0.012,
+        "estimator_flags": 0.992,
+        "land_detected": 0.98,
+        "local_position": 0.024,
+        "vehicle_status": 0.496
+      },
+      "max_px4_source_receipt_age_wall_s": {
+        "attitude": 0.086184,
+        "estimator_flags": 3.424492,
+        "land_detected": 3.179179,
+        "local_position": 0.08941,
+        "vehicle_status": 1.681655
+      },
+      "median_simulation_rate_from_localization_samples": 0.3183,
+      "position_command_samples": 0,
+      "px4_input_publishers": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "px4_input_samples": {
+        "control_mode": 0,
+        "trajectory_setpoint": 0,
+        "vehicle_command": 0
+      },
+      "px4_telemetry_stability_passed": true,
+      "qualification": "diagnostic_only; no A-H / P4 / P5 acceptance promotion",
+      "required_stability_s": 5.0,
+      "result": "PASS_DIAGNOSTIC_GATE",
+      "run_directory": "artifacts/runs/p5-vio-px4-wall-age-gate-repeat-20261021-389",
+      "run_id": "p5-vio-px4-wall-age-gate-repeat-20261021-389",
+      "run_local_receipt_age_overrides": {
+        "original_values": {
+          "px4_estimator_flags_max_receipt_age_wall_s": 3.0,
+          "px4_land_detected_max_receipt_age_wall_s": 3.0
+        },
+        "overlay_config_sha256": "d3a8b61315800fd34f7ac8cf3f575e380248c65a0414c663869e0f48533075ce",
+        "px4_estimator_flags_max_receipt_age_wall_s": 4.0,
+        "px4_land_detected_max_receipt_age_wall_s": 4.0,
+        "source_age_sim_limit_unchanged_s": 1.5
+      },
+      "run_manifest": "artifacts/runs/p5-vio-px4-wall-age-gate-repeat-20261021-389/run-manifest.json",
+      "run_manifest_sha256": "8acf40d0f142ea059fc4a0836c1a14219015e6bf6eab9d596c0400e4542313c5",
+      "scenario": "Baseline calibration scene without additional obstacles; 5-second gate-only repeat",
+      "service_calls": [],
+      "setup_attempts_excluded": [],
+      "takeoff_active_observed": null,
+      "truth_input_started": false,
+      "truth_subscription_seen_in_bridge_node_info": false,
+      "vehicle_status_transitions": []
+    },
+    {
+      "action_goal_sent": false,
+      "action_success": false,
+      "artifacts": {
+        "agent.log": {
+          "sha256": "3ab482708d1eed9ab7b3c508a0c0838322a8c1d23f1c7e00990515612a47ac4d",
+          "size_bytes": 41563
+        },
+        "artifacts/runs/p5-vio-px4-wall-age-gate-flight-20261021-390-stack/launch-manifest.json": {
+          "sha256": "a5f9189bf428a1ac980032a3ec353f7ebc163f96023f3acba2e8d8986b4b6378",
+          "size_bytes": 3248
+        },
+        "artifacts/runs/p5-vio-px4-wall-age-gate-flight-20261021-390-stack/session/session.json": {
+          "sha256": "4fb1122ee4914a6c7b6132068cdc0af9d4d6cde292703170de9827c0494dac67",
+          "size_bytes": 654
+        },
+        "colcon-build.log": {
+          "sha256": "3e678cb81e36b0ae99e54d755f83157a2cf3e2a9bde79308149557ce55ce2c5a",
+          "size_bytes": 406
+        },
+        "gazebo.log": {
+          "sha256": "b66ea35b4a5454e8e221f6fa9bf7fb94af1cede18b86cb8370ff1da99ca599d5",
+          "size_bytes": 2933
+        },
+        "package-prefixes.txt": {
+          "sha256": "1131cf1ebb4a618f73cf2e6f08c069e797b546527f75a899b7af301904354048",
+          "size_bytes": 639
+        },
+        "px4-bridge-node-info-final.txt": {
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c",
+          "size_bytes": 1821
+        },
+        "px4-bridge-node-info.txt": {
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c",
+          "size_bytes": 1821
+        },
+        "px4-param-stage.json": {
+          "sha256": "7b01d01a68645ff145ac5762bab2fe86d00a15db10f9fe5707bcd691cd633be6",
+          "size_bytes": 750
+        },
+        "px4.log": {
+          "sha256": "9339a06e6e6f2cd010def679b0e46eaacb273535e30643f9f4cd8e048fe21d31",
+          "size_bytes": 5244
+        },
+        "px4_sitl_default/log/2026-10-21/01_43_55.ulg": {
+          "sha256": "05adbecf64e2271412ce1a467dbc6cd8c0a1bfaaf257bd503536e0247e6845d0",
+          "size_bytes": 3550434
+        },
+        "run-vio-px4-wall-age-gate-flight.sh": {
+          "sha256": "638f5fc75f2acc0172054767cc03c4e7bbac30f2b4443603a1ca9d64099f0e57",
+          "size_bytes": 10451
+        },
+        "run_vio_ego_flight.py": {
+          "sha256": "d794e853ae7dc93ba3b77d75b7b41757d5fbace78040063e13a4f438ec1bb3ac",
+          "size_bytes": 30192
+        },
+        "threshold-overlay.json": {
+          "sha256": "5c65b5f494894b9407633e3cd69d0660e39b693bdd3740463d3bc91d31cc8abf",
+          "size_bytes": 746
+        },
+        "timesync-topic-info.txt": {
+          "sha256": "2d6debe646008c6f9afd789960916ad7e99d445b60fa00ed56f7fd347d0103fa",
+          "size_bytes": 502
+        },
+        "truth-and-control-isolation.txt": {
+          "sha256": "6f7e451e068b29b818d1e487b434f2fb50c4aab475b7ee2d5c2f00a8fafbd9a4",
+          "size_bytes": 294
+        },
+        "vio-ego-flight-report.json": {
+          "sha256": "80021360abbd36e3d665074e8f1872d2b4d83ed999433ba464a9ae2a217c783c",
+          "size_bytes": 2111675
+        },
+        "vio-ego-flight.log": {
+          "sha256": "80021360abbd36e3d665074e8f1872d2b4d83ed999433ba464a9ae2a217c783c",
+          "size_bytes": 2111675
+        },
+        "vio-launch.log": {
+          "sha256": "7bb36939f54abd58373086c1666f99e6cc062a40f747a873df591016b0ab3b40",
+          "size_bytes": 207343
+        },
+        "vio_closed_loop_smoke_goal.json": {
+          "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046",
+          "size_bytes": 417
+        },
+        "vio_initialization.sdf": {
+          "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11",
+          "size_bytes": 7845
+        },
+        "world-generation.json": {
+          "sha256": "efc58c70bb36302b5314c6884ab94704ee4d7cb256b56ff92f15d9678af1d608",
+          "size_bytes": 1441
+        },
+        "world-generation.stdout.json": {
+          "sha256": "efc58c70bb36302b5314c6884ab94704ee4d7cb256b56ff92f15d9678af1d608",
+          "size_bytes": 1441
+        }
+      },
+      "bridge_phase_events": [
+        [
+          "DISABLED",
+          "px4_preflight_failed",
+          false,
+          true
+        ],
+        [
+          "PRESTREAM",
+          "px4_preflight_failed",
+          false,
+          true
+        ],
+        [
+          "REQUEST_OFFBOARD",
+          "px4_preflight_failed",
+          false,
+          true
+        ],
+        [
+          "REQUEST_ARM",
+          "requesting_arm",
+          false,
+          true
+        ],
+        [
+          "TAKEOFF",
+          "takeoff_setpoint_active",
+          true,
+          true
+        ],
+        [
+          "TAKEOFF",
+          "takeoff_setpoint_active",
+          true,
+          false
+        ],
+        [
+          "LANDING",
+          "external_odometry_stale",
+          true,
+          false
+        ],
+        [
+          "LANDING",
+          "external_odometry_stale",
+          true,
+          true
+        ],
+        [
+          "LANDED",
+          "px4_preflight_failed",
+          false,
+          true
+        ]
+      ],
+      "bridge_report_samples": 396,
+      "failed_px4_freshness_source_sample_counts": {},
+      "failure": "bridge_did_not_reach_active_after_takeoff",
+      "fresh_bridge_samples_in_window": 40,
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "LANDED",
+        "ready": false,
+        "reason": "px4_preflight_failed"
+      },
+      "latest_vehicle_status": {
+        "arming_state": 1,
+        "failsafe": false,
+        "nav_state": 14,
+        "pre_flight_checks_pass": false,
+        "timestamp": 23804000
+      },
+      "localization_final": {
+        "accepted_optimized": 236,
+        "accepted_propagated": 3109,
+        "epoch": "bc426741dd7a460aa66412868ba1d597",
+        "reason": "fresh_inputs_and_usable_solver",
+        "state": 1,
+        "valid": true
+      },
+      "localization_max_receipt_gap_s": 0.05343946699576918,
+      "localization_samples": 1022,
+      "localization_stability_passed": true,
+      "longest_sampled_all_px4_fresh_interval_under_original_3s_s": 5.950809,
+      "map_max_occupied_points": 1399,
+      "map_preconditions_ready": true,
+      "max_px4_source_age_sim_s": {
+        "attitude": 0.012,
+        "estimator_flags": 1.004,
+        "land_detected": 0.996,
+        "local_position": 0.028,
+        "vehicle_status": 0.5
+      },
+      "max_px4_source_receipt_age_wall_s": {
+        "attitude": 0.089286,
+        "estimator_flags": 3.35706,
+        "land_detected": 3.358868,
+        "local_position": 0.102408,
+        "vehicle_status": 1.741721
+      },
+      "median_simulation_rate_from_localization_samples": 0.315344,
+      "position_command_samples": 0,
+      "px4_input_publishers": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "px4_input_samples": {
+        "control_mode": 255,
+        "trajectory_setpoint": 255,
+        "vehicle_command": 3
+      },
+      "px4_telemetry_stability_passed": true,
+      "qualification": "diagnostic_only; no A-H / P4 / P5 acceptance promotion",
+      "required_stability_s": 5.0,
+      "result": "FAIL",
+      "run_directory": "artifacts/runs/p5-vio-px4-wall-age-gate-flight-20261021-390",
+      "run_id": "p5-vio-px4-wall-age-gate-flight-20261021-390",
+      "run_local_receipt_age_overrides": {
+        "original_values": {
+          "px4_estimator_flags_max_receipt_age_wall_s": 3.0,
+          "px4_land_detected_max_receipt_age_wall_s": 3.0
+        },
+        "overlay_config_sha256": "d3a8b61315800fd34f7ac8cf3f575e380248c65a0414c663869e0f48533075ce",
+        "px4_estimator_flags_max_receipt_age_wall_s": 4.0,
+        "px4_land_detected_max_receipt_age_wall_s": 4.0,
+        "source_age_sim_limit_unchanged_s": 1.5
+      },
+      "run_manifest": "artifacts/runs/p5-vio-px4-wall-age-gate-flight-20261021-390/run-manifest.json",
+      "run_manifest_sha256": "f318e9ba60691bc13ccb28ccaf7a00cb6ad322487ff6a178af4f0dbeeb4d63a0",
+      "scenario": "Baseline calibration scene; standard no-truth zero-offset flight harness",
+      "service_calls": [
+        {
+          "accepted": true,
+          "enable": true,
+          "reason": "prestreaming_offboard_setpoints"
+        }
+      ],
+      "setup_attempts_excluded": [],
+      "takeoff_active_observed": false,
+      "truth_input_started": false,
+      "truth_subscription_seen_in_bridge_node_info": false,
+      "vehicle_status_transitions": [
+        {
+          "arming_state": 1,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 11120000,
+          "wall_elapsed_s": 8.399286031999509
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 11132000,
+          "wall_elapsed_s": 9.059065526002087
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 11636000,
+          "wall_elapsed_s": 10.140602129002218
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 12140000,
+          "wall_elapsed_s": 11.795609913999215
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 12644000,
+          "wall_elapsed_s": 13.518023422002443
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 13148000,
+          "wall_elapsed_s": 15.165357042998949
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 13652000,
+          "wall_elapsed_s": 16.82504594600323
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 14156000,
+          "wall_elapsed_s": 18.486481790001562
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 14,
+          "pre_flight_checks_pass": true,
+          "timestamp": 14636000,
+          "wall_elapsed_s": 20.138754910003627
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 14648000,
+          "wall_elapsed_s": 20.15106458000082
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 14912000,
+          "wall_elapsed_s": 21.02237345300091
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 15416000,
+          "wall_elapsed_s": 22.743568163001328
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 15920000,
+          "wall_elapsed_s": 24.408934510996914
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 16424000,
+          "wall_elapsed_s": 26.063879886001814
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 16928000,
+          "wall_elapsed_s": 27.72023118600191
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 17432000,
+          "wall_elapsed_s": 29.464770033002424
+        },
+        {
+          "arming_state": 2,
+          "failsafe": false,
+          "nav_state": 18,
+          "pre_flight_checks_pass": true,
+          "timestamp": 17936000,
+          "wall_elapsed_s": 31.12835220299894
+        }
+      ]
+    }
+  ],
+  "safety_and_scope": {
+    "canonical_source_or_parameter_change": false,
+    "control_owner": "uav_px4_bridge",
+    "debug_truth_subscribed_by_bridge": false,
+    "profile": "vio_closed_loop",
+    "publishers_per_px4_control_topic": 1,
+    "run_389_control_samples": {
+      "offboard_control_mode": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0
+    },
+    "run_390_terminal_bridge_state": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "truth_input_started": false,
+    "vehicle_terminal_state_verified_landed_disarmed": true
+  },
+  "schema": "p5-px4-vio-telemetry-wall-age-diagnostic/v1"
+}

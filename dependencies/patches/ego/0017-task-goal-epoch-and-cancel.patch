@@ -1,0 +1,468 @@
+diff --git a/src/vendor/ego_planner/planner/plan_manage/include/ego_planner/ego_replan_fsm.h b/src/vendor/ego_planner/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
+index 9f219b4..94f024e 100755
+--- a/src/vendor/ego_planner/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
++++ b/src/vendor/ego_planner/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
+@@ -18,8 +18,11 @@
+ #include "traj_utils/msg/multi_bsplines.hpp"
+ #include "geometry_msgs/msg/pose_stamped.hpp"
+ #include "traj_utils/msg/data_disp.hpp"
++#include "uav_interfaces/msg/navigation_command.hpp"
++#include "uav_interfaces/msg/trajectory_cancel.hpp"
+ #include "ego_planner/planner_manager.h"
+ #include "traj_utils/planning_visualization.h"
++#include <string>
+ 
+ using std::vector;
+ 
+@@ -68,6 +71,18 @@ namespace ego_planner
+     bool have_trigger_, have_target_, have_odom_, have_new_target_, have_recv_pre_agent_;
+     bool have_pending_manual_target_{false};
+     Eigen::Vector3d pending_manual_target_;
++    bool have_pending_navigation_goal_{false};
++    Eigen::Vector3d pending_navigation_target_;
++    double pending_navigation_yaw_{0.0};
++    std::string pending_navigation_goal_id_;
++    std::string pending_navigation_epoch_;
++    bool cancel_pending_{false};
++    uav_interfaces::msg::TrajectoryCancel pending_cancel_;
++    std::string active_goal_id_;
++    std::string active_goal_epoch_;
++    std::string odom_epoch_;
++    double active_goal_yaw_{0.0};
++    bool have_active_goal_yaw_{false};
+     FSM_EXEC_STATE exec_state_;
+     int continously_called_times_{0};
+ 
+@@ -91,6 +106,8 @@ namespace ego_planner
+     rclcpp::Subscription<traj_utils::msg::MultiBsplines>::SharedPtr swarm_trajs_sub_;
+     rclcpp::Subscription<traj_utils::msg::Bspline>::SharedPtr broadcast_bspline_sub_;
+     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr trigger_sub_;
++    rclcpp::Subscription<uav_interfaces::msg::NavigationCommand>::SharedPtr navigation_goal_sub_;
++    rclcpp::Subscription<uav_interfaces::msg::TrajectoryCancel>::SharedPtr trajectory_cancel_sub_;
+ 
+     // rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr replan_pub_;
+     // rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr new_pub_;
+@@ -118,6 +135,8 @@ namespace ego_planner
+     void execFSMCallback();
+     void checkCollisionCallback();
+     void waypointCallback(const std::shared_ptr<const geometry_msgs::msg::PoseStamped> &msg);
++    void navigationGoalCallback(const std::shared_ptr<const uav_interfaces::msg::NavigationCommand> &msg);
++    void trajectoryCancelCallback(const std::shared_ptr<const uav_interfaces::msg::TrajectoryCancel> &msg);
+     void triggerCallback(const std::shared_ptr<const geometry_msgs::msg::PoseStamped> &msg);
+     void odometryCallback(const std::shared_ptr<const nav_msgs::msg::Odometry> &msg);
+     void swarmTrajsCallback(const std::shared_ptr<const traj_utils::msg::MultiBsplines> &msg);
+@@ -125,6 +144,8 @@ namespace ego_planner
+ 
+     bool checkCollision();
+     void publishSwarmTrajs(bool startup_pub);
++    void fillTaskMetadata(traj_utils::msg::Bspline &bspline, const Eigen::MatrixXd &pos_pts,
++                          double yaw_interval);
+ 
+   public:
+     EGOReplanFSM(/* args */)
+@@ -141,4 +162,4 @@ namespace ego_planner
+ 
+ } // namespace ego_planner
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp b/src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp
+index 276bb2b..fe14907 100755
+--- a/src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -1,5 +1,6 @@
+ 
+ #include <ego_planner/ego_replan_fsm.h>
++#include <cmath>
+ 
+ namespace ego_planner
+ {
+@@ -152,6 +153,19 @@ namespace ego_planner
+     }
+     else
+       cout << "Wrong target_type_ value! target_type_=" << target_type_ << endl;
++
++    navigation_goal_sub_ = node_->create_subscription<uav_interfaces::msg::NavigationCommand>(
++        "/navigation/ego_goal", 10,
++        [this](const std::shared_ptr<const uav_interfaces::msg::NavigationCommand> &msg)
++        {
++          this->navigationGoalCallback(msg);
++        });
++    trajectory_cancel_sub_ = node_->create_subscription<uav_interfaces::msg::TrajectoryCancel>(
++        "/navigation/trajectory_cancel", 10,
++        [this](const std::shared_ptr<const uav_interfaces::msg::TrajectoryCancel> &msg)
++        {
++          this->trajectoryCancelCallback(msg);
++        });
+   }
+ 
+   void EGOReplanFSM::readGivenWps()
+@@ -243,6 +257,44 @@ namespace ego_planner
+     have_pending_manual_target_ = true;
+   }
+ 
++  void EGOReplanFSM::navigationGoalCallback(
++      const std::shared_ptr<const uav_interfaces::msg::NavigationCommand> &msg)
++  {
++    const auto &pose = msg->target.pose;
++    const auto &orientation = pose.orientation;
++    const double q_norm = std::sqrt(orientation.x * orientation.x + orientation.y * orientation.y +
++                                    orientation.z * orientation.z + orientation.w * orientation.w);
++    if (msg->goal_id.empty() || msg->epoch.empty() || !have_odom_ ||
++        msg->epoch != odom_epoch_ || msg->target.header.frame_id != "odom_" + msg->epoch ||
++        !std::isfinite(pose.position.x) || !std::isfinite(pose.position.y) ||
++        !std::isfinite(pose.position.z) || !std::isfinite(q_norm) || q_norm < 1e-9)
++    {
++      RCLCPP_WARN(node_->get_logger(), "Reject navigation goal with invalid id, epoch, frame, or pose");
++      return;
++    }
++
++    const double qx = orientation.x / q_norm;
++    const double qy = orientation.y / q_norm;
++    const double qz = orientation.z / q_norm;
++    const double qw = orientation.w / q_norm;
++    pending_navigation_target_ = Eigen::Vector3d(pose.position.x, pose.position.y, pose.position.z);
++    pending_navigation_yaw_ = std::atan2(2.0 * (qw * qz + qx * qy),
++                                         1.0 - 2.0 * (qy * qy + qz * qz));
++    pending_navigation_goal_id_ = msg->goal_id;
++    pending_navigation_epoch_ = msg->epoch;
++    have_pending_navigation_goal_ = true;
++  }
++
++  void EGOReplanFSM::trajectoryCancelCallback(
++      const std::shared_ptr<const uav_interfaces::msg::TrajectoryCancel> &msg)
++  {
++    if (msg->mode != uav_interfaces::msg::TrajectoryCancel::MODE_ABORT ||
++        msg->goal_id.empty() || msg->epoch.empty())
++      return;
++    pending_cancel_ = *msg;
++    cancel_pending_ = true;
++  }
++
+   void EGOReplanFSM::odometryCallback(const std::shared_ptr<const nav_msgs::msg::Odometry> &msg)
+   {
+     odom_pos_(0) = msg->pose.pose.position.x;
+@@ -260,6 +312,12 @@ namespace ego_planner
+     odom_orient_.y() = msg->pose.pose.orientation.y;
+     odom_orient_.z() = msg->pose.pose.orientation.z;
+ 
++    const std::string frame = msg->header.frame_id;
++    if (frame.rfind("odom_", 0) == 0 && frame.size() == 37)
++      odom_epoch_ = frame.substr(5);
++    else
++      odom_epoch_.clear();
++
+     have_odom_ = true;
+   }
+ 
+@@ -464,6 +522,47 @@ namespace ego_planner
+ 
+     static int fsm_num = 0;
+ 
++    if (cancel_pending_)
++    {
++      const auto cancel = pending_cancel_;
++      cancel_pending_ = false;
++      if (cancel.goal_id == active_goal_id_ && cancel.epoch == active_goal_epoch_)
++      {
++        have_target_ = false;
++        have_trigger_ = false;
++        have_active_goal_yaw_ = false;
++        active_goal_id_.clear();
++        active_goal_epoch_.clear();
++        if (exec_state_ != WAIT_TARGET)
++          changeFSMExecState(WAIT_TARGET, "TASK_CANCEL");
++        RCLCPP_WARN(node_->get_logger(), "Canceled goal and trajectory (%s)", cancel.reason.c_str());
++      }
++      if (cancel.goal_id == pending_navigation_goal_id_ &&
++          cancel.epoch == pending_navigation_epoch_)
++      {
++        have_pending_navigation_goal_ = false;
++        pending_navigation_goal_id_.clear();
++        pending_navigation_epoch_.clear();
++        RCLCPP_WARN(node_->get_logger(), "Discarded pending navigation goal after cancellation");
++      }
++    }
++
++    if (have_pending_navigation_goal_ &&
++        (exec_state_ == WAIT_TARGET || exec_state_ == EXEC_TRAJ))
++    {
++      const Eigen::Vector3d target = pending_navigation_target_;
++      active_goal_id_ = pending_navigation_goal_id_;
++      active_goal_epoch_ = pending_navigation_epoch_;
++      active_goal_yaw_ = pending_navigation_yaw_;
++      have_active_goal_yaw_ = true;
++      have_pending_navigation_goal_ = false;
++      pending_navigation_goal_id_.clear();
++      pending_navigation_epoch_.clear();
++      init_pt_ = odom_pos_;
++      planNextWaypoint(target);
++      goto force_return;
++    }
++
+     if (have_pending_manual_target_ &&
+         (exec_state_ == WAIT_TARGET || exec_state_ == EXEC_TRAJ))
+     {
+@@ -833,6 +932,7 @@ namespace ego_planner
+       {
+         bspline.knots.push_back(knots(i));
+       }
++      fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
+ 
+       /* 1. publish traj to traj_server */
+       bspline_pub_->publish(bspline);
+@@ -874,6 +974,7 @@ namespace ego_planner
+     {
+       bspline.knots.push_back(knots(i));
+     }
++    fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
+ 
+     if (startup_pub)
+     {
+@@ -898,6 +999,51 @@ namespace ego_planner
+     broadcast_bspline_pub_->publish(bspline);
+   }
+ 
++  void EGOReplanFSM::fillTaskMetadata(traj_utils::msg::Bspline &bspline,
++                                      const Eigen::MatrixXd &pos_pts,
++                                      double yaw_interval)
++  {
++    bspline.goal_id = active_goal_id_;
++    bspline.epoch = active_goal_epoch_.empty() ? odom_epoch_ : active_goal_epoch_;
++    if (!have_active_goal_yaw_ || pos_pts.cols() < bspline.order + 1 ||
++        !std::isfinite(yaw_interval) || yaw_interval <= 0.0)
++      return;
++
++    const double qx = odom_orient_.x();
++    const double qy = odom_orient_.y();
++    const double qz = odom_orient_.z();
++    const double qw = odom_orient_.w();
++    double previous_yaw = std::atan2(2.0 * (qw * qz + qx * qy),
++                                     1.0 - 2.0 * (qy * qy + qz * qz));
++    Eigen::VectorXd yaw_points(pos_pts.cols());
++    constexpr double TWO_PI = 6.28318530717958647692;
++    for (int i = 0; i < pos_pts.cols(); ++i)
++    {
++      double heading = previous_yaw;
++      if (i + 1 < pos_pts.cols())
++      {
++        const double dx = pos_pts(0, i + 1) - pos_pts(0, i);
++        const double dy = pos_pts(1, i + 1) - pos_pts(1, i);
++        if (std::hypot(dx, dy) > 1e-3)
++          heading = std::atan2(dy, dx);
++        heading += TWO_PI * std::round((previous_yaw - heading) / TWO_PI);
++      }
++      yaw_points(i) = heading;
++      previous_yaw = heading;
++    }
++
++    const int tail_start = std::max(0, int(pos_pts.cols()) - bspline.order);
++    double target_yaw = active_goal_yaw_;
++    target_yaw += TWO_PI * std::round((yaw_points(tail_start) - target_yaw) / TWO_PI);
++    for (int i = tail_start; i < yaw_points.rows(); ++i)
++      yaw_points(i) = target_yaw;
++
++    bspline.yaw_pts.reserve(yaw_points.rows());
++    for (int i = 0; i < yaw_points.rows(); ++i)
++      bspline.yaw_pts.push_back(yaw_points(i));
++    bspline.yaw_dt = yaw_interval;
++  }
++
+   bool EGOReplanFSM::callEmergencyStop(Eigen::Vector3d stop_pos)
+   {
+ 
+@@ -928,6 +1074,7 @@ namespace ego_planner
+     {
+       bspline.knots.push_back(knots(i));
+     }
++    fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
+ 
+     bspline_pub_->publish(bspline);
+ 
+diff --git a/src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp b/src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp
+index 3b81393..73d0313 100755
+--- a/src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp
++++ b/src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp
+@@ -2,9 +2,12 @@
+ #include "nav_msgs/msg/odometry.hpp"
+ #include "traj_utils/msg/bspline.hpp"
+ #include "uav_interfaces/msg/position_command.hpp"
++#include "uav_interfaces/msg/trajectory_cancel.hpp"
+ #include "std_msgs/msg/empty.hpp"
+ #include "visualization_msgs/msg/marker.hpp"
+ #include <rclcpp/rclcpp.hpp>
++#include <cmath>
++#include <string>
+ 
+ rclcpp::Publisher<uav_interfaces::msg::PositionCommand>::SharedPtr pos_cmd_pub;
+ 
+@@ -19,6 +22,11 @@ vector<UniformBspline> traj_;
+ double traj_duration_;
+ rclcpp::Time start_time_;
+ int traj_id_;
++std::string active_goal_id_;
++std::string active_epoch_;
++bool has_task_yaw_{false};
++UniformBspline task_yaw_traj_;
++UniformBspline task_yaw_rate_traj_;
+ 
+ // yaw control
+ double last_yaw_, last_yaw_dot_;
+@@ -26,6 +34,14 @@ double time_forward_;
+ 
+ void bsplineCallback(traj_utils::msg::Bspline::ConstPtr msg)
+ {
++  if (msg->pos_pts.size() < static_cast<size_t>(msg->order + 1) ||
++      msg->knots.size() != msg->pos_pts.size() + static_cast<size_t>(msg->order) + 1 ||
++      msg->goal_id.empty() != msg->epoch.empty())
++  {
++    RCLCPP_WARN(rclcpp::get_logger("traj_server"), "Ignoring malformed B-spline");
++    return;
++  }
++
+   // parse pos traj
+ 
+   Eigen::MatrixXd pos_pts(3, msg->pos_pts.size());
+@@ -48,15 +64,31 @@ void bsplineCallback(traj_utils::msg::Bspline::ConstPtr msg)
+ 
+   // parse yaw traj
+ 
+-  // Eigen::MatrixXd yaw_pts(msg->yaw_pts.size(), 1);
+-  // for (int i = 0; i < msg->yaw_pts.size(); ++i) {
+-  //   yaw_pts(i, 0) = msg->yaw_pts[i];
+-  // }
+-
+-  // UniformBspline yaw_traj(yaw_pts, msg->order, msg->yaw_dt);
++  has_task_yaw_ = false;
++  if (msg->yaw_pts.size() == msg->pos_pts.size() &&
++      msg->yaw_pts.size() >= static_cast<size_t>(msg->order + 1) &&
++      std::isfinite(msg->yaw_dt) && msg->yaw_dt > 0.0)
++  {
++    Eigen::MatrixXd yaw_pts(1, msg->yaw_pts.size());
++    bool valid_yaw = true;
++    for (size_t i = 0; i < msg->yaw_pts.size(); ++i)
++    {
++      yaw_pts(0, i) = msg->yaw_pts[i];
++      valid_yaw = valid_yaw && std::isfinite(msg->yaw_pts[i]);
++    }
++    if (valid_yaw)
++    {
++      task_yaw_traj_ = UniformBspline(yaw_pts, msg->order, msg->yaw_dt);
++      task_yaw_traj_.setKnot(knots);
++      task_yaw_rate_traj_ = task_yaw_traj_.getDerivative();
++      has_task_yaw_ = true;
++    }
++  }
+ 
+   start_time_ = msg->start_time;
+   traj_id_ = msg->traj_id;
++  active_goal_id_ = msg->goal_id;
++  active_epoch_ = msg->epoch;
+ 
+   traj_.clear();
+   traj_.push_back(pos_traj);
+@@ -68,6 +100,29 @@ void bsplineCallback(traj_utils::msg::Bspline::ConstPtr msg)
+   receive_traj_ = true;
+ }
+ 
++void trajectoryCancelCallback(
++    const uav_interfaces::msg::TrajectoryCancel::ConstSharedPtr &msg,
++    const rclcpp::Node::SharedPtr &node)
++{
++  if (msg->mode != uav_interfaces::msg::TrajectoryCancel::MODE_ABORT ||
++      msg->goal_id.empty() || msg->epoch.empty() ||
++      msg->goal_id != active_goal_id_ || msg->epoch != active_epoch_ || !receive_traj_)
++    return;
++
++  receive_traj_ = false;
++  has_task_yaw_ = false;
++  uav_interfaces::msg::PositionCommand abort_cmd;
++  abort_cmd.header.stamp = node->get_clock()->now();
++  abort_cmd.header.frame_id = "odom_" + active_epoch_;
++  abort_cmd.trajectory_id = traj_id_;
++  abort_cmd.goal_id = active_goal_id_;
++  abort_cmd.epoch = active_epoch_;
++  abort_cmd.trajectory_flag = uav_interfaces::msg::PositionCommand::TRAJECTORY_STATUS_ABORT;
++  pos_cmd_pub->publish(abort_cmd);
++  RCLCPP_WARN(node->get_logger(), "Aborted trajectory for goal %s in epoch %s: %s",
++              active_goal_id_.c_str(), active_epoch_.c_str(), msg->reason.c_str());
++}
++
+ std::pair<double, double> calculate_yaw(double t_cur, Eigen::Vector3d &pos, rclcpp::Time &time_now, rclcpp::Time &time_last)
+ {
+   constexpr double PI = 3.1415926;
+@@ -183,6 +238,11 @@ void cmdCallback()
+ 
+     /*** calculate yaw ***/
+     yaw_yawdot = calculate_yaw(t_cur, pos, time_now, time_last);
++    if (has_task_yaw_)
++    {
++      yaw_yawdot.first = task_yaw_traj_.evaluateDeBoorT(t_cur)(0);
++      yaw_yawdot.second = task_yaw_rate_traj_.evaluateDeBoorT(t_cur)(0);
++    }
+     /*** calculate yaw ***/
+ 
+     double tf = min(traj_duration_, t_cur + 2.0);
+@@ -197,6 +257,8 @@ void cmdCallback()
+ 
+     yaw_yawdot.first = last_yaw_;
+     yaw_yawdot.second = 0;
++    if (has_task_yaw_)
++      yaw_yawdot.first = task_yaw_traj_.evaluateDeBoorT(traj_duration_)(0);
+ 
+     pos_f = pos;
+   }
+@@ -207,9 +269,11 @@ void cmdCallback()
+   time_last = time_now;
+ 
+   cmd.header.stamp = time_now;
+-  cmd.header.frame_id = "world";
++  cmd.header.frame_id = active_epoch_.empty() ? "world" : "odom_" + active_epoch_;
+   cmd.trajectory_flag = uav_interfaces::msg::PositionCommand::TRAJECTORY_STATUS_READY;
+   cmd.trajectory_id = traj_id_;
++  cmd.goal_id = active_goal_id_;
++  cmd.epoch = active_epoch_;
+ 
+   cmd.position.x = pos(0);
+   cmd.position.y = pos(1);
+@@ -241,6 +305,15 @@ int main(int argc, char **argv)
+       10,
+       bsplineCallback);
+ 
++  auto trajectory_cancel_sub = node->create_subscription<uav_interfaces::msg::TrajectoryCancel>(
++      "/navigation/trajectory_cancel", 10,
++      [weak_node = std::weak_ptr<rclcpp::Node>(node)](
++          const uav_interfaces::msg::TrajectoryCancel::ConstSharedPtr msg)
++      {
++        if (auto active_node = weak_node.lock())
++          trajectoryCancelCallback(msg, active_node);
++      });
++
+   pos_cmd_pub = node->create_publisher<uav_interfaces::msg::PositionCommand>(
+       "/position_cmd",
+       50);
+@@ -269,7 +342,8 @@ int main(int argc, char **argv)
+   RCLCPP_WARN(node->get_logger(), "[Traj server]: ready.");
+ 
+   rclcpp::spin(node);
++  pos_cmd_pub.reset();
+   rclcpp::shutdown();
+ 
+   return 0;
+-}
+\ No newline at end of file
++}
+diff --git a/src/vendor/ego_planner/planner/traj_utils/msg/Bspline.msg b/src/vendor/ego_planner/planner/traj_utils/msg/Bspline.msg
+index d6aaff9..fa018b1 100755
+--- a/src/vendor/ego_planner/planner/traj_utils/msg/Bspline.msg
++++ b/src/vendor/ego_planner/planner/traj_utils/msg/Bspline.msg
+@@ -2,6 +2,8 @@ int32 drone_id
+ 
+ int32 order
+ int64 traj_id
++string goal_id
++string epoch
+ builtin_interfaces/Time start_time
+ 
+ float64[] knots

@@ -1,0 +1,88 @@
+{
+  "scope": "PROVISIONAL review of localization source-age guards after canonical-clock SITL timing observations; not a P2 or GOAL stage exit by itself.",
+  "date": "2026-10-17",
+  "policy_after_review": {
+    "path": "config/components/localization/health.json",
+    "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "max_source_age_s_propagated": 0.12,
+    "max_receipt_age_s_propagated": 0.2,
+    "qualification": "PROVISIONAL P2 operational guards; propagated source age is 0.12 s after live SITL #81 measured up to 0.108 s receipt age and a false stale latch at 0.063 s; not frozen final acceptance limits"
+  },
+  "run_81_before_adjustment": {
+    "run_id": "p4-navigation-live-ego-20261017-81",
+    "result": "FAIL_PRE_GOAL_PROPAGATED_SOURCE_AGE_LATCH",
+    "path": "artifacts/runs/p4-navigation-live-ego-20261017-81/localization-freshness.json",
+    "sha256": "0777d6784b4d68bc4749da50b175ffa133b81acb102c72d9c4ca8354bc8a7263",
+    "old_guard_source_age_s": 0.05,
+    "receipt_guard_s": 0.2,
+    "clock_rate": 0.5903,
+    "raw_propagated_source_interval_max_ms": 85.0,
+    "raw_propagated_source_age_at_probe_receipt_max_ms": 108.0,
+    "status_at_lock": {
+      "wall_elapsed_s": 12.753734,
+      "wall_epoch_s": 1792215682.231383,
+      "state": 4,
+      "valid": false,
+      "reason": "propagated_stale",
+      "clock_stamp_ns": 9623000000,
+      "adapter_last_published_propagated_stamp_ns": 9560000000,
+      "adapter_output_age_at_status_s": 0.063,
+      "accepted_propagated_count": 1092,
+      "observed_raw_propagated_last_stamp_ns": 9560000000,
+      "observed_raw_propagated_source_age_s": 0.063,
+      "observed_raw_propagated_receipt_age_wall_s": 0.097849,
+      "observed_raw_propagated_receipt_age_clock_s": 0.058959,
+      "estimated_clock_rate": 0.6026,
+      "source_age_limit_s": 0.05,
+      "receipt_age_limit_clock_s": 0.2,
+      "probe_guard_estimate": {
+        "source_age_exceeded": true,
+        "receipt_age_exceeded": false,
+        "note": "Probe subscriber timing is an estimate; the adapter may receive DDS samples at a different instant."
+      }
+    },
+    "adapter_propagated_count_at_lock": 1092,
+    "interpretation": "TRACKING latched LOST when an independently observed raw propagated sample was 63 ms behind /clock. Estimated receipt age was 59 ms in clock time, below the 200 ms receipt guard. The stale guard stopped adapter output even though raw VINS later resumed."
+  },
+  "decision": "Raise only propagated max source age from 0.05 to 0.12 s to cover the 108 ms observed sample-age tail while retaining a 0.2 s receipt guard. Keep both values PROVISIONAL; do not widen further from these runs.",
+  "verification_after_adjustment": {
+    "health_unit_tests": "PASS, 9 tests; artifacts/runs/p4-navigation-live-ego-20261017-81/test-localization-health.log",
+    "one_second_propagated_dropout": "PASS, synthetic Health state reaches LOST/propagated_stale with the 0.12 s source-age limit.",
+    "run_82": {
+      "result": "FAIL_PRE_GOAL_IMU_RECEIPT_STALL",
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-82/localization-freshness.json",
+      "sha256": "65bc2dcb121a8990d9b6cb9a1e06aa290e990e918652f57f68186def4b7705cb",
+      "clock_rate": 0.5918,
+      "raw_imu_max_wall_receipt_gap_ms": 361.564,
+      "imu_stale_status": {
+        "wall_elapsed_s": 10.315726,
+        "wall_epoch_s": 1792215933.424171,
+        "state": 4,
+        "valid": false,
+        "reason": "imu_stale",
+        "clock_stamp_ns": 7999000000,
+        "adapter_last_published_propagated_stamp_ns": 7985000000,
+        "adapter_output_age_at_status_s": 0.014,
+        "accepted_propagated_count": 810,
+        "observed_raw_propagated_last_stamp_ns": 8000000000,
+        "observed_raw_propagated_source_age_s": -0.001,
+        "observed_raw_propagated_receipt_age_wall_s": 0.000374,
+        "observed_raw_propagated_receipt_age_clock_s": 0.000219,
+        "estimated_clock_rate": 0.5852,
+        "source_age_limit_s": 0.12,
+        "receipt_age_limit_clock_s": 0.2
+      },
+      "interpretation": "The 0.12 s propagated source-age guard did not trigger; the adapter correctly latched imu_stale when the independent run saw an approximately 362 ms wall receipt gap, estimated at 0.211 s of ROS time, above the unchanged 0.2 s IMU receipt guard."
+    },
+    "run_84": {
+      "result": "PASS_ACTIVE_GOAL_SHUTDOWN_ABORT",
+      "path": "artifacts/runs/p4-navigation-live-ego-20261017-84/navigation-probe.json",
+      "qualification": "Localization remained TRACKING through the short 1.0 s pre-goal gate and action/trajectory shutdown smoke; not a long-run guarantee."
+    }
+  },
+  "limitations": [
+    "The 0.12 s propagated source-age value is not a frozen final acceptance limit.",
+    "Runs #81/#82 exposed occasional run-wide scheduling/receipt gaps; the clean-container #84 smoke was short and did not replace repeated-load or dropout-replay evidence.",
+    "No trajectory arrival, obstacle course, PX4, or hardware test is included."
+  ]
+}

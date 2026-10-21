@@ -1,0 +1,603 @@
+{
+  "schema": "p2-fastdds-reader-history-depth-ab/v1",
+  "date": "2026-10-21",
+  "stage": "P2 diagnostic; milestone status unchanged",
+  "question": "Does the effective Fast DDS history depth of the EGO camera-pose DataReader explain the 25-sample history boundary during a 50-sample successful-take gap?",
+  "runs": [
+    {
+      "run_id": "p2-ego-fastdds-reader-stage-trace-20261021-372",
+      "status": "completed_fastdds_reader_stage_trace_without_qos_capture",
+      "ros_domain_id": 232,
+      "gazebo_partition": "d435i_ego_fastdds_reader_372_01",
+      "exit_code": 0,
+      "artifact_directory": "artifacts/runs/p2-ego-fastdds-reader-stage-trace-20261021-372",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-reader-stage-trace-20261021-372/run-manifest.json",
+      "run_manifest_sha256": "fda8affe96b1b5f0043e72af44676bccae2b46586fa8f8adceb1ce9e12c34675",
+      "files_hashed": 157,
+      "total_hashed_bytes": 18852347
+    },
+    {
+      "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-373",
+      "status": "preflight_failed_invalid_ros_domain_id",
+      "ros_domain_id": 233,
+      "gazebo_partition": "d435i_ego_fastdds_reader_373_01",
+      "exit_code": 1,
+      "artifact_directory": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-373",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-373/run-manifest.json",
+      "run_manifest_sha256": "5705cf85737379db19686ed428dfe59539b8d0d71692252902c7d44309b9b635",
+      "files_hashed": 48,
+      "total_hashed_bytes": 347972
+    },
+    {
+      "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-374",
+      "status": "preflight_failed_generated_world_already_exists",
+      "ros_domain_id": 231,
+      "gazebo_partition": "d435i_ego_fastdds_reader_374_01",
+      "exit_code": 1,
+      "artifact_directory": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-374",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-374/run-manifest.json",
+      "run_manifest_sha256": "cfd3542cfc33beb74233215386b86a5e27d895021488cbe5a43c6c9a0050a7b1",
+      "files_hashed": 59,
+      "total_hashed_bytes": 416897
+    },
+    {
+      "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-375",
+      "status": "completed_fastdds_reader_qos_depth_diagnostic",
+      "ros_domain_id": 231,
+      "gazebo_partition": "d435i_ego_fastdds_reader_375_01",
+      "exit_code": 0,
+      "artifact_directory": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-375",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-375/run-manifest.json",
+      "run_manifest_sha256": "434c85510c26505f7c9bd0a08119718a492ee022787832ea741163b0e59597cc",
+      "files_hashed": 155,
+      "total_hashed_bytes": 20622613
+    },
+    {
+      "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-376",
+      "status": "preflight_failed_missing_reader_receipt_observer",
+      "ros_domain_id": 230,
+      "gazebo_partition": "d435i_ego_fastdds_reader_376_01",
+      "exit_code": 24,
+      "artifact_directory": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-376",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-376/run-manifest.json",
+      "run_manifest_sha256": "43219a189b36b92fd6ab25d66a30fe4b42dba0236f882824417a1e2f00c4f77f",
+      "files_hashed": 112,
+      "total_hashed_bytes": 9094477
+    },
+    {
+      "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377",
+      "status": "completed_fastdds_reader_history100_ab_diagnostic",
+      "ros_domain_id": 229,
+      "gazebo_partition": "d435i_ego_fastdds_reader_377_01",
+      "exit_code": 0,
+      "artifact_directory": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377/run-manifest.json",
+      "run_manifest_sha256": "f1bcac1ff2e872b80e7cbd013bb720e03120bb88ee01a8ae3ffc24e100036f58",
+      "files_hashed": 1431,
+      "total_hashed_bytes": 857624380
+    }
+  ],
+  "runtime_provenance": {
+    "fastdds_shared_library": "/opt/ros/jazzy/lib/libfastrtps.so.2.14.6",
+    "fastdds_shared_library_sha256": "8d39de86a55a92e1be92640a22e6322f099227930d4fc98bd821b6effd7a3eaa",
+    "instrumented_stages": [
+      "StatefulReader::processDataMsg",
+      "DataReaderImpl::InnerDataReaderListener::on_data_available",
+      "DataReaderImpl::on_data_available",
+      "DataReaderImpl::on_new_cache_change_added",
+      "DataReaderImpl::get_qos",
+      "EGO recvfrom/recvmsg returned RTPS DATA header metadata"
+    ],
+    "probes_metadata_only": true,
+    "application_payload_fields_requested": false,
+    "pcap_persisted": false,
+    "packet_and_socket_observations": [
+      "loopback RTPS DATA sequence header metadata (no PCAP persisted)",
+      "read-only per-participant UDP socket drop and receive-queue snapshots"
+    ]
+  },
+  "observations": {
+    "run_372_without_qos_capture": {
+      "take_gap_seconds": 2.6111300339980517,
+      "mapping_writer_gid": "010fe767a80186000000000000001503",
+      "ego_reader_gid": "010fe76722022fa60000000000001c04",
+      "received_target_data_count": 50,
+      "received_sequence_range": [
+        414,
+        463
+      ],
+      "rtps_process_data_returns": 50,
+      "stateful_process_data_all_returned_true": true,
+      "listener_callback_count": 1,
+      "listener_sequence_range": [
+        414,
+        463
+      ],
+      "datareader_history_updates": 25,
+      "datareader_history_sequence_range": [
+        439,
+        463
+      ],
+      "history_updates_returned_true": 25,
+      "history_updates_returned_false": 0,
+      "qos": null
+    },
+    "run_375_depth25_baseline": {
+      "take_gap_seconds": 2.4337362939986633,
+      "mapping_writer_gid": "010fe767a8012b470000000000001503",
+      "ego_reader_gid": "010fe767ae02d85a0000000000001c04",
+      "received_target_data_count": 50,
+      "received_sequence_range": [
+        254,
+        303
+      ],
+      "rtps_process_data_returns": 50,
+      "stateful_process_data_all_returned_true": true,
+      "listener_callback_count": 1,
+      "listener_sequence_range": [
+        278,
+        303
+      ],
+      "datareader_history_updates": 25,
+      "datareader_history_sequence_range": [
+        279,
+        303
+      ],
+      "history_updates_returned_true": 25,
+      "history_updates_returned_false": 0,
+      "qos": [
+        {
+          "history_kind": 0,
+          "history_kind_name": "KEEP_LAST",
+          "history_depth": 25,
+          "max_samples": 5000,
+          "max_samples_per_instance": 400
+        }
+      ]
+    },
+    "run_377_depth100_single_line_ab": {
+      "take_gap_seconds": 2.409651465000934,
+      "mapping_writer_gid": "010fe767bb01f5a60000000000001503",
+      "ego_reader_gid": "010fe7673502babb0000000000001c04",
+      "received_target_data_count": 50,
+      "received_sequence_range": [
+        500,
+        549
+      ],
+      "rtps_process_data_returns": 50,
+      "stateful_process_data_all_returned_true": true,
+      "listener_callback_count": 4,
+      "listener_sequence_range": [
+        500,
+        549
+      ],
+      "datareader_history_updates": 50,
+      "datareader_history_sequence_range": [
+        500,
+        549
+      ],
+      "history_updates_returned_true": 50,
+      "history_updates_returned_false": 0,
+      "qos": [
+        {
+          "history_kind": 0,
+          "history_kind_name": "KEEP_LAST",
+          "history_depth": 100,
+          "max_samples": 5000,
+          "max_samples_per_instance": 400
+        }
+      ]
+    },
+    "run_375_rmw_gap": {
+      "wait_returns": 670,
+      "not_ready": 669,
+      "ready": 1,
+      "ready_unread_count": 25,
+      "successful_camera_pose_takes_inside_gap": 0,
+      "reader_listener": {
+        "data_available_callbacks": 1,
+        "unread_count": 25,
+        "sample_lost_callback_events_inside_gap": 1,
+        "sample_rejected_callback_events_inside_gap": 0
+      },
+      "socket_drop_delta_across_gap_bracket": 75,
+      "same_duration_neighbor_drop_deltas": {
+        "preceding": 47,
+        "following": 27
+      },
+      "socket_drop_attribution": "participant-socket cumulative counter; cannot attribute to this topic or sequence"
+    },
+    "run_377_rmw_gap": {
+      "wait_returns": 659,
+      "not_ready": 658,
+      "ready": 1,
+      "ready_unread_count": 47,
+      "successful_camera_pose_takes_inside_gap": 0,
+      "reader_listener": {
+        "data_available_callbacks": 4,
+        "unread_count_min": 9,
+        "unread_count_max": 50
+      },
+      "matched_status_samples": 41,
+      "unique_sample_lost_totals": [
+        0
+      ],
+      "unique_sample_rejected_totals": [
+        0
+      ],
+      "ego_freshness_timeout_log_lines_in_32_5_second_window": 335
+    },
+    "run_377_build": {
+      "build_report": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377/build-report.json",
+      "exit_code": 0,
+      "packages_finished": 5,
+      "source_delta": "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377/history100-source-delta.patch",
+      "delta": "run-local pose_sub QoS rclcpp::QoS(25) -> rclcpp::QoS(100); other source derived unchanged from run #345",
+      "plan_env_library_sha256": "10d70c211e7e407c9bbd7d2d086d100c8f272286585899a451e50747382717b8"
+    }
+  },
+  "interpretation": {
+    "confirmed": "The #375 runtime DataReader used KEEP_LAST depth 25 (max_samples 5000; max_samples_per_instance 400). In a 2.434 s interval, all 50 target DATA sequences were processed successfully by StatefulReader, but only sequences 279-303 reached successful DataReader history updates; unread_count peaked at 25.",
+    "ab_comparison": "With only the run-local pose reader QoS depth changed to 100, #377's runtime get_qos hook reported KEEP_LAST depth 100 and all 50 sequences 500-549 reached successful DataReader history updates. The history update count increased from 25 to 50 for this comparable 50-sample gap.",
+    "limit": "The #377 gap remains 2.410 s with no successful camera-pose take inside it; the first missing RTPS sequences are not returned by the EGO receive API until a later same-sequence copy arrives. This localizes the stall to receive delivery before Fast DDS reader processing, with ordered sequence notification holding later samples. The exact reason the first packets do not reach the receive API remains unproven; the socket counters cannot attribute drops by sequence.",
+    "evidence_strength": "The QoS depth and per-sequence history updates are directly observed. The packet-header/receive-API/Fast DDS stage alignment directly shows early captured copies absent from EGO recvfrom/recvmsg records and later copies followed by reader processing. Fast DDS source explains how sequence holes hold notification order. Socket receive-queue pressure is supported as a likely cause, not proven for individual sequences."
+  },
+  "analysis_exit_codes": {
+    "run_375": {
+      "ego-rclcpp-summary": "0",
+      "camera-pose-publisher-take-alignment": "0",
+      "rmw-wait-summary": "1",
+      "rmw-status-summary": "0",
+      "rmw-take-gap": "0",
+      "rmw-unread-gap": "0",
+      "rmw-status-gap": "0",
+      "reader-listener-take-gap": "0",
+      "rtps-sequence-analysis": "0",
+      "ego-received-rtps-data-metadata-alignment": "0",
+      "fastdds-reader-stage-alignment": "0",
+      "ego-udp-socket-drop-window-alignment": "0"
+    },
+    "run_377": {
+      "ego-rclcpp-summary": "0",
+      "camera-pose-publisher-take-alignment": "0",
+      "rmw-wait-summary": "1",
+      "rmw-status-summary": "0",
+      "rmw-take-gap": "0",
+      "rmw-unread-gap": "0",
+      "rmw-status-gap": "0",
+      "reader-listener-take-gap": "0",
+      "rtps-sequence-analysis": "0",
+      "ego-received-rtps-data-metadata-alignment": "0",
+      "fastdds-reader-stage-alignment": "0",
+      "ego-udp-socket-drop-window-alignment": "0"
+    },
+    "note": "rmw-wait-summary exits 1 because its full-trace sequence-contiguity check fails in #372, #375, and #377; exact selected-gap take, unread, listener, RTPS, and Fast DDS stage analyses exit 0 and show no sequence gaps inside their selected intervals.",
+    "run_372": {
+      "ego-rclcpp-summary": "0",
+      "camera-pose-publisher-take-alignment": "0",
+      "rmw-wait-summary": "1",
+      "rmw-status-summary": "0",
+      "rmw-take-gap": "0",
+      "rmw-unread-gap": "0",
+      "rmw-status-gap": "0",
+      "reader-listener-take-gap": "0",
+      "rtps-sequence-analysis": "0",
+      "ego-received-rtps-data-metadata-alignment": "0",
+      "fastdds-reader-stage-alignment": "0",
+      "ego-udp-socket-drop-window-alignment": "0"
+    }
+  },
+  "previous_history100_evidence": {
+    "evidence": "progress/evidence/p2-ego-input-interval-diagnostic.json",
+    "run": "artifacts/runs/p2-ego-map-pose-history100-20261017-40",
+    "result": "depth 100 still had 29 in-window timeout warnings in 60.034 s, including a frozen pose receipt counter while depth receipts advanced"
+  },
+  "run_scope": {
+    "goal_sent": false,
+    "px4_started": false,
+    "trajectory_server_started": false,
+    "truth_subscribed": false,
+    "control_subscribed": false,
+    "runtime": "planner-only static D435i simulation diagnostic",
+    "canonical_source_config_dependency_lock_changed": false,
+    "milestones_changed": false
+  },
+  "limitations": [
+    "No goal, trajectory execution, vehicle-swept clearance, PX4 control, truth input, or hardware behavior was evaluated.",
+    "The selected take gap is not a full trace acceptance window; the full wait-event sequence check failed in both #375 and #377.",
+    "The socket drops counter is cumulative for all traffic on the participant socket and does not map to the target topic or RTPS sequence.",
+    "The single A/B establishes a history retention effect for one comparable 50-sample gap, not a universal rate or an accepted production QoS.",
+    "Loopback packet capture occurs before application receive; the exact loss/delay for an individual sequence is inferred from the absence of the first copy in EGO recvfrom/recvmsg metadata and the later same-sequence copy. Participant socket drop and queue counters are aggregate, so they do not prove per-sequence kernel drops."
+  ],
+  "decision": "Keep canonical EGO pose QoS and freshness gates unchanged. Depth 25 explains the 25-sample retention boundary, while RTPS sequence holes and late receive-API delivery explain the selected multi-second wait gaps more directly. Investigate why the first captured datagrams do not reach EGO recvfrom/recvmsg; do not promote depth 100 or relax the 0.4 s freshness gate.",
+  "next_step": "Correlate the missing first-copy sequences against per-socket receive-queue/drop instrumentation and Fast DDS reliability control traffic in a repeatable low-noise run. Keep host buffer/kernel parameters and canonical QoS unchanged until sequence-level attribution is available; retain the 0.4 s freshness gate.",
+  "workspace_validation": {
+    "project_status_command": "python3 tools/project_status.py",
+    "project_status_exit_code": 0,
+    "project_status_scope": "structure/design only; does not qualify ROS builds, SITL, flight, GOAL C, or overall GOAL",
+    "run_manifest_hash_verification": {
+      "exit_code": 0,
+      "run_count": 6,
+      "file_count": 1962,
+      "bytes_hashed": 906958686
+    },
+    "json_validation": {
+      "exit_code": 0,
+      "files": 7
+    },
+    "shell_syntax": {
+      "command": "bash -n",
+      "exit_code": 0,
+      "scripts": 19
+    },
+    "python_syntax": {
+      "method": "ast.parse without writing pycache",
+      "exit_code": 0,
+      "scripts": 102
+    },
+    "git_diff_check_exit_code": 0,
+    "git_diff_cached_check_exit_code": 0,
+    "preexisting_staged_path_count": 50,
+    "staged_or_pushed": false
+  },
+  "delivery_order_analysis": {
+    "method": "Join metadata-only loopback RTPS packet headers, EGO recvfrom/recvmsg returned DATA headers, and Fast DDS reader-stage events by the mapping writer GUID, exact EGO participant UDP port, and RTPS sequence number. Source files are listed under each run; no PCAP or application payload was persisted.",
+    "runs": [
+      {
+        "run_id": "p2-ego-fastdds-reader-stage-trace-20261021-372",
+        "take_gap_s": 2.61113,
+        "participant_udp_port": 65429,
+        "delayed_sequences": [
+          {
+            "sequence": 414,
+            "loopback_data_copy_offsets_s": [
+              0.001447,
+              2.610793
+            ],
+            "recvfrom_return_offsets_s": [
+              2.610804
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.611109
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          }
+        ],
+        "listener_callback": {
+          "offset_s": 2.610907,
+          "sequence_range": [
+            414,
+            463
+          ]
+        },
+        "raw_artifacts": [
+          "artifacts/runs/p2-ego-fastdds-reader-stage-trace-20261021-372/rtps-target-reader-fields.csv",
+          "artifacts/runs/p2-ego-fastdds-reader-stage-trace-20261021-372/ego-received-rtps-data-metadata.csv",
+          "artifacts/runs/p2-ego-fastdds-reader-stage-trace-20261021-372/fastdds-reader-stage-events.csv"
+        ]
+      },
+      {
+        "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-375",
+        "take_gap_s": 2.433736,
+        "participant_udp_port": 65179,
+        "delayed_sequences": [
+          {
+            "sequence": 267,
+            "loopback_data_copy_offsets_s": [
+              0.673505,
+              2.43349
+            ],
+            "recvfrom_return_offsets_s": [
+              2.433499
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.433517
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          },
+          {
+            "sequence": 268,
+            "loopback_data_copy_offsets_s": [
+              0.76895,
+              2.43352
+            ],
+            "recvfrom_return_offsets_s": [
+              2.433533
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.433539
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          },
+          {
+            "sequence": 275,
+            "loopback_data_copy_offsets_s": [
+              1.06176,
+              2.43354
+            ],
+            "recvfrom_return_offsets_s": [
+              2.433547
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.43355
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          },
+          {
+            "sequence": 278,
+            "loopback_data_copy_offsets_s": [
+              1.260207,
+              2.433561
+            ],
+            "recvfrom_return_offsets_s": [
+              2.433565
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.433715
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          }
+        ],
+        "listener_callback": {
+          "offset_s": 2.433601,
+          "sequence_range": [
+            278,
+            303
+          ]
+        },
+        "raw_artifacts": [
+          "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-375/rtps-target-reader-fields.csv",
+          "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-375/ego-received-rtps-data-metadata.csv",
+          "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-375/fastdds-reader-stage-events.csv"
+        ]
+      },
+      {
+        "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377",
+        "take_gap_s": 2.409651,
+        "participant_udp_port": 64679,
+        "delayed_sequences": [
+          {
+            "sequence": 500,
+            "loopback_data_copy_offsets_s": [
+              0.098067,
+              2.409248
+            ],
+            "recvfrom_return_offsets_s": [
+              2.409258
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.40934
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          },
+          {
+            "sequence": 509,
+            "loopback_data_copy_offsets_s": [
+              0.477044,
+              2.409277
+            ],
+            "recvfrom_return_offsets_s": [
+              2.409352
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.409522
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          },
+          {
+            "sequence": 542,
+            "loopback_data_copy_offsets_s": [
+              2.110259,
+              2.409298
+            ],
+            "recvfrom_return_offsets_s": [
+              2.409531
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.409584
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          },
+          {
+            "sequence": 547,
+            "loopback_data_copy_offsets_s": [
+              2.306311,
+              2.409318
+            ],
+            "recvfrom_return_offsets_s": [
+              2.409593
+            ],
+            "stateful_process_data_return_offsets_s": [
+              2.409631
+            ],
+            "later_copy_submessage_ids": "0x0e|0x09|0x15|0x80"
+          }
+        ],
+        "listener_callbacks": [
+          {
+            "offset_s": 2.409293,
+            "sequence_range": [
+              500,
+              508
+            ]
+          },
+          {
+            "offset_s": 2.409394,
+            "sequence_range": [
+              509,
+              541
+            ]
+          },
+          {
+            "offset_s": 2.409546,
+            "sequence_range": [
+              542,
+              546
+            ]
+          },
+          {
+            "offset_s": 2.40961,
+            "sequence_range": [
+              547,
+              549
+            ]
+          }
+        ],
+        "socket_observation": {
+          "drop_counter_delta_across_gap_bracket": 90,
+          "same_duration_neighbor_drop_deltas": {
+            "preceding": 48,
+            "following": 64
+          },
+          "maximum_rx_queue_bytes_sampled_inside_gap": 465188,
+          "nonzero_rx_queue_samples_inside_gap": 6,
+          "attribution_limit": "The participant-socket counter covers all traffic and cannot identify which sequence was dropped."
+        },
+        "raw_artifacts": [
+          "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377/rtps-target-reader-fields.csv",
+          "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377/ego-received-rtps-data-metadata.csv",
+          "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377/fastdds-reader-stage-events.csv",
+          "artifacts/runs/p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377/analysis/ego-udp-socket-drop-window-alignment.json"
+        ]
+      }
+    ],
+    "source_basis": {
+      "fastdds_version": "2.14.6",
+      "stateful_reader_notify_changes": "https://github.com/eProsima/Fast-DDS/blob/v2.14.6/src/cpp/rtps/reader/StatefulReader.cpp#L1107-L1164",
+      "behavior": "NotifyChanges starts from the next sequence to notify, walks the writer history in sequence order, and invokes the reader listener when new ordered data is available. A missing earlier sequence can therefore hold back later received samples from DataReader history and wait-set readiness."
+    },
+    "ego_freshness": {
+      "run_id": "p2-ego-fastdds-reader-qos-depth-diagnostic-20261021-377",
+      "timeout_log_records_inside_gap": 36,
+      "pose_input_count_values": [
+        499
+      ],
+      "depth_pose_sync_count_values": [
+        499
+      ],
+      "odom_depth_timeout_s": 0.4,
+      "first_record": {
+        "gap_offset_s": 0.617667,
+        "sim_now_s": 22.177,
+        "last_pose_stamp_s": 21.682,
+        "pose_source_age_s": 0.495,
+        "last_sync_now_s": 21.748
+      },
+      "last_record": {
+        "gap_offset_s": 2.367665,
+        "sim_now_s": 23.382,
+        "last_pose_stamp_s": 21.682,
+        "pose_source_age_s": 1.7,
+        "last_sync_now_s": 21.748
+      },
+      "gate_exceeded": true
+    },
+    "interpretation": {
+      "ordered_delivery": "The selected stalls include RTPS sequence holes. For #377, sequence 500 followed the prior successful sequence 499; sequences 500, 509, 542, and 547 first appear in loopback packet-header metadata near their expected send times, but the EGO receive API records only a later same-sequence copy immediately before StatefulReader processing and listener batches. This is consistent with reliable retransmission and ordered head-of-line blocking; the first copies did not appear in the EGO recvfrom/recvmsg metadata.",
+      "localization": "For the measured sequences, the delay is before the EGO receive API returns the datagram; after the later copy reaches recvfrom, StatefulReader processing and DataReader notification follow within sub-millisecond intervals. This rules out DataReader history depth or executor scheduling as the sole source of the selected multi-second gaps.",
+      "likely_receive_path_cause": "A receive-side socket/kernel delivery loss or delay is the leading hypothesis. #377 has elevated participant-socket drops and a receive-queue occupancy spike during the gap, but those counters aggregate all participant traffic and are not per-sequence proof.",
+      "freshness": "In #377, EGO pose and synchronization counters remain at 499 through the take gap. Logged pose-source age is already 0.495 s at the first sampled timeout and reaches 1.700 s, above the unchanged 0.4 s gate; the timeout is acting as designed.",
+      "qos_ab": "Depth 25 caps retained history after ordered data is released; depth 100 retains the full 50-sample batch. Neither depth removes the upstream sequence-recovery stall. Do not promote the depth-100 run-local override."
+    }
+  }
+}

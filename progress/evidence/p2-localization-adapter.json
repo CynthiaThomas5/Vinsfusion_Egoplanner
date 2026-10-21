@@ -1,0 +1,141 @@
+{
+  "scope": "P2 localization adapter integration only; does not pass P2 or final acceptance",
+  "status": "development_replay_observed",
+  "run_id": "p2-localization-adapter-replay-20261016-05",
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "ros_domain_id": 87,
+    "vins_binary": "artifacts/runs/p2-build-20261016/install/vins/lib/vins/vins_node",
+    "vins_binary_sha256": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010"
+  },
+  "build": {
+    "command": "colcon --log-base artifacts/runs/p2-localization-adapter-replay-20261016-05/log build --base-paths src/own --packages-select uav_interfaces uav_sim uav_localization --build-base artifacts/runs/p2-localization-adapter-replay-20261016-05/build --install-base artifacts/runs/p2-localization-adapter-replay-20261016-05/install",
+    "result": "passed",
+    "packages": ["uav_interfaces", "uav_sim", "uav_localization"],
+    "log_directory": "artifacts/runs/p2-localization-adapter-replay-20261016-05/log/latest_build",
+    "test_command": "python3 tools/test_localization_health.py",
+    "test_result": "8 tests passed"
+  },
+  "input": {
+    "bag": "artifacts/runs/p2-force-motion-20261016/input-bag",
+    "bag_sha256": "9ffb8d60f099c59fedc34317c80aa2435c6fae681046dc8a3111e95995640d37",
+    "topics": [
+      "/clock",
+      "/sensors/d435i/imu",
+      "/sensors/d435i/infra1/image_rect",
+      "/sensors/d435i/infra2/image_rect"
+    ],
+    "truth_topics_in_bag": false,
+    "truth_subscriptions_in_adapter_or_probe": false
+  },
+  "session": {
+    "epoch": "b4da1aee589d4188bb73520b93571c2d",
+    "namespace": "/vins_raw/s_b4da1aee589d4188bb73520b93571c2d",
+    "manifest": "artifacts/runs/p2-localization-adapter-replay-20261016-05/session/session.json",
+    "manifest_sha256": "4f746ead0f09e63d7d3d513216f94c125e76d1b2b9be02b39ad3c7b621d1ca0f",
+    "vins_yaml_sha256": "8cb92f2adf281633ae974fcb21988d74a733d42cedbe054ce5c919924a96b22e",
+    "health_policy_sha256": "8632f7ab96f438efa55384b10e8d330b9f7be60ce89651f29c00dd79165c1eb9",
+    "model_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "settings_sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc"
+  },
+  "observed": {
+    "scope": "Full sensor-bag replay with actual VINS and localization_adapter processes; read-only probe",
+    "status": "TRACKING observed, then LOCKED after input stopped",
+    "status_reason_after_input_stop": "imu_stale",
+    "good_pairs_at_lock": 592,
+    "accepted_optimized_at_lock": 583,
+    "accepted_propagated_at_lock": 7689,
+    "partial_replay_rate_hz": {
+      "optimized": 15.15,
+      "propagated": 200.0
+    },
+    "partial_replay_samples": {
+      "optimized": 469,
+      "propagated": 6191,
+      "stamp_span_s": {
+        "optimized": 30.888,
+        "propagated": 30.95
+      }
+    },
+    "output_frames": {
+      "world": "odom_b4da1aee589d4188bb73520b93571c2d",
+      "body": "d435i_imu_b4da1aee589d4188bb73520b93571c2d"
+    },
+    "partial_outputs_strictly_increasing_and_finite": true,
+    "post_lock_observation": {
+      "report": "artifacts/runs/p2-localization-adapter-replay-20261016-05/locked-probe.json",
+      "wall_seconds": 3.016,
+      "new_optimized_messages": 0,
+      "new_propagated_messages": 0,
+      "status_state": "LOCKED",
+      "accepted_counts_unchanged": true
+    }
+  },
+  "fault_injection": {
+    "run_id": "p2-localization-vins-restart-20261016-06",
+    "type": "VINS process stop followed by restart in the same epoch while sensor replay continues",
+    "epoch": "7e64cd86ebfa4116a9c588413d1b9242",
+    "pre_fault": {
+      "state": "TRACKING",
+      "good_pairs": 97,
+      "accepted_optimized": 88,
+      "accepted_propagated": 1162
+    },
+    "after_stop": {
+      "state": "LOCKED",
+      "reason": "propagated_stale",
+      "good_pairs": 125,
+      "accepted_optimized": 116,
+      "accepted_propagated": 1531
+    },
+    "after_restart_same_epoch": {
+      "vins_process_started": true,
+      "adapter_state": "LOCKED",
+      "adapter_reason": "propagated_stale",
+      "wall_observation_s": 3.017,
+      "new_optimized_messages": 0,
+      "new_propagated_messages": 0,
+      "accepted_counts_unchanged": true
+    },
+    "reports": [
+      "artifacts/runs/p2-localization-vins-restart-20261016-06/probe.json",
+      "artifacts/runs/p2-localization-vins-restart-20261016-06/restarted-locked-probe.json"
+    ],
+    "session_sha256": "e98be15c1dcaeb1ce105f793006136be8caee575a075d32b98cd219e73605c1b",
+    "artifacts_sha256": {
+      "artifacts/runs/p2-localization-vins-restart-20261016-06/probe.json": "300c6bfb360dbc1fc34041cff58f133f8a9ee63c224c29025a24f02cbdfaafcd",
+      "artifacts/runs/p2-localization-vins-restart-20261016-06/restarted-locked-probe.json": "c5f52ce79c02df84e8c8965e42bffa63c2b60042cf6122128769749e9efe762b",
+      "artifacts/runs/p2-localization-vins-restart-20261016-06/vins-first.log": "50a9f73df39fad24546a10e1c5f4f5b0df65ea34b298c5c8ec28c78e55dd2932",
+      "artifacts/runs/p2-localization-vins-restart-20261016-06/vins-restarted.log": "bb5d1fc0d33becbec7953a822368271cec8958d9d4e309a42419f8be25909399",
+      "artifacts/runs/p2-localization-vins-restart-20261016-06/replay.log": "2103926b6b0cc5803cdfb876e57bff5497d38777d9ea0800f3f12533ce285598"
+    },
+    "qualification": "One exploratory stop/restart injection; GOAL.md E requires at least two independent injections per failure mode."
+  },
+  "artifacts_sha256": {
+    "artifacts/runs/p2-localization-adapter-replay-20261016-05/probe.json": "4aa9cddb9ad4b8f34a6909ec931838d1ecec6c4cdf384e6db549faf33d95fa63",
+    "artifacts/runs/p2-localization-adapter-replay-20261016-05/locked-probe.json": "ad7713b89c11f3ad059356fd685720ce1b44b4ce876953deeaff16d5cf316870",
+    "artifacts/runs/p2-localization-adapter-replay-20261016-05/vins.log": "2e0a31364c4734c4da891d1035996d86e74774c06a3ccde6e3b165e85068c883",
+    "artifacts/runs/p2-localization-adapter-replay-20261016-05/replay.log": "6dc7f335ea73c599dcf92f3166b65c2e3215a7ac0e5c2b737ccbcf7c623ae137"
+  },
+  "source_sha256": {
+    "src/own/uav_localization/uav_localization/health.py": "d06911fff0a63349595b48a7b3169409250ddf41c4aee62fb3fbd9b12763978e",
+    "src/own/uav_localization/uav_localization/node.py": "6eef1b7c01b18dea9fabe5217b05db1680c4069265bda2fa1095eb8cb3cdc5f6",
+    "src/own/uav_interfaces/msg/LocalizationStatus.msg": "82eeeef97be749c0a110619cab4aa90717c16f8fd8006ada9c3630a31033c2d2",
+    "tools/test_localization_health.py": "7b86073ec16f984bf25e75cf7bd8cdaf7420f7631609d81117b5166b00feb4b2",
+    "tools/probe_localization.py": "fae1dacc0f217383b03cdb9df011c4e16cf521608ad87a95b5b644013060cbe1"
+  },
+  "retained_failed_attempts": {
+    "artifacts/runs/p2-localization-adapter-20261016-01": "adapter initialized before /clock and correctly timed out",
+    "artifacts/runs/p2-localization-adapter-replay-20261016-02": "Jazzy MessageInfo is a mapping without publisher_gid",
+    "artifacts/runs/p2-localization-adapter-replay-20261016-03": "callback MessageInfo omitted publisher GID",
+    "artifacts/runs/p2-localization-adapter-replay-20261016-04": "DDS GIDs differ per topic publisher even when the ROS node is shared"
+  },
+  "limitations": [
+    "One recorded replay does not satisfy repeated independent VIO calibration or any formal P2/P6 threshold.",
+    "Fault injections for camera/IMU loss, VINS restart, endpoint replacement and clock rollback remain incomplete.",
+    "Health limits are provisional operating guards, not frozen acceptance values or a pose-accuracy certificate.",
+    "The adapter outputs D435i IMU-frame odometry only; aircraft base_link extrinsics, covariance, mapping, EGO, PX4 and EKF2 fusion remain unverified.",
+    "VINS failureDetection() remains disabled upstream; switch-topic runtime changes are not handled as supported lifecycle operations."
+  ]
+}

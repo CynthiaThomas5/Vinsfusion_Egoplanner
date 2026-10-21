@@ -1,0 +1,192 @@
+{
+  "schema": "goal-c-ego-full-spline-guard-first-reject-snapshot/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329",
+  "result": "diagnostic_start_sample_confirmed_unknown_by_same_epoch_snapshot",
+  "source": {
+    "parent_run": "p2-ego-dense-spline-canonical-full-spline-guard-20261021-328",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "canonical_source_manifest": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/source-manifest.json",
+    "canonical_source_tree_sha256": "09e1ccae79b08279ab55e6fbd1ee550ec4267dda955de51420f1aca392feaad4",
+    "planner_binary": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/ego-overlay/ego_planner/lib/ego_planner/ego_planner_node",
+    "planner_binary_sha256": "712f8702db4454388ba424d3297b36d7e64a1e9572388006a9a170d79433d18b",
+    "experimental_patches": ["0029", "0030", "0031", "0028", "0032"],
+    "planner_source_modified": false,
+    "vendor_tree_modified": false,
+    "canonical_sources_manifest_modified": false
+  },
+  "run_local_observer": {
+    "change": "The probe listens for the first final_spline_collision_reject ROS log and asynchronously requests one read-only occupancy snapshot bound to the observed epoch and map_id, including when no B-spline is published.",
+    "probe_script": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/probe_ego_goal_with_snapshot.py",
+    "probe_script_sha256": "310818226b7003e9d5e7555f1e700323191a41f86716d6b05393ce4ae9af5559",
+    "probe_validation": "python3 -m py_compile passed; run-live and container scripts passed bash -n.",
+    "analysis_script": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/analyze_guard_snapshot.py",
+    "analysis_script_sha256": "2eac51919a6ada221fc2a10ab9be8da2682246250b8961fd8fb4d858a0117c9d"
+  },
+  "configuration": {
+    "goal_xy_m": [2.5, 1.4],
+    "box_pose_xyz_m": [1.55, 0.9, 1.1],
+    "cylinder_pose_xyz_m": [2.25, 0.05, 1.0],
+    "run_local_obstacle_inflation_m": 0.5,
+    "retry_cooldown_s": 1.0,
+    "qualification": "The scene and planner settings are diagnostic and PROVISIONAL."
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "ros_domain_id": 184,
+      "gazebo_partition": "d435i_dense_spline_fullguard_snapshot_329_01",
+      "wall_seconds": 45.000606,
+      "status": "timeout_before_ready",
+      "goal_sent": false,
+      "localization_at_timeout": {
+        "valid": false,
+        "reason": "telemetry_stale",
+        "good_pairs": 11
+      },
+      "mapping_at_timeout": {
+        "input_ready": false,
+        "reason": "telemetry_stale",
+        "forwarded_depth_count": 0,
+        "occupied_point_count": 0
+      },
+      "bspline_count": 0,
+      "snapshot_request_count": 0,
+      "disposition": "Excluded from guard and occupancy conclusions because preflight stayed closed and no guard event occurred."
+    },
+    {
+      "attempt": 2,
+      "ros_domain_id": 185,
+      "gazebo_partition": "d435i_dense_spline_fullguard_snapshot_329_02",
+      "wall_seconds": 45.000684,
+      "status": "goal_sent_no_bspline_before_timeout",
+      "goal_sent": true,
+      "goal_sent_wall_elapsed_s": 7.4009,
+      "bspline_count": 0,
+      "snapshot_request_count": 1,
+      "first_guard_rejection": {
+        "wall_elapsed_s": 7.412524,
+        "spline_time_s": 0.0,
+        "xyz_m": [-0.003834, -0.005625, -0.001309],
+        "in_map": true,
+        "unknown": true,
+        "raw_occupied": false,
+        "inflated": false
+      },
+      "guard_rejection_count": 392,
+      "guard_rejection_classes": {
+        "in_map_unknown_raw_free_not_inflated": 392
+      },
+      "unique_t0_sample_xyz_count": 272,
+      "ego_odom_or_depth_lost_warnings": 32,
+      "localization_at_timeout": {
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.6793181361107746
+      },
+      "mapping_at_timeout": {
+        "input_ready": true,
+        "reason": "ready",
+        "occupied_point_count": 1345,
+        "forwarded_depth_count": 827,
+        "keyframe_count": 27
+      },
+      "runtime_graph": {
+        "forbidden_control_nodes": [],
+        "truth_topics": [],
+        "control_topics": []
+      }
+    }
+  ],
+  "paired_snapshot": {
+    "accepted": true,
+    "reason": "ok",
+    "epoch": "ad8522f724b24f6baf396076854f4287",
+    "map_id": "ad8522f724b24f6baf396076854f4287-7895a937819b4e34a56e90a5880bd2fc",
+    "goal_map_status_stamp_ns": 8449000000,
+    "snapshot_stamp_ns": 8492000000,
+    "snapshot_after_goal_status_s": 0.043,
+    "snapshot_after_first_guard_log_s": 0.055191,
+    "last_depth_source_stamp_ns": 8350000000,
+    "depth_source_age_at_response_s": 0.142,
+    "resolution_m": 0.1,
+    "origin_m": [-12.0, -12.0, -0.15],
+    "shape": [240, 240, 60],
+    "guard_sample_voxel": {
+      "xyz_m": [-0.003834, -0.005625, -0.001309],
+      "index_xyz": [119, 119, 1],
+      "center_m": [-0.05, -0.05, 0.0],
+      "occupancy_value": -1,
+      "occupancy_label": "unknown",
+      "inflated_mask_value": 0,
+      "sample_to_cell_center_m": 0.06404805744126676,
+      "neighborhood_3x3x3": {
+        "unknown_cells": 24,
+        "free_cells": 3,
+        "occupied_cells": 0,
+        "inflated_cells": 0
+      },
+      "nearest_known_voxel_center_distance_m": 0.12086005817473355,
+      "nearest_occupied_voxel_center_distance_m": 1.5042314827386123
+    },
+    "map_voxels": {
+      "unknown": 3447854,
+      "free": 6839,
+      "occupied": 1307,
+      "inflated": 32152,
+      "total": 3456000,
+      "known_fraction": 0.002357060185185185
+    },
+    "snapshot_archive": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/snapshots-02/guard-first-reject-occupancy.npz",
+    "snapshot_sha256": "89c5fad96e3b3dd7eab8b7d048161e3f08cb3b42ab6d0f42dc6903284ae0b4d6",
+    "analysis_report": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/guard-snapshot-analysis-02.json",
+    "analysis_report_sha256": "e21dc69e63b2f76a19fec802a3dcfd19921ce0f18299218eee055e4ac4604aa4"
+  },
+  "artifacts": {
+    "run_manifest": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/run-manifest.json",
+      "sha256": "42534313f5af8c57a0328940d328d53b85e1b37f65e31ee15accc48c010e6070"
+    },
+    "attempt_1_planner_result": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/planner-goal-result-01.json",
+      "sha256": "d8628f906281798f567641f47a5747c0b79b6f470c43bef5c83df0c58f7aa4bb"
+    },
+    "attempt_2_planner_result": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/planner-goal-result-02.json",
+      "sha256": "a8ada996187ddc59891a1fe300906268663cb49c74f07619ca66d7292fbb0b9d"
+    },
+    "attempt_2_runtime_summary": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/runtime-summary-02.json",
+      "sha256": "bca94cd7557e93798d3d6a9dbbb7d475c00097ec51346349ed0f71dd4dbaa850"
+    },
+    "attempt_2_ego_log": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/ego-02.log",
+      "sha256": "7b7fa942c9cd20c6f8239a9fcb21a319b5d30580686e5acc2eca651946f44811"
+    },
+    "snapshot_archive": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/snapshots-02/guard-first-reject-occupancy.npz",
+      "sha256": "89c5fad96e3b3dd7eab8b7d048161e3f08cb3b42ab6d0f42dc6903284ae0b4d6"
+    },
+    "analysis_report": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/guard-snapshot-analysis-02.json",
+      "sha256": "e21dc69e63b2f76a19fec802a3dcfd19921ce0f18299218eee055e4ac4604aa4"
+    },
+    "ros_nodes": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/nodes-after-run-02.txt",
+      "sha256": "fab1285b0880cc5559554e411e26a7b39818469eae91314f04e73da52e98455c"
+    },
+    "ros_topics": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-snapshot-20261021-329/topics-after-run-02.txt",
+      "sha256": "fd05e44fb26e2718c18d2f6d09fb70b782db689b5ac084befecbaf7ae118db96"
+    }
+  },
+  "interpretation": "In attempt 2, the first rejected sample was in-map unknown and raw/inflation free. A read-only occupancy snapshot returned 55 ms after the guard log, for the exact same epoch/map_id as the goal status; 43 ms separate the goal status and snapshot stamps. The sample's corresponding 10 cm voxel is still unknown with inflation mask 0, and its 3x3x3 neighborhood has 24 unknown, 3 free, no occupied, and no inflated cells. This confirms the fail-closed starting-cell decision in the current map. It does not explain every no-spline factor: 32 EGO odom/depth warnings occurred, known coverage was 0.236%, and no B-spline was published. Attempt 1 is separately excluded because localization and mapping preflight became telemetry_stale before goal dispatch.",
+  "limitations": [
+    "The snapshot is a map readback, not independent ground truth; it cannot establish whether unseen cells are physically free or occupied.",
+    "Snapshot depth-source age was 142 ms. The returned voxel state is close to, but not the exact internal map state at the first guard callback.",
+    "No B-spline was emitted, so no full-curve snapshot or clearance result exists.",
+    "No trajectory execution, tracking error, vehicle-body sweep, braking, controller, PX4 SITL, hardware flight, truth subscription, or full-world-map input was used.",
+    "The full-active guard and diagnostic scene/inflation settings remain experimental and PROVISIONAL; GOAL C remains pending."
+  ],
+  "next_step": "Keep the unknown policy fail-closed. Test whether a longer pre-goal sensor-motion/map-building window makes the current start voxel known before dispatch; then require accepted same-epoch snapshots for any emitted splines. Do not mark planner-only evidence as execution or safety acceptance."
+}

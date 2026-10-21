@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-17",
+  "run_id": "p4-navigation-action-success-20261017-85",
+  "scope": "Synthetic ROS action adapter test; injected current-epoch odometry, no vehicle controller or PX4",
+  "status": "PASS_ACTION_ARRIVAL_SUCCESS",
+  "qualification": "Adapter integration only; does not prove trajectory tracking, closed-loop arrival, obstacle clearance, PX4, or flight acceptance.",
+  "environment": {
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ephemeral": true,
+    "network": "bridge",
+    "shm_size_bytes": 536870912,
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 229
+  },
+  "source": {
+    "probe_script": {
+      "path": "tools/probe_navigation_arrival_adapter.py",
+      "sha256": "e6a8e9ede96b245896d7b3d04a4a7a36bf3db8bf0e1c4b0c434eb63aa4e8defc"
+    },
+    "navigation_node": {
+      "path": "artifacts/runs/p4-navigation-lock-log-outside-20261017-77/nav-install-final/uav_navigation/lib/python3.12/site-packages/uav_navigation/node.py",
+      "sha256": "0c2789a1d434ce302d5a3716119a8d54b902a90a0d4c34507eeb79b1c678d9c9",
+      "matches_current_source": true
+    }
+  },
+  "scenario": {
+    "target_position_odom_m": [
+      1.0,
+      -0.2,
+      0.8
+    ],
+    "target_yaw_rad": 0.6,
+    "position_tolerance_m": 0.1,
+    "yaw_tolerance_rad": 0.1,
+    "dwell_s": 0.25,
+    "yaw_outside_tolerance_blocked_success": true
+  },
+  "result": {
+    "action_status": "SUCCEEDED",
+    "success": true,
+    "reason": "position_yaw_tolerance_held",
+    "matching_ego_goal_command": true,
+    "trajectory_cancel_count": 0
+  },
+  "verification": {
+    "command": "source /opt/ros/jazzy/setup.bash && source artifacts/runs/p4-navigation-live-ego-20261017-32/nav-install/setup.bash && source artifacts/runs/p4-navigation-lock-log-outside-20261017-77/nav-install-final/setup.bash && python3 tools/probe_navigation_arrival_adapter.py --project-root /workspace --report artifacts/runs/p4-navigation-action-success-20261017-85/arrival-probe.json",
+    "task_state_tests": "python3 tools/test_navigation_task_state.py: 10 passed",
+    "syntax_check": "python3 -m py_compile tools/probe_navigation_arrival_adapter.py: passed",
+    "structural_check": "python3 tools/project_status.py: PASS (structure/design only)",
+    "diff_check": "git diff --check: passed"
+  },
+  "artifacts": {
+    "run_inputs": {
+      "path": "artifacts/runs/p4-navigation-action-success-20261017-85/run-inputs.json",
+      "sha256": "2961ce91a0e37bfb8de2972f0a243aa819f19c8df633808d5703f66b91a0a32b"
+    },
+    "probe_report": {
+      "path": "artifacts/runs/p4-navigation-action-success-20261017-85/arrival-probe.json",
+      "sha256": "3a9a95aae899974c37d06bd3c1af874306637e05c596ebdfe2eae2b4af1af28c"
+    }
+  },
+  "limitations": [
+    "Odometry was injected by a synthetic ROS peer; it was not produced by vehicle tracking.",
+    "No EGO trajectory execution, PX4 control, obstacle clearance, or flight was exercised.",
+    "This is adapter integration evidence only and does not pass P4, D, or GOAL acceptance."
+  ]
+}

@@ -1,0 +1,597 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "EXCLUDED_REPEAT_PRECONDITION_FAILURE",
+  "scope": "Independent P2 single-wall dynamic map-geometry repeat readiness; no valid repeat geometry sample was obtained.",
+  "qualification": "This report records failed preconditions and static sensor preflight only. It is not map accuracy, P2 stage, GOAL B/D/E/F, or flight acceptance evidence.",
+  "existing_baseline": {
+    "run_id": "p2-map-live-20261016-08",
+    "result": "EXISTING_SINGLE_EXPLORATORY_BASELINE_NOT_A_REPEAT",
+    "ros_domain_id": 116,
+    "gz_partition": "d435i_map_live_08",
+    "variant_reason": null,
+    "motion": {
+      "sim_clock_s": [
+        5.651,
+        30.677
+      ],
+      "truth_samples": 2502,
+      "position_min_xyz_m": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "position_max_xyz_m": [
+        0.252255,
+        0.329815,
+        1.126127
+      ],
+      "xy_path_length_m": 1.157933,
+      "yaw_excursion_deg": 24.0885,
+      "yaw_absolute_path_deg": 91.8847
+    },
+    "observations": {
+      "depth_input_count": 180,
+      "localized_optimized_odometry_count": 484,
+      "optimized_odometry_file_count": 484,
+      "ego_depth_output_count": 234,
+      "ego_pose_output_count": 233,
+      "paired_output_stamp_count": 233,
+      "max_occupied_points": 1787,
+      "max_map_point_count_sampled": 1787,
+      "localization_final": {
+        "wall_elapsed_s": 0.49,
+        "epoch": "ffed95c5352d4bc7981a25c755d2c9fc",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_ffed95c5352d4bc7981a25c755d2c9fc"
+      },
+      "vins_n_pts_samples": 1127,
+      "vins_n_pts_nonzero_samples": 216,
+      "vins_n_pts_max": 36,
+      "vins_retained_initialization_frames": [
+        "0"
+      ],
+      "map_cloud_exists": true,
+      "geometry": {
+        "occupied_points": 1787,
+        "wall_residual_median_m": 0.03634,
+        "wall_residual_p95_m": 0.07312,
+        "within_0_10m_fraction": 0.9966,
+        "qualification": "one wall, one descriptive run; no formal threshold"
+      }
+    },
+    "artifact_hashes_sha256": {
+      "artifacts/runs/p2-map-live-20261016-08/run-live.sh": "9c5e22c083e35662e947179c87c68661be7973782237720ceb971407653a6e22",
+      "artifacts/runs/p2-map-live-20261016-08/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+      "artifacts/runs/p2-map-live-20261016-08/motion.json": "7c9fa46f757703adc61d134240e00346c0badc145397121820dfd56562f4018a",
+      "artifacts/runs/p2-map-live-20261016-08/probe.json": "82441ee237d60bee0e0f093c338ba1995399b8b3f928ae341cb01aa451415d2d",
+      "artifacts/runs/p2-map-live-20261016-08/optimized-odometry.json": "33327c4088c60d81ce5a53dcb606c85a53b9ff6f17e9a358a08502800847e33d",
+      "artifacts/runs/p2-map-live-20261016-08/vins.log": "66acdd0e3b49b7f8eb67c8b690a7d55d183b4b4b02d33fa7a1d940a3933f4e80",
+      "artifacts/runs/p2-map-live-20261016-08/sensors.log": "7d5c744aeda7b9e42fb104f78b2d7a68c9b88d8a1f9ea479ac2430e6461df1f1"
+    },
+    "namespace_binding": {
+      "vins_namespace_actual": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+      "localization_adapter_session_namespace_expected": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+      "matches_current_session": true,
+      "vins_initialization_finish_markers": 1
+    }
+  },
+  "dynamic_attempts": [
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-232",
+      "result": "EXCLUDED_RUN_LOCAL_HARNESS_SESSION_NAMESPACE_MISMATCH",
+      "ros_domain_id": 232,
+      "gz_partition": "d435i_map_calib_232",
+      "variant_reason": null,
+      "motion": {
+        "sim_clock_s": [
+          7.154,
+          32.176
+        ],
+        "truth_samples": 2502,
+        "position_min_xyz_m": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "position_max_xyz_m": [
+          0.242639,
+          0.326756,
+          1.12132
+        ],
+        "xy_path_length_m": 1.155125,
+        "yaw_excursion_deg": 23.1704,
+        "yaw_absolute_path_deg": 91.6971
+      },
+      "observations": {
+        "depth_input_count": 899,
+        "localized_optimized_odometry_count": 0,
+        "optimized_odometry_file_count": 0,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0,
+        "max_map_point_count_sampled": 0,
+        "localization_final": {
+          "wall_elapsed_s": 12.556,
+          "wall_epoch_s": 1792444448.688905,
+          "epoch": "004d7cb27e03488da6ee7bcbbb497bb4",
+          "state": 4,
+          "valid": false,
+          "reason": "initialization_timeout",
+          "frame_id": "odom_004d7cb27e03488da6ee7bcbbb497bb4"
+        },
+        "vins_n_pts_samples": 1183,
+        "vins_n_pts_nonzero_samples": 211,
+        "vins_n_pts_max": 36,
+        "vins_retained_initialization_frames": [
+          "0"
+        ],
+        "map_cloud_exists": false
+      },
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/run-variant-manifest.json": "ab599d2d9b160d79e320437d3fdd5522b87248c6f3d1c531bf2044040f7e3210",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/run-live.sh": "fb141ff0a9c851434a22f48849fb3fd8ecf3c739658b33315cab0b60293d5824",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/motion.json": "08849c7f68202d437befda53fb4719505091f48011f2e17b68074abae4d54f70",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/probe.json": "8bd5640605601e87876960493195d629acad8d7675139d8412ba6ae0667d938e",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/optimized-odometry.json": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/vins.log": "5ff6522555f29181934a9db74551a693086282816219f01f583ee779e2be8e10",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/sensors.log": "0fea6dd986d0aa270723af0d30a5e1b5ef4a914909f2c0ca4d2bbded2e0bcc6b",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-232/session/session.json": "ea1045f784a12ce9aec0418e8356bc5e0d8412f7e28d53161eba63819165dd71"
+      },
+      "namespace_binding": {
+        "script_namespace_source": "artifacts/runs/p2-map-live-20261016-08/session/session.json",
+        "vins_namespace_actual": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+        "localization_adapter_session_namespace_expected": "/vins_raw/s_004d7cb27e03488da6ee7bcbbb497bb4",
+        "matches_current_session": false,
+        "vins_initialization_finish_markers": 1,
+        "evidence": "run-live.sh applies the source as VINS __ns; localization_adapter subscribes to the namespace in this attempt session manifest."
+      }
+    },
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-233",
+      "result": "EXCLUDED_RUN_LOCAL_HARNESS_SESSION_NAMESPACE_MISMATCH",
+      "ros_domain_id": 232,
+      "gz_partition": "d435i_map_calib_233",
+      "variant_reason": "Previous run had zero image features and Gazebo X11 authorization warning; this retry starts the identical run script under an isolated Xvfb display.",
+      "motion": {
+        "sim_clock_s": [
+          7.041,
+          32.051
+        ],
+        "truth_samples": 2501,
+        "position_min_xyz_m": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "position_max_xyz_m": [
+          0.265504,
+          0.327688,
+          1.132752
+        ],
+        "xy_path_length_m": 1.165775,
+        "yaw_excursion_deg": 25.3538,
+        "yaw_absolute_path_deg": 92.5526
+      },
+      "observations": {
+        "depth_input_count": 850,
+        "localized_optimized_odometry_count": 0,
+        "optimized_odometry_file_count": 0,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0,
+        "max_map_point_count_sampled": 0,
+        "localization_final": {
+          "wall_elapsed_s": 12.256,
+          "wall_epoch_s": 1792444553.734903,
+          "epoch": "9c7a046e3a974cdf83ecdfa32a1bce95",
+          "state": 4,
+          "valid": false,
+          "reason": "initialization_timeout",
+          "frame_id": "odom_9c7a046e3a974cdf83ecdfa32a1bce95"
+        },
+        "vins_n_pts_samples": 1171,
+        "vins_n_pts_nonzero_samples": 224,
+        "vins_n_pts_max": 36,
+        "vins_retained_initialization_frames": [
+          "0"
+        ],
+        "map_cloud_exists": false
+      },
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/run-variant-manifest.json": "840a3f6f42008d656be45a4a0332256188f7fc698e6885d4b703fdec5fb69bd4",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/run-live.sh": "42457bf8c9300016979cc87235def91c7e90ee7393a662021776f689490cea59",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/motion.json": "4fee112e37a8b3988bf0caa8599ce361a77659e8b2abc21e8f2823bdcabf55a9",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/probe.json": "c9db9d84f288992c5d0fa35ca2eb584c5080040cc22945e58823ac3a6b7e5a1f",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/optimized-odometry.json": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/vins.log": "70b6235f2711a92b57a72ff7d03874596c0b84b7217fca820d81f718b9d650e9",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/sensors.log": "dff1beea4412ef63909a7555bef4e1e55e39304b541c74c4e0aa9a8440efb124",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-233/session/session.json": "96f6f433f60188f4aec6b8e43b94646d1d5fff09f3d952b2ee6a46f41803f016"
+      },
+      "namespace_binding": {
+        "script_namespace_source": "artifacts/runs/p2-map-live-20261016-08/session/session.json",
+        "vins_namespace_actual": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+        "localization_adapter_session_namespace_expected": "/vins_raw/s_9c7a046e3a974cdf83ecdfa32a1bce95",
+        "matches_current_session": false,
+        "vins_initialization_finish_markers": 1,
+        "evidence": "run-live.sh applies the source as VINS __ns; localization_adapter subscribes to the namespace in this attempt session manifest."
+      }
+    },
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-234",
+      "result": "EXCLUDED_RUN_LOCAL_HARNESS_SESSION_NAMESPACE_MISMATCH",
+      "ros_domain_id": 232,
+      "gz_partition": "d435i_map_calib_234",
+      "variant_reason": "Previous attempts omitted the NVIDIA GPU; matched the existing successful dynamic simulation launch with --gpus all and EGL surfaceless rendering.",
+      "motion": {
+        "sim_clock_s": [
+          8.176,
+          33.217
+        ],
+        "truth_samples": 2504,
+        "position_min_xyz_m": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "position_max_xyz_m": [
+          0.262586,
+          0.334493,
+          1.131293
+        ],
+        "xy_path_length_m": 1.168448,
+        "yaw_excursion_deg": 25.0751,
+        "yaw_absolute_path_deg": 92.5525
+      },
+      "observations": {
+        "depth_input_count": 1014,
+        "localized_optimized_odometry_count": 0,
+        "optimized_odometry_file_count": 0,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0,
+        "max_map_point_count_sampled": 0,
+        "localization_final": {
+          "wall_elapsed_s": 12.467,
+          "wall_epoch_s": 1792444662.531529,
+          "epoch": "9d5d5d171a2c4b69881c696a705b97a5",
+          "state": 4,
+          "valid": false,
+          "reason": "initialization_timeout",
+          "frame_id": "odom_9d5d5d171a2c4b69881c696a705b97a5"
+        },
+        "vins_n_pts_samples": 1306,
+        "vins_n_pts_nonzero_samples": 224,
+        "vins_n_pts_max": 36,
+        "vins_retained_initialization_frames": [
+          "0"
+        ],
+        "map_cloud_exists": false
+      },
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/run-variant-manifest.json": "be59be07e72367b6c053e116916e6be84ae45e3d8536ff7c8a196b726edf231d",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/run-live.sh": "0fb20c00b2e507397c8865e69fb1992c10483e365aaa14961f333b20df30d299",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/motion.json": "f12823f381cb0dffbebc91b1faee270113c51bb5a356e097166bc02102c21a84",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/probe.json": "9bb8bee4468e364f70f17879ab67ea02305b83b2f173e9ee84b9742e6d37cbea",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/optimized-odometry.json": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/vins.log": "b56d4566566950f491d0926feeb98ad7d94d83dfb0bd3b7cc375491594fc6074",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/sensors.log": "5943c49e3b775e5189469b32a7ad6e082bafc013a0c4c2fc5b047fccb969aa96",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-234/session/session.json": "54bc85eb12111767b9c3223fb2f4291ce6b21e454b15291c72df296dc5e10f96"
+      },
+      "namespace_binding": {
+        "script_namespace_source": "artifacts/runs/p2-map-live-20261016-08/session/session.json",
+        "vins_namespace_actual": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+        "localization_adapter_session_namespace_expected": "/vins_raw/s_9d5d5d171a2c4b69881c696a705b97a5",
+        "matches_current_session": false,
+        "vins_initialization_finish_markers": 1,
+        "evidence": "run-live.sh applies the source as VINS __ns; localization_adapter subscribes to the namespace in this attempt session manifest."
+      }
+    },
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-236",
+      "result": "EXCLUDED_RUN_LOCAL_HARNESS_SESSION_NAMESPACE_MISMATCH",
+      "ros_domain_id": 232,
+      "gz_partition": "d435i_map_calib_236",
+      "variant_reason": "Match the successful GPU/EGL container settings recorded in p5-px4-vio-mapping-ego-gpu-profile-20261017-122.",
+      "motion": {
+        "sim_clock_s": [
+          8.471,
+          33.473
+        ],
+        "truth_samples": 2500,
+        "position_min_xyz_m": [
+          -0.038336,
+          -0.025241,
+          0.980832
+        ],
+        "position_max_xyz_m": [
+          0.234274,
+          0.311068,
+          1.117137
+        ],
+        "xy_path_length_m": 1.169285,
+        "yaw_excursion_deg": 26.0323,
+        "yaw_absolute_path_deg": 92.9208
+      },
+      "observations": {
+        "depth_input_count": 1096,
+        "localized_optimized_odometry_count": 0,
+        "optimized_odometry_file_count": 0,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0,
+        "max_map_point_count_sampled": 0,
+        "localization_final": {
+          "wall_elapsed_s": 14.6,
+          "wall_epoch_s": 1792444781.078141,
+          "epoch": "4048607323524b1b9a78f891b8615833",
+          "state": 4,
+          "valid": false,
+          "reason": "initialization_timeout",
+          "frame_id": "odom_4048607323524b1b9a78f891b8615833"
+        },
+        "vins_n_pts_samples": 1269,
+        "vins_n_pts_nonzero_samples": 190,
+        "vins_n_pts_max": 36,
+        "vins_retained_initialization_frames": [
+          "0"
+        ],
+        "map_cloud_exists": false
+      },
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/run-variant-manifest.json": "7abbcaf5312414a47c94d50d76c3a281217555536399f0a7636eefe9941e5199",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/run-live.sh": "efe0bc6f0439331cc8d1c9e18ca74fe51be76c24a806ff324f6f22eecf5e1a93",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/motion.json": "b91c7d1c72bf5e4949776cd66d36ebe91f95ebbc4c253190715d8aeed1510d27",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/probe.json": "1ccf524ce20572847a5c77b7b1fa34c7c99710ff9a1b56dccda88b8900a0e0ff",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/optimized-odometry.json": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/vins.log": "16208ca7c4f8fd46b2956f2cc5968b8a5f86e7f90ccd235d60b2ae69226bea3b",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/sensors.log": "944d5041533965e7ae803787c9a24939d52629223637553c8cc955111a303427",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-236/session/session.json": "d1c473e5d8bfdecdb456aebef5ef8380ae1203e8a4545eb5d90882d5556d810a"
+      },
+      "namespace_binding": {
+        "script_namespace_source": "artifacts/runs/p2-map-live-20261016-08/session/session.json",
+        "vins_namespace_actual": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+        "localization_adapter_session_namespace_expected": "/vins_raw/s_4048607323524b1b9a78f891b8615833",
+        "matches_current_session": false,
+        "vins_initialization_finish_markers": 1,
+        "evidence": "run-live.sh applies the source as VINS __ns; localization_adapter subscribes to the namespace in this attempt session manifest."
+      }
+    },
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-238",
+      "result": "EXCLUDED_RUN_LOCAL_HARNESS_SESSION_NAMESPACE_MISMATCH",
+      "ros_domain_id": 232,
+      "gz_partition": "d435i_map_calib_238",
+      "variant_reason": null,
+      "motion": {
+        "sim_clock_s": [
+          8.372,
+          33.394
+        ],
+        "truth_samples": 2502,
+        "position_min_xyz_m": [
+          -0.052344,
+          -0.021767,
+          0.973828
+        ],
+        "position_max_xyz_m": [
+          0.232853,
+          0.311842,
+          1.116427
+        ],
+        "xy_path_length_m": 1.17122,
+        "yaw_excursion_deg": 27.2343,
+        "yaw_absolute_path_deg": 93.2225
+      },
+      "observations": {
+        "depth_input_count": 1090,
+        "localized_optimized_odometry_count": 0,
+        "optimized_odometry_file_count": 0,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0,
+        "max_map_point_count_sampled": 0,
+        "localization_final": {
+          "wall_elapsed_s": 12.546,
+          "wall_epoch_s": 1792444923.290555,
+          "epoch": "6a07ef5f338f456b968387baef227266",
+          "state": 4,
+          "valid": false,
+          "reason": "initialization_timeout",
+          "frame_id": "odom_6a07ef5f338f456b968387baef227266"
+        },
+        "vins_n_pts_samples": 1310,
+        "vins_n_pts_nonzero_samples": 183,
+        "vins_n_pts_max": 36,
+        "vins_retained_initialization_frames": [
+          "0"
+        ],
+        "map_cloud_exists": false
+      },
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/run-variant-manifest.json": "d1e2ded48778e22e630dbc7e97ec9b0585823cb3ea6d7ad2a7b232af4f0142bc",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/run-live.sh": "57092550c0afb953035526faa3de3fac89c0eff9eb16765f5aca7b146937b6f7",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/motion.json": "2081337e94b39e2aaa9eee6d2685d6e91ff1347888abdda91f86fbdea5931984",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/probe.json": "38d1758d1f2337ba2697d69d5a67dfce1aaf9caec2f5d4f497fab85e43c68122",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/optimized-odometry.json": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/vins.log": "bc4fb75b5999f403ab2cb41e88c53586f24837fbec953ef0f303173e2e777b96",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/sensors.log": "52b8d1c1c104522c8aabed34835cde42ae1bf68f2765811ebfc71d46ea15f062",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-238/session/session.json": "8096fc4e672b6adef5852761f8685950c6abb9d4a92115d7c0963bb2839bca03"
+      },
+      "namespace_binding": {
+        "script_namespace_source": "artifacts/runs/p2-map-live-20261016-08/session/session.json",
+        "vins_namespace_actual": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+        "localization_adapter_session_namespace_expected": "/vins_raw/s_6a07ef5f338f456b968387baef227266",
+        "matches_current_session": false,
+        "vins_initialization_finish_markers": 1,
+        "evidence": "run-live.sh applies the source as VINS __ns; localization_adapter subscribes to the namespace in this attempt session manifest."
+      }
+    },
+    {
+      "run_id": "p2-map-geometry-calibration-20261020-239",
+      "result": "EXCLUDED_RUN_LOCAL_HARNESS_SESSION_NAMESPACE_MISMATCH",
+      "ros_domain_id": 116,
+      "gz_partition": "d435i_map_calib_239",
+      "variant_reason": "Use the same known-good ROS domain as the original P2 geometry run; domain 232 may exhaust Fast DDS UDP port allocation with this multi-node graph.",
+      "motion": {
+        "sim_clock_s": [
+          8.326,
+          33.331
+        ],
+        "truth_samples": 2501,
+        "position_min_xyz_m": [
+          -0.071687,
+          -0.007506,
+          0.964157
+        ],
+        "position_max_xyz_m": [
+          0.232381,
+          0.312015,
+          1.11619
+        ],
+        "xy_path_length_m": 1.180657,
+        "yaw_excursion_deg": 29.0363,
+        "yaw_absolute_path_deg": 94.7557
+      },
+      "observations": {
+        "depth_input_count": 1049,
+        "localized_optimized_odometry_count": 0,
+        "optimized_odometry_file_count": 0,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0,
+        "max_map_point_count_sampled": 0,
+        "localization_final": {
+          "wall_elapsed_s": 12.565,
+          "wall_epoch_s": 1792445052.758832,
+          "epoch": "a3cf01e393a04399a0559e0d8bbdd96a",
+          "state": 4,
+          "valid": false,
+          "reason": "initialization_timeout",
+          "frame_id": "odom_a3cf01e393a04399a0559e0d8bbdd96a"
+        },
+        "vins_n_pts_samples": 1303,
+        "vins_n_pts_nonzero_samples": 181,
+        "vins_n_pts_max": 36,
+        "vins_retained_initialization_frames": [
+          "0"
+        ],
+        "map_cloud_exists": false
+      },
+      "artifact_hashes_sha256": {
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/run-variant-manifest.json": "e8290edbd9ac0fd27a08b4545023b119b00119caf8490978a93c4eaf219e2990",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/run-live.sh": "10244e713f148b9d61f48f8629fe2034a7b4dc09f53e01ae5e8f193ab049d77a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/motion.json": "ac1231c399de46c2e1b1af87ebc711996e4cc295ebcf2c8e3ae1750b3c316f1b",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/probe.json": "81900a61136e52322b9296198975531d1ba2babb2d14d75aa1eb44968f16fd63",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/optimized-odometry.json": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/vins.log": "cc3e905cb97877c62b2b1468faf2dcbe41c1c405db73ceba1e17d91d25b415a6",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/sensors.log": "0455d6a8159078ac23543762388016d0e9a0160983af5bc1cd479a6ed81141c7",
+        "artifacts/runs/p2-map-geometry-calibration-20261020-239/session/session.json": "0de9d93e7f4793ac06c1de7308bac3eecac128df1d492d9b32d4846ad37f2857"
+      },
+      "namespace_binding": {
+        "script_namespace_source": "artifacts/runs/p2-map-live-20261016-08/session/session.json",
+        "vins_namespace_actual": "/vins_raw/s_ffed95c5352d4bc7981a25c755d2c9fc",
+        "localization_adapter_session_namespace_expected": "/vins_raw/s_a3cf01e393a04399a0559e0d8bbdd96a",
+        "matches_current_session": false,
+        "vins_initialization_finish_markers": 1,
+        "evidence": "run-live.sh applies the source as VINS __ns; localization_adapter subscribes to the namespace in this attempt session manifest."
+      }
+    }
+  ],
+  "static_render_preflight": {
+    "run_id": "p1-gpu-render-preflight-20261020-237",
+    "result": "PASS",
+    "scope": "Static ideal sensor fixture only; not flight or VIO acceptance",
+    "all_checks_passed": true,
+    "check_count": 31,
+    "counts": {
+      "imu": 2320,
+      "infra1_info": 352,
+      "infra1": 352,
+      "infra2_info": 352,
+      "infra2": 352,
+      "color_info": 352,
+      "depth_info": 352,
+      "color": 350,
+      "depth": 347
+    },
+    "source_rates_hz": {
+      "imu": 200.0172503018803,
+      "infra1_info": 30.35281909373919,
+      "infra1": 30.35281909373919,
+      "infra2_info": 30.35281909373919,
+      "infra2": 30.35281909373919,
+      "color_info": 30.35281909373919,
+      "depth_info": 30.35281909373919,
+      "color": 30.2138343000606,
+      "depth": 29.954116526707644
+    },
+    "artifact_paths": [
+      "artifacts/runs/p1-gpu-render-preflight-20261020-237/sensor-report.json",
+      "artifacts/runs/p1-gpu-render-preflight-20261020-237/run-variant-manifest.json",
+      "artifacts/runs/p1-gpu-render-preflight-20261020-237/run-render-preflight.sh"
+    ],
+    "artifact_hashes_sha256": {
+      "artifacts/runs/p1-gpu-render-preflight-20261020-237/sensor-report.json": "beddb5bd57d791c5ca7effab82814c1855f833c06d09933bbf50db1fc0206f61",
+      "artifacts/runs/p1-gpu-render-preflight-20261020-237/run-variant-manifest.json": "a6a0b6b284cab905b58fc6f71d77648f09cd29d69e6476d04b1132d7d0d4b5c4",
+      "artifacts/runs/p1-gpu-render-preflight-20261020-237/run-render-preflight.sh": "d362a1a15bf6947c4164d29504c485c6979153f8eea169b9724bd268e0867969"
+    },
+    "limitation": "Static sensor/render checks do not verify dynamic VINS initialization or mapping."
+  },
+  "shared_input_comparison": {
+    "motion_world_sha256": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+    "all_dynamic_attempts_match_baseline_motion_world": true,
+    "runtime_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c973e9b93b03f87aca7ad6f8",
+    "install_tree": "artifacts/runs/p2-map-input-build-20261016-01/install",
+    "ros_domain_ids": {
+      "232": 232,
+      "233": 232,
+      "234": 232,
+      "236": 232,
+      "238": 232,
+      "239": 116
+    },
+    "interpretation": "The failed #239 used domain 116, matching baseline #08; its motion world also matches byte-for-byte. The domain-232 runs and #239 therefore do not establish a domain-only cause.",
+    "namespace_mismatch_confirmed_in_all_dynamic_attempts": true,
+    "baseline_namespace_matches_its_session": true
+  },
+  "findings": [
+    "All six dynamic repeat attempts #232/#233/#234/#236/#238/#239 are excluded: their run-local launch script set the VINS node namespace from the old #08 session, while each localization adapter loaded its newly generated session manifest. The VINS namespace therefore differed from the adapter expected namespace in all six runs.",
+    "VINS did finish its internal initialization and ran solver cycles (one Initialization finish marker per run); visual tracking also logged nonzero n_pts samples. However, VINS published under the old session namespace, so the current-session localization adapter did not receive its raw optimized odometry and ended at initialization_timeout; EGO received no adapter output.",
+    "The static GPU/EGL/Xvfb sensor preflight #237 passed every listed check. This establishes the static sensor/render chain only; it cannot verify a correct VINS-to-adapter session binding.",
+    "The existing #08 map geometry result remains a single descriptive wall sample. The six failed harness runs provide no independent geometry measurement and no map-error or minimum-clearance threshold.",
+    "The harness namespace mismatch is a confirmed run-script defect, not evidence of a VINS algorithm, ROS domain, camera render, or motion excitation failure. No canonical source, config, health limit, acceptance threshold, or milestone status changed."
+  ],
+  "goal_f_readiness": {
+    "status": "NOT_READY_TO_FREEZE",
+    "reasons": [
+      "Map geometry has only one exploratory wall/profile result; the six attempted repeats were invalid because their harness bound VINS to a stale session namespace.",
+      "No qualified flight tracking-error and minimum body-clearance baselines are available for freezing thresholds.",
+      "Maximum data age, replanning deadline, and fault detect/exit timeout still need scenario-linked measurements across the canonical pipeline."
+    ],
+    "decision": "Correct the run-local session namespace source and obtain a valid independent map sample before attempting to freeze config/acceptance.json or starting D/E formal runs; then collect the remaining F baselines."
+  },
+  "artifact_run_directories": [
+    "artifacts/runs/p2-map-geometry-calibration-20261020-232",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-233",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-234",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-236",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-238",
+    "artifacts/runs/p2-map-geometry-calibration-20261020-239",
+    "artifacts/runs/p1-gpu-render-preflight-20261020-237"
+  ]
+}

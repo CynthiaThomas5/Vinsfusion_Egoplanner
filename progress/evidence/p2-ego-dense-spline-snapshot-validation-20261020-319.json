@@ -1,0 +1,92 @@
+{
+  "schema": "ego-dense-spline-snapshot-validation-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-dense-spline-snapshot-validation-20261020-319",
+  "result": "diagnostic_candidate_spline_clear_in_paired_map_snapshot",
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch_0029": "dependencies/patches/ego/0029-dense-spline-inflation-check-experiment.patch",
+    "patch_0029_sha256": "1903e9ed4d2fa5a6044f1fb6167e3b82a89215524ffcfb32f9c8b3230f761abb",
+    "planner_binary_sha256": "9040507b33ee2a0d0657874f9f4cece358a0c69723672cd881dbe090bfd8f866",
+    "build_report": "artifacts/runs/p2-ego-dense-spline-collision-check-20261020-318/build-report-0029.json",
+    "build_report_sha256": "eea6d3ac6984976189631992819a5b7699d5e9a2a7c99e6aa80a2052875433e3"
+  },
+  "runtime": {
+    "command": "bash artifacts/runs/p2-ego-dense-spline-snapshot-validation-20261020-319/run-container.sh",
+    "status": "bspline_received",
+    "goal_sent": true,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "received_distinct_spline_count": 2,
+    "snapshot_requests": 2,
+    "snapshot_accepted_count": 1,
+    "snapshot_rejected_records": [
+      {
+        "traj_id": 1,
+        "reason": "no_fresh_fused_depth"
+      }
+    ],
+    "accepted_traj_id": 2,
+    "snapshot_stamp_minus_spline_start_s": 0.0,
+    "depth_source_age_at_snapshot_s": 0.066,
+    "map": {
+      "shape": [
+        240,
+        240,
+        60
+      ],
+      "resolution_m": 0.1,
+      "known_voxels": 21426,
+      "total_voxels": 3456000,
+      "known_fraction": 0.006199652777777778
+    },
+    "accepted_spline_sampling": {
+      "step_s": 0.01,
+      "samples": 414,
+      "in_map": 414,
+      "out_of_map": 0,
+      "unknown": 0,
+      "known_free": 414,
+      "raw_occupied": 0,
+      "inflation_mask_hits_full_curve": 0,
+      "minimum_sampled_centerline_to_occupied_voxel_box_m": 0.627675497101379,
+      "nominal_sphere_radius_m": 0.482,
+      "sampled_voxel_box_margin_over_nominal_sphere_m": 0.14567549710137906
+    }
+  },
+  "graph": {
+    "forbidden_control_nodes": [],
+    "truth_topics": [],
+    "control_topics": [],
+    "trajectory_executed": false
+  },
+  "artifacts": {
+    "runtime_manifest": {
+      "path": "artifacts/runs/p2-ego-dense-spline-snapshot-validation-20261020-319/runtime-manifest-01.json",
+      "sha256": "45f00cdd59cef7cef49fdb41494935b60cd54c36e424e9bcbefc925afa93aa08"
+    },
+    "analysis": {
+      "path": "artifacts/runs/p2-ego-dense-spline-snapshot-validation-20261020-319/spline-snapshot-clearance-analysis.json",
+      "sha256": "7aaaf030c61b81dbdef5b9945108160db54ea8d5dc06e40f71aa56dc855069be"
+    },
+    "snapshot": {
+      "path": "artifacts/runs/p2-ego-dense-spline-snapshot-validation-20261020-319/snapshots-01/spline-2-occupancy.npz",
+      "sha256": "78a5247cdba7fd66e9caec134581a8753fb8bf8137806337bbb099a4e2548de6"
+    },
+    "planner_goal_result": {
+      "path": "artifacts/runs/p2-ego-dense-spline-snapshot-validation-20261020-319/planner-goal-result-01.json",
+      "sha256": "1063592e010b2cd2d2418293716b511ff4679a04c2c87fe1e8c1023b5a4440ed"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-dense-spline-snapshot-validation-20261020-319/runtime-summary-01.json",
+      "sha256": "74a1acea90d8c6a326194d1baa5a3d0e352214170116020e927b31d32feabd9a"
+    },
+    "log": {
+      "path": "artifacts/runs/p2-ego-dense-spline-snapshot-validation-20261020-319/ego-01.log",
+      "sha256": "4dcba4dba5c5c18fd4ebcb4b34bce7ccc259957951a8b01944f9b5074f4ef1cc"
+    }
+  },
+  "qualification": "Planner-only experimental result. The accepted trajectory centerline had no 10 ms samples in unknown, occupied or inflated voxels in the paired snapshot. The snapshot stamp matched spline start exactly and source age was 66 ms. This does not sweep the vehicle body, validate map completeness/accuracy, include tracking error, or establish safety; global known coverage was only about 0.62%. No controller, trajectory server, PX4, truth or control topics were present."
+}

@@ -1,0 +1,350 @@
+{
+  "artifacts": {
+    "agent_log": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/agent.log",
+      "sha256": "04de8091460992f34e882a245bac0346f982c614caa49209dc9ba1b11aa9fb73",
+      "size_bytes": 41563
+    },
+    "gazebo_log": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/gazebo.log",
+      "sha256": "d2bc5423e6ce8dac1c63037669bf4e5e47926c469800f222a32f1c6250714f0a",
+      "size_bytes": 2802
+    },
+    "generated_world": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/vio_initialization.sdf",
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11",
+      "size_bytes": 7845
+    },
+    "harness": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/run-px4-offset-convergence-repeat.sh",
+      "sha256": "443d9ffb570c0f488669bac039422c6ee017fb7ccd958ddda57b26ac16333769",
+      "size_bytes": 9963
+    },
+    "live_probe": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/px4-live-probe.json",
+      "sha256": "3f7ea8299b0a077734f1817a3437a6575fe3e4901b5e68157428dd57b94c1d16",
+      "size_bytes": 2711781
+    },
+    "localization_probe": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/localization-probe.json",
+      "sha256": "0345c731907e9e6536fca9583c5ce701ff50fd6b8753a9ee84e6d574269d80f6",
+      "size_bytes": 377021
+    },
+    "px4_bridge_graph": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/px4-bridge-node-info.txt",
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+      "size_bytes": 1879
+    },
+    "px4_log": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/px4.log",
+      "sha256": "e465e8e7a5dfb3d542f7bb59c342cb44b1cdc8c06c9e74e75a839e214297687f",
+      "size_bytes": 5035
+    },
+    "px4_parameter_stage": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/px4-param-stage.json",
+      "sha256": "d5bdbca886e7742a56694e3c08bee207a9d60692812048a20ec2b64108f6bc24",
+      "size_bytes": 725
+    },
+    "qualification": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/qualification.json",
+      "sha256": "e50498634d727174a24bdc0ca26926b52558f750c1a47d07119e4b7734bc5e77",
+      "size_bytes": 3257320
+    },
+    "raw_stream_probe": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/raw-stream-freshness.json",
+      "sha256": "be486d159f4734cfa549e1f5822d1dbcd771cfd2b04fca01716eafdbaefca2b1",
+      "size_bytes": 5909
+    },
+    "session_manifest": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/session/session.json",
+      "sha256": "34bf3ca09d3820b5f11a24037e066460b29658a51dd60b89663139a68d67fb0f",
+      "size_bytes": 654
+    },
+    "ulog": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/px4_sitl_default/log/2026-10-17/09_07_31.ulg",
+      "sha256": "a1df013105ce3ed07425ba2bdb72c5921d26461fb4db0ea4b7cdf701a90c95d0",
+      "size_bytes": 9336047
+    },
+    "vins_log": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/vins.log",
+      "sha256": "110f66048958a64f848060a9e3605b8a86c8c2afd0e94d5ceff2636a15886bee",
+      "size_bytes": 69062
+    },
+    "vins_runtime_config": {
+      "path": "artifacts/runs/p5-px4-offset-convergence-repeat-20261017-110/session/vins.yaml",
+      "sha256": "d1d7094734dd3eb47a8d878c1259d4689ce50ed974b96e18db728061e3c76477",
+      "size_bytes": 1267
+    }
+  },
+  "changes_under_test": {
+    "control_behavior_changed": false,
+    "probe": "Same read-only raw PX4 timestamp/estimated_offset/clock instrumentation as run 109. No bridge source, freshness threshold or control behavior changed.",
+    "run_isolation": "New PX4 build directory copied from the pinned run-108 SITL build; new ROS domain and Gazebo partition.",
+    "thresholds_changed": false
+  },
+  "checks": {
+    "attitude_samples": 1893,
+    "bridge_detail_samples_with_any_px4_freshness_gate_violation": 41,
+    "bridge_reason_counts": {
+      "external_odometry_stale": 2,
+      "localization_not_tracking": 350
+    },
+    "bridge_truth_subscription_present": false,
+    "control_topic_sample_counts_all_zero": true,
+    "ekf2_ev_position_fused": false,
+    "ekf2_ev_yaw_fused": false,
+    "estimated_offset_window_wall_s": {
+      "final_estimated_offset_us": -1792228062554933,
+      "first_adjustment": 14.595,
+      "initial_estimated_offset_us": -1792228045068323,
+      "last_value_change": 19.779,
+      "offset_value_transitions": 25
+    },
+    "final_bridge_reason": "localization_not_tracking",
+    "first_last_gate_violation_wall_s": [
+      14.678,
+      19.778
+    ],
+    "gate_violation_source_counts": {
+      "attitude": 33,
+      "estimator_flags": 12,
+      "land_detected": 26,
+      "local_position": 31,
+      "vehicle_status": 10
+    },
+    "gnss_aiding_flags_all_zero": true,
+    "local_position_samples": 946,
+    "localization_final_reason": "left_stale",
+    "localization_first_tracking_wall_s": 0.744,
+    "localization_left_stale_wall_s": 0.747,
+    "localization_optimized_samples": 0,
+    "localization_propagated_samples": 6,
+    "px4_status_samples": 38,
+    "px4_timesync_samples": 39,
+    "px4_visual_odometry_samples": 0,
+    "readiness_final_10s_coverage": 0.0,
+    "ros_truth_topics_present": false,
+    "source_age_at_callback": {
+      "attitude": {
+        "future_over_20ms_all": 167,
+        "future_over_20ms_in_offset_adjustment_window": 167,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.006202,
+          "min": -0.000459,
+          "p50": 0.001133,
+          "p95": 0.004679,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 1097,
+        "usable_samples": 1820
+      },
+      "estimator_flags": {
+        "future_over_20ms_all": 0,
+        "future_over_20ms_in_offset_adjustment_window": 0,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.002186,
+          "min": -3.2e-05,
+          "p50": 0.000578,
+          "p95": 0.002186,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 11,
+        "usable_samples": 19
+      },
+      "land_detected": {
+        "future_over_20ms_all": 2,
+        "future_over_20ms_in_offset_adjustment_window": 2,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001657,
+          "min": 6.2e-05,
+          "p50": 0.000702,
+          "p95": 0.001657,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 11,
+        "usable_samples": 19
+      },
+      "local_position": {
+        "future_over_20ms_all": 87,
+        "future_over_20ms_in_offset_adjustment_window": 87,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.010615,
+          "min": -0.000448,
+          "p50": 0.004704,
+          "p95": 0.009028,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 548,
+        "usable_samples": 909
+      },
+      "vehicle_status": {
+        "future_over_20ms_all": 4,
+        "future_over_20ms_in_offset_adjustment_window": 4,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.000867,
+          "min": -0.000565,
+          "p50": 0.000155,
+          "p95": 0.000732,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 22,
+        "usable_samples": 36
+      }
+    },
+    "stereo_left_image_samples": 565,
+    "stereo_right_image_samples": 564,
+    "ulog_present": true,
+    "vehicle_remained_disarmed": true,
+    "vins_raw_odometry_samples": 284
+  },
+  "date": "2026-10-17",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ephemeral_container": true,
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "repository_head": null,
+    "repository_snapshot": "No project HEAD exists; relevant source/config hashes and run artifacts are recorded below.",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 226
+  },
+  "limitations": [
+    "The repeated offset transition supports, but does not fully explain, startup time-domain behavior.",
+    "Localization locked left_stale shortly after tracking despite raw stereo and VINS odometry samples; the input-age discrepancy remains separate diagnostic work.",
+    "Bridge status reason priority was dominated by localization_not_tracking, so the 41 timestamp-gate violations in detail are diagnostic calculations and not counted as px4_telemetry_stale status samples.",
+    "No VIO-to-PX4 odometry, EKF2 fusion, readiness, Offboard, control, arming, flight or navigation qualification occurred.",
+    "The run is excluded from fusion evidence and does not complete P5, P4, P6 or GOAL A-H."
+  ],
+  "qualification": "A second 45-second passive SITL run reproduced the PX4 estimated_offset estimated_offset adjustment window and the same transient PX4 timestamp-future ages in independent high-rate telemetry. VINS raw odometry was present, but the localization adapter entered left_stale shortly after briefly reaching TRACKING; PX4 received no visual-odometry messages and no EV fusion was observed. This run is excluded from fusion evidence and retained only for PX4/Agent time-correlation diagnostics.",
+  "qualification_exclusion": {
+    "eligible_for": "PX4/Agent timestamp offset and callback-age diagnostic only; not VIO-to-EKF2 fusion or P5 acceptance.",
+    "reason": "VINS raw odometry published 284 samples and the raw probe received 565/564 left/right images. The localization adapter briefly reported TRACKING then locked with left_stale at 0.747 s. The localization probe observed zero optimized and six propagated output messages; the bridge therefore sent zero PX4 visual-odometry messages."
+  },
+  "result": "DIAGNOSTIC_ONLY_OFFSET_TRANSITION_REPRODUCED_VIO_RUN_EXCLUDED",
+  "run_id": "p5-px4-offset-convergence-repeat-20261017-110",
+  "source_sha256": {
+    "bridge_config": {
+      "path": "config/components/px4_bridge/vio_closed_loop.json",
+      "sha256": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601"
+    },
+    "bridge_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9"
+    },
+    "frame_contract": {
+      "path": "config/components/px4_bridge/frames_vio_closed_loop.json",
+      "sha256": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822"
+    },
+    "launch": {
+      "path": "src/own/uav_px4_bridge/launch/vio_closed_loop_px4.launch.py",
+      "sha256": "d07780617a1dabc344a0c0d32771d8f5d0de175724020c2e4355745c42408cc8"
+    },
+    "live_probe": {
+      "path": "tools/probe_px4_bridge_live.py",
+      "sha256": "6704a8883ecec7b8e17ed8aeaab374c797dd996aa134473444630a2cbf028e75"
+    },
+    "profile": {
+      "path": "config/profiles/vio_closed_loop.json",
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "sensor_bridge_config": {
+      "path": "config/components/simulation/d435i_bridge.yaml",
+      "sha256": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed"
+    },
+    "time_mapping_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "sha256": "81d663ab1aa4fbc650971ce61cf71d64660dae7e4bff2a11f7ed726b143eb0db"
+    }
+  },
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "timestamp_analysis": {
+    "method": "Interpolate adjacent /clock samples against their monotonic receipt elapsed time; recover PX4 source time as raw timestamp_agent_us plus the latest received estimated_offset_us. Exclude samples without an offset and non-positive recovered source times.",
+    "offset_window_definition": "estimated_offset_us changed from its initial nonzero value at 14.595 s (including a transient zero sample) and last changed at 19.779 s. It then remained unchanged through the final timesync message. This is an estimate plateau only; no observed_offset was recorded in run 110, so it does not prove PX4/Agent timesync convergence.",
+    "raw_source_samples_excluded": {
+      "attitude": 73,
+      "land_detected": 1,
+      "local_position": 37,
+      "vehicle_status": 2
+    },
+    "source_ages": {
+      "attitude": {
+        "future_over_20ms_all": 167,
+        "future_over_20ms_in_offset_adjustment_window": 167,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.006202,
+          "min": -0.000459,
+          "p50": 0.001133,
+          "p95": 0.004679,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 1097,
+        "usable_samples": 1820
+      },
+      "estimator_flags": {
+        "future_over_20ms_all": 0,
+        "future_over_20ms_in_offset_adjustment_window": 0,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.002186,
+          "min": -3.2e-05,
+          "p50": 0.000578,
+          "p95": 0.002186,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 11,
+        "usable_samples": 19
+      },
+      "land_detected": {
+        "future_over_20ms_all": 2,
+        "future_over_20ms_in_offset_adjustment_window": 2,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001657,
+          "min": 6.2e-05,
+          "p50": 0.000702,
+          "p95": 0.001657,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 11,
+        "usable_samples": 19
+      },
+      "local_position": {
+        "future_over_20ms_all": 87,
+        "future_over_20ms_in_offset_adjustment_window": 87,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.010615,
+          "min": -0.000448,
+          "p50": 0.004704,
+          "p95": 0.009028,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 548,
+        "usable_samples": 909
+      },
+      "vehicle_status": {
+        "future_over_20ms_all": 4,
+        "future_over_20ms_in_offset_adjustment_window": 4,
+        "post_final_offset_change_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.000867,
+          "min": -0.000565,
+          "p50": 0.000155,
+          "p95": 0.000732,
+          "stale_over_1_5s": 0
+        },
+        "post_final_offset_change_samples": 22,
+        "usable_samples": 36
+      }
+    }
+  }
+}

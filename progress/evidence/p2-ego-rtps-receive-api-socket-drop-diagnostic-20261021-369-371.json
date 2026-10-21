@@ -1,0 +1,139 @@
+{
+  "schema": "p2-ego-rtps-receive-api-socket-drop-diagnostic/v1",
+  "date": "2026-10-21",
+  "evidence_id": "p2-ego-rtps-receive-api-socket-drop-diagnostic-20261021-369-371",
+  "objective": "Trace exact mapping camera-pose RTPS DATA headers from loopback visibility to EGO receive API buffers during a successful-take gap, then sample the participant UDP socket drop counter across the gap.",
+  "scope": {
+    "project_scope": "P0-P6 single-D435i simulation",
+    "runs": [
+      {"run_id": "p2-ego-rtps-sequence-udp-receive-header-diagnostic-20261021-369", "ros_domain_id": 229, "gazebo_partition": "d435i_ego_rtps_sequence_369_01"},
+      {"run_id": "p2-ego-rtps-sequence-udp-receive-header-exact-sequence-diagnostic-20261021-370", "ros_domain_id": 230, "gazebo_partition": "d435i_ego_rtps_sequence_370_01"},
+      {"run_id": "p2-ego-rtps-sequence-udp-receive-header-socket-drop-window-diagnostic-20261021-371", "ros_domain_id": 231, "gazebo_partition": "d435i_ego_rtps_sequence_371_01"}
+    ],
+    "goal_sent": false,
+    "px4_started": false,
+    "trajectory_server_started": false,
+    "truth_subscribed": false,
+    "control_subscribed": false,
+    "pcap_persisted": false,
+    "application_payload_fields_requested": false,
+    "canonical_source_or_config_changed": false,
+    "p2_milestone_changed": false
+  },
+  "run_manifests": [
+    {
+      "run_id": "p2-ego-rtps-sequence-udp-receive-header-diagnostic-20261021-369",
+      "path": "artifacts/runs/p2-ego-rtps-sequence-udp-receive-header-diagnostic-20261021-369/run-manifest.json",
+      "sha256": "066c24f771059080797df6b78df5e889046055be077c65a19297ca9eed30d72d"
+    },
+    {
+      "run_id": "p2-ego-rtps-sequence-udp-receive-header-exact-sequence-diagnostic-20261021-370",
+      "path": "artifacts/runs/p2-ego-rtps-sequence-udp-receive-header-exact-sequence-diagnostic-20261021-370/run-manifest.json",
+      "sha256": "3818b20e5f9d0b23d02f51cbdf885ed20dc588e225dbe9c30ff687e9b784d2ad"
+    },
+    {
+      "run_id": "p2-ego-rtps-sequence-udp-receive-header-socket-drop-window-diagnostic-20261021-371",
+      "path": "artifacts/runs/p2-ego-rtps-sequence-udp-receive-header-socket-drop-window-diagnostic-20261021-371/run-manifest.json",
+      "sha256": "98f938825f999085b9be20d488fe3f35682d80c0dc26b1cb45721453f5b2924b"
+    }
+  ],
+  "method": {
+    "receiver_observation": "A run-local LD_PRELOAD probe inspected only RTPS header and DATA submessage metadata after recv/recvfrom/recvmsg/recvmmsg returned in the EGO process. It wrote source GUID prefix, DATA reader/writer entity IDs, sequence number, local UDP port, receive completion time, and datagram length; it did not save serialized payload bytes.",
+    "writer_identity": "Run 369 applied an exact source-GUID filter after capture. Runs 370 and 371 resolved the mapping adapter writer GID before EGO launch, configured the probe to filter the full 12-byte writer GUID prefix before logging, and asserted the GID was unchanged after endpoint discovery.",
+    "sequence_decode": "Run 369 initially interpreted SequenceNumber as one 64-bit scalar and required post-capture 32-bit word reconstruction against loopback. Run 370 corrected the parser to decode SequenceNumber high and low 32-bit words using the DATA submessage byte order; synthetic little- and big-endian recvfrom self-tests passed.",
+    "socket_drop_sampling": "Run 371 sampled /proc/<ego-pid>/fd and /proc/<ego-pid>/net/udp every 20 ms, then matched fd/inode and the EGO participant UDP port inferred from exact-reader DATA traffic."
+  },
+  "results": {
+    "run_369": {
+      "exact_successful_take_gap_s": 2.562837436,
+      "mapping_writer_rmw_publish_count_inside_gap": 49,
+      "loopback_data_records": 54,
+      "loopback_unique_sequences": 49,
+      "loopback_sequence_range": [297, 345],
+      "ego_receive_api_target_records_inside_gap": 48,
+      "sequences_matched_between_loopback_and_receive_api": 48,
+      "loopback_sequence_not_observed_by_receive_probe": [341],
+      "ego_participant_udp_port": 64679,
+      "probe_rows_before_post_capture_guid_filter": 33492,
+      "probe_rows_rejected_by_post_capture_identity_filter": 32614,
+      "interpretation_limit": "Positive post-hoc sequence correlation is retained as provisional method evidence. The entity-only logging filter admitted unrelated writers with the same entity ID, and the raw sequence scalar required reconstruction; run 370 provides the corrected forward-filtered parser."
+    },
+    "run_370": {
+      "exact_successful_take_gap_s": 2.496391636,
+      "mapping_writer_rmw_publish_count_inside_gap": 51,
+      "loopback_unique_sequences": 51,
+      "loopback_sequence_range": [307, 357],
+      "ego_receive_api_unique_sequences_inside_gap": 44,
+      "sequences_matched_between_loopback_and_receive_api": 44,
+      "loopback_sequences_not_observed_by_receive_probe": [307, 330, 340, 345, 346, 351, 352],
+      "receive_api_sequences_not_observed_at_loopback": [],
+      "ego_participant_udp_port": 64929,
+      "ego_socket_fd": 73,
+      "reader_entity_id_counts_inside_gap": {"0x00000000": 44},
+      "rmw_wait_events_inside_gap": 680,
+      "rmw_not_ready_with_unread_zero": 679,
+      "rmw_ready_with_unread_three": 1,
+      "status_samples_inside_gap": 43,
+      "listener_events_near_gap_end": ["sample_lost(unread=0)", "data_available(unread=3)"],
+      "parser_self_test": "passed for sequence numbers 123 (little-endian) and 456 (big-endian), with zero serialized payload bytes"
+    },
+    "run_371": {
+      "exact_successful_take_gap_s": 2.294765421,
+      "mapping_writer_rmw_publish_count_inside_gap": 47,
+      "loopback_data_records": 50,
+      "loopback_unique_sequences": 47,
+      "loopback_sequence_range": [68, 114],
+      "ego_receive_api_unique_sequences_inside_gap": 46,
+      "sequences_matched_between_loopback_and_receive_api": 46,
+      "loopback_sequence_not_observed_by_receive_probe": [112],
+      "receive_api_sequences_not_observed_at_loopback": [],
+      "ego_participant_udp_port": 65179,
+      "ego_socket_fd": 74,
+      "ego_socket_inode": 1360127,
+      "reader_entity_id_counts_inside_gap": {"0x00000000": 43, "0x00001c04": 3},
+      "rmw_wait_events_inside_gap": 627,
+      "rmw_not_ready_with_unread_zero": 626,
+      "rmw_ready_with_unread_twelve": 1,
+      "status_samples_inside_gap": 39,
+      "status_lost_or_rejected_in_gap": false,
+      "listener_events_inside_gap": "Two data_available events at the gap end, each with unread_count=12; no sample_lost or sample_rejected callback.",
+      "socket_sampler": {
+        "target_port_samples": 2363,
+        "samples_inside_gap": 114,
+        "observed_median_interval_ms": 20.098,
+        "observed_maximum_interval_ms": 30.561,
+        "drop_counter_before_gap": 126,
+        "drop_counter_after_gap": 184,
+        "drop_counter_delta_across_gap_bracket": 58,
+        "equal_duration_preceding_interval_drop_delta": 40,
+        "equal_duration_following_interval_drop_delta": 28,
+        "full_sampling_window_s": 47.507,
+        "full_sampling_window_drop_counter": [0, 1219],
+        "maximum_rx_queue_bytes_sampled_inside_gap": 960
+      },
+      "interpretation_limit": "The /proc UDP drops counter is cumulative for all datagrams on the participant socket, not per topic or sequence. Its increase spans the take gap but is of the same order as adjacent intervals and cannot be assigned to the missing sequence 112."
+    }
+  },
+  "cross_run_conclusion": {
+    "confirmed": "Exact mapping-writer RTPS DATA sequence headers were returned by receive APIs in the EGO process during all three selected successful-take gaps. Run 370 and run 371 provide forward-filtered writer GUID evidence; run 371 also brackets socket-level cumulative drop changes.",
+    "not_confirmed": "Receive API return does not establish admission into the camera-pose DataReader history or a ROS successful take. Socket drop counters do not identify topic/sample losses. Loopback captures reported packet counts but no numeric dropped-packet count, so capture completeness is not established.",
+    "next": "Trace Fast DDS receive processing from the participant socket through reader matching/history insertion and wait-set notification, correlating a specific RTPS sequence where possible. Keep P2 HEALTH thresholds PROVISIONAL and GOAL C pending until independent end-to-end evidence exists."
+  },
+  "validation": {
+    "run_container_exit_codes": {"369": 0, "370": 0, "371": 0},
+    "run_370_c_probe_compile": "passed with -Wall -Wextra -Werror",
+    "run_370_sequence_endian_self_test": "passed for both endian orders",
+    "run_371_selected_gap_take_alignment": "passed",
+    "run_371_rtps_sequence_analysis": "passed",
+    "run_371_receive_api_sequence_alignment": "passed",
+    "run_371_socket_drop_window_alignment": "passed",
+    "run_371_global_wait_trace_sequence_check": "failed because the complete trace wait_seq stream is non-contiguous; selected gap alignment remained available and passed",
+    "run_371_initial_analysis_attempt": "excluded: wrong hard-coded VPID; preserved under analysis-attempt-001-wrong-vpid; rerun used VPID values from ego-trace-selection.txt"
+  },
+  "stage_state": {
+    "P2": "passed",
+    "P2_health_thresholds": "PROVISIONAL",
+    "GOAL_C": "pending",
+    "milestones_changed": false
+  }
+}

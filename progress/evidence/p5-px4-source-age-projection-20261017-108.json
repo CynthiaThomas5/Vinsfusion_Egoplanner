@@ -1,0 +1,320 @@
+{
+  "date": "2026-10-17",
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "result": "DIAGNOSTIC_ONLY_VIO_EKF2_OBSERVED_READINESS_UNQUALIFIED",
+  "run_id": "p5-px4-source-age-projection-20261017-108",
+  "qualification": "75-second disarmed SITL confirms VINS-to-PX4 EV fusion without GNSS or truth input. Monotonic-time projection was added for source-age checks; intermittent telemetry stale remains and readiness is false in DISABLED mode. No control service, Offboard, arming, flight, or navigation occurred.",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "ros_domain_id": 225,
+    "ephemeral_container": true,
+    "repository_head": null,
+    "repository_snapshot": "No project HEAD exists; relevant source/configuration SHA-256 values are recorded below."
+  },
+  "changes_under_test": {
+    "px4_source_age_reference": "Project current ROS simulation time from the fitted /clock-to-monotonic mapping at the freshness-check instant, rather than the last asynchronously received /clock value.",
+    "health_thresholds_changed": false,
+    "control_behavior_changed": false
+  },
+  "checks": {
+    "localization_tracking_observed": true,
+    "ros_visual_odometry_samples": 478,
+    "ulog_external_visual_odometry_samples": 506,
+    "estimator_status_flags_samples": 62,
+    "ev_position_fused_samples": 40,
+    "ev_yaw_fused_samples": 38,
+    "gnss_aiding_flags_all_zero": true,
+    "no_gnss_aiding": true,
+    "ros_truth_topics_present": false,
+    "bridge_truth_subscription_present": false,
+    "bridge_reason_counts": {
+      "external_odometry_stale": 2,
+      "px4_frame_unaligned": 2,
+      "px4_local_position_invalid": 9,
+      "px4_preflight_failed": 494,
+      "px4_telemetry_stale": 70
+    },
+    "px4_telemetry_stale_detail_samples": 70,
+    "readiness_final_10s_coverage": 0.0,
+    "final_bridge_reason": "px4_preflight_failed",
+    "bridge_control_enabled_final": false,
+    "control_topic_sample_counts_all_zero": true,
+    "vehicle_remained_disarmed": true,
+    "clock_nonmonotonic_sample_count": 0
+  },
+  "diagnostics": {
+    "run_106_pre_projection": {
+      "run_id": "p5-px4-telemetry-detail-20261017-106",
+      "bridge_reason_counts": {
+        "external_odometry_stale": 6,
+        "px4_frame_unaligned": 1,
+        "px4_local_position_invalid": 9,
+        "px4_preflight_failed": 485,
+        "px4_telemetry_stale": 85
+      },
+      "telemetry": {
+        "detail_samples": 585,
+        "reason_counts": {
+          "external_odometry_stale": 6,
+          "px4_local_position_invalid": 9,
+          "px4_preflight_failed": 484,
+          "px4_telemetry_stale": 85,
+          "px4_frame_unaligned": 1
+        },
+        "sources": {
+          "vehicle_status": {
+            "source_age_min_sim_s": -0.024896,
+            "source_age_max_sim_s": 15.878597,
+            "source_age_over_limit_samples": 11,
+            "source_age_too_far_future_samples": 2,
+            "receipt_age_max_wall_s": 1.233484,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 3.0
+          },
+          "local_position": {
+            "source_age_min_sim_s": -0.137159,
+            "source_age_max_sim_s": 0.031912,
+            "source_age_over_limit_samples": 0,
+            "source_age_too_far_future_samples": 60,
+            "receipt_age_max_wall_s": 0.069241,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 0.5
+          },
+          "attitude": {
+            "source_age_min_sim_s": -0.133818,
+            "source_age_max_sim_s": 0.012,
+            "source_age_over_limit_samples": 0,
+            "source_age_too_far_future_samples": 65,
+            "receipt_age_max_wall_s": 0.062067,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 0.5
+          },
+          "estimator_flags": {
+            "source_age_min_sim_s": -0.085399,
+            "source_age_max_sim_s": 17.001526,
+            "source_age_over_limit_samples": 45,
+            "source_age_too_far_future_samples": 1,
+            "receipt_age_max_wall_s": 2.411565,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 3.0
+          },
+          "land_detected": {
+            "source_age_min_sim_s": -0.093294,
+            "source_age_max_sim_s": 16.833729,
+            "source_age_over_limit_samples": 43,
+            "source_age_too_far_future_samples": 2,
+            "receipt_age_max_wall_s": 2.50675,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 3.0
+          }
+        }
+      },
+      "qualification": {
+        "control_remained_disabled": true,
+        "ekf2_ev_position_fused": true,
+        "ekf2_ev_yaw_fused": true,
+        "localization_tracking": true,
+        "no_gnss_aiding": true,
+        "no_timesync_stale_reason": true,
+        "optimized_vio_odometry_delivered": true,
+        "readiness_final_10s_at_least_95pct": false,
+        "vehicle_remained_disarmed": true
+      },
+      "final_reason": "px4_preflight_failed"
+    },
+    "run_107_clock_capture_excluded": {
+      "run_id": "p5-px4-clock-age-correlation-20261017-107",
+      "exclusion_reason": "VINS did not initialize in this run: only four VehicleOdometry samples, no EV fusion; it is not a VIO/EKF2 run result.",
+      "bridge_reason_counts": {
+        "external_odometry_stale": 2,
+        "localization_not_tracking": 565,
+        "px4_frame_unaligned": 1,
+        "px4_preflight_failed": 5
+      },
+      "clock_samples": 7959,
+      "clock_rollback_count": 0
+    },
+    "run_108_projected_clock": {
+      "telemetry": {
+        "detail_samples": 577,
+        "reason_counts": {
+          "external_odometry_stale": 2,
+          "px4_local_position_invalid": 9,
+          "px4_preflight_failed": 494,
+          "px4_telemetry_stale": 70,
+          "px4_frame_unaligned": 2
+        },
+        "sources": {
+          "vehicle_status": {
+            "source_age_min_sim_s": -0.012348,
+            "source_age_max_sim_s": 15.850522,
+            "source_age_over_limit_samples": 12,
+            "source_age_too_far_future_samples": 0,
+            "receipt_age_max_wall_s": 1.226018,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 3.0
+          },
+          "local_position": {
+            "source_age_min_sim_s": -0.139887,
+            "source_age_max_sim_s": 15.320215,
+            "source_age_over_limit_samples": 1,
+            "source_age_too_far_future_samples": 49,
+            "receipt_age_max_wall_s": 0.070608,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 0.5
+          },
+          "attitude": {
+            "source_age_min_sim_s": -0.131772,
+            "source_age_max_sim_s": 0.021082,
+            "source_age_over_limit_samples": 0,
+            "source_age_too_far_future_samples": 56,
+            "receipt_age_max_wall_s": 0.056349,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 0.5
+          },
+          "estimator_flags": {
+            "source_age_min_sim_s": -0.061006,
+            "source_age_max_sim_s": 17.360218,
+            "source_age_over_limit_samples": 40,
+            "source_age_too_far_future_samples": 4,
+            "receipt_age_max_wall_s": 2.404721,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 3.0
+          },
+          "land_detected": {
+            "source_age_min_sim_s": -0.06219,
+            "source_age_max_sim_s": 17.352218,
+            "source_age_over_limit_samples": 42,
+            "source_age_too_far_future_samples": 2,
+            "receipt_age_max_wall_s": 2.398153,
+            "receipt_age_over_limit_samples": 0,
+            "source_age_limit_sim_s": 1.5,
+            "future_limit_sim_s": 0.02,
+            "receipt_age_limit_wall_s": 3.0
+          }
+        }
+      },
+      "clock": {
+        "samples": 7892,
+        "maximum_step_sim_s": 0.088,
+        "rollback_count": 0,
+        "zero_step_count": 0
+      },
+      "ulog_duration_s": 54.352,
+      "timesync_clock_age_sim_s": {
+        "min": -0.004,
+        "max": 0.096
+      },
+      "event_state_timestamp_semantics": {
+        "estimator_status_flags": "PX4 v1.17.0 publishes this status when the estimator state flags change; timestamp age alone does not prove that the state snapshot stopped being current.",
+        "vehicle_land_detected": "PX4 v1.17.0 publishes on land-state changes; its timestamp is event time, not a periodic heartbeat.",
+        "vehicle_status": "PX4 Commander republishes on a 500 ms interval or state change.",
+        "source_references": [
+          "external/PX4-Autopilot/src/modules/ekf2/EKF2.cpp:1908-1988",
+          "external/PX4-Autopilot/src/modules/land_detector/LandDetector.cpp:181",
+          "external/PX4-Autopilot/src/modules/commander/Commander.cpp:1932-1944"
+        ],
+        "interpretation": "The current bridge applies one source-age rule to periodic and event-state topics. Separate liveness treatment is still needed; no limits were raised in this change."
+      }
+    }
+  },
+  "validation": {
+    "tools/test_px4_bridge_time_mapping.py": "12 passed",
+    "tools/test_px4_bridge_control.py": "11 passed",
+    "tools/test_px4_bridge_frames.py": "19 passed",
+    "tools/test_px4_bridge_vio_profile.py": "6 passed",
+    "py_compile": "passed",
+    "probe_constructor_and_clock_output_smoke": "ROS 2 Jazzy node initialized and emitted empty ros_clock_samples schema at --seconds 0",
+    "colcon_build": "uav_px4_bridge 1/1 passed in a new isolated Jazzy overlay",
+    "runtime_command": "docker run --rm --init --name p5-px4-source-age-projection-20261017-108 --shm-size=512m -v $PWD:/workspace -w /workspace d435i-vins:dev bash -lc 'bash /workspace/artifacts/runs/p5-px4-source-age-projection-20261017-108/run-px4-source-age-projection.sh'"
+  },
+  "source_snapshot_sha256": {
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": "81d663ab1aa4fbc650971ce61cf71d64660dae7e4bff2a11f7ed726b143eb0db",
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9",
+    "tools/test_px4_bridge_time_mapping.py": "8dd0f87a1630fc8422315507d11b107b9e7badf7d0c7e598a752fe3398f9ff39",
+    "tools/probe_px4_bridge_live.py": "38d82abb306edde38cc437609fa050135d6a480efe5e9ab14dbfcb8107e5db27",
+    "config/components/px4_bridge/debug_truth.json": "23994c778027e252b358e8c4c69afbb403030e343012d54893f492c91b37ebd6",
+    "config/components/px4_bridge/vio_closed_loop.json": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601",
+    "config/components/px4_bridge/frames_vio_closed_loop.json": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822",
+    "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37"
+  },
+  "artifacts": {
+    "run_106_probe": {
+      "path": "artifacts/runs/p5-px4-telemetry-detail-20261017-106/px4-live-probe.json",
+      "sha256": "dd11410639e5b5a0f5b43766167923e0d354c5fa0579b2101c66be2402622e57"
+    },
+    "run_106_qualification": {
+      "path": "artifacts/runs/p5-px4-telemetry-detail-20261017-106/qualification.json",
+      "sha256": "289b7063e221733436bf7f0b9b30e8d972cd926a9c13ef78630106a3f606cec0"
+    },
+    "run_106_harness": {
+      "path": "artifacts/runs/p5-px4-telemetry-detail-20261017-106/run-px4-telemetry-detail.sh",
+      "sha256": "ff8ded623ee7b93592f76a0c4bcc7cd15839230a8410230159c7ae5df2956c6d"
+    },
+    "run_107_probe": {
+      "path": "artifacts/runs/p5-px4-clock-age-correlation-20261017-107/px4-live-probe.json",
+      "sha256": "fb1acde872aba59f685cdbff278b3a92d16e6d1948c175f38ea71eda54f05b92"
+    },
+    "run_107_qualification": {
+      "path": "artifacts/runs/p5-px4-clock-age-correlation-20261017-107/qualification.json",
+      "sha256": "87a73ae411117bcb2709cdb579584e422e481e630a0435b062cc5a52775b5886"
+    },
+    "run_108_probe": {
+      "path": "artifacts/runs/p5-px4-source-age-projection-20261017-108/px4-live-probe.json",
+      "sha256": "139791062bceadebbf73629af7c7d59955391b45b9e3551dcccc9f80a93b58f7"
+    },
+    "run_108_qualification": {
+      "path": "artifacts/runs/p5-px4-source-age-projection-20261017-108/qualification.json",
+      "sha256": "2aaf01ae54997d6a3ce83660561da48a9d83a7b8c8482ed3cfd267e3ed698573"
+    },
+    "run_108_harness": {
+      "path": "artifacts/runs/p5-px4-source-age-projection-20261017-108/run-px4-source-age-projection.sh",
+      "sha256": "f35e0881fa58a792cce99a5e5a934e04240f1cccb2cb46cd010f0c8f2a93db7d"
+    },
+    "run_108_build_log": {
+      "path": "artifacts/runs/p5-px4-source-age-projection-20261017-108/build/uav_px4_bridge/install.log",
+      "sha256": "572affa12577c2145e283c5450ff5253330d356d91500181ee8d00f7aef62a05"
+    },
+    "run_108_ulog": {
+      "path": "artifacts/runs/p5-px4-source-age-projection-20261017-108/px4_sitl_default/log/2026-10-17/08_45_51.ulg",
+      "sha256": "ef12f85965ec976154cac9a06ba4c59f2d821264c6c0a0a4496e084f64bf03df"
+    },
+    "run_108_installed_bridge": {
+      "path": "artifacts/runs/p5-px4-source-age-projection-20261017-108/install/lib/python3.12/site-packages/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9"
+    }
+  },
+  "limitations": [
+    "P5 remains in_progress; readiness final-window coverage is 0 because the bridge stayed DISABLED and PX4 reports px4_preflight_failed in the current mode.",
+    "Run 108 still reported px4_telemetry_stale in 70/577 status samples. Source-age projection does not resolve event-state timestamp semantics or all observed future/old PX4 sample ages.",
+    "Run 107 is excluded from fusion evidence because VINS produced only four PX4 odometry samples and no EKF2 EV fusion.",
+    "No Offboard prestream, enable service, VehicleCommand, arming, flight, goal, obstacle clearance, or landing was attempted.",
+    "This does not complete P4, P5, P6, or GOAL A-H; F thresholds and D/E formal acceptance remain unfinished."
+  ],
+  "next_step": "Separate periodic telemetry liveness from change-driven PX4 state snapshots using the pinned PX4 source semantics; correlate individual stale/future age samples with message receipt and clock mapping, retaining current limits until justified. Then repeat DISABLED VIO/EKF2 SITL before any later authorized control-path evaluation."
+}

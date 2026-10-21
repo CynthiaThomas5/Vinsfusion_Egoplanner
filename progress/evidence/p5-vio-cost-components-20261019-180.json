@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-19",
+  "run_id": "p5-px4-vio-ego-flight-20261019-180",
+  "classification": "diagnostic_only_not_stage_acceptance",
+  "scope": "One run-local optional VINS Ceres cost-group evaluation at the first normalized_cost >= 1.0 sample during the canonical VIO/EGO/PX4 SITL goal. No health threshold or solver policy change.",
+  "source": {
+    "repository": "VINS-Fusion-ROS2",
+    "revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "patch": "dependencies/patches/vins/0005-diagnostic-cost-components.patch",
+    "applied_after": "dependencies/patches/vins/0004-initialize-excitation-sum.patch",
+    "enable_environment_variable": "VINS_DIAGNOSTIC_COST_GROUPS=1",
+    "default": "disabled",
+    "build_image": "d435i-vins:dev",
+    "build_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "build_command": "colcon build --base-paths src/vendor/vins_fusion/camera_models src/vendor/vins_fusion/vins --build-base artifacts/runs/p5-vio-cost-component-build-20261019-01/build --install-base artifacts/runs/p5-vio-cost-component-build-20261019-01/install --merge-install --parallel-workers 1",
+    "build_result": {
+      "exit_code": 0,
+      "packages_finished": 2
+    },
+    "runtime_package_prefix": "/workspace/artifacts/runs/p5-vio-cost-component-build-20261019-01/install",
+    "runtime_binary": "artifacts/runs/p5-vio-cost-component-build-20261019-01/install/lib/vins/vins_node"
+  },
+  "run": {
+    "ros_domain_id": 231,
+    "gazebo_partition": "d435i_p5_vio_ego_flight_180",
+    "goal": "0.5 m ENU lateral displacement plus +45 degree yaw request, same short-goal profile as #178",
+    "px4_build_source": "artifacts/runs/p0-px4-sitl-build-20261016-02/build/px4_sitl_default",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "excluded_prior_attempt": {
+      "run_id": "p5-px4-vio-ego-flight-20261019-179",
+      "ros_domain_id": 234,
+      "reason": "Fast DDS reported an invalid UDP port/domain and PX4 DDS status did not become available; no result from this attempt is used as runtime evidence."
+    }
+  },
+  "first_quality_gate_crossing": {
+    "previous_sample": {
+      "stamp_ns": 34192000000,
+      "final_cost": 836.9170186191457,
+      "residual_components": 1828,
+      "visual_observations": 420,
+      "input_features": 65,
+      "stereo_features": 64,
+      "continued_tracks": 55,
+      "long_tracks": 42,
+      "solve_seconds": 0.01194906234741211,
+      "normalized_cost": 0.9569034090004145
+    },
+    "crossing_sample": {
+      "stamp_ns": 34256000000,
+      "initial_cost": 1106.3118845354368,
+      "final_cost": 998.0632878136837,
+      "residual_components": 1856,
+      "visual_observations": 428,
+      "input_features": 64,
+      "stereo_features": 62,
+      "continued_tracks": 53,
+      "long_tracks": 44,
+      "solve_seconds": 0.011387109756469727,
+      "normalized_cost": 1.0370627910391197,
+      "cost_components": {
+        "marginalization": {
+          "cost": 113.55955399618864,
+          "residual_components": 82
+        },
+        "imu": {
+          "cost": 0.262523109483091,
+          "residual_components": 150
+        },
+        "visual": {
+          "cost": 884.2412107080103,
+          "residual_components": 1624
+        },
+        "evaluation_ok": true,
+        "grouped_cost_sum": 998.063287813682,
+        "grouped_cost_error": -1.7053025658242404e-12,
+        "grouped_residual_components": 1856
+      }
+    },
+    "delta_final_cost": 161.14626919453804,
+    "delta_residual_components": 28,
+    "delta_visual_observations": 8,
+    "cost_shares": {
+      "marginalization": 0.11377991294013781,
+      "imu": 0.0002630325277850499,
+      "visual": 0.8859570545320754
+    },
+    "grouped_cost_sum": 998.063287813682,
+    "grouped_cost_error": -1.7053025658242404e-12,
+    "relative_grouped_cost_error": -1.708611654837847e-15,
+    "grouped_residual_components": 1856,
+    "total_residual_components": 1856,
+    "quality_history_crossing_samples": 33,
+    "diagnostic_group_object_emitted_once": true
+  },
+  "outcome": {
+    "navigation_goal_dispatched": true,
+    "navigation_success": false,
+    "abort_reason": "localization_normalized_cost_exceeded",
+    "localization_final_state": 4,
+    "bridge_final_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "normalized_cost_exceeded"
+    },
+    "vehicle_final_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false,
+      "timestamp": 1792413677483682
+    },
+    "landed_and_disarmed": true,
+    "flight_process_exit_code": 1,
+    "truth_capture_exit_code": 0,
+    "current_run_ulog": "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/px4_sitl_default/log/2026-10-19/12_40_30.ulg"
+  },
+  "truth_isolation": {
+    "scope": "Read-only diagnostic capture; Gazebo truth is an evaluator input only, never a navigation or control input",
+    "truth_samples": 2951,
+    "imu_samples": 11828,
+    "telemetry_samples": 895,
+    "parse_errors": [],
+    "all_output_finite": true,
+    "truth_topic_single_subscriber": "raw_vins_readonly_probe",
+    "px4_bridge_debug_truth_subscription": false,
+    "graph_check": "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/truth-input-graph-check.txt"
+  },
+  "limitations": [
+    "The single diagnostic sample shows visual residuals dominate this Ceres objective; it does not identify the bad image, feature tracks, calibration, or motion source and does not establish causality or a general quality threshold.",
+    "No matched hover-only baseline was run; image/feature timestamp latency was not captured in this run.",
+    "Ceres solve_seconds is recorded before the optional component evaluations, so this evidence does not quantify their runtime overhead.",
+    "The goal was aborted by the existing quality gate and the vehicle landed disarmed; lateral/yaw goal completion and P5 acceptance remain unproven."
+  ],
+  "sha256": {
+    "dependencies/patches/vins/0005-diagnostic-cost-components.patch": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72",
+    "src/vendor/vins_fusion/vins/src/estimator/estimator.cpp": "15adf0b2f3a0e8f1a2f506e2b6480e41c860aeb0c05ce37dc63e9bb0175ec3ad",
+    "artifacts/runs/p5-vio-cost-component-build-20261019-01/install/lib/vins/vins_node": "f27fb218f6a5bd895d06a8797fcb00db66a95af203b03289d84a0be409109cf2",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/run-px4-vio-ego-flight.sh": "324020f55191262824a63a6e3b0940990167d33a4773b0d12e8ff0902bdf710c",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/vio_closed_loop_smoke_goal.json": "09c3f77fbdaa4cb290c52ef08e3f59027e6974945cb0be0eed14c0a9b63ecd10",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/vins-package-prefix.txt": "53306123bf6e733194528e46d7554cd9ac9ad49ff713964156aeb50d0a18c4dc",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/px4_sitl_default/bin/px4": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/vio-truth-capture/telemetry.json": "501746d02e4a0ae16edb8e928ea73db87f8a73e7e5705ef8613137ee8d4853ed",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/vio-truth-capture/summary.json": "065f08395c423320f5c3eee099d1998797e593689a64fd9a25bf274d06124ff4",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/vio-ego-flight-report.json": "2783d49e7716eb0c402e239cf866458eff798f6e456c367b03ac32e247dc191e",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/truth-evaluator-topic-info.txt": "70e666b570ef3defd2ea276b47424773bcdfde54fd21c4f812b31e3e8081e63f",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/px4-bridge-node-info.txt": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-180/px4_sitl_default/log/2026-10-19/12_40_30.ulg": "901d64c0ee225de1d6716f773da758846844b3caaac13b7f24774f0b8f6e4664",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-179/agent.log": "c686f301e5f13c107b00887aab0599fd4e63c1635a5c43899aa9cc6ab192742b",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-179/px4.log": "53b19bb5d7819302bcb18858aff222ac405255fa7e8a670544a0bd50b711237c"
+  }
+}

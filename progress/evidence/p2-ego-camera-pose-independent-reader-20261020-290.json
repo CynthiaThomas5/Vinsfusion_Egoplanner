@@ -1,0 +1,203 @@
+{
+  "schema": "p2-ego-camera-pose-independent-reader-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-camera-pose-observer-20261020-290",
+  "status": "DIAGNOSTIC_ONLY_CAUSE_UNRESOLVED",
+  "scope": "Planner-only diagnostic with a low-bandwidth, independent PoseStamped reader; no trajectory execution, PX4 control, truth input, or GOAL C/D/E/F acceptance.",
+  "run_report": {
+    "path": "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/run-report.json",
+    "sha256": "4cd5d5db0e911d83e8bcd0b49ce59242220aa9e46559f55e3e39b69e15493f66"
+  },
+  "software": {
+    "ego_upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "ego_binary_sha256": "34e6046cd2cdbcb8fb5b3db1d90398d8bef1d06f943acfa28eb0d6f244b6e5da",
+    "ego_candidate_patch": "dependencies/patches/ego/0020-unknown-as-obstacle-experiment.patch",
+    "ego_candidate_patch_sha256": "1041f74fd2b8c0409f348f272d7e48f0d7a62d9552e31a741b9296aa8ffdb0b8",
+    "ego_install_reused_from": "artifacts/runs/p2-ego-unknown-as-obstacle-experiment-20261020-289/install-02",
+    "vins_binary_sha256": "c06850ad9c1c3e40155af265427f2af9c542fa4acb52b28bb826566f10c0a739",
+    "canonical_vendor_modified": false
+  },
+  "observer": {
+    "topic": "/drone_0_camera_pose",
+    "type": "geometry_msgs/msg/PoseStamped",
+    "qos": {
+      "reliability": "reliable",
+      "durability": "volatile",
+      "history": "keep_last",
+      "depth": 50
+    },
+    "pose_samples": 1264,
+    "one_hz_heartbeat_samples": 70,
+    "started_marker": true,
+    "stopped_marker": true,
+    "frame_ids": [
+      "odom_8e8d77dc521e4947912c802eb62b5ed1"
+    ],
+    "source_stamp_range_s": [
+      3.961,
+      46.399
+    ],
+    "source_stamp_nonincreasing_pairs": 0,
+    "max_host_receipt_gap_s": 0.21719717979431152,
+    "max_source_stamp_gap_s": 0.0660000000000025,
+    "shutdown_note": "SIGINT shutdown wrote the stopped marker and preserved all samples, then rclpy logged ExternalShutdownException and a duplicate-shutdown error. Treat this as observer cleanup noise; no samples were lost from the recorded interval."
+  },
+  "ego_timeout_alignment": {
+    "timeout_event_count": 32,
+    "cluster_count": 2,
+    "clusters": [
+      {
+        "timeout_count": 19,
+        "realtime_range_s": [
+          1792488635.4676392,
+          1792488636.3676062
+        ],
+        "ego_sim_time_range_s": [
+          37.132,
+          37.802
+        ],
+        "sync_count_range": [
+          956,
+          956
+        ],
+        "last_sync_stamp_range_s": [
+          36.004,
+          36.004
+        ],
+        "last_sync_in_map_values": [
+          true
+        ],
+        "independent_pose_delivery": {
+          "margin_s": 1.0,
+          "pose_receipts": 61,
+          "heartbeat_count": 3,
+          "heartbeat_received_range": [
+            974,
+            1015
+          ],
+          "receipt_time_range_s": [
+            1792488634.47509,
+            1792488637.3467915
+          ],
+          "receipt_max_gap_s": 0.19638681411743164,
+          "source_stamp_range_s": [
+            36.367,
+            38.446
+          ],
+          "source_stamp_max_gap_s": 0.0659999999999954,
+          "source_stamp_nonincreasing_pairs": 0
+        }
+      },
+      {
+        "timeout_count": 13,
+        "realtime_range_s": [
+          1792488644.417546,
+          1792488645.0176363
+        ],
+        "ego_sim_time_range_s": [
+          43.539,
+          43.997
+        ],
+        "sync_count_range": [
+          1121,
+          1121
+        ],
+        "last_sync_stamp_range_s": [
+          42.439,
+          42.439
+        ],
+        "last_sync_in_map_values": [
+          true
+        ],
+        "independent_pose_delivery": {
+          "margin_s": 1.0,
+          "pose_receipts": 57,
+          "heartbeat_count": 3,
+          "heartbeat_received_range": [
+            1163,
+            1209
+          ],
+          "receipt_time_range_s": [
+            1792488643.4234307,
+            1792488645.9849424
+          ],
+          "receipt_max_gap_s": 0.10821270942687988,
+          "source_stamp_range_s": [
+            42.736,
+            44.617
+          ],
+          "source_stamp_max_gap_s": 0.0660000000000025,
+          "source_stamp_nonincreasing_pairs": 0
+        }
+      }
+    ],
+    "independent_pose_reader_continuous_in_each_cluster": true,
+    "ego_pose_reader_delivery_proven": false,
+    "ego_depth_reader_delivery_proven": false,
+    "message_filter_pairing_cause_identified": false
+  },
+  "planner_runtime": {
+    "goal_sent": true,
+    "planner_status": "bspline_received",
+    "bspline_count": 98,
+    "map_points_at_dispatch": 902,
+    "inflated_map_points_at_dispatch": 15360,
+    "ego_timeout_count": 32,
+    "localization_final_reason": "normalized_cost_exceeded",
+    "control_nodes": [],
+    "control_topics": [],
+    "truth_related_topics": []
+  },
+  "host_clock_monitor": {
+    "samples": 8501,
+    "coverage_s": 85.69953428,
+    "realtime_minus_monotonic_range_ns": 20609,
+    "largest_adjacent_change_ns": 20318,
+    "observed_large_backward_step": false
+  },
+  "interpretation": "During two EGO input-timeout clusters, the independent camera-pose reader continued to receive nondecreasing source stamps with maximum 66 ms stamp gaps. This weakens a publisher-wide camera-pose outage explanation. It does not prove delivery to EGO’s own reader, and does not distinguish EGO pose-reader behavior from depth delivery or message_filters pairing. Both clusters preceded the localization normalized-cost gate closure. The cause remains unresolved.",
+  "limitations": [
+    "The independent reader adds a low-bandwidth matched reader and could affect scheduling slightly.",
+    "No independent depth-image observer was added because the image stream is high bandwidth.",
+    "The run used a force-driven sensor fixture and an experimental unknown-blocking EGO patch; it did not execute an aircraft trajectory.",
+    "EGO produced planner splines but the planner-only run has no controller, PX4, or physical clearance result.",
+    "The observer shutdown log contains an rclpy external-shutdown/duplicate-shutdown exception after its stop marker.",
+    "The wrapper reused #289 ROS_DOMAIN_ID/GZ_PARTITION sequentially; no active project process was present at preflight, but this was not a distinct-domain run."
+  ],
+  "key_artifacts": {
+    "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/camera-pose-observer.jsonl": {
+      "path": "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/camera-pose-observer.jsonl",
+      "sha256": "ae7f9122df2351374eb1aba82aa19a53acc28b326023c60bb9cecca9a018fed5",
+      "size_bytes": 338257
+    },
+    "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/ego.log": {
+      "path": "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/ego.log",
+      "sha256": "412749a27f848bbc419911a345ebfafb70e0f094ce1f924f9ba014e136b6b19a",
+      "size_bytes": 44344704
+    },
+    "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/pose-delivery-analysis.json": {
+      "path": "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/pose-delivery-analysis.json",
+      "sha256": "2c662b2d4ec6527c625ca80926d97e440957f3546a7ea0cb2fba1373efd5d914",
+      "size_bytes": 2933
+    },
+    "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/camera-pose-topic-info.txt": {
+      "path": "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/camera-pose-topic-info.txt",
+      "sha256": "83ec7b9410614a302fdf4fe7d285081b9da96ac41c074d1bdc48e48d24010987",
+      "size_bytes": 990
+    },
+    "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/clock-offset-samples.jsonl": {
+      "path": "artifacts/runs/p2-ego-camera-pose-observer-20261020-290/clock-offset-samples.jsonl",
+      "sha256": "0f8cc46c192adf20cb25ffaa9d7fe64b8c18cfbf82633b70ffe434a268702d79",
+      "size_bytes": 2013632
+    }
+  },
+  "environment": {
+    "ros": "Jazzy",
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 136,
+    "gazebo_partition": "d435i_ego_unknown_obstacle_probe_289",
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "isolation_note": "This run reused #289 ROS_DOMAIN_ID/GZ_PARTITION because its launch wrapper was copied without changing those two values. The preceding host check found no active project Docker, EGO, VINS, or Gazebo process; the run created a fresh random VINS epoch. Cross-domain isolation was therefore not achieved, but no concurrent project participant was observed."
+  }
+}

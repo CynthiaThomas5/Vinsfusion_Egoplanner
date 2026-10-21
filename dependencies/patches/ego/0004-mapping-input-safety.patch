@@ -1,0 +1,197 @@
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -10,6 +10,7 @@
+ #include <nav_msgs/msg/odometry.hpp>
+ #include <queue>
+ #include <rclcpp/rclcpp.hpp>
++#include <string>
+ #include <tuple>
+ #include <visualization_msgs/msg/marker.hpp>
+ 
+@@ -202,6 +203,7 @@
+ private:
+   MappingParameters mp_;
+   MappingData md_;
++  bool resetMap(const std::string &epoch, const std::string &map_id, std::string &reason);
+ 
+   // get depth image and camera pose
+   void depthPoseCallback(const sensor_msgs::msg::Image::ConstPtr &img,
+@@ -236,6 +238,7 @@
+   typedef shared_ptr<message_filters::Synchronizer<SyncPolicyImageOdom>> SynchronizerImageOdom;
+ 
+   rclcpp::Node::SharedPtr node_;
++  rclcpp::ServiceBase::SharedPtr reset_map_service_;
+   std::shared_ptr<message_filters::Subscriber<sensor_msgs::msg::Image>> depth_sub_;
+   std::shared_ptr<message_filters::Subscriber<geometry_msgs::msg::PoseStamped>> pose_sub_;
+   std::shared_ptr<message_filters::Subscriber<nav_msgs::msg::Odometry>> odom_sub_;
+@@ -448,4 +451,4 @@
+ 
+ inline double GridMap::getResolution() { return mp_.resolution_; }
+ 
+-#endif
+\ 文件末尾没有换行符
++#endif
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -1,5 +1,8 @@
+ #include "plan_env/grid_map.h"
+ 
++#include <algorithm>
++#include <uav_interfaces/srv/reset_mapping.hpp>
++
+ // #define current_img_ md_.depth_image_[image_cnt_ & 1]
+ // #define last_img_ md_.depth_image_[!(image_cnt_ & 1)]
+ 
+@@ -124,6 +127,8 @@
+   md_.flag_traverse_ = vector<char>(buffer_size, -1);
+ 
+   md_.raycast_num_ = 0;
++  md_.image_cnt_ = 0;
++  md_.proj_points_cnt = 0;
+ 
+   md_.proj_points_.resize(640 * 480 / mp_.skip_pixel_ / mp_.skip_pixel_);
+   md_.proj_points_cnt = 0;
+@@ -183,6 +188,12 @@
+   // 发布者
+   map_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("grid_map/occupancy", 10);
+   map_inf_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("grid_map/occupancy_inflate", 10);
++  reset_map_service_ = node_->create_service<uav_interfaces::srv::ResetMapping>(
++      "/mapping/reset_map",
++      [this](const std::shared_ptr<uav_interfaces::srv::ResetMapping::Request> request,
++             std::shared_ptr<uav_interfaces::srv::ResetMapping::Response> response) {
++        response->accepted = resetMap(request->epoch, request->map_id, response->reason);
++      });
+ 
+   md_.occ_need_update_ = false;
+   md_.local_updated_ = false;
+@@ -205,6 +216,57 @@
+   // eng_ = default_random_engine(rd());
+ }
+ 
++bool GridMap::resetMap(const std::string &epoch, const std::string &map_id, std::string &reason)
++{
++  const auto is_hex = [](char value) {
++    return (value >= '0' && value <= '9') || (value >= 'a' && value <= 'f');
++  };
++  if (epoch.size() != 32 ||
++      !std::all_of(epoch.begin(), epoch.end(), is_hex) ||
++      map_id.rfind(epoch + "-", 0) != 0)
++  {
++    reason = "invalid_epoch_or_map_id";
++    return false;
++  }
++
++  const double unknown = mp_.clamp_min_log_ - mp_.unknown_flag_;
++  std::fill(md_.occupancy_buffer_.begin(), md_.occupancy_buffer_.end(), unknown);
++  std::fill(md_.occupancy_buffer_inflate_.begin(), md_.occupancy_buffer_inflate_.end(), 0);
++  std::fill(md_.count_hit_and_miss_.begin(), md_.count_hit_and_miss_.end(), 0);
++  std::fill(md_.count_hit_.begin(), md_.count_hit_.end(), 0);
++  std::fill(md_.flag_rayend_.begin(), md_.flag_rayend_.end(), -1);
++  std::fill(md_.flag_traverse_.begin(), md_.flag_traverse_.end(), -1);
++  decltype(md_.cache_voxel_) empty_cache;
++  md_.cache_voxel_.swap(empty_cache);
++  md_.raycast_num_ = 0;
++  md_.has_first_depth_ = false;
++  md_.has_odom_ = false;
++  md_.has_cloud_ = false;
++  md_.occ_need_update_ = false;
++  md_.local_updated_ = false;
++  md_.flag_depth_odom_timeout_ = false;
++  md_.flag_use_depth_fusion = false;
++  md_.depth_image_.release();
++  md_.last_depth_image_.release();
++  md_.camera_pos_.setZero();
++  md_.last_camera_pos_.setZero();
++  md_.camera_r_m_.setIdentity();
++  md_.last_camera_r_m_.setIdentity();
++  md_.update_num_ = 0;
++  md_.fuse_time_ = 0.0;
++  md_.max_fuse_time_ = 0.0;
++  md_.last_occ_update_time_ = node_->now();
++  mp_.frame_id_ = "odom_" + epoch;
++  resetBuffer();
++  publishMap();
++  publishMapInflate(true);
++
++  reason = "map_cleared:" + map_id;
++  RCLCPP_INFO(node_->get_logger(), "Cleared occupancy map for epoch %s map_id %s",
++              epoch.c_str(), map_id.c_str());
++  return true;
++}
++
+ void GridMap::resetBuffer()
+ {
+   Eigen::Vector3d min_pos = mp_.map_min_boundary_;
+@@ -282,7 +344,11 @@
+       {
+ 
+         Eigen::Vector3d proj_pt;
+-        depth = (*row_ptr++) / mp_.k_depth_scaling_factor_;
++        const uint16_t raw_depth = *row_ptr;
++        row_ptr += skip_pix;
++        if (raw_depth == 0)
++          continue; // Invalid depth is unknown; do not raycast it as free space.
++        depth = raw_depth / mp_.k_depth_scaling_factor_;
+         proj_pt(0) = (u - mp_.cx_) * depth / mp_.fx_;
+         proj_pt(1) = (v - mp_.cy_) * depth / mp_.fy_;
+         proj_pt(2) = depth;
+@@ -317,18 +383,17 @@
+              u += mp_.skip_pixel_)
+         {
+ 
+-          depth = (*row_ptr) * inv_factor;
++          const uint16_t raw_depth = *row_ptr;
+           row_ptr = row_ptr + mp_.skip_pixel_;
++          if (raw_depth == 0)
++            continue; // Invalid depth is unknown; do not raycast it as free space.
++          depth = raw_depth * inv_factor;
+ 
+           // filter depth
+           // depth += rand_noise_(eng_);
+           // if (depth > 0.01) depth += rand_noise2_(eng_);
+ 
+-          if (*row_ptr == 0)
+-          {
+-            depth = mp_.max_ray_length_ + 0.1;
+-          }
+-          else if (depth < mp_.depth_filter_mindist_)
++          if (depth < mp_.depth_filter_mindist_)
+           {
+             continue;
+           }
+@@ -1075,4 +1140,4 @@
+ 
+   md_.occ_need_update_ = true;
+   md_.flag_use_depth_fusion = true;
+-}
+\ 文件末尾没有换行符
++}
+--- a/planner/plan_env/package.xml
++++ b/planner/plan_env/package.xml
+@@ -21,6 +21,7 @@
+   <depend>Eigen3</depend> 
+   <depend>PCL</depend> 
+   <depend>pcl_conversions</depend> 
++  <depend>uav_interfaces</depend>
+ 
+   <test_depend>ament_lint_auto</test_depend>
+   <test_depend>ament_lint_common</test_depend>
+--- a/planner/plan_env/CMakeLists.txt
++++ b/planner/plan_env/CMakeLists.txt
+@@ -27,6 +27,7 @@
+ find_package(Eigen3 REQUIRED)
+ find_package(PCL REQUIRED)
+ find_package(pcl_conversions REQUIRED)
++find_package(uav_interfaces REQUIRED)
+ 
+ if(BUILD_TESTING)
+   find_package(ament_lint_auto REQUIRED)
+@@ -58,7 +59,7 @@
+     src/obj_predictor.cpp 
+     )
+ 
+-ament_target_dependencies(plan_env std_msgs visualization_msgs geometry_msgs nav_msgs rclcpp Eigen3 PCL cv_bridge message_filters pcl_conversions)
++ament_target_dependencies(plan_env std_msgs visualization_msgs geometry_msgs nav_msgs rclcpp Eigen3 PCL cv_bridge message_filters pcl_conversions uav_interfaces)
+ 
+ target_link_libraries( plan_env 
+   ${PCL_LIBRARIES}

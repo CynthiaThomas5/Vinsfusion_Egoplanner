@@ -1,0 +1,353 @@
+{
+  "schema": 1,
+  "updated": "2026-10-19",
+  "stage": "P5",
+  "status": "in_progress",
+  "scope": "Offline PX4 startup/preflight diagnosis for #188–#190 plus a low-dynamics, no-GPS VIO/EGO/PX4 goal attempt #191. Truth remains evaluator-only.",
+  "preflight_diagnosis": {
+    "px4_source": "Commander computes pre_flight_checks_pass from canArm(current nav_state); the bridge state-machine comment explicitly permits disarmed prestream from AUTO_LOITER and waits for preflight approval before arming.",
+    "run_189_ulog": {
+      "nav_state": "AUTO_LOITER (4) throughout 156 VehicleStatus samples",
+      "preflight_passed_samples": 0,
+      "global_position_invalid_samples": "146/146 failsafe-flag samples",
+      "power_input_valid_samples": "156/156",
+      "battery_connected_samples": "387/387",
+      "system_power_voltage5v_v": 5.0,
+      "ev_fusion_samples": "71/85 position/height/yaw flags"
+    },
+    "run_186_187_cross_check": "In both successful starts, preflight remained false while nav_state was AUTO_LOITER and became true after the transition to OFFBOARD; see the prior #184–#187 report and its ULog hashes.",
+    "interpretation": "The false preflight bit before Offboard is mode-scoped and is not by itself evidence that no-GPS Offboard cannot pass. The startup log warnings do not establish a persistent power or EKF defect. PX4 does not expose a complete health-report breakdown in these ULogs, so the exact individual preflight blocker is not claimed."
+  },
+  "timestamp_diagnosis": {
+    "run_189": "The accepted enable entered PRESTREAM, then #31 bridge detail locked on vehicle_status freshness at wall 3.95 s. Its cached source timestamp offset was 0; TimesyncStatus had just emitted estimated_offset=0 before settling to the epoch offset. No Offboard mode or arm command reached PX4. The one-shot start was lost when the bridge fail-closed to DISABLED.",
+    "run_190": "The run-local preflight-before-enable guard made no enable request. PX4 stayed in AUTO_LOITER with preflight false for all 147 VehicleStatus samples. A later estimated_offset=0 sample also coincided with an estimator_flags zero-offset source-time failure; no mode or arm command was sent.",
+    "run_191": "A run-local 5 s continuous PX4-source and localization freshness interval passed (42 fresh bridge-detail samples); preflight was deliberately not required before prestream. The canonical bridge switched to Offboard, observed preflight true before arming, and took off. No product freshness or preflight threshold changed."
+  },
+  "run_191": {
+    "result": "FAIL",
+    "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+    "action_goal_sent": true,
+    "action_success": false,
+    "takeoff_active_observed": true,
+    "preconditions_ready": true,
+    "run_local_freshness_stability_s": 5.0,
+    "run_local_freshness_stability_passed": true,
+    "fresh_px4_telemetry_samples_before_enable": 42,
+    "preflight_required_before_prestream": false,
+    "bridge_phases": [
+      [
+        "DISABLED",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "PRESTREAM",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_ARM",
+        "requesting_arm",
+        false,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        false
+      ],
+      [
+        "ACTIVE",
+        "takeoff_complete_waiting_for_trajectory",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "normalized_cost_exceeded",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "normalized_cost_exceeded",
+        true,
+        true
+      ],
+      [
+        "LANDED",
+        "normalized_cost_exceeded",
+        false,
+        true
+      ]
+    ],
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "operator_disable"
+      }
+    ],
+    "goal": {
+      "frame": "odom_d9805d75cd234b53ba147ecd4edba6bd",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        0.29522855610452525,
+        0.002670545016922802,
+        1.0372954536769516
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": 0.5226241697911862,
+      "yaw_offset_rad": 0.5235987755982988,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "action_result": {
+      "final_position": [
+        0.029025616696530844,
+        0.027622306016118054,
+        0.9389894867459261
+      ],
+      "outcome": "aborted",
+      "reason": "localization_normalized_cost_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "matching_ready_position_commands": 306,
+    "position_command_samples_total": 307,
+    "planner_config": "config/components/mapping/ego_planner_slow_probe.json",
+    "planner_config_sha256": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+    "truth_capture": {
+      "wall_seconds": 90.01266632700026,
+      "truth_samples": 2930,
+      "imu_samples": 11833,
+      "optimized_samples": 895,
+      "propagated_samples": 11821,
+      "parse_errors": [],
+      "all_output_finite": true,
+      "read_only_graph_check": "navigation_profile=vio_closed_loop\npx4_bridge_debug_truth_subscription=0\ndiagnostic_read_only_truth_observer=1"
+    },
+    "truth_alignment": {
+      "pairs": 322,
+      "fixed_se3_scale": 1,
+      "position_rmse_m": 0.05628040532956473,
+      "position_p95_m": 0.13432474460519572,
+      "position_max_m": 0.16098519763663888,
+      "orientation_rmse_deg": 0.29486824458119454,
+      "cost_position_error_pearson_r": 0.928403909033049,
+      "first_gate_crossing_aligned_position_error_m": 0.02699949082835834
+    },
+    "first_quality_gate_crossing": {
+      "stamp_ns": 38115999999,
+      "normalized_cost": 1.1526926064729648,
+      "cost_threshold": 1.0,
+      "final_cost": 1223.7329256610599,
+      "residual_components": 1842,
+      "visual_cost": 1089.5209675762221,
+      "marginalization_cost": 132.93815680765564,
+      "imu_cost": 1.273801277180509,
+      "visual_cost_share": 0.890325776752034,
+      "marginalization_cost_share": 0.10863330880456822,
+      "imu_cost_share": 0.001040914443396546,
+      "grouped_cost_sum_error": -1.5916157281026244e-12,
+      "first_recovery_delay_s": 0.068,
+      "followup_over_threshold_samples": 9,
+      "followup_sample_count": 30,
+      "followup_peak_normalized_cost": 3.208041169004969
+    },
+    "px4_ulog": {
+      "path": "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4_sitl_default/log/2026-10-19/14_30_54.ulg",
+      "sha256": "0b99e521b2145b84a5c0bd8fa977e12e39c84e5080b76af0c28a9a5247620e2b",
+      "duration_s": 45.224,
+      "nav_state_counts": {
+        "4": 45,
+        "14": 27,
+        "18": 11,
+        "12": 4
+      },
+      "preflight_pass_counts": {
+        "false": 48,
+        "true": 39
+      },
+      "preflight_by_nav_state": {
+        "4": {
+          "samples": 45,
+          "preflight_passed": 0,
+          "failsafe": 0,
+          "armed": 0
+        },
+        "12": {
+          "samples": 4,
+          "preflight_passed": 4,
+          "failsafe": 4,
+          "armed": 4
+        },
+        "14": {
+          "samples": 27,
+          "preflight_passed": 25,
+          "failsafe": 0,
+          "armed": 24
+        },
+        "18": {
+          "samples": 11,
+          "preflight_passed": 10,
+          "failsafe": 0,
+          "armed": 11
+        }
+      },
+      "accepted_command_acks": {
+        "211:5": 1,
+        "211:0": 1,
+        "176:0": 1,
+        "400:0": 1,
+        "21:0": 1
+      },
+      "failsafe_flag_samples": {
+        "offboard_control_signal_lost": {
+          "true_samples": 52,
+          "samples": 76
+        },
+        "battery_warning": {
+          "true_samples": 0,
+          "samples": 76
+        },
+        "battery_low_remaining_time": {
+          "true_samples": 0,
+          "samples": 76
+        },
+        "battery_unhealthy": {
+          "true_samples": 0,
+          "samples": 76
+        },
+        "global_position_invalid": {
+          "true_samples": 76,
+          "samples": 76
+        },
+        "local_position_invalid": {
+          "true_samples": 28,
+          "samples": 76
+        }
+      },
+      "battery_status": {
+        "warning_counts": {
+          "0": 197
+        },
+        "connected_counts": {
+          "1": 197
+        },
+        "remaining_min": 0.7328548431396484,
+        "remaining_max": 0.9999465942382812
+      },
+      "ev_fusion_and_gnss": {
+        "cs_ev_pos": {
+          "true_samples": 26,
+          "samples": 53
+        },
+        "cs_ev_hgt": {
+          "true_samples": 26,
+          "samples": 53
+        },
+        "cs_ev_yaw": {
+          "true_samples": 26,
+          "samples": 53
+        },
+        "cs_gnss_pos": {
+          "true_samples": 0,
+          "samples": 53
+        },
+        "cs_gnss_vel": {
+          "true_samples": 0,
+          "samples": 53
+        },
+        "cs_gps_hgt": {
+          "true_samples": 0,
+          "samples": 53
+        },
+        "cs_gnss_yaw": {
+          "true_samples": 0,
+          "samples": 53
+        }
+      },
+      "logged_failsafe_messages": [
+        {
+          "timestamp_us": 42596000,
+          "level": 52,
+          "message": "[failsafe] Failsafe activated"
+        },
+        {
+          "timestamp_us": 42596000,
+          "level": 54,
+          "message": "[tone_alarm] battery warning (fast)"
+        }
+      ],
+      "interpretation": "ULog records a transient failsafe while descending after Offboard signal loss and localization invalidity; battery status and battery failsafe flags stayed clear. This does not establish the failsafe trigger."
+    }
+  },
+  "conclusions": [
+    "The 5 s source-freshness startup guard allowed the intended Offboard prestream and preflight-before-arm sequence; the PX4 AUTO_LOITER preflight bit should not be used as a prestream gate.",
+    "The PROVISIONAL 0.25 m/s and 0.4 m/s^2 EGO profile was confirmed in the launch manifest, but the small 3D+yaw action still aborted on the unchanged normalized_cost=1.0 health gate. It is not a low-dynamics trajectory pass.",
+    "At first quality crossing, the visual residual group was 89.04% of robust cost; this is a repeated association, not a causal root-cause finding or basis to change the gate.",
+    "PX4 logged transient failsafe and Offboard-signal-loss state during landing. Battery-status warning and battery failsafe flags stayed clear; the trigger remains undetermined."
+  ],
+  "next": "Keep the 1.0 quality limit and source-age gates. Inspect #187/#191 visual residual, feature-track, and command timelines; separately determine the PX4 landing/failsafe transition from its flags and bridge command sequence before claiming failsafe-free landing.",
+  "artifacts": {
+    "run_directories": [
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191-stack"
+    ],
+    "sha256": {
+      "progress/evidence/p5-vio-hover-goal-diagnostic-20261019-184-187.json": "f124635a415bd49c50c0c7da822ecfecbd244fc0b508368e7ed6b80b53634284",
+      "progress/evidence/p5-vio-low-dynamics-preflight-20261019-188-190.json": "4a836237c4d8869ed379b3c9d58d74d4dde3a0d0686df440837cd546e5e9ae19",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/vio-ego-flight-report.json": "a3a1f40415f3aeb81ab7732421948a6a383871ef8d0649fa6d91d6d5be2f65f5",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/px4.log": "fc35e2f15e458093d02b2c56e07c6735aee58a86d758e63460f884d58b4f75c7",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-189/px4_sitl_default/log/2026-10-19/14_06_59.ulg": "59b67542f27509db3c0c8206a7b2e06a147bc5d58ab3347bd8c1d541ff0710a6",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/vio-ego-flight-report.json": "64d0e224e86b7322e8e67e38c3d436f9e117ec35bc8ff3cdce76a7f228605f72",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/px4.log": "dde22e6869b0ffb4f98d853ba79b604ffbdf42f69e8dbc0e4045cfa7342c6253",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-190/px4_sitl_default/log/2026-10-19/14_10_36.ulg": "ae1711e629afe72207f6636a66fe85ee2cac9320777d94db1fa500af0019e49b",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/attempt-context.txt": "6111479add263600c7ed6ee92ad450a7416a3e659a9734f923d8d67afa8ec96c",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/launch-diagnostic-run.sh": "3fc2867b5d45a8caed533d03426da4aa7f9fce54b3ff0ba63c5a611d7702a826",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/run-px4-vio-ego-flight.sh": "e06229e85eee3c02d651293e39f87613191aca9e9a27bed8fccf5d3d3ade5d7c",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/run_vio_ego_flight.py": "d794e853ae7dc93ba3b77d75b7b41757d5fbace78040063e13a4f438ec1bb3ac",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/run-local-shell-diff.patch": "37b688ac8012dd44b61c1228146ef4dbf7cc4dba0b884b8f23ae1f816913233f",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4-param-stage.json": "544bca1ccff7030d76ecd60e37f52b8c1c3ccd3b32ad3562065864c437ec97ea",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/world-generation.json": "588d46c5ebb64bccb190bc281e49dbb1dabfc00de77d3875ddae6b260b653361",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-ego-flight-report.json": "2fad0913f886a8fd4478637867527be2e66df537d3fbfd28cccab5396d15b920",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-ego-flight-exit-code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-ego-flight.log": "2fad0913f886a8fd4478637867527be2e66df537d3fbfd28cccab5396d15b920",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-launch.log": "4ffcb55280d803694877f3d54ff59ac83049051f937b63adf27239d61628bed4",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4.log": "43618d7ae86403bb3b83d44c4a496722776223a52761d1e8bab9f95e2a58e700",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/agent.log": "f059bfa3fe326bfdeeec75ba0cf17f37a8fa2b03531787959207509d69d7b65f",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/truth-evaluator-topic-info.txt": "f2f0fb28055017e85c23a1289c69bb61a5f72762eb4ca059aa16c4bda0e8d615",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-truth-capture/summary.json": "0ffec2bec9fc716487cc38849f6dd4eee912e28b38aa2aff0b65f07afcd31ffc",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-truth-capture/truth-motion.json": "1ec9be743e995818000973d8b465b19a5be44ded6121f669a02ae52319dcb80e",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-truth-capture/raw-odometry.json": "2fe3620372bf0fe0899168c4bff7b2aacdef3c4c1c41bf8453129c84076a2e9b",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-truth-capture/telemetry.json": "411d79482300151d9827e451f3507dad3e1557af501c47e44544a2e08b06a700",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-truth-capture-exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4-ulog-summary.json": "90b86eca1fd6e03667a0609344b450c74bc6d552bfdda8d222ee5d482b67b065",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-quality-alignment.json": "5a1b85ff948b6bb8400ec7561ccbad26c36f4f13a77567b931d1b7e2fa965181",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4_sitl_default/log/2026-10-19/14_30_54.ulg": "0b99e521b2145b84a5c0bd8fa977e12e39c84e5080b76af0c28a9a5247620e2b",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191-stack/launch-manifest.json": "dc75035a1e80c006615424152cb4cb14f2621dbec1ab4cf565f3c2998450ff65",
+      "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+      "config/components/mapping/ego_planner_slow_probe.json": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb",
+      "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py": "17581a7ad3fff3ee1574258dfd14d439edbbdc9a0d397f18cacc1553c1b49b37",
+      "external/PX4-Autopilot/src/modules/commander/Commander.cpp": "ab21f8b26e7c44d8569b5c34bdd5f629d72bf8c969723f4927bc46ac5a5fffff",
+      "external/PX4-Autopilot/src/modules/commander/HealthAndArmingChecks/checks/powerCheck.cpp": "1f92fa3ed73fba6cd6290f2ff60336fcf2cbe6454bc912d258e2cb29e1ca8384",
+      "tools/evaluate_vio_quality_alignment.py": "7e859b134242a75ef76b58ccf4b72d82ace85789401a7dcdfd3e56e07ad515fb",
+      "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/launcher-permission-note.txt": "913b58a2fc5dd832d7c6ad4ca8422636c8d24c3669cc066e3bd22ffd6a4187c1"
+    }
+  }
+}

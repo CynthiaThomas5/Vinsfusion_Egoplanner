@@ -1,0 +1,265 @@
+{
+  "schema": "p2-ego-pose-rmw-readiness-trace-evidence/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "diagnostic_pass_with_limits_ego_rmw_reader_gap_reproduced_exact_cause_unresolved_goal_c_pending",
+  "run_id": "p2-ego-pose-rmw-readiness-trace-20261021-347",
+  "question": "During EGO camera-pose take gaps, does the source publisher continue publishing and does an independent subscription receive poses while the EGO Fast DDS subscription remains unready?",
+  "result": {
+    "attempts": [
+      {
+        "id": "attempt-01",
+        "status": "preflight_failed",
+        "exit_code": 27,
+        "reason": "The ros2 run process argv did not yield exactly one mapping_input_adapter PID; motion, observer and planner goal phases were not started. Partial trace and logs were preserved."
+      },
+      {
+        "id": "attempt-02",
+        "status": "completed",
+        "exit_code": 0,
+        "ros_domain_id": 212,
+        "gazebo_partition": "d435i_ego_rmw_wait_status_347_02"
+      }
+    ],
+    "first_ego_timeout_plateau": {
+      "rows": 38,
+      "sim_interval_s": [
+        6.642,
+        7.888
+      ],
+      "wall_duration_s": 1.85003826,
+      "ego_pose_input_count_fixed": 22,
+      "ego_last_pose_stamp_s": 6.139,
+      "ego_depth_input_count_before_after": [
+        35,
+        71
+      ],
+      "ego_sync_count_before_after": [
+        22,
+        22
+      ],
+      "ego_logged_rmw_lost_depth_pose": {
+        "depth": [
+          0
+        ],
+        "pose": [
+          0
+        ]
+      },
+      "independent_pose_receipts": {
+        "count": 35,
+        "first_source_stamp_s": 6.634,
+        "last_source_stamp_s": 7.756,
+        "max_positive_source_stamp_gap_s": 0.033
+      },
+      "adapter_forwarded_count_before_after": [
+        27,
+        76
+      ],
+      "epoch_and_map_id_stable": true
+    },
+    "max_ego_rmw_take_gap": {
+      "interval_time_of_day_s": [
+        67992.811436284,
+        67995.293173947
+      ],
+      "duration_wall_s": 2.481738,
+      "publisher_rmw_publish_count": 51,
+      "publisher_max_gap_s": 0.10223641099582892,
+      "ego_rmw_wait_event_count": 678,
+      "ego_rmw_wait_ready_counts": {
+        "0": 677,
+        "1": 1
+      },
+      "ego_rmw_wait_result_counts": {
+        "2": 358,
+        "0": 320
+      },
+      "successful_ego_pose_takes_inside_gap": 0,
+      "rclcpp_executor_event_counts": {
+        "rclcpp_executor_get_next_ready": 4439,
+        "rclcpp_executor_execute": 1992,
+        "rclcpp_executor_wait_for_work": 2202
+      },
+      "pose_callback_context": [
+        {
+          "callback_start_time_of_day_s": 67992.811437436,
+          "offset_from_gap_start_s": 1.1520023690536618e-06,
+          "prior_successful_take_time_of_day_s": 67992.811436284,
+          "following_successful_take_time_of_day_s": 67995.293173947
+        }
+      ],
+      "sequence_gaps_inside_interval": [],
+      "independent_reader": {
+        "pose_receipts": 51,
+        "source_stamp_range_s": [
+          6.172,
+          7.822
+        ],
+        "max_source_stamp_gap_s": 0.033,
+        "adapter_forwarded_count_delta": 59,
+        "epoch_stable": true,
+        "map_id_stable": true
+      }
+    },
+    "fastdds_reader_status": {
+      "poll_every_n_waits": 128,
+      "status_sample_count_inside_gap": 6,
+      "matched_current_counts_inside_gap": [
+        1
+      ],
+      "sample_lost_totals_inside_gap": [
+        0
+      ],
+      "sample_rejected_totals_inside_gap": [
+        0
+      ],
+      "next_sample_after_gap": {
+        "time_of_day_s": 67995.579028052,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x569B465DD630",
+        "wait_seq": 1664,
+        "matched_current": 1,
+        "matched_total": 1,
+        "sample_lost_total": 1,
+        "sample_rejected_total": 0,
+        "matched_rc": 0,
+        "sample_lost_rc": 0,
+        "sample_rejected_rc": 0
+      },
+      "return_codes_zero": true,
+      "interpretation_limit": "The first post-gap status sample reports sample_lost_total=1 after the in-gap samples reported 0; cadence is too coarse to place the increment relative to the gap end. sample_rejected stayed 0."
+    },
+    "trace_completeness": {
+      "wait_ready_events": 18537,
+      "wait_seq_range": [
+        0,
+        18540
+      ],
+      "missing_sequences": [
+        75,
+        76,
+        77,
+        78
+      ],
+      "missing_sequence_spans_overlap_selected_gap": false,
+      "wait_analyzer_exit_code": 1
+    },
+    "interpretation": "A matched EGO reader had 677 not-ready wait returns during the selected take gap while the adapter publisher emitted 51 messages and an independent reader received 51 poses at up to 33 ms source-stamp spacing. The EGO executor continued producing wait/execute/get-ready events, and no successful EGO take occurred in the interval. This localizes the observed gap to the EGO RMW/DDS reader readiness or history path; the current trace does not establish whether samples failed to reach reader history or were not surfaced by the wait set.",
+    "planner_probe": {
+      "goal_status": "bspline_received",
+      "bspline_count": 1,
+      "goal_xyz_m": [
+        0.25,
+        -0.15,
+        0.4
+      ],
+      "epoch": "5837a464c9e04be9b374c5c906028b19",
+      "map_id": "5837a464c9e04be9b374c5c906028b19-194f09868e154b15b0bba152cd2bd8a7",
+      "spline_audit_status": "check_failed",
+      "centerline_sample_count": 103,
+      "centerline_sample_classes": {
+        "unknown": 42,
+        "free": 61
+      },
+      "unknown_voxel_indices_xyz": [
+        [
+          120,
+          119,
+          1
+        ]
+      ],
+      "free_sample_count": 61,
+      "occupied_sample_count": 0,
+      "inflated_sample_count": 0,
+      "out_of_map_sample_count": 0,
+      "endpoint_distance_to_goal_m": 0.009577869618873852,
+      "snapshot_minus_spline_start_s": 0.0,
+      "depth_source_age_at_snapshot_s": 0.091,
+      "nearest_start_odometry_delta_ns": -25000001,
+      "failed_diagnostic_check": "nearest start odometry is 25,000,001 ns earlier than spline start; the 10 ms diagnostic bound fails.",
+      "trajectory_executed": false
+    },
+    "isolation": {
+      "truth_subscribed": false,
+      "truth_topics": [],
+      "control_topics": [],
+      "forbidden_control_nodes": [],
+      "trajectory_server_or_controller": false,
+      "px4": false
+    },
+    "checks": {
+      "timeout_plateau_with_depth_progress": true,
+      "adapter_and_independent_reader_progress_during_pose_gap": true,
+      "publisher_continued_inside_max_rmw_gap": true,
+      "independent_reader_received_inside_max_rmw_gap": true,
+      "ego_rmw_reader_not_ready_during_gap": true,
+      "no_successful_ego_pose_take_inside_gap": true,
+      "fastdds_root_cause_resolved": false,
+      "goal_c_pass": false
+    }
+  },
+  "limitations": [
+    "One simulated run is diagnostic and does not establish incidence or root cause.",
+    "Four wait sequence values 75–78 are missing from the full trace; no missing sequence overlaps the selected take gap.",
+    "Fast DDS status was polled every 128 waits, so the one sample-lost count observed after the gap cannot be timed precisely.",
+    "The low-bandwidth observer adds a reliable subscriber and may slightly affect scheduling.",
+    "The 103-point planner centerline is not airframe swept volume; no path was executed and no collision or arrival evaluation was performed.",
+    "The spline centerline includes 42 samples in one current-start unknown voxel; nearest odometry trails spline start by 25 ms. GOAL C remains pending."
+  ],
+  "provenance": {
+    "run_manifest": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/run-manifest.json",
+    "run_manifest_sha256": "2e41080cba0348dd880b6e72251dbbe6b82bc4dbc4aaf9bc517a8546ea302020",
+    "ego_upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "ego_source_manifest_sha256": "67a7b5078e09f5a641151f2c84dc55c1ff660672d0442ba6321daf458f4dc380",
+    "ego_binary_sha256": "3702e5b5443d6260837b035a9ae5487704ad51de76ebf1ee5aa7c4f8e806fe50",
+    "probe_library_sha256": "3bf79b71705a50433dd7ba40ecfebe01156f076b1650b8c46231b13311a8318a",
+    "patch_0033_sha256": "b33d3f32af9fb3314744e1db7854c6af389c2f8b05800a538ad89b54016742a7",
+    "patch_0034_sha256": "5c100f8c96a50d9fef0745d6db146bb2658dd6077c83ec0c145e97354f6247c3",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "workspace_status_sha256": "3c742b4da7cc3785a9da8097684558106d5e956c55164587c7a3c0d245480d3e",
+    "ctf_trace_tree_sha256": "05f42a1cc5168d03ce3e3ad13954ceab54fcccee1dbf7ffcfb334a0cc75627be",
+    "key_output_hashes": {
+      "ctf_file_hash_manifest": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/analysis/ctf-file-hashes.sha256",
+        "sha256": "05f42a1cc5168d03ce3e3ad13954ceab54fcccee1dbf7ffcfb334a0cc75627be",
+        "size_bytes": 3272
+      },
+      "reader_trace_events": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/reader-trace/events.jsonl",
+        "sha256": "866c655977840c8b290b2672ec17c1807acb2c7c7cb65a6f81d860262bf4a047",
+        "size_bytes": 298833
+      },
+      "publisher_take_alignment": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/analysis/publisher-take-alignment.json",
+        "sha256": "ae9e047207753e28b280a590b71017efbdd48f622554b4869d0377e7ebf1fc6f",
+        "size_bytes": 1925
+      },
+      "rmw_take_alignment": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/analysis/rmw-take-alignment.json",
+        "sha256": "dec2a4c7d058b6b3a4ba4c5563d697e7825669742b6167eef0daae822c86b8c8",
+        "size_bytes": 4088
+      },
+      "rmw_status_alignment": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/analysis/rmw-status-alignment.json",
+        "sha256": "7a1499986ff03de7d342cc9f46eeb9e82b45ed385600de3f6a82c07da6309932",
+        "size_bytes": 4678
+      },
+      "planner_goal_result": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/planner-goal-result.json",
+        "sha256": "7d7972ec10c0de5b0214189bd4c9a896ae559fc8fbeb95284fa233bcb80a8700",
+        "size_bytes": 21949
+      },
+      "spline_snapshot_analysis": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/spline-snapshot-analysis.json",
+        "sha256": "c6981b48e3e09d343e8a928e9a13caee95e2a06f367cc9948844b334f1472e0a",
+        "size_bytes": 6369
+      },
+      "runtime_summary": {
+        "path": "artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/runtime-summary.json",
+        "sha256": "adbc6cbe17036b37519b25e9415554f65e6751c5bfbd4f960a1ae9d366be881f",
+        "size_bytes": 2017
+      }
+    }
+  }
+}

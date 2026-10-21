@@ -1,0 +1,60 @@
+{
+  "scope": "Targeted Jazzy rebuild of EGO and its source dependencies after adding recoverable GridMap depth timeout handling and a configurable timeout launch argument. This does not replace the 16-package workspace build.",
+  "date": "2026-10-17",
+  "status": "PASS_TARGETED_EGO_BUILD; ACTIVE_STALE_RESPONSE_DIAGNOSTICS_RECORDED; FLIGHT_UNQUALIFIED",
+  "source": {
+    "upstream": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm",
+    "revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch_order": "0001 through 0008, then 0009-recoverable-depth-timeout.patch",
+    "patch": "dependencies/patches/ego/0009-recoverable-depth-timeout.patch",
+    "patch_sha256": "63c2be9f58293076f7757c2006d7145b5d5ce02d7deed7efa58050cd44520c51",
+    "pre_patch_file_sha256": {
+      "planner/plan_env/src/grid_map.cpp": "d2e982a0ce456e50259c7884bbe3cb133f5c43d010467e4f88bad3b5d3777289",
+      "planner/plan_manage/launch/advanced_param.launch.py": "ec5d3c83e187c3fa817a0b1768d0caf3014ac63de18f986dab06cbdc14cf5900"
+    },
+    "post_patch_file_sha256": {
+      "planner/plan_env/src/grid_map.cpp": "42c858f1e0562f32163c9d85ea2a15966607174021538a39ca61ed4190d7319e",
+      "planner/plan_manage/launch/advanced_param.launch.py": "fc2c66b753b01ead351963aee9a3ac4dac5a1e6ebbe5367ea386d678d056b2bc"
+    },
+    "patch_validation": "Reconstructed both pre-0009 files from the recorded pre-patch hashes; GNU patch --dry-run -p1 passed for both files."
+  },
+  "behavior": {
+    "grid_map": "A new in-map occupancy update clears the latched depth/odometry timeout so a recovered input interval does not poison a later goal.",
+    "launch": "advanced_param.launch.py exposes odom_depth_timeout as a launch argument and passes it to grid_map/odom_depth_timeout.",
+    "qualification": "No controller, trajectory server, PX4 bridge, or actuator behavior is included in this patch."
+  },
+  "build": {
+    "container": "d435i-vins-build",
+    "ros_distro": "Jazzy",
+    "run_directory": "artifacts/runs/p2-ego-map-timeout-build-20261017-01",
+    "command": "source /opt/ros/jazzy/setup.bash && cd /workspace && source artifacts/runs/p2-ego-manual-goal-20261017-01/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-map-timeout-build-20261017-01/log build --base-paths src/vendor/ego_planner --packages-up-to ego_planner --build-base artifacts/runs/p2-ego-map-timeout-build-20261017-01/build --install-base artifacts/runs/p2-ego-map-timeout-build-20261017-01/install --event-handlers console_direct+",
+    "exit_code": 0,
+    "packages_finished": [
+      "plan_env",
+      "traj_utils",
+      "bspline_opt",
+      "path_searching",
+      "ego_planner"
+    ],
+    "packages_finished_count": 5,
+    "build_wall_seconds": 133,
+    "event_log": "artifacts/runs/p2-ego-map-timeout-build-20261017-01/log/build_2026-10-16_16-56-57/events.log",
+    "event_log_sha256": "7bad8c40dd08b5e91239159816042c86948496ecf9fc0bbd7303b41b1225d89c",
+    "installed_artifacts": {
+      "plan_env/lib/libplan_env.so": {
+        "sha256": "372c123d19e3ad429779ac103d625f0ee5514b2946407370f17a385ef1e69e53"
+      },
+      "ego_planner/lib/ego_planner/ego_planner_node": {
+        "sha256": "93cf53aa5ae48dd8a01ed318b7d5afcb185b588151ce434ff40e8ba849fee738"
+      }
+    },
+    "launch_argument_check": "ros2 launch ego_planner advanced_param.launch.py --show-args lists odom_depth_timeout."
+  },
+  "diagnostic_parameter": {
+    "file": "config/components/mapping/ego_planner.json",
+    "sha256": "d2a7e47e54f3581fe07c5c98fbcd400ba0dff05da07594fd8c5a9225e3787e5b",
+    "odom_depth_timeout_sim_s": 0.4,
+    "qualification": "PROVISIONAL diagnostic margin; not calibrated against healthy map update gaps and not frozen for flight acceptance."
+  },
+  "runtime_evidence": "progress/evidence/p2-ego-active-depth-stale.json"
+}

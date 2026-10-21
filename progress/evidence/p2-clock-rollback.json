@@ -1,0 +1,360 @@
+{
+  "scope": "Two independent live Gazebo D435i + VINS + localization + EGO plan_env simulations with one injected ROS /clock backward jump in each run",
+  "date": "2026-10-17",
+  "status": "PASS_TWO_INDEPENDENT_CLOCK_ROLLBACK_AND_MAP_FAIL_CLOSED_RUNS",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "runtime_overlays": [
+      "artifacts/runs/p2-ego-odom-wire-20261016-03/install",
+      "artifacts/runs/p2-map-input-build-20261016-01/install",
+      "artifacts/runs/p2-ego-map-ground-height-build-20261017-03/install",
+      "artifacts/runs/p2-ego-timeout-filter-receipt-diagnostic-build-20261017-07/install"
+    ],
+    "self_maintained_runtime_sources_match_build_overlays": true,
+    "runtime_scope": "Actual Gazebo D435i topics, VINS node, localization adapter, depth health monitor, mapping input adapter and EGO plan_env; no PX4, control or navigation-goal node launched",
+    "run_command": "docker exec -w /workspace d435i-vins-build bash /workspace/artifacts/runs/<run_id>/run-clock-regression.sh"
+  },
+  "implementation": {
+    "source_sha256": {
+      "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+      "src/own/uav_localization/uav_localization/health.py": "4d2e4b80e794e8e2ce27f8e5c918d503b8bb5ac094dc33ac862b722a0a1a4d76",
+      "src/own/uav_mapping/uav_mapping/adapter.py": "a28e09030e3726c16439327941ecf31d2852d5203bd7fd28ede138689309be97",
+      "src/own/uav_mapping/uav_mapping/depth_gate.py": "77d7bb2d845251585a1961bfea0a396d113ac29310713ad8c8dd152cc553f360",
+      "tools/clock_regression_relay.py": "6f62226dbd00a3e453cf3eec12f0b5b6c54ab6b1e842d4e726ab277bd46559c9",
+      "tools/probe_clock_regression.py": "6290acfce67c7ace7d85ee78d516bf310a34cf02606e72c057c6c7612bb0c4d3"
+    },
+    "runtime_sha256": {
+      "artifacts/runs/p2-ego-odom-wire-20261016-03/install/uav_localization/lib/python3.12/site-packages/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+      "artifacts/runs/p2-ego-odom-wire-20261016-03/install/uav_localization/lib/python3.12/site-packages/uav_localization/health.py": "4d2e4b80e794e8e2ce27f8e5c918d503b8bb5ac094dc33ac862b722a0a1a4d76",
+      "artifacts/runs/p2-map-input-build-20261016-01/install/uav_mapping/lib/python3.12/site-packages/uav_mapping/adapter.py": "a28e09030e3726c16439327941ecf31d2852d5203bd7fd28ede138689309be97",
+      "artifacts/runs/p2-map-input-build-20261016-01/install/uav_mapping/lib/python3.12/site-packages/uav_mapping/depth_gate.py": "77d7bb2d845251585a1961bfea0a396d113ac29310713ad8c8dd152cc553f360"
+    },
+    "build_evidence": [
+      "progress/evidence/p2-localization-adapter.json",
+      "progress/evidence/p2-ego-map-input.json",
+      "progress/evidence/p0-ego-map-timeout-diagnostic-build.json"
+    ]
+  },
+  "fault_protocol": {
+    "condition": "Relay waits until LocalizationStatus is valid TRACKING and /grid_map/occupancy is nonempty.",
+    "injection": "Exactly one /clock message is sent 1.0 seconds behind the latest source time; subsequent source clock messages resume.",
+    "required_behavior": "Localization latches clock_regression; mapping adapter closes input and requests a fresh map_id; EGO map clears; localization and EGO depth/pose output counters stop increasing after settling.",
+    "truth_and_control": "Observer does not subscribe to ground truth or PX4 topics. Debug motion logs stay under artifacts/runs; no control message is published."
+  },
+  "runs": [
+    {
+      "run_id": "p2-ego-clock-regression-20261017-05",
+      "ros_domain_id": 193,
+      "gazebo_partition": "p2_clock_regression_05",
+      "epoch": "ab1a63436f97477a84531e35dd178ea1",
+      "clock_relay": {
+        "clock_regression_injected": true,
+        "tracking_observed_before_injection": true,
+        "occupied_points_observed_before_injection": 741,
+        "trigger_wall_elapsed_s": 5.334,
+        "source_stamp_before_regression_ns": 3096000000,
+        "regressed_stamp_ns": 2095000000,
+        "regression_magnitude_ns": 1000000000,
+        "source_stamp_after_regression_ns": 3097000000,
+        "final_occupied_points": 0,
+        "wall_seconds": 9.523
+      },
+      "observer": {
+        "clock_backsteps": [
+          {
+            "wall_elapsed_s": 5.356,
+            "previous_stamp_ns": 3095000000,
+            "current_stamp_ns": 2095000000,
+            "backstep_ns": 1000000000
+          }
+        ],
+        "localization_history": [
+          {
+            "wall_elapsed_s": 1.33,
+            "epoch": "ab1a63436f97477a84531e35dd178ea1",
+            "state": 0,
+            "valid": false,
+            "reason": "waiting_for_inputs",
+            "accepted_optimized": 0,
+            "accepted_propagated": 0
+          },
+          {
+            "wall_elapsed_s": 2.48,
+            "epoch": "ab1a63436f97477a84531e35dd178ea1",
+            "state": 0,
+            "valid": false,
+            "reason": "waiting_for_propagated",
+            "accepted_optimized": 0,
+            "accepted_propagated": 0
+          },
+          {
+            "wall_elapsed_s": 3.381,
+            "epoch": "ab1a63436f97477a84531e35dd178ea1",
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver",
+            "accepted_optimized": 1,
+            "accepted_propagated": 5
+          },
+          {
+            "wall_elapsed_s": 5.381,
+            "epoch": "ab1a63436f97477a84531e35dd178ea1",
+            "state": 4,
+            "valid": false,
+            "reason": "clock_regression",
+            "accepted_optimized": 19,
+            "accepted_propagated": 248
+          }
+        ],
+        "localization_tracking_observed": true,
+        "occupied_map_observed_before_lock": true,
+        "maximum_occupied_points_observed": 741,
+        "clock_regression_lock_observed": true,
+        "map_empty_after_lock": true,
+        "output_counts_at_lock": {
+          "ego_depth": 10,
+          "ego_pose": 10,
+          "optimized_odometry": 19,
+          "propagated_odometry": 248
+        },
+        "output_counts_after_settle": {
+          "ego_depth": 10,
+          "ego_pose": 10,
+          "optimized_odometry": 19,
+          "propagated_odometry": 248
+        },
+        "final_output_counts": {
+          "ego_depth": 10,
+          "ego_pose": 10,
+          "optimized_odometry": 19,
+          "propagated_odometry": 248
+        },
+        "outputs_stable_after_settle": true,
+        "observer_wall_seconds": 9.381
+      },
+      "runtime_exit_code": 0,
+      "artifacts": {
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/run-clock-regression.sh": {
+          "bytes": 5886,
+          "sha256": "99beb597ffb52d3fecf2806d4633987760f345f4244144e8abe807c1cec72b98"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/clock-regression-sensors.launch.py": {
+          "bytes": 758,
+          "sha256": "683a4e14c95563b4675a0997803a7ebc61024ab60a7516f48ea5784ea23b7e9b"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/session/session.json": {
+          "bytes": 654,
+          "sha256": "4ba5dcc93f25489744ba6c9003956ac943e3a68ee5b5136d60e52cafe080374c"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/clock-relay-report.json": {
+          "bytes": 655,
+          "sha256": "3b6c14dbfa8786027d480c25ee5c4a19da01f957769974649acc1a10712cc492"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/clock-regression-probe.json": {
+          "bytes": 7060,
+          "sha256": "5fbbf328299b7f3ce2bcde631a37840977e80ef17734096ccbc11fc568b4e399"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/localization-adapter.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/mapping-adapter.log": {
+          "bytes": 679,
+          "sha256": "ae643c9bedfd1f418648c66721ba7646ccc26c5dfebbdfc93bd362ce523f0d66"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/ego.log": {
+          "bytes": 2032,
+          "sha256": "65438258b2867414f10d6a09e480d835b6855f93a44b6908f7647a3f6d7e6dd6"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/ego-depth-topic-info.txt": {
+          "bytes": 966,
+          "sha256": "d6ff9d444b8961bdd93a60bfb08c5178cacc8fbfb51ae9388ba84d2d427592c8"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/ego-pose-topic-info.txt": {
+          "bytes": 990,
+          "sha256": "b6494c5674ae850a53d7018d5db202e9968b2e856738427e01e4858558f7eb36"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/mapping-adapter-node-info.txt": {
+          "bytes": 1209,
+          "sha256": "2120b95b5b2c48d47bc8e64f2d7b5ee8d2125b5a38f725903503c486fdcb7b9a"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-05/ego-node-info.txt": {
+          "bytes": 2038,
+          "sha256": "7a3bbfe89bed1837e5d2ef6fa7a392d4d75334f02027873cee3339c6cc73d800"
+        }
+      }
+    },
+    {
+      "run_id": "p2-ego-clock-regression-20261017-06",
+      "ros_domain_id": 194,
+      "gazebo_partition": "p2_clock_regression_06",
+      "epoch": "52d29957778c42518f96cc03bdafca00",
+      "clock_relay": {
+        "clock_regression_injected": true,
+        "tracking_observed_before_injection": true,
+        "occupied_points_observed_before_injection": 908,
+        "trigger_wall_elapsed_s": 5.578,
+        "source_stamp_before_regression_ns": 3203000000,
+        "regressed_stamp_ns": 2202000000,
+        "regression_magnitude_ns": 1000000000,
+        "source_stamp_after_regression_ns": 3204000000,
+        "final_occupied_points": 0,
+        "wall_seconds": 9.82
+      },
+      "observer": {
+        "clock_backsteps": [
+          {
+            "wall_elapsed_s": 5.585,
+            "previous_stamp_ns": 3202000000,
+            "current_stamp_ns": 2202000000,
+            "backstep_ns": 1000000000
+          }
+        ],
+        "localization_history": [
+          {
+            "wall_elapsed_s": 3.83,
+            "epoch": "52d29957778c42518f96cc03bdafca00",
+            "state": 0,
+            "valid": false,
+            "reason": "waiting_for_clock",
+            "accepted_optimized": 0,
+            "accepted_propagated": 0
+          },
+          {
+            "wall_elapsed_s": 4.734,
+            "epoch": "52d29957778c42518f96cc03bdafca00",
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver",
+            "accepted_optimized": 1,
+            "accepted_propagated": 6
+          },
+          {
+            "wall_elapsed_s": 5.634,
+            "epoch": "52d29957778c42518f96cc03bdafca00",
+            "state": 4,
+            "valid": false,
+            "reason": "clock_regression",
+            "accepted_optimized": 9,
+            "accepted_propagated": 111
+          }
+        ],
+        "localization_tracking_observed": true,
+        "occupied_map_observed_before_lock": true,
+        "maximum_occupied_points_observed": 908,
+        "clock_regression_lock_observed": true,
+        "map_empty_after_lock": true,
+        "output_counts_at_lock": {
+          "ego_depth": 15,
+          "ego_pose": 15,
+          "optimized_odometry": 9,
+          "propagated_odometry": 111
+        },
+        "output_counts_after_settle": {
+          "ego_depth": 15,
+          "ego_pose": 15,
+          "optimized_odometry": 9,
+          "propagated_odometry": 111
+        },
+        "final_output_counts": {
+          "ego_depth": 15,
+          "ego_pose": 15,
+          "optimized_odometry": 9,
+          "propagated_odometry": 111
+        },
+        "outputs_stable_after_settle": true,
+        "observer_wall_seconds": 9.657
+      },
+      "runtime_exit_code": 0,
+      "artifacts": {
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/run-clock-regression.sh": {
+          "bytes": 5886,
+          "sha256": "786e7500c5a097dc8ce7dde01df767188ed61037946565fc9de117a8920bae9c"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/clock-regression-sensors.launch.py": {
+          "bytes": 758,
+          "sha256": "7f52e72a8f321444958d6902673386e553c4750751c2d4981de3e580a2e8c3bc"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/session/session.json": {
+          "bytes": 654,
+          "sha256": "af000719997a49303538bcee008968b1445cf1903bcf65ae9c4e35c41d4882ea"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/clock-relay-report.json": {
+          "bytes": 631,
+          "sha256": "b4f099c9438f1a08b070496fdc07c6a065e7df29b1220a787847f0af68f647bc"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/clock-regression-probe.json": {
+          "bytes": 7000,
+          "sha256": "0b2ba0ecf63cc65bdbfb384f89d67857940735daddb1ddf365c75c6fd25e6e29"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/localization-adapter.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/mapping-adapter.log": {
+          "bytes": 679,
+          "sha256": "156ca155f2bcce17ff9eaed0389e6a90bbf2f468838c7e4990b9dbf8de0b5992"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/ego.log": {
+          "bytes": 2078,
+          "sha256": "675d68f51e1bf212469db8bd5e06274112d19ddd0f88a79b8daadd8fb1bd7a51"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/ego-depth-topic-info.txt": {
+          "bytes": 966,
+          "sha256": "643b86611902cf9896a53e75e5adcd826e8cd0184ce0830bfd6493522e53e95d"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/ego-pose-topic-info.txt": {
+          "bytes": 990,
+          "sha256": "737ae90c7a3de26a2726f4ab557b9b6b11851fa5e6f2955bb313a8cd4d2a2896"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/mapping-adapter-node-info.txt": {
+          "bytes": 1209,
+          "sha256": "2120b95b5b2c48d47bc8e64f2d7b5ee8d2125b5a38f725903503c486fdcb7b9a"
+        },
+        "artifacts/runs/p2-ego-clock-regression-20261017-06/ego-node-info.txt": {
+          "bytes": 2038,
+          "sha256": "7a3bbfe89bed1837e5d2ef6fa7a392d4d75334f02027873cee3339c6cc73d800"
+        }
+      }
+    }
+  ],
+  "excluded_attempts": [
+    {
+      "run_id": "p2-ego-clock-regression-20261017-01",
+      "reason": "Harness initially lacked launch_runner.py; after correction, depth was remapped without a forwarding relay, so EGO received no depth and no map formed."
+    },
+    {
+      "run_id": "p2-ego-clock-regression-20261017-02",
+      "reason": "The one-second regression followed live tracking and 930 map points, and adapter/EGO logs showed reset; the observer started after injection and missed pre-fault counts."
+    },
+    {
+      "run_id": "p2-ego-clock-regression-20261017-03",
+      "reason": "Clock regression, lock and map clearing were observed, but the probe initially treated LocalizationStatus state 4 (LOCKED) as a mismatch."
+    },
+    {
+      "run_id": "p2-ego-clock-regression-20261017-04",
+      "reason": "Clock regression and map clearing were observed, but DDS discovery had not delivered EGO depth/pose topics to the observer before the fault; the next runs captured endpoint metadata and output counts."
+    }
+  ],
+  "validation": {
+    "two_independent_live_runs": "PASS: unique ROS domains, Gazebo partitions and fresh VINS epochs; both inject one 1-second backward jump after tracking and a nonempty map.",
+    "localization_and_map_behavior": "PASS: both status histories end at state LOCKED (4), valid=false, reason=clock_regression; both maps become empty and remain empty during observation.",
+    "output_stop": "PASS: both runs record nonzero EGO depth/pose and localization odometry counts at lock; all remain unchanged after the settle interval.",
+    "map_adapter_and_EGO_graph": "PASS: one RELIABLE mapping adapter publisher and one RELIABLE EGO subscriber for each depth/pose topic in both run graphs.",
+    "full_GOAL_E": "NOT_PASSED: this evidence covers only clock rollback and localization/map fail-closed behavior."
+  },
+  "qualification": {
+    "clock_rollback_twice_independently": "PASS_AS_SIMULATION_FAULT_INJECTION",
+    "epoch_map_reset_after_backward_time": "PASS_AS_SIMULATION_OBSERVATION: each run requests a fresh map_id to discard old map state while localization remains locked; no session is spliced.",
+    "target_or_trajectory_cancellation": "NOT_IMPLEMENTED_OR_TESTED: no task/trajectory node is in this run.",
+    "PX4_offboard_loss_or_landing": "NOT_RUN",
+    "continuous_10_minute_full_load": "NOT_RUN",
+    "map_geometry_or_obstacle_avoidance": "NOT_EVALUATED",
+    "real_aircraft": "NOT_RUN",
+    "limitations": [
+      "This is simulation fail-closed evidence only; it does not verify PX4 response, target/trajectory cancellation or flight safety.",
+      "The mapping reset uses a fresh map_id while localization remains locked in the same epoch; no session is resumed."
+    ]
+  }
+}

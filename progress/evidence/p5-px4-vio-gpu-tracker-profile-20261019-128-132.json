@@ -1,0 +1,445 @@
+{
+  "date": "2026-10-19",
+  "stage": "P5",
+  "status": "in_progress",
+  "result": "DIAGNOSTIC_PROGRESS_NOT_ACCEPTANCE",
+  "scope": "VINS front-end timing, localization callback freshness, and passive VIO-to-EKF2 fusion under GPU SITL; no product source/config thresholds changed.",
+  "summary": "The image-heavy observer run #131 produced a common stream gap and localization lock, while tracker and solver work remained short. A lower-overhead run #132 without a raw stereo-image observer kept the localization adapter tracking for 45.051 s and observed 590 PX4 VIO inputs plus EV position/yaw fusion with GNSS aiding flags false. The VIO profile and control bridge remained DISABLED, readiness coverage was 0%, and the vehicle stayed disarmed; this is not P5 or final visual-flight acceptance.",
+  "runs": [
+    {
+      "id": 128,
+      "run_id": "p5-px4-vio-gpu-baseline-trace-20261017-128",
+      "outcome": "excluded_harness_error",
+      "detail": "Exited before its observation window because the run-private probe_vio_stream_freshness.py copy was missing. The launch was corrected for #129; no acceptance claim uses #128."
+    },
+    {
+      "id": 129,
+      "run_id": "p5-px4-vio-gpu-baseline-trace-20261017-129",
+      "outcome": "localization_locked",
+      "detail": "Startup warmup passed, then the adapter internally locked telemetry_stale at sim stamp 25.416 s. At lock, optimized and telemetry source ages were 0.300 s and receipt ages about 0.268 s; IMU, propagated odometry, and both image callbacks had recent receipts. The policy was unchanged."
+    },
+    {
+      "id": 130,
+      "run_id": "p5-px4-vio-gpu-tracker-profile-20261017-130",
+      "outcome": "diagnostic_build_pass",
+      "detail": "A run-only one-line timing patch was applied to a copied, patched VINS source tree. colcon built camera_models and vins; the diagnostic binary resolved in its private overlay, ldd had no missing libraries, and the feature_tracker_ms marker was present. Canonical src/vendor source was not edited."
+    },
+    {
+      "id": 131,
+      "run_id": "p5-px4-vio-gpu-tracker-profile-20261019-131",
+      "outcome": "localization_locked_with_full_image_observer",
+      "detail": "A Python observer subscribed to both full-resolution stereo image topics. The adapter locked telemetry_stale during a coincident gap across clock, sensors, propagation and optimized output. Feature tracker p95/max was 7.497/29.524 ms and solver p95/max was 11.191/33.601 ms. This single run does not prove the observer caused the gap; it shows the observer can confound this load profile."
+    },
+    {
+      "id": 132,
+      "run_id": "p5-px4-vio-gpu-tracker-profile-20261019-132",
+      "outcome": "passive_fusion_observed_readiness_not_passed",
+      "wall_seconds": 45.051,
+      "clock_rate_estimate": 0.8736,
+      "localization_health_failures": 0,
+      "localization_optimized_count": 584,
+      "localization_propagated_count": 7723,
+      "px4_vio_inputs": 590,
+      "ekf2_ev_position_fused": true,
+      "ekf2_ev_yaw_fused": true,
+      "gnss_aiding_flags": {
+        "cs_gnss_pos": false,
+        "cs_gnss_vel": false,
+        "cs_gnss_yaw": false,
+        "cs_gps_hgt": false
+      },
+      "bridge_phase": "DISABLED",
+      "bridge_ready_final": false,
+      "bridge_reason_final": "px4_preflight_failed",
+      "readiness_final_10s_coverage": 0.0,
+      "control_samples_zero": true,
+      "vehicle_remained_disarmed": true,
+      "feature_tracker": {
+        "samples": 1499,
+        "median_ms": 8.062,
+        "p95_ms": 10.188,
+        "max_ms": 107.892,
+        "over_100ms": 4,
+        "max_inter_sample_wall_s": 0.1389
+      },
+      "ceres_solver": {
+        "samples": 738,
+        "median_ms": 7.566,
+        "p95_ms": 10.101,
+        "max_ms": 25.168,
+        "over_100ms": 0,
+        "max_inter_sample_wall_s": 0.1868
+      },
+      "detail": "The run did not start the raw full-image freshness observer. The localization adapter recorded no health failure; PX4 DDS telemetry showed 590 VIO inputs and EV position/yaw fusion with GNSS aiding flags false. The bridge remained DISABLED and the readiness gate was not passed."
+    }
+  ],
+  "observations": {
+    "run129_internal_failure": {
+      "reason": "telemetry_stale",
+      "clock_ns": 25416000000,
+      "good_pairs": 88,
+      "sample_ages_at_fail_s": {
+        "imu": 1e-05,
+        "right": 0.000371,
+        "left": 0.017031,
+        "propagated": 0.006117,
+        "telemetry": 0.268538,
+        "optimized": 0.267949
+      },
+      "source_ages_at_fail_s": {
+        "imu": 0.0,
+        "right": 0.036,
+        "left": 0.036,
+        "propagated": 0.004,
+        "telemetry": 0.3,
+        "optimized": 0.3
+      }
+    },
+    "run131_internal_failure_reasons": [
+      "telemetry_stale"
+    ],
+    "run132_clock": {
+      "received_count": 9657,
+      "first_stamp_ns": 27540000000,
+      "last_stamp_ns": 66528000000,
+      "estimated_rate": 0.8736
+    },
+    "run132_direct_probe_counts": {
+      "attitude": 3879,
+      "bridge_status": 347,
+      "control_mode": 0,
+      "estimator_flags": 38,
+      "land_detected": 39,
+      "local_position": 1945,
+      "px4_status": 77,
+      "timesync_status": 102,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0,
+      "visual_odometry_input": 590
+    },
+    "run132_px4_parameter_stage": {
+      "COM_ARM_WO_GPS": 2,
+      "COM_OBL_RC_ACT": 4,
+      "COM_OF_LOSS_T": 1.0,
+      "COM_RC_IN_MODE": 4,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_EV_POS_X": 0.12,
+      "EKF2_EV_POS_Y": -0.0,
+      "EKF2_EV_POS_Z": -0.08,
+      "EKF2_GPS_CTRL": 0,
+      "EKF2_HGT_REF": 3,
+      "NAV_DLL_ACT": 0,
+      "SIM_GZ_EN_ODOM": 0
+    },
+    "health_policy_sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "vins_source_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "run_only_instrumentation": true
+  },
+  "qualification_limits": [
+    "No mapper, EGO, navigation goal, Offboard, arming, trajectory tracking, obstacle course, 10-minute runtime, or final acceptance checklist was exercised.",
+    "PX4 ULog was retained at artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/px4_sitl_default/log/2026-10-19/03_32_52.ulg but was not parsed in this report; EV fusion claims here come from live EstimatorStatusFlags samples.",
+    "Run #131 does not isolate the full-image observer as the cause of its stream gap; #132 is a low-overhead comparison, not a controlled A/B proof.",
+    "No health threshold, camera setting, PX4 time filter, or canonical VINS source was changed."
+  ],
+  "next_step": "Keep the low-overhead probe and run the enabled VIO bridge state machine in SITL through its readiness checks, then add the existing VINS-driven mapping/EGO trajectory path without truth or GPS aiding. P5 remains in_progress; P4 and P6 remain incomplete.",
+  "artifact_sha256": {
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-128/run-px4-vio-gpu-baseline-trace.sh": {
+      "size_bytes": 11993,
+      "sha256": "1fe7c4e1cbcf74c9b9bf6253729951ad91e8d4300d7d9627f75ca6a41ffb03b1"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-128/launch-container-and-sampler.sh": {
+      "size_bytes": 1751,
+      "sha256": "5254b5015d5f77de15a361e83a05b3776e18128fdbe4181757285102c9a25675"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-128/raw-stream-freshness.log": {
+      "size_bytes": 163,
+      "sha256": "2e0b7ca5496e9cc09bdabd45201b42f71026fd98956ac35aff0d094c05518c5e"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-128/localization-internal-trace.json": {
+      "size_bytes": 857773,
+      "sha256": "4bd51190a471977cd837cae5996dd09a83383f2583d2f5dd148eeaa5f96e1691"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-128/localization-probe.log": {
+      "size_bytes": 1038,
+      "sha256": "b831ba4fea73a8686d2c283578a8991bc5e1cc480a7ea5a289594b3e40e0d0e3"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-128/px4-live-probe.log": {
+      "size_bytes": 1783,
+      "sha256": "92b5240e2b017b1133b13a3b26d3c7a796f338f1079e601c6fefe713513210a9"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/run-px4-vio-gpu-baseline-trace.sh": {
+      "size_bytes": 11993,
+      "sha256": "6a993b9a71a75a90b539beeb50f802b86973765aa2ae693cdc3726ae45866c88"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/launch-container-and-sampler.sh": {
+      "size_bytes": 1751,
+      "sha256": "b384b4392ebd76fb83b3eb0d12eaa1a4fb20f2237ac99e4b3b7db1dac447b26e"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/vins-warmup.json": {
+      "size_bytes": 1481,
+      "sha256": "f16ea775ef9aa6a9f5386195bbb00c315b0bb2d96ab34e172201ea721262996d"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/raw-stream-freshness.json": {
+      "size_bytes": 14173,
+      "sha256": "2c5acbeabcc7a836dee6ffeced68a644621a60589c695122ea71241e8c37424a"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/callback-receive-trace.json": {
+      "size_bytes": 4599550,
+      "sha256": "d5202ed7672d5cc9d69b54de9ce3fa1f6dacff297bc727c0b573701f61d378a3"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/localization-internal-trace.json": {
+      "size_bytes": 3645079,
+      "sha256": "9461530eb5f1e773ec41e9bca8aba7f854af91afc92407bd6a9f059ac5e02c9d"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/qualification.json": {
+      "size_bytes": 4926379,
+      "sha256": "fcb8bae7683b8692de126cad19323eb189ed0284bae6ff11b57bc503ddc039a6"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/px4-live-probe.json": {
+      "size_bytes": 4273737,
+      "sha256": "2c0777c280f75d730ccbb7da3c5f2ca07996f76f232f3c35db99a497e30639ed"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/localization-probe.json": {
+      "size_bytes": 385095,
+      "sha256": "aaf1c607b0bbd3b51928203439b32d7dcd8a4c9b7245e012b4dd9e0a6ddff949"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/vins.log": {
+      "size_bytes": 136964,
+      "sha256": "93cc4439ba6d06a5c6d35b2115450538f5e3a4668dde339aef748f9aa870dc83"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/host-resource-samples.txt": {
+      "size_bytes": 58968,
+      "sha256": "94d148ab50284cc33b79d84262b69c98ff87008d3eb30655ac98467b35ba1dda"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/host-gpu-samples.csv": {
+      "size_bytes": 1283,
+      "sha256": "7a2b460d44208c3db54d46d7c548b41738e1498336c5b647154b08051c2aeea3"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/gpu-device.csv": {
+      "size_bytes": 57,
+      "sha256": "e823b3291533aeb452bfc57475ada423536325dee9070da79a626625b6536f08"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-baseline-trace-20261017-129/egl-vendor.txt": {
+      "size_bytes": 61,
+      "sha256": "d8f26dc580a51d6da87c99d89dbeabf4691da7f410a994ebe95d051a355e11a8"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/build-vins-diagnostic.sh": {
+      "size_bytes": 900,
+      "sha256": "45f84e3cabb5b446222c25c5a0957ce0bf33f2ccf05b8c0fa31bd227a05ce0e7"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/feature-tracker-timing-diagnostic.patch": {
+      "size_bytes": 581,
+      "sha256": "f78c0409ff2572efb6810d93e971bddd8109f7a1e690ab51221d2ba9b0eed261"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/vins-build.log": {
+      "size_bytes": 230586,
+      "sha256": "b7153deedc54f7eeb84746e20d7f25f2c7217fb9a3b39271e4da013ac48a0010"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/vins-source/vins/src/estimator/estimator.cpp": {
+      "size_bytes": 65186,
+      "sha256": "d19d71fdd454e276c246cc389a3e0be07de222bbfa8a37f4715e45cf6b697cd2"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/vins-install/vins/lib/vins/vins_node": {
+      "size_bytes": 4408320,
+      "sha256": "b39a3b6a0f6222a9510fa610a7889202495d683563f86c193f676e4005b7c587"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/run-px4-vio-gpu-tracker-profile.sh": {
+      "size_bytes": 12151,
+      "sha256": "b737226e7beca7c614a5f2e64d664efb0a212f8727b56aab56f0f39b3b1e9303"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/launch-container-and-sampler.sh": {
+      "size_bytes": 1755,
+      "sha256": "4349ed14ed161dd449d59d50b49d4ea8be5168750ae93bb771fd829a24928d27"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/diagnostic-build-source.txt": {
+      "size_bytes": 372,
+      "sha256": "71e647ed4235001ff58ade046d32c392974a3773839de6ca53588a00cd66410d"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/vins-package-prefix.txt": {
+      "size_bytes": 88,
+      "sha256": "a1219fc667c5dfb21973723cf9cde671db2be5128702440fc57321d9e2f1c627"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/vins-warmup.json": {
+      "size_bytes": 1526,
+      "sha256": "3d1defcf908bd2cad3accf6b7d3b49525e57ca02714e3ba3b617bea8ee45930e"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/qualification.json": {
+      "size_bytes": 5028848,
+      "sha256": "f092be0c17cecff610068884473f2126537b55be62cef862a82a23347204c306"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/callback-receive-trace.json": {
+      "size_bytes": 4790370,
+      "sha256": "0cf2f7235604946eccf5a95c7d4c16ba928e1fffab32c89e1809619ff35b6cb7"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/localization-internal-trace.json": {
+      "size_bytes": 4188409,
+      "sha256": "9678f2103bd53970fd203ede0fec4e6b6b04db242adf96f47931fc986645f2da"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/raw-stream-freshness.json": {
+      "size_bytes": 8802,
+      "sha256": "77cf2cdb0d524d6716a4769637dd78f38bf4a78bed0a6258f36999a40be27d77"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/px4-live-probe.json": {
+      "size_bytes": 4368552,
+      "sha256": "9ad78e1c07736f7a65967311d8c8f2720dc87d6a44a8a844284a9e5d9003b28b"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/localization-probe.json": {
+      "size_bytes": 387256,
+      "sha256": "dc3415d68da00944363465fd69d72a92f3edfcfe28ea67eb599a6cc55ed980ce"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/vins.log": {
+      "size_bytes": 225380,
+      "sha256": "a0e23a8d19214f6ac698d93a139f6f7f6a79a960743a95fdcf979807eb4b1d38"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/host-resource-samples.txt": {
+      "size_bytes": 57030,
+      "sha256": "446e7602e693b85174429d7a6bd5a48957331a75db3ba71e806a9850868648f0"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/host-gpu-samples.csv": {
+      "size_bytes": 1256,
+      "sha256": "0fe5e730fdf00bda2754b29b08d825dc20463c0a69e64ae77d54cfab34f15382"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-131/egl-vendor.txt": {
+      "size_bytes": 61,
+      "sha256": "d8f26dc580a51d6da87c99d89dbeabf4691da7f410a994ebe95d051a355e11a8"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/run-px4-vio-gpu-tracker-profile.sh": {
+      "size_bytes": 11873,
+      "sha256": "7ea6587dc76425142c9cfb2acd62988425bcdc4e56da63f53efac7bd93399bdb"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/launch-container-and-sampler.sh": {
+      "size_bytes": 1755,
+      "sha256": "8e00be8b344c0c85387407dd028868edabadfef54ddb0b1bc7f822fa5a704b0e"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/diagnostic-build-source.txt": {
+      "size_bytes": 372,
+      "sha256": "71e647ed4235001ff58ade046d32c392974a3773839de6ca53588a00cd66410d"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/vins-package-prefix.txt": {
+      "size_bytes": 88,
+      "sha256": "a1219fc667c5dfb21973723cf9cde671db2be5128702440fc57321d9e2f1c627"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/vins-warmup.json": {
+      "size_bytes": 1495,
+      "sha256": "540aa5d1559a84a8bd75d6f0700e6d3e72bac31ad00447199af83ccc8b6b2baf"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/qualification.json": {
+      "size_bytes": 5383579,
+      "sha256": "c1e4721ec3923d69d19335a0b5e631037d51e6de42f4fc0d591022becc049b0c"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/callback-receive-trace.json": {
+      "size_bytes": 7600870,
+      "sha256": "9aaaad4457b9b1554137fd79521a9c7ecfc2e8dfe63bd8c2f60b0037b6fd3edc"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/localization-internal-trace.json": {
+      "size_bytes": 2898806,
+      "sha256": "7c3a408b803a6c71dcba57096605ab7ace2970bee0f4235b74cddf8ba33fdfd0"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/px4-live-probe.json": {
+      "size_bytes": 4694312,
+      "sha256": "783fc3ff64f3ce531983e45a523554d528dd29f13e58cc3c97df35b30f5008e4"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/localization-probe.json": {
+      "size_bytes": 395502,
+      "sha256": "a1d016180e4ea622123b4fa85b08be977135193d55540897a42e2994b6db87c8"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/vins.log": {
+      "size_bytes": 236373,
+      "sha256": "928e96e59b4252e6ecd28e04acd2a6c10059750713850005a4a1cc5bd95b8406"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/host-resource-samples.txt": {
+      "size_bytes": 55128,
+      "sha256": "dbecf9ce10df023894f9eb53ca93cd4ed1cd4e9564d4abc272c275650802f60e"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/host-gpu-samples.csv": {
+      "size_bytes": 1216,
+      "sha256": "9b80cca160cd6858a6310c0e7bdd84873ee482f2ca400e70b3dc0c3f58976fad"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/egl-vendor.txt": {
+      "size_bytes": 61,
+      "sha256": "d8f26dc580a51d6da87c99d89dbeabf4691da7f410a994ebe95d051a355e11a8"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/px4-param-stage.json": {
+      "size_bytes": 723,
+      "sha256": "a1fa66e65402c55bd1df75b8a429e046df3e9b0e2c22c4780942f0b0f5e0eda2"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/px4-bridge-node-info.txt": {
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/ros-topics.txt": {
+      "size_bytes": 3228,
+      "sha256": "37f4f54b665f3de72810ce6bb2d6e0ea878f5082ab5e8e7b36c6298ca985e829"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/world-generation.json": {
+      "size_bytes": 1440,
+      "sha256": "bcd01195d67dce4a580573bfcd74c41a359e04a831f8c0e5862a4901133c03a8"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/session/session.json": {
+      "size_bytes": 654,
+      "sha256": "7c31df63827008085291f2af89b27bcfba8726c840a326b3168f6932b4488461"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/session/vins.yaml": {
+      "size_bytes": 1263,
+      "sha256": "ecacb463cdd6e4b1e2eb182d01eac2f718878d3b2e53e908bc539ce39c543de1"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261019-132/px4_sitl_default/log/2026-10-19/03_32_52.ulg": {
+      "size_bytes": 16298247,
+      "sha256": "833e086e394e2c18cc2d5dab52e4cb1229dda389a579e65d2ba47a9d6e416422"
+    }
+  },
+  "source_sha256": {
+    "config/components/localization/health.json": {
+      "size_bytes": 800,
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "config/components/localization/vins_sim.json": {
+      "size_bytes": 651,
+      "sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc"
+    },
+    "config/components/px4_bridge/vio_closed_loop.json": {
+      "size_bytes": 560,
+      "sha256": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601"
+    },
+    "config/profiles/vio_closed_loop.json": {
+      "size_bytes": 562,
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "simulation/models/d435i/model.sdf": {
+      "size_bytes": 3355,
+      "sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "src/vendor/vins_fusion/vins/src/estimator/estimator.cpp": {
+      "size_bytes": 65187,
+      "sha256": "0ec4a67e48b2c0a4879ae0708c9e4d982a81e192fb8720eb353d8f9049e43e59"
+    },
+    "dependencies/patches/vins/0001-fully-fixed.patch": {
+      "size_bytes": 11102,
+      "sha256": "99b286a08f2d55d8da5d1bda9b450ec0d1553386e28577c814861489931f8940"
+    },
+    "dependencies/patches/vins/0002-telemetry.patch": {
+      "size_bytes": 5951,
+      "sha256": "60cf747645b6fabc5b48aa32fa35beb07c0ff59fb8aecf4851598f79c38ed3f8"
+    },
+    "dependencies/patches/vins/0003-jazzy-cv-bridge.patch": {
+      "size_bytes": 1772,
+      "sha256": "334148fb7aa2fd399aa27aca5dda01d9ee270590ac25551331b8d3ecbb621b1d"
+    },
+    "dependencies/patches/vins/0004-initialize-excitation-sum.patch": {
+      "size_bytes": 445,
+      "sha256": "530091f49e9f6f7ebf03ae4fe5c22e01ca75cc69a8aea5c65c74803dd2bc6f27"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/feature-tracker-timing-diagnostic.patch": {
+      "size_bytes": 581,
+      "sha256": "f78c0409ff2572efb6810d93e971bddd8109f7a1e690ab51221d2ba9b0eed261"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/vins-source/vins/src/estimator/estimator.cpp": {
+      "size_bytes": 65186,
+      "sha256": "d19d71fdd454e276c246cc389a3e0be07de222bbfa8a37f4715e45cf6b697cd2"
+    },
+    "artifacts/runs/p5-px4-vio-gpu-tracker-profile-20261017-130/vins-install/vins/lib/vins/vins_node": {
+      "size_bytes": 4408320,
+      "sha256": "b39a3b6a0f6222a9510fa610a7889202495d683563f86c193f676e4005b7c587"
+    }
+  }
+}

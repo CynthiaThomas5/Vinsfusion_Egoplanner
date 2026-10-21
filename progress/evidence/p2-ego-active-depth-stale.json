@@ -1,0 +1,392 @@
+{
+  "scope": "Live Gazebo D435i/VINS/mapping/EGO diagnostic runs with one manual target and source-stamp scheduled depth dropout. No trajectory server, controller, PX4 bridge, or control publisher.",
+  "date": "2026-10-17",
+  "status": "CAUSAL_ACTIVE_STALE_RESPONSE_OBSERVED_TWICE; BSPLINE_INTERVAL_CONFIRMED_IN_RUN_15; ACTUATION_UNTESTED",
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container": "d435i-vins-build",
+    "derived_image_digest": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "own_overlay": "artifacts/runs/p2-ego-odom-wire-20261016-03/install",
+    "ego_overlay": "artifacts/runs/p2-ego-map-timeout-build-20261017-01/install",
+    "build_evidence": "progress/evidence/p0-ego-map-timeout-build.json"
+  },
+  "patch": {
+    "path": "dependencies/patches/ego/0009-recoverable-depth-timeout.patch",
+    "sha256": "63c2be9f58293076f7757c2006d7145b5d5ce02d7deed7efa58050cd44520c51",
+    "behavior": "Clear GridMap depth-timeout latch on a fresh in-map occupancy update; expose the map timeout as an EGO launch argument."
+  },
+  "diagnostic_parameter": {
+    "path": "config/components/mapping/ego_planner.json",
+    "value_sim_s": 0.4,
+    "qualification": "PROVISIONAL; two valid pre-fault adapter-pair windows and one no-fault mapping run are measured, but #17 logged a 0.495 s pair gap and EGO timeout warnings; internal GridMap update cadence and vertical-boundary margin remain unresolved."
+  },
+  "qualified_runs": [
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-12",
+      "command": "docker exec d435i-vins-build bash /workspace/artifacts/runs/p2-ego-depth-stale-20261017-12/run-depth-stale-active-ego.sh",
+      "run_script_exit_code": 0,
+      "ros_domain_id": 155,
+      "gazebo_partition": "d435i_depth_stale_12",
+      "epoch": "85579ddcacab43b5a8245c1c1689731a",
+      "goal": {
+        "source_origin_ns": 1156000000,
+        "first_goal_stamp_ns": 19174000000,
+        "published_goals": 1
+      },
+      "depth_fault": {
+        "source_origin_ns": 1156000000,
+        "drop_window_start_ns": 23156000000,
+        "drop_window_end_ns": 28156000000,
+        "drop_first_stamp_ns": 23167000000,
+        "dropped": 145,
+        "window_observed": true
+      },
+      "health_transitions": [
+        {
+          "state": "WAITING",
+          "valid": false,
+          "reason": "waiting_for_depth",
+          "source_stamp_ns": 0,
+          "received_count": 0,
+          "wall_s": 0.6796284900046885
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 2212000000,
+          "received_count": 1,
+          "wall_s": 1.694987207010854
+        },
+        {
+          "state": "STALE",
+          "valid": false,
+          "reason": "depth_stale",
+          "source_stamp_ns": 23134000000,
+          "received_count": 351,
+          "wall_s": 36.13007350600674
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 28183000000,
+          "received_count": 352,
+          "wall_s": 43.11475661600707
+        }
+      ],
+      "ego_first_safety_stamp_ns": 1792170011461036165,
+      "health_stale_system_stamp_ns": 1792170011757703338,
+      "map_reset_system_stamp_ns": 1792170011780405357,
+      "emergency_before_health_stale_s": 0.296667173,
+      "emergency_before_map_reset_s": 0.319369192,
+      "depth_lost_log_count": 12,
+      "successful_plan_count": 8,
+      "details": "The FSM log shows EXEC_TRAJ -> EMERGENCY_STOP while the first injected depth dropout is active. EGO reports now=23.596 s with last occupancy update=23.194 s; the safety transition is 0.297 s before the mapping gate closes and 0.319 s before its map reset acknowledgement. The trajectory observer exited early on a counter bug, so this run does not provide B-spline timing.",
+      "artifact_sha256": {
+        "run-depth-stale-active-ego.sh": "51fd256e453e059f1083d6a76b2720eb8967f876ea2aa00276e4928338ab0ebf",
+        "depth-fault-report.json": "0dbc80df65ef7b6329ec582db8d47275bd90aed54d9819601e455719f020041b",
+        "goal-window-report.json": "62534798541b36e4ce92cb635a883e12de843c841f5ba6e5b2f4e583e6bb750c",
+        "depth-health-probe.json": "f5abb561aabd85e527a7842a940ddbc7adcb40aa462648888acf1c87ebd2e169",
+        "mapping-adapter.log": "4606a8be0bbad5642b37da6fa1810feccbb18c60504b90b391516eb218662b24",
+        "ego.log": "6dc36d42ce51c13805427a29d4caecdbe585156ef0c33aedcded09815e736a08",
+        "trajectory-events.jsonl": "7f6033ddaf13f078a24edccb73d3cc2460c59d618e654f879672cb0a631664b9",
+        "trajectory-observer-summary.json": "93352290f6527c8118ef3765195c200f6ed6eec9b96c4259d837f85a2ea1d8e9",
+        "probe.json": "a897a625ccb698c8ff3b01db25278865830458f9ef36ed8307bfede5a3c70bdf",
+        "session/session.json": "7b8a25cede3b7ebae560006f0f98302a1ce88f2a482ad3699732ab687f734a42"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-15",
+      "command": "docker exec d435i-vins-build bash /workspace/artifacts/runs/p2-ego-depth-stale-20261017-15/run-depth-stale-active-ego.sh",
+      "run_script_exit_code": 0,
+      "ros_domain_id": 161,
+      "gazebo_partition": "d435i_depth_stale_15",
+      "epoch": "71db09a130754a519dedbc6f9a041859",
+      "goal": {
+        "source_origin_ns": 2674000000,
+        "first_goal_stamp_ns": 20692000000,
+        "published_goals": 1
+      },
+      "depth_fault": {
+        "source_origin_ns": 2674000000,
+        "drop_window_start_ns": 22674000000,
+        "drop_window_end_ns": 27674000000,
+        "drop_first_stamp_ns": 22705000000,
+        "dropped": 145,
+        "window_observed": true
+      },
+      "health_transitions": [
+        {
+          "state": "WAITING",
+          "valid": false,
+          "reason": "waiting_for_depth",
+          "source_stamp_ns": 0,
+          "received_count": 0,
+          "wall_s": 0.2813304919982329
+        },
+        {
+          "state": "STALE",
+          "valid": false,
+          "reason": "depth_missing",
+          "source_stamp_ns": 0,
+          "received_count": 0,
+          "wall_s": 2.1811965850065462
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 2707000000,
+          "received_count": 1,
+          "wall_s": 2.5854074439848773
+        },
+        {
+          "state": "STALE",
+          "valid": false,
+          "reason": "depth_stale",
+          "source_stamp_ns": 22639000000,
+          "received_count": 318,
+          "wall_s": 35.031461470993236
+        },
+        {
+          "state": "READY",
+          "valid": true,
+          "reason": "fresh_structurally_valid_depth",
+          "source_stamp_ns": 27688000000,
+          "received_count": 319,
+          "wall_s": 41.97572890800075
+        }
+      ],
+      "ego_first_safety_stamp_ns": 1792170438076457400,
+      "health_stale_system_stamp_ns": 1792170438404882206,
+      "map_reset_system_stamp_ns": 1792170438427027564,
+      "emergency_before_health_stale_s": 0.328424806,
+      "emergency_before_map_reset_s": 0.350570164,
+      "depth_lost_log_count": 12,
+      "successful_plan_count": 4,
+      "details": "The map timeout is now=23.101 s with last occupancy update=22.672 s; the scheduled drop starts at 22.674 s. EGO enters EMERGENCY_STOP before health STALE and map reset. B-spline trajectory 1 remains within its active interval through safety, health STALE, and map reset; it ends 0.255 s after the map reset.",
+      "artifact_sha256": {
+        "run-depth-stale-active-ego.sh": "bf1a5264871cadf46be3b48af26bde9250bc5fbbaa87bd5965e481c09d456738",
+        "depth-fault-report.json": "ae3ac95ce87350a4f96007eeb5ef02e6f179f966d463b24777694f398f02cb69",
+        "goal-window-report.json": "9ef9faa53a8487acf413a0dc141aa40aa6d74924203da72a0b2ad3a9ff1cce45",
+        "depth-health-probe.json": "fc5b920aa04af917cf25dab898321df7245dd923299424648832f758d5437b6e",
+        "mapping-adapter.log": "0bd2f45012c0f9fc60e63505de8fd2d2d08ae91f2c2f3947ed4c6555a51978ae",
+        "ego.log": "2e7dc521193a3a253ce54636168d5e2ba35e9660878f0ffce251262bde828a59",
+        "trajectory-events.jsonl": "33c9a4db51d23841bb83b9ec5275bacf4dfcb1515c01ea22af17f7c5da6659e6",
+        "trajectory-observer-summary.json": "b8b7fe09b58e813476e5c78ea7710f279afd6678ea05f3798159d5bdd6321cff",
+        "probe.json": "46cd1daadfe04de236971f5e469472bc8d1b4a6b63453b8c6ce63cb6bcf3c9ad",
+        "session/session.json": "73d58b04905c6cd555d809af313e6c79cc6d0ec1bfaeb07a55bf332d5a17672e"
+      }
+    }
+  ],
+  "active_run": {
+    "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-15",
+    "command": "docker exec d435i-vins-build bash /workspace/artifacts/runs/p2-ego-depth-stale-20261017-15/run-depth-stale-active-ego.sh",
+    "run_script_exit_code": 0,
+    "ros_domain_id": 161,
+    "gazebo_partition": "d435i_depth_stale_15",
+    "epoch": "71db09a130754a519dedbc6f9a041859",
+    "goal": {
+      "source_origin_ns": 2674000000,
+      "first_goal_stamp_ns": 20692000000,
+      "published_goals": 1
+    },
+    "depth_fault": {
+      "source_origin_ns": 2674000000,
+      "drop_window_start_ns": 22674000000,
+      "drop_window_end_ns": 27674000000,
+      "drop_first_stamp_ns": 22705000000,
+      "dropped": 145,
+      "window_observed": true
+    },
+    "health_transitions": [
+      {
+        "state": "WAITING",
+        "valid": false,
+        "reason": "waiting_for_depth",
+        "source_stamp_ns": 0,
+        "received_count": 0,
+        "wall_s": 0.2813304919982329
+      },
+      {
+        "state": "STALE",
+        "valid": false,
+        "reason": "depth_missing",
+        "source_stamp_ns": 0,
+        "received_count": 0,
+        "wall_s": 2.1811965850065462
+      },
+      {
+        "state": "READY",
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "source_stamp_ns": 2707000000,
+        "received_count": 1,
+        "wall_s": 2.5854074439848773
+      },
+      {
+        "state": "STALE",
+        "valid": false,
+        "reason": "depth_stale",
+        "source_stamp_ns": 22639000000,
+        "received_count": 318,
+        "wall_s": 35.031461470993236
+      },
+      {
+        "state": "READY",
+        "valid": true,
+        "reason": "fresh_structurally_valid_depth",
+        "source_stamp_ns": 27688000000,
+        "received_count": 319,
+        "wall_s": 41.97572890800075
+      }
+    ],
+    "ego_first_safety_stamp_ns": 1792170438076457400,
+    "health_stale_system_stamp_ns": 1792170438404882206,
+    "map_reset_system_stamp_ns": 1792170438427027564,
+    "emergency_before_health_stale_s": 0.328424806,
+    "emergency_before_map_reset_s": 0.350570164,
+    "depth_lost_log_count": 12,
+    "successful_plan_count": 4,
+    "details": "The map timeout is now=23.101 s with last occupancy update=22.672 s; the scheduled drop starts at 22.674 s. EGO enters EMERGENCY_STOP before health STALE and map reset. B-spline trajectory 1 remains within its active interval through safety, health STALE, and map reset; it ends 0.255 s after the map reset.",
+    "artifact_sha256": {
+      "run-depth-stale-active-ego.sh": "bf1a5264871cadf46be3b48af26bde9250bc5fbbaa87bd5965e481c09d456738",
+      "depth-fault-report.json": "ae3ac95ce87350a4f96007eeb5ef02e6f179f966d463b24777694f398f02cb69",
+      "goal-window-report.json": "9ef9faa53a8487acf413a0dc141aa40aa6d74924203da72a0b2ad3a9ff1cce45",
+      "depth-health-probe.json": "fc5b920aa04af917cf25dab898321df7245dd923299424648832f758d5437b6e",
+      "mapping-adapter.log": "0bd2f45012c0f9fc60e63505de8fd2d2d08ae91f2c2f3947ed4c6555a51978ae",
+      "ego.log": "2e7dc521193a3a253ce54636168d5e2ba35e9660878f0ffce251262bde828a59",
+      "trajectory-events.jsonl": "33c9a4db51d23841bb83b9ec5275bacf4dfcb1515c01ea22af17f7c5da6659e6",
+      "trajectory-observer-summary.json": "b8b7fe09b58e813476e5c78ea7710f279afd6678ea05f3798159d5bdd6321cff",
+      "probe.json": "46cd1daadfe04de236971f5e469472bc8d1b4a6b63453b8c6ce63cb6bcf3c9ad",
+      "session/session.json": "73d58b04905c6cd555d809af313e6c79cc6d0ec1bfaeb07a55bf332d5a17672e"
+    }
+  },
+  "diagnostic_runs": [
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-05",
+      "result": "EXCLUDED_EGO_CRASH_BEFORE_STALE_MAP_RESET",
+      "detail": "31 repeated goals overlapped the fault window. EGO first planned successfully, then threw Node already added to executor during a manual goal callback; process exited before the stale reset. Run script returned 1 on final topic query. This exposed the nested spin_some bug and is not counted as safety evidence.",
+      "ego_log_sha256": "47a4a2f0f9f3b024e55278a84c8686fdcfba1e03535144bce3bb626ee5359414",
+      "relay_report_sha256": "61483e4256842e39948b3db82b85e6ef9af06336834a54703a924ef3df9007b4"
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-06",
+      "result": "SINGLE_GOAL_MAP_RESET_ONLY",
+      "detail": "One goal was sent at the final forwarded depth stamp immediately before the relay drop; a successful plan and map clear/rebuild were observed, but EGO returned to WAIT_TARGET during the observation. It is not evidence of active-task emergency behavior.",
+      "probe_sha256": "9a6e5e9d9349c65255208a03e359c913bb4e16bf68fabcb848ae3c760185b687",
+      "goal_report_sha256": "7ab4130f18d28cb7c1745cc0186526ac45314ad07286c5552802d51f4fc87ff1"
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-07",
+      "result": "NO_CAUSAL_RESPONSE; STARTUP_TIMEOUT_PRECEDED_INJECTION",
+      "detail": "Run #07 is retained as an earlier diagnostic. EGO EMERGENCY_STOP preceded adapter depth_stale/reset by about 4.16 wall seconds, after prior odom/depth timeout at now=10.495, last update=9.472. It does not count as a response to the injected fault.",
+      "ego_log_sha256": "fd65a445f6d1ee1f649a393f735a15ac429223c398bd76d96cb44188cfad83f7",
+      "relay_report_sha256": "6fc4c0207de6898dabc582c26106de88cc295b6a9cdddf004586ed942fdc8182"
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-08",
+      "result": "EXCLUDED_REPLAN_SPIN",
+      "detail": "Repeated goals caused thousands of close-to-goal replans; no active trajectory safety response.",
+      "ego_log_sha256": "run08 logs retained in artifacts/runs; details recorded in dialogue 2026-10-17-003.",
+      "artifact_sha256": {
+        "depth-fault-report.json": "641b217b55b6f20c51f22c923d69768796d827323b2884b1d07d1a00450065dc",
+        "goal-window-report.json": "36d174eabf4f28ffa1e646b2fa4f9f8a29f4293f1677a23c63ad8539846d45e1",
+        "depth-health-probe.json": "a4901672f74965bc93af9bf3f7d012bf0a8049fe83ff3f32ca3dc6d9b6da6140",
+        "mapping-adapter.log": "e009ef32b36e6e0a311ad04d60de67dcdb4b3fe454b69f5bab5cdaf2ae15d7d5",
+        "ego.log": "243911f30f96e4ade224533020589da78a53c2fcf2b3ecfcc66e8ae1bb8465d7",
+        "probe.json": "be7020ef8fa3f3fbb4a988a9552164772fbefdd3cd67078e3b63f7f743377757"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-09",
+      "result": "EXCLUDED_GOAL_ORIGIN_SKEW",
+      "detail": "Goal publisher origin lagged relay by 1.881 s, placing the single goal inside the fault window; EGO returned WAIT_TARGET.",
+      "artifact_sha256": {
+        "depth-fault-report.json": "60420ef63f1afed1e047c70a6135ce8e98056fe23a0548542166f2f94b82c954",
+        "goal-window-report.json": "c4f32b31bf59cb89c17b1da619f8fbf6a704df3ddeec5099d32e859c244aab99",
+        "depth-health-probe.json": "71ec1811358339ab03fa31f337b717c2575335756ea279f35de12ab361f55c55",
+        "mapping-adapter.log": "a10e060ac880edff27fa4eb28fcff90e7ad8a780ddfd0f73205591965583adb7",
+        "ego.log": "3a5ea6d22afc3c1ed3e360f5451c2e7275f329cf347640e962b6050d6275c266",
+        "probe.json": "cb612427c3d3b93779e779014ab5f5ae8bebd4e1c57cad63ef6537e0792c956d"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-10",
+      "result": "EXCLUDED_GOAL_TOO_CLOSE_TO_FAULT",
+      "detail": "Single target arrived 0.154 s before fault start; EGO returned WAIT_TARGET before stale/reset.",
+      "artifact_sha256": {
+        "depth-fault-report.json": "a2e60c2f8b7c5e35207d3a4316d91fd90d6203964a6560f04773fc0a3fb963b4",
+        "goal-window-report.json": "7ef0ba9a5df30b85f2b5dd45e4a9a38bcafa78153d371c74f6b3a4fd237c51ab",
+        "depth-health-probe.json": "a4ea7a1242d815a88f2fe55ca73e0db4fb75f258cd466b0262962938d4aa3dd3",
+        "mapping-adapter.log": "dfaba29594a8457cb4096b2502a67d4781b114c19c19cadfc9a7a57e0072667e",
+        "ego.log": "5021327b4bd39d41ac67134d4b4d59476a348b264e0e5de01b918d5a635014b3",
+        "probe.json": "d3fc113327b8ca713fe42777dfdbbe3f50016f20cd7f8a899551235d032a5825"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-11",
+      "result": "EXCLUDED_PREEXISTING_EGO_TIMEOUT",
+      "detail": "EMERGENCY_STOP occurred at the target/first B-spline start before the scheduled source dropout. EGO logged an earlier timeout at now=11.067, last update=10.066.",
+      "artifact_sha256": {
+        "depth-fault-report.json": "a8e1d2087238767caa832a5add64377cd169fe5669f246b80a2124491fe5b936",
+        "goal-window-report.json": "0927c5db076fb0d5b8e7884d4eb55e70247bb3c0f5277b9422832b343d39ad09",
+        "depth-health-probe.json": "568a8b4fe9d9f14f1b7ded6f7b347ef34cf41439d62cfd22ba51edc6a8d7dc37",
+        "mapping-adapter.log": "aebf32d5729b1979fd8d573b7cd0d20b82f8dec24a032c61c8a2995724be8c40",
+        "ego.log": "6fdaea98748daa9f5eb1a85d186ef18383f51303cb390aed5f5a28c21a80e15b",
+        "probe.json": "09b8b75f31cc97bce5157faced040a67a2557531898242e4a3d992be901e0ff8"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-13",
+      "result": "EXCLUDED_VINS_IMU_STALE",
+      "detail": "Localization input stopped early; probe saw only 6 optimized odometry messages and 4 paired map outputs, and adapter closed for imu_stale before goal/fault evaluation. Not safety evidence.",
+      "artifact_sha256": {
+        "run-depth-stale-active-ego.sh": "7bc4378d1811d3fee6aa2348b02640328f1ecf2a19e44bdf66ba883754ce4fbf",
+        "depth-fault-report.json": "658a05dea5358fcb9473fb0563acd6ede2e2456f897b43592463e07840631fc5",
+        "goal-window-report.json": "c6b33902076eddb9669751afa7c7068ff67d06736cf7db112045ffe16e87578f",
+        "depth-health-probe.json": "1c7772d6b260bb4d59b1742e2ae2c34a81163558a4c2f3c2049c4e477854f81c",
+        "mapping-adapter.log": "ca8b144fd2110ac02de282244759f8f2eb7b98624ef40afa229b54cd16650679",
+        "ego.log": "7145e461d8bfce537699c16e2db59b9946caedbb3b8523f7a36393992a6e36e1",
+        "trajectory-events.jsonl": "b7f5bd24d1a9c26631a0a5b342d370c86aa76182a445d73611b8119468f886ad",
+        "trajectory-observer-summary.json": "dff288134d2c45be001f6084f3f370dcfd6f8bff0a472d4d41553be59f4c4f77",
+        "probe.json": "17e25e2eb7947832adf3c833baf8b71edfd590ee69d9b3ad4358f4c2b2b0d7bf",
+        "session/session.json": "e9664f0dcfa3d8a42cde232d3672e8d89c3c114500f792077d9a10613c61f9c3"
+      }
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-depth-stale-20261017-14",
+      "result": "EXCLUDED_PREINJECTION_OCCUPANCY_GAP",
+      "detail": "EGO occupancy last updated at 22.408 s, while the relay fault window began at 24.641 s. EGO entered EMERGENCY_STOP before injection; not causal evidence.",
+      "artifact_sha256": {
+        "run-depth-stale-active-ego.sh": "301eac2b1a51391362c40531b4f76e5f894be77fe84820466aa4b40bf834106a",
+        "depth-fault-report.json": "53e5028f7978094e496c7a14d028484d53fb0d8942d59113382a635e099c9d62",
+        "goal-window-report.json": "842512e701dc6f7a51b049fb6cecb7d020201ff9af16b4e48867ee975f3c446e",
+        "depth-health-probe.json": "e1dea76df7ddc07a916de46487f1f7fde52badb5469f6e8a44c120f790e45bc1",
+        "mapping-adapter.log": "1ee18b069dc4598063bd13bfc4bca44e99563c59423b1af664f40ece7e80dfe3",
+        "ego.log": "dc8edfb299a0af5d0e82ceebfdcd798d1376c8742f70fd3f5ad00aacc2e6d097",
+        "trajectory-events.jsonl": "5e1edc94af72d1dc455ef9afc6472172ce8763f7c993371657307956318648f7",
+        "trajectory-observer-summary.json": "63493ecac9ef1d326ecc67be15ce2a0ee7ed150681a0c85cd0625bb0e8f432a5",
+        "probe.json": "2d511e682497a6f73b07d08b51e92482404de9352e9975950a860acd148fafe1",
+        "session/session.json": "270d29b3fb56fac4f4f5635aadf1ceb70e1f6a280473ce7bdaaae96b22e5d238"
+      }
+    }
+  ],
+  "limitations": [
+    "The 0.4 simulation-second timeout is diagnostic, not frozen. Two valid pre-fault adapter-pair windows have maxima of 0.231/0.264 s. No-fault run #17 observed a 0.495 s pair interval and 25 EGO timeout warnings while depth/localization remained healthy; internal GridMap callback intervals and the near-floor camera margin need follow-up. Runs #16/#18 did not provide valid map output because localization became propagated_stale.",
+    "Run #12 supports the same causal order from EGO/mapping logs, but its observer terminated early on a missing counter and did not record B-spline timing. Run #15 supplies the complete active-interval overlap evidence.",
+    "EMERGENCY_STOP is an EGO planner state only. The trajectory server, controller, PX4, control publisher, and actuators were not launched; actual vehicle stopping and PX4 failsafe behavior remain untested.",
+    "EGO remains in EMERGENCY_STOP after depth recovery; safe recovery requires an explicit, tested new-session or navigation recovery policy.",
+    "A target was sent through the upstream manual waypoint topic. Its Z is hard-coded to 1 m and yaw is ignored; the own 3D+yaw goal API is still missing.",
+    "Static/replay/SITL/real-hardware evidence remain distinct; these results are live simulation only."
+  ],
+  "run_script_cleanup": "Runs #12 and #15 exited 0. Post-run process audit found no active Gazebo, bridge, VINS, EGO, relay, goal-driver, or launch-runner processes; container retains only pre-existing defunct child entries.",
+  "artifacts_sha256": {
+    "patch_0008": "c21529e2b42aad6cc4330267cf9045132bae06f92f87f53d23149344903e48d1",
+    "patch_0009": "63c2be9f58293076f7757c2006d7145b5d5ce02d7deed7efa58050cd44520c51",
+    "build_report": "progress/evidence/p0-ego-map-timeout-build.json",
+    "run15_overlap_analysis": "d111a1ec710eb3a7e2e90400a70a10a4e458321eed52e9e77554a04c7f0cd2fd"
+  },
+  "related_input_interval_diagnostic": "progress/evidence/p2-ego-input-interval-diagnostic.json"
+}

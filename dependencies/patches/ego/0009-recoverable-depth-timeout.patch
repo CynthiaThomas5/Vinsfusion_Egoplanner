@@ -1,0 +1,46 @@
+--- a/src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp
++++ b/src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp
+@@ -791,6 +791,9 @@
+     return;
+   }
+   md_.last_occ_update_time_ = node_->now();
++  // A fresh in-map depth/pose pair recovers a previous timeout. Keep the
++  // timeout latched only while occupancy data is actually stale.
++  md_.flag_depth_odom_timeout_ = false;
+ 
+   /* update occupancy */
+   // ros::Time t1, t2, t3, t4;
+--- a/src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py
++++ b/src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py
+@@ -24,6 +24,7 @@
+     max_vel = LaunchConfiguration('max_vel', default=2.0)
+     max_acc = LaunchConfiguration('max_acc', default=3.0)
+     planning_horizon = LaunchConfiguration('planning_horizon', default=7.5)
++    odom_depth_timeout = LaunchConfiguration('odom_depth_timeout', default=1.0)
+     
+     point_num = LaunchConfiguration('point_num', default=1)
+     point0_x = LaunchConfiguration('point0_x', default=0.0)
+@@ -63,6 +64,7 @@
+     max_vel_arg = DeclareLaunchArgument('max_vel', default_value=max_vel, description='Maximum velocity')
+     max_acc_arg = DeclareLaunchArgument('max_acc', default_value=max_acc, description='Maximum acceleration')
+     planning_horizon_arg = DeclareLaunchArgument('planning_horizon', default_value=planning_horizon, description='Planning horizon')
++    odom_depth_timeout_arg = DeclareLaunchArgument('odom_depth_timeout', default_value=odom_depth_timeout, description='Depth/odometry freshness timeout in simulation seconds')
+     
+     point_num_arg = DeclareLaunchArgument('point_num', default_value=point_num, description='Number of waypoints')
+     point0_x_arg = DeclareLaunchArgument('point0_x', default_value=point0_x, description='Waypoint 0 X coordinate')
+@@ -140,6 +142,7 @@
+             {'fsm/waypoint4_z': point4_z},
+             
+             {'grid_map/resolution': 0.1},
++            {'grid_map/odom_depth_timeout': odom_depth_timeout},
+             {'grid_map/map_size_x': map_size_x},
+             {'grid_map/map_size_y': map_size_y},
+             {'grid_map/map_size_z': map_size_z},
+@@ -225,6 +228,7 @@
+     ld.add_action(max_vel_arg)
+     ld.add_action(max_acc_arg)
+     ld.add_action(planning_horizon_arg)
++    ld.add_action(odom_depth_timeout_arg)
+     
+     ld.add_action(point_num_arg)
+     ld.add_action(point0_x_arg)

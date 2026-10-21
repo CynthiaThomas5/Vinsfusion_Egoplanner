@@ -1,0 +1,310 @@
+{
+  "schema": "p2-ego-pose-rmw-recv-meter-trace/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-recv-meter-trace-20261021-359",
+  "status": "completed_diagnostic",
+  "outcome": "long_take_gap_reproduced_with_participant_socket_receive_calls_observed",
+  "goal_criterion": "GOAL C diagnostic only; GOAL C remains pending and P2 remains passed.",
+  "question": "During a multi-second EGO camera_pose take gap, does the EGO participant UDP socket continue returning receive calls while the topic reader history remains empty?",
+  "attempts": [
+    {
+      "run_id": "p2-ego-pose-rmw-recv-meter-trace-20261021-356",
+      "outcome": "meter_not_loaded_in_ego",
+      "evidence": "The 2.487916 s take gap was captured, but the run-local EGO launch action replaced the outer LD_PRELOAD with librmw_wait_probe.so; no EGO meter CSV was produced.",
+      "usable_for_receive_count": false
+    },
+    {
+      "run_id": "p2-ego-pose-rmw-recv-meter-trace-20261021-357",
+      "outcome": "meter_mapped_but_no_csv",
+      "evidence": "The EGO PID environment and maps verified both preload libraries and the prefix; shutdown did not invoke the meter dump path, so no receive count was used.",
+      "usable_for_receive_count": false
+    },
+    {
+      "run_id": "p2-ego-pose-rmw-recv-meter-trace-20261021-358",
+      "outcome": "empty_csv_on_container_teardown",
+      "evidence": "The EGO meter opened its PID file, but run cleanup did not explicitly signal the tracked EGO PID; the CSV remained zero bytes after container teardown.",
+      "usable_for_receive_count": false
+    },
+    {
+      "run_id": "p2-ego-pose-rmw-recv-meter-trace-20261021-359",
+      "outcome": "meter_count_captured",
+      "evidence": "The EGO preload and file prefix were verified before motion. After CTF stop, run cleanup sent SIGTERM directly to EGO PID 498; the signal-safe summary contained 70,680 successful receive API calls and aligned with the selected take gap.",
+      "usable_for_receive_count": true
+    }
+  ],
+  "configuration": {
+    "command": "bash artifacts/runs/p2-ego-pose-rmw-recv-meter-trace-20261021-359/run-container.sh",
+    "exit_code": 0,
+    "docker_image": "d435i-vins:dev",
+    "ros_domain_id": 220,
+    "gazebo_partition": "d435i_ego_recv_meter_trace_359_01",
+    "ego_vpid": 498,
+    "mapping_input_adapter_vpid": 426,
+    "ego_preload_verification": "recv-meter-injection-verification.json; LD_PRELOAD, meter prefix, and both mapped libraries verified from /proc before motion.",
+    "fastdds_profile": "Run-local FASTRTPS_DEFAULT_PROFILES_FILE profile requests listenSocketBufferSize=212992 bytes; actual EGO socket rb=425984 bytes.",
+    "transport_environment": {
+      "ego_pid": 498,
+      "ego_transport_environment": {
+        "FASTDDS_BUILTIN_TRANSPORTS": "UDPv4",
+        "FASTDDS_DEFAULT_PROFILES_FILE": null,
+        "FASTRTPS_DEFAULT_PROFILES_FILE": "/workspace/artifacts/runs/p2-ego-pose-rmw-recv-meter-trace-20261021-359/fastdds-recv-buffer.xml",
+        "RMW_FASTRTPS_USE_QOS_FROM_XML": null
+      },
+      "mapping_pid": 426,
+      "mapping_transport_environment": {
+        "FASTDDS_BUILTIN_TRANSPORTS": "UDPv4",
+        "FASTDDS_DEFAULT_PROFILES_FILE": null,
+        "FASTRTPS_DEFAULT_PROFILES_FILE": null,
+        "RMW_FASTRTPS_USE_QOS_FROM_XML": null
+      },
+      "qualification": "EGO uses the run-local default participant profile via FASTRTPS_DEFAULT_PROFILES_FILE and built-in UDPv4; mapping stays on built-in UDPv4 without the profile."
+    },
+    "ego_pose_reader_qos": "reliable/volatile/keep_last_25",
+    "mapping_pose_publisher_qos": "reliable/volatile/keep_last_50",
+    "qos_changed": false,
+    "canonical_source_or_config_changed": false,
+    "meter_bucket_ns": 10000000,
+    "metered_calls": [
+      "recv",
+      "recvfrom",
+      "recvmsg",
+      "recvmmsg"
+    ],
+    "meter_output": "Per-PID CSV with bucket counts, returned byte totals, and errors; no receive buffer contents are read or persisted.",
+    "host_sysctl_modified": false,
+    "host_sysctl_readonly": {
+      "kernel_release": "6.8.0-138-generic",
+      "sysctl_readonly": {
+        "net/core/rmem_default": 212992,
+        "net/core/rmem_max": 212992,
+        "net/ipv4/udp_rmem_min": 4096
+      }
+    }
+  },
+  "capture_scope": {
+    "participant_socket": {
+      "pid": 498,
+      "fd": 70,
+      "local_udp_port": 62427,
+      "thread": "dds.udp.62427"
+    },
+    "what_is_counted": "Successful libc receive API calls and returned byte totals on the socket bound to UDP 62427.",
+    "topic_identity_decoded": false,
+    "receive_buffer_contents_decoded_or_persisted": false,
+    "qualification": "The participant socket carries multiple DDS streams. These calls cannot be attributed to camera_pose or to a specific RTPS sample."
+  },
+  "selected_gap": {
+    "topic": "/drone_0_camera_pose",
+    "duration_s": 2.344821057995432,
+    "long_gap_reproduced": true,
+    "freshness_threshold_s": 0.4,
+    "interval_time_of_day_s": [
+      74885.766774809,
+      74888.111595867
+    ],
+    "after_selection_s": [
+      15.118204,
+      17.463025
+    ],
+    "mapping_adapter_rmw_publish_count": 47,
+    "mapping_adapter_max_publish_gap_s": 0.10837461799383163,
+    "independent_pose_receipts": 47,
+    "independent_pose_source_stamp_range_s": [
+      14.422,
+      16.006
+    ],
+    "independent_pose_max_source_gap_s": 0.066,
+    "map_status_epoch_stable": true,
+    "map_status_map_id_stable": true,
+    "map_status_input_ready_throughout_observed_gap": true,
+    "ego_successful_camera_pose_take_count_inside_gap": 0,
+    "ego_wait_events_inside_gap": 638,
+    "ego_unread_count_distribution_inside_gap": {
+      "0": 637,
+      "7": 1
+    },
+    "reader_status_samples_inside_gap": 40,
+    "reader_status_matched_current_values_inside_gap": [
+      1
+    ],
+    "reader_status_sample_lost_values_inside_gap": [
+      0
+    ],
+    "reader_status_sample_rejected_values_inside_gap": [
+      0
+    ],
+    "listener_events_at_gap_end": [
+      {
+        "event_type": 1,
+        "unread_count": 7
+      },
+      {
+        "event_type": 1,
+        "unread_count": 9
+      },
+      {
+        "event_type": 1,
+        "unread_count": 19
+      }
+    ],
+    "listener_sample_lost_or_rejected_events_inside_gap": 0,
+    "socket_receive_meter": {
+      "schema": "ego-recv-meter-gap-alignment/v1",
+      "meter_file": "ego-recv-meter.498.csv",
+      "meter_pid": 498,
+      "meter_fd": 70,
+      "meter_port": 62427,
+      "meter_base_realtime_ns": 1792529270317301496,
+      "bucket_ns": 10000000,
+      "meter_totals": {
+        "calls": 70680,
+        "returned_bytes": 1359196748,
+        "error_calls": 0,
+        "overflow_calls": 0,
+        "nonempty_buckets": 5299
+      },
+      "gap": {
+        "duration_s": 2.344820976257324,
+        "from_time_of_day_s": 74885.766774809,
+        "to_time_of_day_s": 74888.111595867,
+        "epoch_ns": [
+          1792529285766774784,
+          1792529288111595776
+        ],
+        "after_selection_s": [
+          15.118204,
+          17.463025
+        ],
+        "publisher_rmw_publish_count": 47,
+        "publisher_max_gap_s": 0.10837461799383163
+      },
+      "bucket_alignment": {
+        "overlap_bucket_count": 187,
+        "fully_inside_bucket_count": 185,
+        "partial_boundary_bucket_count": 2,
+        "calls_in_fully_inside_buckets": 2540,
+        "bytes_in_fully_inside_buckets": 57990976,
+        "errors_in_fully_inside_buckets": 0,
+        "calls_in_all_overlapping_buckets_upper_bound": 2623,
+        "bytes_in_all_overlapping_buckets_upper_bound": 61128572,
+        "errors_in_all_overlapping_buckets_upper_bound": 0,
+        "partial_boundary_bucket_ranges": [
+          {
+            "start_ns": 1792529285757301496,
+            "calls": 56,
+            "bytes": 2806656,
+            "errors": 0
+          },
+          {
+            "start_ns": 1792529288107301496,
+            "calls": 27,
+            "bytes": 330940,
+            "errors": 0
+          }
+        ]
+      },
+      "time_alignment": {
+        "selection_marker_mtime_ns": 1792529270648571036,
+        "selection_marker_utc": "2026-10-20T20:47:50.648571+00:00",
+        "trace_time_converted_using_utc_date_of_selection_marker": true,
+        "bucket_timestamps_are_bucket_starts": true
+      },
+      "interpretation": "Counts are successful libc receive API calls observed on the EGO UDP socket bound to port 62427. They do not identify DDS topics or prove payload delivery to a DataReader. Fully contained 10 ms buckets give a conservative lower count; all overlapping buckets give an upper count because boundary buckets are only partially aligned."
+    },
+    "host_socket": {
+      "rb_bytes": 425984,
+      "ss_samples_inside_gap": 44,
+      "rx_memory_bytes_max": 960,
+      "socket_drop_delta_inside_gap": 140,
+      "socket_drop_delta_bracket": 158
+    }
+  },
+  "map_observation": {
+    "pitch_pulse_sim_s": [
+      30.018,
+      32.044
+    ],
+    "same_epoch_and_map_id_in_snapshot_pair": true,
+    "target_voxel_before": "unknown",
+    "target_voxel_after": "free_uninflated",
+    "target_entered_frustum": true,
+    "forbidden_control_nodes": [],
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "planner_probe_status": "bspline_received",
+    "planner_bspline_count": 2,
+    "trajectory_executed": false
+  },
+  "trace_integrity": {
+    "ctf_file_count": 32,
+    "ctf_total_bytes": 16833528,
+    "ctf_sha256_check": "all 32 data/index files verified by sha256sum -c analysis/ctf-file-hashes.sha256",
+    "wait_trace_event_count": 20238,
+    "wait_sequence_range": [
+      0,
+      20244
+    ],
+    "missing_wait_sequences": [
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116
+    ],
+    "missing_sequences_overlap_selected_gap": false,
+    "selected_gap_wait_sequence_bounds": [
+      4331,
+      4968
+    ],
+    "overall_wait_summary_exit_code": 1,
+    "selected_gap_alignment_analyzers_exit_code": 0,
+    "analyzer_exit_codes": {
+      "rmw-status-summary": 0,
+      "publisher-take-alignment": 0,
+      "rmw-take-alignment": 0,
+      "rmw-status-alignment": 0,
+      "ego-rclcpp-summary": 0,
+      "rmw-unread-alignment": 0,
+      "reader-listener-events": 0,
+      "ego-schedstat-alignment": 0,
+      "host-socket-buffer-alignment": 0,
+      "wait-sequence-gaps": 0
+    },
+    "ctf_hash_manifest_sha256": "f8c29959d4774cbd616180a5bb158f269c7b8e4aca794171870c9eab18a36bea"
+  },
+  "interpretation": "The long EGO camera_pose take gap was reproduced while both the adapter and an independent reader continued delivering pose data, and MapStatus remained ready with stable epoch/map_id. The EGO participant UDP socket returned at least 2,540 receive API calls in fully contained 10 ms buckets during the gap (2,623 calls across all overlapping buckets). This rules out a complete absence of receive API activity on that participant socket, but does not identify those calls as camera_pose traffic or prove RTPS insertion into the EGO DataReader history. Kernel socket drops also increased by 140 during the gap; no topic-level cause is established.",
+  "limitations": [
+    "Receive counters are participant-socket-wide and do not classify topic or RTPS sample; no packet payload was read.",
+    "The 10 ms bucket boundary yields a conservative lower count and an upper count including both partial boundary buckets.",
+    "Global wait trace continuity failed because sequences 110–116 are missing outside the selected gap; selected-window alignment and CTF hashes passed.",
+    "Only one corrected in-process counter run is usable; the earlier #356–#358 attempts are preserved but excluded from receive-count conclusions.",
+    "The map transition is a diagnostic snapshot only; the planner spline was not executed, and no vehicle-clearance, controller, PX4, truth, or hardware evidence was produced."
+  ],
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-recv-meter-trace-20261021-359/run-manifest.json",
+    "sha256": "7c5298075caa4fc1cae76433c9ec351f6852aa69abca7bea04e1fa3fbd2161dc",
+    "size_bytes": 14636
+  },
+  "goal_status": {
+    "P2": "passed",
+    "GOAL C": "pending"
+  },
+  "repository_validation": {
+    "project_status_py": "PASS; structural consistency only",
+    "git_diff_check": "PASS",
+    "git_diff_cached_check": "PASS",
+    "json_validation": "PASS; 208 progress evidence JSON files plus milestones, goal checklist, run manifest, and meter alignment parsed",
+    "run_manifest_key_artifacts": "PASS; 56 keyed artifacts matched SHA-256 and size",
+    "ctf_hash_check": "PASS; 32 data/index files",
+    "staged_paths": 50,
+    "staged_paths_match_352_snapshot": true,
+    "staged_paths_sha256": "eebd0b802eda6b6796f05fc161322522b02368d06483e0aa5fdfda4c4085bb0e",
+    "staged_files_modified_or_added_by_this_task": false,
+    "goal_status_preserved": {
+      "P2": "passed",
+      "GOAL C": "pending"
+    }
+  }
+}

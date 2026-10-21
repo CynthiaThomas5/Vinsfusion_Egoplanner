@@ -1,0 +1,56 @@
+{
+  "schema": "goal-c-dense-sphere-sweep-audit/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-dense-sphere-sweep-audit-20261021-383",
+  "status": "diagnostic_fail_closed_unknown_out_of_map_and_inflation",
+  "source_run": {
+    "run_id": "p2-ego-dense-spline-layout-snapshot-retry-20261020-321",
+    "manifest": "artifacts/runs/p2-ego-dense-spline-layout-snapshot-retry-20261020-321/runtime-manifest-01.json",
+    "manifest_sha256": "11199b7b48f011bd76c3e82e3a5ded8f3d068dea8ebf12a7eac4f8d3f3e053c7"
+  },
+  "scope": "Read-only continuous-time swept-envelope audit of both full-active B-splines against their accepted same-epoch/map_id occupancy snapshots in the second obstacle layout. No canonical source or configuration changed.",
+  "method": {
+    "vehicle_envelope": "PX4 x500 swept collision boxes plus nominal D435i housing; orientation-invariant model sphere radius 0.4819358707 m, centered at the D435i IMU origin.",
+    "continuous_sweep": "Evaluate each spline every 1 ms over its full active interval. Expand sampled spheres by a derivative-control-polygon speed bound times the maximum sample step, conservatively covering the continuous interval between samples.",
+    "map_check": "Intersect the conservative swept sphere with 0.1 m axis-aligned snapshot voxel boxes; classify raw unknown/free/occupied and independent inflation mask. Out-of-map cells fail closed.",
+    "identity": "Both splines, the goal, and each snapshot match epoch and odom frame; requested and returned map_id match. Snapshot stamp deltas are +1 ms and 0 ms; depth source ages are 130 ms and 99 ms."
+  },
+  "results": {
+    "trajectory_1": {
+      "samples": 4464,
+      "swept_in_map_voxels": 3766,
+      "unknown": 1342,
+      "known_free": 2424,
+      "raw_occupied": 0,
+      "inflation_mask": 937,
+      "unique_out_of_map_voxels": 141,
+      "out_of_map_sample_voxel_intersections": 86301,
+      "conservative_lower_bound_to_nearest_known_occupied_voxel_m": 0.0594,
+      "model_collision_bounds_extend_below_map_min_z_m": 0.0546
+    },
+    "trajectory_2": {
+      "samples": 4581,
+      "swept_in_map_voxels": 3710,
+      "unknown": 1241,
+      "known_free": 2469,
+      "raw_occupied": 0,
+      "inflation_mask": 841,
+      "unique_out_of_map_voxels": 153,
+      "out_of_map_sample_voxel_intersections": 106442,
+      "conservative_lower_bound_to_nearest_known_occupied_voxel_m": 0.1090,
+      "model_collision_bounds_extend_below_map_min_z_m": 0.0531
+    }
+  },
+  "interpretation": "Neither model-envelope sweep intersects a raw occupied voxel, but both intersect unknown and inflated cells and extend beyond the map's lower z boundary (-0.15 m). The model collision AABB alone reaches 5.3–5.5 cm below that boundary near the trajectory start. This blocks a known-free clearance classification; unknown/out-of-map overlap is not proof of physical collision. The 5.9/10.9 cm occupied-voxel margins are descriptive and do not include map, localization, tracking, latency, or braking error.",
+  "qualification": "Planner-only source run; neither trajectory was executed. No controller, PX4, runtime truth, collision-contact, tracking, or flight evidence. GOAL C remains pending.",
+  "artifacts": {
+    "analysis": {
+      "path": "artifacts/runs/p2-ego-dense-sphere-sweep-audit-20261021-383/body-sweep-analysis.json",
+      "sha256": "05c34f04d984d8e63420705b45e073388fcf159892cafd0b887901f157a35a5c"
+    },
+    "analysis_script": "artifacts/runs/p2-ego-dense-sphere-sweep-audit-20261021-383/audit_body_sweep.py",
+    "run_manifest": "artifacts/runs/p2-ego-dense-sphere-sweep-audit-20261021-383/run-manifest.json",
+    "vehicle_geometry_evidence": "progress/evidence/p0-d435i-footprint-20261020-246.json"
+  },
+  "next_step": "Reconcile the map's lower-z/floor representation and the vehicle's valid airborne start height before repeating full-envelope clearance in a fresh epoch; do not loosen unknown-space handling or the acceptance margin based on this diagnostic."
+}

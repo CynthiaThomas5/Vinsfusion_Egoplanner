@@ -1,0 +1,988 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_group": "p2-map-odom-remap-multi-obstacle-20261020-248-251",
+  "status": "DEVELOPMENT_DIAGNOSTICS_ONLY; RELIABLE_ODOMETRY_PATH_CONFIRMED; GOAL_F_NOT_QUALIFIED",
+  "scope": "Four live D435i/VINS/localization/depth-map/EGO runs on the same box+cylinder scene. The sequence diagnoses an initially stale install/QoS mismatch, corrects the overlay, clarifies EGO flight_type semantics, then repeats no-goal WAIT_TARGET mode. A read-only source review also records EGO inflation-kernel semantics.",
+  "qualification": "Exploratory GOAL B/C/F evidence. No formal thresholds were frozen. No planner course, tracking controller, PX4 bridge, control publisher, or SITL was launched.",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo_sim_version": "8.14.0",
+    "runtime_gpu": "NVIDIA GeForce RTX 3060 Laptop GPU"
+  },
+  "truth_isolation": "The diagnostic motion process records Gazebo pose and the offline evaluator uses one fixed-scale SE(3) alignment; raw VINS summaries report diagnostic_truth_enabled=false and truth_topic=null. VINS/localization/mapping/EGO received no truth topic.",
+  "control_scope": "No PX4, uav_px4_bridge, tracking controller, Offboard control, or PX4 setpoint publisher. #249 generated EGO planner trajectories from its preset-target launch mode, but no trajectory consumer/controller or vehicle control was active.",
+  "scene": {
+    "calibration_box": {
+      "center_xyz_m": [
+        1.55,
+        0.5,
+        1.1
+      ],
+      "size_xyz_m": [
+        0.35,
+        0.5,
+        0.8
+      ]
+    },
+    "calibration_cylinder": {
+      "center_xyz_m": [
+        2.25,
+        -0.5,
+        1.0
+      ],
+      "radius_m": 0.18,
+      "length_m": 0.9
+    },
+    "reference_wall": "Existing calibration wall, unchanged in source world; objects added in run-local worlds."
+  },
+  "qos_diagnosis": {
+    "current_source_node_sha256": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "stale_run_248_node_sha256": "0e3ddac0b21976646e5afaba57a66f4d6b08d94f1f230424f497c18d98a5ff4c",
+    "verified_run_249_to_251_node_sha256": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "stale_binary_behavior": "The #248 install used qos_profile_sensor_data for /localization/optimized_imu_odom (BEST_EFFORT), while the EGO node has RELIABLE odometry subscriptions. Its localization log contains an incompatible RELIABILITY warning and its planner remained INIT/no odom.",
+    "verified_graph": "#249 topic info recorded one RELIABLE localization publisher, two RELIABLE EGO subscriptions, and one BEST_EFFORT mapping subscription. #251 stereo graph recorded one BEST_EFFORT Gazebo bridge publisher and BEST_EFFORT subscriptions from localization_adapter and vins_estimator for both stereo image topics.",
+    "result": "The mismatch was in the run overlay, not current project source; #249-251 loaded the install whose localization node hash matches current source."
+  },
+  "flight_type_correction": "Vendor EGO FSM defines flight_type=1 as MANUAL_TARGET and flight_type=2 as PRESET_TARGET. The #248/#249 harness published no goal, but #249 flight_type=2 loaded the launch default waypoint and entered SEQUENTIAL_START; only #250/#251 test explicit no-goal WAIT_TARGET behavior.",
+  "runs": [
+    {
+      "run_id": "p2-map-odom-remap-multi-obstacle-20261020-248",
+      "domain_id": 119,
+      "gz_partition": "d435i_map_odom_248",
+      "mode": {
+        "flight_type": 2,
+        "flight_type_1": null,
+        "flight_type_2": "PRESET_TARGET",
+        "harness_goal_published": false
+      },
+      "install": {
+        "prefix": "artifacts/runs/p2-map-input-build-20261016-01/install",
+        "localization_node_sha256": "0e3ddac0b21976646e5afaba57a66f4d6b08d94f1f230424f497c18d98a5ff4c"
+      },
+      "runtime": {
+        "wall_seconds": 50.026,
+        "depth_inputs": 1025,
+        "adapter_optimized_odom_count": 571,
+        "ego_depth_outputs": 1022,
+        "ego_pose_outputs": 1022,
+        "ego_depth_pose_received_pairs": 1022,
+        "map_samples": 454,
+        "max_occupied_points": 1260,
+        "map_frame_ids": [
+          "odom_04fc1ab8bf924ceb857d3b621a31b620"
+        ],
+        "paired_source_interval_s": {
+          "count": 1021,
+          "p50": 0.033,
+          "p95": 0.066,
+          "max": 0.132
+        },
+        "ego_pose_wall_receipt_interval_s": {
+          "count": 1021,
+          "p50": 0.048472,
+          "p95": 0.101296,
+          "max": 1.738178
+        },
+        "ego_pose_source_age_at_receipt_s": {
+          "count": 1022,
+          "p50": 0.077,
+          "p95": 0.123,
+          "max": 1.445
+        },
+        "localization_status_events": [
+          {
+            "wall_elapsed_s": 1.907,
+            "wall_epoch_s": 1792466002.252161,
+            "epoch": "04fc1ab8bf924ceb857d3b621a31b620",
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver",
+            "frame_id": "odom_04fc1ab8bf924ceb857d3b621a31b620"
+          }
+        ],
+        "raw_vins_counts": {
+          "optimized": 697,
+          "propagated": 9199
+        },
+        "raw_vins_truth_enabled": false,
+        "ego_fsm_transition_counts": {},
+        "ego_no_odom_messages": 61,
+        "ego_odom_or_depth_lost_messages": 94,
+        "ego_lost_first": "[ego_planner_node-1] [ERROR] [1792466001.707233579] [drone_0_ego_planner_node]: odom or depth lost! now=9.923000, last_occ_update_time=8.905000, odom_depth_timeout=1.000000",
+        "ego_lost_last": "[ego_planner_node-1] [ERROR] [1792466059.807273590] [drone_0_ego_planner_node]: odom or depth lost! now=56.620000, last_occ_update_time=51.537000, odom_depth_timeout=1.000000",
+        "ego_plan_success_count": 0
+      },
+      "offline_geometry": {
+        "trajectory_alignment": {
+          "method": "Single SE(3), scale fixed to 1, no segment realignment",
+          "paired_samples": 354,
+          "position_rmse_m": 0.00891449718733552,
+          "position_p95_m": 0.014627555422795379,
+          "position_max_m": 0.015076772947528133,
+          "orientation_rmse_deg": 1.13454341213802
+        },
+        "mapping_runtime": {
+          "depth_output_count": 1025,
+          "ego_depth_output_count": 1022,
+          "ego_pose_output_count": 1022,
+          "max_occupied_points": 1260,
+          "interrupted": false,
+          "map_cloud_points": 1260,
+          "map_frame_id": "odom_04fc1ab8bf924ceb857d3b621a31b620",
+          "map_stamp_ns": 23266000000,
+          "map_stamp_within_sim_clock": true,
+          "nearest_optimized_odom_stamp_delta_s": 0.032999999,
+          "map_bounds_world_xyz_m": [
+            [
+              1.3657918000133293,
+              3.053388204526476
+            ],
+            [
+              -1.997758018128989,
+              3.6041921711388705
+            ],
+            [
+              1.0438418762497805,
+              2.7530777719266077
+            ]
+          ]
+        },
+        "obstacle_surface_comparison": [
+          {
+            "name": "calibration_box",
+            "kind": "box",
+            "center_world_m": [
+              1.55,
+              0.5,
+              1.1
+            ],
+            "size_m": [
+              0.35,
+              0.5,
+              0.8
+            ],
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 25,
+            "nearest_surface_residual_m": {
+              "median": 0.006296914457086411,
+              "p95": 0.008819550964642318,
+              "maximum": 0.009208199986670718,
+              "fraction_within_0_10m": 1.0
+            }
+          },
+          {
+            "name": "calibration_cylinder",
+            "kind": "cylinder",
+            "center_world_m": [
+              2.25,
+              -0.5,
+              1.0
+            ],
+            "radius_m": 0.18,
+            "length_m": 0.9,
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 34,
+            "nearest_surface_residual_m": {
+              "median": 0.07830890683829733,
+              "p95": 0.15991704427958003,
+              "maximum": 0.16039984022537052,
+              "fraction_within_0_10m": 0.5588235294117647
+            }
+          }
+        ],
+        "qualification": "Exploratory offline trajectory and multi-object surface comparison; no acceptance thresholds."
+      },
+      "qos_graph": {
+        "optimized_odometry": null,
+        "stereo_images": null
+      },
+      "classification": "EXCLUDED_STALE_INSTALL_QOS_MISMATCH",
+      "raw_artifacts": {
+        "directory": "artifacts/runs/p2-map-odom-remap-multi-obstacle-20261020-248",
+        "sha256": {
+          "run-variant-manifest.json": "e2b665e0f6edb44db16ff699faf7665e44545756e7ed7701447e2ed56b019c9e",
+          "run-container.sh": "a2a2fe81776d8185bb2726dfec043a545e942d72ef29115ff311497434e085c6",
+          "run-live.sh": "1b1ff73917d54ccbf807b1078af5b461ca2b8932bfb74d46e9ee43a7197e6492",
+          "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+          "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+          "scene-preflight.json": "35dbf0fa12056a2ea5d63e83e0066f97197dacd48c0c25f699a075bd1ffb28bb",
+          "scene-preflight.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "world-sdf-check.log": "ba91f753beddc52ad7e521dcf9460d21e09f84df7d547cb2618fe9faa1617828",
+          "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "session-binding.json": "3bb1d77857583f7495385f83ef332dd843a3810a92e5eb4cfe52320a5818b011",
+          "session/session.json": "9e0cbb3c9d9d008511f863c50288850b2cc9fefd60923a0ee03a72c58a0e41ea",
+          "motion.json": "4b90b2ca4e3e6b715f7619697e1a454e57f43b26986b1346d25af9a187f95d5f",
+          "optimized-odometry.json": "1c0e535256790dfb0bdbbd9afaeb56cf11271c2a0a136bc9fd693c70ee460278",
+          "map-cloud.json": "422a771b60a862417276b54b19ccfea5c3ab42ad9de273f0e41a45fcf678e18f",
+          "probe.json": "7af8b8ab686732601f8c1559e0d9d13dbc4291e7ff0c38cb7d01e5855623eb8e",
+          "multi-geometry-evaluation.json": "a85d53d3a0f6484c871644b016f10a493076c9c5aaa80743e5c97bafef3f606b",
+          "raw-vins-capture/summary.json": "cf40dda47d7b2c8fcf239dd47a8b326ec55daf3d5737f0c6ee34217ce3d14591",
+          "raw-vins-capture/raw-odometry.json": "63bfe818aa54909e46d2031efc351ad96912ec9f53aedbf9df89cd02d61cc981",
+          "raw-vins-capture/telemetry.json": "ade9983e48ae881383037d11856e6b389da392194ddd4fd8c3283b6783e969b4",
+          "sensors.log": "923b5c93d49f0fb7b006a9ab3c1432ece32e620ff6e159fe0c4221f303c74140",
+          "vins.log": "5df475fd3f2474553b1c647360841ba5d5175388e60646c1619890880efb7cd1",
+          "localization-adapter.log": "814957e3d4676471b82c41a3307111009ddb434d10abe9b0de8f866bd7f67592",
+          "mapping-adapter.log": "25695acf03ff9bc689157c1d568f5a049f9e31c0394a63471a6f48e45f3f5c31",
+          "ego.log": "8e7cfd64d3bc057dbfbf9774baf41c1723060f5e0ddee7d5c6e1ebb241fabe01",
+          "motion-driver.log": "ca15ea8be735d7d408932ba9d32f9b6535c91065910b56fc03e65612fec7318a",
+          "raw-vins-probe.log": "9232db80fb750a6ecb5cf46eb448d4a897b8a950a1732a412e9ec8f6a096f770",
+          "probe-console.log": "91508cecbbc04133280bf79457da854e56efd8ef1644c25fac8f94cca973bcd1"
+        }
+      }
+    },
+    {
+      "run_id": "p2-map-odom-remap-multi-obstacle-20261020-249",
+      "domain_id": 120,
+      "gz_partition": "d435i_map_odom_249",
+      "mode": {
+        "flight_type": 2,
+        "flight_type_1": null,
+        "flight_type_2": "PRESET_TARGET",
+        "harness_goal_published": false
+      },
+      "install": {
+        "prefix": "artifacts/runs/p0-ego-obstacle-inflation-config-build-20261020-245/install",
+        "localization_node_sha256": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806"
+      },
+      "runtime": {
+        "wall_seconds": 50.028,
+        "depth_inputs": 936,
+        "adapter_optimized_odom_count": 492,
+        "ego_depth_outputs": 940,
+        "ego_pose_outputs": 940,
+        "ego_depth_pose_received_pairs": 940,
+        "map_samples": 81,
+        "max_occupied_points": 923,
+        "map_frame_ids": [
+          "odom_7cc436c47d9a4b4a8293be8b5caa9819"
+        ],
+        "paired_source_interval_s": {
+          "count": 939,
+          "p50": 0.033,
+          "p95": 0.033,
+          "max": 0.099
+        },
+        "ego_pose_wall_receipt_interval_s": {
+          "count": 939,
+          "p50": 0.014581,
+          "p95": 0.108795,
+          "max": 1.82439
+        },
+        "ego_pose_source_age_at_receipt_s": {
+          "count": 905,
+          "p50": 0.076,
+          "p95": 0.487,
+          "max": 1.344
+        },
+        "localization_status_events": [
+          {
+            "wall_elapsed_s": 1.426,
+            "wall_epoch_s": 1792466137.101605,
+            "epoch": "7cc436c47d9a4b4a8293be8b5caa9819",
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver",
+            "frame_id": "odom_7cc436c47d9a4b4a8293be8b5caa9819"
+          },
+          {
+            "wall_elapsed_s": 47.376,
+            "wall_epoch_s": 1792466183.051438,
+            "epoch": "7cc436c47d9a4b4a8293be8b5caa9819",
+            "state": 4,
+            "valid": false,
+            "reason": "normalized_cost_exceeded",
+            "frame_id": "odom_7cc436c47d9a4b4a8293be8b5caa9819"
+          }
+        ],
+        "raw_vins_counts": {
+          "optimized": 629,
+          "propagated": 8292
+        },
+        "raw_vins_truth_enabled": false,
+        "ego_fsm_transition_counts": {
+          "INIT->WAIT_TARGET": 1,
+          "WAIT_TARGET->SEQUENTIAL_START": 1,
+          "SEQUENTIAL_START->SEQUENTIAL_START": 1303,
+          "SEQUENTIAL_START->EXEC_TRAJ": 1
+        },
+        "ego_no_odom_messages": 3,
+        "ego_odom_or_depth_lost_messages": 0,
+        "ego_lost_first": null,
+        "ego_lost_last": null,
+        "ego_plan_success_count": 1
+      },
+      "offline_geometry": {
+        "trajectory_alignment": {
+          "method": "Single SE(3), scale fixed to 1, no segment realignment",
+          "paired_samples": 363,
+          "position_rmse_m": 0.007158252315739047,
+          "position_p95_m": 0.013772063127062542,
+          "position_max_m": 0.015493523840033852,
+          "orientation_rmse_deg": 1.1046185598771423
+        },
+        "mapping_runtime": {
+          "depth_output_count": 936,
+          "ego_depth_output_count": 940,
+          "ego_pose_output_count": 940,
+          "max_occupied_points": 923,
+          "interrupted": false,
+          "map_cloud_points": 923,
+          "map_frame_id": "odom_7cc436c47d9a4b4a8293be8b5caa9819",
+          "map_stamp_ns": 14418000000,
+          "map_stamp_within_sim_clock": true,
+          "nearest_optimized_odom_stamp_delta_s": 0.004,
+          "map_bounds_world_xyz_m": [
+            [
+              1.3666008353086714,
+              2.99185415906636
+            ],
+            [
+              -2.4103544075881853,
+              2.808514378616791
+            ],
+            [
+              1.0199818115923913,
+              2.7792213389462566
+            ]
+          ]
+        },
+        "obstacle_surface_comparison": [
+          {
+            "name": "calibration_box",
+            "kind": "box",
+            "center_world_m": [
+              1.55,
+              0.5,
+              1.1
+            ],
+            "size_m": [
+              0.35,
+              0.5,
+              0.8
+            ],
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 40,
+            "nearest_surface_residual_m": {
+              "median": 0.007364548258693426,
+              "p95": 0.03270565149228124,
+              "maximum": 0.03382665051158418,
+              "fraction_within_0_10m": 1.0
+            }
+          },
+          {
+            "name": "calibration_cylinder",
+            "kind": "cylinder",
+            "center_world_m": [
+              2.25,
+              -0.5,
+              1.0
+            ],
+            "radius_m": 0.18,
+            "length_m": 0.9,
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 35,
+            "nearest_surface_residual_m": {
+              "median": 0.07342423187380459,
+              "p95": 0.11573646743200153,
+              "maximum": 0.11776117127706402,
+              "fraction_within_0_10m": 0.6285714285714286
+            }
+          }
+        ],
+        "qualification": "Exploratory offline trajectory and multi-object surface comparison; no acceptance thresholds."
+      },
+      "qos_graph": {
+        "optimized_odometry": {
+          "publishers": [
+            {
+              "node": "localization_adapter",
+              "reliability": "RELIABLE"
+            }
+          ],
+          "subscriptions": [
+            {
+              "node": "mapping_input_adapter",
+              "reliability": "BEST_EFFORT"
+            },
+            {
+              "node": "drone_0_ego_planner_node",
+              "reliability": "RELIABLE"
+            },
+            {
+              "node": "drone_0_ego_planner_node",
+              "reliability": "RELIABLE"
+            }
+          ]
+        },
+        "stereo_images": null
+      },
+      "classification": "ODOMETRY_DELIVERED_PRESET_TARGET_AUTOSTARTED",
+      "raw_artifacts": {
+        "directory": "artifacts/runs/p2-map-odom-remap-multi-obstacle-20261020-249",
+        "sha256": {
+          "run-variant-manifest.json": "309d3145115cc5540ac63d9c05d37ec433da9b7f45580cacb5cf271a3e360951",
+          "run-container.sh": "ddeaacfefdcc41f100f8de86fd53dced9b7dd4f014f92ff8b5eae7cf202e18d2",
+          "run-live.sh": "815c4a3ccc6c3dd525a37e1ea011b37789184b9ce672100fb37cfaaa073cbd1e",
+          "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+          "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+          "scene-preflight.json": "7e456df1edb4bf9b991a6a3687404b086bd11e705b0e1a82a87f8c878be37ae8",
+          "scene-preflight.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "world-sdf-check.log": "dfe8bef087112e842da48a10280be5099fb02457cacab44dabc630782ae5a56a",
+          "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "session-binding.json": "e5666e9f45eb008c208ca4b07761d6a04f97e598fb4cfef8e9b4103eb8ea957d",
+          "session/session.json": "7667c3bf2c4a74f3df47aa8e38a53c05d147ad1f0bedf0b7cbf8db1779b4d3c0",
+          "motion.json": "f80c6e756d4626a85885e0fcc227d29a398e640e8c9ad457cd6d7ab39e66b3ea",
+          "optimized-odometry.json": "65e4c6b0670c98466fe6d88e8e91965f7151842dab4bbdb59eecbdd65cdead8a",
+          "map-cloud.json": "8c600325a6fdd488dc60bc1930c2bdd3a78f0251f8d5f0bfebcba446075d67a9",
+          "probe.json": "b28c0ea92fd76d3560116399a644edbbb49fd9d7f8570c81a69292260c09f45d",
+          "multi-geometry-evaluation.json": "7e0029391f93b55dcc99c36039fc794c03fdbbecd4c803fbccef6d13dc70aa48",
+          "raw-vins-capture/summary.json": "4f1cc756120359d389a38a2e5b078f487f402524b1a06c61bd14c964d5e19047",
+          "raw-vins-capture/raw-odometry.json": "fc96ac25dde6852a36a9af3fb0ea3790994d7443e6db1be5882e77b012a56ee0",
+          "raw-vins-capture/telemetry.json": "7865835d2d9d612c32fb7b7077d5928b05c7576a61c981ad07841ff081b4f248",
+          "sensors.log": "ebe5943494997c4db9aaf03c8acd3e502fd3ce476c4675726725fc4002b729bc",
+          "vins.log": "6865e563ad9f6922731479eff4577876baa9603740b239c11683e713d25961fb",
+          "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mapping-adapter.log": "1e85248350481a5b898ccbad4d31932ed5bdb88d49cc0802826c457ed7f54c36",
+          "ego.log": "4fcb51e966d8afe7ab7c6b61983ab6052445fa6400d519e04d879898598d21c0",
+          "motion-driver.log": "92463b12db981faf1b809f1984f051e877ec1e12e3e97578335310cddf0adb52",
+          "raw-vins-probe.log": "b62826ab21277e0124969259d69ff53d5b3f8ebc153c257df62d510470a65ba0",
+          "probe-console.log": "876ac9a55e7111e7ccc553aafbcdad209c83ae4152bbfe95f3640fd9421bc82d",
+          "optimized-odom-topic-info.txt": "4f94bfea015fe10726d61c4c566a3c9e232176a0906876d8c834b8074afbe66e"
+        }
+      }
+    },
+    {
+      "run_id": "p2-map-odom-remap-multi-obstacle-20261020-250",
+      "domain_id": 121,
+      "gz_partition": "d435i_map_odom_250",
+      "mode": {
+        "flight_type": 1,
+        "flight_type_1": "MANUAL_TARGET",
+        "flight_type_2": null,
+        "harness_goal_published": false
+      },
+      "install": {
+        "prefix": "artifacts/runs/p0-ego-obstacle-inflation-config-build-20261020-245/install",
+        "localization_node_sha256": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806"
+      },
+      "runtime": {
+        "wall_seconds": 50.024,
+        "depth_inputs": 994,
+        "adapter_optimized_odom_count": 20,
+        "ego_depth_outputs": 39,
+        "ego_pose_outputs": 39,
+        "ego_depth_pose_received_pairs": 39,
+        "map_samples": 439,
+        "max_occupied_points": 864,
+        "map_frame_ids": [
+          "odom_2a1af98e05984d9aaa477c35264e554a"
+        ],
+        "paired_source_interval_s": {
+          "count": 38,
+          "p50": 0.033,
+          "p95": 0.033,
+          "max": 0.033
+        },
+        "ego_pose_wall_receipt_interval_s": {
+          "count": 38,
+          "p50": 0.009114,
+          "p95": 0.120308,
+          "max": 0.352674
+        },
+        "ego_pose_source_age_at_receipt_s": {
+          "count": 39,
+          "p50": 0.071,
+          "p95": 0.141,
+          "max": 0.174
+        },
+        "localization_status_events": [
+          {
+            "wall_elapsed_s": 0.098,
+            "wall_epoch_s": 1792466254.504075,
+            "epoch": "2a1af98e05984d9aaa477c35264e554a",
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver",
+            "frame_id": "odom_2a1af98e05984d9aaa477c35264e554a"
+          },
+          {
+            "wall_elapsed_s": 2.2,
+            "wall_epoch_s": 1792466256.606672,
+            "epoch": "2a1af98e05984d9aaa477c35264e554a",
+            "state": 4,
+            "valid": false,
+            "reason": "left_stale",
+            "frame_id": "odom_2a1af98e05984d9aaa477c35264e554a"
+          }
+        ],
+        "raw_vins_counts": {
+          "optimized": 647,
+          "propagated": 8585
+        },
+        "raw_vins_truth_enabled": false,
+        "ego_fsm_transition_counts": {
+          "INIT->WAIT_TARGET": 1
+        },
+        "ego_no_odom_messages": 2,
+        "ego_odom_or_depth_lost_messages": 1099,
+        "ego_lost_first": "[ego_planner_node-1] [ERROR] [1792466253.311874220] [drone_0_ego_planner_node]: odom or depth lost! now=7.333000, last_occ_update_time=6.314000, odom_depth_timeout=1.000000, depth_pose_sync_count=43, last_sync_stamp=6.238000000, last_sync_now=6.299000, last_sync_in_map=1, camera=(-0.008776,0.019426,-0.002209)",
+        "ego_lost_last": "[ego_planner_node-1] [ERROR] [1792466313.461803561] [drone_0_ego_planner_node]: odom or depth lost! now=51.477000, last_occ_update_time=10.794000, odom_depth_timeout=1.000000, depth_pose_sync_count=8, last_sync_stamp=9.373000000, last_sync_now=10.759000, last_sync_in_map=1, camera=(-0.015824,0.014658,-0.002884)",
+        "ego_plan_success_count": 0
+      },
+      "offline_geometry": {
+        "trajectory_alignment": {
+          "method": "Single SE(3), scale fixed to 1, no segment realignment",
+          "paired_samples": 20,
+          "position_rmse_m": 0.0010277768004173181,
+          "position_p95_m": 0.0016917855731422733,
+          "position_max_m": 0.0016948822233809864,
+          "orientation_rmse_deg": 0.20289396357378836
+        },
+        "mapping_runtime": {
+          "depth_output_count": 994,
+          "ego_depth_output_count": 39,
+          "ego_pose_output_count": 39,
+          "max_occupied_points": 864,
+          "interrupted": false,
+          "map_cloud_points": 864,
+          "map_frame_id": "odom_2a1af98e05984d9aaa477c35264e554a",
+          "map_stamp_ns": 9406000000,
+          "map_stamp_within_sim_clock": true,
+          "nearest_optimized_odom_stamp_delta_s": 0.0,
+          "map_bounds_world_xyz_m": [
+            [
+              1.3644081285679233,
+              2.9644081524097814
+            ],
+            [
+              -2.4405610394937023,
+              2.4594390558737294
+            ],
+            [
+              1.0427544918560303,
+              2.742754502286843
+            ]
+          ]
+        },
+        "obstacle_surface_comparison": [
+          {
+            "name": "calibration_box",
+            "kind": "box",
+            "center_world_m": [
+              1.55,
+              0.5,
+              1.1
+            ],
+            "size_m": [
+              0.35,
+              0.5,
+              0.8
+            ],
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 40,
+            "nearest_surface_residual_m": {
+              "median": 0.010591871432076794,
+              "p95": 0.010591871432076794,
+              "maximum": 0.010591871432076794,
+              "fraction_within_0_10m": 1.0
+            }
+          },
+          {
+            "name": "calibration_cylinder",
+            "kind": "cylinder",
+            "center_world_m": [
+              2.25,
+              -0.5,
+              1.0
+            ],
+            "radius_m": 0.18,
+            "length_m": 0.9,
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 35,
+            "nearest_surface_residual_m": {
+              "median": 0.06467359588658542,
+              "p95": 0.09319325610609946,
+              "maximum": 0.09319325610609946,
+              "fraction_within_0_10m": 1.0
+            }
+          }
+        ],
+        "qualification": "Exploratory offline trajectory and multi-object surface comparison; no acceptance thresholds."
+      },
+      "qos_graph": {
+        "optimized_odometry": {
+          "publishers": [
+            {
+              "node": "localization_adapter",
+              "reliability": "RELIABLE"
+            }
+          ],
+          "subscriptions": [
+            {
+              "node": "mapping_input_adapter",
+              "reliability": "BEST_EFFORT"
+            },
+            {
+              "node": "drone_0_ego_planner_node",
+              "reliability": "RELIABLE"
+            },
+            {
+              "node": "drone_0_ego_planner_node",
+              "reliability": "RELIABLE"
+            }
+          ]
+        },
+        "stereo_images": null
+      },
+      "classification": "NO_GOAL_WAIT_TARGET_LOCALIZATION_LOCKED_LEFT_STALE",
+      "raw_artifacts": {
+        "directory": "artifacts/runs/p2-map-odom-remap-multi-obstacle-20261020-250",
+        "sha256": {
+          "run-variant-manifest.json": "85b2845efa67860124188eb4f820b224535153adad9de4cdaa9434217eee2ef9",
+          "run-container.sh": "bc89fd70fb5a4c9ae3c4c02a84b9d720ed733941d494427177d8038fcbec852b",
+          "run-live.sh": "ee3a9049427ec9a90a0af86841e19317e4d5e58225c3e5c84cbdc0cfc9285efe",
+          "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+          "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+          "scene-preflight.json": "766e495dc3b8fc14c4038d5287d5c6c9b248e06978dae34133774015cdf3ed0e",
+          "scene-preflight.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "world-sdf-check.log": "9fec08d4971372415b4083f13090d7db02d8bfaf5232900fe27185639692b297",
+          "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "session-binding.json": "ab2ef44e75869c519aee603dc49ce9afc6d01b651d753a35f6fad993966d48b5",
+          "session/session.json": "03325bf9716f93861510b1c3999c1506a225b0523ae8202288268fa9c27a8508",
+          "motion.json": "c0335955cb3608cd514c443acbf92586dbc8826f02d1bd1ddde07d4e38880c1b",
+          "optimized-odometry.json": "98d8cea957437204df0d84b5651b6d4219de0d6e459ed6cdcab21d0e6543d9b4",
+          "map-cloud.json": "36583fb170f70ee12dce2aef261264e280188478d655274f86cd1e40fd85531c",
+          "probe.json": "16b55d61f49770c762c0d7ac3f77104339bd562059b0a09473b68047835a3593",
+          "multi-geometry-evaluation.json": "8408d347b5d36288159d5260daa10636a51793097906113049022141a2c42df3",
+          "raw-vins-capture/summary.json": "dea2ad8ef7fe1a46499395b514bc596d24ae67558c696d74307a7a6feed20ca1",
+          "raw-vins-capture/raw-odometry.json": "dc875b061b5aedaea13d4f985e87b230def551eb1c3b53934ab45aaaac3d730a",
+          "raw-vins-capture/telemetry.json": "4bf8c17d7eb3695f7ba0eb97d596b02eea0ff92968c4b68c61c1c20ed8a358b3",
+          "sensors.log": "66686b8c485006beeaafeecc9afd9a2863b009eb8aa4d4e9162da6b7db78f11a",
+          "vins.log": "648d3074e258ce8c0d8467bb891cfedc5ec19a78cc1e01e7fb743c61803bda79",
+          "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mapping-adapter.log": "521f26ebdbae0890667ebdab898b5bd8c09dad0ec68dae9219a1b5c92bdd19fe",
+          "ego.log": "1ff6ca111729a48f1cd3b75524ed1a293554de575c178f1793cca721ce1c6e8f",
+          "motion-driver.log": "bdba33d743ff8f98014191f76b7bbd2117e6bd745cf3c4a05042c400fa86540a",
+          "raw-vins-probe.log": "ffa2bafc0ac7a6d23d32d21e05a76c03045e8b84eb61b21c09e15a891c0bb07a",
+          "probe-console.log": "16b55d61f49770c762c0d7ac3f77104339bd562059b0a09473b68047835a3593",
+          "optimized-odom-topic-info.txt": "12521ccdc1a68f673803b575227ce2c0329608c1a4e6d50111d7917765dda971"
+        }
+      }
+    },
+    {
+      "run_id": "p2-map-odom-remap-multi-obstacle-20261020-251",
+      "domain_id": 122,
+      "gz_partition": "d435i_map_odom_251",
+      "mode": {
+        "flight_type": 1,
+        "flight_type_1": "MANUAL_TARGET",
+        "flight_type_2": null,
+        "harness_goal_published": false
+      },
+      "install": {
+        "prefix": "artifacts/runs/p0-ego-obstacle-inflation-config-build-20261020-245/install",
+        "localization_node_sha256": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806"
+      },
+      "runtime": {
+        "wall_seconds": 50.025,
+        "depth_inputs": 968,
+        "adapter_optimized_odom_count": 547,
+        "ego_depth_outputs": 1026,
+        "ego_pose_outputs": 1026,
+        "ego_depth_pose_received_pairs": 1026,
+        "map_samples": 454,
+        "max_occupied_points": 1256,
+        "map_frame_ids": [
+          "odom_84d3cf9a0f854775864c7391eda4c89c"
+        ],
+        "paired_source_interval_s": {
+          "count": 1025,
+          "p50": 0.033,
+          "p95": 0.066,
+          "max": 0.297
+        },
+        "ego_pose_wall_receipt_interval_s": {
+          "count": 1025,
+          "p50": 0.01354,
+          "p95": 0.10688,
+          "max": 2.220083
+        },
+        "ego_pose_source_age_at_receipt_s": {
+          "count": 1009,
+          "p50": 0.074,
+          "p95": 0.627,
+          "max": 1.641
+        },
+        "localization_status_events": [
+          {
+            "wall_elapsed_s": 0.414,
+            "wall_epoch_s": 1792466427.098627,
+            "epoch": "84d3cf9a0f854775864c7391eda4c89c",
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver",
+            "frame_id": "odom_84d3cf9a0f854775864c7391eda4c89c"
+          }
+        ],
+        "raw_vins_counts": {
+          "optimized": 664,
+          "propagated": 8757
+        },
+        "raw_vins_truth_enabled": false,
+        "ego_fsm_transition_counts": {
+          "INIT->WAIT_TARGET": 1
+        },
+        "ego_no_odom_messages": 2,
+        "ego_odom_or_depth_lost_messages": 121,
+        "ego_lost_first": "[ego_planner_node-1] [ERROR] [1792466462.156180781] [drone_0_ego_planner_node]: odom or depth lost! now=33.949000, last_occ_update_time=32.935000, odom_depth_timeout=1.000000, depth_pose_sync_count=818, last_sync_stamp=32.836000000, last_sync_now=32.928000, last_sync_in_map=1, camera=(-0.020000,-0.037483,0.009759)",
+        "ego_lost_last": "[ego_planner_node-1] [ERROR] [1792466484.956154644] [drone_0_ego_planner_node]: odom or depth lost! now=52.192000, last_occ_update_time=46.201000, odom_depth_timeout=1.000000, depth_pose_sync_count=1167, last_sync_stamp=46.102000000, last_sync_now=46.182000, last_sync_in_map=1, camera=(0.002725,-0.089346,0.027511)",
+        "ego_plan_success_count": 0
+      },
+      "offline_geometry": {
+        "trajectory_alignment": {
+          "method": "Single SE(3), scale fixed to 1, no segment realignment",
+          "paired_samples": 377,
+          "position_rmse_m": 0.009110545922119158,
+          "position_p95_m": 0.015248298290693225,
+          "position_max_m": 0.017137445980872076,
+          "orientation_rmse_deg": 1.3373203923558523
+        },
+        "mapping_runtime": {
+          "depth_output_count": 968,
+          "ego_depth_output_count": 1026,
+          "ego_pose_output_count": 1026,
+          "max_occupied_points": 1256,
+          "interrupted": false,
+          "map_cloud_points": 1256,
+          "map_frame_id": "odom_84d3cf9a0f854775864c7391eda4c89c",
+          "map_stamp_ns": 23035000000,
+          "map_stamp_within_sim_clock": true,
+          "nearest_optimized_odom_stamp_delta_s": 0.0,
+          "map_bounds_world_xyz_m": [
+            [
+              1.3686067842514387,
+              3.049553107017243
+            ],
+            [
+              -1.9874477793750582,
+              3.616688164098325
+            ],
+            [
+              1.0290447757708094,
+              2.752257913895968
+            ]
+          ]
+        },
+        "obstacle_surface_comparison": [
+          {
+            "name": "calibration_box",
+            "kind": "box",
+            "center_world_m": [
+              1.55,
+              0.5,
+              1.1
+            ],
+            "size_m": [
+              0.35,
+              0.5,
+              0.8
+            ],
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 25,
+            "nearest_surface_residual_m": {
+              "median": 0.0033132830353426734,
+              "p95": 0.006306994722647163,
+              "maximum": 0.006393215748561387,
+              "fraction_within_0_10m": 1.0
+            }
+          },
+          {
+            "name": "calibration_cylinder",
+            "kind": "cylinder",
+            "center_world_m": [
+              2.25,
+              -0.5,
+              1.0
+            ],
+            "radius_m": 0.18,
+            "length_m": 0.9,
+            "roi_margin_m": 0.25,
+            "map_points_in_roi": 35,
+            "nearest_surface_residual_m": {
+              "median": 0.08030301537954859,
+              "p95": 0.16397353088314814,
+              "maximum": 0.16464871876366732,
+              "fraction_within_0_10m": 0.5714285714285714
+            }
+          }
+        ],
+        "qualification": "Exploratory offline trajectory and multi-object surface comparison; no acceptance thresholds."
+      },
+      "qos_graph": {
+        "optimized_odometry": {
+          "publishers": [
+            {
+              "node": "localization_adapter",
+              "reliability": "RELIABLE"
+            }
+          ],
+          "subscriptions": [
+            {
+              "node": "mapping_input_adapter",
+              "reliability": "BEST_EFFORT"
+            },
+            {
+              "node": "drone_0_ego_planner_node",
+              "reliability": "RELIABLE"
+            },
+            {
+              "node": "drone_0_ego_planner_node",
+              "reliability": "RELIABLE"
+            }
+          ]
+        },
+        "stereo_images": {
+          "publishers": [
+            {
+              "node": "d435i_bridge",
+              "reliability": "BEST_EFFORT"
+            },
+            {
+              "node": "d435i_bridge",
+              "reliability": "BEST_EFFORT"
+            }
+          ],
+          "subscriptions": [
+            {
+              "node": "localization_adapter",
+              "reliability": "BEST_EFFORT"
+            },
+            {
+              "node": "vins_estimator",
+              "reliability": "BEST_EFFORT"
+            },
+            {
+              "node": "localization_adapter",
+              "reliability": "BEST_EFFORT"
+            },
+            {
+              "node": "vins_estimator",
+              "reliability": "BEST_EFFORT"
+            }
+          ]
+        }
+      },
+      "classification": "NO_GOAL_WAIT_TARGET_INPUT_AND_MAP_FLOW_OBSERVED; END_OF_WINDOW_EGO_STALENESS_UNRESOLVED",
+      "raw_artifacts": {
+        "directory": "artifacts/runs/p2-map-odom-remap-multi-obstacle-20261020-251",
+        "sha256": {
+          "run-variant-manifest.json": "49bd0c9b6064abc20031af0a750cea3ad9caead5a1fc8fe8ae999a40e9867e62",
+          "run-container.sh": "e11a80da1d9f09f7aed5c5154c1e3891926ddc9f7e8bfd34e9ac14ceae53c68c",
+          "run-live.sh": "66fcac7e435c642765a25335600fc1fabc4c062790ec73a7560536d584328690",
+          "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+          "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+          "scene-preflight.json": "bf4489f9ffe7995bed58787cbe7835de3689e88ebcd298ff8600ac61bd170e60",
+          "scene-preflight.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "world-sdf-check.log": "0b1e5ea178dde6c4b490499bb54a44296324f4a8a339c782508c0d51aa0203e9",
+          "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+          "session-binding.json": "0b1bcbb68af9aae59a1f7740040158e2ab884c3d392fea67104dd94e226b9c00",
+          "session/session.json": "9ffed953495520d1a1eba7e0c9b70c484deec2949c751ea4866f4833dd5062d5",
+          "motion.json": "a510996f176edf7aa1807ee25168308d6a873b726c569d9cacc8d2a1f59b823a",
+          "optimized-odometry.json": "20d4adcd8b7b9a1a67092a8c25fb71cdee42ea94f865f631c45cd604af9c946b",
+          "map-cloud.json": "3c9fcdeefa74762f1daf8b1b46a5f29196f83a1dab04e13d07b23986fd9db53a",
+          "probe.json": "4466ab30b11ef08c16ac1a63fad16e0dc4137440e9cbcbe451d21aecfb9ecd4b",
+          "multi-geometry-evaluation.json": "92f7b51823fd2d00719a26a909bc55d86992caf3ac092c0b260977c4022bfb47",
+          "raw-vins-capture/summary.json": "ddcb69d1fe4a17f20b0cdb2daa2c127dc0b54daf2d08289a26a73a4d936cdd16",
+          "raw-vins-capture/raw-odometry.json": "13dbab7d1881fff91fe72a0a905eb86266394a26d68654a5b4885435f29dcd6f",
+          "raw-vins-capture/telemetry.json": "48afd2602d55801d3871f15933967e7ba03ba1ba0e56fc827f24ede80dcfc963",
+          "sensors.log": "65de97d9e422a1e7852a7f71ea20b3ef9c1887191f5c42333840761f34581468",
+          "vins.log": "81c2335a818fe0f59b746ec206ac2571a889737cc9a8d5ba921aa2d1f5896712",
+          "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mapping-adapter.log": "14a6b1ae83c70691293b59cd950c3bd9d585883614c4add6799c79db4f58bc60",
+          "ego.log": "2572d0c13d8365162d1af0d2a38db34fa4bed449c2a9cee4c6f0e35029477dd4",
+          "motion-driver.log": "a32f7062467624efde7e991832798fcdb5725464fee317e96b171839ebfb32bc",
+          "raw-vins-probe.log": "97c14c7335f1a8a7152c669c2af62dee7f2c17e02e8ee93d503cdd408f5a33c7",
+          "probe-console.log": "4466ab30b11ef08c16ac1a63fad16e0dc4137440e9cbcbe451d21aecfb9ecd4b",
+          "optimized-odom-topic-info.txt": "f0bbc1d479375e8913e9ef56d1ab4f89d40823d2966377f006ce528ec57902fa",
+          "stereo-topic-info.txt": "e12116c16ef3ee719e298c6a9087c9de004fa957bef7240e71b99c5d0786118f"
+        }
+      }
+    }
+  ],
+  "interpretation": [
+    "#248 is excluded from judging current-source behavior because its run-local install predates the reliable optimized-odometry QoS change; the same stale binary explains the observed incompatible-reliability warning and no-odom state.",
+    "#249 verified reliable delivery: EGO left INIT and received mapping inputs. It is not a no-goal run because flight_type=2 loads a preset waypoint, and no tracking controller was present.",
+    "#250 used flight_type=1 and correctly remained in WAIT_TARGET with no goal, but the localization health gate locked at 2.2 wall seconds with left_stale; only 20 optimized odometry messages were accepted by the adapter.",
+    "#251 repeated manual no-goal mode. It remained in WAIT_TARGET, published no plan trajectory, received 547 optimized odometry messages, produced 1,026 matched EGO depth/pose outputs, and captured a 1,256-point maximum occupancy cloud. The last observed localization status was valid at 0.414 wall seconds; EGO later logged stale odom/depth near the run tail, so sustained terminal health is not qualified.",
+    "Across the corrected runs, box surface points were near the primitive surface, while cylinder P95 residuals ranged 11.6\u201316.4 cm and only 55.9\u201362.9% of cylinder ROI points were within 10 cm. These small, largest-cloud ROI samples are descriptive and do not measure free space, inflation, collision risk, or minimum body clearance.",
+    "A read-only EGO source check shows the active depth/pose inflation is a 3D axis-aligned cube. The 0.099 m default at 0.1 m resolution expands one voxel in each axis; five steps cover the nominal 0.482 m sphere radius only as a geometric lower bound, with substantially higher loop work. The separate cloud callback has fixed one-voxel vertical dilation and was not connected by the current mapping adapter."
+  ],
+  "limitations": [
+    "#248\u2019s live topic-info output was not redirected to a run-local file; the mismatch conclusion is supported by the captured adapter warning and the exact installed node file hash/code. Corrected endpoint graphs are saved for #249 and #251.",
+    "Only four related diagnostic runs, with a single wall/box/cylinder scene; not an independent multi-scenario validation.",
+    "The offline map report uses the largest occupancy cloud and 0.25 m axis-aligned obstacle ROIs; it does not score persistent-map consistency, free/unknown classification, inflation coverage, planner response, contact, body clearance, or braking distance.",
+    "Localization terminal status was not observed as a final event in #251; the only recorded status was initial TRACKING. The read-only pose observer measured source age P95/max 0.627/1.641 s and a wall-receipt gap max of 2.220 s. EGO stale-input messages occurred after the 50 s main probe window; source and mapper timing at that point are unresolved.",
+    "No EGO action goal was issued in manual mode, no PX4/control node was active, and no tracking error or route clearance was measured.",
+    "No acceptance configuration was frozen; formal D/E runs have not started.",
+    "The inflation-kernel result is source inspection only; no run-local five-step inflation, unique inflated-volume, real clearance, or performance benchmark was performed."
+  ],
+  "source_sha256": {
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "simulation/worlds/sensor_calibration.sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/run_sensor_motion.py": "190c7be9200f68d8c2d58413b9f9c7f7a115d4cbf96d621283c7629ca5bd8d7e",
+    "tools/probe_mapping_runtime.py": "cde1f7f8cee7d94327a7851b08dc32b4bc227189e1f84d872d9eea681b01c85f",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c",
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c",
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": "54adddebf62089271255be8670abfdca8380ca63221e66f9e7143eda62c80e39",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f"
+  },
+  "next_step": "The run-local five-step inflation profile is now measured in #252, and the -0.05 m map-floor comparison is recorded in #253\u2013#254. Keep these overrides out of project config. Trace EGO depth/pose receipt gaps and occupancy update times under the unchanged localization health gate; then publish an EGO-only target in a clear mapped corridor. Improve and independently repeat cylinder coverage before freezing any clearance threshold; later measure real trajectory tracking, minimum body clearance, replanning, braking, and fault-exit time.",
+  "execution_validation": {
+    "world_sdf_preflight": "PASS for all four run variants; gz sdf -k passed.",
+    "container_exit_codes": {
+      "p2-map-odom-remap-multi-obstacle-20261020-248": 0,
+      "p2-map-odom-remap-multi-obstacle-20261020-249": 0,
+      "p2-map-odom-remap-multi-obstacle-20261020-250": 0,
+      "p2-map-odom-remap-multi-obstacle-20261020-251": 0
+    },
+    "container_cleanup": "PASS; no active test container remains.",
+    "offline_geometry_evaluator": "PASS for all four runs; reports are run-local multi-geometry-evaluation.json files."
+  },
+  "planner_inflation_source_review": {
+    "resolution_m": 0.1,
+    "launch_default_obstacles_inflation_m": 0.099,
+    "active_depth_pose_path": {
+      "files": [
+        "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp",
+        "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h"
+      ],
+      "source_locations": [
+        "grid_map.cpp:720-755",
+        "grid_map.h:439-452"
+      ],
+      "behavior": "ceil(inflation/resolution) gives inf_step; inflatePoint writes all x/y/z voxel offsets in [-inf_step,+inf_step], including the center. At 0.099/0.1 the kernel is a 3x3x3 cube (27 voxel writes per occupied source voxel), not a Euclidean sphere.",
+      "vehicle_envelope_reference": {
+        "horizontal_radius_m": 0.48150294,
+        "direction_invariant_radius_m": 0.48193587,
+        "nominal_step_count": 5,
+        "cube_cells_per_source_voxel": 1331,
+        "meaning": "ceil(0.48193587/0.1)=5; this is only a geometric lower bound and a conservative axis-aligned cube, not a validated clearance setting."
+      }
+    },
+    "independent_cloud_path": {
+      "source_location": "grid_map.cpp:890-956",
+      "behavior": "Uses x/y offsets by inf_step but z offsets by a separate fixed inf_step_z=1, so vertical dilation stays one voxel even if horizontal inflation is increased.",
+      "observed_in_runs": "The current uav_mapping adapter publishes depth, pose, status and keyframes but no grid_map/cloud point cloud; this path was not used in the four runs."
+    },
+    "performance_note": "The 5-step depth-path kernel performs up to 1331 index writes per occupied source voxel versus 27 at one step (about 49.3x loop work before overlap); runtime factor and unique inflated volume have not been measured."
+  }
+}

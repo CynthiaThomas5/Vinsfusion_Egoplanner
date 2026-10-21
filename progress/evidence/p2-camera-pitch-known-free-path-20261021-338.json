@@ -1,0 +1,193 @@
+{
+  "schema": "p2-camera-pitch-known-free-path-diagnostic/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "offline_same_map_connectivity_diagnostic_pass_goal_c_pending",
+  "question": "After #337 reobserves the #332 guard voxel, is there a same-map known-free, uninflated voxel path from the current VINS IMU start cell to that target if only the current start cell is exempted?",
+  "method": {
+    "pose": "Invert the D435i depth-camera pose through the SDF-derived camera/IMU extrinsic to recover the VINS IMU origin used by EGO.",
+    "graph": "Six-connected voxel BFS. Unknown, occupied, or inflated voxels are blocked; only the current planner start voxel is admitted as the already-present state."
+  },
+  "source_run": {
+    "run_id": "p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337",
+    "report": "artifacts/runs/p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337/snapshots/report.json",
+    "report_sha256": "ee59d92bf736347bcdb122bd8ee95afd5c73fe3bdcde936245ae5499195dc218",
+    "epoch": "5c07c4aa3a49446c949281e4cbf2428e",
+    "map_id": "5c07c4aa3a49446c949281e4cbf2428e-fc44e64770bb47bb9e154dd874fc2d2b"
+  },
+  "result": {
+    "baseline": {
+      "target_voxel_unknown": true,
+      "known_free_path": false,
+      "start_voxel": {
+        "index_xyz": [
+          119,
+          119,
+          1
+        ],
+        "occupancy": -1,
+        "inflated": 0,
+        "exception": "only the current start voxel is admitted as the already-present planner start state"
+      }
+    },
+    "post_pitch": {
+      "target_voxel_known_free": true,
+      "target_voxel_uninflated": true,
+      "known_free_path": true,
+      "path_cell_count": 8,
+      "grid_edge_length_m": 0.7000000000000001,
+      "path": [
+        {
+          "index_xyz": [
+            120,
+            119,
+            1
+          ],
+          "center_m": [
+            0.05000000000000071,
+            -0.049999999999998934,
+            2.7755575615628914e-17
+          ],
+          "occupancy": -1,
+          "inflated": 0,
+          "is_current_start_exception": true
+        },
+        {
+          "index_xyz": [
+            120,
+            119,
+            2
+          ],
+          "center_m": [
+            0.05000000000000071,
+            -0.049999999999998934,
+            0.1
+          ],
+          "occupancy": 0,
+          "inflated": 0,
+          "is_current_start_exception": false
+        },
+        {
+          "index_xyz": [
+            121,
+            119,
+            2
+          ],
+          "center_m": [
+            0.15000000000000036,
+            -0.049999999999998934,
+            0.1
+          ],
+          "occupancy": 0,
+          "inflated": 0,
+          "is_current_start_exception": false
+        },
+        {
+          "index_xyz": [
+            122,
+            119,
+            2
+          ],
+          "center_m": [
+            0.25,
+            -0.049999999999998934,
+            0.1
+          ],
+          "occupancy": 0,
+          "inflated": 0,
+          "is_current_start_exception": false
+        },
+        {
+          "index_xyz": [
+            122,
+            118,
+            2
+          ],
+          "center_m": [
+            0.25,
+            -0.14999999999999858,
+            0.1
+          ],
+          "occupancy": 0,
+          "inflated": 0,
+          "is_current_start_exception": false
+        },
+        {
+          "index_xyz": [
+            122,
+            118,
+            3
+          ],
+          "center_m": [
+            0.25,
+            -0.14999999999999858,
+            0.20000000000000004
+          ],
+          "occupancy": 0,
+          "inflated": 0,
+          "is_current_start_exception": false
+        },
+        {
+          "index_xyz": [
+            122,
+            118,
+            4
+          ],
+          "center_m": [
+            0.25,
+            -0.14999999999999858,
+            0.30000000000000004
+          ],
+          "occupancy": 0,
+          "inflated": 0,
+          "is_current_start_exception": false
+        },
+        {
+          "index_xyz": [
+            122,
+            118,
+            5
+          ],
+          "center_m": [
+            0.25,
+            -0.14999999999999858,
+            0.4
+          ],
+          "occupancy": 0,
+          "inflated": 0,
+          "is_current_start_exception": false
+        }
+      ]
+    },
+    "all_checks_passed": true
+  },
+  "run_manifest": "artifacts/runs/p2-camera-pitch-known-free-path-diagnostic-20261021-338/run-manifest.json",
+  "run_manifest_sha256": "5d3df3bf7284b20bfac2c3c20a2e2a34a0dab128dc9f8cdf6018e7afdd8d1f0c",
+  "artifacts": {
+    "analysis_script": {
+      "path": "artifacts/runs/p2-camera-pitch-known-free-path-diagnostic-20261021-338/analyze_safe_voxel_path.py",
+      "sha256": "ce18aaf9a59152a31f772e1fada60f1f82606d45b845b0db6dece9370c3edf55",
+      "bytes": 9404
+    },
+    "connectivity_report": {
+      "path": "artifacts/runs/p2-camera-pitch-known-free-path-diagnostic-20261021-338/snapshots/safe-voxel-path.json",
+      "sha256": "304e55c23be6b1666c07e7c944ed2c00b16464ebc7a6aac259c050848b678331",
+      "bytes": 6971
+    }
+  },
+  "input_sha256": {
+    "source_snapshot_report": "ee59d92bf736347bcdb122bd8ee95afd5c73fe3bdcde936245ae5499195dc218",
+    "d435i_model_sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "mapping_input_helper": "77282d7a518f15a875ded3278804c1fa249e03f4c810822f1cb9842e99cbf06b",
+    "sensor_geometry_helper": "192904ec86dc089f21f55ac05a880a5780f500239228e497140d31a8e71ee1b6",
+    "baseline_snapshot": "654a98e3221313f4e63ee8e9f21b74e874df0d1b5227de6e870e05291169b16a",
+    "post_pitch_snapshot": "f8e7bf4a062898d7cbe4806c2e2f186a98c7dc75bf0f6c3471893fbab87755dd"
+  },
+  "limitations": [
+    "The start-cell exception represents the already-present vehicle state; all later cells must be known free and uninflated.",
+    "This graph test checks voxel-center connectivity only. It does not test the EGO spline, vehicle swept volume, controller tracking, braking, or collision contacts.",
+    "The snapshots came from a debug sensor fixture pitch, not an aircraft attitude maneuver or PX4 flight.",
+    "The result is one scene and one target cell; it does not establish map coverage, geometric accuracy, or GOAL C acceptance.",
+    "A connected grid route is not an EGO-generated or time-matched trajectory and does not prove the aircraft can safely change attitude to create the post-pitch map."
+  ]
+}

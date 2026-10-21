@@ -1,0 +1,145 @@
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -8,10 +8,27 @@
+  *******************************************************/
+ 
+ #include "estimator.h"
++#include <sstream>
++#include <iomanip>
+ #include "../utility/visualization.h"
+ 
+ namespace
+ {
++// Telemetry is owned by the estimator processing thread; it never affects solving.
++struct SolveTelemetry
++{
++    bool available = false, usable = false;
++    double stamp = -1, initial_cost = 0, final_cost = 0, seconds = 0;
++    int termination = -1, residuals = 0, iterations = 0, visual_observations = 0;
++};
++thread_local SolveTelemetry observed_solve;
++std::string jsonNumber(double value)
++{
++    if (!std::isfinite(value)) return "null";
++    std::ostringstream out;
++    out << std::setprecision(17) << value;
++    return out.str();
++}
+ void clearInitializationFrames(std::map<double, ImageFrame> &frames)
+ {
+     for (auto &entry : frames)
+@@ -378,6 +395,36 @@
+             header.stamp.sec = sec_ts;
+             header.stamp.nanosec = nsec_ts;
+ 
++            size_t stereo_observations = 0;
++            for (const auto &entry : feature.second)
++                if (entry.second.size() == 2) ++stereo_observations;
++            const bool solve_current = observed_solve.available &&
++                std::abs(observed_solve.stamp - feature.first) < 1e-6;
++            std::ostringstream telemetry;
++            telemetry << "{\"schema\":1,\"stamp_ns\":"
++                << (static_cast<int64_t>(sec_ts) * 1000000000LL + nsec_ts)
++                << ",\"initialized\":" << (solver_flag == NON_LINEAR ? "true" : "false")
++                << ",\"input_features\":" << feature.second.size()
++                << ",\"stereo_features\":" << stereo_observations
++                << ",\"continued_tracks\":" << f_manager.last_track_num
++                << ",\"long_tracks\":" << f_manager.long_track_num
++                << ",\"window_feature_ids\":" << f_manager.feature.size()
++                << ",\"accel_bias_norm\":" << jsonNumber(Bas[frame_count].norm())
++                << ",\"gyro_bias_norm\":" << jsonNumber(Bgs[frame_count].norm())
++                << ",\"state_finite\":" << (Ps[frame_count].allFinite() &&
++                    Vs[frame_count].allFinite() && Rs[frame_count].allFinite() &&
++                    Bas[frame_count].allFinite() && Bgs[frame_count].allFinite() ? "true" : "false")
++                << ",\"solve_current\":" << (solve_current ? "true" : "false")
++                << ",\"solver_usable\":" << (observed_solve.usable ? "true" : "false")
++                << ",\"termination_type\":" << observed_solve.termination
++                << ",\"initial_cost\":" << jsonNumber(observed_solve.initial_cost)
++                << ",\"final_cost\":" << jsonNumber(observed_solve.final_cost)
++                << ",\"residual_components\":" << observed_solve.residuals
++                << ",\"visual_observations\":" << observed_solve.visual_observations
++                << ",\"iterations\":" << observed_solve.iterations
++                << ",\"solve_seconds\":" << jsonNumber(observed_solve.seconds) << "}";
++            pubEstimatorTelemetry(telemetry.str());
++
+             pubOdometry(*this, header);
+             // cout << "5-1" << endl;
+             pubKeyPoses(*this, header);
+@@ -1245,6 +1292,17 @@
+     ROS_DEBUG("Iterations : %d", static_cast<int>(summary.iterations.size()));
+     //printf("solver costs: %f \n", t_solver.toc());
+ 
++    observed_solve.available = true;
++    observed_solve.stamp = Headers[frame_count];
++    observed_solve.usable = summary.IsSolutionUsable();
++    observed_solve.initial_cost = summary.initial_cost;
++    observed_solve.final_cost = summary.final_cost;
++    observed_solve.seconds = summary.total_time_in_seconds;
++    observed_solve.termination = static_cast<int>(summary.termination_type);
++    observed_solve.residuals = summary.num_residuals;
++    observed_solve.iterations = static_cast<int>(summary.iterations.size());
++    observed_solve.visual_observations = f_m_cnt;
++
+     double2vector();
+     //printf("frame_count: %d \n", frame_count);
+ 
+--- a/vins/src/utility/visualization.cpp
++++ b/vins/src/utility/visualization.cpp
+@@ -8,6 +8,7 @@
+  *******************************************************/
+ 
+ #include "visualization.h"
++#include <std_msgs/msg/string.hpp>
+ 
+ // using namespace ros;
+ using namespace Eigen;
+@@ -30,6 +31,7 @@
+ static Vector3d last_path(0.0, 0.0, 0.0);
+ 
+ size_t pub_counter = 0;
++static rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_estimator_telemetry;
+ 
+ void registerPub(rclcpp::Node::SharedPtr n)
+ {
+@@ -46,6 +48,8 @@
+     pub_extrinsic = n->create_publisher<nav_msgs::msg::Odometry>("extrinsic", 10);
+     pub_image_track = n->create_publisher<sensor_msgs::msg::Image>("image_track", 1);
+ 
++    pub_estimator_telemetry = n->create_publisher<std_msgs::msg::String>("estimator_telemetry", 10);
++
+     cameraposevisual.setScale(0.1);
+     cameraposevisual.setLineWidth(0.01);
+ }
+@@ -53,6 +57,7 @@
+ void unregisterPub()
+ {
+     // Release ROS resources before the node and executor leave main.
++    pub_estimator_telemetry.reset();
+     pub_latest_odometry.reset();
+     pub_path.reset();
+     pub_odometry.reset();
+@@ -67,6 +72,13 @@
+     pub_image_track.reset();
+ }
+ 
++void pubEstimatorTelemetry(const std::string &json)
++{
++    std_msgs::msg::String message;
++    message.data = json;
++    pub_estimator_telemetry->publish(message);
++}
++
+ void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q, const Eigen::Vector3d &V, double t)
+ {
+     nav_msgs::msg::Odometry odometry;
+--- a/vins/src/utility/visualization.h
++++ b/vins/src/utility/visualization.h
+@@ -46,6 +46,8 @@
+ 
+ void unregisterPub();
+ 
++void pubEstimatorTelemetry(const std::string &json);
++
+ void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q, const Eigen::Vector3d &V, double t);
+ 
+ void pubTrackImage(const cv::Mat &imgTrack, const double t);

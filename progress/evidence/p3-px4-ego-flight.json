@@ -1,0 +1,328 @@
+{
+  "phase": "P3",
+  "status": "PASS",
+  "run_id": "p3-px4-bridge-node-20261017-34",
+  "scope": "Debug_truth P3 live depth-to-map-to-EGO-to-PX4 navigation loop and disarmed landing. Does not establish obstacle clearance or final visual/no-truth acceptance.",
+  "stage_exit_basis": {
+    "online_depth_mapping": "PASS: before flight plan_env occupancy contained 408 points; 192 occupancy messages were observed and peak occupied-cloud size was 2047 points.",
+    "ego_goal_and_trajectory": "PASS: Navigation action accepted a same-epoch goal, EGO published 938 READY PositionCommand samples matching the action goal_id and epoch, and action result was succeeded after position+yaw dwell.",
+    "px4_flight_and_landing": "PASS: sole uav_px4_bridge publisher streamed Offboard and trajectory setpoints, PX4 armed, moved toward the goal, then landed and disarmed.",
+    "isolation": "PASS for the P3 debug profile only: all localization used `/debug_truth/*`; SIM_GZ_EN_ODOM=0 prevented duplicate PX4 GZ truth odometry; EKF2 GPS control=0 and GNSS aiding flags remained zero.",
+    "limits": "This smoke route had no deliberately inserted obstacle; it does not qualify avoidance clearance or final visual navigation."
+  },
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "px4": "v1.17.0",
+    "px4_source_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4"
+  },
+  "composition": {
+    "launch": "src/own/uav_px4_bridge/launch/debug_truth_ego_px4.launch.py",
+    "sensor_truth_launch": "src/own/uav_sim/launch/debug_truth.launch.py",
+    "mapping_inputs_remapped_to": "/debug_truth/localization_status and /debug_truth/optimized_imu_odom",
+    "navigation_and_ego_odometry": "same debug_truth epoch and frame",
+    "trajectory_output": "/position_cmd",
+    "control_owner": "uav_px4_bridge only"
+  },
+  "build": {
+    "command": "colcon build --base-paths src/own --packages-select uav_interfaces uav_sim uav_mapping uav_navigation uav_px4_bridge --build-base artifacts/runs/p3-px4-bridge-node-20261017-34/build --install-base artifacts/runs/p3-px4-bridge-node-20261017-34/install",
+    "result": "PASS: 5 packages completed in fresh build/install directories. Third-party EGO packages came from the fixed base install documented in progress/evidence/p0-portable-container-rebuild.json.",
+    "log": "artifacts/runs/p3-px4-bridge-node-20261017-34/build.log",
+    "log_sha256": "125a8f6ef675d191a0c38d5badcc86ab355e7e3a65d076b9a01fdb48f9e1ae5b"
+  },
+  "runtime": {
+    "command": "bash artifacts/runs/p3-px4-bridge-node-20261017-34/run-debug-ego-flight-sitl.sh",
+    "result": "PASS",
+    "control_service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "operator_disable"
+      }
+    ],
+    "epoch": "48e93e55e6934b83aac5626e65f35d51",
+    "goal_id": "877565b35f3d4de185334b23a85d864c",
+    "goal": {
+      "frame": "odom_48e93e55e6934b83aac5626e65f35d51",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        1.1909003084591356,
+        -0.00010574459201475793,
+        0.9001945641178268
+      ],
+      "timeout_s": 20.0,
+      "yaw_enu": -0.0005340996036732153,
+      "yaw_tolerance_rad": 0.35
+    },
+    "action_result": {
+      "final_position": [
+        1.1537564041816741,
+        -0.04838147696611803,
+        0.8932017158773119
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "goal_position_error_m": 0.06131,
+    "map_points_before_enable": 408,
+    "peak_occupancy_points": 2047,
+    "observed_counts": {
+      "control_mode": 286,
+      "debug_truth_odometry": 1012,
+      "local_position": 1057,
+      "localization_status": 1012,
+      "occupancy_cloud": 192,
+      "position_command": 938,
+      "px4_status": 47,
+      "trajectory_setpoint": 286,
+      "vehicle_command": 3,
+      "visual_odometry_input": 1020
+    },
+    "matching_ready_position_commands": 938,
+    "bridge_phases": [
+      [
+        "DISABLED",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "PRESTREAM",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_OFFBOARD",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_ARM",
+        "requesting_arm",
+        false,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        false
+      ],
+      [
+        "ACTIVE",
+        "takeoff_complete_waiting_for_trajectory",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "operator_disable",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "operator_disable",
+        true,
+        true
+      ],
+      [
+        "LANDED",
+        "px4_preflight_failed",
+        false,
+        true
+      ]
+    ],
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "final_vehicle_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false
+    },
+    "shutdown": "All five launch children reported clean process exit; integrated launch log contains no traceback or process died."
+  },
+  "px4_parameters": {
+    "stage_report": "artifacts/runs/p3-px4-bridge-node-20261017-34/px4-param-stage.json",
+    "stage_report_sha256": "f8e48357f740c53269c2a3b0f25366bded54dbef4dd5d10e1a9647911d227f88",
+    "values": {
+      "COM_ARM_WO_GPS": 2,
+      "COM_OBL_RC_ACT": 4,
+      "COM_OF_LOSS_T": 1.0,
+      "COM_RC_IN_MODE": 4,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_EV_POS_X": 0.12,
+      "EKF2_EV_POS_Y": -0.0,
+      "EKF2_EV_POS_Z": -0.08,
+      "EKF2_GPS_CTRL": 0,
+      "EKF2_HGT_REF": 3,
+      "NAV_DLL_ACT": 0,
+      "SIM_GZ_EN_ODOM": 0
+    },
+    "mount_model_sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37"
+  },
+  "px4_ulog": {
+    "path": "artifacts/runs/p3-px4-bridge-node-20261017-34/px4.ulg",
+    "sha256": "ae15b8bd7e8bfc38a0fa2d089e8e116a5bc5b96f510014eb2b0330ef5844e8da",
+    "duration_s": 34.3,
+    "vehicle_visual_odometry_samples": 808,
+    "ev_aid_fused": {
+      "estimator_aid_src_ev_pos": {
+        "fused": 1165,
+        "samples": 1167
+      },
+      "estimator_aid_src_ev_vel": {
+        "fused": 1164,
+        "samples": 1165
+      },
+      "estimator_aid_src_ev_yaw": {
+        "fused": 1166,
+        "samples": 1167
+      }
+    },
+    "estimator_flags": {
+      "cs_ev_pos": {
+        "true": 29,
+        "samples": 44
+      },
+      "cs_ev_hgt": {
+        "true": 29,
+        "samples": 44
+      },
+      "cs_ev_yaw": {
+        "true": 29,
+        "samples": 44
+      },
+      "cs_ev_vel": {
+        "true": 29,
+        "samples": 44
+      },
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 44
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 44
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 44
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 44
+      }
+    },
+    "vehicle_status_samples": 74,
+    "arming_state_enum_counts": {
+      "1": 34,
+      "2": 40
+    },
+    "arming_transitions": [
+      {
+        "t_s": 14.96,
+        "from_enum": 1,
+        "to_enum": 2
+      },
+      {
+        "t_s": 34.004,
+        "from_enum": 2,
+        "to_enum": 1
+      }
+    ],
+    "preflight_pass_interval_s": {
+      "first_s": 14.924,
+      "last_s": 33.524,
+      "samples": 41
+    },
+    "failsafe_samples": 0,
+    "local_position": {
+      "samples": 4289,
+      "z_valid_samples": 4198,
+      "z_min_ned_m": -0.8212,
+      "z_max_ned_m": 0.1185
+    },
+    "trajectory_setpoint_samples": 172,
+    "finite_position_setpoint_ranges_ned_m": {
+      "position[0]": {
+        "finite_samples": 121,
+        "total_samples": 172,
+        "min": -0.0487,
+        "max": 0.004
+      },
+      "position[1]": {
+        "finite_samples": 121,
+        "total_samples": 172,
+        "min": -0.1286,
+        "max": 1.1727
+      },
+      "position[2]": {
+        "finite_samples": 121,
+        "total_samples": 172,
+        "min": -0.9074,
+        "max": 1.5207
+      }
+    },
+    "gnss_interpretation": "EKF2_GPS_CTRL=0 and all logged GNSS aiding flags are zero; raw SITL sensor_gps remains present, so this is not a no-GPS-sensor qualification."
+  },
+  "verification": {
+    "regression_log": "artifacts/runs/p3-px4-bridge-node-20261017-34/regression-tests.log",
+    "regression_log_sha256": "6ab679cc320d474b2b3d65b511f42cf8cd59c2a96ee764a1cfb6f76b311c3610",
+    "passed": [
+      "test_px4_bridge_control.py: 11",
+      "test_px4_bridge_frames.py: 19",
+      "test_px4_bridge_time_mapping.py: 6",
+      "test_px4_debug_params.py: 1",
+      "test_sim_geometry.py: 3",
+      "test_mapping_input.py: 4",
+      "test_navigation_task_state.py: 10",
+      "test_navigation_adapter.py: PASS with --project-root /workspace",
+      "test_trajectory_server.py: PASS with installed traj_server path"
+    ],
+    "project_status": "PASS: structural/design consistency only; see independent run below."
+  },
+  "iteration_diagnostics": [
+    {
+      "run_id": "p3-px4-bridge-node-20261017-33",
+      "result": "EGO goal and PX4 flight action succeeded, but launch used EGO PRESET_TARGET and point0 at origin before the action; the planner emitted repeated Close to goal retries and an untagged startup spline. Corrected flight_type to MANUAL_TARGET for #34; idle planner now stays in WAIT_TARGET. Also added orderly RCLError handling to depth_health_monitor shutdown; #34 children all exited cleanly."
+    }
+  ],
+  "limitations": [
+    "P3 evidence is debug_truth only and is deliberately not counted as final visual navigation.",
+    "The run verifies route execution and map/trajectory integration but has no deliberately placed obstacle, so obstacle avoidance and clearance remain unverified.",
+    "Raw GPS sensor samples exist in SITL; only EKF2 GNSS aiding is disabled in this profile.",
+    "P4 remains in progress; P5/P6 and GOAL A-H are incomplete."
+  ]
+}

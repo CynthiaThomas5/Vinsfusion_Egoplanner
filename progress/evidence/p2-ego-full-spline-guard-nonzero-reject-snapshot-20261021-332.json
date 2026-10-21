@@ -1,0 +1,241 @@
+{
+  "schema": "goal-c-ego-nonzero-guard-rejection-frustum-diagnostic/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332",
+  "result": "diagnostic_nonzero_reject_voxel_outside_current_depth_frustum",
+  "source": {
+    "parent_run": "p2-ego-full-spline-guard-delayed-goal-20261021-330",
+    "planner_binary_source_run": "p2-ego-dense-spline-canonical-full-spline-guard-20261021-328",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "source_tree_sha256": "09e1ccae79b08279ab55e6fbd1ee550ec4267dda955de51420f1aca392feaad4",
+    "planner_binary_sha256": "712f8702db4454388ba424d3297b36d7e64a1e9572388006a9a170d79433d18b",
+    "experimental_patches": [
+      "0029",
+      "0030",
+      "0031",
+      "0028",
+      "0032"
+    ],
+    "src_vendor_modified": false,
+    "canonical_sources_manifest_modified": false
+  },
+  "runtime": {
+    "ros_domain_id": 187,
+    "gazebo_partition": "d435i_dense_spline_nonzero_reject_332_01",
+    "wall_seconds": 75.016045,
+    "goal_sent": true,
+    "goal_sent_wall_elapsed_s": 28.64113,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "goal_z_m": 1.0,
+    "goal_map_status_stamp_ns": 22738000000,
+    "goal_map_status_ready": true,
+    "localization_valid_at_timeout": true,
+    "mapping_ready_at_timeout": true,
+    "bspline_count": 0,
+    "guard_rejection_count": 425,
+    "zero_time_rejection_count": 371,
+    "nonzero_time_rejection_count": 54,
+    "ego_odom_or_depth_lost_warnings": 30,
+    "motion_force_commands": 8,
+    "imu_samples": 6605,
+    "runtime_graph": {
+      "forbidden_control_nodes": [],
+      "control_topics": [],
+      "truth_topics": []
+    },
+    "qualification": "Planner-only diagnostic. No trajectory server, controller, PX4, runtime truth subscription, or path execution."
+  },
+  "paired_snapshot": {
+    "accepted": true,
+    "request_attempt": 2,
+    "previous_rejections": [
+      {
+        "reason": "no_fresh_fused_depth",
+        "response_wall_elapsed_s": 33.710336
+      }
+    ],
+    "epoch": "e5a451f28fe44b54b8324faddebe1b01",
+    "map_id": "e5a451f28fe44b54b8324faddebe1b01-fc49a0874bfc492f874b5bf079e23178",
+    "header_frame_id": "odom_e5a451f28fe44b54b8324faddebe1b01",
+    "snapshot_stamp_ns": 26284000000,
+    "depth_source_stamp_ns": 26170000000,
+    "depth_source_age_at_response_s": 0.114,
+    "snapshot_after_guard_callback_wall_s": 0.148794,
+    "resolution_m": 0.1,
+    "origin_m": [
+      -12.0,
+      -12.0,
+      -0.15
+    ],
+    "shape": [
+      240,
+      240,
+      60
+    ],
+    "guard_sample": {
+      "spline_time_s": 1.08,
+      "xyz_m": [
+        0.390446,
+        0.078722,
+        0.454686
+      ],
+      "in_map": true,
+      "unknown": true,
+      "raw_occupied": false,
+      "inflated": false
+    },
+    "voxel": {
+      "index_xyz": [
+        123,
+        120,
+        6
+      ],
+      "center_m": [
+        0.35,
+        0.05,
+        0.5
+      ],
+      "occupancy_value": -1,
+      "occupancy_label": "unknown",
+      "inflated_mask_value": 0,
+      "neighborhood_3x3x3": {
+        "unknown_cells": 18,
+        "free_cells": 9,
+        "occupied_cells": 0,
+        "inflated_cells": 0
+      },
+      "nearest_known_voxel_center_distance_m": 0.07383353435939419,
+      "nearest_occupied_voxel_center_distance_m": 1.1176563831500284
+    },
+    "known_fraction": 0.00638425925925926,
+    "snapshot_archive": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/snapshots-01/first-nonzero-reject-occupancy.npz",
+    "snapshot_sha256": "e969e827e3a8cf417adfe6bb266830294937dafdd57ab55b0973a83ced339699",
+    "voxel_analysis": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/first-nonzero-reject-analysis-01.json",
+    "voxel_analysis_sha256": "87d824cd74980df08b6206c438e3ba99c7cf39252afc3ea8a9f164c217a9e330"
+  },
+  "camera_frustum_analysis": {
+    "analysis_file": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/guard-sample-frustum-analysis-01.json",
+    "analysis_sha256": "43bf14af1bdb922035eef90c70547f4f5acbdc84d0d5fbd00463343ae5489708",
+    "analysis_script": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/analyze_guard_sample_frustum.py",
+    "analysis_script_sha256": "7e9717ca9fb0955abfe9ec4c3955671d7f67d5f4af4c60fca42d72bf9a0b110c",
+    "pose_interpolation": {
+      "method": "mapping_input.pose_at",
+      "max_bracket_s": 0.15,
+      "depth_source_stamp_ns": 26170000000,
+      "lower_odom_stamp_ns": 26137000000,
+      "upper_odom_stamp_ns": 26202999999,
+      "camera_position_m": [
+        0.12684105588998718,
+        0.21687698068617653,
+        0.07407455888922036
+      ],
+      "camera_quaternion_xyzw": [
+        0.5625130959409236,
+        -0.4286020259415519,
+        0.4284238308350811,
+        -0.5624342996531672
+      ]
+    },
+    "projection": {
+      "optical_xyz_m": [
+        0.20313473381497998,
+        -0.3806909227401429,
+        0.21737096313270793
+      ],
+      "range_m": 0.4831557040458751,
+      "pixel_xy": [
+        635.1248423078896,
+        -350.5694449369729
+      ],
+      "image_size_px": [
+        640,
+        480
+      ],
+      "horizontal_fov_rad": 1.5184364492350666,
+      "vertical_fov_rad": 1.2371015559438068,
+      "horizontal_fov_contains_sample": true,
+      "vertical_fov_contains_sample": false,
+      "depth_clip_m": [
+        0.2,
+        10.0
+      ],
+      "depth_range_contains_sample": true
+    },
+    "whole_voxel_visibility": {
+      "index_xyz": [
+        123,
+        120,
+        6
+      ],
+      "world_bounds_m": [
+        [
+          0.3,
+          0.0,
+          0.45
+        ],
+        [
+          0.4,
+          0.1,
+          0.55
+        ]
+      ],
+      "optical_vertical_range_m": [
+        -0.4760125237052792,
+        -0.3759793208303084
+      ],
+      "optical_depth_range_m": [
+        0.10924693991069834,
+        0.23223264247034525
+      ],
+      "minimum_absolute_vertical_offset_m": 0.3759793208303084,
+      "maximum_vertical_frustum_half_height_m": 0.16528541170419206,
+      "entire_voxel_outside_vertical_fov": true
+    }
+  },
+  "interpretation": "The first nonzero-time rejected sample (t=1.08 s) was unknown in an accepted same-epoch/map_id snapshot. At the paired depth source pose, its optical depth was 0.217 m, within the 0.2\u201310 m clip, but its projected pixel was y=-350.6, outside the image. The whole 10 cm voxel was outside the current vertical camera frustum. This supports an unobserved-space explanation for this sample; it is not evidence of an obstacle or proof the path is safe.",
+  "limitations": [
+    "The run produced no B-spline. This report analyzes one hypothetical candidate sample, not an executed trajectory.",
+    "EGO logged 30 odom/depth-lost warnings; the run is diagnostic and does not isolate all causes of the planner outcome.",
+    "The snapshot was accepted on request attempt 2 after a `no_fresh_fused_depth` refusal; its depth source was 114 ms old at response and the guard callback preceded the accepted response by about 149 ms wall time.",
+    "The snapshot is the online map, not independent ground truth. The out-of-view voxel must remain unknown; visibility analysis does not imply physical free space.",
+    "No PX4, controller, trajectory server, path execution, vehicle sweep, truth input, sustained-runtime, or hardware-flight validation was performed."
+  ],
+  "artifacts": {
+    "run_manifest": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/run-manifest.json",
+      "sha256": "929bb1c24e93746ba5bdbdc77f01b5d3b888c88d39a948b13de06d5179bafa18"
+    },
+    "planner_result": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/planner-goal-result-01.json",
+      "sha256": "337621c0386b9622cb20ef6ce86b51a6a1a2d072e50738d0dba18509236f3c70"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/runtime-summary-01.json",
+      "sha256": "d4e6036e41ab0c60c2a988829b86274da2c60372d8d1f7968e019d6032347923"
+    },
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/ego-01.log",
+      "sha256": "2a7a2df8530f2983b53ce5de1aa9f19077de46dca93aba03e1ecb1b110769c1c"
+    },
+    "motion_record": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/motion-01.json",
+      "sha256": "f1da17fd4a392a083268870faafa29f2d70138d35270e94531f8224c45195444"
+    },
+    "ros_nodes": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/nodes-after-run-01.txt",
+      "sha256": "c24b7c37e5bbe70a6877c709966d8838e5602c41f2a3f846eda80e82a8052c3f"
+    },
+    "ros_topics": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/topics-after-run-01.txt",
+      "sha256": "8380e2da03cff7b4279faee9579001f688156fd14337377d0918465eb3c2c411"
+    },
+    "container_log": {
+      "path": "artifacts/runs/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332/container-run.log",
+      "sha256": "ddca004697fc6cb93e56eacb379271824fc80fc30586101dc2a8189065b26713"
+    }
+  },
+  "next_step": "Keep unknown fail-closed. Investigate whether a safe camera attitude/viewpoint change can expose the vertical volume before translation, then plan only through newly observed known-free space; retain same-epoch snapshots and test the full curve."
+}

@@ -1,0 +1,483 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220",
+  "classification": "HORIZONTAL_REPEAT_PREFLIGHT_FAILED; OPTIMIZED_STALE; IMU_CAPTURED; NO_GOAL; P5_NOT_PASSED",
+  "scope": "Run-local single-D435i VIO/EGO/PX4 SITL diagnostic. Exact #219 horizontal target and filter setting in a fresh ROS/Gazebo partition; no navigation goal or control phase was reached.",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219",
+    "diagnostic_repeats": [
+      "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219",
+      "p5-px4-vio-ego-anisotropy-filter-20261020-214",
+      "p5-px4-vio-ego-anisotropy-filter-zero-offset-bias-control-20261020-215"
+    ],
+    "profile": "vio_closed_loop",
+    "ros_domain_id": 231,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_horizontal_220",
+    "filter_threshold": 0.01,
+    "filter_patch_sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6",
+    "vins_binary_source_run": "p5-px4-vio-ego-no-motion-direct-20261020-207",
+    "vins_binary_sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1",
+    "goal_config_source": "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio_closed_loop_smoke_goal.json",
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.5235987755982988,
+    "health_thresholds_changed": false,
+    "px4_parameters_changed": false,
+    "truth_input_started": false,
+    "px4_bridge_debug_truth_subscription": false,
+    "control_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/position_cmd": 1
+    },
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "run_local_colcon_build": "6 packages finished; see colcon-build.log"
+  },
+  "run": {
+    "preconditions_ready": true,
+    "localization_tracking_stability_passed": false,
+    "px4_telemetry_stability_passed": false,
+    "action_goal_sent": false,
+    "action_result": null,
+    "harness_result": "FAIL",
+    "flight_exit_code": 1,
+    "final_localization_status": {
+      "accepted_optimized": 59,
+      "accepted_propagated": 783,
+      "epoch": "d7cd56f1c8a04fd0b19b01d6744862cf",
+      "reason": "optimized_stale",
+      "state": 4,
+      "valid": false
+    },
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "localization_not_tracking"
+    },
+    "first_invalid_localization": {
+      "wall_elapsed_s": 2.5919792669992603,
+      "stamp_ns": 12648000000,
+      "source_stamp_ns": 12640000000,
+      "reason": "optimized_stale",
+      "normalized_cost": 0.01022697476868781,
+      "state": 4,
+      "accepted_optimized": 59,
+      "accepted_propagated": 783,
+      "good_pairs": 68
+    },
+    "last_valid_localization": {
+      "wall_elapsed_s": 2.547669659001258,
+      "stamp_ns": 12404000000,
+      "source_stamp_ns": 12400000000,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.010164478476444179,
+      "state": 1,
+      "accepted_optimized": 59,
+      "accepted_propagated": 769,
+      "good_pairs": 68
+    },
+    "vins_telemetry": {
+      "count": 562,
+      "first": {
+        "wall_elapsed_s": 0.3127658960002009,
+        "stamp_ns": 11156000000,
+        "initialized": true,
+        "solver_usable": true,
+        "solve_current": true,
+        "normalized_cost": 0.008967607947307719,
+        "accel_bias_norm": 0.006657667793975554,
+        "input_features": 152,
+        "long_tracks": 36
+      },
+      "last": {
+        "wall_elapsed_s": 60.21183771900178,
+        "stamp_ns": 48316000000,
+        "initialized": true,
+        "solver_usable": true,
+        "solve_current": true,
+        "normalized_cost": 0.028203043433651837,
+        "accel_bias_norm": 0.006650411125244653,
+        "input_features": 152,
+        "long_tracks": 36
+      },
+      "max_normalized_cost": 0.028203043433651837,
+      "max_accel_bias_norm_m_s2": 0.006657667793975554
+    },
+    "streams": {
+      "depth_health": {
+        "count": 2280,
+        "first_stamp_ns": 11156000000,
+        "first_wall_elapsed_s": 0.2892157890019007,
+        "large_gaps": [],
+        "last_stamp_ns": 48392000000,
+        "last_status": {
+          "reason": "fresh_structurally_valid_depth",
+          "state": 1,
+          "valid": true
+        },
+        "last_wall_elapsed_s": 60.26177361500231,
+        "max_receipt_gap_s": 0.13593611900068936,
+        "max_stamp_gap_s": 0.056
+      },
+      "ego_camera_pose": {
+        "count": 39,
+        "first_stamp_ns": 11024000000,
+        "first_wall_elapsed_s": 0.2891392609999457,
+        "large_gaps": [],
+        "last_stamp_ns": 12312000000,
+        "last_wall_elapsed_s": 2.1977630850014975,
+        "max_receipt_gap_s": 0.12538813400169602,
+        "max_stamp_gap_s": 0.068
+      },
+      "ego_depth": {
+        "count": 21,
+        "first_stamp_ns": 11124000000,
+        "first_wall_elapsed_s": 0.3166149349999614,
+        "large_gaps": [],
+        "last_stamp_ns": 12280000000,
+        "last_wall_elapsed_s": 2.196761441002309,
+        "max_receipt_gap_s": 0.12592408399723354,
+        "max_stamp_gap_s": 0.068
+      },
+      "localization_status": {
+        "count": 1200,
+        "first_stamp_ns": 11152000000,
+        "first_wall_elapsed_s": 0.2852021870021417,
+        "large_gaps": [],
+        "last_stamp_ns": 48412000000,
+        "last_status": {
+          "reason": "optimized_stale",
+          "state": 4,
+          "valid": false
+        },
+        "last_wall_elapsed_s": 60.29202859799989,
+        "max_receipt_gap_s": 0.1555107530002715,
+        "max_stamp_gap_s": 0.244
+      },
+      "occupancy_cloud": {
+        "count": 544,
+        "first_stamp_ns": 11144000000,
+        "first_wall_elapsed_s": 0.286480617000052,
+        "large_gaps": [
+          {
+            "receipt_gap_s": 0.44183578999945894,
+            "stamp_gap_s": 0.072,
+            "stamp_ns": 12404000000,
+            "wall_elapsed_s": 2.545042719000776
+          }
+        ],
+        "last_stamp_ns": 48348000000,
+        "last_wall_elapsed_s": 60.185694512001646,
+        "max_receipt_gap_s": 0.44183578999945894,
+        "max_stamp_gap_s": 0.256
+      },
+      "optimized_odometry": {
+        "count": 22,
+        "first_stamp_ns": 10960000000,
+        "first_wall_elapsed_s": 0.28612461400189204,
+        "large_gaps": [],
+        "last_stamp_ns": 12343999999,
+        "last_wall_elapsed_s": 2.194859687002463,
+        "max_receipt_gap_s": 0.12428128099782043,
+        "max_stamp_gap_s": 0.068000001
+      },
+      "raw_depth": {
+        "count": 1077,
+        "first_stamp_ns": 11024000000,
+        "first_wall_elapsed_s": 0.288933972002269,
+        "large_gaps": [
+          {
+            "receipt_gap_s": 0.3619971020016237,
+            "stamp_gap_s": 0.032,
+            "stamp_ns": 12376000000,
+            "wall_elapsed_s": 2.5504717610019725
+          }
+        ],
+        "last_stamp_ns": 48348000000,
+        "last_wall_elapsed_s": 60.25270357200134,
+        "max_receipt_gap_s": 0.3619971020016237,
+        "max_stamp_gap_s": 0.1
+      }
+    },
+    "counts": {
+      "local_position": 1867,
+      "localization_status": 1200,
+      "occupancy_cloud": 544,
+      "px4_status": 74,
+      "vins_optimized_odometry": 22,
+      "visual_odometry_input": 22
+    },
+    "service_calls": [],
+    "interpretation": "The harness did not dispatch the configured goal. After 68 good_pairs and 59 accepted optimized outputs, localization left TRACKING at source stamp 12.648 s with optimized_stale. Propagated output and VINS estimator telemetry continued; the final VINS telemetry sample at 48.316 s still reported initialized, solver_usable, solve_current, cost 0.0282, and 36 long tracks. The bridge remained DISABLED because localization was not TRACKING. The report has no raw VINS Odometry capture, so it cannot distinguish the upstream odometry publisher stopping from a later adapter/pairing issue."
+  },
+  "imu_capture": {
+    "file": "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/imu-trace.json",
+    "summary": {
+      "schema": 1,
+      "scope": "read-only sensor input diagnostic; no truth subscription and no publishers",
+      "topic": "/sensors/d435i/imu",
+      "message_type": "sensor_msgs/msg/Imu",
+      "node_name": "p5_imu_readonly_capture",
+      "publisher_endpoints_at_shutdown": [
+        {
+          "node_name": "d435i_sensor_bridge",
+          "node_namespace": "/",
+          "topic_type": "sensor_msgs/msg/Imu"
+        }
+      ],
+      "sample_count": 12213,
+      "source_frame_ids": [
+        "d435i_imu_frame"
+      ],
+      "first_stamp_ns": 12688000000,
+      "last_stamp_ns": 73748000000,
+      "duration_wall_s": 102.309234028,
+      "source_rate_hz": 200.0,
+      "positive_stamp_gap_s": {
+        "median": 0.004,
+        "p95": 0.008,
+        "max": 0.008
+      },
+      "nonpositive_stamp_gap_count": 0,
+      "all_numeric_samples_finite": true
+    },
+    "publisher_inventory_at_startup": "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/imu-topic-info.txt",
+    "interpretation": "Read-only capture saved 12,213 source-stamped samples at 200 Hz with no timestamp regression, finite numeric values, and 8 ms maximum gap. The active publisher d435i_sensor_bridge was still discoverable at recorder shutdown. The first sample was 12.688 s, about 40 ms after the first optimized_stale status stamp."
+  },
+  "px4_safety": {
+    "ulog_duration_sim_s": 67.74,
+    "dropouts": 0,
+    "estimator_flag_counts": {
+      "cs_ev_pos": {
+        "true": 7,
+        "samples": 76
+      },
+      "cs_ev_yaw": {
+        "true": 7,
+        "samples": 76
+      },
+      "cs_ev_vel": {
+        "true": 7,
+        "samples": 76
+      },
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 76
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 76
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 76
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 76
+      }
+    },
+    "vehicle_status_transitions": [
+      {
+        "sim_time_s": 6.136,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 4,
+        "nav_state_name": "AUTO_LOITER",
+        "failsafe": false
+      }
+    ],
+    "land_transitions": [
+      {
+        "sim_time_s": 5.592,
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      }
+    ],
+    "battery_warning_values": [
+      0
+    ],
+    "battery_fault_values": [
+      0
+    ],
+    "final_vehicle_status": {
+      "arming_state": 1,
+      "nav_state": 4,
+      "failsafe": false
+    },
+    "final_land_status": {
+      "landed": true,
+      "ground_contact": true,
+      "maybe_landed": true
+    }
+  },
+  "observers": {
+    "imu_trace_file_created": true,
+    "image_capture_started": true,
+    "image_capture_result": "No crossing image manifest was produced. Observer exited with ExternalShutdownException during stack teardown; no navigation goal or normalized-cost crossing was observed."
+  },
+  "limitations": [
+    "No navigation goal was sent and no EGO/Offboard action was evaluated; this run is a precondition failure, not a horizontal repeat success or P5 acceptance.",
+    "The adapter reports optimized_stale while telemetry and propagated streams continue. Raw VINS Odometry was not captured, leaving the publisher-versus-adapter boundary unresolved.",
+    "The IMU recorder started at source stamp 12.688 s, after the first stale-status stamp at 12.648 s.",
+    "PX4 ULog shows brief EV fusion but no Offboard arming/flight; GNSS aiding stayed zero and the vehicle remained landed/disarmed.",
+    "No health, freshness, or PX4 gate was changed."
+  ],
+  "next_step": "Repeat the profile with a run-local read-only subscriber directly on /vins_raw/<epoch>/odometry, recording source stamps and receipts alongside estimator telemetry and IMU. Determine whether raw optimized odometry stops or adapter pairing/rejection stops before attempting another goal.",
+  "sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/source-patch-manifest.json": {
+      "bytes": 3160,
+      "sha256": "1bc4ef8cbe567a49c5fcac8f38da491199ec0e025f7109e4ed4f72edfc1708fb"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/launch-horizontal-imu-trace.sh": {
+      "bytes": 477,
+      "sha256": "7eafe98f8a0d7c1aaf885210e55031d6c1f520c81d33b27019caa3879e72f95d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/run-filtered-horizontal-goal.sh": {
+      "bytes": 10772,
+      "sha256": "b44600ec06ac3377df258d7ea4c58dbd2f6c66907a8cd103492a62086a30b292"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/run_vio_ego_flight_harness.py": {
+      "bytes": 30460,
+      "sha256": "6818b6f977c7697fa4eb5d113654666d68cd70cbcf4323a7c243cc2d4a58e586"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/capture_imu_trace.py": {
+      "bytes": 4655,
+      "sha256": "7b65a44fcd13193e5980e25f705bc7f54405ea3d94dc5878257e662a7d280350"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/capture_quality_crossing_images.py": {
+      "bytes": 7911,
+      "sha256": "05bb8765d4e85a6a39752ca731f2b6c8d127d7d182db41f66636f51239b93feb"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/analyze_px4_ulog.py": {
+      "bytes": 7246,
+      "sha256": "c5267b7eec08dd1a4b85ac066c1f06c16b2a8769aa4579ef449416a6736bceb5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/vio-ego-flight-report.json": {
+      "bytes": 2970825,
+      "sha256": "6faebaa64284e8e38b1ada14c472a394efa90881c8318079ab6009576289ea06"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/landing-failsafe-timeline.json": {
+      "bytes": 1974,
+      "sha256": "4cc312e6abfe792928c146b110c207f97fc48606767177bbd408ff00658093e1"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/imu-capture.log": {
+      "bytes": 671,
+      "sha256": "817160e9cb0bad1d8025bc32bcf73a648137132bdee72a4200ef4b186ef81a08"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/imu-topic-info.txt": {
+      "bytes": 1444,
+      "sha256": "5ec180a443b7fe1d80a3cf21dfd488671bec0610ba145f6dcc6a3bfadc12ec81"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/imu-trace.json": {
+      "bytes": 4711171,
+      "sha256": "0f3a4de58a6f18f788d32b6268c852ad75e64f413543f9772887c375de4bff4a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/image-capture.log": {
+      "bytes": 1427,
+      "sha256": "96203b97f028d6ea09449d41c634821587626f00a783ae5e366f8afd21c54875"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/truth-and-control-isolation.txt": {
+      "bytes": 306,
+      "sha256": "65c53c81237c92c510eaabd3f3663894a521f0f6425817eaba136079b384ce77"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "296c238e9ae2d4f9d8916cb80aa8c6b9ee7d75c193524ec145627ad5fa619026"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/px4-bridge-live.json": {
+      "bytes": 8852385,
+      "sha256": "50b169ba3b70c3ed69099a9f49b9985fc6cbfae34397a82d50c3633cb16da56b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/px4-bridge-node-info-final.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/px4-param-stage.json": {
+      "bytes": 766,
+      "sha256": "15cf2c52c6b43968002cbc0c729ab00cdbb2b2f1fc0852385d9b5d4ed8c10204"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/world-generation.json": {
+      "bytes": 1457,
+      "sha256": "f4e4d1bfb56ac139dba6a098a32a9dde2f211259177e63ab1e4239709780ef6e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/agent.log": {
+      "bytes": 41562,
+      "sha256": "6e89158246ac3d08622d6ecc1a5cc1450bf1b4d66707c669a0184a81e29b652f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/px4.log": {
+      "bytes": 5192,
+      "sha256": "f7a893a157c6bbc234e36941eaa7ba68b92fe83aaa93685c4b7f94b3c1a2ae8b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/gazebo.log": {
+      "bytes": 2955,
+      "sha256": "e88a10f33fd5152205a8015a6fe824185e9c6e80537906ed81e8ef6792d3b97e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/vio-launch.log": {
+      "bytes": 727727,
+      "sha256": "829253f8a871a93d3fb475091d78cfc968c0a225a726cb4302c0031bece3b24e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/vio-ego-flight.log": {
+      "bytes": 2970825,
+      "sha256": "6faebaa64284e8e38b1ada14c472a394efa90881c8318079ab6009576289ea06"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/vio_closed_loop_smoke_goal.json": {
+      "bytes": 429,
+      "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-220/px4_sitl_default/log/2026-10-19/18_57_09.ulg": {
+      "bytes": 18059119,
+      "sha256": "401ce1fb41ed8b617f8af4278f05a9cc6ee6381bccee23f8488a8a84c595dfda"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio_closed_loop_smoke_goal.json": {
+      "bytes": 429,
+      "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/vins-install/vins/lib/vins/vins_node": {
+      "bytes": 12313304,
+      "sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47431,
+      "sha256": "08918139cec607da2b3e8cd10ac28a84f91f5d61af9f61bbe497d125997a5a78"
+    },
+    "src/own/uav_localization/uav_localization/health.py": {
+      "bytes": 9308,
+      "sha256": "98e1cfa4e53825ba71f6929d2af007d69e2d7671155c9ed1b161db0e26932255"
+    },
+    "config/components/localization/health.json": {
+      "bytes": 800,
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "config/profiles/vio_closed_loop.json": {
+      "bytes": 562,
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "config/profiles/debug_truth.json": {
+      "bytes": 452,
+      "sha256": "6abac4deaf69d37596137da8c9598c60d19542898a38652ae226e8bbb86ecdfb"
+    },
+    "dependencies/patches/vins/0008-feature-anisotropy-filter-experiment.patch": {
+      "bytes": 3474,
+      "sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -1014,12 +1014,13 @@
+     const double qw = odom_orient_.w();
+     double previous_yaw = std::atan2(2.0 * (qw * qz + qx * qy),
+                                      1.0 - 2.0 * (qy * qy + qz * qz));
++    const double initial_yaw = previous_yaw;
+     Eigen::VectorXd yaw_points(pos_pts.cols());
+     constexpr double TWO_PI = 6.28318530717958647692;
+     for (int i = 0; i < pos_pts.cols(); ++i)
+     {
+       double heading = previous_yaw;
+-      if (i + 1 < pos_pts.cols())
++      if (i >= bspline.order && i + 1 < pos_pts.cols())
+       {
+         const double dx = pos_pts(0, i + 1) - pos_pts(0, i);
+         const double dy = pos_pts(1, i + 1) - pos_pts(1, i);
+@@ -1036,6 +1037,9 @@
+     target_yaw += TWO_PI * std::round((yaw_points(tail_start) - target_yaw) / TWO_PI);
+     for (int i = tail_start; i < yaw_points.rows(); ++i)
+       yaw_points(i) = target_yaw;
++    // A cubic spline starts from its first three controls, not its path heading.
++    for (int i = 0; i < bspline.order; ++i)
++      yaw_points(i) = initial_yaw;
+ 
+     bspline.yaw_pts.reserve(yaw_points.rows());
+     for (int i = 0; i < yaw_points.rows(); ++i)

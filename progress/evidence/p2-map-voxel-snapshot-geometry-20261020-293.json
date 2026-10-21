@@ -1,0 +1,170 @@
+{
+  "schema": "p2-map-voxel-snapshot-geometry-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-map-voxel-snapshot-service-20261020-293",
+  "status": "EXPLORATORY_SINGLE_RUN_SURFACE_CONSISTENCY; GOAL_C_PENDING",
+  "qualification": "One post-motion snapshot with offline scene-surface comparison. No coverage, temporal ghosting, clearance, planner, or GOAL C acceptance.",
+  "environment": {
+    "docker_image": "d435i-vins:dev",
+    "docker_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_domain_id": 142,
+    "gazebo_partition": "d435i_map_voxel_snapshot_293_01",
+    "scope": "Single D435i, VINS, localization/depth-health/mapping adapters and EGO plan_env only; no PX4/controller/traj_server/action goal."
+  },
+  "build": {
+    "candidate_install_reused_from": "p2-map-voxel-snapshot-service-20261020-292",
+    "ego_planner_node_sha256": "691471c8e6679bf9eb867f9724407cb4f23f09675367bd44353084e65fbe6530",
+    "libplan_env_sha256": "c2f3c5d409fa3138c400feb0884750b2c3b64c1183989ef981c3f772dc9617b0",
+    "patch_sha256": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8",
+    "canonical_vendor_modified": false,
+    "dependencies_sources_json_modified": false
+  },
+  "snapshot": {
+    "service": "/mapping/get_occupancy_snapshot",
+    "epoch": "cc152d1cd14c4b2a85b185d0af64fa0e",
+    "map_id": "cc152d1cd14c4b2a85b185d0af64fa0e-2f2c4abb67bd4f33a9b34fd224247fc6",
+    "frame_id": "odom_cc152d1cd14c4b2a85b185d0af64fa0e",
+    "dimensions_xyz": [
+      240,
+      240,
+      60
+    ],
+    "resolution_m": 0.1,
+    "total_voxels": 3456000,
+    "forwarded_depth_count_before_after": [
+      151,
+      153
+    ],
+    "snapshot_stamp_ns": 9538000000,
+    "first_force_command_stamp_ns": 7689000000,
+    "source_age_s": 0.099,
+    "service_duration_ms": 44.5004709999921,
+    "voxel_counts": {
+      "unknown": 3440463,
+      "free": 14218,
+      "raw_occupied": 1319,
+      "inflated": 6866,
+      "known": 15537
+    },
+    "known_voxel_fraction": 0.004495659722222222,
+    "previous_run_292_known_voxel_count": 7082,
+    "known_count_ratio_vs_292": 2.19429539678057,
+    "comparison_caveat": "#292 captured before its first force command; #293 captured about 1.85 simulation seconds after motion began. These are separate runs, so the difference does not isolate motion causality.",
+    "wrong_epoch_rejected": true,
+    "wrong_map_id_rejected": true,
+    "archive_readback_exact": true,
+    "archive_sha256": "c45de73d5d38e7bddd0296adaaa25dc0551570efd5e77863a03aeabdd63abdb5"
+  },
+  "trajectory": {
+    "alignment": "Single fixed-scale SE(3), no segment realignment",
+    "paired_samples": 370,
+    "overlap_seconds": 24.354,
+    "truth_position_span_m": [
+      0.25392099619906777,
+      0.3201610921908446,
+      0.12696049799997833
+    ],
+    "truth_yaw_span_deg": 24.247963602942484,
+    "position_rmse_m": 0.007514638693726687,
+    "position_p95_m": 0.014635692219121919,
+    "orientation_rmse_deg": 1.0135492939978163
+  },
+  "occupied_voxel_surface_comparison": {
+    "method": "Transform raw occupied voxel centers by the trajectory SE(3) fit, then compare nearest absolute analytic SDF distance to the same run wall, box, cylinder, and ground plane.",
+    "voxel_centers": 1319,
+    "nearest_surface_residual_m": {
+      "median": 0.04275471738886809,
+      "p95": 0.07057487934898429,
+      "maximum": 0.07941265482745585,
+      "fraction_within_0_05m": 0.5830174374526156,
+      "fraction_within_0_10m": 1.0
+    },
+    "nearest_surface_assignment_counts": {
+      "calibration_wall": 1214,
+      "calibration_box": 64,
+      "calibration_cylinder": 41,
+      "ground_plane": 0
+    },
+    "per_surface_residuals_m": {
+      "calibration_wall": {
+        "n": 1214,
+        "median": 0.04529553187284789,
+        "p95": 0.07050601407735055
+      },
+      "calibration_box": {
+        "n": 64,
+        "median": 0.01890655284027275,
+        "p95": 0.03059954223452053
+      },
+      "calibration_cylinder": {
+        "n": 41,
+        "median": 0.01993026696667119,
+        "p95": 0.07697665288096173
+      }
+    }
+  },
+  "isolation": {
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "forbidden_control_nodes": [],
+    "truth_use": "Fixture truth recorded separately and read only offline; not a runtime localization/mapping input."
+  },
+  "artifacts": {
+    "run_report": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/run-report.json",
+      "sha256": "8658db44e9c72cbfda74198f22ffbc69b576c35a74e73b2f443ca65e1c012b95"
+    },
+    "source_manifest": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/source-manifest.json",
+      "sha256": "4adf2228c47e098df333a45af6d0e00f52c729632d8ac68378668189cd314652"
+    },
+    "source_manifest_build": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/source-manifest-build.json",
+      "sha256": "124159e90e539cbbaf20767d7cafe4e151dbb7e3254fda4a1e4e4e140809d89b"
+    },
+    "snapshot_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/snapshot-01/metadata.json",
+      "sha256": "efd3ae3ca60ffb22e3fd25f66d3ff8222910f1d035281f43078ff258dd0f6f63"
+    },
+    "snapshot_npz": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/snapshot-01/occupancy_snapshot.npz",
+      "sha256": "c45de73d5d38e7bddd0296adaaa25dc0551570efd5e77863a03aeabdd63abdb5"
+    },
+    "geometry_analysis": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/snapshot-geometry-analysis.json",
+      "sha256": "c992e35ec2d128a5019e2fa7ebd9ae5f328e750ba38d82f85147ebc28edfd424"
+    },
+    "geometry_analysis_script": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/analyze_snapshot_geometry.py",
+      "sha256": "4fef38629cec8dfbea4ab03a03dc7e7fe56c69b74d5a98e74cfbd885f4a0fdc0"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/runtime-summary-01.json",
+      "sha256": "139747212e8d3a5530a694dfd31a4633c7c7f1474ca98de992a062b3a6c746a8"
+    },
+    "motion_and_truth_record": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/motion-01.json",
+      "sha256": "e9ccbaa5060b0f19900142e9c8d6fbdb0f6b5bd86c821b39ffb2aa0124653679"
+    },
+    "vins_log": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/vins-01.log",
+      "sha256": "9f0c5e4c1e9f171403c127a4a919adb95e5f650bc4acfe658b4f216398a23955"
+    },
+    "world_sdf": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/debug-motion-01.sdf",
+      "sha256": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51"
+    },
+    "extracted_odometry": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-293/vins-odometry-extracted.json",
+      "sha256": "e06b4ba3c4d3c96c749602db993eb656824eb101fbe36cd6cfd52f9df8452079"
+    }
+  },
+  "limitations": [
+    "Only one snapshot was captured; 99.55% of configured voxels remain unknown.",
+    "The raw occupied sample has only 64 box and 41 cylinder voxel centers; per-object estimates are small-sample descriptions.",
+    "Nearest SDF residual does not measure completeness, repeated-surface ghosting, free-space accuracy, inflated clearance, or planning response.",
+    "There is no second time-separated snapshot in the same epoch, so accumulation and temporal ghosting remain unmeasured.",
+    "The 0.10 m voxel resolution limits interpretation of center-to-surface residuals; no formal threshold is frozen."
+  ],
+  "next_step": "Capture multiple time-separated snapshots in one epoch after sustained motion, quantify known/free/occupied growth and repeated-surface displacement, then repeat with a different obstacle arrangement."
+}

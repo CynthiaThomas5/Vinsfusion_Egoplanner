@@ -1,0 +1,414 @@
+{
+  "scope": "P2 repeated physical-motion calibration evidence; exploratory only, not formal acceptance.",
+  "status": "Matched-binary independent cold-start repeat succeeded. The P2 phase verdict is recorded separately in p2-stage-exit-audit.json; this measurement alone is not final acceptance.",
+  "method": {
+    "motion": "Gazebo ApplyLinkWrench force/torque excitation derived from the same D435i model inertial values; no pose/velocity override or truth feedback.",
+    "estimator": "Same VINS executable SHA-256 as the 2026-10-16 force-driven baseline; fresh process, session directory, epoch and namespace.",
+    "evaluation": "Single SE(3) rigid alignment, scale fixed to 1, source stamps only; no timestamp repair, free scaling or segment re-alignment.",
+    "truth_isolation": "Truth and IMU samples were captured in the debug recorder only and evaluated offline. No truth ROS topic, controller, mapper, EGO or PX4 process was present."
+  },
+  "baseline": {
+    "run_id": "p2-force-motion-20261016",
+    "binary_sha256": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+    "model_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "settings_sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+    "metrics": {
+      "scope": "Exploratory sensor-rig measurement, not frozen formal flight acceptance",
+      "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+      "paired_samples": 373,
+      "overlap_seconds": 24.551999999000003,
+      "truth_position_span_m": [
+        0.2765495402534117,
+        0.3204647197167431,
+        0.13827476999786215
+      ],
+      "truth_yaw_span_deg": 26.428297195050007,
+      "position_rmse_m": 0.025326546369249366,
+      "position_p95_m": 0.04372367437385617,
+      "position_max_m": 0.05060468680850139,
+      "orientation_rmse_deg": 1.5169713390227473,
+      "orientation_max_deg": 1.936697497154304,
+      "alignment_rotation": [
+        [
+          0.9994617697828496,
+          0.032317063014656255,
+          -0.005637213907701759
+        ],
+        [
+          -0.03236193682444273,
+          0.9994437202582789,
+          -0.008059471524958868
+        ],
+        [
+          0.005373619590668184,
+          0.008237564834196959,
+          0.9999516321993266
+        ]
+      ],
+      "alignment_translation": [
+        -0.0001707204772049553,
+        0.030296484524024364,
+        0.9982922451193167
+      ],
+      "imu_specific_force_rmse_m_s2": 0.0019068718757630115,
+      "imu_yaw_rate_rmse_rad_s": 4.302002264750766e-05
+    }
+  },
+  "matched_binary_repeat": {
+    "run_id": "p2-force-motion-20261017-05",
+    "run_inputs": "artifacts/runs/p2-force-motion-20261017-05/run-inputs.json",
+    "run_inputs_sha256": "d60593baaa7cb9c717c854d3d2e8f92358477619d7e756f92207ff8981fab3bf",
+    "binary_sha256": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+    "baseline_binary_match": true,
+    "model_sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "settings_sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+    "epoch": "67b6dfb65e21492281c7da07479ef6fb",
+    "namespace": "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb",
+    "motion_samples": {
+      "truth": 2502,
+      "imu": 5003,
+      "simulation_span_s": 25.014,
+      "wall_s": 38.10597151299589,
+      "force_transition_count": 8
+    },
+    "vins": {
+      "counts": {
+        "optimized": 742,
+        "propagated": 9763
+      },
+      "telemetry_count": 742,
+      "initialized_telemetry_count": 742,
+      "rates_hz": {
+        "optimized": 15.151515151515152,
+        "propagated": 199.3465387012323
+      },
+      "all_output_finite": true,
+      "parse_errors": [],
+      "node_graph": {
+        "subscriptions": [
+          [
+            "/clock",
+            [
+              "rosgraph_msgs/msg/Clock"
+            ]
+          ],
+          [
+            "/feature_tracker/feature",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/parameter_events",
+            [
+              "rcl_interfaces/msg/ParameterEvent"
+            ]
+          ],
+          [
+            "/sensors/d435i/imu",
+            [
+              "sensor_msgs/msg/Imu"
+            ]
+          ],
+          [
+            "/sensors/d435i/infra1/image_rect",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/sensors/d435i/infra2/image_rect",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/vins_cam_switch",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ],
+          [
+            "/vins_imu_switch",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ],
+          [
+            "/vins_restart",
+            [
+              "std_msgs/msg/Bool"
+            ]
+          ]
+        ],
+        "publishers": [
+          [
+            "/parameter_events",
+            [
+              "rcl_interfaces/msg/ParameterEvent"
+            ]
+          ],
+          [
+            "/rosout",
+            [
+              "rcl_interfaces/msg/Log"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/camera_pose",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/camera_pose_visual",
+            [
+              "visualization_msgs/msg/MarkerArray"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/estimator_telemetry",
+            [
+              "std_msgs/msg/String"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/extrinsic",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/image_track",
+            [
+              "sensor_msgs/msg/Image"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/imu_propagate",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/key_poses",
+            [
+              "visualization_msgs/msg/Marker"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/keyframe_point",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/keyframe_pose",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/margin_cloud",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/odometry",
+            [
+              "nav_msgs/msg/Odometry"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/path",
+            [
+              "nav_msgs/msg/Path"
+            ]
+          ],
+          [
+            "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/point_cloud",
+            [
+              "sensor_msgs/msg/PointCloud"
+            ]
+          ]
+        ]
+      },
+      "expected_topic_publishers": {
+        "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/odometry": [
+          {
+            "node_name": "vins_estimator",
+            "node_namespace": "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb",
+            "topic_type": "nav_msgs/msg/Odometry",
+            "endpoint_gid": "010feadbcf007ef40000000000001703"
+          }
+        ],
+        "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/imu_propagate": [
+          {
+            "node_name": "vins_estimator",
+            "node_namespace": "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb",
+            "topic_type": "nav_msgs/msg/Odometry",
+            "endpoint_gid": "010feadbcf007ef40000000000001503"
+          }
+        ],
+        "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb/estimator_telemetry": [
+          {
+            "node_name": "vins_estimator",
+            "node_namespace": "/vins_raw/s_67b6dfb65e21492281c7da07479ef6fb",
+            "topic_type": "std_msgs/msg/String",
+            "endpoint_gid": "010feadbcf007ef40000000000002103"
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "scope": "Exploratory sensor-rig measurement, not frozen formal flight acceptance",
+      "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+      "paired_samples": 375,
+      "overlap_seconds": 24.684,
+      "truth_position_span_m": [
+        0.25877603980736213,
+        0.33012660019273626,
+        0.1293880200004649
+      ],
+      "truth_yaw_span_deg": 24.712139806737245,
+      "position_rmse_m": 0.025918680459022566,
+      "position_p95_m": 0.047844432425481545,
+      "position_max_m": 0.054631570025055934,
+      "orientation_rmse_deg": 0.7161337263749661,
+      "orientation_max_deg": 1.412795168458257,
+      "alignment_rotation": [
+        [
+          0.9999834340987339,
+          0.003208296803306624,
+          -0.004778949646608632
+        ],
+        [
+          -0.003182423510555613,
+          0.9999802920342701,
+          0.005411813342670424
+        ],
+        [
+          0.004796218166679855,
+          -0.0053965150493936985,
+          0.9999739366186595
+        ]
+      ],
+      "alignment_translation": [
+        0.001427474299773121,
+        0.027689181621783424,
+        0.9990631286816835
+      ],
+      "imu_specific_force_rmse_m_s2": 0.001876053272352474,
+      "imu_yaw_rate_rmse_rad_s": 4.2728008551664065e-05
+    },
+    "bag": {
+      "path": "artifacts/runs/p2-force-motion-20261017-05/input-bag/input-bag_0.mcap",
+      "bytes": 501904284,
+      "sha256": "dd1e094247c41175f5d202769da8b67e8b5e992f5942c3cfc6fa4da93ea93dbb",
+      "info_path": "artifacts/runs/p2-force-motion-20261017-05/bag-info.txt",
+      "info_sha256": "f3c00384afcaaa359da4a7cb6fbf36f1173d22a0adeaf0b00def2bee99dfe12d"
+    },
+    "files_sha256": {
+      "artifacts/runs/p2-force-motion-20261017-05/metrics.json": "f8db4f01083b2b3851bc0d7531519fdd5931adce00ac349fabce4de0bcbff83e",
+      "artifacts/runs/p2-force-motion-20261017-05/motion.json": "fe72614e9f39e56ee6cb145a372f51ee62b3d031f733996ccad9f14ab14225ea",
+      "artifacts/runs/p2-force-motion-20261017-05/probe/summary.json": "78fde1eb5dea163d9b1b5cfac1f8b1091b7777131e7b2b679c7d2ceedb3b1315",
+      "artifacts/runs/p2-force-motion-20261017-05/probe/raw-odometry.json": "0e9c3b2a8bfc673061a54b8ce43007be3d073a21feacfc7698f8330444b92af2",
+      "artifacts/runs/p2-force-motion-20261017-05/probe/telemetry.json": "7324e9a14bb8b88a77b10c3a8f4eb1eba55aeefbe2cbee454b18b944fb0214bf",
+      "artifacts/runs/p2-force-motion-20261017-05/vins.log": "04a0703ec3c15675745c66b7a11e70a33f3ccf75b8a7bdee9c91d5c78cd509e4",
+      "artifacts/runs/p2-force-motion-20261017-05/sensors.log": "6de4129731acd80a2f98e059cc4dcdef6d02b216b1ce17b4dfea0d95b395e13a",
+      "artifacts/runs/p2-force-motion-20261017-05/bag.log": "7828b387fb8f324bef7a003bd7c8d9ba9b5d3c8a5a1d78b8f98da710313aaf0c",
+      "artifacts/runs/p2-force-motion-20261017-05/bag-stop.log": "3926a7ac73ab356f7bd7edeb5dd928c537e4d8077de9c8229e2b97545e95aff3",
+      "artifacts/runs/p2-force-motion-20261017-05/clock-ready.log": "88087a11450ac2685404f5ea3e9da69fc275fc8a2acbfc4ac067747712600fbd",
+      "artifacts/runs/p2-force-motion-20261017-05/session/session.json": "061ea9458299ac04468855336857ce3b7beebd6f22061f24d68486d395215b3c",
+      "artifacts/runs/p2-force-motion-20261017-05/run-container.sh": "f4ee4f1e5143bbea4370845a01653085c903b565587da2557b52ee31ce6467a0",
+      "artifacts/runs/p2-force-motion-20261017-05/source-sha256.txt": "766661e841203430f4ce0c9dea6063d8232f0f71989feb47ff794817d6e80231",
+      "artifacts/runs/p2-force-motion-20261017-05/repository-source-sha256.txt": "3b046368bdbd24e46c474e2d0d4406c435a05b382752f5b28962ea8ca7885b1b",
+      "artifacts/runs/p2-force-motion-20261017-05/working-tree-status.txt": "691558e4afc1b9166f9cd042e0be253e16d7482ac31efa2ab8547bc479680713",
+      "artifacts/runs/p2-force-motion-20261017-05/vins_node-matched-binary": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+      "artifacts/runs/p2-force-motion-20261017-05/ldd.txt": "9b16eed57418290affa5da47aaff533111f476c332b9ed1a2519b0f11f3c8303",
+      "artifacts/runs/p2-force-motion-20261017-05/binary-identity.txt": "c7e957b43a7a1ae8e8b12c191d1d4de4771bb5518fb2367cab69abe8db89a5f2",
+      "artifacts/runs/p2-force-motion-20261017-05/run-inputs.json": "d60593baaa7cb9c717c854d3d2e8f92358477619d7e756f92207ff8981fab3bf"
+    },
+    "runtime_link_check": "PASS: ldd in the derived Jazzy runtime image after sourcing ROS and workspace overlays reports no missing shared libraries."
+  },
+  "new_full_build_cross_check": {
+    "run_id": "p2-force-motion-20261017-04",
+    "binary_sha256": "d588dd41c044668b7cd5f42f7cfc9080c807d8422dccea6f4730fb7d884a4ebe",
+    "matched_baseline_binary": false,
+    "qualification": "Valid separate dynamic VINS run on the P0 full-rebuild binary, with VINS output namespace and input graph verified; excluded from the same-binary repeat pair.",
+    "metrics": {
+      "scope": "Exploratory sensor-rig measurement, not frozen formal flight acceptance",
+      "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+      "paired_samples": 358,
+      "overlap_seconds": 23.561999999,
+      "truth_position_span_m": [
+        0.2464573982553887,
+        0.31888028019114645,
+        0.12322869899951094
+      ],
+      "truth_yaw_span_deg": 23.536510475712532,
+      "position_rmse_m": 0.026755293028553704,
+      "position_p95_m": 0.045866809388700885,
+      "position_max_m": 0.052395025035180676,
+      "orientation_rmse_deg": 1.0459207041340421,
+      "orientation_max_deg": 1.4648099523829985,
+      "alignment_rotation": [
+        [
+          0.9996866586530271,
+          0.024250111509585778,
+          -0.006206174580152768
+        ],
+        [
+          -0.0242841702357872,
+          0.9996901165950353,
+          -0.005472646358334181
+        ],
+        [
+          0.0060715391051997525,
+          0.005621643351970351,
+          0.9999657661834815
+        ]
+      ],
+      "alignment_translation": [
+        -0.0007648114281780805,
+        0.03387038725584687,
+        0.9982461387827456
+      ],
+      "imu_specific_force_rmse_m_s2": 0.0019580100959234446,
+      "imu_yaw_rate_rmse_rad_s": 4.310030903021729e-05
+    },
+    "vins_counts": {
+      "optimized": 722,
+      "propagated": 9506
+    },
+    "telemetry_count": 722,
+    "files_sha256": {
+      "artifacts/runs/p2-force-motion-20261017-04/metrics.json": "277dca99df818c4033769dd4a44687e90f9425c6d277f023094ff6cc609644cb",
+      "artifacts/runs/p2-force-motion-20261017-04/motion.json": "43ee66ff7429e51e179ec9c24b35c43471548f06dbe2226e472d6943c2913175",
+      "artifacts/runs/p2-force-motion-20261017-04/probe/summary.json": "c08d09d203491d89cd3f095c0b6fe1b69c3b1f1cbca0cb30bc25721a0925341b",
+      "artifacts/runs/p2-force-motion-20261017-04/probe/raw-odometry.json": "4c8d2b52aca691b4e7fc6887c493c9e28a93d0bef7ecb6809f89290ac320bd49",
+      "artifacts/runs/p2-force-motion-20261017-04/qualification.txt": "bd2a1750b729a087ea7c7ada05d2798a5a59c4521e7f3ea30975f21032047c6f"
+    }
+  },
+  "excluded_attempts": [
+    {
+      "run_id": "p2-force-motion-20261017-01",
+      "reason": "Copied motion driver resolved repository root incorrectly; no motion sample."
+    },
+    {
+      "run_id": "p2-force-motion-20261017-02",
+      "reason": "Copied orchestrator retained attempt-01 output path; no qualified sample in this run directory."
+    },
+    {
+      "run_id": "p2-force-motion-20261017-03",
+      "reason": "Physics motion and sensor data were captured, but VINS __ns remapping was omitted; no output publisher existed in the epoch namespace, so no trajectory accuracy result was used."
+    }
+  ],
+  "limitations": [
+    "These measurements are ideal simulation-rig diagnostics, not flight acceptance or real D435i qualification.",
+    "The raw estimator reports initialized and solver_usable during these samples; upstream failureDetection remains insufficient for health proof.",
+    "No localization health adapter, mapping, planning, PX4 EKF2 fusion/control, SITL flight or hardware was included.",
+    "Formal P2 thresholds remain unfrozen; the second matching run adds reproducibility evidence but does not complete P2."
+  ]
+}

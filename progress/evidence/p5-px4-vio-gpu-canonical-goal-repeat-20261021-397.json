@@ -1,0 +1,380 @@
+{
+  "capture": {
+    "clock_regressions": 0,
+    "duplicate_clock_samples": 0,
+    "fit_ring": {
+      "full_64_fit_count": 6418,
+      "full_64_out_of_bounds_count": 0,
+      "full_64_wall_per_sim_s": {
+        "max": 2.340117,
+        "median": 1.516864,
+        "min": 1.329646,
+        "p95": 1.761687
+      },
+      "max_samples": 64,
+      "min_samples": 5,
+      "partial_fit_count": 59,
+      "partial_out_of_bounds_count": 6,
+      "wall_per_sim_bounds": [
+        0.1,
+        10.0
+      ]
+    },
+    "observed_rtf": 0.64647,
+    "px4_status_callback_intervals": {
+      "estimator_flags": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.168,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 33,
+        "positive_source_intervals": 32,
+        "receipt_gap_wall_s": {
+          "max": 1.744619,
+          "median": 1.477176,
+          "min": 0.008072,
+          "p95": 1.604199
+        },
+        "source_gap_sim_s": {
+          "max": 1.004,
+          "median": 1.0,
+          "min": 0.008,
+          "p95": 1.0
+        }
+      },
+      "land_detected": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.168,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.012
+        },
+        "callback_samples": 37,
+        "positive_source_intervals": 36,
+        "receipt_gap_wall_s": {
+          "max": 1.730827,
+          "median": 1.331383,
+          "min": 0.007383,
+          "p95": 1.627778
+        },
+        "source_gap_sim_s": {
+          "max": 1.004,
+          "median": 1.0,
+          "min": 0.008,
+          "p95": 1.0
+        }
+      },
+      "vehicle_status": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.184,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 57,
+        "positive_source_intervals": 56,
+        "receipt_gap_wall_s": {
+          "max": 0.971992,
+          "median": 0.753962,
+          "min": 0.025339,
+          "p95": 0.829335
+        },
+        "source_gap_sim_s": {
+          "max": 0.504,
+          "median": 0.504,
+          "min": 0.012,
+          "p95": 0.504
+        }
+      }
+    },
+    "sim_span_s": 25.92,
+    "trace_rows": 6608,
+    "trace_rows_by_source": {
+      "clock": 6481,
+      "estimator_flags": 33,
+      "land_detected": 37,
+      "vehicle_status": 57
+    },
+    "trace_sha256": "2f8f8a4a68eb27228cfe37696e0bc9125eec199e036b8f0d63ee44c17d0df521",
+    "wall_span_s": 40.094699
+  },
+  "container_gpu": {
+    "device": "GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU (UUID: GPU-dcea8a0d-46b2-7ef8-e11b-025c00ddc830)",
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "utilization_percent": {
+      "max": 53.0,
+      "median": 21.0,
+      "min": 0.0,
+      "p95": 40.0
+    },
+    "utilization_samples": 68
+  },
+  "date": "2026-10-21",
+  "limitations": [
+    "The zero-relative-motion goal is a diagnostic hold, not an obstacle route or displacement/clearance acceptance.",
+    "This single repeat supports correlation of EGO goal/trajectory activity with cost threshold crossing but does not identify the residual cause.",
+    "PX4 ULog contains internal groundtruth data; project ROS topics/bridge subscriptions show no debug_truth path and the dataset was not used by project nodes.",
+    "No frozen clearance threshold, repeated cold-start suite, fault injection or ten-minute load test was performed."
+  ],
+  "next_step": "Use the repeated #394/#397 crossings to instrument VINS residual-group contributions at the first normalized_cost threshold crossing, keeping the canonical gate, target, GPU profile and no-truth graph fixed.",
+  "px4_ulog": {
+    "duration_s": 27.104,
+    "estimator_status_flags": {
+      "cs_ev_hgt": {
+        "final_value": false,
+        "first_true_timestamp_s": 8.776,
+        "last_true_timestamp_s": 26.82,
+        "total_samples": 40,
+        "true_samples": 23
+      },
+      "cs_ev_pos": {
+        "final_value": false,
+        "first_true_timestamp_s": 8.776,
+        "last_true_timestamp_s": 26.82,
+        "total_samples": 40,
+        "true_samples": 23
+      },
+      "cs_ev_vel": {
+        "final_value": false,
+        "first_true_timestamp_s": 8.776,
+        "last_true_timestamp_s": 26.82,
+        "total_samples": 40,
+        "true_samples": 23
+      },
+      "cs_ev_yaw": {
+        "final_value": false,
+        "first_true_timestamp_s": 8.776,
+        "last_true_timestamp_s": 26.82,
+        "total_samples": 40,
+        "true_samples": 23
+      },
+      "cs_gnss_pos": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 40,
+        "true_samples": 0
+      },
+      "cs_gnss_vel": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 40,
+        "true_samples": 0
+      },
+      "cs_gnss_yaw": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 40,
+        "true_samples": 0
+      },
+      "cs_gps_hgt": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 40,
+        "true_samples": 0
+      }
+    },
+    "internal_groundtruth_dataset": {
+      "present": true,
+      "samples": 1356,
+      "used_by_project_nodes": false
+    },
+    "local_position_ned_z_m": {
+      "final": 0.075496,
+      "maximum_relative_height_from_min_z": 0.817878,
+      "minimum": -0.817878
+    },
+    "parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "path": "artifacts/runs/p5-vio-px4-gpu-canonical-goal-repeat-20261021-397/px4_sitl_default/log/2026-10-21/02_57_39.ulg",
+    "sha256": "3c74e91a598787062fc0625f1bfb672548abdbcfa7eeb08a13a5849373f186df",
+    "vehicle_status": {
+      "arming_state_counts": {
+        "1": 27,
+        "2": 35
+      },
+      "pre_flight_checks_pass_true_samples": 35,
+      "sample_count": 62
+    }
+  },
+  "qualification": "canonical-configuration repeated zero-relative-motion/zero-yaw goal diagnostic; not P5 acceptance",
+  "run_analysis": "artifacts/runs/p5-vio-px4-gpu-canonical-goal-repeat-20261021-397/run-analysis.json",
+  "run_analysis_sha256": "c3471faa94f2977478ae0d09d679469012ec7d8657f27bc9e786732625aef6db",
+  "run_id": "p5-vio-px4-gpu-canonical-goal-repeat-20261021-397",
+  "run_manifest": "artifacts/runs/p5-vio-px4-gpu-canonical-goal-repeat-20261021-397/run-manifest.json",
+  "run_manifest_sha256": "0f93c8fdd58b59af074b309bdab8547e357d74890fcfb1d0fc5609496e4af1a9",
+  "runtime": {
+    "action_goal_sent": true,
+    "action_result": {
+      "final_position": [
+        -0.007114612467173666,
+        -0.013263393255911872,
+        0.8937675258115975
+      ],
+      "outcome": "aborted",
+      "reason": "localization_normalized_cost_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "action_success": false,
+    "first_invalid_localization_status": {
+      "accepted_optimized": 275,
+      "accepted_propagated": 3629,
+      "epoch": "adf6766bc3c945fd9ce7076c2624a597",
+      "good_pairs": 284,
+      "normalized_cost": 1.0412198575243565,
+      "reason": "normalized_cost_exceeded",
+      "source_stamp_ns": 26739999999,
+      "stamp_ns": 26764000000,
+      "state": 4,
+      "valid": false,
+      "wall_elapsed_s": 23.284596675999637
+    },
+    "goal": {
+      "frame": "odom_adf6766bc3c945fd9ce7076c2624a597",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        -0.00778084463772616,
+        0.0007116494819392404,
+        0.8902486338540064
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": -0.0008266279154521391,
+      "yaw_offset_rad": 0.0,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "goal_sent_wall_elapsed_s": 22.40601843300101,
+    "landed_and_disarmed": true,
+    "latest_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "normalized_cost_exceeded"
+    },
+    "latest_localization_status": {
+      "accepted_optimized": 275,
+      "accepted_propagated": 3629,
+      "epoch": "adf6766bc3c945fd9ce7076c2624a597",
+      "reason": "normalized_cost_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "latest_vehicle_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false,
+      "timestamp": 32508000
+    },
+    "localization_status_samples": 600,
+    "localization_tracking_stability_passed": true,
+    "map_point_count_max": 1811,
+    "matching_ready_trajectory_samples": 86,
+    "matching_vins_telemetry_by_cost": {
+      "continued_tracks": 56,
+      "final_cost": 1006.0807987004224,
+      "initialized": true,
+      "input_features": 65,
+      "iterations": 9,
+      "long_tracks": 44,
+      "normalized_cost": 1.0412198575243565,
+      "residual_components": 1856,
+      "solve_current": true,
+      "solve_seconds": 0.012492895126342773,
+      "solver_usable": true,
+      "stamp_ns": 26699999999,
+      "state_finite": true,
+      "stereo_features": 63,
+      "visual_observations": 428,
+      "wall_elapsed_s": 23.25167433400202
+    },
+    "max_vins_normalized_cost": 4.634872979184389,
+    "next_vins_telemetry": {
+      "continued_tracks": 50,
+      "final_cost": 482.41618377412095,
+      "initialized": true,
+      "input_features": 69,
+      "iterations": 9,
+      "long_tracks": 39,
+      "normalized_cost": 0.7349963882064369,
+      "residual_components": 1786,
+      "solve_current": true,
+      "solve_seconds": 0.012755870819091797,
+      "solver_usable": true,
+      "stamp_ns": 26763999999,
+      "state_finite": true,
+      "stereo_features": 68,
+      "visual_observations": 408,
+      "wall_elapsed_s": 23.357351737999124
+    },
+    "position_command_count": 87,
+    "preconditions_ready": true,
+    "previous_vins_telemetry": {
+      "continued_tracks": 53,
+      "final_cost": 299.8010116632528,
+      "initialized": true,
+      "input_features": 65,
+      "iterations": 9,
+      "long_tracks": 38,
+      "normalized_cost": 0.5817008334746228,
+      "residual_components": 1772,
+      "solve_current": true,
+      "solve_seconds": 0.010814905166625977,
+      "solver_usable": true,
+      "stamp_ns": 26632000000,
+      "state_finite": true,
+      "stereo_features": 63,
+      "visual_observations": 404,
+      "wall_elapsed_s": 23.15011780599889
+    },
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "px4_telemetry_fresh_samples_at_enable": 56,
+    "px4_telemetry_stability_passed": true,
+    "px4_telemetry_stability_required_s": 5.0,
+    "result": "FAIL",
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "localization_not_tracking"
+      }
+    ],
+    "takeoff_active_observed": true,
+    "vins_telemetry_samples": 297
+  },
+  "static_checks": {
+    "canonical_bridge_source_hash_unchanged": true,
+    "canonical_config_hash_unchanged": true,
+    "instrumented_bridge_build": "PASS (6 packages)",
+    "run_script_bash_n": "PASS"
+  },
+  "truth_and_control_isolation": {
+    "bridge_debug_truth_subscription_present": false,
+    "debug_truth_ros_topic_present": false,
+    "navigation_goal_sent": true,
+    "truth_input_started": false
+  }
+}

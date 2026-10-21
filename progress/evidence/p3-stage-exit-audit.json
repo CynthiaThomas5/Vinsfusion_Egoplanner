@@ -1,0 +1,44 @@
+{
+  "phase": "P3",
+  "status": "PASS",
+  "goal_reference": "GOAL.md milestone table: debug-truth combination with online depth mapping, EGO, and PX4 flight closed loop; not final vision acceptance.",
+  "evidence": [
+    "progress/evidence/p3-px4-ego-flight.json",
+    "progress/evidence/p3-px4-bridge-offboard-flight.json",
+    "progress/evidence/p3-debug-truth-adapter.json",
+    "progress/evidence/p3-px4-bridge-time-mapping.json",
+    "progress/evidence/p3-px4-bridge-frame-core.json"
+  ],
+  "exit_checks": [
+    {
+      "criterion": "A single debug_truth epoch feeds mapping, EGO navigation and PX4 bridge.",
+      "result": "PASS",
+      "evidence": "Run #34 epoch 48e93e55e6934b83aac5626e65f35d51 is shared by the live map input, action goal and 938 READY PositionCommand samples."
+    },
+    {
+      "criterion": "D435i depth reaches the live EGO occupancy mapper.",
+      "result": "PASS",
+      "evidence": "Run #34 observed 408 occupied points before enable, 192 occupancy clouds and a peak of 2,047 points."
+    },
+    {
+      "criterion": "EGO produces a goal-bound trajectory that PX4 tracks.",
+      "result": "PASS",
+      "evidence": "Navigation action succeeded with position_yaw_tolerance_held; the same goal_id/epoch appeared in 938 READY PositionCommand samples. The sole /position_cmd publisher is traj_server; PX4 bridge was the sole publisher for each of the four PX4 input topics."
+    },
+    {
+      "criterion": "PX4 EKF2 consumes the bridge external odometry and completes a controlled flight.",
+      "result": "PASS",
+      "evidence": "The #34 ULog records 808 vehicle_visual_odometry inputs, EV position/velocity/yaw aid fusion, Offboard and trajectory setpoints, arm at 14.960 s, disarm at 34.004 s, no failsafe samples, and final landed/disarmed bridge state. EKF2_GPS_CTRL=0, SIM_GZ_EN_ODOM=0, and logged GNSS aiding flags are zero."
+    },
+    {
+      "criterion": "Run remains isolated to the debug-truth profile and does not claim final vision qualification.",
+      "result": "PASS",
+      "evidence": "All runtime localization paths are remapped under /debug_truth; this is explicitly a debug profile. Raw SITL GPS sensors exist and no obstacle was deliberately inserted."
+    }
+  ],
+  "limitations": [
+    "This route did not test obstacle clearance or avoidance; that remains part of later navigation acceptance.",
+    "The run uses Gazebo truth for map pose, task pose and PX4 external odometry. It cannot satisfy final visual/no-truth requirements.",
+    "This does not complete GOAL A-H. P4 remains in progress; P5 and P6 have not started."
+  ]
+}

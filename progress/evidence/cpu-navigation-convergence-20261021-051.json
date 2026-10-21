@@ -1,0 +1,566 @@
+{
+  "date": "2026-10-21",
+  "status": "CURRENT_ROOM_THREE_COLD_STARTS_PASS",
+  "consecutive_successes": 3,
+  "requirement": "Three consecutive independent empty-PX4-state cold starts, same actual runtime and normalized scripts; full16m navigation, original independent physical0.25m/yaw0.35/dwell1s, healthy enable-to-LANDED and disarmed. Core health/freshness/alignment gates unchanged; native stop0.1m, task deadline180wall s and takeoff observation90wall s documented.",
+  "current_run": "artifacts/runs/ego-room-crossing-repair-20261021-52",
+  "previous_runs_report": "progress/evidence/ego-room-navigation-completion-20261021.json",
+  "static_checks": {
+    "bridge_fault_landing_tests": 3,
+    "bridge_control_tests": 11,
+    "isolated_bridge_colcon_build": "PASS ground-alignment candidate1.73s and active clock-burst candidate1.89s; actual active binaries frozen in contract.",
+    "RANSAC_actual_cpp_assertions": "PASS; see candidate/test.log",
+    "vins_config_tests": 2,
+    "localization_health_tests": 12,
+    "structure": "PASS; does not qualify flight",
+    "sim_geometry_tests": 5,
+    "world_generation_tests": 3,
+    "clock_mapping_tests": 22,
+    "px4_isolation_test": "PASS; actual clone writes new state without altering source, duplicate/nested destinations rejected",
+    "imu_settle_gate_unit_tests": 3,
+    "complete_regression": "PASS 11 scripts,88 unit tests; artifacts/runs/cpu-navigation-checks-20261021-051/tests.json",
+    "gentle_navigation_bringup_tests": "7 PASS; gentle-ego-config-test.log",
+    "velocity_variance_profile_tests": "7 PASS; velocity-variance-profile-test.log"
+  },
+  "files_sha256": {
+    "config/components/localization/vins_sim.json": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+    "config/components/localization/vins_runtime.json": "08a2f89990c83b4780f6ea1f5d704b5cc612a06b6cb6765dbc03dd1dee90bcc9",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/middleware/fastdds_local_shm.xml": "583ef4976a66c5aa2568cc70840211886d3939beddf157414a2cae3fe61a1dc5",
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "8d55f6776c8b3481796823773d8f8eb3d604b2ef63612ee7d32c0d849e4c3121",
+    "dependencies/patches/vins/0012-temporal-ransac-experiment.patch": "22acd9d7dcec708672391918ace4566fa77f488d6cb5d608b8d97f3c882b2226",
+    "dependencies/patches/vins/0013-stereo-epipolar-experiment.patch": "44df2603d74e14a0304919010bc7fa0f95f0bb7b0c7f2f681685054d2091d5f1",
+    "config/components/px4_bridge/vio_climb_probe.json": "7591512e6e33c2a3181e0fc2eea4e242cc8fa0722d63c05daa66c87b61d11778",
+    "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+    "config/components/simulation/vio_physics_probe.json": "ff4cc7eb1266d35209ad17569738022622d87d379f79d8dd97c0723e744a13e1",
+    "tools/prepare_px4_run.py": "a4392ded8e0bf73116612fce98a82f39bc437a210cbcf1b17062f1ec896185b0",
+    "tools/wait_sim_imu_settled.py": "aba747520ad96fa7883a245989be333e9180677c953ff5ca3bd821ef857e4a11",
+    "config/components/px4_bridge/vio_closed_loop.json": "7e5803797fae90f0dc1866d43d50517629550111cbb3a962a671b97d88110b15",
+    "config/components/mapping/ego_planner.json": "8cfdd5929b2dfd9208b1a7ff3fe2e8154c93f20c951269f9423af9b93947038a",
+    "config/components/navigation/room_crossing_goal.json": "6f90f86edd34ca2dc96aca3ed45c8860749939f7f57a176c19a0aeb62aa3ad79",
+    "dependencies/patches/ego/0036-stop-position-boundary-experiment.patch": "930447b53d376fed617024e22fd6cf655110ca2d47a3c02528793bbdd2be16bf"
+  },
+  "limitations": [
+    "Three trials only in this room/goal; not arbitrary goals, multi-scene,10min stress or real-flight qualification.",
+    "Canonical vendor source lock not promoted; actual isolated candidate prefixes and patches are recorded.",
+    "Nominal body-envelope clearance is sampled at50Hz, not formal continuous swept-volume/uncertainty acceptance.",
+    "250Hz virtual D435i IMU is a simulation equivalent, not verified real-hardware configuration."
+  ],
+  "first_native_and_independent_arrival": {
+    "run": "artifacts/runs/ego-room-crossing-repair-20261021-20",
+    "native_action_success": true,
+    "true_min_3d_error_m": 0.1168882208658919,
+    "true_dwell_wall_s": 1.205155657999967,
+    "landed_and_disarmed": true,
+    "strict_navigation_check_passed": false,
+    "reason": "normalized_cost_exceeded after touchdown, before landed/disarmed completion",
+    "arrival_evaluation_sha256": "4996332d6c02fc8c40f8cb9ca43aa8a157d5c16d9c7623b31d03fe9ee23d5e92"
+  },
+  "repeated_native_and_independent_arrivals": [
+    {
+      "run": "artifacts/runs/ego-room-crossing-repair-20261021-20",
+      "evaluation": {
+        "scope": "Offline, single fixed ground SE(3), scale 1; no truth feedback or timestamp repair. Sampled current-room diagnostic, not full P0-P6 acceptance.",
+        "reference_source_ns": 31288000000,
+        "reference_truth_gap_sim_s": 0.008,
+        "world_imu_goal_xyz": [
+          8.121724747354065,
+          0.043153494201007885,
+          0.9218536814776648
+        ],
+        "minimum_true_3d_position_error_m": 0.1168882208658919,
+        "max_contiguous_true_goal_dwell_wall_s": 1.205155657999967,
+        "required_dwell_wall_s": 1.0,
+        "independent_goal_dwell_passed": true,
+        "native_action_success": true,
+        "landed_and_disarmed": true,
+        "invalid_localization_samples_after_enable": 99,
+        "first_invalid_localization_after_enable": {
+          "accepted_optimized": 1327,
+          "accepted_propagated": 17515,
+          "epoch": "1c6f92aa15e1401abab30d89909f3c28",
+          "good_pairs": 1336,
+          "normalized_cost": 1.1845006293170515,
+          "reason": "normalized_cost_exceeded",
+          "source_stamp_ns": 95891999999,
+          "stamp_ns": 95900000000,
+          "state": 4,
+          "valid": false,
+          "wall_elapsed_s": 146.18079241600026
+        },
+        "ground_rotation": [
+          [
+            0.999997959265204,
+            -0.002002848425726035,
+            0.00026469531744965083
+          ],
+          [
+            0.0020028068693177365,
+            0.999997982029228,
+            0.00015716906813188696
+          ],
+          [
+            -0.0002650095691229175,
+            -0.0001566386137914363,
+            0.9999999526171354
+          ]
+        ],
+        "ground_translation": [
+          -7.876084888307856,
+          -0.01651159299650226,
+          0.06689803449914983
+        ],
+        "navigation_check_passed": false
+      }
+    },
+    {
+      "run": "artifacts/runs/ego-room-crossing-repair-20261021-21",
+      "evaluation": {
+        "scope": "Offline, single fixed ground SE(3), scale 1; no truth feedback or timestamp repair. Sampled current-room diagnostic, not full P0-P6 acceptance.",
+        "reference_source_ns": 31352000000,
+        "reference_truth_gap_sim_s": 0.004,
+        "world_imu_goal_xyz": [
+          8.11406614515659,
+          0.0316458827409592,
+          0.9330593956753077
+        ],
+        "minimum_true_3d_position_error_m": 0.09824784762197264,
+        "max_contiguous_true_goal_dwell_wall_s": 1.3633115860002363,
+        "required_dwell_wall_s": 1.0,
+        "independent_goal_dwell_passed": true,
+        "native_action_success": true,
+        "landed_and_disarmed": true,
+        "invalid_localization_samples_after_enable": 254,
+        "first_invalid_localization_after_enable": {
+          "accepted_optimized": 1347,
+          "accepted_propagated": 17779,
+          "epoch": "d627e8c4a7504f9e93230ce255445e87",
+          "good_pairs": 1356,
+          "normalized_cost": 1.0770674768716446,
+          "reason": "normalized_cost_exceeded",
+          "source_stamp_ns": 97212000000,
+          "stamp_ns": 97220000000,
+          "state": 4,
+          "valid": false,
+          "wall_elapsed_s": 146.69137573800072
+        },
+        "ground_rotation": [
+          [
+            0.9999978350272695,
+            -0.002054199392839927,
+            0.00033197233075323685
+          ],
+          [
+            0.0020541106858774235,
+            0.9999978545790587,
+            0.00026733232112376577
+          ],
+          [
+            -0.00033252077242458544,
+            -0.00026664983444456476,
+            0.9999999091638967
+          ]
+        ],
+        "ground_translation": [
+          -7.875986229295252,
+          -0.01690341827720072,
+          0.06689376894244825
+        ],
+        "navigation_check_passed": false
+      }
+    }
+  ],
+  "provisional_descent_cap_note": "Ascent cap0.3m/s, default auto descent1.5/land0.7/max descent1.5; original landing detector thresholds unchanged.",
+  "contact_imu_diagnostic": {
+    "full_navigation_run24": "artifacts/runs/ego-room-crossing-repair-20261021-24/imu-contact-analysis.json",
+    "free_fall_controlled_comparison": "artifacts/runs/imu-contact-sampling-20261021-01/analysis.json",
+    "inference": "4ms/200Hz phase-dependent impulse loss measured;4ms/250Hz minimal tests and final50/51/52 complete flight healthy through landing. No real-hardware claim.",
+    "sources": [
+      "https://raw.githubusercontent.com/gazebosim/gz-sim/gz-sim8_8.14.0/src/systems/imu/Imu.cc",
+      "https://raw.githubusercontent.com/gazebosim/gz-sensors/gz-sensors8_8.2.2/src/ImuSensor.cc"
+    ]
+  },
+  "qualification_run_ids": [
+    50,
+    51,
+    52
+  ],
+  "validation_28": {
+    "arrival_report": "artifacts/runs/ego-room-crossing-repair-20261021-28/arrival-evaluation.json",
+    "strict_passed": true,
+    "true_min_3d_error_m": 0.06882392679663295,
+    "true_dwell_wall_s": 2.5751599699997314,
+    "landed_and_disarmed": true,
+    "localization_invalid_after_enable": 0,
+    "counted_in_final_three": false,
+    "reason": "Validation run used inline cloning and detached an empty eeprom link mid-run; fixed shared isolation helper is frozen for qualification."
+  },
+  "historical_px4_state_validity_note": "Runs01-27 reused historical top-level PX4 BSON through symlinks. Fresh VINS sessions/processes valid, PX4 clean-parameter cold-start claims excluded. Historical mutable BSON may have been autosaved; binary and closed ULogs unaffected. See27 parameter-isolation-discovery.json.",
+  "runtime_contract_sha256": "6527e6b216ce529a7cfbe6852beb9713d13ef9cf6e115e706f5073b939392128",
+  "qualification_29": "FAIL native goal_timeout at0.103m due soft spline terminal; localization remained healthy, normally landed/disarmed. Not counted.",
+  "terminal_boundary_candidate": {
+    "provenance": "artifacts/runs/ego-terminal-boundary-candidate-20261021-01/provenance.json",
+    "build": "2packages PASS,3min2s",
+    "actual_cpp_boundary_assertions": "PASS",
+    "SITL": "PASS final50/51/52, actual terminal spline endpoints checked before declaring success."
+  },
+  "previous_full_pass_30": {
+    "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+    "run_id": "ego-room-crossing-repair-20261021-30",
+    "passed": true,
+    "checks": {
+      "terminal_position_velocity_acceleration_boundary": true,
+      "native_action_and_landing": true,
+      "independent_goal_and_health": true,
+      "boot_parameter_audit": true,
+      "isolated_mutable_state": true,
+      "runtime_hashes_unchanged": true,
+      "source_mutable_files_unchanged": true,
+      "sampled_nominal_body_clearance_positive": true,
+      "truth_samples_continuous_at_50hz": true
+    },
+    "runtime_contract_sha256": "6009142f607cd1d7f2fe3891d7f3d9c5179c241b1401ac8d6a681d059dad0246",
+    "changed_runtime_files": [],
+    "changed_historical_source_mutable_files": [],
+    "independent_true_min_3d_error_m": 0.0338352206916282,
+    "independent_true_goal_dwell_wall_s": 2.6305302900000243,
+    "sampled_nominal_body_clearance_m": 0.4111521651261994,
+    "last_spline_terminal_position_error_m": 1.734723475976807e-18,
+    "last_spline_flat_tail_error_m": 0.0,
+    "invalid_localization_after_enable": 0,
+    "map_or_navigation_failures": [],
+    "evidence_sha256": {
+      "flight.json": "08461bc884b79a60dc933019f5f2443e5f4def03e2d0b425ee3d9bb10843c5fa",
+      "preflight.json": "f7a503bdb4d3111c8c3f6a50bbe9cb698ff229d0b82774c6c4a2108004389fe4",
+      "arrival-evaluation.json": "91c597a9920ebe5ace97f59f3acdf4d701d749cdd525ad18df5bce018755f3f0",
+      "crossing-evaluation.json": "282cb2cce85ecf5975dd654e20a2a86b0d7bab7e2d16191aaccf787774900122",
+      "px4-boot-parameters.json": "d769bd029705cee97934fcd3ed30ed83da95e0c1ce926bbaa9bb0895ee834164",
+      "px4-run-isolation.json": "50acb075e569d9788abbc293d9199e381654948501edf00f60ac53531cd0c67c",
+      "runtime-contract.json": "4aae4e633a378cd7345078ca3db0604cb4a735d75bd54c5aa0141ad8acb92bdd"
+    },
+    "limitations": [
+      "Current room/route only; no multi-scene or real-flight qualification.",
+      "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+    ]
+  },
+  "startup_failure_31": "Native Python Gazebo binding abort after actual settled report, before VINS/enable. Preserved as failed startup; count reset for native-CLI startup helper.",
+  "native_cli_settle_trials": "3x PASS, each200real messages and native return0",
+  "qualification_results": [
+    {
+      "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+      "run_id": "ego-room-crossing-repair-20261021-32",
+      "passed": true,
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "a0f26c236a13510ef7456053c6bb9e2d4ebf90729de1f898f455b9abb2088ec5",
+      "changed_runtime_files": [],
+      "changed_historical_source_mutable_files": [],
+      "independent_true_min_3d_error_m": 0.13789212455448047,
+      "independent_true_goal_dwell_wall_s": 1.7989798039998277,
+      "sampled_nominal_body_clearance_m": 0.23336612615976565,
+      "last_spline_terminal_position_error_m": 1.1102569054260746e-16,
+      "last_spline_flat_tail_error_m": 0.0,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": [],
+      "evidence_sha256": {
+        "flight.json": "db970b98db4dbe3b895e379383b8ee7ccfcb474fd03bacb23433c35f7e51d9b3",
+        "preflight.json": "558590d6c0cf16f24b0a6b793627a901ef4e69426bda5bc68a2846b74120ab85",
+        "arrival-evaluation.json": "cf9189cdab851153d9084442637163ffb6a44b829fcb31fba7849c9537b5c621",
+        "crossing-evaluation.json": "b9dfe5d72d10934dbce7ee4d7c8353612790a2a5ae86769c983443a004bdf2ea",
+        "px4-boot-parameters.json": "1a9a18e5f95504a8288f30b605114653b7f5123d2e80dc663bdc24a9bb90b449",
+        "px4-run-isolation.json": "a61c108d86b67e6bf10f1dd8b50054fcd951e1af5b467673d648faf075f6aeee",
+        "runtime-contract.json": "889aa93a04de58621cc83fd65f7bfb865cac81d75c0db40af3ee121d44c076bb"
+      },
+      "limitations": [
+        "Current room/route only; no multi-scene or real-flight qualification.",
+        "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+      ]
+    },
+    {
+      "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+      "run_id": "ego-room-crossing-repair-20261021-33",
+      "passed": false,
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": false,
+        "independent_goal_and_health": false,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "a0f26c236a13510ef7456053c6bb9e2d4ebf90729de1f898f455b9abb2088ec5",
+      "changed_runtime_files": [],
+      "changed_historical_source_mutable_files": [],
+      "independent_true_min_3d_error_m": 15.991619643257538,
+      "independent_true_goal_dwell_wall_s": 0.0,
+      "sampled_nominal_body_clearance_m": 1.5419777454909258,
+      "last_spline_terminal_position_error_m": 1.7763568394002505e-15,
+      "last_spline_flat_tail_error_m": 0.0,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": [],
+      "evidence_sha256": {
+        "flight.json": "51f1ff42f5e70c0dd4626e6b240bfd4ca4aca6b70e3ac266b157f9f1193cd8bd",
+        "preflight.json": "069f94b82d8e321bdb5a2ba67580b9115ba075cf8a76aa9420a619ec341d4a38",
+        "arrival-evaluation.json": "189414503208a9fb491ba7dab1c14e341dc64ec49d3467dce311b674a641a0a0",
+        "crossing-evaluation.json": "a9a8a8e5aeb39710f1ceb959c04b4a2c2102df4f4b8ced701037b7a704c2ae1d",
+        "px4-boot-parameters.json": "beb87fbd25b42ac3cc2e37013e72db89b0d447c039fbb4be8c243094c3f91663",
+        "px4-run-isolation.json": "304a3348950d69cb25bbad949ec8f88daade8e62a66a4fde2722f277b5d77c2f",
+        "runtime-contract.json": "889aa93a04de58621cc83fd65f7bfb865cac81d75c0db40af3ee121d44c076bb"
+      },
+      "limitations": [
+        "Current room/route only; no multi-scene or real-flight qualification.",
+        "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+      ]
+    }
+  ],
+  "qualification_33": "FAIL px4_frame_alignment_drift during takeoff-to-navigation transition; protected normal landing/disarm, action goal_timeout. Static VINS/true height agrees; dynamic PX4 estimate discrepancy requires conservative ascent candidate validation.",
+  "qualification_35": "FAIL takeoff observation50wall s expired before ACTIVE; actual ascent began late, peak body altitude0.299m; normal protected land/disarm, no goal. Next observation90wall s, native safety gates unchanged.",
+  "qualification_36": "FAIL px4_frame_alignment_drift after about3m actual navigation; landed/disarmed observed in bridge timeline, goal_timeout. Ascent0.3 insufficient; investigating native IMU timestamp.",
+  "previous_full_pass_40": {
+    "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+    "run_id": "ego-room-crossing-repair-20261021-40",
+    "passed": true,
+    "checks": {
+      "terminal_position_velocity_acceleration_boundary": true,
+      "native_action_and_landing": true,
+      "independent_goal_and_health": true,
+      "boot_parameter_audit": true,
+      "isolated_mutable_state": true,
+      "runtime_hashes_unchanged": true,
+      "source_mutable_files_unchanged": true,
+      "sampled_nominal_body_clearance_positive": true,
+      "truth_samples_continuous_at_50hz": true
+    },
+    "runtime_contract_sha256": "27f4aef678e2792f3417d22e9516f1aa02bb0adb9d1c6a47884fae2182d96692",
+    "changed_runtime_files": [],
+    "changed_historical_source_mutable_files": [],
+    "independent_true_min_3d_error_m": 0.07457194162975155,
+    "independent_true_goal_dwell_wall_s": 2.8228237779985648,
+    "sampled_nominal_body_clearance_m": 0.32099275447375103,
+    "last_spline_terminal_position_error_m": 1.7763576864329958e-15,
+    "last_spline_flat_tail_error_m": 0.0,
+    "invalid_localization_after_enable": 0,
+    "map_or_navigation_failures": [],
+    "evidence_sha256": {
+      "flight.json": "e0aaae0a25ed4c47351cc30922b3cce8182a4ef874b12baf4a9eaa313c83e713",
+      "preflight.json": "97b5fd19599397085e97eaedb98d9dc6e561f5d0e884b8dd019ea8bced4412a3",
+      "arrival-evaluation.json": "a3092719b65eab6c3abdebd469a38cf5ba833408343b3d3f44c5e1278cc45780",
+      "crossing-evaluation.json": "983fc05f996efa3f9d3b4cb9e2eca455529af0fb276a559140564c13d3874062",
+      "px4-boot-parameters.json": "e16c01f2495c2f74e5c4f43dbbef8b48d7a509ca37fef122ce1576c6fcaebd8f",
+      "px4-run-isolation.json": "d71790fde37e2e5c272e0339bb84dc09da6fa64acf3a5c7ded252754056adb10",
+      "runtime-contract.json": "493911741b4fa14a17bac51bf14b6c94debdc04fd227437f9c760a6295ed9369"
+    },
+    "limitations": [
+      "Current room/route only; no multi-scene or real-flight qualification.",
+      "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+    ]
+  },
+  "native_imu_time_diagnostic": "40 matched95accel+95gyro, all source-to-ULog sample time differences0us; no firmware modification.",
+  "vertical_velocity_diagnostic": "artifacts/runs/cpu-navigation-checks-20261021-051/vertical-velocity-diagnostic.json",
+  "qualification_42": "FAIL normalized_cost1.00593 near goal, visual70.77% of totalcost; normal protective landing/disarm, counter reset0. Alignment max0.10451m within0.15. No gate relaxed.",
+  "previous_variance_qualification_results": [
+    {
+      "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+      "run_id": "ego-room-crossing-repair-20261021-41",
+      "passed": true,
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "43a25360d37bafccbe890484806b786a62bcbae345f5fadcabc15621adc5095a",
+      "changed_runtime_files": [],
+      "changed_historical_source_mutable_files": [],
+      "independent_true_min_3d_error_m": 0.034898384092296966,
+      "independent_true_goal_dwell_wall_s": 2.9422415339995496,
+      "sampled_nominal_body_clearance_m": 0.330214678630908,
+      "last_spline_terminal_position_error_m": 1.7763576864329958e-15,
+      "last_spline_flat_tail_error_m": 0.0,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": [],
+      "evidence_sha256": {
+        "flight.json": "128f2af7f3c4d6b20229944cd3ecc92446c157d65afbed5f24e4ac37b2cabb6a",
+        "preflight.json": "59c44299cef88c90a7bac6f40eae09699792e7c96e3ce6556679b54f09c851cd",
+        "arrival-evaluation.json": "88600f298b97a85e5b913ec83125ce9d66dec631f3985faf28014bcd974b0a9a",
+        "crossing-evaluation.json": "c7a0a186fab93f4b4cf1b938bf14965e5d5a8e62cb5eeba36aaee816ec5552cd",
+        "px4-boot-parameters.json": "fd6327c503ab04b075e2fd07a1e76605899f6b767f844bd012179144268bb75e",
+        "px4-run-isolation.json": "f7619c3cd04479bd0c5a8c8c369daf015311f397b01e404f36ae20d2af85a1af",
+        "runtime-contract.json": "1860c04879a4d1166802ce1a4ccea4d2766d9cbc7f311035c3fd3b0bc59052b3"
+      },
+      "limitations": [
+        "Current room/route only; no multi-scene or real-flight qualification.",
+        "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+      ]
+    }
+  ],
+  "qualification_47": "FAIL before enable: native telemetry receipt0.630816s gap, solve0.0284s/source advance64ms, latched telemetry_stale. No arm or goal.",
+  "lk_thread_benchmark": "artifacts/runs/cpu-navigation-checks-20261021-051/lk-thread-benchmark.json",
+  "qualification_results_final": [
+    {
+      "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+      "run_id": "ego-room-crossing-repair-20261021-50",
+      "passed": true,
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "6527e6b216ce529a7cfbe6852beb9713d13ef9cf6e115e706f5073b939392128",
+      "changed_runtime_files": [],
+      "changed_historical_source_mutable_files": [],
+      "independent_true_min_3d_error_m": 0.11957309832041277,
+      "independent_true_goal_dwell_wall_s": 3.2536830230001215,
+      "sampled_nominal_body_clearance_m": 0.3543017010914114,
+      "last_spline_terminal_position_error_m": 1.7798229048217483e-15,
+      "last_spline_flat_tail_error_m": 0.0,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": [],
+      "evidence_sha256": {
+        "flight.json": "444aaeb53b7f348fb1a77c094c8e272fbdb0462092e67a041459a3f2d7f69c78",
+        "preflight.json": "078297edf5fc3a03c5391c934e9c637836a6902321ccddc40b60cf0a66c88d89",
+        "arrival-evaluation.json": "09fc35627c7bc9d0a389ae1eec19e53e1306975f7b58994ab993d6b7c2520fdf",
+        "crossing-evaluation.json": "889b64724366559fcbdb1f5851ba4fdfd5abf297fd7f43dc58e7dc1aa8d8d5ef",
+        "px4-boot-parameters.json": "02e6ebf9352c030a7a70bf35ad15fb5e528bf6b859d8b422a99fe151d6c5953a",
+        "px4-run-isolation.json": "e5c16bf8cbdee3c24e19e130a43cd40fc427f2bfe17fecf5ffcf2984481bd086",
+        "runtime-contract.json": "6ec7bf977d3a5462dfddb0129ff7186fca4f69915f44cf0ead7d249cc9c27b32"
+      },
+      "limitations": [
+        "Current room/route only; no multi-scene or real-flight qualification.",
+        "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+      ]
+    },
+    {
+      "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+      "run_id": "ego-room-crossing-repair-20261021-51",
+      "passed": true,
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "6527e6b216ce529a7cfbe6852beb9713d13ef9cf6e115e706f5073b939392128",
+      "changed_runtime_files": [],
+      "changed_historical_source_mutable_files": [],
+      "independent_true_min_3d_error_m": 0.12566980742929956,
+      "independent_true_goal_dwell_wall_s": 2.650520378998408,
+      "sampled_nominal_body_clearance_m": 0.3151721767903611,
+      "last_spline_terminal_position_error_m": 8.673617379884035e-19,
+      "last_spline_flat_tail_error_m": 0.0,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": [],
+      "evidence_sha256": {
+        "flight.json": "6adc7857dd13c3ffcd17fa7461fc2f562ac978ac3d667a5bfb1667f20c9074e0",
+        "preflight.json": "26ec1022c91fa9290c55bd44291f835472b6c215710b5b48b0b6b684792950a1",
+        "arrival-evaluation.json": "c4ed46b6cbdd5926654e835e57efbcba8fbfec110d767f7984da35638f5f4b75",
+        "crossing-evaluation.json": "a53101338cd39f0c302bcf4dc5af6a905b39ee284b0350a88596a8ec8907b2aa",
+        "px4-boot-parameters.json": "d06c331578d4b5fc767190920bd9cb5126196b18a763b255ad83414b7a442f29",
+        "px4-run-isolation.json": "ff58c187636ff0b6529baf9c6602303c6f5e77f40d8abafe6622c5763f1102cf",
+        "runtime-contract.json": "6ec7bf977d3a5462dfddb0129ff7186fca4f69915f44cf0ead7d249cc9c27b32"
+      },
+      "limitations": [
+        "Current room/route only; no multi-scene or real-flight qualification.",
+        "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+      ]
+    },
+    {
+      "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+      "run_id": "ego-room-crossing-repair-20261021-52",
+      "passed": true,
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "6527e6b216ce529a7cfbe6852beb9713d13ef9cf6e115e706f5073b939392128",
+      "changed_runtime_files": [],
+      "changed_historical_source_mutable_files": [],
+      "independent_true_min_3d_error_m": 0.04986329658537341,
+      "independent_true_goal_dwell_wall_s": 3.694412511000337,
+      "sampled_nominal_body_clearance_m": 0.35335696165617275,
+      "last_spline_terminal_position_error_m": 4.336808689942018e-19,
+      "last_spline_flat_tail_error_m": 0.0,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": [],
+      "evidence_sha256": {
+        "flight.json": "f524fa94225e4e3a58ed1f3a1b0aea32b9ea4b6ad80bc7261fc33909dd3d2d3f",
+        "preflight.json": "6907acc0862c8b88824157d9bd81761ed090d2e2599b6f8b4e81f77385cd3b45",
+        "arrival-evaluation.json": "daa8299da1ee438f97109cde250ebd28731b5e426e25976df83715fc433daac9",
+        "crossing-evaluation.json": "4a1b203ea4a9863d34edbcdb91a4ab5006c9cb1d6af40bf982b692c031be1cb3",
+        "px4-boot-parameters.json": "1cc446b8a5718c7cf727bb6691d9abb7b87e7a6953f012dd9743fe6c08963bd0",
+        "px4-run-isolation.json": "ad64569f825f9cd5b85145dfc3881a534121434c9848db99b1cc7d9f6fdec1f4",
+        "runtime-contract.json": "6ec7bf977d3a5462dfddb0129ff7186fca4f69915f44cf0ead7d249cc9c27b32"
+      },
+      "limitations": [
+        "Current room/route only; no multi-scene or real-flight qualification.",
+        "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+      ]
+    }
+  ],
+  "final_scope": "Current ego room, relative16m goal, fixed CPU candidate; does not close formal P0-P6/S1-S6/A-H or real-flight acceptance.",
+  "final_script_contract": "artifacts/runs/cpu-navigation-checks-20261021-051/final-script-contract.json",
+  "native_fusion_audit": "artifacts/runs/cpu-navigation-checks-20261021-051/final-native-fusion-audit.json",
+  "native_fusion_audit_sha256": "8403127cea9382a2144ea66b00282be6198c29c739f78e020aff3e015b8c3e09",
+  "qualification_report_sha256": {
+    "artifacts/runs/ego-room-crossing-repair-20261021-50/qualification.json": "631a033ce1e5956c9f8839a2163ee604d6f10f966a82655db92d40820c531097",
+    "artifacts/runs/ego-room-crossing-repair-20261021-51/qualification.json": "e72d51eae824e7f67a305c211644d4cbb93a048c2aeadd478d3fc4083aa514d0",
+    "artifacts/runs/ego-room-crossing-repair-20261021-52/qualification.json": "6b2fe6ecffa5dfe69740fc41abf8a8c49aefcc9707495e92427701a4b04a09b5"
+  },
+  "final_structure_diff_checks": "artifacts/runs/cpu-navigation-checks-20261021-051/final-checks.json",
+  "post_landing_status": "artifacts/runs/ego-room-crossing-repair-20261021-52/post-landing-readonly.json",
+  "desktop_screenshots": [
+    "artifacts/runs/ego-room-crossing-repair-20261021-52/gazebo-window.png",
+    "artifacts/runs/ego-room-crossing-repair-20261021-52/rviz-window.png"
+  ],
+  "post_landing_status_summary": "Additional snapshot: localization valid/TRACKING, map input_ready with1641occupied points, bridge LANDED/landed/armed=false/control_enabled=false; preflight-ready flag false while idle is recorded verbatim.",
+  "final_process_exit_codes": {
+    "50": {
+      "mission": 0,
+      "readonly_gazebo_evaluator": 0
+    },
+    "51": {
+      "mission": 0,
+      "readonly_gazebo_evaluator": 0
+    },
+    "52": {
+      "mission": 0,
+      "readonly_gazebo_evaluator": 0
+    }
+  },
+  "frozen_runtime_file_count": 93
+}

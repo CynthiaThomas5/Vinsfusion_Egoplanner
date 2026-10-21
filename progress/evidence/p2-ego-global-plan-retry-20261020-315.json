@@ -1,0 +1,249 @@
+{
+  "schema": "p2-ego-global-plan-retry-cooldown-experiment/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-global-plan-retry-20261020-315",
+  "result": "The experimental FSM cooldown kept failed global-plan attempts roughly one second apart and reduced A* call volume by 99.1% in this paired planner-only observation. The goal still produced two distinct B-splines; no trajectory was executed and no same-time occupancy/clearance evaluation was performed.",
+  "patch": {
+    "path": "dependencies/patches/ego/0028-global-plan-retry-rate-limit-experiment.patch",
+    "sha256": "8c3407ac412c8432473c1deccc86ec0995f93faf84eba0c9f71f97ce577f9913",
+    "license": "GPL-3.0-only",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "application_base_run": "p2-ego-astar-rebound-abort-20261020-314",
+    "canonical_dependency_chain": false,
+    "src_vendor_modified": false,
+    "summary": "Uses steady_clock and existing fsm/thresh_replan_time (runtime 1.0 s) to delay retries after failed planFromGlobalTraj in SEQUENTIAL_START and GEN_NEW_TRAJ; clears cooldown on successful plan or accepted global waypoint."
+  },
+  "build_report": {
+    "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/build-report-0028.json",
+    "sha256": "8a82392e93e963f806afafd3f734607d4de060f231ef8d7b62cf8f9c26e1c8a0",
+    "size_bytes": 4203
+  },
+  "source_manifest": {
+    "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/source-manifest-experiment-0028.json",
+    "sha256": "47ba5a9596156fe270deb2a59e08e53230c808580102fd07846aefa92c7aa85e",
+    "size_bytes": 11070
+  },
+  "project_git_status_at_experiment_start": {
+    "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/git-status-at-experiment-start.txt",
+    "sha256": "b5a73511714a6219dd44940c6cd7893187a8d569dc94ac56f43dc7f999985e17",
+    "size_bytes": 39496
+  },
+  "configuration": {
+    "planner_config_sha256": "34a776d7eab1c15f9eab9982d67edba7d26feda7a10778b956400886ca103ff1",
+    "runtime_parameters_sha256": "7fab3f9beabf66ea1a3eadf322c1b620c9491a8b2c82e30af9ab7107e184e68f",
+    "inflation_m": 0.5,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "odometry_topic": "/localization/optimized_imu_odom",
+    "scene_sdf_sha256": "3b6d2f6615b7d07ceb16ac837c98f4cf071dac78d3d96dbcfd771c90aae82f98",
+    "wall_phase_sha256": "7add962cf8aad53267b07bd5060af25f7c1cdae2c56ed56cda9ea90b2e5c12cf",
+    "scene_geometry": [
+      {
+        "name": "calibration_box",
+        "pose": [
+          1.55,
+          0.5,
+          1.1,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "kind": "box",
+        "size_m": [
+          0.35,
+          0.5,
+          0.8
+        ],
+        "color": [
+          0.15,
+          0.45,
+          0.8,
+          1.0
+        ]
+      },
+      {
+        "name": "calibration_cylinder",
+        "pose": [
+          2.25,
+          -0.5,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "kind": "cylinder",
+        "radius_m": 0.18,
+        "length_m": 0.9,
+        "color": [
+          0.85,
+          0.35,
+          0.1,
+          1.0
+        ]
+      }
+    ],
+    "paired_control_run": "p2-ego-astar-rebound-abort-20261020-314",
+    "paired_comparison": "Same planner config/runtime-parameter files, generated SDF bytes, wall-phase shift and obstacle geometry as #314; force-driven sensor data hashes differ and this was not deterministic replay."
+  },
+  "runtime": {
+    "goal_probe": {
+      "status": "bspline_received",
+      "goal_sent": true,
+      "wall_seconds": 25.245986,
+      "goal_sent_wall_elapsed_s": 3.57184,
+      "map_status_at_goal": {
+        "wall_elapsed_s": 3.466754,
+        "stamp_ns": 5248000000,
+        "epoch": "8fb6c7436b1f4b489151f06350fe1fe9",
+        "map_id": "8fb6c7436b1f4b489151f06350fe1fe9-f9e9feaa64384077b037e4d4bd71d4b9",
+        "input_ready": true,
+        "reason": "ready",
+        "occupied_point_count": 1053,
+        "forwarded_depth_count": 26,
+        "keyframe_count": 1,
+        "occupancy_cloud_received": true
+      }
+    },
+    "motion": {
+      "imu_samples": 6607,
+      "force_commands": 8,
+      "truth_feedback": false,
+      "wall_seconds": 48.52495986899976
+    },
+    "localization_last_sample": {
+      "wall_elapsed_s": 25.011998,
+      "stamp_ns": 19722000000,
+      "epoch": "8fb6c7436b1f4b489151f06350fe1fe9",
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "good_pairs": 244,
+      "normalized_cost": 0.7748219755779359,
+      "accepted_optimized": 235,
+      "accepted_propagated": 3094,
+      "frame_id": "odom_8fb6c7436b1f4b489151f06350fe1fe9"
+    },
+    "astar_counts": {
+      "total": 199,
+      "other_calls": 0,
+      "other_endpoint_rejects": 0,
+      "other_success": 0,
+      "other_search_failures": 0,
+      "init_calls": 113,
+      "init_endpoint_rejects": 74,
+      "init_success": 37,
+      "init_search_failures": 2,
+      "collision_calls": 86,
+      "collision_endpoint_rejects": 32,
+      "collision_success": 53,
+      "collision_search_failures": 1,
+      "other_timeouts": 0,
+      "init_timeouts": 0,
+      "collision_timeouts": 0
+    },
+    "probe_window_normalized_astar_calls_per_second": 7.882441192829625,
+    "paired_control": {
+      "astar_total": 20385,
+      "probe_wall_seconds": 23.065034,
+      "probe_window_normalized_astar_calls_per_second": 883.805330614297
+    },
+    "call_rate_reduction_fraction": 0.9910812472840022,
+    "rebound_abort_events": {
+      "no_free_pre_collision_point": 171,
+      "astar_failed": 33
+    },
+    "abort_time_clusters": {
+      "count": 22,
+      "cluster_gap_threshold_s": 0.5,
+      "median_start_to_start_s": 1.0092129707336426,
+      "min_start_to_start_s": 1.001424789428711,
+      "max_start_to_start_s": 1.5572693347930908,
+      "event_count": 204,
+      "interpretation": "Abort log clusters are descriptive; 20 explicit GEN_NEW_TRAJ self-transitions are also recorded."
+    },
+    "fsm_transitions": {
+      "gen_new_traj_self_transition_count": 20,
+      "gen_new_traj_to_exec_count": 1
+    },
+    "rebound_legacy_error_lines": 0,
+    "unique_bsplines_received": [
+      {
+        "traj_id": 1,
+        "goal_id": "",
+        "start_time_ns": 18877000000,
+        "first_receive_wall_elapsed_s": 23.745567,
+        "position_control_point_count": 14,
+        "first_position_control_point_m": [
+          0.17535790425938513,
+          0.12754974883586415,
+          0.10109224915929921
+        ],
+        "last_position_control_point_m": [
+          2.1719857515409338,
+          1.4721785411550836,
+          0.9459835324509412
+        ]
+      },
+      {
+        "traj_id": 2,
+        "goal_id": "",
+        "start_time_ns": 18880000000,
+        "first_receive_wall_elapsed_s": 23.752433,
+        "position_control_point_count": 14,
+        "first_position_control_point_m": [
+          0.17508935166177836,
+          0.128680542533384,
+          0.10132242540959845
+        ],
+        "last_position_control_point_m": [
+          2.208027551165332,
+          1.4690559245526986,
+          0.9605507298947671
+        ]
+      }
+    ],
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/ego-01.log",
+      "sha256": "d6eb21ec5e17941534160321917f0de342eeca1d1936efbc3934738914e18423",
+      "size_bytes": 179851
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/runtime-summary-01.json",
+      "sha256": "5f97b22daba67596fa8d75915199a03d8f8bc7d4c6af370a7f004c3e2cf3eee5",
+      "size_bytes": 288789
+    },
+    "goal_result": {
+      "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/planner-goal-result-01.json",
+      "sha256": "4f1f27621897b5346adbfc7f36c1cdf5a3d790f234c24a97173e3c533a5ce984",
+      "size_bytes": 269745
+    },
+    "motion_artifact": {
+      "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/motion-01.json",
+      "sha256": "ffe9172779bd5023fcf08c550f07df6bac2f8de79a13d3812d2e564a0b91ff16",
+      "size_bytes": 1519404
+    },
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_control_nodes": [],
+    "snapshot_service_called": false
+  },
+  "isolation": {
+    "px4_started": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "trajectory_executed": false,
+    "truth_topics_subscribed": false,
+    "control_topics_published": false,
+    "snapshot_service_invoked": false
+  },
+  "limitations": [
+    "The retry cooldown is only an isolated third-party patch; it has not entered the canonical dependency chain or src/vendor.",
+    "The paired run shares scene, wall-phase, config and runtime parameters with #314, but sensor motion samples are not exact replay, so rate change is descriptive rather than causal proof.",
+    "Two different trajectory IDs (1 and 2) were received; without a synchronized occupancy snapshot the control points have no map-version clearance or unknown-space assessment.",
+    "No controller, trajectory server, PX4, truth subscription or trajectory execution was present.",
+    "The existing A* endpoint policy tests exercise real GridMap/AStar endpoints, not the FSM timer cooldown logic; live retry spacing and successful build provide the only runtime evidence for patch 0028."
+  ],
+  "next_step": "Repeat planner-only with a read-only occupancy snapshot captured immediately at each B-spline publication; evaluate every curve sample against raw occupancy, unknown, inflation mask and nominal vehicle envelope. Keep the cooldown patch isolated until repeatability and map-clearance evidence exist."
+}

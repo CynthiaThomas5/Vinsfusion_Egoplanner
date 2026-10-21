@@ -1,0 +1,9 @@
+# GOAL C Fast DDS history-latency metadata diagnostic #360–#361
+
+- **范围**：记录一个最小统计 observer smoke 与一次 EGO/Gazebo/VINS 场景诊断。观测只读 `HISTORY_LATENCY_TOPIC` 的 writer/reader GUID 和统计值，不读取应用消息 payload。
+- **行为变化**：没有自维护源码、QoS、health threshold、launch 配置或验收设置变化。新增两个 run manifest、汇总证据、对话摘要，并更新 CURRENT 的当前判断和下一步。
+- **结果**：#360 在 ROS domain 230 的标准 ROS 2 CLI smoke 中收到67条 Fast DDS history-latency 统计样本；镜像内版本为 Fast DDS 2.14.6。#361 中 observer 收到47条统计记录、共10个 GUID 对，但 mapping publisher GID `010fe767b001005800000000.00001503` 到 EGO reader GID `010fe7671802b7a900000000.00001c04` 没有记录。独立 `/drone_0_camera_pose` reader 为0帧。
+- **无效窗口原因**：#361 的 localization 事件记录 receipt clock 4.820 s、propagated source stamp 4.879999999 s，未来约59.999999 ms，超过原有20 ms future guard；MapStatus最终 `input_ready=false` 且 forwarded depth=0，planner probe超时且未发送goal。故未产生可用于该 writer/reader 对的位姿样本，不能据此诊断 DDS/RMW 传输或 history 插入。
+- **验证**：Fast DDS 统计 observer编译并通过 smoke；`HISTORY_LATENCY_TOPIC` 的官方定义是 writer history 写入至 reader history 插入并通知回调的延迟，见[eProsima Fast DDS 2.14.7 文档](https://fast-dds.docs.eprosima.com/en/v2.14.7/fastdds/statistics/dds_layer/topic_names.html)。#361结束码0，目标pair计数脚本得到0；run-local manifest 覆盖该目录全部106个文件（含 root-owned CTF trace）并记录 SHA-256。仓库结构检查、JSON和manifest哈希、`git diff --check`与cached检查通过。
+- **局限与下一步**：#360只验证观察机制；#361上游输入门关闭，不能得出目标reader结论。保持20 ms门、QoS、0.4 s freshness和unknown fail-closed不变；先在run-local trace查明仿真时钟与propagated源戳偏差，随后在有效相机位姿流下重采目标 GUID 对。
+- **记录**：[证据 #360–#361](../evidence/p2-ego-fastdds-history-latency-diagnostic-20261021-360-361.json)、[#360 manifest](../../artifacts/runs/p2-ego-fastdds-history-latency-smoke-20261021-360/run-manifest.json)、[#361 manifest](../../artifacts/runs/p2-ego-fastdds-history-latency-trace-20261021-361/run-manifest.json)、[对话摘要](../../collaboration/dialogues/2026-10-21-023-p2-ego-fastdds-history-latency-diagnostic.md)。

@@ -1,0 +1,18 @@
+# Runtime map-input and occupied-cloud status. Free and unknown voxel counts are
+# intentionally omitted because plan_env does not expose them through this API.
+std_msgs/Header header
+string epoch
+string map_id
+bool reset_acknowledged
+bool input_ready
+string reason
+builtin_interfaces/Time last_depth_source_stamp
+builtin_interfaces/Time last_occupancy_stamp
+bool occupancy_cloud_received
+uint32 occupied_point_count
+uint64 forwarded_depth_count
+string calibration_sha256
+string input_config_sha256
+uint64 keyframe_count
+uint64 keyframe_dropped_count
+float64 keyframe_max_rgbd_stamp_delta_s

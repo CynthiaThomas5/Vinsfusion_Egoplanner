@@ -1,0 +1,1370 @@
+{
+  "date": "2026-10-17",
+  "run_id": "p5-px4-load-ablation-20261017-117-121",
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "result": "diagnostic_capture_only",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "profiles_ros_domain_ids": [
+      231,
+      232
+    ],
+    "host_logical_cpu_count": 16,
+    "container_cpu_max": "max 100000",
+    "container_memory_max": "max"
+  },
+  "runs": [
+    {
+      "id": "#117",
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117",
+      "result": "startup_failed_before_profile",
+      "ros_domain_id": 234,
+      "cause": "ROS_DOMAIN_ID=234 exceeds the supported Fast DDS domain ID limit (232); PX4 participant creation failed before profile probes. No performance or qualification claim.",
+      "preserved_files": [
+        "startup-error.txt",
+        "px4.log",
+        "agent.log",
+        "gazebo.log",
+        "host-resource-samples.txt",
+        "run-px4-vio-loc-load-ablation.sh"
+      ]
+    },
+    {
+      "duration_wall_s": 44.99955025897361,
+      "clock_samples": 4726,
+      "sim_interval_s": 18.9,
+      "rtf": 0.420004197624865,
+      "clock_interarrival_ms": {
+        "p50": 4.058430960867554,
+        "p90": 47.49352898215875,
+        "p95": 51.13039299612865,
+        "p99": 53.70082601439208,
+        "max": 56.73663999186829
+      },
+      "clock_intervals_over_20ms": 573,
+      "observed_offset_s_per_wall_s": -0.5798406755639373,
+      "estimated_offset_zero_events_wall_s": [
+        17.605915033025667
+      ],
+      "docker_cpu_percent_p50": 493.18,
+      "docker_cpu_percent_max": 538.61,
+      "optimized_localization_samples": 92,
+      "propagated_localization_samples": 1260,
+      "localization_last_status": {
+        "state": 4,
+        "valid": false,
+        "reason": "telemetry_stale",
+        "source_stamp_ns": 28908000000,
+        "clock_stamp_ns": 41484000000
+      },
+      "first_locked_transition": {
+        "wall_elapsed_s": 15.072102358972188,
+        "clock_stamp_ns": 28912000000,
+        "source_stamp_ns": 28908000000,
+        "reason": "telemetry_stale",
+        "accepted_optimized": 123,
+        "accepted_propagated": 1657
+      },
+      "px4_visual_odometry_samples": 85,
+      "bridge_reason_counts": {
+        "external_odometry_stale": 2,
+        "localization_not_tracking": 227,
+        "px4_frame_unaligned": 1,
+        "px4_local_position_invalid": 6,
+        "px4_preflight_failed": 93
+      },
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "bridge_phase": "DISABLED",
+      "bridge_ready": false,
+      "gnss_aiding_active": false,
+      "armed": false,
+      "control_samples_zero": true,
+      "truth_ros_topics_present": false,
+      "raw_stream_gap_events": {
+        "/vins_raw/s_29a8af3c96a84094b70a1eaabe0971bc/estimator_telemetry": [
+          {
+            "clock_age_s": 0.26400000100000004,
+            "input_features": 180,
+            "receipt_gap_s": 0.6708816179889254,
+            "source_gap_s": 0.068,
+            "source_stamp_ns": 28679999999,
+            "wall_elapsed_s": 15.15819561103126
+          }
+        ],
+        "/vins_raw/s_29a8af3c96a84094b70a1eaabe0971bc/odometry": [
+          {
+            "clock_age_s": 0.26400000100000004,
+            "receipt_gap_s": 0.6708216730039567,
+            "source_gap_s": 0.068,
+            "source_stamp_ns": 28679999999,
+            "wall_elapsed_s": 15.158404418034479
+          }
+        ]
+      },
+      "id": "#118",
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118",
+      "load": "VINS + localization + PX4 and three common read-only probes; no mapping/EGO/navigation",
+      "valid_for": "clock/RTF diagnostic only; fusion not qualified",
+      "failure_interpretation": "Localization locked telemetry_stale after a 0.671 s receipt gap in raw VINS telemetry/optimized odometry; PX4 got 85 visual odometry samples but no EV fusion."
+    },
+    {
+      "duration_wall_s": 44.94839857297484,
+      "clock_samples": 4682,
+      "sim_interval_s": 18.828,
+      "rtf": 0.4188803293944338,
+      "clock_interarrival_ms": {
+        "p50": 4.0701309917494655,
+        "p90": 48.31995599670336,
+        "p95": 51.20229197200388,
+        "p99": 53.281933011021465,
+        "max": 320.3671830124222
+      },
+      "clock_intervals_over_20ms": 567,
+      "observed_offset_s_per_wall_s": -0.5815862469535638,
+      "estimated_offset_zero_events_wall_s": [
+        14.87891343201045
+      ],
+      "docker_cpu_percent_p50": 486.64,
+      "docker_cpu_percent_max": 504.17,
+      "optimized_localization_samples": 7,
+      "propagated_localization_samples": 89,
+      "localization_last_status": {
+        "state": 4,
+        "valid": false,
+        "reason": "propagated_stale",
+        "source_stamp_ns": 22239999999,
+        "clock_stamp_ns": 40460000000
+      },
+      "first_locked_transition": {
+        "wall_elapsed_s": 1.8017739719944075,
+        "clock_stamp_ns": 22376000000,
+        "source_stamp_ns": 22239999999,
+        "reason": "propagated_stale",
+        "accepted_optimized": 56,
+        "accepted_propagated": 733
+      },
+      "px4_visual_odometry_samples": 1,
+      "bridge_reason_counts": {
+        "external_odometry_stale": 1,
+        "localization_not_tracking": 334,
+        "px4_local_position_invalid": 3
+      },
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "bridge_phase": "DISABLED",
+      "bridge_ready": false,
+      "gnss_aiding_active": false,
+      "armed": false,
+      "control_samples_zero": true,
+      "truth_ros_topics_present": false,
+      "raw_stream_gap_events": {
+        "/clock": [
+          {
+            "clock_age_s": 0.0,
+            "receipt_gap_s": 0.3695597159676254,
+            "source_gap_s": 0.132,
+            "source_stamp_ns": 22508000000,
+            "wall_elapsed_s": 2.1333033409900963
+          }
+        ],
+        "/localization/status": [
+          {
+            "clock_age_s": 0.112,
+            "receipt_gap_s": 0.3500378919998184,
+            "source_gap_s": 0.02,
+            "source_stamp_ns": 22396000000,
+            "wall_elapsed_s": 2.1338779520010576
+          }
+        ],
+        "/sensors/d435i/imu": [
+          {
+            "clock_age_s": 0.012,
+            "receipt_gap_s": 0.37035059701884165,
+            "source_gap_s": 0.12400000000000001,
+            "source_stamp_ns": 22500000000,
+            "wall_elapsed_s": 2.1348280049860477
+          }
+        ],
+        "/sensors/d435i/infra1/image_rect": [
+          {
+            "clock_age_s": 0.032,
+            "receipt_gap_s": 0.3864434330025688,
+            "source_gap_s": 0.164,
+            "source_stamp_ns": 22508000000,
+            "wall_elapsed_s": 2.162966775998939
+          }
+        ],
+        "/sensors/d435i/infra2/image_rect": [
+          {
+            "clock_age_s": 0.036000000000000004,
+            "receipt_gap_s": 0.4723510959884152,
+            "source_gap_s": 0.2,
+            "source_stamp_ns": 22476000000,
+            "wall_elapsed_s": 2.1346661979914643
+          }
+        ],
+        "/vins_raw/s_5b24a2e8452a499caf059b37ab2cfaa2/imu_propagate": [
+          {
+            "clock_age_s": 0.024,
+            "receipt_gap_s": 0.3328949120477773,
+            "source_gap_s": 0.004000001,
+            "source_stamp_ns": 22352000000,
+            "wall_elapsed_s": 2.132426006020978
+          }
+        ]
+      },
+      "id": "#119",
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119",
+      "load": "VINS + localization + PX4 and three common read-only probes; no mapping/EGO/navigation",
+      "valid_for": "clock/RTF diagnostic only; fusion not qualified",
+      "failure_interpretation": "At about 2.13 s probe elapsed, /clock and sensor streams had a shared 0.33–0.47 s receipt gap; localization locked propagated_stale. PX4 got 1 visual odometry sample and no EV fusion."
+    },
+    {
+      "duration_wall_s": 45.013643161044456,
+      "clock_samples": 4093,
+      "sim_interval_s": 16.368,
+      "rtf": 0.3636230895917603,
+      "clock_interarrival_ms": {
+        "p50": 4.0391620132140815,
+        "p90": 62.44729598984122,
+        "p95": 65.35883602919057,
+        "p99": 68.09452100424096,
+        "max": 73.65202502114698
+      },
+      "clock_intervals_over_20ms": 496,
+      "observed_offset_s_per_wall_s": -0.6362630672762988,
+      "estimated_offset_zero_events_wall_s": [
+        15.30437577405246
+      ],
+      "docker_cpu_percent_p50": 554.9200000000001,
+      "docker_cpu_percent_max": 583.37,
+      "optimized_localization_samples": 247,
+      "propagated_localization_samples": 3267,
+      "localization_last_status": {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 38776000000,
+        "clock_stamp_ns": 38776000000
+      },
+      "first_locked_transition": null,
+      "px4_visual_odometry_samples": 1,
+      "bridge_reason_counts": {
+        "external_odometry_stale": 342,
+        "px4_telemetry_stale": 2
+      },
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "bridge_phase": "DISABLED",
+      "bridge_ready": false,
+      "gnss_aiding_active": false,
+      "armed": false,
+      "control_samples_zero": true,
+      "truth_ros_topics_present": false,
+      "raw_stream_gap_events": {},
+      "id": "#120",
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120",
+      "load": "VINS + localization + PX4 + depth-health monitor + mapping input adapter + common probes and mapping probe; no plan_env/EGO/navigation process",
+      "valid_for": "RTF diagnostic only; not an active mapping workload",
+      "mapping_observation": {
+        "depth_input_count": 460,
+        "optimized_odom_count": 248,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0
+      },
+      "failure_interpretation": "mapping-adapter.log remained at map reset required because plan_env reset service was absent. No occupied map was produced; this run cannot isolate active mapping cost."
+    },
+    {
+      "duration_wall_s": 43.36273712100228,
+      "clock_samples": 3946,
+      "sim_interval_s": 16.1,
+      "rtf": 0.37128652545787144,
+      "clock_interarrival_ms": {
+        "p50": 4.035482998006046,
+        "p90": 61.38802703935653,
+        "p95": 65.06990297930315,
+        "p99": 68.19402001565322,
+        "max": 374.3654820136726
+      },
+      "clock_intervals_over_20ms": 471,
+      "observed_offset_s_per_wall_s": -0.6341629977010559,
+      "estimated_offset_zero_events_wall_s": [
+        10.922729054000229
+      ],
+      "docker_cpu_percent_p50": 550.825,
+      "docker_cpu_percent_max": 726.57,
+      "optimized_localization_samples": 0,
+      "propagated_localization_samples": 0,
+      "localization_last_status": {
+        "state": 4,
+        "valid": false,
+        "reason": "telemetry_stale",
+        "source_stamp_ns": 25312000000,
+        "clock_stamp_ns": 41472000000
+      },
+      "first_locked_transition": {
+        "wall_elapsed_s": 1.8944268299965188,
+        "clock_stamp_ns": 25708000000,
+        "source_stamp_ns": 25312000000,
+        "reason": "telemetry_stale",
+        "accepted_optimized": 87,
+        "accepted_propagated": 1183
+      },
+      "px4_visual_odometry_samples": 0,
+      "bridge_reason_counts": {
+        "localization_not_tracking": 336
+      },
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "bridge_phase": "DISABLED",
+      "bridge_ready": false,
+      "gnss_aiding_active": false,
+      "armed": false,
+      "control_samples_zero": true,
+      "truth_ros_topics_present": false,
+      "raw_stream_gap_events": {
+        "/clock": [
+          {
+            "clock_age_s": 0.0,
+            "receipt_gap_s": 0.7207412429852411,
+            "source_gap_s": 0.016,
+            "source_stamp_ns": 25396000000,
+            "wall_elapsed_s": 1.7192463459796272
+          }
+        ],
+        "/localization/status": [
+          {
+            "clock_age_s": 0.0,
+            "receipt_gap_s": 0.30238916497910395,
+            "source_gap_s": 0.0,
+            "source_stamp_ns": 25380000000,
+            "wall_elapsed_s": 1.3846366109792143
+          },
+          {
+            "clock_age_s": 0.0,
+            "receipt_gap_s": 0.3342215910088271,
+            "source_gap_s": 0.0,
+            "source_stamp_ns": 25380000000,
+            "wall_elapsed_s": 1.7188582019880414
+          }
+        ],
+        "/sensors/d435i/imu": [
+          {
+            "clock_age_s": 0.004,
+            "receipt_gap_s": 0.7203649510047399,
+            "source_gap_s": 0.012,
+            "source_stamp_ns": 25392000000,
+            "wall_elapsed_s": 1.7194218580261804
+          }
+        ],
+        "/sensors/d435i/infra1/image_rect": [
+          {
+            "clock_age_s": 0.02,
+            "receipt_gap_s": 0.7143184309825301,
+            "source_gap_s": 0.064,
+            "source_stamp_ns": 25412000000,
+            "wall_elapsed_s": 1.7266577989794314
+          }
+        ],
+        "/sensors/d435i/infra2/image_rect": [
+          {
+            "clock_age_s": 0.032,
+            "receipt_gap_s": 0.7604535799473524,
+            "source_gap_s": 0.068,
+            "source_stamp_ns": 25380000000,
+            "wall_elapsed_s": 1.7220492389751598
+          }
+        ]
+      },
+      "id": "#121",
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121",
+      "load": "VINS + localization + PX4 + depth-health monitor + mapping adapter + EGO plan_env/FSM + traj_server + common/mapping read-only probes; no navigation supervisor or navigation trace",
+      "valid_for": "RTF and fail-closed response diagnostic only; map/flight not qualified",
+      "mapping_observation": {
+        "depth_input_count": 456,
+        "optimized_odom_count": 0,
+        "ego_depth_output_count": 0,
+        "ego_pose_output_count": 0,
+        "paired_output_stamp_count": 0,
+        "max_occupied_points": 0
+      },
+      "ego_reset_response_timeout_warning": true,
+      "mapping_gate_closed_telemetry_stale": true,
+      "failure_interpretation": "A ~0.721 s /clock and IMU receipt gap (source /clock gap 0.016 s) occurred near the start of the probe window; localization locked telemetry_stale, mapping gate closed, no occupied map or PX4 VIO was produced."
+    }
+  ],
+  "combined_findings": [
+    "Baseline #118/#119 measured RTF 0.4200/0.4189 and observed_offset slopes -0.5798/-0.5816 s per wall second, consistent with #114 and the relationship RTF + abs(offset slope) approximately 1. Both later baseline runs encountered transient input scheduling gaps and did not qualify EV fusion.",
+    "#120 measured RTF 0.3636 with depth-health and mapping adapter processes, close to full-load #116 RTF 0.3626; however, plan_env was absent and the mapping adapter stayed behind its reset barrier, so this was not active mapping and does not isolate the cause.",
+    "#121 measured RTF 0.3713 with EGO and traj_server, without navigation supervisor; its map reset was observed, but a shared clock/IMU receipt gap was followed by telemetry_stale, mapping gate closure and zero occupancy outputs. It cannot qualify map or PX4 fusion.",
+    "The loaded runs correlate lower RTF, larger offset slope and stale input episodes with added work, but observer startup, short runtime, and incomplete active-map windows prevent component-level attribution. No health threshold or offset filter was changed.",
+    "All successful launches kept the bridge DISABLED and vehicle disarmed, emitted zero control samples, and used no ROS truth input. No task goal was sent in these ablation runs."
+  ],
+  "qualification": {
+    "status": "not_qualified",
+    "interpretation": "Short passive diagnostics only. No run in this series establishes PX4 EV fusion readiness, active navigation, map quality, trajectory tracking, flight, or the 10-minute P5 acceptance."
+  },
+  "limitations": [
+    "Three ablations failed before useful qualification due domain or transient freshness gates.",
+    "#120 had no EGO plan_env reset service and thus no active map processing.",
+    "#121 EGO reset did not progress into map output before localization locked.",
+    "Common probes and node startup add load; comparisons are correlated rather than perfectly single-variable.",
+    "No goals, control setpoints, Offboard, arming, truth estimator input, or motion trajectory were used."
+  ],
+  "source_sha256": {
+    "px4_live_probe": {
+      "path": "tools/probe_px4_bridge_live.py",
+      "sha256": "8fd76b13c654dba37ee68daa479c949209b6d5d8b8a977f5ee2ae1a3f8471f57"
+    },
+    "localization_probe": {
+      "path": "tools/probe_localization.py",
+      "sha256": "4b3d584b992720723911976775978772e7c389db4bead986bb7b76a419928911"
+    },
+    "vio_stream_probe": {
+      "path": "tools/probe_vio_stream_freshness.py",
+      "sha256": "04b70b61dfbef403b775b7ff80f1632dc1e7dfb6c0de0b155fa1afebb9e85b8b"
+    },
+    "mapping_runtime_probe": {
+      "path": "tools/probe_mapping_runtime.py",
+      "sha256": "cde1f7f8cee7d94327a7851b08dc32b4bc227189e1f84d872d9eea681b01c85f"
+    },
+    "px4_parameter_stager": {
+      "path": "tools/stage_px4_debug_params.py",
+      "sha256": "40a595212e02672727bbdaf1843ea12f3e1a3266d60464e57b06610f7b4e3fa4"
+    },
+    "bootstrap_world_generator": {
+      "path": "tools/prepare_px4_vio_bootstrap_world.py",
+      "sha256": "639b1b75fe8eb14c14c4c29f147f27156e4152d589e87e310b12e57fc2a64c9c"
+    },
+    "vins_config_generator": {
+      "path": "tools/generate_vins_config.py",
+      "sha256": "b98c1730bcfedb18079ce75a50fa6ba51c3a175fc53937766b14693675fa9e06"
+    },
+    "bridge_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9"
+    },
+    "time_mapping_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "sha256": "81d663ab1aa4fbc650971ce61cf71d64660dae7e4bff2a11f7ed726b143eb0db"
+    },
+    "mapping_adapter": {
+      "path": "src/own/uav_mapping/uav_mapping/adapter.py",
+      "sha256": "a28e09030e3726c16439327941ecf31d2852d5203bd7fd28ede138689309be97"
+    },
+    "mapping_node": {
+      "path": "src/own/uav_mapping/uav_mapping/node.py",
+      "sha256": "a83f33a4cd5f6e0e8c42dd47bca9ad78e858685333f1ec09dcaad2f5295b6c32"
+    },
+    "mapping_depth_gate": {
+      "path": "src/own/uav_mapping/uav_mapping/depth_gate.py",
+      "sha256": "77d7bb2d845251585a1961bfea0a396d113ac29310713ad8c8dd152cc553f360"
+    },
+    "navigation_node": {
+      "path": "src/own/uav_navigation/uav_navigation/node.py",
+      "sha256": "0c2789a1d434ce302d5a3716119a8d54b902a90a0d4c34507eeb79b1c678d9c9"
+    },
+    "navigation_task_state": {
+      "path": "src/own/uav_navigation/uav_navigation/task_state.py",
+      "sha256": "39c36c58b16a51666c48a5175dd119c8c3c4290ca3d59460ad1db4dccfb3c1fc"
+    },
+    "ego_replan_fsm": {
+      "path": "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp",
+      "sha256": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112"
+    },
+    "ego_grid_map": {
+      "path": "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp",
+      "sha256": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c"
+    },
+    "ego_trajectory_server": {
+      "path": "src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp",
+      "sha256": "69fed9dc78c37ad5d60b1826c10de2e888b6fc29279bfea843646ce920154c3e"
+    },
+    "ego_clock_patch": {
+      "path": "dependencies/patches/ego/0018-sim-clock-consistency.patch",
+      "sha256": "d38f608832fd54e51404731dadb737a27da92d00a279fcd47bceec511daae151"
+    },
+    "source_lock": {
+      "path": "dependencies/sources.json",
+      "sha256": "eb4aa9cad4da53244af765998a2d953c34482a98e994e8ab05436e3ff65c40d9"
+    },
+    "bridge_config": {
+      "path": "config/components/px4_bridge/vio_closed_loop.json",
+      "sha256": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601"
+    },
+    "bridge_frame_contract": {
+      "path": "config/components/px4_bridge/frames_vio_closed_loop.json",
+      "sha256": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822"
+    },
+    "runtime_profile": {
+      "path": "config/profiles/vio_closed_loop.json",
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "mapping_input_config": {
+      "path": "config/components/mapping/ego_input.json",
+      "sha256": "8266ec6c41ba89a3857718ba448cb4393a91b20477b3cfa345a1dc5b0d38ae49"
+    },
+    "mapping_depth_gate_config": {
+      "path": "config/components/mapping/depth_gate.json",
+      "sha256": "590db91cbda0de2cd3419c208c75373d6cb19a53322d19ad0838d28fc4b16017"
+    },
+    "mapping_ego_config": {
+      "path": "config/components/mapping/ego_planner.json",
+      "sha256": "dd0e70b9c35227d80c36f6dfa29249b38e9ad5a47c723cd027a2ceb2ca56458c"
+    },
+    "navigation_task_config": {
+      "path": "config/components/navigation/task_supervisor.json",
+      "sha256": "85d8b254ec0e2dee0c955437fd5210b6ebc5fbdbca7f949841d00019cebdc4f7"
+    },
+    "sensor_bridge_config": {
+      "path": "config/components/simulation/d435i_bridge.yaml",
+      "sha256": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed"
+    },
+    "x500_d435i_model": {
+      "path": "simulation/models/x500_d435i/model.sdf",
+      "sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37"
+    },
+    "d435i_model": {
+      "path": "simulation/models/d435i/model.sdf",
+      "sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "px4_timesync_source": {
+      "path": "external/PX4-Autopilot/src/lib/timesync/Timesync.cpp",
+      "sha256": "82f383d8deaaf0f1c34d7063fdaa15e472f8867c068d0879630419a504cb5890"
+    },
+    "px4_uxrce_source": {
+      "path": "external/PX4-Autopilot/src/modules/uxrce_dds_client/uxrce_dds_client.cpp",
+      "sha256": "1a01a7191b7e5e99e5d80419943ec66da6e8f649c35e45b22bf19ae59e7da7a7"
+    },
+    "px4_timesync_message": {
+      "path": "external/PX4-Autopilot/msg/TimesyncStatus.msg",
+      "sha256": "244e915343f678a7a9895002d2f36983bfd4494a2a9167db70b01e2dc5a5566c"
+    }
+  },
+  "artifacts": {
+    "attempt_117_agent.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/agent.log",
+      "size_bytes": 967,
+      "sha256": "999f3a95c890023e4b6a0a3b04e54bf824d94fe6be069d13152ec6f629ac2b66"
+    },
+    "attempt_117_analyze_vio_rtf_profile.py": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/analyze_vio_rtf_profile.py",
+      "size_bytes": 3659,
+      "sha256": "51591364a59c5a71d5f606fb4d11a7ac75121b462496f3c0bb49a9ab13ca9533"
+    },
+    "attempt_117_container-resource-limits.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/container-resource-limits.txt",
+      "size_bytes": 43,
+      "sha256": "8f93db103948a0773d721ca218b08a10c0ba72ee732ce5319a3ae88c00717051"
+    },
+    "attempt_117_gazebo.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/gazebo.log",
+      "size_bytes": 2932,
+      "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237"
+    },
+    "attempt_117_host-resource-context.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/host-resource-context.txt",
+      "size_bytes": 41,
+      "sha256": "6708c5b73dd2d89fc9cd84bdce6905d2cdf75a9a35e50c4ed1686f31392b16ab"
+    },
+    "attempt_117_host-resource-samples.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/host-resource-samples.txt",
+      "size_bytes": 24578,
+      "sha256": "f02ef38001e966fcbaaee61fc1fc9a9340a0925f4a756f6714cfa9073e28a8d4"
+    },
+    "attempt_117_launch-container-and-sampler.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/launch-container-and-sampler.sh",
+      "size_bytes": 597,
+      "sha256": "04e0c31236654ee357ef11327af5abf7a0d0d399abd7fdd2288c226781cd8b7c"
+    },
+    "attempt_117_px4-param-stage.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/px4-param-stage.json",
+      "size_bytes": 721,
+      "sha256": "5b436a399173a2249a58963f7b54d78985306b8abe419c36bf125d385e5d32ed"
+    },
+    "attempt_117_px4-param-stage.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/px4-param-stage.stdout.json",
+      "size_bytes": 721,
+      "sha256": "5b436a399173a2249a58963f7b54d78985306b8abe419c36bf125d385e5d32ed"
+    },
+    "attempt_117_px4.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/px4.log",
+      "size_bytes": 2294,
+      "sha256": "bb4a7d242b562be1f99da70ccc4fb73366522350255afeee1cf59916fd614b54"
+    },
+    "attempt_117_run-px4-vio-loc-load-ablation.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/run-px4-vio-loc-load-ablation.sh",
+      "size_bytes": 10086,
+      "sha256": "f512a01a3f63eb68bb8436bf1e348682d8397babf690fe86d09ff10e841879df"
+    },
+    "attempt_117_sample-container-resources.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/sample-container-resources.sh",
+      "size_bytes": 932,
+      "sha256": "1da63501c41b592cd781b89e8efab50393bee8cbf7a2246aa965791deea2a5a4"
+    },
+    "attempt_117_session-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/session-generation.json",
+      "size_bytes": 624,
+      "sha256": "d23b416e970276febf96f8fd6c820e73991ed11705f596161e8f24768123ed6e"
+    },
+    "attempt_117_startup-error.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/startup-error.txt",
+      "size_bytes": 315,
+      "sha256": "803f327599a5438ae908ee0b089784ccc3fd0ddcaf336750b8629dea38a46aef"
+    },
+    "attempt_117_vio_initialization.sdf": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/vio_initialization.sdf",
+      "size_bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "attempt_117_world-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/world-generation.json",
+      "size_bytes": 1438,
+      "sha256": "c61b301fa472b31f1ea488b2043f79e2749d1fb39ba765697a09c78a9a082c3d"
+    },
+    "attempt_117_world-generation.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/world-generation.stdout.json",
+      "size_bytes": 1438,
+      "sha256": "c61b301fa472b31f1ea488b2043f79e2749d1fb39ba765697a09c78a9a082c3d"
+    },
+    "attempt_117_09_55_14.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/px4_sitl_default/log/2026-10-17/09_55_14.ulg",
+      "size_bytes": 9401894,
+      "sha256": "bb498a01acebc635f1522fba69ab08a83624a21ba027ea7798663c1ef429b056"
+    },
+    "attempt_117_10_03_01.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-117/px4_sitl_default/log/2026-10-17/10_03_01.ulg",
+      "size_bytes": 14633506,
+      "sha256": "5e3fce1929643a2f5b5753afd31c68ab9476f37e6ec41848f3b07b4bca46e85b"
+    },
+    "baseline_118_agent.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/agent.log",
+      "size_bytes": 41563,
+      "sha256": "8b87259d3ae45dd41f1b4e1db2dc933613ac0d8d261fb7392b96c9e9e04798e6"
+    },
+    "baseline_118_analyze_vio_rtf_profile.py": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/analyze_vio_rtf_profile.py",
+      "size_bytes": 3659,
+      "sha256": "51591364a59c5a71d5f606fb4d11a7ac75121b462496f3c0bb49a9ab13ca9533"
+    },
+    "baseline_118_container-resource-limits.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/container-resource-limits.txt",
+      "size_bytes": 43,
+      "sha256": "8f93db103948a0773d721ca218b08a10c0ba72ee732ce5319a3ae88c00717051"
+    },
+    "baseline_118_gazebo.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/gazebo.log",
+      "size_bytes": 2932,
+      "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237"
+    },
+    "baseline_118_gz-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/gz-topics.txt",
+      "size_bytes": 2114,
+      "sha256": "f0e96f3224fcdea5319d9850533c22edd45d524c15088665009552c581504418"
+    },
+    "baseline_118_host-resource-context.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/host-resource-context.txt",
+      "size_bytes": 41,
+      "sha256": "6708c5b73dd2d89fc9cd84bdce6905d2cdf75a9a35e50c4ed1686f31392b16ab"
+    },
+    "baseline_118_host-resource-samples.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/host-resource-samples.txt",
+      "size_bytes": 52680,
+      "sha256": "5f99e386e3097279641f01ec92a7684294357286a6479bfb60f32f0e7ec4b37f"
+    },
+    "baseline_118_launch-container-and-sampler.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/launch-container-and-sampler.sh",
+      "size_bytes": 597,
+      "sha256": "186b3e44493fd5ad9a97116cfa8bb150f98aff3c04c6b42ac17fc7dcfd3e8025"
+    },
+    "baseline_118_localization-adapter.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/localization-adapter.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "baseline_118_localization-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/localization-probe.json",
+      "size_bytes": 390862,
+      "sha256": "3c0ef4834435887505d121d8a7bdb24424b1834b31680bbce5e004cc6c4a6be9"
+    },
+    "baseline_118_localization-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/localization-probe.log",
+      "size_bytes": 390862,
+      "sha256": "3c0ef4834435887505d121d8a7bdb24424b1834b31680bbce5e004cc6c4a6be9"
+    },
+    "baseline_118_px4-bridge-node-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "baseline_118_px4-live-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4-live-probe.json",
+      "size_bytes": 2657596,
+      "sha256": "81f0fc5addebd8878d47a5ef37a225ccb6d94d00cdce692c2b25cdc8ba8b7179"
+    },
+    "baseline_118_px4-live-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4-live-probe.log",
+      "size_bytes": 2657596,
+      "sha256": "81f0fc5addebd8878d47a5ef37a225ccb6d94d00cdce692c2b25cdc8ba8b7179"
+    },
+    "baseline_118_px4-param-stage.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4-param-stage.json",
+      "size_bytes": 721,
+      "sha256": "b2150323b84941962c669ea42d24d2ca2f8e1e7a5639e532587754b72c3d0166"
+    },
+    "baseline_118_px4-param-stage.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4-param-stage.stdout.json",
+      "size_bytes": 721,
+      "sha256": "b2150323b84941962c669ea42d24d2ca2f8e1e7a5639e532587754b72c3d0166"
+    },
+    "baseline_118_px4.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4.log",
+      "size_bytes": 5035,
+      "sha256": "4e690366fa7bb381db24edc6fe1f59f49586837e6913e83af2589f19c3abcb17"
+    },
+    "baseline_118_qualification.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/qualification.json",
+      "size_bytes": 3214303,
+      "sha256": "3379e5eaf72481a1ad103d30146628cd8bb739d0c6607b361b7a38df8244341b"
+    },
+    "baseline_118_raw-stream-freshness.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/raw-stream-freshness.json",
+      "size_bytes": 6788,
+      "sha256": "bbfe0b1773167ad25b2039381b60be939cfe62ebe774f25829036ce0ba23adc8"
+    },
+    "baseline_118_raw-stream-freshness.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/raw-stream-freshness.log",
+      "size_bytes": 6788,
+      "sha256": "bbfe0b1773167ad25b2039381b60be939cfe62ebe774f25829036ce0ba23adc8"
+    },
+    "baseline_118_ros-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/ros-topics.txt",
+      "size_bytes": 3228,
+      "sha256": "fd655f95a361d2fd8aa558173eea9b1497cfb6c3135bb8f3e75d1e9b62c4da11"
+    },
+    "baseline_118_rtf-resource-analysis.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/rtf-resource-analysis.json",
+      "size_bytes": 1493,
+      "sha256": "ab25c894c5663dd92fc491cf5bcbeabaa26b009e5216b14d5dc37e59abe65568"
+    },
+    "baseline_118_run-px4-vio-loc-load-ablation.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/run-px4-vio-loc-load-ablation.sh",
+      "size_bytes": 10086,
+      "sha256": "60e89a27cfeba3cc15e2c87a20baf5fe8effaf7c414855c09ee4f0b1c83a5969"
+    },
+    "baseline_118_sample-container-resources.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/sample-container-resources.sh",
+      "size_bytes": 932,
+      "sha256": "796444bd28139038bf2864059124288de3fe74f77ae1b2f9ac8186e2d4940aa7"
+    },
+    "baseline_118_session-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/session-generation.json",
+      "size_bytes": 624,
+      "sha256": "be964692e5050a39aae995136f44030d3029a4886558a9736dbf82176dc13dd6"
+    },
+    "baseline_118_timesync-topic-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/timesync-topic-info.txt",
+      "size_bytes": 951,
+      "sha256": "ea42c63b19ebc5edace72a21f77f014d080ea1b9e69eff036397aeb07cb6a881"
+    },
+    "baseline_118_vins.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/vins.log",
+      "size_bytes": 65870,
+      "sha256": "f46cb4c575e6394fc2d0936509f34bc0c70dd3dc8e863ccaa6efcc65764eb304"
+    },
+    "baseline_118_vio-launch.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/vio-launch.log",
+      "size_bytes": 2910,
+      "sha256": "5b9f22e5ef4f437bf7f190d848c98057c7144395d3c61b37ea3a5579ab500d61"
+    },
+    "baseline_118_vio_initialization.sdf": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/vio_initialization.sdf",
+      "size_bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "baseline_118_world-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/world-generation.json",
+      "size_bytes": 1438,
+      "sha256": "e4e1b2ed49aae4173e4395a4f7ce6eac3137a8f1847f3c04c5d5e81430f8e3a0"
+    },
+    "baseline_118_world-generation.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/world-generation.stdout.json",
+      "size_bytes": 1438,
+      "sha256": "e4e1b2ed49aae4173e4395a4f7ce6eac3137a8f1847f3c04c5d5e81430f8e3a0"
+    },
+    "baseline_118_09_55_14.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4_sitl_default/log/2026-10-17/09_55_14.ulg",
+      "size_bytes": 9401894,
+      "sha256": "bb498a01acebc635f1522fba69ab08a83624a21ba027ea7798663c1ef429b056"
+    },
+    "baseline_118_10_04_34.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-118/px4_sitl_default/log/2026-10-17/10_04_34.ulg",
+      "size_bytes": 9452873,
+      "sha256": "dcadd112e8f3a86978734cab59914580e140ad3ffedd97e807a1305e0149dd38"
+    },
+    "baseline_119_agent.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/agent.log",
+      "size_bytes": 41563,
+      "sha256": "63a3f544d7d172ff5f0b025efd34e4259e1327ed3842414fb9321628342f5dc3"
+    },
+    "baseline_119_analyze_vio_rtf_profile.py": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/analyze_vio_rtf_profile.py",
+      "size_bytes": 3659,
+      "sha256": "51591364a59c5a71d5f606fb4d11a7ac75121b462496f3c0bb49a9ab13ca9533"
+    },
+    "baseline_119_container-resource-limits.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/container-resource-limits.txt",
+      "size_bytes": 43,
+      "sha256": "8f93db103948a0773d721ca218b08a10c0ba72ee732ce5319a3ae88c00717051"
+    },
+    "baseline_119_gazebo.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/gazebo.log",
+      "size_bytes": 2932,
+      "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237"
+    },
+    "baseline_119_gz-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/gz-topics.txt",
+      "size_bytes": 2114,
+      "sha256": "f0e96f3224fcdea5319d9850533c22edd45d524c15088665009552c581504418"
+    },
+    "baseline_119_host-resource-context.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/host-resource-context.txt",
+      "size_bytes": 41,
+      "sha256": "6708c5b73dd2d89fc9cd84bdce6905d2cdf75a9a35e50c4ed1686f31392b16ab"
+    },
+    "baseline_119_host-resource-samples.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/host-resource-samples.txt",
+      "size_bytes": 54640,
+      "sha256": "182c1d867c496ea10923edf4602590d478824a0b4061535ebb08c34963f06bd8"
+    },
+    "baseline_119_launch-container-and-sampler.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/launch-container-and-sampler.sh",
+      "size_bytes": 597,
+      "sha256": "03cd29eaa31511e45b2334d53b499fda9ff570e81b9f84d20bc3c5257781f7b1"
+    },
+    "baseline_119_localization-adapter.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/localization-adapter.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "baseline_119_localization-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/localization-probe.json",
+      "size_bytes": 382804,
+      "sha256": "3290acc4103c674217ec8af584faebb307419d934074087a1db32588ae0e07b3"
+    },
+    "baseline_119_localization-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/localization-probe.log",
+      "size_bytes": 382804,
+      "sha256": "3290acc4103c674217ec8af584faebb307419d934074087a1db32588ae0e07b3"
+    },
+    "baseline_119_px4-bridge-node-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "baseline_119_px4-live-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4-live-probe.json",
+      "size_bytes": 2664876,
+      "sha256": "26a61fa08af47eda204061bb23d649bbd253e299c038083aa93c24d56b87359e"
+    },
+    "baseline_119_px4-live-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4-live-probe.log",
+      "size_bytes": 2664876,
+      "sha256": "26a61fa08af47eda204061bb23d649bbd253e299c038083aa93c24d56b87359e"
+    },
+    "baseline_119_px4-param-stage.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4-param-stage.json",
+      "size_bytes": 721,
+      "sha256": "6f67b9a50a37a482b2fb43509a98d39029bcd1f2c9ce97deee2c825ec7cfc13c"
+    },
+    "baseline_119_px4-param-stage.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4-param-stage.stdout.json",
+      "size_bytes": 721,
+      "sha256": "6f67b9a50a37a482b2fb43509a98d39029bcd1f2c9ce97deee2c825ec7cfc13c"
+    },
+    "baseline_119_px4.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4.log",
+      "size_bytes": 4993,
+      "sha256": "bc007483f3a2c854db5ee457265e94a25e47221fa7cf6c1fc4309be060ac4ffc"
+    },
+    "baseline_119_qualification.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/qualification.json",
+      "size_bytes": 3213735,
+      "sha256": "10c70ffd5ca3ed1af8c8a0d388f523082df5b8f80545c7833a043493e8060ca0"
+    },
+    "baseline_119_raw-stream-freshness.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/raw-stream-freshness.json",
+      "size_bytes": 7603,
+      "sha256": "23e6f5cce5fe7631eb6ede116529a4a670f9b69cb8d5842148515e3806881a6a"
+    },
+    "baseline_119_raw-stream-freshness.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/raw-stream-freshness.log",
+      "size_bytes": 7603,
+      "sha256": "23e6f5cce5fe7631eb6ede116529a4a670f9b69cb8d5842148515e3806881a6a"
+    },
+    "baseline_119_ros-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/ros-topics.txt",
+      "size_bytes": 3228,
+      "sha256": "9330e0962a955de558cd98555dfbe98a52929e24e9aa5341e3a4424a12a8df3a"
+    },
+    "baseline_119_rtf-resource-analysis.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/rtf-resource-analysis.json",
+      "size_bytes": 1421,
+      "sha256": "d3bdeca4e21f7f0bf90a26845e314a90a078f5fb36946881dfb6d461c9815a22"
+    },
+    "baseline_119_run-px4-vio-loc-load-ablation.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/run-px4-vio-loc-load-ablation.sh",
+      "size_bytes": 10086,
+      "sha256": "9e4c8413bb4ccc566cc3ef07ddd39dedde1c5bf3bf833e4dee923f3eba087ed3"
+    },
+    "baseline_119_sample-container-resources.sh": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/sample-container-resources.sh",
+      "size_bytes": 932,
+      "sha256": "a0ecb004a1cc31c1e7c06151d90bbea7052582fad5a6590c9a8a96d14867b4e7"
+    },
+    "baseline_119_session-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/session-generation.json",
+      "size_bytes": 624,
+      "sha256": "e1e01489129574a394437e4e59bbc42001bb8d16c3370230d35adefaffabb235"
+    },
+    "baseline_119_timesync-topic-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/timesync-topic-info.txt",
+      "size_bytes": 951,
+      "sha256": "9576077276c6451566e6a45bd606e3e526af7433f4487c96c7ecf04c408bd1d2"
+    },
+    "baseline_119_vins.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/vins.log",
+      "size_bytes": 68983,
+      "sha256": "b871121a38d70e928111e5eec929df3970ca7f3b0d155e3d61125efbe9e94622"
+    },
+    "baseline_119_vio-launch.log": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/vio-launch.log",
+      "size_bytes": 2910,
+      "sha256": "e3dfa151feb8bec7745c79383e3399527a17e8835a906cc57c56a7046860c966"
+    },
+    "baseline_119_vio_initialization.sdf": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/vio_initialization.sdf",
+      "size_bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "baseline_119_world-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/world-generation.json",
+      "size_bytes": 1438,
+      "sha256": "e774f98e2be9d83d528f2a46b1313176fecb14289c57b7b06c3defe181310749"
+    },
+    "baseline_119_world-generation.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/world-generation.stdout.json",
+      "size_bytes": 1438,
+      "sha256": "e774f98e2be9d83d528f2a46b1313176fecb14289c57b7b06c3defe181310749"
+    },
+    "baseline_119_09_55_14.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4_sitl_default/log/2026-10-17/09_55_14.ulg",
+      "size_bytes": 9401894,
+      "sha256": "bb498a01acebc635f1522fba69ab08a83624a21ba027ea7798663c1ef429b056"
+    },
+    "baseline_119_10_06_49.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-loc-load-ablation-20261017-119/px4_sitl_default/log/2026-10-17/10_06_49.ulg",
+      "size_bytes": 9216000,
+      "sha256": "27f229050cb052aa7aa4b551331ef91bb71ca983228f0633283f7cd9a71a8fb9"
+    },
+    "mapping_adapter_120_agent.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/agent.log",
+      "size_bytes": 41563,
+      "sha256": "7380dde50cf89fca69346dce42f3195fd8664b2e4d1acf6fa6fab04b085f10a5"
+    },
+    "mapping_adapter_120_analyze_vio_rtf_profile.py": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/analyze_vio_rtf_profile.py",
+      "size_bytes": 3659,
+      "sha256": "51591364a59c5a71d5f606fb4d11a7ac75121b462496f3c0bb49a9ab13ca9533"
+    },
+    "mapping_adapter_120_container-resource-limits.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/container-resource-limits.txt",
+      "size_bytes": 43,
+      "sha256": "8f93db103948a0773d721ca218b08a10c0ba72ee732ce5319a3ae88c00717051"
+    },
+    "mapping_adapter_120_depth-health.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/depth-health.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mapping_adapter_120_gazebo.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/gazebo.log",
+      "size_bytes": 2932,
+      "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237"
+    },
+    "mapping_adapter_120_gz-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/gz-topics.txt",
+      "size_bytes": 2114,
+      "sha256": "f0e96f3224fcdea5319d9850533c22edd45d524c15088665009552c581504418"
+    },
+    "mapping_adapter_120_host-resource-context.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/host-resource-context.txt",
+      "size_bytes": 41,
+      "sha256": "6708c5b73dd2d89fc9cd84bdce6905d2cdf75a9a35e50c4ed1686f31392b16ab"
+    },
+    "mapping_adapter_120_host-resource-samples.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/host-resource-samples.txt",
+      "size_bytes": 67441,
+      "sha256": "20cae333e813b358c7ba0ffbb6a9d5f47977d0f02f5cadc2e9223b917f058048"
+    },
+    "mapping_adapter_120_launch-container-and-sampler.sh": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/launch-container-and-sampler.sh",
+      "size_bytes": 613,
+      "sha256": "1af08401a88b68e7e0ca1cbb79c6322570d305e16c47104049a40d1a4c074328"
+    },
+    "mapping_adapter_120_localization-adapter.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/localization-adapter.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mapping_adapter_120_localization-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/localization-probe.json",
+      "size_bytes": 399294,
+      "sha256": "c00d7e95a416135ab338ad2fdd71c26ea296197905eef318ef1c4bb0b3e8212e"
+    },
+    "mapping_adapter_120_localization-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/localization-probe.log",
+      "size_bytes": 399294,
+      "sha256": "c00d7e95a416135ab338ad2fdd71c26ea296197905eef318ef1c4bb0b3e8212e"
+    },
+    "mapping_adapter_120_mapping-adapter.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/mapping-adapter.log",
+      "size_bytes": 288,
+      "sha256": "cb22728f5f36ddd8b851f12fd388261b4bf258db6ed78ebfce395740f3cd36ae"
+    },
+    "mapping_adapter_120_mapping-odometry-samples.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/mapping-odometry-samples.json",
+      "size_bytes": 98019,
+      "sha256": "9d507e1e18b62bc1801346bfd2bfed0687b2269a848c66a57434c44a2a8ceace"
+    },
+    "mapping_adapter_120_mapping-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/mapping-probe.json",
+      "size_bytes": 78542,
+      "sha256": "917f9850162de30b21ba1ec272361259a753507b7ec73045cb4b2383b6c329b9"
+    },
+    "mapping_adapter_120_mapping-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/mapping-probe.log",
+      "size_bytes": 78649,
+      "sha256": "78a1a8f988f398d869b20d674936dc978b8cb0dafbab9d4653f2636094162cd2"
+    },
+    "mapping_adapter_120_px4-bridge-node-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "mapping_adapter_120_px4-live-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4-live-probe.json",
+      "size_bytes": 2437947,
+      "sha256": "4fec3d033657b3a87952883a1c7d3d054d66159cbc5869e8b24c0a4bf3f011ba"
+    },
+    "mapping_adapter_120_px4-live-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4-live-probe.log",
+      "size_bytes": 2437947,
+      "sha256": "4fec3d033657b3a87952883a1c7d3d054d66159cbc5869e8b24c0a4bf3f011ba"
+    },
+    "mapping_adapter_120_px4-param-stage.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4-param-stage.json",
+      "size_bytes": 725,
+      "sha256": "4260d1d8c735e08d79591497fa63574a1bb7d9ff90e69eb462d93991e124000f"
+    },
+    "mapping_adapter_120_px4-param-stage.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4-param-stage.stdout.json",
+      "size_bytes": 725,
+      "sha256": "4260d1d8c735e08d79591497fa63574a1bb7d9ff90e69eb462d93991e124000f"
+    },
+    "mapping_adapter_120_px4.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4.log",
+      "size_bytes": 4993,
+      "sha256": "7a289240ee3be073e606e5756fe072352501d8fe61f1d3eb15e6c436abc702fd"
+    },
+    "mapping_adapter_120_raw-stream-freshness.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/raw-stream-freshness.json",
+      "size_bytes": 5769,
+      "sha256": "e5b9d234f421375c2abaf9b4e9023c79ec7ef8f0bb5d2c00e8e610ea66f1d95e"
+    },
+    "mapping_adapter_120_raw-stream-freshness.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/raw-stream-freshness.log",
+      "size_bytes": 5769,
+      "sha256": "e5b9d234f421375c2abaf9b4e9023c79ec7ef8f0bb5d2c00e8e610ea66f1d95e"
+    },
+    "mapping_adapter_120_ros-topics-at-end.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/ros-topics-at-end.txt",
+      "size_bytes": 3292,
+      "sha256": "ea82d66e2b1e3e46ff2d41145ccd659565d311e363368f9537600a4efa087012"
+    },
+    "mapping_adapter_120_ros-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/ros-topics.txt",
+      "size_bytes": 3228,
+      "sha256": "6497ddfaf6de0bb907c43a65e15070b48a9e802bdf415b1f3f6dba29ef8cfbb6"
+    },
+    "mapping_adapter_120_rtf-resource-analysis.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/rtf-resource-analysis.json",
+      "size_bytes": 1402,
+      "sha256": "78ec6740563c2cef3bb12509166b3c450042d047842860d875215c4ee941df44"
+    },
+    "mapping_adapter_120_run-px4-vio-mapping-load-ablation.sh": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/run-px4-vio-mapping-load-ablation.sh",
+      "size_bytes": 8089,
+      "sha256": "4826e2bfb93045e4eaa346d47ab6cfa796b0a5f1785ebff00ff6897f0b0df6ca"
+    },
+    "mapping_adapter_120_sample-container-resources.sh": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/sample-container-resources.sh",
+      "size_bytes": 940,
+      "sha256": "9d05cf41280203c688f8b6bfd1559d7da9fc85f3584ce8a81838c4809a2229db"
+    },
+    "mapping_adapter_120_session-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/session-generation.json",
+      "size_bytes": 624,
+      "sha256": "0e5b3613c89ba6ead310bfd082a4cc3d4a55241a486aeaf92f6b98d606af9740"
+    },
+    "mapping_adapter_120_timesync-topic-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/timesync-topic-info.txt",
+      "size_bytes": 951,
+      "sha256": "5e63f2c228819fc69d70f6094bc99ef93b901a4a5c237e5b5c89d04fe4a27937"
+    },
+    "mapping_adapter_120_vins.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/vins.log",
+      "size_bytes": 64671,
+      "sha256": "cbe3dac249e84b3ab2094d7177144c8ac300ac036fa45e826b62947cdc270078"
+    },
+    "mapping_adapter_120_vio-launch.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/vio-launch.log",
+      "size_bytes": 2910,
+      "sha256": "e6c2523a1fb4a4b9b6296e33fe7d5021c1a4b7a5b392be01f56a7d088e5bd663"
+    },
+    "mapping_adapter_120_vio_initialization.sdf": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/vio_initialization.sdf",
+      "size_bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "mapping_adapter_120_world-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/world-generation.json",
+      "size_bytes": 1442,
+      "sha256": "9b11fd520849450170dc3003b314b99013e05ced69a73e312d318e35fedc5a87"
+    },
+    "mapping_adapter_120_world-generation.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/world-generation.stdout.json",
+      "size_bytes": 1442,
+      "sha256": "9b11fd520849450170dc3003b314b99013e05ced69a73e312d318e35fedc5a87"
+    },
+    "mapping_adapter_120_09_55_14.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4_sitl_default/log/2026-10-17/09_55_14.ulg",
+      "size_bytes": 9401894,
+      "sha256": "bb498a01acebc635f1522fba69ab08a83624a21ba027ea7798663c1ef429b056"
+    },
+    "mapping_adapter_120_10_08_58.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-load-ablation-20261017-120/px4_sitl_default/log/2026-10-17/10_08_58.ulg",
+      "size_bytes": 8730379,
+      "sha256": "fef02b858996456a832d448557dd3a6b81da2a35e31d3814765fe3a77d4fa7c5"
+    },
+    "mapping_ego_121_agent.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/agent.log",
+      "size_bytes": 41563,
+      "sha256": "e36594ff6b4c39a5cdc485d643a7068ed3cae5f21ce6f9e517ef5133ab3a657c"
+    },
+    "mapping_ego_121_analyze_vio_rtf_profile.py": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/analyze_vio_rtf_profile.py",
+      "size_bytes": 3659,
+      "sha256": "51591364a59c5a71d5f606fb4d11a7ac75121b462496f3c0bb49a9ab13ca9533"
+    },
+    "mapping_ego_121_container-resource-limits.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/container-resource-limits.txt",
+      "size_bytes": 43,
+      "sha256": "8f93db103948a0773d721ca218b08a10c0ba72ee732ce5319a3ae88c00717051"
+    },
+    "mapping_ego_121_depth-health.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/depth-health.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mapping_ego_121_ego.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/ego.log",
+      "size_bytes": 5513,
+      "sha256": "c1cf0e29c0eede34bfac893b10d38e8fc418b5e27016aca58c0c3de02212cf06"
+    },
+    "mapping_ego_121_gazebo.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/gazebo.log",
+      "size_bytes": 2932,
+      "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237"
+    },
+    "mapping_ego_121_gz-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/gz-topics.txt",
+      "size_bytes": 2114,
+      "sha256": "f0e96f3224fcdea5319d9850533c22edd45d524c15088665009552c581504418"
+    },
+    "mapping_ego_121_host-resource-context.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/host-resource-context.txt",
+      "size_bytes": 41,
+      "sha256": "6708c5b73dd2d89fc9cd84bdce6905d2cdf75a9a35e50c4ed1686f31392b16ab"
+    },
+    "mapping_ego_121_host-resource-samples.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/host-resource-samples.txt",
+      "size_bytes": 82185,
+      "sha256": "f50282a7fa931dd7face135a949db15f90645ef1b453acbd33508540fcdadb17"
+    },
+    "mapping_ego_121_launch-container-and-sampler.sh": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/launch-container-and-sampler.sh",
+      "size_bytes": 601,
+      "sha256": "910dd708329a3dde42d83ccf4740932759edd95f05b2547625f5808d9a30918b"
+    },
+    "mapping_ego_121_localization-adapter.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/localization-adapter.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mapping_ego_121_localization-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/localization-probe.json",
+      "size_bytes": 369634,
+      "sha256": "7c146d8aa0865598a3785d9495cbddc9d059175a810461fb7cd11fb6447c2977"
+    },
+    "mapping_ego_121_localization-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/localization-probe.log",
+      "size_bytes": 369634,
+      "sha256": "7c146d8aa0865598a3785d9495cbddc9d059175a810461fb7cd11fb6447c2977"
+    },
+    "mapping_ego_121_mapping-adapter.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/mapping-adapter.log",
+      "size_bytes": 380,
+      "sha256": "a952074b0ef82494715cf8af73220df29f61b5d9a29f8e6b899cb318f7867195"
+    },
+    "mapping_ego_121_mapping-odometry-samples.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/mapping-odometry-samples.json",
+      "size_bytes": 22,
+      "sha256": "16425c7cc2d15b11c3461c4e4c588e091589feaff40505819f3f9db92480c26c"
+    },
+    "mapping_ego_121_mapping-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/mapping-probe.json",
+      "size_bytes": 177046,
+      "sha256": "fce4f8d18faf2c742b09d2545007acb37e9a0536bf60ffda4c5c5bec7f2fd886"
+    },
+    "mapping_ego_121_mapping-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/mapping-probe.log",
+      "size_bytes": 177153,
+      "sha256": "d3a82e45041fb8e24a40b231f36106bcc0e8f72b960a84aba13580f90d305362"
+    },
+    "mapping_ego_121_px4-bridge-node-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "mapping_ego_121_px4-live-probe.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4-live-probe.json",
+      "size_bytes": 2341315,
+      "sha256": "a62a041410e2d433affc1caf507c55144785d590d82e63b6209b653f9eb89367"
+    },
+    "mapping_ego_121_px4-live-probe.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4-live-probe.log",
+      "size_bytes": 2341315,
+      "sha256": "a62a041410e2d433affc1caf507c55144785d590d82e63b6209b653f9eb89367"
+    },
+    "mapping_ego_121_px4-param-stage.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4-param-stage.json",
+      "size_bytes": 722,
+      "sha256": "83f78ce2df853075f3a737380739c5b694f6252622c6560aec1dcfe8ced22ce6"
+    },
+    "mapping_ego_121_px4-param-stage.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4-param-stage.stdout.json",
+      "size_bytes": 722,
+      "sha256": "83f78ce2df853075f3a737380739c5b694f6252622c6560aec1dcfe8ced22ce6"
+    },
+    "mapping_ego_121_px4.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4.log",
+      "size_bytes": 4993,
+      "sha256": "f110c2991aec2982d3c2c953bad0587210625e5dbcf461e1aff793b8c14a102c"
+    },
+    "mapping_ego_121_raw-stream-freshness.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/raw-stream-freshness.json",
+      "size_bytes": 7419,
+      "sha256": "f32bb63bf701edce5fd5e0acdd36b14c3935103bfcefe8a584ec8be5e12eaca9"
+    },
+    "mapping_ego_121_raw-stream-freshness.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/raw-stream-freshness.log",
+      "size_bytes": 7419,
+      "sha256": "f32bb63bf701edce5fd5e0acdd36b14c3935103bfcefe8a584ec8be5e12eaca9"
+    },
+    "mapping_ego_121_ros-topics-at-end.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/ros-topics-at-end.txt",
+      "size_bytes": 3722,
+      "sha256": "901f62c9e31387b795b697caf94e8e3ccd2f032aca09371543b13cc6d0626615"
+    },
+    "mapping_ego_121_ros-topics.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/ros-topics.txt",
+      "size_bytes": 3228,
+      "sha256": "ab75c84a4e2defe9ea0698dacbdea2d26711175a75b9ec504ee92b8f0fc52656"
+    },
+    "mapping_ego_121_rtf-resource-analysis.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/rtf-resource-analysis.json",
+      "size_bytes": 1349,
+      "sha256": "91a03d4b1848dc6687d13dc9f15031abf0d4418ab1574464b4ab4633ef6177fe"
+    },
+    "mapping_ego_121_run-px4-vio-mapping-ego-no-nav.sh": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/run-px4-vio-mapping-ego-no-nav.sh",
+      "size_bytes": 9465,
+      "sha256": "3f2fb5190fa5ceee10e58698da37b5f42f76d9878cbb3ae4c4d67a084d4619f0"
+    },
+    "mapping_ego_121_sample-container-resources.sh": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/sample-container-resources.sh",
+      "size_bytes": 934,
+      "sha256": "fc49772d5f7d6af02109a82b33eba9e9a5baa65fdfc29204bc0f8a9da22d3cd4"
+    },
+    "mapping_ego_121_session-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/session-generation.json",
+      "size_bytes": 624,
+      "sha256": "e5d6d84283299c9b05f7fda65ac96c43178faa270092dfb64c57b4687c278e84"
+    },
+    "mapping_ego_121_timesync-topic-info.txt": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/timesync-topic-info.txt",
+      "size_bytes": 951,
+      "sha256": "099d784e6945293eed514364da0f5c8e0beff1beb02d675a6621dc739567cc95"
+    },
+    "mapping_ego_121_traj-server.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/traj-server.log",
+      "size_bytes": 138,
+      "sha256": "d9af49c713b51446144160afb1075a5bdb9f513a5f5f68a4f2d4db4d3f28931e"
+    },
+    "mapping_ego_121_vins.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/vins.log",
+      "size_bytes": 69247,
+      "sha256": "e17ff7c279ed63ad62f4f7a62c298f2539463fc77b938fca20d63402c28c5d97"
+    },
+    "mapping_ego_121_vio-launch.log": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/vio-launch.log",
+      "size_bytes": 2910,
+      "sha256": "d10b9b3b3be4cd570a694c51ae59c605a1cf4632603e3e76da3ca9637301c7ff"
+    },
+    "mapping_ego_121_vio_initialization.sdf": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/vio_initialization.sdf",
+      "size_bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "mapping_ego_121_world-generation.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/world-generation.json",
+      "size_bytes": 1439,
+      "sha256": "c199112331215a02cc2b8e531348789e74fb49460acf7ad0a7081ea3042d4b6a"
+    },
+    "mapping_ego_121_world-generation.stdout.json": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/world-generation.stdout.json",
+      "size_bytes": 1439,
+      "sha256": "c199112331215a02cc2b8e531348789e74fb49460acf7ad0a7081ea3042d4b6a"
+    },
+    "mapping_ego_121_09_55_14.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4_sitl_default/log/2026-10-17/09_55_14.ulg",
+      "size_bytes": 9401894,
+      "sha256": "bb498a01acebc635f1522fba69ab08a83624a21ba027ea7798663c1ef429b056"
+    },
+    "mapping_ego_121_10_11_09.ulg": {
+      "path": "artifacts/runs/p5-px4-vio-mapping-ego-no-nav-20261017-121/px4_sitl_default/log/2026-10-17/10_11_09.ulg",
+      "size_bytes": 9417939,
+      "sha256": "5b22e2510430e3e6fecd718ccbc48f8e1cdb91199ad5ab8f58d74d58f076b1df"
+    }
+  }
+}

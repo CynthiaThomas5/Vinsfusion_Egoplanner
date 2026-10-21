@@ -1,0 +1,289 @@
+diff --git a/vins/src/estimator/estimator.cpp b/vins/src/estimator/estimator.cpp
+index ac014af..4a6af5d 100755
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -10,6 +10,19 @@
+ #include "estimator.h"
+ #include "../utility/visualization.h"
+ 
++namespace
++{
++void clearInitializationFrames(std::map<double, ImageFrame> &frames)
++{
++    for (auto &entry : frames)
++    {
++        delete entry.second.pre_integration;
++        entry.second.pre_integration = nullptr;
++    }
++    frames.clear();
++}
++}
++
+ Estimator::Estimator(): f_manager{Rs}
+ {
+     ROS_INFO("init begins");
+@@ -19,7 +32,7 @@ Estimator::Estimator(): f_manager{Rs}
+ 
+ Estimator::~Estimator()
+ {
+-    if (MULTIPLE_THREAD)
++    if (MULTIPLE_THREAD && processThread.joinable())
+     {
+         processThread.join();
+         printf("join thread \n");
+@@ -75,7 +88,7 @@ void Estimator::clearState()
+     frame_count = 0;
+     solver_flag = INITIAL;
+     initial_timestamp = 0;
+-    all_image_frame.clear();
++    clearInitializationFrames(all_image_frame);
+ 
+     if (tmp_pre_integration != nullptr)
+     {
+@@ -236,9 +249,13 @@ void Estimator::inputFeature(double t, const map<int, vector<pair<int, Eigen::Ma
+ bool Estimator::getIMUInterval(double t0, double t1, vector<pair<double, Eigen::Vector3d>> &accVector, 
+                                 vector<pair<double, Eigen::Vector3d>> &gyrVector)
+ {
+-    if(accBuf.empty())
++    if (accBuf.empty() || gyrBuf.empty() || t1 <= t0)
++        return false;
++    // Images may be discovered before the first IMU packet at startup.
++    // Do not initialize from an IMU sample later than the image endpoint.
++    if (t0 < 0 && accBuf.front().first > t1)
+     {
+-        printf("not receive imu\n");
++        ROS_WARN("skip startup image without earlier IMU: image=%.9f first_imu=%.9f", t1, accBuf.front().first);
+         return false;
+     }
+     // printf("get imu from %f %f\n", t0, t1);
+@@ -283,7 +300,7 @@ bool Estimator::IMUAvailable(double t)
+ 
+ void Estimator::processMeasurements()
+ {
+-    while (1)
++    while (rclcpp::ok())
+     {
+         // cout << "[processMeasurements]  loop - start" << endl;
+ 
+@@ -297,6 +314,8 @@ void Estimator::processMeasurements()
+             // std::cout << "t0: " << std::fixed << curTime << std::endl;
+             while(1)
+             {
++                if (!rclcpp::ok())
++                    return;
+                 if ((!USE_IMU  || IMUAvailable(feature.first + td)))
+                     break;
+                 else
+@@ -313,7 +332,12 @@ void Estimator::processMeasurements()
+             if(USE_IMU)
+             {
+                 // cout << "2-1)" << endl;
+-                getIMUInterval(prevTime, curTime, accVector, gyrVector);
++                if (!getIMUInterval(prevTime, curTime, accVector, gyrVector))
++                {
++                    featureBuf.pop();
++                    mBuf.unlock();
++                    continue;
++                }
+                 // cout << "2-2)" << endl;
+             }
+ 
+@@ -327,13 +351,12 @@ void Estimator::processMeasurements()
+                     initFirstIMUPose(accVector);
+                 for(size_t i = 0; i < accVector.size(); i++)
+                 {
+-                    double dt;
+-                    if(i == 0)
+-                        dt = accVector[i].first - prevTime;
+-                    else if (i == accVector.size() - 1)
+-                        dt = curTime - accVector[i - 1].first;
+-                    else
+-                        dt = accVector[i].first - accVector[i - 1].first;
++                    // Clip every sample to this image interval, including the
++                    // single-sample case. The first image only seeds acc/gyr.
++                    const double sample_end = std::min(accVector[i].first, curTime);
++                    const double sample_begin = i == 0 ? prevTime :
++                        std::min(accVector[i - 1].first, curTime);
++                    const double dt = prevTime < 0 ? 0.0 : sample_end - sample_begin;
+                     processIMU(accVector[i].first, dt, accVector[i].second, gyrVector[i].second);
+                 }
+             }
+@@ -432,7 +455,8 @@ void Estimator::processIMU(double t, double dt, const Vector3d &linear_accelerat
+     {
+         pre_integrations[frame_count]->push_back(dt, linear_acceleration, angular_velocity);
+         //if(solver_flag != NON_LINEAR)
+-            tmp_pre_integration->push_back(dt, linear_acceleration, angular_velocity);
++            if (tmp_pre_integration != nullptr)
++                tmp_pre_integration->push_back(dt, linear_acceleration, angular_velocity);
+ 
+         dt_buf[frame_count].push_back(dt);
+         linear_acceleration_buf[frame_count].push_back(linear_acceleration);
+@@ -475,10 +499,13 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
+     ROS_DEBUG("number of feature: %d", f_manager.getFeatureCount());
+     Headers[frame_count] = header;
+ 
+-    ImageFrame imageframe(image, header);
+-    imageframe.pre_integration = tmp_pre_integration;
+-    all_image_frame.insert(make_pair(header, imageframe));
+-    tmp_pre_integration = new IntegrationBase{acc_0, gyr_0, Bas[frame_count], Bgs[frame_count]};
++    if (solver_flag == INITIAL)
++    {
++        ImageFrame imageframe(image, header);
++        imageframe.pre_integration = tmp_pre_integration;
++        all_image_frame.insert(make_pair(header, imageframe));
++        tmp_pre_integration = new IntegrationBase{acc_0, gyr_0, Bas[frame_count], Bgs[frame_count]};
++    }
+ 
+     if(ESTIMATE_EXTRINSIC == 2)
+     {
+@@ -625,7 +652,33 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
+         last_R0 = Rs[0];
+         last_P0 = Ps[0];
+         updateLatestStates();
+-    }  
++    }
++    if (solver_flag == NON_LINEAR)
++    {
++        // These frames are used only by initialization; the sliding window
++        // owns separate pre_integrations for ongoing estimation.
++        clearInitializationFrames(all_image_frame);
++        delete tmp_pre_integration;
++        tmp_pre_integration = nullptr;
++        // Optimization already excludes IMU links longer than 10 seconds.
++        // Bound their unused raw history without changing their accumulated
++        // delta/Jacobian/covariance or the current frame's merge samples.
++        for (int i = 0; i < WINDOW_SIZE; ++i)
++        {
++            if (pre_integrations[i] != nullptr && pre_integrations[i]->sum_dt > 10.0)
++            {
++                pre_integrations[i]->dt_buf.clear();
++                pre_integrations[i]->acc_buf.clear();
++                pre_integrations[i]->gyr_buf.clear();
++                dt_buf[i].clear();
++                linear_acceleration_buf[i].clear();
++                angular_velocity_buf[i].clear();
++            }
++        }
++    }
++    static size_t processed_images = 0;
++    if (++processed_images % 150 == 0)
++        ROS_INFO("retained initialization frames: %zu", all_image_frame.size());
+ }
+ 
+ bool Estimator::initialStructure()
+@@ -1441,13 +1494,21 @@ void Estimator::slideWindow()
+                 angular_velocity_buf[WINDOW_SIZE].clear();
+             }
+ 
+-            if (true || solver_flag == INITIAL)
++            if (solver_flag == INITIAL)
+             {
+                 map<double, ImageFrame>::iterator it_0;
+                 it_0 = all_image_frame.find(t_0);
+-                delete it_0->second.pre_integration;
+-                it_0->second.pre_integration = nullptr;
+-                all_image_frame.erase(all_image_frame.begin(), it_0);
++                if (it_0 != all_image_frame.end())
++                {
++                    for (auto it = all_image_frame.begin(); ; ++it)
++                    {
++                        delete it->second.pre_integration;
++                        it->second.pre_integration = nullptr;
++                        if (it == it_0)
++                            break;
++                    }
++                    all_image_frame.erase(all_image_frame.begin(), it_0);
++                }
+             }
+             slideWindowOld();
+         }
+diff --git a/vins/src/factor/marginalization_factor.cpp b/vins/src/factor/marginalization_factor.cpp
+index 1c90f40..d1f84ba 100755
+--- a/vins/src/factor/marginalization_factor.cpp
++++ b/vins/src/factor/marginalization_factor.cpp
+@@ -83,7 +83,7 @@ MarginalizationInfo::~MarginalizationInfo()
+     
+     for (auto it = parameter_block_data.begin(); it != parameter_block_data.end(); ++it)
+     {
+-        delete it->second;
++        delete[] it->second;
+         it->second = nullptr;
+     }
+     
+@@ -96,6 +96,7 @@ MarginalizationInfo::~MarginalizationInfo()
+         delete factors[i]->cost_function;
+         factors[i]->cost_function = nullptr;
+ 
++        delete factors[i];
+         factors[i] = nullptr;
+     }
+ }
+diff --git a/vins/src/rosNodeTest.cpp b/vins/src/rosNodeTest.cpp
+index 37bd75c..0168756 100755
+--- a/vins/src/rosNodeTest.cpp
++++ b/vins/src/rosNodeTest.cpp
+@@ -73,7 +73,7 @@ cv::Mat getImageFromMsg(const sensor_msgs::msg::Image::ConstPtr &img_msg)
+ // extract images with same timestamp from two topics
+ void sync_process()
+ {
+-    while(1)
++    while(rclcpp::ok())
+     {
+         if(STEREO)
+         {
+@@ -295,6 +295,14 @@ int main(int argc, char **argv)
+     rclcpp::executors::MultiThreadedExecutor executor;
+     executor.add_node(n);
+     executor.spin();
++    if (rclcpp::ok())
++        rclcpp::shutdown();
++    if (sync_thread.joinable())
++        sync_thread.join();
++    // Join the worker while ROS publishers and context objects are still alive.
++    if (estimator.processThread.joinable())
++        estimator.processThread.join();
++    unregisterPub();
+ 
+     return 0;
+ }
+diff --git a/vins/src/utility/visualization.cpp b/vins/src/utility/visualization.cpp
+index 8146f19..afd6318 100755
+--- a/vins/src/utility/visualization.cpp
++++ b/vins/src/utility/visualization.cpp
+@@ -50,6 +50,23 @@ void registerPub(rclcpp::Node::SharedPtr n)
+     cameraposevisual.setLineWidth(0.01);
+ }
+ 
++void unregisterPub()
++{
++    // Release ROS resources before the node and executor leave main.
++    pub_latest_odometry.reset();
++    pub_path.reset();
++    pub_odometry.reset();
++    pub_point_cloud.reset();
++    pub_margin_cloud.reset();
++    pub_key_poses.reset();
++    pub_camera_pose.reset();
++    pub_camera_pose_visual.reset();
++    pub_keyframe_pose.reset();
++    pub_keyframe_point.reset();
++    pub_extrinsic.reset();
++    pub_image_track.reset();
++}
++
+ void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q, const Eigen::Vector3d &V, double t)
+ {
+     nav_msgs::msg::Odometry odometry;
+diff --git a/vins/src/utility/visualization.h b/vins/src/utility/visualization.h
+index ab31748..b857ee7 100755
+--- a/vins/src/utility/visualization.h
++++ b/vins/src/utility/visualization.h
+@@ -44,6 +44,8 @@ extern int IMAGE_ROW, IMAGE_COL;
+ 
+ void registerPub(rclcpp::Node::SharedPtr n);
+ 
++void unregisterPub();
++
+ void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q, const Eigen::Vector3d &V, double t);
+ 
+ void pubTrackImage(const cv::Mat &imgTrack, const double t);

@@ -1,0 +1,76 @@
+--- a/planner/plan_manage/launch/advanced_param.launch.py
++++ b/planner/plan_manage/launch/advanced_param.launch.py
+@@ -1,7 +1,7 @@
+ import os
+ from launch import LaunchDescription
+ from launch.actions import DeclareLaunchArgument
+-from launch.substitutions import LaunchConfiguration
++from launch.substitutions import LaunchConfiguration, PythonExpression
+ from launch_ros.actions import Node
+ 
+ def generate_launch_description():
+@@ -10,7 +10,8 @@
+     map_size_y = LaunchConfiguration('map_size_y_', default=30.0)
+     map_size_z = LaunchConfiguration('map_size_z_', default=5.0)
+     
+-    odometry_topic = LaunchConfiguration('odometry_topic', default='odom')
++    drone_id = LaunchConfiguration('drone_id', default=0)
++    odometry_topic = LaunchConfiguration('odometry_topic', default=PythonExpression(["'/drone_' + '", drone_id, "' + '_odom'"]))
+     camera_pose_topic = LaunchConfiguration('camera_pose_topic', default='camera_pose')
+     depth_topic = LaunchConfiguration('depth_topic', default='depth_image')
+     cloud_topic = LaunchConfiguration('cloud_topic', default='cloud')
+@@ -46,13 +47,12 @@
+     
+     obj_num_set = LaunchConfiguration('obj_num_set', default=10)
+     
+-    drone_id = LaunchConfiguration('drone_id', default=0)
+ 
+     # DeclareLaunchArguments
+     map_size_x_arg = DeclareLaunchArgument('map_size_x_', default_value=map_size_x, description='Map size along X')
+     map_size_y_arg = DeclareLaunchArgument('map_size_y_', default_value=map_size_y, description='Map size along Y')
+     map_size_z_arg = DeclareLaunchArgument('map_size_z_', default_value=map_size_z, description='Map size along Z')
+-    odometry_topic_arg = DeclareLaunchArgument('odometry_topic', default_value=odometry_topic, description='Odometry topic')
++    odometry_topic_arg = DeclareLaunchArgument('odometry_topic', default_value=odometry_topic, description='Fully resolved odometry topic')
+     camera_pose_topic_arg = DeclareLaunchArgument('camera_pose_topic', default_value=camera_pose_topic, description='Camera pose topic')
+     depth_topic_arg = DeclareLaunchArgument('depth_topic', default_value=depth_topic, description='Depth topic')
+     cloud_topic_arg = DeclareLaunchArgument('cloud_topic', default_value=cloud_topic, description='Point cloud topic')
+@@ -93,7 +93,7 @@
+         name=['drone_', drone_id, '_ego_planner_node'],
+         output='screen',
+         remappings=[
+-            ('odom_world', ['drone_', drone_id, '_', odometry_topic]),
++            ('odom_world', odometry_topic),
+             ('planning/bspline', ['drone_', drone_id, '_planning/bspline']),
+             ('planning/data_display', ['drone_', drone_id, '_planning/data_display']),
+             ('planning/broadcast_bspline_from_planner', '/broadcast_bspline'),
+@@ -105,7 +105,7 @@
+             ('optimal_list', ['drone_', drone_id, '_plan_vis/optimal_list']),
+             ('a_star_list', ['drone_', drone_id, '_plan_vis/a_star_list']),
+             
+-            ('grid_map/odom', ['drone_', drone_id, '_', odometry_topic]),
++            ('grid_map/odom', odometry_topic),
+             ('grid_map/cloud', ['drone_', drone_id, '_', cloud_topic]),
+             ('grid_map/pose', ['drone_', drone_id, '_', camera_pose_topic]),
+             ('grid_map/depth', ['drone_', drone_id, '_', depth_topic]),
+--- a/planner/plan_manage/launch/single_run_in_sim.launch.py
++++ b/planner/plan_manage/launch/single_run_in_sim.launch.py
+@@ -99,7 +99,7 @@
+             'map_size_x_': map_size_x,
+             'map_size_y_': map_size_y,
+             'map_size_z_': map_size_z,
+-            'odometry_topic': odom_topic,
++            'odometry_topic': ['/drone_', drone_id, '_', odom_topic],
+             'obj_num_set': obj_num,
+             
+             'camera_pose_topic': 'pcl_render_node/camera_pose',
+--- a/planner/plan_manage/launch/run_in_sim.launch.py
++++ b/planner/plan_manage/launch/run_in_sim.launch.py
+@@ -47,7 +47,7 @@
+             'map_size_x_': map_size_x,
+             'map_size_y_': map_size_y,
+             'map_size_z_': map_size_z,
+-            'odometry_topic': odom_topic,
++            'odometry_topic': ['/drone_', drone_id, '_', odom_topic],
+             'obj_num_set': obj_num,
+             'camera_pose_topic': 'pcl_render_node/camera_pose',
+             'depth_topic': 'pcl_render_node/depth',

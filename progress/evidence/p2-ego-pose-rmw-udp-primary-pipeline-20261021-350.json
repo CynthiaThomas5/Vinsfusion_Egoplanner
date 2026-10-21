@@ -1,0 +1,154 @@
+{
+  "schema": "p2-ego-pose-rmw-udp-primary-pipeline/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-udp-primary-pipeline-20261021-350",
+  "status": "completed_diagnostic",
+  "goal_criterion": "GOAL C diagnostic only; not navigation acceptance; GOAL C remains pending and P2 remains passed.",
+  "question": "Does the EGO pose take gap recur when both mapping publisher and EGO reader use the Fast DDS UDPv4-only built-in transport setting?",
+  "configuration": {
+    "ros_domain_id": 215,
+    "ego_and_mapping_transport_environment": "FASTDDS_BUILTIN_TRANSPORTS=UDPv4",
+    "xml_profiles": null,
+    "rmw_qos_from_xml": null,
+    "ego_pose_reader_qos": "reliable/volatile/keep_last_25",
+    "mapping_pose_publisher_qos": "reliable/volatile/keep_last_50",
+    "qos_changed": false
+  },
+  "result": {
+    "max_pose_take_gap_s": 2.614471612,
+    "gap_interval_time_of_day_s": [
+      69771.691682328,
+      69774.30615394
+    ],
+    "adapter_publish_count_in_gap": 51,
+    "adapter_max_publish_gap_s": 0.10021908000635449,
+    "independent_pose_receipts_in_gap": 51,
+    "independent_source_stamp_range_s": [
+      16.534,
+      18.283
+    ],
+    "independent_max_source_gap_s": 0.099,
+    "ego_wait_returns_in_gap": {
+      "not_ready": 708,
+      "ready": 1
+    },
+    "unread_count_distribution": {
+      "0": 708,
+      "17": 1
+    },
+    "ego_successful_pose_takes_in_gap": 0,
+    "reader_status": {
+      "matched_current": 1,
+      "sample_rejected_total": 0,
+      "sample_lost_total": {
+        "before": {
+          "wait_seq": 5760,
+          "time_of_day_s": 69774.242988881,
+          "count": 0
+        },
+        "after": {
+          "wait_seq": 5776,
+          "time_of_day_s": 69774.303567614,
+          "count": 1
+        }
+      },
+      "gap_end_time_of_day_s": 69774.30615394
+    },
+    "trace_integrity": {
+      "event_count": 19987,
+      "sequence_range": [
+        0,
+        19990
+      ],
+      "missing_sequence_values": [
+        88,
+        89,
+        90,
+        91
+      ],
+      "missing_outside_selected_gap": true,
+      "overall_wait_summary_exit_code": 1,
+      "selected_gap_alignment_passed": true
+    },
+    "planner_only": {
+      "spline_count": 1,
+      "sample_count": 103,
+      "unknown_voxel_samples": 41,
+      "free_samples": 62,
+      "occupied_or_inflated_or_out_of_map_samples": 0,
+      "nearest_optimized_odom_delta_ms": -24.000001,
+      "depth_source_age_ms": 90,
+      "trajectory_executed": false,
+      "truth_control_px4": false
+    }
+  },
+  "conclusion": "The empty-history wait pattern recurred with UDPv4 configured on both primary-pipeline endpoints, so shared memory is not necessary for this observed gap. This single run does not show that UDP caused it. The cumulative sample_lost increment is only localized to a 16-wait polling bracket near the gap end; its source remains unresolved.",
+  "excluded_preflight": {
+    "run_id": "p2-ego-pose-rmw-transport-ablation-20261021-349",
+    "reason": "mapping reset did not acknowledge; no valid pose publisher/take comparison",
+    "evidence": "progress/evidence/p2-ego-pose-rmw-transport-ablation-20261021-349.json"
+  },
+  "raw_trace": {
+    "file_count": 33,
+    "total_bytes": 16579432,
+    "file_hash_manifest": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/analysis/ctf-file-hashes.sha256",
+      "sha256": "df7eb29e28a333ce7c4e9356fa6c89b94758210affdb2c48678b3f0a90bb5b6b",
+      "size_bytes": 3833
+    }
+  },
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/run-manifest.json",
+    "sha256": "69c2a827edb627ad90b954865a74886312c45f746dbf4631bcccbc9907e77bf3",
+    "size_bytes": 14815
+  },
+  "key_artifacts": {
+    "transport_environment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/transport-env.json",
+      "sha256": "d072865e611d9cfaf64a6311798073fbdbe4ce96df79fdd48aa5ef4fbccbe6cb",
+      "size_bytes": 585
+    },
+    "workspace_snapshot": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/workspace-status-at-350.txt",
+      "sha256": "1ef497631d2b7c452c3d643f86f0d5a4c503585d02862b84df08c46e39ecaa5d",
+      "size_bytes": 44668
+    },
+    "publisher_take_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/analysis/publisher-take-alignment.json",
+      "sha256": "eedb939713fcffdf2329972309efef961ccf629f4e00733d8148418761ca9ad5",
+      "size_bytes": 1922
+    },
+    "rmw_take_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/analysis/rmw-take-alignment.json",
+      "sha256": "4e5d547a4a6a4c08d37475c2f661658771b67d9fcfdd1b56aafdc424c7e088be",
+      "size_bytes": 4093
+    },
+    "rmw_unread_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/analysis/rmw-unread-alignment.json",
+      "sha256": "188c129865b5b131d7e3c1ef21e89b57d1e0d265a41a417acd3fa76b22bcde6d",
+      "size_bytes": 12234
+    },
+    "rmw_status_alignment": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/analysis/rmw-status-alignment.json",
+      "sha256": "97105a876252711de040bdbe075e4b15278c5b5fd56e57138d796dc25c2334dc",
+      "size_bytes": 19348
+    },
+    "analyzer_exit_codes": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/analysis/analyzer-exit-codes.txt",
+      "sha256": "361de6ed8e6084a097972b6a77d83181fe54529cd3c6c1d10359946923345151",
+      "size_bytes": 155
+    },
+    "spline_snapshot_analysis": {
+      "path": "artifacts/runs/p2-ego-pose-rmw-udp-primary-pipeline-20261021-350/spline-snapshot-analysis.json",
+      "sha256": "4502bf28d84a58d0e0c1a70d4d1d427de6b3a0a6635a70187d85d3ead39395e1",
+      "size_bytes": 6427
+    }
+  },
+  "limitations": [
+    "One UDP-only run; possible run variance and diagnostic overhead remain.",
+    "Unread count was sampled after each rmw_wait return, not continuously in the Fast DDS receive path.",
+    "Status polls occurred every 16 wait sequence values; the sample_lost event origin is unknown.",
+    "Four wait sequence values are absent from the full trace, although none overlaps the selected gap.",
+    "The planner spline was not executed; this is not evidence of clearance, goal arrival, or flight."
+  ]
+}

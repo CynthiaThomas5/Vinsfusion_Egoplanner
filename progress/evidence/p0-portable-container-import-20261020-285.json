@@ -1,0 +1,32 @@
+{
+  "schema": "p0-portable-image-import/v1",
+  "date": "2026-10-20",
+  "status": "PASS_TARGET_IMAGES_IMPORTED_AND_STARTED",
+  "scope": "The portable archive restored both project image tags that were absent from this daemon before import. This does not claim the daemon had no other images.",
+  "archive": {
+    "path": "artifacts/runs/p0-container-image-bundle-20261017-01/px4-ros2-gz-and-d435i-vins-images.tar.zst",
+    "sha256": "da3e5fd0c203c4dec89963b147ae997a64872d18831151760549efd2c488b614",
+    "sha256_manifest": "PASS",
+    "zstd_integrity": "PASS"
+  },
+  "images": {
+    "px4-ros2-gz:jazzy-harmonic": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "d435i-vins:dev": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8"
+  },
+  "container_smoke": {
+    "status": "PASS",
+    "ceres_package": "2.2.0+dfsg-4.1ubuntu2",
+    "ros": "Jazzy ROS CLI started"
+  },
+  "run_report": "artifacts/runs/p0-container-image-import-20261020-285/run-report.json",
+  "run_report_sha256": "99c3ddfeae6caf36e502aa8273cf7c90facbe81394fa1730adbbcea0d5431e02",
+  "limits": [
+    "No colcon build, SITL, PX4, controller, or flight was run.",
+    "A fully empty Docker daemon was not established."
+  ],
+  "milestones_unchanged": {
+    "P0": "passed",
+    "P1": "passed",
+    "P2": "passed; GOAL A-H acceptance unaffected"
+  }
+}

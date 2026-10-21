@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "profile": "debug_truth",
+  "autostart_id": 5010,
+  "base_airframe": "4001_gz_x500",
+  "sim_model": "gz_x500_d435i",
+  "parameters": {
+    "EKF2_EV_CTRL": 15,
+    "EKF2_GPS_CTRL": 0,
+    "EKF2_HGT_REF": 3,
+    "COM_ARM_WO_GPS": 2,
+    "COM_RC_IN_MODE": 4,
+    "COM_OBL_RC_ACT": 4,
+    "COM_OF_LOSS_T": 1.0,
+    "NAV_DLL_ACT": 0,
+    "SIM_GZ_EN_ODOM": 0,
+    "UXRCE_DDS_SYNCT": 0
+  },
+  "derived_parameters": {
+    "EKF2_EV_POS_X": "sensor_mount.translation_frd_m[0]",
+    "EKF2_EV_POS_Y": "sensor_mount.translation_frd_m[1]",
+    "EKF2_EV_POS_Z": "sensor_mount.translation_frd_m[2]"
+  },
+  "mount_model_sdf": "simulation/models/x500_d435i/model.sdf",
+  "qualification": "Debug SITL only; values and startup overlay require live PX4 verification before flight acceptance"
+}

@@ -1,0 +1,215 @@
+{
+  "scope": "Replay-only stereo-camera dropout behavior for P2 adapter; this does not pass P2 or GOAL.md E as a whole.",
+  "status": "two_independent_stereo_dropout_injections_passed; other fault modes remain incomplete",
+  "formal_acceptance": false,
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e"
+  },
+  "build": {
+    "command": "colcon --log-base artifacts/runs/p2-localization-health-clock-rate-20261016/log build --base-paths src/own --packages-select uav_interfaces uav_sim uav_localization --build-base artifacts/runs/p2-localization-health-clock-rate-20261016/build --install-base artifacts/runs/p2-localization-health-clock-rate-20261016/install",
+    "result": "passed",
+    "log": "artifacts/runs/p2-localization-health-clock-rate-20261016/build.log",
+    "log_sha256": "3f3826f850a87c6af05f824a9803d00f84a2d2833a17ee9e5a7e6d33041bcc86",
+    "packages": [
+      "uav_interfaces",
+      "uav_sim",
+      "uav_localization"
+    ],
+    "logic_test_command": "python3 tools/test_localization_health.py",
+    "logic_test_result": "9 tests passed",
+    "source_sha256": {
+      "src/own/uav_localization/uav_localization/health.py": "7d9189a4fb30d4c82a92d6fd5d015f12d8ce18c95f34c3615b98746825b60a76",
+      "tools/test_localization_health.py": "0002c03c6bb4087fa17421d0a8654edb461927297db9fab146827e9b33e6cf30",
+      "tools/fault_relay.py": "4c2874c5cda0a93e170e4aa4f92d32f6b6efdee4f8115430b0e934ac6437de29",
+      "tools/test_fault_relay.py": "d3a143494622fde848020b67438ed6a88a61864cbd5456fe36880de0db8f6061",
+      "tools/probe_localization.py": "4b3d584b992720723911976775978772e7c389db4bead986bb7b76a419928911",
+      "config/components/localization/health.json": "8632f7ab96f438efa55384b10e8d330b9f7be60ce89651f29c00dd79165c1eb9"
+    },
+    "relay_test_command": "python3 tools/test_fault_relay.py in Jazzy container",
+    "relay_test_result": "1 test passed"
+  },
+  "input": {
+    "bag": "artifacts/runs/p2-force-motion-20261016/input-bag",
+    "bag_sha256": "9ffb8d60f099c59fedc34317c80aa2435c6fae681046dc8a3111e95995640d37",
+    "topics": [
+      "/clock",
+      "/sensors/d435i/imu",
+      "/sensors/d435i/infra1/image_rect",
+      "/sensors/d435i/infra2/image_rect"
+    ],
+    "truth_in_bag_or_subscriptions": false
+  },
+  "fault_injection": {
+    "type": "Both stereo infrared image streams dropped for 1.0 source-second in a fresh replay session; source-stamp aligned schedule; VINS and adapter continued on same epoch.",
+    "drop_after_source_s": 2.5,
+    "drop_for_source_s": 1.0,
+    "playback_rate": 0.2,
+    "replay_clock": "Recorded /clock replayed; rosbag --clock option omitted.",
+    "runs": {
+      "p2-localization-stereo-drop-20261016-13": {
+        "epoch": "e516f35f799f4fc2be7cbe90d9e80b11",
+        "namespace": "/vins_raw/s_e516f35f799f4fc2be7cbe90d9e80b11",
+        "ros_domain_id": 93,
+        "fault_window": {
+          "source_origin_ns": 2000000,
+          "start_ns": 2502000000,
+          "end_ns": 3502000000,
+          "left": {
+            "received": 445,
+            "forwarded_before": 76,
+            "dropped": 31,
+            "drop_first_stamp_ns": 2509000000,
+            "drop_last_stamp_ns": 3499000000,
+            "forwarded_after": 338,
+            "forwarded_after_first_stamp_ns": 3532000000
+          },
+          "right": {
+            "received": 445,
+            "forwarded_before": 76,
+            "dropped": 31,
+            "drop_first_stamp_ns": 2509000000,
+            "drop_last_stamp_ns": 3499000000,
+            "forwarded_after": 338,
+            "forwarded_after_first_stamp_ns": 3532000000
+          },
+          "window_observed": true
+        },
+        "adapter": {
+          "tracking": {
+            "wall_elapsed_s": 16.088456555997254,
+            "clock_stamp_ns": 1321000000,
+            "source_stamp_ns": 1320000000,
+            "good_pairs": 10,
+            "accepted_optimized": 1,
+            "accepted_propagated": 1
+          },
+          "locked": {
+            "wall_elapsed_s": 27.987705884996103,
+            "clock_stamp_ns": 2789000000,
+            "source_stamp_ns": 2774999999,
+            "reason": "left_stale",
+            "accepted_optimized": 19,
+            "accepted_propagated": 292
+          },
+          "no_contract_errors": true,
+          "optimized_count_after_full_observation": 19,
+          "propagated_count_after_full_observation": 292,
+          "strictly_increasing_finite_outputs": true,
+          "locked_state_persisted_after_camera_forwarding_resumed": true
+        },
+        "wall_seconds": 145.01793336399714,
+        "artifacts_sha256": {
+          "artifacts/runs/p2-localization-stereo-drop-20261016-13/fault.json": "338d0be24a27eeaad6a7c92c4e3acc2604a4d08f50605b328de076b1b81644d5",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-13/probe.json": "60f55830d5cce837bbdf81c02b38b4a2c34c3c54fb8797fb0bef312b24494d53",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-13/replay.log": "e1b54975a3375762924c2c8562f31ef4dbc333dc1231e7be1c3bbaf58c4e8e74",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-13/vins.log": "5e7df5f4c5a056f763bcaa283a700a34630f8583ab100c2f0afd141b36b7cacf",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-13/adapter.log": "71d9be0a6cbbc5076fe9513b86b7976dcc1f78b976b807161abd6bae03b758a2",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-13/session/session.json": "0f6320377dbe6fd6ec928a2027220520080bc3bcfa56cc721e3f94037be7d2b8",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-13/session/vins.yaml": "cb2cdfc1ae098883101f111e2f9846bca57cf51bf2b0b5f83aa7b0f9fbe011fe"
+        }
+      },
+      "p2-localization-stereo-drop-20261016-14": {
+        "epoch": "2b13372df64a4ba58d1371ec8427750f",
+        "namespace": "/vins_raw/s_2b13372df64a4ba58d1371ec8427750f",
+        "ros_domain_id": 94,
+        "fault_window": {
+          "source_origin_ns": 2000000,
+          "start_ns": 2502000000,
+          "end_ns": 3502000000,
+          "left": {
+            "received": 445,
+            "forwarded_before": 76,
+            "dropped": 31,
+            "drop_first_stamp_ns": 2509000000,
+            "drop_last_stamp_ns": 3499000000,
+            "forwarded_after": 338,
+            "forwarded_after_first_stamp_ns": 3532000000
+          },
+          "right": {
+            "received": 445,
+            "forwarded_before": 76,
+            "dropped": 31,
+            "drop_first_stamp_ns": 2509000000,
+            "drop_last_stamp_ns": 3499000000,
+            "forwarded_after": 338,
+            "forwarded_after_first_stamp_ns": 3532000000
+          },
+          "window_observed": true
+        },
+        "adapter": {
+          "tracking": {
+            "wall_elapsed_s": 16.09978240900091,
+            "clock_stamp_ns": 1321000000,
+            "source_stamp_ns": 1320000000,
+            "good_pairs": 10,
+            "accepted_optimized": 1,
+            "accepted_propagated": 1
+          },
+          "locked": {
+            "wall_elapsed_s": 27.948856970993802,
+            "clock_stamp_ns": 2781000000,
+            "source_stamp_ns": 2774999999,
+            "reason": "left_stale",
+            "accepted_optimized": 19,
+            "accepted_propagated": 292
+          },
+          "no_contract_errors": true,
+          "optimized_count_after_full_observation": 19,
+          "propagated_count_after_full_observation": 292,
+          "strictly_increasing_finite_outputs": true,
+          "locked_state_persisted_after_camera_forwarding_resumed": true
+        },
+        "wall_seconds": 145.01694277999923,
+        "artifacts_sha256": {
+          "artifacts/runs/p2-localization-stereo-drop-20261016-14/fault.json": "8ebe46ca81d36be79f0b7eeb41c77a9d0bd7a549e33861184d4173fa5db5b48d",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-14/probe.json": "5d43fbd6bb1fbc2b7a97b2f1d0c525eeb22fd3aa350c6059ea9eeaf6cfef1ad8",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-14/replay.log": "3c8cacfa5034a65e9478da82347788ab03cc35b1ac71c915209502def09b3d4e",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-14/vins.log": "b2d51e92b2e001e67a651884a1d67cd031ee2ca09026e36e4d529a74d899856a",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-14/adapter.log": "71d9be0a6cbbc5076fe9513b86b7976dcc1f78b976b807161abd6bae03b758a2",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-14/session/session.json": "8e8e01eedae633d070370e2cff6309d70814324da6b142ee8c486d78fe1ffcf9",
+          "artifacts/runs/p2-localization-stereo-drop-20261016-14/session/vins.yaml": "2c157686d5f7c704a295a5a6f33ecaa4b66f45fdbab8ea316b2c84a11f1e2410"
+        }
+      }
+    }
+  },
+  "retained_invalid_attempts": {
+    "p2-localization-stereo-drop-20261016-08": {
+      "qualification": "Probe did not observe TRACKING; retain as a relay/debug attempt only.",
+      "artifacts_sha256": {
+        "artifacts/runs/p2-localization-stereo-drop-20261016-08/fault.json": "5262504aa8ce51917c7f004b82851047f502d7de31aed00253115070acab602d",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-08/probe.json": "f2bf64afb6cb45c497e3d71912193f50eb0541203c925e920cb632b6771132d1",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-08/session/session.json": "dafbc5a6fd5402fb78d97217cfde73b9a14234b234ca0dda2097d4ae8b847a98"
+      }
+    },
+    "p2-localization-stereo-drop-20261016-09": {
+      "qualification": "TRACKING was followed by telemetry_stale, but old wall-scheduled relay report did not align the drop interval to source time; causality is unproven.",
+      "artifacts_sha256": {
+        "artifacts/runs/p2-localization-stereo-drop-20261016-09/fault.json": "3062dcdf55c3805d8b516c67d3056c198add258249ae527e81836bb84857a6ad",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-09/probe.json": "f1069edcda5f8be3a013d49a908aedb9a9d519e331be39382020dec4156148df",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-09/session/session.json": "25cdb9095a204fad981cb1f3ba6c9be9ddbfa48f6f7b770a744f8cd385e82bfb"
+      }
+    },
+    "p2-localization-stereo-drop-20261016-10": {
+      "qualification": "rosbag play --clock replaced recorded sim time with bag receive time; monitor saw stale timestamps, no TRACKING, and no source-window forwarding after the drop.",
+      "artifacts_sha256": {
+        "artifacts/runs/p2-localization-stereo-drop-20261016-10/fault.json": "6af7a380c038005fe8aff94ced35c11da1bee51f60516be2b27dab392c46f321",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-10/probe.json": "33b4a0331fc4e9b3db1c4993671fbb50509d6e7d8656992831fd59f5950d7c56",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-10/session/session.json": "71a4d598895f585e6749da1706199cab5a3061f216503658156761412b18ed98"
+      }
+    },
+    "p2-localization-stereo-drop-20261016-12": {
+      "qualification": "Before the scheduled source-time dropout at 2.502 s, the old wall-receipt gate locked at source 1.387 s with telemetry_stale; not evidence for camera-loss response.",
+      "artifacts_sha256": {
+        "artifacts/runs/p2-localization-stereo-drop-20261016-12/fault.json": "7257003c123330a90f0e60d263e641876aa7a2631b9d3cb488cff9637e76310e",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-12/probe.json": "7fdace2a527c12e25a216bfb4ff89d58ed11af785274ba247a7d3eb9746b481f",
+        "artifacts/runs/p2-localization-stereo-drop-20261016-12/session/session.json": "9909d6af251a8d3f01af43f15bdd95af1966d32deb091bb6b43b922af0ec1c70"
+      }
+    }
+  },
+  "limitations": [
+    "Only stereo dropout has two independent injections. IMU/depth dropout, planner exit, a second VINS process restart, and clock rollback remain incomplete.",
+    "Health limits remain provisional P2 guards, not frozen GOAL.md F limits or a pose-accuracy certificate.",
+    "This test is replay-only; it does not establish live SITL behavior, mapping, EGO, PX4/EKF2 fusion, or final no-truth navigation."
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "date": "2026-10-21",
+  "run_id": "ego-world-import-20261021-01",
+  "status": "PASS_IMPORT_AND_RAW_SENSOR_SMOKE",
+  "scope": "Import/reconstruction, scene validation and raw x500+D435i input check only; no VINS/planning/PX4 flight qualification",
+  "upstream": {
+    "url": "https://github.com/DongnanHu6556/ego-planner-ros2-sim",
+    "commit": "fdbe8743897b04dd0b8d412f60592d4299b69ef3",
+    "path": "ego.sdf",
+    "sha256": "92f04e5674bf46fbc7c8fe4fe9cc6b76004305e2877a176c404083fa752250a3",
+    "license": "NOT_DECLARED; pinned tree and README have no license statement"
+  },
+  "target": {
+    "path": "simulation/worlds/ego.sdf",
+    "sha256": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+    "models": 21,
+    "cylinders": 19,
+    "room_width_length_m": [
+      20,
+      20
+    ],
+    "wall_height_m": 2.5,
+    "roof": false
+  },
+  "adaptations": {
+    "layout_policy": "Use explicit saved model poses from upstream state; preserve model-local link and visual poses. Remove state after materializing.",
+    "static_obstacles": true,
+    "visual_collision_corrections": 16,
+    "materials": "Remove unavailable Gazebo Classic material/shader references; retain explicit existing colors, brick walls use local plain brown fallback. No new texture invented. Ground uses explicit near-black to replace Gazebo/Black.",
+    "harmonic": "SDF 1.9 and explicit systems; no external URI dependencies"
+  },
+  "integration": {
+    "default_generator": "tools/prepare_px4_vio_bootstrap_world.py",
+    "geometry_source": "simulation/worlds/ego.sdf",
+    "runtime_world_id": "vio_initialization",
+    "px4_environment": "timing/gravity/magnetic/atmosphere/geographic conventions remain from pinned PX4 base world",
+    "calibration_world_retained": true,
+    "vehicle_and_camera_models_modified": false
+  },
+  "validation": {
+    "unit_tests": {
+      "scene_generator_and_source_hash": 3,
+      "camera_and_mount_geometry": 3,
+      "calibration_motion_regression": 3,
+      "result": "PASS"
+    },
+    "gz_sdf_check": "both final source and generated world: Valid",
+    "patch_replay": "final source rebuilt byte-identically from pinned upstream + patch",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime": {
+      "scope": "Raw sensor/world smoke, no PX4/control/VINS or planning acceptance",
+      "result": "PASS",
+      "checks": {
+        "all_images_received": true,
+        "depth_has_finite_geometry": true,
+        "imu_samples_received": true,
+        "settled_gravity_observed": true
+      },
+      "streams": {
+        "left": {
+          "count": 342,
+          "width": 640,
+          "height": 480,
+          "pixel_format": 1
+        },
+        "rgb": {
+          "count": 342,
+          "width": 640,
+          "height": 480,
+          "pixel_format": 3
+        },
+        "depth": {
+          "count": 342,
+          "width": 640,
+          "height": 480,
+          "pixel_format": 13,
+          "finite_positive_pixels": 113313,
+          "range_m": [
+            0.20082685351371765,
+            9.805006980895996
+          ]
+        }
+      },
+      "imu_samples": 2255,
+      "imu_norm_last": 9.79999999986358,
+      "wall_s": 15.034602583000378
+    },
+    "px4_custom_plugin_load_errors": false,
+    "container_stopped": true
+  },
+  "retained_attempts": [
+    {
+      "prefix": "attempt-01",
+      "qualification": "earlier ground color; raw streams passed, optional custom plugin path absent in check harness"
+    },
+    {
+      "prefix": "attempt-02",
+      "qualification": "final geometry/color; raw streams passed, custom plugin path still absent in check harness; excluded from full plugin-load result"
+    }
+  ],
+  "limitations": [
+    "No PX4 firmware/control process, arm, flight, VINS initialization, occupancy map or EGO goal run in this smoke.",
+    "World and textures changed; old calibration/flying results do not qualify this scene.",
+    "Classic brick script replaced by plain color; VINS feature quality needs a separate run.",
+    "Upstream repository has no declared license; provenance recorded without relicensing."
+  ],
+  "artifact_sha256": {
+    "simulation/worlds/ego.sdf": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+    "dependencies/patches/simulation/0001-ego-harmonic-static-world.patch": "99e40aeba78939475ebd2075be81416785c1d4d854c3f675d20282289650ab96",
+    "tools/prepare_px4_vio_bootstrap_world.py": "9edf7591bbba1561faf6cf4a8d90df0bf4c60cfdeababbda740c62955a72582d",
+    "tools/test_px4_vio_bootstrap_world.py": "9dc80f9b0ca005f171e219868b9ea1582ac8b3c48ca80b364df2b47a2559e700",
+    "artifacts/runs/ego-world-import-20261021-01/import-report.json": "87e4c73e4f0c85bddc1885665a3c6c191a04bacd596e488c48a8772f7b3957ca",
+    "artifacts/runs/ego-world-import-20261021-01/runtime-check.json": "3660e3daaf1c1fdd4ac509e6922db12fd2d87823ba0847ca022dc9deedadef05",
+    "artifacts/runs/ego-world-import-20261021-01/gazebo-check.log": "665566284506096e06185c65052c42bfe415e04a27b6bed8e33ac8e065ecebf9",
+    "artifacts/runs/ego-world-import-20261021-01/runtime-check.sh": "591e5464c746b3cc718e1efe77e88b9cb6a0a3145c01f790dc057676f6b05add",
+    "artifacts/runs/ego-world-import-20261021-01/check-inputs.py": "3c0ad9baac7a4459fb91c529e755f43f39cfede508e84fdd886e8fffea957227",
+    "artifacts/runs/ego-world-import-20261021-01/world-generation.json": "7265e76f2b2b9c81867c58fb308efb5352dbaf7709714ec9a305deb338425518",
+    "artifacts/runs/ego-world-import-20261021-01/vio_initialization.sdf": "1a51daeb480bafc45fd74c4e858177135bba7e7822a265e35e6bccd3292d3f04"
+  }
+}

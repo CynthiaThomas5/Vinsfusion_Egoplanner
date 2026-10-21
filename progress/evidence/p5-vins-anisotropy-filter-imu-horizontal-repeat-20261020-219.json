@@ -1,0 +1,640 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219",
+  "classification": "HORIZONTAL_ACTION_SUCCEEDED; POSTGOAL_COST_INVALIDATION_DURING_LANDING; IMU_CAPTURED; P5_NOT_PASSED",
+  "scope": "Run-local single-D435i VIO/EGO/PX4 SITL diagnostic with read-only D435i IMU capture. No debug_truth input; not full P5 or GOAL acceptance.",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218",
+    "diagnostic_repeats": [
+      "p5-px4-vio-ego-anisotropy-filter-20261020-214",
+      "p5-px4-vio-ego-anisotropy-filter-zero-offset-bias-control-20261020-215"
+    ],
+    "profile": "vio_closed_loop",
+    "ros_domain_id": 230,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_horizontal_219",
+    "anisotropy_filter_threshold": 0.01,
+    "filter_patch_sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6",
+    "vins_binary_source_run": "p5-px4-vio-ego-no-motion-direct-20261020-207",
+    "vins_binary_sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1",
+    "goal_config_source": "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio_closed_loop_smoke_goal.json",
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.5235987755982988,
+    "health_thresholds_changed": false,
+    "px4_parameters_changed": false,
+    "truth_input_started": false,
+    "px4_bridge_debug_truth_subscription": false,
+    "control_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/position_cmd": 1
+    },
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "run_local_colcon_build": "6 packages finished; see colcon-build.log"
+  },
+  "run": {
+    "action_goal_sent": true,
+    "action_result": {
+      "final_position": [
+        0.33293185955389476,
+        -0.043027521355271374,
+        0.8694871505394136
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "harness_result": "PASS",
+    "harness_landed_and_disarmed": true,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "normalized_cost_exceeded"
+    },
+    "goal_sent_wall_elapsed_s": 21.86157304199878,
+    "goal_source_stamp_before_dispatch_ns": 25576000000,
+    "first_vins_sample_after_goal": {
+      "wall_elapsed_s": 21.876055698998243,
+      "stamp_ns": 25643999999
+    },
+    "first_cost_over_1": {
+      "wall_elapsed_s": 31.187643714998558,
+      "stamp_ns": 31187999999,
+      "normalized_cost": 1.02606421784873,
+      "accel_bias_norm_m_s2": 0.015081202450613201,
+      "long_tracks": 35,
+      "stereo_features": 38,
+      "visual_observations": 397,
+      "residual_components": 1746
+    },
+    "first_localization_invalid_after_goal": {
+      "wall_elapsed_s": 31.224176288997114,
+      "stamp_ns": 31252000000,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.02606421784873,
+      "state": 4
+    },
+    "first_landing_phase_after_action": {
+      "wall_elapsed_s": 28.258667244997923,
+      "phase": "LANDING",
+      "reason": "operator_disable",
+      "nearest_vins_stamp_ns": 29403999999
+    },
+    "max_accel_bias_norm_m_s2": 0.13393196501943716,
+    "max_accel_bias_stamp_ns": 28152000000,
+    "accel_bias_limit_m_s2": 0.15,
+    "interpretation": "The navigation action succeeded and the harness recorded a landed/disarmed terminal state. A later normalized_cost_exceeded invalidation occurred during LANDING, after action success. Estimated acceleration bias remained below its existing guard."
+  },
+  "imu_capture": {
+    "file": "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/imu-trace.json",
+    "summary": {
+      "topic": "/sensors/d435i/imu",
+      "message_type": "sensor_msgs/msg/Imu",
+      "node_name": "p5_imu_readonly_capture",
+      "sample_count": 12619,
+      "source_frame_ids": [
+        "d435i_imu_frame"
+      ],
+      "first_stamp_ns": 11556000000,
+      "last_stamp_ns": 74648000000,
+      "duration_wall_s": 102.219045823,
+      "source_rate_hz": 199.99366005198758,
+      "positive_stamp_gap_s": {
+        "median": 0.004,
+        "p95": 0.008,
+        "max": 0.008
+      },
+      "nonpositive_stamp_gap_count": 0,
+      "all_numeric_samples_finite": true,
+      "publisher_endpoints_at_shutdown": []
+    },
+    "publisher_inventory_at_startup": {
+      "source": "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/imu-topic-info.txt",
+      "publisher_count": 1,
+      "publisher_node": "d435i_sensor_bridge",
+      "subscribers": [
+        "vins_estimator",
+        "localization_adapter"
+      ]
+    },
+    "bias_peak": {
+      "stamp_ns": 28152000000,
+      "accel_bias_norm_m_s2": 0.13393196501943716,
+      "limit_m_s2": 0.15,
+      "crossed": false
+    },
+    "source_stamp_aligned_windows": {
+      "pre_goal_2s": {
+        "start_source_s": 23.576,
+        "end_source_s": 25.576,
+        "sample_count": 401,
+        "acceleration_mean_m_s2": [
+          -0.000371,
+          -0.000362,
+          9.759947
+        ],
+        "acceleration_stddev_m_s2": [
+          0.007137,
+          0.004805,
+          0.012053
+        ],
+        "acceleration_norm_mean_m_s2": 9.759951,
+        "acceleration_norm_stddev_m_s2": 0.012053,
+        "acceleration_norm_max_m_s2": 9.788404,
+        "acceleration_norm_max_stamp_ns": 25312000000,
+        "angular_velocity_norm_max_rad_s": 0.006187
+      },
+      "goal_to_landing_phase": {
+        "start_source_s": 25.576,
+        "end_source_s": 29.404,
+        "sample_count": 766,
+        "acceleration_mean_m_s2": [
+          -0.024633,
+          0.009926,
+          9.787148
+        ],
+        "acceleration_stddev_m_s2": [
+          0.032225,
+          0.12724,
+          0.106743
+        ],
+        "acceleration_norm_mean_m_s2": 9.78806,
+        "acceleration_norm_stddev_m_s2": 0.107075,
+        "acceleration_norm_max_m_s2": 9.995902,
+        "acceleration_norm_max_stamp_ns": 27236000000,
+        "angular_velocity_norm_max_rad_s": 0.9538
+      },
+      "landing_phase_to_first_invalid": {
+        "start_source_s": 29.404,
+        "end_source_s": 31.252,
+        "sample_count": 370,
+        "acceleration_mean_m_s2": [
+          0.005504,
+          0.018451,
+          9.900829
+        ],
+        "acceleration_stddev_m_s2": [
+          1.781477,
+          1.529934,
+          7.271541
+        ],
+        "acceleration_norm_mean_m_s2": 9.997007,
+        "acceleration_norm_stddev_m_s2": 7.515072,
+        "acceleration_norm_max_m_s2": 143.722414,
+        "acceleration_norm_max_stamp_ns": 31088000000,
+        "angular_velocity_norm_max_rad_s": 1.597302
+      }
+    },
+    "largest_acceleration_sample": {
+      "stamp_ns": 31088000000,
+      "linear_acceleration_m_s2": [
+        14.680504783161316,
+        6.6429076342200215,
+        142.8162700131912
+      ],
+      "acceleration_norm_m_s2": 143.7224144766777,
+      "angular_velocity_rad_s": [
+        -0.975356623906983,
+        -1.255466705015505,
+        0.1544592185980994
+      ],
+      "angular_velocity_norm_rad_s": 1.5973023638033133,
+      "samples_norm_over_20_m_s2": 4,
+      "samples_norm_over_50_m_s2": 1,
+      "seconds_before_first_cost_over_1": 0.09999999899999779,
+      "seconds_before_first_localization_invalid": 0.16399999999999793
+    },
+    "px4_ulog_sensor_combined_near_peak": {
+      "stamp_s": 31.088,
+      "acceleration_m_s2": [
+        -17.558887481689453,
+        -20.457706451416016,
+        -57.37074661254883
+      ],
+      "acceleration_norm_m_s2": 63.389548426599646,
+      "angular_velocity_rad_s": [
+        -0.4901188015937805,
+        0.6310891509056091,
+        -0.08215074986219406
+      ],
+      "angular_velocity_norm_rad_s": 0.8032675156941222
+    },
+    "px4_local_position_near_peak": [
+      {
+        "stamp_s": 31.092,
+        "dist_bottom_m": 0.1057,
+        "vertical_velocity_ned_m_s": 0.194444,
+        "vertical_acceleration_ned_m_s2": -57.950089
+      },
+      {
+        "stamp_s": 31.212,
+        "dist_bottom_m": 0.026726,
+        "vertical_velocity_ned_m_s": -1.7e-05,
+        "vertical_acceleration_ned_m_s2": -2.530742
+      }
+    ],
+    "landing_state_after_peak": {
+      "auto_land": {
+        "sim_time_s": 29.428,
+        "arming_state": 2,
+        "arming_state_name": "ARMED",
+        "nav_state": 18,
+        "nav_state_name": "AUTO_LAND",
+        "failsafe": false
+      },
+      "first_ground_contact": {
+        "sim_time_s": 32.524,
+        "landed": false,
+        "ground_contact": true,
+        "maybe_landed": false
+      },
+      "first_landed": {
+        "sim_time_s": 33.196,
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      },
+      "final_vehicle_status": {
+        "arming_state": 1,
+        "nav_state": 14,
+        "failsafe": false
+      },
+      "final_land_status": {
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      }
+    },
+    "interpretation": "D435i IMU and PX4 sensor_combined contain a sharp impulse at 31.088 s. PX4 local-position telemetry moves from about 0.106 m above bottom with positive-down velocity to 0.027 m and near-zero vertical velocity by 31.212 s; ground-contact/landed flags follow later. Timing is consistent with a landing-window impact/transient before the VINS cost rise, but does not prove causation. The goal-to-LANDING interval had no comparable D435i acceleration peak."
+  },
+  "visual_diagnostic": {
+    "telemetry_stamp_ns": 31187999999,
+    "stereo_pairs": 12,
+    "max_stereo_skew_ns": 0,
+    "max_request_image_delta_ns": 1,
+    "visual_block_count": 757,
+    "residual_components": 1514,
+    "unique_feature_count": 37,
+    "blocks_over_1_5px": 138,
+    "blocks_over_3px": 70,
+    "blocks_over_5px": 44,
+    "huber_visual_cost": 336.2345507685115,
+    "all_observations_edge_summary": {
+      "count": 757,
+      "unique_feature_ids": 37,
+      "median_abs_edge_distance_px": 174.67842666141462,
+      "p90_abs_edge_distance_px": 276.7890271843079,
+      "max_abs_edge_distance_px": 357.5844584777637,
+      "within_1_px_of_fitted_edge": 0,
+      "median_abs_residual_along_edge_px": 0.13307794632046033,
+      "median_residual_normal_to_edge_px": 0.5885819010399935,
+      "along_component_larger_than_normal": 105,
+      "positive_along_component": 399,
+      "negative_along_component": 358,
+      "huber_cost_sum": 336.2345507685109,
+      "structure_tensor_min_max_ratio_11px_median": 0.7161659741384422,
+      "structure_tensor_min_max_ratio_11px_p10": 0.5495817227665931,
+      "structure_tensor_min_max_ratio_11px_p90": 0.9005514714692054,
+      "structure_tensor_ratio_below_0_01": 0,
+      "share_of_visual_huber_cost_pct": 100.00000000000001
+    },
+    "over_1_5px_edge_summary": {
+      "count": 138,
+      "unique_feature_ids": 35,
+      "median_abs_edge_distance_px": 245.49662809918345,
+      "p90_abs_edge_distance_px": 315.202819903176,
+      "max_abs_edge_distance_px": 330.2834970792004,
+      "within_1_px_of_fitted_edge": 0,
+      "median_abs_residual_along_edge_px": 0.5132410171061731,
+      "median_residual_normal_to_edge_px": 3.194782492068171,
+      "along_component_larger_than_normal": 0,
+      "positive_along_component": 126,
+      "negative_along_component": 12,
+      "huber_cost_sum": 290.46202560085413,
+      "structure_tensor_min_max_ratio_11px_median": 0.7029635311827283,
+      "structure_tensor_min_max_ratio_11px_p10": 0.5393977377841906,
+      "structure_tensor_min_max_ratio_11px_p90": 0.8932888222658575,
+      "structure_tensor_ratio_below_0_01": 0,
+      "share_of_visual_huber_cost_pct": 86.38672763907299
+    },
+    "top_observation_edge_summary": {
+      "top_observation_count": 757,
+      "unique_feature_ids": 37,
+      "median_abs_edge_distance_px": 223.47951741102304,
+      "max_abs_edge_distance_px": 342.4839280894314,
+      "observations_within_1_px_of_fitted_edge": 0,
+      "observations_with_along_component_larger_than_normal": 118,
+      "observations_with_positive_along_component": 288,
+      "interpretation_limit": "This is a spatial correlation in the top observation subset, not an independent root-cause proof. Rows may repeat feature IDs across temporal/stereo residual blocks; the edge is a fitted image gradient, not a semantic wall/floor label, and tracking, calibration, motion, and scene texture remain possible contributors."
+    },
+    "image_hash_audit": {
+      "checked": 781,
+      "mismatches": []
+    },
+    "interpretation": "At the first cost crossing, 757 visual residual blocks were available and all 12 stereo pairs had zero skew. The >1.5 px residual subset was spatially far from the fitted strongest image edge, 0/757 observations were within 1 px of it, and no residual feature had an 11 px structure-tensor min/max ratio below 0.01. This single-frame diagnostic does not identify the cost cause."
+  },
+  "px4_safety": {
+    "ulog_duration_sim_s": 30.08,
+    "dropouts": 0,
+    "estimator_flag_counts": {
+      "cs_ev_pos": {
+        "true": 26,
+        "samples": 38
+      },
+      "cs_ev_yaw": {
+        "true": 26,
+        "samples": 38
+      },
+      "cs_ev_vel": {
+        "true": 26,
+        "samples": 38
+      },
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 38
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 38
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 38
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 38
+      }
+    },
+    "vehicle_status_transitions": [
+      {
+        "sim_time_s": 6.076,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 4,
+        "nav_state_name": "AUTO_LOITER",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 16.42,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 16.504,
+        "arming_state": 2,
+        "arming_state_name": "ARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 29.428,
+        "arming_state": 2,
+        "arming_state_name": "ARMED",
+        "nav_state": 18,
+        "nav_state_name": "AUTO_LAND",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 35.212,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      }
+    ],
+    "land_transitions": [
+      {
+        "sim_time_s": 5.524,
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      },
+      {
+        "sim_time_s": 18.252,
+        "landed": false,
+        "ground_contact": true,
+        "maybe_landed": false
+      },
+      {
+        "sim_time_s": 18.26,
+        "landed": false,
+        "ground_contact": false,
+        "maybe_landed": false
+      },
+      {
+        "sim_time_s": 32.524,
+        "landed": false,
+        "ground_contact": true,
+        "maybe_landed": false
+      },
+      {
+        "sim_time_s": 32.86,
+        "landed": false,
+        "ground_contact": true,
+        "maybe_landed": true
+      },
+      {
+        "sim_time_s": 33.196,
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      }
+    ],
+    "battery_warning_values": [
+      0
+    ],
+    "battery_fault_values": [
+      0
+    ],
+    "final_vehicle_status": {
+      "arming_state": 1,
+      "nav_state": 14,
+      "failsafe": false
+    },
+    "final_land_status": {
+      "landed": true,
+      "ground_contact": true,
+      "maybe_landed": true
+    }
+  },
+  "limitations": [
+    "One run is diagnostic evidence only; it does not meet GOAL D per-scene repetitions, obstacle avoidance, clearance, or zero-collision criteria.",
+    "The action and landing record do not qualify P5; the VIO cost gate invalidated during LANDING after action success.",
+    "The 31.088 s impulse is adjacent to the later cost increase and landing; a single run cannot distinguish contact, sensor/model response, or another coupled cause.",
+    "The D435i recorder started after source stamp 11.556 s. Its shutdown publisher list is empty because the source stack had stopped; active publisher identity is in the earlier ros2 topic-info capture.",
+    "There is no direct D435i IMU trace or preintegration export for #218; comparison against this new direct trace is limited.",
+    "The fitted image-gradient correlation is not semantic scene labeling and cannot establish a root cause.",
+    "P5 remains in progress. No health, freshness, or PX4 gate was relaxed."
+  ],
+  "next_step": "Repeat the exact 0.30 m/+30 degree run with the same read-only D435i IMU recorder in a fresh domain/partition. Compare action completion, post-action cost invalidation, and landing-window IMU input; keep the filter threshold and all existing gates unchanged.",
+  "sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/source-patch-manifest.json": {
+      "bytes": 3141,
+      "sha256": "fb7f07dc01565365967b996ad8439734ab848d9efcb4780dcca9edc8dae6485f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/launch-horizontal-imu-trace.sh": {
+      "bytes": 477,
+      "sha256": "87d0a1e75041c19cdacb1df6c808c71e7eeabed77527493fcec88d287a150ae2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/run-filtered-horizontal-goal.sh": {
+      "bytes": 10772,
+      "sha256": "8e3ed1b55677a59d6037a65ed635f1e8ee36bdb7b5c0f2c07e0fa87cd9ae3235"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/run_vio_ego_flight_harness.py": {
+      "bytes": 30460,
+      "sha256": "6818b6f977c7697fa4eb5d113654666d68cd70cbcf4323a7c243cc2d4a58e586"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/capture_imu_trace.py": {
+      "bytes": 4655,
+      "sha256": "7b65a44fcd13193e5980e25f705bc7f54405ea3d94dc5878257e662a7d280350"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/capture_quality_crossing_images.py": {
+      "bytes": 7911,
+      "sha256": "05bb8765d4e85a6a39752ca731f2b6c8d127d7d182db41f66636f51239b93feb"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/analyze_all_feature_residuals.py": {
+      "bytes": 10711,
+      "sha256": "8d7244153a4c231b5f4aa11d601a82320759c0462e5b7a0b365fec222c7d3346"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/analyze_image_edge_correlation.py": {
+      "bytes": 5832,
+      "sha256": "f17d9e1285a9a275eb3f1a32e6cac0b83ae4ff8d6d66947e7cbd9c1e10bf6588"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/analyze_px4_ulog.py": {
+      "bytes": 7246,
+      "sha256": "f37c54335cf7f24433b7752565fa906e46739e1b18326fe1253d7c16c328707c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/vio-ego-flight-report.json": {
+      "bytes": 3177129,
+      "sha256": "2637241c048a2556750a1d36313df1b3c59016e715d93407b86597abd92ee0fd"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/landing-failsafe-timeline.json": {
+      "bytes": 3285,
+      "sha256": "7ee17369844eaf76e1621f5201413ec0662db515e0d862dd5947fba9353fa1c4"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/imu-capture.log": {
+      "bytes": 588,
+      "sha256": "30c0ec275b5c9661da341b3c499f62113b825b6b0c82d85110a091940ecd6364"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/imu-topic-info.txt": {
+      "bytes": 1444,
+      "sha256": "0396ec7e2a7c0158d4672d1dc8bf47c7aad7079fec81e1d5929d6de8b3eaae0d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/imu-trace.json": {
+      "bytes": 4850452,
+      "sha256": "a39fa3cfa865a12237749c8c297e2aa16740993e7b7e5453399c6bfd996003d5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/truth-and-control-isolation.txt": {
+      "bytes": 306,
+      "sha256": "815c13a8f77b7290f012af71dd9df6f68732e749cbe643bd045bde2ec5aa9c31"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "c01a7923128717ef5bd6219cb8ce1b135f9bc94bec0d165f33eeb96af7119aa9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/px4-bridge-live.json": {
+      "bytes": 8768234,
+      "sha256": "5219b0af7d55e0c639079808baa383c54904d3e9f144d5d69b0b09aa2512d19d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/px4-param-stage.json": {
+      "bytes": 766,
+      "sha256": "ae4e9575c6813e382973eb5312f0a075d7e05d2f58cb3a126fd457569d93b261"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/world-generation.json": {
+      "bytes": 1457,
+      "sha256": "47a82d53c3dc15ea0bb6b4d5c9d1ef28540e3d427cd0edf0e8caf90a109d21d5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/agent.log": {
+      "bytes": 41563,
+      "sha256": "a661516b7351119091fdceaf05a12b6a89fbb964db8152081b1c42b1be0a8b71"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/px4.log": {
+      "bytes": 5286,
+      "sha256": "b8fd491667bccb71ecb2848ca98d762fd66b84f7447bf049dac76bc67ca70170"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/gazebo.log": {
+      "bytes": 2902,
+      "sha256": "73ecee6619e4e61015841bf8f26d094a09739086c8d1b20f307d0a03945fae35"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/vio-launch.log": {
+      "bytes": 743606,
+      "sha256": "885d858c85d4b5a04f7fd3b58c04b1c9578c33bf0e50feb58b76ad208733417e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/vio-ego-flight.log": {
+      "bytes": 3177129,
+      "sha256": "2637241c048a2556750a1d36313df1b3c59016e715d93407b86597abd92ee0fd"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/vio_closed_loop_smoke_goal.json": {
+      "bytes": 429,
+      "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/quality-images/quality-crossing-image-manifest.json": {
+      "bytes": 760996,
+      "sha256": "1d041d632c3537cc8ee64dd79c8e7c4d9e70c86f96c9925a9b4473eb05b6898d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/all-feature-edge-correlation.json": {
+      "bytes": 598487,
+      "sha256": "98792ec1975dc46c10a17373ec78623815fb6eaf825a3fc2b6af9c6b91f959c9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/image-edge-correlation.json": {
+      "bytes": 331006,
+      "sha256": "dad5ded0253bbb7e4f1c624b4c8cf7443b9447b0ff2b9c5abdf1ada50776a512"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-219/px4_sitl_default/log/2026-10-19/18_47_19.ulg": {
+      "bytes": 8097785,
+      "sha256": "b31b31bfee2e6701a7c9de360f335723dbc229634c6c4002d32ea7274a0cd0a2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-192/vio_closed_loop_smoke_goal.json": {
+      "bytes": 429,
+      "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/vins-install/vins/lib/vins/vins_node": {
+      "bytes": 12313304,
+      "sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47431,
+      "sha256": "08918139cec607da2b3e8cd10ac28a84f91f5d61af9f61bbe497d125997a5a78"
+    },
+    "config/components/localization/health.json": {
+      "bytes": 800,
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "config/profiles/vio_closed_loop.json": {
+      "bytes": 562,
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "config/profiles/debug_truth.json": {
+      "bytes": 452,
+      "sha256": "6abac4deaf69d37596137da8c9598c60d19542898a38652ae226e8bbb86ecdfb"
+    },
+    "dependencies/patches/vins/0008-feature-anisotropy-filter-experiment.patch": {
+      "bytes": 3474,
+      "sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6"
+    }
+  }
+}

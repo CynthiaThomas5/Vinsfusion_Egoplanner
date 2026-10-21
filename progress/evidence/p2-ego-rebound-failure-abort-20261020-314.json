@@ -1,0 +1,143 @@
+{
+  "schema": "p2-ego-rebound-failure-abort-diagnostic/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-astar-rebound-abort-20261020-314",
+  "result": "STOP_FOR_ERROR observed for blocked pre-collision points and failed A* candidates; retry loop remains high-rate and one alternate B-spline was still published; acceptance pending.",
+  "build_report": {
+    "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/build-report-0027.json",
+    "sha256": "cd841c87be49b4dcb286eb471cfdf7250d0f0cbb6e3adca7097056bba4adccfe",
+    "size_bytes": 4457
+  },
+  "source_manifest": {
+    "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/source-manifest-experiment-0027.json",
+    "sha256": "4c1473a6c3cd9ebca59fb71954889990fc659bc5eed11dd2b92852fa52bb6190",
+    "size_bytes": 12504
+  },
+  "patch": {
+    "path": "dependencies/patches/ego/0027-rebound-astar-failure-abort-experiment.patch",
+    "sha256": "68c1d607361e3deb3eb6e95748831ee68b57eb70a36c23131408f69529646918",
+    "size_bytes": 2198
+  },
+  "project_git_status_snapshot": {
+    "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/git-status.snapshot.txt",
+    "sha256": "337555f0c92427f0aa05226633b6db0e7648cd61786c0a929724f666f0a230f7",
+    "size_bytes": 39150
+  },
+  "configuration": {
+    "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/planner-config.json",
+    "sha256": "34a776d7eab1c15f9eab9982d67edba7d26feda7a10778b956400886ca103ff1",
+    "inflation_m": 0.5,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "ego_runtime_parameters": {
+      "fsm/thresh_replan_time": 1.0,
+      "fsm/exec_timer_wall_period_ms": 10
+    }
+  },
+  "runtime": {
+    "goal_probe": {
+      "status": "bspline_received",
+      "goal_sent": true,
+      "bspline_count": 1,
+      "wall_seconds": 23.065034,
+      "epoch": "2741f3179b9f4424b0cefb2a57e66075",
+      "map_id": "2741f3179b9f4424b0cefb2a57e66075-fa06d3f13ade46bdbe44dc567c147539",
+      "map_reason": "ready",
+      "occupied_point_count": 925,
+      "forwarded_depth_count": 409,
+      "keyframe_count": 14,
+      "raw_occupancy_points_last": 909,
+      "inflated_occupancy_points_last": 16659,
+      "telemetry_sample_count": 233,
+      "trajectory_executed": false
+    },
+    "motion": {
+      "clock": [
+        3.236,
+        36.244
+      ],
+      "imu_samples": 6601,
+      "force_commands": 8,
+      "truth_subscription": false
+    },
+    "astar_counts": {
+      "total": 20385,
+      "other_calls": 0,
+      "other_endpoint_rejects": 0,
+      "other_success": 0,
+      "other_search_failures": 0,
+      "init_calls": 15290,
+      "init_endpoint_rejects": 8833,
+      "init_success": 6278,
+      "init_search_failures": 179,
+      "collision_calls": 5095,
+      "collision_endpoint_rejects": 1857,
+      "collision_success": 3041,
+      "collision_search_failures": 197,
+      "other_timeouts": 0,
+      "init_timeouts": 0,
+      "collision_timeouts": 0
+    },
+    "window_normalized_astar_calls_per_second": 883.8,
+    "rebound_abort_events": {
+      "no_free_pre_collision_abort": 20421,
+      "astar_failed_abort": 2054,
+      "planner_fail": 22940,
+      "planner_success": 9,
+      "legacy_drone_in_obstacle_error": 0,
+      "pool_exit": 0
+    },
+    "abort_ros_time_window_s": 45.811,
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/ego-01.log",
+      "sha256": "5760bc56d6338e67bfff3062afd5b9fc271457a8324046bbb704d011eebf13bd",
+      "size_bytes": 16951750
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/runtime-summary-01.json",
+      "sha256": "35cc030c16247694c6f936532ce621ccf2c2167443b9b19eb20e70736808c025",
+      "size_bytes": 263833
+    },
+    "goal_result": {
+      "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/planner-goal-result-01.json",
+      "sha256": "cfdc164d103fcf4e2cf3c18c00d9e465b46975f6c34a6a7ccc3f488b56bdb626",
+      "size_bytes": 246392
+    },
+    "motion_artifact": {
+      "path": "artifacts/runs/p2-ego-astar-rebound-abort-20261020-314/motion-01.json",
+      "sha256": "c4488f95de6959cb22c8884312000770213ac37f64da4894dfe6e59b9596ac13",
+      "size_bytes": 1515121
+    },
+    "unique_bsplines_received": 1,
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_control_nodes": [],
+    "snapshot_service_called": false
+  },
+  "call_chain_audit": {
+    "fsm_wall_timer_period_ms": 10,
+    "initial_plan_trials_per_timer_tick": 10,
+    "failure_transition": "SEQUENTIAL_START remains active after plan failure",
+    "planner_manager_failure_behavior": "returns false before constructing/publishing a new trajectory when all optimizer alternatives fail",
+    "runtime_observation": "22,940 failed manager plan attempts and 9 successful attempts over a 23.065 s probe window; this is consistent with repeated 10-candidate retries from the 100 Hz FSM loop. The one received B-spline came from an alternate successful attempt."
+  },
+  "isolation": {
+    "px4_started": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "trajectory_executed": false,
+    "truth_topics_subscribed": false,
+    "control_topics_published": false,
+    "snapshot_service_invoked": false
+  },
+  "limitations": [
+    "Patch 0027 is experimental and not in the canonical source or dependency manifest.",
+    "Individual candidates that lack a pre-collision free point or an A* path fail, but another candidate can still succeed; one unexecuted B-spline was received.",
+    "The planner retries up to 10 new trajectories every 10 ms while initial planning fails; repeated failures remain a resource/logging risk.",
+    "The near-origin point (-0.0061,-0.0035,-0.0017) was observed as in-map, unknown, raw occupancy 0 and inflated 1; no synchronized voxel snapshot or clearance proof was captured.",
+    "Run-local inflation is 0.5 m; no trajectory was executed and there is no truth-based clearance, collision, SITL, PX4 or final visual-closure evidence."
+  ],
+  "next_step": "Add an experimental cooldown for repeated initial global-plan failures using the existing 1.0 s replan interval. Verify the planner waits for the online map to improve instead of retrying 10 candidates on every 10 ms FSM tick; capture and evaluate the accepted B-spline against a synchronized map before considering any execution."
+}

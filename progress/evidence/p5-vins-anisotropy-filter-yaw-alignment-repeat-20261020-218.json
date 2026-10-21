@@ -1,0 +1,353 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218",
+  "classification": "ZERO_OFFSET_ACTION_SUCCEEDED; PX4_YAW_ALIGNMENT_GATE_CROSSED_DURING_LANDING; IMU_CAPTURE_PROBE_FAILED; P5_NOT_PASSED",
+  "scope": "Run-local zero-offset VIO/EGO/PX4 SITL repeat; captures direct alignment yaw detail. An attempted read-only IMU observer failed during teardown and produced no trace.",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-anisotropy-filter-yaw-detail-20261020-217",
+    "profile": "vio_closed_loop",
+    "ros_domain_id": 229,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_trace_218",
+    "filter_threshold": 0.01,
+    "filter_patch_sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6",
+    "goal_config_source": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/vio_closed_loop_smoke_goal.json",
+    "goal_config_sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046",
+    "target_offset_enu_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.0,
+    "bridge_detail_field": "alignment_yaw_error_rad (read-only; no control/fault logic changes)",
+    "bridge_source_sha256": "08918139cec607da2b3e8cd10ac28a84f91f5d61af9f61bbe497d125997a5a78",
+    "truth_input_started": false,
+    "px4_bridge_debug_truth_subscription": false,
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "control_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "run_local_colcon_build": "6 packages finished; see colcon-build.log"
+  },
+  "run": {
+    "action_goal_sent": true,
+    "action_success": true,
+    "action_result": {
+      "final_position": [
+        -0.009103018745300858,
+        0.05818187474056461,
+        0.8495329760123665
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "goal_sent_wall_elapsed_s": 22.17182880800101,
+    "flight_report_result": "FAIL",
+    "flight_report_failure": "landed_disarmed_not_observed_after_goal",
+    "flight_report_landed_and_disarmed": false,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDING",
+      "ready": false,
+      "reason": "px4_frame_alignment_drift"
+    },
+    "first_localization_invalid_after_goal": {
+      "accepted_optimized": 286,
+      "accepted_propagated": 3776,
+      "epoch": "4b9a000516fb4b20873847f84c24f660",
+      "good_pairs": 295,
+      "normalized_cost": 1.018525442767584,
+      "reason": "normalized_cost_exceeded",
+      "source_stamp_ns": 27411999999,
+      "stamp_ns": 27424000000,
+      "state": 4,
+      "valid": false,
+      "wall_elapsed_s": 26.15822240399939
+    },
+    "max_accel_bias_norm_m_s2": 0.1072725384454543,
+    "accel_bias_limit_m_s2": 0.15,
+    "post_action_cost_event": "The action result was success; the later localization invalidation was normalized_cost_exceeded during landing and is not an action abort."
+  },
+  "alignment_diagnostic": {
+    "position_gate_m": 0.15,
+    "yaw_gate_rad": 0.15,
+    "landing_began_after_action": "The bridge entered LANDING with reason operator_disable after the action succeeded.",
+    "first_reported_frame_alignment_fault_detail": {
+      "wall_elapsed_s": 25.651162858001044,
+      "phase": "LANDING",
+      "reason": "px4_frame_alignment_drift",
+      "alignment_drift_m": 0.008451871156378576,
+      "alignment_yaw_error_rad": 0.1058047788282126,
+      "alignment_pair_validated_age_wall_s": 0.000853127,
+      "alignment_pair_validated_gap_sim_s": 0.04
+    },
+    "fresh_overlimit_yaw_sample_while_fault_reported": {
+      "wall_elapsed_s": 25.752178245002142,
+      "phase": "LANDING",
+      "reason": "px4_frame_alignment_drift",
+      "alignment_drift_m": 0.019262263826482606,
+      "alignment_yaw_error_rad": 0.1965492742200583,
+      "alignment_pair_validated_age_wall_s": 0.100862,
+      "alignment_pair_validated_gap_sim_s": 0.096
+    },
+    "max_ACTIVE_yaw_sample": {
+      "wall_elapsed_s": 25.153922299999977,
+      "phase": "ACTIVE",
+      "reason": "takeoff_complete_waiting_for_trajectory",
+      "alignment_drift_m": 0.009502250439741783,
+      "alignment_yaw_error_rad": 0.12839234183154336,
+      "alignment_pair_validated_age_wall_s": 0.102949589,
+      "alignment_pair_validated_gap_sim_s": 0.096
+    },
+    "interpretation": "At the fresh LANDING pair at 25.752 s, yaw error was 0.196549 rad (>0.15 rad) while position drift was 0.019262 m (<0.15 m), pair age 0.100862 s, pair gap 0.096 s, and detail reason was px4_frame_alignment_drift. This directly demonstrates the yaw predicate was over its configured limit while the fault was reported. The first detail sample already carrying that reason reported yaw 0.105805 rad; the exact latch instant is not exposed, so the over-limit sample confirms the fault window rather than its first transition timestamp."
+  },
+  "imu_observer": {
+    "topic": "/sensors/d435i/imu",
+    "message_type": "sensor_msgs/msg/Imu",
+    "publisher_at_prelaunch_probe": "d435i_sensor_bridge (one publisher); VINS and localization subscribers observed.",
+    "process_started": true,
+    "trace_file_created": false,
+    "failure": "rclpy ExternalShutdownException during SIGINT cleanup, then node context invalid before publisher query; no raw samples were saved.",
+    "source_sha256": "a376f56697ff5e1d941ce821bcf5d08897694419e270f04aa035811dea553405"
+  },
+  "px4_safety": {
+    "ulog_duration_sim_s": 27.564,
+    "dropouts": 0,
+    "estimator_flag_counts": {
+      "cs_ev_pos": {
+        "true": 23,
+        "samples": 38
+      },
+      "cs_ev_yaw": {
+        "true": 23,
+        "samples": 38
+      },
+      "cs_ev_vel": {
+        "true": 23,
+        "samples": 38
+      },
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 38
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 38
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 38
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 38
+      }
+    },
+    "final_vehicle_status": {
+      "arming_state": 1,
+      "nav_state": 14,
+      "failsafe": false
+    },
+    "final_land_status": {
+      "landed": true,
+      "ground_contact": true,
+      "maybe_landed": true
+    },
+    "battery_warning_values": [
+      0
+    ],
+    "battery_fault_values": [
+      0
+    ],
+    "vehicle_status_transitions": [
+      {
+        "sim_time_s": 6.196,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 4,
+        "nav_state_name": "AUTO_LOITER",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 15.664,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 15.82,
+        "arming_state": 2,
+        "arming_state_name": "ARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 27.076,
+        "arming_state": 2,
+        "arming_state_name": "ARMED",
+        "nav_state": 18,
+        "nav_state_name": "AUTO_LAND",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 31.948,
+        "arming_state": 2,
+        "arming_state_name": "ARMED",
+        "nav_state": 12,
+        "nav_state_name": "DESCEND",
+        "failsafe": true
+      },
+      {
+        "sim_time_s": 32.776,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "nav_state": 14,
+        "nav_state_name": "OFFBOARD",
+        "failsafe": false
+      }
+    ]
+  },
+  "visual_diagnostic": {
+    "stereo_pairs": 12,
+    "residual_overlay_count": 701,
+    "telemetry_stamp_ns": 27359999999
+  },
+  "interpretation": "The zero-offset action succeeded. In the subsequent bridge LANDING interval, a fresh alignment pair exceeded the 0.15 rad yaw gate while translation drift remained below its 0.15 m gate; the bridge reported px4_frame_alignment_drift. This confirms yaw alignment can independently exceed its configured guard in the #216 fault window, but the exact initial latch instant is not recorded. Estimated accel bias remained below its 0.15 m/s^2 guard. PX4 ULog records final touchdown/disarm, EV aiding, zero GNSS aiding and a transient DESCEND/failsafe. The harness report remains FAIL because it did not observe the bridge LANDED phase. P5 remains in progress.",
+  "limitations": [
+    "No navigation acceptance: the run is a diagnostic and the harness report did not observe bridge LANDED after action success.",
+    "The direct yaw sample was captured while the latched fault reason was already being reported; exact fault latch timestamp is unresolved.",
+    "The run-local IMU observer crashed on signal teardown and saved no raw IMU data.",
+    "Localization cost invalidated after action success during landing; it does not explain the successful action result.",
+    "No runtime truth pose or full world map was supplied to navigation or evaluation."
+  ],
+  "sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/source-patch-manifest.json": {
+      "bytes": 2456,
+      "sha256": "5ffbcfcbb73da055cac69e11790d18211e5eb5f435fcd9e776a6fd43489a2e83"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/launch-zero-offset-imu-trace.sh": {
+      "bytes": 472,
+      "sha256": "a04d17789a2be841de126021cfbe0d7f1f237688e54e7ff7c5bff3d4463f5995"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/run-filtered-horizontal-goal.sh": {
+      "bytes": 10768,
+      "sha256": "1bffd855ac184ab3951d12b64d248cb197b1165b3385b1fda3f104bb29976984"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/run_vio_ego_flight_harness.py": {
+      "bytes": 30460,
+      "sha256": "6818b6f977c7697fa4eb5d113654666d68cd70cbcf4323a7c243cc2d4a58e586"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/capture_imu_trace.py": {
+      "bytes": 4284,
+      "sha256": "a376f56697ff5e1d941ce821bcf5d08897694419e270f04aa035811dea553405"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/capture_quality_crossing_images.py": {
+      "bytes": 7911,
+      "sha256": "05bb8765d4e85a6a39752ca731f2b6c8d127d7d182db41f66636f51239b93feb"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/vio-ego-flight-report.json": {
+      "bytes": 8078062,
+      "sha256": "124d408a796053e4b0a77694faafa3569b0c59a9c3c7b03f8368b20f76529c36"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/landing-failsafe-timeline.json": {
+      "bytes": 3482,
+      "sha256": "318db8862a1c8c10537b8a8879ceb13e8b1d8b1cf8eaddbd3201df438701c9e5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/analyze_px4_ulog.py": {
+      "bytes": 7241,
+      "sha256": "19c7ab222f65aa8221cc14525de3203ec5ae834cc4f9eb5a0f5de192fa1938ba"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/imu-capture.log": {
+      "bytes": 2113,
+      "sha256": "1331b3213a09a0773e7b88b741459dd7bc63a08e6321bc0ee13340236a104b68"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/imu-topic-info.txt": {
+      "bytes": 1444,
+      "sha256": "815ef0d909fc12547de7767c224fec3a225a4f2f863ae0efbb8c17237e0a0382"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/truth-and-control-isolation.txt": {
+      "bytes": 301,
+      "sha256": "c47c43d066fba63d134dc01a1fe335dd55896077169a74fbc13fd31702902b10"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "15ec8448647261179eacd165068865ab5a2521073c5ab80edef0d535d1ad6a8e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/px4-bridge-live.json": {
+      "bytes": 8950594,
+      "sha256": "0435671a812091b8fec62e00f22ce9ef95952184bab1326746b3568e1ac3268a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/px4-param-stage.json": {
+      "bytes": 761,
+      "sha256": "c60753db3b62e5cd43c167bf87d0efba99d5f62557b32b1c0e6f752254fcd1b6"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/world-generation.json": {
+      "bytes": 1452,
+      "sha256": "d4810d640ae552c94f29cadf313bc0627f7df8149fea42c72e18ba610aefef97"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/vio-launch.log": {
+      "bytes": 3419385,
+      "sha256": "1e1003612fc92266dfa9b352bdd335a6bbdd9906f369ef72447df70a64ad2e7d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/vio-ego-flight.log": {
+      "bytes": 8078062,
+      "sha256": "124d408a796053e4b0a77694faafa3569b0c59a9c3c7b03f8368b20f76529c36"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/container.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47431,
+      "sha256": "08918139cec607da2b3e8cd10ac28a84f91f5d61af9f61bbe497d125997a5a78"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "config/components/localization/health.json": {
+      "bytes": 800,
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "config/profiles/vio_closed_loop.json": {
+      "bytes": 562,
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "config/profiles/debug_truth.json": {
+      "bytes": 452,
+      "sha256": "6abac4deaf69d37596137da8c9598c60d19542898a38652ae226e8bbb86ecdfb"
+    },
+    "dependencies/patches/vins/0008-feature-anisotropy-filter-experiment.patch": {
+      "bytes": 3474,
+      "sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/px4_sitl_default/log/2026-10-19/18_40_57.ulg": {
+      "bytes": 7397286,
+      "sha256": "20b8462d4844b1d60d5ce13af13184e125dcaa7a23ec748e40a227268cc7bc6a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-trace-20261020-218/quality-images/quality-crossing-image-manifest.json": {
+      "bytes": 703727,
+      "sha256": "9f0e6e20d0570842846dfc429d9bc227d0067252ef9a42933cfd6e49cede6588"
+    }
+  }
+}

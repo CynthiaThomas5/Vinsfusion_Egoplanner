@@ -1,0 +1,30 @@
+--- a/vins/src/rosNodeTest.cpp
++++ b/vins/src/rosNodeTest.cpp
+@@ -9,6 +9,7 @@
+  * Author: Qin Tong (qintonguav@gmail.com)
+  *******************************************************/
+ 
++#include <cstdlib>
+ #include <stdio.h>
+ #include <queue>
+ #include <map>
+@@ -245,7 +246,19 @@
+ 
+ int main(int argc, char **argv)
+ {
++    if (const char *requested = std::getenv("VINS_OPENCV_THREADS"))
++    {
++        char *end = nullptr;
++        const long count = std::strtol(requested, &end, 10);
++        if (end == requested || *end != '\0' || count < 1 || count > cv::getNumberOfCPUs())
++        {
++            std::fprintf(stderr, "Invalid VINS_OPENCV_THREADS\n");
++            return 2;
++        }
++        cv::setNumThreads(static_cast<int>(count));
++    }
+     rclcpp::init(argc, argv);
++    std::fprintf(stderr, "VINS OpenCV threads=%d\n", cv::getNumThreads());
+ 	auto n = rclcpp::Node::make_shared("vins_estimator");
+     // ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Info);
+ 

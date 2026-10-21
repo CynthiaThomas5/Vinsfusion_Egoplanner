@@ -1,0 +1,92 @@
+{
+  "scope": "P4 partial: ROS navigation action to EGO command/cancel adapter and traj_server task metadata; does not qualify EGO planning or PX4 flight.",
+  "date": "2026-10-17",
+  "status": "PASS_BUILD_AND_SYNTHETIC_ACTION_TRAJECTORY_TESTS; REAL_PLANNING_AND_FLIGHT_UNQUALIFIED",
+  "upstream": {
+    "ego_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch": "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch",
+    "patch_sha256": "e82a26df1d5a1113e7b19b3e8556f81ef2bc09cf07db5670f3094e9afad68dc1",
+    "reconstruction": "PASS: replayed 0017 on the pinned source reconstructed through patches 0001-0008; the changed files are not touched by 0009-0011; all four resulting vendor files matched the workspace byte-for-byte.",
+    "changed_vendor_files": [
+      "src/vendor/ego_planner/planner/plan_manage/include/ego_planner/ego_replan_fsm.h",
+      "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp",
+      "src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp",
+      "src/vendor/ego_planner/planner/traj_utils/msg/Bspline.msg"
+    ]
+  },
+  "interfaces": {
+    "action": "/navigation/navigate_to_pose (uav_interfaces/action/NavigateToPose)",
+    "ego_goal": "/navigation/ego_goal (uav_interfaces/msg/NavigationCommand)",
+    "trajectory_cancel": "/navigation/trajectory_cancel (uav_interfaces/msg/TrajectoryCancel)",
+    "position_command": "/position_cmd remains traj_server's sole publisher; samples now carry goal_id and epoch"
+  },
+  "build": {
+    "environment": "ROS 2 Jazzy in d435i-vins-build",
+    "container_image_digest": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p4-navigation-ego-wire-20261017-01/colcon-log build --base-paths src/own src/vendor/ego_planner/planner --packages-up-to uav_navigation ego_planner --build-base artifacts/runs/p4-navigation-ego-wire-20261017-01/build --install-base artifacts/runs/p4-navigation-ego-wire-20261017-01/install --parallel-workers 2 --event-handlers console_direct+",
+    "result": "PASS: 7/7 packages built and installed in fresh directories",
+    "packages": [
+      "uav_interfaces",
+      "traj_utils",
+      "uav_navigation",
+      "plan_env",
+      "path_searching",
+      "bspline_opt",
+      "ego_planner"
+    ],
+    "build_log": "artifacts/runs/p4-navigation-ego-wire-20261017-01/colcon-build.log",
+    "build_log_sha256": "438af2604d7f0556757e557564d02f3a693e2bf2198068f48f8f3c9c96cc08e8",
+    "navigation_rebuild_log": "artifacts/runs/p4-navigation-ego-wire-20261017-01/navigation-adapter-rebuild.log",
+    "navigation_rebuild_log_sha256": "d1cdfc681e75e2c5747e8458ddc1ea862bf47780b082eda82a21c9dbc90419bb",
+    "binary_sha256": {
+      "ego_planner_node": "831b08e762402325b5c5afe26590da2dbb772259aa3a7e036585ac996dd12049",
+      "traj_server": "0e9c288800d4323f8f66dbd18870be63bb7ee22e173cfb2a2abf1324d47c841e"
+    },
+    "launch_parse": {
+      "command": "ros2 launch uav_navigation navigation_supervisor.launch.py --show-args",
+      "result": "PASS: project_root argument and installed launch file resolved",
+      "log": "artifacts/runs/p4-navigation-ego-wire-20261017-01/launch-show-args.log",
+      "log_sha256": "2c2004965ed6dc2f8a2c7648fcf5aba9a168b305871f997f18570c4e425233f1"
+    }
+  },
+  "tests": [
+    {
+      "tool": "tools/test_navigation_adapter.py",
+      "result": "PASS: action goal routed with its UUID and epoch; explicit cancellation returned CANCELED and emitted matching task cancellation; a previous-epoch goal was rejected; ROS clock rollback returned ABORTED and canceled the current goal.",
+      "log": "artifacts/runs/p4-navigation-ego-wire-20261017-01/navigation-adapter.log",
+      "log_sha256": "da102316094c4fb6b067210677ebbeb9a7d5c7014221b74064e0bd9b7726a088"
+    },
+    {
+      "tool": "tools/test_trajectory_server.py",
+      "result": "PASS: sampled a task yaw spline in the odom_<epoch> frame; ignored a stale cancellation; matching cancellation published TRAJECTORY_STATUS_ABORT; no later READY sample for that canceled goal; server exited cleanly.",
+      "log": "artifacts/runs/p4-navigation-ego-wire-20261017-01/trajectory-server.log",
+      "log_sha256": "6941606ddd2416ab9bc0b7d08d682cdd4cbf56b134f32909598fe84be85f8aca"
+    },
+    {
+      "tool": "python3 tools/test_navigation_task_state.py",
+      "result": "PASS: 9 tests",
+      "qualification": "runtime-neutral state-core unit test"
+    }
+  ],
+  "runtime_transport": {
+    "ros_domain_id": 198,
+    "fastdds_builtin_transports": "UDPv4 for these isolated synthetic tests only; the workspace's recorded shared-memory transport diagnostics remain unresolved and no persistent runtime default was changed."
+  },
+  "excluded_attempts": [
+    "An initial trajectory probe exposed that UniformBspline stores control points by columns; the yaw test failed until the yaw matrix used the same convention. The corrected probe sampled the requested terminal yaw.",
+    "A probe using default Fast DDS transports encountered the container's existing SharedMemTransport channel error. An isolated UDPv4 run then exposed publisher destruction after ROS context shutdown; traj_server now releases its sole publisher before shutdown, and the final UDPv4 run exited with status 0."
+  ],
+  "qualification": {
+    "synthetic_navigation_action_and_cancel": "PASS",
+    "synthetic_traj_server_yaw_frame_and_cancel": "PASS",
+    "ego_goal_planning_with_live_map": "NOT_RUN",
+    "trajectory_tracking_or_obstacle_avoidance": "NOT_RUN",
+    "px4_bridge_or_sitl_control": "NOT_IMPLEMENTED_OR_TESTED",
+    "real_hardware": "NOT_RUN",
+    "limits": [
+      "Action and trajectory tests use synthetic localization/odometry and a fake EGO subscriber; they do not exercise VINS, EGO planning, a controller, PX4, or actuators.",
+      "EGO task cancellation stops its FSM from continuing the keyed goal and makes traj_server emit ABORT; a safe vehicle response still requires the unimplemented uav_px4_bridge.",
+      "The build emitted existing upstream PCL developer and deprecated ConstPtr warnings; these did not fail the build."
+    ]
+  }
+}

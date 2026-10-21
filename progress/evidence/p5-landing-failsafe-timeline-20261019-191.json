@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-19",
+  "run_id": "p5-px4-vio-ego-hover-20261019-191",
+  "status": "PROXIMATE_FAILSAFE_MODE_FALLBACK_EXPLAINED_UPSTREAM_ESTIMATOR_INVALIDITY_UNRESOLVED",
+  "scope": "Read-only offline alignment of PX4 ULog state edges, the run-local bridge/action report, and the pinned PX4 v1.17.0 source. No parameter or control behavior changed.",
+  "result": {
+    "direct_landing_path": "The navigation quality gate failed at normalized_cost=1.15269; the bridge entered LANDING and PX4 accepted an external MAV_CMD_NAV_LAND at sim 38.244 s (ack 38.252 s). PX4 entered AUTO_LAND at 38.264 s.",
+    "offboard_signal_loss": "offboard_control_signal_lost became true at 39.236 s, 0.992 s after the LAND command. At that time PX4 was already in AUTO_LAND. The ULog mode_req_offboard_signal mask was 16384 (bit 14 only); AUTO_LAND is nav state 18, so this flag did not select an Offboard-loss fallback while Auto Land was active.",
+    "proximate_failsafe_trigger": "The aircraft was reported landed/at-rest at 42.220 s. local_position_invalid became true at 42.476 s and local_position_invalid_relaxed at 42.584 s. The pinned PX4 source assigns AUTO_LAND the relaxed-local-position requirement; with that flag invalid, AUTO_LAND is no longer runnable. At 42.596 s VehicleStatus changed AUTO_LAND (18) to DESCEND (12), failsafe=true. This runtime and source sequence supports mode-availability fallback to DESCEND as the immediate failsafe path.",
+    "external_vision_gap": "The last PX4 vehicle_visual_odometry sample was at 38.116 s, and the last fused EV-position sample at 38.172 s. This follows the quality-gate lock and precedes local-position invalidity by about 4.3 s. The temporal order supports, but one run cannot prove exclusively, that stopping VIO after the quality lock led EKF2 to lose local XY validity during landing.",
+    "landing_end": "PX4 remained armed after the failsafe transition and disarmed by landing at 44.228 s. The touchdown/landed flags precede the failsafe transition.",
+    "battery": "BatteryStatus.warning remained 0; battery_warning, battery_low_remaining_time, and battery_unhealthy flags remained false. The generic tone log text \"battery warning (fast)\" is not evidence of a battery trigger in this run."
+  },
+  "source_interpretation": {
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "references": [
+      {
+        "path": "external/PX4-Autopilot/msg/versioned/VehicleStatus.msg",
+        "detail": "Defines NAVIGATION_STATE_DESCEND=12, OFFBOARD=14, and AUTO_LAND=18."
+      },
+      {
+        "path": "external/PX4-Autopilot/src/modules/commander/ModeUtil/mode_requirements.cpp",
+        "detail": "Sets mode_req_local_position_relaxed for AUTO_LAND."
+      },
+      {
+        "path": "external/PX4-Autopilot/src/modules/commander/failsafe/framework.cpp",
+        "detail": "modeCanRun rejects a mode if one of its required local-position flags is invalid."
+      },
+      {
+        "path": "external/PX4-Autopilot/src/modules/commander/failsafe/failsafe.cpp",
+        "detail": "Mode fallback checks the Offboard-loss requirement against the currently intended mode, then checks whether that mode can still run."
+      }
+    ],
+    "ulog_masks": {
+      "auto_land_bit": 262144,
+      "mode_req_local_position_relaxed": 262212,
+      "auto_land_requires_relaxed_local_position": true,
+      "offboard_bit": 16384,
+      "mode_req_offboard_signal": 16384,
+      "offboard_signal_loss_applies_to_auto_land": false
+    }
+  },
+  "still_unresolved": [
+    "Why the VINS normalized_cost crossed 1.0 during the commanded low-dynamics target. The first crossing was visually dominated but that is not a causal diagnosis or permission to change the gate.",
+    "Whether EKF2 local-position invalidation after the stopped external-vision stream has any additional contributing cause; this one run supports the sequence but does not isolate it experimentally.",
+    "Whether the same immediate fallback sequence repeats in an independent run."
+  ],
+  "qualification": {
+    "P5": "IN_PROGRESS; the goal action aborted and is not a P5 pass.",
+    "fail_safe_interpretation": "Immediate PX4 mode fallback is explained by the Auto Land relaxed-local-position requirement becoming invalid after touchdown; the upstream localization/quality cause remains under investigation.",
+    "thresholds": "No COM_OF_LOSS_T, VIO quality, localization freshness, or bridge guard was changed."
+  },
+  "reproduction": {
+    "command": "python3 artifacts/runs/p5-px4-vio-ego-hover-20261019-191/analyze-landing-failsafe.py --ulog artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4_sitl_default/log/2026-10-19/14_30_54.ulg --output artifacts/runs/p5-px4-vio-ego-hover-20261019-191/landing-failsafe-timeline.json",
+    "result": "PASS: deterministic extraction of the saved event order and mode masks.",
+    "output": "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/landing-failsafe-timeline.json"
+  },
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4_sitl_default/log/2026-10-19/14_30_54.ulg": {
+      "bytes": 10535926,
+      "sha256": "0b99e521b2145b84a5c0bd8fa977e12e39c84e5080b76af0c28a9a5247620e2b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4-ulog-summary.json": {
+      "bytes": 6836,
+      "sha256": "90b86eca1fd6e03667a0609344b450c74bc6d552bfdda8d222ee5d482b67b065"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-ego-flight-report.json": {
+      "bytes": 1956732,
+      "sha256": "2fad0913f886a8fd4478637867527be2e66df537d3fbfd28cccab5396d15b920"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/px4.log": {
+      "bytes": 5440,
+      "sha256": "43618d7ae86403bb3b83d44c4a496722776223a52761d1e8bab9f95e2a58e700"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/vio-launch.log": {
+      "bytes": 1106561,
+      "sha256": "4ffcb55280d803694877f3d54ff59ac83049051f937b63adf27239d61628bed4"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/analyze-landing-failsafe.py": {
+      "bytes": 6316,
+      "sha256": "ac92e75118c33234a10d776e3f1a627e6909b69613aa31e79f9a4c93e7e4aaf2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-191/landing-failsafe-timeline.json": {
+      "bytes": 4646,
+      "sha256": "5193f620ffb64870af922c4a6654607225246140c081f6f2c4e0f541a72fcb3b"
+    },
+    "external/PX4-Autopilot/msg/versioned/VehicleStatus.msg": {
+      "bytes": 5967,
+      "sha256": "ceece55d0104452a199018918fe96dfb560f91bef3f57f31e8fa90a0c4232b1f"
+    },
+    "external/PX4-Autopilot/src/modules/commander/ModeUtil/mode_requirements.cpp": {
+      "bytes": 12304,
+      "sha256": "a70ba9f2be83774dd9633ac79b36d84eaca5918020f72d6169facc39d935c7f7"
+    },
+    "external/PX4-Autopilot/src/modules/commander/failsafe/framework.cpp": {
+      "bytes": 25522,
+      "sha256": "6f7b9c1a08624c317965f8ae2195dad03f9baf03dc1e4dbb3d08c22a748e96c6"
+    },
+    "external/PX4-Autopilot/src/modules/commander/failsafe/failsafe.cpp": {
+      "bytes": 26321,
+      "sha256": "e5dd6b8148b308a8cf6346ceb09dad211bfd20efe016a5f7ae2ee5a6c43856cb"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "scope": "P2 live D435i/VINS-to-EGO plan_env mapping integration; no navigation or PX4 control qualification",
+  "date": "2026-10-16",
+  "status": "PASS_LIVE_INTEGRATION_ONLY",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 132,
+    "gazebo_partition": "p2maplive_20261016_02",
+    "workspace_install": "artifacts/runs/p2-map-input-build-20261016-01/install",
+    "goal_nodes": [
+      "Gazebo D435i sensor rig",
+      "VINS",
+      "uav_localization.localization_adapter",
+      "uav_mapping.depth_health_monitor",
+      "uav_mapping.mapping_input_adapter",
+      "EGO plan_env"
+    ],
+    "excluded_nodes": [
+      "PX4",
+      "Offboard control",
+      "navigation goal producer"
+    ]
+  },
+  "runs": [
+    {
+      "run_id": "p2-map-live-20261016-01",
+      "status": "FAILED_BEFORE_VINS_START",
+      "container_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+      "cause": "The base Jazzy image lacks libceres.so.4 required by the built VINS executable; VINS exited before publishing odometry. Depth reached the monitor, but localization timed out and no map input was forwarded.",
+      "probe": "artifacts/runs/p2-map-live-20261016-01/probe.json",
+      "logs": {
+        "vins": "artifacts/runs/p2-map-live-20261016-01/vins.log",
+        "localization-adapter": "artifacts/runs/p2-map-live-20261016-01/localization-adapter.log",
+        "mapping-adapter": "artifacts/runs/p2-map-live-20261016-01/mapping-adapter.log",
+        "ego": "artifacts/runs/p2-map-live-20261016-01/ego.log",
+        "sensors": "artifacts/runs/p2-map-live-20261016-01/sensors.log"
+      },
+      "counted_as_success": false
+    },
+    {
+      "run_id": "p2-map-live-20261016-02",
+      "status": "PASS_LIVE_INTEGRATION_ONLY",
+      "epoch": "4e22d247657745a5887ecce8547362c3",
+      "generated_session": "artifacts/runs/p2-map-live-20261016-02/session/session.json",
+      "motion": {
+        "source": "artifacts/runs/p2-map-live-20261016-02/motion.json",
+        "sim_clock_span_s": 25.021,
+        "wall_seconds": 38.84,
+        "truth_pose_samples": 2502,
+        "imu_samples": 5004,
+        "force_updates": 8,
+        "truth_position_span_m": [
+          0.2568,
+          0.3245,
+          0.1284
+        ],
+        "truth_yaw_span_deg": 24.521,
+        "truth_use": "Recorded by the separate debug motion driver; not subscribed by VINS, localization, mapping, or EGO."
+      },
+      "probe": "artifacts/runs/p2-map-live-20261016-02/probe.json",
+      "observations": {
+        "wall_seconds": 45.046,
+        "depth_messages_seen_by_probe": 179,
+        "depth_health_transitions": [
+          {
+            "wall_elapsed_s": 0.747,
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_structurally_valid_depth",
+            "source_stamp_ns": 1792160298082349239
+          },
+          {
+            "wall_elapsed_s": 1.046,
+            "state": 2,
+            "valid": false,
+            "reason": "depth_stale",
+            "source_stamp_ns": 1792160298782737569
+          },
+          {
+            "wall_elapsed_s": 1.6,
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_structurally_valid_depth",
+            "source_stamp_ns": 1792160299336103858
+          }
+        ],
+        "localization_transitions": [
+          {
+            "wall_elapsed_s": 0.747,
+            "epoch": "4e22d247657745a5887ecce8547362c3",
+            "state": 1,
+            "valid": true,
+            "reason": "fresh_inputs_and_usable_solver",
+            "frame_id": "odom_4e22d247657745a5887ecce8547362c3"
+          }
+        ],
+        "optimized_odom_messages": 440,
+        "ego_depth_outputs": 294,
+        "ego_pose_outputs": 294,
+        "exact_common_depth_pose_stamps": 294,
+        "map_point_count_changes_observed": 136,
+        "maximum_occupied_points_in_map_message": 1729,
+        "map_frame_ids": [
+          "odom_4e22d247657745a5887ecce8547362c3"
+        ]
+      },
+      "interpretation": [
+        "VINS localization reached TRACKING in the fresh epoch.",
+        "Depth health briefly reported depth_stale at startup and returned to READY. The mapping adapter logged the gate close and a successful plan_env map reset, then resumed paired input and map output.",
+        "The read-only probe observed 294 exact shared depth/pose stamps and changing occupancy point counts, with a peak of 1729 occupied points, while the sensor rig was moving."
+      ],
+      "logs": {
+        "vins": "artifacts/runs/p2-map-live-20261016-02/vins.log",
+        "localization-adapter": "artifacts/runs/p2-map-live-20261016-02/localization-adapter.log",
+        "mapping-adapter": "artifacts/runs/p2-map-live-20261016-02/mapping-adapter.log",
+        "depth-health": "artifacts/runs/p2-map-live-20261016-02/depth-health.log",
+        "ego": "artifacts/runs/p2-map-live-20261016-02/ego.log",
+        "sensors": "artifacts/runs/p2-map-live-20261016-02/sensors.log",
+        "motion-driver": "artifacts/runs/p2-map-live-20261016-02/motion-driver.log"
+      },
+      "shutdown_note": "The probe data was collected before teardown. The wrapper sent SIGINT concurrently to launch and child process groups; Python nodes logged ExternalShutdownException, and EGO plan_env exited with an rclcpp invalid-context exception. This run does not qualify clean shutdown behavior."
+    }
+  ],
+  "artifact_sha256": {
+    "tools/probe_mapping_runtime.py": "02f857da9780975fd8aaca6a810e3c42b11c208733a71562f75ed9d030dea481",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "b0d28c97a0407067782b81ea3c8da3e89ca99708bfbf5c4754783b03336f1f36",
+    "dependencies/patches/ego/0004-mapping-input-safety.patch": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+    "config/components/mapping/ego_input.json": "a9c6291020ea16c248c502bf328e9bfc5907ec87de4be4eb43108bb158827dd9",
+    "config/components/mapping/depth_gate.json": "590db91cbda0de2cd3419c208c75373d6cb19a53322d19ad0838d28fc4b16017",
+    "progress/evidence/p2-ego-map-input.json": "e695a3b17c9eb0361d6ef87b9e169c7f5571b17b5bdc6c239b873790557def39",
+    "artifacts/runs/p2-map-live-20261016-01/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+    "artifacts/runs/p2-map-live-20261016-01/probe.json": "7d3e2ef40a68bae8a296f10e13066ef3616d7c390cffa372c68d66ac01fb992c",
+    "artifacts/runs/p2-map-live-20261016-01/motion.json": "077201cb3082bb54265152218d9bd6c427e24fa4bf10f4b52b3aa114c72bc623",
+    "artifacts/runs/p2-map-live-20261016-01/motion-driver.log": "8ddf05a4ea847da7607786fd9fa034864b7af341e7fb361d5bb452ef07b55f8f",
+    "artifacts/runs/p2-map-live-20261016-01/sensors.log": "52017a0ba78f63acbf99fde6c3a6151e56bf45f411f1a51710e6da500d5f3259",
+    "artifacts/runs/p2-map-live-20261016-01/ego.log": "076723e0b2bb95f26c5eecd257aca56b2494083467783f5a8eb40ba66d962f66",
+    "artifacts/runs/p2-map-live-20261016-01/depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-map-live-20261016-01/mapping-adapter.log": "c166fc06f2e89b40ec88dc59bd39262fca5290b6f9688aa226afff5a3196a227",
+    "artifacts/runs/p2-map-live-20261016-01/localization-adapter.log": "43b62654dfab756a9287fe1891d40e4ac9d3984cd1cfa0957ddd51968a0cf10d",
+    "artifacts/runs/p2-map-live-20261016-01/vins.log": "240559d5a773c731789d4f60bdfbc7f08e5699f96aaea3832b44176f68168b1f",
+    "artifacts/runs/p2-map-live-20261016-01/session/session.json": "c59975b5aa44d5cf979c906c76f4387fb272d1413b234f7490542357bf8d6c2e",
+    "artifacts/runs/p2-map-live-20261016-01/session/vins.yaml": "a38d9ec37df682c7f78150f5301ca554f7d89d2e549aa4ef8cb3030eeb7a2c18",
+    "artifacts/runs/p2-map-live-20261016-01/session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+    "artifacts/runs/p2-map-live-20261016-01/session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+    "artifacts/runs/p2-map-live-20261016-02/debug-motion.sdf": "4f392a294c78692d68f38700367ec1c9fb3a484552188ff0bd72ac3e2489693a",
+    "artifacts/runs/p2-map-live-20261016-02/probe.json": "3689cd3e1773ef8b2a0c174037cac1597ac28395c779fc7c1cc3d7a966712fd9",
+    "artifacts/runs/p2-map-live-20261016-02/motion.json": "f5158169792660b4ef211ebc9bd428c7013dfa839c956ce0ee0e0787981d126a",
+    "artifacts/runs/p2-map-live-20261016-02/motion-driver.log": "9be98a4e6bf968f426f7cbe7e67f89beaf1a34ad3a3b1d041f36ec0f81f38721",
+    "artifacts/runs/p2-map-live-20261016-02/sensors.log": "0156587d097d2ab41b600eeef81fd06e3963edbd4a48b7d4ef8019efa3e75da3",
+    "artifacts/runs/p2-map-live-20261016-02/ego.log": "1a365f436a18025d537f717713d6b887602b4baa7b3aa7b825fe5f7c351d895b",
+    "artifacts/runs/p2-map-live-20261016-02/depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p2-map-live-20261016-02/mapping-adapter.log": "e0ddffe0c43795da07d2b87bce2e4df2bed5c65edea1c40498ee7d3aa7a7e126",
+    "artifacts/runs/p2-map-live-20261016-02/localization-adapter.log": "50beea738cdab86ca4cd6c88a8465ba557ac7139c913a0c6c6d0dded7b90220e",
+    "artifacts/runs/p2-map-live-20261016-02/vins.log": "0c10d4d8aae66fb977ab97a01a6dcba3e01877fa3125e40b776e921750218553",
+    "artifacts/runs/p2-map-live-20261016-02/session/session.json": "0f742da91c906dabc3fa8f251ac1cd49a4bfd895136a31a8709d785c050574a7",
+    "artifacts/runs/p2-map-live-20261016-02/session/vins.yaml": "6210038e09f13d612f5a69516a1cdd4d1bf2e768e0dd1270a35d52402931b3e4",
+    "artifacts/runs/p2-map-live-20261016-02/session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+    "artifacts/runs/p2-map-live-20261016-02/session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d"
+  },
+  "qualification": {
+    "live_depth_to_plan_env_path": "PASS: actual Gazebo D435i depth, VINS TRACKING localization, source-time paired outputs, and EGO occupancy point messages observed.",
+    "map_updates_during_motion": "PASS_AS_INTERFACE_OBSERVATION: occupancy point counts changed during the force-driven sensor motion.",
+    "world_geometry_or_map_accuracy": "NOT_EVALUATED: point locations were not saved for wall/obstacle residual analysis; count variation alone is not geometric accuracy.",
+    "planner_goal_or_obstacle_avoidance": "NOT_RUN: EGO remained in INIT waiting for a goal; no task or control publisher was started.",
+    "stale_depth_fault_replay_and_repeated_recovery": "NOT_QUALIFIED: one natural startup stale interval was detected and reset; controlled repeated injection through plan_env remains pending.",
+    "epoch_switch_or_clock_regression": "NOT_RUN",
+    "snapshot_metadata_or_readback": "NOT_IMPLEMENTED",
+    "px4_sitl_or_real_hardware": "NOT_RUN",
+    "limitations": [
+      "This is one moving ideal D435i sensor-rig run, not an aircraft flight.",
+      "The monitor observed an early stale/recovery cycle; the probe count is a subscriber observation and is not used as a sensor-rate qualification.",
+      "The report proves data reaches the single plan_env occupancy implementation but does not validate obstacle geometry, free/unknown classification, inflation, clearance, or planner response.",
+      "EGO and Python node shutdown produced exceptions during the wrapper cleanup; shutdown behavior needs a separate clean-stop verification."
+    ]
+  }
+}

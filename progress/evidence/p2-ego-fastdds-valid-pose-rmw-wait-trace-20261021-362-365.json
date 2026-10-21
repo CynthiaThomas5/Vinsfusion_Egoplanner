@@ -1,0 +1,197 @@
+{
+  "schema": "p2-fastdds-valid-pose-rmw-wait-trace/v1",
+  "date": "2026-10-21",
+  "question": "Does the #361 clock discrepancy recur under a valid localization stream, and can Fast DDS history statistics or the EGO RMW wait trace explain the observed camera-pose take gaps?",
+  "overall": {
+    "outcome": "valid_pose_stream_reproduced_EGO_reader_history_empty_gap; exact_endpoint_statistics_probe_calibrated",
+    "p2_milestone_changed": false,
+    "goal_c_status": "pending",
+    "health_thresholds_changed": false,
+    "canonical_qos_or_configuration_changed": false
+  },
+  "run_362": {
+    "run_manifest": "artifacts/runs/p2-ego-fastdds-clock-skew-diagnostic-20261021-362/run-manifest.json",
+    "run_manifest_sha256": "219076211c64c0a52bc84064a126fc13d2be3dc743e4fcf41fe7d638e006af16",
+    "ros_domain_id": 222,
+    "gazebo_partition": "d435i_ego_clock_skew_362_01",
+    "propagated_source_age_at_probe_receipt_ms": {
+      "minimum": -6.0,
+      "maximum": 6.0,
+      "samples": 5955,
+      "samples_earlier_than_minus_20_ms": 0
+    },
+    "localization_status_counts": {
+      "tracking_valid": 861,
+      "waiting_for_inputs": 32,
+      "waiting_for_clock": 15,
+      "waiting_for_left_image": 14
+    },
+    "independent_observer": {
+      "camera_pose_count": 867,
+      "camera_pose_source_stamp_range_s": [4.72, 33.826],
+      "camera_pose_max_source_gap_s": 0.066,
+      "camera_pose_max_wall_receipt_gap_s": 0.199924258,
+      "map_status_count": 201,
+      "map_status_ready_count": 188,
+      "forwarded_depth_count_range": [0, 864],
+      "unique_epoch_count": 1,
+      "unique_map_id_count": 1
+    },
+    "ego_internal_observation": {
+      "examples_of_pose_count_stalls_s": [4.422, 6.303],
+      "goal_sent": false,
+      "px4_started": false
+    },
+    "history_latency_statistics": {
+      "sample_count": 37,
+      "distinct_guid_pairs": 10,
+      "mapping_writer_to_ego_reader_pair_samples": 0
+    },
+    "interpretation": "The #361 future-stamp condition did not recur in the observed propagated stream; the run still recorded multi-second EGO pose-count stalls despite independently observed camera-pose output."
+  },
+  "endpoint_calibrations": [
+    {
+      "run_id": "p2-ego-fastdds-statistics-endpoint-calibration-20261021-363",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-statistics-endpoint-calibration-20261021-363/run-manifest.json",
+      "run_manifest_sha256": "1ce5378dfafe008454e38cd5d67b13259f0c31b6397e151372c11c6aae975c6f",
+      "ros_domain_id": 223,
+      "topic": "/fastdds_statistics_calibration",
+      "type": "std_msgs/msg/String",
+      "publisher_reliability": "RELIABLE",
+      "subscriber_reliability": "BEST_EFFORT",
+      "messages_received": 170,
+      "history_latency_samples_total": 43,
+      "exact_writer_reader_pair_samples": 20,
+      "writer_gid": "010fe7671b00ef010000000000000703",
+      "reader_gid": "010fe7671c003b0d0000000000000704"
+    },
+    {
+      "run_id": "p2-ego-fastdds-pose-reliable-calibration-20261021-364",
+      "run_manifest": "artifacts/runs/p2-ego-fastdds-pose-reliable-calibration-20261021-364/run-manifest.json",
+      "run_manifest_sha256": "62414f8c106ac7854328d8e8f57dd8be84e3104ae4302255887e94948f79fbb5",
+      "ros_domain_id": 224,
+      "topic": "/fastdds_pose_calibration",
+      "type": "geometry_msgs/msg/PoseStamped",
+      "publisher_reliability": "RELIABLE",
+      "subscriber_reliability": "RELIABLE",
+      "messages_received": 170,
+      "history_latency_samples_total": 43,
+      "exact_writer_reader_pair_samples": 20,
+      "writer_gid": "010fe7671b00c97b0000000000000703",
+      "reader_gid": "010fe7671c008b150000000000000704",
+      "payload": "Fixed PoseStamped: frame_id=odom, stamp.sec=1, position.x=0, orientation.w=1"
+    }
+  ],
+  "run_365": {
+    "run_manifest": "artifacts/runs/p2-ego-fastdds-valid-pose-rmw-wait-trace-20261021-365/run-manifest.json",
+    "run_manifest_sha256": "2508c64d35257d49a25ee377a1ab1dafa156c72dda16bd034fbcb99741d2d2b3",
+    "ros_domain_id": 225,
+    "gazebo_partition": "d435i_ego_valid_pose_wait_365_01",
+    "ego_vpid": 554,
+    "mapping_input_adapter_vpid": 451,
+    "statistics_injection_verified": true,
+    "transport": "UDPv4",
+    "ego_pose_qos": "RELIABLE; unchanged",
+    "camera_pose_endpoints": {
+      "topic": "/drone_0_camera_pose",
+      "mapping_writer_gid": "010fe767c301c14f00000000.00001503",
+      "ego_reader_gid": "010fe7672a02280d00000000.00001c04"
+    },
+    "valid_stream": {
+      "independent_camera_pose_count": 915,
+      "source_stamp_range_s": [3.994, 34.618],
+      "maximum_source_gap_s": 0.066,
+      "maximum_wall_receipt_gap_s": 0.190009467,
+      "map_status_count": 206,
+      "map_status_ready_count": 200,
+      "forwarded_depth_count_range": [0, 912],
+      "unique_epoch_count": 1,
+      "unique_map_id_count": 1
+    },
+    "selected_maximum_take_gap": {
+      "gap_s": 2.237719992,
+      "window_after_process_selection_s": [18.340192, 20.577912],
+      "mapping_publisher_rmw_publish_count": 47,
+      "mapping_publisher_max_publish_gap_s": 0.101610526,
+      "ego_wait_event_count": 612,
+      "ego_wait_ready_counts": {
+        "not_ready": 611,
+        "ready": 1
+      },
+      "unread_history_counts": {
+        "zero": 611,
+        "twenty_five_at_final_ready_return": 1
+      },
+      "reader_status_samples_in_gap": 38,
+      "reader_matched_current_in_gap": 1,
+      "reader_sample_lost_total_in_gap": 0,
+      "reader_sample_rejected_total_in_gap": 0,
+      "reader_listener_callbacks_in_gap": {
+        "data_available": 1,
+        "final_unread_count": 25,
+        "sample_lost": 0,
+        "sample_rejected": 0
+      }
+    },
+    "whole_trace_integrity": {
+      "rmw_wait_event_count": 12988,
+      "wait_sequence_range": [0, 12987],
+      "wait_sequence_contiguous": true,
+      "reader_status_sample_count": 812,
+      "sample_lost_total_nonzero_samples": 0,
+      "sample_rejected_total_nonzero_samples": 0,
+      "analyzer_exit_codes": {
+        "rmw-wait-summary": 0,
+        "rmw-status-summary": 0,
+        "publisher-take-alignment": 0,
+        "rmw-take-alignment": 0,
+        "rmw-status-alignment": 0,
+        "ego-rclcpp-summary": 0,
+        "rmw-unread-alignment": 0,
+        "reader-listener-events": 0
+      },
+      "ctf_file_count": 32,
+      "ctf_total_bytes": 11311616
+    },
+    "history_latency_statistics": {
+      "sample_count": 37,
+      "distinct_guid_pairs": 10,
+      "mapping_writer_to_ego_reader_pair_samples": 0
+    },
+    "freshness_probe": {
+      "completed": false,
+      "error": "rclpy RuntimeError: Unable to convert call argument '0' to Python object",
+      "independent_pose_and_map_status_observer_completed": true
+    },
+    "safety_scope": {
+      "goal_sent": false,
+      "truth_topics_observed": [],
+      "control_topics_observed": [],
+      "px4_started": false,
+      "trajectory_server_started": false
+    },
+    "interpretation": "Inference: during the selected gap, mapping continued RMW publication while EGO's matched DataReader wait/readiness probe repeatedly observed an empty history; a final ready event saw 25 queued samples. This locates the observed interruption at or before insertion/notification in the EGO reader path, but does not identify packet loss, writer history behavior, or an internal Fast DDS cause."
+  },
+  "confirmed": [
+    "The #361 propagated future-stamp observation was not reproduced in #362; the independent probe measured -6 to +6 ms source age and no sample earlier than the unchanged -20 ms future tolerance.",
+    "A minimal statistics observer reports exact application writer/reader GUID pairs for both a String/BEST_EFFORT case and a PoseStamped/RELIABLE case (20 exact samples each).",
+    "In #365, valid independent camera-pose and ready MapStatus streams coexisted with a 2.23772 s EGO take gap; the publisher issued 47 pose rmw_publish calls during that gap.",
+    "The EGO matched count stayed at 1 and the instrumented lost/rejected status counters stayed at 0 during the gap; the read-only reader history count was 0 until the final ready return, which observed 25 samples.",
+    "All 12,988 captured wait sequence values were contiguous, and every selected trace analyzer exited successfully."
+  ],
+  "not_established": [
+    "Whether target pose RTPS DATA packets reached the EGO host socket during the selected #365 gap.",
+    "Whether the interruption originates in the mapping DataWriter history, RTPS transport, EGO participant receive path, or Fast DDS reader internals.",
+    "Formal P2 health acceptance, GOAL C map coverage/path clearance, trajectory execution, PX4 control, or flight acceptance."
+  ],
+  "next_step": "Use a run-local, read-only RTPS header/sequence observer on the EGO receive path to identify mapping-writer DATA sequence arrival during a valid pose gap, without decoding or storing application payload. Keep the 20 ms clock guard, QoS, 0.4 s freshness threshold, and unknown fail-closed policy unchanged.",
+  "references": [
+    "https://fast-dds.docs.eprosima.com/en/v2.14.7/fastdds/statistics/dds_layer/topic_names.html"
+  ],
+  "limitations": [
+    "The #365 independent freshness probe exited with a rclpy message-conversion RuntimeError; valid pose and MapStatus windows are supported by the separate independent reader trace, not that probe.",
+    "The exact Fast DDS history-latency writer/reader pair was absent in #362 and #365 despite the calibrated observer. No causal meaning is assigned to that absence.",
+    "The selected wait trace and Fast DDS status probes instrumented EGO and could affect scheduling; #365 reproduces the diagnostic gap but does not establish an uninstrumented baseline rate.",
+    "No canonical source, QoS, configuration, health threshold, milestone status, or GOAL completion status changed."
+  ]
+}

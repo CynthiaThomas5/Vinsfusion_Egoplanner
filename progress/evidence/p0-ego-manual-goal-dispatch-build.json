@@ -1,0 +1,28 @@
+{
+  "scope": "Targeted Jazzy rebuild of the patched EGO planner package; this does not replace the existing 16-package workspace build or establish flight behavior.",
+  "date": "2026-10-17",
+  "status": "PASS_EGO_PLANNER_BUILD; MANUAL_GOAL_EXECUTOR_PATCH_RUNTIME_OBSERVED_ONCE; FLIGHT_UNQUALIFIED",
+  "source": {
+    "upstream": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm",
+    "revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch_order": "0001 through 0007, then 0008-queue-manual-targets-on-fsm.patch",
+    "patch": "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch",
+    "patch_sha256": "c21529e2b42aad6cc4330267cf9045132bae06f92f87f53d23149344903e48d1",
+    "base_file_sha256": {
+      "planner/plan_manage/include/ego_planner/ego_replan_fsm.h": "452ce093771edd29abc8bf2bd02fd2622b313c179afc7a7e0cb38b2ace13f25c",
+      "planner/plan_manage/src/ego_replan_fsm.cpp": "ae42afa4b7a99ca12b6d26d8f87c23fc08695a12bd6e0ea825d3802593c55c07"
+    },
+    "behavior": "Manual waypoint callbacks coalesce to the latest pending target. The FSM timer consumes it from WAIT_TARGET or EXEC_TRAJ, avoiding nested spin_some from a callback already serviced by the executor. Pending targets are discarded while EMERGENCY_STOP is active."
+  },
+  "build": {
+    "run_directory": "artifacts/runs/p2-ego-manual-goal-20261017-01",
+    "command": "source /opt/ros/jazzy/setup.bash && source artifacts/runs/p2-ego-shutdown-20261016-10/install/setup.bash && colcon --log-base artifacts/runs/p2-ego-manual-goal-20261017-01/colcon-log build --base-paths src/vendor/ego_planner/planner --packages-select ego_planner --build-base artifacts/runs/p2-ego-manual-goal-20261017-01/build --install-base artifacts/runs/p2-ego-manual-goal-20261017-01/install --event-handlers console_direct+",
+    "result": "exit_code=0; 1 package finished in 42.9 s; ego_planner_node and traj_server installed",
+    "build_events": "artifacts/runs/p2-ego-manual-goal-20261017-01/colcon-log/latest_build/events.log",
+    "build_events_sha256": "b8716804ea83d4eb32192213824fa4d15ce4d7ab22454b886bd4bc5dfa620d8a",
+    "installed_binary": "artifacts/runs/p2-ego-manual-goal-20261017-01/install/ego_planner/lib/ego_planner/ego_planner_node",
+    "installed_binary_sha256": "152cf20dc24ef5d927ecc0ebdb7bfa7ce9f66712f5ee4542370a88bcf28298da",
+    "dependency_scope": "plan_env, traj_utils, path_searching, and bspline_opt were resolved from artifacts/runs/p2-map-input-build-20261016-01/install; they were not rebuilt in this command."
+  },
+  "runtime_reference": "progress/evidence/p2-ego-active-depth-stale.json"
+}

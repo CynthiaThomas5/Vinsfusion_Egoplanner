@@ -1,0 +1,194 @@
+{
+  "date": "2026-10-17",
+  "run_id": "p5-px4-lockstep-clock-ratio-20261017-113",
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "result": "diagnostic_capture_only",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 229,
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "repository_head": null,
+    "repository_snapshot": "No project HEAD exists; all run artifacts and source inputs listed below are hashed."
+  },
+  "changes_under_test": {
+    "bridge_source_changed": false,
+    "thresholds_changed": false,
+    "control_behavior_changed": false,
+    "comparison": "Same PX4 lockstep model, Gazebo D435i vehicle, XRCE Agent, bridge profile and container as run 112; VINS and localization processes were omitted to measure passive timebase behavior without their processing load.",
+    "qualification_scope": "No VIO was delivered and no EV fusion was observed. This is not P5 or navigation evidence."
+  },
+  "checks": {
+    "clock_samples": 11238,
+    "timesync_status_samples": 45,
+    "source_protocol_values": [
+      2
+    ],
+    "sim_clock_rate_wall_s": 1.000005,
+    "sim_clock_rate_instantaneous_p50": 1.001517,
+    "observed_offset_s_per_wall_s": -3e-06,
+    "observed_offset_rate_plus_sim_clock_rate": 1.000008,
+    "estimated_offset_zero_reset_events": [],
+    "px4_timesync_debug_reset_messages": 0,
+    "agent_session_establishments": 1,
+    "vins_started": false,
+    "localization_started": false,
+    "px4_visual_odometry_samples": 0,
+    "ekf2_ev_position_fused": false,
+    "ekf2_ev_yaw_fused": false,
+    "gnss_aiding_flags_all_zero": true,
+    "ros_truth_topics_present": false,
+    "bridge_truth_subscription_present": false,
+    "bridge_phase_final": "DISABLED",
+    "bridge_reason_counts": {
+      "localization_not_tracking": 355
+    },
+    "control_topic_sample_counts_all_zero": true,
+    "vehicle_remained_disarmed": true,
+    "final_readiness_qualified": false
+  },
+  "timestamp_analysis": {
+    "method": "Estimate end-to-end Gazebo /clock rate from first/last monotonic-receipt samples; fit observed_offset versus wall elapsed time by ordinary least squares; count TimesyncStatus estimated_offset zero events after a nonzero estimate.",
+    "comparison_run_112": {
+      "sim_clock_rate_wall_s": 0.417598,
+      "observed_offset_s_per_wall_s": -0.582393,
+      "observed_offset_rate_plus_sim_clock_rate": 0.999991,
+      "estimated_offset_zero_reset_events": 2
+    },
+    "interpretation": "Run 113 observed a near-unity /clock rate and near-zero observed-offset slope with no reset indicators. Run 112 under VINS/localization load measured the complementary slope and two resets. Their rate relationship strongly supports PX4 lockstep HRT versus Agent wall-clock divergence when simulation runs below real time; the reduced run does not isolate which visual-stack process dominates the slowdown."
+  },
+  "qualification": "Passive timing diagnostic only. Compare its measured /clock rate, observed-offset slope, and reset status events with runs 109-112. No VINS/localization was launched, so this run cannot qualify VIO fusion, readiness, navigation, or P5.",
+  "limitations": [
+    "Passive run lasted 45 seconds and omitted VINS/localization; it cannot qualify external odometry delivery, EKF2 fusion, readiness, navigation, flight, or P5.",
+    "PX4 bridge remained DISABLED with localization_not_tracking because localization was intentionally not launched; readiness was not qualified.",
+    "A no-reset observation at near-unity RTF does not prove that the full visual-navigation stack can sustain real-time performance.",
+    "No PX4 source, bridge behavior, or health threshold was changed."
+  ],
+  "artifacts": {
+    "px4_log": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/px4.log",
+      "size_bytes": 4989,
+      "sha256": "a83a2dafaf996f9854b69322cb78b1b88167ccc0397c6ff9cbcf69118930ca66"
+    },
+    "agent_log": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/agent.log",
+      "size_bytes": 41563,
+      "sha256": "511f6c56c155f87132213a2a526e28c2bbc3a9886d19218a0bb2324ec339b53a"
+    },
+    "gazebo_log": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/gazebo.log",
+      "size_bytes": 2932,
+      "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237"
+    },
+    "bridge_log": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/bridge-launch.log",
+      "size_bytes": 2910,
+      "sha256": "203b3f5f751e475da1087b64c5deb2f526d79fbadda2dca995af259e00ee4b1d"
+    },
+    "live_probe": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/px4-live-probe.json",
+      "size_bytes": 5318840,
+      "sha256": "d0834314f57b62840df211dcc37cbd37ed046459d163b0847c68a376e4108e65"
+    },
+    "qualification": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/qualification.json",
+      "size_bytes": 1555,
+      "sha256": "8da598ca745e2603606271c544730f4bb504c859a9fca59ff533b1dbc12f7718"
+    },
+    "harness": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/run-lockstep-clock-ratio.sh",
+      "size_bytes": 4161,
+      "sha256": "1d8fd68925b00a3a7794ac5b398c41e7c2a2ffbf9a76570e37a6dc3061d59b6a"
+    },
+    "analysis_script": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/analyze_timesync.py",
+      "size_bytes": 7122,
+      "sha256": "aefc9f2c0b04103eecc98926d8df596bbf48780d708e0dd46dea9bc97cdae8c5"
+    },
+    "px4_parameter_stage": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/px4-param-stage.json",
+      "size_bytes": 720,
+      "sha256": "7785e67666834394b8dbb8021ea30f4fd873a58b05bde97739176591afb01d3f"
+    },
+    "generated_world": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/vio_initialization.sdf",
+      "size_bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "timesync_topic_info": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/timesync-topic-info.txt",
+      "size_bytes": 951,
+      "sha256": "de728e24d16a9092a8a7c5b632e13cef13386d0692ed1b36c0a70b394c0f4500"
+    },
+    "ros_topics": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/ros-topics.txt",
+      "size_bytes": 2382,
+      "sha256": "ab881d7375c4568038aeb5f0fa2daa30352b7ce9a19196f8592e17a6a6a2740c"
+    },
+    "px4_bridge_graph": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "ulog": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/px4_sitl_default/log/2026-10-17/09_33_24.ulg",
+      "size_bytes": 15202004,
+      "sha256": "c457e5722a40fded8d98311329c4eee04fa51d942fcfe94f83341ded5e580e30"
+    },
+    "px4_binary": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/px4_sitl_default/bin/px4",
+      "size_bytes": 57466288,
+      "sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"
+    }
+  },
+  "source_sha256": {
+    "live_probe": {
+      "path": "tools/probe_px4_bridge_live.py",
+      "sha256": "8fd76b13c654dba37ee68daa479c949209b6d5d8b8a977f5ee2ae1a3f8471f57"
+    },
+    "analysis_script": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/analyze_timesync.py",
+      "sha256": "aefc9f2c0b04103eecc98926d8df596bbf48780d708e0dd46dea9bc97cdae8c5"
+    },
+    "run_harness": {
+      "path": "artifacts/runs/p5-px4-lockstep-clock-ratio-20261017-113/run-lockstep-clock-ratio.sh",
+      "sha256": "1d8fd68925b00a3a7794ac5b398c41e7c2a2ffbf9a76570e37a6dc3061d59b6a"
+    },
+    "bridge_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9"
+    },
+    "time_mapping_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "sha256": "81d663ab1aa4fbc650971ce61cf71d64660dae7e4bff2a11f7ed726b143eb0db"
+    },
+    "bridge_config": {
+      "path": "config/components/px4_bridge/vio_closed_loop.json",
+      "sha256": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601"
+    },
+    "runtime_profile": {
+      "path": "config/profiles/vio_closed_loop.json",
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "d435i_x500_model": {
+      "path": "simulation/models/x500_d435i/model.sdf",
+      "sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37"
+    },
+    "px4_timesync_source": {
+      "path": "external/PX4-Autopilot/src/lib/timesync/Timesync.cpp",
+      "sha256": "82f383d8deaaf0f1c34d7063fdaa15e472f8867c068d0879630419a504cb5890"
+    },
+    "px4_uxrce_client_source": {
+      "path": "external/PX4-Autopilot/src/modules/uxrce_dds_client/uxrce_dds_client.cpp",
+      "sha256": "1a01a7191b7e5e99e5d80419943ec66da6e8f649c35e45b22bf19ae59e7da7a7"
+    },
+    "px4_timesync_status_message": {
+      "path": "external/PX4-Autopilot/msg/TimesyncStatus.msg",
+      "sha256": "244e915343f678a7a9895002d2f36983bfd4494a2a9167db70b01e2dc5a5566c"
+    }
+  }
+}

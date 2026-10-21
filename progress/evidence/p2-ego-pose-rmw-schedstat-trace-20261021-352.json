@@ -1,0 +1,287 @@
+{
+  "schema": "p2-ego-pose-rmw-schedstat-trace/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-schedstat-trace-20261021-352",
+  "status": "completed_diagnostic",
+  "goal_criterion": "GOAL C diagnostic only; GOAL C remains pending and P2 remains passed.",
+  "question": "Does EGO receiver-thread scheduling or its UDP socket backlog explain the camera-pose take gap?",
+  "configuration": {
+    "ros_domain_id": 218,
+    "ego_vpid": 514,
+    "mapping_input_adapter_vpid": 427,
+    "ego_and_mapping_transport": "Fast DDS built-in UDPv4",
+    "xml_profiles": null,
+    "ego_pose_reader_qos": "reliable/volatile/keep_last_25",
+    "mapping_pose_publisher_qos": "reliable/volatile/keep_last_50",
+    "qos_changed": false,
+    "canonical_source_or_config_changed": false,
+    "host_kernel": "6.8.0-138-generic",
+    "host_net_core_rmem_default_bytes": 212992,
+    "host_net_core_rmem_max_bytes": 212992,
+    "actual_socket_so_rcvbuf_measured": false
+  },
+  "result": {
+    "max_pose_take_gap_s": 2.5858274860074744,
+    "gap_interval_time_of_day_s": [
+      71419.802202186,
+      71422.388029672
+    ],
+    "adapter_rmw_publish_count_in_gap": 51,
+    "adapter_max_publish_gap_s": 0.1875460659939563,
+    "independent_pose_receipts_in_gap": 52,
+    "independent_pose_max_source_gap_s": 0.066,
+    "map_ready_epoch_stable": true,
+    "map_id_stable": true,
+    "ego_wait_returns": 705,
+    "ego_wait_ready_counts": {
+      "0": 704,
+      "1": 1
+    },
+    "ego_wait_unread_count_distribution": {
+      "0": 704,
+      "8": 1
+    },
+    "ego_successful_pose_takes": 0,
+    "listener_events_inside_gap": [
+      {
+        "time_of_day_s": 71422.377233902,
+        "vpid": 514,
+        "vtid": 522,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x580BAE78C290",
+        "event_type": 3,
+        "unread_count": 0,
+        "total_count": 1,
+        "total_count_change": 1
+      },
+      {
+        "time_of_day_s": 71422.387981512,
+        "vpid": 514,
+        "vtid": 522,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x580BAE78C290",
+        "event_type": 1,
+        "unread_count": 5,
+        "total_count": 0,
+        "total_count_change": 0
+      },
+      {
+        "time_of_day_s": 71422.38800177,
+        "vpid": 514,
+        "vtid": 522,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x580BAE78C290",
+        "event_type": 1,
+        "unread_count": 8,
+        "total_count": 0,
+        "total_count_change": 0
+      }
+    ],
+    "sample_lost_status_before_after": [
+      0,
+      1
+    ],
+    "sample_rejected_status_before_after": [
+      0,
+      0
+    ],
+    "listener_callback_thread": {
+      "tid": 522,
+      "comm": "dds.udp.61927",
+      "runtime_delta_ns": 59134826,
+      "runqueue_wait_delta_ns": 4013385,
+      "timeslices_delta": 2674,
+      "voluntary_context_switch_delta": 2657,
+      "nonvoluntary_context_switch_delta": 17,
+      "state_sample_counts_inside_gap": {
+        "S (sleeping)": 26
+      },
+      "wchan_sample_counts_inside_gap": {
+        "__skb_wait_for_more_packets": 25,
+        "futex_wait_queue": 1
+      }
+    },
+    "udp_socket": {
+      "inode": "562781",
+      "fds": [
+        "69"
+      ],
+      "protocol": "udp",
+      "local_address_hex": "00000000:F1E7",
+      "local_port": 61927,
+      "max_rx_queue_bytes": 0,
+      "max_tx_queue_bytes": 0,
+      "drops_before_after": [
+        1255,
+        1426
+      ],
+      "drop_delta": 171,
+      "sample_count": 28
+    },
+    "sampled_interior_drop_range": {
+      "from_time_offset_ms": 19.606,
+      "drops_before": 1255,
+      "to_time_offset_ms": 2523.343,
+      "drops_after": 1409,
+      "delta": 154
+    },
+    "bracketed_drop_range": {
+      "from_time_offset_ms": -80.253,
+      "drops_before": 1255,
+      "to_time_offset_ms": 2623.335,
+      "drops_after": 1426,
+      "delta": 171
+    },
+    "rx_queue_bytes_at_all_selected_samples": 0
+  },
+  "interpretation": "The publisher and independent reader continued receiving poses while EGO had no successful take. The callback thread showed little runnable wait and was sampled sleeping on its UDP receive wait channel for nearly the whole gap, which weighs against sustained scheduler starvation. The EGO UDP socket drop counter increased by 171 across the bracket, including 154 between the first and last samples inside the gap, while sampled receive queue occupancy remained zero. Linux exposes this as a socket-level drop counter; this participant socket also carries other DDS traffic. The observation is consistent with receive-side socket pressure but does not prove the drops were camera-pose packets or caused this take gap. Exact effective SO_RCVBUF was not measured.",
+  "trace_integrity": {
+    "ctf_file_count": 66,
+    "ctf_total_bytes": 17216080,
+    "ctf_file_hash_manifest": {
+      "path": "analysis/ctf-file-hashes.sha256",
+      "sha256": "c197e762a7290c64f0b8fa71c032a07ed26fac62715823c4b04d0c806b6237de",
+      "size_bytes": 8260
+    },
+    "primary_trace_file_count": 33,
+    "primary_trace_bytes": 17095888,
+    "listener_smoke_trace_file_count": 33,
+    "listener_smoke_trace_bytes": 120192,
+    "wait_trace_event_count": 18499,
+    "wait_trace_sequence_range": [
+      0,
+      18503
+    ],
+    "missing_wait_sequences": [
+      106,
+      107,
+      108,
+      109,
+      110
+    ],
+    "missing_sequences_overlap_selected_gap": false,
+    "overall_wait_summary_exit_code": 1,
+    "selected_gap_and_schedstat_analyzers_exit_code": 0,
+    "listener_proxy_smoke_exit_code": 0
+  },
+  "listener_proxy_smoke": {
+    "domain_id": 219,
+    "result": {
+      "trace_exit": 0,
+      "proxy_installs": [
+        {
+          "time_of_day_s": 71375.892087559,
+          "vpid": 52,
+          "vtid": 52,
+          "topic": "rt/p5_reader_probe/stamped",
+          "reader": "0x5F6F5BF9E600",
+          "previous_listener": "0x5F6F5BF94510",
+          "return_code": 0
+        }
+      ],
+      "proxy_install_success_count": 1,
+      "listener_events_for_installed_reader": 800,
+      "listener_event_counts": {
+        "data_available": 800,
+        "subscription_matched": 0,
+        "sample_lost": 0,
+        "sample_rejected": 0
+      },
+      "subscriber_received": 800,
+      "subscriber_gaps": 0,
+      "subscriber_invalid": 0
+    },
+    "trace": {
+      "file_count": 33,
+      "total_bytes": 120192
+    }
+  },
+  "probe_build": {
+    "command": "bash artifacts/runs/p2-ego-pose-rmw-schedstat-trace-20261021-352/build-probe.sh",
+    "exit_code": 0,
+    "packages_built": [
+      "reader_probe_preflight"
+    ],
+    "library": {
+      "path": "probe-install/lib/librmw_wait_probe.so",
+      "sha256": "82cdb8c83d961ca4eeedaca8d3061e2413b248d09181632e08b34f6422294e2c",
+      "size_bytes": 123872
+    },
+    "sha_record": {
+      "path": "probe-library.sha256",
+      "sha256": "4870783dcb2bfb9b6eaf7b2039320aedefe91c2a7326a2efdbf4eb7d54862d2e",
+      "size_bytes": 165
+    }
+  },
+  "runtime_scope": {
+    "planner_spline_count": 2,
+    "trajectory_executed": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "px4_started": false,
+    "truth_topics": [],
+    "control_topics": [],
+    "target_voxel_changed_unknown_to_free": true
+  },
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-schedstat-trace-20261021-352/run-manifest.json",
+    "sha256": "ef9ca54a7e1e1bf54c29842eb866cfd12409fdacaced4fb0cfe2337ae664e2f1",
+    "size_bytes": 11105
+  },
+  "workspace_snapshot": {
+    "path": "workspace-status-at-352.txt",
+    "sha256": "2f8b6be762a7af3b60714e039855e1bce63a543f47f7e439a66facc0dc75e10f",
+    "size_bytes": 45199
+  },
+  "key_artifacts": {
+    "analysis/publisher-take-alignment.json": {
+      "path": "analysis/publisher-take-alignment.json",
+      "sha256": "c5916218b8ad63999c2aba49d00e3447b466c66c531e3bf52bfe3e5db7d1bb74",
+      "size_bytes": 1926
+    },
+    "analysis/rmw-unread-alignment.json": {
+      "path": "analysis/rmw-unread-alignment.json",
+      "sha256": "50d86e74bdf02cc405668b11970e751085a18cd898a8d82ab177175523942ecb",
+      "size_bytes": 12042
+    },
+    "analysis/reader-listener-events.json": {
+      "path": "analysis/reader-listener-events.json",
+      "sha256": "ef8c7a5a0bc6a40fcb41546db396322d62caaa64ed1a2fec3be981dcd82e3c9c",
+      "size_bytes": 3811
+    },
+    "analysis/ego-thread-schedstat-alignment.json": {
+      "path": "analysis/ego-thread-schedstat-alignment.json",
+      "sha256": "11fbec6e50a564d828841b58b36f2032ab0a4f4ffa6fb93c6b6c18e8335732da",
+      "size_bytes": 9534
+    },
+    "analysis/analyzer-exit-codes.txt": {
+      "path": "analysis/analyzer-exit-codes.txt",
+      "sha256": "faaf41ef0228091d9c79bddb45978a5de8113847d33c1538f0cb74b686cb7c61",
+      "size_bytes": 229
+    },
+    "ego-thread-schedstat.jsonl": {
+      "path": "ego-thread-schedstat.jsonl",
+      "sha256": "c755d9f2abd1c5566318ec99f350e94ee0e59cfbea984e473b4abf333222a22a",
+      "size_bytes": 2956648
+    },
+    "transport-env.json": {
+      "path": "transport-env.json",
+      "sha256": "55bca0c0247ba54d570166462a5c0769f7b18f9d57acdf84630a18f7176c95ce",
+      "size_bytes": 585
+    }
+  },
+  "external_primary_sources": [
+    "https://github.com/torvalds/linux/blob/v6.8/net/ipv4/udp.c",
+    "https://github.com/torvalds/linux/blob/v6.8/net/core/sock.c"
+  ],
+  "limitations": [
+    "Single run; socket drop counters are participant-socket level and do not identify ROS topic or packet content.",
+    "Socket rx_queue was sampled every 100 ms and was zero at sampled instants; transient queue occupancy between samples is not excluded.",
+    "schedstat deltas bracket the 2.586 s take gap with nearby monitor samples and show low runnable wait, not a full kernel scheduler trace.",
+    "The UDP socket drops field and one DataReader sample_lost callback align in one run but do not prove that the same packet caused both.",
+    "Planner probe emitted B-splines that were not executed; no clearance, goal arrival, or flight claim is made.",
+    "Host perf access was unavailable at perf_event_paranoid=4 and sudo -n could not authenticate; no kernel trace was collected.",
+    "Monitor cadence was about 100 ms, so transient receive queue occupancy between samples is not excluded.",
+    "No receive-buffer configuration was changed in this run; it provides the baseline for a run-local Fast DDS transport profile comparison."
+  ]
+}

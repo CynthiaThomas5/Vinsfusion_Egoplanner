@@ -1,0 +1,90 @@
+{
+  "schema": "ego-astar-fail-closed-runtime-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-astar-fail-closed-20261020-312",
+  "result": "experimental fail-closed behavior observed; acceptance pending",
+  "build_report": {
+    "path": "artifacts/runs/p2-ego-astar-fail-closed-20261020-312/build-report-0025.json",
+    "sha256": "f3ecfea8e541be977a6da4a4cdaa15af5fb4018210f6a7e82221ce09cb4d5042"
+  },
+  "source_manifest": {
+    "path": "artifacts/runs/p2-ego-astar-fail-closed-20261020-312/source-manifest-experiment-0025.json",
+    "sha256": "2b693722c90dfd3e4d004fad70da68a0113e26b3b52ca97505764cf3897817f2"
+  },
+  "patch": {
+    "path": "dependencies/patches/ego/0025-astar-blocked-endpoint-fail-closed-experiment.patch",
+    "sha256": "679ce1b07d042b0840c7eb0ab8ef0e97bf50fa99d92181d79a2d4b64a0b2156b",
+    "size_bytes": 6827
+  },
+  "policy": "If the mapped A* start or end cell is blocked, return false immediately; do not translate either requested endpoint through occupied cells. Unknown cells are blocked by experimental patch 0020; known inflated/occupied cells are blocked by the existing inflation mask.",
+  "runtime": {
+    "command": "bash artifacts/runs/p2-ego-astar-fail-closed-20261020-312/run-container.sh",
+    "planner_config": {
+      "path": "artifacts/runs/p2-ego-astar-fail-closed-20261020-312/planner-config.json",
+      "sha256": "34a776d7eab1c15f9eab9982d67edba7d26feda7a10778b956400886ca103ff1",
+      "run_local_obstacle_inflation_m": 0.5
+    },
+    "goal": {
+      "status": "bspline_received",
+      "goal_sent": true,
+      "target_xy_m": [
+        2.5,
+        1.4
+      ],
+      "bspline_count": 1,
+      "wall_seconds": 23.319468,
+      "map_status": {
+        "ready": true,
+        "reason": "ready",
+        "occupied_point_count": 1052,
+        "forwarded_depth_count": 19
+      }
+    },
+    "motion": {
+      "force_commands": 8,
+      "imu_samples": 6603,
+      "wall_seconds": 48.479129740000076,
+      "truth_feedback_subscribed": false
+    },
+    "astar": {
+      "endpoint_rejections": 103635,
+      "rejections_by_class": {
+        "start_unknown": 73163,
+        "start_known_inflated": 14488,
+        "end_unknown": 13147,
+        "end_known_inflated": 2837
+      },
+      "astar_search_rejects": 103635,
+      "adjust_pool_exits": 0,
+      "initial_input_pool_exits": 0,
+      "coord2index_pool_errors": 0,
+      "ego_log_size_bytes": 133664589,
+      "ego_log_lines": 897983,
+      "ego_log_sha256": "8bc4148c87047c96b8a0303ed2f5f62720c3b1359bf461f060e0f9e8e2298aa3"
+    },
+    "ros_graph": {
+      "summary_path": "artifacts/runs/p2-ego-astar-fail-closed-20261020-312/runtime-summary-01.json",
+      "truth_topics": [],
+      "control_topics": [],
+      "forbidden_control_nodes": [],
+      "snapshot_service_called": false
+    }
+  },
+  "isolation": {
+    "px4_started": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "trajectory_executed": false,
+    "truth_topics_subscribed": false,
+    "control_topics_published": false,
+    "snapshot_service_invoked": false
+  },
+  "limitations": [
+    "Patch 0025 and patches 0020/0022/0023/0024 remain experimental and are not in dependencies/sources.json or src/vendor/ego_planner.",
+    "The runtime uses run-local 0.5 m inflation, not the configured 0.099 m default.",
+    "The runtime log contains 103,635 immediate A* endpoint rejects (86,310 unknown and 17,325 known inflated); no pool exits occurred, but the high reject rate and 133.7 MB diagnostic log leave callback/retry frequency and timing unresolved.",
+    "One B-spline was published but none was executed; no same-time voxel snapshot, clearance evaluation, second scene, SITL flight, or truth-based metric is included.",
+    "The test map is synthetic known/unknown/inflated occupancy on the actual GridMap/AStar classes; it does not validate map coverage or physical collision safety."
+  ],
+  "next_step": "Reduce the per-call diagnostics and measure A* call/retry frequency with paired control builds; then validate planner behavior against synchronized map snapshots and clearance limits before any canonical patch decision."
+}

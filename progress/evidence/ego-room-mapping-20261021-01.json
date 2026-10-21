@@ -1,0 +1,159 @@
+{
+  "schema": "ego-room-static-mapping/v1",
+  "date": "2026-10-21",
+  "result": "PASS_INITIAL_STATIC_LOCAL_MAPPING",
+  "scope": "New ego room, grounded x500 D435i, VINS and depth occupancy; not full-room, geometry accuracy, motion, EGO execution or flight acceptance.",
+  "container": "d435i-ego-room-mapping-20261021-01",
+  "runtime_left_running": true,
+  "ros_domain_id": 214,
+  "world": {
+    "models": [
+      "ground_plane",
+      "blank",
+      "unit_cylinder",
+      "unit_cylinder_0",
+      "unit_cylinder_1",
+      "unit_cylinder_0_0",
+      "unit_cylinder_0_1",
+      "unit_cylinder_0_2",
+      "unit_cylinder_0_3",
+      "unit_cylinder_0_4",
+      "unit_cylinder_0_5",
+      "unit_cylinder_0_6",
+      "unit_cylinder_2",
+      "unit_cylinder_3",
+      "unit_cylinder_4",
+      "unit_cylinder_0_6_clone",
+      "unit_cylinder_0_6_clone_clone",
+      "unit_cylinder_4_clone",
+      "unit_cylinder_0_6_clone_0",
+      "unit_cylinder_0_2_clone",
+      "unit_cylinder_2_clone"
+    ],
+    "output": "/workspace/artifacts/runs/ego-room-mapping-20261021-01/vio_initialization.sdf",
+    "output_sha256": "1a51daeb480bafc45fd74c4e858177135bba7e7822a265e35e6bccd3292d3f04",
+    "project_geometry_sha256": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+    "project_geometry_source": "simulation/worlds/ego.sdf",
+    "px4_server_config_sha256": "60871c73e32ecde05e008aaf995e1b9c09906ca3dacb143c595522c68d399172",
+    "px4_server_config_source": "/workspace/external/PX4-Autopilot/src/modules/simulation/gz_bridge/server.config",
+    "px4_world_sha256": "457a363a22c437b788a4aaf1e2335aa149efce4e5b988cdc108065663cd879b2",
+    "px4_world_source": "/workspace/external/PX4-Autopilot/Tools/simulation/gz/worlds/default.sdf",
+    "qualification": "Imported EGO static navigation scene; no truth or prebuilt map input. World loading does not qualify VINS, planning clearance or flight.",
+    "world": "vio_initialization",
+    "world_plugins": [
+      "custom::GstCameraSystem",
+      "custom::OpticalFlowSystem",
+      "gz::sim::systems::AirPressure",
+      "gz::sim::systems::AirSpeed",
+      "gz::sim::systems::ApplyLinkWrench",
+      "gz::sim::systems::Contact",
+      "gz::sim::systems::Imu",
+      "gz::sim::systems::Magnetometer",
+      "gz::sim::systems::NavSat",
+      "gz::sim::systems::Physics",
+      "gz::sim::systems::SceneBroadcaster",
+      "gz::sim::systems::Sensors",
+      "gz::sim::systems::UserCommands"
+    ]
+  },
+  "observed_wall_s": 70.03268040699913,
+  "ready_status_samples": 61,
+  "max_occupied_points": 537,
+  "invalid_localization_samples_after_first_valid": 0,
+  "last_localization": {
+    "header": {
+      "stamp": {
+        "sec": 19,
+        "nanosec": 380000000
+      },
+      "frame_id": "odom_3b907bde6395456e9527eb4d4d4621ff"
+    },
+    "epoch": "3b907bde6395456e9527eb4d4d4621ff",
+    "state": 1,
+    "valid": true,
+    "reason": "fresh_inputs_and_usable_solver",
+    "source_stamp": {
+      "sec": 19,
+      "nanosec": 376000000
+    },
+    "body_frame": "d435i_imu_3b907bde6395456e9527eb4d4d4621ff",
+    "covariance_valid": false,
+    "normalized_cost": 0.3871341120787184,
+    "good_pairs": 185,
+    "accepted_optimized": 176,
+    "accepted_propagated": 2318
+  },
+  "last_map": {
+    "header": {
+      "stamp": {
+        "sec": 19,
+        "nanosec": 340000000
+      },
+      "frame_id": "odom_3b907bde6395456e9527eb4d4d4621ff"
+    },
+    "epoch": "3b907bde6395456e9527eb4d4d4621ff",
+    "map_id": "3b907bde6395456e9527eb4d4d4621ff-b3d20c5c13f743d5ab333243c94659ff",
+    "reset_acknowledged": true,
+    "input_ready": true,
+    "reason": "ready",
+    "last_depth_source_stamp": {
+      "sec": 19,
+      "nanosec": 276000000
+    },
+    "last_occupancy_stamp": {
+      "sec": 19,
+      "nanosec": 340000000
+    },
+    "occupancy_cloud_received": true,
+    "occupied_point_count": 529,
+    "forwarded_depth_count": 257,
+    "calibration_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "keyframe_count": 12,
+    "keyframe_dropped_count": 39,
+    "keyframe_max_rgbd_stamp_delta_s": 0.02
+  },
+  "snapshot_pair": {
+    "matched": true,
+    "epoch": "3b907bde6395456e9527eb4d4d4621ff",
+    "map_id": "3b907bde6395456e9527eb4d4d4621ff-b3d20c5c13f743d5ab333243c94659ff",
+    "frame_id": "odom_3b907bde6395456e9527eb4d4d4621ff",
+    "stamp_ns": 14424000000,
+    "point_count": 526
+  },
+  "snapshot_readback_finite_xyz_count": 526,
+  "build": "6 own packages finished [17.2s]",
+  "control": {
+    "enable_service_called": false,
+    "goals_sent": false,
+    "bridge_sample": "DISABLED; control_enabled=false; armed=false; landed=true; external_odometry_stale; ready=false"
+  },
+  "limitations": [
+    "70 wall seconds is not 70 simulation seconds or long-duration acceptance.",
+    "Only current camera field of view; sparse local occupancy; no whole-room coverage or independent geometry accuracy check.",
+    "Bridge observation QoS initially incompatible; main observer bridge field empty. Separate CLI status provides control-state sample; this run is not flight-ready evidence.",
+    "ros-topics.txt discovered only /rosout and /parameter_events and is excluded as incomplete graph evidence. bridge-node-info.txt records bridge subscriptions with no truth input, but is not a complete graph audit.",
+    "GUI remains running; evidence describes the finite observation window, not later unobserved runtime."
+  ],
+  "sha256": {
+    "artifacts/runs/ego-room-mapping-20261021-01/start-mapping.sh": "b05dfbc46f7847b75316b8bda4413cc546e09c6228adef17f4f2099017d91d4a",
+    "artifacts/runs/ego-room-mapping-20261021-01/observe-mapping.py": "42b926cfa0c525f5bdf9789ea7f0d4b4c5c8840072ab75e525fb05bd898791f5",
+    "artifacts/runs/ego-room-mapping-20261021-01/wait-settled.py": "61f21ac12b0915a2b6d1570d35d3dfe8f6729bba3f54b6dbe23a1f0259bc1b29",
+    "artifacts/runs/ego-room-mapping-20261021-01/write-rviz.py": "7a99cdcb57163193d5623ac8879533518638305c06d3131c5059e44569af8eae",
+    "artifacts/runs/ego-room-mapping-20261021-01/build.log": "421ee52293117935a2642dcaeba53eb85c4b67321f8d77e008a38fdf821dc337",
+    "artifacts/runs/ego-room-mapping-20261021-01/world.json": "c721ac507fd12c4a3b0c3366b056da567045624b2ec110d79b744974578231fc",
+    "artifacts/runs/ego-room-mapping-20261021-01/vio_initialization.sdf": "1a51daeb480bafc45fd74c4e858177135bba7e7822a265e35e6bccd3292d3f04",
+    "artifacts/runs/ego-room-mapping-20261021-01/settled-imu.json": "13518ae9c527f591b2ecec1c9ff820a0e5685aaccf7a463b253a1e520f3fd737",
+    "artifacts/runs/ego-room-mapping-20261021-01/mapping-observation.json": "81db8c2ce7e0aa3bcd00b599e6d8a00e0166bc06d3ea6bf1556ac1223df9fbe8",
+    "artifacts/runs/ego-room-mapping-20261021-01/map-capture.json": "473e375b30218b6e4366f72300c399709e406b1959e7b22a8fc8a02255d5bfa3",
+    "artifacts/runs/ego-room-mapping-20261021-01/occupied-cloud.json": "9d2ba55bb622a2c2b5a692f7e285fbdd5774012ec1cbb65f851da7c0eee7043f",
+    "artifacts/runs/ego-room-mapping-20261021-01/bridge-status.yaml": "a55b785add4257c9a8164c21ee47f2d476173c366ae973f11bfabc543dd2d4da",
+    "artifacts/runs/ego-room-mapping-20261021-01/bridge-node-info.txt": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c",
+    "artifacts/runs/ego-room-mapping-20261021-01/gazebo-window.png": "3a90adde754e29df726d876d082c8910f893aed44ed9691442c6605f8a058b50",
+    "artifacts/runs/ego-room-mapping-20261021-01/rviz-window.png": "454a7ef943c673347887085a2d9e90fb71bd1bd115ec4c6b72b8f4a4eb3d33f8",
+    "simulation/worlds/ego.sdf": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+    "dependencies/sources.json": "49f1811ba1fc87fe14f0a675e7b6bda38187294d659bdf9808bc0b717bf6db45"
+  }
+}

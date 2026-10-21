@@ -1,0 +1,684 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-197-198",
+  "classification": "ZERO_OFFSET_GOAL_SENT; ABORTED_BY_NORMALIZED_COST; PX4_TIMESTAMP_ERROR_NOT_REPRODUCED",
+  "scope": "Two direct-clock VIO/EGO SITL attempts with no truth input. #197 passed preconditions but entered LANDING on px4_timestamp_unavailable before a goal. #198 rebuilt the run-local bridge with a read-only timestamp exception field, passed preconditions, sent a zero-offset action goal, and aborted on the unchanged localization normalized-cost gate.",
+  "setup": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "px4_firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "clock_mode": "Gazebo lockstep /clock; UXRCE_DDS_SYNCT=0",
+    "localization_quality_limit": 1.0,
+    "px4_future_tolerance_sim_s": 0.065
+  },
+  "runs": [
+    {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-197",
+      "qualification": "INVALID_NO_MOTION_CONTROL_TIMESTAMP_ERROR_PRECEDED_GOAL",
+      "failure": "bridge_did_not_reach_active_after_takeoff",
+      "preconditions_ready": true,
+      "px4_telemetry_stability_passed": true,
+      "takeoff_active_observed": false,
+      "action_goal_sent": false,
+      "bridge_phases": [
+        [
+          "DISABLED",
+          "px4_preflight_failed",
+          false,
+          true
+        ],
+        [
+          "PRESTREAM",
+          "px4_preflight_failed",
+          false,
+          true
+        ],
+        [
+          "REQUEST_OFFBOARD",
+          "px4_preflight_failed",
+          false,
+          true
+        ],
+        [
+          "REQUEST_ARM",
+          "requesting_arm",
+          false,
+          true
+        ],
+        [
+          "TAKEOFF",
+          "takeoff_setpoint_active",
+          true,
+          true
+        ],
+        [
+          "TAKEOFF",
+          "takeoff_setpoint_active",
+          true,
+          false
+        ],
+        [
+          "LANDING",
+          "px4_timestamp_unavailable",
+          true,
+          false
+        ],
+        [
+          "LANDING",
+          "px4_timestamp_unavailable",
+          true,
+          true
+        ],
+        [
+          "LANDED",
+          "px4_timestamp_unavailable",
+          false,
+          true
+        ]
+      ],
+      "px4_probe_counts": {
+        "attitude": 6363,
+        "bridge_status": 783,
+        "control_mode": 269,
+        "estimator_flags": 65,
+        "land_detected": 74,
+        "local_position": 3181,
+        "px4_status": 132,
+        "timesync_status": 0,
+        "trajectory_setpoint": 269,
+        "vehicle_command": 3,
+        "visual_odometry_input": 965
+      },
+      "px4_probe_reason_counts": {
+        "px4_preflight_failed": 55,
+        "px4_timestamp_unavailable": 627,
+        "requesting_arm": 3,
+        "takeoff_setpoint_active": 98
+      },
+      "px4_timestamp_unavailable_detail_count": 627,
+      "controls_emitted_during_offboard_attempt": {
+        "offboard_control_mode": 269,
+        "trajectory_setpoint": 269,
+        "vehicle_command": 3
+      },
+      "landed_disarmed": true,
+      "reason": "Preflight and VIO fusion passed, but bridge entered LANDING on px4_timestamp_unavailable before a navigation goal was sent. The run-local source at that time did not expose the mapping exception; the new diagnostic field was added afterward. Do not count as a no-motion goal attempt."
+    },
+    {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-198",
+      "qualification": "VALID_ZERO_OFFSET_GOAL_ATTEMPT_ABORTED_BY_EXISTING_LOCALIZATION_QUALITY_GATE",
+      "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "goal_sent_wall_elapsed_s": 22.802609111000493,
+      "preconditions_ready": true,
+      "localization_tracking_stability_passed": true,
+      "px4_telemetry_stability_passed": true,
+      "takeoff_active_observed": true,
+      "goal": {
+        "frame": "odom_9a3989fc59ce4ca58e1480341f30e4a0",
+        "position_tolerance_m": 0.25,
+        "target_enu": [
+          -0.009632690484312301,
+          0.002921760884766867,
+          0.8920594498895248
+        ],
+        "timeout_s": 25.0,
+        "yaw_enu": -0.0005910342518158164,
+        "yaw_offset_rad": 0.0,
+        "yaw_tolerance_rad": 0.2617993877991494
+      },
+      "action_result": {
+        "final_position": [
+          -0.013379676927386664,
+          -0.024822557016668544,
+          0.8921644103122925
+        ],
+        "outcome": "aborted",
+        "reason": "localization_normalized_cost_exceeded",
+        "status": 6,
+        "success": false
+      },
+      "first_normalized_cost_crossing": {
+        "previous_sample": {
+          "accepted_optimized": 276,
+          "accepted_propagated": 3641,
+          "epoch": "9a3989fc59ce4ca58e1480341f30e4a0",
+          "good_pairs": 285,
+          "normalized_cost": 0.6147131116362217,
+          "reason": "fresh_inputs_and_usable_solver",
+          "source_stamp_ns": 26760000000,
+          "stamp_ns": 26764000000,
+          "state": 1,
+          "valid": true,
+          "wall_elapsed_s": 23.848612478002906
+        },
+        "first_over_1": {
+          "accepted_optimized": 276,
+          "accepted_propagated": 3641,
+          "epoch": "9a3989fc59ce4ca58e1480341f30e4a0",
+          "good_pairs": 285,
+          "normalized_cost": 1.017516817754177,
+          "reason": "normalized_cost_exceeded",
+          "source_stamp_ns": 26760000000,
+          "stamp_ns": 26800000000,
+          "state": 4,
+          "valid": false,
+          "wall_elapsed_s": 23.898262968999916
+        },
+        "threshold": 1.0,
+        "seconds_after_goal_dispatch": 1.095653857999423
+      },
+      "trajectory": {
+        "matching_ready_samples": 108,
+        "position_command_flag_counts": {
+          "1": 108,
+          "4": 1
+        },
+        "px4_trajectory_setpoint_samples": 334
+      },
+      "px4_time_mapping": {
+        "detail_timestamp_error_values": [
+          ""
+        ],
+        "time_domain_valid_all_samples": true,
+        "timesync_status_samples": 0,
+        "timestamp_domain": "gazebo_sim_time",
+        "telemetry_source_age": {
+          "attitude": {
+            "samples": 782,
+            "source_age_min_sim_s": -0.004,
+            "source_age_p95_sim_s": 0.008,
+            "source_age_max_sim_s": 0.016,
+            "future_sample_count": 4,
+            "receipt_age_max_wall_s": 0.099035509
+          },
+          "estimator_flags": {
+            "samples": 782,
+            "source_age_min_sim_s": 0.0,
+            "source_age_p95_sim_s": 0.952,
+            "source_age_max_sim_s": 1.004,
+            "future_sample_count": 0,
+            "receipt_age_max_wall_s": 1.684357445
+          },
+          "land_detected": {
+            "samples": 782,
+            "source_age_min_sim_s": 0.0,
+            "source_age_p95_sim_s": 0.948,
+            "source_age_max_sim_s": 1.0,
+            "future_sample_count": 0,
+            "receipt_age_max_wall_s": 1.698915544
+          },
+          "local_position": {
+            "samples": 782,
+            "source_age_min_sim_s": 0.0,
+            "source_age_p95_sim_s": 0.024,
+            "source_age_max_sim_s": 0.028,
+            "future_sample_count": 0,
+            "receipt_age_max_wall_s": 0.09908338
+          },
+          "vehicle_status": {
+            "samples": 782,
+            "source_age_min_sim_s": 0.0,
+            "source_age_p95_sim_s": 0.484,
+            "source_age_max_sim_s": 0.504,
+            "future_sample_count": 0,
+            "receipt_age_max_wall_s": 0.904237551
+          }
+        }
+      },
+      "px4_probe": {
+        "counts": {
+          "attitude": 6422,
+          "bridge_status": 782,
+          "control_mode": 334,
+          "estimator_flags": 68,
+          "land_detected": 76,
+          "local_position": 3215,
+          "px4_status": 135,
+          "timesync_status": 0,
+          "trajectory_setpoint": 334,
+          "vehicle_command": 3,
+          "visual_odometry_input": 231
+        },
+        "bridge_reason_counts": {
+          "normalized_cost_exceeded": 594,
+          "px4_preflight_failed": 68,
+          "requesting_arm": 2,
+          "takeoff_complete_waiting_for_trajectory": 10,
+          "takeoff_setpoint_active": 108
+        },
+        "bridge_state_counts": {
+          "ev_position_fused": 193,
+          "ev_yaw_fused": 193,
+          "gnss_aiding_active": 0,
+          "local_position_valid": 194,
+          "ready": 120
+        },
+        "vehicle_remained_disarmed": true
+      },
+      "ulog": {
+        "path": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/px4_sitl_default/log/2026-10-19/16_10_09.ulg",
+        "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+        "release_hex": "0x11100ff",
+        "initial_parameters": {
+          "UXRCE_DDS_SYNCT": 0,
+          "UXRCE_DDS_SYNCC": 0,
+          "SYS_AUTOSTART": 5011,
+          "EKF2_EV_CTRL": 15,
+          "EKF2_GPS_CTRL": 0
+        },
+        "estimator_flags": {
+          "cs_ev_pos": {
+            "true": 20,
+            "samples": 36
+          },
+          "cs_ev_yaw": {
+            "true": 20,
+            "samples": 36
+          },
+          "cs_gnss_pos": {
+            "true": 0,
+            "samples": 36
+          },
+          "cs_gnss_vel": {
+            "true": 0,
+            "samples": 36
+          },
+          "vehicle_visual_odometry_samples": 271
+        }
+      },
+      "landing_failsafe_timeline": {
+        "battery": {
+          "battery_low_remaining_time_flag_ever": false,
+          "battery_status_warning_values": [
+            0
+          ],
+          "battery_unhealthy_flag_ever": false,
+          "battery_warning_flag_ever": false
+        },
+        "classification": "offline_px4_landing_failsafe_timeline",
+        "ekf2_ev_position_fusion": {
+          "fused_samples": 274,
+          "last_fused_sim_s": 26.82,
+          "samples": 276
+        },
+        "external_visual_odometry": {
+          "first_sim_s": 8.9,
+          "last_sim_s": 26.7,
+          "samples": 271
+        },
+        "land_command_acks": [
+          {
+            "result": 0,
+            "sim_s": 26.856
+          }
+        ],
+        "land_commands": [
+          {
+            "command": 21,
+            "confirmation": 0,
+            "from_external": true,
+            "sim_s": 26.828
+          }
+        ],
+        "land_detector_edges": [
+          {
+            "field": "at_rest",
+            "sim_s": 18.636,
+            "value": false
+          },
+          {
+            "field": "landed",
+            "sim_s": 18.636,
+            "value": false
+          },
+          {
+            "field": "maybe_landed",
+            "sim_s": 18.636,
+            "value": false
+          },
+          {
+            "field": "ground_contact",
+            "sim_s": 18.644,
+            "value": false
+          },
+          {
+            "field": "has_low_throttle",
+            "sim_s": 19.644,
+            "value": false
+          },
+          {
+            "field": "ground_contact",
+            "sim_s": 29.908,
+            "value": true
+          },
+          {
+            "field": "has_low_throttle",
+            "sim_s": 29.908,
+            "value": true
+          },
+          {
+            "field": "maybe_landed",
+            "sim_s": 30.244,
+            "value": true
+          },
+          {
+            "field": "at_rest",
+            "sim_s": 30.58,
+            "value": true
+          },
+          {
+            "field": "landed",
+            "sim_s": 30.58,
+            "value": true
+          }
+        ],
+        "local_position_validity_edges": [
+          {
+            "field": "v_xy_valid",
+            "sim_s": 8.74,
+            "value": true
+          },
+          {
+            "field": "xy_valid",
+            "sim_s": 8.74,
+            "value": true
+          },
+          {
+            "field": "v_xy_valid",
+            "sim_s": 31.22,
+            "value": false
+          },
+          {
+            "field": "xy_valid",
+            "sim_s": 31.22,
+            "value": false
+          }
+        ],
+        "logged_messages": [],
+        "mode_requirement_masks": {
+          "auto_land_mode_bit": 262144,
+          "auto_land_requires_relaxed_local_position": true,
+          "offboard_loss_applies_to_auto_land": false,
+          "offboard_mode_bit": 16384,
+          "offboard_signal_mask": 16384,
+          "relaxed_local_position_mask": 262212
+        },
+        "relevant_failsafe_flag_edges": [
+          {
+            "field": "local_altitude_invalid",
+            "sim_s": 6.852,
+            "value": false
+          },
+          {
+            "field": "local_position_invalid",
+            "sim_s": 9.768,
+            "value": false
+          },
+          {
+            "field": "local_position_invalid_relaxed",
+            "sim_s": 9.768,
+            "value": false
+          },
+          {
+            "field": "offboard_control_signal_lost",
+            "sim_s": 16.116,
+            "value": false
+          },
+          {
+            "field": "offboard_control_signal_lost",
+            "sim_s": 27.84,
+            "value": true
+          },
+          {
+            "field": "local_position_invalid",
+            "sim_s": 30.756,
+            "value": true
+          },
+          {
+            "field": "local_position_invalid_relaxed",
+            "sim_s": 31.296,
+            "value": true
+          }
+        ],
+        "ulog_start_timestamp_us": 6204000,
+        "vehicle_status_edges": [
+          {
+            "arming_state": 1,
+            "failsafe": false,
+            "nav_state": 14,
+            "nav_state_name": "OFFBOARD",
+            "pre_flight_checks_pass": true,
+            "sim_s": 16.776
+          },
+          {
+            "arming_state": 2,
+            "failsafe": false,
+            "nav_state": 14,
+            "nav_state_name": "OFFBOARD",
+            "pre_flight_checks_pass": true,
+            "sim_s": 16.872
+          },
+          {
+            "arming_state": 2,
+            "failsafe": false,
+            "nav_state": 18,
+            "nav_state_name": "AUTO_LAND",
+            "pre_flight_checks_pass": true,
+            "sim_s": 26.868
+          },
+          {
+            "arming_state": 2,
+            "failsafe": false,
+            "nav_state": 18,
+            "nav_state_name": "AUTO_LAND",
+            "pre_flight_checks_pass": false,
+            "sim_s": 31.296
+          },
+          {
+            "arming_state": 2,
+            "failsafe": true,
+            "nav_state": 12,
+            "nav_state_name": "DESCEND",
+            "pre_flight_checks_pass": true,
+            "sim_s": 31.308
+          },
+          {
+            "arming_state": 1,
+            "failsafe": false,
+            "nav_state": 14,
+            "nav_state_name": "OFFBOARD",
+            "pre_flight_checks_pass": false,
+            "sim_s": 32.592
+          }
+        ]
+      },
+      "truth_subscriptions": 0,
+      "truth_input_started": false,
+      "interpretation": "A zero-offset goal was sent after the full preflight and Offboard gates passed. The action was aborted by normalized_cost_exceeded before success. PX4 accepted LAND, later saw Offboard signal loss during/after landing and post-touchdown local-position fallback; battery warning/unhealthy flags stayed zero. This is a no-truth failure diagnostic, not P5 acceptance."
+    }
+  ],
+  "code_change": {
+    "file": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+    "behavior": "Added px4_timestamp_error to bridge detail; _px4_now_us records the caught TimeMappingError without changing the fail-closed return or controller behavior. #198 reported an empty error value in every detail sample; #197 timestamp-unavailable cause was not reproduced.",
+    "unit_tests": {
+      "time_mapping": 18,
+      "control": 11,
+      "vio_profile": 7,
+      "debug_params": 2,
+      "frames": 19
+    },
+    "build": "Jazzy colcon build through uav_px4_bridge: 6/6 packages passed in the #198 run container."
+  },
+  "qualification": {
+    "P5": "IN_PROGRESS",
+    "thresholds": "No quality, freshness, source-age or failsafe threshold changed. #197 is not a goal attempt; #198 is a failed goal attempt and does not pass P5.",
+    "next_step": "Preserve fail-closed behavior and inspect VINS visual residual/feature timing around the #198 first cost crossing; do not relax normalized_cost=1.0."
+  },
+  "reproduction": {
+    "entrypoint": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/run-direct-no-motion.sh",
+    "goal_config": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/vio_closed_loop_smoke_goal.json",
+    "analysis": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/landing-failsafe-timeline.json"
+  },
+  "source_basis": [
+    "https://docs.px4.io/v1.18/en/ros2/user_guide",
+    "https://github.com/PX4/PX4-Autopilot/blob/d6f12ad1c4f70ad3230afd7d86e971421e02fef4/src/modules/uxrce_dds_client/uxrce_dds_client.cpp"
+  ],
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/run-direct-no-motion.sh": {
+      "bytes": 8906,
+      "sha256": "de87b69fcbddd5643e82a57acbe5c8f3b451cf117da8a9ffb403d1365d9a9606"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/container.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/package-prefixes.txt": {
+      "bytes": 639,
+      "sha256": "196e238f83a27a9fd0896e835b1044db55c76715f93b52057e91be5c8a39067e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/px4-param-stage.json": {
+      "bytes": 750,
+      "sha256": "6fe2280cc9d4a1a680ebdfb40714da9b58ca82c43e271788d6e44efa7cd670c2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/px4-bridge-live.json": {
+      "bytes": 8994189,
+      "sha256": "25fe6b4e3b98c65bb8255855c33b6621fcee89bc987a3a99f749599391c02a00"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/vio-ego-flight-report.json": {
+      "bytes": 2511823,
+      "sha256": "4fbf3d62843d6f7ffc7bac93269938b15a28a7e768a6ff1f5e53052bb8b0f445"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/px4.log": {
+      "bytes": 5286,
+      "sha256": "10eedb590817dd346366001507e4255d4a9d9f89b38a764011a8469c3c355492"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/vio-launch.log": {
+      "bytes": 776925,
+      "sha256": "cc7289abfec0099791572035454a3d280632498b62c4e8adf8ed8617e4699654"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/px4-bridge-node-info-final.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/navigation-action-info-final.txt": {
+      "bytes": 93,
+      "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/truth-and-control-isolation.txt": {
+      "bytes": 209,
+      "sha256": "75bbb65fd918d63c0d6c76ecdfad34cb36a414f973d7ea3cd7e721755f11e001"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-197/px4_sitl_default/log/2026-10-19/16_06_03.ulg": {
+      "bytes": 6570251,
+      "sha256": "40542501911f03d9baf73ebacc2b0b6a1eb90f712f78aa4f3eb5376cbed710ed"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/run-direct-no-motion.sh": {
+      "bytes": 8906,
+      "sha256": "38345d014b76d42483bca21249dcaaaab2619692e2fb1538cf6ab82b9aabe2fd"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/container.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/package-prefixes.txt": {
+      "bytes": 639,
+      "sha256": "d08de61f7376b2b825c19262040133a7e5809d1b0d46e2b03e9c30a6c5214487"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/px4-param-stage.json": {
+      "bytes": 750,
+      "sha256": "7c37fd10a8f36345d7f22d60d894af65a7b2c7b567dc05b52a0aabafe15a6ae6"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/px4-bridge-live.json": {
+      "bytes": 9083564,
+      "sha256": "9326c7e35368046d3e346bf6fbd5e53e2f9ac974eb9c1a67baa098ca9dc4d859"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/vio-ego-flight-report.json": {
+      "bytes": 1637591,
+      "sha256": "22b17b28c9a9fb976e0c6e917174d97974a86139740368a75435bb6a284ab416"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/px4.log": {
+      "bytes": 5365,
+      "sha256": "8e0c3f5cc62a8d4b85a08e68fa5225d6650f24e20386adc057c76e5c5fc68044"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/vio-launch.log": {
+      "bytes": 773470,
+      "sha256": "c375bce710369679000d8f2c9cf46c858594376f5b8f0006224c8b656a5992f4"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/px4-bridge-node-info-final.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/navigation-action-info-final.txt": {
+      "bytes": 93,
+      "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/truth-and-control-isolation.txt": {
+      "bytes": 209,
+      "sha256": "e1ea946bf4568599b2b51328c0a4ff6da2090e1731a0309dd70fa490af713b72"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/run_vio_ego_flight.py": {
+      "bytes": 30192,
+      "sha256": "d794e853ae7dc93ba3b77d75b7b41757d5fbace78040063e13a4f438ec1bb3ac"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/landing-failsafe-timeline.json": {
+      "bytes": 4189,
+      "sha256": "59e141fe7faa352f6a775823cc3f815c9946c6892264a1b5bfda5f67265273fc"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "1c391ae5fab7b34b3a5b4ddc594484c7accf574fa51dd2f7a5a40395aa7f484b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-198/px4_sitl_default/log/2026-10-19/16_10_09.ulg": {
+      "bytes": 7342816,
+      "sha256": "2334247d5bb2539d92b6c68594eca17f06ba4eb46715e59c7cb5efdf71c9fadc"
+    }
+  },
+  "source_hashes": {
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 46920,
+      "sha256": "fdf4dfc7536e16cf82cf61f50ac4f316df07a739d938b21e679b3febbe5a8238"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": {
+      "bytes": 11483,
+      "sha256": "5a44414068995744d32e0cdd0d526c2df56080d216fa694e4c74a67cbb61160c"
+    },
+    "config/components/px4_bridge/debug_truth.json": {
+      "bytes": 3147,
+      "sha256": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf"
+    },
+    "config/components/px4_bridge/vio_closed_loop.json": {
+      "bytes": 720,
+      "sha256": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f"
+    },
+    "config/components/px4_bridge/ekf2_debug_truth.json": {
+      "bytes": 792,
+      "sha256": "866e6789fa0ac5daa2c43428a0bc07afbd2d2303f921401a745cf8be5017954b"
+    },
+    "tools/probe_px4_bridge_live.py": {
+      "bytes": 13775,
+      "sha256": "fe446ec3bbdf6cbe7ef3e1a3f8e49b4d01e0d58094c938a4809e5b50b66042c5"
+    },
+    "tools/stage_px4_debug_params.py": {
+      "bytes": 6479,
+      "sha256": "d70a6ded5d092a2ea57a36ea746b7263c3bc0077ccd1262b1447a822e5199fda"
+    },
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/px4_sitl_default/bin/px4": {
+      "bytes": 57466288,
+      "sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"
+    }
+  }
+}

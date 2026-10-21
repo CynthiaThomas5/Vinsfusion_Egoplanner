@@ -1,0 +1,162 @@
+{
+  "schema": "goal-c-ego-canonical-full-active-spline-guard/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-dense-spline-canonical-full-spline-guard-20261021-328",
+  "result": "diagnostic_full_interval_guard_caught_inflation_but_no_spline_emitted",
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "license": "GPL-3.0-only",
+    "canonical_base_run": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297",
+    "canonical_patch_count": 15,
+    "experimental_patch_order": [
+      {
+        "path": "dependencies/patches/ego/0029-dense-spline-inflation-check-experiment.patch",
+        "sha256": "1903e9ed4d2fa5a6044f1fb6167e3b82a89215524ffcfb32f9c8b3230f761abb"
+      },
+      {
+        "path": "dependencies/patches/ego/0030-dense-spline-explicit-unknown-check-experiment.patch",
+        "sha256": "766b88de7dbbf87f8c1937fb9e0303697a602d10df2288d0cea19452fb5e3e85"
+      },
+      {
+        "path": "dependencies/patches/ego/0031-dense-spline-canonical-diagnostic-compatibility-experiment.patch",
+        "sha256": "ec7e96691e4f5c7d02e4609185a4ecc47b2d629f63caf9a281f0280d05258f90"
+      },
+      {
+        "path": "dependencies/patches/ego/0028-global-plan-retry-rate-limit-experiment.patch",
+        "sha256": "8c3407ac412c8432473c1deccc86ec0995f93faf84eba0c9f71f97ce577f9913"
+      },
+      {
+        "path": "dependencies/patches/ego/0032-full-active-spline-guard-experiment.patch",
+        "sha256": "d455c372bcb8276f4f81a64f4b08e1605da833ca965f69f1b137182de481f19f"
+      }
+    ],
+    "applied_order": "15 canonical patches reconstructed by tools/fetch_ego.py, then experimental patches 0029, 0030, 0031, 0028, 0032 in this isolated source copy.",
+    "source_tree_sha256": "09e1ccae79b08279ab55e6fbd1ee550ec4267dda955de51420f1aca392feaad4",
+    "source_manifest": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/source-manifest.json",
+    "source_manifest_sha256": "20bdd4a168b7503ba4710462346c51dbb0b0b520f54af187c2feacc6d1a3fc4c",
+    "vendor_tree_modified": false,
+    "canonical_sources_manifest_modified": false
+  },
+  "patch": {
+    "path": "dependencies/patches/ego/0032-full-active-spline-guard-experiment.patch",
+    "behavior": "Removes the two-thirds truncation from the final-spline collision guard; retains 10 ms sampling and requires every checked sample to be in-map, known, raw-free, and outside the inflation mask.",
+    "qualification": "Experimental; absent from dependencies/sources.json and unapplied to src/vendor/ego_planner."
+  },
+  "build": {
+    "environment": "d435i-vins:dev, ROS 2 Jazzy, Release",
+    "scope": "colcon packages-up-to ego_planner from the isolated #297 reconstruction",
+    "summary": "Five packages finished in 2 min 12 s; compiler warnings were present, with no build errors.",
+    "patch_dry_run": "Passed against the canonical #327 run-local source copy.",
+    "build_script": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/build-ego.sh",
+    "build_log": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/build-ego.log",
+    "build_log_sha256": "3e3c0b923a43b09cd5befc864684747c0e9ac8b0fb86b721e81fc4beba010f6e",
+    "planner_binary": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/ego-overlay/ego_planner/lib/ego_planner/ego_planner_node",
+    "planner_binary_sha256": "712f8702db4454388ba424d3297b36d7e64a1e9572388006a9a170d79433d18b"
+  },
+  "configuration": {
+    "goal_xy_m": [2.5, 1.4],
+    "box_pose_xyz_m": [1.55, 0.9, 1.1],
+    "box_size_m": [0.35, 0.5, 0.8],
+    "cylinder_pose_xyz_m": [2.25, 0.05, 1.0],
+    "cylinder_radius_m": 0.18,
+    "cylinder_length_m": 0.9,
+    "run_local_obstacle_inflation_m": 0.5,
+    "fsm_thresh_replan_time_s": 1.0,
+    "qualification": "Diagnostic geometry and inflation settings remain PROVISIONAL."
+  },
+  "runtime": {
+    "attempt": 1,
+    "ros_domain_id": 183,
+    "gazebo_partition": "d435i_dense_spline_fullguard_328_01",
+    "wall_seconds": 45.000743,
+    "goal_sent": true,
+    "goal_sent_wall_elapsed_s": 3.266842,
+    "probe_status": "goal_sent_no_bspline_before_timeout",
+    "bspline_count": 0,
+    "snapshot_request_count": 0,
+    "epoch": "15c2ebaee3e14a1c8d577b5778b63daf",
+    "target_xy_m": [2.5, 1.4],
+    "map_status_at_goal": {
+      "ready": true,
+      "occupied_point_count": 1044,
+      "forwarded_depth_count": 42,
+      "keyframe_count": 2
+    },
+    "mapping_status_at_timeout": {
+      "ready": true,
+      "occupied_point_count": 1388,
+      "forwarded_depth_count": 841,
+      "keyframe_count": 29
+    },
+    "localization_at_timeout": {
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.7018458727828083
+    },
+    "ego_odom_or_depth_lost_warnings": 57,
+    "replan_headers": 460,
+    "runtime_graph": {
+      "forbidden_control_nodes": [],
+      "truth_topics": [],
+      "control_topics": []
+    }
+  },
+  "guard_observations": {
+    "final_spline_collision_rejections": 439,
+    "unknown_start_rejections": {
+      "count": 438,
+      "all_in_map": true,
+      "all_raw_free": true,
+      "all_not_inflated": true,
+      "spline_time_s": 0.0,
+      "sample_xyz_m_near_origin": [-0.0487, -0.0127, -0.0153]
+    },
+    "inflation_rejections": [
+      {
+        "count": 1,
+        "spline_time_s": 4.53,
+        "xyz_m": [2.500726, 1.04254, 1.137918],
+        "in_map": true,
+        "unknown": false,
+        "raw_occupied": false,
+        "inflated": true
+      }
+    ],
+    "paired_snapshot": "Unavailable: no B-spline was emitted, so the probe issued no snapshot request."
+  },
+  "artifacts": {
+    "planner_goal_result": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/planner-goal-result-01.json",
+      "sha256": "b2fbe6c52ceb3ff131b05fb2fafe75ab92bde0f775a36c948cf027ac8bd7e5f3"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/runtime-summary-01.json",
+      "sha256": "c61d2f5b4994caf72cc98b54976beb455fb337379034db298275772dc9b47120"
+    },
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/ego-01.log",
+      "sha256": "622505b2d969069ddf86e9b47a5a4f9f9e66df0d3cb9d216ac60ddbdbd996b54"
+    },
+    "topics_after_run": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/topics-after-run-01.txt",
+      "sha256": "ca67d798d25186caa063d420785a14d0635e4d4d0be142cb76ef430eb6b34011"
+    },
+    "nodes_after_run": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/nodes-after-run-01.txt",
+      "sha256": "669ab4ca4614144fe70b000ae30abed5cd42693f9d70881ce7d11c4fae24f144"
+    },
+    "services_after_run": {
+      "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/services-after-run-01.txt",
+      "sha256": "85eb6136bcad3bf86ea2af1a0c390cfbdca363563117c77183370b7d9f6682b7"
+    }
+  },
+  "interpretation": "The full-interval guard directly caught an inflated sample in the trailing part of the active spline and rejected it. The planner emitted no spline during the 45 s probe. Most logged rejections were unknown cells at spline time zero near the vehicle start; map and localization readiness at timeout make a global freshness outage an incomplete explanation. The repeated EGO odom/depth warnings and lack of a paired map snapshot prevent attributing no-output solely to patch 0032 or concluding that the start cell was persistently unknown.",
+  "limitations": [
+    "No B-spline or same-epoch occupancy snapshot was captured; this run cannot establish full-curve clearance or map state at the rejected samples.",
+    "The planner log includes 57 'odom or depth lost' warnings, so input timing remains a confounder despite valid localization and ready mapping at timeout.",
+    "The 0.5 m inflation and nominal 0.482 m sphere are not validated vehicle-clearance thresholds.",
+    "This was planner-only. No path execution, vehicle sweep, tracking error, braking distance, PX4 SITL, hardware flight, truth input, or full-world-map input was used.",
+    "The diagnostic report is not GOAL C acceptance; all related thresholds and experimental patches remain provisional."
+  ],
+  "next_step": "Add a run-local same-epoch snapshot at the first final-spline rejection (including when no B-spline is emitted), then repeat the fixed planner-only scene. Separate the near-origin unknown guard from the later inflated tail hit while retaining fail-closed behavior and the retry cooldown."
+}

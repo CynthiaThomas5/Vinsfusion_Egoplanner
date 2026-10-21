@@ -1,0 +1,10 @@
+# GOAL C EGO Fast DDS reader readiness trace #347
+
+- **范围**：在单 D435i Jazzy 仿真中，对 #346 的 EGO pose reader 间歇回执问题增加 `rmw_wait` readiness、Fast DDS match/lost/rejected 状态、publisher/take/callback/executor 时间线。复用 #345 的 EGO overlay、0.4 s timeout、0.5 m inflation 与原 QoS，不接轨迹服务器、PX4、控制器或真值。
+- **实现与运行记录**：没有改维护源码或第三方源码；run-local 启动脚本新增追踪。第一次因 `ros2 run` 进程 PID 无法唯一解析而在运动/目标采集前退出（exit 27），保留在 `attempt-01/`。第二次由同一安装的 mapping console-script 直接启动并记录 PID，独立 domain 212 完成（exit 0）。LTTng 仅跟踪 EGO 和 mapping adapter 两个 PID。
+- **结果**：EGO 第一段 pose/sync counter 固定22，depth由35到71；MapStatus forwarded count从27到76，独立 pose reader收到35帧、最大源戳间隔33 ms。LTTng最大 pose take gap 为2.482 s，期间mapping publisher仍有51次 `rmw_publish`（最大间隔102 ms），独立订阅收到51帧（最大源戳间隔33 ms）；EGO对应reader wait 677次not-ready、无 successful take。Fast DDS状态采样 matched current=1，gap内lost/rejected计数均0；首个gap后状态样本的lost total为1，但状态每128次wait采样，无法确定增量发生在gap末端还是之后。EGO executor期间仍有get-ready/wait/execute事件，readiness以下根因仍未区分。
+- **轨迹完整性**：wait trace共18,537条、序号0–18,540，缺75–78四条；缺口不与选定pose take gap重叠。由于该缺失，wait总量校验退出码1；其余分析均完成。解析器 Babeltrace2 2.0.5-3build2 安装在一次性容器内，不修改基础镜像。
+- **planner-only 附带证据**：1条epoch绑定3D样条收到同stamp快照，深度源龄91 ms。103个中心线样点中42个处于唯一当前起点unknown voxel `[120,119,1]`，61个known-free，0 occupied/inflated/out-of-map；端点离目标9.58 mm。最近optimized odometry比spline start早25.000001 ms，超过本次分析采用的10 ms匹配检查，故报告为 `check_failed`。轨迹未执行，没有机体扫掠净空或到达数据，GOAL C保持pending。
+- **验证**：`bash -n` 与 Python `py_compile` 通过；仿真容器 exit 0；`analyze_reader_trace.py` 和 RMW status/publisher-take/status alignment 完成；wait 序列完整性检查因4个缺失序号明确报失败；`git diff --check` 与 `python3 tools/project_status.py` 在文档更新后补跑。
+- **证据**：[运行清单](../../artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/run-manifest.json)、[轻量报告](../evidence/p2-ego-pose-rmw-readiness-trace-20261021-347.json)、[CTF追踪](../../artifacts/runs/p2-ego-pose-rmw-readiness-trace-20261021-347/attempt-02/ego-rclcpp-trace)。
+- **限制与下一步**：一轮不能判定发生频率；状态采样不足以定位那次lost计数变化；当前证据只把问题收窄到 EGO reader readiness/take 之前。下一步细化 unread/lost 采样，保持 QoS、timeout 和 unknown fail-closed 不变；根因确定后再评估安全视角动作与第二障碍布局。

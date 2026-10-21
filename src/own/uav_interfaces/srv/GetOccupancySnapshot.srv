@@ -1,0 +1,30 @@
+# Require an exact active map identity; callers must first validate MapStatus.
+string expected_epoch
+string expected_map_id
+---
+bool accepted
+string reason
+std_msgs/Header header
+string epoch
+string map_id
+builtin_interfaces/Time last_depth_source_stamp
+builtin_interfaces/Time last_fusion_stamp
+geometry_msgs/Point origin
+geometry_msgs/Vector3 map_size
+float64 resolution
+uint32 size_x
+uint32 size_y
+uint32 size_z
+# Flattened x-major, then y, with z as the fastest index.
+# Occupancy codes: -1 unknown, 0 known free, 100 raw occupied.
+string data_order
+# Raw occupancy-buffer classes: -1 is unknown, 0 is known below the raw
+# occupancy threshold, and 100 is raw occupied at or above the threshold.
+int8[] occupancy_data
+# 1 means occupied by plan_env inflation or its virtual ceiling. This mask is
+# separate from raw occupancy and does not encode the unknown-space policy.
+uint8[] inflated_data
+uint64 unknown_voxel_count
+uint64 free_voxel_count
+uint64 occupied_voxel_count
+uint64 inflated_voxel_count

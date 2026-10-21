@@ -1,0 +1,533 @@
+{
+  "date": "2026-10-19",
+  "scope": "P5 VIO-only PX4/EGO closed-loop SITL diagnostics #160-#171; short failure and exclusion runs are not acceptance.",
+  "status": "in_progress",
+  "stage_verdict": "P5 remains in_progress. The canonical bringup now runs in SITL, but the navigation action still fails closed on localization normalized_cost; Goal A-H remain incomplete.",
+  "truth_input_enabled": false,
+  "changes_under_test": [
+    "Raised only config/components/px4_bridge/vio_closed_loop.json px4_source_timestamp_max_future_sim_s from 0.05 to 0.065, based on the measured 0.053930 s attitude lead in #168. This allowance remains PROVISIONAL and has only one follow-up run (#170).",
+    "Localization normalized_cost limit remains 1.0. Stale-age, receipt-age, shared/debug_truth profile, and localization quality gates were not relaxed.",
+    "Starting with #168, the run-only EGO launcher received the full project planner and input parameters plus D435i intrinsics derived from the SDF. The new source launch vio_closed_loop_ego_px4.launch.py now resolves those settings from the project configs and SDF, creates a fresh VINS epoch/session and starts the full no-truth ROS-side stack. #171 is the first canonical-launch SITL exercise."
+  ],
+  "runs": [
+    {
+      "id": 160,
+      "classification": "diagnostic_goal_failed",
+      "summary": "Reached ACTIVE and sent a target, but the run-only EGO launch omitted project planner parameters and SDF-derived camera intrinsics, so EGO used upstream defaults. Action aborted on normalized_cost_exceeded at 1.12157; landed and disarmed.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-160/vio-ego-flight-report.json",
+          "sha256": "c0839a178fc6fc064fa272db46bf2049c0e075835d338e55ac800cfa6f40143d",
+          "size_bytes": 2560598,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-160/localization-health-failure.jsonl",
+          "sha256": "133c7a72af1212d00846b417d153b8d5e104945584cdae6ed6402c4860f6d632",
+          "size_bytes": 2835,
+          "role": "first localization health failure"
+        }
+      ]
+    },
+    {
+      "id": 161,
+      "classification": "excluded_before_sitl",
+      "summary": "Excluded before a flight probe: the run used ROS_DOMAIN_ID 233 and the XRCE/DDS port mapping was unavailable; no goal or flight probe was started.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-161/px4.log",
+          "sha256": "5b619bf05b5f81f7114fb430a40218245ac17c29735f18c67c39876c26f35490",
+          "size_bytes": 2294,
+          "role": "PX4 startup log"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-161/agent.log",
+          "sha256": "51bcd971cc1508fb56c155112eaa71db4d5108898bbc233aca6b303b5703c990",
+          "size_bytes": 967,
+          "role": "XRCE-DDS Agent log"
+        }
+      ]
+    },
+    {
+      "id": 162,
+      "classification": "preflight_gate_blocked",
+      "summary": "No goal was sent. Localization remained gated after propagated-from-future samples and approximately 336–377 ms IMU/stereo receipt ages; raw VINS normalized cost stayed below 0.032.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-162/vio-ego-flight-report.json",
+          "sha256": "920abce10d9bf094cf58f97ade2acdc2c5644e2ded86fef30cb6ac1033c86609",
+          "size_bytes": 5459898,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-162/localization-health-failure.jsonl",
+          "sha256": "1bbc338ac62194181c275d1e62b9a54e91934ebd1f75433674665b4d10016707",
+          "size_bytes": 2850,
+          "role": "health trace"
+        }
+      ]
+    },
+    {
+      "id": 163,
+      "classification": "diagnostic_goal_failed",
+      "summary": "Reached ACTIVE and sent a target, but the run-only EGO launch omitted project planner parameters and SDF-derived camera intrinsics. Action aborted on normalized_cost_exceeded at 1.16979; landed and disarmed.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-163/vio-ego-flight-report.json",
+          "sha256": "919a4ddbe29f49063d75544434ba9aac99d53978348c0ae9bceca5118264a199",
+          "size_bytes": 2415526,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-163/localization-health-failure.jsonl",
+          "sha256": "a29a25ef6f818fe82a3cf29b86f2244528e8cefa2aa17d0b6991a4a4e22c100c",
+          "size_bytes": 2838,
+          "role": "first localization health failure"
+        }
+      ]
+    },
+    {
+      "id": 164,
+      "classification": "preflight_gate_blocked",
+      "summary": "No goal was sent. The propagated pose was about 240 ms ahead of /clock, while IMU/stereo receipt ages were approximately 337–368 ms; the localization gate remained closed.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-164/vio-ego-flight-report.json",
+          "sha256": "b5f47a1eef8728abf603d28c95f0d96271c86f84b0db616f46932608d560a595",
+          "size_bytes": 5570598,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-164/localization-health-failure.jsonl",
+          "sha256": "45dbc4abd1337ea628582d94e9d9e43049e59f0806646efda172211f0c4752f1",
+          "size_bytes": 2843,
+          "role": "health trace"
+        }
+      ]
+    },
+    {
+      "id": 165,
+      "classification": "bridge_prestream_blocked",
+      "summary": "Localization prewarm and PX4 telemetry stability checks passed, but the bridge did not reach ACTIVE: optimized-source age reached 0.300000001 s, 1 ns beyond the 0.3 s limit. No goal was sent.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-165/vio-ego-flight-report.json",
+          "sha256": "80633882a49c41123925265eb4610268ea4adf4f4f5e961155d003106b5da0a0",
+          "size_bytes": 5618564,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-165/localization-health-failure.jsonl",
+          "sha256": "1e70e89a3266c2b8a7db6c30ea6baddc6a67dc844f30c50256c241febb205851",
+          "size_bytes": 2865,
+          "role": "health trace"
+        }
+      ]
+    },
+    {
+      "id": 166,
+      "classification": "diagnostic_goal_failed",
+      "summary": "Run-only localization-tracking stability gate passed; a pure-x 0.5 m target was sent. The run-only EGO launch still omitted project planner parameters and SDF-derived intrinsics. Action aborted on normalized_cost_exceeded at 1.66387; landed and disarmed.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-166/vio-ego-flight-report.json",
+          "sha256": "35903a96c6b3c3cba0d659b076321a66a0ccdf3a8b0c8ce52502094412f59d7d",
+          "size_bytes": 2490664,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-166/localization-health-failure.jsonl",
+          "sha256": "11a42d033d80d9ad5f1a06c9ee99b1f0a4cd51278e368cb7d3326a9a3b4a513e",
+          "size_bytes": 2836,
+          "role": "first localization health failure"
+        }
+      ]
+    },
+    {
+      "id": 167,
+      "classification": "probe_input_error",
+      "summary": "No flight probe started. The run-local goal JSON contained a literal extra newline/data block and json.loads raised JSONDecodeError: Extra data. The SITL/run evidence is retained.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-167/vio-ego-flight.log",
+          "sha256": "2b42b19f62410d801338bc701cbb23459f9ef216cf0ca4bbf5cdecd362d3bd1d",
+          "size_bytes": 734,
+          "role": "probe traceback"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-167/ego-runtime-parameters.json",
+          "sha256": "c386867616d07e404e6cd37e31e2b4ad32a3d7de66cb911d2a21a0b44b75e9c6",
+          "size_bytes": 2405,
+          "role": "run-local planner parameter record"
+        }
+      ]
+    },
+    {
+      "id": 168,
+      "classification": "configured_goal_failed_future_age",
+      "summary": "First run with the complete project EGO parameter set and SDF-derived D435i intrinsics. Reached ACTIVE and sent a pure-x 0.5 m target. Attitude source age was -0.053930 s against the then 0.05 s future limit, triggering landing; normalized_cost later crossed 1.13070 during landing. Landed and disarmed.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-168/vio-ego-flight-report.json",
+          "sha256": "88e3abf03c7cf44d6ff5db4ed671b22deecf1ef5244c3ef48ef5ada63c6878a4",
+          "size_bytes": 2419187,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-168/localization-health-failure.jsonl",
+          "sha256": "2380820236803fbffe4a76709105ea32c786c34e216f2127e6b3f73861c05516",
+          "size_bytes": 2880,
+          "role": "first localization health failure"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-168/ego-runtime-parameters.json",
+          "sha256": "c386867616d07e404e6cd37e31e2b4ad32a3d7de66cb911d2a21a0b44b75e9c6",
+          "size_bytes": 2405,
+          "role": "resolved EGO parameter set"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-168/truth-input-graph-check.txt",
+          "sha256": "9fa85d015780a79ce9d067f09f0cc4485a263f3952fcf460bddcd58a24f7486f",
+          "size_bytes": 40,
+          "role": "truth subscription graph check"
+        }
+      ]
+    },
+    {
+      "id": 169,
+      "classification": "excluded_build_setup_error",
+      "summary": "No PX4/SITL run started. Colcon rejected an empty run-local bridge-build directory left by an interrupted attempt because it had been created by an empty source. The run folder and build log are retained.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-169/bridge-build.log",
+          "sha256": "309dd56530cfa09a0afc89188096e89bd3ab25605baafa2ec4a8c15bd656a88e",
+          "size_bytes": 210,
+          "role": "Colcon build failure"
+        }
+      ]
+    },
+    {
+      "id": 170,
+      "classification": "configured_goal_failed_quality_gate",
+      "summary": "Complete project EGO parameters and SDF-derived intrinsics were supplied; 3 s localization prewarm, PX4 telemetry stability, map preconditions, and ACTIVE passed. A pure-x 0.5 m same-altitude goal was sent. First quality crossing was normalized_cost=1.159354 at source stamp 49.372 s (wall elapsed 18.862 s); IMU/left/optimized/propagated/right/PX4 telemetry were within their existing freshness limits at that sample. Action aborted on normalized_cost_exceeded, followed by landing and disarm. The report recorded 109 READY PositionCommand samples and one flag-4 sample; each PX4 control input topic had exactly one publisher. No px4_telemetry_stale landing transition was observed after the 65 ms VIO-profile future allowance.",
+      "artifact_manifest": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-170/vio-ego-flight-report.json",
+          "sha256": "f8a7cc07e08a5741bc1580e1344d03b9eaf30ace16c7f798cc8e39f8c81504df",
+          "size_bytes": 2349008,
+          "role": "run report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-170/localization-health-failure.jsonl",
+          "sha256": "5cbb3ae8c79d6a1789cca1356f3518a96ba870d98f7f821af13fff40e0609eab",
+          "size_bytes": 2855,
+          "role": "first localization health failure"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-170/ego-runtime-parameters.json",
+          "sha256": "c386867616d07e404e6cd37e31e2b4ad32a3d7de66cb911d2a21a0b44b75e9c6",
+          "size_bytes": 2405,
+          "role": "resolved EGO parameter set"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-170/truth-input-graph-check.txt",
+          "sha256": "9fa85d015780a79ce9d067f09f0cc4485a263f3952fcf460bddcd58a24f7486f",
+          "size_bytes": 40,
+          "role": "truth subscription graph check"
+        }
+      ]
+    },
+    {
+      "id": 171,
+      "classification": "canonical_launch_goal_failed_quality_gate",
+      "summary": "Built and launched the canonical vio_closed_loop_ego_px4 launch in the fixed Jazzy SITL stack. The source launch generated a fresh session from project config/SDF, started the VIO sensor bridge, PX4 bridge, VINS, localization, depth-health, mapping, EGO, traj_server and navigation. Precondition and stability gates passed; the bridge reached ACTIVE and sent a same-altitude pure-x 0.5 m goal. Localization normalized_cost crossed 1.0 at 1.011447; the action aborted under the existing quality gate. PX4 landed and disarmed; latest VehicleStatus reported failsafe=false. No /debug_truth topic was present, the bridge graph had zero debug_truth subscriptions, and each PX4 control input topic had one publisher.",
+      "action_goal_sent": true,
+      "action_success": false,
+      "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "first_quality_crossing": {
+        "normalized_cost": 1.0114471602524184,
+        "source_stamp_ns": 34167999999,
+        "wall_elapsed_s": 20.78472732199998,
+        "goal_sent_wall_elapsed_s": 19.163442697000164
+      },
+      "quality_samples_above_1": 172,
+      "landed_and_disarmed": true,
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "LANDED",
+        "ready": false,
+        "reason": "normalized_cost_exceeded"
+      },
+      "latest_vehicle_status": {
+        "arming_state": 1,
+        "failsafe": false,
+        "nav_state": 14,
+        "pre_flight_checks_pass": false,
+        "timestamp": 1792409218555573
+      },
+      "matching_ready_trajectory_samples": 160,
+      "position_command_flag_counts": {
+        "1": 160,
+        "4": 1
+      },
+      "counts": {
+        "control_mode": 330,
+        "local_position": 945,
+        "localization_status": 543,
+        "occupancy_cloud": 264,
+        "position_command": 161,
+        "px4_status": 46,
+        "trajectory_setpoint": 330,
+        "vehicle_command": 3,
+        "vins_optimized_odometry": 209,
+        "visual_odometry_input": 209
+      },
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "truth_input_graph_check": "bridge_graph_debug_truth_subscription=0; /debug_truth topics absent from final topic listing",
+      "artifacts": [
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/vio-ego-flight-report.json",
+          "sha256": "9fe06a636a07d7cff90a2e66ff8dc87e969a2629f7394cdda4907a5283d828cb",
+          "size_bytes": 1516711,
+          "role": "canonical-launch SITL report"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/vio-ego-flight.log",
+          "sha256": "9fe06a636a07d7cff90a2e66ff8dc87e969a2629f7394cdda4907a5283d828cb",
+          "size_bytes": 1516711,
+          "role": "probe output"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/vio-launch.log",
+          "sha256": "295eb8d0507a9c3fbd5a4a32cf2ae5db95b1620c0f2a278bab496196cc56ff3f",
+          "size_bytes": 140173,
+          "role": "canonical ROS launch log"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/px4.log",
+          "sha256": "a39b3a12a5ef3c30ead83a093967376eb72b1a9db63b900f444cf0bf268c1c2b",
+          "size_bytes": 5343,
+          "role": "PX4 SITL log"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/agent.log",
+          "sha256": "623641b6676c15e5fe83b0998dfd51eb22987653eebbfc119cc38ff3222f6af0",
+          "size_bytes": 41563,
+          "role": "XRCE-DDS Agent log"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/gazebo.log",
+          "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237",
+          "size_bytes": 2932,
+          "role": "Gazebo log"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/node-list-before-flight.txt",
+          "sha256": "b1bdf1cd558811050d5ff79dad1dd2e356b3520ee1871400dd44e12924fb7828",
+          "size_bytes": 227,
+          "role": "active ROS node list"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/px4-bridge-node-info.txt",
+          "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+          "size_bytes": 1879,
+          "role": "PX4 bridge graph"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/truth-input-graph-check.txt",
+          "sha256": "9fa85d015780a79ce9d067f09f0cc4485a263f3952fcf460bddcd58a24f7486f",
+          "size_bytes": 40,
+          "role": "truth subscription check"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/position-command-topic-info.txt",
+          "sha256": "069746af9be380f7c4888722c98f23f8d3845e171fe3541df173a998c57f4af7",
+          "size_bytes": 993,
+          "role": "PositionCommand publisher graph"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/px4-param-stage.json",
+          "sha256": "c3d47d5fb70719eba1edac3fbad8160753e0c3b7db2e430704e89b80aa3b74c6",
+          "size_bytes": 714,
+          "role": "PX4 VIO parameter overlay record"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/world-generation.json",
+          "sha256": "6f911b1408bf03e36b6ee82db2836431043ef77fda9b84bd497c346cdd817627",
+          "size_bytes": 1431,
+          "role": "D435i PX4 world record"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/run-px4-vio-ego-flight.sh",
+          "sha256": "c3e54620bfe02bfab2e4493f9c94d250597993db56c548a93475df6241be2781",
+          "size_bytes": 8898,
+          "role": "run harness"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/vio_closed_loop_smoke_goal.json",
+          "sha256": "27a8915e42d715d8c5f9ea9c7b0c6e054de666d19cacceda3eb5c9532dcf4d82",
+          "size_bytes": 446,
+          "role": "goal definition"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171-stack/launch-manifest.json",
+          "sha256": "0312038750f884ac3771ff51c544e31a100f1095b21d88f70458dff0213b0e84",
+          "size_bytes": 3029,
+          "role": "canonical launch config/session manifest"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171-stack/session/session.json",
+          "sha256": "4feb32cf682c7d0b96f89ddc35fdca10dacc25df9d001714630808e3271f29dc",
+          "size_bytes": 654,
+          "role": "fresh VINS epoch/session"
+        },
+        {
+          "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-171/px4_sitl_default/log/2026-10-19/11_26_11.ulg",
+          "sha256": "6aa41801a7ef592afe22ae9a2088196532e305f5cc9514d574d6976705531e2f",
+          "size_bytes": 9436774,
+          "role": "PX4 ULog"
+        }
+      ]
+    }
+  ],
+  "quality_gate": {
+    "max_normalized_cost": 1.0,
+    "run_170_first_crossing": {
+      "normalized_cost": 1.1593543305363474,
+      "source_stamp_s": 49.372,
+      "wall_elapsed_s": 18.861919518999997,
+      "goal_sent_wall_elapsed_s": 17.766976510999996,
+      "input_features": 69,
+      "stereo_features": 68,
+      "long_tracks": 41,
+      "continued_tracks": 50,
+      "solve_seconds": 0.010673999786376953,
+      "freshness_ages_s": {
+        "imu": 0.008,
+        "left": 0.024,
+        "optimized": 0.124,
+        "propagated": 0.008,
+        "right": 0.056,
+        "px4_telemetry": 0.056
+      }
+    },
+    "interpretation": "The newer #170/#171 goal attempts exceeded the existing 1.0 guard, including #171 at 1.011447. Historical mapping and injected-degradation data do not calibrate flight accuracy; no threshold relaxation is supported.",
+    "recent_goal_costs": {
+      "#170": 1.1593543305363474,
+      "#171": 1.0114471602524184
+    }
+  },
+  "truth_and_control_boundary": {
+    "run_170_bridge_graph_debug_truth_subscription": 0,
+    "px4_control_topic_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1
+    },
+    "evaluation": "Run-only status observers were read-only. No VIO flight report is acceptance evidence."
+  },
+  "limitations": [
+    "Runs #160/#163/#166 used upstream EGO defaults because full planner parameters and camera intrinsics were not passed; they are diagnostic only.",
+    "The VIO-profile future allowance is 0.065 s. #170 and canonical-launch #171 did not transition to landing because of PX4 future-age; two follow-ups do not freeze this limit.",
+    "Canonical-launch SITL #171 proves the configuration path starts and reaches an active goal attempt, but the action aborted at normalized_cost 1.011447. No successful goal, truth-based VIO error comparison, obstacle-clearance result, map snapshot readback, 10-minute run, P5 exit, or final A-H acceptance was demonstrated.",
+    "The quality cost crossing still lacks an independent position/yaw error correlation. max_normalized_cost=1.0 remains unchanged."
+  ],
+  "next_step": "Correlate the canonical #171 quality/status and VINS feature timeline with motion and independent truth-based evaluation (read-only evaluator only); keep max_normalized_cost=1.0. Then repeat goal/obstacle runs and proceed with P4/P6 acceptance. The 65 ms VIO-only future limit remains PROVISIONAL.",
+  "verification": {
+    "commands": [
+      {
+        "command": "python3 tools/test_px4_bridge_vio_profile.py",
+        "result": "PASS",
+        "tests": 7
+      },
+      {
+        "command": "python3 tools/test_vio_ego_bringup_config.py",
+        "result": "PASS",
+        "tests": 4
+      },
+      {
+        "command": "python3 -m py_compile src/own/uav_px4_bridge/uav_px4_bridge/vio_ego_bringup.py src/own/uav_px4_bridge/launch/vio_closed_loop_ego_px4.launch.py tools/test_vio_ego_bringup_config.py",
+        "result": "PASS"
+      },
+      {
+        "command": "python3 tools/project_status.py",
+        "result": "PASS",
+        "note": "Structure/design consistency only."
+      },
+      {
+        "command": "docker Jazzy colcon build --base-paths src --packages-up-to uav_px4_bridge in a fresh run-local build/install/log directory",
+        "result": "PASS",
+        "packages_finished": 14
+      },
+      {
+        "command": "ros2 launch uav_px4_bridge vio_closed_loop_ego_px4.launch.py --show-args",
+        "result": "PASS"
+      },
+      {
+        "command": "git diff --check",
+        "result": "PASS"
+      }
+    ],
+    "sitl_result": "Canonical launch #171 reached precondition-ready and ACTIVE, sent a goal, then aborted on localization_normalized_cost_exceeded at 1.011447; PX4 landed and disarmed. Not a successful goal or P5 acceptance.",
+    "truth_control_boundary": "#171 bridge graph reports zero debug_truth subscriptions and final topic listing contains no /debug_truth topics. The four PX4 control input topics each have one publisher. Evaluation/control probes were read-only; no second controller was started."
+  },
+  "launch_validation": {
+    "fixed_jazzy_build": {
+      "command": "docker run --rm -v \"$PWD:/workspace\" -w /workspace d435i-vins:dev bash -lc \"source /opt/ros/jazzy/setup.bash; colcon --log-base artifacts/runs/p5-vio-ego-launch-build-20261019-02/log build --base-paths src --packages-up-to uav_px4_bridge --build-base artifacts/runs/p5-vio-ego-launch-build-20261019-02/build --install-base artifacts/runs/p5-vio-ego-launch-build-20261019-02/install --parallel-workers 4\"",
+      "result": "PASS",
+      "packages_finished": 14,
+      "events_log": {
+        "path": "artifacts/runs/p5-vio-ego-launch-build-20261019-02/log/build_2026-10-19_11-16-25/events.log",
+        "sha256": "a16d6480189813cc7c39ac9f2a6fcee74e67088d25370c65ee5dd3ab2a5ad18d",
+        "size_bytes": 2504337,
+        "role": "colcon event log"
+      }
+    },
+    "installed_launch_arguments": {
+      "command": "ros2 launch uav_px4_bridge vio_closed_loop_ego_px4.launch.py --show-args",
+      "result": "PASS"
+    },
+    "isolated_process_smoke": {
+      "run": "artifacts/runs/p5-vio-ego-launch-smoke-20261019-02",
+      "result": "PASS; nine ROS processes started and were stopped by the timeout SIGINT; no SITL was attached",
+      "log": {
+        "path": "artifacts/runs/p5-vio-ego-launch-smoke-20261019-02-console.log",
+        "sha256": "a9a672ea2aa320737d0b3b734d63c9811fe61e3fa15924849e97d04d691d3349",
+        "size_bytes": 20269,
+        "role": "process start/stop smoke"
+      }
+    },
+    "ros_domain_setup_error_excluded": {
+      "run": "artifacts/runs/p5-vio-ego-launch-smoke-20261019-01",
+      "reason": "ROS_DOMAIN_ID=239 exceeds Fast DDS supported domain range; no runtime qualification claim",
+      "log": {
+        "path": "artifacts/runs/p5-vio-ego-launch-smoke-20261019-01-console.log",
+        "sha256": "36583378fb06a2f8e1a059354caca13b9b566a423e751b1008aa9efc381685c0",
+        "size_bytes": 13765,
+        "role": "excluded setup-error smoke"
+      }
+    },
+    "canonical_sitl_run": "#171 above; action failed on the existing localization quality guard and the vehicle was landed/disarmed."
+  },
+  "source_sha256": {
+    "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "tools/test_px4_bridge_vio_profile.py": "b0e45bb120efae814011b1818984e11fa56683c5f99d0fa9eaa4e8a571f087e2",
+    "simulation/models/d435i/model.sdf": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "src/own/uav_px4_bridge/launch/vio_closed_loop_ego_px4.launch.py": "ee62ab3a55b5536f7b35adda42abf64217a8299cc2e3d2495cc2c498feaea367",
+    "src/own/uav_px4_bridge/uav_px4_bridge/vio_ego_bringup.py": "d9cf75749b1d426447b2b135a0d41b83b975b4dbb26e950b58ee0a7bf8436cb0",
+    "src/own/uav_px4_bridge/package.xml": "473d5bba6101b1b81097536706a1593d1dee06af5dd4eac3496ab4177d2977de",
+    "tools/test_vio_ego_bringup_config.py": "d65e9605b291e89506d158be76734592b70ac758595f90c2c24fac3538f11df4",
+    "config/components/mapping/ego_planner.json": "438ae585fed03f6c2933d211575666ef049f239ee5360511f16dcd49ffb930de",
+    "config/components/mapping/ego_input.json": "8266ec6c41ba89a3857718ba448cb4393a91b20477b3cfa345a1dc5b0d38ae49"
+  }
+}

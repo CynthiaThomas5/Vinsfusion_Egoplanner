@@ -1,0 +1,87 @@
+{
+  "scope": "P0 partial: read-only source capture; no build or binary equivalence claim",
+  "legacy_head": "92b0030150f8ba35da3b55e57f5b426dd2c22cb0",
+  "tracked_diff_scope": [
+    "src",
+    "start_e2e_sim.sh",
+    "start_visualization.sh"
+  ],
+  "untracked_files": "listed only, not imported; review before migrating",
+  "files_sha256": {
+    "artifacts/runs/p0-source-audit-20261016/legacy-status.txt": "511a2228a79931f1c594c98647a24c02c20e48a800f3c2a6a7704bbd9bfe9977",
+    "artifacts/runs/p0-source-audit-20261016/legacy-tracked.patch": "30b006c071863319868821f9cf92a714513d8a381ab102750272b066e4f0fe54",
+    "artifacts/runs/p0-source-audit-20261016/legacy-submodules.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dependencies/patches/vins/0001-fully-fixed.patch": "99b286a08f2d55d8da5d1bda9b450ec0d1553386e28577c814861489931f8940",
+    "dependencies/patches/vins/0002-telemetry.patch": "60cf747645b6fabc5b48aa32fa35beb07c0ff59fb8aecf4851598f79c38ed3f8",
+    "artifacts/runs/p0-source-audit-20261016/reference-fully_fixed_manifest.json": "063101c50ae4e969ef7225625628c146816d5f13646c28298e14d97418a9fefe",
+    "artifacts/runs/p0-source-audit-20261016/reference-environment_manifest.json": "717f9d08f30f55b08bc5a0097f639d75c68e23adf3deae62183c597f7712bfea",
+    "artifacts/runs/p0-source-audit-20261016/reference-internal_health-manifest.json": "5715fc4c66325a74b6b7ac947142ad1c3967a84927abeec9a778dcc45f6e946e",
+    "artifacts/runs/p0-source-audit-20261016/px4-submodules.txt": "2c1da1e64388a1a6e68d240df31e744c01c629ca238c615e5677f1ba77d6f187",
+    "artifacts/runs/p0-source-audit-20261016/px4-status.txt": "1e31e7a9020f388db309603ebc0946a182f3ea8f4fd053f30b59f943f13afd0d",
+    "dependencies/patches/vins/0003-jazzy-cv-bridge.patch": "334148fb7aa2fd399aa27aca5dda01d9ee270590ac25551331b8d3ecbb621b1d",
+    "dependencies/patches/vins/0004-initialize-excitation-sum.patch": "530091f49e9f6f7ebf03ae4fe5c22e01ca75cc69a8aea5c65c74803dd2bc6f27",
+    "dependencies/patches/vins/0005-diagnostic-cost-components.patch": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72"
+  },
+  "vins_base": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+  "patch_order": [
+    "dependencies/patches/vins/0001-fully-fixed.patch",
+    "dependencies/patches/vins/0002-telemetry.patch",
+    "dependencies/patches/vins/0003-jazzy-cv-bridge.patch",
+    "dependencies/patches/vins/0004-initialize-excitation-sum.patch",
+    "dependencies/patches/vins/0005-diagnostic-cost-components.patch"
+  ],
+  "vins_patch_application": "First two checked on base; third Jazzy patch generated after actual cv_bridge header compile failure; optional cost-component diagnostic patch generated on the post-0004 source and apply-checked against that snapshot",
+  "vins_patched_files_sha256": {
+    "loop_fusion/src/parameters.h": "bfc995f007af5f84c29362270b8d4ba16ad352f7adbddd19b7bbfe154e9cbc10",
+    "loop_fusion/src/pose_graph_node.cpp": "93a0313f9f0cc37b3d3408e44d20e3ab30b06c8ad674572202c4745b654ad53a",
+    "vins/src/KITTIOdomTest.cpp": "4a4686a85db02d8daca924add19663992d3ae91b81ea21530fbd7d9ea3701e1c",
+    "vins/src/estimator/estimator.cpp": "15adf0b2f3a0e8f1a2f506e2b6480e41c860aeb0c05ce37dc63e9bb0175ec3ad",
+    "vins/src/factor/marginalization_factor.cpp": "d92026d575baf32d0c899016a4105b6eb93efea443f3e24aac269885d7e2676e",
+    "vins/src/rosNodeTest.cpp": "674df2fcd02df0fa98f3fb01432ce8ee34132800cc36f274392bc8043c17f8db",
+    "vins/src/utility/visualization.cpp": "ae4f21db23c3359f3b173ea7577c50327ec8b2e0f68e76e9558ca0252e978bd7",
+    "vins/src/utility/visualization.h": "e61af6fed140aec1b4705fbcb841684c0baf024a0aa464fe625b6ac83388af66"
+  },
+  "binary_correspondence": "Historical manifests only; no independently reproduced binary; not P0 passed",
+  "license": "GPL-3.0; upstream LICENCE retained",
+  "px4": {
+    "path": "/home/ac/PX4-Autopilot",
+    "head": "2c355919e4ff0ffb0b68a138038f205b6dbefa97",
+    "describe": "v1.17.0-7-g2c355919e4",
+    "imported": false,
+    "qualification": "Read-only inventory; local source not yet used or built by this project"
+  },
+  "px4_msgs": {
+    "head": "86d8239e962f6939e05c3737784f60c02fa884db",
+    "dirty": false,
+    "qualification": "Legacy nested repository; compatibility with selected PX4 not tested"
+  },
+  "candidate_patch_equivalence": "PASS: historical candidate.patch applied separately to exact base produces identical bytes in every patched file (first two patches only; before Jazzy patch)",
+  "candidate_patch_sha256": "bdd40bb7c271e52afe1f6d74315d393326650996b72b09858758efca8b99f58d",
+  "fetch_check": "PASS: all four patches restored from fresh local bundle clone, final source hashes verified; public download not yet tested",
+  "historical_candidate_files_sha256": {
+    "vins/src/estimator/estimator.cpp": "064836ee4ff432aeac944cfcb8ecf793ed480e5b39011069af193c35e29c0c37",
+    "vins/src/factor/marginalization_factor.cpp": "d92026d575baf32d0c899016a4105b6eb93efea443f3e24aac269885d7e2676e",
+    "vins/src/rosNodeTest.cpp": "2e399658ce342eb342e8c7e9a0d7ee2e8f43acaf8adce95675b535630c4d5e5c",
+    "vins/src/utility/visualization.cpp": "ae4f21db23c3359f3b173ea7577c50327ec8b2e0f68e76e9558ca0252e978bd7",
+    "vins/src/utility/visualization.h": "e6dc6fbd68bdc401c47ecf28057835327e0f31bbcd3c67450c897aac09761ec2"
+  },
+  "vins_diagnostic_cost_components": {
+    "patch": "dependencies/patches/vins/0005-diagnostic-cost-components.patch",
+    "base_commit": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "applied_after": "dependencies/patches/vins/0004-initialize-excitation-sum.patch",
+    "patch_sha256": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72",
+    "patched_estimator_sha256": "15adf0b2f3a0e8f1a2f506e2b6480e41c860aeb0c05ce37dc63e9bb0175ec3ad",
+    "enable_environment_variable": "VINS_DIAGNOSTIC_COST_GROUPS=1",
+    "default": "disabled",
+    "scope": "One Ceres robust-cost evaluation per group (marginalization, IMU, visual) on the first normalized_cost >= 1.0 sample; no solver or health policy change",
+    "status": "source patch apply-check, Jazzy package build, and one-shot live SITL group-cost emission passed; flight behavior and diagnostic overhead remain unqualified",
+    "runtime_evidence": "progress/evidence/p5-vio-cost-components-20261019-180.json",
+    "runtime_result": {
+      "run_id": "p5-px4-vio-ego-flight-20261019-180",
+      "first_normalized_cost": 1.0370627910391197,
+      "evaluation_ok": true,
+      "grouped_cost_error": -1.7053025658242404e-12,
+      "grouped_residual_components": 1856
+    }
+  }
+}

@@ -1,0 +1,10 @@
+# The build instructions verify this immutable base image before invoking
+# Docker. Its portable image archive is recorded in artifacts/runs.
+FROM px4-ros2-gz@sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libceres-dev=2.2.0+dfsg-4.1ubuntu2 \
+    libboost-filesystem-dev=1.83.0.1ubuntu2 \
+    libboost-program-options-dev=1.83.0.1ubuntu2 \
+    libboost-system-dev=1.83.0.1ubuntu2 \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /workspace

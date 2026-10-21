@@ -1,0 +1,35 @@
+--- a/src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py
++++ b/src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py
+@@ -25,6 +25,7 @@
+     max_acc = LaunchConfiguration('max_acc', default=3.0)
+     planning_horizon = LaunchConfiguration('planning_horizon', default=7.5)
+     odom_depth_timeout = LaunchConfiguration('odom_depth_timeout', default=1.0)
++    obstacles_inflation = LaunchConfiguration('obstacles_inflation', default=0.099)
+     ground_height = LaunchConfiguration('ground_height', default=-0.01)
+     
+     point_num = LaunchConfiguration('point_num', default=1)
+@@ -66,6 +67,7 @@
+     max_acc_arg = DeclareLaunchArgument('max_acc', default_value=max_acc, description='Maximum acceleration')
+     planning_horizon_arg = DeclareLaunchArgument('planning_horizon', default_value=planning_horizon, description='Planning horizon')
+     odom_depth_timeout_arg = DeclareLaunchArgument('odom_depth_timeout', default_value=odom_depth_timeout, description='Depth/odometry freshness timeout in simulation seconds')
++    obstacles_inflation_arg = DeclareLaunchArgument('obstacles_inflation', default_value=obstacles_inflation, description='Obstacle inflation distance in meters')
+     ground_height_arg = DeclareLaunchArgument('ground_height', default_value=ground_height, description='Lower map boundary in odometry-frame meters')
+     
+     point_num_arg = DeclareLaunchArgument('point_num', default_value=point_num, description='Number of waypoints')
+@@ -151,7 +153,7 @@
+             {'grid_map/local_update_range_x': 5.5},
+             {'grid_map/local_update_range_y': 5.5},
+             {'grid_map/local_update_range_z': 4.5},
+-            {'grid_map/obstacles_inflation': 0.099},
++            {'grid_map/obstacles_inflation': obstacles_inflation},
+             {'grid_map/local_map_margin': 10},
+             {'grid_map/ground_height': ground_height},
+             # camera parameter
+@@ -231,6 +233,7 @@
+     ld.add_action(max_acc_arg)
+     ld.add_action(planning_horizon_arg)
+     ld.add_action(odom_depth_timeout_arg)
++    ld.add_action(obstacles_inflation_arg)
+     ld.add_action(ground_height_arg)
+     
+     ld.add_action(point_num_arg)

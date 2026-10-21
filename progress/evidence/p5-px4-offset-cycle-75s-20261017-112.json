@@ -1,0 +1,452 @@
+{
+  "artifacts": {
+    "agent_log": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/agent.log",
+      "sha256": "ba56fbb02abcdf3f59c5dfb7abc6ae57979c6338c4d39f0c69f7257be2006eb3",
+      "size_bytes": 41563
+    },
+    "gazebo_log": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/gazebo.log",
+      "sha256": "d2bc5423e6ce8dac1c63037669bf4e5e47926c469800f222a32f1c6250714f0a",
+      "size_bytes": 2802
+    },
+    "generated_world": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/vio_initialization.sdf",
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11",
+      "size_bytes": 7845
+    },
+    "harness": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/run-px4-offset-cycle-75s.sh",
+      "sha256": "73a48768badc47f639ad840a46454a2fa5a328c044a8501a20ad4a1042efb2dd",
+      "size_bytes": 9936
+    },
+    "live_probe": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/px4-live-probe.json",
+      "sha256": "319b39da134a957644a2f4ca6d14d54702772fe0a84416e4d272a76645b16942",
+      "size_bytes": 4455845
+    },
+    "localization_probe": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/localization-probe.json",
+      "sha256": "72c7d1633c1113295ace2e7a66745a5b5233e9be8f0e0535a6872e3f15efa28c",
+      "size_bytes": 664854
+    },
+    "px4_bridge_graph": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/px4-bridge-node-info.txt",
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+      "size_bytes": 1879
+    },
+    "px4_log": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/px4.log",
+      "sha256": "7f9d4646654aae7a48f08358629de01e7f78ef6f4ac1f127573438212dd25453",
+      "size_bytes": 5035
+    },
+    "px4_parameter_stage": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/px4-param-stage.json",
+      "sha256": "5521eb9a1f7a268dcdbcea4ba911e5cb85557e123d5dc18976452521376473ab",
+      "size_bytes": 716
+    },
+    "qualification": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/qualification.json",
+      "sha256": "ae4e57d0c55a32f09469ac8ba6e57c0253fe5d9c8f16c47cd100c62f4db24d05",
+      "size_bytes": 5397230
+    },
+    "raw_stream_probe": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/raw-stream-freshness.json",
+      "sha256": "8e8a2671ecd202c09b8429fe5850ccc8c81b240be815beb3ac2633b55738a8ef",
+      "size_bytes": 6209
+    },
+    "session_manifest": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/session/session.json",
+      "sha256": "fe0db23c2289c701b0ad19f54d8113887b95bf2ca9a0eaf4a38e07c48f12a2e1",
+      "size_bytes": 654
+    },
+    "ulog": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/px4_sitl_default/log/2026-10-17/09_17_39.ulg",
+      "sha256": "7de240c96d4e83be16d3c8d20d6d7a42d65a47d20a414f2b041b43d13e0fd593",
+      "size_bytes": 12802124
+    },
+    "vins_log": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/vins.log",
+      "sha256": "2e3154a1f2bede5358479b63ad48a1a6082c42ae45cfd05dee3943a0cbbec461",
+      "size_bytes": 107298
+    },
+    "vins_runtime_config": {
+      "path": "artifacts/runs/p5-px4-offset-cycle-75s-20261017-112/session/vins.yaml",
+      "sha256": "b38ea531fd1db7b537460453ac9bfcca8c3ebafa384c697cbffbb231ba3d5236",
+      "size_bytes": 1249
+    }
+  },
+  "changes_under_test": {
+    "control_behavior_changed": false,
+    "probe": "Read-only PX4 telemetry timestamp, observed_offset, estimated_offset and /clock instrumentation. No bridge source, freshness threshold or control behavior changed.",
+    "run_isolation": "New PX4 SITL build directory copied from prior pinned run; new ROS domain and Gazebo partition.",
+    "thresholds_changed": false
+  },
+  "checks": {
+    "bridge_control_enabled_final": false,
+    "bridge_phase_final": "DISABLED",
+    "bridge_reason_counts": {
+      "ev_position_not_fused": 1,
+      "external_odometry_stale": 3,
+      "px4_frame_unaligned": 1,
+      "px4_local_position_invalid": 11,
+      "px4_preflight_failed": 490,
+      "px4_telemetry_stale": 70
+    },
+    "bridge_truth_subscription_present": false,
+    "callback_source_age_sim_s": {
+      "attitude": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.008123,
+          "min": -0.000227,
+          "p50": 0.001189,
+          "p95": 0.004771,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 1045,
+        "future_over_20ms_in_reestimation_windows": 351,
+        "future_over_20ms_total": 351,
+        "usable_samples": 3097
+      },
+      "estimator_flags": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001338,
+          "min": 4.2e-05,
+          "p50": 0.000642,
+          "p95": 0.001338,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 10,
+        "future_over_20ms_in_reestimation_windows": 5,
+        "future_over_20ms_total": 5,
+        "usable_samples": 33
+      },
+      "land_detected": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001972,
+          "min": 5.3e-05,
+          "p50": 0.000827,
+          "p95": 0.001972,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 10,
+        "future_over_20ms_in_reestimation_windows": 5,
+        "future_over_20ms_total": 5,
+        "usable_samples": 34
+      },
+      "local_position": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.01113,
+          "min": -0.000315,
+          "p50": 0.004717,
+          "p95": 0.008951,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 522,
+        "future_over_20ms_in_reestimation_windows": 194,
+        "future_over_20ms_total": 194,
+        "usable_samples": 1548
+      },
+      "vehicle_status": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.000746,
+          "min": -3.7e-05,
+          "p50": 0.000472,
+          "p95": 0.000737,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 20,
+        "future_over_20ms_in_reestimation_windows": 9,
+        "future_over_20ms_total": 9,
+        "usable_samples": 61
+      }
+    },
+    "control_topic_sample_counts_all_zero": true,
+    "ekf2_ev_position_fused": true,
+    "ekf2_ev_yaw_fused": true,
+    "estimated_offset_reestimation_episodes": [
+      {
+        "end_wall_s": 18.34,
+        "estimated_offset_changes": 25,
+        "start_wall_s": 12.814
+      },
+      {
+        "end_wall_s": 49.988,
+        "estimated_offset_changes": 24,
+        "start_wall_s": 44.706
+      }
+    ],
+    "final_bridge_reason": "px4_preflight_failed",
+    "gnss_aiding_flags_all_zero": true,
+    "localization_tracking_observed": true,
+    "px4_telemetry_stale_detail_clusters": [
+      {
+        "count": 36,
+        "first_wall_s": 12.954,
+        "last_wall_s": 18.554
+      },
+      {
+        "count": 34,
+        "first_wall_s": 44.853,
+        "last_wall_s": 49.954
+      }
+    ],
+    "px4_telemetry_stale_detail_samples": 70,
+    "px4_visual_odometry_samples": 473,
+    "readiness_final_10s_coverage": 0.0,
+    "ros_truth_topics_present": false,
+    "samples_excluded_for_offset_missing_zero_or_invalid": {
+      "attitude": 32,
+      "estimator_flags": 2,
+      "local_position": 17,
+      "vehicle_status": 1
+    },
+    "timesync_age_sim_s": {
+      "max": 0.08,
+      "min": 0.0,
+      "p50": 0.0
+    },
+    "timesync_status_samples": 74,
+    "ulog_present": true,
+    "vehicle_remained_disarmed": true
+  },
+  "date": "2026-10-17",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ephemeral_container": true,
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "repository_head": null,
+    "repository_snapshot": "No project HEAD exists; relevant source/config hashes and all run artifacts are recorded below.",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 228
+  },
+  "limitations": [
+    "The run is 75 seconds; it does not validate a 10-minute flight or a safe response to repeated telemetry-age failures.",
+    "The PX4 high-deviation reset path matches the timing pattern, but no internal reset counter/log was captured; root-cause attribution remains a strong source-based correlation.",
+    "Readiness is unqualified: bridge stayed DISABLED and PX4 current-mode preflight failed.",
+    "No Offboard prestream, control samples, arming, flight or navigation occurred.",
+    "P5/P4/P6 and GOAL A-H remain incomplete."
+  ],
+  "qualification": "A 75-second passive SITL with VIO observed two estimated_offset re-estimation episodes. Each episode aligned with a cluster of PX4 telemetry freshness failures; between episodes and after the second episode, callback source ages returned to millisecond ranges. The first and second re-estimation episodes occurred at 12.814–18.340 s and 44.706–49.988 s. PX4 received 473 VIO messages and EV position/yaw fusion was observed without GNSS or truth. Readiness remains unqualified in DISABLED mode.",
+  "result": "DIAGNOSTIC_ONLY_REPEATED_OFFSET_REESTIMATION_AND_STALE_WINDOWS",
+  "run_id": "p5-px4-offset-cycle-75s-20261017-112",
+  "source_sha256": {
+    "bridge_config": {
+      "path": "config/components/px4_bridge/vio_closed_loop.json",
+      "sha256": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601"
+    },
+    "bridge_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9"
+    },
+    "frame_contract": {
+      "path": "config/components/px4_bridge/frames_vio_closed_loop.json",
+      "sha256": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822"
+    },
+    "launch": {
+      "path": "src/own/uav_px4_bridge/launch/vio_closed_loop_px4.launch.py",
+      "sha256": "d07780617a1dabc344a0c0d32771d8f5d0de175724020c2e4355745c42408cc8"
+    },
+    "live_probe": {
+      "path": "tools/probe_px4_bridge_live.py",
+      "sha256": "8fd76b13c654dba37ee68daa479c949209b6d5d8b8a977f5ee2ae1a3f8471f57"
+    },
+    "profile": {
+      "path": "config/profiles/vio_closed_loop.json",
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "sensor_bridge_config": {
+      "path": "config/components/simulation/d435i_bridge.yaml",
+      "sha256": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed"
+    },
+    "time_mapping_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "sha256": "81d663ab1aa4fbc650971ce61cf71d64660dae7e4bff2a11f7ed726b143eb0db"
+    }
+  },
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "timestamp_analysis": {
+    "estimated_offset_reestimation_windows_wall_s": [
+      [
+        12.814,
+        18.34
+      ],
+      [
+        44.706,
+        49.988
+      ]
+    ],
+    "method": "For each PX4 telemetry callback, interpolate adjacent /clock samples in monotonic receipt time and compare with raw timestamp_agent_us + latest nonzero estimated_offset_us. Samples without offset, with zero offset during filter reset, or with invalid recovered timestamps are excluded.",
+    "source_ages_sim_s": {
+      "attitude": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.008123,
+          "min": -0.000227,
+          "p50": 0.001189,
+          "p95": 0.004771,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 1045,
+        "future_over_20ms_in_reestimation_windows": 351,
+        "future_over_20ms_total": 351,
+        "usable_samples": 3097
+      },
+      "estimator_flags": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001338,
+          "min": 4.2e-05,
+          "p50": 0.000642,
+          "p95": 0.001338,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 10,
+        "future_over_20ms_in_reestimation_windows": 5,
+        "future_over_20ms_total": 5,
+        "usable_samples": 33
+      },
+      "land_detected": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.001972,
+          "min": 5.3e-05,
+          "p50": 0.000827,
+          "p95": 0.001972,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 10,
+        "future_over_20ms_in_reestimation_windows": 5,
+        "future_over_20ms_total": 5,
+        "usable_samples": 34
+      },
+      "local_position": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.01113,
+          "min": -0.000315,
+          "p50": 0.004717,
+          "p95": 0.008951,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 522,
+        "future_over_20ms_in_reestimation_windows": 194,
+        "future_over_20ms_total": 194,
+        "usable_samples": 1548
+      },
+      "vehicle_status": {
+        "after_last_reestimation_age_sim_s": {
+          "future_over_20ms": 0,
+          "max": 0.000746,
+          "min": -3.7e-05,
+          "p50": 0.000472,
+          "p95": 0.000737,
+          "stale_over_1_5s": 0
+        },
+        "after_last_reestimation_sample_count": 20,
+        "future_over_20ms_in_reestimation_windows": 9,
+        "future_over_20ms_total": 9,
+        "usable_samples": 61
+      }
+    }
+  },
+  "timesync_observed_estimated_comparison": {
+    "estimated_offset_segments": [
+      {
+        "end_wall_s": 18.34,
+        "estimated_value_changes": 25,
+        "first_observed_minus_estimated_us": 0,
+        "kind": "estimated_offset_reestimation",
+        "last_observed_minus_estimated_us": -22248,
+        "start_wall_s": 12.814
+      },
+      {
+        "end_wall_s": 10.384,
+        "estimated_offset_us": -1792228652698987,
+        "kind": "estimated_offset_plateau_before",
+        "observed_minus_estimated_us_end": -13160161,
+        "observed_minus_estimated_us_start": -7627989,
+        "start_wall_s": 0.824
+      },
+      {
+        "end_wall_s": 49.988,
+        "estimated_value_changes": 24,
+        "first_observed_minus_estimated_us": -62758,
+        "kind": "estimated_offset_reestimation",
+        "last_observed_minus_estimated_us": -10414,
+        "start_wall_s": 44.706
+      },
+      {
+        "end_wall_s": 42.313,
+        "estimated_offset_us": -1792228670382761,
+        "kind": "estimated_offset_plateau_before",
+        "observed_minus_estimated_us_end": -14100577,
+        "observed_minus_estimated_us_start": 8597,
+        "start_wall_s": 18.34
+      },
+      {
+        "end_wall_s": 74.109,
+        "estimated_offset_us": -1792228688946718,
+        "kind": "estimated_offset_plateau_after_last_reestimation",
+        "observed_minus_estimated_us_end": -14061337,
+        "observed_minus_estimated_us_start": -1419,
+        "start_wall_s": 49.988
+      }
+    ],
+    "interpretation": "Two estimated_offset transitions produced two telemetry freshness-failure clusters. The estimated field then held a plateau while observed_offset continued drifting at approximately 1 - measured /clock rate. This strongly correlates with, but does not by itself prove, PX4 timesync high-deviation filter reset behavior; the internal counter/reset event was not directly logged.",
+    "measured_wall_sim_rates": {
+      "observed_offset_s_per_wall_s": -0.582393,
+      "ros_clock_sim_s_per_wall_s": 0.417598,
+      "sum_of_rate_magnitudes": 0.999991
+    },
+    "px4_source_path": "PX4 v1.17 Timesync::update computes observed clock offset, filters estimated_offset, and may reset after repeated high-deviation samples; source_refs: external/PX4-Autopilot/src/lib/timesync/Timesync.cpp:45-122 and Timesync.hpp:73-113. The only other reset caller in the inspected source is uxrce_dds_client.cpp:deleteSession() around line 388. The Agent log for this run contains one session establishment and no reconnect.",
+    "filter_reset_status_observations": [
+      {
+        "elapsed_wall_s": 12.814066366001498,
+        "source_protocol": "DDS",
+        "estimated_offset_us": 0,
+        "observed_offset_us": -1792228667284694,
+        "following_sample_elapsed_wall_s": 12.814549370959867,
+        "following_sample_delay_ms": 0.483,
+        "following_estimated_offset_us": -1792228667284789,
+        "following_observed_offset_us": -1792228667284789,
+        "following_estimate_matches_observed": true
+      },
+      {
+        "elapsed_wall_s": 44.70555241795955,
+        "source_protocol": "DDS",
+        "estimated_offset_us": 0,
+        "observed_offset_us": -1792228685864263,
+        "following_sample_elapsed_wall_s": 44.705935225007124,
+        "following_sample_delay_ms": 0.383,
+        "following_estimated_offset_us": -1792228685864452,
+        "following_observed_offset_us": -1792228685864452,
+        "following_estimate_matches_observed": true
+      }
+    ],
+    "reset_path_assessment": "Both re-estimation episodes publish estimated_offset_us=0 and the immediately following DDS TimesyncStatus adopts observed_offset_us as the new estimate, matching Timesync::reset_filter() followed by the first accepted sample. PX4 v1.17 has two reset call paths: high-deviation reset in Timesync::update() and UxrceddsClient::deleteSession(). The Agent log shows one session establishment and no reconnect during the run, so the high-deviation path is the strongest explanation. The internal high-deviation counter and PX4_DEBUG event were not captured; attribution remains an inference.",
+    "px4_source_hashes": {
+      "timesync": {
+        "path": "external/PX4-Autopilot/src/lib/timesync/Timesync.cpp",
+        "sha256": "82f383d8deaaf0f1c34d7063fdaa15e472f8867c068d0879630419a504cb5890"
+      },
+      "uxrce_client": {
+        "path": "external/PX4-Autopilot/src/modules/uxrce_dds_client/uxrce_dds_client.cpp",
+        "sha256": "1a01a7191b7e5e99e5d80419943ec66da6e8f649c35e45b22bf19ae59e7da7a7"
+      },
+      "timesync_status_message": {
+        "path": "external/PX4-Autopilot/msg/TimesyncStatus.msg",
+        "sha256": "244e915343f678a7a9895002d2f36983bfd4494a2a9167db70b01e2dc5a5566c"
+      }
+    }
+  }
+}

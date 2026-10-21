@@ -1,0 +1,109 @@
+{
+  "schema": "goal-c-map-snapshot-live-readback/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-mapstatus-occupancy-static-snapshot-20261020-273",
+  "status": "PASS_PARTIAL_SAME_CLOCK_OCCUPIED_SNAPSHOT",
+  "qualification": "Same-clock live MapStatus and occupied cloud were captured in one epoch and archived/read back. This is partial GOAL C evidence, not map coverage, planning, obstacle avoidance, or final navigation acceptance.",
+  "scope": {
+    "world": "simulation/worlds/sensor_calibration.sdf",
+    "motion": "static sensor fixture; no motion driver",
+    "truth": "No truth/debug_truth bridge or truth subscriber was launched by this run; no truth input was supplied to VINS, localization, mapping, EGO, or the probe.",
+    "control": "No goal client, PX4, controller, or control publisher was launched.",
+    "use_sim_time": true
+  },
+  "build": {
+    "command": "colcon --log-base <run>/build-logs build --base-paths src/own --packages-up-to uav_localization uav_mapping --build-base <run>/build --install-base <run>/install --merge-install --parallel-workers 2",
+    "result": "PASS, 4 packages: uav_interfaces, uav_sim, uav_localization, uav_mapping",
+    "log": "artifacts/runs/p2-mapstatus-occupancy-static-snapshot-20261020-273/build-overlay.log",
+    "sha256": "ff539b7b7b9f4e4c0bd8c582d57e648fe145ce697892e5be4a473559b6260cd7"
+  },
+  "observation": {
+    "status_sample_count": 145,
+    "ready_status_sample_count": 3,
+    "localization_terminal_reason": "propagated_from_future",
+    "localization_valid_samples": 0,
+    "localization_status_sample_count": 655,
+    "map_status_cloud_pair": {
+      "matched": true,
+      "epoch": "83d71077c3914f46ba1d7554320bfbcf",
+      "map_id": "83d71077c3914f46ba1d7554320bfbcf-6c97e62b73a64990b424fabda351ef54",
+      "frame_id": "odom_83d71077c3914f46ba1d7554320bfbcf",
+      "stamp_ns": 4885000000,
+      "point_count": 1341
+    },
+    "map_status_header_stamp_ns": 4926000000,
+    "occupancy_source_stamp_ns": 4885000000,
+    "map_status_header_minus_occupancy_source_ms": 41.0,
+    "ego_log": "artifacts/runs/p2-mapstatus-occupancy-static-snapshot-20261020-273/ego.log",
+    "mapping_log": "artifacts/runs/p2-mapstatus-occupancy-static-snapshot-20261020-273/mapping-adapter.log",
+    "localization_lock_wall_epoch_s": 1792474197.6586905,
+    "snapshot_preceded_lock_by_ms": 143.476,
+    "ego_shutdown": {
+      "signal": "SIGINT",
+      "exit_code": -6,
+      "log": "artifacts/runs/p2-mapstatus-occupancy-static-snapshot-20261020-273/ego.log",
+      "qualification": "invalid-context RCLError during teardown; not an in-flight timeout"
+    }
+  },
+  "snapshot": {
+    "epoch": "83d71077c3914f46ba1d7554320bfbcf",
+    "map_id": "83d71077c3914f46ba1d7554320bfbcf-6c97e62b73a64990b424fabda351ef54",
+    "frame_id": "odom_83d71077c3914f46ba1d7554320bfbcf",
+    "source_stamp_ns": 4885000000,
+    "point_count": 1341,
+    "calibration_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "pcd": "artifacts/runs/p2-mapstatus-occupancy-static-snapshot-20261020-273/map-snapshot/occupied_snapshot.pcd",
+    "metadata": "artifacts/runs/p2-mapstatus-occupancy-static-snapshot-20261020-273/map-snapshot/metadata.json",
+    "pcd_sha256": "20a51596d02a0d5d89ad07c7753242c9cf2a6120424a1e4c93d386ec88d78ae7",
+    "metadata_sha256": "98c3eb41f62c04380598900c7a1bc5815c6fbb1d7e10132e55eca811641a63ed",
+    "readback_point_count": 1341,
+    "float32_roundtrip_exact": true
+  },
+  "tool_sha256": {
+    "probe_map_snapshot.py": "87603378b1a5c180147fcea9d1cfb610b67a6484e8a030f4e2d2815aa28aaa29",
+    "probe_mapping_runtime.py": "7c8736bea81f6d23161b6df41b44e2a32bd63f9809be6676b633e13b288e1a7a",
+    "export_occupancy_snapshot.py": "d1073138f7cfc2a622d63a0b44f54f65154ea76861d38f8d830ba36dbc2dced6"
+  },
+  "source_sha256": {
+    "probe": "fbd8f7f1db79e8f89476c4583b191df0c593dd2070adfcc04c3e2e8f0e4d4b2a",
+    "cloud": "5c6ec898e42da30010797ab6f35e85ff08f537b2e704095bf016981ef5d983ff",
+    "run_report": "5929e166aa108673b87c081fe1dfc7b8c32c8fa909c890b35dfe9adb8a41932b",
+    "camera_model": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "mapping_input_config": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "depth_gate_config": "590db91cbda0de2cd3419c208c75373d6cb19a53322d19ad0838d28fc4b16017",
+    "vins_config": "bbe6652a802c63a6d9247900be956959964621d72ad61ad46fa205f209ebda95",
+    "run_live_script": "935fb2f72b1c032ab3c80033164fb52d1e13b409355edbdb8e18ac6177f1cd2e",
+    "run_container_script": "9aca46755390c71ccc2543053b4f32af53753732da30eefa7e7a43dcbaac0464",
+    "world_sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "mapping_adapter_source": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f",
+    "localization_adapter_source": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "localization_health_policy": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "vins_config_generator": "b98c1730bcfedb18079ce75a50fa6ba51c3a175fc53937766b14693675fa9e06",
+    "map_snapshot_metadata": "98c3eb41f62c04380598900c7a1bc5815c6fbb1d7e10132e55eca811641a63ed"
+  },
+  "excluded_diagnostics": [
+    {
+      "run_id": "p2-live-mapstatus-occupancy-snapshot-20261020-270",
+      "result": "INCOMPLETE_NO_OCCUPANCY",
+      "finding": "Fresh overlay built 4/4 packages; localization locked telemetry_stale about 0.33 s after first TRACKING sample. 208 MapStatus samples had no ready state and no occupied points."
+    },
+    {
+      "run_id": "p2-mapstatus-occupancy-static-snapshot-20261020-271",
+      "result": "INCOMPLETE_PAIR_NOT_RETAINED",
+      "finding": "Three ready status samples and max occupied count 1381 were observed, but the collector found no exact pair after the run; no snapshot exported."
+    },
+    {
+      "run_id": "p2-mapstatus-occupancy-static-snapshot-20261020-272",
+      "result": "SAME_STAMP_PAIR_WITH_CLOCK_DOMAIN_CAVEAT",
+      "finding": "Captured 1354 occupied points, but mapping/localization/depth nodes used system time while sensor data used simulation time; EGO also reported a 1.0 s input timeout."
+    }
+  ],
+  "limitations": [
+    "This run used a static camera and wall; it does not demonstrate map accumulation during motion or obstacle avoidance.",
+    "Only occupied points are exported. Free/unknown classification and map coverage remain unverified.",
+    "Localization locked with propagated_from_future after the captured sample, EGO remained INIT without a goal and logged invalid-context RCLError on SIGINT shutdown (exit -6). MapStatus input_ready does not represent planner health.",
+    "Only one exploratory cold start; acceptance thresholds are not frozen.",
+    "The retained EGO launch used odometry_topic:=odom, which did not match the adapter output /localization/optimized_imu_odom. Its INIT/no-goal state is not evidence of planner readiness; the MapStatus/cloud snapshot remains independently valid."
+  ]
+}

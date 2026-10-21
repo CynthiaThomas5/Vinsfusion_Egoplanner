@@ -1,0 +1,69 @@
+--- a/planner/bspline_opt/include/bspline_opt/bspline_optimizer.h
++++ b/planner/bspline_opt/include/bspline_opt/bspline_optimizer.h
+@@ -2,6 +2,7 @@
+ #define _BSPLINE_OPTIMIZER_H_
+ 
+ #include <Eigen/Eigen>
++#include <stdexcept>
+ #include <path_searching/dyn_a_star.h>
+ #include <bspline_opt/uniform_bspline.h>
+ #include <plan_env/grid_map.h>
+@@ -100,6 +101,17 @@
+ 
+     // required inputs
+     void setControlPoints(const Eigen::MatrixXd &points);
++    // A stopping local target is a boundary condition, not a soft penalty.
++    void setTerminalBoundary(Eigen::MatrixXd &points, bool stop)
++    {
++      if (points.rows() != 3 || points.cols() < 7 || !points.allFinite()
++          || (stop && !local_target_pt_.allFinite()))
++        throw std::invalid_argument("Invalid cubic terminal boundary");
++      fixed_end_ = stop;
++      if (fixed_end_)
++        points.rightCols(3).colwise() = local_target_pt_;
++    }
++
+     void setBsplineInterval(const double &ts);
+     void setSwarmTrajs(SwarmTrajData *swarm_trajs_ptr);
+     void setDroneId(const int drone_id);
+@@ -127,6 +139,7 @@
+     inline double getSwarmClearance(void) { return swarm_clearance_; }
+ 
+   private:
++    bool fixed_end_ = false;
+     GridMap::Ptr grid_map_;
+     fast_planner::ObjPredictor::Ptr moving_objs_;
+     SwarmTrajData *swarm_trajs_{NULL}; // Can not use shared_ptr and no need to free
+--- a/planner/bspline_opt/src/bspline_optimizer.cpp
++++ b/planner/bspline_opt/src/bspline_optimizer.cpp
+@@ -1528,6 +1528,7 @@
+ 
+     // 将控制点数据存储到成员变量
+     setControlPoints(init_points);
++    setTerminalBoundary(cps_.points, fixed_end_);
+     setBsplineInterval(ts);
+ 
+     bool flag_success = refine_optimize();
+@@ -1543,7 +1544,7 @@
+     iter_num_ = 0;
+     int start_id = order_;
+     // int end_id = this->cps_.size - order_; //Fixed end
+-    int end_id = this->cps_.size; // Free end
++    int end_id = fixed_end_ ? this->cps_.size - order_ : this->cps_.size;
+     // 变量个数
+     variable_num_ = 3 * (end_id - start_id);
+ 
+--- a/planner/plan_manage/src/planner_manager.cpp
++++ b/planner/plan_manage/src/planner_manager.cpp
+@@ -220,7 +220,11 @@
+ 
+     // 将轨迹变为B样条轨迹
+     Eigen::MatrixXd ctrl_pts, ctrl_pts_temp;
++    const bool terminal_stop = local_target_vel.squaredNorm() < 1e-12;
++    if (terminal_stop)
++      start_end_derivatives[3].setZero();
+     UniformBspline::parameterizeToBspline(ts, point_set, start_end_derivatives, ctrl_pts);
++    bspline_optimizer_->setTerminalBoundary(ctrl_pts, terminal_stop);
+ 
+     vector<std::pair<int, int>> segments;
+     segments = bspline_optimizer_->initControlPoints(ctrl_pts, true);

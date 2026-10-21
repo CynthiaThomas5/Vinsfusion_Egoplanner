@@ -1,0 +1,175 @@
+{
+  "phase": "P3",
+  "status": "PARTIAL_IMPLEMENTATION",
+  "run_id": "p3-debug-truth-adapter-20261017-18",
+  "scope": "Live debug-only Gazebo truth to ROS epoch adapter and lazy sensor bridge validation. No PX4 DDS input, control publication, EKF2 fusion, or flight.",
+  "container": {
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "px4_version": "v1.17.0"
+  },
+  "worktree_snapshot": {
+    "path": "artifacts/runs/p3-debug-truth-adapter-20261017-18/git-status.txt",
+    "sha256": "6d4815a7bedfe24ec986e5ba4124926d5a8e7e0450004ebd81ee48cd73c0c962",
+    "status_lines": 300,
+    "files_staged_by_this_run": false
+  },
+  "implementation": {
+    "adapter": "src/own/uav_sim/uav_sim/debug_truth_adapter.py",
+    "launch": "src/own/uav_sim/launch/debug_truth.launch.py",
+    "raw_topic": "/debug_truth/base_odometry",
+    "raw_frames": "world -> d435i_link",
+    "output_topic": "/debug_truth/optimized_imu_odom",
+    "output_frames": "odom_<new 32-hex epoch> -> d435i_imu_<epoch>",
+    "status_topic": "/debug_truth/localization_status",
+    "fail_closed_reasons": [
+      "frame mismatch",
+      "invalid odometry",
+      "non-increasing source stamp",
+      "sim clock regression",
+      "sim clock stall",
+      "stale truth odometry"
+    ],
+    "control_publishers": "none",
+    "bridge_behavior": "Sensor and truth bridges are lazy; /clock remains continuously bridged."
+  },
+  "live_sitl": {
+    "command": "bash artifacts/runs/p3-debug-truth-adapter-20261017-18/run-debug-truth-sitl.sh",
+    "result": "PASS: ten monotonic Gazebo truth Odometry samples; LocalizationStatus TRACKING; epoch and frame contract matched.",
+    "probe": {
+      "child_frame": "d435i_imu_26ae315db69b48969c84118076927f8b",
+      "epoch": "26ae315db69b48969c84118076927f8b",
+      "first_stamp_ns": 8224000000,
+      "header_frame": "odom_26ae315db69b48969c84118076927f8b",
+      "last_stamp_ns": 8404000000,
+      "odometry_samples": 10,
+      "px4_input_publisher_counts": {
+        "/fmu/in/offboard_control_mode": 0,
+        "/fmu/in/trajectory_setpoint": 0,
+        "/fmu/in/vehicle_command": 0,
+        "/fmu/in/vehicle_visual_odometry": 0
+      },
+      "result": "PASS",
+      "state": "TRACKING"
+    },
+    "px4_input_ros_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 0,
+      "/fmu/in/trajectory_setpoint": 0,
+      "/fmu/in/vehicle_command": 0,
+      "/fmu/in/vehicle_visual_odometry": 0
+    },
+    "px4_agent_started": false,
+    "armed_or_flew": false,
+    "shutdown": "Process exit code 0. During launch teardown the bridge stopped before the adapter; the stale watchdog latched truth_odometry_stale. This is fail-closed shutdown behavior, not clean-teardown qualification.",
+    "logs": {
+      "artifacts/runs/p3-debug-truth-adapter-20261017-18/run.log": "191fa918a5605a92812358c0e725b40bd842863ce5830a631b498ad87d42d0a9",
+      "artifacts/runs/p3-debug-truth-adapter-20261017-18/adapter-probe.json": "885aa67b5a6463fb01f44a109c9cd03a9cf1369a4515f93dc8613a7995deb255",
+      "artifacts/runs/p3-debug-truth-adapter-20261017-18/ros-launch.log": "e92f235e349233769d7b7bd27dfdfaee62006e4c4cc8daf8c2d6edb3bad6e1fb",
+      "artifacts/runs/p3-debug-truth-adapter-20261017-18/px4.log": "9bed2981e115f011cdbcf45a7d3c0669c78de06ab8910a7a8c78476f548b4d4a",
+      "artifacts/runs/p3-debug-truth-adapter-20261017-18/gazebo.log": "8088cc0c0c1a3270cee4c1fa46bfedc3f8dd7198048eeda339788ae611566a01"
+    }
+  },
+  "lazy_sensor_bridge_check": {
+    "run_id": "p3-debug-truth-adapter-20261017-19",
+    "command": "python3 tools/check_sensors.py --project-root /workspace --output artifacts/runs/p3-debug-truth-adapter-20261017-19/sensor-report.json --seconds 15",
+    "result": "PASS",
+    "checks_passed": 31,
+    "checks_total": 31,
+    "source_rates_hz": {
+      "imu": 200.04322922295472,
+      "infra1_info": 30.34243606415258,
+      "infra1": 30.34243606415258,
+      "infra2_info": 30.34243606415258,
+      "infra2": 30.34257748776509,
+      "color_info": 30.34587774635632,
+      "depth_info": 30.34587774635632,
+      "color": 25.722070844686648,
+      "depth": 13.221683561040106
+    },
+    "sensor_report": "artifacts/runs/p3-debug-truth-adapter-20261017-19/sensor-report.json",
+    "sensor_report_sha256": "2b0a373a4e7c9afe59303eb1c5da9d32561ca17d1f4ade731913a97c9e3330b7",
+    "launch_log_sha256": "477e9ecf32da27f5f57ee561d8345710db91dec9d1ee5f3323884c97de609054"
+  },
+  "build": {
+    "command": "source /opt/ros/jazzy/setup.bash && colcon build --base-paths src/own --packages-up-to uav_sim --build-base artifacts/runs/p3-debug-truth-adapter-20261017-18/build --install-base artifacts/runs/p3-debug-truth-adapter-20261017-18/install",
+    "result": "PASS: 2 packages finished (uav_interfaces, uav_sim) in fresh build/install/log directories.",
+    "build_log": "artifacts/runs/p3-debug-truth-adapter-20261017-18/build.log",
+    "build_log_sha256": "36e8ebceb8d31cd16f254e1828d8adf009e7f278b317b97f4e74b23dd1bba4f2"
+  },
+  "tests": {
+    "coordinate_command": "python3 tools/test_px4_bridge_frames.py",
+    "coordinate_result": "PASS: 13 tests",
+    "time_mapping_command": "python3 tools/test_px4_bridge_time_mapping.py",
+    "time_mapping_result": "PASS: 6 tests",
+    "runtime_probe": "PASS: ten monotonic samples, TRACKING and epoch/frame consistency; four PX4 input publisher counts were zero.",
+    "structural_check": "PASS: python3 tools/project_status.py; structure/design consistency only.",
+    "static_checks": "PASS: py_compile for adapter/launch/probe, JSON parsing, git diff --check and git diff --cached --check."
+  },
+  "source_sha256": {
+    "src/own/uav_sim/uav_sim/debug_truth_adapter.py": "c02df387b3d257fb6b83e41beb302fe52b086550939ef25d5b7726514aeb6b0e",
+    "src/own/uav_sim/launch/debug_truth.launch.py": "68ffaeac5b9d718c9241d8ade29096963b990693b4e9777641b6b018990ad99f",
+    "src/own/uav_sim/package.xml": "4037dba5585dd940b318d37d8ba50f19875f615f28d4ab715b2c2aabfa531275",
+    "src/own/uav_sim/setup.py": "251ad66b6ff6beab8a36f1bb0d0f1f79c185a0fc909d439f1888ba044a21e15e",
+    "tools/probe_debug_truth_adapter.py": "b049980dc7ea9bbd0693569ae6b1376b81d975893d77898aa00cf2459f6c6410",
+    "config/components/simulation/d435i_bridge.yaml": "0992dfab944634b0938a77f66255663fc0adb2c83a46abb36eb8a159cb619fdd",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "config/profiles/debug_truth.json": "6abac4deaf69d37596137da8c9598c60d19542898a38652ae226e8bbb86ecdfb",
+    "config/components/px4_bridge/debug_truth.json": "d5b1d3ec12002e7dd3f4c7299d4e85db103cccd1989d6cc3926b5f40eb1ea185",
+    "config/components/px4_bridge/frames.json": "ab8378ada733ef831132e6bd15cdf9762b31464a6227b08cd2cd44b43329b12a",
+    "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": "5038cbae49c5480a235df7d37ceefeecf02da145c2aa1538744aaf688d59f1a2",
+    "src/own/uav_px4_bridge/uav_px4_bridge/vision_odometry.py": "e7ae2e1b800539b2bc673675b549ffacda35868bfdfe1c9e08ee55ce120c2d94",
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": "5bcade2ab3ac9e15417513c0d8988487607d1ae13066760251598744e0450641"
+  },
+  "artifact_sha256": {
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/build.log": "36e8ebceb8d31cd16f254e1828d8adf009e7f278b317b97f4e74b23dd1bba4f2",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/run.log": "191fa918a5605a92812358c0e725b40bd842863ce5830a631b498ad87d42d0a9",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/adapter-probe.json": "885aa67b5a6463fb01f44a109c9cd03a9cf1369a4515f93dc8613a7995deb255",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/ros-launch.log": "e92f235e349233769d7b7bd27dfdfaee62006e4c4cc8daf8c2d6edb3bad6e1fb",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/px4.log": "9bed2981e115f011cdbcf45a7d3c0669c78de06ab8910a7a8c78476f548b4d4a",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/gazebo.log": "8088cc0c0c1a3270cee4c1fa46bfedc3f8dd7198048eeda339788ae611566a01",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/run-debug-truth-sitl.sh": "4cef81ebbbcecdb244cf18487adfaa6f7e8115151a6fc9bf6e5ba338364d560b",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-18/git-status.txt": "6d4815a7bedfe24ec986e5ba4124926d5a8e7e0450004ebd81ee48cd73c0c962",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-19/sensor-report.json": "2b0a373a4e7c9afe59303eb1c5da9d32561ca17d1f4ade731913a97c9e3330b7",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-19/probe.log": "81dc8489d80fa92841913e3ee8cb11ff162291bba3cb47f5bee8ab259e16259d",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-19/launch.log": "477e9ecf32da27f5f57ee561d8345710db91dec9d1ee5f3323884c97de609054",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-19/run.log": "9db0dd5d7450c0a6518e632bd2468e44bc7b9091697ce1cf5e66967c5720a320",
+    "artifacts/runs/p3-debug-truth-adapter-20261017-19/run-lazy-sensor-check.sh": "9be6372ec2d576744e98a0f9c673538aacb8840e16623a6e0a10e221c1a959b4"
+  },
+  "excluded_attempts": [
+    {
+      "run_id": "p3-debug-truth-adapter-20261017-10",
+      "reason": "The build wrapper used set -u, which fails inside the Jazzy setup script before colcon starts."
+    },
+    {
+      "run_id": "p3-debug-truth-adapter-20261017-11",
+      "reason": "Initial adapter redundantly declared use_sim_time; the node exited before receiving data."
+    },
+    {
+      "run_id": "p3-debug-truth-adapter-20261017-12",
+      "reason": "Eager high-bandwidth sensor bridges caused the truth clock watchdog to lock; lazy bridges fixed the load path."
+    },
+    {
+      "run_id": "p3-debug-truth-adapter-20261017-14",
+      "reason": "An initial attempt imported a private RCLError name from the wrong module; corrected before qualifying runs."
+    },
+    {
+      "run_ids": [
+        "p3-debug-truth-adapter-20261017-13",
+        "p3-debug-truth-adapter-20261017-15",
+        "p3-debug-truth-adapter-20261017-16",
+        "p3-debug-truth-adapter-20261017-17"
+      ],
+      "reason": "Core sample checks passed, but these runs preceded the final launch/shutdown arrangement and are retained as diagnostic history."
+    }
+  ],
+  "limitations": [
+    "The adapter consumes debug truth only and publishes only under /debug_truth; it does not feed /localization or the final VIO profile.",
+    "No Micro XRCE-DDS Agent was started; PX4 visual odometry input was not published.",
+    "PX4 timesync mapping has not been checked against a live TimesyncStatus.",
+    "No local origin/yaw pairing, EKF2 EV fusion, GNSS-aiding exclusion observation, Offboard, arm, takeoff, target tracking, landing, or flight was tested.",
+    "The output body is the simulated camera IMU origin, not x500 base_link; PX4 lever arm and origin alignment remain unresolved.",
+    "Watchdog safety lock during teardown is observed; clean teardown qualification remains open.",
+    "P3 remains in progress; P4 through P6 and GOAL A-H remain incomplete."
+  ]
+}

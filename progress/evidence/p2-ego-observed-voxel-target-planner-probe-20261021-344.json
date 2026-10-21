@@ -1,0 +1,61 @@
+{
+  "schema": "p2-ego-observed-voxel-target-planner-probe-evidence/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "excluded_spline_snapshot_gate_closed_goal_c_pending",
+  "run_id": "p2-ego-observed-voxel-target-planner-probe-20261021-344",
+  "result": {
+    "target_xyz_m": [
+      0.25,
+      -0.15,
+      0.4
+    ],
+    "epoch": "524a0f1482af40138a4cf87fff31b7dd",
+    "map_id": "524a0f1482af40138a4cf87fff31b7dd-edc3673d29c44eed96d2ae634d993301",
+    "target_voxel_index_xyz": [
+      122,
+      118,
+      5
+    ],
+    "target_before": "unknown",
+    "target_after_pitch": "known_free",
+    "target_entered_frustum": true,
+    "bspline_count": 2,
+    "planned_spline_traj_id": 1,
+    "emergency_stop_spline_traj_id": 2,
+    "accepted_spline_snapshots": 0,
+    "snapshot_rejection_reasons": [
+      "no_fresh_fused_depth",
+      "no_fresh_fused_depth"
+    ],
+    "snapshot_attempts": 15,
+    "ego_last_sync_count_at_timeout": 932,
+    "ego_last_sync_now_s": 35.859,
+    "first_timeout_now_s": 36.268,
+    "recovered_sync_count": 985,
+    "recovered_last_sync_now_s": 38.234,
+    "truth_topics": [],
+    "control_topics": [],
+    "px4_or_controller": false,
+    "snapshot_rejection_counts": {
+      "depth_pose_gate_closed": 28,
+      "no_fresh_fused_depth": 2
+    }
+  },
+  "run_manifest": "artifacts/runs/p2-ego-observed-voxel-target-planner-probe-20261021-344/run-manifest.json",
+  "run_manifest_sha256": "155469faf190f93e679bab0e87b82ad24c3fee7551778d00629f43b5978b73ea",
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "experimental_patch": "dependencies/patches/ego/0033-current-start-voxel-exception-experiment.patch",
+    "experimental_patch_sha256": "b33d3f32af9fb3314744e1db7854c6af389c2f8b05800a538ad89b54016742a7",
+    "source_manifest_sha256": "d700154067a952e7b09dac68aafc99a2122451afd88f08f119b035a49e2ac322",
+    "ego_binary_sha256": "71317092884d3f24940c5e09370581b7b6ff464ef0676a5a80d182106d5b974e"
+  },
+  "limitations": [
+    "Both post-spline occupancy snapshot requests were rejected by EGO plan_env freshness gates; no accepted snapshot exists for trajectory sampling.",
+    "EGO emitted a goal spline, then depth loss triggered an emergency-stop spline. The path was not executed.",
+    "MapStatus/localization remained ready while EGO depth-pose synchronization paused; the internal reader delivery cause is unresolved.",
+    "No controller, PX4, runtime truth, or control topics were present; this is an exclusion, not a map-safety result."
+  ],
+  "next": "Trace EGO depth/camera-pose receipt, QoS, and synchronizer timestamps against adapter output; rerun only when the existing freshness gate can supply a spline-time snapshot."
+}

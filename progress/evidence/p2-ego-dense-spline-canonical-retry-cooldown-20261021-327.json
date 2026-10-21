@@ -1,0 +1,218 @@
+{
+  "schema": "goal-c-ego-canonical-retry-cooldown-dense-spline/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-dense-spline-canonical-retry-cooldown-20261021-327",
+  "result": "diagnostic_retry_rate_reduced_tail_clearance_unqualified",
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "license": "GPL-3.0-only",
+    "canonical_base_run": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297",
+    "canonical_patch_count": 15,
+    "experimental_patch_order": [
+      {
+        "path": "dependencies/patches/ego/0029-dense-spline-inflation-check-experiment.patch",
+        "sha256": "1903e9ed4d2fa5a6044f1fb6167e3b82a89215524ffcfb32f9c8b3230f761abb"
+      },
+      {
+        "path": "dependencies/patches/ego/0030-dense-spline-explicit-unknown-check-experiment.patch",
+        "sha256": "766b88de7dbbf87f8c1937fb9e0303697a602d10df2288d0cea19452fb5e3e85"
+      },
+      {
+        "path": "dependencies/patches/ego/0031-dense-spline-canonical-diagnostic-compatibility-experiment.patch",
+        "sha256": "ec7e96691e4f5c7d02e4609185a4ecc47b2d629f63caf9a281f0280d05258f90"
+      },
+      {
+        "path": "dependencies/patches/ego/0028-global-plan-retry-rate-limit-experiment.patch",
+        "sha256": "8c3407ac412c8432473c1deccc86ec0995f93faf84eba0c9f71f97ce577f9913"
+      }
+    ],
+    "applied_order": "Canonical 15-patch reconstruction, then 0029, 0030, 0031, and 0028 in this isolated source copy.",
+    "source_tree_sha256": "0989e0bf37ed82cc3d4c159120d749b5f6a0d2d3486689020b533aeb25e03cc6",
+    "source_manifest": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/source-manifest.json",
+    "source_manifest_sha256": "060001214d2d9ccb40936eb539ba28445b8cc0781119ca9211a0309519b2490f",
+    "vendor_tree_modified": false,
+    "canonical_sources_manifest_modified": false
+  },
+  "build": {
+    "environment": "d435i-vins:dev, ROS 2 Jazzy, Release",
+    "scope": "colcon packages-up-to ego_planner using the #297 reconstructed underlay",
+    "summary": "5 packages finished in 2 min 11 s; compiler emitted warnings but no errors.",
+    "build_script": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/build-ego.sh",
+    "build_log": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/build-ego.log",
+    "build_log_sha256": "b5fd89e0a9ae89477983e4f14dab986cd3661da8bb5de439082d4741e15b475e",
+    "planner_binary": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/ego-overlay/ego_planner/lib/ego_planner/ego_planner_node",
+    "planner_binary_sha256": "21670cb700167de03612366768c6f4c3a9cd49abb6d7ecee23d923e3bc15c031"
+  },
+  "configuration": {
+    "goal_xy_m": [2.5, 1.4],
+    "box_pose_xyz_m": [1.55, 0.9, 1.1],
+    "box_size_m": [0.35, 0.5, 0.8],
+    "cylinder_pose_xyz_m": [2.25, 0.05, 1.0],
+    "cylinder_radius_m": 0.18,
+    "cylinder_length_m": 0.9,
+    "run_local_obstacle_inflation_m": 0.5,
+    "fsm_thresh_replan_time_s": 1.0,
+    "other_planner_config": "Same planner-config.json as #326 apart from run ID and experiment description; all geometry/inflation settings remain diagnostic and PROVISIONAL."
+  },
+  "retry_rate_comparison": {
+    "baseline_run": "p2-ego-dense-spline-canonical-unknown-guard-20261021-326",
+    "baseline_wall_seconds": 23.226872,
+    "baseline_dense_guard_rejections": 10331,
+    "baseline_replan_headers": 10797,
+    "baseline_rejections_per_wall_second": 444.7865386264668,
+    "cooldown_attempts": 2,
+    "cooldown_total_wall_seconds": 60.34646,
+    "cooldown_dense_guard_rejections": 519,
+    "cooldown_replan_headers": 558,
+    "cooldown_rejections_per_wall_second": 8.600338777121308,
+    "cooldown_replan_headers_per_wall_second": 9.246607008928112,
+    "observed_rejection_rate_ratio_vs_baseline": 51.717327671985615,
+    "observed_replan_header_rate_ratio_vs_baseline": 50.272441190818405,
+    "combined_ego_log_bytes": 432702,
+    "qualification": "Descriptive rate comparison across separate simulation epochs, ROS domains, and motion samples; it does not prove an isolated causal effect or a safe trajectory."
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "ros_domain_id": 181,
+      "gazebo_partition": "d435i_dense_spline_retry_327_01",
+      "probe_status": "bspline_received",
+      "wall_seconds": 36.013053,
+      "goal_sent": true,
+      "bspline_count": 2,
+      "dense_guard_rejections": 320,
+      "replan_headers": 344,
+      "ego_log_bytes": 261191,
+      "all_rejections": "in_map=1, unknown=1, raw=0, inflated=0",
+      "runtime_graph": {
+        "forbidden_control_nodes": [],
+        "truth_topics": [],
+        "control_topics": []
+      },
+      "probe_report": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/planner-goal-result-01.json",
+      "probe_report_sha256": "b356088ba0c0420063367b6febdb3e5d7e1d0073246fd729ac78322dabb5bc8c",
+      "runtime_summary": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/runtime-summary-01.json",
+      "runtime_summary_sha256": "94caf7dcc8a7d99024cffd452be7414097febbfd5ad7a7161a35c0b69b4ecf23",
+      "ego_log": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/ego-01.log",
+      "ego_log_sha256": "ede131bf64c0b57617bd2b2f9113f1b9f1d00a42c0871cfb2e5c8c1d4999db9c",
+      "analysis": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/spline-snapshot-clearance-analysis.json",
+      "analysis_sha256": "10bba510fe3dc5896073c60a6ad56dc2c8f39df3fce33e16f712780a642a66a3",
+      "snapshots": [
+        {
+          "traj_id": 1,
+          "accepted": true,
+          "snapshot_minus_spline_start_s": 0.001,
+          "depth_source_age_at_response_s": 0.108,
+          "known_fraction": 0.006333912037037037,
+          "snapshot_sha256": "414f103985555f08c0907cd2bf16dd1232c47f33ed495f9c3f06bfea50396e46"
+        },
+        {
+          "traj_id": 2,
+          "accepted": true,
+          "snapshot_minus_spline_start_s": 0.073,
+          "depth_source_age_at_response_s": 0.069,
+          "known_fraction": 0.006310763888888848,
+          "snapshot_sha256": "d7e667207f062ef63c94242f7b2519417cc88ce34b43dbb243007aa24206d3c6"
+        }
+      ],
+      "curves": [
+        {
+          "traj_id": 1,
+          "samples_10ms": 453,
+          "unknown_samples": 0,
+          "raw_occupied_samples": 0,
+          "inflation_hits_full_curve": 0,
+          "guarded_horizon_blocked_samples": 0,
+          "minimum_occupied_voxel_box_distance_m": 0.5172342070426141,
+          "margin_over_nominal_0_482m_sphere_m": 0.03523420704261415
+        },
+        {
+          "traj_id": 2,
+          "samples_10ms": 431,
+          "unknown_samples": 0,
+          "raw_occupied_samples": 0,
+          "inflation_hits_full_curve": 0,
+          "guarded_horizon_blocked_samples": 0,
+          "minimum_occupied_voxel_box_distance_m": 0.525758830260046,
+          "margin_over_nominal_0_482m_sphere_m": 0.04375883026004601
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "ros_domain_id": 182,
+      "gazebo_partition": "d435i_dense_spline_retry_327_02",
+      "probe_status": "bspline_received",
+      "wall_seconds": 24.333407,
+      "goal_sent": true,
+      "bspline_count": 2,
+      "dense_guard_rejections": 199,
+      "replan_headers": 214,
+      "ego_log_bytes": 171511,
+      "all_rejections": "in_map=1, unknown=1, raw=0, inflated=0",
+      "runtime_graph": {
+        "forbidden_control_nodes": [],
+        "truth_topics": [],
+        "control_topics": []
+      },
+      "probe_report": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/planner-goal-result-02.json",
+      "probe_report_sha256": "2bed366b6417b90909710017c938ca03a1e4f09070e30b2845bde21299abbad9",
+      "runtime_summary": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/runtime-summary-02.json",
+      "runtime_summary_sha256": "ddf44d5e115cd8c3f923ffa10dd522dd87b916fe79c46e3072bfcd7a8d27bbed",
+      "ego_log": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/ego-02.log",
+      "ego_log_sha256": "362f8f163e32abeb712ecd669846b3cb01570554d2c86791895b00729ede48b0",
+      "analysis": "artifacts/runs/p2-ego-dense-spline-canonical-retry-cooldown-20261021-327/spline-snapshot-clearance-analysis-02.json",
+      "analysis_sha256": "29cba69c8f61d7b50efb678e1d0fc51a01c31f027fe8bca7711c6104e6cf1bb7",
+      "snapshots": [
+        {
+          "traj_id": 1,
+          "accepted": true,
+          "snapshot_minus_spline_start_s": 0.001,
+          "depth_source_age_at_response_s": 0.083,
+          "known_fraction": 0.005956307870370381,
+          "snapshot_sha256": "eb4c39e7a3440619b4f8a93ed3e95fe57b49fc97d009359a571d15b72220b95b"
+        },
+        {
+          "traj_id": 2,
+          "accepted": true,
+          "snapshot_minus_spline_start_s": 0.0,
+          "depth_source_age_at_response_s": 0.132,
+          "known_fraction": 0.006070312500000008,
+          "snapshot_sha256": "14a2801598f14d866844f5e3ec8b2322e6fe24f4ef305bb299933f9a0bf348fa"
+        }
+      ],
+      "curves": [
+        {
+          "traj_id": 1,
+          "samples_10ms": 445,
+          "unknown_samples": 0,
+          "raw_occupied_samples": 0,
+          "inflation_hits_full_curve": 0,
+          "guarded_horizon_blocked_samples": 0,
+          "minimum_occupied_voxel_box_distance_m": 0.5657946003717675,
+          "margin_over_nominal_0_482m_sphere_m": 0.08379460037176756
+        },
+        {
+          "traj_id": 2,
+          "samples_10ms": 433,
+          "unknown_samples": 0,
+          "raw_occupied_samples": 0,
+          "inflation_hits_full_curve": 35,
+          "guarded_horizon_blocked_samples": 0,
+          "minimum_occupied_voxel_box_distance_m": 0.4792408110867779,
+          "margin_over_nominal_0_482m_sphere_m": -0.002759188913222077
+        }
+      ]
+    }
+  ],
+  "interpretation": "With the 1.0 s global retry cooldown, the observed final-spline rejection rate was about 8.60/s over two fresh runs, versus 444.79/s in #326; the descriptive comparison is roughly 52x lower. The explicit guard rejected unknown samples and all four guarded horizons were clear. However, one of four complete splines had 35 inflated samples in the final third and a nearest raw occupied voxel-box distance 2.8 mm inside the nominal 0.482 m sphere. The planner's existing rolling collision monitor checks this tail later, but this planner-only test had no trajectory server or execution, so that deferral is unqualified.",
+  "limitations": [
+    "Known map coverage ranged only from 0.596% to 0.633%; unseen space remains unresolved.",
+    "Snapshot times were 0–73 ms after spline start; depth-source age was 69–132 ms.",
+    "The comparison runs used separate ROS domains/epochs and non-identical sensor-motion samples; rates are descriptive, not a controlled causal estimate.",
+    "The 0.5 m cube inflation and 0.099 m canonical parameter are not validated vehicle-clearance thresholds.",
+    "The 35 tail hits were not executed; no body sweep, state-estimation error, tracking error, braking distance, controller, PX4 SITL or hardware flight was measured.",
+    "The 2.8 mm nominal overlap is a centerline-to-voxel-box estimate in the observed map and does not validate real-world collision geometry."
+  ],
+  "next_step": "Create an isolated full-active-spline guard candidate after patches 0029/0030/0031 and re-run the same planner-only scenario with the 0028 retry cooldown. Require the entire active curve to be known-free and inflation-clear in the paired snapshots; keep GOAL C and thresholds pending."
+}

@@ -1,0 +1,369 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "title": "P5 lateral/yaw goal diagnostic with read-only VIO truth comparison #177",
+  "qualification": "DIAGNOSTIC_ONLY; goal aborted before position/yaw arrival; P5 and GOAL criteria remain incomplete",
+  "run": {
+    "id": 177,
+    "status": "diagnostic_failed_closed",
+    "profile": "vio_closed_loop",
+    "stack_run_id": "p5-px4-vio-ego-flight-20261019-177-stack",
+    "goal": {
+      "frame": "odom_62a50cf80ab34ec6bba8eb7283f69db6",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        -0.004843489860009226,
+        0.5016514903766578,
+        0.8926468457380423
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": 0.7844469928894734,
+      "yaw_offset_rad": 0.7853981633974483,
+      "yaw_tolerance_rad": 0.35
+    },
+    "goal_config": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio_closed_loop_smoke_goal.json",
+    "result": "FAIL",
+    "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+    "action_goal_sent": true,
+    "goal_sent_wall_elapsed_s": 17.905930452999655,
+    "preconditions_ready": true,
+    "localization_tracking_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "takeoff_active_observed": true,
+    "action_result": {
+      "final_position": [
+        -0.009459717066696235,
+        -0.017803876192271587,
+        0.8591295288204246
+      ],
+      "outcome": "aborted",
+      "reason": "localization_normalized_cost_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "bridge_final_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "normalized_cost_exceeded"
+    },
+    "landed_and_disarmed": true,
+    "final_vehicle_failsafe": false,
+    "position_command_flag_counts": {
+      "1": 137,
+      "4": 1
+    },
+    "matching_ready_trajectory_samples": 137,
+    "map_point_count_max": 1803,
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "first_normalized_cost_gate_wall_elapsed_s": 19.278554442999848,
+    "seconds_from_goal_dispatch_to_first_normalized_cost_gate": 1.3726239900001929
+  },
+  "truth_graph": {
+    "topic": "/debug_truth/base_odometry",
+    "publisher_count": 1,
+    "publisher_nodes": [
+      "ros_gz_bridge"
+    ],
+    "subscription_count": 1,
+    "subscriber_nodes": [
+      "raw_vins_readonly_probe"
+    ],
+    "px4_bridge_debug_truth_subscription": false,
+    "observer_role": "read-only VINS/truth/IMU recorder; no ROS publishers"
+  },
+  "capture": {
+    "wall_seconds": 90.00015914100004,
+    "optimized_samples": 922,
+    "propagated_samples": 12170,
+    "telemetry_samples": 922,
+    "truth_samples": 3015,
+    "imu_samples": 12183,
+    "optimized_rate_hz": 15.152013687563306,
+    "propagated_rate_hz": 200.00328709486556,
+    "all_output_finite": true,
+    "parse_errors": []
+  },
+  "evaluator": {
+    "flight_window_stamp_ns": [
+      21376000000,
+      39296000000
+    ],
+    "paired_samples": 271,
+    "alignment": "One rigid SE(3) anchored at the first paired pose; scale fixed to 1; no segment realignment",
+    "position_error_m": {
+      "count": 271,
+      "rmse": 0.1815171054889625,
+      "median": 0.004161730872244753,
+      "p95": 0.49988630732509276,
+      "max": 0.5351239507937186
+    },
+    "orientation_error_deg": {
+      "count": 271,
+      "rmse": 0.4907297593759202,
+      "median": 0.24592614905524224,
+      "p95": 1.1716515318994367,
+      "max": 1.2343054234787603
+    },
+    "normalized_cost_position_error_pearson_r": 0.7250020472477982,
+    "quality_metrics_position_error_pearson_r": {
+      "input_features_position_error_pearson_r": 0.25463941660218625,
+      "stereo_features_position_error_pearson_r": 0.3597556722974926,
+      "continued_tracks_position_error_pearson_r": 0.4995255920428262,
+      "long_tracks_position_error_pearson_r": 0.46501996976924626,
+      "accel_bias_norm_position_error_pearson_r": 0.9176865230454203,
+      "gyro_bias_norm_position_error_pearson_r": 0.8676150435798974
+    },
+    "samples_above_health_limit": 62,
+    "first_health_gate_crossing": {
+      "localization_status_stamp_ns": 33768000000,
+      "localization_status_source_stamp_ns": 33752000000,
+      "quality_telemetry_stamp_ns": 33695999999,
+      "quality_to_status_source_gap_s": -0.056000001,
+      "normalized_cost": 1.0260053678713499,
+      "reason": "normalized_cost_exceeded",
+      "aligned_position_error_m": 0.02445554708988912
+    },
+    "first_position_error_over_0_30m": {
+      "stamp_ns": 36927999999,
+      "position_error_m": 0.3048536296578801,
+      "normalized_cost": 1.691260189148638
+    },
+    "seconds_from_first_health_source_stamp_to_0_30m_error": 3.175999999,
+    "interpretation_limit": "One run can show temporal association but cannot establish a universal quality-to-error threshold."
+  },
+  "yaw_followup": {
+    "scope": "Read-only PX4 ULog yaw setpoint diagnostic; target did not complete and this is not a yaw conversion defect finding",
+    "ulog": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/px4_sitl_default/log/2026-10-19/12_04_07.ulg",
+    "pyulog_version": "1.2.4",
+    "flight_window_sim_s": [
+      21.376,
+      39.296
+    ],
+    "goal": {
+      "target_offset_enu_m": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "yaw_enu_rad": 0.7844469928894734,
+      "yaw_target_tolerance_rad": 0.35,
+      "expected_px4_ned_yaw_rad": 0.7863493339054233
+    },
+    "truth_motion_window": {
+      "sample_count": 896,
+      "position_span_world_m": [
+        0.08086079727952238,
+        0.04794485630882009,
+        0.8996651194885321
+      ],
+      "yaw_start_deg": -5.597986409490438e-17,
+      "yaw_end_deg": -12.442902299860322,
+      "yaw_min_deg": -21.23556686527083,
+      "yaw_max_deg": -5.597986409490438e-17,
+      "first_cost_gate_source_sim_s": 33.752,
+      "first_position_error_over_0_30m_sim_s": 36.927999999,
+      "gate_to_error_over_0_30m_s": 3.175999999
+    },
+    "px4_ulog": {
+      "trajectory_setpoint_count_20_to_40s": 98,
+      "trajectory_setpoint_yaw_ned_rad_min": 1.5718133449554443,
+      "trajectory_setpoint_yaw_ned_rad_max": 1.9110661745071411,
+      "trajectory_setpoint_yaw_ned_rad_first": 1.5724561214447021,
+      "trajectory_setpoint_yaw_ned_rad_last": 1.790088415145874,
+      "vehicle_local_position_heading_ned_rad_min": 1.5714619159698486,
+      "vehicle_local_position_heading_ned_rad_max": 1.9418998956680298,
+      "vehicle_local_position_heading_ned_rad_last": 1.7902231216430664
+    },
+    "interpretation": "The run failed before position/yaw arrival. The trajectory-setpoint yaw samples did not approach the requested NED-converted target during the sampled interval. Timing and planner command history were not captured at PositionCommand granularity; correlate those before drawing a frame-conversion conclusion."
+  },
+  "repeat_comparison": {
+    "prior_evidence": [
+      "progress/evidence/p5-vio-truth-error-diagnostic-20261019-172-175.json",
+      "progress/evidence/p5-vio-truth-error-repeat-20261019-176.json"
+    ],
+    "normalized_cost_position_error_pearson_r": {
+      "run_175": 0.5603935240771258,
+      "run_176": 0.7135620279917895,
+      "run_177": 0.7250020472477982
+    },
+    "long_tracks_position_error_pearson_r": {
+      "run_175": -0.8129721315944185,
+      "run_176": -0.7496135866202693,
+      "run_177": 0.46501996976924626
+    },
+    "accel_bias_norm_position_error_pearson_r": {
+      "run_175": 0.7880927587555315,
+      "run_176": 0.5544719839678937,
+      "run_177": 0.9176865230454203
+    },
+    "gyro_bias_norm_position_error_pearson_r": {
+      "run_175": 0.845810194489874,
+      "run_176": 0.770705832643485,
+      "run_177": 0.8676150435798974
+    },
+    "interpretation": "Cost and both bias correlations are positive in all three short runs, while long-track correlation changes sign in #177. These runs do not support treating long-track count as a stable error proxy or establish causality."
+  },
+  "health_policy": {
+    "max_normalized_cost": 1.0,
+    "changed": false,
+    "vio_px4_future_tolerance_s": 0.065,
+    "changed_in_this_run": false
+  },
+  "ulog": {
+    "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/px4_sitl_default/log/2026-10-19/12_04_07.ulg",
+    "size_bytes": 9205925,
+    "sha256": "4a6fbbf3579f328b5b33e715f7e6943bb53e4e56ef323c3e65442d7b3b437459"
+  },
+  "verification": {
+    "commands": [
+      {
+        "command": "docker run ... python3 tools/evaluate_vio_quality_alignment.py --capture ...177/vio-truth-capture --flight-report ...177/vio-ego-flight-report.json",
+        "result": "PASS; 271 paired poses"
+      },
+      {
+        "command": "docker Jazzy: python3 tools/test_px4_bridge_frames.py",
+        "result": "19 tests PASS"
+      },
+      {
+        "command": "docker Jazzy: python3 tools/test_trajectory_server.py --traj-server .../ego_planner/lib/ego_planner/traj_server",
+        "result": "PASS; yaw spline, frame, cancellation checks"
+      },
+      {
+        "command": "docker Jazzy: python3 tools/test_navigation_adapter.py --project-root /workspace",
+        "result": "PASS"
+      },
+      {
+        "command": "docker Jazzy: python3 tools/test_navigation_task_state.py",
+        "result": "10 tests PASS"
+      },
+      {
+        "command": "bash -n artifacts/runs/p5-px4-vio-ego-flight-20261019-177/run-px4-vio-ego-flight.sh",
+        "result": "PASS"
+      },
+      {
+        "command": "git diff --check",
+        "result": "PASS"
+      }
+    ]
+  },
+  "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+  "analysis_tool": {
+    "name": "pyulog",
+    "version": "1.2.4",
+    "installation": "temporary /tmp target; not added to project dependencies"
+  },
+  "source_sha256": {
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c",
+    "tools/evaluate_vio_quality_alignment.py": "ebf9389664134e974698391f79e5bd94e4321b8e5e80ead4a77a3c2b6ece399e",
+    "tools/test_vio_quality_alignment.py": "59569b2522a0e2daa74f44ecd61caab42ea51966c2fb902fb245f40b81c8e2db",
+    "tools/test_px4_bridge_frames.py": "0234a81e9e1cf442bd60209110235f399d4ddb9226874d66c1117bebd03197c7",
+    "tools/test_trajectory_server.py": "156857348029485f89756cedccd8bf6e847a55ebbdef47dc2462dc410c1c128f",
+    "tools/test_navigation_adapter.py": "824fd7f612be38674ef7ced6511090d9b2138f17ea5b577ffabb71a8ced45ed7",
+    "tools/test_navigation_task_state.py": "b6ac51918983b30df195b4863f9eb3cbf8d64abf3d64706727d6e6af417517e4",
+    "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": "f92583bfb3a7a70e8fb31962be08a871ebc6991b962bdd63929062d9195c1903",
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "8d388e0082088fe964ebb2dc8b4b6be9ab9142d794dcaaeac0a584e1aeb6a84b",
+    "src/own/uav_px4_bridge/uav_px4_bridge/vision_odometry.py": "2e9d76144c428220a1896c92ff7c1aa62e58822b02841120ffd1ccae1fecbbc8",
+    "src/own/uav_navigation/uav_navigation/node.py": "0c2789a1d434ce302d5a3716119a8d54b902a90a0d4c34507eeb79b1c678d9c9",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+    "src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp": "69fed9dc78c37ad5d60b1826c10de2e888b6fc29279bfea843646ce920154c3e",
+    "src/own/uav_px4_bridge/launch/vio_closed_loop_ego_px4.launch.py": "ee62ab3a55b5536f7b35adda42abf64217a8299cc2e3d2495cc2c498feaea367",
+    "src/own/uav_px4_bridge/uav_px4_bridge/vio_ego_bringup.py": "d9cf75749b1d426447b2b135a0d41b83b975b4dbb26e950b58ee0a7bf8436cb0",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f",
+    "config/components/simulation/debug_truth_bridge.yaml": "bd572a590f2a3606e16e1e7359cc6ee8fbdf08341d8339dfeef1154ee7d8c48d",
+    "config/components/navigation/task_supervisor.json": "85d8b254ec0e2dee0c955437fd5210b6ebc5fbdbca7f949841d00019cebdc4f7",
+    "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+    "simulation/models/d435i/model.sdf": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/run-px4-vio-ego-flight.sh": "827e2f93d98717e4a843ddefa2b20515cf490005a8a48cc97728aacf7779a2ab",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/run_vio_ego_flight.py": "210b32c3bc0ace1c1b8beaaa731cde33b206d46fb8cf05672196811439eece60",
+    "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio_closed_loop_smoke_goal.json": "09c3f77fbdaa4cb290c52ef08e3f59027e6974945cb0be0eed14c0a9b63ecd10"
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/truth-evaluator-topic-info.txt",
+      "size_bytes": 963,
+      "sha256": "aacbde025b600e564d751c0ef5613b9100a866071250a5547c4c61efb257ebc8"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/truth-input-graph-check.txt",
+      "size_bytes": 111,
+      "sha256": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/px4-bridge-node-info-at-end.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-ego-flight-report.json",
+      "size_bytes": 1390667,
+      "sha256": "0d06946317e93feb2f81e367545ccd247b051f7f35ac935bef03ffa32f69935d"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-launch.log",
+      "size_bytes": 297494,
+      "sha256": "71c1a0f46de3c61c3edd8a2950fd2d2920246cadebf7472febc1117e287fcf14"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-ego-flight.log",
+      "size_bytes": 1390667,
+      "sha256": "0d06946317e93feb2f81e367545ccd247b051f7f35ac935bef03ffa32f69935d"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/truth-evaluator-bridge.log",
+      "size_bytes": 254,
+      "sha256": "383a91fdff15821c799b8661aed50049cf51ecf801fa8fb55f033ab969bf4eba"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-truth-capture/summary.json",
+      "size_bytes": 7793,
+      "sha256": "75d21b40006e7c66910fb70ec87628cd4ba9c3e2dd2e5c17d34e43a023b26fcb"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-truth-capture/raw-odometry.json",
+      "size_bytes": 7439128,
+      "sha256": "32e96cdf7933c32801e4fb820998e2df5035b3df46900da3b296fdcf606fa0ea"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-truth-capture/telemetry.json",
+      "size_bytes": 570683,
+      "sha256": "256e99061abb96a89e22573700cc9b613a47b22b2fc03d4e1b49acd52bc8588f"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-truth-capture/truth-motion.json",
+      "size_bytes": 5701086,
+      "sha256": "090bad294c112fdeadb15a237b8b74c42d88264c0b847f603da0c9038010800e"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/vio-truth-capture/vio-quality-error-evaluation.json",
+      "size_bytes": 129998,
+      "sha256": "a25fcdd722b82c9fdae76f61d599b47991f2b711ea65fcc56372cfb31b24581d"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/px4-yaw-setpoint-summary.json",
+      "size_bytes": 1891,
+      "sha256": "33cb90de61f21c1f998d781e7fcf36198ca2eb0081c961c035cf30ab6ff76c8a"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-177/px4_sitl_default/log/2026-10-19/12_04_07.ulg",
+      "size_bytes": 9205925,
+      "sha256": "4a6fbbf3579f328b5b33e715f7e6943bb53e4e56ef323c3e65442d7b3b437459"
+    }
+  ]
+}

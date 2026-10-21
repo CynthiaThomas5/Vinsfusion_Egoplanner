@@ -1,0 +1,247 @@
+{
+  "date": "2026-10-21",
+  "status": "ENGINEERING_CLEANUP_BUILT_TESTED_AND_CURRENT_ROOM_NAVIGATION_VERIFIED",
+  "scope": "Cleanup and reproducible local engineering delivery, not formal stable-navigation or A-H qualification.",
+  "retired_file_count": 31,
+  "retired_manifest": "dependencies/retired-code-20261021.json",
+  "active_patch_count": 30,
+  "build": {
+    "ros_packages_finished": 16,
+    "px4": "passed",
+    "all_initial_failures_retained": true
+  },
+  "unit_tests": {
+    "count": 133,
+    "passed": true
+  },
+  "numeric_vendor_source_equivalence_files": 72,
+  "own_runtime_module_equivalence_files": 21,
+  "independent_vins_patch_replay_files": 170,
+  "audit_artifacts_sha256": {
+    "artifacts/maintenance/cleanup-20261021-052/build-ros.log": "7cd3c333009ae62f3087bbdfd607e5d5f714bd4275c8d1048b49a54f9fa30e6a",
+    "artifacts/maintenance/cleanup-20261021-052/build-px4.log": "c0a6445db2b14910be5168f5b87c019abbac393e35d5a62e480c866e2d133c9f",
+    "artifacts/maintenance/cleanup-20261021-052/tests-final.log": "ce94d63f9e85ff051fc5973bd5ad93f754843f8bdae18e7b8eb663483cd9bf1c",
+    "artifacts/maintenance/cleanup-20261021-052/source-equivalence.json": "5fea21ce14963984938e1806e5bb4d3601eb05fc8d19810b16e19b4ad24a76c6",
+    "artifacts/maintenance/cleanup-20261021-052/own-runtime-equivalence.json": "31872ae8456c8599bf481532dbc2456ed9fb5e660a52b5f0b29d9927a3e4767a",
+    "artifacts/maintenance/cleanup-20261021-052/patch-replay.json": "17df3eb50dbbfb832b0915ddc4795fb1ea266b4cbf048d751e14a5b2c46b245b"
+  },
+  "promoted_tool_provenance": [
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/check-imu-physics.py",
+      "source_sha256": "8c7cc93a910b536839a1527872854edead2bbcbb402007a61bf195d7a65e3138",
+      "target": "tools/check_imu_physics.py",
+      "target_sha256": "9dbd510a25e9d88ff609be6171adafdb30d22a76429c9cb6af04413c28aa2d30",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_check_imu_physics.py.diff",
+      "diff_sha256": "a6a6b96732b8c48551e6bcdbdc7ff6d7d4f96487f34f3107c70d6eee100ef0ee",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/audit-px4-boot.py",
+      "source_sha256": "c324f53d155ab0f93581d79efc8d8bc82cd127b428aa1e951ef83067acdbfac4",
+      "target": "tools/audit_px4_boot.py",
+      "target_sha256": "066d346ff0aea5c9bdc6f81c0e33f6686a2f587e824593f156137e74c52fddba",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_audit_px4_boot.py.diff",
+      "diff_sha256": "7a525e1c018ebb9d0edd7782fd78be19598ec6a2fe40b49a99afa3949272b112",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/run_vio_ego_flight.py",
+      "source_sha256": "05586771e8f781703c844728d1270f0e47e0889dcfc26b1d774f5d8af04effc1",
+      "target": "tools/run_vio_ego_flight.py",
+      "target_sha256": "e931e596e90cb4de51e99820d4a94cf56d7dc91878eda164f125924bcd567bcd",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_run_vio_ego_flight.py.diff",
+      "diff_sha256": "59c2f8f01a93eff76b6ab774774c0bf9e1e2ad03f0c8bd3dad99a2cbeba751d7",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/preflight.py",
+      "source_sha256": "1493731b54e68f6097a02f32fd8f910f89656fb7e42af09b0d68e819b8c35e2d",
+      "target": "tools/check_navigation_ready.py",
+      "target_sha256": "9d57ca8765aeaf748a82684474dea71526c2d309db1f4142be8b241b93c606db",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_check_navigation_ready.py.diff",
+      "diff_sha256": "7ba1e88504971521a9b0b2368dedc60a354669b786b0605468ce8d0d57f8865f",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/planner-observer.py",
+      "source_sha256": "810028308fde7eed9c36a2c9ec8302739f3731a2f913a67ed6aec5c1016de1a7",
+      "target": "tools/diagnostics/record_planner.py",
+      "target_sha256": "903d9922a94b4a0263be0322bd6bae6014d0a87919e9f4260444d1e9f7b50005",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_diagnostics_record_planner.py.diff",
+      "diff_sha256": "ca5dfa26abae82de8ec48e3f05b5a61bec87b52863fc3a85a9963adf55bcd510",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/alignment-observer.py",
+      "source_sha256": "40deb9e6de3117815573a8b4803aa313143a40963e792f237a4993c7bcb2fddc",
+      "target": "tools/diagnostics/record_alignment.py",
+      "target_sha256": "c17a6fd602e5dd8db3812b10f58835dbc4a7fa1c39c4d8d5ce63a0004f393da6",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_diagnostics_record_alignment.py.diff",
+      "diff_sha256": "e60a00081436a0f0866939c0c415ea2a2056441800eda5a1efba9747dedaadd9",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/bridge-alignment-observer.py",
+      "source_sha256": "da3238f06351b302ad0f4e98aa02180fa95cc8c0f150b8f468899cd58025ff62",
+      "target": "tools/diagnostics/record_bridge.py",
+      "target_sha256": "aa053a71e5ce90208584a04aaf4a85650e9e52654045625f043f7d849da799d8",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_diagnostics_record_bridge.py.diff",
+      "diff_sha256": "7b3ee23a9b3dc67e358d2699797570688c10940664a2c24490eabcd92ba36b46",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/debug_truth_readonly.py",
+      "source_sha256": "f953b526fdd9ef205754fa4ff26313dfb2bdffe7a051cc394bc2787b2263facb",
+      "target": "tools/debug_truth/record_truth.py",
+      "target_sha256": "f4e4cc47c176c8f026bf46f4d0ec3c96d0eb43255acac3c858eacaf5c6ef9325",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_debug_truth_record_truth.py.diff",
+      "diff_sha256": "9bce3113f8373afbb888c9f3aee31443e3b1642d17cc3863252e295d9799f282",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/evaluate-arrival.py",
+      "source_sha256": "059195b68a0c18c79e0806dd1a3a111081b9096e7f8f2a7b6abdebd95fcb47c6",
+      "target": "tools/debug_truth/evaluate_arrival.py",
+      "target_sha256": "14f9afdb55339b16507c98594e6b136e98d0e0b4b549001cef6d576b52a8e0d1",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_debug_truth_evaluate_arrival.py.diff",
+      "diff_sha256": "39301776a82d5f5bc8d26499986430ee71c9a90affcd079dbe02d4f089cd2077",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/evaluate-crossing.py",
+      "source_sha256": "3b959d6a8637bbf084e2de0e19ddba913d2ee99e1aa6f8afefdb89acc508dee6",
+      "target": "tools/debug_truth/evaluate_clearance.py",
+      "target_sha256": "3a59c6586b14495ea136fb4b5c755e319a37e46bf595fffa75f3590e314a6c8f",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_debug_truth_evaluate_clearance.py.diff",
+      "diff_sha256": "9da3e130ac29cdcdbfc37c34de7f97b06c8a2a4caf3bd99af4644514527b5c5e",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/ego-room-crossing-repair-20261021-52/qualify-run.py",
+      "source_sha256": "539b4cee890f6ec7701cadcbd6d08e945fcee752e6f951c0b77bdcd0a177d626",
+      "target": "tools/check_navigation_result.py",
+      "target_sha256": "35655324c96f9a5e37be020ef30c1094bfe8c4d89f04af0e178e9c94801e4d8b",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_check_navigation_result.py.diff",
+      "diff_sha256": "05509bd13af39834de3f28c00983568b701d25154d1c9b2c766c12c6fb1dbb82",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    },
+    {
+      "source": "artifacts/runs/p0-d435i-footprint-20261020-246/audit_vehicle_envelope.py",
+      "source_sha256": "c3265dfa66ae0fa17ba03e7e15460b3458afb24147c3e4c0ca3f6b244b219e63",
+      "target": "tools/audit_vehicle_envelope.py",
+      "target_sha256": "9b55d116e7d4ea5e8c4d3c683c733be2e85a6bc9356810f4f4a0c8b3d68e4bc7",
+      "diff": "artifacts/maintenance/cleanup-20261021-052/promotion-diffs/tools_audit_vehicle_envelope.py.diff",
+      "diff_sha256": "3c2ed6ccf42224f84764322e694d2ea3fa3b3ef28464f99ad53be3b7f57cc572",
+      "license": "Project-authored diagnostic code; project distribution license not yet specified."
+    }
+  ],
+  "initial_startup_failure": {
+    "run": "artifacts/runs/cleanup-room-01",
+    "reason": "PX4 default compile directory, no run-local 5011 airframe; explicit -w fixed; no flight"
+  },
+  "failed_flight": {
+    "run": "artifacts/runs/cleanup-room-02",
+    "report_sha256": "69a6c94a28fc14cf273db0a1c9a31ad9dcb987a85697cda07237bcd4c109117b",
+    "failure": "navigation_action_not_successful:pose_stale",
+    "landed_and_disarmed": true,
+    "root_cause": "Unresolved transient localization freshness failure; no guard relaxation."
+  },
+  "successful_rebuilt_runs": [
+    {
+      "run": "artifacts/runs/cleanup-room-03",
+      "qualification_sha256": "d3750874e524deef6a884ed6fe073eeaf79f0f7c1da3f7784d099d594c2555d2",
+      "qualification": {
+        "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+        "run_id": "cleanup-room-03",
+        "passed": true,
+        "checks": {
+          "terminal_position_velocity_acceleration_boundary": true,
+          "native_action_and_landing": true,
+          "independent_goal_and_health": true,
+          "boot_parameter_audit": true,
+          "isolated_mutable_state": true,
+          "runtime_hashes_unchanged": true,
+          "source_mutable_files_unchanged": true,
+          "sampled_nominal_body_clearance_positive": true,
+          "truth_samples_continuous_at_50hz": true
+        },
+        "runtime_contract_sha256": "9082ea5c46f9fb6d3fcb25b82159a7beeaf08229c822b6f9fba9ed1db56a8b73",
+        "changed_runtime_files": [],
+        "changed_historical_source_mutable_files": [],
+        "independent_true_min_3d_error_m": 0.09232210350237775,
+        "independent_true_goal_dwell_wall_s": 3.1705712029997812,
+        "sampled_nominal_body_clearance_m": 0.4171076919900672,
+        "last_spline_terminal_position_error_m": 1.7763568394002505e-15,
+        "last_spline_flat_tail_error_m": 0.0,
+        "invalid_localization_after_enable": 0,
+        "map_or_navigation_failures": [],
+        "evidence_sha256": {
+          "flight.json": "806e020f80d81224896bccc54eafbe5980588eff581d2a2b549041c02b0efb05",
+          "preflight.json": "39d06aa118d908e4ac720adc81b47adef2fe2fd5ab8c03cde606bf45e957bdad",
+          "arrival-evaluation.json": "a13c6642586808dac7d71ce2076bfe284b8dd52154b449d4e34dcc90104b6888",
+          "crossing-evaluation.json": "9e772f6a4ce48385e1fc26f48722b0c7c4eaa175f0300e8aeb1c911afffaf5e4",
+          "px4-boot-parameters.json": "02e6ebf9352c030a7a70bf35ad15fb5e528bf6b859d8b422a99fe151d6c5953a",
+          "px4-run-isolation.json": "ad5fcc51ea740dc3cea5a4295dc80454a30253412ee41c4e9422287f0713126a",
+          "runtime-contract.json": "06304ba9a4380735e1850afbbf9276190b1dac8e95435c4d45e87ed875caaa9d"
+        },
+        "limitations": [
+          "Current room/route only; no multi-scene or real-flight qualification.",
+          "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+        ]
+      },
+      "postprocessing_note": "Initial matplotlib error corrected; numeric evaluation replayed without repeating flight."
+    },
+    {
+      "run": "artifacts/runs/cleanup-room-04",
+      "qualification_sha256": "fe9582c86ab95ff865baf973d9b323ce599825c7b7ec431bc1ad0ad2539c0605",
+      "qualification": {
+        "scope": "Offline current-room check, separate from formal P0-P6 / A-H acceptance.",
+        "run_id": "cleanup-room-04",
+        "passed": true,
+        "checks": {
+          "terminal_position_velocity_acceleration_boundary": true,
+          "native_action_and_landing": true,
+          "independent_goal_and_health": true,
+          "boot_parameter_audit": true,
+          "isolated_mutable_state": true,
+          "runtime_hashes_unchanged": true,
+          "source_mutable_files_unchanged": true,
+          "sampled_nominal_body_clearance_positive": true,
+          "truth_samples_continuous_at_50hz": true
+        },
+        "runtime_contract_sha256": "9082ea5c46f9fb6d3fcb25b82159a7beeaf08229c822b6f9fba9ed1db56a8b73",
+        "changed_runtime_files": [],
+        "changed_historical_source_mutable_files": [],
+        "independent_true_min_3d_error_m": 0.10096814537140818,
+        "independent_true_goal_dwell_wall_s": 2.64871299799961,
+        "sampled_nominal_body_clearance_m": 0.3975668023695736,
+        "last_spline_terminal_position_error_m": 1.7763568394002505e-15,
+        "last_spline_flat_tail_error_m": 0.0,
+        "invalid_localization_after_enable": 0,
+        "map_or_navigation_failures": [],
+        "evidence_sha256": {
+          "flight.json": "3dd5556e18f7c564e4ae36b1ae2de2c093f9018515c4faad4a2045cf641eaec9",
+          "preflight.json": "01b658db6fa634b063c305c2535fdf52cd9206049302e6e419c67097d0c56baf",
+          "arrival-evaluation.json": "383beaf20b4b5b2b99182a7f2b2bd5d45c3bacd70c32cbecb43df488c9f20d15",
+          "crossing-evaluation.json": "66cfb4ff5184ef2f18b523b96a62f5c0613d40f0f6a88c2e10a63443f7ae9938",
+          "px4-boot-parameters.json": "f935c0f188755e8f6c438d7fcdb3dd3f5f3ff57ac0d56063a2f418ea4ad7a349",
+          "px4-run-isolation.json": "a84f0b9dcc681164d4793ebec1b7560f1fbf713faa084b80c799860cfacea2e4",
+          "runtime-contract.json": "06304ba9a4380735e1850afbbf9276190b1dac8e95435c4d45e87ed875caaa9d"
+        },
+        "limitations": [
+          "Current room/route only; no multi-scene or real-flight qualification.",
+          "Nominal body-envelope distances are sampled; not formal continuous collision/uncertainty acceptance."
+        ]
+      },
+      "postprocessing_note": "Entire project.sh mission command completed with exit code 0."
+    }
+  ],
+  "delivery": "artifacts/exports/d435i-project-20261021",
+  "limitations": [
+    "Two rebuilt flights completed, one prior flight failed on freshness. This is not a new three-consecutive-pass convergence claim.",
+    "No other-machine clean Docker engine rebuild, multi-scene or real-flight acceptance.",
+    "Sampled nominal envelope clearance is not continuous collision or uncertainty qualification.",
+    "Original staged/untracked user changes preserved; no automatic Git add, commit or push.",
+    "Project code license remains unspecified; third-party notices and upstream world NOT_DECLARED status retained."
+  ]
+}

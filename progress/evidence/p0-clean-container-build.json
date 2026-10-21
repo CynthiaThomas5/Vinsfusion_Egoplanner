@@ -1,0 +1,86 @@
+{
+  "scope": "P0: rebuild the project-specific derived container without cache from the locally available Jazzy/Harmonic base, then rebuild all discovered ROS packages in fresh build/install directories.",
+  "date": "2026-10-16",
+  "base_image": {
+    "reference": "px4-ros2-gz:jazzy-harmonic",
+    "image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "repo_digest": "px4-ros2-gz@sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "availability": "local Docker cache only; base source recipe and portable distribution are not yet recorded"
+  },
+  "dockerfile": {
+    "path": "docker/Dockerfile.vins",
+    "base_reference": "px4-ros2-gz@sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "base_id_preflight": "test \"$(docker image inspect px4-ros2-gz:jazzy-harmonic --format '{{.Id}}')\" = 'sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e'",
+    "context": "docker/ (Dockerfile performs no COPY; avoids sending the multi-gigabyte workspace as build context)",
+    "pinned_direct_packages": [
+      "libceres-dev=2.2.0+dfsg-4.1ubuntu2",
+      "libboost-filesystem-dev=1.83.0.1ubuntu2",
+      "libboost-program-options-dev=1.83.0.1ubuntu2",
+      "libboost-system-dev=1.83.0.1ubuntu2"
+    ],
+    "status": "PASS",
+    "command": "docker build --no-cache --progress=plain -f docker/Dockerfile.vins -t d435i-vins:dev docker",
+    "result_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "log": "artifacts/runs/p0-container-rebuild-20261016-01/docker-build-digest.log",
+    "log_sha256": "1eb637cba5d3a09deb8c65c03e5d0db6ea28d240d4350516f2dffa18e61d28b6",
+    "workspace_build_image_id": "sha256:87d75742cf92e547c2661b82100dcef8cdd2d29da6722ec02461dd62b8777a51",
+    "workspace_build_image_log": "artifacts/runs/p0-container-rebuild-20261016-01/docker-build-corrected.log",
+    "workspace_build_image_log_sha256": "fba9f450cf358d39b91b573b651d3d0d2cd9b1b35b52a656358f845f89ee14ef",
+    "workspace_build_relation": "The full workspace build used a no-cache derived image created from the local tag after verifying it resolved to this same base image ID. The final Dockerfile was then pinned directly to that repo digest and its no-cache image build passed. Both image recipes install the same four exact direct package versions.",
+    "initial_attempt": {
+      "status": "FAIL, corrected",
+      "reason": "FROM sha256:<raw image ID> was interpreted as a registry reference instead of the locally cached image",
+      "log": "artifacts/runs/p0-container-rebuild-20261016-01/docker-build.log",
+      "log_sha256": "d816a4fb0831170e0a861f4c2640d5029f7ccb772343025c0e181cd3aa7bbf34"
+    },
+    "limitations": [
+      "The base image itself has no recorded rebuild recipe or portable distribution; this only reconstructs the derived image from the local immutable image ID.",
+      "apt repositories are live and the complete transitive OS/ROS package set is not snapshot-locked."
+    ]
+  },
+  "workspace_build": {
+    "environment": "d435i-vins:dev, a newly built image; ROS 2 Jazzy",
+    "image_id": "sha256:87d75742cf92e547c2661b82100dcef8cdd2d29da6722ec02461dd62b8777a51",
+    "command": "source /opt/ros/jazzy/setup.bash && colcon --log-base artifacts/runs/p0-clean-container-build-20261016-02/log build --build-base artifacts/runs/p0-clean-container-build-20261016-02/build --install-base artifacts/runs/p0-clean-container-build-20261016-02/install --executor sequential --parallel-workers 1 --event-handlers console_direct+",
+    "build_environment": {
+      "MAKEFLAGS": "-j2",
+      "CMAKE_BUILD_PARALLEL_LEVEL": "2",
+      "build_install_directories": "new and run-specific",
+      "exit_code": 0
+    },
+    "packages": [
+      "bspline_opt",
+      "camera_models",
+      "ego_planner",
+      "global_fusion",
+      "loop_fusion",
+      "path_searching",
+      "plan_env",
+      "px4_msgs",
+      "traj_utils",
+      "uav_interfaces",
+      "uav_localization",
+      "uav_sim",
+      "vins"
+    ],
+    "result": "PASS, 13 packages finished in 12 minutes 45 seconds",
+    "package_list": "artifacts/runs/p0-clean-container-build-20261016-02/packages.txt",
+    "package_list_sha256": "16f5af05cb7c752d88ddb6af180a9d203371c9df24f2ccfdc5f7f66a0283638e",
+    "log": "artifacts/runs/p0-clean-container-build-20261016-02/colcon.log",
+    "log_sha256": "389517f3844699a4be2a237ff92975b557632c91d6941eb81fc0b24167399730",
+    "warnings": "Nine packages emitted compiler/CMake stderr warnings; no build target failed. Warnings are legacy deprecations, VLA/unused parameter warnings, PCL CMP0144 notices, and optional Pcap absence."
+  },
+  "qualification": {
+    "derived_image_rebuild_from_locked_local_base": "PASS",
+    "full_workspace_build_in_new_image": "PASS",
+    "base_image_rebuild_from_project_sources": "NOT_RUN; base recipe/source not available in this repository",
+    "full_dependency_snapshot_lock": "NOT_DONE",
+    "tests_launch_replay": "NOT_RUN",
+    "sitl": "NOT_RUN",
+    "real_hardware": "NOT_RUN",
+    "limits": [
+      "The result proves a clean derived-image and workspace rebuild on this host while the fixed base image is cached; it does not yet meet portable clean-machine reconstruction.",
+      "The colcon command compiled and installed packages only; it did not run package tests, ROS launch/runtime checks, planner replay, PX4, or control behavior."
+    ]
+  }
+}

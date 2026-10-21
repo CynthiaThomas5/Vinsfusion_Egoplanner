@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "run_id": "p5-px4-vio-ego-hover-20261019-193",
+  "classification": "NO_MOTION_CONTROL_INVALID_PX4_TELEMETRY_STALE_PRECEDED_COST_CROSSING",
+  "scope": "Run-local zero-translation/zero-yaw goal and hold diagnostic. It cannot isolate goal dispatch because the PX4 bridge entered LANDING on telemetry freshness before the normalized-cost crossing.",
+  "result": {
+    "requested_goal": {
+      "target_offset_enu_m": [0.0, 0.0, 0.0],
+      "yaw_offset_rad": 0.0,
+      "goal_sent_wall_elapsed_s": 20.760,
+      "action_outcome": "aborted",
+      "action_reason": "localization_normalized_cost_exceeded",
+      "landed_and_disarmed": true
+    },
+    "px4_telemetry_guard_preceded_quality_crossing": {
+      "bridge_first_reported_landing_wall_elapsed_s": 23.758,
+      "bridge_reason": "px4_telemetry_stale",
+      "vehicle_auto_land_wall_elapsed_s": 23.923,
+      "first_detailed_future_stamp_wall_elapsed_s": 23.859,
+      "source_age_sim_s": {
+        "attitude": -0.104322,
+        "local_position": -0.083548
+      },
+      "max_source_future_tolerance_sim_s": 0.065,
+      "interpretation": "The next detailed freshness record showed attitude and local-position source stamps 104 ms and 84 ms in the future, beyond the 65 ms limit. This is consistent with the telemetry freshness guard; the exact sample that first latched LANDING did not include failed-source names, so the originating observation remains uncertain."
+    },
+    "normalized_cost_crossing_during_landing": {
+      "sim_time_s": 38.976,
+      "wall_elapsed_s": 25.023,
+      "seconds_after_goal_dispatch": 4.263,
+      "vehicle_nav_state": "AUTO_LAND",
+      "normalized_cost": 1.12085814264,
+      "aligned_position_error_m": 0.067895,
+      "truth_world_velocity_m_s": [0.070934, 0.097599, -0.756788],
+      "truth_speed_norm_m_s": 0.7663,
+      "requested_vertical_offset_m": 0.0,
+      "active_position_command_enu_m": [0.003071, 0.003219, 0.732555],
+      "goal_target_enu_m": [-0.004824, 0.003388, 0.891869],
+      "position_command_canceled_after_s": 0.05186
+    },
+    "single_sample_grouped_cost": {
+      "visual_cost_share": 0.678714,
+      "marginalization_cost_share": 0.318849,
+      "imu_cost_share": 0.002437,
+      "input_stereo_long_counts": [59, 48, 21],
+      "previous_ten_medians": [54.5, 44.0, 22.0],
+      "qualification": "The cost decomposition was collected during descent after Auto Land began. It is not comparable as a no-motion visual-cost sample."
+    },
+    "landing_terminal": {
+      "time_basis": "PX4 internal ULog timestamp in seconds; not directly compared with ROS /clock.",
+      "landed_at_rest_px4_ulog_s": 41.932,
+      "relaxed_local_position_invalid_px4_ulog_s": 43.468,
+      "descend_failsafe_entered_px4_ulog_s": 43.480,
+      "disarmed_by_landing_px4_ulog_s": 43.948,
+      "battery_warning_or_unhealthy_flags": false,
+      "qualification": "The post-touchdown AUTO_LAND-to-DESCEND fallback repeated; it does not validate the no-motion control."
+    }
+  },
+  "interpretation": {
+    "supported": [
+      "The zero-offset goal was dispatched, but the bridge initiated LANDING on px4_telemetry_stale before the first normalized_cost sample over 1.0.",
+      "At the quality crossing, PX4 was already in AUTO_LAND and truth showed a rapid descent; this was not a stationary observation.",
+      "The action result later aborted on normalized_cost, so this run still does not meet P5 navigation acceptance."
+    ],
+    "not_established": [
+      "This run does not establish that a no-motion goal or goal dispatch alone causes the quality crossing.",
+      "The precise PX4 timestamp-mapping sample that first caused the stale guard is not captured in the first LANDING detail.",
+      "The cost breakdown does not identify the visual or marginalization residual source; images and per-feature residuals were not recorded."
+    ]
+  },
+  "qualification": {
+    "P5": "IN_PROGRESS; the action aborted and this no-motion control was confounded by PX4 telemetry freshness.",
+    "thresholds": "No PX4, localization, or quality threshold changed.",
+    "truth_isolation": "Truth was routed only to the independent read-only evaluator; the PX4 bridge had zero debug_truth subscriptions."
+  },
+  "reproduction": {
+    "command_alignment": "python3 tools/evaluate_vio_quality_alignment.py --capture artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio-truth-capture --flight-report artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio-ego-flight-report.json --output /tmp/p5-193-alignment-replay.json",
+    "quality_analysis": "python3 artifacts/runs/p5-px4-vio-ego-hover-20261019-193/analyze-quality-crossing.py --run-dir artifacts/runs/p5-px4-vio-ego-hover-20261019-193 --output /tmp/p5-193-quality-crossing-replay.json",
+    "ulog_analysis": "python3 artifacts/runs/p5-px4-vio-ego-hover-20261019-193/analyze-landing-failsafe.py --ulog artifacts/runs/p5-px4-vio-ego-hover-20261019-193/px4_sitl_default/log/2026-10-19/15_27_23.ulg --output /tmp/p5-193-landing-failsafe-replay.json",
+    "result": "All three archived outputs were regenerated and byte-compared; run launcher syntax and JSON config checks passed."
+  },
+  "next_step": "Resolve or characterize the PX4 telemetry future-stamp guard, then repeat the zero-motion goal only when Offboard remains enabled and the vehicle has not entered LANDING.",
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/run-comparison.json": {"bytes": 1289, "sha256": "f9872e2a96bcf832810d51964b4535eb230352b0d8b5e4e0e52c599433fc3aed"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio_closed_loop_smoke_goal.json": {"bytes": 417, "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/run-px4-vio-ego-flight.sh": {"bytes": 12424, "sha256": "b5c65e84ac63ebbe2b0196228a099b5ddf66030385932389c1744a80bcac214f"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/analyze-quality-crossing.py": {"bytes": 7765, "sha256": "b50bfc6f32b4e045cf436e47d6d62596e82babdd6c9e16903d6cefe6d48a444a"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/quality-crossing-analysis.json": {"bytes": 4797, "sha256": "8dee8a5be1b0916030917ab0023ccdee9e5dffe3a4b3d6128c8318d1d4f27e7f"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio-quality-alignment.json": {"bytes": 154971, "sha256": "8e5d6b85bacb3be2e2f34efbe116f8554fe31fdc29b086538dfdd9c421975b6b"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio-ego-flight-report.json": {"bytes": 1940642, "sha256": "5357f7478d9baf273f4a788a3680b71c878a9f28f258419de02b34308ccce96f"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio-truth-capture/telemetry.json": {"bytes": 596047, "sha256": "98019980ef4a8ceaad3d0155f251ce7adc761e201021866e231f00fd884a2068"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio-truth-capture/truth-motion.json": {"bytes": 5632348, "sha256": "c6d023260630047afd0fa60dbbe0b66e321d99e97e3b826796e2992889ee3d4f"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/vio-truth-capture/summary.json": {"bytes": 9638, "sha256": "0309748391182f33ba334358dfe705d53a74814253d038ab5b9dccb190abe529"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/truth-input-graph-check.txt": {"bytes": 111, "sha256": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/px4.log": {"bytes": 5440, "sha256": "ba09ec37fec2579d9243b19cd1b0d026cd5c0de790a87dad7328e4cf8980b490"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/px4_sitl_default/log/2026-10-19/15_27_23.ulg": {"bytes": 10480761, "sha256": "bcef5d63f92d32b7829c8c2b38a98392e46d2f01b75a4ce2544e8c0223e27f56"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/analyze-landing-failsafe.py": {"bytes": 6316, "sha256": "ac92e75118c33234a10d776e3f1a627e6909b69613aa31e79f9a4c93e7e4aaf2"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/landing-failsafe-timeline.json": {"bytes": 4840, "sha256": "4b421d0a797ebf200f629ca51fd9eda860e46efd2ab88438239aa4333a518073"},
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-193/px4_sitl_default/bin/px4": {"bytes": 57466288, "sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"},
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install/lib/vins/vins_node": {"bytes": 12276928, "sha256": "1ba7f8bfd017d6b795a183da2930fd749755f89ed6165ac3d36a71a2ee794024"},
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/source/vins/src/estimator/estimator.cpp": {"bytes": 69376, "sha256": "0a6863a66cb8d5608fb23cf85c75e6fe17b2fdf3b8b16969ab4596747bac899b"}
+  }
+}

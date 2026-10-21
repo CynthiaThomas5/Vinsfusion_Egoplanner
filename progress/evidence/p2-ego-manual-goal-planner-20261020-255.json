@@ -1,0 +1,560 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p2-ego-planner-open-corridor-20261020-255",
+  "status": "EGO_BSPLINE_GENERATED; REPLAN_FAILURES_AND_EMERGENCY_STOP; NO_TRACKING_OR_CLEARANCE_ACCEPTANCE",
+  "scope": "One run-local MANUAL_TARGET EGO goal with five-step map inflation and a -0.05 m map floor. Capture a B-spline without launching a trajectory server, controller, PX4, or runtime truth subscriber; compare that first spline offline with known SDF collision primitives.",
+  "qualification": "Exploratory planner wiring and nominal planned-curve geometry only. The curve was not executed by a controller; no achieved trajectory, avoidance success, or formal clearance threshold is claimed.",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo_sim_version": "8.14.0",
+    "ros_domain_id": 125,
+    "gz_partition": "d435i_ego_goal_255"
+  },
+  "parameters": {
+    "resolution_m": 0.1,
+    "obstacles_inflation_m": 0.5,
+    "ground_height_m": -0.05,
+    "flight_type": 1,
+    "odometry_topic": "/localization/optimized_imu_odom"
+  },
+  "goal": {
+    "epoch": "c428be26dd8e4ebfb68dfbf980866434",
+    "frame_id": "odom_c428be26dd8e4ebfb68dfbf980866434",
+    "target_xy_m": [
+      3.0,
+      1.7
+    ],
+    "callback_z_m": 1.0,
+    "map_status": {
+      "wall_elapsed_s": 1.583458,
+      "epoch": "c428be26dd8e4ebfb68dfbf980866434",
+      "map_id": "c428be26dd8e4ebfb68dfbf980866434-903116ebef02494fa0964c1e457a0c30",
+      "input_ready": true,
+      "reason": "ready",
+      "occupied_point_count": 907,
+      "forwarded_depth_count": 249,
+      "keyframe_count": 9,
+      "occupancy_cloud_received": true
+    },
+    "raw_occupancy_points": 908,
+    "inflated_occupancy_points": 15481,
+    "goal_subscriber_count": 1
+  },
+  "runtime": {
+    "wall_seconds": 50.029,
+    "depth_input_count": 927,
+    "accepted_optimized_odom_count": 493,
+    "ego_depth_pose_pairs": 910,
+    "max_raw_occupancy_points": 1268,
+    "inflated_cloud_samples": 445,
+    "max_inflated_occupancy_points": 18211,
+    "max_inflated_sample": {
+      "stamp_ns": 33216000000,
+      "wall_elapsed_s": 28.081858,
+      "wall_epoch_s": 1792468178.272808,
+      "points": 18211,
+      "frame_id": "odom_c428be26dd8e4ebfb68dfbf980866434",
+      "width": 18211,
+      "height": 1
+    },
+    "raw_occupancy_nearest_same_stamp": {
+      "stamp_ns": 33217000000,
+      "wall_elapsed_s": 28.081975,
+      "wall_epoch_s": 1792468178.272921,
+      "clock_stamp_ns_at_receipt": 33213000000,
+      "points": 1188,
+      "frame_id": "odom_c428be26dd8e4ebfb68dfbf980866434"
+    },
+    "inflated_to_raw_point_ratio_at_same_stamp": 15.3291,
+    "localization_history": [
+      {
+        "wall_elapsed_s": 1.041,
+        "wall_epoch_s": 1792468151.232189,
+        "epoch": "c428be26dd8e4ebfb68dfbf980866434",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_c428be26dd8e4ebfb68dfbf980866434"
+      },
+      {
+        "wall_elapsed_s": 46.752,
+        "wall_epoch_s": 1792468196.943251,
+        "epoch": "c428be26dd8e4ebfb68dfbf980866434",
+        "state": 4,
+        "valid": false,
+        "reason": "normalized_cost_exceeded",
+        "frame_id": "odom_c428be26dd8e4ebfb68dfbf980866434"
+      }
+    ],
+    "camera_pose_position_range": {
+      "frame_ids": [
+        "odom_c428be26dd8e4ebfb68dfbf980866434"
+      ],
+      "sample_count": 910,
+      "min_xyz": [
+        -0.03094039015524919,
+        -0.05243866325648866,
+        -0.004262314712010906
+      ],
+      "max_xyz": [
+        0.21649300295891072,
+        0.3210465397619465,
+        0.12838746746341945
+      ]
+    },
+    "planner_probe_status": "bspline_received",
+    "goal_sent": true,
+    "goal_sent_wall_elapsed_s": 1.729867,
+    "captured_bspline_count": 1,
+    "captured_bspline": {
+      "wall_elapsed_s": 1.746061,
+      "drone_id": 0,
+      "order": 3,
+      "traj_id": 1,
+      "goal_id": "",
+      "epoch": "c428be26dd8e4ebfb68dfbf980866434",
+      "start_time_ns": 14340000000,
+      "knots": [
+        -0.6000000000000001,
+        -0.4000000000000001,
+        -0.20000000000000004,
+        0.0,
+        0.20000000000000004,
+        0.4000000000000001,
+        0.6000000000000001,
+        0.8000000000000002,
+        1.0000000000000002,
+        1.2000000000000002,
+        1.4000000000000001,
+        1.6,
+        1.8,
+        2.0,
+        2.2,
+        2.4000000000000004,
+        2.6000000000000005,
+        2.8000000000000007,
+        3.000000000000001
+      ],
+      "pos_pts": [
+        [
+          -0.022133837353176766,
+          -0.014842228025277836,
+          -0.0033593474739641916
+        ],
+        [
+          -0.022573921659267478,
+          -0.015131177513084397,
+          -0.0033936555555891586
+        ],
+        [
+          -0.023013893950426575,
+          -0.015420063429459868,
+          -0.0034279264793819265
+        ],
+        [
+          -0.023603940998235234,
+          0.09751157724431352,
+          0.08382329587669192
+        ],
+        [
+          0.006213383062212958,
+          0.33081619103420895,
+          0.26519555741621703
+        ],
+        [
+          0.10713580559894825,
+          0.6506280387958674,
+          0.5005638882472896
+        ],
+        [
+          0.30939367724981937,
+          0.9979602715569799,
+          0.7351369495162083
+        ],
+        [
+          0.6096969490145498,
+          1.3296555298612942,
+          0.929718394348462
+        ],
+        [
+          0.9782677573106268,
+          1.6118344367581976,
+          1.064072123915473
+        ],
+        [
+          1.376489429775189,
+          1.8185393367843814,
+          1.1350018060753735
+        ],
+        [
+          1.7771207056983862,
+          1.93409556477945,
+          1.1506676122778263
+        ],
+        [
+          2.177391052117393,
+          1.9544616883118249,
+          1.1258178986523422
+        ],
+        [
+          2.577681088118005,
+          1.8838492845137818,
+          1.0759041871672874
+        ],
+        [
+          2.977958721908468,
+          1.7307998976978614,
+          1.0110434541186184
+        ],
+        [
+          3.377888689910383,
+          1.5015221936689305,
+          0.9349119079327302
+        ]
+      ],
+      "yaw_pts": [],
+      "yaw_dt": 0.0
+    },
+    "raw_vins_counts": {
+      "optimized": 633,
+      "propagated": 8382
+    },
+    "raw_vins_truth_sample_count": 0,
+    "runtime_nodes": [
+      "_ros2cli_728",
+      "_ros2cli_854",
+      "_ros2cli_964",
+      "_ros2cli_daemon_125_8d80790de0534628852c27fd0052d97f",
+      "d435i_bridge",
+      "depth_health_monitor",
+      "drone_0_ego_planner_node",
+      "ego_manual_goal_probe",
+      "localization_adapter",
+      "mapping_input_adapter",
+      "mapping_runtime_probe",
+      "raw_vins_readonly_probe",
+      "robot_state_publisher",
+      "vins_estimator"
+    ],
+    "runtime_control_nodes_absent": true
+  },
+  "planner_safety_events": {
+    "ego_fsm_transitions": [
+      "[ego_planner_node-1] [FSM]: from GEN_NEW_TRAJ to EXEC_TRAJ",
+      "[ego_planner_node-1] [FSM]: from EXEC_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to EXEC_TRAJ",
+      "[ego_planner_node-1] [FSM]: from EXEC_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from EMERGENCY_STOP to GEN_NEW_TRAJ",
+      "[ego_planner_node-1] [FSM]: from GEN_NEW_TRAJ to EXEC_TRAJ",
+      "[ego_planner_node-1] [FSM]: from EXEC_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to EXEC_TRAJ",
+      "[ego_planner_node-1] [FSM]: from EXEC_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from EMERGENCY_STOP to GEN_NEW_TRAJ",
+      "[ego_planner_node-1] [FSM]: from GEN_NEW_TRAJ to EXEC_TRAJ",
+      "[ego_planner_node-1] [FSM]: from EXEC_TRAJ to REPLAN_TRAJ",
+      "[ego_planner_node-1] [FSM]: from REPLAN_TRAJ to EXEC_TRAJ"
+    ],
+    "replan_success_log_count": 6,
+    "replan_failure_log_count": 285,
+    "terminal_point_reported_in_obstacle_count": 285,
+    "depth_lost_emergency_stop_log_count": 5,
+    "first_depth_timeout_diagnosis": {
+      "ego_sim_now_s": 20.428,
+      "last_occupancy_update_sim_s": 19.417,
+      "depth_pose_sync_count": 380,
+      "last_sync_stamp_s": 19.306,
+      "last_sync_now_s": 19.392,
+      "last_sync_in_map": true,
+      "camera_xyz_m": [
+        0.010724,
+        0.032555,
+        0.018124
+      ]
+    },
+    "interpretation": "The first B-spline was emitted, but the subsequent EGO log repeatedly reported its current terminal point in the occupied map and failed replanning. It later transitioned from EXEC_TRAJ to EMERGENCY_STOP after an odom/depth timeout; the last synchronized camera pose was still in-map. There was no controller, so the spline was never followed."
+  },
+  "offline_planned_trajectory_evaluation": {
+    "alignment": {
+      "alignment": "Single SE(3), scale fixed to 1, no segment realignment",
+      "paired_samples": 367,
+      "position_rmse_m": 0.009222299296620521,
+      "position_p95_m": 0.01580428223951022,
+      "position_max_m": 0.016608437013696874,
+      "orientation_rmse_deg": 1.5655912147263504,
+      "alignment_rotation": [
+        [
+          0.9998587895877176,
+          -0.01680308346339628,
+          0.00023931215113348614
+        ],
+        [
+          0.016802125155512597,
+          0.9998524909024727,
+          0.003561604466932369
+        ],
+        [
+          -0.0002991227875351332,
+          -0.0035570805785825653,
+          0.9999936288313611
+        ]
+      ],
+      "alignment_translation": [
+        0.034970502107343815,
+        0.023552938872773335,
+        1.0025707769539125
+      ]
+    },
+    "trajectory": {
+      "traj_id": 1,
+      "epoch": "c428be26dd8e4ebfb68dfbf980866434",
+      "order": 3,
+      "control_point_count": 15,
+      "sample_count": 601,
+      "parameter_interval_s": [
+        0.0,
+        2.4000000000000004
+      ],
+      "start_odom_xyz_m": [
+        -0.02257390299011221,
+        -0.015131166917845884,
+        -0.003393649362617126
+      ],
+      "end_odom_xyz_m": [
+        2.977900777610377,
+        1.7180951781623595,
+        1.009164985262415
+      ],
+      "start_world_xyz_m": [
+        0.012653224906469647,
+        0.008032627559686673,
+        0.9992377243615704
+      ],
+      "end_world_xyz_m": [
+        2.9838229778879293,
+        1.7950239904514262,
+        2.0047271716840225
+      ]
+    },
+    "nominal_model_reference": {
+      "vehicle_direction_invariant_sphere_radius_m": 0.48193587,
+      "run_local_obstacles_inflation_m": 0.5
+    },
+    "obstacle_distances": [
+      {
+        "name": "calibration_box",
+        "minimum_signed_surface_distance_m": 1.0449252704900651,
+        "nominal_sphere_clearance_m": 0.5629894004900651,
+        "clearance_beyond_0_5m_profile_m": 0.5449252704900651,
+        "nearest_curve_parameter_s": 1.1760000000000004,
+        "nearest_curve_point_world_m": [
+          0.5949672746155004,
+          1.3205602906566578,
+          1.897339556253535
+        ],
+        "sampled_inside_primitive": false
+      },
+      {
+        "name": "calibration_cylinder",
+        "minimum_signed_surface_distance_m": 2.114301144725038,
+        "nominal_sphere_clearance_m": 1.632365274725038,
+        "clearance_beyond_0_5m_profile_m": 1.614301144725038,
+        "nearest_curve_parameter_s": 0.0,
+        "nearest_curve_point_world_m": [
+          0.012653224906469647,
+          0.008032627559686673,
+          0.9992377243615704
+        ],
+        "sampled_inside_primitive": false
+      }
+    ],
+    "qualification": "601 de Boor spline samples transformed by one fixed-scale SE(3) diagnostic-truth alignment and compared to the SDF primitives. Nominal sphere clearance is not physical or achieved clearance."
+  },
+  "truth_isolation": "The run-local truth process supplied motion samples for offline alignment only. Raw VINS probe reported diagnostic_truth_enabled=false, truth_topic=null and 0 truth samples; no localization, mapping, EGO, controller or PX4 truth subscriber was active.",
+  "control_scope": "No PX4, uav_px4_bridge, traj_server, vehicle controller, trajectory follower, or setpoint publisher. One PoseStamped was published only to EGO /move_base_simple/goal.",
+  "limitations": [
+    "The planner-generated spline was not flown, and EGO later reported collision-rebound and depth/odom timeout behavior.",
+    "The nominal SDF-distance calculation omits mount brackets, cables, physical rotor uncertainty, map error, tracking error, and braking distance.",
+    "Cylinder mapping coverage remains weak; localization locked at 46.752 wall seconds with normalized_cost_exceeded.",
+    "The 0.5 m inflation and -0.05 m ground-height values remain run-local and provisional.",
+    "No GOAL D/E/F pass or threshold freeze is supported by this diagnostic run."
+  ],
+  "source_sha256": {
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "simulation/worlds/sensor_calibration.sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "config/components/mapping/ego_input.json": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f",
+    "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": "58c707ee01fb199337be4037df01f6ae4964826ec5b32611d6a0e40b2dcc5e6c",
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": "54adddebf62089271255be8670abfdca8380ca63221e66f9e7143eda62c80e39",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/run_sensor_motion.py": "190c7be9200f68d8c2d58413b9f9c7f7a115d4cbf96d621283c7629ca5bd8d7e",
+    "tools/probe_mapping_runtime.py": "cde1f7f8cee7d94327a7851b08dc32b4bc227189e1f84d872d9eea681b01c85f",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c",
+    "src/vendor/ego_planner/planner/bspline_opt/src/uniform_bspline.cpp": "f03094a2fd3e36525ebe8ba0a1f4fd251502492464565f668b412cf7e3233398",
+    "src/vendor/ego_planner/planner/traj_utils/msg/Bspline.msg": "bd38b230ede7d9b8f0f050edbbdd59e697e4543ec92a5c3d1f0fc140272e6256",
+    "src/own/uav_interfaces/msg/MapStatus.msg": "44b02ae896f765fa65eaa2a1397f2af2fc487970d6c6444277eb60e6df1c1060",
+    "src/own/uav_interfaces/msg/LocalizationStatus.msg": "82eeeef97be749c0a110619cab4aa90717c16f8fd8006ada9c3630a31033c2d2",
+    "tools/evaluate_vins_motion.py": "2fb7aa9fc934fa210ea9c6926af72b8fe69a6d57b11730508aaf456170db43d8",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/mapping/ego_planner.json": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6"
+  },
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p2-ego-planner-open-corridor-20261020-255",
+    "sha256": {
+      "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+      "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+      "depth-health.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ego-inflation-params.txt": "def8f3592bab8eeac69d9991b89448efda8901d6cc898b5042252ae248725c53",
+      "ego.log": "5958f4f1654bfe35a0e611a40e8f0922c6a47c918ffe08c0408fb161b0e3db9a",
+      "evaluate_ego_bspline.py": "a2358eb00d834b1f00fa81473f9bb773a2571a653057301cc853c399a50559b2",
+      "evaluate_multi_geometry.py": "1f5936b2750979f145337c177231d87b966dd7eb5a746e939ce757542a3cebe2",
+      "inflated-map-samples.json": "6675c5fd293eac7c4c1a1493163c122f0b93ad50a5b096e309ea2ad03cf4b411",
+      "inflated-topic-info.txt": "27da0f44bd3cfe940f69771dd940bac32a4779c9e9a54088695cf0198a4d559c",
+      "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "map-cloud.json": "0b54d51fb5638d433ee9a8dfbf7d972982138c49690392d7443fb1de7c206463",
+      "mapping-adapter.log": "3fc260d216794362a4c4c1260f8100aef6cb9bbda7b28292133e631fee2cc67c",
+      "motion-driver.log": "e6e65468dc4e38dc670ffd24230e0e7e7b89c86655aed90e0284cbd2ee81ffe3",
+      "motion.json": "a794e7866df4beaf094b6c534c694fdc9ce642a1baa43a3895d8bea4de66104e",
+      "optimized-odom-topic-info.txt": "646beda8412675389b345d81a3c644536251c8378ee6bb836b1e2a1f25ea1c34",
+      "optimized-odometry.json": "129634ac3d710ce262eb9d9256dde235c8572fb1d4219d64264486228184d5a2",
+      "planned-trajectory-evaluation.json": "e22be8bd66d096fa0045c2dcbf2cf88e7febfb3c66dcdbd60759d97277ba4636",
+      "planner-goal-result.json": "52db2db64d1b1a20e7d112560985da1309317b0afa832b454640911652952852",
+      "planner-probe.log": "e772784684c39ade33f781fd13f57d0a5795698f48702d64cb7171e4a9955061",
+      "probe-console.log": "ed413e755bb30eaecf9596a907d3909caac8cf5e2ed56adb18cd7dd7dd689671",
+      "probe.json": "ed413e755bb30eaecf9596a907d3909caac8cf5e2ed56adb18cd7dd7dd689671",
+      "probe_ego_goal.py": "b80678993e47ef2e4a05d2344b57a6de5059ff821417bacc0ab977acf59e3e84",
+      "probe_mapping_inflation.py": "366fddd201e319e1771d2d3e13741ec1518179e32907336849a76d4bbcd04d34",
+      "raw-vins-capture/raw-odometry.json": "e8554077314cf5b2b4e5e83c275411313f5917a3cd20db9ff4c425e077666650",
+      "raw-vins-capture/summary.json": "c15f55b8591d7d22c7fca684a52e00ce962bd8ab558b797d9cc11d4248c91c74",
+      "raw-vins-capture/telemetry.json": "a2799066eed671cccf2f10e7fe3c247f5a716afa746300106ee8831331eb97b6",
+      "raw-vins-probe.log": "ce31b126283425908dae27f8522ace802c12a7f25eb2b8fbb4275a983fa6d4a8",
+      "run-container.sh": "6202ba650798ef7ab0c9bf8024b95a4faaa59ba8da1051b4d0adb2ae4867eb9d",
+      "run-live.sh": "8d6591cf5a394757ace5a3235c16bb6f86bc6d1af2485e05da3fd88989e3ed2d",
+      "run-variant-manifest.json": "72f5c167c5c04a6389e7a2e5cd0e27a606e43c900b3a933112419ec984fbc392",
+      "sensors.log": "34b588d1220c268d507dd33867edcdd5f64f42f540ce47d0fbdb7c94cc80fb90",
+      "session/.localization-used": "e9a2203dd76fbf9ff493c8829b5cd8c3cea38fe657f86598bdde3642142020e0",
+      "session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+      "session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+      "session/session.json": "55e7a2a15d1748e18554330013d77d0177d938c557bd3fc6c630eee8e2a92db3",
+      "session/vins.yaml": "033116060a9365c4b7592b0b223220b026ee16d247b3e27b3d832afa9728e73c",
+      "session/vio.csv": "c0cc8ae5128ae3b559c18edd54afbd08428c46cf786533fdd5ff0411d75aa8c5",
+      "session-binding.json": "a395a719a7f57937c88268d85713acb9620e0b765f3d39f6df63e32f8f9a11c5",
+      "stereo-topic-info.txt": "25db9c178341513afba10199789fc783d86c1038f2c76dc5d8ba615642d05f2e",
+      "vins.log": "41afc770bcaed378839b1c9004234a5e4707db83a1f7277766be3429b4d4a212",
+      "world-sdf-check.log": "379953c84f41960016f6764d96d3dd8d042590cefe32fb66f893c899729dda68"
+    }
+  },
+  "next_step": "Run the same 0.5 m full stack with a run-local direct observer for left/right image and IMU source stamps, wall receipt intervals and /clock age. Keep the health gate and map readiness requirement; publish a single short goal only if localization and nonempty MapStatus remain stable. Do not start a controller or PX4.",
+  "execution_validation": {
+    "container_exit_code": 0,
+    "world_sdf_preflight": "PASS; gz sdf reported Valid (retained gz_frame_id schema warnings)",
+    "run_local_shell_syntax": "PASS",
+    "run_local_python_syntax": "PASS",
+    "planner_goal_probe": "PASS; one /move_base_simple/goal was published after localization, MapStatus, occupied map and inflated map were ready; B-spline received",
+    "offline_trajectory_evaluator": "PASS; 601 spline samples and known obstacle surface distances written to planned-trajectory-evaluation.json",
+    "localization_health_end": "LOCKED at 46.752 wall seconds with normalized_cost_exceeded",
+    "ego_safety_state": "EMERGENCY_STOP after odom/depth input timeout; last_sync_in_map=1",
+    "runtime_truth_subscribers": 0,
+    "runtime_px4_or_control_bridge": false,
+    "runtime_traj_server_or_controller": false,
+    "runtime_setpoint_publishers": false,
+    "container_cleanup": "PASS; no active test container remains"
+  }
+}

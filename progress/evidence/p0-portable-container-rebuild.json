@@ -1,0 +1,106 @@
+{
+  "scope": "P0 fixed binary build environment export/load and fresh full ROS workspace compilation; no runtime or flight qualification.",
+  "date": "2026-10-17",
+  "run_id": "p0-container-image-build-20261017-01",
+  "status": "PASS",
+  "container_bundle": {
+    "archive": "artifacts/runs/p0-container-image-bundle-20261017-01/px4-ros2-gz-and-d435i-vins-images.tar.zst",
+    "sha256": "da3e5fd0c203c4dec89963b147ae997a64872d18831151760549efd2c488b614",
+    "bytes": 1490653184,
+    "checksum_manifest": "artifacts/runs/p0-container-image-bundle-20261017-01/SHA256SUMS",
+    "checksum_manifest_sha256": "e446a8df16af3ed850ae951b35e966f2a9c6843d73e5e9376789c074010310a0",
+    "zstd_integrity": "PASS",
+    "docker_load": {
+      "command": "zstd -dc artifacts/runs/p0-container-image-bundle-20261017-01/px4-ros2-gz-and-d435i-vins-images.tar.zst | docker load",
+      "status": "PASS; Docker reported both expected repository tags loaded",
+      "log": "artifacts/runs/p0-container-image-bundle-20261017-01/docker-load.log",
+      "log_sha256": "578a629a09212a43d779d539491bab88d8dd5c9c91ab9bd19eafe7a3325239fd",
+      "limitation": "The Docker daemon already had both image IDs cached and had unrelated active containers; a clean-engine import was not attempted."
+    },
+    "images": [
+      {
+        "tag": "px4-ros2-gz:jazzy-harmonic",
+        "image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+        "installed_package_manifest": "artifacts/runs/p0-container-image-bundle-20261017-01/dpkg-installed.tsv",
+        "installed_package_manifest_sha256": "77dde67248ec50458f38bd10bf1bb041c854bb5f3fe06f12350f39faed97cdb7"
+      },
+      {
+        "tag": "d435i-vins:dev",
+        "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+        "installed_package_manifest": "artifacts/runs/p0-container-image-bundle-20261017-01/dpkg-derived-installed.tsv",
+        "installed_package_manifest_sha256": "94bc78f8ca78eba40739f5bcffa921328471c45da8a1e2f7a8dd2fa63b7ec32c"
+      }
+    ],
+    "original_base_source_recipe": "unavailable; immutable image bytes are supplied by the hashed archive"
+  },
+  "workspace_build": {
+    "environment": "ROS 2 Jazzy, derived image d435i-vins:dev at sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "container": "new disposable docker run with --rm; repository mounted at /workspace",
+    "build_install_log_directories": "fresh run-specific directories under artifacts/runs/p0-container-image-build-20261017-01/",
+    "command": "source /opt/ros/jazzy/setup.bash && MAKEFLAGS=-j2 CMAKE_BUILD_PARALLEL_LEVEL=2 colcon --log-base artifacts/runs/p0-container-image-build-20261017-01/log build --base-paths src --build-base artifacts/runs/p0-container-image-build-20261017-01/build --install-base artifacts/runs/p0-container-image-build-20261017-01/install --executor sequential --parallel-workers 1 --event-handlers console_direct+",
+    "packages_discovered_and_finished": 17,
+    "packages": [
+      "camera_models",
+      "global_fusion",
+      "px4_msgs",
+      "spdlog",
+      "traj_utils",
+      "uav_interfaces",
+      "uav_sim",
+      "loop_fusion",
+      "microxrcedds_agent",
+      "plan_env",
+      "uav_localization",
+      "uav_mapping",
+      "uav_navigation",
+      "vins",
+      "path_searching",
+      "bspline_opt",
+      "ego_planner"
+    ],
+    "elapsed": "14 minutes 39 seconds",
+    "exit_code": 0,
+    "result": "PASS",
+    "package_list": "artifacts/runs/p0-container-image-build-20261017-01/packages.txt",
+    "package_list_sha256": "dfd5b57468d282c9ad5db2971c39bd43a592100e130fb15080e26ed99a9dfa68",
+    "console_log": "artifacts/runs/p0-container-image-build-20261017-01/colcon-console.log",
+    "console_log_sha256": "254759b7aabf092859d799dde2518aca8be7fae23e8372baa0c23f5ab8e9992a",
+    "events_log": "artifacts/runs/p0-container-image-build-20261017-01/log/build_2026-10-17_02-32-03/events.log",
+    "events_log_sha256": "840eca24c7958c4018df82e7eb545c8d6bb4020e0fa9039f211ab1b1ac5c0880",
+    "installed_setup": "artifacts/runs/p0-container-image-build-20261017-01/install/setup.bash",
+    "installed_setup_sha256": "d1552370ac06943878b92be07f1ff59443d00a60275f687ddd08683f1cff795f",
+    "warnings": "Nine third-party packages emitted stderr warnings (deprecations, VLAs, unused parameters, and optional Pcap notice); no package failed."
+  },
+  "workspace_snapshot": {
+    "colcon_source_files_hashed": 1009,
+    "colcon_source_manifest": "artifacts/runs/p0-container-image-build-20261017-01/colcon-source-sha256.txt",
+    "colcon_source_manifest_sha256": "d9dd6aa78ca9fc56ce4e3c074c850c6ed0d3d345a0b6e0fac4c3872df3f6fe2a",
+    "colcon_source_hash_verification_log": "artifacts/runs/p0-container-image-build-20261017-01/source-hash-check.log",
+    "colcon_source_hash_verification_log_sha256": "3232d22c8274c3e5219e052f0c027f1040400e1d474e9418056c429223e21b7d",
+    "git_status": "artifacts/runs/p0-container-image-build-20261017-01/working-tree-status.txt",
+    "git_status_sha256": "9d56d9b57f7326d55374d642383a9cfce48d2d7ca6e34fe3f906da7a484da594",
+    "run_inputs_manifest": "artifacts/runs/p0-container-image-build-20261017-01/run-inputs.json",
+    "run_inputs_manifest_sha256": "6d1e89cf2aac034b3f3c1b9c664134432bd1f36f43917f1b417b8c21989e654d",
+    "repository_commit": "none; repository has no commit on main"
+  },
+  "profile_checker": {
+    "command": "python3 tools/project_status.py",
+    "result": "PASS: structure/design configuration; it no longer permanently requires every runtime profile to remain design_only",
+    "qualification": "This is a structural check only and does not validate ROS runtime or flight behavior."
+  },
+  "qualification": {
+    "portable_image_archive_sha256": "PASS",
+    "docker_archive_load_command": "PASS on the existing daemon; clean-engine import NOT_RUN",
+    "fresh_full_workspace_static_build": "PASS, 17/17 packages",
+    "source_to_binary_and_patch_history": "See progress/evidence/p0-source-audit.json, progress/evidence/p2-vins-build.json, progress/evidence/p0-ego-planner-build.json, and progress/evidence/p0-colcon-16-build.json",
+    "tests": "NOT_RUN_BY_THIS_COLCON_BUILD",
+    "launch_or_sensor_runtime": "NOT_RUN",
+    "PX4_SITL_or_flight": "NOT_RUN",
+    "real_hardware": "NOT_RUN"
+  },
+  "limitations": [
+    "The 1.49 GB archive is under artifacts/, which is ignored by Git; it must be transferred separately with the source checkout.",
+    "The original base image source recipe is unavailable. The archive and package manifests pin the binary environment, but importing it into an independent empty Docker daemon was not tested.",
+    "Build completion is not package-test, ROS launch, sensor, EGO behavior, PX4, SITL flight, or hardware evidence."
+  ]
+}

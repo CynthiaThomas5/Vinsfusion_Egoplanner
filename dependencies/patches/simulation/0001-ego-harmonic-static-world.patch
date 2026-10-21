@@ -1,0 +1,2077 @@
+--- a/ego.sdf
++++ b/ego.sdf
+@@ -1,8 +1,9 @@
+-<sdf version='1.6'>
+-  <world name='default'>
+-    <light name='sun' type='directional'>
++<?xml version='1.0' encoding='utf-8'?>
++<sdf version="1.9">
++  <world name="ego">
++    <light name="sun" type="directional">
+       <cast_shadows>1</cast_shadows>
+-      <pose frame=''>0 0 10 0 -0 0</pose>
++      <pose>0 0 10 0 -0 0</pose>
+       <diffuse>0.8 0.8 0.8 1</diffuse>
+       <specular>0.2 0.2 0.2 1</specular>
+       <attenuation>
+@@ -13,10 +14,10 @@
+       </attenuation>
+       <direction>-0.5 0.1 -0.9</direction>
+     </light>
+-    <model name='ground_plane'>
+-      <static>1</static>
+-      <link name='link'>
+-        <collision name='collision'>
++    <model name="ground_plane">
++      <static>true</static>
++      <link name="link">
++        <collision name="collision">
+           <geometry>
+             <plane>
+               <normal>0 0 1</normal>
+@@ -30,17 +31,17 @@
+                 <mu2>50</mu2>
+               </ode>
+               <torsional>
+-                <ode/>
+-              </torsional>
+-            </friction>
+-            <contact>
+-              <ode/>
+-            </contact>
+-            <bounce/>
+-          </surface>
+-          <max_contacts>10</max_contacts>
+-        </collision>
+-        <visual name='visual'>
++                <ode />
++              </torsional>
++            </friction>
++            <contact>
++              <ode />
++            </contact>
++            <bounce />
++          </surface>
++          <max_contacts>10</max_contacts>
++        </collision>
++        <visual name="visual">
+           <cast_shadows>0</cast_shadows>
+           <geometry>
+             <plane>
+@@ -49,31 +50,29 @@
+             </plane>
+           </geometry>
+           <material>
+-            <script>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-              <name>Gazebo/Black</name>
+-            </script>
+-          </material>
+-        </visual>
+-        <self_collide>0</self_collide>
+-        <enable_wind>0</enable_wind>
+-        <kinematic>0</kinematic>
+-      </link>
++            <diffuse>0.02 0.02 0.02 1</diffuse>
++            <ambient>0.02 0.02 0.02 1</ambient>
++          </material>
++        </visual>
++        <self_collide>0</self_collide>
++        <enable_wind>0</enable_wind>
++        <kinematic>0</kinematic>
++      </link>
++      <pose>0 0 0 0 -0 0</pose>
+     </model>
+     <gravity>0 0 -9.8</gravity>
+     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+-    <atmosphere type='adiabatic'/>
+-    <physics name='default_physics' default='0' type='ode'>
++    <atmosphere type="adiabatic" />
++    <physics name="default_physics" type="ignored">
+       <max_step_size>0.004</max_step_size>
+       <real_time_factor>1</real_time_factor>
+-      <real_time_update_rate>250</real_time_update_rate>
+     </physics>
+     <scene>
+       <ambient>0.4 0.4 0.4 1</ambient>
+       <background>0.7 0.7 0.7 1</background>
+       <shadows>1</shadows>
+     </scene>
+-    <wind/>
++    <wind />
+     <spherical_coordinates>
+       <surface_model>EARTH_WGS84</surface_model>
+       <latitude_deg>0</latitude_deg>
+@@ -81,192 +80,180 @@
+       <elevation>0</elevation>
+       <heading_deg>0</heading_deg>
+     </spherical_coordinates>
+-    <model name='blank'>
+-      <pose frame=''>-0.295167 -0.12464 0 0 -0 0</pose>
+-      <link name='Wall_0'>
+-        <collision name='Wall_0_Collision'>
++    <model name="blank">
++      <pose>0 0 0 0 -0 0</pose>
++      <link name="Wall_0">
++        <collision name="Wall_0_Collision">
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
+-          <max_contacts>10</max_contacts>
+-          <surface>
+-            <contact>
+-              <ode/>
+-            </contact>
+-            <bounce/>
+-            <friction>
+-              <torsional>
+-                <ode/>
+-              </torsional>
+-              <ode/>
+-            </friction>
+-          </surface>
+-        </collision>
+-        <visual name='Wall_0_Visual'>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
++          <pose>0 0 1.25 0 -0 0</pose>
++          <max_contacts>10</max_contacts>
++          <surface>
++            <contact>
++              <ode />
++            </contact>
++            <bounce />
++            <friction>
++              <torsional>
++                <ode />
++              </torsional>
++              <ode />
++            </friction>
++          </surface>
++        </collision>
++        <visual name="Wall_0_Visual">
++          <pose>0 0 1.25 0 -0 0</pose>
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+           <material>
+-            <script>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-              <name>Gazebo/Bricks</name>
+-            </script>
+             <ambient>1 1 1 1</ambient>
++            <diffuse>0.60 0.36 0.23 1</diffuse>
+           </material>
+           <meta>
+             <layer>0</layer>
+           </meta>
+         </visual>
+-        <pose frame=''>0 10 0 0 -0 0</pose>
+-        <self_collide>0</self_collide>
+-        <enable_wind>0</enable_wind>
+-        <kinematic>0</kinematic>
+-      </link>
+-      <link name='Wall_1'>
+-        <collision name='Wall_1_Collision'>
++        <pose>0 10 0 0 -0 0</pose>
++        <self_collide>0</self_collide>
++        <enable_wind>0</enable_wind>
++        <kinematic>0</kinematic>
++      </link>
++      <link name="Wall_1">
++        <collision name="Wall_1_Collision">
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
+-          <max_contacts>10</max_contacts>
+-          <surface>
+-            <contact>
+-              <ode/>
+-            </contact>
+-            <bounce/>
+-            <friction>
+-              <torsional>
+-                <ode/>
+-              </torsional>
+-              <ode/>
+-            </friction>
+-          </surface>
+-        </collision>
+-        <visual name='Wall_1_Visual'>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
++          <pose>0 0 1.25 0 -0 0</pose>
++          <max_contacts>10</max_contacts>
++          <surface>
++            <contact>
++              <ode />
++            </contact>
++            <bounce />
++            <friction>
++              <torsional>
++                <ode />
++              </torsional>
++              <ode />
++            </friction>
++          </surface>
++        </collision>
++        <visual name="Wall_1_Visual">
++          <pose>0 0 1.25 0 -0 0</pose>
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+           <material>
+-            <script>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-              <name>Gazebo/Bricks</name>
+-            </script>
+             <ambient>1 1 1 1</ambient>
++            <diffuse>0.60 0.36 0.23 1</diffuse>
+           </material>
+           <meta>
+             <layer>0</layer>
+           </meta>
+         </visual>
+-        <pose frame=''>10 0 0 0 -0 -1.5708</pose>
+-        <self_collide>0</self_collide>
+-        <enable_wind>0</enable_wind>
+-        <kinematic>0</kinematic>
+-      </link>
+-      <link name='Wall_2'>
+-        <collision name='Wall_2_Collision'>
++        <pose>10 0 0 0 -0 -1.5708</pose>
++        <self_collide>0</self_collide>
++        <enable_wind>0</enable_wind>
++        <kinematic>0</kinematic>
++      </link>
++      <link name="Wall_2">
++        <collision name="Wall_2_Collision">
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
+-          <max_contacts>10</max_contacts>
+-          <surface>
+-            <contact>
+-              <ode/>
+-            </contact>
+-            <bounce/>
+-            <friction>
+-              <torsional>
+-                <ode/>
+-              </torsional>
+-              <ode/>
+-            </friction>
+-          </surface>
+-        </collision>
+-        <visual name='Wall_2_Visual'>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
++          <pose>0 0 1.25 0 -0 0</pose>
++          <max_contacts>10</max_contacts>
++          <surface>
++            <contact>
++              <ode />
++            </contact>
++            <bounce />
++            <friction>
++              <torsional>
++                <ode />
++              </torsional>
++              <ode />
++            </friction>
++          </surface>
++        </collision>
++        <visual name="Wall_2_Visual">
++          <pose>0 0 1.25 0 -0 0</pose>
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+           <material>
+-            <script>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-              <name>Gazebo/Bricks</name>
+-            </script>
+             <ambient>1 1 1 1</ambient>
++            <diffuse>0.60 0.36 0.23 1</diffuse>
+           </material>
+           <meta>
+             <layer>0</layer>
+           </meta>
+         </visual>
+-        <pose frame=''>0 -10 0 0 -0 3.14159</pose>
+-        <self_collide>0</self_collide>
+-        <enable_wind>0</enable_wind>
+-        <kinematic>0</kinematic>
+-      </link>
+-      <link name='Wall_3'>
+-        <collision name='Wall_3_Collision'>
++        <pose>0 -10 0 0 -0 3.14159</pose>
++        <self_collide>0</self_collide>
++        <enable_wind>0</enable_wind>
++        <kinematic>0</kinematic>
++      </link>
++      <link name="Wall_3">
++        <collision name="Wall_3_Collision">
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
+-          <max_contacts>10</max_contacts>
+-          <surface>
+-            <contact>
+-              <ode/>
+-            </contact>
+-            <bounce/>
+-            <friction>
+-              <torsional>
+-                <ode/>
+-              </torsional>
+-              <ode/>
+-            </friction>
+-          </surface>
+-        </collision>
+-        <visual name='Wall_3_Visual'>
+-          <pose frame=''>0 0 1.25 0 -0 0</pose>
++          <pose>0 0 1.25 0 -0 0</pose>
++          <max_contacts>10</max_contacts>
++          <surface>
++            <contact>
++              <ode />
++            </contact>
++            <bounce />
++            <friction>
++              <torsional>
++                <ode />
++              </torsional>
++              <ode />
++            </friction>
++          </surface>
++        </collision>
++        <visual name="Wall_3_Visual">
++          <pose>0 0 1.25 0 -0 0</pose>
+           <geometry>
+             <box>
+               <size>20.15 0.15 2.5</size>
+             </box>
+           </geometry>
+           <material>
+-            <script>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-              <name>Gazebo/Bricks</name>
+-            </script>
+             <ambient>1 1 1 1</ambient>
++            <diffuse>0.60 0.36 0.23 1</diffuse>
+           </material>
+           <meta>
+             <layer>0</layer>
+           </meta>
+         </visual>
+-        <pose frame=''>-10 0 0 0 -0 1.5708</pose>
+-        <self_collide>0</self_collide>
+-        <enable_wind>0</enable_wind>
+-        <kinematic>0</kinematic>
+-      </link>
+-      <static>1</static>
++        <pose>-10 0 0 0 -0 1.5708</pose>
++        <self_collide>0</self_collide>
++        <enable_wind>0</enable_wind>
++        <kinematic>0</kinematic>
++      </link>
++      <static>true</static>
+     </model>
+-    <model name='unit_cylinder'>
+-      <link name='link'>
++    <model name="unit_cylinder">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -277,14 +264,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -292,26 +279,19 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -365,12 +345,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>6.03209 6.76866 0 0 -0 0</pose>
++      <pose>6.03209 6.76866 0.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0'>
+-      <link name='link'>
++    <model name="unit_cylinder_0">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -381,14 +361,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -396,32 +376,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.5</radius>
++              <length>3</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -469,12 +442,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>0.526784 3.48874 0 0 -0 0</pose>
++      <pose>-1.47322 3.48874 0.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_1'>
+-      <link name='link'>
++    <model name="unit_cylinder_1">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -485,14 +458,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -500,32 +473,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.5</radius>
++              <length>3</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -573,12 +539,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>2.69656 7.6939 0 0 -0 0</pose>
++      <pose>2.69656 7.6939 0.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_0'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_0">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -589,14 +555,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -604,32 +570,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -677,12 +636,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>3.51742 4.05931 0 0 -0 0</pose>
++      <pose>3.51742 4.05931 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_1'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_1">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -693,14 +652,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -708,32 +667,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -781,12 +733,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>2.4991 -7.17041 0 0 -0 0</pose>
++      <pose>2.4991 -7.17041 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_2'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_2">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -797,14 +749,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -812,32 +764,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -885,12 +830,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>5.67976 -6.20918 0 0 -0 0</pose>
++      <pose>5.67976 -6.20918 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_3'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_3">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -901,14 +846,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -916,32 +861,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -989,12 +927,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>4.22335 -2.59857 0 0 -0 0</pose>
++      <pose>4.22335 -2.59857 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_4'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_4">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1005,14 +943,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -1020,32 +958,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -1093,12 +1024,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-1.26845 7.03922 0 0 -0 0</pose>
++      <pose>-1.26845 7.03922 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_5'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_5">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1109,14 +1040,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -1124,32 +1055,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -1197,12 +1121,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-1.33269 1.12821 0 0 -0 0</pose>
++      <pose>-1e-06 1.12821 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_6'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_6">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1213,14 +1137,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -1228,32 +1152,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -1301,12 +1218,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-1.18762 -4.92062 0 0 -0 0</pose>
++      <pose>-1.18762 -4.92062 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_2'>
+-      <link name='link'>
++    <model name="unit_cylinder_2">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1317,14 +1234,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -1332,26 +1249,19 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -1405,12 +1315,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>4.61201 0.491104 0 0 -0 0</pose>
++      <pose>6 2.99999 0.5 0 -0 0</pose>
+     </model>
+-    <model name='unit_cylinder_3'>
+-      <link name='link'>
++    <model name="unit_cylinder_3">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1421,14 +1331,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -1436,32 +1346,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.5</radius>
++              <length>3</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -1509,12 +1412,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>1.72442 -3.55613 0 0 -0 0</pose>
++      <pose>1.72442 -2.55613 0.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_4'>
+-      <link name='link'>
++    <model name="unit_cylinder_4">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1525,14 +1428,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -1540,32 +1443,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.5</radius>
++              <length>3</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -1613,256 +1509,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-2.75559 -2.44735 0 0 -0 0</pose>
++      <pose>-2.75559 -2.44735 0.5 0 -0 1e-06</pose>
+     </model>
+-    <state world_name='default'>
+-      <sim_time>633 184000000</sim_time>
+-      <real_time>363 240432551</real_time>
+-      <wall_time>1659250138 439911663</wall_time>
+-      <iterations>90742</iterations>
+-      <model name='blank'>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
+-        <scale>1 1 1</scale>
+-        <link name='Wall_0'>
+-          <pose frame=''>0 10 0 0 -0 0</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>0 0 0 0 -0 0</acceleration>
+-          <wrench>0 0 0 0 -0 0</wrench>
+-        </link>
+-        <link name='Wall_1'>
+-          <pose frame=''>10 0 0 0 0 -1.5708</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>0 0 0 0 -0 0</acceleration>
+-          <wrench>0 0 0 0 -0 0</wrench>
+-        </link>
+-        <link name='Wall_2'>
+-          <pose frame=''>0 -10 0 0 -0 3.14159</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>0 0 0 0 -0 0</acceleration>
+-          <wrench>0 0 0 0 -0 0</wrench>
+-        </link>
+-        <link name='Wall_3'>
+-          <pose frame=''>-10 0 0 0 -0 1.5708</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>0 0 0 0 -0 0</acceleration>
+-          <wrench>0 0 0 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='ground_plane'>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>0 0 0 0 -0 0</acceleration>
+-          <wrench>0 0 0 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder'>
+-        <pose frame=''>6.03209 6.76866 0.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>6.03209 6.76866 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0'>
+-        <pose frame=''>-1.47322 3.48874 0.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-1.47322 3.48874 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_0'>
+-        <pose frame=''>3.51742 4.05931 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>3.51742 4.05931 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_1'>
+-        <pose frame=''>2.4991 -7.17041 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>2.4991 -7.17041 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_2'>
+-        <pose frame=''>5.67976 -6.20918 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>5.67976 -6.20918 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_2_clone'>
+-        <pose frame=''>-3.44561 -7.91245 -2.5 0 -0 0</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-3.44561 -7.91245 0.5 0 -0 0</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_3'>
+-        <pose frame=''>4.22335 -2.59857 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>4.22335 -2.59857 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_4'>
+-        <pose frame=''>-1.26845 7.03922 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-1.26845 7.03922 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_5'>
+-        <pose frame=''>-1e-06 1.12821 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-1e-06 1.12821 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_6'>
+-        <pose frame=''>-1.18762 -4.92062 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-1.18762 -4.92062 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_6_clone'>
+-        <pose frame=''>-3.99996 0.001786 -2.50001 -1.7e-05 -1.7e-05 0</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-4.00001 0.001837 0.499992 -1.7e-05 -1.7e-05 0</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-3.79278 3.79253 2.21169 -1.30167 -1.30208 0.000233</acceleration>
+-          <wrench>-3.79278 3.79253 2.21169 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_6_clone_0'>
+-        <pose frame=''>0.124133 -1.99996 -2.50015 1.7e-05 1.7e-05 0</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>0.124184 -2.00001 0.499852 1.7e-05 1.7e-05 0</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+-          <wrench>0 0 -9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_0_6_clone_clone'>
+-        <pose frame=''>-4.18914 5.163 -2.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-4.18914 5.163 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_1'>
+-        <pose frame=''>2.69656 7.6939 0.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>2.69656 7.6939 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_2'>
+-        <pose frame=''>6 2.99999 0.5 0 -0 0</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>6 2.99999 0.5 0 -0 0</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_2_clone'>
+-        <pose frame=''>2.51998 -0.204252 0.5 0 -0 0</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>2.51998 -0.204252 0.5 0 -0 0</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_3'>
+-        <pose frame=''>1.72442 -2.55613 0.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>1.72442 -2.55613 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_4'>
+-        <pose frame=''>-2.75559 -2.44735 0.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-2.75559 -2.44735 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <model name='unit_cylinder_4_clone'>
+-        <pose frame=''>-3.8786 -5.8275 0.5 0 -0 1e-06</pose>
+-        <scale>1 1 1</scale>
+-        <link name='link'>
+-          <pose frame=''>-3.8786 -5.8275 0.5 0 -0 1e-06</pose>
+-          <velocity>0 0 0 0 -0 0</velocity>
+-          <acceleration>-1.7e-05 -1e-06 9.8 3e-06 -3.5e-05 0</acceleration>
+-          <wrench>-1.7e-05 -1e-06 9.8 0 -0 0</wrench>
+-        </link>
+-      </model>
+-      <light name='sun'>
+-        <pose frame=''>0 0 10 0 -0 0</pose>
+-      </light>
+-    </state>
+-    <gui fullscreen='0'>
+-      <camera name='user_camera'>
+-        <pose frame=''>-18.4249 -0.929908 17.7813 0 0.795639 0.016998</pose>
+-        <view_controller>orbit</view_controller>
+-        <projection_type>perspective</projection_type>
+-      </camera>
+-    </gui>
+-    <model name='unit_cylinder_0_6_clone'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_6_clone">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1873,14 +1525,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -1888,32 +1540,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -1961,12 +1606,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-2.81535 0.001827 -2.5 0 -0 0</pose>
++      <pose>-3.99996 0.001786 -2.50001 -1.7e-05 -1.7e-05 0</pose>
+     </model>
+-    <model name='unit_cylinder_0_6_clone_clone'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_6_clone_clone">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -1977,14 +1622,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -1992,32 +1637,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -2065,12 +1703,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-4.18928 5.16314 -2.50003 5.6e-05 5.6e-05 0</pose>
++      <pose>-4.18914 5.163 -2.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_4_clone'>
+-      <link name='link'>
++    <model name="unit_cylinder_4_clone">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -2081,14 +1719,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -2096,32 +1734,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.5</radius>
++              <length>3</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -2169,12 +1800,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-3.87859 -5.82751 0.499852 1.7e-05 1.7e-05 0</pose>
++      <pose>-3.8786 -5.8275 0.5 0 -0 1e-06</pose>
+     </model>
+-    <model name='unit_cylinder_0_6_clone_0'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_6_clone_0">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -2185,14 +1816,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -2200,32 +1831,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -2273,12 +1897,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>0.124135 -2.41946 -2.50015 1.7e-05 1.7e-05 0</pose>
++      <pose>0.124133 -1.99996 -2.50015 1.7e-05 1.7e-05 0</pose>
+     </model>
+-    <model name='unit_cylinder_0_2_clone'>
+-      <link name='link'>
++    <model name="unit_cylinder_0_2_clone">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -2289,14 +1913,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 3 0 -0 0</pose>
++        <pose>0 0 3 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.3</radius>
+@@ -2304,32 +1928,25 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.447 0.624 0.812 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
++          <geometry>
++            <cylinder>
++              <radius>0.3</radius>
++              <length>10</length>
++            </cylinder>
++          </geometry>
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
+-          <geometry>
+-            <cylinder>
+-              <radius>0.5</radius>
+-              <length>1</length>
+-            </cylinder>
+-          </geometry>
++          <pose>0 0 0 0 -0 0</pose>
+           <surface>
+             <friction>
+               <ode>
+@@ -2377,12 +1994,12 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>-3.44561 -7.91245 -2.5 0 -0 0</pose>
++      <pose>-3.44561 -7.91245 -2.5 0 -0 0</pose>
+     </model>
+-    <model name='unit_cylinder_2_clone'>
+-      <link name='link'>
++    <model name="unit_cylinder_2_clone">
++      <link name="link">
+         <inertial>
+           <mass>1</mass>
+           <inertia>
+@@ -2393,14 +2010,14 @@
+             <iyz>0</iyz>
+             <izz>0.125</izz>
+           </inertia>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+         </inertial>
+         <self_collide>0</self_collide>
+         <enable_wind>0</enable_wind>
+         <kinematic>0</kinematic>
+-        <pose frame=''>0 0 0 0 -0 0</pose>
++        <pose>0 0 0 0 -0 0</pose>
+         <gravity>1</gravity>
+-        <visual name='visual'>
++        <visual name="visual">
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -2408,26 +2025,19 @@
+             </cylinder>
+           </geometry>
+           <material>
+-            <script>
+-              <name>Gazebo/Grey</name>
+-              <uri>file://media/materials/scripts/gazebo.material</uri>
+-            </script>
+-            <shader type='pixel'>
+-              <normal_map>__default__</normal_map>
+-            </shader>
+             <ambient>0.757 0.49 0.067 1</ambient>
+             <diffuse>0.7 0.7 0.7 1</diffuse>
+             <specular>0.01 0.01 0.01 1</specular>
+             <emissive>0 0 0 1</emissive>
+           </material>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <transparency>0</transparency>
+           <cast_shadows>1</cast_shadows>
+         </visual>
+-        <collision name='collision'>
++        <collision name="collision">
+           <laser_retro>0</laser_retro>
+           <max_contacts>10</max_contacts>
+-          <pose frame=''>0 0 0 0 -0 0</pose>
++          <pose>0 0 0 0 -0 0</pose>
+           <geometry>
+             <cylinder>
+               <radius>0.5</radius>
+@@ -2481,9 +2091,18 @@
+           </surface>
+         </collision>
+       </link>
+-      <static>0</static>
++      <static>true</static>
+       <allow_auto_disable>1</allow_auto_disable>
+-      <pose frame=''>2.51999 -0.204261 0.499852 1.7e-05 1.7e-05 0</pose>
++      <pose>2.51998 -0.204252 0.5 0 -0 0</pose>
+     </model>
++    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics" />
++    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
++    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
++    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu" />
++    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
++      <render_engine>ogre2</render_engine>
++    </plugin>
++    <plugin filename="gz-sim-air-pressure-system" name="gz::sim::systems::AirPressure" />
++    <plugin filename="gz-sim-magnetometer-system" name="gz::sim::systems::Magnetometer" />
+   </world>
+ </sdf>

@@ -1,0 +1,26 @@
+diff --git a/colcon.pkg b/colcon.pkg
+index 62843e4..46d1863 100644
+--- a/colcon.pkg
++++ b/colcon.pkg
+@@ -3,11 +3,19 @@
+     "type": "cmake",
+     "dependencies":[
+         "fastcdr",
+-        "fastrtps"
++        "fastrtps",
++        "spdlog"
+     ],
+     "cmake-args":[
+         "-DUAGENT_ISOLATED_INSTALL=OFF",
++        "-DUAGENT_SUPERBUILD=OFF",
+         "-DUAGENT_USE_SYSTEM_FASTCDR=ON",
+-        "-DUAGENT_USE_SYSTEM_FASTDDS=ON"
++        "-DUAGENT_USE_SYSTEM_FASTDDS=ON",
++        "-DUAGENT_USE_SYSTEM_LOGGER=OFF",
++        "-DUAGENT_P2P_PROFILE=OFF",
++        "-DUAGENT_DISCOVERY_PROFILE=OFF",
++        "-DUAGENT_SOCKETCAN_PROFILE=OFF",
++        "-DUAGENT_SECURITY_PROFILE=OFF",
++        "-DUAGENT_BUILD_TESTS=OFF"
+     ]
+ }

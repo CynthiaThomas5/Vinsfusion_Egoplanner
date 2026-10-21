@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "run_id": "p5-px4-vio-ego-hover-20261019-182",
+  "classification": "safety_abort_excluded_from_matched_hover_baseline",
+  "scope": "Independent no-navigation-goal repeat attempt using the #181 run-local VINS timing/cost overlay and a fresh PX4 SITL build copy. The attempted dwell ended early after PX4 reported Offboard control signal loss; retained as failure-path evidence, not hover evidence.",
+  "run": {
+    "profile": "vio_closed_loop",
+    "ros_domain_id": 229,
+    "gazebo_partition": "d435i_p5_vio_ego_hover_182",
+    "epoch": "d41886c72c3d4c4fb3c84602ac1a516b",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "px4_parameter_stage_script_sha256": "d6d3c8c0df50357c5162c80543b574abb01ec7b3dc8cf2573e48233bec9cb54c",
+    "px4_mount_model_sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "px4_parameter_values_match_run_181": true,
+    "vins_overlay_binary": "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install/lib/vins/vins_node",
+    "vins_overlay_binary_sha256": "1ba7f8bfd017d6b795a183da2930fd749755f89ed6165ac3d36a71a2ee794024",
+    "navigation_action_goal_sent": false,
+    "px4_control_owner": "uav_px4_bridge"
+  },
+  "probe": {
+    "result": "SAFETY_ABORT",
+    "failure": "px4_preflight_failed",
+    "preconditions_ready": true,
+    "localization_tracking_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "takeoff_active_observed": true,
+    "hover_requested_wall_s": 20.0,
+    "hover_duration_wall_s": 0.9481111089999104,
+    "hover_completed_without_quality_abort": false,
+    "action_goal_sent": false,
+    "landed_and_disarmed": true,
+    "final_bridge_status": {
+      "phase": "LANDED",
+      "reason": "px4_preflight_failed",
+      "armed": false,
+      "landed": true,
+      "ready": false
+    },
+    "final_vehicle_status": {
+      "arming_state": 1,
+      "nav_state": 14,
+      "failsafe": false,
+      "pre_flight_checks_pass": false
+    },
+    "probe_exit_code": 1,
+    "truth_capture_exit_code": 0
+  },
+  "px4_ulog_diagnostic": {
+    "ulog_no_dropouts": true,
+    "vehicle_status_pre_flight_checks_pass_became_false_at_s": 36.184,
+    "failsafe_flags_offboard_control_signal_lost_became_true_at_s": 36.184,
+    "vehicle_status_failsafe_true_at_s": 36.196,
+    "failsafe_nav_state_at_transition": 18,
+    "battery_warning_flags": 0,
+    "battery_low_remaining_time_flags": 0,
+    "battery_unhealthy_flags": 0,
+    "battery_status_warning_codes": [0],
+    "battery_remaining_min": 0.7602148056030273,
+    "battery_voltage_min_v": 15.738393783569336,
+    "offboard_control_mode_log": {
+      "samples": 102,
+      "first_timestamp_s": 26.18,
+      "last_timestamp_s": 36.184,
+      "maximum_inter_sample_gap_s": 0.132,
+      "position_mode": true
+    },
+    "interpretation": "The ULog associates the abort with offboard_control_signal_lost and contains no battery warning/low-time/unhealthy flags. The generic 'battery warning (fast)' tone text is not sufficient to attribute the abort to battery. No preceding Offboard sample gap over 0.132 s appears in the logged interval; why PX4 declared the control signal lost remains unresolved."
+  },
+  "truth_isolation": {
+    "diagnostic_read_only_truth_observer": true,
+    "px4_bridge_debug_truth_subscription": false,
+    "truth_topic_single_subscriber": "raw_vins_readonly_probe",
+    "wall_seconds": 90.01422243399975,
+    "truth_samples": 3048,
+    "imu_samples": 12308,
+    "telemetry_samples": 929,
+    "all_output_finite": true,
+    "parse_errors": []
+  },
+  "interpretation_limit": "This attempt did not complete a hover dwell and is excluded from hover baseline statistics. It confirms the bridge/PX4 safety path landed and disarmed the vehicle. It does not explain why the Offboard signal was declared lost and does not qualify or invalidate the successful #181 dwell.",
+  "next_step": "Inspect OffboardControlMode/TrajectorySetpoint publication timing and PX4 timestamp mapping across the ACTIVE-to-failsafe transition before another hover takeoff.",
+  "artifacts": {
+    "run_directory": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182",
+    "hover_report": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-ego-flight-report.json",
+    "truth_capture_summary": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-truth-capture/summary.json",
+    "truth_capture_telemetry": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-truth-capture/telemetry.json",
+    "px4_log": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4.log",
+    "px4_ulog": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4_sitl_default/log/2026-10-19/13_07_41.ulg",
+    "bridge_graph": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4-bridge-node-info.txt",
+    "truth_graph": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/truth-evaluator-topic-info.txt",
+    "truth_input_graph_check": "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/truth-input-graph-check.txt"
+  },
+  "sha256": {
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/launch-diagnostic-run.sh": "f379f113238ffa613e647670c89627171541969d984131758a9e2e301f66fc50",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/run-px4-vio-ego-flight.sh": "278d973eb2d7d67d576310fb920fddb4c38a1e35b6b1e5a6eb66aed6acc01eda",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/attempt-context.txt": "34bb98d5b49cf1a0029301685c9e918b26ca090f35792890bbee8ca86b276489",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4-param-stage.json": "884e14696cf9ec3f2ec22e6ae842a1bdb4cffe0b30551ada6158bf9a094bf95e",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-ego-flight-report.json": "11226362aaaead8f23a16f01d4fd943f6c3426807aeb2b10fbd2fcea084707c6",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-truth-capture/summary.json": "9a84c89e1b79f8d19bf8a87fa793385ffd4901884bb0478d58f3e15dee23c901",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-truth-capture/telemetry.json": "77674d2628f924c9e900e0bc2335d7bd733e5e56e76ca0a8aa84e57810b9ace9",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4.log": "71fe90da1ad64bf884d1159abd263a345fb3c72e5c98c159da3d54f702cc23f5",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-launch.log": "e717f573464c803b5f3afa4699afb8f5bfa85b5a08387740fdabfa2cb1e79063",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4_sitl_default/bin/px4": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4_sitl_default/log/2026-10-19/13_07_41.ulg": "4d5417921f25f713f43cc6ba2bca21a9f6fffa3ebf51537e177da393a720873e",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/px4-bridge-node-info.txt": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/truth-evaluator-topic-info.txt": "3b5e83eaa6cb9222768299f5991880c04da29ee4ad8cfa118fee862282b5959b",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/truth-input-graph-check.txt": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-ego-flight-exit-code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "artifacts/runs/p5-px4-vio-ego-hover-20261019-182/vio-truth-capture-exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  }
+}

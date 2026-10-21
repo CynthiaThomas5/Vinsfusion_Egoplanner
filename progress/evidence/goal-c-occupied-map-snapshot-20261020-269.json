@@ -1,0 +1,57 @@
+{
+  "schema": "goal-c-occupied-map-snapshot-readback/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-map-multi-obstacle-geometry-20261020-247",
+  "status": "PASS_PARTIAL_GOAL_C_SNAPSHOT_ARCHIVE_READBACK",
+  "qualification": "One same-epoch occupied cloud was archived and read back. This is partial GOAL C evidence only; it does not establish coverage, free/unknown semantics, obstacle clearance, or planning acceptance.",
+  "snapshot": {
+    "epoch": "9568a1e570274064aa8325a93520fae9",
+    "map_id": "9568a1e570274064aa8325a93520fae9-af391e20c26b46cd8704d03905afe601",
+    "frame_id": "odom_9568a1e570274064aa8325a93520fae9",
+    "source_stamp_ns": 23068000000,
+    "point_count": 1264,
+    "classification": "occupied points only; free and unknown voxels are not exported",
+    "snapshot_scope": "one live plan_env occupancy sample; no cross-epoch stitching",
+    "live_sample": {
+      "wall_epoch_s": 1792465596.910496,
+      "wall_elapsed_s": 17.329745,
+      "clock_stamp_ns_at_receipt": 23059000000,
+      "point_count_matches_cloud": true
+    },
+    "calibration_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "occupied_snapshot": {
+      "file": "occupied_snapshot.pcd",
+      "sha256": "d5f7304814860d58436f8a06a17ef7074b851f6c61728211a7ae778217596e65",
+      "readback_point_count": 1264,
+      "float32_coordinates_roundtrip_exact": true
+    }
+  },
+  "validation": {
+    "live_probe_has_exact_stamp_and_frame_sample": true,
+    "live_probe_and_cloud_point_counts_match": true,
+    "map_id_from_reset_ack_precedes_sample": true,
+    "pcd_readback_point_count": 1264,
+    "float32_coordinates_roundtrip_exact": true,
+    "exporter_sha256": "d1073138f7cfc2a622d63a0b44f54f65154ea76861d38f8d830ba36dbc2dced6",
+    "metadata_sha256": "cdc7507b651d970c266387c5fa2ea95cb28b75380566629ade40a38055ed1ff1",
+    "cloud_pcd_sha256": "d5f7304814860d58436f8a06a17ef7074b851f6c61728211a7ae778217596e65"
+  },
+  "source_evidence": "progress/evidence/p2-map-multi-obstacle-geometry-20261020-247.json",
+  "source_capture_hashes": {
+    "cloud_json": "artifacts/runs/p2-map-multi-obstacle-geometry-20261020-247/map-cloud.json",
+    "cloud_json_sha256": "bca084241c536adc4a57203c27e1d0df16c3c1349e7ad2804f601eb0a4d95fba",
+    "mapping_log": "artifacts/runs/p2-map-multi-obstacle-geometry-20261020-247/mapping-adapter.log",
+    "mapping_log_sha256": "c73a3015e1e229592bf506f4ffa2efc1bb2760fea447216ba10b69825312f9a2",
+    "probe_json": "artifacts/runs/p2-map-multi-obstacle-geometry-20261020-247/probe.json",
+    "probe_json_sha256": "bff1f968009e87432f49c916988bfec382ee171c469d7c61f88ca898caeb75e4",
+    "run_report": "progress/evidence/p2-map-multi-obstacle-geometry-20261020-247.json",
+    "run_report_sha256": "cd17a4f4b81b1188aa6b139afd9fb7a16b6f68b19fdff8ce3b44a9c6fd9c224d"
+  },
+  "limitations": [
+    "This packages an existing run capture; no new SITL run was performed.",
+    "The artifact contains occupied points only; plan_env does not expose free or unknown voxel counts in this contract.",
+    "Only one sample is retained. Temporal coverage, persistent accumulation, map geometry thresholds, and planner response remain unverified.",
+    "The source run later locked on normalized_cost_exceeded; the archived sample predates that reset and is not a final navigation run."
+  ]
+}

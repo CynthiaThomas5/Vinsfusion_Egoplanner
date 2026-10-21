@@ -1,0 +1,60 @@
+--- a/src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h
++++ b/src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h
+@@ -120,6 +120,10 @@
+   rclcpp::Time last_occ_update_time_;
+   bool flag_depth_odom_timeout_;
+   bool flag_use_depth_fusion;
++  unsigned long long depth_pose_callback_count_ = 0;
++  long long last_depth_pose_stamp_ns_ = 0;
++  double last_depth_pose_callback_now_s_ = -1.0;
++  bool last_depth_pose_in_map_ = false;
+ 
+   // depth image projected point cloud
+ 
+--- a/src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp
++++ b/src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp
+@@ -252,6 +252,10 @@
+   md_.last_camera_pos_.setZero();
+   md_.camera_r_m_.setIdentity();
+   md_.last_camera_r_m_.setIdentity();
++  md_.depth_pose_callback_count_ = 0;
++  md_.last_depth_pose_stamp_ns_ = 0;
++  md_.last_depth_pose_callback_now_s_ = -1.0;
++  md_.last_depth_pose_in_map_ = false;
+   md_.update_num_ = 0;
+   md_.fuse_time_ = 0.0;
+   md_.max_fuse_time_ = 0.0;
+@@ -782,10 +786,17 @@
+         (node_->now() - md_.last_occ_update_time_).seconds() > mp_.odom_depth_timeout_)
+     {
+       RCLCPP_ERROR(node_->get_logger(),
+-                   "odom or depth lost! now=%f, last_occ_update_time=%f, odom_depth_timeout=%f",
++                   "odom or depth lost! now=%f, last_occ_update_time=%f, odom_depth_timeout=%f, "
++                   "depth_pose_sync_count=%llu, last_sync_stamp=%.9f, last_sync_now=%f, "
++                   "last_sync_in_map=%d, camera=(%.6f,%.6f,%.6f)",
+                    node_->now().seconds(),
+                    md_.last_occ_update_time_.seconds(),
+-                   mp_.odom_depth_timeout_);
++                   mp_.odom_depth_timeout_,
++                   md_.depth_pose_callback_count_,
++                   static_cast<double>(md_.last_depth_pose_stamp_ns_) / 1e9,
++                   md_.last_depth_pose_callback_now_s_,
++                   md_.last_depth_pose_in_map_,
++                   md_.camera_pos_(0), md_.camera_pos_(1), md_.camera_pos_(2));
+       md_.flag_depth_odom_timeout_ = true;
+     }
+     return;
+@@ -845,7 +856,12 @@
+   md_.camera_r_m_ = Eigen::Quaterniond(pose->pose.orientation.w, pose->pose.orientation.x,
+                                        pose->pose.orientation.y, pose->pose.orientation.z)
+                         .toRotationMatrix();
+-  if (isInMap(md_.camera_pos_))
++  md_.depth_pose_callback_count_ += 1;
++  md_.last_depth_pose_stamp_ns_ =
++      static_cast<long long>(pose->header.stamp.sec) * 1000000000LL + pose->header.stamp.nanosec;
++  md_.last_depth_pose_callback_now_s_ = node_->now().seconds();
++  md_.last_depth_pose_in_map_ = isInMap(md_.camera_pos_);
++  if (md_.last_depth_pose_in_map_)
+   {
+     md_.has_odom_ = true;
+     md_.update_num_ += 1;

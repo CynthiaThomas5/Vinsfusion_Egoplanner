@@ -1,0 +1,204 @@
+--- a/src/vendor/ego_planner/planner/plan_manage/include/ego_planner/planner_manager.h
++++ b/src/vendor/ego_planner/planner/plan_manage/include/ego_planner/planner_manager.h
+@@ -55,6 +55,8 @@
+     SwarmTrajData swarm_trajs_buf_;
+ 
+   private:
++    rclcpp::Node::SharedPtr node_;
++
+     /* main planning algorithms & modules */
+     PlanningVisualization::Ptr visualization_;
+ 
+--- a/src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp
++++ b/src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp
+@@ -12,6 +12,8 @@
+ 
+   void EGOPlannerManager::initPlanModules(rclcpp::Node::SharedPtr &node, PlanningVisualization::Ptr vis)
+   {
++    node_ = node;
++
+     node->declare_parameter("manager/max_vel", -1.0);
+     node->declare_parameter("manager/max_acc", -1.0);
+     node->declare_parameter("manager/max_jerk", -1.0);
+@@ -141,7 +143,7 @@
+       {
+ 
+         double t;
+-        double t_cur = (rclcpp::Clock().now() - local_data_.start_time_).seconds();
++        double t_cur = (node_->get_clock()->now() - local_data_.start_time_).seconds();
+ 
+         vector<double> pseudo_arc_length;
+         vector<Eigen::Vector3d> segment_point;
+@@ -330,7 +332,7 @@
+     t_refine = rclcpp::Clock().now() - t_start;
+ 
+     // save planned results
+-    updateTrajInfo(pos, rclcpp::Clock().now());
++    updateTrajInfo(pos, node_->get_clock()->now());
+ 
+     static double sum_time = 0;
+     static int count_success = 0;
+@@ -355,7 +357,7 @@
+       control_points.col(i) = stop_pos;
+     }
+ 
+-    updateTrajInfo(UniformBspline(control_points, 3, 1.0), rclcpp::Clock().now());
++    updateTrajInfo(UniformBspline(control_points, 3, 1.0), node_->get_clock()->now());
+ 
+     return true;
+   }
+@@ -453,7 +455,7 @@
+     else
+       return false;
+ 
+-    auto time_now = rclcpp::Clock().now();
++    auto time_now = node_->get_clock()->now();
+ 
+     global_data_.setGlobalTraj(gl_traj, time_now);
+ 
+@@ -520,7 +522,7 @@
+     else
+       return false;
+ 
+-    auto time_now = rclcpp::Clock().now();
++    auto time_now = node_->get_clock()->now();
+ 
+     global_data_.setGlobalTraj(gl_traj, time_now);
+ 
+--- a/src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -328,16 +328,15 @@
+       return;
+ 
+     // if (abs((ros::Time::now() - msg->start_time).toSec()) > 0.25)
+-    rclcpp::Clock clock(RCL_SYSTEM_TIME);  // 确保使用当前节点的时间源
+-    auto msg_time = rclcpp::Time(msg->start_time, clock.get_clock_type());
++    auto msg_time = rclcpp::Time(msg->start_time, node_->get_clock()->get_clock_type());
+     // RCLCPP_INFO(node_->get_logger(), "Clock type: %d", rclcpp::Clock().now().get_clock_type());
+     // RCLCPP_INFO(node_->get_logger(), "Start time clock type: %d", rclcpp::Time(msg->start_time).get_clock_type());
+     // RCLCPP_INFO(node_->get_logger(), "msg_time: %d", msg_time.get_clock_type());
+-    if (abs((rclcpp::Clock().now() - msg_time).seconds()) > 0.25)
++    if (abs((node_->get_clock()->now() - msg_time).seconds()) > 0.25)
+     {
+       // ROS_ERROR("Time difference is too large! Local - Remote Agent %d = %fs", msg->drone_id, (ros::Time::now() - msg->start_time).toSec());
+       RCLCPP_ERROR(node_->get_logger(), "Time difference is too large! Local - Remote Agent %d = %fs",
+-                   msg->drone_id, (rclcpp::Clock().now() - msg_time).seconds());
++                   msg->drone_id, (node_->get_clock()->now() - msg_time).seconds());
+       return;
+     }
+ 
+@@ -678,7 +677,7 @@
+     {
+       /* determine if need to replan */
+       LocalTrajData *info = &planner_manager_->local_data_;
+-      rclcpp::Time time_now = rclcpp::Clock().now();
++      rclcpp::Time time_now = node_->get_clock()->now();
+       double t_cur = (time_now - info->start_time_).seconds();
+       t_cur = std::min(info->duration_, t_cur);
+ 
+@@ -739,7 +738,7 @@
+     }
+     }
+ 
+-    data_disp_.header.stamp = rclcpp::Clock().now();
++    data_disp_.header.stamp = node_->get_clock()->now();
+     data_disp_pub_->publish(data_disp_);
+ 
+   force_return:;
+@@ -778,7 +777,7 @@
+ 
+     LocalTrajData *info = &planner_manager_->local_data_;
+     // ros::Time time_now = ros::Time::now();
+-    auto time_now = rclcpp::Clock().now();
++    auto time_now = node_->get_clock()->now();
+     // double t_cur = (time_now - info->start_time_).toSec();
+     double t_cur = (time_now - info->start_time_).seconds();
+ 
+@@ -830,12 +829,12 @@
+     /* ---------- check trajectory ---------- */
+     constexpr double time_step = 0.01;
+     // double t_cur = (ros::Time::now() - info->start_time_).toSec();
+-    double t_cur = (rclcpp::Clock().now() - info->start_time_).seconds();
++    double t_cur = (node_->get_clock()->now() - info->start_time_).seconds();
+ 
+     Eigen::Vector3d p_cur = info->position_traj_.evaluateDeBoorT(t_cur);
+     const double CLEARANCE = 1.0 * planner_manager_->getSwarmClearance();
+     // double t_cur_global = ros::Time::now().toSec();
+-    double t_cur_global = rclcpp::Clock().now().seconds();
++    double t_cur_global = node_->get_clock()->now().seconds();
+ 
+     double t_2_3 = info->duration_ * 2 / 3;
+     for (double t = t_cur; t < info->duration_; t += time_step)
+--- a/src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp
++++ b/src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp
+@@ -10,6 +10,7 @@
+ #include <string>
+ 
+ rclcpp::Publisher<uav_interfaces::msg::PositionCommand>::SharedPtr pos_cmd_pub;
++rclcpp::Clock::SharedPtr ros_clock;
+ 
+ uav_interfaces::msg::PositionCommand cmd;
+ double pos_gain[3] = {0, 0, 0};
+@@ -222,14 +223,13 @@
+     return;
+ 
+   // 统一时间源
+-  rclcpp::Clock clock(RCL_ROS_TIME);  
+-  rclcpp::Time time_now = clock.now();
++  rclcpp::Time time_now = ros_clock->now();
+   double t_cur = (time_now - start_time_).seconds();
+ 
+   Eigen::Vector3d pos(Eigen::Vector3d::Zero()), vel(Eigen::Vector3d::Zero()), acc(Eigen::Vector3d::Zero()), pos_f;
+   std::pair<double, double> yaw_yawdot(0, 0);
+ 
+-  static rclcpp::Time time_last = clock.now();
++  static rclcpp::Time time_last = ros_clock->now();
+   if (t_cur < traj_duration_ && t_cur >= 0.0)
+   {
+     pos = traj_[0].evaluateDeBoorT(t_cur);
+@@ -299,6 +299,7 @@
+ {
+   rclcpp::init(argc, argv);
+   auto node = rclcpp::Node::make_shared("traj_server");
++  ros_clock = node->get_clock();
+ 
+   auto bspline_sub = node->create_subscription<traj_utils::msg::Bspline>(
+       "planning/bspline",
+--- a/src/vendor/ego_planner/planner/traj_utils/src/planning_visualization.cpp
++++ b/src/vendor/ego_planner/planner/traj_utils/src/planning_visualization.cpp
+@@ -12,7 +12,7 @@
+   {
+     visualization_msgs::msg::Marker sphere, line_strip;
+     sphere.header.frame_id = line_strip.header.frame_id = "world";
+-    sphere.header.stamp = line_strip.header.stamp = rclcpp::Clock().now();
++    sphere.header.stamp = line_strip.header.stamp = node_->get_clock()->now();
+     sphere.type = visualization_msgs::msg::Marker::SPHERE_LIST;
+     line_strip.type = visualization_msgs::msg::Marker::LINE_STRIP;
+     sphere.action = line_strip.action = visualization_msgs::msg::Marker::ADD;
+@@ -47,7 +47,7 @@
+   {
+     visualization_msgs::msg::Marker sphere, line_strip;
+     sphere.header.frame_id = line_strip.header.frame_id = "map";
+-    sphere.header.stamp = line_strip.header.stamp = rclcpp::Clock().now();
++    sphere.header.stamp = line_strip.header.stamp = node_->get_clock()->now();
+     sphere.type = visualization_msgs::msg::Marker::SPHERE_LIST;
+     line_strip.type = visualization_msgs::msg::Marker::LINE_STRIP;
+     sphere.action = line_strip.action = visualization_msgs::msg::Marker::ADD;
+@@ -82,7 +82,7 @@
+   {
+     visualization_msgs::msg::Marker arrow;
+     arrow.header.frame_id = "map";
+-    arrow.header.stamp = rclcpp::Clock().now();
++    arrow.header.stamp = node_->get_clock()->now();
+     arrow.type = visualization_msgs::msg::Marker::ARROW;
+     arrow.action = visualization_msgs::msg::Marker::ADD;
+ 
+@@ -123,7 +123,7 @@
+   {
+     visualization_msgs::msg::Marker sphere;
+     sphere.header.frame_id = "world";
+-    sphere.header.stamp = rclcpp::Clock().now();
++    sphere.header.stamp = node_->get_clock()->now();
+     sphere.type = visualization_msgs::msg::Marker::SPHERE;
+     sphere.action = visualization_msgs::msg::Marker::ADD;
+     sphere.id = id;

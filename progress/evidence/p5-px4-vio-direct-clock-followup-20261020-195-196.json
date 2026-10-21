@@ -1,0 +1,420 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-direct-clock-followup-20261020-195-196",
+  "classification": "DIRECT_CLOCK_FULL_VIO_PASSIVE_VALIDATED; RUN_195_EXCLUDED_FOR_OVERLAY_MISMATCH",
+  "scope": "Two sequential passive full-graph attempts. #195 is excluded because ROS resolved own packages from an older install; #196 used run-local build prefixes and is valid passive clock/VIO integration evidence. Neither run sent a goal, enabled Offboard, or subscribed to truth.",
+  "setup": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "px4_firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "ros_domain_ids": [
+      227,
+      228
+    ],
+    "clock_mode": "gazebo_lockstep direct /clock mapping; UXRCE_DDS_SYNCT=0",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"
+  },
+  "runs": [
+    {
+      "run_id": "p5-px4-vio-map-ego-direct-passive-20261019-195",
+      "qualification": "EXCLUDED_WRONG_PACKAGE_OVERLAY",
+      "evidence": {
+        "resolved_prefixes": [
+          "/workspace/artifacts/runs/p5-vio-ego-launch-build-20261019-02/install/uav_px4_bridge",
+          "/workspace/artifacts/runs/p5-vio-ego-launch-build-20261019-02/install/uav_localization",
+          "/workspace/artifacts/runs/p5-vio-ego-launch-build-20261019-02/install/uav_mapping",
+          "/workspace/artifacts/runs/p5-vio-ego-launch-build-20261019-02/install/uav_navigation",
+          "/workspace/artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install",
+          "/workspace/artifacts/runs/p5-vio-ego-launch-build-20261019-02/install/ego_planner"
+        ],
+        "bridge_timestamp_sync_enabled_values": [
+          null
+        ],
+        "timesync_status_samples": 0,
+        "vio_inputs_to_px4": 0,
+        "control_samples_zero": true,
+        "vehicle_remained_disarmed": true
+      },
+      "reason": "The run-local build was sourced before the older stack install. package-prefixes.txt resolves uav_px4_bridge/localization/mapping/navigation to p5-vio-ego-launch-build-20261019-02/install, so this attempt did not execute the direct-clock bridge build. Retained for audit; excluded from timing conclusions."
+    },
+    {
+      "run_id": "p5-px4-vio-map-ego-direct-passive-20261019-196",
+      "qualification": "PASSIVE_SITL_CLOCK_AND_VIO_INTEGRATION_ONLY",
+      "duration_wall_s": 35.0,
+      "resolved_prefixes": [
+        "uav_px4_bridge /workspace/artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/bridge-install/uav_px4_bridge",
+        "uav_localization /workspace/artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/bridge-install/uav_localization",
+        "uav_mapping /workspace/artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/bridge-install/uav_mapping",
+        "uav_navigation /workspace/artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/bridge-install/uav_navigation",
+        "vins /workspace/artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install",
+        "ego_planner /workspace/artifacts/runs/p5-vio-ego-launch-build-20261019-02/install/ego_planner"
+      ],
+      "px4_timestamp_domain": "gazebo_sim_time",
+      "clock_alignment_to_latest_ros_clock_abs_us": {
+        "local_position": {
+          "samples": 1051,
+          "p50": 4000,
+          "p95_nearest_rank": 8000,
+          "max": 68000,
+          "missing_clock_sample": 2
+        },
+        "attitude": {
+          "samples": 2100,
+          "p50": 0.0,
+          "p95_nearest_rank": 4000,
+          "max": 64000,
+          "missing_clock_sample": 2
+        },
+        "vehicle_status": {
+          "samples": 42,
+          "p50": 0.0,
+          "p95_nearest_rank": 4000,
+          "max": 4000,
+          "missing_clock_sample": 0
+        },
+        "estimator_flags": {
+          "samples": 20,
+          "p50": 0.0,
+          "p95_nearest_rank": 4000,
+          "max": 4000,
+          "missing_clock_sample": 1
+        },
+        "land_detected": {
+          "samples": 20,
+          "p50": 0.0,
+          "p95_nearest_rank": 4000,
+          "max": 4000,
+          "missing_clock_sample": 1
+        }
+      },
+      "bridge_detail_telemetry_source_age": {
+        "attitude": {
+          "samples": 273,
+          "source_age_min_sim_s": -0.004,
+          "source_age_p95_sim_s": 0.008,
+          "source_age_max_sim_s": 0.012,
+          "future_sample_count": 6,
+          "receipt_age_max_wall_s": 0.042659159
+        },
+        "estimator_flags": {
+          "samples": 273,
+          "source_age_min_sim_s": 0.0,
+          "source_age_p95_sim_s": 0.944,
+          "source_age_max_sim_s": 0.996,
+          "future_sample_count": 0,
+          "receipt_age_max_wall_s": 1.88760643
+        },
+        "land_detected": {
+          "samples": 273,
+          "source_age_min_sim_s": 0.0,
+          "source_age_p95_sim_s": 0.948,
+          "source_age_max_sim_s": 0.992,
+          "future_sample_count": 0,
+          "receipt_age_max_wall_s": 1.862209551
+        },
+        "local_position": {
+          "samples": 273,
+          "source_age_min_sim_s": 0.0,
+          "source_age_p95_sim_s": 0.024,
+          "source_age_max_sim_s": 0.028,
+          "future_sample_count": 0,
+          "receipt_age_max_wall_s": 0.05272083
+        },
+        "vehicle_status": {
+          "samples": 273,
+          "source_age_min_sim_s": 0.0,
+          "source_age_p95_sim_s": 0.48,
+          "source_age_max_sim_s": 0.5,
+          "future_sample_count": 0,
+          "receipt_age_max_wall_s": 0.927297216
+        }
+      },
+      "px4_time_domain_valid_all_samples": true,
+      "uxrce_dds_sync_enabled_values": [
+        false
+      ],
+      "timesync_status_samples": 0,
+      "bridge_reason_counts": {
+        "px4_preflight_failed": 274
+      },
+      "px4_counts": {
+        "attitude": 2102,
+        "bridge_status": 274,
+        "control_mode": 0,
+        "estimator_flags": 21,
+        "land_detected": 21,
+        "local_position": 1053,
+        "px4_status": 42,
+        "timesync_status": 0,
+        "trajectory_setpoint": 0,
+        "vehicle_command": 0,
+        "visual_odometry_input": 318
+      },
+      "controls_zero": true,
+      "vehicle_remained_disarmed": true,
+      "action_server_clients": 0,
+      "debug_truth_subscriptions": 0,
+      "vio_stream": {
+        "duration_wall_s": 35.0269361669998,
+        "localization_transitions": [
+          {
+            "good_pairs": 36,
+            "reason": "fresh_inputs_and_usable_solver",
+            "source_stamp_ns": 10180000000,
+            "state": 1,
+            "valid": true,
+            "wall_elapsed_s": 0.40463125700262026
+          }
+        ],
+        "topics": {
+          "/clock": {
+            "count": 5116,
+            "max_source_gap_s": 0.004,
+            "max_receipt_gap_s": 0.054150698000739794,
+            "last_receipt_age_s": 0.015316246997826966
+          },
+          "/localization/status": {
+            "count": 699,
+            "max_source_gap_s": 0.04,
+            "max_receipt_gap_s": 0.2684434670009068,
+            "last_receipt_age_s": 0.0071397209976566955
+          },
+          "/sensors/d435i/imu": {
+            "count": 4093,
+            "max_source_gap_s": 0.008,
+            "max_receipt_gap_s": 0.05887277000147151,
+            "last_receipt_age_s": 0.014324456999020185
+          },
+          "/sensors/d435i/infra1/image_rect": {
+            "count": 620,
+            "max_source_gap_s": 0.036000000000000004,
+            "max_receipt_gap_s": 0.08285474500007695,
+            "last_receipt_age_s": 0.022345658999256557
+          },
+          "/sensors/d435i/infra2/image_rect": {
+            "count": 621,
+            "max_source_gap_s": 0.036000000000000004,
+            "max_receipt_gap_s": 0.08620926499861525,
+            "last_receipt_age_s": 0.00012955599959241226
+          },
+          "/vins_raw/s_ee9d52b3a531473989fa0fd3dd4af091/estimator_telemetry": {
+            "count": 311,
+            "max_source_gap_s": 0.131999999,
+            "max_receipt_gap_s": 0.21639436799887335,
+            "last_receipt_age_s": 0.055658436998783145
+          },
+          "/vins_raw/s_ee9d52b3a531473989fa0fd3dd4af091/imu_propagate": {
+            "count": 4125,
+            "max_source_gap_s": 0.032,
+            "max_receipt_gap_s": 0.12711872500221943,
+            "last_receipt_age_s": 0.01401405800061184
+          },
+          "/vins_raw/s_ee9d52b3a531473989fa0fd3dd4af091/odometry": {
+            "count": 311,
+            "max_source_gap_s": 0.131999999,
+            "max_receipt_gap_s": 0.21633607800322352,
+            "last_receipt_age_s": 0.05549088899715571
+          }
+        }
+      },
+      "localization": {
+        "optimized_odometry_samples": 315,
+        "propagated_odometry_samples": 4113,
+        "contract_errors": []
+      },
+      "mapping_ego": {
+        "depth_input_count": 566,
+        "optimized_odometry_count": 315,
+        "ego_depth_output_count": 584,
+        "ego_pose_output_count": 584,
+        "paired_stamp_count": 584,
+        "max_occupied_points": 1402,
+        "ego_pose_source_age_at_receipt_s": {
+          "count": 577,
+          "p50": 0.076,
+          "p95": 0.924,
+          "max": 1.776
+        }
+      },
+      "ulog": {
+        "path": "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/px4_sitl_default/log/2026-10-19/16_01_25.ulg",
+        "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+        "release_hex": "0x11100ff",
+        "initial_parameters": {
+          "UXRCE_DDS_SYNCT": 0,
+          "UXRCE_DDS_SYNCC": 0,
+          "SYS_AUTOSTART": 5011,
+          "EKF2_EV_CTRL": 15,
+          "EKF2_GPS_CTRL": 0
+        },
+        "estimator_flags": {
+          "cs_ev_pos": {
+            "true": 25,
+            "samples": 31
+          },
+          "cs_ev_yaw": {
+            "true": 25,
+            "samples": 31
+          },
+          "cs_gnss_pos": {
+            "true": 0,
+            "samples": 31
+          },
+          "cs_gnss_vel": {
+            "true": 0,
+            "samples": 31
+          },
+          "vehicle_visual_odometry_samples": 353
+        }
+      },
+      "limitations": [
+        "No goal, control, arm, or flight occurred. Readiness remained false while bridge was disabled (px4_preflight_failed).",
+        "The read-only EGO/map probe saw source-age P95 0.924 s, max 1.776 s and odom/depth timeout messages; map geometry, planner response and end-to-end navigation were not qualified.",
+        "The raw PX4-to-latest-/clock comparison includes clock-subscriber lag under workload; bridge-native freshness samples are separately reported and remained within configured guards."
+      ]
+    }
+  ],
+  "interpretation": {
+    "supported": [
+      "With direct lockstep mapping on the actual run-local build, PX4 time-domain validity stayed true and no px4_telemetry_stale or future-stamp guard reason occurred during 35 s of full VIO/EGO/navigation passive load.",
+      "PX4 received VIO; ULog observed EV position/yaw fusion with GNSS position/velocity aiding zero.",
+      "No control samples, goal clients, truth inputs or arming occurred in valid passive run #196."
+    ],
+    "not_established": [
+      "This passive run does not prove action execution, Offboard stability, no-motion quality, navigation completion, or P5 acceptance.",
+      "#195 is not valid direct-clock evidence because of stale package prefixes."
+    ]
+  },
+  "qualification": {
+    "P5": "IN_PROGRESS",
+    "thresholds": "No freshness, future-stamp, localization-health or normalized-cost threshold changed.",
+    "next_step": "A gated zero-offset action under the verified direct-clock build."
+  },
+  "reproduction": {
+    "entrypoint": "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/run-vio-direct-passive.sh (excluded attempt) and artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/run-vio-direct-passive.sh (valid run)",
+    "run_command": "docker run --rm --gpus all --mount type=bind,src=<project>,dst=/workspace -w /workspace d435i-vins:dev bash -lc \"source /opt/ros/jazzy/setup.bash; <run script>\""
+  },
+  "source_basis": [
+    "https://docs.px4.io/v1.18/en/ros2/user_guide",
+    "https://github.com/PX4/PX4-Autopilot/blob/d6f12ad1c4f70ad3230afd7d86e971421e02fef4/src/modules/uxrce_dds_client/uxrce_dds_client.cpp"
+  ],
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/run-vio-direct-passive.sh": {
+      "bytes": 9126,
+      "sha256": "e4cc070c2a9dc267b06d8b278df9a1bad2bbdf0ff21463bd16d17483e41928e3"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/container.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/package-prefixes.txt": {
+      "bytes": 499,
+      "sha256": "5cfb35713081280af313f28d49036bbc81e99024e5ca531bd8ef501b4ceb8617"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/px4-param-stage.json": {
+      "bytes": 752,
+      "sha256": "b44f3c876f44fb934d5696db8acdf805146b88a56ba2019db33f46d6caec611d"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/px4-bridge-live.json": {
+      "bytes": 3277990,
+      "sha256": "2bbeddea868b815b78a40cf5c20f6f151a6549a54f3eb7a949653d2d60641338"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/px4.log": {
+      "bytes": 5150,
+      "sha256": "76a0e38b2070fbf42a17798ce350366eb7c44392726412daf97b5c871f6c9453"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/vio-launch.log": {
+      "bytes": 323077,
+      "sha256": "71a1545df927186294867a6ba83b4a0b7694cfc19e69c93d3a72298b9c512a8f"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/px4-bridge-node-info.txt": {
+      "bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/truth-and-control-isolation.txt": {
+      "bytes": 192,
+      "sha256": "bc5b50f0f5ab734913bb2fa5f3c66db229c9ffe149078ebe37d484b3823ef8a3"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-195/px4_sitl_default/log/2026-10-19/15_59_11.ulg": {
+      "bytes": 8192000,
+      "sha256": "20ac10c73873aa9672b65ef00bde29d739e60a20bcd80357bc92689b1fbbf463"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/run-vio-direct-passive.sh": {
+      "bytes": 9458,
+      "sha256": "ec6c9b60cbda95c90fbc6dd47d99d0aa511322c78c02db15f6292dca82ca5fe4"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/container.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/package-prefixes.txt": {
+      "bytes": 647,
+      "sha256": "4ab419a530c4b1d45466af6b75bf9921e0b9a9c117455e9df1483c7bf7d495d6"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/px4-param-stage.json": {
+      "bytes": 752,
+      "sha256": "c99ee3b44aebb657a385e9d1ef41455a02c489e326acfb7d762af6e0b6acf7e3"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/px4-bridge-live.json": {
+      "bytes": 3009448,
+      "sha256": "5f588f270d26b686a550f1d9a367c80a26ede04ac6be5cb6c9d9b75a106d9d98"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/px4.log": {
+      "bytes": 4961,
+      "sha256": "495947ce25dcf75b8aaea2e8abf281fe3a244d552cc5fe7e3b8b8035cbc344b3"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/vio-launch.log": {
+      "bytes": 318092,
+      "sha256": "78b3b72040a68c828d2f20f8f40a1477dcac3fadf8128622e290df193c9ae5c5"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/px4-bridge-node-info.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/timesync-topic-info.txt": {
+      "bytes": 502,
+      "sha256": "25b36456a789e78c664cb28c916330cb749344ace881364e0628825f2d828859"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/node-list.txt": {
+      "bytes": 227,
+      "sha256": "4f79febb33f115fd2b2e34f68ed11e9c73f7a0f3cd9c617d078e4cdbeabfb94b"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/navigation-action-info.txt": {
+      "bytes": 93,
+      "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/truth-and-control-isolation.txt": {
+      "bytes": 192,
+      "sha256": "58ec69f2bfd3ff5652f0489937b18f1a34cc06f75175d3cc371954f5c73f1de9"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/vio-stream-freshness.json": {
+      "bytes": 5971,
+      "sha256": "edacb85a586ae58ab40ac63c2127801863dd14ef7b106c348a7634e9c55c3007"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/localization-probe.json": {
+      "bytes": 309226,
+      "sha256": "f323906ce710accb10a75ad7ca3c0a039c155f5069fa7e17470a06c5e3b69ae6"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/mapping-probe.json": {
+      "bytes": 486132,
+      "sha256": "2cda37147b7b011637530828fc5e43eac6b00a899985d97037285d0484526ae7"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/mapping-map-samples.json": {
+      "bytes": 120574,
+      "sha256": "7e3a50c4de553940a69297937b6fdc813e9d7b6a7455486693147ff6ab907d87"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/mapping-odometry-samples.json": {
+      "bytes": 124596,
+      "sha256": "e9050fc2fca7ee05fcf97d0c88cbf1961e846be564ef0a0ed886a970e95d949b"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "dab98c2edbc11c7c4d6dcf495a2a88c5d0cd5ee2412dfc9b4a20783b9b482a27"
+    },
+    "artifacts/runs/p5-px4-vio-map-ego-direct-passive-20261019-196/world-generation.json": {
+      "bytes": 1443,
+      "sha256": "f38cd1eb02b43867cd1e291bc530ac14843f95989d9498fba8857d572669eef7"
+    }
+  }
+}

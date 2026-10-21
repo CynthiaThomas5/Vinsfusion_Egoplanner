@@ -1,0 +1,138 @@
+{
+  "schema": "p2-ego-rebound-warning-diagnostic/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-rebound-warning-diagnostic-20261020-307",
+  "status": "ASAN_CONFIRMED_ASTAR_VECTOR_BOUNDARY_READ; ISOLATED_GUARD_HIT; PLANNER_OUTPUT_AND_MAP_GATE_UNQUALIFIED",
+  "objective": "Instrument the #306 unknown-as-obstacle candidate, capture map state at collision warnings, and determine whether A* path indexing can produce an out-of-bounds read.",
+  "source_identity": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "canonical_base": "#297 reconstructed EGO source after canonical patch 0021",
+    "candidate_patch_0020": "dependencies/patches/ego/0020-unknown-as-obstacle-experiment.patch",
+    "diagnostic_patch_0022": "dependencies/patches/ego/0022-rebound-diagnostics-and-index-guard-experiment.patch",
+    "diagnostic_patch_0023": "dependencies/patches/ego/0023-init-control-point-astar-boundary-guard-experiment.patch",
+    "diagnostic_patch_0023_sha256": "39bc2896369c4efd5e8ea507b023275d0daf381a325294b2a3b9491bb958524e",
+    "candidate_source_tree_sha256": "78de433d136df628e406363fdeb1cfc9507c4f3e0959d29f2ee98fa046057468",
+    "source_manifest": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/source-manifest-experiment-0023.json",
+    "source_manifest_sha256": "f007ba10fbbc4b7ed4925f9539e66e5a1bb57c27c3114efaaf42c27b80f07866",
+    "source_and_patches_disposition": "Disposable /tmp source copy only. Patches 0020, 0022 and 0023 are absent from dependencies/sources.json and were not applied to src/vendor/ego_planner."
+  },
+  "build": {
+    "report": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/build-report-after-0023.json",
+    "report_sha256": "719e607ff78158a4478ffcd4fa767dc73ae32e16df33532804b0e956924f23b7",
+    "runtime_source_manifest": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/source-manifest-build-0023.json",
+    "runtime_source_manifest_sha256": "814084f26af01e7eb909333cf48fc23ca2bd2ae70bb004748641b9297101edc5",
+    "result": "Initial five-package overlay build passed; plain traj_utils compatibility rebuild and sanitizer-enabled bspline_opt/ego_planner rebuilds each passed 1/1. Python ROS import smoke passed. The planner node retained ASan/UBSan; traj_utils used EIGEN_MALLOC_ALREADY_ALIGNED=0 and had no sanitizer NEEDED dependency."
+  },
+  "attempts": [
+    {
+      "attempt": "03",
+      "result": "ASAN_ABORTED_BEFORE_GOAL",
+      "finding": "ASan reported a bad free in Eigen while PolynomialTraj::one_segment_traj_gen crossed from sanitizer-enabled EGO code to plain traj_utils. Eigen automatic alignment configuration differed between the translation units (__SANITIZE_ADDRESS__ disables the glibc-aligned-malloc assumption). A compatible plain traj_utils rebuild with EIGEN_MALLOC_ALREADY_ALIGNED=0 resolved this build mismatch; this report is not treated as an EGO runtime defect.",
+      "asan_log": {
+        "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/asan-03.413",
+        "sha256": "c9ae30ee9289a589c3762165513fff21b2f46ba069c392eb55457a4a411afa43"
+      }
+    },
+    {
+      "attempt": "04",
+      "result": "ASAN_CONFIRMED_HEAP_BUFFER_OVERFLOW",
+      "finding": "ASan reported a 16-byte heap-buffer-overflow read in BsplineOptimizer::initControlPoints at bspline_optimizer.cpp:711. The source decremented Astar_id and dereferenced a_star_pathes[i][Astar_id] before the loop rechecked the bounds; the fault address was 24 bytes before the allocated path vector region, consistent with an index of -1 for Eigen::Vector3d elements. This confirms the previously static-identified boundary-read risk.",
+      "asan_log": {
+        "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/asan-04.405",
+        "sha256": "29decc300a0168d12bdff0ae23bc1d136b3fa06d899749847144826934a03653"
+      }
+    },
+    {
+      "attempt": "05",
+      "result": "NO_GOAL_PRECONDITION_TIMEOUT",
+      "finding": "The localization/map gate reported propagated_stale before the probe could publish a goal. The launcher originally stopped waiting at 30 s while the probe records readiness for 45 s; attempt 06 used a 55 s capture window without relaxing the readiness predicate.",
+      "preflight_failure": {
+        "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/preflight-failure-05.txt",
+        "sha256": "d176f9d913b45ca879356db8adc7defff1014db228d8ee171a3196df5f5d7032"
+      }
+    },
+    {
+      "attempt": "06",
+      "result": "GOAL_SENT_NO_SPLINE_SNAPSHOT_REJECTED",
+      "goal_context": {
+        "target_xy_m": [
+          2.5,
+          1.4
+        ],
+        "callback_z_m": 1.0,
+        "goal_sent_wall_elapsed_s": 2.058182,
+        "epoch": "3cc10fbeb12a4d0dafbcc55a1460879e",
+        "map_id": "3cc10fbeb12a4d0dafbcc55a1460879e-e77e607c4ddd408f94f1a5c74cd6ff57",
+        "map_status_at_goal": {
+          "wall_elapsed_s": 1.92756,
+          "stamp_ns": 6185000000,
+          "epoch": "3cc10fbeb12a4d0dafbcc55a1460879e",
+          "map_id": "3cc10fbeb12a4d0dafbcc55a1460879e-e77e607c4ddd408f94f1a5c74cd6ff57",
+          "input_ready": true,
+          "reason": "ready",
+          "occupied_point_count": 1052,
+          "forwarded_depth_count": 34,
+          "keyframe_count": 2,
+          "occupancy_cloud_received": true
+        },
+        "raw_occupancy_points": 1052,
+        "inflated_occupancy_points": 17996
+      },
+      "diagnostic_counts": {
+        "init_path_boundary_events": 3,
+        "init_path_boundary_hit_counts": [
+          1,
+          1,
+          1
+        ],
+        "init_path_boundary_astar_sizes": [
+          3,
+          2,
+          2
+        ],
+        "direction_failed": 38,
+        "first_three_collision": 13,
+        "terminal_blocked": 0,
+        "astar_pool_boundary_errors": 288,
+        "astar_initial_or_endpoint_rejections": 288,
+        "ego_in_obstacle_errors": 341,
+        "ego_process_death_messages": 0,
+        "asan06_report_files": 0,
+        "bspline_count": 0,
+        "goal_sent": true,
+        "goal_sent_wall_elapsed_s": 2.058182,
+        "probe_final_status": "interrupted"
+      },
+      "collision_classification": "The first-control-point warnings reported in_map=1, unknown=1, raw=0, inflated=1 near xyz approximately (-0.009,-0.005,-0.002), with matching epoch/map_id and fused-depth/occupancy-update source stamps. Here raw=0 is the occupancy-threshold bit from getOccupancy and does not distinguish unknown from known free; isUnknown=1 identifies the cell as unknown, while inflate=1 shows the candidate blocks it.",
+      "planner_and_map_result": "EGO logged repeated A* pool-boundary and endpoint rejections, direction-generation failures, and no B-spline. The read-only occupancy snapshot request after goal was rejected with depth_pose_gate_closed; the probe was interrupted during cleanup and its final status is not a planner timeout.",
+      "sanitizer_result": "No ASan report file was produced for attempt 06 and the EGO process was not reported as crashed. The isolated initControlPoints guard logged three boundary exits. This is a guarded diagnostic run, not a clean planner-success run.",
+      "artifacts": [
+        {
+          "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/ego-06.log",
+          "sha256": "ff43029ea34f7eb2a6c844ef89a5d72f8544f615033fc78b458956b07377933a"
+        },
+        {
+          "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/planner-goal-result-06.json",
+          "sha256": "d61b1e9d5f5abcf2e0f46cea045d492937cf10763af92077000762e673ba8ab5"
+        },
+        {
+          "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/goal-sent-marker-06.json",
+          "sha256": "d8ed44e497298a87b9ee40e7194fd77e22f0b69d4afaf32f421f80b42af02521"
+        },
+        {
+          "path": "artifacts/runs/p2-ego-rebound-warning-diagnostic-20261020-307/snapshot-client-goal.log",
+          "sha256": "fead742b4cc429f7065e63bb95067fec246397701fec792678cfb02131160917"
+        }
+      ]
+    }
+  ],
+  "interpretation": "The previously suspected A* vector read is runtime-confirmed. Patch 0023 guards both initControlPoints traversal loops, and attempt 06 exercised the guard three times without an ASan report. Separately, attempt 06 showed the start control point in an unknown voxel and many A* coordinates outside the local pool. The run cannot distinguish how much route failure comes from conservative unknown blocking versus map bounds/coordinate coverage; the exact snapshot was rejected and no B-spline was produced.",
+  "qualification": "Planner-only simulator diagnostic. No trajectory server, controller, PX4 bridge, control publisher, actuator, online truth input, or trajectory execution. GOAL C/D/F remain pending. Patch 0020, patch 0023 and 0.5 m inflation remain experimental; defaults and canonical dependency provenance are unchanged.",
+  "limitations": [
+    "Attempt 06 snapshot request was rejected as depth_pose_gate_closed, so no exact same-time voxel archive exists for its warning window.",
+    "The run produced zero B-splines and did not execute a trajectory.",
+    "Attempt 05 was a precondition failure; attempt 06 is one diagnostic repetition in one scene.",
+    "No conclusion about full map coverage, tracking, clearance, stopping distance, or GOAL C acceptance."
+  ],
+  "next_diagnostic": "Inspect A* coordinate-to-index conversion and active local-pool bounds against the logged start/end points; capture the read-only map snapshot while its depth/pose gate is still open, before starting sensor motion. Then rerun the same goal to separate unknown-blocking from out-of-map endpoints. Keep all patches and inflation overrides isolated until a valid map and planner output are observed."
+}

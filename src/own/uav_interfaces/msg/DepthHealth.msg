@@ -1,0 +1,11 @@
+std_msgs/Header header
+builtin_interfaces/Time source_stamp
+uint8 STATE_WAITING=0
+uint8 STATE_READY=1
+uint8 STATE_STALE=2
+uint8 STATE_INVALID=3
+uint8 STATE_LOCKED=4
+uint8 state
+bool valid
+string reason
+uint64 received_count

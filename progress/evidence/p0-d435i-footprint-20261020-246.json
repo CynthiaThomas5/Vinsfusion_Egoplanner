@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p0-d435i-footprint-20261020-246",
+  "status": "PASS_MODEL_GEOMETRY_AUDIT_AND_SENSOR_REGRESSION",
+  "scope": "Add nominal D435i housing collision to the project model, include revolute x500 rotor collision sweeps in the body-envelope estimate, and recheck the fixed Jazzy/Harmonic sensor fixture.",
+  "qualification": "Preliminary GOAL F evidence only. This does not measure obstacle-map error, trajectory tracking, stopping distance, minimum clearance, collision-free planning, PX4 behavior, or flight. No acceptance threshold is frozen.",
+  "correction_to_previous_audit": {
+    "previous_report": "progress/evidence/p0-ego-obstacle-inflation-20261020-245.json",
+    "previous_pose_only_horizontal_radius_m": 0.4704407665082815,
+    "finding": "The previous calculation used each rotor collision box at its default pose. The pinned x500 SDF attaches those boxes to links driven by Z-axis revolute joints, so the box sweeps around each motor center.",
+    "corrected_swept_horizontal_radius_m": 0.48150294014012984,
+    "corrected_orientation_invariant_radius_m": 0.4819358706659999,
+    "historical_report_preserved": true
+  },
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "gazebo_sim_version": "8.14.0",
+    "px4_model_source_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "ros_domain_id": 72,
+    "gz_partition": "d435i-footprint-246"
+  },
+  "vehicle_collision_envelope": {
+    "reference_frame": "d435i_imu_frame / d435i_link origin, matching /localization/optimized_imu_odom child frame before epoch suffix",
+    "d435i_mount_pose_relative_to_x500_base_link_xyzrpy": [
+      0.12,
+      0.0,
+      0.08,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "collision_shape_count": {
+      "x500": 9,
+      "d435i_housing": 1,
+      "total": 10
+    },
+    "d435i_housing_box_size_xyz_m": [
+      0.025,
+      0.09,
+      0.025
+    ],
+    "d435i_housing_orientation": "The 90 mm dimension is mapped to link Y, inferred from the SDF stereo sensors' +/-0.025 m baseline poses on Y.",
+    "d435i_housing_dimension_source": "Intel RealSense D435i specifications, nominal 90 x 25 x 25 mm",
+    "calculation": "Enumerate transformed corners for fixed x500 and D435i boxes. For each x500 rotor, use the XY half-diagonal of its rectangular collision box as the swept-disc radius around its revolute-joint center; include its vertical half-thickness. Report the union bounds and maximum radius from the IMU origin.",
+    "combined_collision_bounds_xyz_m": [
+      [
+        -0.4338715598484476,
+        0.19387155984844762
+      ],
+      [
+        -0.3138715598484476,
+        0.3138715598484476
+      ],
+      [
+        -0.307,
+        0.0125
+      ]
+    ],
+    "maximum_horizontal_radius_level_all_rotor_angles_m": 0.48150294014012984,
+    "maximum_orientation_invariant_sphere_radius_all_rotor_angles_m": 0.4819358706659999,
+    "calculation_artifact": "artifacts/runs/p0-d435i-footprint-20261020-246/vehicle-collision-envelope.json"
+  },
+  "planner_inflation_comparison": {
+    "configured_value_m": 0.099,
+    "grid_resolution_m": 0.1,
+    "current_dilation_steps": 1,
+    "ceil_steps_to_cover_model_sphere_lower_bound": 5,
+    "assessment": "The current setting remains unchanged and PROVISIONAL. Cell dilation is not a validated physical clearance guarantee; uncertainty, tracking, map error, age and braking are still unmeasured."
+  },
+  "sensor_regression": {
+    "result": "PASS",
+    "checks_passed": 31,
+    "checks_failed": 0,
+    "model_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "stereo_paired_samples": 271,
+    "source_rates_hz": {
+      "infra1": 30.378037803780376,
+      "infra2": 30.378037803780376,
+      "imu": 200.02242403856934,
+      "color": 24.667717954494254,
+      "depth": 11.12119836586473
+    },
+    "checks": "Stereo images and pairing, RGB, depth plane/units, CameraInfo, IMU, frame IDs, fixed TF, advancing clock and monotonic source stamps."
+  },
+  "validation": {
+    "gz_sdf_model_check": "PASS: gz sdf -k simulation/models/d435i/model.sdf reported Valid; existing gz_frame_id extension warnings remain.",
+    "gazebo_sensor_launch": "PASS: source project-root D435i model loaded in the fixed Jazzy/Harmonic container.",
+    "sensor_probe": "PASS: python3 tools/check_sensors.py --project-root /workspace --output artifacts/runs/p0-d435i-footprint-20261020-246/sensor-report.json --seconds 15; 31/31.",
+    "geometry_audit_script": "PASS: audit_vehicle_envelope.py completed and emitted the recorded envelope; py_compile passed.",
+    "project_structure": "PASS: python3 tools/project_status.py; structure/design check only.",
+    "diff_check": "PASS: git diff --check and git diff --cached --check.",
+    "build_scope": "No ROS code or third-party source changed; the model-only edit was checked through Gazebo runtime sensor regression rather than a colcon rebuild."
+  },
+  "excluded_attempts": [
+    "Standalone gz sdf -k checks for the world and x500 wrapper could not resolve model:// includes because that CLI invocation had no SDF find callback; these checks are excluded. The source-root Gazebo launch successfully resolved the same resources and ran the sensor probe."
+  ],
+  "limitations": [
+    "The D435i housing collision is a nominal rectangular approximation and excludes the bracket, cable, connectors and manufacturing variation.",
+    "The rotor footprint is the swept union of PX4 SDF collision rectangles, not an independently measured physical propeller envelope.",
+    "The static sensor test does not exercise the x500 vehicle, obstacle clearance, planner response, collision contact, PX4, or flight.",
+    "Map error, VIO error, tracking error, data age, replan deadline, stopping distance, failure detection/exit time and minimum vehicle spacing remain unmeasured for GOAL F."
+  ],
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p0-d435i-footprint-20261020-246",
+    "sha256": {
+      "run-inputs.json": "7a9c469db4d7f2c8062330a60e598053264aed5233052fbaa789245acad50867",
+      "audit_vehicle_envelope.py": "c3265dfa66ae0fa17ba03e7e15460b3458afb24147c3e4c0ca3f6b244b219e63",
+      "vehicle-collision-envelope.json": "505bb2a270e5391f988e89520000de8142fe6b7184d07459aac31d304e8d9ae5",
+      "gz-sdf-model-check.log": "8ee662e97230bf8893d53d5672c68b1612cda03b74bd1be1267eb31e02b59673",
+      "p1-launch.log": "41a58c5139f89a01f99daae525977fd20222a1b71d229b7fba59eac663fe2d22",
+      "p1-sensor-check.log": "81dc8489d80fa92841913e3ee8cb11ff162291bba3cb47f5bee8ab259e16259d",
+      "sensor-report.json": "eec7f1ff64e1b2b6fdc459f1dc6345b23e5b70de87320353c85e82d78fb8fbac",
+      "project-status.log": "1e41d5e96f372f8ee6aa89f66847b9e8e59e521828b816d9b924e1d6a04051a2",
+      "audit-script-pycompile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "source_sha256": {
+    "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+    "config/components/mapping/ego_planner.json": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6",
+    "simulation/README.md": "73431933199d7728e301c25058e49c86e9a44b46eb6985045d6ca7d551d5335e"
+  },
+  "next_step": "Capture multi-obstacle map geometry and same-run localization/tracking error plus braking distance. Keep 0.099 m PROVISIONAL and do not start formal D/E runs until the full GOAL F configuration is derived and frozen."
+}

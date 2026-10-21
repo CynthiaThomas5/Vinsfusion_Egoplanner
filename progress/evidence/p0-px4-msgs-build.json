@@ -1,0 +1,45 @@
+{
+  "scope": "P0 fixed PX4 ROS message source and clean Jazzy interface-package build. This does not qualify PX4 execution or DDS interoperability.",
+  "date": "2026-10-16",
+  "source": {
+    "url": "https://github.com/PX4/px4_msgs",
+    "tag": "v1.17.0",
+    "branch": "release/1.17",
+    "revision": "86d8239e962f6939e05c3737784f60c02fa884db",
+    "license": "BSD-3-Clause",
+    "license_sha256": "1757308f1a82f6203bc448a11462f22b8466b4bdd59bc3dce97f01a478cd4d2d",
+    "patches": [],
+    "import_method": "git archive from exact fetched tag commit; no .git metadata or local edits",
+    "source_tree_manifest": "artifacts/runs/p0-ego-build-20261016-02/px4-msgs-source-sha256.txt",
+    "source_tree_manifest_sha256": "b9f0897a30ce7c1493e3584b167c6a4d6eb0afffca9cfb769c8dc406f25be708",
+    "source_file_count": 244
+  },
+  "build": {
+    "environment": "ROS 2 Jazzy in d435i-vins-build container",
+    "container_image_digest": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "command": "colcon --log-base artifacts/runs/p0-px4-msgs-build-20261016/log build --packages-select px4_msgs --build-base artifacts/runs/p0-px4-msgs-build-20261016/build --install-base artifacts/runs/p0-px4-msgs-build-20261016/install --event-handlers console_direct+",
+    "status": "PASS",
+    "packages": [
+      "px4_msgs"
+    ],
+    "duration_from_colcon": "2min 57s",
+    "log": "artifacts/runs/p0-px4-msgs-build-20261016/colcon.log",
+    "log_sha256": "991d6f3e421af4ea67f6f5fd00cb5a443d501f7e58b7fc51b553b779f3d7eebe"
+  },
+  "compatibility_basis": {
+    "px4_source_tag": "v1.17.0 @ d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_msgs_release_note": "v1.17.0 definitions synchronized with PX4 Autopilot 1.17.0",
+    "px4_dds_topics_report": "progress/evidence/p0-dependency-pins.json",
+    "availability": "required PX4 in/out topic definitions are present in the selected PX4 dds_topics.yaml; no runtime graph test yet"
+  },
+  "qualification": {
+    "static_source_archive_and_license": "PASS",
+    "jazzy_build": "PASS",
+    "dds_or_sitl": "NOT_RUN",
+    "real_hardware": "NOT_RUN",
+    "limits": [
+      "PX4 firmware and Micro XRCE-DDS Agent are not imported or built.",
+      "Actual publisher/subscriber graph, clock handling, external-vision fusion, and control behavior remain untested."
+    ]
+  }
+}

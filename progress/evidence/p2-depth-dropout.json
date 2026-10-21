@@ -1,0 +1,108 @@
+{
+  "scope": "P2 repeated source-stamp depth-drop injection only; no mapping health consumer is implemented",
+  "date": "2026-10-16",
+  "status": "PASS_INJECTION_ONLY",
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e",
+    "capture_ros_domain_id": 97,
+    "replay_ros_domain_ids": [98, 99],
+    "package_install": "artifacts/runs/p2-localization-adapter-replay-20261016-05/install"
+  },
+  "injection": {
+    "relay": "tools/fault_relay.py",
+    "kind": "depth",
+    "input_topic": "/fault/input/depth",
+    "output_topic": "/sensors/d435i/depth",
+    "schedule": {
+      "basis": "sensor_msgs/Image.header.stamp from the captured Gazebo depth stream",
+      "drop_after_source_s": 3.0,
+      "drop_for_source_s": 5.0,
+      "interval": "half-open [3s, 8s) relative to the first depth stamp received by each fresh relay"
+    },
+    "input_bag": "artifacts/runs/p2-depth-dropout-20261016-01/depth-input",
+    "input_bag_mcap_sha256": "9f046ce56e05693f70aa8f55354a8378a2eb1912455aca698464ee0b63050fe1",
+    "bag_metadata_sha256": "774c42c3caad04c57636a30b006ee3d08c0b322a5dd6d2d62ff1a4f5675fba52",
+    "bag_info": {
+      "duration_wall_s": 159.945,
+      "depth_messages_recorded": 1036,
+      "clock_messages_recorded": 111625,
+      "transport_messages_lost": 2344
+    },
+    "capture_limitations": [
+      "Initial capture script attempt stopped before starting because ROS setup was sourced while nounset was active; it is preserved in the script history and did not start simulation.",
+      "The corrected capture intended a six-second recording, but the background rosbag process inherited ignored SIGINT and continued until explicitly terminated after about 160 seconds. The resulting bag is usable for the injection replay but contains transport loss and is not a sensor-rate qualification."
+    ]
+  },
+  "runs": [
+    {
+      "run_id": "p2-depth-dropout-20261016-01-01",
+      "ros_domain_id": 98,
+      "source_origin_ns": 166000000,
+      "window_start_ns": 3166000000,
+      "window_end_ns": 8166000000,
+      "first_dropped_ns": 3169000000,
+      "last_dropped_ns": 8152000000,
+      "first_forwarded_after_ns": 8383000000,
+      "counts": {
+        "received": 1034,
+        "forwarded_before": 26,
+        "dropped": 51,
+        "forwarded_after": 957
+      },
+      "window_observed": true,
+      "report": "artifacts/runs/p2-depth-dropout-20261016-01/depth-fault-01.json",
+      "report_sha256": "5e8b609bab776b2c1438f5e2750360fbcd8fdf61283c237c2cf91d91a5a04f1b"
+    },
+    {
+      "run_id": "p2-depth-dropout-20261016-01-02",
+      "ros_domain_id": 99,
+      "source_origin_ns": 5149000000,
+      "window_start_ns": 8149000000,
+      "window_end_ns": 13149000000,
+      "first_dropped_ns": 8152000000,
+      "last_dropped_ns": 13135000000,
+      "first_forwarded_after_ns": 13201000000,
+      "counts": {
+        "received": 984,
+        "forwarded_before": 33,
+        "dropped": 47,
+        "forwarded_after": 904
+      },
+      "window_observed": true,
+      "report": "artifacts/runs/p2-depth-dropout-20261016-01/depth-fault-02.json",
+      "report_sha256": "4c36c866536c0891435ccbf83f3ffcfd1538e931297250b69134747d43ca42bd"
+    }
+  ],
+  "checks": {
+    "command": "docker exec d435i-vins-build bash -lc 'source /opt/ros/jazzy/setup.bash; cd /workspace; python3 tools/test_fault_relay.py'",
+    "result": "2 tests passed",
+    "source_stamp_window_and_depth_topic_route": "PASS",
+    "independent_relay_replays": "2 windows observed with forward/drop/forward samples",
+    "map_detected_depth_staleness": "NOT_TESTED; uav_mapping has no runtime consumer",
+    "px4_or_vehicle_response": "NOT_TESTED; no mapping or control chain was running"
+  },
+  "artifacts": {
+    "capture_script": "artifacts/runs/p2-depth-dropout-20261016-01/capture-depth.sh",
+    "capture_script_sha256": "3c1001a6a2934b6b5e4696293e3bef9677e10147869677dbfb42a80f4b785ae4",
+    "replay_script": "artifacts/runs/p2-depth-dropout-20261016-01/replay-depth-faults.sh",
+    "replay_script_sha256": "4916d8d4c561839b7472abd9a77080b2a79054010a4b5d55a656f95e6431d062",
+    "source": {
+      "tools/fault_relay.py": "0438b49cbf486403742d47efc38d5d40e7fcf6b4ec77fd3687537c8e44acfb6c",
+      "tools/test_fault_relay.py": "7156614dc5b1508bfe57e38ac7ce36c54cb311e60d63029ba3c905e7358c47b7"
+    },
+    "logs": {
+      "artifacts/runs/p2-depth-dropout-20261016-01/bag-info.txt": "010defdc1f3cb2c6b140d27a83b08f082431471bce49318fd067f767340cbd82",
+      "artifacts/runs/p2-depth-dropout-20261016-01/record.log": "22a51c341654cf89f7616f04934512047fd560aa9186afa31f9a3e05b4f8cea1",
+      "artifacts/runs/p2-depth-dropout-20261016-01/sensor-launch.log": "df5b3c3455c514d05fdeae758671010d78f8d87830450f14e744b88e01ebec6f",
+      "artifacts/runs/p2-depth-dropout-20261016-01/depth-topic-info.txt": "42d9c72302b6aa095d7096de87408245fb273c85c94e0532b0ecb62830393b03",
+      "artifacts/runs/p2-depth-dropout-20261016-01/play-01.log": "d14212c4b3735ac2e44f19e59c95dac744a886db890b95527138eca496145e87",
+      "artifacts/runs/p2-depth-dropout-20261016-01/play-02.log": "8b11689fe1b97eee01edc9a324ddf010f5b81d2e1de1a56570fb69aafdcfd680"
+    }
+  },
+  "limitations": [
+    "These runs validate only the fault relay's scheduled input drop and resumption; they do not validate any downstream stale-depth detection or fail-closed map behavior.",
+    "The same captured bag was used for two fresh relay/player processes. The two source origins differ because best-effort replay delivered a different first frame on the second run.",
+    "The capture recorder reported transport loss; no frequency, completeness, mapping geometry, PX4 response, or final acceptance conclusion may be inferred."
+  ]
+}

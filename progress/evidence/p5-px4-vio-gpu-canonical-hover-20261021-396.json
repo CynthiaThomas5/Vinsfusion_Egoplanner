@@ -1,0 +1,328 @@
+{
+  "capture": {
+    "clock_regressions": 0,
+    "duplicate_clock_samples": 0,
+    "fit_ring": {
+      "full_64_fit_count": 10803,
+      "full_64_out_of_bounds_count": 0,
+      "full_64_wall_per_sim_s": {
+        "max": 2.174491,
+        "median": 1.519202,
+        "min": 1.310535,
+        "p95": 1.783548
+      },
+      "max_samples": 64,
+      "min_samples": 5,
+      "partial_fit_count": 59,
+      "partial_out_of_bounds_count": 5,
+      "wall_per_sim_bounds": [
+        0.1,
+        10.0
+      ]
+    },
+    "observed_rtf": 0.647499,
+    "px4_status_callback_intervals": {
+      "estimator_flags": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.184,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 52,
+        "positive_source_intervals": 51,
+        "receipt_gap_wall_s": {
+          "max": 1.671367,
+          "median": 1.509874,
+          "min": 0.008083,
+          "p95": 1.604909
+        },
+        "source_gap_sim_s": {
+          "max": 1.008,
+          "median": 1.0,
+          "min": 0.008,
+          "p95": 1.008
+        }
+      },
+      "land_detected": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.144,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 55,
+        "positive_source_intervals": 54,
+        "receipt_gap_wall_s": {
+          "max": 1.797569,
+          "median": 1.503607,
+          "min": 0.008011,
+          "p95": 1.631264
+        },
+        "source_gap_sim_s": {
+          "max": 1.004,
+          "median": 1.0,
+          "min": 0.008,
+          "p95": 1.0
+        }
+      },
+      "vehicle_status": {
+        "aligned_source_age_at_callback_sim_s": {
+          "max": 0.152,
+          "median": 0.0,
+          "min": -0.004,
+          "p95": 0.0
+        },
+        "callback_samples": 93,
+        "positive_source_intervals": 92,
+        "receipt_gap_wall_s": {
+          "max": 0.934121,
+          "median": 0.766496,
+          "min": 0.096069,
+          "p95": 0.859317
+        },
+        "source_gap_sim_s": {
+          "max": 0.504,
+          "median": 0.504,
+          "min": 0.012,
+          "p95": 0.504
+        }
+      }
+    },
+    "sim_span_s": 43.46,
+    "trace_rows": 11066,
+    "trace_rows_by_source": {
+      "clock": 10866,
+      "estimator_flags": 52,
+      "land_detected": 55,
+      "vehicle_status": 93
+    },
+    "trace_sha256": "842fb4da280a475b2640818ba47b6239df04ea25a63aa98e8448c1e00ff6bf0e",
+    "wall_span_s": 67.1198
+  },
+  "container_gpu": {
+    "device": "GPU 0: NVIDIA GeForce RTX 3060 Laptop GPU (UUID: GPU-dcea8a0d-46b2-7ef8-e11b-025c00ddc830)",
+    "image": "d435i-vins:dev",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "utilization_percent": {
+      "max": 66.0,
+      "median": 22.0,
+      "min": 0.0,
+      "p95": 39.0
+    },
+    "utilization_samples": 95
+  },
+  "date": "2026-10-21",
+  "limitations": [
+    "No navigation action, EGO PositionCommand or obstacle detour was run; this tests takeoff/hold/land only.",
+    "A single hover run cannot establish causality for the separate post-goal normalized_cost_exceeded event.",
+    "PX4 ULog contains internal groundtruth data; project ROS topics/bridge subscriptions show no debug_truth path and the dataset was not used by project nodes.",
+    "No frozen clearance threshold, repeated cold-start suite, fault injection or ten-minute load test was performed."
+  ],
+  "next_step": "Repeat the no-motion goal under the same GPU and canonical 3-second gate; #394 reached the same target and failed localization after action completion, while this no-goal hover stayed TRACKING.",
+  "px4_ulog": {
+    "duration_s": 44.56,
+    "estimator_status_flags": {
+      "cs_ev_hgt": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.832,
+        "last_true_timestamp_s": 50.092,
+        "total_samples": 54,
+        "true_samples": 48
+      },
+      "cs_ev_pos": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.832,
+        "last_true_timestamp_s": 50.092,
+        "total_samples": 54,
+        "true_samples": 48
+      },
+      "cs_ev_vel": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.832,
+        "last_true_timestamp_s": 50.092,
+        "total_samples": 54,
+        "true_samples": 48
+      },
+      "cs_ev_yaw": {
+        "final_value": true,
+        "first_true_timestamp_s": 8.832,
+        "last_true_timestamp_s": 50.092,
+        "total_samples": 54,
+        "true_samples": 48
+      },
+      "cs_gnss_pos": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 54,
+        "true_samples": 0
+      },
+      "cs_gnss_vel": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 54,
+        "true_samples": 0
+      },
+      "cs_gnss_yaw": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 54,
+        "true_samples": 0
+      },
+      "cs_gps_hgt": {
+        "final_value": false,
+        "first_true_timestamp_s": null,
+        "last_true_timestamp_s": null,
+        "total_samples": 54,
+        "true_samples": 0
+      }
+    },
+    "internal_groundtruth_dataset": {
+      "present": true,
+      "samples": 2230,
+      "used_by_project_nodes": false
+    },
+    "local_position_ned_z_m": {
+      "final": 0.080908,
+      "maximum_relative_height_from_min_z": 0.814554,
+      "minimum": -0.814554
+    },
+    "parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "path": "artifacts/runs/p5-vio-px4-gpu-canonical-hover-20261021-396/px4_sitl_default/log/2026-10-21/02_52_36.ulg",
+    "sha256": "4ee5d7f3ec83e7b2f41582b3bbece79ca719db28a05be05575ea2f2d724b1984",
+    "vehicle_status": {
+      "arming_state_counts": {
+        "1": 24,
+        "2": 71
+      },
+      "pre_flight_checks_pass_true_samples": 72,
+      "sample_count": 95
+    }
+  },
+  "qualification": "canonical-configuration no-goal controlled hover diagnostic; not P5 acceptance",
+  "run_analysis": "artifacts/runs/p5-vio-px4-gpu-canonical-hover-20261021-396/run-analysis.json",
+  "run_analysis_sha256": "1b811daa2cc2ba103f85ba8159dc30cd54f618f2296598ebd4feacb8165fcc38",
+  "run_id": "p5-vio-px4-gpu-canonical-hover-20261021-396",
+  "run_manifest": "artifacts/runs/p5-vio-px4-gpu-canonical-hover-20261021-396/run-manifest.json",
+  "run_manifest_sha256": "cd971c44dcf67ea8ac301bdab51cb63754cf8caa4d8de843601e75083100c637",
+  "runtime": {
+    "action_goal_sent": false,
+    "action_success": false,
+    "final_localization_quality": {
+      "accepted_optimized": 625,
+      "accepted_propagated": 8249,
+      "epoch": "4ba451db169e4326b45ba56e84eeebf7",
+      "good_pairs": 634,
+      "normalized_cost": 0.6124190099405801,
+      "reason": "fresh_inputs_and_usable_solver",
+      "source_stamp_ns": 49899999999,
+      "stamp_ns": 49900000000,
+      "state": 1,
+      "valid": true,
+      "wall_elapsed_s": 60.486169267998775
+    },
+    "final_vins_telemetry": {
+      "continued_tracks": 36,
+      "final_cost": 327.0497421383155,
+      "initialized": true,
+      "input_features": 180,
+      "iterations": 4,
+      "long_tracks": 36,
+      "normalized_cost": 0.6124190099405801,
+      "residual_components": 1744,
+      "solve_current": true,
+      "solve_seconds": 0.006312131881713867,
+      "solver_usable": true,
+      "stamp_ns": 49799999999,
+      "state_finite": true,
+      "stereo_features": 36,
+      "visual_observations": 396,
+      "wall_elapsed_s": 60.41012775999843
+    },
+    "first_invalid_localization_status": null,
+    "hover_bridge_status_at_end": {
+      "armed": true,
+      "landed": false,
+      "phase": "ACTIVE",
+      "reason": "takeoff_complete_waiting_for_trajectory"
+    },
+    "hover_completed_without_quality_abort": true,
+    "hover_duration_wall_s": 30.001850727996498,
+    "hover_position_command_count": 0,
+    "hover_requested_wall_s": 30.0,
+    "landed_and_disarmed": true,
+    "latest_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "latest_localization_status": {
+      "accepted_optimized": 625,
+      "accepted_propagated": 8249,
+      "epoch": "4ba451db169e4326b45ba56e84eeebf7",
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "latest_vehicle_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false,
+      "timestamp": 49932000
+    },
+    "localization_status_samples": 1181,
+    "localization_tracking_stability_passed": true,
+    "map_point_count_max": 1928,
+    "max_vins_normalized_cost": 0.6333745634507079,
+    "preconditions_ready": true,
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "px4_telemetry_stability_passed": true,
+    "px4_telemetry_stability_required_s": 5.0,
+    "result": "PASS",
+    "run_mode": "no_navigation_goal_bridge_hold",
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "operator_disable"
+      }
+    ],
+    "takeoff_active_observed": true,
+    "vins_telemetry_samples": 584
+  },
+  "static_checks": {
+    "canonical_bridge_source_hash_unchanged": true,
+    "canonical_config_hash_unchanged": true,
+    "instrumented_bridge_build": "PASS (6 packages)",
+    "run_script_bash_n": "PASS"
+  },
+  "truth_and_control_isolation": {
+    "bridge_debug_truth_subscription_present": false,
+    "debug_truth_ros_topic_present": false,
+    "navigation_goal_sent": false,
+    "truth_input_started": false
+  }
+}

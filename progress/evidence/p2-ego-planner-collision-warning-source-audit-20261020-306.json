@@ -1,0 +1,185 @@
+{
+  "schema": "p2-ego-planner-collision-warning-source-audit/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-unknown-policy-wall-goal-20261020-306",
+  "status": "static_source_interpretation_only",
+  "objective": "Map #306 warning text to the pinned planner source and determine what the existing log can distinguish.",
+  "source_identity": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "canonical_source_tree_sha256": "d32bccd2195fa085d90556f87f02e7b250a5c982036c19fbdbbafaa14773f6ee",
+    "candidate_patch": "dependencies/patches/ego/0020-unknown-as-obstacle-experiment.patch",
+    "candidate_patch_sha256": "1041f74fd2b8c0409f348f272d7e48f0d7a62d9552e31a741b9296aa8ffdb0b8",
+    "candidate_source_manifest": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/source-manifest-experiment.json",
+    "candidate_source_manifest_sha256": "1039d2b998ebb335fdf5cb702d2fe44e10c72ee0bee79b8954f96f318581df4c",
+    "source_files": [
+      {
+        "path_in_reconstructed_source": "planner/plan_env/include/plan_env/grid_map.h",
+        "sha256": "4ffa9720c8096dbd49dfdddbe3252ccd56d88089350ea1136146fba8ee007dc9",
+        "lines": "370-382",
+        "relevance": "getInflateOccupancy: returns -1 outside map, 1 for unknown, otherwise inflated-mask value."
+      },
+      {
+        "path_in_reconstructed_source": "planner/bspline_opt/src/bspline_optimizer.cpp",
+        "sha256": "13cf0895a9e00fb8e7280bce333814a9767920887ac27de10c9f47df3e0ef2ed",
+        "lines": "1347-1363",
+        "relevance": "Terminal warning path: after a blocked control point, no later free control point is found."
+      },
+      {
+        "path_in_reconstructed_source": "planner/bspline_opt/src/bspline_optimizer.cpp",
+        "sha256": "13cf0895a9e00fb8e7280bce333814a9767920887ac27de10c9f47df3e0ef2ed",
+        "lines": "1410-1487",
+        "relevance": "Direction generation: A* path/control-law intersection search; warning when no usable intersection is recorded."
+      },
+      {
+        "path_in_reconstructed_source": "planner/bspline_opt/src/bspline_optimizer.cpp",
+        "sha256": "13cf0895a9e00fb8e7280bce333814a9767920887ac27de10c9f47df3e0ef2ed",
+        "lines": "1415-1424",
+        "relevance": "Potential index-boundary issue: Astar_id is changed and indexed before the next loop-bound check; runtime exercise is unknown."
+      },
+      {
+        "path_in_reconstructed_source": "planner/bspline_opt/src/bspline_optimizer.cpp",
+        "sha256": "13cf0895a9e00fb8e7280bce333814a9767920887ac27de10c9f47df3e0ef2ed",
+        "lines": "1617-1632",
+        "relevance": "First-three warning path: spline collision sample at t <= bspline_interval_ returns false; log prints t but no position."
+      },
+      {
+        "path_in_reconstructed_source": "planner/plan_manage/src/ego_replan_fsm.cpp",
+        "sha256": "1b682054bf9ee259126066f4d5a418f9bf31697638f944a1ddb07298a6cf7112",
+        "lines": "877-886",
+        "relevance": "Emergency-stop branch is triggered by an online trajectory collision check inside emergency_time_."
+      }
+    ]
+  },
+  "runtime_log": {
+    "path": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/ego-01.log",
+    "sha256": "906bae88633ddd7f4f46a5813618b26f03969c1cf41e6550e7f4feb0456bd23d",
+    "warning_counts": {
+      "first_three_control_points_occupied": 6290,
+      "failed_to_generate_direction": 3395,
+      "terminal_control_points_remain_occupied": 583,
+      "suddenly_discovered_obstacle_emergency_stop": 1
+    },
+    "first_three_warning_t_values": {
+      "0.000000": 6290
+    }
+  },
+  "snapshot_cross_check": {
+    "path": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-03/occupancy_snapshot.npz",
+    "metadata_path": "artifacts/runs/p2-ego-unknown-policy-wall-goal-20261020-306/snapshot-03/metadata.json",
+    "snapshot_stamp_ns": 16751000000,
+    "first_sample_of_each_later_published_spline": [
+      {
+        "traj_id": 1,
+        "trajectory_start_stamp_ns": 17661000000,
+        "position_m": [
+          0.08133672733516388,
+          0.05438559318303744,
+          0.05192512823115551
+        ],
+        "voxel_index_xyz": [
+          120,
+          120,
+          2
+        ],
+        "inside_map": true,
+        "raw_occupancy": 0,
+        "raw_class": "free",
+        "inflated_mask": false
+      },
+      {
+        "traj_id": 2,
+        "trajectory_start_stamp_ns": 17662000000,
+        "position_m": [
+          0.14397472696049812,
+          0.0025642694887121464,
+          0.08757676479773335
+        ],
+        "voxel_index_xyz": [
+          121,
+          120,
+          2
+        ],
+        "inside_map": true,
+        "raw_occupancy": 0,
+        "raw_class": "free",
+        "inflated_mask": false
+      },
+      {
+        "traj_id": 3,
+        "trajectory_start_stamp_ns": 18679000000,
+        "position_m": [
+          0.32558375587041305,
+          -0.011315321028346707,
+          0.1935164583895927
+        ],
+        "voxel_index_xyz": [
+          123,
+          119,
+          3
+        ],
+        "inside_map": true,
+        "raw_occupancy": 0,
+        "raw_class": "free",
+        "inflated_mask": false
+      },
+      {
+        "traj_id": 4,
+        "trajectory_start_stamp_ns": 18679000000,
+        "position_m": [
+          0.3271610902855544,
+          -0.012130318860439953,
+          0.19395970321641876
+        ],
+        "voxel_index_xyz": [
+          123,
+          119,
+          3
+        ],
+        "inside_map": true,
+        "raw_occupancy": 0,
+        "raw_class": "free",
+        "inflated_mask": false
+      }
+    ],
+    "qualification": "These path samples are compared against a snapshot taken before the spline start stamps; they do not establish occupancy at optimizer call time."
+  },
+  "findings": [
+    {
+      "id": "unknown_and_out_of_map_both_look_occupied_to_boolean_callers",
+      "classification": "source_confirmed",
+      "detail": "getInflateOccupancy returns 1 for unknown and -1 outside the map. Optimizer call sites store the integer in bool, so either condition is treated as occupied; current logs do not distinguish them."
+    },
+    {
+      "id": "first_three_warning_is_an_initial_spline_collision",
+      "classification": "source_confirmed",
+      "detail": "The warning is emitted when a sampled spline point with t <= bspline_interval_ is occupied, then the rebound optimizer returns false. All 6,290 #306 instances logged t=0.000000. The position, voxel state, and source/fusion stamp were not logged, so unknown, out-of-map, and inflated occupancy remain indistinguishable."
+    },
+    {
+      "id": "terminal_warning_means_no_later_free_control_point",
+      "classification": "source_confirmed",
+      "detail": "After a control point is found occupied, the routine scans later control points for a free point; if none exists it sets STOP_FOR_ERROR and returns false. The warning does not record which point or why cells were blocked."
+    },
+    {
+      "id": "direction_warning_is_missing_rebound_intersection",
+      "classification": "source_confirmed",
+      "detail": "The routine has an obstacle segment and an A* path but fails to record a valid intersection between that path and a control-point normal; it still returns a rebound request. The warning is not a direct test of unknown occupancy."
+    },
+    {
+      "id": "direction_search_has_potential_boundary_indexing_hazard",
+      "classification": "static_risk_not_runtime_proven",
+      "detail": "In the A* path search loop, Astar_id is incremented or decremented and then used to index the vector before the next bounds check. If the search reaches either end without finding a sign crossing, this can index outside the vector. Existing logs do not prove this occurred or caused the warning count."
+    },
+    {
+      "id": "published_start_samples_were_free_in_snapshot_03",
+      "classification": "offline_cross_check_only",
+      "detail": "All four published spline first samples fall in known-free cells with zero inflation in snapshot #03. That snapshot predates the spline starts by about 0.91 s, so it does not resolve the t=0 warnings."
+    }
+  ],
+  "limitations": [
+    "No planner attempt ID, collision sample coordinates, voxel indices, or map revision/source timestamp were logged for warning events.",
+    "Warning counts are repeated planner events, not unique collision sites or unique B-splines.",
+    "No trajectory server/controller/PX4 was present and no generated trajectory was executed.",
+    "The potential vector-index issue was found by source inspection only; no sanitizer or runtime reproduction was performed."
+  ],
+  "next_diagnostic": "In an isolated overlay, log one structured record per optimizer attempt with plan/goal ID, collision point xyz and voxel index, in-map/unknown/raw/inflated classification, and current map epoch/map_id plus last fused-depth and occupancy-update stamps. Record terminal-search range and A* path bounds. Add a bounds guard in the diagnostic candidate and run a sanitizer-enabled comparison before attributing direction warnings."
+}

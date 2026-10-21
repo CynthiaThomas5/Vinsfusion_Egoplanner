@@ -1,0 +1,214 @@
+{
+  "artifacts": {
+    "attempt_94_status": {
+      "path": "../p5-vio-ekf2-world-systems-20261017-94/attempt-status.json",
+      "sha256": "bf644e56a3fa0879d70d0aeb2642872312167554ca1e15e7ca1cfff3ef0331aa"
+    },
+    "generated_world": {
+      "path": "vio_initialization.sdf",
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "localization_probe": {
+      "path": "localization-probe.json",
+      "sha256": "c1e71befc01883a74921c06a4cab4e6fbbfef35b48822d20a25e68ab0a92a070"
+    },
+    "px4_live_probe": {
+      "path": "px4-live-probe.json",
+      "sha256": "738c0e7f8f9aac565ded9610e7185dbc60e7d60831ebb9bcb2fc34784ebe731a"
+    },
+    "px4_param_stage": {
+      "path": "px4-param-stage.json",
+      "sha256": "02229bdb2d4e779aa187dade467abdf1502d0efbfb4d827c37c831da98bb06ae"
+    },
+    "reconciled_qualification": {
+      "path": "qualification-reconciled.json",
+      "sha256": "ed8a6c5c36b13bdab0cc0017d533537c36a8f9014e25b2a6f2c1f9b6ae57fc67"
+    },
+    "run_harness": {
+      "path": "run-vio-ekf2-smoke.sh",
+      "sha256": "67baae73b7ce8898a62157689746a7b3c102877e955888b751220098a9b1af21"
+    },
+    "runtime_final_snapshot": {
+      "path": "qualification.json",
+      "sha256": "de1cc854857982a61a80091e2ca33bd3518b0e0b4b771c1a47b1caca0c9dfd20"
+    },
+    "sdf_validation": {
+      "path": "sdf-validation.log",
+      "sha256": "581e1adf70bd048b67b37b74d7e86c4914095ff3f6ca4164e452e18465907d34"
+    },
+    "ulog": {
+      "path": "px4_sitl_default/log/2026-10-17/07_16_01.ulg",
+      "sha256": "d695ecdba25476b3a09dbdd7f39adee3e7b52cf89e2aad2663d7e64b97cfd6e1"
+    },
+    "ulog_analysis": {
+      "path": "ulog-analysis.json",
+      "sha256": "32a0acf1abc48c84c7fcefba7d269c58b39d5fe9478342c133c9011309019111"
+    },
+    "world_generation": {
+      "path": "world-generation.json",
+      "sha256": "d000fcaf1c4bcab4e607691997c1a917d76a2541ef77dffbbf98ac08d81c04fd"
+    },
+    "world_generator_source": {
+      "path": "../../../tools/prepare_px4_vio_bootstrap_world.py",
+      "sha256": "639b1b75fe8eb14c14c4c29f147f27156e4152d589e87e310b12e57fc2a64c9c"
+    },
+    "world_generator_test": {
+      "path": "../../../tools/test_px4_vio_bootstrap_world.py",
+      "sha256": "52da9f1dc59631d0d945ca49b69d520e879aa40b142118b94ab07f71988fca31"
+    }
+  },
+  "checks": {
+    "controls_remained_disabled": true,
+    "ekf2_ev_position_observed": true,
+    "ekf2_ev_yaw_observed": true,
+    "localization_tracking_observed": true,
+    "no_gnss_aiding_in_ulog": true,
+    "no_truth_bridge_graph": true,
+    "no_truth_ros_topics": true,
+    "vehicle_remained_disarmed": true,
+    "vio_odometry_in_px4_ulog": true
+  },
+  "date": "2026-10-17",
+  "ekf2_ulog": {
+    "estimator_aid_src_ev_pos_fused_samples": 78,
+    "estimator_aid_src_ev_pos_samples": 90,
+    "estimator_aid_src_ev_yaw_fused_samples": 62,
+    "estimator_aid_src_ev_yaw_samples": 90,
+    "estimator_status_flags_samples": 77,
+    "estimator_status_flags_true_samples": {
+      "cs_aux_gpos": 0,
+      "cs_ev_pos": 21,
+      "cs_ev_yaw": 15,
+      "cs_gnss_pos": 0,
+      "cs_gnss_vel": 0,
+      "cs_gnss_yaw": 0,
+      "cs_gps_hgt": 0
+    },
+    "path": "px4_sitl_default/log/2026-10-17/07_16_01.ulg",
+    "sensor_baro_samples": 47,
+    "sensor_combined_samples": 11881,
+    "sensor_mag_samples": 47,
+    "sha256": "d695ecdba25476b3a09dbdd7f39adee3e7b52cf89e2aad2663d7e64b97cfd6e1",
+    "vehicle_visual_odometry_samples": 90
+  },
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ephemeral_container": true,
+    "gazebo": "Harmonic",
+    "offboard_started": false,
+    "px4": "v1.17.0",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 232
+  },
+  "excluded_attempts": [
+    {
+      "reason": "PX4_GZ_MODELS incorrectly pointed at upstream models; project x500_d435i could not spawn. Stopped before qualification.",
+      "run_id": "p5-vio-ekf2-world-systems-20261017-94"
+    }
+  ],
+  "limitations": [
+    "Localization ended LOCKED/telemetry_stale after 154 good pairs; do not relax PROVISIONAL freshness gates without diagnosis.",
+    "No EGO, Offboard control, arming, flight, navigation or landing was run.",
+    "Final profile runtime_ready remains false and P5 remains in progress."
+  ],
+  "localization": {
+    "final_status": {
+      "clock_stamp_ns": 53836000000,
+      "good_pairs": 154,
+      "reason": "telemetry_stale",
+      "source_stamp_ns": 28739999999,
+      "state": 4,
+      "valid": false
+    },
+    "optimized_odom_samples": 102,
+    "propagated_odom_samples": 1365,
+    "tracking_observed": true
+  },
+  "px4_profile": {
+    "autostart_id": 5011,
+    "generated_airframe_sha256": "d6d3c8c0df50357c5162c80543b574abb01ec7b3dc8cf2573e48233bec9cb54c",
+    "parameters": {
+      "COM_ARM_WO_GPS": 2,
+      "COM_OBL_RC_ACT": 4,
+      "COM_OF_LOSS_T": 1.0,
+      "COM_RC_IN_MODE": 4,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_EV_POS_X": 0.12,
+      "EKF2_EV_POS_Y": -0.0,
+      "EKF2_EV_POS_Z": -0.08,
+      "EKF2_GPS_CTRL": 0,
+      "EKF2_HGT_REF": 3,
+      "NAV_DLL_ACT": 0,
+      "SIM_GZ_EN_ODOM": 0
+    },
+    "profile": "vio_closed_loop",
+    "source_airframe_id": "4001_gz_x500"
+  },
+  "qualification": "ULog proves EKF2 EV position and yaw fusion occurred while GNSS aiding flags stayed zero. The VIO adapter later latched telemetry_stale, so this only qualifies the fusion smoke, not sustained localization health or P5 exit.",
+  "reconciliation_note": "qualification.json preserves the original final-snapshot failure. qualification-reconciled.json and ulog-analysis.json document that EV fusion occurred earlier in the run.",
+  "result": "PARTIAL_PASS_EKF2_FUSION_OBSERVED",
+  "run_id": "p5-vio-ekf2-world-systems-20261017-95",
+  "runtime_probe": {
+    "bridge_reason_counts": {
+      "external_odometry_stale": 40,
+      "localization_not_tracking": 447,
+      "px4_frame_unaligned": 7,
+      "px4_local_position_invalid": 16,
+      "px4_preflight_failed": 13,
+      "px4_telemetry_stale": 38,
+      "px4_timesync_stale": 11
+    },
+    "bridge_state_counts": {
+      "ev_position_fused": 58,
+      "ev_yaw_fused": 39,
+      "gnss_aiding_active": 0,
+      "local_position_valid": 39,
+      "ready": 0
+    },
+    "final_bridge_status": {
+      "alignment_drift_m": 0.0005771712567822367,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "96df1c39172a4f16887a06d0c03f0049",
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "frame_offset_ned": [
+        -0.0007481023694988236,
+        -2.9000029558014836e-05,
+        0.0007559753738650434
+      ],
+      "frame_yaw_offset_ned": 0.039522285101334376,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": false,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "localization_not_tracking"
+    },
+    "final_estimator_flags": {
+      "cs_aux_gpos": false,
+      "cs_ev_hgt": false,
+      "cs_ev_pos": false,
+      "cs_ev_vel": false,
+      "cs_ev_yaw": false,
+      "cs_gnss_pos": false,
+      "cs_gnss_vel": false,
+      "cs_gnss_yaw": false,
+      "cs_gps_hgt": false
+    },
+    "visual_odometry_input_samples": 64
+  },
+  "scope": "Headless, disarmed VINS-to-PX4 EKF2 sensor/fusion smoke with truth and GPS position aiding excluded.",
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "world": {
+    "camera_and_px4_sensor_topics_observed": true,
+    "contains_truth_source": false,
+    "explicit_world_plugin_count": 13,
+    "gazebo_sdf_validation": "Valid.",
+    "name": "vio_initialization",
+    "no_truth_ros_topic_or_bridge_subscription": true,
+    "source": "PX4 default world plus project calibration wall and PX4 server.config world plugins"
+  }
+}

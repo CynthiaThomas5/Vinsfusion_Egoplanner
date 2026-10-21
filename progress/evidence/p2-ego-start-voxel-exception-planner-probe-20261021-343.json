@@ -1,0 +1,63 @@
+{
+  "schema": "p2-ego-start-voxel-exception-planner-probe-evidence/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "planner_only_experimental_guard_diagnostic_pass_goal_c_pending",
+  "run_id": "p2-ego-start-voxel-exception-planner-probe-20261021-343",
+  "question": "在单一 pitch 后场景中，epoch 绑定的真实 3D NavigationCommand 能否让 run-local EGO 完整活动区间 unknown/inflation guard 产生样条？该中心线在最近的同 epoch 地图快照中如何分类？",
+  "result": {
+    "goal_id": "p2-voxel-probe-6c1024821a6c4c8fb77816ea67c726a2",
+    "epoch": "6c1024821a6c4c8fb77816ea67c726a2",
+    "map_id": "6c1024821a6c4c8fb77816ea67c726a2-e5e0b07d410b40849f05df238d6d41ad",
+    "goal_xyz_m": [0.25, -0.05, 0.1],
+    "target_voxel_index_xyz": [122, 119, 2],
+    "target_voxel_occupancy": "known_free",
+    "target_voxel_inflated": false,
+    "bspline_count": 1,
+    "active_interval_s": 0.4013325494806975,
+    "sample_step_s": 0.01,
+    "centerline_sample_count": 42,
+    "centerline_occupancy_samples": {
+      "unknown_in_current_start_voxel": 31,
+      "known_free": 11,
+      "occupied": 0,
+      "out_of_map": 0,
+      "inflated": 0
+    },
+    "current_start_voxel_index_xyz": [120, 119, 1],
+    "first_known_free_sample_time_s": 0.31,
+    "spline_endpoint_distance_to_requested_goal_m": 0.1429894038599997,
+    "snapshot_minus_spline_start_s": 0.139,
+    "depth_source_age_at_snapshot_s": 0.073,
+    "runtime_truth_topics": [],
+    "runtime_control_topics": [],
+    "trajectory_server_controller_px4": false
+  },
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "source_tree_sha256": "3e7eb802df8eca65daf3ddd83f8741341b548e2dc587ec914818cb047c48b926",
+    "source_manifest": "artifacts/runs/p2-ego-start-voxel-exception-planner-probe-20261021-341/source-manifest.json",
+    "source_manifest_sha256": "d700154067a952e7b09dac68aafc99a2122451afd88f08f119b035a49e2ac322",
+    "experimental_patch": "dependencies/patches/ego/0033-current-start-voxel-exception-experiment.patch",
+    "experimental_patch_sha256": "b33d3f32af9fb3314744e1db7854c6af389c2f8b05800a538ad89b54016742a7",
+    "ego_planner_binary_sha256": "71317092884d3f24940c5e09370581b7b6ff464ef0676a5a80d182106d5b974e",
+    "patch_order": "15 canonical patches, experimental 0029/0030/0031/0028/0032, then experimental 0033 in the #341 run-local source copy"
+  },
+  "analysis": {
+    "script": "artifacts/runs/p2-ego-start-voxel-exception-planner-probe-20261021-343/analyze_spline_snapshot.py",
+    "script_sha256": "1da3336e46557fb60cb2686572c0db77c56f61b3159c36514efec9e233d28910",
+    "report": "artifacts/runs/p2-ego-start-voxel-exception-planner-probe-20261021-343/spline-snapshot-analysis.json",
+    "report_sha256": "1a51cbb2acf50f904d7affa80f0028f77d882eb08c5c989bb068397f053690f1",
+    "checks_passed": 8
+  },
+  "run_manifest": "artifacts/runs/p2-ego-start-voxel-exception-planner-probe-20261021-343/run-manifest.json",
+  "run_manifest_sha256": "31a385ce38f17bd6fa7eac254bc08a3c3e5ea45f99975be5e4fee1ccfbb1e6cb",
+  "limitations": [
+    "Patch 0033 is experimental and run-local; only the initial contiguous portion of the current start unknown voxel is admitted. Unknown elsewhere remains blocked.",
+    "The occupancy snapshot uses the same epoch, map_id, and frame but was returned 139 ms after spline start, so it is near-time corroboration rather than byte-identical planner state.",
+    "The result covers the first local B-spline only. Its endpoint remains 14.3 cm from the requested target, and there is no trajectory server, controller, PX4, or execution evidence.",
+    "Centerline voxel checks do not establish the airframe swept volume, physical clearance, sensor-pitch safety, map coverage, or repeated-layout behavior.",
+    "No runtime truth or control topics were present. GOAL C remains pending."
+  ],
+  "next": "Measure the unknown voxel region around the current body and repeat a 3D planner-only goal in a second obstacle layout with a closer spline-time snapshot. Keep PX4 motion out until the footprint and full swept-volume contract is validated."
+}

@@ -1,0 +1,72 @@
+{
+  "schema": "p2-propagated-clock-offset-load-comparison/v1",
+  "date": "2026-10-20",
+  "run_ids": [
+    "p2-propagated-clock-offset-static-20261020-274",
+    "p2-propagated-clock-offset-full-stack-20261020-275"
+  ],
+  "status": "DIAGNOSTIC_NO_FUTURE_LOCK_REPRODUCED",
+  "qualification": "In two exploratory static-camera runs the localization adapter remained TRACKING; this does not disprove the single propagated_from_future lock in #273 or identify its cause. No health threshold was changed.",
+  "health_policy": {
+    "future_tolerance_s": 0.02,
+    "propagated_max_source_age_s": 0.12,
+    "propagated_max_receipt_age_s": 0.2,
+    "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+  },
+  "comparison": {
+    "low_load_274": {
+      "run_report": "artifacts/runs/p2-propagated-clock-offset-static-20261020-274/run-report.json",
+      "runtime": {
+        "probe": "artifacts/runs/p2-propagated-clock-offset-static-20261020-274/freshness.json",
+        "probe_sha256": "be535179d7631842937faa57bb6000ef3283b8fec1fbfc27b331d45457d371a6",
+        "wall_seconds": 35.042,
+        "clock_rate": 0.9652,
+        "clock_last_stamp_ns": 35579000000,
+        "localization_status_samples": 695,
+        "localization_valid_tracking_samples": 694,
+        "localization_adapter_propagated_count": 6633,
+        "raw_propagated_count": 6574,
+        "raw_propagated_source_age_ms": {
+          "min": -2.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "max": 2.0,
+          "below_minus_20ms": 0
+        }
+      }
+    },
+    "mapping_ego_load_275": {
+      "run_report": "artifacts/runs/p2-propagated-clock-offset-full-stack-20261020-275/run-report.json",
+      "runtime": {
+        "probe": "artifacts/runs/p2-propagated-clock-offset-full-stack-20261020-275/freshness.json",
+        "probe_sha256": "7e11cb6f9db11d65d4438a601b2d8d5aed06c61f08310d5f31690ba225fd143d",
+        "wall_seconds": 35.041,
+        "clock_rate": 0.7217,
+        "clock_last_stamp_ns": 28545000000,
+        "localization_status_samples": 695,
+        "localization_valid_tracking_samples": 695,
+        "localization_adapter_propagated_count": 4909,
+        "raw_propagated_count": 4891,
+        "raw_propagated_source_age_ms": {
+          "min": -297.0,
+          "median": 0.0,
+          "p95": 0.0,
+          "max": 11.0,
+          "below_minus_20ms": 3
+        }
+      }
+    }
+  },
+  "verified_findings": [
+    "Low-load #274: 694/695 status samples were valid TRACKING after one initial waiting_for_propagated sample. External raw propagated-odometry source-age-at-receipt was -2 to +2 ms; none exceeded the 20 ms future tolerance. RTF was 0.9652.",
+    "Mapping/EGO #275: 695/695 status samples were valid TRACKING, with no propagated_from_future latch. External probe clock estimates had three early samples below -20 ms and a minimum -297 ms while its receipt gaps reached 714.7 ms; adapter status remained valid and its last published propagated output age was 3 ms. Treat these probe-clock estimates as scheduling-sensitive, not adapter input ages.",
+    "Under #275 load the observed simulation clock rate was 0.7217. EGO logged repeated 1.0 s odom/depth timeouts while localization remained TRACKING; however, the launch used odometry_topic:=odom although the adapter publishes /localization/optimized_imu_odom. This is a topic-wiring defect in the diagnostic setup, not evidence about EGO freshness with the correct input.",
+    "#273 had one propagated_from_future lock 143 ms after its saved snapshot; #274/#275 did not reproduce it. A causal claim is not supported."
+  ],
+  "limitations": [
+    "Both runs used a static D435i and no truth, PX4, controller, or goal client; neither tested motion accuracy, map coverage, navigation, or flight.",
+    "The independent freshness probe receives /clock on its own executor; under #275 load its callback lagged. It cannot prove which exact clock value the localization adapter read for a given DDS message.",
+    "The comparison is unpaired and exploratory; no threshold adjustment or GOAL B/P2 acceptance follows from it.",
+    "The #275 EGO odometry remap was incorrect (odom vs /localization/optimized_imu_odom); its EGO timeout logs are excluded from planner-input conclusions."
+  ]
+}

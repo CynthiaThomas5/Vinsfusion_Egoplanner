@@ -1,0 +1,199 @@
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -4,6 +4,7 @@
+ #include <Eigen/Eigen>
+ #include <Eigen/StdVector>
+ #include <cv_bridge/cv_bridge.hpp>
++#include <cstdint>
+ #include <geometry_msgs/msg/pose_stamped.hpp>
+ #include <iostream>
+ #include <random>
+@@ -120,6 +121,8 @@
+   rclcpp::Time last_occ_update_time_;
+   bool flag_depth_odom_timeout_;
+   bool flag_use_depth_fusion;
++  bool has_fused_depth_ = false;
++  std::int64_t last_fused_depth_source_stamp_ns_ = 0;
+   unsigned long long depth_pose_callback_count_ = 0;
+   long long last_depth_pose_stamp_ns_ = 0;
+   double last_depth_pose_callback_now_s_ = -1.0;
+@@ -243,6 +246,9 @@
+ 
+   rclcpp::Node::SharedPtr node_;
+   rclcpp::ServiceBase::SharedPtr reset_map_service_;
++  rclcpp::ServiceBase::SharedPtr occupancy_snapshot_service_;
++  std::string active_epoch_;
++  std::string active_map_id_;
+   std::shared_ptr<message_filters::Subscriber<sensor_msgs::msg::Image>> depth_sub_;
+   std::shared_ptr<message_filters::Subscriber<geometry_msgs::msg::PoseStamped>> pose_sub_;
+   std::shared_ptr<message_filters::Subscriber<nav_msgs::msg::Odometry>> odom_sub_;
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -1,7 +1,10 @@
+ #include "plan_env/grid_map.h"
+ 
+ #include <algorithm>
++#include <cmath>
++#include <cstdint>
+ #include <uav_interfaces/srv/reset_mapping.hpp>
++#include <uav_interfaces/srv/get_occupancy_snapshot.hpp>
+ 
+ // #define current_img_ md_.depth_image_[image_cnt_ & 1]
+ // #define last_img_ md_.depth_image_[!(image_cnt_ & 1)]
+@@ -194,6 +197,120 @@
+              std::shared_ptr<uav_interfaces::srv::ResetMapping::Response> response) {
+         response->accepted = resetMap(request->epoch, request->map_id, response->reason);
+       });
++  occupancy_snapshot_service_ = node_->create_service<uav_interfaces::srv::GetOccupancySnapshot>(
++      "/mapping/get_occupancy_snapshot",
++      [this](const std::shared_ptr<uav_interfaces::srv::GetOccupancySnapshot::Request> request,
++             std::shared_ptr<uav_interfaces::srv::GetOccupancySnapshot::Response> response) {
++        const auto reject = [&response](const std::string &reason) {
++          response->accepted = false;
++          response->reason = reason;
++        };
++        if (active_epoch_.empty() || active_map_id_.empty())
++        {
++          reject("no_active_map");
++          return;
++        }
++        if (request->expected_epoch != active_epoch_)
++        {
++          reject("epoch_mismatch");
++          return;
++        }
++        if (request->expected_map_id != active_map_id_)
++        {
++          reject("map_id_mismatch");
++          return;
++        }
++        if (!md_.has_first_depth_ || !md_.has_fused_depth_ || md_.occ_need_update_)
++        {
++          reject("no_fresh_fused_depth");
++          return;
++        }
++        if (!md_.flag_use_depth_fusion || !md_.last_depth_pose_in_map_ ||
++            md_.flag_depth_odom_timeout_)
++        {
++          reject("depth_pose_gate_closed");
++          return;
++        }
++        const double update_age_s = (node_->now() - md_.last_occ_update_time_).seconds();
++        if (!std::isfinite(update_age_s) || update_age_s < 0.0 ||
++            update_age_s > mp_.odom_depth_timeout_)
++        {
++          reject("occupancy_update_stale");
++          return;
++        }
++        const double source_age_s = node_->now().seconds() -
++                                    static_cast<double>(md_.last_fused_depth_source_stamp_ns_) / 1e9;
++        if (md_.last_fused_depth_source_stamp_ns_ <= 0 || !std::isfinite(source_age_s) ||
++            source_age_s < 0.0 || source_age_s > mp_.odom_depth_timeout_)
++        {
++          reject("depth_source_stale");
++          return;
++        }
++
++        const auto make_stamp = [](std::int64_t stamp_ns) {
++          builtin_interfaces::msg::Time stamp;
++          std::int64_t sec = stamp_ns / 1000000000LL;
++          std::int64_t nanosec = stamp_ns % 1000000000LL;
++          if (nanosec < 0)
++          {
++            --sec;
++            nanosec += 1000000000LL;
++          }
++          stamp.sec = static_cast<std::int32_t>(sec);
++          stamp.nanosec = static_cast<std::uint32_t>(nanosec);
++          return stamp;
++        };
++        response->header.frame_id = mp_.frame_id_;
++        response->header.stamp = make_stamp(node_->now().nanoseconds());
++        response->epoch = active_epoch_;
++        response->map_id = active_map_id_;
++        response->last_depth_source_stamp = make_stamp(md_.last_fused_depth_source_stamp_ns_);
++        response->last_fusion_stamp = make_stamp(md_.last_occ_update_time_.nanoseconds());
++        response->origin.x = mp_.map_origin_(0);
++        response->origin.y = mp_.map_origin_(1);
++        response->origin.z = mp_.map_origin_(2);
++        response->map_size.x = mp_.map_size_(0);
++        response->map_size.y = mp_.map_size_(1);
++        response->map_size.z = mp_.map_size_(2);
++        response->resolution = mp_.resolution_;
++        response->size_x = static_cast<std::uint32_t>(mp_.map_voxel_num_(0));
++        response->size_y = static_cast<std::uint32_t>(mp_.map_voxel_num_(1));
++        response->size_z = static_cast<std::uint32_t>(mp_.map_voxel_num_(2));
++        response->data_order = "x_major_y_mid_z_fastest";
++
++        const std::size_t voxel_count = md_.occupancy_buffer_.size();
++        response->occupancy_data.resize(voxel_count);
++        response->inflated_data.resize(voxel_count);
++        response->unknown_voxel_count = 0;
++        response->free_voxel_count = 0;
++        response->occupied_voxel_count = 0;
++        response->inflated_voxel_count = 0;
++        for (std::size_t index = 0; index < voxel_count; ++index)
++        {
++          const double log_odds = md_.occupancy_buffer_[index];
++          if (log_odds < mp_.clamp_min_log_ - 1e-3)
++          {
++            response->occupancy_data[index] = -1;
++            ++response->unknown_voxel_count;
++          }
++          else if (log_odds >= mp_.min_occupancy_log_)
++          {
++            response->occupancy_data[index] = 100;
++            ++response->occupied_voxel_count;
++          }
++          else
++          {
++            response->occupancy_data[index] = 0;
++            ++response->free_voxel_count;
++          }
++          const bool inflated = md_.occupancy_buffer_inflate_[index] != 0;
++          response->inflated_data[index] = inflated ? 1 : 0;
++          if (inflated)
++            ++response->inflated_voxel_count;
++        }
++        response->accepted = true;
++        response->reason = "ok";
++      });
+ 
+   md_.occ_need_update_ = false;
+   md_.local_updated_ = false;
+@@ -209,6 +326,8 @@
+ 
+   md_.flag_depth_odom_timeout_ = false;
+   md_.flag_use_depth_fusion = false;
++  md_.has_fused_depth_ = false;
++  md_.last_fused_depth_source_stamp_ns_ = 0;
+ 
+   // rand_noise_ = uniform_real_distribution<double>(-0.2, 0.2);
+   // rand_noise2_ = normal_distribution<double>(0, 0.2);
+@@ -246,6 +365,8 @@
+   md_.local_updated_ = false;
+   md_.flag_depth_odom_timeout_ = false;
+   md_.flag_use_depth_fusion = false;
++  md_.has_fused_depth_ = false;
++  md_.last_fused_depth_source_stamp_ns_ = 0;
+   md_.depth_image_.release();
+   md_.last_depth_image_.release();
+   md_.camera_pos_.setZero();
+@@ -256,6 +377,8 @@
+   md_.last_depth_pose_stamp_ns_ = 0;
+   md_.last_depth_pose_callback_now_s_ = -1.0;
+   md_.last_depth_pose_in_map_ = false;
++  active_epoch_ = epoch;
++  active_map_id_ = map_id;
+   md_.update_num_ = 0;
+   md_.fuse_time_ = 0.0;
+   md_.max_fuse_time_ = 0.0;
+@@ -832,6 +955,8 @@
+ 
+   md_.occ_need_update_ = false;
+   md_.local_updated_ = false;
++  md_.has_fused_depth_ = true;
++  md_.last_fused_depth_source_stamp_ns_ = md_.last_depth_pose_stamp_ns_;
+ }
+ 
+ void GridMap::depthPoseCallback(const sensor_msgs::msg::Image::ConstPtr &img,

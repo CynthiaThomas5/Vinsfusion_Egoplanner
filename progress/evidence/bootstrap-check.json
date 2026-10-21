@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-16",
+  "status": "passed",
+  "scope": "structure_and_design_only",
+  "commands": [
+    "python3 tools/project_status.py",
+    "git check-ignore --stdin",
+    "git diff --cached --check"
+  ],
+  "structure_check_stdout": "Structure/design check: PASS\nROS packages, dependency builds and SITL: NOT VERIFIED\nNext: P0 source and dependency freeze; then P1 sensors and P2 VINS.",
+  "ignored_paths_checked": [
+    "artifacts/runs/example/log.txt",
+    "src/vendor/example/package.xml",
+    "external/PX4-Autopilot/README.md",
+    "config/local/paths.json",
+    "collaboration/dialogues/raw/example.txt",
+    "build/example.txt"
+  ],
+  "python_syntax": "passed_ast_parse",
+  "ros_build_verified": false,
+  "sitl_verified": false,
+  "dependencies_imported": false,
+  "limitation": "No runtime packages or launch files exist. P0-P6 are not passed.",
+  "tracked_file_count": 45,
+  "checker_sha256": "f3bc502c01c3c7890273a533114c103c8454afa5bae8cd26268352aa509f6604"
+}

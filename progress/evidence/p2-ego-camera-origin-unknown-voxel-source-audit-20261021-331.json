@@ -1,0 +1,115 @@
+{
+  "schema": "goal-c-ego-camera-origin-unknown-voxel-source-audit/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-camera-origin-unknown-voxel-source-audit-20261021-331",
+  "result": "source_supported_current_start_voxel_unknown",
+  "scope": "Read-only source audit paired with the exact-stamp #330 odometry and same-epoch occupancy snapshot.",
+  "source": {
+    "canonical_reconstruction_run": "p2-ego-dense-spline-canonical-full-spline-guard-20261021-328",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "source_tree_sha256": "09e1ccae79b08279ab55e6fbd1ee550ec4267dda955de51420f1aca392feaad4",
+    "files": {
+      "grid_map_cpp": {
+        "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/source/ego_planner/planner/plan_env/src/grid_map.cpp",
+        "sha256": "8d27ed781bfb124d70f28cb8c41ca3322dbd2d4d45fb9f03ab21ed2cb9fd76fc",
+        "references": ["124", "427-446", "656-665", "716-740"]
+      },
+      "raycast_cpp": {
+        "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/source/ego_planner/planner/plan_env/src/raycast.cpp",
+        "sha256": "d7cd0a81c3264fe8aa0920b796cf5dd86241b35aa74c15890af5a5c10f270a40",
+        "references": ["228-243", "277-289"]
+      },
+      "grid_map_header": {
+        "path": "artifacts/runs/p2-ego-dense-spline-canonical-full-spline-guard-20261021-328/source/ego_planner/planner/plan_env/include/plan_env/grid_map.h",
+        "sha256": "a70c35670eb536ba3232dc7b2215b35f9e3f82dbb6a1f4daf988b3cc5fddb80e",
+        "references": ["296-307", "420-429"]
+      },
+      "mapping_adapter": {
+        "path": "src/own/uav_mapping/uav_mapping/adapter.py",
+        "sha256": "253ccfe96bddf3a9834b56469e372e6d53bdcb5861a8d5de54f03108f734bf9f",
+        "references": ["458-469"]
+      },
+      "mapping_geometry_helper": {
+        "path": "src/own/uav_mapping/uav_mapping/mapping_input.py",
+        "sha256": "77282d7a518f15a875ded3278804c1fa249e03f4c810822f1cb9842e99cbf06b"
+      },
+      "d435i_model": {
+        "path": "simulation/models/d435i/model.sdf",
+        "sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819"
+      },
+      "ego_input_config": {
+        "path": "config/components/mapping/ego_input.json",
+        "sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba"
+      }
+    },
+    "experimental_patches_in_paired_binary": ["0029", "0030", "0031", "0028", "0032"],
+    "src_vendor_modified": false,
+    "canonical_sources_manifest_modified": false
+  },
+  "paired_run": {
+    "evidence_report": "progress/evidence/p2-ego-full-spline-guard-delayed-goal-20261021-330.json",
+    "goal_map_status_stamp_ns": 22012000000,
+    "snapshot_stamp_ns": 22108000000,
+    "snapshot_archive": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/snapshots-01/guard-first-reject-occupancy.npz",
+    "snapshot_sha256": "85b46fd3be2d1aa97c72024b3e0afb8ed8fcec6bb5e298b56bee550f2f46fb94",
+    "planner_result": "artifacts/runs/p2-ego-full-spline-guard-delayed-goal-20261021-330/planner-goal-result-01.json",
+    "planner_result_sha256": "e7f07404c9be01c28e3c196e52f6d8f0701f7701cd8fd6cc8d2804a711539303",
+    "goal_send_status": "ready",
+    "first_guard_sample": {
+      "spline_time_s": 0.0,
+      "xyz_m": [0.071759, 0.237569, 0.040489],
+      "in_map": true,
+      "unknown": true,
+      "raw_occupied": false,
+      "inflated": false
+    }
+  },
+  "geometry_check": {
+    "ego_odometry_stamp_ns": 22012000000,
+    "imu_position_m": [0.07137454923232357, 0.23737345882421365, 0.039866668057490645],
+    "imu_quaternion_xyzw": [5.086530435591163e-05, 0.00019792776922624824, 0.07747975483551764, 0.9969939046092243],
+    "sdf_imu_translation_m": [0.0, 0.0, 0.0],
+    "sdf_depth_translation_m": [0.0, 0.025, 0.0],
+    "body_to_optical_rotation_row_major": [0, 0, 1, -1, 0, 0, 0, -1, 0],
+    "derived_camera_position_m": [0.06751220757062498, 0.2620733030743811, 0.03986997044716233],
+    "camera_minus_imu_world_offset_m": [-0.00386234166169859, 0.02469984425016744, 3.3023896716874446e-06],
+    "voxel_grid": {
+      "origin_m": [-12.0, -12.0, -0.15],
+      "resolution_m": 0.1,
+      "index_formula": "floor((position - origin) / resolution)",
+      "index_xyz": [120, 122, 1],
+      "cell_bounds_m": {
+        "x": [0.0, 0.1],
+        "y": [0.2, 0.3],
+        "z": [-0.05, 0.05]
+      },
+      "imu_voxel_xyz": [120, 122, 1],
+      "camera_center_voxel_xyz": [120, 122, 1],
+      "planner_first_guard_voxel_xyz": [120, 122, 1],
+      "snapshot_occupancy": "unknown",
+      "snapshot_inflated_mask": 0
+    }
+  },
+  "self_geometry_overlap": {
+    "sdf_collision_geometry": "d435i_housing_collision",
+    "box_size_m": [0.025, 0.09, 0.025],
+    "box_center_frame": "d435i_link; the SDF IMU translation is [0,0,0] in this link",
+    "box_center_world_m": [0.07137454923232357, 0.23737345882421365, 0.039866668057490645],
+    "box_center_voxel_xyz": [120, 122, 1],
+    "interpretation": "The unknown cell contains the modeled D435i housing center, so writing the whole cell as ordinary free would also label a cell containing self geometry as free. This supports requiring an explicit self-filter/footprint semantic."
+  },
+  "source_mechanism": {
+    "map_initialization": "Unwritten occupancy cells initialize below the unknown threshold.",
+    "ray_start_and_end": "raycastProcess passes projected surface point as RayCaster start and camera position as end.",
+    "endpoint_behavior": "RayCaster::step assigns the current voxel to ray_pt, then returns false when it equals the end voxel. raycastProcess calls setCacheOccupancy(..., 0) only inside the while loop for successful steps.",
+    "effect": "Each depth ray skips the camera-endpoint voxel in its miss/free updates; absent another update path, the camera-origin voxel remains unknown. The paired #330 snapshot shows that this same voxel is unknown at the planner start sample."
+  },
+  "interpretation": "The exact-stamp odometry, SDF-derived D435i extrinsic, planner start sample, and #330 map snapshot all resolve to voxel [120,122,1]. The pinned EGO source leaves the ray endpoint voxel out of free-space updates, providing a strong source-supported explanation for the repeated t=0 unknown rejection in this run.",
+  "limitations": [
+    "This is a read-only source/runtime alignment audit, not an intervention; it does not prove sole causality or explain all 58 nonzero-time first-block samples in #330.",
+    "The occupancy snapshot is the online planner map, not independent ground truth. An unknown voxel is not demonstrated to be physically free.",
+    "No source patch, package build, new runtime, trajectory execution, vehicle sweep, controller, PX4, truth input, or flight validation was performed.",
+    "The D435i SDF collision box center lies in this cell. Clearing it as ordinary free would need an explicit self-filter/footprint contract and separate safety review."
+  ],
+  "next_step": "Define how the planner distinguishes its own occupied body footprint from unknown external space, including the D435i near-field blind region. Keep unknown fail-closed and validate any candidate only in an isolated planner-only run with same-epoch snapshots and full-curve checks."
+}

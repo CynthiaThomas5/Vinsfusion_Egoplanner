@@ -1,0 +1,342 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224",
+  "classification": "MAPPING_BOUNDARY_CAPTURED; EGO_INTERNAL_DEPTH_TIMEOUT_WARNINGS; ACCEL_BIAS_GATE_ABORT; LANDED; P5_NOT_PASSED",
+  "scope": "Run-local no-truth single-D435i VIO/EGO/PX4 SITL diagnostic using the #192 horizontal target and a read-only mapping-boundary observer.",
+  "setup": {
+    "base_run": "p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-221",
+    "ros_domain_id": 231,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_imu_horizontal_224",
+    "filter_threshold": 0.01,
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567",
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.5235987755982988,
+    "health_thresholds_changed": false,
+    "px4_parameters_changed": false,
+    "truth_input_started": false,
+    "px4_bridge_debug_truth_subscription": false,
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "run_local_colcon_build": "6 packages finished",
+    "mapping_observer_topics": [
+      "/sensors/d435i/depth",
+      "/mapping/depth_health",
+      "/drone_0_depth_image",
+      "/drone_0_camera_pose",
+      "/mapping/status",
+      "/grid_map/occupancy",
+      "/drone_0_cloud"
+    ]
+  },
+  "run": {
+    "preconditions_ready": true,
+    "localization_tracking_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "action_goal_sent": true,
+    "action_success": false,
+    "failure": "navigation_action_not_successful:localization_accel_bias_norm_exceeded",
+    "action_result": {
+      "final_position": [
+        0.11837586052245683,
+        0.07948383158920846,
+        0.8896819513193809
+      ],
+      "outcome": "aborted",
+      "reason": "localization_accel_bias_norm_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "goal": {
+      "frame": "odom_21d1a846df0d404bacb551e3397e151a",
+      "position_tolerance_m": 0.25,
+      "target_enu": [
+        0.2930885726525888,
+        0.0026361037673308095,
+        0.8858663918535072
+      ],
+      "timeout_s": 25.0,
+      "yaw_enu": 0.5224995397053603,
+      "yaw_offset_rad": 0.5235987755982988,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "goal_sent_wall_elapsed_s": 21.38732484400316,
+    "first_localization_invalid": {
+      "accepted_optimized": 317,
+      "accepted_propagated": 4186,
+      "epoch": "21d1a846df0d404bacb551e3397e151a",
+      "good_pairs": 326,
+      "normalized_cost": 0.5559071420326249,
+      "reason": "accel_bias_norm_exceeded",
+      "source_stamp_ns": 29492000000,
+      "stamp_ns": 29512000000,
+      "state": 4,
+      "valid": false,
+      "wall_elapsed_s": 25.50473654400048
+    },
+    "first_vins_accel_bias_over_0_15": {
+      "accel_bias_norm": 0.15085282963105562,
+      "continued_tracks": 37,
+      "cost_components": null,
+      "final_cost": 258.9694449716943,
+      "gyro_bias_norm": 0.0003770653181850059,
+      "initialized": true,
+      "input_features": 42,
+      "iterations": 9,
+      "long_tracks": 26,
+      "normalized_cost": 0.5559071420326249,
+      "residual_components": 1676,
+      "solve_current": true,
+      "solve_seconds": 0.013437986373901367,
+      "solver_usable": true,
+      "stamp_ns": 29440000000,
+      "state_finite": true,
+      "stereo_features": 42,
+      "visual_feature_residuals": null,
+      "visual_observations": 380,
+      "wall_elapsed_s": 25.46189277400117
+    },
+    "landed_and_disarmed": true,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "accel_bias_norm_exceeded"
+    }
+  },
+  "observations": {
+    "raw_vins_odometry": {
+      "topic": "/vins_raw/s_21d1a846df0d404bacb551e3397e151a/odometry",
+      "sample_count": 978,
+      "first_stamp_ns": 11884000000,
+      "last_stamp_ns": 76364000000,
+      "source_rate_hz": 15.15198511166253,
+      "positive_stamp_gap_s": {
+        "median": 0.064000001,
+        "p95": 0.068000001,
+        "max": 0.068000001
+      },
+      "nonpositive_stamp_gap_count": 0,
+      "all_numeric_samples_finite": true
+    },
+    "mapping_boundary": {
+      "raw_depth": {
+        "sample_count": 1734,
+        "first_stamp_ns": 13864000000,
+        "last_stamp_ns": 76364000000,
+        "source_gap_s": {
+          "median": 0.032,
+          "p95": 0.064,
+          "max": 0.132
+        },
+        "nonpositive_stamp_gap_count": 0
+      },
+      "depth_health": {
+        "sample_count": 3827,
+        "first_stamp_ns": 13928000000,
+        "last_stamp_ns": 76396000000,
+        "source_gap_s": {
+          "median": 0.024,
+          "p95": 0.036,
+          "max": 0.04
+        },
+        "nonpositive_stamp_gap_count": 1083
+      },
+      "ego_depth": {
+        "sample_count": 309,
+        "first_stamp_ns": 13864000000,
+        "last_stamp_ns": 29340000000,
+        "source_gap_s": {
+          "median": 0.036,
+          "p95": 0.1,
+          "max": 0.132
+        },
+        "nonpositive_stamp_gap_count": 0
+      },
+      "ego_camera_pose": {
+        "sample_count": 431,
+        "first_stamp_ns": 13828000000,
+        "last_stamp_ns": 29340000000,
+        "source_gap_s": {
+          "median": 0.032,
+          "p95": 0.068,
+          "max": 0.1
+        },
+        "nonpositive_stamp_gap_count": 0
+      },
+      "mapping_status": {
+        "sample_count": 441,
+        "first_stamp_ns": 13996000000,
+        "last_stamp_ns": 76332000000,
+        "source_gap_s": {
+          "median": 0.144,
+          "p95": 0.168,
+          "max": 0.172
+        },
+        "nonpositive_stamp_gap_count": 0
+      },
+      "mapping_occupancy": {
+        "sample_count": 925,
+        "first_stamp_ns": 13864000000,
+        "last_stamp_ns": 76364000000,
+        "source_gap_s": {
+          "median": 0.068,
+          "p95": 0.076,
+          "max": 0.084
+        },
+        "nonpositive_stamp_gap_count": 1
+      },
+      "ego_cloud": {
+        "sample_count": 0,
+        "first_stamp_ns": null,
+        "last_stamp_ns": null,
+        "source_gap_s": {
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "nonpositive_stamp_gap_count": 0
+      }
+    },
+    "depth_health_state_counts": {
+      "1:True:fresh_structurally_valid_depth": 3827
+    },
+    "last_mapping_status_ready": {
+      "stamp_ns": 29448000000,
+      "input_ready": true,
+      "reason": "ready",
+      "last_depth_source_stamp_ns": 29340000000,
+      "last_occupancy_stamp_ns": 29440000000,
+      "occupied_point_count": 1654,
+      "forwarded_depth_count": 559
+    },
+    "first_mapping_status_not_ready": {
+      "stamp_ns": 29572000000,
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "last_depth_source_stamp_ns": 0,
+      "last_occupancy_stamp_ns": 29524000000,
+      "occupied_point_count": 0,
+      "forwarded_depth_count": 559
+    },
+    "ego_timeout_warning_groups": [
+      {
+        "last_occ_update_time_sim_s": 16.852,
+        "first_warning_now_sim_s": 17.26,
+        "last_warning_now_sim_s": 17.48,
+        "depth_pose_sync_count": 208,
+        "last_sync_stamp_sim_s": 16.768,
+        "sample_count": 8
+      },
+      {
+        "last_occ_update_time_sim_s": 17.812,
+        "first_warning_now_sim_s": 18.248,
+        "last_warning_now_sim_s": 19.372,
+        "depth_pose_sync_count": 235,
+        "last_sync_stamp_sim_s": 17.756,
+        "sample_count": 39
+      }
+    ],
+    "px4_ulog": {
+      "duration_sim_s": 30.056,
+      "dropouts": 0,
+      "ev_position_flags": {
+        "true": 25,
+        "samples": 41
+      },
+      "gnss_position_flags": {
+        "true": 0,
+        "samples": 41
+      },
+      "vehicle_status_transitions": [
+        {
+          "sim_time_s": 6.24,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 4,
+          "nav_state_name": "AUTO_LOITER",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 17.844,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 17.928,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 29.556,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 18,
+          "nav_state_name": "AUTO_LAND",
+          "failsafe": false
+        },
+        {
+          "sim_time_s": 33.996,
+          "arming_state": 2,
+          "arming_state_name": "ARMED",
+          "nav_state": 12,
+          "nav_state_name": "DESCEND",
+          "failsafe": true
+        },
+        {
+          "sim_time_s": 35.34,
+          "arming_state": 1,
+          "arming_state_name": "DISARMED",
+          "nav_state": 14,
+          "nav_state_name": "OFFBOARD",
+          "failsafe": false
+        }
+      ]
+    }
+  },
+  "interpretation": "Raw D435i depth, depth-health READY messages, MappingInputAdapter forwarded-depth/status, EGO depth/pose observer samples, and mapping occupancy timestamps continued during EGO odometry/depth timeout warnings. During those warnings the EGO internal depth/pose synchronization counter remained at its prior source stamp while independent input/status streams advanced. This supports an EGO internal message-filter/callback-delivery or scheduling boundary rather than a raw camera or mapping-adapter source gap. The cause is not proven; the external observer adds ROS subscriptions and may perturb scheduling, and the active run used an EGO build without patch 0015 receipt/lost-event counters. The navigation action was later fail-closed by the unchanged accel-bias gate when telemetry reached 0.150853 m/s²; the vehicle landed and disarmed.",
+  "limitations": [
+    "Navigation action did not succeed and the run is not P5 acceptance.",
+    "Read-only image/point-cloud subscriptions deserialize messages and can add scheduling load; trace observations may be perturbed.",
+    "The active EGO binary exposed patch-0013 sync counters but not patch-0015 existing message-filter receipt/lost-event counters, so message-filter delivery versus callback/executor scheduling remains unresolved.",
+    "No obstacle-clearance, map-completeness, or truth-based accuracy claim is made."
+  ],
+  "files_sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/source-patch-manifest.json": "1bf09e2c4e5e74fc3e517e30d87ec70f23617f41cecbca9c5af83d5965bc8812",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/colcon-build.log": "219b261603557ff2bc2ecc3ef2c2308a7437c5137ff101c29bbe1a2325749d26",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/package-prefixes.txt": "5448edeb1aee1fa6e8470cac45f07e464b6af0090ea45e41a47995d0617b4038",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/vins-odom-topic-info.txt": "69475d97759f5ae0efde2dcd4967c351527dd82e234d1a92480db2ba75c08ffd",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/vins-odom-trace.json": "5ad5671aebac5b0256f87576fa8db9ac2323f2157fc5b40972808ae2d4ae5079",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/vins-odom-capture.log": "36d92fe6f6591ee4aab6c77d7d86641a48fb25e7f6c59c01d3a62e05e91b8e7a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/mapping-boundary-trace.json": "b70eaa338c1a81df01fce8b38763e1d1588c668380a26e2b7c26075f537f7847",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/mapping-boundary-capture.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/topic-info_sensors_d435i_depth.txt": "d6764eee1bdf68ae88b663cbe61ca3847e5771f5190e30bd77d1cad1c7667c84",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/topic-info_mapping_depth_health.txt": "a3cc78f701f9ad84445660fc0f022c21d0cb2af799ea8978b42c03952c8952f0",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/topic-info_drone_0_depth_image.txt": "7261f34e688600faba7de18c8c8a441875238db3b5659fdbb1ca94c58ffcd1f3",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/topic-info_drone_0_camera_pose.txt": "49a0c0e8eeb8077f0a0b0445d041219f226f22938662b8afefd54120b72c4a38",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/topic-info_mapping_status.txt": "4b18c79c13869f2bd7bf3807c3b8c5360eab9c5f727c2573a956ed7bbc826725",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/topic-info_grid_map_occupancy.txt": "aa9082ae3edeaa53fa8e64c087cd6d565d0208ad9510636a9ee97b9154253636",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/topic-info_drone_0_cloud.txt": "1833b4b177638453a953b7a519e4ce0adf889a6c201f3ecee8404d481130d383",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/imu-topic-info.txt": "aaeb78fb8be06bb581c9179d6ec0ceead3324109fbff26850fba742a20bbc690",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/imu-trace.json": "b499b1fe3f661722847d1e25dfe303ad22283858107c014ad7f70320f3877ad4",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/imu-capture.log": "7be9005b3d1358e2d1cead8d97265d61768ce1e09743e89f5195dc173b6dfe6c",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/vio-ego-flight-report.json": "c3161041b3ba6c193c4a9e26da1a63f3cbf1d62bd34ecae02f3ad2c7c9cdb96a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/vio-ego-flight-exit-code.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/truth-and-control-isolation.txt": "609ba93b71e5bb7e00e07e2312877f7b65837b2aeb91e6959d7bcb899b082b76",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/px4-bridge-live.json": "b6c2942d9065b6c68aa63d7775f7bea1612637c4cea8ff09cf3334c0859305f9",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/landing-failsafe-timeline.json": "aeda43e3d950cb5c4cd7b64305e6b004e38eb97bbabd725537c96c4a9cee328b",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/vio-launch.log": "c6754ee8f8b1774f96f2a5ea2f16be7bba95c5819d3a6729290db5ca2c1e881e",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/px4.log": "6bbe03bdc725236c6684eedb0bb842a4acba0511226cbe1fb973b0aee527b86a",
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-imu-horizontal-20261020-224/analyze_px4_ulog.py": "dba7a4c2c0a043bf71580d6371ebc10faf78cdc99d12b6e0c137dea8ce6e1bff"
+  }
+}

@@ -1,0 +1,27 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -206,10 +206,12 @@
+       else
+       {
+-        while (exec_state_ != EXEC_TRAJ)
++        while (rclcpp::ok() && exec_state_ != EXEC_TRAJ)
+         {
+           rclcpp::spin_some(node_);
+           std::this_thread::sleep_for(std::chrono::milliseconds(1));
+         }
++        if (!rclcpp::ok())
++          return;
+         changeFSMExecState(REPLAN_TRAJ, "TRIG");
+       }
+ 
+--- a/planner/plan_manage/src/ego_planner_node.cpp
++++ b/planner/plan_manage/src/ego_planner_node.cpp
+@@ -15,7 +15,8 @@
+   rebo_replan.init(node);
+ 
+-  rclcpp::spin(node);
++  if (rclcpp::ok())
++    rclcpp::spin(node);
+   rclcpp::shutdown();
+ 
+   return 0;

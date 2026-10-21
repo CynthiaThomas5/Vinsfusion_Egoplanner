@@ -1,0 +1,171 @@
+{
+  "schema": "ego-live-navigation-check/v1",
+  "date": "2026-10-21",
+  "result": "PLANNER_OUTPUT_OBSERVED_NAVIGATION_ABORTED",
+  "scope": "Existing ego room, canonical thresholds, no-control 0.8 m forward navigation action. Not flight or obstacle-clearance acceptance.",
+  "container": "d435i-ego-room-mapping-20261021-01",
+  "epoch": "5b0d931e56b44d24ac3508a23601b19a",
+  "goal_id": "436f3e8f2fb64198a3104fa222a7e831",
+  "requested_goal": {
+    "target": {
+      "header": {
+        "stamp": {
+          "sec": 166,
+          "nanosec": 487999999
+        },
+        "frame_id": "odom_5b0d931e56b44d24ac3508a23601b19a"
+      },
+      "pose": {
+        "position": {
+          "x": 0.807383251030493,
+          "y": 0.005957346319372248,
+          "z": -0.0032007049654433116
+        },
+        "orientation": {
+          "x": -0.00020520101418037832,
+          "y": -0.0011123523385707938,
+          "z": -0.0011752121112899646,
+          "w": 0.9999986697197712
+        }
+      }
+    },
+    "position_tolerance_m": 0.15,
+    "yaw_tolerance_rad": 0.35,
+    "dwell_s": 0.4,
+    "timeout_s": 12.0
+  },
+  "before_localization": {
+    "header": {
+      "stamp": {
+        "sec": 166,
+        "nanosec": 552000000
+      },
+      "frame_id": "odom_5b0d931e56b44d24ac3508a23601b19a"
+    },
+    "epoch": "5b0d931e56b44d24ac3508a23601b19a",
+    "state": 1,
+    "valid": true,
+    "reason": "fresh_inputs_and_usable_solver",
+    "source_stamp": {
+      "sec": 166,
+      "nanosec": 551999999
+    },
+    "body_frame": "d435i_imu_5b0d931e56b44d24ac3508a23601b19a",
+    "covariance_valid": false,
+    "normalized_cost": 0.572204710496296,
+    "good_pairs": 409,
+    "accepted_optimized": 400,
+    "accepted_propagated": 5280
+  },
+  "before_map": {
+    "header": {
+      "stamp": {
+        "sec": 166,
+        "nanosec": 520000000
+      },
+      "frame_id": "odom_5b0d931e56b44d24ac3508a23601b19a"
+    },
+    "epoch": "5b0d931e56b44d24ac3508a23601b19a",
+    "map_id": "5b0d931e56b44d24ac3508a23601b19a-17a96c0103ee4ba7b2a2eae5d7e5267b",
+    "reset_acknowledged": true,
+    "input_ready": true,
+    "reason": "ready",
+    "last_depth_source_stamp": {
+      "sec": 166,
+      "nanosec": 388000000
+    },
+    "last_occupancy_stamp": {
+      "sec": 166,
+      "nanosec": 520000000
+    },
+    "occupancy_cloud_received": true,
+    "occupied_point_count": 525,
+    "forwarded_depth_count": 565,
+    "calibration_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "keyframe_count": 25,
+    "keyframe_dropped_count": 60,
+    "keyframe_max_rgbd_stamp_delta_s": 0.02
+  },
+  "before_bridge": {
+    "header": {
+      "stamp": {
+        "sec": 166,
+        "nanosec": 520000000
+      },
+      "frame_id": ""
+    },
+    "epoch": "5b0d931e56b44d24ac3508a23601b19a",
+    "phase": "DISABLED",
+    "reason": "external_odometry_stale",
+    "ready": false,
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "local_position_valid": true,
+    "ev_position_fused": true,
+    "ev_yaw_fused": true,
+    "gnss_aiding_active": false,
+    "frame_offset_ned": [
+      8.668081892249842e-05,
+      -0.00015043418919714706,
+      0.0020041930342563886
+    ],
+    "frame_yaw_offset_ned": 0.0040812842099269275,
+    "alignment_drift_m": 0.0022692110683447007,
+    "last_command": 0,
+    "last_command_result": 255
+  },
+  "action_accepted": true,
+  "matched_bspline_count": 1,
+  "matched_bspline_control_point_count": 9,
+  "matching_ready_command_count": 19,
+  "action_result": {
+    "status": 6,
+    "result": {
+      "success": false,
+      "outcome": "aborted",
+      "reason": "pose_stale",
+      "final_pose": {
+        "header": {
+          "stamp": {
+            "sec": 166,
+            "nanosec": 588000000
+          },
+          "frame_id": "odom_5b0d931e56b44d24ac3508a23601b19a"
+        },
+        "pose": {
+          "position": {
+            "x": 0.007383251030492954,
+            "y": 0.005957346319372248,
+            "z": -0.0032007049654433116
+          },
+          "orientation": {
+            "x": -0.00020520101418037832,
+            "y": -0.0011123523385707938,
+            "z": -0.0011752121112899646,
+            "w": 0.9999986697197712
+          }
+        }
+      }
+    }
+  },
+  "all_observed_bridge_samples_disabled_unarmed": true,
+  "observed_bridge_samples": 118,
+  "guard_wall_seconds": 0.3,
+  "diagnosis": "Navigation abort reason pose_stale; optimized odometry callback log gaps exceed 0.3 wall seconds. Bridge external_odometry_stale blocks flight readiness. Root scheduling/RTF cause not isolated by this test.",
+  "qualifications": [
+    "A spline and READY samples prove planner output only. No trajectory clearance, endpoint reach, obstacle avoidance or flight validation.",
+    "Vehicle remains on ground; target +0.8 m in odom X with unchanged height is an interface/planner test, not an approved flyable route.",
+    "No Offboard enable request or direct PX4 control publication. Navigation canceled automatically; simulation left running.",
+    "First harness attempt used integer timeout for float64 field and failed conversion before action dispatch; corrected to 12.0. That failure is not a product failure."
+  ],
+  "sha256": {
+    "artifacts/runs/ego-navigation-check-20261021-01/probe.py": "eebfb6ece0088dcbda44c7745f39414d3a2a33b62cae436a2003b0cf8ad22b18",
+    "artifacts/runs/ego-navigation-check-20261021-01/report.json": "685e47f43c88c6e289594c3cff130ea3e6e9801ed52432c84e485e0d2a60eee7",
+    "artifacts/runs/ego-navigation-check-20261021-01/probe.log": "f8abd852905a87451ce6697861299a5418c549745e9c5bf40bc35a9ed8cc496d",
+    "artifacts/runs/ego-navigation-check-20261021-01/navigation-log-excerpt.txt": "240557e20846d3ee343ec3a82c444093106ae535e6a4e9324aea4e5a91101357",
+    "config/components/navigation/task_supervisor.json": "85d8b254ec0e2dee0c955437fd5210b6ebc5fbdbca7f949841d00019cebdc4f7",
+    "config/components/px4_bridge/debug_truth.json": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf"
+  }
+}

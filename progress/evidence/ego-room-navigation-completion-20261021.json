@@ -1,0 +1,730 @@
+{
+  "schema": "room-navigation-completion/v1",
+  "date": "2026-10-21",
+  "status": "CONTINUED_IN051_CURRENT_ROOM_3_OF_3_PASS",
+  "objective": "Reach opposite-room target from world x=-8 toward x=+8 with VINS/EGO/PX4; keep existing health gates",
+  "runs": {
+    "8": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-08",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.5760123474416662,
+        "max_stable_wall_s": 38.74803117799979,
+        "max_optimized_odom_receipt_gap_wall_s": 0.16247292899993226
+      },
+      "preflight.json_sha256": "a03812aa0d92d3eb02ffb4fe546b6fef5f963e2ecfb7c30ec40fdd3006509447",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "localization_or_px4_freshness_not_stable_before_enable",
+        "takeoff_active_observed": null,
+        "action_goal_sent": false,
+        "goal": null,
+        "action_result": null,
+        "landed_and_disarmed": null,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "DISABLED",
+          "ready": false,
+          "reason": "localization_not_tracking"
+        },
+        "latest_localization_status": {
+          "accepted_optimized": 394,
+          "accepted_propagated": 5183,
+          "epoch": "f481c2bdc5ef46c7aa140cce3a3272e5",
+          "reason": "propagated_from_future",
+          "state": 4,
+          "valid": false
+        },
+        "matching_ready_trajectory_samples": 0,
+        "publisher_counts": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1,
+          "/navigation/ego_goal": 1,
+          "/navigation/trajectory_cancel": 1,
+          "/position_cmd": 1
+        },
+        "diagnostic_scope": null
+      },
+      "flight.json_sha256": "bd20c200a8f319446f087bc4b5050b8ee73e5455b83b449afdb2e80e4acb0866"
+    },
+    "9": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-09",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.6008423478188115,
+        "max_stable_wall_s": 34.084822580000036,
+        "max_optimized_odom_receipt_gap_wall_s": 0.14865578499984622
+      },
+      "preflight.json_sha256": "ce16cf1e1bbfe85d00a682c87e5aee588b7b9d3a7ab91368eeeab4259eb66797",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "navigation_action_not_successful:caller_cancel",
+        "takeoff_active_observed": true,
+        "action_goal_sent": true,
+        "goal": {
+          "frame": "odom_b759c6b6cf064d02bc59da1a35ead31c",
+          "position_tolerance_m": 0.25,
+          "target_enu": [
+            15.975710044910967,
+            0.01962161606217188,
+            0.9014216740274739
+          ],
+          "timeout_s": 120.0,
+          "yaw_enu": -0.001306820038780357,
+          "yaw_offset_rad": 0.0,
+          "yaw_tolerance_rad": 0.35
+        },
+        "action_result": {
+          "final_position": [
+            0.8423593445319504,
+            0.0732085845517279,
+            0.9759632168851717
+          ],
+          "outcome": "canceled",
+          "reason": "caller_cancel",
+          "status": 5,
+          "success": false
+        },
+        "landed_and_disarmed": true,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "accel_bias_norm_exceeded"
+        },
+        "latest_localization_status": {
+          "accepted_optimized": 1287,
+          "accepted_propagated": 16989,
+          "epoch": "b759c6b6cf064d02bc59da1a35ead31c",
+          "reason": "accel_bias_norm_exceeded",
+          "state": 4,
+          "valid": false
+        },
+        "matching_ready_trajectory_samples": 7268,
+        "publisher_counts": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1,
+          "/navigation/ego_goal": 1,
+          "/navigation/trajectory_cancel": 1,
+          "/position_cmd": 1
+        },
+        "diagnostic_scope": null
+      },
+      "flight.json_sha256": "ef72d9e83816632fcdb296aa8993cc56c2223d38ef44a7580455b58292940e41"
+    },
+    "10": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-10",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.5994280778238076,
+        "max_stable_wall_s": 37.147780625999985,
+        "max_optimized_odom_receipt_gap_wall_s": 0.14754770100034875
+      },
+      "preflight.json_sha256": "5937a029987c91bc7507f7d16a5d18ed5e0fe14e60d800d55fe994647aee4a0d",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "navigation_action_not_successful:pose_stale",
+        "takeoff_active_observed": true,
+        "action_goal_sent": true,
+        "goal": {
+          "frame": "odom_ed0ec37ef15e4b4daf8c18a2fabe2bcf",
+          "position_tolerance_m": 0.25,
+          "target_enu": [
+            15.97901239503498,
+            0.019215894973389807,
+            0.896935807816448
+          ],
+          "timeout_s": 120.0,
+          "yaw_enu": -0.0018532604304538724,
+          "yaw_offset_rad": 0.0,
+          "yaw_tolerance_rad": 0.35
+        },
+        "action_result": {
+          "final_position": [
+            13.660952883617739,
+            -0.04470734224684228,
+            0.9030768725049626
+          ],
+          "outcome": "aborted",
+          "reason": "pose_stale",
+          "status": 6,
+          "success": false
+        },
+        "landed_and_disarmed": true,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "telemetry_stale"
+        },
+        "latest_localization_status": {
+          "accepted_optimized": 1167,
+          "accepted_propagated": 15439,
+          "epoch": "ed0ec37ef15e4b4daf8c18a2fabe2bcf",
+          "reason": "telemetry_stale",
+          "state": 4,
+          "valid": false
+        },
+        "matching_ready_trajectory_samples": 6398,
+        "publisher_counts": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1,
+          "/navigation/ego_goal": 1,
+          "/navigation/trajectory_cancel": 1,
+          "/position_cmd": 1
+        },
+        "diagnostic_scope": null
+      },
+      "flight.json_sha256": "10786dfc53e09961dfb5954979da0184337c7901f6fd60547cc1f7420ddf2bd6"
+    },
+    "11": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-11",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.5980073755069523,
+        "max_stable_wall_s": 37.09016775500004,
+        "max_optimized_odom_receipt_gap_wall_s": 0.15277582599992456
+      },
+      "preflight.json_sha256": "67db15b70d36b810e5579991c0dc2b81276fc3728a6885f52761f117667e96f7",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "bridge_did_not_reach_active_after_takeoff",
+        "takeoff_active_observed": false,
+        "action_goal_sent": false,
+        "goal": null,
+        "action_result": null,
+        "landed_and_disarmed": null,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "px4_frame_alignment_drift"
+        },
+        "latest_localization_status": {
+          "accepted_optimized": 719,
+          "accepted_propagated": 9473,
+          "epoch": "561ddcdb34fe4cccad5f06d0647ea114",
+          "reason": "fresh_inputs_and_usable_solver",
+          "state": 1,
+          "valid": true
+        },
+        "matching_ready_trajectory_samples": 0,
+        "publisher_counts": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1,
+          "/navigation/ego_goal": 1,
+          "/navigation/trajectory_cancel": 1,
+          "/position_cmd": 1
+        },
+        "diagnostic_scope": null
+      },
+      "flight.json_sha256": "51d57b6f57a05bcb80eb69ac00aeb4482c937c087203f13bd077840ab6e17ed1"
+    },
+    "12": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-12",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.5821374398065647,
+        "max_stable_wall_s": 36.96122574899982,
+        "max_optimized_odom_receipt_gap_wall_s": 0.1529283419999956
+      },
+      "preflight.json_sha256": "932282745fe77dcc9d726a9c773d26a150beb43d43d3d558ccff46e00b2ad27a",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "localization_lost_during_takeoff",
+        "takeoff_active_observed": false,
+        "action_goal_sent": false,
+        "goal": null,
+        "action_result": null,
+        "landed_and_disarmed": true,
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        },
+        "latest_localization_status": {
+          "accepted_optimized": 613,
+          "accepted_propagated": 8092,
+          "epoch": "afb61c9f6e5a4fd0982b5ef3fb97fdc2",
+          "reason": "normalized_cost_exceeded",
+          "state": 4,
+          "valid": false
+        },
+        "matching_ready_trajectory_samples": 0,
+        "publisher_counts": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1,
+          "/navigation/ego_goal": 1,
+          "/navigation/trajectory_cancel": 1,
+          "/position_cmd": 1
+        },
+        "diagnostic_scope": null
+      },
+      "flight.json_sha256": "d5941c8ffb32258305b4d065140747f20162b2c621ca001bd032a552c59b2497"
+    },
+    "13": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-13",
+      "state": "RUNNING",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.5937481791694308,
+        "max_stable_wall_s": 36.93589471600035,
+        "max_optimized_odom_receipt_gap_wall_s": 0.15310728299982657
+      },
+      "preflight.json_sha256": "b99a0edb5caaed1b361b95731eb39efb0d1845059b426942b29b342ab14294f0"
+    },
+    "14": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-14",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": false,
+        "rtf": 0.756353757015854,
+        "max_stable_wall_s": 0.0,
+        "max_optimized_odom_receipt_gap_wall_s": null
+      },
+      "preflight.json_sha256": "1cf199e6c8791a76b23bdb273ed2ec2af9c6ffcc5a6ea7e2e4faa9f8da18ebe9"
+    },
+    "15": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-15",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.6001111495426062,
+        "max_stable_wall_s": 37.133321128999796,
+        "max_optimized_odom_receipt_gap_wall_s": 0.15126247299986062
+      },
+      "preflight.json_sha256": "aad4657e99302eefae3ab1f07feed9a71933e92e7c9cc4137f995de9d4979e94",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+        "action_goal_sent": true,
+        "action_success": false,
+        "action_result": {
+          "final_position": [
+            2.2063236849713372,
+            0.6753389248063507,
+            0.9363849569638792
+          ],
+          "outcome": "aborted",
+          "reason": "localization_normalized_cost_exceeded",
+          "status": 6,
+          "success": false
+        },
+        "landed_and_disarmed": true,
+        "latest_localization_status": {
+          "accepted_optimized": 750,
+          "accepted_propagated": 9901,
+          "epoch": "4480ecc985ee403b84cefc52bf37505d",
+          "reason": "normalized_cost_exceeded",
+          "state": 4,
+          "valid": false
+        },
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        }
+      },
+      "flight.json_sha256": "d03ed51886c24c0efae7359ed88082dee5d10d1b426592de5b89f9d792b75f56"
+    },
+    "16": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-16",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.6204240114668859,
+        "max_stable_wall_s": 38.86060095199991,
+        "max_optimized_odom_receipt_gap_wall_s": 0.15590399700022317
+      },
+      "preflight.json_sha256": "9216ab070d61d175bceff95a074f1a394c79cb6b6962c417fc8af43859108caf",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+        "action_goal_sent": true,
+        "action_success": false,
+        "action_result": {
+          "final_position": [
+            15.1933748288995,
+            0.039663562743815134,
+            0.8593133073975048
+          ],
+          "outcome": "aborted",
+          "reason": "localization_normalized_cost_exceeded",
+          "status": 6,
+          "success": false
+        },
+        "landed_and_disarmed": true,
+        "latest_localization_status": {
+          "accepted_optimized": 1356,
+          "accepted_propagated": 17905,
+          "epoch": "a63048516daf44d48e946c106de08f1f",
+          "reason": "normalized_cost_exceeded",
+          "state": 4,
+          "valid": false
+        },
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        }
+      },
+      "flight.json_sha256": "fd4f622b30706b314e5d25fbb5446dbec6c3ece02bf07cae1ddc9c9c11cabce3"
+    },
+    "17": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-17",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.6318430363464184,
+        "max_stable_wall_s": 36.45769723000012,
+        "max_optimized_odom_receipt_gap_wall_s": 0.154900477999945
+      },
+      "preflight.json_sha256": "0b1e9199cc51d2b3f7ba344ef6af94796dbacfe7e4da1f1feb1b7b5fbd31a3cb",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "vio_bridge_map_preconditions_not_ready",
+        "action_goal_sent": false,
+        "action_success": false,
+        "action_result": null,
+        "landed_and_disarmed": null,
+        "latest_localization_status": {
+          "accepted_optimized": 375,
+          "accepted_propagated": 4941,
+          "epoch": "c2c83d77c3f3493c9fc1e1efd8254e12",
+          "reason": "propagated_stale",
+          "state": 4,
+          "valid": false
+        },
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "DISABLED",
+          "ready": false,
+          "reason": "px4_frame_alignment_drift"
+        }
+      },
+      "flight.json_sha256": "2c7873e58d861ab35daf2759845e649d12f031193f998325965ccde5dea974ea"
+    },
+    "18": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-18",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": false,
+        "rtf": 0.6242170577272599,
+        "max_stable_wall_s": 0.0,
+        "max_optimized_odom_receipt_gap_wall_s": 0.4165259679994051
+      },
+      "preflight.json_sha256": "4ce7660be569a942e70af13debead5cfe74d2f48cdca93d9f785ca7e2bf29159",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "Expecting value: line 1 column 1 (char 0)",
+        "action_goal_sent": false,
+        "action_success": false,
+        "action_result": null,
+        "landed_and_disarmed": null,
+        "latest_localization_status": {
+          "accepted_optimized": 376,
+          "accepted_propagated": 4955,
+          "epoch": "0b23fc91999246a3bd0fb6adf8f1ef13",
+          "reason": "fresh_inputs_and_usable_solver",
+          "state": 1,
+          "valid": true
+        },
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "DISABLED",
+          "ready": false,
+          "reason": "px4_preflight_failed"
+        }
+      },
+      "flight.json_sha256": "1d9b003b3b0e4465d7c55495df07a50d96dc8e7c7f9ee4a5c19caa483fb67dbd"
+    },
+    "19": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-19",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.6197985823207378,
+        "max_stable_wall_s": 36.6286380800002,
+        "max_optimized_odom_receipt_gap_wall_s": 0.3434735119999459
+      },
+      "preflight.json_sha256": "3fd830a4104f355029da3a29e3c559c4f7dbdb76a78c6c1088416a805937f093",
+      "flight.json": {
+        "result": "FAIL",
+        "failure": "localization_lost_during_takeoff",
+        "action_goal_sent": false,
+        "action_success": false,
+        "action_result": null,
+        "landed_and_disarmed": true,
+        "latest_localization_status": {
+          "accepted_optimized": 627,
+          "accepted_propagated": 8277,
+          "epoch": "794204614c6b4f6b87165746df386fd0",
+          "reason": "accel_bias_norm_exceeded",
+          "state": 4,
+          "valid": false
+        },
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "accel_bias_norm_exceeded"
+        }
+      },
+      "flight.json_sha256": "1c91e5ae739ad175cd8a130e73e254109925432f92bf5c0ea565bf4387799da4"
+    },
+    "20": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-20",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.6210412663873551,
+        "max_stable_wall_s": 37.697149526999965,
+        "max_optimized_odom_receipt_gap_wall_s": 0.16262814899982914
+      },
+      "preflight.json_sha256": "b74dfeb3344de6402f609d98f931adf1fe68ab041f084512c27dc5c51d8f5779",
+      "flight.json": {
+        "result": "PASS",
+        "failure": null,
+        "action_goal_sent": true,
+        "action_success": true,
+        "action_result": {
+          "final_position": [
+            15.877929317809894,
+            0.030051511534888782,
+            0.863824668802551
+          ],
+          "outcome": "succeeded",
+          "reason": "position_yaw_tolerance_held",
+          "status": 4,
+          "success": true
+        },
+        "landed_and_disarmed": true,
+        "latest_localization_status": {
+          "accepted_optimized": 1327,
+          "accepted_propagated": 17515,
+          "epoch": "1c6f92aa15e1401abab30d89909f3c28",
+          "reason": "normalized_cost_exceeded",
+          "state": 4,
+          "valid": false
+        },
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        }
+      },
+      "flight.json_sha256": "79ea7baf54c11de76d0b080ddd90811a8c95f578cb2322df4ae7eadd9280bc0e",
+      "arrival-evaluation.json": {
+        "scope": "Offline, single fixed ground SE(3), scale 1; no truth feedback or timestamp repair. Sampled current-room diagnostic, not full P0-P6 acceptance.",
+        "reference_source_ns": 31288000000,
+        "reference_truth_gap_sim_s": 0.008,
+        "world_imu_goal_xyz": [
+          8.121724747354065,
+          0.043153494201007885,
+          0.9218536814776648
+        ],
+        "minimum_true_3d_position_error_m": 0.1168882208658919,
+        "max_contiguous_true_goal_dwell_wall_s": 1.205155657999967,
+        "required_dwell_wall_s": 1.0,
+        "independent_goal_dwell_passed": true,
+        "native_action_success": true,
+        "landed_and_disarmed": true,
+        "invalid_localization_samples_after_enable": 99,
+        "first_invalid_localization_after_enable": {
+          "accepted_optimized": 1327,
+          "accepted_propagated": 17515,
+          "epoch": "1c6f92aa15e1401abab30d89909f3c28",
+          "good_pairs": 1336,
+          "normalized_cost": 1.1845006293170515,
+          "reason": "normalized_cost_exceeded",
+          "source_stamp_ns": 95891999999,
+          "stamp_ns": 95900000000,
+          "state": 4,
+          "valid": false,
+          "wall_elapsed_s": 146.18079241600026
+        },
+        "ground_rotation": [
+          [
+            0.999997959265204,
+            -0.002002848425726035,
+            0.00026469531744965083
+          ],
+          [
+            0.0020028068693177365,
+            0.999997982029228,
+            0.00015716906813188696
+          ],
+          [
+            -0.0002650095691229175,
+            -0.0001566386137914363,
+            0.9999999526171354
+          ]
+        ],
+        "ground_translation": [
+          -7.876084888307856,
+          -0.01651159299650226,
+          0.06689803449914983
+        ],
+        "navigation_check_passed": false
+      },
+      "arrival-evaluation.json_sha256": "4996332d6c02fc8c40f8cb9ca43aa8a157d5c16d9c7623b31d03fe9ee23d5e92"
+    },
+    "21": {
+      "directory": "artifacts/runs/ego-room-crossing-repair-20261021-21",
+      "state": "ENDED",
+      "preflight.json": {
+        "passed": true,
+        "rtf": 0.6216531906501634,
+        "max_stable_wall_s": 37.71043670400013,
+        "max_optimized_odom_receipt_gap_wall_s": 0.1507894070000475
+      },
+      "preflight.json_sha256": "4d1e9a9635b3935344f1e86832b337d5705af9f6bb381297d12d5182be59f753",
+      "flight.json": {
+        "result": "PASS",
+        "failure": null,
+        "action_goal_sent": true,
+        "action_success": true,
+        "action_result": {
+          "final_position": [
+            15.88526381371294,
+            0.017797386095539533,
+            0.8730781564057706
+          ],
+          "outcome": "succeeded",
+          "reason": "position_yaw_tolerance_held",
+          "status": 4,
+          "success": true
+        },
+        "landed_and_disarmed": true,
+        "latest_localization_status": {
+          "accepted_optimized": 1347,
+          "accepted_propagated": 17779,
+          "epoch": "d627e8c4a7504f9e93230ce255445e87",
+          "reason": "normalized_cost_exceeded",
+          "state": 4,
+          "valid": false
+        },
+        "latest_bridge_status": {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "ready": false,
+          "reason": "normalized_cost_exceeded"
+        }
+      },
+      "flight.json_sha256": "4415c3c68242b33f67268923f9bb56ec551499d9dfb1ad5d0200839b53c99b20",
+      "arrival-evaluation.json": {
+        "scope": "Offline, single fixed ground SE(3), scale 1; no truth feedback or timestamp repair. Sampled current-room diagnostic, not full P0-P6 acceptance.",
+        "reference_source_ns": 31352000000,
+        "reference_truth_gap_sim_s": 0.004,
+        "world_imu_goal_xyz": [
+          8.11406614515659,
+          0.0316458827409592,
+          0.9330593956753077
+        ],
+        "minimum_true_3d_position_error_m": 0.09824784762197264,
+        "max_contiguous_true_goal_dwell_wall_s": 1.3633115860002363,
+        "required_dwell_wall_s": 1.0,
+        "independent_goal_dwell_passed": true,
+        "native_action_success": true,
+        "landed_and_disarmed": true,
+        "invalid_localization_samples_after_enable": 254,
+        "first_invalid_localization_after_enable": {
+          "accepted_optimized": 1347,
+          "accepted_propagated": 17779,
+          "epoch": "d627e8c4a7504f9e93230ce255445e87",
+          "good_pairs": 1356,
+          "normalized_cost": 1.0770674768716446,
+          "reason": "normalized_cost_exceeded",
+          "source_stamp_ns": 97212000000,
+          "stamp_ns": 97220000000,
+          "state": 4,
+          "valid": false,
+          "wall_elapsed_s": 146.69137573800072
+        },
+        "ground_rotation": [
+          [
+            0.9999978350272695,
+            -0.002054199392839927,
+            0.00033197233075323685
+          ],
+          [
+            0.0020541106858774235,
+            0.9999978545790587,
+            0.00026733232112376577
+          ],
+          [
+            -0.00033252077242458544,
+            -0.00026664983444456476,
+            0.9999999091638967
+          ]
+        ],
+        "ground_translation": [
+          -7.875986229295252,
+          -0.01690341827720072,
+          0.06689376894244825
+        ],
+        "navigation_check_passed": false
+      },
+      "arrival-evaluation.json_sha256": "4524229b73414de17d6ed837c7077236551458e3b302a45524b21b1c44e55f03"
+    }
+  },
+  "source_sha256": {
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "e9daea900ad473af24d12c7f1b8e4d5ca8b9b0e81c353826fde33ea984195f34",
+    "tools/test_px4_bridge_fault_landing.py": "b37f4eec52b80acc2169214be7f0ef57f895e9133c4aa12f6b7c12973acdef01",
+    "config/middleware/fastdds_local_shm.xml": "583ef4976a66c5aa2568cc70840211886d3939beddf157414a2cae3fe61a1dc5",
+    "config/components/localization/vins_runtime.json": "67bd9873140d91b7159978d302de24f01fef30c1a2b90e14d6097e0562377ed4",
+    "dependencies/patches/vins/0010-opencv-single-thread-experiment.patch": "8a78ab16ceb312f142b15508930b231fd4ed77a69e3972bc4cd49c48f97cf1af",
+    "dependencies/patches/vins/0011-opencv-runtime-threads-experiment.patch": "6126e86035bc1f44b12aa5bda6feaf77c7320f3b7dfd687c7bd1d53f2fc8cb0b"
+  },
+  "qualification": "Current-room fixed-candidate check passed; not formal multi-scene/continuous clearance/real-flight acceptance.",
+  "tests": {
+    "actual_timer_enable_fault_landing": "2 tests with multiple subcases PASS",
+    "supervisor": "11 PASS",
+    "frames": "19 PASS",
+    "vio_profile": "7 PASS",
+    "runtime_thread_arguments": "6 PASS",
+    "bridge_colcon": "1 package PASS [1.71s]",
+    "vins_opencv1_colcon": "1 package PASS [5min30s], #181 camera_models",
+    "vins_runtime_threads_wrapper": "compile/link PASS using same estimator static archive and generated CMake flags; command/library/binary hashes in candidate provenance"
+  },
+  "candidate_provenance": [
+    "artifacts/runs/ego-vins-thread-candidate-20261021-01/provenance.json",
+    "artifacts/runs/ego-vins-opencv1-candidate-20261021-01/provenance.json",
+    "artifacts/runs/ego-yaw-handoff-candidate-20261021-01/provenance.json"
+  ],
+  "current_execution": "Final50/51/52 fixed CPU candidate passed; canonical vendor lock and formal stages remain pending.",
+  "consecutive_successes": 3,
+  "counter_scope": "Final50/51/52 only;01-27 reused historical PX4 params and are excluded from clean-parameter cold starts.",
+  "continuation_report": "progress/evidence/cpu-navigation-convergence-20261021-051.json"
+}

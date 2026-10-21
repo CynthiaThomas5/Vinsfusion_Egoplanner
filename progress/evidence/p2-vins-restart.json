@@ -1,0 +1,92 @@
+{
+  "scope": "Second independent same-epoch VINS process stop/restart fault injection for P2; not a pass of GOAL.md E as a whole.",
+  "status": "two_independent_vins_restart_injections_observed_fail_closed_lockout",
+  "formal_acceptance": false,
+  "environment": {
+    "ros_distro": "Jazzy",
+    "container_image_id": "sha256:fbdf66eb12efdea888acdafeb501280fa108513ae6b7703fe2a699ba97989f8e"
+  },
+  "input": {
+    "bag": "artifacts/runs/p2-force-motion-20261016/input-bag",
+    "bag_sha256": "9ffb8d60f099c59fedc34317c80aa2435c6fae681046dc8a3111e95995640d37",
+    "truth_in_bag_or_probe_subscriptions": false
+  },
+  "fault_injections": {
+    "p2-localization-vins-restart-20261016-06": {
+      "epoch": "7e64cd86ebfa4116a9c588413d1b9242",
+      "type": "VINS process stop followed by restart in the same epoch while sensor replay continues",
+      "pre_fault": {
+        "state": "TRACKING",
+        "good_pairs": 97,
+        "accepted_optimized": 88,
+        "accepted_propagated": 1162
+      },
+      "after_stop": {
+        "state": "LOCKED",
+        "reason": "propagated_stale",
+        "good_pairs": 125,
+        "accepted_optimized": 116,
+        "accepted_propagated": 1531
+      },
+      "after_restart_same_epoch": {
+        "vins_process_started": true,
+        "adapter_state": "LOCKED",
+        "adapter_reason": "propagated_stale",
+        "wall_observation_s": 3.017,
+        "new_optimized_messages": 0,
+        "new_propagated_messages": 0,
+        "accepted_counts_unchanged": true
+      },
+      "artifacts_sha256": {
+        "artifacts/runs/p2-localization-vins-restart-20261016-06/probe.json": "300c6bfb360dbc1fc34041cff58f133f8a9ee63c224c29025a24f02cbdfaafcd",
+        "artifacts/runs/p2-localization-vins-restart-20261016-06/restarted-locked-probe.json": "c5f52ce79c02df84e8c8965e42bffa63c2b60042cf6122128769749e9efe762b",
+        "artifacts/runs/p2-localization-vins-restart-20261016-06/vins-first.log": "50a9f73df39fad24546a10e1c5f4f5b0df65ea34b298c5c8ec28c78e55dd2932",
+        "artifacts/runs/p2-localization-vins-restart-20261016-06/vins-restarted.log": "bb5d1fc0d33becbec7953a822368271cec8958d9d4e309a42419f8be25909399",
+        "artifacts/runs/p2-localization-vins-restart-20261016-06/replay.log": "2103926b6b0cc5803cdfb876e57bff5497d38777d9ea0800f3f12533ce285598",
+        "artifacts/runs/p2-localization-vins-restart-20261016-06/session/session.json": "e98be15c1dcaeb1ce105f793006136be8caee575a075d32b98cd219e73605c1b"
+      }
+    },
+    "p2-localization-vins-restart-20261016-17": {
+      "epoch": "24bb2a02ffdb41779ad5d2dde9492abe",
+      "namespace": "/vins_raw/s_24bb2a02ffdb41779ad5d2dde9492abe",
+      "ros_domain_id": 97,
+      "type": "VINS process stopped after TRACKING, then restarted with the same session manifest and epoch while bag replay continued.",
+      "tracking": {
+        "wall_elapsed_s": 16.082274189015152,
+        "clock_stamp_ns": 1321000000,
+        "source_stamp_ns": 1320000000,
+        "good_pairs": 10,
+        "accepted_optimized": 1,
+        "accepted_propagated": 1
+      },
+      "locked": {
+        "wall_elapsed_s": 27.88236592602334,
+        "clock_stamp_ns": 2773000000,
+        "source_stamp_ns": 2770000000,
+        "reason": "optimized_publisher_missing_or_ambiguous",
+        "accepted_optimized": 22,
+        "accepted_propagated": 291
+      },
+      "restart_log_nonempty": true,
+      "post_restart_observation_s": 37.133817108988296,
+      "adapter_remained_locked_through_end_of_probe": true,
+      "optimized_count_after_full_observation": 22,
+      "propagated_count_after_full_observation": 291,
+      "locked_counts_match_final_output_counts": true,
+      "no_contract_errors": true,
+      "artifacts_sha256": {
+        "artifacts/runs/p2-localization-vins-restart-20261016-17/session/session.json": "ecfbcbfed64134793b3c2f11ba8a7fb84b1f20a2468f339772534720f6b6324a",
+        "artifacts/runs/p2-localization-vins-restart-20261016-17/probe.json": "9b43563c58485062c192a517eb1538f7a78ba7f78dd4d752624db24c6fd6c2bf",
+        "artifacts/runs/p2-localization-vins-restart-20261016-17/vins-first.log": "1b3e885202820c5908308bfcbdca59a19028b37015f2e597ff1d8964557be599",
+        "artifacts/runs/p2-localization-vins-restart-20261016-17/vins-restarted.log": "ef784a59dc85becac08f7c23a51c3bf19f568b48bbe0ec7002f195e782b405b2",
+        "artifacts/runs/p2-localization-vins-restart-20261016-17/adapter.log": "71d9be0a6cbbc5076fe9513b86b7976dcc1f78b976b807161abd6bae03b758a2",
+        "artifacts/runs/p2-localization-vins-restart-20261016-17/replay.log": "0d538d2efdb70f68232dec3249f11e178dbdafb2cc0c3cfe879ea3363ad5d41c"
+      }
+    }
+  },
+  "limitations": [
+    "The two runs validate localization lockout only; PX4 mode transition, goal cancellation, mapping reset, and landing behavior do not exist yet and are not tested.",
+    "Planner exit and clock rollback still lack two independent injections; depth loss is not connected to a mapping health gate.",
+    "P2 and GOAL.md E remain in progress."
+  ]
+}

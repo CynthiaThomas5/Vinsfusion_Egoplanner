@@ -1,0 +1,77 @@
+{
+  "schema": "ego-spline-collision-sampling-audit-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-spline-collision-sampling-audit-20261020-317",
+  "result": "diagnostic_sampling_gap_reproduced",
+  "source": {
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "source_tree_sha256": "1ed9a6c1824e7f6716506c6286fcbfe34d3529ee08da105f04fbd799d86f9a4e",
+    "experiment_source_manifest": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/source-manifest-experiment-0028.json",
+    "experiment_source_manifest_sha256": "47ba5a9596156fe270deb2a59e08e53230c808580102fd07846aefa92c7aa85e",
+    "snapshot_run": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316"
+  },
+  "finding": {
+    "optimizer_collision_sample_rule": "step = trajectory_duration / (endpoint_displacement / map_resolution); sample from active start while t < tmp*2/3",
+    "safety_window": "first two-thirds of the spline, matching the existing FSM collision monitor window",
+    "adaptive_step_seconds": {
+      "traj_1": 0.189108,
+      "traj_2": 0.189076,
+      "traj_3": 0.336742
+    },
+    "adaptive_sample_hits_in_captured_inflation_map": {
+      "traj_1": 0,
+      "traj_2": 0,
+      "traj_3": 0
+    },
+    "10ms_sample_counts_in_window": {
+      "traj_1": 316,
+      "traj_2": 310,
+      "traj_3": 598
+    },
+    "10ms_inflation_hits_in_window": {
+      "traj_1": 0,
+      "traj_2": 10,
+      "traj_3": 6
+    },
+    "hit_windows_seconds": {
+      "traj_2": [
+        1.15,
+        1.24
+      ],
+      "traj_3": [
+        1.2,
+        1.25
+      ]
+    },
+    "checked_control_point_inflation_hits": {
+      "traj_1": 0,
+      "traj_2": 0,
+      "traj_3": 0
+    },
+    "result": "The optimizer adaptive samples miss the inflation-mask intervals found by 10 ms samples when replayed against the paired snapshots."
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/runs/p2-ego-spline-collision-sampling-audit-20261020-317/audit_collision_sampling.py",
+      "sha256": "f9119979f744d13821aefae6843c5b2192052f7bda4dae859d10f38b2d78262b",
+      "role": "reproducible same-snapshot sampling audit"
+    },
+    {
+      "path": "artifacts/runs/p2-ego-spline-collision-sampling-audit-20261020-317/collision-sampling-audit.json",
+      "sha256": "114c57537de01ca938cac4d94eb6ddb7f477496386d74d0760b6372e82aa2ea6",
+      "role": "audit result"
+    }
+  ],
+  "validation": {
+    "command": "python3 artifacts/runs/p2-ego-spline-collision-sampling-audit-20261020-317/audit_collision_sampling.py",
+    "result": "SAMPLING_GAP_REPRODUCED",
+    "scope": "Static replay of serialized B-splines against same-start-time service snapshots; no planner rebuild or runtime intervention."
+  },
+  "limitations": [
+    "Occupancy snapshots were captured after spline receipt; they do not prove byte-identical planner occupancy at optimization time.",
+    "The inflated mask is the EGO axis-aligned inflation cube; a hit is not a direct physical collision measurement.",
+    "No execution, vehicle tracking, ground truth, or PX4 evidence is included.",
+    "Global map known coverage in #316 was below 0.62 percent."
+  ],
+  "decision": "Create an isolated candidate for fixed 10 ms checks over the existing first-two-thirds publishable window. Keep it out of canonical dependencies until runtime behavior and broader map/safety evidence are reviewed."
+}

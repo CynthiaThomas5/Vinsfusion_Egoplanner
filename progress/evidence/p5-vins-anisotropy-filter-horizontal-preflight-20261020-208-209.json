@@ -1,0 +1,720 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_ids": [
+    "p5-px4-vio-ego-anisotropy-filter-20261020-208",
+    "p5-px4-vio-ego-anisotropy-filter-20261020-209"
+  ],
+  "classification": "TWO_OPT_IN_FILTER_NONZERO_GOAL_PREFLIGHT_REPEATS_FAILED_CLOSED_ON_LOCALIZATION_FRESHNESS; NO_GOAL_SENT; P5_NOT_PASSED",
+  "scope": "Two SITL attempts used the same 0.30 m horizontal / 30 degree yaw target and the #207 run-local anisotropy-filter binary. #208 reached nominal preconditions but failed the subsequent five-second freshness stability window; #209 did not reach the full bridge/map precondition set. Both locked localization on telemetry_stale before arming or goal dispatch. The PX4 bridge remained DISABLED and the vehicle disarmed.",
+  "filter_patch": "dependencies/patches/vins/0008-feature-anisotropy-filter-experiment.patch",
+  "filter_threshold": 0.01,
+  "safety_gates_changed": false,
+  "canonical_vins_changed": false,
+  "shared_source_hashes": {
+    "config/profiles/vio_closed_loop.json": {
+      "bytes": 562,
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "config/components/simulation/d435i_bridge.yaml": {
+      "bytes": 2248,
+      "sha256": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed"
+    },
+    "config/components/localization/vins_sim.json": {
+      "bytes": 651,
+      "sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc"
+    },
+    "config/components/localization/health.json": {
+      "bytes": 800,
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "config/components/mapping/ego_input.json": {
+      "bytes": 1205,
+      "sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba"
+    },
+    "config/components/mapping/ego_planner_slow_probe.json": {
+      "bytes": 793,
+      "sha256": "23f203f34012dba650285dcef3337b01ab379035318f9c69ab6d2b5182c671eb"
+    },
+    "config/components/navigation/task_supervisor.json": {
+      "bytes": 465,
+      "sha256": "85d8b254ec0e2dee0c955437fd5210b6ebc5fbdbca7f949841d00019cebdc4f7"
+    },
+    "config/components/px4_bridge/vio_closed_loop.json": {
+      "bytes": 720,
+      "sha256": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f"
+    },
+    "config/components/px4_bridge/frames_vio_closed_loop.json": {
+      "bytes": 528,
+      "sha256": "bb5c12d5ca9233c4b5e7d0b8330b38c2c3a92824aed82ea92db325047e853822"
+    },
+    "simulation/models/d435i/model.sdf": {
+      "bytes": 3355,
+      "sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "dependencies/sources.json": {
+      "bytes": 11384,
+      "sha256": "801c8b5c6804abe00740bdc9d77996056e7eec090158f5b9d6819bc3597b1801"
+    },
+    "dependencies/patches/vins/0006-feature-residual-diagnostics.patch": {
+      "bytes": 17073,
+      "sha256": "dd17d34bacc09da4a472959fdb4e3abb625c8b2810f4bd40b2f54461d0b8dc73"
+    },
+    "tools/probe_px4_bridge_live.py": {
+      "bytes": 13775,
+      "sha256": "fe446ec3bbdf6cbe7ef3e1a3f8e49b4d01e0d58094c938a4809e5b50b66042c5"
+    },
+    "tools/stage_px4_debug_params.py": {
+      "bytes": 6479,
+      "sha256": "d70a6ded5d092a2ea57a36ea746b7263c3bc0077ccd1262b1447a822e5199fda"
+    },
+    "tools/prepare_px4_vio_bootstrap_world.py": {
+      "bytes": 5441,
+      "sha256": "639b1b75fe8eb14c14c4c29f147f27156e4152d589e87e310b12e57fc2a64c9c"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": {
+      "bytes": 12292,
+      "sha256": "e0223d96867f76a0826e86424035220666d863daae3a3699bc7872c727d628b5"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47269,
+      "sha256": "32bc816585f68bef59ba92c00f333d1fb52cf4ae08280782b6bd91c5810c06b1"
+    },
+    "tools/test_px4_bridge_time_mapping.py": {
+      "bytes": 11846,
+      "sha256": "1082617900cd610f31787e0e57974a7738098a4f0cd3c9e87153d86ff26bab9e"
+    },
+    "tools/test_px4_bridge_control.py": {
+      "bytes": 10164,
+      "sha256": "00a3d7a9c6abdd4540108a29d4f0691730fd8c500cbeb7c2180b855192f71534"
+    },
+    "tools/test_px4_bridge_vio_profile.py": {
+      "bytes": 7762,
+      "sha256": "4d2800879ee7308e69838cec171779d29b34bad644fea3a1a9afd174c4d02f2b"
+    },
+    "tools/test_px4_bridge_frames.py": {
+      "bytes": 11625,
+      "sha256": "0234a81e9e1cf442bd60209110235f399d4ddb9226874d66c1117bebd03197c7"
+    },
+    "dependencies/patches/vins/0007-all-feature-residual-observations.patch": {
+      "bytes": 455,
+      "sha256": "0e88d6c38132fbe94f83727effa30eec8385d69ffacb296648d638f907b96541"
+    },
+    "dependencies/patches/vins/README.md": {
+      "bytes": 4815,
+      "sha256": "48ce755b50de46961ea2914be265f4754b6ed569f1c23a8c27abe230d1860ddc"
+    },
+    "dependencies/patches/vins/0008-feature-anisotropy-filter-experiment.patch": {
+      "bytes": 3474,
+      "sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/source/vins/src/featureTracker/feature_tracker.cpp": {
+      "bytes": 30072,
+      "sha256": "809b646982c6ea595c2aa4e1d30326ca4cf81f6d56222c4071af97bad8fa19e7"
+    }
+  },
+  "runs": [
+    {
+      "run_id": "p5-px4-vio-ego-anisotropy-filter-20261020-208",
+      "ros_domain_id": 226,
+      "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_208",
+      "vins_binary_sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1",
+      "goal_config": {
+        "qualification": "PROVISIONAL vertical-motion ablation: preserve the #191 0.30 m horizontal and 30-degree yaw target, set vertical offset to zero; not a P5 scenario acceptance",
+        "target_offset_enu_m": [
+          0.3,
+          0.0,
+          0.0
+        ],
+        "yaw_offset_rad": 0.5235987755982988,
+        "position_tolerance_m": 0.25,
+        "yaw_tolerance_rad": 0.2617993877991494,
+        "dwell_s": 3.0,
+        "timeout_s": 25.0,
+        "minimum_occupancy_points": 50
+      },
+      "result": "FAIL",
+      "preconditions_ready": true,
+      "localization_tracking_stability_passed": false,
+      "px4_telemetry_stability_passed": false,
+      "takeoff_active_observed": null,
+      "action_goal_sent": false,
+      "first_localization_lock": {
+        "stamp_ns": 11652000000,
+        "source_stamp_ns": 11619999999,
+        "normalized_cost": 0.009321742535734022,
+        "reason": "telemetry_stale",
+        "state": 4,
+        "accepted_optimized": 46,
+        "accepted_propagated": 645,
+        "good_pairs": 55
+      },
+      "latest_localization_status": {
+        "accepted_optimized": 46,
+        "accepted_propagated": 645,
+        "epoch": "8a904eb2107d445aa14ede10adb34bf6",
+        "reason": "telemetry_stale",
+        "state": 4,
+        "valid": false
+      },
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "DISABLED",
+        "ready": false,
+        "reason": "localization_not_tracking"
+      },
+      "counts": {
+        "local_position": 1933,
+        "localization_status": 1202,
+        "occupancy_cloud": 553,
+        "px4_status": 77,
+        "vins_optimized_odometry": 12,
+        "visual_odometry_input": 13
+      },
+      "observer_vins_telemetry_last_sample": {
+        "stamp_ns": 49335999999,
+        "normalized_cost": 0.02858898454624547,
+        "input_features": 152,
+        "long_tracks": 36,
+        "solver_usable": true
+      },
+      "px4_ulog": {
+        "duration_sim_s": 69.064,
+        "dropouts": 0,
+        "estimator_flag_counts": {
+          "cs_ev_pos": {
+            "true": 7,
+            "samples": 79
+          },
+          "cs_ev_yaw": {
+            "true": 7,
+            "samples": 79
+          },
+          "cs_ev_vel": {
+            "true": 7,
+            "samples": 79
+          },
+          "cs_gnss_pos": {
+            "true": 0,
+            "samples": 79
+          },
+          "cs_gnss_vel": {
+            "true": 0,
+            "samples": 79
+          },
+          "cs_gnss_yaw": {
+            "true": 0,
+            "samples": 79
+          },
+          "cs_gps_hgt": {
+            "true": 0,
+            "samples": 79
+          }
+        },
+        "vehicle_status_transitions": [
+          {
+            "sim_time_s": 6.1,
+            "arming_state": 1,
+            "arming_state_name": "DISARMED",
+            "nav_state": 4,
+            "nav_state_name": "AUTO_LOITER",
+            "failsafe": false
+          }
+        ],
+        "land_transitions": [
+          {
+            "sim_time_s": 5.544,
+            "landed": true,
+            "ground_contact": true,
+            "maybe_landed": true
+          }
+        ],
+        "final_vehicle_status": {
+          "arming_state": 1,
+          "nav_state": 4,
+          "failsafe": false
+        },
+        "final_land_status": {
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        "interpretation": "No navigation goal was dispatched because the closed-loop preconditions were not ready (localization_not_tracking). PX4 remained disarmed and no flight transition was recorded. EV fusion flags were observed; GNSS aiding flags remained zero. This is a startup/preflight diagnostic, not a navigation run."
+      },
+      "artifact_hashes": {
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/agent.log": {
+          "bytes": 41562,
+          "sha256": "0a9ef86f50c76fe021ace9a0aa2115532ac544a74217107d7c05437fd0dc76be"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/analyze_all_feature_residuals.py": {
+          "bytes": 10696,
+          "sha256": "f1b332e6e95b6077fdaa27a947993a2e7969db5202b7b954c80b7e6512861ead"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/analyze_image_edge_correlation.py": {
+          "bytes": 5817,
+          "sha256": "ab49b2bbdc01094c53e7ddd4a526792d5b30f32e765c3cd8ccbd341b0744eae2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/analyze_px4_ulog.py": {
+          "bytes": 7231,
+          "sha256": "f3a869ecd57bb2e4f65bdebaf9f4efebfc0d8ab68f500edf59881e57417c3128"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/annotate_quality_crossing_images.py": {
+          "bytes": 3592,
+          "sha256": "f4da5b02c73d9f5a851c9559c75c47688d309caf0f56f4cec48f4779b3811f10"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/capture_quality_crossing_images.py": {
+          "bytes": 7911,
+          "sha256": "05bb8765d4e85a6a39752ca731f2b6c8d127d7d182db41f66636f51239b93feb"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/colcon-build.log": {
+          "bytes": 406,
+          "sha256": "23c5e4fd98f6e1e4169906d237eaebcfbba1cf2d6e2c9f3d1269779cbbde05f6"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/container.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/gazebo.log": {
+          "bytes": 2902,
+          "sha256": "73ecee6619e4e61015841bf8f26d094a09739086c8d1b20f307d0a03945fae35"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/image-capture.log": {
+          "bytes": 1397,
+          "sha256": "242b05fee3c7dc388533f1c73ccbe4de7bf14c971048ab4e8cebf1a6a740cacb"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/landing-failsafe-timeline.json": {
+          "bytes": 1943,
+          "sha256": "65362ed2f28d22fdd3624730908fd39da2cd15fa1f85e64bc3a7a459cbd23ffe"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/launch-filtered-horizontal-goal.sh": {
+          "bytes": 462,
+          "sha256": "4d68c5fbde01fdbe6372ca5a541304fc4949886c0ae16cad3837e4a4387cebf3"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/navigation-action-info-final.txt": {
+          "bytes": 93,
+          "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/navigation-action-info.txt": {
+          "bytes": 93,
+          "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/node-list.txt": {
+          "bytes": 227,
+          "sha256": "6cb56fee0035511479b8f79e96dd37afba3bd18595e34a11d2fdd0d1c1103118"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/package-prefixes.txt": {
+          "bytes": 654,
+          "sha256": "f6f2216b379536e2a5e5e58ab13eb7c0cf70815ab43eaa740697b84f138b0ff2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4-bridge-live.json": {
+          "bytes": 9000017,
+          "sha256": "e5c017354e4cc5d6440ec5ecb12c70863ec7d18216b40aa4dea06c531933e58a"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4-bridge-live.stdout.json": {
+          "bytes": 9000017,
+          "sha256": "e5c017354e4cc5d6440ec5ecb12c70863ec7d18216b40aa4dea06c531933e58a"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4-bridge-node-info-final.txt": {
+          "bytes": 1821,
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4-bridge-node-info.txt": {
+          "bytes": 1821,
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4-param-stage.json": {
+          "bytes": 751,
+          "sha256": "34c74cf904a8a5c08c443f0c6b4c5f726b52c25838359fa4623f5c2821dd5e46"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4-param-stage.stdout.json": {
+          "bytes": 751,
+          "sha256": "34c74cf904a8a5c08c443f0c6b4c5f726b52c25838359fa4623f5c2821dd5e46"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4.log": {
+          "bytes": 4961,
+          "sha256": "c3127c188de7a9a80026d082adc29d14a153058f565498bbbe3d71a3cee4f369"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/px4_sitl_default/log/2026-10-19/17_30_51.ulg": {
+          "bytes": 18386170,
+          "sha256": "106a17d8538502b298aedddaddf027381047ef9dafc3e9d3b1fced8dadf4f8b7"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/ros-topics.txt": {
+          "bytes": 3762,
+          "sha256": "23afdb00d193a3708e0f3db3cee628ad94c2ed0c327da844668604aac1c350b8"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/run-filtered-horizontal-goal.sh": {
+          "bytes": 10149,
+          "sha256": "c39d4bd33cdd1c962199dc74d0b0cd7d9bdc62a873105f1a7f2c57e466879165"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/run_vio_ego_flight.py": {
+          "bytes": 30336,
+          "sha256": "69309133c3eded2aecfe43ec776105fc3bf8d8f91aa65c35015336ee5d805f57"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/source-patch-manifest.json": {
+          "bytes": 762,
+          "sha256": "3dc6080071fb6fbabe36006489d4860f45cb43b5a5fda43cbba9c03b7a93c9fa"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/timesync-topic-info.txt": {
+          "bytes": 502,
+          "sha256": "825977ba9f2ac2f2914a99ab8c3575232200bb91db5ade46d8a79acf5e738716"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/truth-and-control-isolation.txt": {
+          "bytes": 266,
+          "sha256": "443dc968057cad894e33d26f56547d43753ed9f3d09dda84f69d0c06d28c4b6f"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/vins-diagnostics-env.txt": {
+          "bytes": 109,
+          "sha256": "b0665803f3d7d3d7c7d00b0a39449c669e467edcb963a875b99f942086f52ecd"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/vio-ego-flight-exit-code.txt": {
+          "bytes": 2,
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/vio-ego-flight-report.json": {
+          "bytes": 2932559,
+          "sha256": "a3cf7fc6c36db6fa2a59d526a13625f986b2b13df0656ef8fa7a69f7c75d3bdd"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/vio-ego-flight.log": {
+          "bytes": 2932559,
+          "sha256": "a3cf7fc6c36db6fa2a59d526a13625f986b2b13df0656ef8fa7a69f7c75d3bdd"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/vio-launch.log": {
+          "bytes": 754038,
+          "sha256": "a498dc34bd2127e3c3915404d80f248536d9324e44cfc1dbcbf4437e363844c2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/vio_closed_loop_smoke_goal.json": {
+          "bytes": 429,
+          "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/vio_initialization.sdf": {
+          "bytes": 7845,
+          "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/world-generation.json": {
+          "bytes": 1442,
+          "sha256": "622d5d10a02c4bdfbe4b292590a701ff05db9e3fded33613bed11a1338c4d847"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/world-generation.stdout.json": {
+          "bytes": 1442,
+          "sha256": "622d5d10a02c4bdfbe4b292590a701ff05db9e3fded33613bed11a1338c4d847"
+        }
+      },
+      "build": {
+        "own_packages_finished": 6,
+        "own_build_result": "passed; six own packages finished in this run-local Jazzy bridge overlay",
+        "vins_build_result": "reused the unchanged #207 VINS install and binary"
+      }
+    },
+    {
+      "run_id": "p5-px4-vio-ego-anisotropy-filter-20261020-209",
+      "ros_domain_id": 227,
+      "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_209",
+      "vins_binary_sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1",
+      "goal_config": {
+        "qualification": "PROVISIONAL vertical-motion ablation: preserve the #191 0.30 m horizontal and 30-degree yaw target, set vertical offset to zero; not a P5 scenario acceptance",
+        "target_offset_enu_m": [
+          0.3,
+          0.0,
+          0.0
+        ],
+        "yaw_offset_rad": 0.5235987755982988,
+        "position_tolerance_m": 0.25,
+        "yaw_tolerance_rad": 0.2617993877991494,
+        "dwell_s": 3.0,
+        "timeout_s": 25.0,
+        "minimum_occupancy_points": 50
+      },
+      "result": "FAIL",
+      "preconditions_ready": false,
+      "localization_tracking_stability_passed": null,
+      "px4_telemetry_stability_passed": null,
+      "takeoff_active_observed": null,
+      "action_goal_sent": false,
+      "first_localization_lock": {
+        "stamp_ns": 16428000000,
+        "source_stamp_ns": 16071999999,
+        "normalized_cost": 0.009962630949746528,
+        "reason": "telemetry_stale",
+        "state": 4,
+        "accepted_optimized": 56,
+        "accepted_propagated": 729,
+        "good_pairs": 65
+      },
+      "latest_localization_status": {
+        "accepted_optimized": 56,
+        "accepted_propagated": 729,
+        "epoch": "a43acca0207140bda26a029d9d7f46ea",
+        "reason": "telemetry_stale",
+        "state": 4,
+        "valid": false
+      },
+      "latest_bridge_status": {
+        "armed": false,
+        "landed": true,
+        "phase": "DISABLED",
+        "ready": false,
+        "reason": "localization_not_tracking"
+      },
+      "counts": {
+        "local_position": 1929,
+        "localization_status": 1198,
+        "occupancy_cloud": 549,
+        "px4_status": 78
+      },
+      "observer_vins_telemetry_last_sample": {
+        "stamp_ns": 54420000000,
+        "normalized_cost": 0.028914654260932496,
+        "input_features": 152,
+        "long_tracks": 36,
+        "solver_usable": true
+      },
+      "px4_ulog": {
+        "duration_sim_s": 72.744,
+        "dropouts": 0,
+        "estimator_flag_counts": {
+          "cs_ev_pos": {
+            "true": 6,
+            "samples": 82
+          },
+          "cs_ev_yaw": {
+            "true": 6,
+            "samples": 82
+          },
+          "cs_ev_vel": {
+            "true": 6,
+            "samples": 82
+          },
+          "cs_gnss_pos": {
+            "true": 0,
+            "samples": 82
+          },
+          "cs_gnss_vel": {
+            "true": 0,
+            "samples": 82
+          },
+          "cs_gnss_yaw": {
+            "true": 0,
+            "samples": 82
+          },
+          "cs_gps_hgt": {
+            "true": 0,
+            "samples": 82
+          }
+        },
+        "vehicle_status_transitions": [
+          {
+            "sim_time_s": 5.66,
+            "arming_state": 1,
+            "arming_state_name": "DISARMED",
+            "nav_state": 4,
+            "nav_state_name": "AUTO_LOITER",
+            "failsafe": false
+          }
+        ],
+        "land_transitions": [
+          {
+            "sim_time_s": 5.62,
+            "landed": true,
+            "ground_contact": true,
+            "maybe_landed": true
+          }
+        ],
+        "final_vehicle_status": {
+          "arming_state": 1,
+          "nav_state": 4,
+          "failsafe": false
+        },
+        "final_land_status": {
+          "landed": true,
+          "ground_contact": true,
+          "maybe_landed": true
+        },
+        "interpretation": "No navigation goal was dispatched because the closed-loop preconditions were not ready (localization_not_tracking). PX4 remained disarmed and no flight transition was recorded. EV fusion flags were observed; GNSS aiding flags remained zero. This is a startup/preflight diagnostic, not a navigation run."
+      },
+      "artifact_hashes": {
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/agent.log": {
+          "bytes": 41563,
+          "sha256": "ebdb3a3280957eda663de33fcc744af6eaebf39ab7e01aefe7bedea618c9aee4"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/analyze_all_feature_residuals.py": {
+          "bytes": 10696,
+          "sha256": "ef1cb333a627972148110661722a16b909d0bee116ae219e37a3d3506934385b"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/analyze_image_edge_correlation.py": {
+          "bytes": 5817,
+          "sha256": "66071548e1d8f1253f891bf948bf0d37e88e4adadf963de1ac5b6d89a153ec59"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/analyze_px4_ulog.py": {
+          "bytes": 7231,
+          "sha256": "ce2d35644a042aefd3e7efbe5dd0132cc0db8890989a202e792c7ebe616f8a4f"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/annotate_quality_crossing_images.py": {
+          "bytes": 3592,
+          "sha256": "456031494484287cb09390297eb7cb3febad2ef66b6973d77d4876725f2a0dfe"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/capture_quality_crossing_images.py": {
+          "bytes": 7911,
+          "sha256": "05bb8765d4e85a6a39752ca731f2b6c8d127d7d182db41f66636f51239b93feb"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/colcon-build.log": {
+          "bytes": 406,
+          "sha256": "9eee0d1b980aec14b6fc033f7845f8d32e51bfd302987402a503cb4e25d7365a"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/container.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/gazebo.log": {
+          "bytes": 2902,
+          "sha256": "73ecee6619e4e61015841bf8f26d094a09739086c8d1b20f307d0a03945fae35"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/image-capture.log": {
+          "bytes": 1397,
+          "sha256": "b1074b7bb8061fb6e2a1340c896f9c2920db30ab31d43f8bffdecf9b462fcd2c"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/landing-failsafe-timeline.json": {
+          "bytes": 1943,
+          "sha256": "ea2778f0c269b4a7a3942268d8fbb090b730c9456e720949cd71d3f2b739c46c"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/launch-filtered-horizontal-goal.sh": {
+          "bytes": 462,
+          "sha256": "7e7d6861152a63ec9c28fec915a7b4a39dde0ab1b63deb53845b046e7dabbbad"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/navigation-action-info-final.txt": {
+          "bytes": 93,
+          "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/navigation-action-info.txt": {
+          "bytes": 93,
+          "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/node-list.txt": {
+          "bytes": 227,
+          "sha256": "adeab2c76faf9803d6e7600bd7708062fc100ea3a0bed17ac9b39c84077587c2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/package-prefixes.txt": {
+          "bytes": 654,
+          "sha256": "b6cb2ae013dc19b0dc8601e93c7d147a3caafa103d0ca1a34b9f28821f64595a"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4-bridge-live.json": {
+          "bytes": 8854109,
+          "sha256": "226c7231442a0088b1017d46a3dd61ef5f664c4eb89ea7a8341bc5cf2dadf239"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4-bridge-live.stdout.json": {
+          "bytes": 8854109,
+          "sha256": "226c7231442a0088b1017d46a3dd61ef5f664c4eb89ea7a8341bc5cf2dadf239"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4-bridge-node-info-final.txt": {
+          "bytes": 1821,
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4-bridge-node-info.txt": {
+          "bytes": 1821,
+          "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4-param-stage.json": {
+          "bytes": 751,
+          "sha256": "cae7b063495fa62950f462bce32da136ad6120927bde4c837d637fc55d11d62e"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4-param-stage.stdout.json": {
+          "bytes": 751,
+          "sha256": "cae7b063495fa62950f462bce32da136ad6120927bde4c837d637fc55d11d62e"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4.log": {
+          "bytes": 4961,
+          "sha256": "708889caef870641e6e434516f6907cab1489369ee379b0597b371d65651eab2"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/px4_sitl_default/log/2026-10-19/17_34_59.ulg": {
+          "bytes": 19414638,
+          "sha256": "8326db376bc2039f58cfc1032e2d88a9e93ca8eb0d5031e7cd9585809697b8a5"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/ros-topics.txt": {
+          "bytes": 3762,
+          "sha256": "1102d07e21fd813270043789a10b94ae8e2542e163c14814a9f44c4656847542"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/run-filtered-horizontal-goal.sh": {
+          "bytes": 10149,
+          "sha256": "aa3882a4e894278d21ead1a3835873fb1d09271eafcd6687f91e97b817099197"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/run_vio_ego_flight.py": {
+          "bytes": 30336,
+          "sha256": "69309133c3eded2aecfe43ec776105fc3bf8d8f91aa65c35015336ee5d805f57"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/source-patch-manifest.json": {
+          "bytes": 762,
+          "sha256": "6bbc7ada4f3c66ec0ae33824744985296c1d75ffd2bf68e514ecce24082cfcc9"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/timesync-topic-info.txt": {
+          "bytes": 502,
+          "sha256": "905dbcea2e80164782a281604364a13edb8c67be466e5e0f213b825fb17bfe1a"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/truth-and-control-isolation.txt": {
+          "bytes": 266,
+          "sha256": "f29e39816e572286a0100ddfe349021a3594156dd8ceca1bddaa0ff341952f08"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/vins-diagnostics-env.txt": {
+          "bytes": 109,
+          "sha256": "b0665803f3d7d3d7c7d00b0a39449c669e467edcb963a875b99f942086f52ecd"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/vio-ego-flight-exit-code.txt": {
+          "bytes": 2,
+          "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/vio-ego-flight-report.json": {
+          "bytes": 2914223,
+          "sha256": "c78a99f08233e5747d79cc44c1ea66ba912f9e07f5271613f10511d11baf0622"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/vio-ego-flight.log": {
+          "bytes": 2914223,
+          "sha256": "c78a99f08233e5747d79cc44c1ea66ba912f9e07f5271613f10511d11baf0622"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/vio-launch.log": {
+          "bytes": 740499,
+          "sha256": "a3bd45b8f3cf17d34dacdf2948aa9c082f06251f4ea01b01515b882b9f50eecb"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/vio_closed_loop_smoke_goal.json": {
+          "bytes": 429,
+          "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/vio_initialization.sdf": {
+          "bytes": 7845,
+          "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/world-generation.json": {
+          "bytes": 1442,
+          "sha256": "d135b4e2c68d7aa90bcc738b20cb556622090b1b50efd9a41ff6b07ca0d138ba"
+        },
+        "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/world-generation.stdout.json": {
+          "bytes": 1442,
+          "sha256": "d135b4e2c68d7aa90bcc738b20cb556622090b1b50efd9a41ff6b07ca0d138ba"
+        }
+      },
+      "build": {
+        "own_packages_finished": 6,
+        "own_build_result": "passed; six own packages finished in this run-local Jazzy bridge overlay",
+        "vins_build_result": "reused the unchanged #207 VINS install and binary"
+      }
+    }
+  ],
+  "interpretation": {
+    "supported": "The repeated runs did not produce a controlled goal outcome. Both captured a fresh initial TRACKING interval, then locked on telemetry_stale (first invalid sim stamps 11.652 s and 16.428 s); the run harness continued to receive VINS estimator telemetry later, but the same epoch correctly remained fail-closed. No target was sent, PX4 stayed disarmed, and GNSS aiding flags remained zero.",
+    "not_established": [
+      "whether the missed/stale telemetry arose in the VINS publisher, DDS delivery, or the localization callback",
+      "whether the feature filter caused or only coincided with the intermittent startup freshness failure",
+      "navigation performance for the nonzero target"
+    ],
+    "next_step": "Trace VINS estimator-telemetry, optimized/propagated odometry, /clock, and LocalizationStatus stamps/receipt ages together before another filtered flight attempt. Keep freshness limits and PX4 control state machine unchanged."
+  },
+  "qualification": {
+    "p5_passed": false,
+    "goal_dispatched": false,
+    "vehicle_armed": false,
+    "truth_input_started": false,
+    "scope_limit": "Preflight freshness failures only; neither run is a navigation attempt or success/failure on the requested target."
+  },
+  "reproduction": [
+    "bash artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-208/launch-filtered-horizontal-goal.sh",
+    "bash artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-209/launch-filtered-horizontal-goal.sh"
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "date": "2026-10-16",
+  "scope": "Dynamic check of the configured optimized-odometry topic and QoS from the localization adapter to EGO, using the live D435i/VINS/map integration. No PX4, controller, or control publisher was launched.",
+  "status": "ODOMETRY_QOS_CONNECTED; PLANNER_AND_SHUTDOWN_UNQUALIFIED",
+  "source_change": {
+    "ego_patch": "dependencies/patches/ego/0006-ego-odometry-topic.patch",
+    "ego_patch_sha256": "e9c8671ac61d75a90a7da42d7a2ccd47708f67f65ee571a785f640c9d7e51342",
+    "behavior": "advanced_param.launch.py accepts a full odometry topic and remaps both EGO odometry consumers to it; simulation wrappers preserve their prefixed default topics.",
+    "localization_qos": "optimized_imu_odom is reliable; imu_odom retains sensor-data best-effort.",
+    "localization_node_sha256": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "topic_config_sha256": "8266ec6c41ba89a3857718ba448cb4393a91b20477b3cfa345a1dc5b0d38ae49"
+  },
+  "probe_tool": {
+    "path": "tools/probe_mapping_runtime.py",
+    "sha256": "4ea820001dfecd0e0b72d37c31b7232a9306ff7ecbcadb89e5d054029ebf3c34"
+  },
+  "build": {
+    "environment": "ROS 2 Jazzy container d435i-vins-build",
+    "command": "source /opt/ros/jazzy/setup.bash; source artifacts/runs/p2-map-input-build-20261016-01/install/setup.bash; colcon --log-base artifacts/runs/p2-ego-odom-wire-20261016-03/colcon-log build --base-paths src/own --packages-select uav_localization --build-base artifacts/runs/p2-ego-odom-wire-20261016-03/build --install-base artifacts/runs/p2-ego-odom-wire-20261016-03/install",
+    "result": "uav_localization built successfully; runtime used the new overlay.",
+    "summary_log": "artifacts/runs/p2-ego-odom-wire-20261016-03/colcon-build.txt",
+    "summary_log_sha256": "b312901915b1118bbbd85b69d83b80fb0552281eee8ae0d012c1bbef760548d5",
+    "events_log": "artifacts/runs/p2-ego-odom-wire-20261016-03/colcon-log/latest_build/events.log",
+    "events_log_sha256": "d84f51113f0ac3bdf50debda348364d3b23f3a03f8cd872ff9d77a3690cb17a3"
+  },
+  "runtime": {
+    "run_directory": "artifacts/runs/p2-ego-odom-wire-20261016-03",
+    "ros_domain_id": 119,
+    "gazebo_partition": "d435i_ego_odom_03",
+    "wall_seconds": 40.031,
+    "localization": {
+      "state": "TRACKING",
+      "valid": true,
+      "optimized_odom_count": 376,
+      "epoch": "25b152607d9d4a39915f0d41a7f138aa"
+    },
+    "map_inputs": {
+      "depth_input_count": 141,
+      "paired_depth_pose_stamp_count": 169,
+      "map_samples": 23,
+      "observed_map_point_count_range": [1015, 1413],
+      "map_frame": "odom_25b152607d9d4a39915f0d41a7f138aa"
+    },
+    "dds_qos": {
+      "optimized_odom_publisher_reliability": "RELIABLE",
+      "ego_reliability": "RELIABLE",
+      "mapping_adapter_reliability": "BEST_EFFORT",
+      "incompatible_reliability_warnings": 0,
+      "evidence": "The verbose topic graph showed one reliable localization publisher, two reliable EGO subscriptions on the topic, and one best-effort mapping adapter subscription."
+    },
+    "planner_observation": {
+      "state_transitions": ["INIT", "WAIT_TARGET", "SEQUENTIAL_START", "EXEC_TRAJ", "REPLAN_TRAJ"],
+      "initial_no_odom_messages": 1,
+      "first_trajectory_failure_messages": 1544,
+      "reported_plan_success_zero": 18,
+      "reported_plan_success_one": 1,
+      "solver_error_messages": 18,
+      "assessment": "EGO left INIT and attempted planning, proving that the previous no-odometry startup blocker was removed. Most trajectory attempts failed; one later plan succeeded. This single uncontrolled planner run does not qualify stable planning behavior."
+    },
+    "shutdown": "After the 40-second probe, later cleanup diagnostics found that stopping the ros2 launch parent or its process group did not stop the EGO node. Run #08 logged that EGO received SIGINT and SIGTERM but stayed active; it was manually sent SIGKILL. No active test nodes remained afterward, though the persistent container PID 1 retained defunct child entries. EGO graceful shutdown and stale-input response are unqualified."
+  },
+  "cleanup_diagnostic": {
+    "run_directory": "artifacts/runs/p2-ego-odom-wire-20261016-08",
+    "wall_seconds": 15.019,
+    "optimized_odom_count": 140,
+    "paired_depth_pose_stamp_count": 75,
+    "localization": {
+      "state": "TRACKING",
+      "valid": true,
+      "epoch": "cd3d5cc5d9b24bee8a8a475bb3211527"
+    },
+    "incompatible_reliability_warnings": 0,
+    "planner_state_transitions": ["INIT", "WAIT_TARGET", "SEQUENTIAL_START", "EXEC_TRAJ", "REPLAN_TRAJ"],
+    "planner_counts": {
+      "initial_no_odom_messages": 1,
+      "first_trajectory_failure_messages": 1580,
+      "reported_plan_success_zero": 3,
+      "reported_plan_success_one": 1
+    },
+    "cleanup_log": "artifacts/runs/p2-ego-odom-wire-20261016-08/cleanup.log",
+    "cleanup_log_sha256": "c8c5cf7f2726a7e4cbe687c9d246d98a9e72ebd71f3c1e8cf6905d445a89e7b9",
+    "observation": "The EGO process received SIGINT and SIGTERM but remained running. SIGKILL stopped this test process; a clean shutdown path has not been established."
+  },
+  "intermediate_cleanup_runs": [
+    {
+      "run_directory": "artifacts/runs/p2-ego-odom-wire-20261016-04",
+      "result": "EGO remained active after launch process-group cleanup and was manually stopped.",
+      "script": "artifacts/runs/p2-ego-odom-wire-20261016-04/run-live-used.sh",
+      "script_sha256": "76adcbf767418512d9ce8a77d38b2f8866f33307b244254d04f1d64a1b28126a",
+      "probe": "artifacts/runs/p2-ego-odom-wire-20261016-04/probe.json",
+      "probe_sha256": "11d9c0c3943d53c1dc89919c79276540d23fd04321da92990e1386418112e819",
+      "ego_log": "artifacts/runs/p2-ego-odom-wire-20261016-04/ego.log",
+      "ego_log_sha256": "46a4a4b1ea94e281d28f6dbd4cacd1516003d0491f5b87a02c9e62850ff86d18"
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-odom-wire-20261016-05",
+      "result": "Directly stopping ros2 wrapper PIDs left several child nodes active; the isolated run process group was then terminated.",
+      "script": "artifacts/runs/p2-ego-odom-wire-20261016-05/run-live.sh",
+      "script_sha256": "56848810945110929f95bc2a27b44f4a2ae7e05db114c831dca0c60213ad28e3",
+      "probe": "artifacts/runs/p2-ego-odom-wire-20261016-05/probe.json",
+      "probe_sha256": "38d871a28d53eba0eca273e8fe3076c2e8c93a67a2d9cc1d566276e8f2694eff",
+      "ego_log": "artifacts/runs/p2-ego-odom-wire-20261016-05/ego.log",
+      "ego_log_sha256": "9007efe7883ca0de8650ff0e9b357a4900fe86d5c03a5bb611adced8a1ac05db"
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-odom-wire-20261016-06",
+      "result": "Bash job-control process groups stopped the non-EGO nodes, but EGO remained active and was manually stopped.",
+      "script": "artifacts/runs/p2-ego-odom-wire-20261016-06/run-live.sh",
+      "script_sha256": "50c04e21228c77a72810ad08071aeee5ca5fab7dca53748621bcb09223d48c48",
+      "probe": "artifacts/runs/p2-ego-odom-wire-20261016-06/probe.json",
+      "probe_sha256": "e66fec103323dd71a911df867b3d0085e0cb75cc54d15d139f2bae2e259ae003",
+      "ego_log": "artifacts/runs/p2-ego-odom-wire-20261016-06/ego.log",
+      "ego_log_sha256": "73bf43c3a76f765a4f544d41d04f92351e464ff47ef3f6c9e9aa826583c9e70d"
+    },
+    {
+      "run_directory": "artifacts/runs/p2-ego-odom-wire-20261016-07",
+      "result": "A log-derived direct EGO PID cleanup was attempted; the node remained active at the immediate post-run check.",
+      "script": "artifacts/runs/p2-ego-odom-wire-20261016-07/run-live.sh",
+      "script_sha256": "6ee9f63fce20cb4b23f27119df59d49486ea5a11dcae746ccb59d6716058d443",
+      "probe": "artifacts/runs/p2-ego-odom-wire-20261016-07/probe.json",
+      "probe_sha256": "235433ba52d4022c4307cd7aff28a95d0b517a7d9bec2ffada31c3ce34e40abc",
+      "ego_log": "artifacts/runs/p2-ego-odom-wire-20261016-07/ego.log",
+      "ego_log_sha256": "51b212d2f1d8ab1caf92aa7d8ad6b3c020272e1e0247cfbb862cde999af8914b"
+    }
+  ],
+  "artifacts": {
+    "launch_script_used": "artifacts/runs/p2-ego-odom-wire-20261016-03/run-live-used.sh",
+    "launch_script_sha256": "0cc7db9c07c91eb6cd4f5edaeb79388e749d14dfc0224d1850610e9478e8764d",
+    "cleanup_diagnostic_script": "artifacts/runs/p2-ego-odom-wire-20261016-08/run-live.sh",
+    "cleanup_diagnostic_script_sha256": "34d3fd7ac295cae7e77d770477df3495f4a8ec797f7a8d046c39c6cb2cc1f43d",
+    "probe": "artifacts/runs/p2-ego-odom-wire-20261016-03/probe.json",
+    "probe_sha256": "40ab0d6b303db31a1244b27296111d5a218701734c109dc60ae738cbc51f64ff",
+    "map_cloud": "artifacts/runs/p2-ego-odom-wire-20261016-03/map-cloud.json",
+    "map_cloud_sha256": "3de28a64f4c6e22c5e24e10734f3a0e14367004dfa2a38c2fffe7c9b76a630ba",
+    "optimized_odometry": "artifacts/runs/p2-ego-odom-wire-20261016-03/optimized-odometry.json",
+    "optimized_odometry_sha256": "41ac18300be3c5bfe8855c55e6088b55a1ce8be29d01c0879cc1b7bf9a4055aa",
+    "topic_info": "artifacts/runs/p2-ego-odom-wire-20261016-03/ego-odometry-topic-info.txt",
+    "topic_info_sha256": "2352de108e96c1cff2ececac8cff079fc973a789762daec4f7c0f0ac31b66d0c",
+    "node_info": "artifacts/runs/p2-ego-odom-wire-20261016-03/ego-node-info.txt",
+    "node_info_sha256": "82c9f999e10d2bcbbfd2e79e297f258c3972c0978f5210f4a2ceeccf57b2dd55",
+    "ego_log": "artifacts/runs/p2-ego-odom-wire-20261016-03/ego.log",
+    "ego_log_sha256": "40bc3e70044a18e3db56a363e123d75e3d0e21fd966ff8861f2b92e1c639d7d4",
+    "motion": "artifacts/runs/p2-ego-odom-wire-20261016-03/motion.json",
+    "motion_sha256": "b471a48872f62ddc35d68b2bf21563933e2b7ae3fd55437efd92095832af8150",
+    "session_manifest": "artifacts/runs/p2-ego-odom-wire-20261016-03/session/session.json",
+    "session_manifest_sha256": "fadc6ce65ba1f6e4152ed5331a6703e6358cfcac981210c01a9ef8307cbe4f4d",
+    "cleanup_probe": "artifacts/runs/p2-ego-odom-wire-20261016-08/probe.json",
+    "cleanup_probe_sha256": "8f8fb2fb18745a875b2600b5e47ac0b429c41fb659c57735e69dccecb69c4af9",
+    "cleanup_ego_log": "artifacts/runs/p2-ego-odom-wire-20261016-08/ego.log",
+    "cleanup_ego_log_sha256": "1b280822e8e9e29ebd1c376e2dddd58d26e8ed72fd4e42daa5359047668edb76",
+    "cleanup_topic_info": "artifacts/runs/p2-ego-odom-wire-20261016-08/ego-odometry-topic-info.txt",
+    "cleanup_topic_info_sha256": "7392380a457214910671934d0df47c23fd71679e8ed829c3abdafaa6c237bf2a"
+  },
+  "limitations": [
+    "The planner run used EGO's configured sequential-start behavior; no PX4 or external controller was present.",
+    "A single eventual plan success amid repeated failures does not demonstrate repeatable or safe navigation.",
+    "EGO did not exit after its launch parent and process group were stopped; run #08 required SIGKILL. Graceful shutdown behavior needs separate investigation.",
+    "No goal-specific acceptance, obstacle-clearance measurement, controlled depth-stale injection, epoch transition, clock regression, or PX4 behavior was tested.",
+    "The run is development integration evidence only; P2 remains in progress."
+  ]
+}

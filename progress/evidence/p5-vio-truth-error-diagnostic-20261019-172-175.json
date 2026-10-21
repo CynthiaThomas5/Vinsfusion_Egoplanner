@@ -1,0 +1,301 @@
+{
+  "schema": 1,
+  "date": "2026-10-19",
+  "title": "P5 VIO flight truth-error and quality correlation diagnostic #172-#175",
+  "qualification": "DIAGNOSTIC_ONLY; P5 and GOAL criteria remain incomplete",
+  "runs": [
+    {
+      "id": 172,
+      "status": "excluded_before_goal",
+      "reason": "Lazy Gazebo truth bridge had no active ROS subscriber before the readiness check; no goal was dispatched."
+    },
+    {
+      "id": 173,
+      "status": "excluded_before_goal",
+      "reason": "Truth-topic graph discovery did not satisfy the early readiness check; no goal was dispatched."
+    },
+    {
+      "id": 174,
+      "status": "excluded_before_goal",
+      "reason": "The launch and diagnostic bridge started, but the run-local flight probe file was missing; no goal was dispatched. The container was stopped after the setup failure."
+    },
+    {
+      "id": 175,
+      "status": "diagnostic_failed_closed",
+      "profile": "vio_closed_loop",
+      "stack_run_id": "p5-px4-vio-ego-flight-20261019-175-stack",
+      "result": "FAIL",
+      "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "action_result": {
+        "final_position": [
+          -0.007622109311471088,
+          -0.00932326182882585,
+          0.8677398515376719
+        ],
+        "outcome": "aborted",
+        "reason": "localization_normalized_cost_exceeded",
+        "status": 6,
+        "success": false
+      },
+      "landed_and_disarmed": true,
+      "final_vehicle_failsafe": false
+    }
+  ],
+  "run_175": {
+    "truth_role": "Separate read-only evaluator input on /debug_truth/base_odometry; the navigation, mapping, localization, and PX4 bridge launch remained vio_closed_loop.",
+    "truth_graph": {
+      "observation": "ROS graph observed while canonical VIO/EGO diagnostic run #175 was active",
+      "topic": "/debug_truth/base_odometry",
+      "publisher_count": 1,
+      "publisher_nodes": [
+        "ros_gz_bridge"
+      ],
+      "subscription_count": 1,
+      "subscriber_nodes": [
+        "raw_vins_readonly_probe"
+      ],
+      "px4_bridge_debug_truth_subscription": false,
+      "observer_role": "read-only trajectory and IMU capture; no ROS publishers"
+    },
+    "localization_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "goal_sent": true,
+    "goal_sent_wall_elapsed_s": 18.925237968000147,
+    "position_command_flag_counts": {
+      "1": 118,
+      "4": 1
+    },
+    "matching_ready_trajectory_samples": 118,
+    "map_point_count_max": 1822,
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    },
+    "capture": {
+      "wall_seconds": 90.01169420099995,
+      "optimized_samples": 882,
+      "propagated_samples": 11647,
+      "truth_samples": 2940,
+      "imu_samples": 11657,
+      "optimized_rate_hz": 15.150994015271376,
+      "truth_topic": "/debug_truth/base_odometry",
+      "truth_observer_enabled": true,
+      "parse_errors": []
+    },
+    "evaluator": {
+      "window_stamp_ns": [
+        23332000000,
+        41056000000
+      ],
+      "paired_samples": 269,
+      "alignment": "One rigid SE(3) anchored at the first paired pose; scale fixed to 1; no segment realignment",
+      "truth_position_span_m": [
+        0.08761090533750902,
+        0.014253287530259107,
+        0.8964160306276199
+      ],
+      "vio_position_span_m": [
+        0.3109802887012024,
+        0.020975005573960193,
+        1.323987035654804
+      ],
+      "position_error_m": {
+        "count": 269,
+        "rmse": 0.3758195970266699,
+        "median": 0.002960443383459972,
+        "p95": 1.0531645678147517,
+        "max": 1.3578277271469832
+      },
+      "orientation_error_deg": {
+        "count": 269,
+        "rmse": 0.36950964939369285,
+        "median": 0.20766863607392452,
+        "p95": 0.7277152089448807,
+        "max": 0.7478890490018085
+      },
+      "normalized_cost_position_error_pearson_r": 0.5603935240771258,
+      "samples_above_1_0": 56,
+      "position_error_when_cost_above_1_0_m": {
+        "count": 56,
+        "rmse": 0.7231426752690537,
+        "median": 0.5836158041862937,
+        "p95": 1.2715071521728136,
+        "max": 1.3578277271469832
+      },
+      "first_health_gate_crossing": {
+        "localization_status_stamp_ns": 35472000000,
+        "localization_status_source_stamp_ns": 35460000000,
+        "quality_telemetry_stamp_ns": 35411999999,
+        "quality_to_status_source_gap_s": -0.048000001,
+        "normalized_cost": 1.1460447435859369,
+        "reason": "normalized_cost_exceeded",
+        "aligned_position_error_m": 0.011024705450332349
+      },
+      "position_error_after_first_gate_m": {
+        "count": 86,
+        "rmse": 0.6646629818014099,
+        "median": 0.408104629143507,
+        "p95": 1.2604703959290777,
+        "max": 1.3578277271469832
+      },
+      "interpretation_limit": "One run can show temporal association but cannot establish a universal quality-to-error threshold.",
+      "quality_metrics_position_error_pearson_r": {
+        "input_features_position_error_pearson_r": -0.023822989697487792,
+        "stereo_features_position_error_pearson_r": 0.06839349780808707,
+        "continued_tracks_position_error_pearson_r": -0.3783117649680077,
+        "long_tracks_position_error_pearson_r": -0.8129721315944185,
+        "accel_bias_norm_position_error_pearson_r": 0.7880927587555315,
+        "gyro_bias_norm_position_error_pearson_r": 0.845810194489874
+      }
+    },
+    "health_policy": {
+      "max_normalized_cost": 1.0,
+      "changed": false,
+      "vio_px4_future_tolerance_s": 0.065,
+      "changed_in_this_run": false
+    },
+    "ulog": {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/px4_sitl_default/log/2026-10-19/11_42_33.ulg",
+      "size_bytes": 9673900,
+      "sha256": "5a67d25653ea47b265ac56330277544a4d60cee8139b82240a9d8f222040c019"
+    }
+  },
+  "verification": {
+    "commands": [
+      {
+        "command": "python3 tools/test_vio_quality_alignment.py",
+        "result": "2 tests PASS"
+      },
+      {
+        "command": "python3 tools/test_vins_alignment.py",
+        "result": "3 tests PASS"
+      },
+      {
+        "command": "python3 -m py_compile tools/probe_vins.py tools/evaluate_vio_quality_alignment.py tools/test_vio_quality_alignment.py",
+        "result": "PASS"
+      },
+      {
+        "command": "bash -n artifacts/runs/p5-px4-vio-ego-flight-20261019-175/run-px4-vio-ego-flight.sh",
+        "result": "PASS"
+      },
+      {
+        "command": "git diff --check",
+        "result": "PASS"
+      }
+    ]
+  },
+  "source_sha256": {
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c",
+    "tools/evaluate_vio_quality_alignment.py": "ebf9389664134e974698391f79e5bd94e4321b8e5e80ead4a77a3c2b6ece399e",
+    "tools/test_vio_quality_alignment.py": "59569b2522a0e2daa74f44ecd61caab42ea51966c2fb902fb245f40b81c8e2db",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/px4_bridge/vio_closed_loop.json": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f",
+    "config/components/simulation/debug_truth_bridge.yaml": "bd572a590f2a3606e16e1e7359cc6ee8fbdf08341d8339dfeef1154ee7d8c48d",
+    "config/profiles/vio_closed_loop.json": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86",
+    "simulation/models/d435i/model.sdf": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254",
+    "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37"
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-172/truth-evaluator-bridge.log",
+      "size_bytes": 254,
+      "sha256": "074d18f8784d5346967cbce3bc3dd908d88cf78818bb40c9c8767de5d05e6503"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-172/vio-launch.log",
+      "size_bytes": 138904,
+      "sha256": "16e45c21d551db57fc640cbbfe8cff1858bbff8ca2fff1296d264de9c4adbf94"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-173/truth-evaluator-bridge.log",
+      "size_bytes": 254,
+      "sha256": "2284a483a3c1dcd377b5955e666e22f0f0ed0cea09e51532a7ea158ffc5cd4ae"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-173/vio-launch.log",
+      "size_bytes": 128031,
+      "sha256": "b6638047a4b9939ce1329b4b188d372fdb690a34e208b33e6cb450c751744532"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-174/truth-evaluator-topic-info.txt",
+      "size_bytes": 963,
+      "sha256": "d6b62ab63246a0d12bc17c90229d1b4d73e820b45fb4fd66547b801a41d696c1"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-174/vio-ego-flight.log",
+      "size_bytes": 147,
+      "sha256": "13931d9ddf77fda920234617d5de7550437b1db530608fae17ec2913b5215118"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-174/vio-ego-flight-exit-code.txt",
+      "size_bytes": 2,
+      "sha256": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/vio-ego-flight-report.json",
+      "size_bytes": 1456103,
+      "sha256": "19fb2dcae1303b5ca38e31d46bd1964247fa701f1042bf011bd206e5cd2be22b"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/vio-launch.log",
+      "size_bytes": 296139,
+      "sha256": "45f8b385486f8465b4dc68eb034a22e19e6c10e4b298743bf468fea8d8233e9b"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/truth-input-graph-check.txt",
+      "size_bytes": 111,
+      "sha256": "47ca0939326f52ab0ece5d92da5ee37687e1908fec1487e628f78f3b3d8f9d54"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/truth-evaluator-topic-info-live.json",
+      "size_bytes": 422,
+      "sha256": "fbcd69c138795d4062149e0c3e6c62b6a8147225ffc044a7f60289d253a8a012"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/vio-truth-capture/summary.json",
+      "size_bytes": 10568,
+      "sha256": "260afa6430095d1b887fa77b80b9d8bc9f304512a8c43ca3d66aef8aced2f150"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/vio-truth-capture/truth-motion.json",
+      "size_bytes": 5487395,
+      "sha256": "213ce37f6c050d9e9417d7e4a47baa075c1d1dec8bac716e68bbd8af9d13f9df"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/vio-truth-capture/raw-odometry.json",
+      "size_bytes": 7069193,
+      "sha256": "595cd83b547e30071ccefb0218ac9844e1d3c15005127a9744614b3680d4a7cc"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/vio-truth-capture/telemetry.json",
+      "size_bytes": 544670,
+      "sha256": "ea889c1ecce299090461a70b7dabfc900fefa0f2c71cf7085a57df75788fad9a"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/vio-truth-capture/vio-quality-error-evaluation.json",
+      "size_bytes": 129134,
+      "sha256": "668c6883eaa30d2e844f544cec8d47162adb7d5330019c9382294120c196dbf4"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/px4-bridge-node-info-at-end.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    {
+      "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-175/px4_sitl_default/log/2026-10-19/11_42_33.ulg",
+      "size_bytes": 9673900,
+      "sha256": "5a67d25653ea47b265ac56330277544a4d60cee8139b82240a9d8f222040c019"
+    }
+  ],
+  "next_step": "Repeat the diagnostic with improved coverage and a read-only pose-error timeline; keep the 1.0 health gate until multiple runs establish how residual spikes precede true error. Then continue no-truth target, obstacle, map snapshot, fault, and sustained-runtime acceptance."
+}

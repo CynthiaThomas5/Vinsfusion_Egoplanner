@@ -1,0 +1,372 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-anisotropy-filter-20261020-214",
+  "classification": "REPEATED_ACCEL_BIAS_GATE_ABORT; FILTER_EFFECT_NOT_ISOLATED; P5_NOT_PASSED",
+  "scope": "Diagnostic repeat of the 0.30 m relative horizontal translation and +30 degree yaw VIO/EGO/PX4 SITL case with the run-local 0.01 feature anisotropy filter. No P5 scenario acceptance claim.",
+  "comparison": {
+    "prior_run": "p5-px4-vio-ego-anisotropy-filter-20261020-211",
+    "prior_result": "FAIL: localization_accel_bias_norm_exceeded",
+    "prior_filter_threshold": 0.01,
+    "prior_captured_high_residual_blocks_over_1_5px": 0,
+    "current_captured_high_residual_blocks_over_1_5px": 106,
+    "qualification": "Independent SITL initializations produced different residual samples. This repeat confirms the abort reason and captures the estimator bias metric; it cannot establish that the filter caused or changed the bias event."
+  },
+  "setup": {
+    "container_image": "d435i-vins:dev",
+    "ros_domain_id": 228,
+    "gazebo_partition": "d435i_p5_vio_ego_anisotropy_filter_214",
+    "px4_firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "vins_source_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "vins_binary_source_run": "p5-px4-vio-ego-no-motion-direct-20261020-207",
+    "vins_binary_sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1",
+    "vins_tracker_source_sha256": "809b646982c6ea595c2aa4e1d30326ca4cf81f6d56222c4071af97bad8fa19e7",
+    "filter_patch": "dependencies/patches/vins/0008-feature-anisotropy-filter-experiment.patch",
+    "filter_patch_sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6",
+    "run_local_filter_threshold": 0.01,
+    "world_sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11",
+    "truth_input_started": false,
+    "px4_bridge_subscribed_debug_truth": false,
+    "control_publishers_exclusive_to_uav_px4_bridge": true,
+    "observer_publishers": 0,
+    "run_local_harness_change": "Saved accel_bias_norm and gyro_bias_norm from the existing estimator telemetry JSON; no estimator, health gate, PX4 parameter or control changes."
+  },
+  "run": {
+    "preconditions_ready": true,
+    "px4_telemetry_stability_passed": true,
+    "localization_tracking_stability_passed": true,
+    "takeoff_active_observed": true,
+    "action_goal_sent": true,
+    "goal_sent_wall_elapsed_s": 22.211727076999523,
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.5235987755982988,
+    "flight_result": "FAIL",
+    "failure": "navigation_action_not_successful:localization_accel_bias_norm_exceeded",
+    "action_result": {
+      "final_position": [
+        0.09820406133123877,
+        0.07756285006084283,
+        0.8794947757491335
+      ],
+      "outcome": "aborted",
+      "reason": "localization_accel_bias_norm_exceeded",
+      "status": 6,
+      "success": false
+    },
+    "landed_and_disarmed": true,
+    "bridge_final_phase": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "accel_bias_norm_exceeded"
+    },
+    "map_point_count_max": 1852,
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    }
+  },
+  "bias_gate": {
+    "health_policy_file": "config/components/localization/health.json",
+    "max_accel_bias_m_s2": 0.15,
+    "max_gyro_bias_rad_s": 0.05,
+    "max_normalized_cost": 1.0,
+    "metric_semantics": "VINS telemetry reports norm(Bas[frame_count]) from the current estimator state; this is an estimated bias state norm, not a ground-truth sensor bias measurement.",
+    "telemetry_sample_count": 322,
+    "accel_bias_norm_min_m_s2": 0.006645308274488048,
+    "accel_bias_norm_max_m_s2": 0.1694273136000081,
+    "accel_bias_samples_over_limit": 5,
+    "gyro_bias_norm_max_rad_s": 0.007571728421532237,
+    "last_sample_before_crossing": {
+      "wall_elapsed_s": 25.95665048599767,
+      "stamp_ns": 26864000000,
+      "accel_bias_norm": 0.1484538507858902,
+      "gyro_bias_norm": 0.0003896232764172404,
+      "normalized_cost": 0.48861209953037554,
+      "visual_observations": 390
+    },
+    "first_accel_bias_over_limit": {
+      "wall_elapsed_s": 26.066404219000106,
+      "stamp_ns": 26931999999,
+      "accel_bias_norm": 0.15566468502118552,
+      "gyro_bias_norm": 0.0004218563256038735,
+      "normalized_cost": 0.5125461646835792,
+      "visual_observations": 392
+    },
+    "first_invalid_localization_status": {
+      "wall_elapsed_s": 26.11724989099821,
+      "stamp_ns": 26996000000,
+      "reason": "accel_bias_norm_exceeded",
+      "normalized_cost": 0.5125461646835792,
+      "state": 4
+    },
+    "cost_gate_at_abort": "At the first invalid localization status normalized_cost=0.512546, below the unchanged 1.0 cost limit; the action aborted on the accel-bias gate.",
+    "first_normalized_cost_over_limit_after_abort": {
+      "wall_elapsed_s": 29.315981011997792,
+      "stamp_ns": 28911999999,
+      "normalized_cost": 1.0440547565773568,
+      "accel_bias_norm": 0.021944578986978353,
+      "gyro_bias_norm": 0.0018096843585099648,
+      "visual_observations": 284
+    },
+    "post_abort_status": "The later raw VINS telemetry sample occurred after localization had latched invalid and the action had already aborted; it is not an accepted localization or successful goal sample.",
+    "goal_sent_wall_elapsed_s": 22.211727076999523,
+    "pre_goal_max_accel_bias_norm_m_s2": 0.08516158213621294,
+    "goal_to_first_accel_limit_crossing_s": 3.8546771420005825,
+    "max_accel_bias_norm_between_goal_and_first_invalid_m_s2": 0.15566468502118552,
+    "first_normalized_cost_over_limit_after_invalid": {
+      "wall_elapsed_s": 29.315981011997792,
+      "stamp_ns": 28911999999,
+      "normalized_cost": 1.0440547565773568,
+      "accel_bias_norm": 0.021944578986978353,
+      "gyro_bias_norm": 0.0018096843585099648,
+      "visual_observations": 284
+    }
+  },
+  "visual_residuals": {
+    "visual_blocks": 537,
+    "unique_feature_ids": 28,
+    "blocks_over_1_5px": 106,
+    "blocks_over_3px": 53,
+    "blocks_over_5px": 1,
+    "huber_visual_cost": 166.68153653024618,
+    "share_of_huber_visual_cost_from_blocks_over_1_5px_pct": 89.77100133052082,
+    "top_observation_median_abs_distance_to_fitted_image_edge_px": 224.41759832652167,
+    "top_observations_within_1px_of_fitted_edge": 3,
+    "interpretation_limit": "Residual rows span temporal/stereo factors; they do not directly show which current left-image candidates passed the run-local filter. Fitted image gradients are not semantic obstacle labels."
+  },
+  "px4_safety": {
+    "ulog_duration_sim_s": 27.664,
+    "ulog_dropouts": 0,
+    "estimator_flag_counts": {
+      "cs_ev_pos": {
+        "true": 23,
+        "samples": 40
+      },
+      "cs_ev_yaw": {
+        "true": 23,
+        "samples": 40
+      },
+      "cs_ev_vel": {
+        "true": 23,
+        "samples": 40
+      },
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 40
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 40
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 40
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 40
+      }
+    },
+    "px4_parameters": {
+      "UXRCE_DDS_SYNCT": 0,
+      "UXRCE_DDS_SYNCC": 0,
+      "SYS_AUTOSTART": 5011,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0
+    },
+    "touchdown_recorded": true,
+    "final_arming_state": 1,
+    "transient_descend_failsafe_recorded": true,
+    "battery_warning_values": [
+      0
+    ],
+    "battery_fault_values": [
+      0
+    ]
+  },
+  "image_integrity": {
+    "stereo_pairs": 12,
+    "raw_images_verified": 24,
+    "runtime_overlay_images_verified": 537,
+    "offline_annotation_outputs_verified": 42,
+    "all_hashes_match": true,
+    "all_stereo_skew_ns_zero": true
+  },
+  "interpretation": "The 0.01-filter horizontal run failed closed on the estimated accel-bias state with normalized_cost below 1.0. The later verified zero-offset run #217 also crossed the same accel-bias gate, so this event is not specific to the horizontal target in the observed sample. Neither horizontal motion nor the run-local filter is established as causal. P5 remains in progress.",
+  "limitations": [
+    "This is one diagnostic repeat, not formal P5 acceptance or a frozen-threshold evaluation.",
+    "Independent SITL starts do not provide a causal paired trial.",
+    "The estimated bias norm is not compared with a ground-truth sensor bias.",
+    "No truth pose or complete world map was provided to runtime navigation or evaluation."
+  ],
+  "sha256": {
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/source-patch-manifest.json": {
+      "bytes": 1540,
+      "sha256": "1120362e12dbda2ed662b6c192749754190f834233950f3653d91985ce6f4391"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/run-filtered-horizontal-goal.sh": {
+      "bytes": 10082,
+      "sha256": "354f59b472d0f9a45c45b952baaba5d0166e972ea69e30ec66e151da2a1399b6"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/launch-filtered-horizontal-goal.sh": {
+      "bytes": 462,
+      "sha256": "8dc356fcdc6891d38d434474d69e6369c2d01ea19577c623b08aab28ec43c65e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/run_vio_ego_flight_harness.py": {
+      "bytes": 30460,
+      "sha256": "6818b6f977c7697fa4eb5d113654666d68cd70cbcf4323a7c243cc2d4a58e586"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/vio-ego-flight-report.json": {
+      "bytes": 2447522,
+      "sha256": "b69b3e4187d025d2e7b4c37161cca09d2727922325c974b74a9eb83efd0807a8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/vio-ego-flight-exit-code.txt": {
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/px4_sitl_default/log/2026-10-19/18_08_19.ulg": {
+      "bytes": 7465375,
+      "sha256": "a54cbabf9eabb711fc379c4b3b6d3cd243636b671603b9ab98e7f415fba843af"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/landing-failsafe-timeline.json": {
+      "bytes": 3484,
+      "sha256": "5869bd14f280ca19fc65113cabacb34064369e3161419cc3d33acdca23a8e8fa"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/all-feature-edge-correlation.json": {
+      "bytes": 432344,
+      "sha256": "e9db4219bd1141c1d70c4eb7235b3c0e46683ac40f7cb158067f8020e5015315"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/image-edge-correlation.json": {
+      "bytes": 235090,
+      "sha256": "f394992a94050340601ffc6e3f59fa7108600f69f9a0564798eb2a692f645c32"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/quality-images/quality-crossing-image-manifest.json": {
+      "bytes": 543042,
+      "sha256": "ff54a9c318e2ba9df42b5c1decb22b7712500be2bb821a0677dd05c974148169"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/quality-overlays-corrected/annotation-manifest.json": {
+      "bytes": 11930,
+      "sha256": "54f5aff8f3a8dc5d04795ba86bb81d31a67295aaba730b40c4aa61d11633e90f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/truth-and-control-isolation.txt": {
+      "bytes": 263,
+      "sha256": "2b3ea6414bc35b9bcd15ca7205412f32cdec6a63abfbad063d9fac76214ece2b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/vio_closed_loop_smoke_goal.json": {
+      "bytes": 429,
+      "sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7544c1b7e65567"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/vio_initialization.sdf": {
+      "bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/world-generation.json": {
+      "bytes": 1442,
+      "sha256": "0bcd90a1150c145344bf8d3789ee975a8a8af4e4b32b31b272855552ef6edc9c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/px4-param-stage.json": {
+      "bytes": 751,
+      "sha256": "9cd8a6267c5c03384707f2cc101595107c474d962ce585c7522d4447ae89ad68"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "155dc3a198fd426072c13830ee601e16f4648a550bfead006768f2c087452d74"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/vio-launch.log": {
+      "bytes": 740761,
+      "sha256": "e147b61c85155c2cffba0252b2e6a8bf46ce890d88c2a9e34f70c27c09340182"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/px4-bridge-live.json": {
+      "bytes": 8563582,
+      "sha256": "15152edfeb789e413c5f146ce750c8c5434b92f488c2b120ef707e2c6a7849e2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/ros-topics.txt": {
+      "bytes": 3762,
+      "sha256": "0180ef1c33774d35fc875be08075f8ff4f34eea102257b035f9c5111235a5070"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/px4-bridge-node-info.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/px4-bridge-node-info-final.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/vins-install/vins/lib/vins/vins_node": {
+      "bytes": 12313304,
+      "sha256": "41dbec8e02aee110e7b3cdeafd9fe380723e6dcc715f203b3649d2ce9567cad1"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/source/vins/src/featureTracker/feature_tracker.cpp": {
+      "bytes": 30072,
+      "sha256": "809b646982c6ea595c2aa4e1d30326ca4cf81f6d56222c4071af97bad8fa19e7"
+    },
+    "dependencies/patches/vins/0008-feature-anisotropy-filter-experiment.patch": {
+      "bytes": 3474,
+      "sha256": "83ab7d9c72b60e348d6a4d473830194afcc10ea790416aed66a3cacd8ea4a7f6"
+    },
+    "config/components/localization/health.json": {
+      "bytes": 800,
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "src/own/uav_localization/uav_localization/health.py": {
+      "bytes": 9308,
+      "sha256": "98e1cfa4e53825ba71f6929d2af007d69e2d7671155c9ed1b161db0e26932255"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/source/vins/src/estimator/estimator.cpp": {
+      "bytes": 81131,
+      "sha256": "bf4585ccfcf81de88cae96242c351c73fb0eeab9fa9559dd626901d9e107e687"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-207/source/vins/src/factor/imu_factor.h": {
+      "bytes": 8982,
+      "sha256": "4a8f79e1171320437355e471ced2f188d513bdd183a15bbe6ac20356673519c5"
+    },
+    "dependencies/patches/vins/0002-telemetry.patch": {
+      "bytes": 5951,
+      "sha256": "60cf747645b6fabc5b48aa32fa35beb07c0ff59fb8aecf4851598f79c38ed3f8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/run_vio_ego_flight.py": {
+      "bytes": 30460,
+      "sha256": "6818b6f977c7697fa4eb5d113654666d68cd70cbcf4323a7c243cc2d4a58e586"
+    },
+    "artifacts/runs/p5-px4-vio-ego-anisotropy-filter-20261020-214/vins-diagnostics-env.txt": {
+      "bytes": 109,
+      "sha256": "b0665803f3d7d3d7c7d00b0a39449c669e467edcb963a875b99f942086f52ecd"
+    },
+    "progress/evidence/p5-vins-anisotropy-filter-010-horizontal-repeat-20261020-215.json": {
+      "bytes": 13962,
+      "sha256": "55327f16dd23628a40492da7ff8cbb97dfc614d64b9cff3994f6996023eac710"
+    },
+    "progress/evidence/p5-vins-anisotropy-filter-zero-offset-bias-control-20261020-216.json": {
+      "bytes": 13779,
+      "sha256": "f102e3d5bff169125827173e0361796e4fdf6a107ed3087191fad4bfe8739a74"
+    }
+  },
+  "followup_runs": {
+    "horizontal_repeat_215": {
+      "evidence": "progress/evidence/p5-vins-anisotropy-filter-010-horizontal-repeat-20261020-215.json",
+      "executed_goal": "0.30 m horizontal / +30 degree yaw; the run-directory name was initially misleading and the correction is recorded in its source-patch manifest."
+    },
+    "verified_zero_offset_control_216": {
+      "evidence": "progress/evidence/p5-vins-anisotropy-filter-zero-offset-bias-control-20261020-216.json",
+      "executed_goal": "zero relative translation and zero yaw offset; action succeeded but the overall run later failed on long_tracks_insufficient / PX4 frame alignment."
+    }
+  },
+  "followup_reassessment": {
+    "run_id": "p5-px4-vio-ego-anisotropy-filter-yaw-detail-20261020-217",
+    "evidence": "progress/evidence/p5-vins-anisotropy-filter-bias-yaw-detail-repeat-20261020-217.json",
+    "verified_target": "0 m translation and 0 rad yaw offset, using the #207 goal config SHA-256 recorded in the #217 source patch manifest.",
+    "result": "The zero-offset action crossed the 0.15 m/s^2 estimated accel-bias limit (first observed 0.187455 m/s^2; first invalid normalized_cost 0.699565) and aborted.",
+    "reassessment": "Withdraw the earlier small-sample association between horizontal motion and accel-bias gate events. #216 and #217 zero-offset results differ; initialization/run variation and causal factors remain unresolved."
+  }
+}

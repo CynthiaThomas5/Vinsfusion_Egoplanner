@@ -1,0 +1,148 @@
+{
+  "schema": "p2-map-voxel-snapshot-service-evidence/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-map-voxel-snapshot-service-20261020-292",
+  "status": "CANDIDATE_SERVICE_AND_SINGLE_ARCHIVE_READBACK_VERIFIED; GOAL_C_PENDING",
+  "scope": "Isolated planner-only EGO occupancy snapshot service candidate. No PX4, controller, trajectory server, action goal, or truth input to localization/mapping.",
+  "qualification": "Build, service identity/freshness gates, and exact archive readback verified in an isolated source/install copy. This is not canonical integration or map-quality/GOAL C acceptance.",
+  "implementation": {
+    "interface": "src/own/uav_interfaces/srv/GetOccupancySnapshot.srv",
+    "client": "tools/capture_live_occupancy_snapshot.py",
+    "candidate_patch": "dependencies/patches/ego/0021-occupancy-snapshot-service.patch",
+    "patch_sha256": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch_order": "after 0019-configurable-obstacle-inflation.patch; independent of experimental 0020",
+    "canonical_vendor_modified": false,
+    "dependencies_sources_json_modified": false
+  },
+  "build": {
+    "command": "bash artifacts/runs/p2-map-voxel-snapshot-service-20261020-292/build.sh",
+    "status": "PASS",
+    "packages_finished": 6,
+    "ego_planner_node_sha256": "691471c8e6679bf9eb867f9724407cb4f23f09675367bd44353084e65fbe6530",
+    "libplan_env_sha256": "c2f3c5d409fa3138c400feb0884750b2c3b64c1183989ef981c3f772dc9617b0"
+  },
+  "patch_replay": {
+    "command": "patch --dry-run -p1 < /home/ac/codexworkspace/PX4_ROS2/D435i-VINS-EGO-ROS2/dependencies/patches/ego/0021-occupancy-snapshot-service.patch",
+    "working_tree": "src/vendor/ego_planner (read-only source)",
+    "status": "PASS; both target files checked; patch not applied"
+  },
+  "attempts": [
+    {
+      "attempt": "01",
+      "ros_domain_id": 139,
+      "result": "no_fresh_fused_depth; expected fail-closed rejection before first fused depth; no snapshot"
+    },
+    {
+      "attempt": "02",
+      "ros_domain_id": 140,
+      "result": "serialization/readback succeeded but only one forwarded depth and every voxel unknown; excluded as map-content evidence"
+    },
+    {
+      "attempt": "03",
+      "ros_domain_id": 141,
+      "result": "valid nonempty map snapshot and archive readback; used for metrics below"
+    }
+  ],
+  "runtime": {
+    "service": "/mapping/get_occupancy_snapshot",
+    "type": "uav_interfaces/srv/GetOccupancySnapshot",
+    "epoch": "68e5fc804583470e8036fe4dfb72cd12",
+    "map_id": "68e5fc804583470e8036fe4dfb72cd12-2d381b54d03245c7839ff3ef91b2fa8d",
+    "frame_id": "odom_68e5fc804583470e8036fe4dfb72cd12",
+    "dimensions_xyz": [
+      240,
+      240,
+      60
+    ],
+    "resolution_m": 0.1,
+    "map_size_m": [
+      24.0,
+      24.0,
+      6.0
+    ],
+    "origin_m": [
+      -12.0,
+      -12.0,
+      -0.15
+    ],
+    "voxel_counts": {
+      "unknown": 3448918,
+      "free": 5846,
+      "raw_occupied": 1236,
+      "inflated": 6297,
+      "total": 3456000,
+      "known": 7082
+    },
+    "known_voxel_fraction": 0.002049189814814815,
+    "forwarded_depth_count_before_after": [
+      23,
+      26
+    ],
+    "source_age_at_response_s": 0.132,
+    "service_duration_ms": 45.0296030003301,
+    "serialized_raw_array_bytes": 6912000,
+    "wrong_epoch_rejected": {
+      "value": true,
+      "reason": "epoch_mismatch"
+    },
+    "wrong_map_id_rejected": {
+      "value": true,
+      "reason": "map_id_mismatch"
+    },
+    "archive_readback_exact": true,
+    "archive": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-292/snapshot-03/occupancy_snapshot.npz",
+      "sha256": "608e105d6bf15c6bd063b50a37bbd23e1195df2335c4fe1049732e80434d9118",
+      "bytes": 10033
+    },
+    "calibration_sha256": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "planner_config_sha256": "ab8e3631060a65d5925693b8845b69cd11cf1694d385a551eed9cfc06a01d1f6",
+    "runtime_parameters_sha256": "5a7beb8dc042a671a88f680dd886af57f057ca9804d1126adbd89871edf454aa"
+  },
+  "runtime_isolation": {
+    "forbidden_control_nodes": [],
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": [],
+    "px4_or_controller_launched": false,
+    "fixture_truth_recorder": "separate debug sensor fixture recorder; not connected to localization or mapping"
+  },
+  "artifacts": {
+    "run_report": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-292/run-report.json",
+      "sha256": "e4686bc2b77042f1c3508145f2cce08bab9ead07a841e7e01e5a9be2b08f8f33"
+    },
+    "source_manifest": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-292/source-manifest.json",
+      "sha256": "09c9ad38cad4ecaf5e75ccf7c08722273023f2a1f61536151cfad716d0633a8e"
+    },
+    "build_source_manifest": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-292/source-manifest-build.json",
+      "sha256": "afa931967c41143f3dc17ddc8065e43661a7fd17c27cfe91668db7d073df6a4d"
+    },
+    "snapshot_metadata": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-292/snapshot-03/metadata.json",
+      "sha256": "a1d829b6aaa38350de1d8a8fb64b3bf047eeafae5532fa51bee1156c5187eee3"
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-map-voxel-snapshot-service-20261020-292/runtime-summary-03.json",
+      "sha256": "4814bde9b1af17e6dc58bae18bf96b2274a947884a17ef05b698226a94bee569"
+    }
+  },
+  "limitations": [
+    "One positive snapshot only; 99.795% of configured map volume remained unknown.",
+    "Coverage, wall/obstacle residuals, cumulative geometry, delay trend, ghosting, clearance, unknown-space planning semantics, and planner acceptance were not tested.",
+    "Patch is an isolated candidate, absent from canonical dependencies/sources and src/vendor.",
+    "The 6.912 MB raw response took about 45 ms once on EGO single-threaded executor; concurrent clients and larger maps are untested.",
+    "This report is not GOAL C or P6 acceptance."
+  ],
+  "next_step": "Review reproducible canonical dependency integration, then run independent motion/map scenes for coverage, geometry, latency, ghosting, and unknown-space safety analysis.",
+  "static_checks": {
+    "python3 -m py_compile tools/capture_live_occupancy_snapshot.py": "PASS",
+    "bash -n build.sh run-live.sh run-container.sh": "PASS",
+    "python3 tools/project_status.py": "PASS; structural consistency only",
+    "git diff --check": "PASS",
+    "git diff --cached --check": "PASS"
+  }
+}

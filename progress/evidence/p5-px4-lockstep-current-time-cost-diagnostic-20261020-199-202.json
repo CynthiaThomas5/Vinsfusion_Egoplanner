@@ -1,0 +1,615 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-lockstep-current-time-and-cost-diagnostic-20261020-199-202",
+  "classification": "DIRECT_LOCKSTEP_CURRENT_TIMESTAMP_PATH_REPEATED; ZERO_OFFSET_GOAL_ABORTED_BY_VISUAL_COST_DOMINANCE; P5_NOT_PASSED",
+  "scope": "#199 exposed one current-control timestamp rate-fit rejection before any goal; #200/#202 exercised the updated direct lockstep current-stamp path. #201 is excluded for ROS_DOMAIN_ID 233 exceeding the Fast DDS port range. #202 preserved the VINS grouped-cost diagnostic on the zero-offset-goal abort.",
+  "setup": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "px4_firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_binary_sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159",
+    "clock_domain": "Gazebo lockstep /clock equals PX4 HRT; UXRCE_DDS_SYNCT=0 and UXRCE_DDS_SYNCC=0",
+    "localization_cost_limit": 1.0,
+    "px4_source_future_tolerance_s": 0.065,
+    "vins_diagnostic_cost_groups": true
+  },
+  "code_change": {
+    "files": [
+      "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py"
+    ],
+    "behavior": "When PX4 DDS timestamp sync is disabled in the required Gazebo lockstep profile, current Offboard/control timestamps now use the latest PX4-HRT /clock sample directly. The path still requires enough clock samples, an unlocked non-regressed mapper, and a fresh sample. Historical VIO source-stamp mapping and its configured rate/freshness checks are unchanged.",
+    "verification": {
+      "time_mapping_tests": "20 passed",
+      "control_tests": "11 passed",
+      "vio_profile_tests": "7 passed",
+      "frame_tests": "19 passed",
+      "python_compile": "passed",
+      "run_local_colcon_build": "6/6 packages passed in #200 and #202"
+    }
+  },
+  "runs": [
+    {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-199",
+      "qualification": "INVALID_ZERO_OFFSET_GOAL_NOT_SENT_TIMESTAMP_ERROR",
+      "action_goal_sent": false,
+      "preconditions_ready": true,
+      "px4_telemetry_stability_passed": true,
+      "localization_tracking_stability_passed": true,
+      "timestamp_error_samples": [
+        {
+          "wall_elapsed_s": 8.940208897998673,
+          "phase": "TAKEOFF",
+          "error": "clock_mapping_rate_out_of_bounds"
+        }
+      ],
+      "bridge_final": {
+        "alignment_drift_m": 0.007343756220993817,
+        "armed": false,
+        "control_enabled": false,
+        "epoch": "f82e182da807435ca08d9269cffdd3c1",
+        "ev_position_fused": true,
+        "ev_yaw_fused": true,
+        "frame_offset_ned": [
+          -0.0012761329912891622,
+          -4.5945529964958536e-05,
+          0.0067573363585855355
+        ],
+        "frame_yaw_offset_ned": 0.043178044303085805,
+        "gnss_aiding_active": false,
+        "landed": true,
+        "local_position_valid": true,
+        "phase": "LANDED",
+        "ready": false,
+        "reason": "px4_timestamp_unavailable"
+      },
+      "ev_position_yaw_fused_samples": 775,
+      "gnss_aiding_samples": 0,
+      "timesync_status_samples": 0,
+      "interpretation": "A single clock_mapping_rate_out_of_bounds was captured during TAKEOFF; the bridge entered LANDING before a goal. The live probe later observed LANDED/disarmed. The clock-rate exception was not numerically reported; it did not establish a bad direct PX4 clock domain."
+    },
+    {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-200",
+      "qualification": "VALID_ZERO_OFFSET_GOAL_ATTEMPT_ABORTED_BY_EXISTING_LOCALIZATION_QUALITY_GATE",
+      "action_goal_sent": true,
+      "preconditions_ready": true,
+      "takeoff_active_observed": true,
+      "action_result": {
+        "final_position": [
+          -0.009133119060125393,
+          -0.013508747185388182,
+          0.8852731896804167
+        ],
+        "outcome": "aborted",
+        "reason": "localization_normalized_cost_exceeded",
+        "status": 6,
+        "success": false
+      },
+      "first_cost_crossing": {
+        "accepted_optimized": 235,
+        "accepted_propagated": 3103,
+        "epoch": "70a713b6a6024151be87c82abf7aba0e",
+        "good_pairs": 244,
+        "normalized_cost": 1.069826434401499,
+        "reason": "normalized_cost_exceeded",
+        "source_stamp_ns": 24111999999,
+        "stamp_ns": 24120000000,
+        "state": 4,
+        "valid": false,
+        "wall_elapsed_s": 21.876716569000564
+      },
+      "px4_timestamp_error_values": [
+        ""
+      ],
+      "group_cost_capture": "not retained: run-specific collector omitted the optional cost_components telemetry field"
+    },
+    {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-201",
+      "qualification": "EXCLUDED_INVALID_PX4_DDS_DOMAIN",
+      "ros_domain_id": 233,
+      "failure": "PX4 DDS status did not become available",
+      "goal_started": false,
+      "interpretation": "PX4 XRCE-DDS participant creation failed before the VIO graph/action harness started; the container was removed and the logs are retained.",
+      "px4_dds_error": "Calculated port number is too high. Probably the domainId is over 232 or portBase is too high."
+    },
+    {
+      "run_id": "p5-px4-vio-ego-no-motion-direct-20261020-202",
+      "qualification": "VALID_GROUPED_COST_DIAGNOSTIC; ZERO_OFFSET_GOAL_ABORTED_BY_EXISTING_LOCALIZATION_QUALITY_GATE",
+      "ros_domain_id": 232,
+      "action_goal_sent": true,
+      "goal_sent_wall_elapsed_s": 22.059247920002235,
+      "action_result": {
+        "final_position": [
+          -0.011447939276126036,
+          -0.025696256665088825,
+          0.9025386853617456
+        ],
+        "outcome": "aborted",
+        "reason": "localization_normalized_cost_exceeded",
+        "status": 6,
+        "success": false
+      },
+      "preconditions_ready": true,
+      "localization_tracking_stability_passed": true,
+      "px4_telemetry_stability_passed": true,
+      "takeoff_active_observed": true,
+      "first_quality_crossing": {
+        "accepted_optimized": 261,
+        "accepted_propagated": 3446,
+        "epoch": "58cf35eeef9b4ab097e2508a09dc497a",
+        "good_pairs": 270,
+        "normalized_cost": 1.004682866763746,
+        "reason": "normalized_cost_exceeded",
+        "source_stamp_ns": 25856000000,
+        "stamp_ns": 25876000000,
+        "state": 4,
+        "valid": false,
+        "wall_elapsed_s": 22.94257788699906
+      },
+      "grouped_vins_sample": {
+        "continued_tracks": 54,
+        "cost_components": {
+          "evaluation_ms": 0.206282,
+          "evaluation_ok": true,
+          "grouped_cost_error": -9.094947017729282e-13,
+          "grouped_cost_sum": 938.7305263748149,
+          "grouped_residual_components": 1860,
+          "imu": {
+            "cost": 3.631601555091552,
+            "residual_components": 150
+          },
+          "marginalization": {
+            "cost": 159.8151369241438,
+            "residual_components": 82
+          },
+          "visual": {
+            "cost": 775.2837878955795,
+            "residual_components": 1628
+          }
+        },
+        "final_cost": 938.7305263748158,
+        "initialized": true,
+        "input_features": 67,
+        "iterations": 9,
+        "long_tracks": 44,
+        "normalized_cost": 1.004682866763746,
+        "residual_components": 1860,
+        "solve_current": true,
+        "solve_seconds": 0.011844873428344727,
+        "solver_usable": true,
+        "stamp_ns": 25807999999,
+        "state_finite": true,
+        "stereo_features": 65,
+        "visual_observations": 429,
+        "wall_elapsed_s": 22.894810203000816
+      },
+      "group_shares_pct": {
+        "visual": 82.589,
+        "marginalization": 17.025,
+        "imu": 0.387
+      },
+      "image_pair_and_tracker_timing": {
+        "image_pair_stamp_delta_ns": 1,
+        "skew_ns": 0,
+        "left_queue_age_ms": 17.543,
+        "right_queue_age_ms": 0.652,
+        "tracker_stamp_delta_ns": 1,
+        "feature_tracker_duration_ms": 7.193
+      },
+      "bridge_timestamp_errors": [
+        ""
+      ],
+      "landed_and_disarmed": true,
+      "truth_input_started": false
+    }
+  ],
+  "px4_ulog": {
+    "path": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/px4_sitl_default/log/2026-10-19/16_31_02.ulg",
+    "firmware_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "parameters": {
+      "UXRCE_DDS_SYNCT": 0,
+      "UXRCE_DDS_SYNCC": 0,
+      "SYS_AUTOSTART": 5011,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0
+    },
+    "estimator_flag_counts": {
+      "cs_ev_pos": {
+        "true": 22,
+        "samples": 39
+      },
+      "cs_ev_yaw": {
+        "true": 22,
+        "samples": 39
+      },
+      "cs_ev_vel": {
+        "true": 22,
+        "samples": 39
+      },
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 39
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 39
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 39
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 39
+      }
+    },
+    "vehicle_status_transitions": [
+      {
+        "sim_time_s": 6.18,
+        "arming_state": "DISARMED",
+        "nav_state": "AUTO_LOITER",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 16.008,
+        "arming_state": "DISARMED",
+        "nav_state": "OFFBOARD",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 16.128,
+        "arming_state": "ARMED",
+        "nav_state": "OFFBOARD",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 25.92,
+        "arming_state": "ARMED",
+        "nav_state": "AUTO_LAND",
+        "failsafe": false
+      },
+      {
+        "sim_time_s": 30.36,
+        "arming_state": "ARMED",
+        "nav_state": "DESCEND",
+        "failsafe": true
+      },
+      {
+        "sim_time_s": 31.644,
+        "arming_state": "DISARMED",
+        "nav_state": "OFFBOARD",
+        "failsafe": false
+      }
+    ],
+    "land_transitions": [
+      {
+        "sim_time_s": 5.636,
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      },
+      {
+        "sim_time_s": 17.868,
+        "landed": false,
+        "ground_contact": true,
+        "maybe_landed": false
+      },
+      {
+        "sim_time_s": 17.876,
+        "landed": false,
+        "ground_contact": false,
+        "maybe_landed": false
+      },
+      {
+        "sim_time_s": 28.964,
+        "landed": false,
+        "ground_contact": true,
+        "maybe_landed": false
+      },
+      {
+        "sim_time_s": 29.3,
+        "landed": false,
+        "ground_contact": true,
+        "maybe_landed": true
+      },
+      {
+        "sim_time_s": 29.636,
+        "landed": true,
+        "ground_contact": true,
+        "maybe_landed": true
+      }
+    ],
+    "battery_warning_values": [
+      0
+    ],
+    "battery_fault_values": [
+      0
+    ],
+    "dropouts": 0,
+    "interpretation": "AUTO_LAND reached touchdown and landed/disarmed. PX4 briefly entered DESCEND/failsafe about 0.72 sim s after touchdown, then disarmed; battery warning/fault values remained zero."
+  },
+  "interpretation": {
+    "supported": [
+      "The new direct current-time path passed Offboard/takeoff and goal dispatch in #200/#202 with no px4_timestamp_error; #199 rate-fit rejection was not reproduced.",
+      "At the #202 quality crossing, visual Ceres cost was 82.589%, marginalization 17.025%, and IMU 0.387%; grouped cost and residual dimensions match the full solve within floating-point error.",
+      "Feature and stereo counts, long tracks, stereo stamp pairing, queue age, and tracker duration did not show a coincident dropout/spike."
+    ],
+    "not_established": [
+      "The per-feature visual residual source, image cause, and true-world displacement were not captured.",
+      "The target did not succeed, so this is not P5 or D-stage acceptance.",
+      "The post-touchdown DESCEND/failsafe behavior still requires qualification against the frozen failure boundary."
+    ]
+  },
+  "qualification": {
+    "P5": "in_progress; no-GNSS EV fusion was observed, but the zero-offset navigation action aborted on normalized_cost > 1.0.",
+    "thresholds": "No localization, PX4 freshness, future-stamp, or mapping limits were relaxed.",
+    "next_step": "Capture per-feature visual residuals and match them to the #202 image/feature timeline; then address the repeatable visual-cost trigger without changing the health threshold."
+  },
+  "reproduction": {
+    "run_script": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/launch-diagnostic-run.sh",
+    "goal_config": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/vio_closed_loop_smoke_goal.json",
+    "collector": "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/run_vio_ego_flight_harness.py",
+    "group_cost_patch": "dependencies/patches/vins/0005-diagnostic-cost-components.patch"
+  },
+  "artifact_hashes": {
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/agent.log": {
+      "bytes": 41563,
+      "sha256": "571b39f8fa2744c4f723b44138de5f0f759300b276e12c76314e088100b34a0a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/bridge-install/uav_px4_bridge/lib/python3.12/site-packages/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 46920,
+      "sha256": "fdf4dfc7536e16cf82cf61f50ac4f316df07a739d938b21e679b3febbe5a8238"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/bridge-install/uav_px4_bridge/lib/python3.12/site-packages/uav_px4_bridge/time_mapping.py": {
+      "bytes": 11483,
+      "sha256": "5a44414068995744d32e0cdd0d526c2df56080d216fa694e4c74a67cbb61160c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "c0c48e7d5cc63b38e648ee20fdcc22b19c18b120e867084cd8ff9f82743bc63d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/launch-diagnostic-run.sh": {
+      "bytes": 453,
+      "sha256": "1d6e803dabc71325bc7e5f1232eff047864c22634ee92955517877087f1835b6"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/package-prefixes.txt": {
+      "bytes": 639,
+      "sha256": "7dd313a969d2cfc5bb7e107d96ef9c72e7da4a797634d4a023bd7d5905db980e"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/px4-bridge-live.json": {
+      "bytes": 8839802,
+      "sha256": "232e11dcad1c831852134bd3cd9d7851b3aee9f1911b3d5b30800a566de85e6b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/px4-param-stage.json": {
+      "bytes": 750,
+      "sha256": "59d45d64f81e4de081dff2c6fa2626de17aaa6c4021abe17d207b6c958ddd775"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/px4.log": {
+      "bytes": 5286,
+      "sha256": "9ddded1d9be5e9496a5102d54247742adb2c6e73fce9e960dcb3511674ce9535"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/run-direct-no-motion.sh": {
+      "bytes": 8974,
+      "sha256": "fda6b28129dff6c0bf2fdbc3f4b7abc7f26b03fe95165093ef990f70a1ffa1c0"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/truth-and-control-isolation.txt": {
+      "bytes": 239,
+      "sha256": "e8048e2c6e7a98474647e4b38a8fecf89470a718b360b30e6cb0c742df309f45"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/vio-ego-flight-report.json": {
+      "bytes": 2427680,
+      "sha256": "a3cb18684593daaeb68700266dda5d9b9ebee8d465e9f7f7df3ac7cf32a40c5a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-199/vio-launch.log": {
+      "bytes": 779711,
+      "sha256": "6642ae2efaabb61d9df72c8ec548c9789280e033c029b3ec9502261c824055e7"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/agent.log": {
+      "bytes": 41563,
+      "sha256": "9c7dafbb2dd12463801e211a3b8d4786b98be5a87cc442bf58ec5eb5edb94d20"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "76a4bf1891f399d21567be503974a5372f0ef8dcc8e5c4a20f420618dee3e4de"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/package-prefixes.txt": {
+      "bytes": 639,
+      "sha256": "ff91c35f2a289fab06931e9ddea9f0b3bbdc3a7e0b0cdf2d29d49454b8e67d9f"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/px4-bridge-live.json": {
+      "bytes": 9027240,
+      "sha256": "2386f4750cb5696cabd65e24a717ed6d0d2e7a25b4690bcf32b274793350f8f5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/px4.log": {
+      "bytes": 5365,
+      "sha256": "c3264c9eddb7177f8a84502b0406969f61377495fba8d1e18f36dbc42c06ec14"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/run-direct-no-motion.sh": {
+      "bytes": 8974,
+      "sha256": "9dd6011449747097dd841e731b4c373431fb6f2d2d086e0fd3298d1296b18a03"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/truth-and-control-isolation.txt": {
+      "bytes": 239,
+      "sha256": "a7a5ff025db52f9d4e16600e8643667ea6cdf7f4b88cfe862d79440992c85118"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/vio-ego-flight-report.json": {
+      "bytes": 1602408,
+      "sha256": "c8a065304ef6f993d25583258b5ee78b95b70e0ed8f21e9754fb929f909d3b3c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-200/vio-launch.log": {
+      "bytes": 743261,
+      "sha256": "f8ea2b29fa0e1ef2b58887dcc96dbfd80eff998b03f4f1f7964ee780b0f230f6"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/agent.log": {
+      "bytes": 966,
+      "sha256": "69e2e2e7b0885afd9be228d11180e812ba66d19dbc4e2ceed5053f5144f86c41"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "0cf941d07588140685ca26f9746a12fb8b824878708ffad554ba86b8b0bf97dd"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/container.log": {
+      "bytes": 40,
+      "sha256": "411fa20f81dece57df5448cc8c681af9d124c6ea3a5459d62e9614dab643cec9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/gazebo.log": {
+      "bytes": 2902,
+      "sha256": "73ecee6619e4e61015841bf8f26d094a09739086c8d1b20f307d0a03945fae35"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/launch-diagnostic-run.sh": {
+      "bytes": 453,
+      "sha256": "201f2bba39c4cb6250bafb57d7698c425923d2d8c5c52d6e3d1f931e117c4baf"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/package-prefixes.txt": {
+      "bytes": 639,
+      "sha256": "59aaf269790928668d6aa5b8aed80a094c2e7d08dbe38487e1dff2c12f024fe9"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/px4.log": {
+      "bytes": 2294,
+      "sha256": "02f8adc3ac0331424c43aa76a88afa849382e91f7ceede74f13842fbb3b2dc53"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/run-direct-no-motion.sh": {
+      "bytes": 9100,
+      "sha256": "968c972f5454b72f25b7989396dc4f63fb969b8904f4a9716fae5202c2c4c906"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-201/vins-diagnostics-env.txt": {
+      "bytes": 30,
+      "sha256": "1ddfd4e612d9aceabf0edae0f54769dd403283c4193481ab03614f9d49bbeac0"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/agent.log": {
+      "bytes": 41563,
+      "sha256": "fa27c385a4ca935c4ed81dafc7b9198b077c3bc50a877cb2429fd650fda06bdc"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/bridge-install/uav_px4_bridge/lib/python3.12/site-packages/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47269,
+      "sha256": "32bc816585f68bef59ba92c00f333d1fb52cf4ae08280782b6bd91c5810c06b1"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/bridge-install/uav_px4_bridge/lib/python3.12/site-packages/uav_px4_bridge/time_mapping.py": {
+      "bytes": 12292,
+      "sha256": "e0223d96867f76a0826e86424035220666d863daae3a3699bc7872c727d628b5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/colcon-build.log": {
+      "bytes": 406,
+      "sha256": "ffad8eb82230ddb22a12438543b71e65f491b04d5b07f6527d8eeb245a2d7ad4"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/gazebo.log": {
+      "bytes": 2902,
+      "sha256": "73ecee6619e4e61015841bf8f26d094a09739086c8d1b20f307d0a03945fae35"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/landing-failsafe-timeline.json": {
+      "bytes": 3095,
+      "sha256": "22bd517234f5a1a005774c9da2f3e1a7c59370196bcfe4683dd83f2e7e024b04"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/launch-diagnostic-run.sh": {
+      "bytes": 453,
+      "sha256": "df96c7a0331a62e65b328ce390c0114eebbe2ce2202655ebabd63ab28e2b867b"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/navigation-action-info-final.txt": {
+      "bytes": 93,
+      "sha256": "c48f2ef29fe3034165e4efb72428bd02f823a7a42cf617d3efae0f32910aa5a2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/package-prefixes.txt": {
+      "bytes": 639,
+      "sha256": "f3301415c52e90c244363f86050964a83402434992cd74863decd15503240ec5"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/px4-bridge-live.json": {
+      "bytes": 9001911,
+      "sha256": "4693be38545c4e464b7a6368d7b33353f099da1880d36f6a7ea30cd19e57263d"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/px4-bridge-node-info-final.txt": {
+      "bytes": 1821,
+      "sha256": "06f59d89d4304dd2ba284893b3d011bb90dd2c299d927ce0058d25687028147c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/px4-param-stage.json": {
+      "bytes": 750,
+      "sha256": "eba3a9024e8516c91264ea223673ee6db07288eafac5632e9aa6081d5e359356"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/px4.log": {
+      "bytes": 5365,
+      "sha256": "aa8ee849e7e54c87112cdfe43d30a8e0ae07f9c8acc7196ad0100cb4eaeb2969"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/px4_sitl_default/log/2026-10-19/16_31_02.ulg": {
+      "bytes": 7139935,
+      "sha256": "f1939c9529536b209283ebf7d8ef208d677a79610f9c870a096ebdbc6f39111c"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/run-direct-no-motion.sh": {
+      "bytes": 9100,
+      "sha256": "2b72734d8b9cf13d2ee133809a7e222b184f3899e0739f0b8dbbb5c2d0fd1595"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/run_vio_ego_flight_harness.py": {
+      "bytes": 30255,
+      "sha256": "5581cf06ad32709575a64d88ea5ccea6ab423471917bebb36269a7c89daaa20a"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/truth-and-control-isolation.txt": {
+      "bytes": 239,
+      "sha256": "ea62b32de662263eb4102ae7cec4bedf7e88c80839f0108fe0095fa7340345f2"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/vins-diagnostics-env.txt": {
+      "bytes": 30,
+      "sha256": "1ddfd4e612d9aceabf0edae0f54769dd403283c4193481ab03614f9d49bbeac0"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/vio-ego-flight-report.json": {
+      "bytes": 1668780,
+      "sha256": "fc0bbc8d3a8d090ac9dca15a7ad95af73e241e318289266b7743982c5670dde8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/vio-ego-flight.log": {
+      "bytes": 1668780,
+      "sha256": "fc0bbc8d3a8d090ac9dca15a7ad95af73e241e318289266b7743982c5670dde8"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/vio-launch.log": {
+      "bytes": 752409,
+      "sha256": "3bffd0cd8877594719d0bb9928ce0ef912e1bcb13799063ae9eafa260423d9bb"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/vio_closed_loop_smoke_goal.json": {
+      "bytes": 417,
+      "sha256": "79a5d6892b53785286b7d5c826ffac3e28e5166e93f3c173e64b3dc4527c9046"
+    },
+    "artifacts/runs/p5-vio-hover-cost-timing-build-20261019-181/install/lib/vins/vins_node": {
+      "bytes": 12276928,
+      "sha256": "1ba7f8bfd017d6b795a183da2930fd749755f89ed6165ac3d36a71a2ee794024"
+    }
+  },
+  "source_hashes": {
+    "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py": {
+      "bytes": 12292,
+      "sha256": "e0223d96867f76a0826e86424035220666d863daae3a3699bc7872c727d628b5"
+    },
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": {
+      "bytes": 47269,
+      "sha256": "32bc816585f68bef59ba92c00f333d1fb52cf4ae08280782b6bd91c5810c06b1"
+    },
+    "tools/test_px4_bridge_time_mapping.py": {
+      "bytes": 11846,
+      "sha256": "1082617900cd610f31787e0e57974a7738098a4f0cd3c9e87153d86ff26bab9e"
+    },
+    "tools/test_px4_bridge_control.py": {
+      "bytes": 10164,
+      "sha256": "00a3d7a9c6abdd4540108a29d4f0691730fd8c500cbeb7c2180b855192f71534"
+    },
+    "config/components/px4_bridge/vio_closed_loop.json": {
+      "bytes": 720,
+      "sha256": "f4563398c113b18e07b08202ea6d85a73a167671ad8f92263c7b44f823533b3f"
+    },
+    "config/components/px4_bridge/debug_truth.json": {
+      "bytes": 3147,
+      "sha256": "bbc8a647742a4d0ad68b278017bfcd964b28503d8ba78fc9ee15a28c630356cf"
+    },
+    "dependencies/patches/vins/0005-diagnostic-cost-components.patch": {
+      "bytes": 8641,
+      "sha256": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72"
+    },
+    "tools/probe_px4_bridge_live.py": {
+      "bytes": 13775,
+      "sha256": "fe446ec3bbdf6cbe7ef3e1a3f8e49b4d01e0d58094c938a4809e5b50b66042c5"
+    },
+    "tools/stage_px4_debug_params.py": {
+      "bytes": 6479,
+      "sha256": "d70a6ded5d092a2ea57a36ea746b7263c3bc0077ccd1262b1447a822e5199fda"
+    },
+    "artifacts/runs/p5-px4-vio-ego-no-motion-direct-20261020-202/run_vio_ego_flight_harness.py": {
+      "bytes": 30255,
+      "sha256": "5581cf06ad32709575a64d88ea5ccea6ab423471917bebb36269a7c89daaa20a"
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "schema": "goal-c-ego-canonical-dense-spline-unknown-guard/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-dense-spline-canonical-unknown-guard-20261021-326",
+  "result": "diagnostic_only_unknown_guard_observed_clearance_unqualified",
+  "source": {
+    "upstream": "https://github.com/ZJU-FAST-Lab/ego-planner-swarm",
+    "upstream_revision": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "license": "GPL-3.0-only",
+    "canonical_reconstruction": "tools/fetch_ego.py",
+    "canonical_base_run": "artifacts/runs/p2-ego-snapshot-canonical-build-20261020-297",
+    "canonical_patch_count": 15,
+    "canonical_plus_experiment_source_tree_sha256": "146e98886766867cbc26e95311abcf8af392df10f75be6f2a884726aca261a22",
+    "source_manifest": "artifacts/runs/p2-ego-dense-spline-canonical-unknown-guard-20261021-326/source-manifest.json",
+    "source_manifest_sha256": "fad5b51d5420e330868780936951288daa726ccbf6fd7021b9561f36866b6f71",
+    "experimental_patches": [
+      {
+        "path": "dependencies/patches/ego/0029-dense-spline-inflation-check-experiment.patch",
+        "sha256": "1903e9ed4d2fa5a6044f1fb6167e3b82a89215524ffcfb32f9c8b3230f761abb"
+      },
+      {
+        "path": "dependencies/patches/ego/0030-dense-spline-explicit-unknown-check-experiment.patch",
+        "sha256": "766b88de7dbbf87f8c1937fb9e0303697a602d10df2288d0cea19452fb5e3e85"
+      },
+      {
+        "path": "dependencies/patches/ego/0031-dense-spline-canonical-diagnostic-compatibility-experiment.patch",
+        "sha256": "ec7e96691e4f5c7d02e4609185a4ecc47b2d629f63caf9a281f0280d05258f90"
+      }
+    ],
+    "vendor_tree_modified": false,
+    "canonical_sources_manifest_modified": false
+  },
+  "excluded_prior_runs": {
+    "runs": [322, 323, 324, 325],
+    "reason": "Those diagnostics built from src/vendor/ego_planner, which is an unpatched imported subset missing canonical patch 0021 and /mapping/get_occupancy_snapshot. They are not canonical-source build or runtime evidence."
+  },
+  "build": {
+    "environment": "d435i-vins:dev, ROS 2 Jazzy, Release",
+    "scope": "colcon packages-up-to ego_planner; isolated EGO overlay over the #297 reconstructed underlay",
+    "summary": "5 packages finished in 2 min 11 s; compiler emitted warnings but no errors.",
+    "log": "artifacts/runs/p2-ego-dense-spline-canonical-unknown-guard-20261021-326/build-ego.log",
+    "log_sha256": "fdff0a765d3d5529ecf3e208e6de8e7a04944d4036c9f1b9228cd57ff9372860",
+    "planner_binary": "artifacts/runs/p2-ego-dense-spline-canonical-unknown-guard-20261021-326/ego-overlay/lib/ego_planner/ego_planner_node",
+    "planner_binary_sha256": "3de8da8fa0ae6dd944c0b8b440e911014652081001e1533c9fbc3de2be062a34"
+  },
+  "runtime": {
+    "qualification": "Planner-only Gazebo D435i/VINS/mapping/EGO run. No trajectory server, controller, PX4 bridge, setpoint publisher, or runtime truth subscription.",
+    "goal_xy_m": [2.5, 1.4],
+    "wall_seconds": 23.226872,
+    "goal_sent": true,
+    "goal_sent_wall_elapsed_s": 4.613462,
+    "status": "bspline_received",
+    "bspline_count": 2,
+    "snapshot_request_count": 2,
+    "final_spline_collision_reject_count": 10331,
+    "final_spline_reject_categories": {
+      "in_map_1_unknown_1_raw_0_inflated_0": 10331
+    },
+    "replan_headers": 10797,
+    "ego_log_size_bytes": 7398030,
+    "runtime_graph": {
+      "forbidden_control_nodes": [],
+      "truth_topics": [],
+      "control_topics": [],
+      "snapshot_services": [
+        "/mapping/get_map_status",
+        "/mapping/get_occupancy_snapshot"
+      ]
+    },
+    "probe_report": "artifacts/runs/p2-ego-dense-spline-canonical-unknown-guard-20261021-326/planner-goal-result-01.json",
+    "probe_report_sha256": "1e7943c2ac845932b8e820448ab5c0ad96b9a30c6b1b352d49c393d67407d2b5",
+    "runtime_summary": "artifacts/runs/p2-ego-dense-spline-canonical-unknown-guard-20261021-326/runtime-summary-01.json",
+    "runtime_summary_sha256": "afc683245e155855c6fcf6aa367ff04f9db07c88ba6941b24d74c44df5851393",
+    "ego_log": "artifacts/runs/p2-ego-dense-spline-canonical-unknown-guard-20261021-326/ego-01.log",
+    "ego_log_sha256": "99595a183d0e5ecd400c3c3115267aa928d8b39e7ddf8342cf6ac972debcb2df"
+  },
+  "snapshots": [
+    {
+      "traj_id": 1,
+      "accepted": true,
+      "snapshot_minus_spline_start_s": 0.004,
+      "depth_source_age_at_response_s": 0.136,
+      "resolution_m": 0.1,
+      "unknown_voxels": 3438668,
+      "free_voxels": 16002,
+      "occupied_voxels": 1330,
+      "inflated_voxels": 33785,
+      "known_fraction": 0.005015046296296296,
+      "sha256": "477ae2ca306d2d441402a48c295122784ad8bcda8e6db8cc522776cc8a1082d5"
+    },
+    {
+      "traj_id": 2,
+      "accepted": true,
+      "snapshot_minus_spline_start_s": 0.069,
+      "depth_source_age_at_response_s": 0.099,
+      "resolution_m": 0.1,
+      "unknown_voxels": 3435425,
+      "free_voxels": 19382,
+      "occupied_voxels": 1193,
+      "inflated_voxels": 34827,
+      "known_fraction": 0.005953414351851852,
+      "retry_attempts": 2,
+      "first_rejection_reason": "no_fresh_fused_depth",
+      "sha256": "fad1dbef8ec4ef7b173bb7ccc67edb2f8f6251ef18d5635ca0d57f9f865e8365"
+    }
+  ],
+  "offline_analysis": {
+    "path": "artifacts/runs/p2-ego-dense-spline-canonical-unknown-guard-20261021-326/spline-snapshot-clearance-analysis.json",
+    "schema": "ego-spline-occupancy-overlay-analysis/v2",
+    "method": "SciPy BSpline 10 ms samples over the active knot interval, plus a separate exact 2/3 horizon sample matching the experimental planner guard; compare samples with the paired read-only raw occupancy and inflation mask.",
+    "result": "diagnostic_only",
+    "curves": [
+      {
+        "traj_id": 1,
+        "full_centerline_samples": 479,
+        "full_unknown_samples": 0,
+        "full_raw_occupied_samples": 0,
+        "full_inflated_samples": 2,
+        "planner_guarded_horizon_blocked_samples": 0,
+        "inflated_hits_in_unmonitored_tail": 2,
+        "minimum_centerline_to_occupied_voxel_box_m": 0.4999299577715515,
+        "margin_over_nominal_0_482m_sphere_m": 0.01792995777155154
+      },
+      {
+        "traj_id": 2,
+        "full_centerline_samples": 425,
+        "full_unknown_samples": 0,
+        "full_raw_occupied_samples": 0,
+        "full_inflated_samples": 0,
+        "planner_guarded_horizon_blocked_samples": 0,
+        "inflated_hits_in_unmonitored_tail": 0,
+        "minimum_centerline_to_occupied_voxel_box_m": 0.6074578391945928,
+        "margin_over_nominal_0_482m_sphere_m": 0.12545783919459286
+      }
+    ],
+    "analysis_sha256": "5efb0f2bde2e2cce524b6375dd592379073964f8e219e545502c9ff482439a58"
+  },
+  "interpretation": "The explicit unknown guard rejected all logged final-spline candidates because their checked samples were in-map unknown voxels (raw=0 and inflated=0); two later B-splines had known-free centerlines in paired snapshots and no blocked samples in the guarded first two-thirds. The first curve has two inflation-mask hits at the end of the unmonitored tail, while its nearest raw occupied voxel-box distance gives only 18 mm beyond the nominal sphere. This is a safety diagnostic, not a clearance pass.",
+  "limitations": [
+    "Map known coverage was only 0.50% and 0.60%; unseen space is unresolved.",
+    "Snapshots were requested asynchronously after spline receipt; offsets were 4 ms and 69 ms, with depth-source ages 99 ms and 136 ms.",
+    "The 0.5 m run-local inflation mask is an axis-aligned cube and remains experimental; neither inflation nor health thresholds are frozen.",
+    "The 18 mm nominal-sphere margin is below the previously measured map-geometry P95 scale of about 7 cm; map pose error, body sweep, localization/tracking error and stopping distance remain uncombined.",
+    "No path execution, controller, PX4 SITL, hardware flight, or runtime truth input was included; planner output does not prove motion safety."
+  ],
+  "next_step": "Repeat the retry-rate control on the canonical #297 reconstruction with experimental patches 0028 and 0029-0031, while retaining planner-only isolation and same-spline snapshots; then continue map coverage/geometry and swept-body/tracking qualification. Keep GOAL C and thresholds pending."
+}

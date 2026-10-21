@@ -1,0 +1,75 @@
+{
+  "scope": "P0 clean full-workspace static build, including the patched Micro XRCE-DDS Agent and pinned spdlog source packages.",
+  "date": "2026-10-16",
+  "status": "PASS",
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "build_directories": "Fresh run-specific build and install directories",
+    "container_base_limit": "The pinned base image is available only in the local Docker cache; see p0-clean-container-build.json."
+  },
+  "command": "source /opt/ros/jazzy/setup.bash && MAKEFLAGS=-j2 CMAKE_BUILD_PARALLEL_LEVEL=2 colcon --log-base artifacts/runs/p0-final-colcon-build-20261016-05/log build --build-base artifacts/runs/p0-final-colcon-build-20261016-05/build --install-base artifacts/runs/p0-final-colcon-build-20261016-05/install --executor sequential --parallel-workers 1 --event-handlers console_direct+",
+  "result": {
+    "packages_discovered": 15,
+    "packages_finished": 15,
+    "exit_code": 0,
+    "elapsed": "13 minutes 44 seconds",
+    "packages": [
+      "bspline_opt",
+      "camera_models",
+      "ego_planner",
+      "global_fusion",
+      "loop_fusion",
+      "microxrcedds_agent",
+      "path_searching",
+      "plan_env",
+      "px4_msgs",
+      "spdlog",
+      "traj_utils",
+      "uav_interfaces",
+      "uav_localization",
+      "uav_sim",
+      "vins"
+    ]
+  },
+  "workspace_patches": [
+    {
+      "path": "dependencies/patches/agent/0001-colcon-build-integration.patch",
+      "sha256": "232e46de6fe23be8adc96d633ae172b86babbb73e58ee2a64cacb82114dac05b",
+      "reconstructed_manifest": "artifacts/runs/p0-agent-reconstruction-20261016-03/agent-patched-sha256.txt",
+      "reconstructed_manifest_sha256": "69185bf43cf61c0b99e6f5d860ca388ffb2dceb41a205956e088373c782a4497",
+      "effect": "Colcon-only metadata; configure Agent against workspace spdlog and system Fast-DDS/Fast-CDR without CMake superbuild downloads."
+    },
+    {
+      "path": "dependencies/patches/spdlog/0001-colcon-build-integration.patch",
+      "sha256": "618f89ae68f5b07c51d04129546703d25bbd043762c8dbd84676df388bdf4a83",
+      "reconstructed_manifest": "artifacts/runs/p0-agent-reconstruction-20261016-03/spdlog-patched-sha256.txt",
+      "reconstructed_manifest_sha256": "b0fe287626a43b9331919172d29e38a76bba80783e8e1f1b5b67390fd0890377",
+      "effect": "Adds colcon CMake metadata only; builds pinned spdlog 1.9.2 with bundled fmt."
+    }
+  ],
+  "artifacts": {
+    "package_list": "artifacts/runs/p0-final-colcon-build-20261016-05/packages.txt",
+    "package_list_sha256": "e6792420af2783552458553ec9929c0dbcb835569c6b3b709e088035f0099e4c",
+    "build_log": "artifacts/runs/p0-final-colcon-build-20261016-05/colcon-build.log",
+    "build_log_sha256": "99f0ce7c34d8fb12cb6f6acae145d4bc095aa5cbfb8de0406189180629b9cf6f"
+  },
+  "warnings": [
+    "Nine third-party packages emitted compiler or CMake stderr warnings; all targets completed successfully.",
+    "Warnings include deprecated ROS ConstPtr aliases, legacy variable-length arrays and unused parameters, PCL CMP0144 notices, and unavailable optional Pcap support."
+  ],
+  "qualification": {
+    "static_ros_build": "PASS",
+    "patched_agent_colcon_integration": "PASS",
+    "tests": "NOT_RUN",
+    "launch_or_runtime_graph": "NOT_RUN",
+    "agent_udp_server_or_px4_connection": "NOT_RUN",
+    "planner_replay": "NOT_RUN",
+    "sitl": "NOT_RUN",
+    "real_hardware": "NOT_RUN",
+    "limits": [
+      "Build/install only; no ROS tests, launch, runtime behavior, DDS interoperability, PX4 firmware, SITL, or hardware were exercised.",
+      "The base image and complete transitive OS/ROS dependency set are not yet distributably locked, so portable clean-machine reconstruction is still incomplete."
+    ]
+  }
+}

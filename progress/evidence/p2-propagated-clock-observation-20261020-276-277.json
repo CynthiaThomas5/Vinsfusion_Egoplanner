@@ -1,0 +1,85 @@
+{
+  "schema": "p2-propagated-clock-observation-diagnostic/v1",
+  "date": "2026-10-20",
+  "run_ids": [
+    "#274",
+    "#275",
+    "#276",
+    "#277"
+  ],
+  "status": "DIAGNOSTIC_NO_FUTURE_LOCK_REPRODUCED",
+  "health_policy": {
+    "future_tolerance_s": 0.02,
+    "propagated_max_source_age_s": 0.12,
+    "propagated_max_receipt_age_s": 0.2,
+    "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+  },
+  "comparison": {
+    "prior_load_runs_report": "progress/evidence/p2-propagated-clock-offset-20261020-274-275.json",
+    "harness_attempt_276": "artifacts/runs/p2-propagated-clock-observation-full-stack-20261020-276/run-report.json",
+    "instrumented_repeat_277": "artifacts/runs/p2-propagated-clock-observation-full-stack-20261020-277/run-report.json",
+    "run_277_runtime": {
+      "probe": "artifacts/runs/p2-propagated-clock-observation-full-stack-20261020-277/freshness.json",
+      "probe_sha256": "6093bda8d5110a5f1b24cde043b1e50079fd8399bdc834f473af17978c1da7c7",
+      "wall_seconds": 35.041,
+      "clock_rate": 0.6903,
+      "clock_count": 22110,
+      "clock_last_stamp_ns": 27886000000,
+      "localization_status_samples": 665,
+      "localization_status_counts": [
+        {
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "count": 665
+        }
+      ],
+      "localization_all_samples_tracking_valid": true,
+      "localization_adapter_propagated_count": 4549,
+      "raw_propagated_count": 4561,
+      "raw_propagated_probe_source_age_ms": {
+        "min": -2.0,
+        "p95": 0.0,
+        "max": 3.0,
+        "below_minus_20ms": 0
+      },
+      "raw_propagated_probe_receipt_interval_wall_ms_max": 332.819,
+      "adapter_future_observation_log_count": 0,
+      "ego_no_odom_log_count": 36,
+      "ego_odom_or_depth_timeout_log_count": 0,
+      "ego_goal_sent": false,
+      "ego_state": "INIT",
+      "ego_shutdown": "SIGINT teardown produced invalid-context RCLError; exit -6"
+    }
+  },
+  "code_change": {
+    "files": [
+      "src/own/uav_localization/uav_localization/health.py",
+      "src/own/uav_localization/uav_localization/node.py",
+      "tools/test_localization_health.py"
+    ],
+    "behavior": "Retain the exact adapter clock/source-stamp comparison when a future sample is detected and emit one epoch-scoped JSON error line; health thresholds and lock behavior are unchanged.",
+    "unit_test": "python3 tools/test_localization_health.py (12 tests passed)",
+    "fresh_build": "4/4 packages built in #277"
+  },
+  "verified_findings": [
+    "In #274 and #275, the adapter remained valid TRACKING and did not reproduce propagated_from_future. #275 external probe clock estimates had scheduling-sensitive outliers and cannot establish the adapter clock for a raw DDS message.",
+    "In instrumented full-stack static run #277, all 665 received adapter status samples were valid TRACKING. The exact internal future-observation log remained absent because the guard did not trigger.",
+    "The #277 external raw propagated stream had source-age-at-probe-receipt from -2 to +3 ms, with no sample below -20 ms; max observer receipt gap was 332.819 ms, so these remain probe-side values.",
+    "The earlier #273 propagated_from_future lock remains a single observation without captured internal source/clock pair. #274, #275 and #277 do not establish its cause or disprove it.",
+    "The #276 harness attempt did not execute build or simulation and is excluded."
+  ],
+  "limitations": [
+    "All executed comparison runs used static D435i, with no truth, PX4, controller, or goal. They do not test motion, map coverage, planning, navigation, or flight.",
+    "The #277 full-stack EGO stayed INIT, logged repeated no odom, and exited with invalid-context RCLError during SIGINT teardown; this run does not qualify EGO handoff or clean shutdown.",
+    "The diagnostic repeat is exploratory and does not change the 20 ms future tolerance or any acceptance threshold; GOAL B/P2 acceptance is not inferred.",
+    "The static EGO launches in #275 and #277 used odometry_topic:=odom, not /localization/optimized_imu_odom; their timeout/INIT observations do not assess EGO with the correct input wiring."
+  ],
+  "source_sha256": {
+    "health_policy": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "localization_health": "2716ab8f3892ce43e0b4cb59f531860997f020a4efd8f973097ea10ce7dcdd71",
+    "localization_node": "7d60867a42e9e462cee4fb8230ff07f532dd6ff8e3d90acc7157d76614628223",
+    "health_test": "9de26ad948f1007fb0a4aefce3629e97a948901d9b6594b859fdac7c7c3dbf30",
+    "freshness_probe": "42e3a95260a73cd4b1c14149d95e0b7bbc1bfa5a75e2a730b8416cf14d53bf69"
+  }
+}

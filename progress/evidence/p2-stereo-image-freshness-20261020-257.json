@@ -1,0 +1,239 @@
+{
+  "schema": "p2-stereo-image-freshness-diagnostic-v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-left-image-freshness-20261020-257",
+  "scope": "Direct, read-only left/right D435i image timing and localization status in a lower-load Gazebo/VINS run. No mapping, EGO, goal, controller, PX4, setpoint, or truth input.",
+  "status": "diagnostic_only",
+  "comparison_reference": {
+    "run_256": "The short-target run locked before goal publication with left_stale. Its VINS telemetry pair stamps had a 363 ms maximum gap; optimized raw output had a 389 ms wall receipt gap immediately before the adapter lock. Those measurements are temporally consistent with freshness pressure but do not prove the camera input gap.",
+    "scope_difference": "This run omits EGO, mapping, and their observers; it does not reproduce the full planner workload."
+  },
+  "runtime": {
+    "session_epoch": "2c0936b17e8d4aceab0233f7f764ebd6",
+    "image_observer": {
+      "left": {
+        "source_stamp": {
+          "count": 1487,
+          "first": 2578000000,
+          "last": 51679000000,
+          "span_s": 49.101,
+          "interval_ms": {
+            "p50": 33.0,
+            "p95": 33.0,
+            "max": 66.0
+          },
+          "intervals_over_300ms": 0
+        },
+        "wall_receipt": {
+          "count": 1487,
+          "first": 5088725926887,
+          "last": 5142823215309,
+          "span_s": 54.097288422,
+          "interval_ms": {
+            "p50": 35.855,
+            "p95": 56.99,
+            "max": 194.011
+          },
+          "intervals_over_300ms": 0
+        },
+        "source_age_at_receipt_ms": {
+          "p95": 48.0,
+          "max": 181.0,
+          "over_300ms": 0
+        },
+        "stamps_with_gaps_over_300ms": [],
+        "metadata": [
+          [
+            "infra1_optical_frame",
+            640,
+            480,
+            "mono8"
+          ]
+        ]
+      },
+      "right": {
+        "source_stamp": {
+          "count": 1486,
+          "first": 2578000000,
+          "last": 51646000000,
+          "span_s": 49.068,
+          "interval_ms": {
+            "p50": 33.0,
+            "p95": 33.0,
+            "max": 66.0
+          },
+          "intervals_over_300ms": 0
+        },
+        "wall_receipt": {
+          "count": 1486,
+          "first": 5088746026714,
+          "last": 5142787394310,
+          "span_s": 54.041367596,
+          "interval_ms": {
+            "p50": 36.119,
+            "p95": 55.97,
+            "max": 217.473
+          },
+          "intervals_over_300ms": 0
+        },
+        "source_age_at_receipt_ms": {
+          "p95": 62.0,
+          "max": 192.0,
+          "over_300ms": 0
+        },
+        "stamps_with_gaps_over_300ms": [],
+        "metadata": [
+          [
+            "infra2_optical_frame",
+            640,
+            480,
+            "mono8"
+          ]
+        ]
+      },
+      "stereo_pairs_within_3ms": 1485,
+      "status_history": [
+        {
+          "wall_elapsed_s": 0.563855,
+          "epoch": "2c0936b17e8d4aceab0233f7f764ebd6",
+          "state": 0,
+          "valid": false,
+          "reason": "waiting_for_inputs",
+          "good_pairs": 0,
+          "accepted_optimized": 0,
+          "accepted_propagated": 0
+        },
+        {
+          "wall_elapsed_s": 1.764764,
+          "epoch": "2c0936b17e8d4aceab0233f7f764ebd6",
+          "state": 0,
+          "valid": false,
+          "reason": "waiting_for_propagated",
+          "good_pairs": 1,
+          "accepted_optimized": 0,
+          "accepted_propagated": 0
+        },
+        {
+          "wall_elapsed_s": 2.418679,
+          "epoch": "2c0936b17e8d4aceab0233f7f764ebd6",
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "good_pairs": 10,
+          "accepted_optimized": 1,
+          "accepted_propagated": 3
+        },
+        {
+          "wall_elapsed_s": 43.571793,
+          "epoch": "2c0936b17e8d4aceab0233f7f764ebd6",
+          "state": 4,
+          "valid": false,
+          "reason": "normalized_cost_exceeded",
+          "good_pairs": 575,
+          "accepted_optimized": 566,
+          "accepted_propagated": 7472
+        }
+      ],
+      "observer_wall_seconds": 55.048154,
+      "observer_scope": "Read-only stereo source timing and localization-status observation; no goal, control, PX4, map, or truth subscriptions"
+    },
+    "raw_vins": {
+      "wall_seconds": 62.00020122400019,
+      "counts": {
+        "optimized": 833,
+        "propagated": 10990
+      },
+      "telemetry_count": 843,
+      "initialized_telemetry_count": 833,
+      "truth_sample_count": 0,
+      "imu_sample_count": 0,
+      "source_rates_hz": {
+        "optimized": 15.151515151515152,
+        "propagated": 199.98180163785258
+      },
+      "all_output_finite": true,
+      "parse_errors": []
+    },
+    "motion": {
+      "clock_range_s": [
+        4.18,
+        29.183
+      ],
+      "command_count": 8,
+      "wall_seconds": 27.40399365200028,
+      "truth_subscribed": false
+    },
+    "world_sdf_valid": true
+  },
+  "interpretation": "The separate observer received 1,487 left and 1,486 right frames, with no source-stamp gap above 300 ms and no left_stale status. Localization entered TRACKING, remained valid for about 41 seconds, and then locked on normalized_cost_exceeded. This supports that the sensor source can remain fresh in the reduced-load setup; it does not establish why the full #256 stack hit left_stale, because the observer cannot prove per-message adapter receipt and the workload differs.",
+  "truth_isolation": {
+    "online_truth_subscriptions": 0,
+    "motion_driver": "Simulation clock drives prescribed wrench changes; no model pose or truth topic subscription.",
+    "raw_vins_probe_truth_enabled": false,
+    "stereo_observer_truth_topic": null,
+    "control_publishers": 0
+  },
+  "qualification": "Not a planner, mapping, trajectory, obstacle-clearance, or navigation acceptance run. Health thresholds remain unchanged and PROVISIONAL.",
+  "limitations": [
+    "Observer receipt timing is from a separate ROS subscriber and does not prove the localization adapter callback received each image.",
+    "The image observer adds subscriber and deserialization load to this diagnostic run.",
+    "Lower-load configuration differs from #256: EGO, mapper, goal probe, and mapping observer were omitted.",
+    "The final localization lock was caused by the existing normalized-cost guard; the run did not qualify a full-duration healthy session."
+  ],
+  "next_step": "Run the same 0.5 m full stack with a run-local direct observer for left/right image and IMU source stamps, wall receipt intervals and /clock age. Keep the health gate and map readiness requirement; publish a single short goal only if localization and nonempty MapStatus remain stable. Do not start a controller or PX4.",
+  "execution_validation": {
+    "container_exit_code": 0,
+    "world_sdf_check": "gz sdf -k reported Valid; existing gz_frame_id schema warnings remain.",
+    "run_local_syntax": "bash -n passed for run-container/run-live; Python compile check passed for all three run-local scripts.",
+    "project_source_changes": false,
+    "test_container_cleanup": "docker ps empty after run."
+  },
+  "source_sha256": {
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/localization/vins_sim.json": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+    "config/components/simulation/sensor_motion.json": "a42c1ae6813ea4e3669d5d253d4ba20cb9f063eb790cf81f47f83b63ae49fe86",
+    "simulation/models/d435i/model.sdf": "0f8d0a84254c9b8fc002fbd2504d3084a75b7e7161dda9dbf542bc0b99201819",
+    "simulation/worlds/sensor_calibration.sdf": "08d4eb1f655af0505765fa68d902c6a0e6a1151abaf49ecd987e3ea159d9eb75",
+    "src/own/uav_localization/uav_localization/node.py": "63e9786255696e46abdaa61141fc680f3fa9c0193a5fb3b66d3d72429ebdc806",
+    "src/own/uav_localization/uav_localization/health.py": "98e1cfa4e53825ba71f6929d2af007d69e2d7671155c9ed1b161db0e26932255",
+    "src/own/uav_sim/launch/sensors.launch.py": "61a9c68132fb22d443f0a1530e0fb77cfdf4a4e0ecf4abdfe377cb0c388f0314",
+    "src/vendor/vins_fusion/vins/src/estimator/estimator.cpp": "15adf0b2f3a0e8f1a2f506e2b6480e41c860aeb0c05ce37dc63e9bb0175ec3ad",
+    "src/vendor/vins_fusion/vins/src/rosNodeTest.cpp": "674df2fcd02df0fa98f3fb01432ce8ee34132800cc36f274392bc8043c17f8db",
+    "src/vendor/vins_fusion/vins/src/utility/visualization.cpp": "ae4f21db23c3359f3b173ea7577c50327ec8b2e0f68e76e9558ca0252e978bd7",
+    "tools/generate_vins_config.py": "b98c1730bcfedb18079ce75a50fa6ba51c3a175fc53937766b14693675fa9e06",
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/probe_vins.py": "05d133170cc7e545ea454e4484933e20df41a0288c4f9d3489573b110c4cb33c"
+  },
+  "raw_artifacts": {
+    "directory": "artifacts/runs/p2-ego-left-image-freshness-20261020-257",
+    "sha256": {
+      "add_obstacles.py": "afb0bfe4cbec26ec6f4bbc56bf06fe529a9f472a5d5e5f2b49907447ee70c649",
+      "debug-motion.sdf": "56f6c14629a4ca67e266f6b183c8a3b424076ea81c4f8e0bd4e1a6dc4304bc51",
+      "localization-adapter.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "motion-driver.log": "31e7004a0148c92ed5ee1b126a164d626f1ca94f019bafd6e9a031d3750a29f7",
+      "motion.json": "ab599ba736c66abc60c4ec9735dd57ce5d0b51e5f26f7cfb4d93dd8c00da4fe0",
+      "probe_stereo_freshness.py": "8dff0363654bfa4b6ffeeb464a6f422a5e2ab33bcd6e2ae71af98b41427b240e",
+      "raw-vins-capture/raw-odometry.json": "50e23c7bf04f4c52316555c9f9bc14da6cbb9832760ba4f35a0d767c73c5cfc5",
+      "raw-vins-capture/summary.json": "b99aa5ab1f4428089cfe4cd4101d7de39af890e05db90d2646349345e48a4d2f",
+      "raw-vins-capture/telemetry.json": "4a6209c13980707836549eb40c88142936c520639682051fa56862af653d3487",
+      "raw-vins-probe.log": "1915431902d98ac77b96620d2b5bfeee10ac3502632c18e5e78f9ad2ce132769",
+      "run-container.sh": "fe6759d71c9e123a22c4d5201b10bed5307295c1cafc184d5191c567c2461a2d",
+      "run-live.sh": "637da9ea5f96850cac54b39aa785f64390a4d21c3b45a1407363f166ae88078e",
+      "run-variant-manifest.json": "02ae89d1cc71283ea6ea25da4048de45750a7b97004e81bf03338ba18008fc29",
+      "run_sensor_motion_no_truth.py": "c58937838159014a480e5f8dc2f8ee3146a28f6ff0d1ecfceec0941e5ef5821d",
+      "sensors.log": "47cf61f9abca93750e27b5cc08525f7303f5aa56cb095ec407d3edebc5e895d5",
+      "session/.localization-used": "46a664ae058713c32a7d774400b9d0e1bfd0ba3ba0f662cd0ed47ec69965a213",
+      "session/left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+      "session/right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d",
+      "session/session.json": "23cf37d320627f8a0e1f460e5f2c24dae8976521335fa205badc3a3be388204c",
+      "session/vins.yaml": "876b9efaa8b64e35f07d0790d93a2ed89ca085b23b749750b0842695f03c115f",
+      "session/vio.csv": "ca69ea0c66103c18240f3e7106d77aefa51f6b265230b82924b751cf49827974",
+      "session-binding.json": "35131b2adf0c98f009e29262c8423e728979cb5e27ec2567c4e91f50e3d0e0b4",
+      "stereo-freshness-probe.log": "65d4a1a41b1cef0e1d0df2094e67cf1442f331bd2e4f053cdbb59af832789d02",
+      "stereo-freshness.json": "65d4a1a41b1cef0e1d0df2094e67cf1442f331bd2e4f053cdbb59af832789d02",
+      "stereo-topic-info.txt": "23d40305cf6b89663d28f118c0a8f2f5e155930531efa3c8ad3d082767f4ae60",
+      "vins.log": "4a0212131f15d9f0f39ed66e38ddb341231586655704331fecbe84b1a3c4cb98",
+      "world-sdf-check.log": "a0de27890bc62ab84293d55788abcdfd8b78cb09f9ce0e61f862b9ca8f314ed0"
+    }
+  }
+}

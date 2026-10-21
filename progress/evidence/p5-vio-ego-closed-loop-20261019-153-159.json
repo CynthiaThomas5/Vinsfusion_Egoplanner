@@ -1,0 +1,334 @@
+{
+  "changes_under_test": [
+    "Health freshness compares integer nanoseconds so the exact 300 ms boundary remains valid.",
+    "PX4 source timestamps use the estimated_offset captured with each message, avoiding retroactive age changes after Timesync filter reset.",
+    "Only vio_closed_loop PX4 telemetry future allowance changed to 0.05 s from observed 41.048 ms lead in #157; stale-age and receipt-age limits, shared/debug_truth profile and localization quality threshold are unchanged."
+  ],
+  "date": "2026-10-19",
+  "limitations": [
+    "Runs #158/#159 are short SITL diagnostics and do not measure trajectory error against truth or establish camera image quality under flight motion.",
+    "The repeated normalized-cost spike is the direct localization health failure; EGO ABORT and map reset occur in the same event window, but exact cross-process causal ordering is not proven.",
+    "No successful VIO navigation action, obstacle clearance, long-duration map behavior, real-camera result, or final P5/P6/Goal acceptance is established.",
+    "The VIO-profile 0.05 s future allowance is provisional and justified only by the measured #157 lead; no other guard was loosened."
+  ],
+  "next_step": "Capture full LocalizationStatus normalized_cost/feature time series around takeoff in a no-truth run and compare it with motion/trajectory quality; keep the 1.0 gate until F thresholds are justified, then repeat goal flight and longer map/failsafe acceptance.",
+  "quality_comparison_artifact": {
+    "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-159/quality-baseline-summary.json",
+    "sha256": "fd5f4be12a7e8b959eb1d71e6b3958e1102351f3259d0948facc1e001def3da8",
+    "size_bytes": 10762
+  },
+  "quality_cost_comparison": {
+    "formula": "sqrt(2 * final_cost / residual_components)",
+    "health_limit_unchanged": 1.0,
+    "historical_ego_map_runs": {
+      "max": 0.39845236161426506,
+      "p95": 0.3631618227091769,
+      "run_count": 21,
+      "samples_above_1": 0,
+      "valid_solve_samples": 5294
+    },
+    "interpretation": "The two flight failures (1.067 and 1.128) lie between these historical contexts. Historical map and injected-degradation runs do not calibrate flight accuracy; no threshold relaxation is supported.",
+    "visual_degradation_replays": {
+      "max": 1.2183678777088194,
+      "p50": 1.2183557534801501,
+      "p95": 1.2183643662110506,
+      "run_count": 2,
+      "samples_above_1": 432,
+      "valid_solve_samples": 772
+    }
+  },
+  "runs": [
+    {
+      "report": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-153/vio-ego-flight-report.json",
+        "sha256": "c4543cf5cc20f25ae2412f7764a2f6a5f3196888fb46fe3157ef4d8227376af8",
+        "size_bytes": 3650238
+      },
+      "result": "FAIL_BEFORE_ACTIVE",
+      "run_id": 153,
+      "summary": "Preconditions and 2 s telemetry stability gate passed; enable accepted. PX4 source-age became stale after Timesync estimated-offset reset, bridge landed; no navigation goal was sent."
+    },
+    {
+      "health_trace": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-154/localization-health-failure.jsonl",
+        "sha256": "d5a9c3e4da4cba31fd69312541c7ca99bc06b2c4562c5db9bdd729d7c7ebc071",
+        "size_bytes": 2860
+      },
+      "report": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-154/vio-ego-flight-report.json",
+        "sha256": "a92bb522aa2f9237630bd4eda1c967802357d3c41d9b3a53a1f94499099f446d",
+        "size_bytes": 3792193
+      },
+      "result": "FAIL_PRECONDITION",
+      "run_id": 154,
+      "summary": "A one-off propagated VINS output appeared about 60 ms ahead of a stale /clock sample; localization locked propagated_from_future before enable, with no service call/control."
+    },
+    {
+      "report": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-155/passive-observation.json",
+        "sha256": "d43ed653a14daed8e3225bb76e63af71402a306039fe8aba18f9aa1a0b811fd6",
+        "size_bytes": 1830935
+      },
+      "result": "PASS_PASSIVE_ONLY",
+      "run_id": 155,
+      "summary": "25 s read-only repeat: 499 localization statuses TRACKING, no PX4 control inputs, bridge DISABLED/disarmed. Does not exercise goal or flight."
+    },
+    {
+      "health_trace": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-156/localization-health-failure.jsonl",
+        "sha256": "6302477bcf0e7d0f92439a3dd0c50ab7e978e1d8ae077321b1cd90126663822c",
+        "size_bytes": 2902
+      },
+      "result": "FAIL_TEST_HARNESS_BOUNDARY",
+      "run_id": 156,
+      "summary": "Flight helper stopped at the exact 0.3 s localization freshness boundary due float representation (0.30000000000000004); no enable/control call. Integer-nanosecond comparison and exact-boundary test were added afterward."
+    },
+    {
+      "report": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-157/vio-ego-flight-report.json",
+        "sha256": "9396b88ac861b8c74dc599c9bab365d4e83186f3fafd0a06d574efc7b5587158",
+        "size_bytes": 3843311
+      },
+      "result": "FAIL_BEFORE_ACTIVE",
+      "run_id": 157,
+      "summary": "Preconditions and telemetry gate passed; explicit enable led to takeoff. The previous 0.02 s VIO-profile PX4 future limit rejected observed telemetry lead up to 41.048 ms, causing safe landing before ACTIVE/action."
+    },
+    {
+      "ego_log": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-158/ego.log",
+        "sha256": "828702174e10646aaf6b91a31da35a9d02fcf272fa332e7ec79eae79d342f2b7",
+        "size_bytes": 24299
+      },
+      "health_failure": {
+        "clock_s": 52.2,
+        "normalized_cost": 1.127772925709328,
+        "reason": "normalized_cost_exceeded"
+      },
+      "health_trace": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-158/localization-health-failure.jsonl",
+        "sha256": "076f342fcd3f238c552d8a0225d1b7802a0388f067695fb20c8fbba9f90bf1ac",
+        "size_bytes": 2833
+      },
+      "px4_log": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-158/px4.log",
+        "sha256": "584272ff91f577223a330418b447e088237c7ae777354dc54f9a51809a43a6bb",
+        "size_bytes": 5398
+      },
+      "report": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-158/vio-ego-flight-report.json",
+        "sha256": "ef6ded2754230d8cf07b857e6ad1de9b5b54027e8f2d641c494b02c8854da65c",
+        "size_bytes": 1651428
+      },
+      "result": "FAIL_AFTER_ACTIVE_GOAL",
+      "run_id": 158,
+      "summary": "The profile-only 0.05 s PX4 future allowance passed the prior landing point. Bridge reached ACTIVE and sent a navigation goal; health locked at normalized_cost 1.1277729 (clock 52.200 s; features 63, stereo 61, long tracks 42, solve 12.39 ms). Action aborted and PX4 landed/disarmed. EGO also logged stale occupancy/depth input; exact causal order is not established."
+    },
+    {
+      "bridge_transitions": [
+        [
+          3.077,
+          "DISABLED",
+          "px4_preflight_failed"
+        ],
+        [
+          5.114,
+          "PRESTREAM",
+          "px4_preflight_failed"
+        ],
+        [
+          6.114,
+          "REQUEST_OFFBOARD",
+          "px4_preflight_failed"
+        ],
+        [
+          6.164,
+          "REQUEST_ARM",
+          "requesting_arm"
+        ],
+        [
+          6.414,
+          "TAKEOFF",
+          "takeoff_setpoint_active"
+        ],
+        [
+          19.415,
+          "ACTIVE",
+          "takeoff_complete_waiting_for_trajectory"
+        ],
+        [
+          20.264,
+          "LANDING",
+          "trajectory_4"
+        ],
+        [
+          20.314,
+          "LANDING",
+          "normalized_cost_exceeded"
+        ]
+      ],
+      "ego_log": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-159/ego.log",
+        "sha256": "6f2627140892b472e5c338159e9c3a7f8bfeb60ef9a6a898afe88af1de6b816d",
+        "size_bytes": 21596
+      },
+      "health_failure": {
+        "clock_s": 47.908,
+        "normalized_cost": 1.0670232691994772,
+        "reason": "normalized_cost_exceeded"
+      },
+      "health_trace": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-159/localization-health-failure.jsonl",
+        "sha256": "5670c85a5dac127946bc6c00fbc7e0791d1b73bc658892d78cd0e62f015ffacb",
+        "size_bytes": 2854
+      },
+      "mapping_log": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-159/mapping-adapter.log",
+        "sha256": "01540c9665e2bd4f1d5c580b73752b5e357897e50cbf9465bd67c86074b98d80",
+        "size_bytes": 687
+      },
+      "probe_copy": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-159/run_vio_ego_flight.py",
+        "sha256": "0af013a6a3f449566269246c91ceac9dd2d768efbca100ba5045a2668c9ed101",
+        "size_bytes": 24425
+      },
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "report": {
+        "path": "artifacts/runs/p5-px4-vio-ego-flight-20261019-159/vio-ego-flight-report.json",
+        "sha256": "1b74cb3e5afd5ae8658fd19a3549090f8b93e606df1ce32ea34e4e4ba73e6aa6",
+        "size_bytes": 1617108
+      },
+      "result": "FAIL_AFTER_ACTIVE_GOAL",
+      "run_id": 159,
+      "streams": {
+        "depth_health": {
+          "count": 1046,
+          "last_stamp_ns": 1792392348407527981,
+          "last_status": {
+            "reason": "fresh_structurally_valid_depth",
+            "state": 1,
+            "valid": true
+          },
+          "last_wall_elapsed_s": 28.939205378000224,
+          "max_receipt_gap_s": 0.3411161180001727
+        },
+        "ego_camera_pose": {
+          "count": 344,
+          "last_stamp_ns": 47752000000,
+          "last_status": null,
+          "last_wall_elapsed_s": 20.107970295000086,
+          "max_receipt_gap_s": 0.49500941799942666
+        },
+        "ego_depth": {
+          "count": 202,
+          "last_stamp_ns": 47720000000,
+          "last_status": null,
+          "last_wall_elapsed_s": 20.106906719000108,
+          "max_receipt_gap_s": 0.5643853029996535
+        },
+        "localization_status": {
+          "count": 519,
+          "last_stamp_ns": 53892000000,
+          "last_status": {
+            "reason": "normalized_cost_exceeded",
+            "state": 4,
+            "valid": false
+          },
+          "last_wall_elapsed_s": 28.91735287099982,
+          "max_receipt_gap_s": 0.054297964999932447
+        },
+        "occupancy_cloud": {
+          "count": 256,
+          "last_stamp_ns": 53900000000,
+          "last_status": null,
+          "last_wall_elapsed_s": 28.940980630000013,
+          "max_receipt_gap_s": 0.39039529299952846
+        },
+        "optimized_odometry": {
+          "count": 180,
+          "last_stamp_ns": 47787999999,
+          "last_status": null,
+          "last_wall_elapsed_s": 20.10322753299988,
+          "max_receipt_gap_s": 0.13362163599958876
+        },
+        "raw_depth": {
+          "count": 419,
+          "last_stamp_ns": 53860000000,
+          "last_status": null,
+          "last_wall_elapsed_s": 28.937936566000644,
+          "max_receipt_gap_s": 0.30583981799918547
+        }
+      },
+      "summary": "Instrumented repeat reached ACTIVE and sent a goal; health locked at normalized_cost 1.0670233 (clock 47.908 s; features 72, stereo 72, long tracks 39, solve 10.30 ms). Action aborted and PX4 landed/disarmed. Raw depth and READY depth-health messages continued to sim 53.860 s / wall 28.94 s, while optimized odometry stopped at sim 47.788 s and EGO forwarded depth/pose stopped at 47.720/47.752 s. The event supports the quality gate closing the VINS-to-map path; it does not establish why the residual rose."
+    }
+  ],
+  "scope": "P5 VINS-to-PX4/EGO SITL diagnosis; short smoke runs, not acceptance.",
+  "source_sha256": {
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "config/components/px4_bridge/vio_closed_loop.json": "78632156da2cf8b0f23b613d16f64abf7ae0bfb86c6dbcac8c7bbe9c46219775",
+    "src/own/uav_localization/uav_localization/health.py": "98e1cfa4e53825ba71f6929d2af007d69e2d7671155c9ed1b161db0e26932255",
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "8d388e0082088fe964ebb2dc8b4b6be9ab9142d794dcaaeac0a584e1aeb6a84b",
+    "tools/test_localization_health.py": "74f7156682f0873608b82c8cd23c719557195b2d38fb190998516da3bf86c1c1",
+    "tools/test_px4_bridge_time_mapping.py": "9891518d14b099e104609da0b29836d63171c5e7cfe047759afaf3e644119813",
+    "tools/test_px4_bridge_vio_profile.py": "5ca12842b81b5e1847bb2a677f953e6ad9be14911a8229c83439ff2ed7f33f64"
+  },
+  "stage_verdict": "P5 remains in_progress; no successful navigation action or Goal A-H completion.",
+  "status": "in_progress",
+  "truth_input_enabled": false,
+  "verification": {
+    "commands": [
+      {
+        "command": "python3 tools/test_localization_health.py",
+        "result": "PASS",
+        "tests": 11
+      },
+      {
+        "command": "python3 tools/test_fault_relay.py",
+        "result": "PASS",
+        "tests": 2
+      },
+      {
+        "command": "python3 tools/test_px4_bridge_time_mapping.py",
+        "result": "PASS",
+        "tests": 14
+      },
+      {
+        "command": "python3 tools/test_px4_bridge_control.py",
+        "result": "PASS",
+        "tests": 11
+      },
+      {
+        "command": "python3 tools/test_px4_bridge_frames.py",
+        "result": "PASS",
+        "tests": 19
+      },
+      {
+        "command": "python3 tools/test_px4_bridge_vio_profile.py",
+        "result": "PASS",
+        "tests": 7
+      },
+      {
+        "command": "python3 -m py_compile src/own/uav_localization/uav_localization/health.py src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+        "result": "PASS"
+      },
+      {
+        "command": "python3 tools/project_status.py",
+        "note": "Structure/design consistency only; not a build or flight acceptance.",
+        "result": "PASS"
+      },
+      {
+        "command": "git diff --check",
+        "result": "PASS"
+      }
+    ],
+    "sitl_result": "#158 and #159 reached ACTIVE and sent goals, but both fail-closed on normalized_cost_exceeded; both were observed landed and disarmed.",
+    "truth_control_boundary": "VIO run graph excludes debug_truth input. PX4 control publishers remain the single uav_px4_bridge endpoints; the run probe records one publisher on each PX4 control input."
+  }
+}

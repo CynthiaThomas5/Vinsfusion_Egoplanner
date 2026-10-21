@@ -1,0 +1,405 @@
+{
+  "date": "2026-10-17",
+  "run_id": "p5-px4-vio-rtf-profile-20261017-114",
+  "stage": "P5",
+  "stage_status": "in_progress",
+  "result": "diagnostic_profile_only",
+  "environment": {
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distribution": "Jazzy",
+    "ros_domain_id": 230,
+    "gazebo": "Harmonic",
+    "px4": "v1.17.0",
+    "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "repository_head": null,
+    "repository_snapshot": "No project HEAD exists; run artifacts and source inputs are individually hashed."
+  },
+  "changes_under_test": {
+    "bridge_source_changed": false,
+    "thresholds_changed": false,
+    "control_behavior_changed": false,
+    "scope": "Full D435i sensor + PX4 lockstep/Agent + VINS + localization adapter + disabled PX4 bridge. Mapping and EGO planner were not launched.",
+    "qualification_scope": "45-second passive profile; controls remained disabled and vehicle disarmed."
+  },
+  "checks": {
+    "duration_wall_s": 45.0,
+    "clock_samples": 4678,
+    "clock_wall_interval_s": 44.829883,
+    "clock_sim_interval_s": 18.708,
+    "sim_clock_rate_wall_s": 0.417310924,
+    "observed_offset_samples": 41,
+    "observed_offset_s_per_wall_s": -0.583263776,
+    "rtf_plus_abs_offset_slope": 1.0005747,
+    "estimated_offset_zero_reset_events": [
+      {
+        "elapsed_wall_s": 14.794208577950485,
+        "timestamp_px4_us": 28020000
+      }
+    ],
+    "timesync_status_samples": 41,
+    "agent_session_establishments": 1,
+    "localization_tracking_observed": true,
+    "optimized_localization_odometry_samples": 279,
+    "px4_visual_odometry_samples": 280,
+    "ekf2_ev_position_fused": true,
+    "ekf2_ev_yaw_fused": true,
+    "gnss_aiding_flags_all_zero": true,
+    "ros_truth_topics_present": false,
+    "bridge_truth_subscription_present": false,
+    "bridge_phase_final": "DISABLED",
+    "bridge_reason_counts": {
+      "external_odometry_stale": 4,
+      "px4_frame_unaligned": 1,
+      "px4_local_position_invalid": 11,
+      "px4_preflight_failed": 284,
+      "px4_telemetry_stale": 43
+    },
+    "readiness_final_10s_coverage": 0.0,
+    "control_topic_sample_counts_all_zero": true,
+    "vehicle_remained_disarmed": true
+  },
+  "resource_profile": {
+    "host_logical_cpu_count": 16,
+    "container_logical_cpu_count": 16,
+    "container_cpu_max": "max 100000",
+    "container_memory_max": "max",
+    "docker_cpu_samples": 26,
+    "docker_cpu_percent_p50": 498.03,
+    "docker_cpu_percent_max": 734.28,
+    "docker_stats_sampling_scope": "Resource sampler spans container startup, the 45-second probe interval, and teardown; it is not restricted to the probe window.",
+    "process_snapshot_method": "docker top / ps; %CPU is the process lifetime average at each sample, not instantaneous per-thread utilization.",
+    "process_snapshots": {
+      "ruby": {
+        "sample_count": 25,
+        "ps_lifetime_average_cpu_percent_median": 154.0,
+        "ps_lifetime_average_cpu_percent_max": 240.0,
+        "rss_mib_median": 819.5,
+        "rss_mib_max": 819.5,
+        "thread_count_median": 69
+      },
+      "vins_node": {
+        "sample_count": 18,
+        "ps_lifetime_average_cpu_percent_median": 54.25,
+        "ps_lifetime_average_cpu_percent_max": 55.3,
+        "rss_mib_median": 103.2,
+        "rss_mib_max": 111.3,
+        "thread_count_median": 48.0
+      },
+      "localization_ad": {
+        "sample_count": 17,
+        "ps_lifetime_average_cpu_percent_median": 29.4,
+        "ps_lifetime_average_cpu_percent_max": 80.5,
+        "rss_mib_median": 78.5,
+        "rss_mib_max": 78.5,
+        "thread_count_median": 30
+      },
+      "px4_bridge": {
+        "sample_count": 19,
+        "ps_lifetime_average_cpu_percent_median": 24.5,
+        "ps_lifetime_average_cpu_percent_max": 63.0,
+        "rss_mib_median": 93.6,
+        "rss_mib_max": 93.7,
+        "thread_count_median": 30
+      },
+      "parameter_bridg": {
+        "sample_count": 19,
+        "ps_lifetime_average_cpu_percent_median": 10.1,
+        "ps_lifetime_average_cpu_percent_max": 10.9,
+        "rss_mib_median": 54.8,
+        "rss_mib_max": 55.8,
+        "thread_count_median": 22
+      },
+      "px4": {
+        "sample_count": 24,
+        "ps_lifetime_average_cpu_percent_median": 14.5,
+        "ps_lifetime_average_cpu_percent_max": 16.4,
+        "rss_mib_median": 20.2,
+        "rss_mib_max": 20.2,
+        "thread_count_median": 31.0
+      },
+      "MicroXRCEAgent": {
+        "sample_count": 25,
+        "ps_lifetime_average_cpu_percent_median": 1.2,
+        "ps_lifetime_average_cpu_percent_max": 1.3,
+        "rss_mib_median": 27.2,
+        "rss_mib_max": 27.2,
+        "thread_count_median": 53
+      }
+    },
+    "clock_interarrival": {
+      "count": 4677,
+      "wall_interval_ms_p50": 4.059,
+      "wall_interval_ms_p90": 48.332,
+      "wall_interval_ms_p95": 51.515,
+      "wall_interval_ms_p99": 54.171,
+      "wall_interval_ms_max": 58.603,
+      "intervals_over_20ms": 566,
+      "simulated_seconds_advanced_during_intervals_over_20ms": 2.264,
+      "clock_rollbacks": 0,
+      "duplicate_clock_samples": 0
+    },
+    "interpretation": "No host-wide CPU saturation or cgroup CPU quota was observed. Gazebo (ruby executable) was the largest sampled process; data does not establish a single-process root cause or a fix."
+  },
+  "comparison": {
+    "run_112": {
+      "sim_clock_rate_wall_s": 0.417598,
+      "observed_offset_s_per_wall_s": -0.582393,
+      "estimated_offset_zero_reset_events": 2
+    },
+    "run_113": {
+      "sim_clock_rate_wall_s": 1.000005,
+      "observed_offset_s_per_wall_s": -3e-06,
+      "estimated_offset_zero_reset_events": 0
+    },
+    "interpretation": "#114 reproduces #112-like slow clock and offset drift with VINS/localization active; #113 reaches real time without VINS/localization. This is consistent with a rate mismatch correlated with visual-stack load but does not identify which process causes it."
+  },
+  "qualification": {
+    "harness_result": "FAIL",
+    "readiness_final_10s_at_least_95pct": false,
+    "interpretation": "Harness reports FAIL because readiness coverage is 0.0 while the bridge is DISABLED and PX4 preflight is false. VIO delivery and EV position/yaw fusion were observed, but this diagnostic profile does not qualify bridge readiness or P5."
+  },
+  "limitations": [
+    "Run lasted 45 seconds and included VINS/localization only; mapper/EGO planner were omitted, so this is not the complete navigation-stack performance profile.",
+    "No controls or flight were enabled; the bridge remained DISABLED. Readiness was not qualified, and reported telemetry-stale samples remain in the probe data.",
+    "No GNSS aiding, ROS truth topic or bridge truth subscription was observed in this run; D435i simulated world topics still include simulator-only sensors.",
+    "Host resource samples include startup and teardown, and docker top %CPU values are cumulative lifetime averages; they are diagnostic rather than a controlled per-process benchmark.",
+    "The final host sampler lines contain the expected daemon response after the --rm container exited.",
+    "No PX4 source, bridge implementation, control behavior or health threshold was changed."
+  ],
+  "artifacts": {
+    "agent_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/agent.log",
+      "size_bytes": 41563,
+      "sha256": "b2c18188473378ab56e5652c9065f2fe632730f40e52b14db1216f28d3660c67"
+    },
+    "gazebo_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/gazebo.log",
+      "size_bytes": 2932,
+      "sha256": "393b0a44951616979ddcf93e3374fd97ba968aa9d0142c23345ad8b065bb5237"
+    },
+    "px4_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/px4.log",
+      "size_bytes": 5035,
+      "sha256": "c5a1e2b96791a083edebe343279611c0e3dd86dce6eaf6ef0022e18f81cebb87"
+    },
+    "vins_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/vins.log",
+      "size_bytes": 67805,
+      "sha256": "2bc1c00332851d5542e3c08e8616b6d24960e70a228d58e38ae4839b3e9dfaec"
+    },
+    "localization_adapter_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/localization-adapter.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "vio_launch_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/vio-launch.log",
+      "size_bytes": 2910,
+      "sha256": "4818755524c130fd6a4215d3ab5ce9fc146e257e4ae91a4d77743fd7920baa3a"
+    },
+    "px4_live_probe_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/px4-live-probe.log",
+      "size_bytes": 2667842,
+      "sha256": "4e7e848d85275fc6ff0d870000b91c07e2113b6300129a935fdd7267cb84ad79"
+    },
+    "localization_probe_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/localization-probe.log",
+      "size_bytes": 391175,
+      "sha256": "daed33045c695e398e91794f41e12067d62da8967342ca8281b7a4d2ebcc1b3b"
+    },
+    "raw_stream_probe_log": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/raw-stream-freshness.log",
+      "size_bytes": 5737,
+      "sha256": "ceb08505cc2ea0dcb39c869eb4378388c1f439c365c42446c6efb3dcddeb8c11"
+    },
+    "px4_live_probe": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/px4-live-probe.json",
+      "size_bytes": 2667842,
+      "sha256": "4e7e848d85275fc6ff0d870000b91c07e2113b6300129a935fdd7267cb84ad79"
+    },
+    "localization_probe": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/localization-probe.json",
+      "size_bytes": 391175,
+      "sha256": "daed33045c695e398e91794f41e12067d62da8967342ca8281b7a4d2ebcc1b3b"
+    },
+    "raw_stream_freshness": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/raw-stream-freshness.json",
+      "size_bytes": 5737,
+      "sha256": "ceb08505cc2ea0dcb39c869eb4378388c1f439c365c42446c6efb3dcddeb8c11"
+    },
+    "qualification": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/qualification.json",
+      "size_bytes": 3225497,
+      "sha256": "62b68ffad188b6d2abb30b53902306d1b22faca5b5f65695de1b1a3dd3008fe3"
+    },
+    "ros_topics": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/ros-topics.txt",
+      "size_bytes": 3228,
+      "sha256": "68356e5a1d16141d2620794a61f6f87d13c898af79d822f2cc0d9da79b01022a"
+    },
+    "gazebo_topics": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/gz-topics.txt",
+      "size_bytes": 2114,
+      "sha256": "f0e96f3224fcdea5319d9850533c22edd45d524c15088665009552c581504418"
+    },
+    "bridge_graph": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/px4-bridge-node-info.txt",
+      "size_bytes": 1879,
+      "sha256": "1a09659451e9436ae64c2413d0514c13b674c97120864f5a17c9c4a5de330587"
+    },
+    "timesync_topic_info": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/timesync-topic-info.txt",
+      "size_bytes": 951,
+      "sha256": "886e0c44483614c3c5cd609e79eb6c8c65ac24ff6d73c3bc078913b1641a74c4"
+    },
+    "px4_parameter_stage": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/px4-param-stage.json",
+      "size_bytes": 715,
+      "sha256": "4f7ec8dfcb70a40bc8929d537d57ffed372939affb39e895e93d5a87229fc9f4"
+    },
+    "world_generation": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/world-generation.json",
+      "size_bytes": 1432,
+      "sha256": "1720e9d299cf483c784f9036032a37ec7a26217f1827a8f30e82ff07e27fc3ba"
+    },
+    "session_generation": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/session-generation.json",
+      "size_bytes": 624,
+      "sha256": "f84e4451fac46587e88c10207cfd139ce244a84f7cb7d6339ed364a8caa270de"
+    },
+    "generated_world": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/vio_initialization.sdf",
+      "size_bytes": 7845,
+      "sha256": "fd37d4d835a8c370430f2b06a865fc2ded833d4e3e7b6a616e1aea3f31ed2b11"
+    },
+    "run_harness": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/run-px4-vio-rtf-profile.sh",
+      "size_bytes": 10073,
+      "sha256": "1d67799a15ccf6befd62b1004f5fdff28fe54ebe13d4f9cb73034856605633c8"
+    },
+    "resource_sampler": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/sample-container-resources.sh",
+      "size_bytes": 920,
+      "sha256": "35b7301a58dcf91e8911760203da2383c4dc3a23bed99032c0666a2a4da1d506"
+    },
+    "container_resource_limits": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/container-resource-limits.txt",
+      "size_bytes": 43,
+      "sha256": "8f93db103948a0773d721ca218b08a10c0ba72ee732ce5319a3ae88c00717051"
+    },
+    "host_resource_context": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/host-resource-context.txt",
+      "size_bytes": 41,
+      "sha256": "6708c5b73dd2d89fc9cd84bdce6905d2cdf75a9a35e50c4ed1686f31392b16ab"
+    },
+    "host_resource_samples": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/host-resource-samples.txt",
+      "size_bytes": 56524,
+      "sha256": "1ed0b84bb1d2d5712d6fa275d5a33ca098bd35d0f4ec5c85e9563ef1e579d942"
+    },
+    "px4_ulog": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/px4_sitl_default/log/2026-10-17/09_39_27.ulg",
+      "size_bytes": 9259159,
+      "sha256": "dd2860de4ddc73acfca76398ed86373bd23b44e3634f046ab41b4c2ad9145c41"
+    },
+    "px4_binary": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/px4_sitl_default/bin/px4",
+      "size_bytes": 57466288,
+      "sha256": "e8afcee6c830303a2514a3ad14c4a105681e2c7f0762644b1b3fe318f6c11159"
+    },
+    "offline_analysis_script": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/analyze_vio_rtf_profile.py",
+      "size_bytes": 3659,
+      "sha256": "51591364a59c5a71d5f606fb4d11a7ac75121b462496f3c0bb49a9ab13ca9533"
+    },
+    "offline_analysis_summary": {
+      "path": "artifacts/runs/p5-px4-vio-rtf-profile-20261017-114/rtf-resource-analysis.json",
+      "size_bytes": 1491,
+      "sha256": "0ccd1fb8cec87a058a64cc5e953345d8fb60f3ab5e746cf1c05a137dca5fbefc"
+    }
+  },
+  "source_sha256": {
+    "px4_live_probe": {
+      "path": "tools/probe_px4_bridge_live.py",
+      "sha256": "8fd76b13c654dba37ee68daa479c949209b6d5d8b8a977f5ee2ae1a3f8471f57"
+    },
+    "localization_probe": {
+      "path": "tools/probe_localization.py",
+      "sha256": "4b3d584b992720723911976775978772e7c389db4bead986bb7b76a419928911"
+    },
+    "raw_stream_probe": {
+      "path": "tools/probe_vio_stream_freshness.py",
+      "sha256": "04b70b61dfbef403b775b7ff80f1632dc1e7dfb6c0de0b155fa1afebb9e85b8b"
+    },
+    "px4_parameter_stager": {
+      "path": "tools/stage_px4_debug_params.py",
+      "sha256": "40a595212e02672727bbdaf1843ea12f3e1a3266d60464e57b06610f7b4e3fa4"
+    },
+    "world_generator": {
+      "path": "tools/prepare_px4_vio_bootstrap_world.py",
+      "sha256": "639b1b75fe8eb14c14c4c29f147f27156e4152d589e87e310b12e57fc2a64c9c"
+    },
+    "vins_config_generator": {
+      "path": "tools/generate_vins_config.py",
+      "sha256": "b98c1730bcfedb18079ce75a50fa6ba51c3a175fc53937766b14693675fa9e06"
+    },
+    "bridge_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "sha256": "5f1fdae35b78d5e9845a55ad63f0b9daa747ec5e583b9951e20b919ffc8067a9"
+    },
+    "time_mapping_source": {
+      "path": "src/own/uav_px4_bridge/uav_px4_bridge/time_mapping.py",
+      "sha256": "81d663ab1aa4fbc650971ce61cf71d64660dae7e4bff2a11f7ed726b143eb0db"
+    },
+    "bridge_config": {
+      "path": "config/components/px4_bridge/vio_closed_loop.json",
+      "sha256": "846255407d7556d38ec0a77f00581f14284843544b866df7b9c850a308e3e601"
+    },
+    "runtime_profile": {
+      "path": "config/profiles/vio_closed_loop.json",
+      "sha256": "7c6befeb20fca305db47789c8be9086a800db285fcb2cddd0c8a0ed17e3cdc86"
+    },
+    "localization_config": {
+      "path": "config/components/localization/vins_sim.json",
+      "sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc"
+    },
+    "localization_health_config": {
+      "path": "config/components/localization/health.json",
+      "sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a"
+    },
+    "sensor_bridge_config": {
+      "path": "config/components/simulation/d435i_bridge.yaml",
+      "sha256": "5196bf80ec5f8ffa637ab7a327d246ca9b37569dcfde63fdd5b5c3afe6982eed"
+    },
+    "x500_d435i_model": {
+      "path": "simulation/models/x500_d435i/model.sdf",
+      "sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37"
+    },
+    "d435i_model": {
+      "path": "simulation/models/d435i/model.sdf",
+      "sha256": "3c82cce32e0bd4d749e0c5ab2b94a75857ed0d1584a8576df00f9fedc3de3254"
+    },
+    "px4_timesync_source": {
+      "path": "external/PX4-Autopilot/src/lib/timesync/Timesync.cpp",
+      "sha256": "82f383d8deaaf0f1c34d7063fdaa15e472f8867c068d0879630419a504cb5890"
+    },
+    "px4_uxrce_client_source": {
+      "path": "external/PX4-Autopilot/src/modules/uxrce_dds_client/uxrce_dds_client.cpp",
+      "sha256": "1a01a7191b7e5e99e5d80419943ec66da6e8f649c35e45b22bf19ae59e7da7a7"
+    },
+    "px4_timesync_status_message": {
+      "path": "external/PX4-Autopilot/msg/TimesyncStatus.msg",
+      "sha256": "244e915343f678a7a9895002d2f36983bfd4494a2a9167db70b01e2dc5a5566c"
+    },
+    "dependency_lock": {
+      "path": "dependencies/sources.json",
+      "sha256": "eb4aa9cad4da53244af765998a2d953c34482a98e994e8ab05436e3ff65c40d9"
+    }
+  },
+  "timestamp_analysis": {
+    "method": "End-to-end /clock rate uses first/last monotonic receipt samples. observed_offset slope uses ordinary least squares over TimesyncStatus receipt samples. Reset events count estimated_offset returning to zero after a nonzero value. Resource statistics parse saved docker stats and docker top snapshots.",
+    "clock_interarrival": "Measured as consecutive /clock message receipt intervals on the probe monotonic clock. This captures pauses and scheduling gaps; it does not identify their root cause.",
+    "reset_interpretation": "One estimated_offset zero sample at about 14.7942 seconds was followed by a nonzero estimate on the next TimesyncStatus sample about 0.391 ms later."
+  }
+}

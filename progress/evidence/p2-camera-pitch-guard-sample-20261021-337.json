@@ -1,0 +1,255 @@
+{
+  "schema": "p2-camera-pitch-guard-sample-diagnostic/v1",
+  "date": "2026-10-21",
+  "goal_criterion": "C",
+  "status": "diagnostic_only_goal_c_pending",
+  "question": "Can a camera direction corresponding to the first nonzero-time #332 EGO guard rejection become observed by changing the view, while preserving unknown-as-blocked?",
+  "prior_observation": {
+    "evidence": "progress/evidence/p2-ego-full-spline-guard-nonzero-reject-snapshot-20261021-332.json",
+    "guard_sample_xyz_m": [
+      0.390446,
+      0.078722,
+      0.454686
+    ],
+    "guard_voxel": "unknown; raw-free; inflation=0",
+    "camera_optical_vector_m": [
+      0.20313473381497998,
+      -0.3806909227401429,
+      0.21737096313270793
+    ],
+    "baseline_projection_px": [
+      635.1248423078896,
+      -350.5694449369729
+    ],
+    "finding": "entire target voxel lay outside the original camera vertical field of view"
+  },
+  "final_run": {
+    "run_id": "p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337",
+    "run_manifest": "artifacts/runs/p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337/run-manifest.json",
+    "run_manifest_sha256": "5b55ec3e31104b0c1e07f13a60d945c0b70fd900c5625d7b066e290ef6bb14e2",
+    "session_epoch": "5c07c4aa3a49446c949281e4cbf2428e",
+    "map_id": "5c07c4aa3a49446c949281e4cbf2428e-fc44e64770bb47bb9e154dd874fc2d2b",
+    "frame_id": "odom_5c07c4aa3a49446c949281e4cbf2428e",
+    "grid": {
+      "dimensions_xyz": [
+        240,
+        240,
+        60
+      ],
+      "resolution_m": 0.1,
+      "origin_m": [
+        -12.0,
+        -12.0,
+        -0.15
+      ]
+    },
+    "baseline": {
+      "sim_stamp_s": 24.035,
+      "depth_source_age_s": 0.109,
+      "known_voxel_count": 8034,
+      "target_pixel_xy": [
+        635.1248423078896,
+        -350.5694449369729
+      ],
+      "target_in_frustum": false,
+      "target_voxel": {
+        "in_snapshot": true,
+        "index_xyz": [
+          122,
+          118,
+          5
+        ],
+        "center_m": [
+          0.25,
+          -0.14999999999999858,
+          0.4
+        ],
+        "occupancy": -1,
+        "occupancy_label": "unknown",
+        "inflated": 0,
+        "sample_to_voxel_center_m": 0.04766928079881322
+      }
+    },
+    "after_pitch": {
+      "sim_stamp_s": 34.005,
+      "depth_source_age_s": 0.113,
+      "known_voxel_count": 25401,
+      "target_pixel_xy": [
+        490.20585510829324,
+        51.03710809012006
+      ],
+      "target_in_frustum": true,
+      "target_voxel": {
+        "in_snapshot": true,
+        "index_xyz": [
+          122,
+          118,
+          5
+        ],
+        "center_m": [
+          0.25,
+          -0.14999999999999858,
+          0.4
+        ],
+        "occupancy": 0,
+        "occupancy_label": "free",
+        "inflated": 0,
+        "sample_to_voxel_center_m": 0.04766928079881322
+      },
+      "localization_valid": true,
+      "map_ready": true
+    },
+    "map_delta": {
+      "same_grid_geometry": true,
+      "known_before": 8034,
+      "known_after": 25401,
+      "unknown_to_free": 17006,
+      "unknown_to_occupied": 361,
+      "free_to_unknown": 0,
+      "occupied_to_unknown": 0,
+      "same_epoch_and_map_id": true,
+      "target_voxel_before": {
+        "in_snapshot": true,
+        "index_xyz": [
+          122,
+          118,
+          5
+        ],
+        "center_m": [
+          0.25,
+          -0.14999999999999858,
+          0.4
+        ],
+        "occupancy": -1,
+        "occupancy_label": "unknown",
+        "inflated": 0,
+        "sample_to_voxel_center_m": 0.04766928079881322
+      },
+      "target_voxel_after": {
+        "in_snapshot": true,
+        "index_xyz": [
+          122,
+          118,
+          5
+        ],
+        "center_m": [
+          0.25,
+          -0.14999999999999858,
+          0.4
+        ],
+        "occupancy": 0,
+        "occupancy_label": "free",
+        "inflated": 0,
+        "sample_to_voxel_center_m": 0.04766928079881322
+      },
+      "target_entered_frustum": true
+    },
+    "motion": {
+      "pulse_start_sim_s": 30.02,
+      "brake_start_sim_s": 31.031,
+      "pulse_end_sim_s": 32.05,
+      "gyro_y_bias_rad_s": 0.0,
+      "integrated_pulse_gyro_y_deg": -32.20863624199562,
+      "integrated_post_release_gyro_y_to_snapshot_deg": 0.492858295371533,
+      "relative_odometry_camera_rotation_deg": 31.82285674792606,
+      "relative_odometry_rotation_axis": [
+        0.00207524421593894,
+        -0.9999773999144634,
+        0.006394765183610158
+      ]
+    },
+    "independent_verification": {
+      "report": "artifacts/runs/p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337/snapshots/independent-analysis.json",
+      "sha256": "268ea731f05ad744389bcf4e678c96aae642b2aded5cbc549f65c497d3233c9b",
+      "all_checks_passed": true,
+      "checks": {
+        "same_epoch_and_map_id": true,
+        "same_grid_geometry": true,
+        "target_unknown_before": true,
+        "target_free_after": true,
+        "target_inflation_zero_after": true,
+        "target_outside_then_inside_frustum": true,
+        "fresh_snapshot_sources": true,
+        "snapshot_archive_hashes_match": true,
+        "map_deltas_match_archives": true,
+        "valid_localization_at_capture_end": true,
+        "no_truth_or_control_topics": true,
+        "no_runtime_truth_input": true
+      },
+      "ego_odom_or_depth_lost_log_count": 0
+    },
+    "runtime_graph": {
+      "truth_topics": [],
+      "control_topics": [],
+      "forbidden_control_nodes": [],
+      "goal_published": false,
+      "trajectory_server_or_px4": false
+    }
+  },
+  "run_sequence": [
+    {
+      "run_id": "p2-camera-pitch-frustum-map-diagnostic-20261021-333",
+      "run_manifest": "artifacts/runs/p2-camera-pitch-frustum-map-diagnostic-20261021-333/run-manifest.json",
+      "run_manifest_sha256": "764f1d169c063f2e5fb49cfe813fc76017dd9fd7b29b88f65230710616aa2ffc",
+      "status": "baseline_only_localization_and_map_gate_reset"
+    },
+    {
+      "run_id": "p2-camera-pitch-textured-wall-map-diagnostic-20261021-334",
+      "run_manifest": "artifacts/runs/p2-camera-pitch-textured-wall-map-diagnostic-20261021-334/run-manifest.json",
+      "run_manifest_sha256": "a0fef57e936619189d65448ea3ddbd47a85e3030655406c099caa351f96e604c",
+      "status": "observer_harness_key_error"
+    },
+    {
+      "run_id": "p2-camera-pitch-textured-wall-map-diagnostic-20261021-335",
+      "run_manifest": "artifacts/runs/p2-camera-pitch-textured-wall-map-diagnostic-20261021-335/run-manifest.json",
+      "run_manifest_sha256": "15bca2fd2ec40e56792b32218ccd8cf3f982f752bece7021570c28c780fee211",
+      "status": "paired_diagnostic_pass_representative_blind_point",
+      "independent_analysis": "artifacts/runs/p2-camera-pitch-textured-wall-map-diagnostic-20261021-335/snapshots/independent-analysis.json",
+      "independent_analysis_sha256": "c1fe6c296a9ef4cabcf6e4a175e2aa4321e16f4cfe6a68be8c48b709facf8719",
+      "verified": true,
+      "target_occupancy_before_after": [
+        -1,
+        0
+      ]
+    },
+    {
+      "run_id": "p2-camera-pitch-original-guard-sample-map-diagnostic-20261021-336",
+      "run_manifest": "artifacts/runs/p2-camera-pitch-original-guard-sample-map-diagnostic-20261021-336/run-manifest.json",
+      "run_manifest_sha256": "cdb125df8087d2a8f51fb5eb7d05485b5c7c4a03097418050bf7e14d5ecea1b8",
+      "status": "paired_diagnostic_pass_original_ray_with_post_release_drift",
+      "independent_analysis": "artifacts/runs/p2-camera-pitch-original-guard-sample-map-diagnostic-20261021-336/snapshots/independent-analysis.json",
+      "independent_analysis_sha256": "710007a7b178a33d3119f69a45c8f63ef508b8dd7c81dec6fe54a64d3c0775ef",
+      "verified": true,
+      "target_occupancy_before_after": [
+        -1,
+        0
+      ]
+    },
+    {
+      "run_id": "p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337",
+      "run_manifest": "artifacts/runs/p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337/run-manifest.json",
+      "run_manifest_sha256": "5b55ec3e31104b0c1e07f13a60d945c0b70fd900c5625d7b066e290ef6bb14e2",
+      "status": "paired_diagnostic_pass_original_ray_early_capture",
+      "independent_analysis": "artifacts/runs/p2-camera-pitch-settled-guard-sample-map-diagnostic-20261021-337/snapshots/independent-analysis.json",
+      "independent_analysis_sha256": "268ea731f05ad744389bcf4e678c96aae642b2aded5cbc549f65c497d3233c9b",
+      "verified": true,
+      "target_occupancy_before_after": [
+        -1,
+        0
+      ]
+    }
+  ],
+  "interpretation": [
+    "The exact #332 optical ray vector started outside the image and its corresponding raw occupancy cell was unknown.",
+    "After a roughly 32-degree in-place rotation of the debug sensor fixture, VINS projected the target inside the image and the same cell changed to known-free in the same epoch/map_id; depth-source age stayed below 120 ms.",
+    "This supports a view-limited observation explanation for this sample and shows that new depth can clear the cell. It does not justify treating other unknown cells as free."
+  ],
+  "limitations": [
+    "The force-driven fixture is a sensor rig, not an aircraft attitude command or PX4 maneuver.",
+    "The successful runs use a run-local wall scene with visual-only raised markers to maintain stereo features; the markers are not collision geometry or injected occupancy.",
+    "Only one scene, one target direction, and one same-map pair were checked; full coverage, map accuracy, body clearance, planning, trajectory execution, PX4 SITL, and hardware were not tested.",
+    "The large-pitch run without raised texture lost stereo features and reset map_id; that cross-reset snapshot was correctly excluded. A separate attempt exposed an observer KeyError and was also excluded."
+  ],
+  "next_step": "Keep unknown fail-closed. Evaluate whether a vehicle-safe active-view maneuver can be planned and executed within the existing control architecture, then repeat map/geometry tests across additional scenes before considering GOAL C acceptance.",
+  "qualification": "A focused mapping observation diagnostic; not a pass for GOAL C or any A-H criterion."
+}

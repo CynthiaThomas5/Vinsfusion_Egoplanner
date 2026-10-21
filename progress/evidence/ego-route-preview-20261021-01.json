@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-21",
+  "run_id": "ego-route-preview-20261021-01",
+  "scope": "Planner-only scene and current-run candidate/snapshot visualization; no trajectory execution or acceptance",
+  "source_run": "p2-ego-dense-spline-layout-snapshot-retry-20261020-321",
+  "source_planner_build": "p2-ego-dense-spline-collision-check-20261020-318/ego-overlay",
+  "world_change": "Only SceneBroadcaster added for GUI; same wall, box and cylinder layout",
+  "container": "d435i-ego-route-preview-20261021-01",
+  "ros_domain_id": 212,
+  "goal_xy_m": [
+    2.5,
+    1.4
+  ],
+  "goal_sent": true,
+  "probe_status": "bspline_received",
+  "probe_bspline_count": 2,
+  "epoch": "be2de9646c4a4f83a157f80489e6e9c6",
+  "map_ready_at_probe_end": true,
+  "occupied_points_at_probe_end": 890,
+  "preview": {
+    "route": "first spline from this run, held for inspection",
+    "map": "accepted paired snapshot, not current live map",
+    "snapshot_traj_id": 1,
+    "snapshot_accepted": true,
+    "snapshot_path": "artifacts/runs/ego-route-preview-20261021-01/snapshots-01/spline-1-occupancy.npz",
+    "snapshot_minus_spline_start_s": 0.158,
+    "colors": "yellow spline; green curve start; red curve end; blue occupied voxels",
+    "coordinate_origin": "identity preview_canvas -> captured odom epoch, visualization only"
+  },
+  "graph": {
+    "forbidden_control_nodes": [],
+    "truth_topics_in_ros_graph": [],
+    "control_topics_in_ros_graph": []
+  },
+  "limitations": [
+    "No PX4, trajectory server, flight controller or trajectory execution.",
+    "Experimental planner overlay; this does not qualify default integration, swept-body clearance or collision-free flight.",
+    "Initial observer lacked SciPy; replaced evaluator with de Boor plus linear/constant endpoint assertions, then verified actual route display.",
+    "Snapshot and route retained for viewing; do not interpret displayed history as current controller readiness."
+  ],
+  "artifacts_sha256": {
+    "artifacts/runs/ego-route-preview-20261021-01/debug-motion-01.sdf": "5d650a91a6d05f48003928071faad036c8197d72ba1c3833fc0bca768cdb8e55",
+    "artifacts/runs/ego-route-preview-20261021-01/start-preview.sh": "26f67fef911acd4009300cedd73b978f5d43266be9eaa8ca4053ab19e8b5f584",
+    "artifacts/runs/ego-route-preview-20261021-01/route-markers.py": "e44d4b9115692db36240c6b30013b992dc063a1aefbf9c3b2fc03ba8f9dcd3ff",
+    "artifacts/runs/ego-route-preview-20261021-01/route-and-map-front.rviz": "97fa2c951125e9901ab09871c2ca9ae33b0576ba6cb5581eb08143c30e28b3c5",
+    "artifacts/runs/ego-route-preview-20261021-01/planner-goal-result-01.json": "6aef4b1055f8f98b9b7c36f031ec42f51d2006304d2a81226ac9e7c131b963c2",
+    "artifacts/runs/ego-route-preview-20261021-01/runtime-summary-01.json": "5fc28e5b0267c8d4d88b772c04429e6f129e7246a3be2416894f3615d85d8a6d",
+    "artifacts/runs/ego-route-preview-20261021-01/latest-route.json": "a9db55d8b04d535cf9b40a6831fbf7ac4ec8c7454a0b83a5ccda86b68ef525b2",
+    "artifacts/runs/ego-route-preview-20261021-01/rviz-final.png": "670a0ff260264f3d3a1bacfddbdfea01bad9f19d7b048ab7c74e30edd77e4bda",
+    "artifacts/runs/ego-route-preview-20261021-01/gazebo-final.png": "70a2bc7e7780a3a0ed69449e64e8549f8f3d41255cb4ec1b5bb34c4732a6ecb3"
+  }
+}

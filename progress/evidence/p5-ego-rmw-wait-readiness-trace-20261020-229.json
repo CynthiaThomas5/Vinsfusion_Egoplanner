@@ -1,0 +1,304 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "run_id": "p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229",
+  "scope": "Run-local no-truth single-D435i VINS/EGO/PX4 SITL diagnostic aligning Fast DDS RMW reader readiness with camera-pose publish and successful take.",
+  "classification": "NAVIGATION_ACTION_SUCCEEDED_AND_LANDED; RMW_READER_NOT_READY_DURING_LONG_TAKE_GAP; P5_AND_GOAL_STILL_IN_PROGRESS",
+  "setup": {
+    "derived_from": "artifacts/runs/p5-px4-vio-ego-pose-receipt-publisher-trace-20261020-228",
+    "goal_config_sha256": "22caa73d9621d171473505700b37298bbdc0b68cafef589bab7541c4b7e65567",
+    "target_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "yaw_offset_rad": 0.5235987755982988,
+    "run_local_anisotropy_filter": 0.01,
+    "ego_overlay_patch_order": [
+      "0012-grid_map_timeout",
+      "0013_grid_map_sync_input",
+      "0015_filter_receipt_and_message_lost"
+    ],
+    "map_precondition": "MapStatus.occupied_point_count >= configured minimum and latest input_ready=true",
+    "high_bandwidth_observers": false,
+    "qos_or_planner_thresholds_changed": false,
+    "canonical_source_modified": false,
+    "truth_input_started": false,
+    "debug_truth_subscription_on_bridge": false,
+    "control_publisher": "uav_px4_bridge exclusively",
+    "rmw": "rmw_fastrtps_cpp 8.4.4",
+    "fastdds": "2.14.6",
+    "runtime_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c973e9b93b03f87aca7ad6f8",
+    "probe_scope": "LD_PRELOAD attached only to ego_planner_node by a run-local advanced_param launch overlay; executable-name and topic-substring guards enabled",
+    "probe_provenance": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/probe-launch-provenance.json"
+  },
+  "synthetic_preflight": {
+    "run": "artifacts/runs/p5-ego-reader-readiness-preflight-20261020/raw/preflight-result.json",
+    "payload": "800 reliable UInt64MultiArray samples at 100 Hz",
+    "baseline": {
+      "received": 800,
+      "gaps": 0,
+      "latency_p95_ns": 447470,
+      "latency_max_ns": 1149599,
+      "elapsed_s": 9.242819
+    },
+    "instrumented": {
+      "received": 800,
+      "gaps": 0,
+      "latency_p95_ns": 635353,
+      "latency_max_ns": 965403,
+      "elapsed_s": 9.264614
+    },
+    "instrumented_minus_baseline_p95_ns": 187883,
+    "interpretation": "one synthetic paired run only; not a general overhead benchmark",
+    "ctf": {
+      "tracepoint": {
+        "rt/p5_reader_probe/stamped": 805
+      },
+      "events": 805,
+      "ready": {
+        "0": 5,
+        "1": 800
+      },
+      "seq_contiguous": true,
+      "reader_count": 1
+    }
+  },
+  "run": {
+    "flight_report_result": "PASS",
+    "navigation_action": {
+      "final_position": [
+        0.3259568524187355,
+        -0.043820358094230155,
+        0.8592953024563003
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "target_enu": [
+      0.29196556933252477,
+      0.0008687180461114893,
+      0.8832826281998296
+    ],
+    "final_position_enu": [
+      0.3259568524187355,
+      -0.043820358094230155,
+      0.8592953024563003
+    ],
+    "position_error_m": 0.061057,
+    "landed_and_disarmed": true,
+    "px4_duration_sim_s": 32.556,
+    "px4_ulog_dropouts": 0,
+    "px4_parameters": {
+      "UXRCE_DDS_SYNCT": 0,
+      "UXRCE_DDS_SYNCC": 0,
+      "SYS_AUTOSTART": 5011,
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0
+    },
+    "ekf2_ev_flags": {
+      "cs_ev_pos": {
+        "true": 30,
+        "samples": 43
+      },
+      "cs_ev_yaw": {
+        "true": 30,
+        "samples": 43
+      },
+      "cs_ev_vel": {
+        "true": 30,
+        "samples": 43
+      }
+    },
+    "gnss_aiding_flags": {
+      "cs_gnss_pos": {
+        "true": 0,
+        "samples": 43
+      },
+      "cs_gnss_vel": {
+        "true": 0,
+        "samples": 43
+      },
+      "cs_gnss_yaw": {
+        "true": 0,
+        "samples": 43
+      },
+      "cs_gps_hgt": {
+        "true": 0,
+        "samples": 43
+      }
+    },
+    "final_localization_snapshot": {
+      "accepted_optimized": 375,
+      "accepted_propagated": 4953,
+      "epoch": "f75848efaf2c446c85dd3ab482c7e37e",
+      "reason": "normalized_cost_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "final_px4_state": {
+      "arming_state": 1,
+      "nav_state": 14,
+      "failsafe": false
+    },
+    "final_land_state": {
+      "landed": true,
+      "ground_contact": true,
+      "maybe_landed": true
+    }
+  },
+  "observations": {
+    "analysis_window_s": 32.5,
+    "pose_rmw_publish_count": 582,
+    "pose_successful_take_count": 563,
+    "max_successful_take_gap_s": 2.323924973999965,
+    "max_take_gap_interval": {
+      "from_time_of_day_s": 74557.129552024,
+      "to_time_of_day_s": 74559.453476998,
+      "from_after_selection_s": 6.210703,
+      "to_after_selection_s": 8.534628,
+      "publisher_rmw_publish_count": 43,
+      "publisher_rmw_publish_timing": {
+        "count": 43,
+        "first_time_of_day_s": 74557.251762369,
+        "last_time_of_day_s": 74559.447555431,
+        "max_gap_s": 0.1603759360004915,
+        "max_gap_from_time_of_day_s": 74557.252618445,
+        "max_gap_to_time_of_day_s": 74557.412994381
+      },
+      "ego_pose_callback_start_count_interior": 1,
+      "ego_pose_callback_start_context": [
+        {
+          "callback_start_time_of_day_s": 74557.129553046,
+          "offset_from_gap_start_s": 1.0220101103186607e-06,
+          "prior_successful_take_time_of_day_s": 74557.129552024,
+          "following_successful_take_time_of_day_s": 74559.453476998
+        }
+      ],
+      "executor_event_counts": {
+        "rclcpp_executor_get_next_ready": 2013,
+        "rclcpp_executor_execute": 793,
+        "rclcpp_executor_wait_for_work": 991
+      }
+    },
+    "rmw_wait_probe_calls_reported_by_ego_process": 46463,
+    "rmw_wait_ready_trace": {
+      "topic": "rt/drone_0_camera_pose",
+      "trace_records": 28511,
+      "ready_counts_window": {
+        "0": 8589,
+        "1": 563
+      },
+      "result_counts_window": {
+        "2": 4578,
+        "0": 4574
+      },
+      "one_to_one_ready_to_successful_take_window": {
+        "ready_event_count": 563,
+        "distinct_next_take_count": 563,
+        "duplicate_next_take_count": 0,
+        "takes_not_matched_by_ready_event_count": 0,
+        "one_to_one": true
+      },
+      "ready_to_take_delay_s": {
+        "count": 563,
+        "min": 2.474000211805105e-06,
+        "median": 9.27700602915138e-06,
+        "p95": 2.456599031575024e-05,
+        "max": 0.0038948350120335817
+      },
+      "max_gap_wait_event_count": 626,
+      "max_gap_ready_counts": {
+        "0": 625,
+        "1": 1
+      },
+      "max_gap_result_counts": {
+        "2": 334,
+        "0": 292
+      },
+      "max_gap_ready_events": [
+        {
+          "time": 74559.453463232,
+          "topic": "rt/drone_0_camera_pose",
+          "seq": 3390,
+          "ready": 1,
+          "result": 0
+        }
+      ],
+      "trace_sequence_gaps": [
+        {
+          "previous_seq": 1007,
+          "next_seq": 1011,
+          "missing": [
+            1008,
+            1009,
+            1010
+          ],
+          "previous_time": 74550.838451356,
+          "next_time": 74550.858704308
+        }
+      ],
+      "trace_sequence_gaps_in_max_take_gap": []
+    },
+    "preflight_hook_event_sequence_contiguous": true,
+    "artifact_hash_validation": {
+      "passed": 94,
+      "total": 94,
+      "report": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/hash-verification.json"
+    }
+  },
+  "interpretation": {
+    "supported": "During the 2.323924974 s maximum successful-take gap, the mapping_input_adapter still recorded 43 /drone_0_camera_pose rmw_publish calls. The EGO RMW wait trace recorded 626 returns while the target reader was present: 625 returned with ready=0; the sole ready=1 event was 13.766 microseconds before the next successful take. There is no sequence gap in this interval. In the 32.5 s window, all 563 ready=1 events mapped one-to-one to 563 successful takes; ready-to-take median/P95/max were 9.277 us / 24.566 us / 3.895 ms. This strongly locates the observed long gap before RMW reports the reader ready, rather than in executor selection or callback execution.",
+    "not_proven": "rmw_publish records prove calls reached the publisher RMW tracepoint, not that Fast DDS transmitted each sample or that the reader lost it on the wire. The run did not sample Fast DDS sample_lost/sample_rejected or writer acknowledgement status. It does not establish the exact RTPS transport/history cause.",
+    "trace_integrity": "Three probe sequence values (1008–1010) are absent between 20.255 ms-spaced events before the trace-selection marker; no sequence gap occurs in the 32.5 s analysis window or the maximum take gap. The run trace and synthetic preflight traces contain 33 files each; 94/94 listed run and trace file hashes validated.",
+    "flight_scope": "The action succeeded with position_yaw_tolerance_held, and PX4 recorded AUTO_LAND, touchdown, disarm, 30/43 EV fusion status samples, zero GNSS aiding and zero ULog dropouts. The run-end localization snapshot is invalid with normalized_cost_exceeded, so this is a successful diagnostic task and landing, not a long-duration health qualification.",
+    "project_gate": "A single successful visual flight does not satisfy P5/P6 or GOAL A–H. P4–P6 remain in progress; F standards are not frozen and formal D/E runs have not started."
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229",
+    "flight_report": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/vio-ego-flight-report.json",
+    "px4_ulog_summary": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/landing-failsafe-timeline.json",
+    "trace_directory": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/ego-rclcpp-trace",
+    "rmw_readiness_analysis": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/rmw-take-readiness-alignment.json",
+    "publisher_take_analysis": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/publisher-take-alignment.json",
+    "full_hash_inventory": "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/artifact-hashes.json"
+  },
+  "files_sha256": {
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/vio-ego-flight-report.json": "b5219e75c4c82cb394643ea60bbb35c32767291e76e0a59b09f4a96c3056ae21",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/landing-failsafe-timeline.json": "da80182044265f03dd808562e15e6094b9e3a343b0f3f009d33da498f3e8c8d6",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/ego-trace-selection.txt": "6c546264190aeab5797c30d91d1495d676f0da2c54fcab9f4163651a514ba136",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/run-variant-manifest.json": "75eba2d4ab2c195ebaaa030f583d5f38427a974cd34a777ab0874325d4e171b9",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/probe-launch-provenance.json": "9bf08e1e386c60fd7bd086431ef9aff3f3b85304ce5c71e54f66d400776dad43",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/publisher-analysis.json": "a9ef416f56f5adc34c42499ef010e527ac8c857e23904ed2b71d9ac48e5530fc",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/ego-rclcpp-analysis.json": "d61f4aa39b63533bf4b80d87032b157996e6e055819a5c0c95b75e9e3bde726e",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/publisher-take-alignment.json": "ff71562035244f261594aafc8a0e6258707b0c76a5e7f3406c75d4afd63127cd",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/rmw-wait-analysis.json": "f9b07528bf790759893f438296392255c8fdc5871f847c829ae12465e4596ba3",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/rmw-take-readiness-alignment.json": "83da873258b633ac660eecc4f6b4c271b8ad18036deaa27ff1fcf7956be79840",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/topic-info_drone_0_camera_pose.txt": "7461b6968c59aeae8d0f5c80121ce95e9abec9e6464322f4227fd564476c317d",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/truth-and-control-isolation.txt": "ad96222ebab6146c7c467dc470f2461c60909e963a97354be014dc1cbdde25af",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/px4_sitl_default/log/2026-10-19/20_42_26.ulg": "b4f9958a21ef83b85f6920c5d5a013afdca70fb789e68d83c39d34170927e733",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/vio-launch.log": "3ab91c13510e2e703c2d68cc3390113eb12fa630e893ed37d5d4c50876eebe80",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/px4.log": "1f7b8d70bb6f108e648645ed5a2b2c23837d5e86dfac2625d8b91f2d775bd328",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/vio-ego-flight.log": "b5219e75c4c82cb394643ea60bbb35c32767291e76e0a59b09f4a96c3056ae21",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/ego-rclcpp-trace (sorted relative-path + SHA-256 tree manifest)": "0ae0dcbea1cbd93c8e6b59ab5b54bfb69b772ed2c201ffae7f0b4c410e2db382",
+    "artifacts/runs/p5-ego-reader-readiness-preflight-20261020/raw/preflight-result.json": "fc67e7aa8f06c9e47f9d1cf6c6d41a55daaf16f8375fe9116985a72a7564e390",
+    "artifacts/runs/p5-ego-reader-readiness-preflight-20261020/raw/ctf-analysis-pass7.json": "7c9e72252ce1904218a02a8d793ba3e603ca07d5f3a5c180d5cc9dd07dbe3612",
+    "artifacts/runs/p5-ego-reader-readiness-preflight-20261020/ctf-rmw-wait-pass7 (sorted relative-path + SHA-256 tree manifest)": "61af2d8284f851f1a62bd302ea3f0846d80d33dea8c5ade5871409ac279c00a6",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/run-filtered-horizontal-goal.sh": "6aa62208d08fc22d9180cec51c230289c0913ade9b16b1b7cd7a8aa19ce7a435",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/launch-rmw-ready-ego-trace.sh": "46e2b01ae95f099b6e8b1f6ec6cb11ea4f2d230640c67ffcfea96b86af289dd3",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/vio_closed_loop_ego_px4_probe.launch.py": "1aadff0624d83760afe01efb7e3cb54d0ac93bf2d95603374b51e1b0c8af9b85",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/advanced_param_rmw_probe.launch.py": "38aa7292a173d1c07b23496ff6e57853525cb776aa5b1c029b4da761fd349654",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/analyze_rmw_wait_trace.py": "0b3a51d4cd5347b951f70def53dca244d2ab72ca07ab72a3d8f7c7234b66bdf8",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/analyze_rmw_take_alignment.py": "fcc427ca4f7f21cf3d92c960644a75fb08683feebe5cb2f7ffef2fb558556573",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/analyze_camera_pose_publisher_trace.py": "5fa712cd6fa988d8cdfba9f47ece9319af48d607943d448fcb1477bf0f9a2e48",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/analyze_camera_pose_publisher_take_alignment.py": "754d14462f52b094a11f86d09313721d42aa7c91b94fd1c35e38733efff9443f",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/analyze_ego_rclcpp_trace.py": "39a95bd65acb57263c76f3c64abab1728b50f79ff75db8820c75797e2a7eee14",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/analyze_px4_ulog.py": "909f05ebc88164316d44adf18c0f98d222d11f94564aab2c4f7bcd16b0831e6e",
+    "artifacts/runs/p5-ego-reader-readiness-preflight-20261020/src/rmw_wait_probe_hook.cpp": "87d350ce83661df1a328dbe4dd7fad391e87e882bf0d60c0ca706680f9633db1",
+    "artifacts/runs/p5-ego-reader-readiness-preflight-20261020/install/reader_probe_preflight/lib/librmw_wait_probe.so": "2a86a9212de7b1c7a239c3c9b5878e7d3c424ac62ec2f30cfdb0a3fccf428076",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/artifact-hashes.json": "00b287e221b18897125f1d894d874b330abd407669e2cc67da08db433ed77d64",
+    "artifacts/runs/p5-px4-vio-ego-pose-receipt-rmw-ready-trace-20261020-229/raw/hash-verification.json": "e2d120f7b47ef4eac901a5452be7d33c1104ac73406b9229583013fc306cedc3"
+  }
+}

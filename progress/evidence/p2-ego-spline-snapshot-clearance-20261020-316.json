@@ -1,0 +1,571 @@
+{
+  "schema": "p2-ego-spline-snapshot-clearance-diagnostic/v1",
+  "date": "2026-10-20",
+  "run_id": "p2-ego-global-plan-snapshot-clearance-20261020-316",
+  "result": "Planner-only snapshots paired with all three B-spline start stamps (one by 1 ms, two exact). All sampled centerline points were in-map, known-free and non-occupied. The two later curves still intersected 10 and 6 cells in EGO\u2019s 0.5 m axis-aligned cube inflation mask; the closest sampled centerline-to-occupied-voxel-box distance was 0.512 m, only 0.030 m above the prior nominal 0.482 m vehicle sphere. Diagnostic only; no trajectory execution, map accuracy or full swept-body clearance proof.",
+  "build": {
+    "reused_build_report": {
+      "path": "artifacts/runs/p2-ego-global-plan-retry-20261020-315/build-report-0028.json",
+      "sha256": "8a82392e93e963f806afafd3f734607d4de060f231ef8d7b62cf8f9c26e1c8a0",
+      "size_bytes": 4203
+    },
+    "planner_binary_sha256": "828e56120663e684d98738218669bf1b8ea5a5a88a8a7e10ea3b67c86606059c",
+    "new_planner_build_performed": false,
+    "offline_gridmap_astar_cases_in_base_build": 4
+  },
+  "runtime_manifest": {
+    "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/runtime-manifest-01.json",
+    "sha256": "006f6279caf0c5532c622fe693b29de08f2646f5d1e655c88f20a9b1b55ea6a3",
+    "size_bytes": 3427
+  },
+  "project_git_status_at_task_start": {
+    "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/git-status-at-experiment-start.txt",
+    "sha256": "b5a73511714a6219dd44940c6cd7893187a8d569dc94ac56f43dc7f999985e17",
+    "size_bytes": 39496
+  },
+  "configuration": {
+    "planner_config_sha256": "34a776d7eab1c15f9eab9982d67edba7d26feda7a10778b956400886ca103ff1",
+    "runtime_parameters_sha256": "7fab3f9beabf66ea1a3eadf322c1b620c9491a8b2c82e30af9ab7107e184e68f",
+    "scene_sdf_sha256": "3b6d2f6615b7d07ceb16ac837c98f4cf071dac78d3d96dbcfd771c90aae82f98",
+    "wall_phase_sha256": "7add962cf8aad53267b07bd5060af25f7c1cdae2c56ed56cda9ea90b2e5c12cf",
+    "matches_previous_run_315": true,
+    "motion_samples_exact_replay": false,
+    "goal_xy_m": [
+      2.5,
+      1.4
+    ],
+    "inflation_m": 0.5,
+    "nominal_vehicle_sphere_radius_m": 0.482,
+    "nominal_radius_reference": "progress/evidence/p2-goal-f-odom-qos-multi-geometry-20261020-248-251.json"
+  },
+  "runtime": {
+    "goal_probe": {
+      "status": "bspline_received",
+      "goal_sent": true,
+      "wall_seconds": 24.041513,
+      "goal_sent_wall_elapsed_s": 2.309915,
+      "goal_context": {
+        "epoch": "e1589f81b3fb4175b11114f0684fef09",
+        "frame_id": "odom_e1589f81b3fb4175b11114f0684fef09",
+        "target_xy_m": [
+          2.5,
+          1.4
+        ],
+        "callback_z_m": 1.0,
+        "map_status": {
+          "wall_elapsed_s": 2.210394,
+          "stamp_ns": 4819000000,
+          "epoch": "e1589f81b3fb4175b11114f0684fef09",
+          "map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+          "input_ready": true,
+          "reason": "ready",
+          "occupied_point_count": 1052,
+          "forwarded_depth_count": 21,
+          "keyframe_count": 1,
+          "occupancy_cloud_received": true
+        },
+        "raw_occupancy_points": 1052,
+        "inflated_occupancy_points": 17996,
+        "goal_subscriber_count": 1
+      }
+    },
+    "motion": {
+      "imu_samples": 6603,
+      "force_commands": 8,
+      "truth_feedback": false
+    },
+    "localization_last": {
+      "wall_elapsed_s": 24.013649,
+      "stamp_ns": 19896000000,
+      "epoch": "e1589f81b3fb4175b11114f0684fef09",
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "good_pairs": 251,
+      "normalized_cost": 0.7808402741205156,
+      "accepted_optimized": 242,
+      "accepted_propagated": 3187,
+      "frame_id": "odom_e1589f81b3fb4175b11114f0684fef09"
+    },
+    "astar_counts": {
+      "total": 1183,
+      "other_calls": 0,
+      "other_endpoint_rejects": 0,
+      "other_success": 0,
+      "other_search_failures": 0,
+      "init_calls": 636,
+      "init_endpoint_rejects": 346,
+      "init_success": 289,
+      "init_search_failures": 1,
+      "collision_calls": 547,
+      "collision_endpoint_rejects": 31,
+      "collision_success": 512,
+      "collision_search_failures": 4,
+      "other_timeouts": 0,
+      "init_timeouts": 0,
+      "collision_timeouts": 0
+    },
+    "rebound_abort_events": {
+      "no_free_pre_collision_point": 415,
+      "astar_failed": 35
+    },
+    "gen_new_traj_self_transitions": 29,
+    "gen_new_traj_to_exec": 1,
+    "probe_window_normalized_astar_calls_per_second": 49.20655368071053,
+    "probe_window_normalized_astar_calls_per_second_in_314": 883.805330614297,
+    "snapshot_service_called": true,
+    "snapshot_request_count": 3,
+    "snapshot_records": [
+      {
+        "traj_id": 1,
+        "goal_id": "",
+        "epoch": "e1589f81b3fb4175b11114f0684fef09",
+        "requested_map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "bspline_start_time_ns": 18854000000,
+        "spline_receive_wall_elapsed_s": 22.508171,
+        "request_wall_elapsed_s": 22.508249,
+        "response_wall_elapsed_s": 22.559531,
+        "accepted": true,
+        "reason": "ok",
+        "map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "snapshot_sha256": "2b4a7490f792e38045ada1ee9fe5b467c5fba792673fd8050d323912fc5be892",
+        "snapshot_size_bytes": 6912520,
+        "header_frame_id": "odom_e1589f81b3fb4175b11114f0684fef09",
+        "snapshot_stamp_ns": 18855000000,
+        "last_depth_source_stamp_ns": 18745000000,
+        "last_fusion_stamp_ns": 18838000000,
+        "snapshot_minus_spline_start_s": 0.001,
+        "depth_source_age_at_response_s": 0.11,
+        "origin_m": [
+          -12.0,
+          -12.0,
+          -0.15
+        ],
+        "map_size_m": [
+          24.0,
+          24.0,
+          6.0
+        ],
+        "resolution_m": 0.1,
+        "shape": [
+          240,
+          240,
+          60
+        ],
+        "data_order": "x_major_y_mid_z_fastest",
+        "unknown_voxel_count": 3435580,
+        "free_voxel_count": 19171,
+        "occupied_voxel_count": 1249,
+        "inflated_voxel_count": 35444,
+        "snapshot_archive": {
+          "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/snapshots-01/spline-1-occupancy.npz",
+          "sha256": "2b4a7490f792e38045ada1ee9fe5b467c5fba792673fd8050d323912fc5be892",
+          "size_bytes": 6912520
+        }
+      },
+      {
+        "traj_id": 2,
+        "goal_id": "",
+        "epoch": "e1589f81b3fb4175b11114f0684fef09",
+        "requested_map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "bspline_start_time_ns": 19867000000,
+        "spline_receive_wall_elapsed_s": 23.971623,
+        "request_wall_elapsed_s": 23.971709,
+        "response_wall_elapsed_s": 23.995894,
+        "accepted": true,
+        "reason": "ok",
+        "map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "snapshot_sha256": "ae49c4fe5af8c56449c92edf6eccdb7827e16994cfd09b305c972a0a529eaf33",
+        "snapshot_size_bytes": 6912520,
+        "header_frame_id": "odom_e1589f81b3fb4175b11114f0684fef09",
+        "snapshot_stamp_ns": 19867000000,
+        "last_depth_source_stamp_ns": 19768000000,
+        "last_fusion_stamp_ns": 19834000000,
+        "snapshot_minus_spline_start_s": 0.0,
+        "depth_source_age_at_response_s": 0.099,
+        "origin_m": [
+          -12.0,
+          -12.0,
+          -0.15
+        ],
+        "map_size_m": [
+          24.0,
+          24.0,
+          6.0
+        ],
+        "resolution_m": 0.1,
+        "shape": [
+          240,
+          240,
+          60
+        ],
+        "data_order": "x_major_y_mid_z_fastest",
+        "unknown_voxel_count": 3434744,
+        "free_voxel_count": 20051,
+        "occupied_voxel_count": 1205,
+        "inflated_voxel_count": 35934,
+        "snapshot_archive": {
+          "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/snapshots-01/spline-2-occupancy.npz",
+          "sha256": "ae49c4fe5af8c56449c92edf6eccdb7827e16994cfd09b305c972a0a529eaf33",
+          "size_bytes": 6912520
+        }
+      },
+      {
+        "traj_id": 3,
+        "goal_id": "",
+        "epoch": "e1589f81b3fb4175b11114f0684fef09",
+        "requested_map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "bspline_start_time_ns": 19867000000,
+        "spline_receive_wall_elapsed_s": 23.972386,
+        "request_wall_elapsed_s": 23.972432,
+        "response_wall_elapsed_s": 24.024918,
+        "accepted": true,
+        "reason": "ok",
+        "map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "snapshot_sha256": "ae49c4fe5af8c56449c92edf6eccdb7827e16994cfd09b305c972a0a529eaf33",
+        "snapshot_size_bytes": 6912520,
+        "header_frame_id": "odom_e1589f81b3fb4175b11114f0684fef09",
+        "snapshot_stamp_ns": 19867000000,
+        "last_depth_source_stamp_ns": 19768000000,
+        "last_fusion_stamp_ns": 19834000000,
+        "snapshot_minus_spline_start_s": 0.0,
+        "depth_source_age_at_response_s": 0.099,
+        "origin_m": [
+          -12.0,
+          -12.0,
+          -0.15
+        ],
+        "map_size_m": [
+          24.0,
+          24.0,
+          6.0
+        ],
+        "resolution_m": 0.1,
+        "shape": [
+          240,
+          240,
+          60
+        ],
+        "data_order": "x_major_y_mid_z_fastest",
+        "unknown_voxel_count": 3434744,
+        "free_voxel_count": 20051,
+        "occupied_voxel_count": 1205,
+        "inflated_voxel_count": 35934,
+        "snapshot_archive": {
+          "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/snapshots-01/spline-3-occupancy.npz",
+          "sha256": "ae49c4fe5af8c56449c92edf6eccdb7827e16994cfd09b305c972a0a529eaf33",
+          "size_bytes": 6912520
+        }
+      }
+    ],
+    "map_known_voxel_summary": [
+      {
+        "map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "snapshot_stamp_ns": 18855000000,
+        "known_voxel_count": 20420,
+        "total_voxel_count": 3456000,
+        "known_fraction": 0.005908564814814814,
+        "unknown_voxel_count": 3435580
+      },
+      {
+        "map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "snapshot_stamp_ns": 19867000000,
+        "known_voxel_count": 21256,
+        "total_voxel_count": 3456000,
+        "known_fraction": 0.006150462962962963,
+        "unknown_voxel_count": 3434744
+      },
+      {
+        "map_id": "e1589f81b3fb4175b11114f0684fef09-89bbc2b9542342c899fcd225265cbddf",
+        "snapshot_stamp_ns": 19867000000,
+        "known_voxel_count": 21256,
+        "total_voxel_count": 3456000,
+        "known_fraction": 0.006150462962962963,
+        "unknown_voxel_count": 3434744
+      }
+    ],
+    "curve_analysis": {
+      "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/spline-snapshot-clearance-analysis.json",
+      "sha256": "cd374a3a55267dd41ff90cd9e6c2ec09ecb9ce519025390690cbab601ee84fc6",
+      "size_bytes": 8264
+    },
+    "runtime_summary": {
+      "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/runtime-summary-01.json",
+      "sha256": "b8e45ee242541e9d769564e99e8dcd75b8eaaaa7df2067c22fa97264dcf70de4",
+      "size_bytes": 302957
+    },
+    "goal_result": {
+      "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/planner-goal-result-01.json",
+      "sha256": "a3de891c8178502e108cadee8dd12b606bb1fa1cb45b200964970e41f3d2e6e6",
+      "size_bytes": 278753
+    },
+    "motion_artifact": {
+      "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/motion-01.json",
+      "sha256": "b2bd3118323dfedc6e9e696dbb6ce9ec27b4a564b9122c550258e0c18f9dfa9b",
+      "size_bytes": 1518958
+    },
+    "ego_log": {
+      "path": "artifacts/runs/p2-ego-global-plan-snapshot-clearance-20261020-316/ego-01.log",
+      "sha256": "faba7f9b5fcde9344774ed992bcac65ac21c9eaccd6c5c632726372de97f9f45",
+      "size_bytes": 468270
+    },
+    "truth_topics": [],
+    "control_topics": [],
+    "forbidden_control_nodes": []
+  },
+  "offline_curve_evaluation": {
+    "method": "Reconstructed SciPy B-spline (degree=message.order) and sampled every 0.01 s; coordinate-to-voxel mapping matched source posToIndex floor((p-origin)/resolution); raw cell AABB distances computed against occupied voxel boxes.",
+    "curves": [
+      {
+        "traj_id": 1,
+        "snapshot_accepted": true,
+        "snapshot_array_validation": {
+          "shape_matches_metadata": true,
+          "occupancy_codes_valid": true,
+          "inflation_mask_binary": true,
+          "counts_match_service": true,
+          "counts": {
+            "unknown": 3435580,
+            "free": 19171,
+            "occupied": 1249,
+            "inflated": 35444
+          }
+        },
+        "epoch_match": true,
+        "map_id_requested_matches_response": true,
+        "frame_id": "odom_e1589f81b3fb4175b11114f0684fef09",
+        "snapshot_stamp_ns": 18855000000,
+        "spline_start_time_ns": 18854000000,
+        "snapshot_minus_spline_start_s": 0.001,
+        "time_alignment_within_100ms": true,
+        "depth_source_age_at_response_s": 0.11,
+        "sample_count": 474,
+        "sample_step_s": 0.01,
+        "maximum_between_sample_chord_m": 0.009012572528546885,
+        "in_map_samples": 474,
+        "out_of_map_samples": 0,
+        "unknown_samples": 0,
+        "known_free_samples": 474,
+        "raw_occupied_samples": 0,
+        "inflated_samples": 0,
+        "inflated_hit_sample_positions_m": [],
+        "minimum_sampled_centerline_to_raw_occupied_voxel_box_m": 0.6592431394812374,
+        "nominal_vehicle_sphere_radius_m": 0.482,
+        "sampled_voxel_box_margin_over_nominal_sphere_m": 0.17724313948123738,
+        "path_start_m": [
+          0.17298392738735419,
+          0.11469342074141235,
+          0.0967949371355047
+        ],
+        "path_end_m": [
+          2.099033487072099,
+          1.484934850621011,
+          0.9167658409402436
+        ],
+        "centerline_unknown_clear": true,
+        "centerline_inflation_clear": true,
+        "qualification": "Read-only voxel centerline/voxel-box overlay only; raw-map geometry, unseen surfaces, vehicle tracking and execution are unverified."
+      },
+      {
+        "traj_id": 2,
+        "snapshot_accepted": true,
+        "snapshot_array_validation": {
+          "shape_matches_metadata": true,
+          "occupancy_codes_valid": true,
+          "inflation_mask_binary": true,
+          "counts_match_service": true,
+          "counts": {
+            "unknown": 3434744,
+            "free": 20051,
+            "occupied": 1205,
+            "inflated": 35934
+          }
+        },
+        "epoch_match": true,
+        "map_id_requested_matches_response": true,
+        "frame_id": "odom_e1589f81b3fb4175b11114f0684fef09",
+        "snapshot_stamp_ns": 19867000000,
+        "spline_start_time_ns": 19867000000,
+        "snapshot_minus_spline_start_s": 0.0,
+        "time_alignment_within_100ms": true,
+        "depth_source_age_at_response_s": 0.099,
+        "sample_count": 464,
+        "sample_step_s": 0.01,
+        "maximum_between_sample_chord_m": 0.009841021110592076,
+        "in_map_samples": 464,
+        "out_of_map_samples": 0,
+        "unknown_samples": 0,
+        "known_free_samples": 464,
+        "raw_occupied_samples": 0,
+        "inflated_samples": 10,
+        "inflated_hit_sample_positions_m": [
+          [
+            0.803051342556046,
+            1.2332615785603596,
+            0.6691726560068194
+          ],
+          [
+            0.8068676256093539,
+            1.2406366455352482,
+            0.6741254593435887
+          ],
+          [
+            0.8106925076330511,
+            1.2479835344215984,
+            0.6790867024459558
+          ],
+          [
+            0.8145262577848851,
+            1.255301626440302,
+            0.6840559520287516
+          ],
+          [
+            0.8183691452226032,
+            1.262590302812253,
+            0.6890327748068062
+          ],
+          [
+            0.822221439103953,
+            1.2698489447583436,
+            0.694016737494951
+          ],
+          [
+            0.826083408586682,
+            1.2770769334994676,
+            0.6990074068080161
+          ],
+          [
+            0.8299553228285372,
+            1.2842736502565166,
+            0.7040043494608321
+          ],
+          [
+            0.833837450987267,
+            1.2914384762503852,
+            0.7090071321682303
+          ],
+          [
+            0.8377300622206183,
+            1.2985707927019652,
+            0.714015321645041
+          ]
+        ],
+        "minimum_sampled_centerline_to_raw_occupied_voxel_box_m": 0.6372059536394443,
+        "nominal_vehicle_sphere_radius_m": 0.482,
+        "sampled_voxel_box_margin_over_nominal_sphere_m": 0.15520595363944434,
+        "path_start_m": [
+          0.37781205197597956,
+          0.3694664679455372,
+          0.23506695155140003
+        ],
+        "path_end_m": [
+          2.3088679259492344,
+          1.565439370542428,
+          1.1611992502347634
+        ],
+        "centerline_unknown_clear": true,
+        "centerline_inflation_clear": false,
+        "qualification": "Read-only voxel centerline/voxel-box overlay only; raw-map geometry, unseen surfaces, vehicle tracking and execution are unverified."
+      },
+      {
+        "traj_id": 3,
+        "snapshot_accepted": true,
+        "snapshot_array_validation": {
+          "shape_matches_metadata": true,
+          "occupancy_codes_valid": true,
+          "inflation_mask_binary": true,
+          "counts_match_service": true,
+          "counts": {
+            "unknown": 3434744,
+            "free": 20051,
+            "occupied": 1205,
+            "inflated": 35934
+          }
+        },
+        "epoch_match": true,
+        "map_id_requested_matches_response": true,
+        "frame_id": "odom_e1589f81b3fb4175b11114f0684fef09",
+        "snapshot_stamp_ns": 19867000000,
+        "spline_start_time_ns": 19867000000,
+        "snapshot_minus_spline_start_s": 0.0,
+        "time_alignment_within_100ms": true,
+        "depth_source_age_at_response_s": 0.099,
+        "sample_count": 896,
+        "sample_step_s": 0.01,
+        "maximum_between_sample_chord_m": 0.01055961589348264,
+        "in_map_samples": 896,
+        "out_of_map_samples": 0,
+        "unknown_samples": 0,
+        "known_free_samples": 896,
+        "raw_occupied_samples": 0,
+        "inflated_samples": 6,
+        "inflated_hit_sample_positions_m": [
+          [
+            0.8011941783728702,
+            1.252962378753309,
+            0.5752567129983479
+          ],
+          [
+            0.8053601101520139,
+            1.2620825099850712,
+            0.5785693715296258
+          ],
+          [
+            0.8095266689019956,
+            1.271202024198053,
+            0.5818824067133902
+          ],
+          [
+            0.8136937957075645,
+            1.2803206206059172,
+            0.5851957413704268
+          ],
+          [
+            0.8178614316534702,
+            1.2894379984223268,
+            0.5885092983215224
+          ],
+          [
+            0.822029517824462,
+            1.298553856860945,
+            0.5918230003874632
+          ]
+        ],
+        "minimum_sampled_centerline_to_raw_occupied_voxel_box_m": 0.5115826312986498,
+        "nominal_vehicle_sphere_radius_m": 0.482,
+        "sampled_voxel_box_margin_over_nominal_sphere_m": 0.029582631298649797,
+        "path_start_m": [
+          0.33215376477078695,
+          0.28084826706658395,
+          0.20831347165218272
+        ],
+        "path_end_m": [
+          2.488417368701351,
+          1.5919379513070069,
+          1.053041513593759
+        ],
+        "centerline_unknown_clear": true,
+        "centerline_inflation_clear": false,
+        "qualification": "Read-only voxel centerline/voxel-box overlay only; raw-map geometry, unseen surfaces, vehicle tracking and execution are unverified."
+      }
+    ],
+    "static_inflation_audit": "The run source uses inf_step=ceil(0.5/0.1)=5 and fills every xyz offset in [-5,5], an axis-aligned cube. A cube-mask hit can occur at diagonal distances greater than 0.5 m; it is not equivalent to a 0.5 m sphere check."
+  },
+  "isolation": {
+    "px4_started": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "trajectory_executed": false,
+    "truth_topics_subscribed": false,
+    "control_topics_published": false,
+    "snapshot_service_invoked": true
+  },
+  "limitations": [
+    "MapStatus snapshots contain only about 0.59\u20130.62% known cells in this 3.456-million-cell grid; pointwise known-free path samples do not establish complete obstacle coverage.",
+    "Snapshot calls are issued asynchronously at B-spline receipt. Their response stamps were 1 ms or equal to B-spline start_time, but the planner\u2019s map read time is not logged per voxel.",
+    "Traj 2 and 3 have 10 and 6 samples in the cubic inflation mask. Static source inspection shows the mask expands every axis by five voxels at 0.5 m/0.1 m, so diagonal hits are conservative cube intersections and differ from spherical body clearance.",
+    "Traj 3\u2019s nearest sampled centerline-to-occupied-voxel-box distance is 0.5116 m versus the nominal 0.482 m sphere, leaving only about 30 mm in the observed map representation; mapping error, between-sample curvature, tracking error and unseen obstacles are not bounded.",
+    "No controller, trajectory server, PX4, truth subscription, trajectory execution, SITL flight or real-hardware evidence is present."
+  ],
+  "next_step": "Audit the optimizer collision sampling against the cubic inflation mask using these exact accepted curves, then repeat independent map epochs/layouts and evaluate swept vehicle envelope; retain planner and cooldown patches as experimental until map coverage and clearance are repeatable."
+}

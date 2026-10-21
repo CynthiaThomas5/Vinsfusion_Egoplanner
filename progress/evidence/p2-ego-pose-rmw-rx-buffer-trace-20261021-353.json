@@ -1,0 +1,386 @@
+{
+  "schema": "p2-ego-pose-rmw-rx-buffer-trace/v1",
+  "date": "2026-10-21",
+  "run_id": "p2-ego-pose-rmw-rx-buffer-trace-20261021-353",
+  "status": "completed_diagnostic",
+  "goal_criterion": "GOAL C diagnostic only; GOAL C remains pending and P2 remains passed.",
+  "question": "Does raising only the EGO Fast DDS UDP receive buffer remove the pose take gap or socket drop growth?",
+  "configuration": {
+    "ros_domain_id": 220,
+    "ego_vpid": 500,
+    "mapping_input_adapter_vpid": 428,
+    "ego_and_mapping_transport": "Fast DDS built-in UDPv4; only EGO used run-local participant profile",
+    "ego_profile_environment_variable": "FASTRTPS_DEFAULT_PROFILES_FILE",
+    "ego_profile": "run-local default participant profile, listenSocketBufferSize=212992 bytes",
+    "mapping_profile": null,
+    "rmw_fastdds_use_qos_from_xml": null,
+    "ego_pose_reader_qos": "reliable/volatile/keep_last_25",
+    "mapping_pose_publisher_qos": "reliable/volatile/keep_last_50",
+    "qos_changed": false,
+    "canonical_source_or_config_changed": false,
+    "host_kernel": "6.8.0-138-generic",
+    "host_net_core_rmem_default_bytes": 212992,
+    "host_net_core_rmem_max_bytes": 212992,
+    "host_udp_rmem_min_bytes": 4096,
+    "actual_callback_socket_rb_bytes": {
+      "425984": 49
+    }
+  },
+  "buffer_profile_smoke": {
+    "profile_treatment": {
+      "domain_id": 221,
+      "requested_bytes": 212992,
+      "observed": {
+        "port": 62661,
+        "samples": 100,
+        "rb_bytes_distribution": {
+          "425984": 100
+        }
+      },
+      "node_exit_code": 1,
+      "container_exit_code": 0,
+      "host_monitor_exit_code": 0
+    },
+    "profile_free_control": {
+      "domain_id": 223,
+      "observed": {
+        "port": 63161,
+        "samples": 100,
+        "rb_bytes_distribution": {
+          "212992": 100
+        }
+      },
+      "node_exit_code": 1,
+      "container_exit_code": 0,
+      "host_monitor_exit_code": 0
+    },
+    "qualification": "The subscriber-only smoke was intentionally interrupted after socket sampling; it verifies socket configuration only. It is not a data-path or take-gap control."
+  },
+  "result": {
+    "max_pose_take_gap_s": 2.6081484829919646,
+    "gap_interval_time_of_day_s": [
+      72589.045079649,
+      72591.653228132
+    ],
+    "adapter_rmw_publish_count_in_gap": 50,
+    "adapter_max_publish_gap_s": 0.10178277299564797,
+    "independent_pose_receipts_in_gap": 50,
+    "independent_pose_max_source_gap_s": 0.099,
+    "map_ready_epoch_stable": true,
+    "map_id_stable": true,
+    "ego_wait_returns": 711,
+    "ego_wait_ready_counts": {
+      "0": 710,
+      "1": 1
+    },
+    "ego_wait_unread_count_distribution": {
+      "0": 710,
+      "25": 1
+    },
+    "ego_successful_pose_takes": 0,
+    "reader_listener_events_inside_gap": [
+      {
+        "time_of_day_s": 72591.653191594,
+        "vpid": 500,
+        "vtid": 508,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x5B18A0A8A880",
+        "event_type": 1,
+        "unread_count": 8,
+        "total_count": 0,
+        "total_count_change": 0
+      },
+      {
+        "time_of_day_s": 72591.65321073,
+        "vpid": 500,
+        "vtid": 508,
+        "topic": "rt/drone_0_camera_pose",
+        "reader": "0x5B18A0A8A880",
+        "event_type": 1,
+        "unread_count": 25,
+        "total_count": 0,
+        "total_count_change": 0
+      }
+    ],
+    "listener_event_count": 894,
+    "listener_event_counts": {
+      "data_available": 894
+    },
+    "sample_lost_callbacks_inside_gap": 0,
+    "sample_rejected_callbacks_inside_gap": 0,
+    "reader_status_sample_count_inside_gap": 44,
+    "reader_status_sample_lost_total_values": {
+      "0": 1187
+    },
+    "reader_status_sample_rejected_total_values": {
+      "0": 1187
+    },
+    "listener_callback_thread": {
+      "tid": 508,
+      "comm": "dds.udp.62427",
+      "runtime_delta_ns": 59703953,
+      "runqueue_wait_delta_ns": 2411573,
+      "timeslices_delta": 2473,
+      "voluntary_context_switch_delta": 2461,
+      "nonvoluntary_context_switch_delta": 12,
+      "state_sample_counts_inside_gap": {
+        "S (sleeping)": 26
+      },
+      "wchan_sample_counts_inside_gap": {
+        "__skb_wait_for_more_packets": 26
+      }
+    },
+    "schedstat_samples_inside_gap": 26,
+    "schedstat_bracket_s": 2.702994846,
+    "callback_socket_port": 62427,
+    "socket_rb_bytes_distribution_inside_gap": {
+      "425984": 49
+    },
+    "host_ss_samples_inside_gap": 49,
+    "socket_drop_delta_inside_gap": 196,
+    "socket_drops_first_last_inside_gap": [
+      29,
+      225
+    ],
+    "socket_drop_delta_bracket": 202,
+    "rx_memory_bytes_max": 0
+  },
+  "interpretation": "The requested EGO socket receive buffer took effect: the run-local profile requested 212992 bytes, and ss observed rb=425984 on the callback-thread socket throughout all 49 selected-gap samples. A same-image, same-host profile-free socket smoke observed rb=212992. Increasing the effective buffer did not remove the 2.608 s take gap, and the socket drop counter still rose by 196 during the gap (202 across the bracket). In this run, the reader reported no sample_lost/rejected callback or cumulative status increment. Socket-level drops do not identify ROS topic or RTPS sample and do not establish causality. This single run weakens the hypothesis that buffer size alone explains the gap; it does not locate the packet loss or reader-delivery boundary.",
+  "trace_integrity": {
+    "ctf_file_count": 64,
+    "ctf_total_bytes": 16839176,
+    "primary_trace_file_count": 32,
+    "primary_trace_bytes": 16723080,
+    "listener_smoke_trace_file_count": 32,
+    "listener_smoke_trace_bytes": 116096,
+    "ctf_file_hash_manifest": {
+      "path": "analysis/ctf-file-hashes.sha256",
+      "sha256": "c2be07870a9768d08d57dd26888847e3b46edca93f4d11528de62df8c2461b31",
+      "size_bytes": 8024
+    },
+    "wait_trace_event_count": 18988,
+    "wait_trace_sequence_range": [
+      0,
+      18992
+    ],
+    "missing_wait_sequences": [
+      108,
+      109,
+      110,
+      111,
+      112
+    ],
+    "selected_gap_wait_sequence_bounds": [
+      851,
+      1561
+    ],
+    "missing_sequences_overlap_selected_gap": false,
+    "overall_wait_summary_exit_code": 1,
+    "selected_gap_analyzers_exit_code": 0,
+    "analyzer_exit_codes": {
+      "rmw-wait-summary": 1,
+      "rmw-status-summary": 0,
+      "publisher-take-alignment": 0,
+      "rmw-take-alignment": 0,
+      "rmw-status-alignment": 0,
+      "ego-rclcpp-summary": 0,
+      "rmw-unread-alignment": 0,
+      "reader-listener-events": 0,
+      "ego-schedstat-alignment": 0,
+      "listener-proxy-smoke": 0
+    },
+    "listener_proxy_smoke_exit_code": 0
+  },
+  "listener_proxy_smoke": {
+    "domain_id": 222,
+    "result": {
+      "trace_exit": 0,
+      "proxy_installs": [
+        {
+          "time_of_day_s": 72552.658327462,
+          "vpid": 52,
+          "vtid": 52,
+          "topic": "rt/p5_reader_probe/stamped",
+          "reader": "0x5B9C010AF5F0",
+          "previous_listener": "0x5B9C010A5500",
+          "return_code": 0
+        }
+      ],
+      "proxy_install_success_count": 1,
+      "listener_events_for_installed_reader": 800,
+      "listener_event_counts": {
+        "data_available": 800,
+        "subscription_matched": 0,
+        "sample_lost": 0,
+        "sample_rejected": 0
+      },
+      "subscriber_received": 800,
+      "subscriber_gaps": 0,
+      "subscriber_invalid": 0
+    },
+    "trace_root": "listener-proxy-smoke-trace-context"
+  },
+  "probe_build": {
+    "command": "bash artifacts/runs/p2-ego-pose-rmw-rx-buffer-trace-20261021-353/build-probe.sh",
+    "exit_code": 0,
+    "packages_built": [
+      "reader_probe_preflight"
+    ],
+    "library": {
+      "path": "probe-install/lib/librmw_wait_probe.so",
+      "sha256": "82cdb8c83d961ca4eeedaca8d3061e2413b248d09181632e08b34f6422294e2c",
+      "size_bytes": 123872
+    },
+    "sha_record": {
+      "path": "probe-library.sha256",
+      "sha256": "5aca3f2a53eb773bd90aff1f2c4b6ff3b70fbb1ec62a9adea7785262c449c120",
+      "size_bytes": 165
+    }
+  },
+  "runtime_scope": {
+    "planner_goal_sent": true,
+    "planner_bspline_count": 2,
+    "trajectory_executed": false,
+    "controller_started": false,
+    "trajectory_server_started": false,
+    "px4_started": false,
+    "truth_topics": [],
+    "control_topics": [],
+    "target_voxel_changed_unknown_to_free": true
+  },
+  "run_manifest": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-rx-buffer-trace-20261021-353/run-manifest.json",
+    "sha256": "3fc3ec77cf447d7575901ed60bab652e2ecffa8d1c915a945404bfb47c283890",
+    "size_bytes": 18254
+  },
+  "workspace_snapshot": {
+    "path": "artifacts/runs/p2-ego-pose-rmw-rx-buffer-trace-20261021-353/workspace-status-after-353.txt",
+    "sha256": "ea82bb0e5403668fe98a1245aa4ab3fa57a623bc8e825d777ddfd855ceb30883",
+    "size_bytes": 45409
+  },
+  "key_artifacts": {
+    "analysis/publisher-take-alignment.json": {
+      "path": "analysis/publisher-take-alignment.json",
+      "sha256": "a1d76c3cdcf2ff2f157dcdf84438fa69240e18706df6c4ac78b7674dbd486080",
+      "size_bytes": 1926
+    },
+    "independent-reader-gap-alignment.json": {
+      "path": "independent-reader-gap-alignment.json",
+      "sha256": "4b60b72552dfbfdebce06d26e80336a77ba3e49501a04e316d70cf7f31ff74ac",
+      "size_bytes": 1495
+    },
+    "analysis/rmw-unread-alignment.json": {
+      "path": "analysis/rmw-unread-alignment.json",
+      "sha256": "d127822adbeecb47ea4f41ed13de6a2275a59efdd8ac1dd08dd5c5684107a685",
+      "size_bytes": 12028
+    },
+    "analysis/rmw-status-alignment.json": {
+      "path": "analysis/rmw-status-alignment.json",
+      "sha256": "f7b15b9667899feaacacf5eed8445f6a98d697c96fc93f773f48740d73e98097",
+      "size_bytes": 18962
+    },
+    "analysis/reader-listener-events.json": {
+      "path": "analysis/reader-listener-events.json",
+      "sha256": "44edfdf3e8f717ad607be4537dae6597a935e90a7c84920173e30fb369bb7ff0",
+      "size_bytes": 3253
+    },
+    "analysis/ego-thread-schedstat-alignment.json": {
+      "path": "analysis/ego-thread-schedstat-alignment.json",
+      "sha256": "d91eb28c5a329e88f515fc76158a51935b5b2a84049a8a9f6ddd719846e79a80",
+      "size_bytes": 9478
+    },
+    "analysis/host-socket-buffer-alignment.json": {
+      "path": "analysis/host-socket-buffer-alignment.json",
+      "sha256": "6ebd35d5c69df9ce9a8b9464ce1fd3c353272363e77393d00e3c9826211b074f",
+      "size_bytes": 1662
+    },
+    "analysis/rmw-wait-sequence-gaps.json": {
+      "path": "analysis/rmw-wait-sequence-gaps.json",
+      "sha256": "016024422cafc71b6c401d3d358144ac8f0b6d9c376aeabcf764dcfcc818fb91",
+      "size_bytes": 441
+    },
+    "analysis/listener-proxy-smoke-analysis.json": {
+      "path": "analysis/listener-proxy-smoke-analysis.json",
+      "sha256": "da30dda5c5da8336ecd7ad87fb1cd2e3c5434bd2c2ec08a86366dd1cb83e279f",
+      "size_bytes": 587
+    },
+    "analysis/analyzer-exit-codes.txt": {
+      "path": "analysis/analyzer-exit-codes.txt",
+      "sha256": "faaf41ef0228091d9c79bddb45978a5de8113847d33c1538f0cb74b686cb7c61",
+      "size_bytes": 229
+    },
+    "analysis/ctf-file-hashes.sha256": {
+      "path": "analysis/ctf-file-hashes.sha256",
+      "sha256": "c2be07870a9768d08d57dd26888847e3b46edca93f4d11528de62df8c2461b31",
+      "size_bytes": 8024
+    },
+    "runtime-summary.json": {
+      "path": "runtime-summary.json",
+      "sha256": "a1c5591434374cf62e411ddbe2f8fed94364f5ea37fd0e16c90b8fc9979c1af1",
+      "size_bytes": 2051
+    },
+    "transport-env.json": {
+      "path": "transport-env.json",
+      "sha256": "d0715db5fe243ecc731c8947e98af5d82f043962e98a5869af6a60b6721ae9b0",
+      "size_bytes": 740
+    },
+    "host-net-readonly.json": {
+      "path": "host-net-readonly.json",
+      "sha256": "2f741b65f54b2d56715ce974e3c7d780cf779cf93750409f2744a508a27306b1",
+      "size_bytes": 176
+    },
+    "host-udp-skmem.jsonl": {
+      "path": "host-udp-skmem.jsonl",
+      "sha256": "1092f65625ced2a46c1d1597e3486587cbd36d4d7798a67593a3010194699ba7",
+      "size_bytes": 32791191
+    },
+    "planner-goal-result.json": {
+      "path": "planner-goal-result.json",
+      "sha256": "8965b908da9dfadce9b7bcfafc6af88c2991ce3b1aeda667bc0c9a2b5b2af152",
+      "size_bytes": 33985
+    },
+    "fastdds-recv-buffer.xml": {
+      "path": "fastdds-recv-buffer.xml",
+      "sha256": "6055c86fdad2114c670a8968d1d9056431a2ca9b4638b41f54de70398e9df76c",
+      "size_bytes": 340
+    },
+    "fastdds-recv-buffer-smoke-212992.xml": {
+      "path": "fastdds-recv-buffer-smoke-212992.xml",
+      "sha256": "6055c86fdad2114c670a8968d1d9056431a2ca9b4638b41f54de70398e9df76c",
+      "size_bytes": 340
+    },
+    "profile-smoke-host-ss.jsonl": {
+      "path": "profile-smoke-host-ss.jsonl",
+      "sha256": "3deb920c517e666f4e3bb88625eb2e9630090f2bb81d63156149e1a2fae6f276",
+      "size_bytes": 669796
+    },
+    "profile-smoke-default-host-ss.jsonl": {
+      "path": "profile-smoke-default-host-ss.jsonl",
+      "sha256": "12ee59bf15059c1b31007c025faecebb9a2c703f44f6570ece4018ff2141b966",
+      "size_bytes": 683286
+    },
+    "probe-library.sha256": {
+      "path": "probe-library.sha256",
+      "sha256": "5aca3f2a53eb773bd90aff1f2c4b6ff3b70fbb1ec62a9adea7785262c449c120",
+      "size_bytes": 165
+    },
+    "probe-build.log": {
+      "path": "probe-build.log",
+      "sha256": "4a62b59f0c10426d6a00f7e30822881701ac3874741440b07651d9aed3244cb7",
+      "size_bytes": 5479
+    },
+    "container-run.log": {
+      "path": "container-run.log",
+      "sha256": "12f9d1db9733abe65c101ee8e633b9c2e8f59f5903805acfb8da9b7a912c0d22",
+      "size_bytes": 3173
+    }
+  },
+  "limitations": [
+    "Single main run; a larger socket buffer alone did not remove the take gap, but that does not exclude other receive-path or reader-delivery causes.",
+    "Socket drop counters are participant-socket level and do not identify ROS topic or RTPS sample; no packet-level trace was captured in this run.",
+    "The host ss monitor sampled every 50 ms; transient receive-queue occupancy between samples is not excluded.",
+    "The #352 main run did not directly measure SO_RCVBUF; the profile-free baseline is a separate smoke on the same image and host.",
+    "The wait trace is missing sequence values 108–112 outside the selected gap, so global continuity failed while selected-gap alignment passed.",
+    "The planner emitted two B-splines in planner-only scope; neither trajectory was executed and no controller, trajectory server, PX4, truth, or control topic was present."
+  ]
+}
