@@ -42,3 +42,17 @@
 - 已把专用 `n05-post-release` live snapshot + replay 接入运行器。扫描器在完整 coverage 后若只于释放后健康确认报错，必须仍确认扫描完整、夹具 detached 且模型已移除，才继续专用 released admission；该命令若无法获取快照，会写 fail-closed structured refusal。汇总单独报告 prescan transfer gate，不将拒绝解释为起飞通过。
 - 新 runner `wall-r04` 完成 12 阶段，attached 后检因 raw unknown 拒绝；map identity 连续。释放后 checker 120 秒未收齐 localization/map/bridge/odom/clock，保存 fail-closed 结构化错误；同一时间段 `vio.log` 记录 `mapping gate closed: telemetry_stale`，扫描清理报告 fresh DISARMED 状态接收龄越界。关联哈希和解释见 `artifacts/runs/n05-20261023-wall-r04/n05-post-release-runtime-correlation.json`。wall r04 的 transfer gate 明确未通过，夹具移除已确认。
 - 当前 N05.3 下一子项：用更新后的检查器以 `corridor_box_column`（r02）复测，并记录缺失状态的具体 topic、释放后 raw snapshot 或拒绝。此运行用于第二布局的 transfer 证据，不会清除未知空间。
+
+## N05.3 / N05.4 完成记录
+
+前述 N05.3 “下一子项”是当时计划，结果由本节更新；验收原文未变。
+
+- 离线定位了完整 scan 后 HOLD 包络仍有 324–338 个 unknown，主要 z 范围为 0.8–1.2 m；旧 coverage profile 的支架平台高度为 0.6 m。设定唯一实验变量为平台高度提升至 fixture SDF 上限 1.0 m，路径、持续时间、地图判据和误差预算保持不变。`probe_preflight_scan.validate_profile(..., "coverage")` 静态验证通过，仍为 12 个有界阶段。
+- `wall-r05` 完成 12 阶段扫描及释放后检查。HOLD 最大 unknown 从同布局旧 profile 的 338 降至 163；TAKEOFF_CONTACT 仍有 498 个 unknown。attached-after 与 released-after 使用同 epoch/map_id，位姿变化 `0.000468273 m`，在线／离线同为 `TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope`，`transfer_gate_passed=false`。模型已移除，扫描容器 exit 0。fixture worker 在 detach 后的 2 秒 freshness 确认返回错误，但 wrapper 仍依据已完成扫描、安全移除证据执行独立 released check；摘要的 `diagnostic_pass=true` 只表示诊断身份、回放和清理一致。
+- `corridor-r03` 使用相同 1.0 m profile，在 8/12 阶段后 VINS `normalized_cost_exceeded`（1.0994866）；没有 prescan-ready 或 released admission。scanner 的 safe cleanup 返回零位、detach 并收到 Gazebo remove ack，模型列表确认 fixture absent；PX4 记录保持 DISARMED，项目容器退出 0。此健康失败未重试或放宽门限。
+- `corridor-r02` 0.6 m profile 旧试次在 stage 10 触发 `normalized_cost_exceeded`（1.0206328）。recovery helper 使用 736 个 Gazebo fixture joint target 将支架回零并 detach；Gazebo model list 确认 fixture absent。恢复脚本末尾新鲜状态确认失败，但紧接着的独立 ROS 查询确认 bridge `DISABLED`／disarmed／landed、PX4 `arming_state=1`，容器随后以 exit 0 停止。新报告 `artifacts/runs/n05-20261023-corridor-r02/n05-recovery-followup-verification.json` 保存复核和原恢复报告 hash，旧 monitor marker 已解除。
+- 对两布局的 0.6 m 完整扫描 `wall-r03`、`corridor-r01`，before 与 attached-after live 检查的五个阶段都因 raw unknown 拒绝，离线 archive replay 与在线一致；epoch/map_id 在各 run 内不变。`wall-r04` 的 released check 等待 120 秒后因完整状态集合缺失而 fail closed，同期 VIO 记录 `telemetry_stale`。
+- 更新 `docs/running.md`：N05 diagnostic pass 不等于 takeoff admission；缺失／过期数据、VINS 失效、identity／pose discontinuity 或任一 phase refusal 时保持 PX4 DISARMED／桥 DISABLED，不发起飞目标，不清未知、不使用任意起点，也不以 `./start.sh fly` 绕过。
+- N05 状态 `passed` 的范围是“fail-closed 入口规则、两布局 online/offline 一致性及 no-go 过程经验证”；它不授予起飞资格。机器可读和人工证据为 `progress/evidence/n05-entry-20261023.{json,md}`。N05 通过后依赖满足的下一项是 N06，本轮没有执行 N06。
+
+验证：N05 入口／支架／恢复测试此前通过 17 项；本轮没有 Python 源码变化。本轮 coverage profile validator 通过。两个旧 profile 布局的 SITL 扫描完整；wall-r05 released admission 完整且拒绝 unknown；corridor-r03 保留 VINS 健康门失败并安全清理。无 Offboard、目标、飞行或实机运行。

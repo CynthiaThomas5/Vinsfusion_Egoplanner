@@ -40,3 +40,12 @@
 1. 执行更新后的 `corridor_box_column` r02，保存 released 后 live snapshot/replay 或带缺失状态列表的结构化拒绝。
 2. 跨布局比较 before、attached-after 和 released-after 准入、map identity、full-airframe sweep 分类、未知拒绝与 pose shift；确认扫描夹具安全移除。
 3. 仅当所有 N05 出口有实际证据时才更新为 `passed` 和推进 `next_goal`；否则保存未通过项、合法入口调整和恢复条件。
+
+## 恢复后的执行结果
+
+- 用户通过 `codex resume --last` 恢复 Goal 完成模式，范围为 N05。
+- corridor-r02 的 recovery report 有末尾 freshness 错误，但记录已回零、detach、fixture model absent。独立查询随后确认 fixture absent，bridge `DISABLED`／disarmed／landed，PX4 `arming_state=DISARMED`；项目容器以 exit 0 安全停止，monitor marker 已解除。复核摘要在 `artifacts/runs/n05-20261023-corridor-r02/n05-recovery-followup-verification.json`。
+- 对 after HOLD unknown 高度偏向 0.8–1.2 m 的假设，coverage profile 仅提高一项变量：平台高度从 0.6 m 提升到 fixture 上限 1.0 m。wall-r05 的 hold unknown 从 338 降至 163，但 TAKEOFF_CONTACT 仍有 498 unknown；释放后 live check 与归档复算均拒绝 unknown，identity 连续，位姿变化 0.000468 m，transfer gate 为 false。
+- corridor-r03 用同一 1.0 m profile，在 stage 8 VINS `normalized_cost_exceeded`（1.0994866）中止。scanner safe cleanup 确认 detach、remove ack、fixture absent 和 disarmed；没有 post-release 检查。此错误按现有健康门保留，不放宽阈值、不重试同一假设。
+- wall-r03 与 corridor-r01 的两个完整 0.6 m scan 已提供双布局 N05 exit 所需 full-airframe online/offline 一致与 unknown fail-closed 证据；wall-r05 增补 released transfer 实测。wall-r04 曾因 released 状态不足 fail closed。
+- 因此 N05 按“fail-closed 入口诊断、两布局一致性和合法 no-go 流程”通过；没有 takeoff admission。当前流程明确要求任一拒绝或数据缺失时保持 DISARMED／bridge DISABLED，不发目标、不清 unknown、不用任意起点，不通过 `./start.sh fly`试探。N05 evidence: `progress/evidence/n05-entry-20261023.{md,json}`。`next_goal` 更新为依赖满足的 N06，但本轮未执行它。
