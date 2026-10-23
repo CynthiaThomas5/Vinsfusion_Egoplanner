@@ -8,7 +8,7 @@
   ],
   "max_velocity_m_s": 0.5,
   "max_acceleration_m_s2": 0.8,
-  "obstacles_inflation_m": 0.5,
+  "obstacles_inflation_m": 0.7306179170842026,
   "planning_horizon_m": 5.0,
   "startup_waypoint_enu_m": [
     0.0,
@@ -21,5 +21,5 @@
   "use_distinctive_trajectories": true,
   "odom_depth_timeout_sim_s": 0.4,
   "ground_height_m": -0.65,
-  "rationale": "The 40 m horizontal map covers the 20 m room from a VINS origin near x=-8 m, including a +16 m relative opposite-end goal. The 0.5 m obstacle inflation is a conservative PROVISIONAL simulation margin replacing the old 0.099 m diagnostic value; it is not full vehicle-clearance acceptance. N05 lowers the map bottom from -0.15 m to -0.65 m so the x500 model root height, D435i mount, and uncertainty-expanded ground-contact envelope fit when the epoch origin is the camera IMU. The 0.4 simulation-second odom/depth timeout remains provisional. Full swept-body, unknown-space and braking checks remain pending. #051 current-room CPU candidate reduces motion from0.7m/s,1.5m/s2 to0.5m/s,0.8m/s2 after run42 visual-cost transient near goal; health thresholds unchanged. Pending repeated SITL, not formal acceptance."
+  "rationale": "The 40 m horizontal map covers the 20 m room from a VINS origin near x=-8 m, including a +16 m relative opposite-end goal. The single raw occupancy sphere used for goal admission and the complete active-curve sweep is set to the N05-derived PROVISIONAL body reference clearance radius (0.7306179170842026 m): the orientation-invariant X500+D435i collision sweep plus the current linear localization, map-surface, voxel and continuous-sampling margins. This sphere also supplies conservative planner inflation; it is not a calibrated flight clearance and excludes measured braking, tracking, latency, mount accessories and vibration. N05 lowers the map bottom from -0.15 m to -0.65 m so the x500 model root height, D435i mount, and uncertainty-expanded ground-contact envelope fit when the epoch origin is the camera IMU. The 0.4 simulation-second odom/depth timeout remains provisional. Unknown-space and dynamic stop/hold behavior still require N06 evidence. #051 current-room CPU candidate reduces motion from0.7m/s,1.5m/s2 to0.5m/s,0.8m/s2 after run42 visual-cost transient near goal; health thresholds unchanged. Pending repeated SITL, not formal acceptance."
 }

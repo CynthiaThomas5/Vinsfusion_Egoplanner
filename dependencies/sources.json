@@ -144,7 +144,7 @@
         "plan_manage",
         "traj_utils"
       ],
-      "patch_status": "Canonical through0040; read-only N03 depth callback/fusion trace built and qualified in progress/evidence/n03-depth-fusion-continuity-20261022-090.md; no mapping/planning/control behavior change.",
+      "patch_status": "Canonical through0041; N06 uses the N05 body-reference sphere for raw full-curve admission and checks the configured terminal/emergency hold neighborhood; ROS build and no-control integration evidence pending.",
       "patches": [
         "dependencies/patches/ego/0001-project-interface-and-license.patch",
         "dependencies/patches/ego/0002-package-descriptions.patch",
@@ -166,7 +166,8 @@
         "dependencies/patches/ego/0037-readonly-sphere-query.patch",
         "dependencies/patches/ego/0038-complete-depth-rays.patch",
         "dependencies/patches/ego/0039-full-curve-admission.patch",
-        "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch"
+        "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch",
+        "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch"
       ],
       "license": "GPL-3.0-only",
       "imported": true,
@@ -203,7 +204,8 @@
         "dependencies/patches/ego/0037-readonly-sphere-query.patch": "ec9252cc79def0f9b75bc7c64b3bf1b1b0e1079f5e2e306fa973d4d905902388",
         "dependencies/patches/ego/0038-complete-depth-rays.patch": "1260c9aa72bac8f883f6944ee3923707b72a6fa279fcb91389a959645e94b26d",
         "dependencies/patches/ego/0039-full-curve-admission.patch": "1e591c0bf8796964c04813dfb6ea2843faffa625ad6e9ab0eee2bfa582b10ff1",
-        "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch": "415bda74f7b180ad7904825c019c2606395361095dcaeeefd584012526856b2f"
+        "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch": "415bda74f7b180ad7904825c019c2606395361095dcaeeefd584012526856b2f",
+        "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch": "bb18641e1a1f90560d11e0ed197d273dde4918ab7e38d8a9ffb1df3268125e2e"
       },
       "reconstruction_tool": "tools/fetch_dependencies.py",
       "patch_contexts": {
@@ -295,6 +297,11 @@
           "working_directory": "src",
           "strip": 1,
           "binary": false
+        },
+        "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": true
         }
       },
       "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
@@ -306,13 +313,14 @@
         "src/planner/traj_utils": "planner/traj_utils"
       },
       "patched_files_sha256": {
-        "src/planner/plan_env/src/grid_map.cpp": "a8e4ff2a87d0dd46cee4b03f6acca05ffc803f65630674f50369d47225e437bf",
-        "src/planner/plan_env/include/plan_env/grid_map.h": "83dc43ec044e22b00ee06c67ec6d1839600f13481cb0bd8f03c4bbcdbd392d92",
+        "src/planner/plan_env/src/grid_map.cpp": "116f311aa2e17f716272255aa3a7097a1ddb9102888c387a7b608d647d983ce8",
+        "src/planner/plan_env/include/plan_env/grid_map.h": "0ead4086c5682c298b4945913cd348d96ed3ced32d20eff6ba79f838c723bf16",
         "src/planner/plan_env/include/plan_env/sphere_query.h": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809",
         "src/planner/plan_env/src/raycast.cpp": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
-        "src/planner/plan_env/include/plan_env/swept_curve.h": "dde7969afcf2a86a4e7e5aecc8344c465f8a7ca2b14f1794fa7b3eee36fb11b7",
-        "src/planner/plan_manage/src/ego_replan_fsm.cpp": "d70bd56673d477b691e08d3b99c17f17255b1b5a59424d0d4f883d7100dde2c5",
-        "src/planner/plan_manage/include/ego_planner/ego_replan_fsm.h": "2dd351771635563f615b285ea0c68dd1b95271292aaea4c8d1a3e0b87937e8e5"
+        "src/planner/plan_env/include/plan_env/swept_curve.h": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
+        "src/planner/plan_manage/src/ego_replan_fsm.cpp": "90836d96b77b59b2418917feb0b8d75f279c0fb3188e9fa976c3cca2610c8223",
+        "src/planner/plan_manage/include/ego_planner/ego_replan_fsm.h": "2dd351771635563f615b285ea0c68dd1b95271292aaea4c8d1a3e0b87937e8e5",
+        "src/planner/plan_manage/launch/advanced_param.launch.py": "2e0cca636f4fed64a15c4089148308155510115169b7d40839f1636cb5dd7089"
       }
     },
     {

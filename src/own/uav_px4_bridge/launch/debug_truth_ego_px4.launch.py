@@ -17,6 +17,7 @@ def start(context):
     bridge_cfg = json.loads((root / 'config/components/px4_bridge/debug_truth.json').read_text())
     map_cfg = json.loads((root / 'config/components/mapping/ego_input.json').read_text())
     planner_cfg = json.loads((root / 'config/components/mapping/ego_planner.json').read_text())
+    envelope_cfg = json.loads((root / 'config/components/navigation/vehicle_envelope.json').read_text())
     nav_cfg = json.loads((root / 'config/components/navigation/task_supervisor.json').read_text())
     frame_cfg = json.loads((root / 'config/components/px4_bridge/frames.json').read_text())
     rig = calibration(root / 'simulation/models/d435i/model.sdf')
@@ -71,6 +72,7 @@ def start(context):
             'planning_horizon': str(planner_cfg['planning_horizon_m']),
             'odom_depth_timeout': str(planner_cfg['odom_depth_timeout_sim_s']),
             'obstacles_inflation': str(planner_cfg['obstacles_inflation_m']),
+            'terminal_hold_neighborhood': str(envelope_cfg['map_policy']['terminal_hold_neighborhood_radius_m']),
             'ground_height': str(planner_cfg['ground_height_m']),
             'flight_type': str(planner_cfg['flight_type']),
             'point_num': '1',

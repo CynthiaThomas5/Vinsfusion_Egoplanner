@@ -31,6 +31,7 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
     px4 = _read_json(root, 'config/components/px4_bridge/vio_closed_loop.json')
     frames = _read_json(root, 'config/components/px4_bridge/frames_vio_closed_loop.json')
     planner = _read_json(root, planner_config)
+    envelope = _read_json(root, 'config/components/navigation/vehicle_envelope.json')
     mapping = _read_json(root, 'config/components/mapping/ego_input.json')
     navigation = _read_json(root, 'config/components/navigation/task_supervisor.json')
     vins_settings = _read_json(root, 'config/components/localization/vins_sim.json')
@@ -68,6 +69,19 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
     if (type(obstacles_inflation) not in (int, float)
             or not math.isfinite(obstacles_inflation) or obstacles_inflation < 0):
         raise ValueError('obstacles_inflation_m must be a finite non-negative number')
+    envelope_radius = envelope['geometry']['orientation_invariant_rotor_sweep_radius_m']
+    uncertainty_margin = envelope['spatial_budget']['combined_uncertainty_margin_m']
+    body_clearance_radius = envelope['spatial_budget']['body_reference_clearance_radius_m']
+    hold_neighborhood_radius = envelope['map_policy']['terminal_hold_neighborhood_radius_m']
+    if (not all(isinstance(value, (int, float)) and math.isfinite(value)
+                for value in (envelope_radius, uncertainty_margin, body_clearance_radius,
+                              hold_neighborhood_radius))
+            or abs(envelope_radius + uncertainty_margin - body_clearance_radius) > 1e-9):
+        raise ValueError('N05 vehicle envelope has an inconsistent full-body radius')
+    if not 0 <= hold_neighborhood_radius <= 1.0:
+        raise ValueError('N05 terminal hold neighborhood must be in [0, 1] m')
+    if abs(obstacles_inflation - body_clearance_radius) > 1e-9:
+        raise ValueError('obstacles_inflation_m must equal the N05 body-reference clearance radius')
     prefix = f'/drone_{drone_id}_'
     topics = {
         'camera_pose': mapping.get('ego_pose_topic', ''),
@@ -111,6 +125,7 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
         'planning_horizon': planner['planning_horizon_m'],
         'odom_depth_timeout': planner['odom_depth_timeout_sim_s'],
         'obstacles_inflation': obstacles_inflation,
+        'terminal_hold_neighborhood': hold_neighborhood_radius,
         'ground_height': planner['ground_height_m'],
         'flight_type': planner['flight_type'],
         'point_num': 1,
@@ -125,6 +140,7 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
         'config/components/simulation/d435i_bridge.yaml',
         'config/components/localization/vins_sim.json',
         'config/components/localization/health.json',
+        'config/components/navigation/vehicle_envelope.json',
         'config/components/mapping/ego_input.json',
         planner_config,
         'config/components/navigation/task_supervisor.json',

@@ -20,8 +20,8 @@
       "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
       "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
       "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
-      "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
-      "config/components/mapping/ego_planner.json": "cb194ad29b86f92b45e771aa858d602771a8edad671489843d5ca58ae1bf64b2"
+      "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "2e0cca636f4fed64a15c4089148308155510115169b7d40839f1636cb5dd7089",
+      "config/components/mapping/ego_planner.json": "97e8658732bc64755193eca1fd6f3faa4134eee2198b6c266d2d6a93fcdc6516"
     }
   },
   "spatial_budget": {
@@ -54,6 +54,7 @@
     "blocked_classes": [-1, 100],
     "identity_required": ["epoch", "map_id", "frame_id", "calibration_sha256", "input_config_sha256"],
     "freshness_limit_sim_s": 0.4,
+    "terminal_hold_neighborhood_radius_m": 0.25,
     "unknown_or_out_of_bounds": "reject",
     "self_filter": "No vehicle-shaped voxels are erased and no free rays are synthesized. Near-camera and image-margin filtering follows the existing plan_env depth filter; self-occluded volume remains unknown and is rejected if it intersects the required entry envelope."
   },

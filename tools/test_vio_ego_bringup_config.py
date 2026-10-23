@@ -29,6 +29,11 @@ class VioEgoBringupConfigTests(unittest.TestCase):
         self.assertEqual(args['max_vel'], planner['max_velocity_m_s'])
         self.assertEqual(args['max_acc'], planner['max_acceleration_m_s2'])
         self.assertEqual(args['obstacles_inflation'], planner['obstacles_inflation_m'])
+        envelope = json.loads((ROOT / 'config/components/navigation/vehicle_envelope.json').read_text())
+        self.assertEqual(args['obstacles_inflation'],
+                         envelope['spatial_budget']['body_reference_clearance_radius_m'])
+        self.assertEqual(args['terminal_hold_neighborhood'],
+                         envelope['map_policy']['terminal_hold_neighborhood_radius_m'])
         self.assertEqual(args['cx'], k[2])
         self.assertEqual(args['cy'], k[5])
         self.assertEqual(args['fx'], k[0])
@@ -93,6 +98,16 @@ class VioEgoBringupConfigTests(unittest.TestCase):
             config['obstacles_inflation_m'] = -0.1
             path.write_text(json.dumps(config))
             with self.assertRaisesRegex(ValueError, 'finite non-negative number'):
+                resolve_vio_ego_configuration(root)
+
+    def test_clearance_radius_must_match_n05_envelope(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = self._copy_runtime_inputs(Path(temp))
+            path = root / 'config/components/mapping/ego_planner.json'
+            config = json.loads(path.read_text())
+            config['obstacles_inflation_m'] = 0.5
+            path.write_text(json.dumps(config))
+            with self.assertRaisesRegex(ValueError, 'must equal the N05 body-reference clearance radius'):
                 resolve_vio_ego_configuration(root)
 
     def test_prepare_creates_fresh_hashed_session_and_refuses_reuse(self):

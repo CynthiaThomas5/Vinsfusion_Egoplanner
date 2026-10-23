@@ -26,15 +26,22 @@ def main():
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--after-completion', action='store_true')
     args = parser.parse_args()
+    planner_config = json.loads((Path(__file__).resolve().parents[1]
+                                 / 'config/components/mapping/ego_planner.json').read_text())
+    envelope_config = json.loads((Path(__file__).resolve().parents[1]
+                                  / 'config/components/navigation/vehicle_envelope.json').read_text())
     args.output_dir.mkdir(parents=True, exist_ok=False)
-    log = (args.output_dir/'planner.log').open('w')
+    log_path = args.output_dir/'planner.log'
+    log = log_path.open('w')
     process = subprocess.Popen([
         'ros2', 'launch', 'ego_planner', 'advanced_param.launch.py',
         'flight_type:=1', 'odometry_topic:=/probe/odom',
         'map_size_x_:=12.0', 'map_size_y_:=12.0', 'map_size_z_:=6.0',
         'ground_height:=-2.0', 'cx:=79.5', 'cy:=59.5', 'fx:=80.0', 'fy:=80.0',
         'max_vel:=0.5', 'max_acc:=0.8', 'planning_horizon:=3.0',
-        'obstacles_inflation:=0.5', 'odom_depth_timeout:=0.4'],
+        f'obstacles_inflation:={planner_config["obstacles_inflation_m"]}',
+        f'terminal_hold_neighborhood:={envelope_config["map_policy"]["terminal_hold_neighborhood_radius_m"]}',
+        f'odom_depth_timeout:={planner_config["odom_depth_timeout_sim_s"]}'],
         stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
     rclpy.init()
     node = Node('isolated_ego_safety_probe')
@@ -170,10 +177,17 @@ def main():
         second = goal(2.8)
         wait(lambda: any(f.goal_id==second for f in faults), 'blocked new goal')
         assert not any(c.goal_id==second for c in curves), 'blocked trajectory published'
+        if process.poll() is None:
+            os.killpg(process.pid, signal.SIGINT)
+            process.wait(timeout=10.)
+        log.flush()
         report = {'scope':'synthetic component fixture; no flight, PX4, VINS or world truth',
                   'passed':True,'after_completion':args.after_completion,'queries':rows,'certified_curves':len(curves),
                   'faults':[{'goal_id':f.goal_id,'epoch':f.epoch,'reason':f.reason} for f in faults],
-                  'late_curves_after_fault':len(curves)-previous}
+                  'late_curves_after_fault':len(curves)-previous,
+                  'certificate_metrics': [line.strip() for line in
+                      log_path.read_text(errors='replace').splitlines()
+                      if 'Full-curve certificate metrics:' in line]}
         (args.output_dir/'result.json').write_text(json.dumps(report,indent=2)+'\n')
         print(json.dumps(report))
     finally:

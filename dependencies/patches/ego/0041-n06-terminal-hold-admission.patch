@@ -1,0 +1,170 @@
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -62,6 +62,7 @@
+   Eigen::Vector3d local_update_range_;
+   double resolution_, resolution_inv_;
+   double obstacles_inflation_;
++  double terminal_hold_neighborhood_;
+   string frame_id_;
+   int pose_type_;
+ 
+--- a/planner/plan_env/include/plan_env/swept_curve.h
++++ b/planner/plan_env/include/plan_env/swept_curve.h
+@@ -12,6 +12,7 @@
+   std::string reason;
+   int checked = 0;
+   double failed_time = 0;
++  double wall_seconds = 0;
+ };
+ // A valid speed bound gives |p(t)-p(mid)| <= vmax * dt/2. Enlarging the
+ // midpoint sphere by that amount covers every point, including both ends.
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -6,6 +6,7 @@
+ #include <cstdint>
+ #include <limits>
+ #include <sstream>
++#include <stdexcept>
+ #include <uav_interfaces/srv/reset_mapping.hpp>
+ #include <uav_interfaces/srv/get_occupancy_snapshot.hpp>
+ #include <uav_interfaces/srv/query_occupancy_sphere.hpp>
+@@ -72,6 +73,12 @@
+     const std::string &epoch, const std::string &map_id, double begin, double end,
+     double speed_bound, const std::function<std::array<double, 3>(double)> &evaluate) const
+ {
++  const auto wall_start = std::chrono::steady_clock::now();
++  const auto finish = [&wall_start](plan_env::SweepResult result) {
++    result.wall_seconds = std::chrono::duration<double>(
++        std::chrono::steady_clock::now() - wall_start).count();
++    return result;
++  };
+   // Serialized callbacks read the last completed fusion, never the pending image.
+   // Keep the exact source/update age and pose gates; pending input does not mutate the grid.
+   const auto reason = queryReadiness(epoch, map_id, false);
+@@ -79,12 +86,43 @@
+   {
+     plan_env::SweepResult result;
+     result.reason = reason;
+-    return result;
+-  }
+-  return plan_env::certifySweep(begin, end, speed_bound, mp_.obstacles_inflation_,
++    return finish(result);
++  }
++  auto result = plan_env::certifySweep(begin, end, speed_bound, mp_.obstacles_inflation_,
+       mp_.resolution_, evaluate, [this](auto center, double radius) {
+         return queryRawSphere(center, radius);
+       });
++  if (result.free)
++  {
++    const auto terminal = evaluate(end);
++    if (!std::all_of(terminal.begin(), terminal.end(),
++                     [](double value) { return std::isfinite(value); }))
++    {
++      result.free = false;
++      result.reason = "invalid_curve";
++      result.failed_time = end;
++    }
++    else
++    {
++      const auto hold = queryRawSphere(
++          terminal, mp_.obstacles_inflation_ + mp_.terminal_hold_neighborhood_);
++      ++result.checked;
++      if (!hold.accepted || hold.reason != "free")
++      {
++        result.free = false;
++        result.reason = "terminal_hold_" + hold.reason;
++        result.failed_time = end;
++      }
++    }
++  }
++  const auto final_reason = queryReadiness(epoch, map_id, false);
++  if (final_reason.size())
++  {
++    result.free = false;
++    result.reason = "map_context_" + final_reason;
++    result.failed_time = end;
++  }
++  return finish(result);
+ }
+ 
+ void GridMap::initMap(rclcpp::Node::SharedPtr node)
+@@ -101,6 +139,7 @@
+   node_->declare_parameter("grid_map/local_update_range_y", -1.0);
+   node_->declare_parameter("grid_map/local_update_range_z", -1.0);
+   node_->declare_parameter("grid_map/obstacles_inflation", -1.0);
++  node_->declare_parameter("grid_map/terminal_hold_neighborhood", -1.0);
+   node_->declare_parameter("grid_map/fx", -1.0);
+   node_->declare_parameter("grid_map/fy", -1.0);
+   node_->declare_parameter("grid_map/cx", -1.0);
+@@ -138,6 +177,7 @@
+   node_->get_parameter("grid_map/local_update_range_y", mp_.local_update_range_(1));
+   node_->get_parameter("grid_map/local_update_range_z", mp_.local_update_range_(2));
+   node_->get_parameter("grid_map/obstacles_inflation", mp_.obstacles_inflation_);
++  node_->get_parameter("grid_map/terminal_hold_neighborhood", mp_.terminal_hold_neighborhood_);
+   node_->get_parameter("grid_map/fx", mp_.fx_);
+   node_->get_parameter("grid_map/fy", mp_.fy_);
+   node_->get_parameter("grid_map/cx", mp_.cx_);
+@@ -166,6 +206,13 @@
+   node_->get_parameter("grid_map/local_map_margin", mp_.local_map_margin_);
+   node_->get_parameter("grid_map/ground_height", mp_.ground_height_);
+   node_->get_parameter("grid_map/odom_depth_timeout", mp_.odom_depth_timeout_);
++
++  if (!std::isfinite(mp_.obstacles_inflation_) || mp_.obstacles_inflation_ <= 0.0 ||
++      !std::isfinite(mp_.terminal_hold_neighborhood_) || mp_.terminal_hold_neighborhood_ < 0.0 ||
++      mp_.obstacles_inflation_ + mp_.terminal_hold_neighborhood_ > 2.0)
++  {
++    throw std::runtime_error("Invalid full-body curve or terminal-hold clearance radius");
++  }
+ 
+   if (mp_.virtual_ceil_height_ - mp_.ground_height_ > z_size)
+   {
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -832,6 +832,13 @@
+           const auto point = info->position_traj_.evaluateDeBoorT(t);
+           return std::array<double, 3>{point(0), point(1), point(2)};
+         });
++    if (begin <= 1e-9)
++    {
++      RCLCPP_INFO(node_->get_logger(),
++                  "Full-curve certificate metrics: queries=%d wall_ms=%.3f reason=%s map_id=%s",
++                  result.checked, result.wall_seconds * 1000.0, result.reason.c_str(),
++                  active_goal_map_id_.c_str());
++    }
+     reason = result.reason;
+     return result.free;
+   }
+--- a/planner/plan_manage/launch/advanced_param.launch.py
++++ b/planner/plan_manage/launch/advanced_param.launch.py
+@@ -26,6 +26,7 @@
+     planning_horizon = LaunchConfiguration('planning_horizon', default=7.5)
+     odom_depth_timeout = LaunchConfiguration('odom_depth_timeout', default=1.0)
+     obstacles_inflation = LaunchConfiguration('obstacles_inflation', default=0.099)
++    terminal_hold_neighborhood = LaunchConfiguration('terminal_hold_neighborhood', default=-1.0)
+     ground_height = LaunchConfiguration('ground_height', default=-0.01)
+     
+     point_num = LaunchConfiguration('point_num', default=1)
+@@ -68,6 +69,7 @@
+     planning_horizon_arg = DeclareLaunchArgument('planning_horizon', default_value=planning_horizon, description='Planning horizon')
+     odom_depth_timeout_arg = DeclareLaunchArgument('odom_depth_timeout', default_value=odom_depth_timeout, description='Depth/odometry freshness timeout in simulation seconds')
+     obstacles_inflation_arg = DeclareLaunchArgument('obstacles_inflation', default_value=obstacles_inflation, description='Obstacle inflation distance in meters')
++    terminal_hold_neighborhood_arg = DeclareLaunchArgument('terminal_hold_neighborhood', default_value=terminal_hold_neighborhood, description='Additional terminal/emergency hold radius outside the N05 body sphere')
+     ground_height_arg = DeclareLaunchArgument('ground_height', default_value=ground_height, description='Lower map boundary in odometry-frame meters')
+     
+     point_num_arg = DeclareLaunchArgument('point_num', default_value=point_num, description='Number of waypoints')
+@@ -154,6 +156,7 @@
+             {'grid_map/local_update_range_y': 5.5},
+             {'grid_map/local_update_range_z': 4.5},
+             {'grid_map/obstacles_inflation': obstacles_inflation},
++            {'grid_map/terminal_hold_neighborhood': terminal_hold_neighborhood},
+             {'grid_map/local_map_margin': 10},
+             {'grid_map/ground_height': ground_height},
+             # camera parameter
+@@ -234,6 +237,7 @@
+     ld.add_action(planning_horizon_arg)
+     ld.add_action(odom_depth_timeout_arg)
+     ld.add_action(obstacles_inflation_arg)
++    ld.add_action(terminal_hold_neighborhood_arg)
+     ld.add_action(ground_height_arg)
+     
+     ld.add_action(point_num_arg)

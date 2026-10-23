@@ -3,6 +3,8 @@ set -Eeuo pipefail
 cd /workspace
 RUN_ID=${1:?run id required}
 LAYOUT_ID=${2:?layout id required}
+MODE=${3:-motion}
+[[ "$MODE" == motion || "$MODE" == static ]] || { echo 'Invalid capture mode' >&2; exit 2; }
 WORLD=/workspace/artifacts/runs/$RUN_ID/world.sdf
 RUN=/workspace/artifacts/runs/$RUN_ID
 STACK_ID=${RUN_ID}-stack
@@ -63,6 +65,17 @@ python3 tools/wait_n04_ready.py --expected-epoch "$N04_EPOCH" \
     tail -n 120 "$RUN/mapping-stack.log" >&2
     exit 12
   }
+if [[ "$MODE" == static ]]; then
+  # Let the startup health gate settle before recording a static observation window.
+  sleep 12
+  python3 tools/wait_n04_ready.py --expected-epoch "$N04_EPOCH" \
+    --timeout-s 90 --output "$RUN/post-settle-readiness.json" \
+    > "$RUN/post-settle-readiness.log" 2>&1 || {
+      cat "$RUN/post-settle-readiness.json" >&2
+      tail -n 120 "$RUN/mapping-stack.log" >&2
+      exit 12
+    }
+fi
 ros2 param dump /drone_0_ego_planner_node > "$RUN/ego-runtime-params.yaml"
 
 DEPTH_TOPIC=$(python3 -c 'import json; print(json.load(open("config/components/mapping/ego_input.json"))["ego_depth_topic"])')
@@ -72,9 +85,11 @@ setsid python3 tools/record_n04_mapping_inputs.py --seconds 40 \
   --output-dir "$RUN/inputs" > "$RUN/input-recorder.log" 2>&1 &
 RECORDER_PID=$!
 sleep 1
-setsid python3 tools/run_sensor_motion.py --output "$RUN/motion.json" \
-  > "$RUN/motion.log" 2>&1 &
-MOTION_PID=$!
+if [[ "$MODE" == motion ]]; then
+  setsid python3 tools/run_sensor_motion.py --output "$RUN/motion.json" \
+    > "$RUN/motion.log" 2>&1 &
+  MOTION_PID=$!
+fi
 
 capture_snapshot() {
   local index=$1
@@ -90,20 +105,28 @@ capture_snapshot() {
     > "$RUN/snapshot-$index-capture.log" 2>&1
 }
 
-# The motion profile starts with a five-second hold. Capture three snapshots
-# at distinct stages while the same epoch and map_id continue to accumulate.
+# Capture three fresh snapshots under one epoch/map_id. Static mode isolates
+# map admission from the physics-driven support-scan motion profile.
 sleep 6
-kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+if [[ "$MODE" == motion ]]; then
+  kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+fi
 capture_snapshot 01
 sleep 6
-kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+if [[ "$MODE" == motion ]]; then
+  kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+fi
 capture_snapshot 02
 sleep 6
-kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+if [[ "$MODE" == motion ]]; then
+  kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+fi
 capture_snapshot 03
 
-wait "$MOTION_PID"
-MOTION_PID=
+if [[ -n "$MOTION_PID" ]]; then
+  wait "$MOTION_PID"
+  MOTION_PID=
+fi
 wait "$RECORDER_PID"
 RECORDER_PID=
 sleep 1
@@ -120,4 +143,4 @@ fi
 
 stop_group "$LAUNCH_PID"
 LAUNCH_PID=
-echo "N04 layout capture complete: $RUN_ID ($LAYOUT_ID, epoch $N04_EPOCH)"
+echo "N04 layout capture complete: $RUN_ID ($LAYOUT_ID, $MODE, epoch $N04_EPOCH)"
