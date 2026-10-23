@@ -73,13 +73,19 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
     uncertainty_margin = envelope['spatial_budget']['combined_uncertainty_margin_m']
     body_clearance_radius = envelope['spatial_budget']['body_reference_clearance_radius_m']
     hold_neighborhood_radius = envelope['map_policy']['terminal_hold_neighborhood_radius_m']
-    if (not all(isinstance(value, (int, float)) and math.isfinite(value)
-                for value in (envelope_radius, uncertainty_margin, body_clearance_radius,
-                              hold_neighborhood_radius))
-            or abs(envelope_radius + uncertainty_margin - body_clearance_radius) > 1e-9):
+    required_map_bottom = envelope['map_policy']['required_map_bottom_m']
+    if not all(isinstance(value, (int, float)) and math.isfinite(value)
+               for value in (envelope_radius, uncertainty_margin, body_clearance_radius,
+                             hold_neighborhood_radius, required_map_bottom,
+                             planner.get('ground_height_m'))):
+        raise ValueError('N05 envelope and planner map-bottom values must be finite')
+    if abs(envelope_radius + uncertainty_margin - body_clearance_radius) > 1e-9:
         raise ValueError('N05 vehicle envelope has an inconsistent full-body radius')
     if not 0 <= hold_neighborhood_radius <= 1.0:
         raise ValueError('N05 terminal hold neighborhood must be in [0, 1] m')
+    if (required_map_bottom > -body_clearance_radius
+            or planner['ground_height_m'] > required_map_bottom + 1e-9):
+        raise ValueError('planner map bottom must include the N05 body-reference sphere')
     if abs(obstacles_inflation - body_clearance_radius) > 1e-9:
         raise ValueError('obstacles_inflation_m must equal the N05 body-reference clearance radius')
     prefix = f'/drone_{drone_id}_'

@@ -20,6 +20,10 @@ class VehicleEnvelopeTests(unittest.TestCase):
         policy = json.loads((ROOT/'config/components/navigation/vehicle_envelope.json').read_text())
         self.assertAlmostEqual(planner['obstacles_inflation_m'],
                                policy['spatial_budget']['body_reference_clearance_radius_m'])
+        self.assertLessEqual(planner['ground_height_m'],
+                             policy['map_policy']['required_map_bottom_m'])
+        self.assertLessEqual(policy['map_policy']['required_map_bottom_m'],
+                             -policy['spatial_budget']['body_reference_clearance_radius_m'])
 
     def test_box_corner_transform(self):
         corners = list(box_corners((2, 3, 4, 0, 0, 0), (2, 4, 6)))

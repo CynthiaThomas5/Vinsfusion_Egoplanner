@@ -34,6 +34,9 @@ class VioEgoBringupConfigTests(unittest.TestCase):
                          envelope['spatial_budget']['body_reference_clearance_radius_m'])
         self.assertEqual(args['terminal_hold_neighborhood'],
                          envelope['map_policy']['terminal_hold_neighborhood_radius_m'])
+        self.assertEqual(args['ground_height'], planner['ground_height_m'])
+        self.assertLessEqual(args['ground_height'],
+                             envelope['map_policy']['required_map_bottom_m'])
         self.assertEqual(args['cx'], k[2])
         self.assertEqual(args['cy'], k[5])
         self.assertEqual(args['fx'], k[0])
@@ -108,6 +111,16 @@ class VioEgoBringupConfigTests(unittest.TestCase):
             config['obstacles_inflation_m'] = 0.5
             path.write_text(json.dumps(config))
             with self.assertRaisesRegex(ValueError, 'must equal the N05 body-reference clearance radius'):
+                resolve_vio_ego_configuration(root)
+
+    def test_map_bottom_must_cover_n05_body_reference_sphere(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = self._copy_runtime_inputs(Path(temp))
+            path = root / 'config/components/mapping/ego_planner.json'
+            config = json.loads(path.read_text())
+            config['ground_height_m'] = -0.65
+            path.write_text(json.dumps(config))
+            with self.assertRaisesRegex(ValueError, 'map bottom must include the N05 body-reference sphere'):
                 resolve_vio_ego_configuration(root)
 
     def test_prepare_creates_fresh_hashed_session_and_refuses_reuse(self):
