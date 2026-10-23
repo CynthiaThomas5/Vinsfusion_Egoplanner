@@ -5,23 +5,42 @@
   "online_frame_template": "odom_<epoch>",
   "geometry": {
     "airframe_model": "x500_d435i",
-    "d435i_mount_pose_base_link_xyzrpy_m_rad": [0.12, 0.0, 0.08, 0.0, 0.0, 0.0],
+    "d435i_mount_pose_base_link_xyzrpy_m_rad": [
+      0.12,
+      0.0,
+      0.08,
+      0.0,
+      0.0,
+      0.0
+    ],
     "collision_bounds_xyz_m": [
-      [-0.4338715598484476, 0.19387155984844762],
-      [-0.3138715598484476, 0.3138715598484476],
-      [-0.307, 0.0125]
+      [
+        -0.4338715598484476,
+        0.19387155984844762
+      ],
+      [
+        -0.3138715598484476,
+        0.3138715598484476
+      ],
+      [
+        -0.307,
+        0.0125
+      ]
     ],
     "level_max_horizontal_radius_m": 0.48150294014012984,
     "orientation_invariant_rotor_sweep_radius_m": 0.4819358706659999,
     "rotor_sweep_method": "Sweep each x500 propeller collision rectangle through its complete revolute-Z range; union is a disk at the measured rotor center and collision half-thickness.",
-    "ground_contact_collisions": ["base_link_collision_3", "base_link_collision_4"],
+    "ground_contact_collisions": [
+      "base_link_collision_3",
+      "base_link_collision_4"
+    ],
     "ground_contact_geometry": "The two 0.25 x 0.015 x 0.015 m skid crossbars at y=+/-0.132 m and z=-0.2195 m in base_link; no other x500 or camera collision may contact ground.",
     "source_hashes": {
       "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
       "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
       "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
       "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "2e0cca636f4fed64a15c4089148308155510115169b7d40839f1636cb5dd7089",
-      "config/components/mapping/ego_planner.json": "97e8658732bc64755193eca1fd6f3faa4134eee2198b6c266d2d6a93fcdc6516"
+      "config/components/mapping/ego_planner.json": "10730154d87b68f3c9ae80b905b1ad1470532fe0dd51da1034608ff2a7f2263e"
     }
   },
   "spatial_budget": {
@@ -33,7 +52,7 @@
       "sweep_sample_half_step": 0.025
     },
     "combined_uncertainty_margin_m": 0.24868204641820268,
-    "body_reference_clearance_radius_m": 0.7306179170842026,
+    "body_reference_clearance_radius_m": 0.7306179170842027,
     "combination": "linear sum; measured N01 10 s RPE maximum + N04 cross-layout maximum surface residual + half a 0.1 m voxel diagonal + 0.025 m sweep sampling allowance",
     "limitations": [
       "N01 RPE maximum and N04 residual maximum are observed finite-sample values under low-speed unarmed support motion, not hard bounds.",
@@ -51,8 +70,17 @@
     "occupancy_source": "/mapping/get_occupancy_snapshot",
     "classification": "raw occupancy only; inflation mask is diagnostic and never converts unknown to free",
     "allowed_free_class": 0,
-    "blocked_classes": [-1, 100],
-    "identity_required": ["epoch", "map_id", "frame_id", "calibration_sha256", "input_config_sha256"],
+    "blocked_classes": [
+      -1,
+      100
+    ],
+    "identity_required": [
+      "epoch",
+      "map_id",
+      "frame_id",
+      "calibration_sha256",
+      "input_config_sha256"
+    ],
     "freshness_limit_sim_s": 0.4,
     "terminal_hold_neighborhood_radius_m": 0.25,
     "unknown_or_out_of_bounds": "reject",
@@ -64,9 +92,16 @@
     "ground_plane_voxel_boundary_rule": "A raw occupied voxel is eligible when its cell intersects the plane-search height interval; compare its center through the interval limit plus half one map resolution.",
     "maximum_plane_residual_m": 0.05,
     "minimum_plane_voxels": 80,
-    "allowed_contact_collisions": ["base_link_collision_3", "base_link_collision_4"],
+    "allowed_contact_collisions": [
+      "base_link_collision_3",
+      "base_link_collision_4"
+    ],
     "allowed_ground_surface_region": "raw occupied voxels within 0.05 m of the fitted plane and inside the current nominal aircraft XY footprint, only during a landed takeoff contact, its vertical ascent, a planned descent, or confirmed landing contact",
-    "allowed_contact_phase_states": ["LANDED", "TAKEOFF_CONTACT", "LANDING_CONTACT"],
+    "allowed_contact_phase_states": [
+      "LANDED",
+      "TAKEOFF_CONTACT",
+      "LANDING_CONTACT"
+    ],
     "contact_verification": "PX4 landed state plus a valid raw-map plane; fixture attachment is diagnostic evidence only and cannot assert an unsupported airborne state.",
     "contact_band_half_width_m": 0.05,
     "all_other_geometry": "must be raw known free throughout the uncertainty-expanded sweep",
