@@ -1,0 +1,224 @@
+{
+  "scope": "Read-only per-candidate loop verification diagnosis; does not establish odometry drift removal.",
+  "result": "completed_on_second_fresh_epoch",
+  "implementation": {
+    "upstream_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "patch": "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch",
+    "patch_sha256": "bcb9af0c3131531decaeabe9c38f7f7d68f4463790dae84ee126b2c4d34d0e71",
+    "runtime_contract_sha256": "11e1cd50b40cb57c3534fd09693f4fe6ec339d484526e0d90fb1b638b28cfc75",
+    "loop_fusion_executable_sha256": "8762600f20c9f4b07f3e889b2f3ef1d6662439eaa186d21a7f5bff114acaaf7a",
+    "vins_executable_sha256": "649567deaed0d7fa48826f0609bbd279001025a1b858765b83d80017f3f95aac",
+    "decision_thresholds_changed": false
+  },
+  "verification": {
+    "fresh_dependency_fetch": "passed at pinned revision with patched-source hashes checked",
+    "build": {
+      "command": "bash tools/project.sh build ros",
+      "result": "17 packages finished"
+    },
+    "tests": {
+      "command": "bash tools/project.sh test",
+      "unit_tests": 199,
+      "navigation_action_integration": "passed"
+    },
+    "diff_check": "passed"
+  },
+  "completed_run": {
+    "run_id": "real-loop-20261022-074-02",
+    "epoch": "d612f794c58d4c898a03adcc1d7603b0",
+    "fixture_outcome": "unarmed_support_loop_revisit_completed",
+    "completed_stages": 47,
+    "vehicle_status_samples": 1486,
+    "vehicle_states": [
+      1
+    ],
+    "keyframes": 101,
+    "candidates": 50,
+    "verified_loops": 4,
+    "optimizations": 4,
+    "backend_exit_code": 0
+  },
+  "candidate_diagnostics": {
+    "event_count": 50,
+    "unique_event_ids": 50,
+    "event_id_first_last": [
+      1,
+      50
+    ],
+    "dropped_events": 0,
+    "rejection_stage_counts": {
+      "pnp_inliers_le_minimum": 45,
+      "accepted": 4,
+      "relative_yaw_limit": 1
+    },
+    "descriptor_matches": {
+      "min": 57,
+      "median": 92.5,
+      "mean": 90.2,
+      "max": 109
+    },
+    "pnp_attempts": 50,
+    "pnp_solve_returned_successfully": 36,
+    "pnp_solve_returned_false": 14,
+    "pnp_inliers": {
+      "min": 0,
+      "median": 9.5,
+      "max": 30,
+      "le_25": 45,
+      "gt_25": 5
+    },
+    "relative_pose_evaluations": 5,
+    "accepted_candidates": [
+      {
+        "current_index": 63,
+        "old_index": 5,
+        "descriptor_matches": 91,
+        "pnp_inliers": 30,
+        "relative_yaw_deg": 0.23489992534219617,
+        "relative_translation_m": 0.0902871965799548
+      },
+      {
+        "current_index": 68,
+        "old_index": 7,
+        "descriptor_matches": 90,
+        "pnp_inliers": 29,
+        "relative_yaw_deg": -0.005317907780182374,
+        "relative_translation_m": 0.04747853712198881
+      },
+      {
+        "current_index": 92,
+        "old_index": 4,
+        "descriptor_matches": 90,
+        "pnp_inliers": 27,
+        "relative_yaw_deg": -0.18461261249051875,
+        "relative_translation_m": 0.02724314089875564
+      },
+      {
+        "current_index": 94,
+        "old_index": 6,
+        "descriptor_matches": 88,
+        "pnp_inliers": 28,
+        "relative_yaw_deg": 0.1548663727375874,
+        "relative_translation_m": 0.03315617685786778
+      }
+    ],
+    "relative_pose_rejections": [
+      {
+        "event": 17,
+        "current_index": 67,
+        "old_index": 7,
+        "descriptor_matches": 85,
+        "pnp_solve_returned_successfully": true,
+        "pnp_inliers": 29,
+        "relative_yaw_deg": 67.77752244735665,
+        "relative_translation_m": 4.9581277215059885,
+        "yaw_gate_passed": false,
+        "translation_gate_passed": true,
+        "rejection_stage": "relative_yaw_limit"
+      }
+    ]
+  },
+  "independent_loop_geometry": {
+    "all_checks_passed": true,
+    "checks": {
+      "actual_candidate": true,
+      "actual_verified_loop": true,
+      "actual_graph_optimization": true,
+      "finite_graph_solution": true,
+      "observed_graph_pose_update": true,
+      "independent_edge_geometry": true,
+      "normal_backend_exit": true,
+      "consistent_output_frame": true,
+      "no_control_or_tf_outputs": true,
+      "no_truth_input_to_backend": true,
+      "raw_session_inputs": true,
+      "same_camera_exposure": true,
+      "bounded_queues": true
+    },
+    "edges": [
+      {
+        "old_index": 5,
+        "current_index": 63,
+        "old_source_ns": 122236000000,
+        "current_source_ns": 525163999999,
+        "separation_sim_s": 402.927999999,
+        "actual_imu_separation_m": 0.09178351971225114,
+        "translation_error_m": 0.035031895457202346,
+        "rotation_error_deg": 0.3173368353374574
+      },
+      {
+        "old_index": 7,
+        "current_index": 68,
+        "old_source_ns": 126063999999,
+        "current_source_ns": 571364000000,
+        "separation_sim_s": 445.300000001,
+        "actual_imu_separation_m": 0.038233352057130465,
+        "translation_error_m": 0.018219019628939313,
+        "rotation_error_deg": 0.10895688462544925
+      },
+      {
+        "old_index": 4,
+        "current_index": 92,
+        "old_source_ns": 120519999999,
+        "current_source_ns": 723628000000,
+        "separation_sim_s": 603.108000001,
+        "actual_imu_separation_m": 0.0010091531230475698,
+        "translation_error_m": 0.027546357009908,
+        "rotation_error_deg": 0.22591282339775703
+      },
+      {
+        "old_index": 6,
+        "current_index": 94,
+        "old_source_ns": 124016000000,
+        "current_source_ns": 727059999999,
+        "separation_sim_s": 603.043999999,
+        "actual_imu_separation_m": 0.000723768271016827,
+        "translation_error_m": 0.03324287908799399,
+        "rotation_error_deg": 0.18684673109700548
+      }
+    ],
+    "maximum_graph_position_update_m": 0.07835421434022748
+  },
+  "integrity_checks": {
+    "diagnostic_events_equal_candidate_counter": true,
+    "accepted_events_equal_verified_loop_counter": true,
+    "event_ids_contiguous": true,
+    "status_batches_end_at_candidate_counter": true,
+    "no_dropped_events": true,
+    "no_truth_input_to_backend": true,
+    "no_control_or_tf_outputs": true,
+    "backend_normal_exit": true
+  },
+  "first_attempt": {
+    "run_id": "real-loop-20261022-074-01",
+    "outcome": "failed",
+    "completed_stages": 29,
+    "candidate_events": 9,
+    "error": "localization changed or became invalid during physical scan; unchanged health gate reported normalized_cost_exceeded q=1.1243049",
+    "safe_cleanup_confirmed": true,
+    "vehicle_disarmed": true,
+    "fixture_removed": true,
+    "pooled_into_completed_run": false
+  },
+  "input_sha256": {
+    "fixture-result.json": "60292535987afcc06fdf19b5d10e4fe175d51eb5e920204c64478019f5d1ee1e",
+    "fixture-trace.jsonl": "c77bf449fe1eca30c8960e20ff9e93a7edbfd5c28d5b8482538c5fa96e9c1d52",
+    "fixture-vins.jsonl": "6d622f279d7d03b910d6d7220b007d641dcd3b0a33d2faf8b0f92adacda43a29",
+    "fixture-odometry.jsonl": "265309f72aa7ef94394ff7c442d4457eeceeda62b286be12ee041b89fef2b1be",
+    "fixture-truth.jsonl": "ef066bed40cbdc6568c486283dd082669dae877a9b24fd818706a66c8a7815a9",
+    "loop-observation.json": "45f6ecdda3f007006984b341af068ae8103b368bf2c45c3b07cf40d34c49a15b",
+    "loop-status.jsonl": "88a3328ef9eeaea18c7eb6d7d97e8fbe9b8624101260cc805585b1ea35713ffb",
+    "loop-observer-manifest.json": "904343274502cb25e3acabdaeb53b24c40851f920f51fa1c913210b8a626242a",
+    "runtime-contract.json": "cb6c72e15bba8046e2e2623907a29f322c2d9b1008cebf6676ae396a4c39832e",
+    "real-loop-evaluation.json": "9bf846efa77d31dd6bffdd5a788c3769ad4b39b94edfa6f427420d4e69327223",
+    "loop-backend-exit-code": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  "run_summary_sha256": "d8ab97009576da43e35979b01cceeecac131de70a5be7757fb439d7b786ac56b",
+  "limitations": [
+    "One completed unarmed fixture route; the first fresh epoch aborted at the unchanged normalized-cost health gate.",
+    "PnP/geometry instrumentation is observational and does not prove or alter odometry drift.",
+    "The rejection-stage counts do not retain images or full per-feature correspondences.",
+    "No threshold, estimator, loop matching, optimizer, or control path was changed."
+  ],
+  "next_proposed_goal": "Offline raw-VINS versus loop-corrected odometry error comparison on 074-02, using one initial stationary alignment, scale 1 and no post-loop re-alignment; awaiting user approval."
+}

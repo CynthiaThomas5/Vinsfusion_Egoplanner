@@ -9,7 +9,9 @@ from launch_ros.actions import Node
 
 def start(context):
     root = Path(LaunchConfiguration('project_root').perform(context)).resolve()
-    sensor_config = root / 'config/components/simulation/d435i_bridge.yaml'
+    sensor_config_arg = LaunchConfiguration('sensor_bridge_config').perform(context).strip()
+    sensor_config = (Path(sensor_config_arg).resolve() if sensor_config_arg
+                     else root / 'config/components/simulation/d435i_bridge.yaml')
     paths = {
         'profile_path': root / 'config/profiles/vio_closed_loop.json',
         'bridge_config_path': root / 'config/components/px4_bridge/vio_closed_loop.json',
@@ -32,5 +34,8 @@ def start(context):
 def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument('project_root', description='Absolute project source root'),
+        DeclareLaunchArgument(
+            'sensor_bridge_config', default_value='',
+            description='Optional run-local Gazebo sensor bridge YAML; empty selects project default'),
         OpaqueFunction(function=start),
     ])

@@ -1,0 +1,260 @@
+{
+  "status": "passed_for_server_build_regression_and_current_room_sitl",
+  "date": "2026-10-22",
+  "server": {
+    "ssh_alias": "gpu4090",
+    "hostname": "1014-server",
+    "user": "huangxiaocheng",
+    "workspace": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2",
+    "os": "Ubuntu 24.04.5 LTS",
+    "gpu": "2 x RTX 4090",
+    "driver": "595.91.07",
+    "docker": "5:29.8.2-1~ubuntu.24.04~noble",
+    "nvidia_container_toolkit": "1.20.1-1"
+  },
+  "identity": {
+    "source_commit": "13228978e7c80046b8b5b164d56a42180d204639",
+    "origin": "git@github.com:CynthiaThomas5/D435i-VINS-EGO-ROS2.git",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "file_sha256": {
+      "src/own/uav_navigation/uav_navigation/node.py": "519efff55e82633993d9042dce3fed0eb05b2e38eda5f9e6b2f495529fc0ee0e",
+      "tools/project.sh": "f751a297fabba32ee05b8a40aed47b1358b7d2f5824973e3ae8f4fe9a0259848",
+      "tools/test_navigation_adapter.py": "816a842edd8e35974b14c28a139a56285576605e1636cc09acdfae6a667f89aa",
+      "config/runtime.json": "a862e521dd738dba71d960cda95458509336f1e2cd845228b46311fd57928221",
+      "dependencies/sources.json": "9cc4a592a2a712355ff51d4e8ce4fac4a5af6931513725b5f565cd780c315558"
+    },
+    "code_patch_sha256": "66ba2f127cde9f122aa1abe8648f2ee3c118a3d65f8bca1f9c6904de1b9dac2f",
+    "build_exit": 0,
+    "final_test_exit": 0,
+    "installed_ament_package_markers": 14
+  },
+  "source_transfer": "User-authorized git bundle of clean synchronized commit; GitHub origin retained; CLI GitHub authentication not configured",
+  "image_archive": {
+    "remote_path": "/home/huangxiaocheng/d435i-deployment/container-images.tar.zst",
+    "bytes": 1484082241,
+    "sha256": "da3e5fd0c203c4dec89963b147ae997a64872d18831151760549efd2c488b614",
+    "remote_hash_verified": true
+  },
+  "resolved_prerequisites": [
+    "User added huangxiaocheng to docker group",
+    "User authorized clean-commit bundle transfer"
+  ],
+  "verification": {
+    "dependency_fetch_exit": 0,
+    "clean_ros_build_packages": 16,
+    "px4_build_steps": 1141,
+    "clean_build_exit": 0,
+    "updated_ros_rebuild_exit": 0,
+    "default_test_exit": 0,
+    "unit_tests": 133,
+    "action_integration": "PASS including cancel, epoch, rollback, frozen-clock freshness, 250 Hz clock with active action, shutdown",
+    "clock_load_max_pose_age_wall_s": 0.053,
+    "baseline_probe_max_pose_age_wall_s": 0.248,
+    "structure_check": "PASS",
+    "diff_check": "PASS",
+    "gui": "not_run",
+    "real_hardware": "not_run"
+  },
+  "navigation_cpu_sample": {
+    "run_id": "server-room-05",
+    "pid": 637396,
+    "sample_wall_s": 5.000087992055342,
+    "one_core_cpu_percent": 1.9999648037972606,
+    "scope": "navigation process only; not whole-system resource qualification"
+  },
+  "runs": [
+    {
+      "run_id": "server-room-01",
+      "variant": "original_4_threads",
+      "result": "FAIL",
+      "failure": "navigation_action_not_successful:pose_stale",
+      "landed_and_disarmed": true,
+      "epoch": "80f57ad4abb94c349165f7596be054b5",
+      "map_id": "80f57ad4abb94c349165f7596be054b5-9cc42a84e2184b84b61c91710fb00f5c",
+      "preflight_passed": true,
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "artifacts": "artifacts/runs/gpu4090-20261022/server-room-01"
+    },
+    {
+      "run_id": "server-room-02",
+      "variant": "original_4_threads",
+      "result": "FAIL",
+      "failure": "navigation_action_not_successful:pose_stale",
+      "landed_and_disarmed": true,
+      "epoch": "197ca5a647e94319b7fdcb207fec5e8f",
+      "map_id": "197ca5a647e94319b7fdcb207fec5e8f-d2dc52b123ee486a97a5c917c59e90df",
+      "preflight_passed": true,
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "artifacts": "artifacts/runs/gpu4090-20261022/server-room-02"
+    },
+    {
+      "run_id": "server-room-03",
+      "variant": "rejected_2_threads",
+      "result": "FAIL",
+      "failure": "navigation_action_not_successful:pose_stale",
+      "landed_and_disarmed": true,
+      "epoch": "e0b616ab064d4d07ab55f2171fb626d7",
+      "map_id": "e0b616ab064d4d07ab55f2171fb626d7-316d4844c5574a4e9a06dc18d9bfd2a8",
+      "preflight_passed": true,
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "artifacts": "artifacts/runs/gpu4090-20261022/server-room-03"
+    },
+    {
+      "run_id": "server-room-04",
+      "variant": "events_executor_with_action_worker",
+      "result": "PASS",
+      "failure": null,
+      "landed_and_disarmed": true,
+      "epoch": "38ed38f4ab04453a93df324109c7e201",
+      "map_id": "38ed38f4ab04453a93df324109c7e201-8eca1df7dda04a9da51329a47613a928",
+      "preflight_passed": true,
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "artifacts": "artifacts/runs/gpu4090-20261022/server-room-04",
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "5b27c0fef05d246feeec5115c8f7dd131a283dbb57e54ab64d5c51382de32811",
+      "independent_true_min_3d_error_m": 0.11053308852538996,
+      "independent_true_goal_dwell_wall_s": 1.926146378973499,
+      "sampled_nominal_body_clearance_m": 0.3295994301449708,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": []
+    },
+    {
+      "run_id": "server-room-05",
+      "variant": "events_executor_with_action_worker",
+      "result": "PASS",
+      "failure": null,
+      "landed_and_disarmed": true,
+      "epoch": "d8a128f372114b3393097ece5d034ba7",
+      "map_id": "d8a128f372114b3393097ece5d034ba7-87e8dbfaff4c4924b2db033c979c02d3",
+      "preflight_passed": true,
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "artifacts": "artifacts/runs/gpu4090-20261022/server-room-05",
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "5b27c0fef05d246feeec5115c8f7dd131a283dbb57e54ab64d5c51382de32811",
+      "independent_true_min_3d_error_m": 0.04862168092389762,
+      "independent_true_goal_dwell_wall_s": 3.497384421993047,
+      "sampled_nominal_body_clearance_m": 0.3579958376219699,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": []
+    },
+    {
+      "run_id": "server-room-06",
+      "variant": "events_executor_with_action_worker",
+      "result": "PASS",
+      "failure": null,
+      "landed_and_disarmed": true,
+      "epoch": "41388387613145fb9360b15909f08e3c",
+      "map_id": "41388387613145fb9360b15909f08e3c-c9c9e9e603524ef0b2aacbc8a7e79569",
+      "preflight_passed": true,
+      "publisher_counts": {
+        "/fmu/in/offboard_control_mode": 1,
+        "/fmu/in/trajectory_setpoint": 1,
+        "/fmu/in/vehicle_command": 1,
+        "/fmu/in/vehicle_visual_odometry": 1,
+        "/navigation/ego_goal": 1,
+        "/navigation/trajectory_cancel": 1,
+        "/position_cmd": 1
+      },
+      "artifacts": "artifacts/runs/gpu4090-20261022/server-room-06",
+      "checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": true,
+        "independent_goal_and_health": true,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": true,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "runtime_contract_sha256": "5b27c0fef05d246feeec5115c8f7dd131a283dbb57e54ab64d5c51382de32811",
+      "independent_true_min_3d_error_m": 0.06498134564009093,
+      "independent_true_goal_dwell_wall_s": 2.806974756065756,
+      "sampled_nominal_body_clearance_m": 0.3822417999436359,
+      "invalid_localization_after_enable": 0,
+      "map_or_navigation_failures": []
+    }
+  ],
+  "consecutive_successful_cold_runs": [
+    "server-room-04",
+    "server-room-05",
+    "server-room-06"
+  ],
+  "runtime_contract_sha256": "5b27c0fef05d246feeec5115c8f7dd131a283dbb57e54ab64d5c51382de32811",
+  "raw_manifest": {
+    "path": "artifacts/runs/gpu4090-20261022/artifact-sha256.json",
+    "sha256": "cdb1fc47937e6c38b52e5ef165a043a50300f315716e3f2249bb2c743d66838d",
+    "files": 243
+  },
+  "artifact_bytes": 156014225,
+  "limitations": [
+    "Current fixed room and 16 m relative route only; not formal P0-P6/S1-S6/A-H completion.",
+    "Body clearance is sampled nominal geometry; not continuous swept-body or uncertainty qualification.",
+    "EventsExecutor is experimental in the locked Jazzy image; other ROS versions are unqualified.",
+    "The first three SITL runs failed with pose_stale and safely landed; failures retained.",
+    "Initial stress-probe fixture had a backward timestamp and the first baseline probe lacked ROS PYTHONPATH; corrected probes retained separately.",
+    "Raw PX4 ULogs and isolated runtime build trees remain on the server; local mirror excludes px4_sitl_default subtrees.",
+    "No GUI or real-flight testing; no commit or push."
+  ],
+  "stages_changed": false
+}

@@ -1,0 +1,179 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -3,6 +3,7 @@
+ #include <algorithm>
+ #include <cmath>
+ #include <cstdint>
++#include <limits>
+ #include <uav_interfaces/srv/reset_mapping.hpp>
+ #include <uav_interfaces/srv/get_occupancy_snapshot.hpp>
+ #include <uav_interfaces/srv/query_occupancy_sphere.hpp>
+@@ -621,10 +622,18 @@
+ 
+   rclcpp::Time t1, t2;
+ 
+-  md_.raycast_num_ += 1;
++  if (md_.raycast_num_ >= std::numeric_limits<char>::max() - 1)
++  {
++    std::fill(md_.flag_rayend_.begin(), md_.flag_rayend_.end(), -1);
++    std::fill(md_.flag_traverse_.begin(), md_.flag_traverse_.end(), -1);
++    md_.raycast_num_ = 0;
++  }
++  else
++    ++md_.raycast_num_;
+ 
+   int vox_idx;
+   double length;
++  int endpoint_occupied;
+ 
+   // bounding box of updated region
+   double min_x = mp_.map_max_boundary_(0);
+@@ -654,7 +663,7 @@
+       {
+         pt_w = (pt_w - md_.camera_pos_) / length * mp_.max_ray_length_ + md_.camera_pos_;
+       }
+-      vox_idx = setCacheOccupancy(pt_w, 0);
++      endpoint_occupied = 0;
+     }
+     else
+     {
+@@ -663,11 +672,11 @@
+       if (length > mp_.max_ray_length_)
+       {
+         pt_w = (pt_w - md_.camera_pos_) / length * mp_.max_ray_length_ + md_.camera_pos_;
+-        vox_idx = setCacheOccupancy(pt_w, 0);
++        endpoint_occupied = 0;
+       }
+       else
+       {
+-        vox_idx = setCacheOccupancy(pt_w, 1);
++        endpoint_occupied = 1;
+       }
+     }
+ 
+@@ -679,42 +688,33 @@
+     min_y = min(min_y, pt_w(1));
+     min_z = min(min_z, pt_w(2));
+ 
+-    // raycasting between camera center and point
+-
+-    if (vox_idx != INVALID_IDX)
+-    {
+-      if (md_.flag_rayend_[vox_idx] == md_.raycast_num_)
+-      {
+-        continue;
+-      }
+-      else
+-      {
+-        md_.flag_rayend_[vox_idx] = md_.raycast_num_;
+-      }
+-    }
+-
+-    raycaster.setInput(pt_w / mp_.resolution_, md_.camera_pos_ / mp_.resolution_);
+-
++    // Record each hit and each free traversal at most once per frame. Reusing an
++    // endpoint/crossing cell does not imply that the rest of two rays coincide.
++    Eigen::Vector3i endpoint_index;
++    posToIndex(pt_w, endpoint_index);
++    if (!isInMap(endpoint_index)) continue;
++    vox_idx = toAddress(endpoint_index);
++    auto &endpoint_flag = endpoint_occupied ? md_.flag_rayend_[vox_idx] :
++                                             md_.flag_traverse_[vox_idx];
++    if (endpoint_flag != md_.raycast_num_)
++    {
++      setCacheOccupancy(pt_w, endpoint_occupied);
++      endpoint_flag = md_.raycast_num_;
++    }
++
++    // Walk in the same origin/resolution coordinates as occupancy indexing.
++    // Camera -> return excludes the return cell, which must not get a free vote.
++    raycaster.setInput((md_.camera_pos_ - mp_.map_origin_) / mp_.resolution_,
++                       (pt_w - mp_.map_origin_) / mp_.resolution_);
+     while (raycaster.step(ray_pt))
+     {
+-      Eigen::Vector3d tmp = (ray_pt + half) * mp_.resolution_;
+-      length = (tmp - md_.camera_pos_).norm();
+-
+-      // if (length < mp_.min_ray_length_) break;
+-
+-      vox_idx = setCacheOccupancy(tmp, 0);
+-
+-      if (vox_idx != INVALID_IDX)
+-      {
+-        if (md_.flag_traverse_[vox_idx] == md_.raycast_num_)
+-        {
+-          break;
+-        }
+-        else
+-        {
+-          md_.flag_traverse_[vox_idx] = md_.raycast_num_;
+-        }
+-      }
++      const Eigen::Vector3i index = ray_pt.cast<int>();
++      if (!isInMap(index)) continue;
++      vox_idx = toAddress(index);
++      if (md_.flag_traverse_[vox_idx] == md_.raycast_num_) continue;
++      md_.flag_traverse_[vox_idx] = md_.raycast_num_;
++      const Eigen::Vector3d center = mp_.map_origin_ + (ray_pt + half) * mp_.resolution_;
++      setCacheOccupancy(center, 0);
+     }
+   }
+ 
+--- a/planner/plan_env/src/raycast.cpp
++++ b/planner/plan_env/src/raycast.cpp
+@@ -1,5 +1,6 @@
+ #include <Eigen/Eigen>
+ #include <cmath>
++#include <limits>
+ #include <iostream>
+ #include <plan_env/raycast.h>
+ 
+@@ -242,26 +243,28 @@
+   direction_ = (end_ - start_);
+   maxDist_ = direction_.squaredNorm();
+ 
+-  // Break out direction vector.
+-  dx_ = endX_ - x_;
+-  dy_ = endY_ - y_;
+-  dz_ = endZ_ - z_;
+-
+-  // Direction to increment x,y,z when stepping.
+-  stepX_ = (int)signum((int)dx_);
+-  stepY_ = (int)signum((int)dy_);
+-  stepZ_ = (int)signum((int)dz_);
+-
+-  // See description above. The initial values depend on the fractional
+-  // part of the origin.
+-  tMaxX_ = intbound(start_.x(), dx_);
+-  tMaxY_ = intbound(start_.y(), dy_);
+-  tMaxZ_ = intbound(start_.z(), dz_);
+-
+-  // The change in t when taking a step (always positive).
+-  tDeltaX_ = ((double)stepX_) / dx_;
+-  tDeltaY_ = ((double)stepY_) / dy_;
+-  tDeltaZ_ = ((double)stepZ_) / dz_;
++  // Use the actual segment direction, not the difference of floored cells.
++  dx_ = direction_.x();
++  dy_ = direction_.y();
++  dz_ = direction_.z();
++  const auto sign = [](double value) { return (value > 0) - (value < 0); };
++  stepX_ = sign(dx_);
++  stepY_ = sign(dy_);
++  stepZ_ = sign(dz_);
++  const auto next_boundary = [](double start, double delta) {
++    if (delta > 0) return (std::floor(start) + 1.0 - start) / delta;
++    if (delta < 0) return (start - std::floor(start)) / -delta;
++    return std::numeric_limits<double>::infinity();
++  };
++  const auto stride = [](double delta) {
++    return delta == 0 ? std::numeric_limits<double>::infinity() : 1.0 / std::abs(delta);
++  };
++  tMaxX_ = next_boundary(start_.x(), dx_);
++  tMaxY_ = next_boundary(start_.y(), dy_);
++  tMaxZ_ = next_boundary(start_.z(), dz_);
++  tDeltaX_ = stride(dx_);
++  tDeltaY_ = stride(dy_);
++  tDeltaZ_ = stride(dz_);
+ 
+   dist_ = 0;
+ 

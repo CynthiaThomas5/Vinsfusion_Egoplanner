@@ -1,0 +1,85 @@
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -12,6 +12,7 @@
+ #include <iomanip>
+ #include <cstdlib>
+ #include <chrono>
++#include <limits>
+ #include "../utility/visualization.h"
+ 
+ namespace
+@@ -1359,6 +1360,66 @@
+         const GroupCost marginalization_cost = evaluate_group(marginalization_residual_blocks);
+         const GroupCost imu_cost = evaluate_group(imu_residual_blocks);
+         const GroupCost visual_cost = evaluate_group(visual_residual_blocks);
++        // Read-only prior diagnostics, after solving and before constructing the next prior.
++        // The prior has no loss function: r = r0 + J*dx in its retained coordinates.
++        std::ostringstream prior_details;
++        prior_details << "{\"next_marginalization_branch\":\""
++                      << (marginalization_flag == MARGIN_OLD ? "oldest" : "second_newest") << "\"";
++        const bool has_prior = last_marginalization_info && last_marginalization_info->valid
++            && !marginalization_residual_blocks.empty();
++        prior_details << ",\"available\":" << (has_prior ? "true" : "false");
++        if (has_prior)
++        {
++            const auto &prior = *last_marginalization_info;
++            std::vector<double> values;
++            double checked_cost = 0.0;
++            ceres::Problem::EvaluateOptions options;
++            options.residual_blocks = marginalization_residual_blocks;
++            options.apply_loss_function = false;
++            const bool ok = problem.Evaluate(options, &checked_cost, &values, nullptr, nullptr)
++                && values.size() == static_cast<size_t>(prior.linearized_residuals.size());
++            prior_details << ",\"evaluation_ok\":" << (ok ? "true" : "false")
++                          << ",\"retained_dimension\":" << prior.n
++                          << ",\"r0_squared_norm\":" << jsonNumber(prior.linearized_residuals.squaredNorm());
++            if (ok)
++            {
++                const Eigen::Map<const Eigen::VectorXd> residual(values.data(), values.size());
++                const Eigen::VectorXd delta = residual - prior.linearized_residuals;
++                prior_details << ",\"current_squared_norm\":" << jsonNumber(residual.squaredNorm())
++                              << ",\"Jdx_squared_norm\":" << jsonNumber(delta.squaredNorm())
++                              << ",\"twice_r0_dot_Jdx\":" << jsonNumber(2.0 * prior.linearized_residuals.dot(delta));
++            }
++            const Eigen::MatrixXd information = prior.linearized_jacobians.transpose()
++                * prior.linearized_jacobians;
++            const Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> spectrum(information, Eigen::EigenvaluesOnly);
++            const bool spectrum_ok = spectrum.info() == Eigen::Success && spectrum.eigenvalues().allFinite();
++            prior_details << ",\"spectrum_ok\":" << (spectrum_ok ? "true" : "false")
++                          << ",\"rank_absolute_epsilon\":" << jsonNumber(prior.eps);
++            if (spectrum_ok)
++            {
++                int rank = 0;
++                double minimum_positive = std::numeric_limits<double>::infinity();
++                for (double value : spectrum.eigenvalues())
++                    if (value > prior.eps) { ++rank; minimum_positive = std::min(minimum_positive, value); }
++                prior_details << ",\"information_rank\":" << rank
++                              << ",\"information_min_positive\":" << jsonNumber(minimum_positive)
++                              << ",\"information_max\":" << jsonNumber(spectrum.eigenvalues().maxCoeff());
++            }
++        }
++        // Window spans, not total tracker lifetime; cap output and report truncation explicitly.
++        prior_details << ",\"window_tracks\":[";
++        size_t written = 0;
++        for (const auto &track : f_manager.feature)
++        {
++            if (written == 1024) break;
++            if (written++) prior_details << ",";
++            int stereo = 0;
++            for (const auto &observation : track.feature_per_frame) stereo += observation.is_stereo;
++            prior_details << "[" << track.feature_id << "," << track.start_frame << ","
++                          << track.feature_per_frame.size() << "," << stereo << "]";
++        }
++        prior_details << "],\"window_tracks_truncated\":"
++                      << (written < f_manager.feature.size() ? "true" : "false") << "}";
+         const double evaluation_seconds = std::chrono::duration<double>(
+             std::chrono::steady_clock::now() - evaluation_started).count();
+         const bool all_groups_available = marginalization_cost.available
+@@ -1382,6 +1443,7 @@
+         write_group("imu", imu_cost);
+         components << ",";
+         write_group("visual", visual_cost);
++        components << ",\"prior_details\":" << prior_details.str();
+         components << ",\"evaluation_ok\":" << (all_groups_available ? "true" : "false")
+                    << ",\"evaluation_seconds\":" << jsonNumber(evaluation_seconds)
+                    << ",\"grouped_cost_sum\":" << jsonNumber(grouped_cost)

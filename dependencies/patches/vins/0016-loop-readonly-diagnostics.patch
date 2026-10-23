@@ -1,0 +1,66 @@
+--- a/loop_fusion/src/pose_graph.h
++++ b/loop_fusion/src/pose_graph.h
+@@ -69,6 +69,7 @@
+ 	void savePoseGraph();
+ 	void loadPoseGraph();
+ 	void publish();
++	std::string diagnosticsJson();
+ 	Vector3d t_drift;
+ 	double yaw_drift;
+ 	Matrix3d r_drift;
+--- a/loop_fusion/src/pose_graph.cpp
++++ b/loop_fusion/src/pose_graph.cpp
+@@ -10,6 +10,8 @@
+  *******************************************************/
+ 
+ #include "pose_graph.h"
++#include <sstream>
++#include <iomanip>
+ 
+ PoseGraph::PoseGraph()
+ {
+@@ -1116,3 +1118,33 @@
+     pub_base_path->publish(base_path);
+     //posegraph_visualization->publish_by(pub_pose_graph, path[sequence_cnt].header);
+ }
++
++// Read-only diagnostic snapshot; no graph or estimator mutation.
++std::string PoseGraph::diagnosticsJson()
++{
++    std::lock_guard<std::recursive_mutex> guard(state_mutex);
++    std::ostringstream out;
++    out << std::setprecision(17) << "[";
++    bool first = true;
++    for (auto* kf : keyframelist)
++    {
++        if (!first) out << ",";
++        first = false;
++        Vector3d p, v; Matrix3d r, vr;
++        kf->getPose(p,r); kf->getVioPose(v,vr);
++        Quaterniond q(r), vq(vr);
++        out << "{\"index\":" << kf->index << ",\"source_ns\":" << std::llround(kf->time_stamp * 1e9)
++            << ",\"vio_xyz\":[" << v.x() << "," << v.y() << "," << v.z() << "]"
++            << ",\"xyz\":[" << p.x() << "," << p.y() << "," << p.z() << "]"
++            << ",\"q_xyzw\":[" << q.x() << "," << q.y() << "," << q.z() << "," << q.w() << "]"
++            << ",\"vio_q_xyzw\":[" << vq.x() << "," << vq.y() << "," << vq.z() << "," << vq.w() << "]"
++            << ",\"loop_index\":" << (kf->has_loop ? kf->loop_index : -1);
++        if (kf->has_loop) {
++            auto t = kf->getLoopRelativeT(); auto lq = kf->getLoopRelativeQ();
++            out << ",\"loop_relative_t\":[" << t.x() << "," << t.y() << "," << t.z() << "]"
++                << ",\"loop_relative_q_xyzw\":[" << lq.x() << "," << lq.y() << "," << lq.z() << "," << lq.w() << "]";
++        }
++        out << "}";
++    }
++    out << "]"; return out.str();
++}
+--- a/loop_fusion/src/pose_graph_node.cpp
++++ b/loop_fusion/src/pose_graph_node.cpp
+@@ -171,7 +171,7 @@
+         << ",\"last_keyframe_ns\":" << last_keyframe_stamp << ",\"max_image_pose_gap_ns\":" << max_image_gap
+         << ",\"image_buffer\":" << images.size() << ",\"pose_buffer\":" << poses.size()
+         << ",\"point_buffer\":" << points.size() << ",\"dropped_buffer\":" << dropped_buffer
+-        << ",\"dropped_sync\":" << dropped_sync << "}";
++        << ",\"dropped_sync\":" << dropped_sync << ",\"graph\":" << posegraph->diagnosticsJson() << "}";
+     std_msgs::msg::String msg; msg.data=out.str(); status_pub->publish(msg);
+ }
+ int main(int argc,char **argv)

@@ -1,0 +1,70 @@
+{
+  "goal": "#073 / fifth small goal: audit candidate-to-verification differences",
+  "status": "completed_with_diagnostic_limit",
+  "scope": "Read-only comparison of retained 070-02 and 072-01 records; no simulation, build, code or configuration mutation.",
+  "finding": {
+    "candidate_count_equal": true,
+    "candidate_events_each": 43,
+    "candidate_current_keyframes_each": [51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93],
+    "counter_semantics": "0015 increments loop_candidates when loop_index != -1; verified_loops increments only after cur_kf->findConnection(old_kf) returns true.",
+    "verification_gate_accepts": {
+      "070-02": 2,
+      "072-01": 1
+    },
+    "inferred_findConnection_false_returns": {
+      "070-02": 41,
+      "072-01": 42
+    },
+    "accepted_edges": {
+      "070-02": [
+        {"current_index": 74, "old_index": 7, "stage": "inbound", "cycle": 6},
+        {"current_index": 80, "old_index": 0, "stage": "outbound", "cycle": 7}
+      ],
+      "072-01": [
+        {"current_index": 57, "old_index": 0, "stage": "inbound", "cycle": 5}
+      ]
+    },
+    "root_cause_within_geometric_verifier": "unknown; rejected-candidate diagnostics were not recorded",
+    "missing_candidate_diagnostics": [
+      "selected old keyframe index for rejected candidates",
+      "BRIEF descriptor match count",
+      "PnP/RANSAC correspondence and inlier counts",
+      "reprojection residuals or explicit rejection reason"
+    ]
+  },
+  "comparability": {
+    "normalized_stage_sequence_equal": true,
+    "keyframes_each": 94,
+    "runtime_contract_sha256_equal": true,
+    "runtime_contract_sha256": "6a5ce037e496ecd58fd298440462257a5650fa0ff021bd883085e42c8b370cdb",
+    "observer_executable_sha256_equal": true,
+    "observer_config_dependencies_resources_limits_equal": true,
+    "session_settings_sha256_equal": true,
+    "epoch_specific_session_file_hashes_equal": false,
+    "same_camera_exposure_checks_passed_both": true,
+    "bounded_queue_checks_passed_both": true,
+    "maximum_image_pose_gap_ns_each": 1,
+    "dropped_sync_each": 0,
+    "interpretation": "No evidence of a difference in candidate proposal count, runtime contract, or image-pose synchronization. Fresh runs did not reuse identical session files or image observations."
+  },
+  "no_mutations": {
+    "simulation_started": false,
+    "source_changed": false,
+    "configuration_changed": false,
+    "milestones_changed": false
+  },
+  "files_sha256": {
+    "070-02/loop-observation.json": "c88742753f8120fc5418e1540fc60bcc87e6a938edf19207d5822ff1ae3b42ef",
+    "070-02/loop-status.jsonl": "e6832041d5eec2c85fff76218e2a6cf3061896b56b35c061e85844dc898440a1",
+    "070-02/loop-observer-manifest.json": "7969b73305890c48743c6295d79d7a71bd80353eec77cd4b9e6d13b1d7078c7c",
+    "070-02/fixture-stages.json": "8685ad63d5962534538579eb4cac0031171584c68a8bf6969b4e48ce5834ce55",
+    "070-02/real-loop-evaluation.json": "e1ccf4b2249cab4b1543849422e8517b944dee51139801b8691fec690df91c74",
+    "072-01/loop-observation.json": "1fbe00c0186b74f6c478faa979114c8cf9704e356b78022f57756fbdb500883b",
+    "072-01/loop-status.jsonl": "154c24cad55fdd175dc5923e4ab753bdc8d5ba835cc31bda55150e420c689d06",
+    "072-01/loop-observer-manifest.json": "c95062c77880f72b6332c3de0c6a60d38c76d7cb99e3d9699a5d8aae4c1e42ab",
+    "072-01/fixture-stages.json": "286df73e9cbfc373f9ababac64ecbb7a32447d8791cfba6213194bac3cf31318",
+    "072-01/real-loop-evaluation.json": "dfe569126ef1001a8139752dba7a38eac79e69aa3dbd9fe84591c1f8415f292a",
+    "0015-loop-observer-transport.patch": "2d2ad6df832937bceb371879452a08446005a622248d8fe6b7f764c2ca38eeba",
+    "vins-patch-README.md": "ccf5c1983500d3bb7db2a74ad17f4d5df3312866a9ac58508620ec025b6a91bc"
+  }
+}

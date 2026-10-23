@@ -22,7 +22,7 @@
 
 ## 实施顺序与最终验收的关系
 
-当前按 [GOAL v2](../GOAL.md) 的 S1–S6 推进；S1–S4 是稳定性与安全诊断出口，S5 先冻结标准，S6 再开展正式 D／E 与全部 A–H 验收。旧 P0–P6 状态与已有证据保留，不因替换目标自动升级。步骤跟踪在 [milestones.json](../progress/milestones.json)。
+当前按 [GOAL v3](../GOAL.md) 的 [N01–N17 小目标](remaining-small-goals.md) 推进：N01–N09 补齐质量与安全出口，N10 干净重建并冻结标准，N11–N17 正式验收与交付。原 S1–S6 的出口责任在 GOAL 映射保留；旧 P0–P6、S1–S6 和 A–H 的状态与已有证据不因规划重写而升级。状态、依赖及证据登记在 [milestones.json](../progress/milestones.json)，唯一下一步见 [CURRENT](../progress/CURRENT.md)。
 
 ## VIO 飞行诊断
 

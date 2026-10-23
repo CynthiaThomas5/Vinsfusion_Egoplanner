@@ -1,0 +1,117 @@
+{
+  "scope": "full-curve gate implementation, mathematical regression and synthetic production-EGO component test; no flight",
+  "completed_component_step": true,
+  "flight_passed": false,
+  "build_packages": 17,
+  "unit_tests": 187,
+  "ros_action_tests": "passed, including completed hold fault cancellation",
+  "fresh_fetch_files": 54,
+  "fresh_fetch_differences": 0,
+  "component": {
+    "scope": "synthetic component fixture; no flight, PX4, VINS or world truth",
+    "passed": true,
+    "queries": [
+      {
+        "label": "free_body",
+        "reason": "free",
+        "accepted": true,
+        "free": true,
+        "counts": [
+          792,
+          0,
+          0
+        ]
+      },
+      {
+        "label": "occupied_return",
+        "reason": "occupied",
+        "accepted": true,
+        "free": false,
+        "counts": [
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "label": "unknown_behind",
+        "reason": "unknown",
+        "accepted": true,
+        "free": false,
+        "counts": [
+          0,
+          792,
+          0
+        ]
+      },
+      {
+        "label": "outside",
+        "reason": "outside_map",
+        "accepted": false,
+        "free": false,
+        "counts": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "certified_curves": 1,
+    "faults": [
+      {
+        "goal_id": "6da16c40c545490587dabce7eb4e6c2d",
+        "epoch": "fb68dc278d1e4932a2548c9b4520ae58",
+        "reason": "full_curve_occupied"
+      },
+      {
+        "goal_id": "6f5b2723a65b41ca8d0b95ace28edb90",
+        "epoch": "fb68dc278d1e4932a2548c9b4520ae58",
+        "reason": "full_curve_planning_failed"
+      }
+    ],
+    "late_curves_after_fault": 0
+  },
+  "limitations": [
+    "No real full-body-free room region certified; no arm or flight.",
+    "Existing0.5m radius is nominal provisional; uncertainty, tracking, latency/braking, launch/landing contact and contingency envelopes not qualified.",
+    "True loop corrections, VINS prior cost mechanism and Nano remain unresolved."
+  ],
+  "latest_build_log": "artifacts/runs/flight-safety-20261022-064-build-fusion-wait.log",
+  "latest_tests_log": "artifacts/runs/flight-safety-20261022-064-tests-fusion-wait.log",
+  "component_02": {
+    "scope": "synthetic component fixture; no flight, PX4, VINS or world truth",
+    "passed": true,
+    "after_completion": true,
+    "certified_curves": 1,
+    "faults": [
+      {
+        "goal_id": "b4bece0ead5d4ce09ca19aa522b40e14",
+        "epoch": "b5f00a1024ae4668aa8a61c24a449a88",
+        "reason": "full_curve_map_id_mismatch"
+      },
+      {
+        "goal_id": "99095cf745d649aeabd13f31260e0092",
+        "epoch": "b5f00a1024ae4668aa8a61c24a449a88",
+        "reason": "full_curve_occupied"
+      },
+      {
+        "goal_id": "7d1ae03e5a9a4d3281c866f460ffdf1a",
+        "epoch": "b5f00a1024ae4668aa8a61c24a449a88",
+        "reason": "full_curve_planning_failed"
+      }
+    ],
+    "late_curves_after_fault": 0,
+    "query_reason_counts": {
+      "free": 1,
+      "no_fresh_fused_depth": 169,
+      "occupied": 1,
+      "outside_map": 1,
+      "unknown": 1
+    }
+  },
+  "supplement_input_sha256": {
+    "artifacts/runs/flight-safety-20261022-064-build-fusion-wait.log": "ea89716ea9bfc67fc3e2def37fcf5881037c3eefa85b85176750fcaf6a678c36",
+    "artifacts/runs/flight-safety-20261022-064-tests-fusion-wait.log": "e07327b8b90a71e2753590b25c8334b7e48440cb0a0c88bf339d8304b4950f37",
+    "artifacts/runs/flight-safety-20261022-064-component-02/result.json": "745bd43c528a297df7da51e16ffff70bdd479695301629bcb91b60c804f90b19"
+  }
+}

@@ -1,0 +1,1313 @@
+{
+  "schema_version": 1,
+  "goal": "N01",
+  "status": "passed",
+  "title": "原始 VIO 全状态误差与漂移基线",
+  "scope": "三次独立 fresh epoch 的同点 raw VINS 位置／姿态／速度／RPE／重复返回／时序描述；未武装 Gazebo 支架运动，不是定位精度门槛或飞行资格。",
+  "method": {
+    "truth_and_vins_origin": "Gazebo truth d435i_link 与仿真 D435i IMU、VINS IMU body 原点重合；truth_to_raw_point_translation_m=[0,0,0]。base_link 安装杆臂仅用于速度一致性核验。",
+    "alignment": "单次初始 SE(3) 对齐，尺度固定 1；无全轨迹拟合、时间拟合或返回段重对齐。",
+    "truth_velocity": "独立真值位置中心差分，半窗 0.1s；按 v_imu=v_base+ω×r 复核。",
+    "protocol_semantics": "冻结的 0.2s raw 位姿插值上限用于拒绝不支持的 RPE 窗口并报告 coverage；超限计数本身不作为整段 epoch 的额外全局门槛。",
+    "timestamp_rounding": "最终离线 evaluator 对 200000000ns 边界使用 2ns 表示舍入容差；全部 epoch 用同一 evaluator 重算；raw 数据与冻结 protocol 字节未改。"
+  },
+  "frozen_identity": {
+    "planned_protocol_path": "artifacts/runs/n01-vio-state-20261022-083-checks/planned-protocol.json",
+    "planned_protocol_file_sha256": "9d20de4ddecf7ea0e150a054500286b7ea68d1edecedb529a6b4bf668b4d8900",
+    "protocol_semantic_sha256": "8e8c6ae6d0ac112f717a21ac268d691ef4d1bed578da3cc3c6120c6dacbaf433",
+    "runtime_contract_sha256": "4e2b88bd5536e8e49e80ba68bc96a95b9de363305010deb1f66bba477354478e",
+    "evaluator_sha256": "5fa01f7f47f164afee3306f94953cd7f50424af15f0c4dce0de72c1f318b4d23",
+    "summary_path": "artifacts/runs/n01-vio-state-20261022-083-checks/summary.json",
+    "summary_sha256": "9bcb3451910bd5ba0e5a5a0147e98566040d1b784b89327dad74bdaad8d46eb5",
+    "aggregation_tool_sha256": "5bf62299edabec9157faf8e9640c64f8ea59e77262d35c3d77fdba7e714935f3"
+  },
+  "complete_fresh_epoch_count": 3,
+  "epochs": [
+    {
+      "run_id": "n01-vio-state-20261022-083-01",
+      "epoch": "78fe4157c79848a9bea64b8d44cbbadc",
+      "fixture_outcome": "unarmed_support_drift_completed",
+      "fixture_error": "",
+      "completed_stages": 23,
+      "expected_stages": 23,
+      "fixture_motion_completed": true,
+      "completion_basis": "probe_completed_and_acknowledged_fixture_removal",
+      "position_ate_m": {
+        "count": 2169,
+        "rmse": 0.030318999370790516,
+        "median": 0.02585432143195739,
+        "p95": 0.049027087107215525,
+        "max": 0.06395538556178401
+      },
+      "attitude_geodesic_error_deg": {
+        "count": 2169,
+        "rmse": 0.3511190010821844,
+        "median": 0.3557188199769857,
+        "p95": 0.5084265077965173,
+        "max": 0.5536037381650408
+      },
+      "roll_error_deg": {
+        "count": 2169,
+        "rmse": 0.03053395122625552,
+        "median": -0.002002768058595195,
+        "p95": 0.03809017036658192,
+        "max": 0.1761926371764845
+      },
+      "pitch_error_deg": {
+        "count": 2169,
+        "rmse": 0.03611740137507868,
+        "median": -0.005688336543390097,
+        "p95": 0.050124196745909184,
+        "max": 0.16028423944706566
+      },
+      "yaw_error_deg": {
+        "count": 2169,
+        "rmse": 0.34791572652525604,
+        "median": 0.35418567665282535,
+        "p95": 0.5081872968178691,
+        "max": 0.5503680349504387
+      },
+      "velocity_error_m_s": {
+        "count": 2168,
+        "rmse": 0.019911090832218814,
+        "median": 0.00291736290308096,
+        "p95": 0.042383081882767584,
+        "max": 0.21389777701138052
+      },
+      "rpe": [
+        {
+          "target_window_s": 1.0,
+          "supported_pairs": 2153,
+          "candidate_pairs": 2169,
+          "rejected_pairs": 16,
+          "translation_error_m": {
+            "count": 2153,
+            "rmse": 0.0027127993022177956,
+            "median": 0.0007338312893061849,
+            "p95": 0.006225359582419527,
+            "max": 0.015761537642413205
+          },
+          "rotation_error_deg": {
+            "count": 2153,
+            "rmse": 0.02657898352588306,
+            "median": 0.008377294479198105,
+            "p95": 0.06253923127377584,
+            "max": 0.10949174946962881
+          },
+          "actual_window_s": {
+            "count": 2153,
+            "rmse": 1.0,
+            "median": 1.0,
+            "p95": 1.0,
+            "max": 1.0
+          }
+        },
+        {
+          "target_window_s": 5.0,
+          "supported_pairs": 2117,
+          "candidate_pairs": 2169,
+          "rejected_pairs": 52,
+          "translation_error_m": {
+            "count": 2117,
+            "rmse": 0.008839520199588473,
+            "median": 0.0030071289621023257,
+            "p95": 0.022176739588370315,
+            "max": 0.030961623426613207
+          },
+          "rotation_error_deg": {
+            "count": 2117,
+            "rmse": 0.05504036892835184,
+            "median": 0.026480288869140715,
+            "p95": 0.10937666504974874,
+            "max": 0.2384509539405381
+          },
+          "actual_window_s": {
+            "count": 2117,
+            "rmse": 5.0,
+            "median": 5.0,
+            "p95": 5.0,
+            "max": 5.0
+          }
+        },
+        {
+          "target_window_s": 10.0,
+          "supported_pairs": 2085,
+          "candidate_pairs": 2169,
+          "rejected_pairs": 84,
+          "translation_error_m": {
+            "count": 2085,
+            "rmse": 0.013393090546252586,
+            "median": 0.004562964479180195,
+            "p95": 0.03450565394583349,
+            "max": 0.04121364333796057
+          },
+          "rotation_error_deg": {
+            "count": 2085,
+            "rmse": 0.07184769445847727,
+            "median": 0.04456579627368267,
+            "p95": 0.142004682946038,
+            "max": 0.25839470907636203
+          },
+          "actual_window_s": {
+            "count": 2085,
+            "rmse": 10.0,
+            "median": 10.0,
+            "p95": 10.0,
+            "max": 10.0
+          }
+        }
+      ],
+      "timing": {
+        "source_rate_hz": {
+          "count": 2168,
+          "rmse": 6.893988925723104,
+          "median": 7.575757518365473,
+          "p95": 7.575757633149679,
+          "max": 15.625000244140628
+        },
+        "source_gap_sim_s": {
+          "count": 2168,
+          "rmse": 0.16292306835640005,
+          "median": 0.132000001,
+          "p95": 0.200000001,
+          "max": 0.200000001
+        },
+        "callback_receipt_rate_wall_hz": {
+          "count": 2168,
+          "rmse": 79.06114381978159,
+          "median": 5.475418051795769,
+          "p95": 6.576998985238149,
+          "max": 2245.3846119301775
+        },
+        "callback_receipt_gap_wall_s": {
+          "count": 2168,
+          "rmse": 0.1836522365942493,
+          "median": 0.1826344565,
+          "p95": 0.2131675821,
+          "max": 0.221417423
+        },
+        "source_age_at_receipt_sim_s": {
+          "count": 2169,
+          "rmse": 0.25078926453254075,
+          "median": 0.252,
+          "p95": 0.296,
+          "max": 0.340000001
+        },
+        "negative_source_age_sample_count": 0,
+        "max_source_gap_sim_s": 0.200000001,
+        "max_receipt_gap_wall_s": 0.221417423,
+        "source_age_definition": "receive_sim_ns - source_ns at callback entry; signed values retained.",
+        "receipt_clock_definition": "time.monotonic_ns at callback entry."
+      },
+      "coverage": {
+        "raw_samples_total": 2178,
+        "raw_samples_at_or_after_anchor": 2169,
+        "pose_truth_pairs": 2169,
+        "pose_truth_rejected": 0,
+        "velocity_truth_pairs": 2168,
+        "velocity_truth_rejected": 1,
+        "pose_pair_fraction": 1.0,
+        "velocity_pair_fraction": 0.9995389580451821,
+        "raw_intervals_over_configured_support_limit": 0,
+        "timestamp_rounding_tolerance_ns": 2,
+        "rejected_pose_samples": [],
+        "rejected_velocity_samples": [
+          {
+            "source_ns": 366136000000,
+            "reason": "Pose sample lies outside truth coverage"
+          }
+        ],
+        "truth_interpolation_limit_sim_s": 0.04,
+        "raw_pose_interpolation_limit_sim_s": 0.2,
+        "velocity_half_window_sim_s": 0.1
+      },
+      "motion_support": {
+        "source_duration_sim_s": 344.784,
+        "paired_truth_path_length_m": 8.394788589688776,
+        "truth_position_span_xyz_m": [
+          1.200099448920164,
+          3.118087433203918e-07,
+          0.6000027222115021
+        ],
+        "truth_yaw_span_deg": 17.446585438541955,
+        "truth_roll_pitch_variation_from_level_deg": {
+          "roll": 1.0575374666262193e-16,
+          "pitch": 0.2831917690287551
+        },
+        "truth_imu_speed_m_s": {
+          "count": 2168,
+          "rmse": 0.0414868565243252,
+          "median": 6.250448523688722e-05,
+          "p95": 0.0918852026841672,
+          "max": 0.12608127074511088
+        },
+        "truth_base_speed_m_s": {
+          "count": 2168,
+          "rmse": 0.04159413551507231,
+          "median": 0.003427003285482219,
+          "p95": 0.09169363941700916,
+          "max": 0.126576223582945
+        },
+        "truth_angular_speed_rad_s": {
+          "count": 2168,
+          "rmse": 0.014689096976691676,
+          "median": 0.0003338359394384318,
+          "p95": 0.04279850125332269,
+          "max": 0.05653508949586761
+        },
+        "configured_translation_m_per_leg": 1.2,
+        "configured_elevation_m": 0.6,
+        "configured_yaw_excursion_rad": 0.3,
+        "observed_return_count": 3,
+        "support_note": "Observed bounds apply only to this unarmed, slow physical-support route and this simulation model."
+      },
+      "return_position_drift_m": [
+        0.0238500669405982,
+        0.035570068570696195,
+        0.04595355641876647
+      ],
+      "return_yaw_drift_deg": [
+        0.2931608630937319,
+        0.4429794760279151,
+        0.49938280699313964
+      ],
+      "raw_pose_evaluation": {
+        "pairs": 2169,
+        "duration_sim_s": 344.784,
+        "position_rmse_m": 0.030318999370790516,
+        "position_max_m": 0.06395538556178401,
+        "position_last_m": 0.04843417357770971,
+        "yaw_rmse_deg": 0.3479157361846147,
+        "yaw_max_abs_deg": 0.5503680504771702
+      },
+      "artifacts": {
+        "full_state_report": "artifacts/runs/n01-vio-state-20261022-083-01/vio-full-state-report.json",
+        "full_state_report_sha256": "ca54f14b978c111bd49a6922232b0ce8edf9b79a61563ba7c3733c8c769144f3",
+        "per_frame_errors": "artifacts/runs/n01-vio-state-20261022-083-01/vio-full-state-errors.csv",
+        "per_frame_errors_sha256": "43ced08a246bfc478cc3c5410952c3ab5fb71febff8ff1b88c8ce753bf9014e0",
+        "rpe_rows": "artifacts/runs/n01-vio-state-20261022-083-01/vio-full-state-rpe.csv",
+        "rpe_rows_sha256": "f9fa7f66c1cd5104b8cacb4dc802549abefe917455e4a0f6c8fc24ee883c9cf0",
+        "return_drift": "artifacts/runs/n01-vio-state-20261022-083-01/return-drift.json",
+        "return_drift_sha256": "21ff058963d7821169286a6d45fabfd4e1d56186ba82bff5ae0083fcb73d5aee",
+        "raw_odometry": "artifacts/runs/n01-vio-state-20261022-083-01/fixture-odometry.jsonl",
+        "raw_odometry_sha256": "190dd3e917982e2bb284c6e8919370aa9d11eb9d1d0405bdd36dd9968e3e3254",
+        "truth": "artifacts/runs/n01-vio-state-20261022-083-01/fixture-truth.jsonl",
+        "truth_sha256": "ba2f192a3a1dc87679bae2b81cae424d6704d7070461c685469536faa22dc85d",
+        "trace": "artifacts/runs/n01-vio-state-20261022-083-01/fixture-trace.jsonl",
+        "trace_sha256": "0e839ae1e2ca467ea4f9eab775beee9cd0482496157b9125db533322ab0abd83"
+      }
+    },
+    {
+      "run_id": "n01-vio-state-20261022-083-03",
+      "epoch": "bfe776476ee3404c9fc1148dab7b5200",
+      "fixture_outcome": "failed",
+      "fixture_error": "detached fixture removal was not acknowledged",
+      "completed_stages": 23,
+      "expected_stages": 23,
+      "fixture_motion_completed": true,
+      "completion_basis": "all_motion_stages_complete_and_postdetach_cleanup_independently_verified",
+      "position_ate_m": {
+        "count": 2117,
+        "rmse": 0.034643516816051274,
+        "median": 0.022552748983441007,
+        "p95": 0.06081094470044741,
+        "max": 0.06723340301423283
+      },
+      "attitude_geodesic_error_deg": {
+        "count": 2117,
+        "rmse": 0.43251973520353093,
+        "median": 0.37205309460091546,
+        "p95": 0.7062835388723859,
+        "max": 0.7400405814656879
+      },
+      "roll_error_deg": {
+        "count": 2117,
+        "rmse": 0.0264524639405323,
+        "median": -0.003992060064353971,
+        "p95": 0.04239206749332707,
+        "max": 0.13025159092970415
+      },
+      "pitch_error_deg": {
+        "count": 2117,
+        "rmse": 0.043507421719696134,
+        "median": -0.032319429015388874,
+        "p95": 0.03735007599303752,
+        "max": 0.1574678752834001
+      },
+      "yaw_error_deg": {
+        "count": 2117,
+        "rmse": 0.4295092783713467,
+        "median": 0.371229267254489,
+        "p95": 0.7058958341044631,
+        "max": 0.739731246056068
+      },
+      "velocity_error_m_s": {
+        "count": 2117,
+        "rmse": 0.018499664827161113,
+        "median": 0.002965548263545993,
+        "p95": 0.041643652990489284,
+        "max": 0.1502357988028354
+      },
+      "rpe": [
+        {
+          "target_window_s": 1.0,
+          "supported_pairs": 2108,
+          "candidate_pairs": 2117,
+          "rejected_pairs": 9,
+          "translation_error_m": {
+            "count": 2108,
+            "rmse": 0.002851288770213593,
+            "median": 0.0007709619558419901,
+            "p95": 0.006283017937183871,
+            "max": 0.024283331844659712
+          },
+          "rotation_error_deg": {
+            "count": 2108,
+            "rmse": 0.027895503417821484,
+            "median": 0.008658134901040938,
+            "p95": 0.0640167407206879,
+            "max": 0.1502907669621001
+          },
+          "actual_window_s": {
+            "count": 2108,
+            "rmse": 1.0,
+            "median": 1.0,
+            "p95": 1.0,
+            "max": 1.0
+          }
+        },
+        {
+          "target_window_s": 5.0,
+          "supported_pairs": 2084,
+          "candidate_pairs": 2117,
+          "rejected_pairs": 33,
+          "translation_error_m": {
+            "count": 2084,
+            "rmse": 0.0087699975556663,
+            "median": 0.0031099312126153275,
+            "p95": 0.021238690418863962,
+            "max": 0.03168911806777258
+          },
+          "rotation_error_deg": {
+            "count": 2084,
+            "rmse": 0.057134077279236375,
+            "median": 0.03358360862336106,
+            "p95": 0.11175441923847067,
+            "max": 0.23816033710150059
+          },
+          "actual_window_s": {
+            "count": 2084,
+            "rmse": 5.0,
+            "median": 5.0,
+            "p95": 5.0,
+            "max": 5.0
+          }
+        },
+        {
+          "target_window_s": 10.0,
+          "supported_pairs": 2053,
+          "candidate_pairs": 2117,
+          "rejected_pairs": 64,
+          "translation_error_m": {
+            "count": 2053,
+            "rmse": 0.013254344318722227,
+            "median": 0.004905403605228457,
+            "p95": 0.033260095999434976,
+            "max": 0.03916321931745129
+          },
+          "rotation_error_deg": {
+            "count": 2053,
+            "rmse": 0.07505177566791275,
+            "median": 0.048910124122324934,
+            "p95": 0.14642733942327707,
+            "max": 0.2146036256736604
+          },
+          "actual_window_s": {
+            "count": 2053,
+            "rmse": 10.0,
+            "median": 10.0,
+            "p95": 10.0,
+            "max": 10.0
+          }
+        }
+      ],
+      "timing": {
+        "source_rate_hz": {
+          "count": 2116,
+          "rmse": 6.633885147598558,
+          "median": 7.575757518365473,
+          "p95": 7.575757633149679,
+          "max": 15.625000244140628
+        },
+        "source_gap_sim_s": {
+          "count": 2116,
+          "rmse": 0.16558558515117291,
+          "median": 0.132000001,
+          "p95": 0.200000001,
+          "max": 0.200000001
+        },
+        "callback_receipt_rate_wall_hz": {
+          "count": 2116,
+          "rmse": 116.39276254085482,
+          "median": 5.475969458307376,
+          "p95": 6.57597636856382,
+          "max": 3850.2410250881703
+        },
+        "callback_receipt_gap_wall_s": {
+          "count": 2116,
+          "rmse": 0.18480416685523907,
+          "median": 0.182616066,
+          "p95": 0.21315643125,
+          "max": 0.214127418
+        },
+        "source_age_at_receipt_sim_s": {
+          "count": 2117,
+          "rmse": 0.2524149664996293,
+          "median": 0.252000001,
+          "p95": 0.296,
+          "max": 0.356
+        },
+        "negative_source_age_sample_count": 0,
+        "max_source_gap_sim_s": 0.200000001,
+        "max_receipt_gap_wall_s": 0.214127418,
+        "source_age_definition": "receive_sim_ns - source_ns at callback entry; signed values retained.",
+        "receipt_clock_definition": "time.monotonic_ns at callback entry."
+      },
+      "coverage": {
+        "raw_samples_total": 2126,
+        "raw_samples_at_or_after_anchor": 2117,
+        "pose_truth_pairs": 2117,
+        "pose_truth_rejected": 0,
+        "velocity_truth_pairs": 2117,
+        "velocity_truth_rejected": 0,
+        "pose_pair_fraction": 1.0,
+        "velocity_pair_fraction": 1.0,
+        "raw_intervals_over_configured_support_limit": 0,
+        "timestamp_rounding_tolerance_ns": 2,
+        "rejected_pose_samples": [],
+        "rejected_velocity_samples": [],
+        "truth_interpolation_limit_sim_s": 0.04,
+        "raw_pose_interpolation_limit_sim_s": 0.2,
+        "velocity_half_window_sim_s": 0.1
+      },
+      "motion_support": {
+        "source_duration_sim_s": 342.935999999,
+        "paired_truth_path_length_m": 8.395050594439143,
+        "truth_position_span_xyz_m": [
+          1.2001668501707483,
+          3.1021302103927863e-07,
+          0.600003467780888
+        ],
+        "truth_yaw_span_deg": 17.44845288722694,
+        "truth_roll_pitch_variation_from_level_deg": {
+          "roll": 1.675094261906344e-15,
+          "pitch": 0.28151011158621203
+        },
+        "truth_imu_speed_m_s": {
+          "count": 2117,
+          "rmse": 0.042305914945444736,
+          "median": 7.161978508570026e-05,
+          "p95": 0.09551887902414485,
+          "max": 0.1224140493215875
+        },
+        "truth_base_speed_m_s": {
+          "count": 2117,
+          "rmse": 0.042420945561079296,
+          "median": 0.003870168515820578,
+          "p95": 0.09589561841609334,
+          "max": 0.12300272309517804
+        },
+        "truth_angular_speed_rad_s": {
+          "count": 2117,
+          "rmse": 0.01493246072226946,
+          "median": 0.0003349218717700221,
+          "p95": 0.042653854856397715,
+          "max": 0.05747721113698116
+        },
+        "configured_translation_m_per_leg": 1.2,
+        "configured_elevation_m": 0.6,
+        "configured_yaw_excursion_rad": 0.3,
+        "observed_return_count": 3,
+        "support_note": "Observed bounds apply only to this unarmed, slow physical-support route and this simulation model."
+      },
+      "return_position_drift_m": [
+        0.02132421230107985,
+        0.041554040884136216,
+        0.060682450288628516
+      ],
+      "return_yaw_drift_deg": [
+        0.3145720610372962,
+        0.48754319490311104,
+        0.7266386552404072
+      ],
+      "raw_pose_evaluation": {
+        "pairs": 2117,
+        "duration_sim_s": 342.935999999,
+        "position_rmse_m": 0.034643516816051274,
+        "position_max_m": 0.06723340301423283,
+        "position_last_m": 0.056452712797777437,
+        "yaw_rmse_deg": 0.42950928246221376,
+        "yaw_max_abs_deg": 0.7397312116924011
+      },
+      "artifacts": {
+        "full_state_report": "artifacts/runs/n01-vio-state-20261022-083-03/vio-full-state-report.json",
+        "full_state_report_sha256": "e708d0516bf883697681e352ddfbb3701b8e8242817188161025b1dbd8ce0919",
+        "per_frame_errors": "artifacts/runs/n01-vio-state-20261022-083-03/vio-full-state-errors.csv",
+        "per_frame_errors_sha256": "b8cf02499df64ceaab4fe0672c964898db32c30695c773e636b22f58b544a847",
+        "rpe_rows": "artifacts/runs/n01-vio-state-20261022-083-03/vio-full-state-rpe.csv",
+        "rpe_rows_sha256": "5ddb6e5f86d2401014c6a425b02787466e2c36b37df1b2343fa0cf7c7f455803",
+        "return_drift": "artifacts/runs/n01-vio-state-20261022-083-03/return-drift.json",
+        "return_drift_sha256": "40121dbe4e4ded208d8e6ca5a04460b6f5abc4af504efc4b9dc3b1966cc92df3",
+        "raw_odometry": "artifacts/runs/n01-vio-state-20261022-083-03/fixture-odometry.jsonl",
+        "raw_odometry_sha256": "d27edeea7273968a11fc88122edb21aa4ae209964d6f01e3d4e180c3d0c2d23d",
+        "truth": "artifacts/runs/n01-vio-state-20261022-083-03/fixture-truth.jsonl",
+        "truth_sha256": "3a2cef72231784d2e7bfcb8f296d1b99a4f26aa588512371969afdb4c5617a16",
+        "trace": "artifacts/runs/n01-vio-state-20261022-083-03/fixture-trace.jsonl",
+        "trace_sha256": "5c1ed561fa6a3992109e7d41512ab7091491038c08e2fd64e590ddf87b6562d0"
+      },
+      "cleanup_audit": {
+        "path": "artifacts/runs/n01-vio-state-20261022-083-03/fixture-cleanup-audit.json",
+        "sha256": "3fd271c6f3836247a5cd389558fc1e98e3a864e57b187155d64227bb7a862718",
+        "fixture_present": false,
+        "px4_disarmed": true,
+        "vehicle_landed": true
+      }
+    },
+    {
+      "run_id": "n01-vio-state-20261022-083-05",
+      "epoch": "e3fa3cf74ebe4d0f83efcdbf47256b59",
+      "fixture_outcome": "failed",
+      "fixture_error": "detached fixture removal was not acknowledged",
+      "completed_stages": 23,
+      "expected_stages": 23,
+      "fixture_motion_completed": true,
+      "completion_basis": "all_motion_stages_complete_and_postdetach_cleanup_independently_verified",
+      "position_ate_m": {
+        "count": 2088,
+        "rmse": 0.036959828216644244,
+        "median": 0.03252338115956484,
+        "p95": 0.06226335548072366,
+        "max": 0.06420961102339559
+      },
+      "attitude_geodesic_error_deg": {
+        "count": 2088,
+        "rmse": 0.37453225952453967,
+        "median": 0.3352655651265839,
+        "p95": 0.5956233789465006,
+        "max": 0.6230479138073168
+      },
+      "roll_error_deg": {
+        "count": 2088,
+        "rmse": 0.040130856938568604,
+        "median": 0.002210576213203577,
+        "p95": 0.06768885375241471,
+        "max": 0.27663504694738505
+      },
+      "pitch_error_deg": {
+        "count": 2088,
+        "rmse": 0.04125503777564647,
+        "median": -0.009801655693772077,
+        "p95": 0.05646223510869123,
+        "max": 0.2622296740331466
+      },
+      "yaw_error_deg": {
+        "count": 2088,
+        "rmse": 0.3700800153657847,
+        "median": 0.3352312999560121,
+        "p95": 0.5954796900870408,
+        "max": 0.6230042935924983
+      },
+      "velocity_error_m_s": {
+        "count": 2088,
+        "rmse": 0.018599292502977486,
+        "median": 0.002936838175068732,
+        "p95": 0.0412439520587071,
+        "max": 0.18195542647648827
+      },
+      "rpe": [
+        {
+          "target_window_s": 1.0,
+          "supported_pairs": 2077,
+          "candidate_pairs": 2088,
+          "rejected_pairs": 11,
+          "translation_error_m": {
+            "count": 2077,
+            "rmse": 0.002775019828298318,
+            "median": 0.0008228169003611044,
+            "p95": 0.00661648362692901,
+            "max": 0.013051644227371628
+          },
+          "rotation_error_deg": {
+            "count": 2077,
+            "rmse": 0.026393101026900654,
+            "median": 0.007819632560716955,
+            "p95": 0.060102793204071886,
+            "max": 0.15694370412969572
+          },
+          "actual_window_s": {
+            "count": 2077,
+            "rmse": 1.0,
+            "median": 1.0,
+            "p95": 1.0,
+            "max": 1.0
+          }
+        },
+        {
+          "target_window_s": 5.0,
+          "supported_pairs": 2054,
+          "candidate_pairs": 2088,
+          "rejected_pairs": 34,
+          "translation_error_m": {
+            "count": 2054,
+            "rmse": 0.009373730906539176,
+            "median": 0.0034428863829764297,
+            "p95": 0.023540006177574724,
+            "max": 0.03818419866419287
+          },
+          "rotation_error_deg": {
+            "count": 2054,
+            "rmse": 0.06304348501126435,
+            "median": 0.03142138156130355,
+            "p95": 0.13128219726339455,
+            "max": 0.29437877453840644
+          },
+          "actual_window_s": {
+            "count": 2054,
+            "rmse": 5.0,
+            "median": 5.0,
+            "p95": 5.0,
+            "max": 5.0
+          }
+        },
+        {
+          "target_window_s": 10.0,
+          "supported_pairs": 2022,
+          "candidate_pairs": 2088,
+          "rejected_pairs": 66,
+          "translation_error_m": {
+            "count": 2022,
+            "rmse": 0.013738925444348989,
+            "median": 0.00513993166082175,
+            "p95": 0.034570316400146114,
+            "max": 0.04172867921525873
+          },
+          "rotation_error_deg": {
+            "count": 2022,
+            "rmse": 0.08315755739337374,
+            "median": 0.049563389457559504,
+            "p95": 0.16879361431109877,
+            "max": 0.28640900481101367
+          },
+          "actual_window_s": {
+            "count": 2022,
+            "rmse": 10.0,
+            "median": 10.0,
+            "p95": 10.0,
+            "max": 10.0
+          }
+        }
+      ],
+      "timing": {
+        "source_rate_hz": {
+          "count": 2087,
+          "rmse": 6.553192299678692,
+          "median": 7.575757518365473,
+          "p95": 7.575757633149679,
+          "max": 15.625000244140628
+        },
+        "source_gap_sim_s": {
+          "count": 2087,
+          "rmse": 0.1677257441501844,
+          "median": 0.132000001,
+          "p95": 0.200000001,
+          "max": 0.264
+        },
+        "callback_receipt_rate_wall_hz": {
+          "count": 2087,
+          "rmse": 144.7364002979825,
+          "median": 5.474381307869548,
+          "p95": 6.573950754984658,
+          "max": 4164.150825542901
+        },
+        "callback_receipt_gap_wall_s": {
+          "count": 2087,
+          "rmse": 0.18518913844106324,
+          "median": 0.182669044,
+          "p95": 0.21321073059999998,
+          "max": 0.224549751
+        },
+        "source_age_at_receipt_sim_s": {
+          "count": 2088,
+          "rmse": 0.25009564502366044,
+          "median": 0.248000001,
+          "p95": 0.292,
+          "max": 0.352
+        },
+        "negative_source_age_sample_count": 0,
+        "max_source_gap_sim_s": 0.264,
+        "max_receipt_gap_wall_s": 0.224549751,
+        "source_age_definition": "receive_sim_ns - source_ns at callback entry; signed values retained.",
+        "receipt_clock_definition": "time.monotonic_ns at callback entry."
+      },
+      "coverage": {
+        "raw_samples_total": 2095,
+        "raw_samples_at_or_after_anchor": 2088,
+        "pose_truth_pairs": 2088,
+        "pose_truth_rejected": 0,
+        "velocity_truth_pairs": 2088,
+        "velocity_truth_rejected": 0,
+        "pose_pair_fraction": 1.0,
+        "velocity_pair_fraction": 1.0,
+        "raw_intervals_over_configured_support_limit": 1,
+        "timestamp_rounding_tolerance_ns": 2,
+        "rejected_pose_samples": [],
+        "rejected_velocity_samples": [],
+        "truth_interpolation_limit_sim_s": 0.04,
+        "raw_pose_interpolation_limit_sim_s": 0.2,
+        "velocity_half_window_sim_s": 0.1
+      },
+      "motion_support": {
+        "source_duration_sim_s": 342.736000001,
+        "paired_truth_path_length_m": 8.36993070527458,
+        "truth_position_span_xyz_m": [
+          1.2000954323813433,
+          3.170967616000363e-07,
+          0.6000041416297198
+        ],
+        "truth_yaw_span_deg": 17.45026134183267,
+        "truth_roll_pitch_variation_from_level_deg": {
+          "roll": 3.4770168581360972e-15,
+          "pitch": 0.2904450339405613
+        },
+        "truth_imu_speed_m_s": {
+          "count": 2088,
+          "rmse": 0.042694216697790284,
+          "median": 7.009850997524131e-05,
+          "p95": 0.09562326370681788,
+          "max": 0.13405424003024724
+        },
+        "truth_base_speed_m_s": {
+          "count": 2088,
+          "rmse": 0.04281224952035058,
+          "median": 0.003908463611282031,
+          "p95": 0.09581477408888354,
+          "max": 0.13482934004973252
+        },
+        "truth_angular_speed_rad_s": {
+          "count": 2088,
+          "rmse": 0.01503952116044957,
+          "median": 0.00030673474823981204,
+          "p95": 0.0435231727905992,
+          "max": 0.05743269558700327
+        },
+        "configured_translation_m_per_leg": 1.2,
+        "configured_elevation_m": 0.6,
+        "configured_yaw_excursion_rad": 0.3,
+        "observed_return_count": 3,
+        "support_note": "Observed bounds apply only to this unarmed, slow physical-support route and this simulation model."
+      },
+      "return_position_drift_m": [
+        0.02862739904498621,
+        0.03727364432318923,
+        0.057875507334342456
+      ],
+      "return_yaw_drift_deg": [
+        0.2904460151139574,
+        0.37126506281751404,
+        0.5747778865510611
+      ],
+      "raw_pose_evaluation": {
+        "pairs": 2088,
+        "duration_sim_s": 342.736000001,
+        "position_rmse_m": 0.036959828216644244,
+        "position_max_m": 0.06420961102339559,
+        "position_last_m": 0.05430538213032173,
+        "yaw_rmse_deg": 0.3700800261855872,
+        "yaw_max_abs_deg": 0.6230043066644523
+      },
+      "artifacts": {
+        "full_state_report": "artifacts/runs/n01-vio-state-20261022-083-05/vio-full-state-report.json",
+        "full_state_report_sha256": "8d571471fbaa4ecf6cd046e2c8f958118e4b7ca8652637de3e02c7eadab14573",
+        "per_frame_errors": "artifacts/runs/n01-vio-state-20261022-083-05/vio-full-state-errors.csv",
+        "per_frame_errors_sha256": "1a7f1b5d9c3b8127c5278780288f8fb768db05f2fd3bcabcb4fbb686463f08a8",
+        "rpe_rows": "artifacts/runs/n01-vio-state-20261022-083-05/vio-full-state-rpe.csv",
+        "rpe_rows_sha256": "fed6caf934fcd94a745685b97888f81fbd2269099fd5209fb1f0550c4ee38dcf",
+        "return_drift": "artifacts/runs/n01-vio-state-20261022-083-05/return-drift.json",
+        "return_drift_sha256": "a6aca72326ec85ce30c2cf4803e72a39fca33919446c81c22f8142da4e67c857",
+        "raw_odometry": "artifacts/runs/n01-vio-state-20261022-083-05/fixture-odometry.jsonl",
+        "raw_odometry_sha256": "4f0c5ca189b4c16960bf91336711f4a485ddd3efb35bcfe7e5941247c39957da",
+        "truth": "artifacts/runs/n01-vio-state-20261022-083-05/fixture-truth.jsonl",
+        "truth_sha256": "bd2ec75e231336078f2020a3d5ffbcc76d0253918b890e10815d033299da91ff",
+        "trace": "artifacts/runs/n01-vio-state-20261022-083-05/fixture-trace.jsonl",
+        "trace_sha256": "b72541a6d966871a5d7b8486541ccc62d01c0c137013efaa0df38135c4200960"
+      },
+      "cleanup_audit": {
+        "path": "artifacts/runs/n01-vio-state-20261022-083-05/fixture-cleanup-audit.json",
+        "sha256": "d36bff606d68646fe585dd3a040878bc1c9fc9937a04928538e7d01ce3d6c432",
+        "fixture_present": false,
+        "px4_disarmed": true,
+        "vehicle_landed": true
+      }
+    }
+  ],
+  "cross_epoch_metrics": {
+    "position_ate_rmse_m": {
+      "count": 3,
+      "min": 0.030318999370790516,
+      "median": 0.034643516816051274,
+      "max": 0.036959828216644244
+    },
+    "position_ate_p95_m": {
+      "count": 3,
+      "min": 0.049027087107215525,
+      "median": 0.06081094470044741,
+      "max": 0.06226335548072366
+    },
+    "position_ate_max_m": {
+      "count": 3,
+      "min": 0.06395538556178401,
+      "median": 0.06420961102339559,
+      "max": 0.06723340301423283
+    },
+    "attitude_geodesic_rmse_deg": {
+      "count": 3,
+      "min": 0.3511190010821844,
+      "median": 0.37453225952453967,
+      "max": 0.43251973520353093
+    },
+    "roll_rmse_deg": {
+      "count": 3,
+      "min": 0.0264524639405323,
+      "median": 0.03053395122625552,
+      "max": 0.040130856938568604
+    },
+    "pitch_rmse_deg": {
+      "count": 3,
+      "min": 0.03611740137507868,
+      "median": 0.04125503777564647,
+      "max": 0.043507421719696134
+    },
+    "yaw_rmse_deg": {
+      "count": 3,
+      "min": 0.34791572652525604,
+      "median": 0.3700800153657847,
+      "max": 0.4295092783713467
+    },
+    "velocity_vector_rmse_m_s": {
+      "count": 3,
+      "min": 0.018499664827161113,
+      "median": 0.018599292502977486,
+      "max": 0.019911090832218814
+    },
+    "source_age_p95_sim_s": {
+      "count": 3,
+      "min": 0.292,
+      "median": 0.296,
+      "max": 0.296
+    },
+    "max_source_gap_sim_s": {
+      "count": 3,
+      "min": 0.200000001,
+      "median": 0.200000001,
+      "max": 0.264
+    },
+    "max_receipt_gap_wall_s": {
+      "count": 3,
+      "min": 0.214127418,
+      "median": 0.221417423,
+      "max": 0.224549751
+    },
+    "pose_pair_fraction": {
+      "count": 3,
+      "min": 1.0,
+      "median": 1.0,
+      "max": 1.0
+    },
+    "velocity_pair_fraction": {
+      "count": 3,
+      "min": 0.9995389580451821,
+      "median": 1.0,
+      "max": 1.0
+    },
+    "raw_intervals_over_configured_support_limit": {
+      "count": 3,
+      "min": 0.0,
+      "median": 0.0,
+      "max": 1.0
+    },
+    "duration_sim_s": {
+      "count": 3,
+      "min": 342.736000001,
+      "median": 342.935999999,
+      "max": 344.784
+    },
+    "truth_path_length_m": {
+      "count": 3,
+      "min": 8.36993070527458,
+      "median": 8.394788589688776,
+      "max": 8.395050594439143
+    },
+    "truth_speed_max_m_s": {
+      "count": 3,
+      "min": 0.1224140493215875,
+      "median": 0.12608127074511088,
+      "max": 0.13405424003024724
+    },
+    "truth_angular_speed_max_rad_s": {
+      "count": 3,
+      "min": 0.05653508949586761,
+      "median": 0.05743269558700327,
+      "max": 0.05747721113698116
+    },
+    "yaw_span_deg": {
+      "count": 3,
+      "min": 17.446585438541955,
+      "median": 17.44845288722694,
+      "max": 17.45026134183267
+    },
+    "roll_excitation_span_deg": {
+      "count": 3,
+      "min": 1.0575374666262193e-16,
+      "median": 1.675094261906344e-15,
+      "max": 3.4770168581360972e-15
+    },
+    "pitch_excitation_span_deg": {
+      "count": 3,
+      "min": 0.28151011158621203,
+      "median": 0.2831917690287551,
+      "max": 0.2904450339405613
+    }
+  },
+  "rpe_by_window": {
+    "1s": {
+      "translation_rmse_m": {
+        "count": 3,
+        "min": 0.0027127993022177956,
+        "median": 0.002775019828298318,
+        "max": 0.002851288770213593
+      },
+      "rotation_rmse_deg": {
+        "count": 3,
+        "min": 0.026393101026900654,
+        "median": 0.02657898352588306,
+        "max": 0.027895503417821484
+      },
+      "per_epoch": [
+        {
+          "run_id": "n01-vio-state-20261022-083-01",
+          "candidate_pairs": 2169,
+          "supported_pairs": 2153,
+          "rejected_pairs": 16,
+          "translation_rmse_m": 0.0027127993022177956,
+          "rotation_rmse_deg": 0.02657898352588306
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-03",
+          "candidate_pairs": 2117,
+          "supported_pairs": 2108,
+          "rejected_pairs": 9,
+          "translation_rmse_m": 0.002851288770213593,
+          "rotation_rmse_deg": 0.027895503417821484
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-05",
+          "candidate_pairs": 2088,
+          "supported_pairs": 2077,
+          "rejected_pairs": 11,
+          "translation_rmse_m": 0.002775019828298318,
+          "rotation_rmse_deg": 0.026393101026900654
+        }
+      ]
+    },
+    "5s": {
+      "translation_rmse_m": {
+        "count": 3,
+        "min": 0.0087699975556663,
+        "median": 0.008839520199588473,
+        "max": 0.009373730906539176
+      },
+      "rotation_rmse_deg": {
+        "count": 3,
+        "min": 0.05504036892835184,
+        "median": 0.057134077279236375,
+        "max": 0.06304348501126435
+      },
+      "per_epoch": [
+        {
+          "run_id": "n01-vio-state-20261022-083-01",
+          "candidate_pairs": 2169,
+          "supported_pairs": 2117,
+          "rejected_pairs": 52,
+          "translation_rmse_m": 0.008839520199588473,
+          "rotation_rmse_deg": 0.05504036892835184
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-03",
+          "candidate_pairs": 2117,
+          "supported_pairs": 2084,
+          "rejected_pairs": 33,
+          "translation_rmse_m": 0.0087699975556663,
+          "rotation_rmse_deg": 0.057134077279236375
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-05",
+          "candidate_pairs": 2088,
+          "supported_pairs": 2054,
+          "rejected_pairs": 34,
+          "translation_rmse_m": 0.009373730906539176,
+          "rotation_rmse_deg": 0.06304348501126435
+        }
+      ]
+    },
+    "10s": {
+      "translation_rmse_m": {
+        "count": 3,
+        "min": 0.013254344318722227,
+        "median": 0.013393090546252586,
+        "max": 0.013738925444348989
+      },
+      "rotation_rmse_deg": {
+        "count": 3,
+        "min": 0.07184769445847727,
+        "median": 0.07505177566791275,
+        "max": 0.08315755739337374
+      },
+      "per_epoch": [
+        {
+          "run_id": "n01-vio-state-20261022-083-01",
+          "candidate_pairs": 2169,
+          "supported_pairs": 2085,
+          "rejected_pairs": 84,
+          "translation_rmse_m": 0.013393090546252586,
+          "rotation_rmse_deg": 0.07184769445847727
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-03",
+          "candidate_pairs": 2117,
+          "supported_pairs": 2053,
+          "rejected_pairs": 64,
+          "translation_rmse_m": 0.013254344318722227,
+          "rotation_rmse_deg": 0.07505177566791275
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-05",
+          "candidate_pairs": 2088,
+          "supported_pairs": 2022,
+          "rejected_pairs": 66,
+          "translation_rmse_m": 0.013738925444348989,
+          "rotation_rmse_deg": 0.08315755739337374
+        }
+      ]
+    }
+  },
+  "repeated_return_drift": {
+    "cycle_1": {
+      "position_drift_m": {
+        "count": 3,
+        "min": 0.02132421230107985,
+        "median": 0.0238500669405982,
+        "max": 0.02862739904498621
+      },
+      "yaw_drift_deg": {
+        "count": 3,
+        "min": 0.2904460151139574,
+        "median": 0.2931608630937319,
+        "max": 0.3145720610372962
+      },
+      "per_epoch": [
+        {
+          "run_id": "n01-vio-state-20261022-083-01",
+          "position_drift_m": 0.0238500669405982,
+          "yaw_drift_deg": 0.2931608630937319,
+          "truth_return_distance_m": 0.010039006397286596
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-03",
+          "position_drift_m": 0.02132421230107985,
+          "yaw_drift_deg": 0.3145720610372962,
+          "truth_return_distance_m": 0.010022857297508118
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-05",
+          "position_drift_m": 0.02862739904498621,
+          "yaw_drift_deg": 0.2904460151139574,
+          "truth_return_distance_m": 0.010106494439906454
+        }
+      ]
+    },
+    "cycle_2": {
+      "position_drift_m": {
+        "count": 3,
+        "min": 0.035570068570696195,
+        "median": 0.03727364432318923,
+        "max": 0.041554040884136216
+      },
+      "yaw_drift_deg": {
+        "count": 3,
+        "min": 0.37126506281751404,
+        "median": 0.4429794760279151,
+        "max": 0.48754319490311104
+      },
+      "per_epoch": [
+        {
+          "run_id": "n01-vio-state-20261022-083-01",
+          "position_drift_m": 0.035570068570696195,
+          "yaw_drift_deg": 0.4429794760279151,
+          "truth_return_distance_m": 0.01010488605361261
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-03",
+          "position_drift_m": 0.041554040884136216,
+          "yaw_drift_deg": 0.48754319490311104,
+          "truth_return_distance_m": 0.010088346868106925
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-05",
+          "position_drift_m": 0.03727364432318923,
+          "yaw_drift_deg": 0.37126506281751404,
+          "truth_return_distance_m": 0.010172074712878683
+        }
+      ]
+    },
+    "cycle_3": {
+      "position_drift_m": {
+        "count": 3,
+        "min": 0.04595355641876647,
+        "median": 0.057875507334342456,
+        "max": 0.060682450288628516
+      },
+      "yaw_drift_deg": {
+        "count": 3,
+        "min": 0.49938280699313964,
+        "median": 0.5747778865510611,
+        "max": 0.7266386552404072
+      },
+      "per_epoch": [
+        {
+          "run_id": "n01-vio-state-20261022-083-01",
+          "position_drift_m": 0.04595355641876647,
+          "yaw_drift_deg": 0.49938280699313964,
+          "truth_return_distance_m": 0.010105313460510834
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-03",
+          "position_drift_m": 0.060682450288628516,
+          "yaw_drift_deg": 0.7266386552404072,
+          "truth_return_distance_m": 0.010088765958806286
+        },
+        {
+          "run_id": "n01-vio-state-20261022-083-05",
+          "position_drift_m": 0.057875507334342456,
+          "yaw_drift_deg": 0.5747778865510611,
+          "truth_return_distance_m": 0.01017249849627214
+        }
+      ]
+    }
+  },
+  "corrected_legacy_evidence": {
+    "057": {
+      "path": "artifacts/runs/n01-coordinate-audit-20261022-083-057/odometry-evaluation.json",
+      "sha256": "458eca55ddbc423551d28f9375ff430135b0bb68ab1a33c43537b988a91e6968",
+      "epoch": "da87e717019f4dd7a8050d07d682f189",
+      "paired_samples": 1290,
+      "duration_sim_s": 85.144,
+      "position_rmse_m": 0.047957373173123145,
+      "position_max_m": 0.08963701626782113,
+      "position_endpoint_m": 0.08668602067401224,
+      "yaw_rmse_deg": 0.2942524127024447,
+      "yaw_max_abs_deg": 0.5095233687129702,
+      "not_a_full_state_epoch_because": "原始记录缺少 raw VINS twist 与单调回调接收时刻。"
+    },
+    "069": {
+      "pose_path": "artifacts/runs/n01-coordinate-audit-20261022-083-069/fixture-odometry-errors.json",
+      "pose_sha256": "a7aa9543b2a4b1a0dee38d1526472acc242129207adeb719acc3c780b647da60",
+      "return_path": "artifacts/runs/n01-coordinate-audit-20261022-083-069/return-drift.json",
+      "return_sha256": "a07a6bdfc49cb8d8d9c0ca476afe85bb0aebc8ce0e09827e275e4e6a48a0e905",
+      "epoch": "2a3d6786e1e544f886d3ec415549a70b",
+      "paired_samples": 2365,
+      "duration_sim_s": 344.387999999,
+      "position_rmse_m": 0.03548060405655891,
+      "position_max_m": 0.07397960440600027,
+      "position_last_m": 0.06623619488259382,
+      "yaw_rmse_deg": 0.41613638199294073,
+      "yaw_max_abs_deg": 0.7330676791118372,
+      "return_position_drift_m": [
+        0.018550845687988347,
+        0.03732482975895972,
+        0.05715751030862471
+      ],
+      "return_yaw_drift_deg": [
+        0.2483772785340932,
+        0.4242008189613671,
+        0.65544590967977
+      ],
+      "not_a_full_state_epoch_because": "原始记录缺少 raw VINS twist 与单调回调接收时刻。"
+    }
+  },
+  "excluded_or_partial_attempts": [
+    {
+      "run_id": "n01-vio-state-20261022-083-02",
+      "path": "artifacts/runs/n01-vio-state-20261022-083-02",
+      "epoch": "6cbd30b058e648dc9b382e1e5050409f",
+      "outcome": "failed",
+      "error": "localization changed or became invalid during physical scan",
+      "completed_stages": 11,
+      "expected_stages": 23,
+      "normalized_cost": 1.205982175158046,
+      "last_localization": {
+        "state": 4,
+        "valid": false,
+        "reason": "normalized_cost_exceeded",
+        "normalized_cost": 1.205982175158046
+      },
+      "counted_as_complete_epoch": false,
+      "rescue_path": "artifacts/runs/n01-vio-state-20261022-083-02/fixture-rescue.json",
+      "rescue_sha256": "22d78ea9574c6d3f71dd891d06499fda9cfd9944014a80a79c947813e19480e1"
+    },
+    {
+      "run_id": "n01-vio-state-20261022-083-04",
+      "path": "artifacts/runs/n01-vio-state-20261022-083-04",
+      "epoch": "05b4313ee97d46d1a214e26af3f28a32",
+      "outcome": "failed",
+      "error": "localization changed or became invalid during physical scan",
+      "completed_stages": 0,
+      "expected_stages": 23,
+      "localization_last_state": {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.19095821297499793
+      },
+      "supervisor_warning": "localization receipt age 0.520s > 0.500s; optimized odometry receipt age 0.599s",
+      "counted_as_complete_epoch": false,
+      "cleanup_path": "artifacts/runs/n01-vio-state-20261022-083-04/fixture-cleanup.json",
+      "cleanup_sha256": "aa21449f20df4b917754436330c7e420e93abc3bb8fe289c6edc3953294590db",
+      "log_path": "artifacts/runs/n01-vio-state-20261022-083-04/vio.log",
+      "log_sha256": "019bcfe259dfd638aaf54341c98faa88031dc7ad6926e92c85070f8ab25bba87"
+    }
+  ],
+  "additional_timing_observation": {
+    "path": "artifacts/runs/n01-vio-state-20261022-083-05/preflight-stream-observation.json",
+    "sha256": "0d397e9a57b548b871528a6a8cd5aa20391d31405502d077cff6fb308cb64aeb",
+    "status_gap_max_s": 0.3191517989616841,
+    "status_gap_limit_s": 0.5,
+    "optimized_odometry_gap_max_s": 0.3585172512102872,
+    "navigation_odometry_guard_s": 0.3,
+    "interpretation": "本轮无导航目标、PX4 DISARMED；定位状态流满足采集器门限，另有一次 optimized odometry 空窗超过导航监督器 guard，保留给 N02，不解释为 raw VINS 全状态误差。"
+  },
+  "limitations": [
+    "Three-dimensional roll/pitch excitation is not part of the fixture protocol.",
+    "Unarmed physical-support motion is not free flight.",
+    "Simulation results do not qualify a real D435i, companion computer, texture, vibration, or hardware timing.",
+    "Per-epoch metrics are summarized with min/median/max; they are not pooled into a single accuracy claim.",
+    "Run05 有 1 个 source interval 超过冻结 0.2s 插值支持上限；相关 RPE 窗口被拒绝并逐窗计数。",
+    "三个 epoch 都是同一仿真模型下的低速支架扫描；无 roll 激励，pitch 激励仅约 0.28°。",
+    "N01 不声明位置／姿态／速度误差已达到最终接受门限；没有 real D435i、机载满载或实机飞行证据。"
+  ],
+  "validation": {
+    "target_unit_tests": "5 passed",
+    "full_project_test": "208 tests passed; ROS action/250Hz clock integration passed",
+    "project_status": "Structure/design check PASS; 80 optional historical artifact links absent; not a ROS build/SITL/flight qualification",
+    "git_diff_check": "passed"
+  }
+}

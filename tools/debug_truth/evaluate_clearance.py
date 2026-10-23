@@ -11,15 +11,9 @@ from uav_sim.geometry import px4_sensor_mount
 mount=px4_sensor_mount(root/'simulation/models/x500_d435i/model.sdf')
 lever=np.array(mount['translation_frd_m'])*np.array([1,-1,-1])
 
-def transform(text):
- x,y,z,r,p,a=map(float,(text or '0 0 0 0 0 0').split());c,s=math.cos,math.sin
- Rz=np.array([[c(a),-s(a),0],[s(a),c(a),0],[0,0,1]]);Ry=np.array([[c(p),0,s(p)],[0,1,0],[-s(p),0,c(p)]]);Rx=np.array([[1,0,0],[0,c(r),-s(r)],[0,s(r),c(r)]])
- T=np.eye(4);T[:3,:3]=Rz@Ry@Rx;T[:3,3]=[x,y,z];return T
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from world_geometry import transform, signed_box, signed_cylinder
 
-def signed_box(p,half):
- q=np.abs(p)-half;return np.linalg.norm(np.maximum(q,0),axis=1)+np.minimum(np.max(q,axis=1),0)
-def signed_cylinder(p,r,h):
- q=np.column_stack((np.linalg.norm(p[:,:2],axis=1)-r,np.abs(p[:,2])-h));return np.linalg.norm(np.maximum(q,0),axis=1)+np.minimum(np.max(q,axis=1),0)
 assert np.allclose(signed_box(np.array([[0,0,0],[2,0,0],[2,2,0]]),np.ones(3)),[-1,1,math.sqrt(2)])
 assert np.allclose(signed_cylinder(np.array([[0,0,0],[2,0,0],[2,0,2]]),1,1),[-1,1,math.sqrt(2)])
 truth=json.loads((run/'debug-truth-evaluation.json').read_text())['samples'];flight=json.loads((run/'flight.json').read_text());positions=np.asarray([p['xyz'] for p in truth]);times=np.asarray([p['stamp_ns'] for p in truth]);assert (np.diff(times)>0).all()

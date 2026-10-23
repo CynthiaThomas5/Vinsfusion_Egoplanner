@@ -8,6 +8,8 @@ import math
 from pathlib import Path
 import time
 
+from flight_profile import legs
+
 import rclpy
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Odometry
@@ -159,6 +161,7 @@ class EgoFlightProbe(Node):
         cost = float(metrics.get('final_cost', 0) or 0)
         normalized = math.sqrt(2.0 * cost / residuals) if residuals > 0 else None
         self.vins_quality_history.append({
+            **metrics,  # Retain source diagnostics, biases and residual groups verbatim.
             'wall_elapsed_s': time.monotonic() - self.started_wall,
             'stamp_ns': int(metrics.get('stamp_ns', 0)),
             'initialized': bool(metrics.get('initialized', False)),
@@ -367,6 +370,9 @@ def main():
     result = {'profile': 'vio_closed_loop', 'result': 'FAIL', 'service_calls': [],
               'action_goal_sent': False, 'action_success': False}
 
+    mission_legs = legs(goal_config)
+    result['goal_config'] = args.goal_config
+    result['legs'] = []
     rclpy.init()
     node = EgoFlightProbe()
     try:
@@ -455,72 +461,82 @@ def main():
         result['diagnostic_scope'] = 'No duplicate raw/ego image readers; occupancy reader stopped after takeoff. Native localization/mapping/navigation gates unchanged.'
 
         pose = node.odometry.pose.pose
-        goal = NavigateToPose.Goal()
-        goal.target.header.frame_id = f'odom_{node.localization.epoch}'
-        goal.target.header.stamp = node.odometry.header.stamp
-        goal.target.pose.position.x = float(pose.position.x) + float(goal_config['target_offset_enu_m'][0])
-        goal.target.pose.position.y = float(pose.position.y) + float(goal_config['target_offset_enu_m'][1])
-        goal.target.pose.position.z = float(pose.position.z) + float(goal_config['target_offset_enu_m'][2])
+        initial_position = [float(pose.position.x), float(pose.position.y), float(pose.position.z)]
         yaw = math.atan2(2.0 * (pose.orientation.w * pose.orientation.z
                                 + pose.orientation.x * pose.orientation.y),
-                         1.0 - 2.0 * (pose.orientation.y ** 2
-                                       + pose.orientation.z ** 2))
-        target_yaw = yaw + float(goal_config.get('yaw_offset_rad', 0.0))
-        goal.target.pose.orientation.z = math.sin(target_yaw / 2.0)
-        goal.target.pose.orientation.w = math.cos(target_yaw / 2.0)
-        goal.position_tolerance_m = float(goal_config['position_tolerance_m'])
-        goal.yaw_tolerance_rad = float(goal_config['yaw_tolerance_rad'])
-        goal.dwell_s = float(goal_config['dwell_s'])
-        goal.timeout_s = float(goal_config['timeout_s'])
-        result['goal'] = {
-            'frame': goal.target.header.frame_id,
-            'target_enu': [goal.target.pose.position.x, goal.target.pose.position.y,
-                           goal.target.pose.position.z],
-            'yaw_enu': target_yaw,
-            'yaw_offset_rad': float(goal_config.get('yaw_offset_rad', 0.0)),
-            'position_tolerance_m': goal.position_tolerance_m,
-            'yaw_tolerance_rad': goal.yaw_tolerance_rad,
-            'timeout_s': goal.timeout_s,
-        }
-        send_future = node.action_client.send_goal_async(goal)
-        if not spin_until(node, send_future.done, 5.0):
-            raise TimeoutError('navigation_goal_response_timeout')
-        handle = send_future.result()
-        if handle is None or not handle.accepted:
-            raise RuntimeError('navigation_goal_rejected')
-        result['action_goal_sent'] = True
-        result['goal_sent_wall_elapsed_s'] = time.monotonic() - node.started_wall
-        result['goal_id'] = bytes(handle.goal_id.uuid).hex()
-        action_future = handle.get_result_async()
-        goal_timeout = goal.timeout_s + 4.0
-        finished = spin_until(node, action_future.done, goal_timeout)
-        if not finished:
-            try:
-                cancel_future = handle.cancel_goal_async()
-                spin_until(node, cancel_future.done, 2.0)
-            except Exception:
-                pass
-            raise TimeoutError('navigation_goal_result_timeout')
-        wrapped = action_future.result()
-        nav_result = wrapped.result
-        result['action_result'] = {
-            'status': int(wrapped.status), 'success': bool(nav_result.success),
-            'outcome': nav_result.outcome, 'reason': nav_result.reason,
-            'final_position': [float(nav_result.final_pose.pose.position.x),
-                               float(nav_result.final_pose.pose.position.y),
-                               float(nav_result.final_pose.pose.position.z)],
-        }
-        result['action_success'] = bool(nav_result.success and nav_result.outcome == 'succeeded')
-        if not result['action_success']:
-            raise RuntimeError('navigation_action_not_successful:' + nav_result.reason)
+                         1.0 - 2.0 * (pose.orientation.y ** 2 + pose.orientation.z ** 2))
+        result['airborne_origin_enu'] = initial_position
+        for leg_index, goal_config in enumerate(mission_legs):
+            result['active_leg_index'] = leg_index
+            result['action_success'] = False
+            result.pop('goal_completed_source_ns', None)
+            if not localization_tracking_fresh(node, result['localization_epoch']):
+                raise RuntimeError('localization_lost_before_next_leg')
+            goal = NavigateToPose.Goal()
+            goal.target.header.frame_id = f'odom_{node.localization.epoch}'
+            goal.target.header.stamp = node.odometry.header.stamp
+            goal.target.pose.position.x = initial_position[0] + float(goal_config['target_offset_enu_m'][0])
+            goal.target.pose.position.y = initial_position[1] + float(goal_config['target_offset_enu_m'][1])
+            goal.target.pose.position.z = initial_position[2] + float(goal_config['target_offset_enu_m'][2])
+            target_yaw = yaw + float(goal_config.get('yaw_offset_rad', 0.0))
+            goal.target.pose.orientation.z = math.sin(target_yaw / 2.0)
+            goal.target.pose.orientation.w = math.cos(target_yaw / 2.0)
+            goal.position_tolerance_m = float(goal_config['position_tolerance_m'])
+            goal.yaw_tolerance_rad = float(goal_config['yaw_tolerance_rad'])
+            goal.dwell_s = float(goal_config['dwell_s'])
+            goal.timeout_s = float(goal_config['timeout_s'])
+            result['goal'] = {
+                'frame': goal.target.header.frame_id,
+                'target_enu': [goal.target.pose.position.x, goal.target.pose.position.y,
+                               goal.target.pose.position.z],
+                'yaw_enu': target_yaw,
+                'yaw_offset_rad': float(goal_config.get('yaw_offset_rad', 0.0)),
+                'position_tolerance_m': goal.position_tolerance_m,
+                'yaw_tolerance_rad': goal.yaw_tolerance_rad,
+                'timeout_s': goal.timeout_s,
+            }
+            result['goal']['source_ns'] = node.odometry.header.stamp.sec * 10**9 + node.odometry.header.stamp.nanosec
+            send_future = node.action_client.send_goal_async(goal)
+            if not spin_until(node, send_future.done, 5.0):
+                raise TimeoutError('navigation_goal_response_timeout')
+            handle = send_future.result()
+            if handle is None or not handle.accepted:
+                raise RuntimeError('navigation_goal_rejected')
+            result['action_goal_sent'] = True
+            result['goal_sent_wall_elapsed_s'] = time.monotonic() - node.started_wall
+            result['goal_id'] = bytes(handle.goal_id.uuid).hex()
+            action_future = handle.get_result_async()
+            goal_timeout = goal.timeout_s + 4.0
+            finished = spin_until(node, action_future.done, goal_timeout)
+            if not finished:
+                try:
+                    cancel_future = handle.cancel_goal_async()
+                    spin_until(node, cancel_future.done, 2.0)
+                except Exception:
+                    pass
+                raise TimeoutError('navigation_goal_result_timeout')
+            wrapped = action_future.result()
+            nav_result = wrapped.result
+            result['action_result'] = {
+                'status': int(wrapped.status), 'success': bool(nav_result.success),
+                'outcome': nav_result.outcome, 'reason': nav_result.reason,
+                'final_position': [float(nav_result.final_pose.pose.position.x),
+                                   float(nav_result.final_pose.pose.position.y),
+                                   float(nav_result.final_pose.pose.position.z)],
+            }
+            result['action_success'] = bool(nav_result.success and nav_result.outcome == 'succeeded')
+            if not result['action_success']:
+                raise RuntimeError('navigation_action_not_successful:' + nav_result.reason)
 
-        matching = [item for item in node.position_commands
-                    if item['goal_id'] == result['goal_id']
-                    and item['epoch'] == result['localization_epoch']
-                    and item['flag'] == PositionCommand.TRAJECTORY_STATUS_READY]
-        result['matching_ready_trajectory_samples'] = len(matching)
-        if not matching:
-            raise RuntimeError('no_matching_ego_ready_position_command_observed')
+            matching = [item for item in node.position_commands
+                        if item['goal_id'] == result['goal_id']
+                        and item['epoch'] == result['localization_epoch']
+                        and item['flag'] == PositionCommand.TRAJECTORY_STATUS_READY]
+            result['matching_ready_trajectory_samples'] = len(matching)
+            if not matching:
+                raise RuntimeError('no_matching_ego_ready_position_command_observed')
+            result['goal_completed_source_ns'] = node.odometry.header.stamp.sec * 10**9 + node.odometry.header.stamp.nanosec
+            result['legs'].append({k: result[k] for k in ('goal', 'goal_id', 'action_result', 'action_success', 'goal_sent_wall_elapsed_s', 'goal_completed_source_ns', 'matching_ready_trajectory_samples')})
         disabled = call_enable(node, False)
         result['service_calls'].append({'enable': False, **disabled})
         if not disabled['accepted']:

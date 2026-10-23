@@ -75,3 +75,31 @@ canonical patch 0021 从 `plan_env` 直接快照原始栅格，并以 exact epoc
 `/mapping/status` 发布当前 `MapStatus`，`/mapping/get_map_status` 支持调用方传入 `expected_epoch`；epoch 不匹配时拒绝该请求。状态接口只统计 EGO 输出的 occupied PointCloud2 点数，不推断未观测空间或 free／unknown 数量。`/mapping/rgbd_keyframes` 以配置的最小间隔发布通过定位、深度和 map-reset 门控的样本，保留 RGB／深度及 CameraInfo 源 stamp，并用各自图像时刻插值相机位姿。`tools/export_occupancy_snapshot.py` 可将已记录的 `/grid_map/occupancy` 样本打包为 PCD 与元数据；它校验 frame/epoch、采样时间、map reset 日志及 float32 坐标回读，不是在线地图服务，也不导出 free／unknown。一次显式 `/clock` 运行中的 MapStatus／occupied cloud 同 stamp 快照与回读证据见 [GOAL C snapshot report](../progress/evidence/p2-mapstatus-occupancy-static-snapshot-20261020-273.json)；该静态单样本不代表地图覆盖、规划器健康或避障验收。接口在线可读不代表后续消费者使用安全已完成验收。对应 handoff live probe 证据见 [P6 接口探针](../progress/evidence/p6-handoff-interfaces.json)。
 
 RGB-D 关键帧记录各源 stamp、K、外参、有效深度掩膜及对应位姿。后续语义消费者只读，不绕过导航及碰撞门控。
+
+## #061 目标空间准入审查
+
+#061审查时`NavigateToPose`接受检查与TaskSupervisor验证身份、定位、消息新鲜度及数字合法性，当时尚未查询目标／机体邻域的地图分类。接受不等于可达或净空通过。EGO全局参考生成也不构成碰撞证书；raw unknown与inflation mask独立，若干曲线检查仍含前2/3截断。旧#060任务缺少目标时刻原始体素快照，不能以SDF或点云数量反推其在线分类。详见[离线审查](../progress/evidence/goal-admission-20261022-061.md)。
+
+后续应先以只读目标邻域查询绑定当前epoch、map_id及实际融合新鲜度，在转发目标前拒绝occupied／unknown／地图外／无法核验；查询结果不能代替全活动曲线、机体扫掠或失效降落净空检查。#061只完成离线审查，没有实现或验收该准入门。
+
+## #062 在线目标球准入
+
+`/mapping/query_occupancy_sphere`（`uav_interfaces/srv/QueryOccupancySphere`）在EGO plan_env当前原始栅格中只读查询。请求必须绑定expected_epoch、expected_map_id和frame_id；返回查询时刻、实际深度源／融合戳、目标中心／半径及raw unknown/free/occupied计数。`accepted`只表示成功执行查询，`free`才表示全部相交格已知空闲。接触格面也计入，球触及地图外边界即拒绝；不对unknown作free回退，不在膨胀层上重复施加半径。沿用原快照的0.4仿真秒融合／源新鲜度门；2m半径及100000候选格是资源上限。
+
+导航以同一canonical mapping配置的`obstacles_inflation_m=0.5`作为目标原始体素查询球半径；模型审计回归确认覆盖当前约0.482m标称全姿态包络。这是PROVISIONAL模拟策略，未校准不确定度、位置容差或制动余量。地图状态要求当前epoch、非空map_id、reset_acknowledged、input_ready，接收龄沿用0.5墙秒门；查询最多等待0.25墙秒，失败拒绝，不缓存证书。返回后、转发前再次检查地图身份、定位、epoch、新鲜度及返回几何／计数。地图身份变化取消活动任务并清对应轨迹；状态显式无效也取消。
+
+ROS action协议ACCEPT表示进入准入流程，尚未向EGO发送目标；占据／未知／越界／错误身份／过期／超时等以`outcome=rejected`结束动作。等待期间取消为CANCELED；并发第二个准入请求被拒绝，不撤销既有活动轨迹。定位或clock失效仍执行原有取消逻辑。在线代码只订阅实际定位／地图，不读取SDF障碍或truth，不新增PX4发布者。
+
+这只检查目标时刻的终点球；地图可能继续变化，连接路径、完整样条扫掠、失效降落及定位质量仍未验收。未知远目标现在会被拒绝，旧16m演示结果不能自动继承到此版本。见[#062证据](../progress/evidence/goal-admission-20261022-062.md)。
+
+## 只读先验诊断（#068）
+
+VINS已有`cost_components`可选携带`prior_details`。采样点在本次求解后、构建下一先验前；`next_marginalization_branch`指将执行的分支，不能当作生成当前先验的分支。`r0_squared_norm`、`Jdx_squared_norm`、`twice_r0_dot_Jdx`之和应为当前先验残差平方范数，且等于先验cost的两倍；先验无鲁棒核。这些值不是米或像素误差。`window_tracks`按[id,start_frame,window_observations,stereo_observations]记录，窗口跨度不是完整特征寿命；长度上限1024，截断显式标记。
+
+JᵀJ谱摘要混合位置、角度、速度和bias等单位，绝对epsilon计数在巨大动态范围下也受浮点舍入限制，不作为物理退化证明或新健康门。缺失诊断保持缺失，不补零；默认仅首次质量越线记录，continuous才逐次记录。诊断耗时计入已有evaluation_seconds，发布／序列化和调度影响仍须单独观察。无状态写回、无新控制发布者或真值输入。
+
+## 观察器回环验证（#070）
+
+loop observer manifest新增可选configuration_source，显式记录config内的采样配置；原默认0.2m间距不变，局部复访实验另选0.1m。两者都只读取同一不可复用VINS session，修正位姿和位姿图位于独立loop_observer namespace，不发布TF／PX4控制，也不回馈定位适配。
+
+loop_candidates只表示检索候选；verified_loops要求原描述子／PnP和相对位姿门通过；optimizations计数为Ceres图优化调用。独立检查还要求图有限且有非零位姿更新，并用源时刻真值核验回环边。#070得到的2条几何正确回环与2次优化，不等于定位误差已改善或修正可安全接入控制。该区别由后续独立误差对照和坐标／连续性契约分别验证。

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "scope": "Raw VINS full-state drift measurement using the existing unarmed physical-support drift profile; measurement only, not a final accuracy qualification.",
+  "profile": "drift",
+  "motion_profile_source": "config/components/simulation/preflight_scan.json#drift_profile",
+  "return_measurement_source": "config/components/simulation/preflight_scan.json#drift_measurement",
+  "alignment": {
+    "method": "One raw VINS pose at the last source sample no later than one simulation second after the first stationary fixture trace sample.",
+    "anchor_after_first_stationary_trace_sim_s": 1.0,
+    "scale": 1,
+    "per_return_realignment": false,
+    "time_offset_fitting": false,
+    "trajectory_fitting": false
+  },
+  "truth": {
+    "topic": "/debug_truth/base_odometry",
+    "world_frame": "world",
+    "pose_origin": "d435i_link",
+    "d435i_imu_coincident_with_pose_origin": true,
+    "velocity_reference": "Centered finite difference of independently recorded Gazebo truth position at the VINS source timestamp.",
+    "velocity_half_window_sim_s": 0.1,
+    "maximum_truth_interpolation_gap_sim_s": 0.04,
+    "base_to_imu_lever_arm_velocity_audit": "Compute v_base from the truth sensor-origin trajectory and verify v_imu = v_base + omega_world cross r_world; compare VINS at the coincident IMU origin without applying the lever arm twice."
+  },
+  "support": {
+    "maximum_raw_pose_interpolation_gap_sim_s": 0.2,
+    "rpe_windows_sim_s": [1, 5, 10],
+    "rpe_interpolation_uses_source_time": true
+  },
+  "timing": {
+    "sim_receipt_clock": "ROS clock read at raw odometry subscription callback entry",
+    "wall_receipt_clock": "time.monotonic_ns read at raw odometry subscription callback entry",
+    "source_age_sim_s": "sim_receipt_ns - source_ns",
+    "receipt_gap": "Difference between successive monotonic callback receipt stamps"
+  },
+  "motion_coverage": ["stationary", "slow translation", "three repeated returns", "yaw", "elevation"],
+  "expected_stage_labels": ["initial_stationary", "lift", "reference", "outbound", "far_hold", "yaw_out", "yaw_back", "inbound", "return", "lower", "final_stationary"],
+  "expected_stage_count": 23,
+  "excluded_claims": ["free-flight qualification", "real-device calibration", "long-range accuracy", "unmeasured roll/pitch excitation"]
+}

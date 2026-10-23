@@ -1,0 +1,60 @@
+Panels:
+- Class: rviz_common/Displays
+  Name: Displays
+Visualization Manager:
+  Class: ''
+  Global Options:
+    Fixed Frame: __LOOP_FRAME__
+    Background Color: 30; 30; 35
+    Frame Rate: 15
+  Displays:
+  - Class: rviz_default_plugins/Grid
+    Name: Grid
+    Enabled: true
+    Cell Size: 1.0
+    Plane Cell Count: 30
+  - Class: rviz_default_plugins/Path
+    Name: Pose graph keyframes
+    Enabled: true
+    Color: 60; 200; 240
+    Line Style: Lines
+    Line Width: 0.03
+    Topic:
+      Value: __LOOP_NAMESPACE__/pose_graph_path
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+  - Class: rviz_default_plugins/MarkerArray
+    Name: Sequential and verified loop edges
+    Enabled: true
+    Topic:
+      Value: __LOOP_NAMESPACE__/pose_graph
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+  - Class: rviz_default_plugins/PointCloud
+    Name: Current keyframe sparse features
+    Enabled: true
+    Size (m): 0.04
+    Style: Points
+    Color Transformer: FlatColor
+    Color: 240; 200; 50
+    Decay Time: 0
+    Topic:
+      Value: __LOOP_NAMESPACE__/point_cloud_loop_rect
+      Depth: 1
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 20
+      Pitch: 0.8
+      Yaw: 3.8
+      Focal Point:
+        X: 8
+        Y: 0
+        Z: 1
+Window Geometry:
+  Width: 1400
+  Height: 900

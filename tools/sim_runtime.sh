@@ -6,7 +6,9 @@ RUN_ID=${1:?run id required}
 RUN=/workspace/artifacts/runs/$RUN_ID
 export FASTRTPS_DEFAULT_PROFILES_FILE=/workspace/config/middleware/fastdds_local_shm.xml
 export QT_QPA_PLATFORM=xcb __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
-export VINS_DIAGNOSTIC_COST_GROUPS=1
+export VINS_DIAGNOSTIC_COST_GROUPS=${VINS_DIAGNOSTIC_COST_GROUPS:-1}
+case "$VINS_DIAGNOSTIC_COST_GROUPS" in 1|continuous) ;; *) echo 'Invalid VINS diagnostic mode' >&2; exit 2;; esac
+python3 -c 'import json,os,sys; from pathlib import Path; Path(sys.argv[1]).write_text(json.dumps({"cost_groups_mode":os.environ["VINS_DIAGNOSTIC_COST_GROUPS"],"scope":"read-only Ceres residual evaluation; no health or control changes"},indent=2)+"\n")' "$RUN/vins-diagnostics.json"
 source /opt/ros/jazzy/setup.bash
 source /workspace/install/local_setup.bash
 SOURCE_BUILD=/workspace/$(python3 -c 'import json; print(json.load(open("config/runtime.json"))["px4_build"])')
@@ -51,7 +53,12 @@ start agent /workspace/install/microxrcedds_agent/bin/MicroXRCEAgent udp4 -p 888
 cd /workspace
 python3 tools/wait_sim_imu_settled.py --output "$RUN/settled-imu.json"
 python3 tools/audit_px4_boot.py "$RUN"
-start vio ros2 launch uav_px4_bridge vio_closed_loop_ego_px4.launch.py project_root:=/workspace run_id:="$RUN_ID-stack"
+SENSOR_BRIDGE_ARGS=()
+if [[ -n "${D435I_SENSOR_BRIDGE_CONFIG:-}" ]]; then
+  SENSOR_BRIDGE_ARGS+=("sensor_bridge_config:=$D435I_SENSOR_BRIDGE_CONFIG")
+fi
+start vio ros2 launch uav_px4_bridge vio_closed_loop_ego_px4.launch.py \
+  project_root:=/workspace run_id:="$RUN_ID-stack" "${SENSOR_BRIDGE_ARGS[@]}"
 SESSION=/workspace/artifacts/runs/$RUN_ID-stack/session/session.json
 for ((i=0;i<90;i++)); do [[ ! -f "$SESSION" ]] || break; sleep 1; done
 [[ -f "$SESSION" ]] || { echo 'VINS session creation timeout' >&2; exit 11; }

@@ -28,6 +28,7 @@ def start(context):
     root = Path(LaunchConfiguration('project_root').perform(context)).resolve()
     run_id = LaunchConfiguration('run_id').perform(context).strip()
     planner_config = LaunchConfiguration('planner_config').perform(context).strip()
+    sensor_bridge_config = LaunchConfiguration('sensor_bridge_config').perform(context).strip()
     run = prepare_vio_ego_run(root, run_id, planner_config)
     planner = run['planner']
     ego_args = {key: _launch_arg(value)
@@ -38,7 +39,8 @@ def start(context):
     px4_stack = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             str(bridge_share / 'launch/vio_closed_loop_px4.launch.py')),
-        launch_arguments={'project_root': str(root)}.items())
+        launch_arguments={'project_root': str(root),
+                          'sensor_bridge_config': sensor_bridge_config}.items())
     vins = Node(
         package='vins', executable='vins_node', name='vins_estimator',
         namespace=run['session_namespace'], output='screen',
@@ -87,5 +89,8 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'planner_config', default_value=DEFAULT_EGO_PLANNER_CONFIG,
             description='Project-relative JSON source for EGO planner parameters'),
+        DeclareLaunchArgument(
+            'sensor_bridge_config', default_value='',
+            description='Optional run-local Gazebo sensor bridge YAML for controlled sensor tests'),
         OpaqueFunction(function=start),
     ])

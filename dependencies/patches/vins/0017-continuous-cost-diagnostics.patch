@@ -1,0 +1,56 @@
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -11,6 +11,7 @@
+ #include <sstream>
+ #include <iomanip>
+ #include <cstdlib>
++#include <chrono>
+ #include "../utility/visualization.h"
+ 
+ namespace
+@@ -27,7 +28,12 @@
+ bool costGroupDiagnosticsEnabled()
+ {
+     static const char *enabled = std::getenv("VINS_DIAGNOSTIC_COST_GROUPS");
+-    return enabled != nullptr && std::string(enabled) == "1";
++    return enabled != nullptr && (std::string(enabled) == "1" || std::string(enabled) == "continuous");
++}
++bool costGroupDiagnosticsContinuous()
++{
++    static const char *enabled = std::getenv("VINS_DIAGNOSTIC_COST_GROUPS");
++    return enabled != nullptr && std::string(enabled) == "continuous";
+ }
+ std::string jsonNumber(double value)
+ {
+@@ -1326,10 +1332,12 @@
+     static bool emitted_cost_group_diagnostics = false;
+     const double normalized_cost = summary.num_residuals > 0
+         ? std::sqrt(2.0 * summary.final_cost / summary.num_residuals) : 0.0;
+-    if (costGroupDiagnosticsEnabled() && !emitted_cost_group_diagnostics
+-        && summary.num_residuals > 0 && normalized_cost >= 1.0)
++    if (costGroupDiagnosticsEnabled() && summary.num_residuals > 0
++        && (costGroupDiagnosticsContinuous()
++            || (!emitted_cost_group_diagnostics && normalized_cost >= 1.0)))
+     {
+         emitted_cost_group_diagnostics = true;
++        const auto evaluation_started = std::chrono::steady_clock::now();
+         struct GroupCost
+         {
+             bool available = false;
+@@ -1351,6 +1359,8 @@
+         const GroupCost marginalization_cost = evaluate_group(marginalization_residual_blocks);
+         const GroupCost imu_cost = evaluate_group(imu_residual_blocks);
+         const GroupCost visual_cost = evaluate_group(visual_residual_blocks);
++        const double evaluation_seconds = std::chrono::duration<double>(
++            std::chrono::steady_clock::now() - evaluation_started).count();
+         const bool all_groups_available = marginalization_cost.available
+             && imu_cost.available && visual_cost.available;
+         const double grouped_cost = marginalization_cost.cost + imu_cost.cost + visual_cost.cost;
+@@ -1373,6 +1383,7 @@
+         components << ",";
+         write_group("visual", visual_cost);
+         components << ",\"evaluation_ok\":" << (all_groups_available ? "true" : "false")
++                   << ",\"evaluation_seconds\":" << jsonNumber(evaluation_seconds)
+                    << ",\"grouped_cost_sum\":" << jsonNumber(grouped_cost)
+                    << ",\"grouped_cost_error\":" << jsonNumber(grouped_cost - summary.final_cost)
+                    << ",\"grouped_residual_components\":" << grouped_residuals << "}";

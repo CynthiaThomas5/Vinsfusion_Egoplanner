@@ -1,0 +1,292 @@
+{
+  "scope": "User-approved small goal 3; offline comparison only of retained unarmed support-loop trial02.",
+  "run_id": "real-loop-20261022-070-02",
+  "epoch": "ea0b5887c5054beca53862cd9f728a00",
+  "finding": {
+    "position_error_reduced_in_this_record": true,
+    "yaw_error_reduced_slightly": true,
+    "position_drift_eliminated": false,
+    "generality_or_repeatability_proven": false,
+    "navigation_or_px4_feedback": false
+  },
+  "alignment": {
+    "method": "one rigid pose alignment from raw VINS to independent Gazebo IMU truth at the initial stationary hold; the identical rotation and translation are applied to loop output",
+    "stationary_hold_begin_sim_s": 49.7,
+    "target_alignment_sim_s": 50.7,
+    "raw_alignment_source_ns": 50624000000,
+    "truth_interpolation_gap_ns": 20000000,
+    "scale": 1,
+    "rotation": [
+      [
+        0.9999996256125525,
+        -0.0001026002296261158,
+        -0.0008592135635941433
+      ],
+      [
+        0.00010246000351099695,
+        0.999999981426461,
+        -0.00016324529215057997
+      ],
+      [
+        0.0008592302966399666,
+        0.00016315719600884916,
+        0.9999996175514403
+      ]
+    ],
+    "translation_m": [
+      -7.867981946862891,
+      -0.0029828272305041682,
+      0.06484894439241676
+    ],
+    "model_to_imu_lever_arm_flu_m": [
+      0.12,
+      0.0,
+      0.08
+    ],
+    "no_post_loop_realignment": true
+  },
+  "support": {
+    "raw_source_samples": 5075,
+    "loop_output_samples": 11373,
+    "exact_shared_source_stamps": 5075,
+    "paired_samples_after_alignment": 5065,
+    "raw_coverage_fraction_after_alignment": 1.0,
+    "duration_sim_s": 746.592,
+    "maximum_raw_sample_gap_ns_after_alignment": 264000000,
+    "maximum_loop_output_sample_gap_ns_after_alignment": 68000001,
+    "maximum_truth_interpolation_gap_ns": 20000000,
+    "truth_interpolation_limit_ns": 40000000,
+    "time_weighted_error_max_sample_gap_ns": 200000000,
+    "exact_timestamp_matching_only": true
+  },
+  "common_frame_check_before_first_loop": {
+    "samples": 3993,
+    "maximum_raw_vs_loop_position_difference_m": 0.0,
+    "maximum_raw_vs_loop_rotation_difference_deg": 1.2074182697257333e-06,
+    "result": "same pose coordinates before correction; supports applying one alignment to both streams"
+  },
+  "measured_pose_transform_steps": [
+    {
+      "source_ns": 642644000000,
+      "sim_s": 642.644,
+      "seconds_after_nearest_verified_loop_keyframe": 1.252,
+      "nearest_loop_edge": {
+        "old_index": 7,
+        "current_index": 74,
+        "source_ns": 641392000000
+      },
+      "raw_to_corrected_translation_m": 0.0676109043117078,
+      "raw_to_corrected_rotation_deg": 0.01950882901855102,
+      "change_from_previous_transform_translation_m": 0.0676109043117078,
+      "change_from_previous_transform_rotation_deg": 0.01950882901855102,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    },
+    {
+      "source_ns": 691087999999,
+      "sim_s": 691.087999999,
+      "seconds_after_nearest_verified_loop_keyframe": 0.723999999,
+      "nearest_loop_edge": {
+        "old_index": 0,
+        "current_index": 80,
+        "source_ns": 690364000000
+      },
+      "raw_to_corrected_translation_m": 0.08349089351176672,
+      "raw_to_corrected_rotation_deg": 0.04582655344121331,
+      "change_from_previous_transform_translation_m": 0.021515232125049955,
+      "change_from_previous_transform_rotation_deg": 0.02631772442318247,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    }
+  ],
+  "windows": {
+    "entire_supported_record_after_alignment": {
+      "pairs": 5065,
+      "duration_sim_s": 746.592,
+      "raw_position_rmse_m": 0.06095785950595654,
+      "loop_position_rmse_m": 0.04255478404836821,
+      "raw_position_time_weighted_rmse_m": 0.060523463646338004,
+      "loop_position_time_weighted_rmse_m": 0.04264086283278013,
+      "position_rmse_reduction_percent": 30.189832134427323,
+      "raw_yaw_rmse_deg": 0.6868048514853144,
+      "loop_yaw_rmse_deg": 0.6740726599204695,
+      "yaw_rmse_reduction_percent": 1.8538295903573998,
+      "raw_position_last_m": 0.10636871911094624,
+      "loop_position_last_m": 0.023242843025073942,
+      "raw_yaw_last_deg": 1.1190730020026043,
+      "loop_yaw_last_deg": 1.073246441765886
+    },
+    "before_first_verified_loop_edge": {
+      "pairs": 3993,
+      "duration_sim_s": 590.699999999,
+      "raw_position_rmse_m": 0.04574993922907989,
+      "loop_position_rmse_m": 0.04574993922907989,
+      "raw_position_time_weighted_rmse_m": 0.04572844113012837,
+      "loop_position_time_weighted_rmse_m": 0.04572844113012837,
+      "position_rmse_reduction_percent": 0.0,
+      "raw_yaw_rmse_deg": 0.5258593265560904,
+      "loop_yaw_rmse_deg": 0.5258593265560904,
+      "yaw_rmse_reduction_percent": 0.0,
+      "raw_position_last_m": 0.09046593919622249,
+      "loop_position_last_m": 0.09046593919622249,
+      "raw_yaw_last_deg": 0.9891976607916979,
+      "loop_yaw_last_deg": 0.9891976607916979
+    },
+    "from_first_correction_to_second_correction": {
+      "pairs": 326,
+      "duration_sim_s": 48.312,
+      "raw_position_rmse_m": 0.0917421035123001,
+      "loop_position_rmse_m": 0.027508332276526576,
+      "raw_position_time_weighted_rmse_m": 0.09180306014782735,
+      "loop_position_time_weighted_rmse_m": 0.027570833629692818,
+      "position_rmse_reduction_percent": 70.01558583967015,
+      "raw_yaw_rmse_deg": 0.9757736391898127,
+      "loop_yaw_rmse_deg": 0.9562668670843564,
+      "yaw_rmse_reduction_percent": 1.9991083302529973,
+      "raw_position_last_m": 0.0786975077665334,
+      "loop_position_last_m": 0.013999464121185233,
+      "raw_yaw_last_deg": 0.9630626971746031,
+      "loop_yaw_last_deg": 0.9435538497561603
+    },
+    "after_second_correction": {
+      "pairs": 737,
+      "duration_sim_s": 106.128000001,
+      "raw_position_rmse_m": 0.10184606047555438,
+      "loop_position_rmse_m": 0.0258681895106635,
+      "raw_position_time_weighted_rmse_m": 0.10174839776976043,
+      "loop_position_time_weighted_rmse_m": 0.025934363725781194,
+      "position_rmse_reduction_percent": 74.60069698339238,
+      "raw_yaw_rmse_deg": 1.1447602595031805,
+      "loop_yaw_rmse_deg": 1.099121444636195,
+      "yaw_rmse_reduction_percent": 3.986757444461996,
+      "raw_position_last_m": 0.10636871911094624,
+      "loop_position_last_m": 0.023242843025073942,
+      "raw_yaw_last_deg": 1.1190730020026043,
+      "loop_yaw_last_deg": 1.073246441765886
+    }
+  },
+  "repeated_return_hold_last_10_seconds": [
+    {
+      "cycle": 1,
+      "measurement_window_sim_s": [
+        165.804,
+        175.804
+      ],
+      "raw_position_rmse_m": 0.029573120136732356,
+      "loop_position_rmse_m": 0.029573120136732356,
+      "raw_yaw_rmse_deg": 0.31296065793355904,
+      "loop_yaw_rmse_deg": 0.3129606579335591,
+      "position_rmse_reduction_percent": 0.0,
+      "yaw_rmse_reduction_percent": -1.7737421565314684e-14
+    },
+    {
+      "cycle": 2,
+      "measurement_window_sim_s": [
+        266.168,
+        276.168
+      ],
+      "raw_position_rmse_m": 0.03303706345910284,
+      "loop_position_rmse_m": 0.03303706345910284,
+      "raw_yaw_rmse_deg": 0.34202399973721054,
+      "loop_yaw_rmse_deg": 0.34202399973721054,
+      "position_rmse_reduction_percent": 0.0,
+      "yaw_rmse_reduction_percent": 0.0
+    },
+    {
+      "cycle": 3,
+      "measurement_window_sim_s": [
+        366.732,
+        376.732
+      ],
+      "raw_position_rmse_m": 0.041519228301481526,
+      "loop_position_rmse_m": 0.041519228301481526,
+      "raw_yaw_rmse_deg": 0.44515700477463016,
+      "loop_yaw_rmse_deg": 0.44515700477463016,
+      "position_rmse_reduction_percent": 0.0,
+      "yaw_rmse_reduction_percent": 0.0
+    },
+    {
+      "cycle": 4,
+      "measurement_window_sim_s": [
+        466.912,
+        476.912
+      ],
+      "raw_position_rmse_m": 0.06005604179978653,
+      "loop_position_rmse_m": 0.06005604179978653,
+      "raw_yaw_rmse_deg": 0.6313731199714621,
+      "loop_yaw_rmse_deg": 0.6313731199714621,
+      "position_rmse_reduction_percent": 0.0,
+      "yaw_rmse_reduction_percent": 0.0
+    },
+    {
+      "cycle": 5,
+      "measurement_window_sim_s": [
+        567.204,
+        577.204
+      ],
+      "raw_position_rmse_m": 0.07961394190216994,
+      "loop_position_rmse_m": 0.07961394190216994,
+      "raw_yaw_rmse_deg": 0.8031331839330348,
+      "loop_yaw_rmse_deg": 0.8031331839330348,
+      "position_rmse_reduction_percent": 0.0,
+      "yaw_rmse_reduction_percent": 0.0
+    },
+    {
+      "cycle": 6,
+      "measurement_window_sim_s": [
+        667.72,
+        677.72
+      ],
+      "raw_position_rmse_m": 0.0926504894996262,
+      "loop_position_rmse_m": 0.028709590912178704,
+      "raw_yaw_rmse_deg": 0.9691205606969004,
+      "loop_yaw_rmse_deg": 0.9496117152348362,
+      "position_rmse_reduction_percent": 69.01301755961632,
+      "yaw_rmse_reduction_percent": 2.0130462868350754
+    },
+    {
+      "cycle": 7,
+      "measurement_window_sim_s": [
+        768.212,
+        778.212
+      ],
+      "raw_position_rmse_m": 0.11575608035525739,
+      "loop_position_rmse_m": 0.03259298847282255,
+      "raw_yaw_rmse_deg": 1.2223623693194483,
+      "loop_yaw_rmse_deg": 1.1765357804817083,
+      "position_rmse_reduction_percent": 71.84338967526016,
+      "yaw_rmse_reduction_percent": 3.749018293425873
+    }
+  ],
+  "limitations": {
+    "criterion": "Positive reduction means loop corrected RMSE is lower on the same paired source-time samples.",
+    "sample_rmse_is_sample_weighted": true,
+    "time_weighted_rmse_excludes_sample_gaps_over_0_2_s": true,
+    "return_windows_measure_actual_local_position_and_yaw_error_against_truth_at_the_same_repeated_support_pose": true,
+    "not_a_flight_or_real_device_qualification": true,
+    "single_run_does_not_establish_repeatability_or_general_loop_robustness": true
+  },
+  "input_sha256": {
+    "fixture-odometry.jsonl": "8ff29424a2b29765d9a2c2b2332a9e4218d57053df063109b34d71ba5f5071a6",
+    "fixture-truth.jsonl": "923e7a0cf39d7e2d3eaabdd8785d83dcdaa3aaeb55656e6cc5041569f1d38b0c",
+    "fixture-trace.jsonl": "44d38d7ac81594d52950cb1f31ff5407be868e52e1433d923d47e8bf6fa33e02",
+    "fixture-stages.json": "8685ad63d5962534538579eb4cac0031171584c68a8bf6969b4e48ce5834ce55",
+    "fixture-result.json": "1435062969db9d74809de22f6754450513424d5546820a7435097b214397da81",
+    "loop-observation.json": "c88742753f8120fc5418e1540fc60bcc87e6a938edf19207d5822ff1ae3b42ef",
+    "loop-observer-manifest.json": "7969b73305890c48743c6295d79d7a71bd80353eec77cd4b9e6d13b1d7078c7c",
+    "real-loop-evaluation.json": "e1ccf4b2249cab4b1543849422e8517b944dee51139801b8691fec690df91c74"
+  },
+  "model_sdf_sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+  "analysis_script_sha256": "0de17c085dd8b15a3c2d6ea034a2a727a801ea2a3a25f8a2be43ea1e7899ee20",
+  "artifact_sha256": {
+    "artifacts/runs/real-loop-20261022-070-02/compare_loop_drift.py": "0de17c085dd8b15a3c2d6ea034a2a727a801ea2a3a25f8a2be43ea1e7899ee20",
+    "artifacts/runs/real-loop-20261022-070-02/loop-drift-comparison.json": "78803589ab55ed359d5bce58fbe2387483fd5af67e8512b566eec21969a39a3c",
+    "artifacts/runs/real-loop-20261022-070-02/loop-drift-comparison.csv": "76189578e347fbad4f66ee6b5b452be00abf429c56c47ed8da1039afcc5a0839",
+    "artifacts/runs/real-loop-20261022-070-02/loop-drift-comparison.png": "54e5ee67c58c173c47561bc2d352d1cd75e03a1dd96b6c69878785ca31e305c6",
+    "artifacts/runs/real-loop-20261022-070-02/loop-drift-comparison.log": "78803589ab55ed359d5bce58fbe2387483fd5af67e8512b566eec21969a39a3c"
+  }
+}

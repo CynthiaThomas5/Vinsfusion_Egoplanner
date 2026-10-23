@@ -1,0 +1,264 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -5,9 +5,51 @@
+ #include <cstdint>
+ #include <uav_interfaces/srv/reset_mapping.hpp>
+ #include <uav_interfaces/srv/get_occupancy_snapshot.hpp>
++#include <uav_interfaces/srv/query_occupancy_sphere.hpp>
++#include <plan_env/sphere_query.h>
+ 
+ // #define current_img_ md_.depth_image_[image_cnt_ & 1]
+ // #define last_img_ md_.depth_image_[!(image_cnt_ & 1)]
++
++std::string GridMap::queryReadiness(const std::string &epoch, const std::string &map_id) const
++{
++  if (active_epoch_.empty() || active_map_id_.empty())
++  {
++    return "no_active_map";
++  }
++  if (epoch != active_epoch_)
++  {
++    return "epoch_mismatch";
++  }
++  if (map_id != active_map_id_)
++  {
++    return "map_id_mismatch";
++  }
++  if (!md_.has_first_depth_ || !md_.has_fused_depth_ || md_.occ_need_update_)
++  {
++    return "no_fresh_fused_depth";
++  }
++  if (!md_.flag_use_depth_fusion || !md_.last_depth_pose_in_map_ ||
++      md_.flag_depth_odom_timeout_)
++  {
++    return "depth_pose_gate_closed";
++  }
++  const double update_age_s = (node_->now() - md_.last_occ_update_time_).seconds();
++  if (!std::isfinite(update_age_s) || update_age_s < 0.0 ||
++      update_age_s > mp_.odom_depth_timeout_)
++  {
++    return "occupancy_update_stale";
++  }
++  const double source_age_s = node_->now().seconds() -
++                              static_cast<double>(md_.last_fused_depth_source_stamp_ns_) / 1e9;
++  if (md_.last_fused_depth_source_stamp_ns_ <= 0 || !std::isfinite(source_age_s) ||
++      source_age_s < 0.0 || source_age_s > mp_.odom_depth_timeout_)
++  {
++    return "depth_source_stale";
++  }
++
++  return "";
++}
+ 
+ void GridMap::initMap(rclcpp::Node::SharedPtr node)
+ {
+@@ -205,47 +247,8 @@
+           response->accepted = false;
+           response->reason = reason;
+         };
+-        if (active_epoch_.empty() || active_map_id_.empty())
+-        {
+-          reject("no_active_map");
+-          return;
+-        }
+-        if (request->expected_epoch != active_epoch_)
+-        {
+-          reject("epoch_mismatch");
+-          return;
+-        }
+-        if (request->expected_map_id != active_map_id_)
+-        {
+-          reject("map_id_mismatch");
+-          return;
+-        }
+-        if (!md_.has_first_depth_ || !md_.has_fused_depth_ || md_.occ_need_update_)
+-        {
+-          reject("no_fresh_fused_depth");
+-          return;
+-        }
+-        if (!md_.flag_use_depth_fusion || !md_.last_depth_pose_in_map_ ||
+-            md_.flag_depth_odom_timeout_)
+-        {
+-          reject("depth_pose_gate_closed");
+-          return;
+-        }
+-        const double update_age_s = (node_->now() - md_.last_occ_update_time_).seconds();
+-        if (!std::isfinite(update_age_s) || update_age_s < 0.0 ||
+-            update_age_s > mp_.odom_depth_timeout_)
+-        {
+-          reject("occupancy_update_stale");
+-          return;
+-        }
+-        const double source_age_s = node_->now().seconds() -
+-                                    static_cast<double>(md_.last_fused_depth_source_stamp_ns_) / 1e9;
+-        if (md_.last_fused_depth_source_stamp_ns_ <= 0 || !std::isfinite(source_age_s) ||
+-            source_age_s < 0.0 || source_age_s > mp_.odom_depth_timeout_)
+-        {
+-          reject("depth_source_stale");
+-          return;
+-        }
++        const auto reason = queryReadiness(request->expected_epoch, request->expected_map_id);
++        if (!reason.empty()) { reject(reason); return; }
+ 
+         const auto make_stamp = [](std::int64_t stamp_ns) {
+           builtin_interfaces::msg::Time stamp;
+@@ -310,6 +313,43 @@
+         }
+         response->accepted = true;
+         response->reason = "ok";
++      });
++
++  occupancy_sphere_service_ = node_->create_service<uav_interfaces::srv::QueryOccupancySphere>(
++      "/mapping/query_occupancy_sphere",
++      [this](const std::shared_ptr<uav_interfaces::srv::QueryOccupancySphere::Request> request,
++             std::shared_ptr<uav_interfaces::srv::QueryOccupancySphere::Response> response) {
++        response->reason = queryReadiness(request->expected_epoch, request->expected_map_id);
++        if (!response->reason.empty()) return;
++        if (request->frame_id != mp_.frame_id_)
++        {
++          response->reason = "frame_mismatch";
++          return;
++        }
++        const auto result = plan_env::querySphere(
++            {request->center.x, request->center.y, request->center.z}, request->radius_m,
++            {mp_.map_origin_(0), mp_.map_origin_(1), mp_.map_origin_(2)},
++            {mp_.map_size_(0), mp_.map_size_(1), mp_.map_size_(2)},
++            {mp_.map_voxel_num_(0), mp_.map_voxel_num_(1), mp_.map_voxel_num_(2)},
++            mp_.resolution_, [this](int x, int y, int z) {
++              const double value = md_.occupancy_buffer_[toAddress(x, y, z)];
++              return value < mp_.clamp_min_log_ - 1e-3 ? -1 :
++                  value >= mp_.min_occupancy_log_ ? 1 : 0;
++            });
++        response->accepted = result.accepted;
++        response->free = result.accepted && result.reason == "free";
++        response->reason = result.reason;
++        response->header.frame_id = mp_.frame_id_;
++        response->header.stamp = node_->now();
++        response->epoch = active_epoch_;
++        response->map_id = active_map_id_;
++        response->last_depth_source_stamp = rclcpp::Time(md_.last_fused_depth_source_stamp_ns_);
++        response->last_fusion_stamp = md_.last_occ_update_time_;
++        response->center = request->center;
++        response->radius_m = request->radius_m;
++        response->unknown_count = result.unknown;
++        response->free_count = result.free;
++        response->occupied_count = result.occupied;
+       });
+ 
+   md_.occ_need_update_ = false;
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -247,6 +247,8 @@
+   rclcpp::Node::SharedPtr node_;
+   rclcpp::ServiceBase::SharedPtr reset_map_service_;
+   rclcpp::ServiceBase::SharedPtr occupancy_snapshot_service_;
++  rclcpp::ServiceBase::SharedPtr occupancy_sphere_service_;
++  std::string queryReadiness(const std::string &epoch, const std::string &map_id) const;
+   std::string active_epoch_;
+   std::string active_map_id_;
+   std::shared_ptr<message_filters::Subscriber<sensor_msgs::msg::Image>> depth_sub_;
+--- /dev/null
++++ b/planner/plan_env/include/plan_env/sphere_query.h
+@@ -0,0 +1,102 @@
++#ifndef PLAN_ENV_SPHERE_QUERY_H
++#define PLAN_ENV_SPHERE_QUERY_H
++
++#include <algorithm>
++#include <array>
++#include <cmath>
++#include <cstdint>
++#include <string>
++
++namespace plan_env
++{
++struct SphereQueryResult
++{
++  bool accepted = false;
++  std::string reason;
++  std::uint32_t unknown = 0, free = 0, occupied = 0;
++};
++
++// Raw cells intersecting the closed sphere, including cell faces. No inflation.
++// Resource bounds are query limits, not a vehicle or collision policy.
++template <class Classify>
++SphereQueryResult querySphere(const std::array<double, 3>& center, double radius,
++                              const std::array<double, 3>& origin,
++                              const std::array<double, 3>& extent,
++                              const std::array<int, 3>& size, double resolution,
++                              Classify classify)
++{
++  SphereQueryResult out;
++  if (!std::isfinite(radius) || radius <= 0 || radius > 2.0 ||
++      !std::isfinite(resolution) || resolution <= 0)
++  {
++    out.reason = "invalid_query";
++    return out;
++  }
++  const double epsilon = 1e-9;  // Conservative allowance for grid face roundoff.
++  std::array<int, 3> lo, hi;
++  std::uint64_t count = 1;
++  for (int axis = 0; axis < 3; ++axis)
++  {
++    if (!std::isfinite(center[axis]) || !std::isfinite(origin[axis]) ||
++        !std::isfinite(extent[axis]) || extent[axis] <= 0 || size[axis] <= 0)
++    {
++      out.reason = "invalid_query";
++      return out;
++    }
++    const double lower = center[axis] - radius, upper = center[axis] + radius;
++    if (lower <= origin[axis] || upper >= origin[axis] + extent[axis])
++    {
++      out.reason = "outside_map";
++      return out;
++    }
++    if (!std::isfinite(extent[axis] / resolution) ||
++        extent[axis] / resolution > static_cast<double>(size[axis]) + epsilon)
++    {
++      out.reason = "invalid_map_geometry";
++      return out;
++    }
++    // Include the adjacent cell even when the sphere only touches its face.
++    lo[axis] = std::max(0, static_cast<int>(std::floor(
++        (lower - origin[axis] - epsilon) / resolution)));
++    hi[axis] = std::min(size[axis] - 1, static_cast<int>(std::floor(
++        (upper - origin[axis] + epsilon) / resolution)));
++    if (hi[axis] < lo[axis])
++    {
++      out.reason = "invalid_map_geometry";
++      return out;
++    }
++    count *= static_cast<std::uint64_t>(hi[axis] - lo[axis] + 1);
++    if (count > 100000)
++    {
++      out.reason = "query_too_large";
++      return out;
++    }
++  }
++  for (int x = lo[0]; x <= hi[0]; ++x)
++    for (int y = lo[1]; y <= hi[1]; ++y)
++      for (int z = lo[2]; z <= hi[2]; ++z)
++      {
++        const std::array<int, 3> index{x, y, z};
++        double distance_squared = 0;
++        for (int axis = 0; axis < 3; ++axis)
++        {
++          const double lower = origin[axis] + index[axis] * resolution;
++          const double upper = lower + resolution;
++          const double distance = std::max({lower - center[axis], 0.0,
++                                            center[axis] - upper});
++          distance_squared += distance * distance;
++        }
++        if (distance_squared > (radius + epsilon) * (radius + epsilon))
++          continue;
++        const int value = classify(x, y, z);
++        if (value < 0) ++out.unknown;
++        else if (value > 0) ++out.occupied;
++        else ++out.free;
++      }
++  out.accepted = true;
++  out.reason = out.occupied ? "occupied" : out.unknown ? "unknown" :
++      out.free ? "free" : "empty_query";
++  return out;
++}
++}
++#endif

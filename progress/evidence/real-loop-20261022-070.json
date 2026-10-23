@@ -1,0 +1,433 @@
+{
+  "scope": "User-approved small goal2: actual verified loop edges, executed graph optimization and independent relative-geometry check; observation-only unarmed simulation",
+  "small_goal_2_passed": true,
+  "drift_improvement_proven": false,
+  "control_feedback_enabled": false,
+  "runs": [
+    {
+      "scope": "Independently verify real loop edges in an unarmed fixture session.",
+      "run_id": "real-loop-20261022-070-01",
+      "epoch": "38f8422910724adab4d02c2d6e8cba4c",
+      "small_goal_2_passed": false,
+      "checks": {
+        "actual_candidate": false,
+        "actual_verified_loop": false,
+        "actual_graph_optimization": false,
+        "finite_graph_solution": true,
+        "observed_graph_pose_update": false,
+        "independent_edge_geometry": false,
+        "normal_backend_exit": false,
+        "consistent_output_frame": true,
+        "no_control_or_tf_outputs": true,
+        "no_truth_input_to_backend": true,
+        "raw_session_inputs": true,
+        "same_camera_exposure": true,
+        "bounded_queues": true
+      },
+      "keyframes": 21,
+      "loop_candidates": 0,
+      "verified_loops": 0,
+      "optimizations": 0,
+      "edges": [],
+      "diagnostic_geometry_limits": {
+        "translation_m": 0.25,
+        "rotation_deg": 5
+      },
+      "maximum_graph_position_update_m": 0.0,
+      "backend_exit_code": null,
+      "fixture_outcome": "failed",
+      "fixture_error": "localization changed or became invalid during physical scan",
+      "limitations": [
+        "A geometrically valid optimized loop does not prove lower odometry error.",
+        "No corrected state is routed to navigation or PX4.",
+        "One repeated local scene is not general loop-detection robustness."
+      ],
+      "input_sha256": {
+        "fixture-result.json": "bcfa1a9fa870b1a49935c1865367fec73cb13d5dcb3de9ffabab3e0719890666",
+        "loop-observer-manifest.json": "bb0245f15a80b25028b0fea8da63f1faeb64e97a391fdd2c0645633c57f126b3",
+        "loop-observation.json": "d18d0cea956daf73eb4318284ebc80fc6ee9946af931a95f0e22e37ddfd6a50d",
+        "fixture-truth.jsonl": "38a97b0b2d0e5b8b7d3ce7408b3560d623108cdda88201fa797f81c5b1ef445b"
+      },
+      "fixture_result": {
+        "scope": "unarmed whole-airframe physical-support experiment only; not free flight or localization accuracy approval",
+        "outcome": "failed",
+        "error": "localization changed or became invalid during physical scan",
+        "epoch": "38f8422910724adab4d02c2d6e8cba4c",
+        "profile": "loop_revisit",
+        "wall_duration_s": 454.51001744088717,
+        "completed_stages": 23,
+        "last_localization": {
+          "state": 4,
+          "valid": false,
+          "reason": "normalized_cost_exceeded",
+          "normalized_cost": 1.4101933873878578
+        },
+        "vehicle_states": [
+          1
+        ],
+        "vehicle_status_samples": 728,
+        "attachment_states": [
+          "attached"
+        ],
+        "final_joint_states": {
+          "x": [
+            1.1999986632932924,
+            -8.014899616134087e-06
+          ],
+          "z": [
+            0.6000000001057431,
+            -3.3026204383530086e-08
+          ],
+          "yaw": [
+            0.30149241029775314,
+            0.000276638552776217
+          ],
+          "pitch": [
+            -6.325190488121477e-05,
+            1.3626161309634711e-06
+          ]
+        },
+        "fixture_may_remain_attached": true,
+        "publishers": "Gazebo fixture joints/detach only; no ROS control or goal publisher"
+      },
+      "loop_manifest": {
+        "scope": "Run the pinned loop backend in a separate namespace; never route it to control.",
+        "run_id": "real-loop-20261022-070-01",
+        "epoch": "38f8422910724adab4d02c2d6e8cba4c",
+        "namespace": "/loop_observer/s_38f8422910724adab4d02c2d6e8cba4c",
+        "map_frame": "loop_38f8422910724adab4d02c2d6e8cba4c_map",
+        "command": [
+          "/workspace/install/loop_fusion/lib/loop_fusion/loop_fusion_node",
+          "/workspace/artifacts/runs/real-loop-20261022-070-01-stack/session/vins.yaml",
+          "--ros-args",
+          "-r",
+          "__ns:=/loop_observer/s_38f8422910724adab4d02c2d6e8cba4c",
+          "-p",
+          "use_sim_time:=true",
+          "-p",
+          "map_frame:=loop_38f8422910724adab4d02c2d6e8cba4c_map",
+          "-r",
+          "odometry:=/vins_raw/s_38f8422910724adab4d02c2d6e8cba4c/odometry",
+          "-r",
+          "keyframe_pose:=/vins_raw/s_38f8422910724adab4d02c2d6e8cba4c/keyframe_pose",
+          "-r",
+          "keyframe_point:=/vins_raw/s_38f8422910724adab4d02c2d6e8cba4c/keyframe_point",
+          "-r",
+          "extrinsic:=/vins_raw/s_38f8422910724adab4d02c2d6e8cba4c/extrinsic",
+          "-p",
+          "queue_limit:=64",
+          "-p",
+          "max_keyframes:=1000",
+          "-p",
+          "minimum_distance_m:=0.2"
+        ],
+        "limits": {
+          "mode": "observation_only",
+          "queue_limit": 64,
+          "max_keyframes": 1000,
+          "minimum_distance_m": 0.2
+        },
+        "installed_resources_sha256": {
+          "brief_k10L6.bin": "753e7e126c588906ad16197892bdcd914f3a0971037c8f8aeb3c63418458b035",
+          "brief_pattern.yml": "cb9e20bf47d7557cd22f7820524c3cb13b3a315c451d5665955336100177cafd"
+        },
+        "executable_sha256": "7fe31d4a11896433e891d9f94850ea63c43d78ac01e9724029b6919fb8d3d88b",
+        "session": {
+          "epoch": "38f8422910724adab4d02c2d6e8cba4c",
+          "namespace": "/vins_raw/s_38f8422910724adab4d02c2d6e8cba4c",
+          "model_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "settings_sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+          "files_sha256": {
+            "left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+            "vins.yaml": "0feb5e60e812b03303b7193790b102392d4a3c46b45affe0133ae3d1a9659379",
+            "right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d"
+          },
+          "qualification": "Generated ideal simulation configuration; not runtime qualified"
+        },
+        "configuration_sha256": "b1302bff626ba270464f114bccb2afd97987136570107f629772ac33617d5036",
+        "dependencies_sha256": "0ee3b9acef557610fefb85cf07ee657baa42463dd21a8036afc1b65456d03d78",
+        "control_or_tf_outputs": false,
+        "qualification": "Transport observation only; not loop accuracy or map reuse acceptance"
+      },
+      "stop_exit_code": 0,
+      "live_disarmed_before_stop": true,
+      "wrapper_exit_code": 2,
+      "wrapper_exit_limitation": "Startup wrapper was edited while waiting for C++ exit, causing shell EOF error and missing backend exit artifact. C++ normal exit is not asserted. No interruption signal was sent to the motion probe: it had already failed its original health gate.",
+      "fixture_left_attached_at_stop": true,
+      "artifact_sha256": {
+        "artifacts/runs/real-loop-20261022-070-01/real-loop-evaluation.json": "e84db9abcbf6a643301d766e3995ede5ead85c01fef98a904826910ef3b402e1",
+        "artifacts/runs/real-loop-20261022-070-01/fixture-result.json": "bcfa1a9fa870b1a49935c1865367fec73cb13d5dcb3de9ffabab3e0719890666",
+        "artifacts/runs/real-loop-20261022-070-01/fixture-stages.json": "80e1e010cbde80f5b90b1fef89ced33afa61f3f9825f450be7dce541f8f8cb1f",
+        "artifacts/runs/real-loop-20261022-070-01/loop-protocol.json": "2692f38ef7ad18b1a833c4e2b9b306627a7e60fd4bab42f09bafac4116568375",
+        "artifacts/runs/real-loop-20261022-070-01/loop-observer-manifest.json": "bb0245f15a80b25028b0fea8da63f1faeb64e97a391fdd2c0645633c57f126b3",
+        "artifacts/runs/real-loop-20261022-070-01/loop-observation.json": "d18d0cea956daf73eb4318284ebc80fc6ee9946af931a95f0e22e37ddfd6a50d",
+        "artifacts/runs/real-loop-20261022-070-01/loop-status.jsonl": "a34cf2542c845d6d11278e2fc49aabd37ca25af040b784646ae160e2ff1e0c18",
+        "artifacts/runs/real-loop-20261022-070-01/fixture-vins.jsonl": "851fe7b482b2a76b7b5690565e5f6f987907900f98daf4cf021414235937ac4b",
+        "artifacts/runs/real-loop-20261022-070-01/fixture-odometry.jsonl": "b4ba69c4b8d93d5ec1582c97456c7889b6542fb5aba07671f8da15c2c4207d47",
+        "artifacts/runs/real-loop-20261022-070-01/fixture-truth.jsonl": "38a97b0b2d0e5b8b7d3ce7408b3560d623108cdda88201fa797f81c5b1ef445b",
+        "artifacts/runs/real-loop-20261022-070-01/fixture-trace.jsonl": "5e6318cadeb73df28c3f8449eb566c58c2334bc2b822c72c62d54ab9ae1ae33a",
+        "artifacts/runs/real-loop-20261022-070-01/loop-backend.log": "afde069b0cd782cc6c1275862a602b762f0267aa58479269363443963203a9b6",
+        "artifacts/runs/real-loop-20261022-070-01/fixture-probe.log": "af0db05b4f2aa483f063c0abb4c145189e00f81fcc64a38d2fbb782a14885cdc",
+        "artifacts/runs/real-loop-20261022-070-01/disarmed-before-stop.log": "12357a3e99ab7819052ab872a9ef9c0918abeda4135b421543db7afef1f08233",
+        "artifacts/runs/real-loop-20261022-070-01/runtime-contract.json": "172c0e13a151fb4e19ee138326ca6758c901769fac1a04a48e222ae391c140bc",
+        "artifacts/runs/real-loop-20261022-070-01/intentional-interruption.json": "0c7d6433ddbef8a8df75a17d14c2d413e61e4596c27fcffb1e71e4e8895843af",
+        "artifacts/runs/real-loop-20261022-070-01/raw-keyframe-sampling.json": "2c2ade46f8547e159b53c01c82c4503bed2d276cc265f0d4b0bae969395914db"
+      }
+    },
+    {
+      "scope": "Independently verify real loop edges in an unarmed fixture session.",
+      "run_id": "real-loop-20261022-070-02",
+      "epoch": "ea0b5887c5054beca53862cd9f728a00",
+      "small_goal_2_passed": true,
+      "checks": {
+        "actual_candidate": true,
+        "actual_verified_loop": true,
+        "actual_graph_optimization": true,
+        "finite_graph_solution": true,
+        "observed_graph_pose_update": true,
+        "independent_edge_geometry": true,
+        "normal_backend_exit": true,
+        "consistent_output_frame": true,
+        "no_control_or_tf_outputs": true,
+        "no_truth_input_to_backend": true,
+        "raw_session_inputs": true,
+        "same_camera_exposure": true,
+        "bounded_queues": true
+      },
+      "keyframes": 94,
+      "loop_candidates": 43,
+      "verified_loops": 2,
+      "optimizations": 2,
+      "edges": [
+        {
+          "old_index": 7,
+          "current_index": 74,
+          "old_source_ns": 138735999999,
+          "current_source_ns": 641392000000,
+          "separation_sim_s": 502.656000001,
+          "actual_imu_separation_m": 0.058122749207791174,
+          "translation_error_m": 0.031525827600458356,
+          "rotation_error_deg": 0.19860194589511854
+        },
+        {
+          "old_index": 0,
+          "current_index": 80,
+          "old_source_ns": 88180000000,
+          "current_source_ns": 690364000000,
+          "separation_sim_s": 602.184,
+          "actual_imu_separation_m": 0.04675535201211842,
+          "translation_error_m": 0.02652273841303312,
+          "rotation_error_deg": 0.22358337672152748
+        }
+      ],
+      "diagnostic_geometry_limits": {
+        "translation_m": 0.25,
+        "rotation_deg": 5
+      },
+      "maximum_graph_position_update_m": 0.08349988875786844,
+      "backend_exit_code": 0,
+      "fixture_outcome": "unarmed_support_loop_revisit_completed",
+      "fixture_error": "",
+      "limitations": [
+        "A geometrically valid optimized loop does not prove lower odometry error.",
+        "No corrected state is routed to navigation or PX4.",
+        "One repeated local scene is not general loop-detection robustness."
+      ],
+      "input_sha256": {
+        "fixture-result.json": "1435062969db9d74809de22f6754450513424d5546820a7435097b214397da81",
+        "loop-observer-manifest.json": "7969b73305890c48743c6295d79d7a71bd80353eec77cd4b9e6d13b1d7078c7c",
+        "loop-observation.json": "c88742753f8120fc5418e1540fc60bcc87e6a938edf19207d5822ff1ae3b42ef",
+        "fixture-truth.jsonl": "923e7a0cf39d7e2d3eaabdd8785d83dcdaa3aaeb55656e6cc5041569f1d38b0c",
+        "loop-backend-exit-code": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      "fixture_result": {
+        "scope": "unarmed whole-airframe physical-support experiment only; not free flight or localization accuracy approval",
+        "outcome": "unarmed_support_loop_revisit_completed",
+        "error": "",
+        "epoch": "ea0b5887c5054beca53862cd9f728a00",
+        "profile": "loop_revisit",
+        "wall_duration_s": 925.6635874789208,
+        "completed_stages": 47,
+        "last_localization": {
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "normalized_cost": 0.662569393229422
+        },
+        "vehicle_states": [
+          1
+        ],
+        "vehicle_status_samples": 1484,
+        "attachment_states": [
+          "attached",
+          "detached"
+        ],
+        "final_joint_states": {
+          "x": [
+            2.668010407847377e-07,
+            -1.1297129286302972e-06
+          ],
+          "z": [
+            0.0005495982481406705,
+            0.1373815639664184
+          ],
+          "yaw": [
+            -2.9978933175488828e-06,
+            1.6458424810535362e-05
+          ],
+          "pitch": [
+            -6.628556688604981e-05,
+            -0.01656989800987494
+          ]
+        },
+        "fixture_may_remain_attached": false,
+        "publishers": "Gazebo fixture joints/detach only; no ROS control or goal publisher"
+      },
+      "loop_manifest": {
+        "scope": "Run the pinned loop backend in a separate namespace; never route it to control.",
+        "run_id": "real-loop-20261022-070-02",
+        "epoch": "ea0b5887c5054beca53862cd9f728a00",
+        "namespace": "/loop_observer/s_ea0b5887c5054beca53862cd9f728a00",
+        "map_frame": "loop_ea0b5887c5054beca53862cd9f728a00_map",
+        "command": [
+          "/workspace/install/loop_fusion/lib/loop_fusion/loop_fusion_node",
+          "/workspace/artifacts/runs/real-loop-20261022-070-02-stack/session/vins.yaml",
+          "--ros-args",
+          "-r",
+          "__ns:=/loop_observer/s_ea0b5887c5054beca53862cd9f728a00",
+          "-p",
+          "use_sim_time:=true",
+          "-p",
+          "map_frame:=loop_ea0b5887c5054beca53862cd9f728a00_map",
+          "-r",
+          "odometry:=/vins_raw/s_ea0b5887c5054beca53862cd9f728a00/odometry",
+          "-r",
+          "keyframe_pose:=/vins_raw/s_ea0b5887c5054beca53862cd9f728a00/keyframe_pose",
+          "-r",
+          "keyframe_point:=/vins_raw/s_ea0b5887c5054beca53862cd9f728a00/keyframe_point",
+          "-r",
+          "extrinsic:=/vins_raw/s_ea0b5887c5054beca53862cd9f728a00/extrinsic",
+          "-p",
+          "queue_limit:=64",
+          "-p",
+          "max_keyframes:=1000",
+          "-p",
+          "minimum_distance_m:=0.1"
+        ],
+        "limits": {
+          "mode": "observation_only",
+          "queue_limit": 64,
+          "max_keyframes": 1000,
+          "minimum_distance_m": 0.1,
+          "qualification": "Local-revisit diagnostic sampling only: default0.2m rejected raw keyframes spaced0.13-0.16m in #070-01. Matching/PnP/confidence and health limits unchanged; not a universal deployment default."
+        },
+        "installed_resources_sha256": {
+          "brief_k10L6.bin": "753e7e126c588906ad16197892bdcd914f3a0971037c8f8aeb3c63418458b035",
+          "brief_pattern.yml": "cb9e20bf47d7557cd22f7820524c3cb13b3a315c451d5665955336100177cafd"
+        },
+        "configuration_source": "config/components/localization/loop_observer_local_revisit.json",
+        "executable_sha256": "7fe31d4a11896433e891d9f94850ea63c43d78ac01e9724029b6919fb8d3d88b",
+        "session": {
+          "epoch": "ea0b5887c5054beca53862cd9f728a00",
+          "namespace": "/vins_raw/s_ea0b5887c5054beca53862cd9f728a00",
+          "model_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "settings_sha256": "c4b49f91478d2fe627c6e5d3ad6b81b0a09d124e12d2d2cb0ddea0d8322aeecc",
+          "files_sha256": {
+            "left.yaml": "7e8e731aa0f06183169df3375034b24ca53a000beddcd4f7a540a309c157b81b",
+            "vins.yaml": "745bc247c97deb1702c2401e6a9691518df57eb5206a43df56574bfc79b2346f",
+            "right.yaml": "c0cb6ef1219165f539db5e5f79855a23bcf8fae69ab15d2941406ec929a45a9d"
+          },
+          "qualification": "Generated ideal simulation configuration; not runtime qualified"
+        },
+        "configuration_sha256": "976636e7a6b2384c3837431a4ab8167f1ea4717192fc9f11290f54dda026df64",
+        "dependencies_sha256": "0ee3b9acef557610fefb85cf07ee657baa42463dd21a8036afc1b65456d03d78",
+        "control_or_tf_outputs": false,
+        "qualification": "Transport observation only; not loop accuracy or map reuse acceptance"
+      },
+      "stop_exit_code": 0,
+      "live_disarmed_before_stop": true,
+      "fixture_absent_before_stop": true,
+      "wrapper_exit_code": 0,
+      "artifact_sha256": {
+        "artifacts/runs/real-loop-20261022-070-02/real-loop-evaluation.json": "e1ccf4b2249cab4b1543849422e8517b944dee51139801b8691fec690df91c74",
+        "artifacts/runs/real-loop-20261022-070-02/fixture-result.json": "1435062969db9d74809de22f6754450513424d5546820a7435097b214397da81",
+        "artifacts/runs/real-loop-20261022-070-02/fixture-stages.json": "8685ad63d5962534538579eb4cac0031171584c68a8bf6969b4e48ce5834ce55",
+        "artifacts/runs/real-loop-20261022-070-02/loop-protocol.json": "05d35ce89399962146c1a9a1843189ecb0876951b9b41aa1269028de24a4e629",
+        "artifacts/runs/real-loop-20261022-070-02/loop-observer-manifest.json": "7969b73305890c48743c6295d79d7a71bd80353eec77cd4b9e6d13b1d7078c7c",
+        "artifacts/runs/real-loop-20261022-070-02/loop-observation.json": "c88742753f8120fc5418e1540fc60bcc87e6a938edf19207d5822ff1ae3b42ef",
+        "artifacts/runs/real-loop-20261022-070-02/loop-status.jsonl": "e6832041d5eec2c85fff76218e2a6cf3061896b56b35c061e85844dc898440a1",
+        "artifacts/runs/real-loop-20261022-070-02/fixture-vins.jsonl": "b435e98f02179d6d0bf4cfe3d20eabdcaf993e5213cdc457e52a0baf719b580e",
+        "artifacts/runs/real-loop-20261022-070-02/fixture-odometry.jsonl": "8ff29424a2b29765d9a2c2b2332a9e4218d57053df063109b34d71ba5f5071a6",
+        "artifacts/runs/real-loop-20261022-070-02/fixture-truth.jsonl": "923e7a0cf39d7e2d3eaabdd8785d83dcdaa3aaeb55656e6cc5041569f1d38b0c",
+        "artifacts/runs/real-loop-20261022-070-02/fixture-trace.jsonl": "44d38d7ac81594d52950cb1f31ff5407be868e52e1433d923d47e8bf6fa33e02",
+        "artifacts/runs/real-loop-20261022-070-02/loop-backend.log": "4daf7034f68bcfee98c8b128355f6dfd05c6687c32f98be4838519e43c2d7588",
+        "artifacts/runs/real-loop-20261022-070-02/fixture-probe.log": "34d49992185f34ad60f482aac46e564b98339e7b1bbd3d5564a2a475d7953653",
+        "artifacts/runs/real-loop-20261022-070-02/disarmed-before-stop.log": "68243e9bc2626fad8ff6016b940055cd8b1eb328df0e1653eac88bdb0474938b",
+        "artifacts/runs/real-loop-20261022-070-02/runtime-contract.json": "6a5ce037e496ecd58fd298440462257a5650fa0ff021bd883085e42c8b370cdb",
+        "artifacts/runs/real-loop-20261022-070-02/models-before-stop.log": "323d994c4a854ce3dc5f336d578b06666e1c9b748fecb36df99fee51f586df31",
+        "artifacts/runs/real-loop-20261022-070-02/loop-backend-exit-code": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "artifacts/runs/real-loop-20261022-070-02/loop-status-snapshot.json": "3e409c2508af040374a2cff2ab4f94f2f1a4bba34e24747e64022558e2ce98fe",
+        "artifacts/runs/real-loop-20261022-070-02/loop-geometry-preview.json": "953d2ffce591827d1f936a8e9c3e6b7783f3c90ffec6a71b35c82159fa090754",
+        "artifacts/runs/real-loop-20261022-070-02/loop-graph.png": "c0e388a1241613d12e838f7fbabb9abb4d240270edfb2ffb6e341ce3796b93df"
+      }
+    }
+  ],
+  "validation": {
+    "protected_existing_algorithms_health_default_observer_and_control_unchanged": true,
+    "trial02_online_wrappers_frozen": true,
+    "trial02_runtime_fingerprint_unchanged": true,
+    "ros_rebuild": "not needed: no installed ROS/vendor numerical runtime code changed",
+    "artifact_sha256": {
+      "artifacts/runs/real-loop-20261022-070-checks/protected-before.json": "3c9b63139bf81090892a1d37d3a05d00ebe8f0f4f88c811eb27ccc53ef53ea6d",
+      "artifacts/runs/real-loop-20261022-070-checks/planned-protocol.json": "2692f38ef7ad18b1a833c4e2b9b306627a7e60fd4bab42f09bafac4116568375",
+      "artifacts/runs/real-loop-20261022-070-checks/route-review.json": "8ba32d3d3ebb7ad9a4873fdf6541965b0342abe57bd98573090ab77300ac6763",
+      "artifacts/runs/real-loop-20261022-070-checks/tests-before.log": "164a9e1eaa7c4b779bf46f458608e126a635c7e4fce0bc85be1196ef3bcdf1b5",
+      "artifacts/runs/real-loop-20261022-070-checks/tests-sampling-config.log": "db3e4df66a0c108a19f23c1ca90744a74d50ac7ce22e3e707e042c96bdfda0b9",
+      "artifacts/runs/real-loop-20261022-070-checks/trial02-frozen-online-inputs.json": "1ee1488a6b4f694d7282f2f5b65a9201e61fe2b78227f689ed8ecc7ee9fc174a",
+      "artifacts/runs/real-loop-20261022-070-checks/capture_status.py": "56b398530fe74478ef94ce2a279f829c3f512b8f15c3c6d780f029bd0a2fd6cc",
+      "artifacts/runs/real-loop-20261022-070-checks/record_raw_keyframes.py": "f1d83328cfd9275c155b4c8897c15674e304aa42436a287b6967833c489195b0",
+      "artifacts/runs/real-loop-20261022-070-checks/summarize.py": "fe33dcbe75080d349015aedfb654bb5209b1599e0e9ad43ddc5d7780acd4eedf"
+    }
+  },
+  "limitations": [
+    "One repeated1.2m support trajectory in an ideal simulator, not free flight or generic loop robustness.",
+    "Trial01 naturally failed normalized_cost health check and also lost its backend-exit artifact due to the wrapper editing mistake; retained as failure.",
+    "Trial02 explicitly samples at0.1m; standard observer0.2m remains unchanged. Matching,BoW,PnP and health thresholds were not relaxed.",
+    "Forty-three candidates produced two verified loops; rejected candidate reasons were not instrumented.",
+    "A finite nonzero graph pose update is evidence of executed optimization, not proof that localization error decreased.",
+    "No corrected velocity/covariance certification or map-to-odom/control integration."
+  ],
+  "next_small_goal_pending_user_approval": "Compare raw VINS and loop-corrected positions/yaw against the same source-time truth and one common initial alignment in the retained trial02 record; do not realign after loops.",
+  "source_sha256": {
+    "tools/project.sh": "0ff9f4583ae8b84945881334771865a42e424fb7c2e5b2e74ed52aa5303ad182",
+    "tools/loop_runtime.sh": "48ab206baa2216ff5f95940c949ffee7884fb918939ab0a2dbfd180d00502bd2",
+    "tools/run_loop_observer.py": "a583d62b0260c7444dabb3e0407cbdbb0c997c4e45516eceb22fb0f52d4c81d8",
+    "tools/diagnostics/record_loop.py": "8a9440487ceeab7ba19c621a37834a091f8f3482bf10dfdc2573b4e136fbbf42",
+    "tools/debug_truth/record_fixture_truth.py": "87313302ad8b6479881c23fb57d1536f01b9cfa3f1b5f202e9546f7cb7e4b2d4",
+    "tools/probe_preflight_scan.py": "fc30e391ae29437d8baa6be5b641e2bb0b5981364a76ffacd1553661c1a0fc6f",
+    "tools/debug_truth/evaluate_fixture_loop.py": "a6e8a9a29bb9212e92d6b8d0f002ccb31e4782d21f721b0e0f1f6ac4a3f50514",
+    "tools/test_fixture_loop.py": "2f881442a6285dc87b9e9f045ffc454d3cbb07a54eac18e4fda64f75f06d1b85",
+    "tools/test_loop_observer.py": "b5763b98105a97b5dd333523535da62dc93adc5fdd3c68de0f4d34ab5effead7",
+    "config/components/localization/loop_observer.json": "b1302bff626ba270464f114bccb2afd97987136570107f629772ac33617d5036",
+    "config/components/localization/loop_observer_local_revisit.json": "976636e7a6b2384c3837431a4ab8167f1ea4717192fc9f11290f54dda026df64",
+    "config/components/simulation/preflight_scan.json": "14d2c51dfa4989ab7cbb3bdb386ea76eba1d36cc3f5b5a365bffe25b3e12e820"
+  },
+  "final_validation": {
+    "unit_tests": 199,
+    "unit_tests_seconds": 8.905,
+    "ros_action_integration": "passed",
+    "max_pose_receipt_age_s": 0.053,
+    "structure_check": "passed; optional historical artifact links absent: 80",
+    "diff_check": "passed",
+    "project_simulation_containers_running": false,
+    "unrelated_containers_preserved": [
+      "volant-height-route-probe",
+      "natfrp-service"
+    ],
+    "logs": {
+      "artifacts/runs/real-loop-20261022-070-checks/tests-final.log": "c13bde26d016e77a990e4664ed5f43cff0d7e547f3d1f39e0a4e227afd098e5e",
+      "artifacts/runs/real-loop-20261022-070-checks/structure-final.log": "886b0e76a3099fcd55ff19f25f1eb20fb72f5f6b32b300b21309e51c23979de1",
+      "artifacts/runs/real-loop-20261022-070-checks/diff-check-final.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

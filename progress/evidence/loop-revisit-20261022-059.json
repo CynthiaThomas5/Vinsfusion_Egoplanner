@@ -1,0 +1,264 @@
+{
+  "scope": "#059 bounded-room revisit attempt; the real-loop validation objective was NOT achieved.",
+  "result": "NOT_ACHIEVED",
+  "passed": false,
+  "route_offset_enu_m": [
+    [
+      16,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      0
+    ],
+    [
+      8,
+      0,
+      0
+    ]
+  ],
+  "frame_origin": "same initial airborne odom pose; final yaw initial yaw for all three goals",
+  "runs": [
+    {
+      "run_id": "loop-return-20261022-059-01",
+      "result": "FAIL_BEFORE_ARM",
+      "reason": "preflight telemetry_stale",
+      "service_enable_calls": 0,
+      "bridge_final": "DISABLED, landed, disarmed",
+      "loop_keyframes": 0,
+      "backend_exit": 0,
+      "container_exit": 0
+    },
+    {
+      "run_id": "loop-return-20261022-059-02",
+      "result": "FAIL_RETURN_START",
+      "preflight_passed": true,
+      "completed_native_goals": 1,
+      "first_goal_independent_dwell_passed": true,
+      "reason": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "landed_and_disarmed": true,
+      "backend_exit": 0,
+      "container_exit": 0
+    }
+  ],
+  "failure_analysis": {
+    "scope": "Offline diagnostic for the retained #059-02 failed return; no ROS outputs.",
+    "result": "NOT_ACHIEVED",
+    "mission_failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+    "completed_goals": 1,
+    "attempted_goals": 2,
+    "return_source_ns": 125007999999,
+    "trigger_metric": {
+      "continued_tracks": 74,
+      "final_cost": 1092.0189273470091,
+      "initialized": true,
+      "input_features": 84,
+      "iterations": 9,
+      "long_tracks": 59,
+      "normalized_cost": 1.0036919519717993,
+      "residual_components": 2168,
+      "solve_current": true,
+      "solve_seconds": 0.009714841842651367,
+      "solver_usable": true,
+      "stamp_ns": 127712000000,
+      "state_finite": true,
+      "stereo_features": 68,
+      "visual_observations": 544,
+      "wall_elapsed_s": 146.77008211007342
+    },
+    "first_failed_localization_status": {
+      "accepted_optimized": 1800,
+      "accepted_propagated": 29697,
+      "epoch": "f702330446214c72b6c5d6071eb94020",
+      "good_pairs": 1809,
+      "normalized_cost": 1.0036919519717993,
+      "reason": "normalized_cost_exceeded",
+      "source_stamp_ns": 127760000000,
+      "stamp_ns": 127788000000,
+      "state": 4,
+      "valid": false,
+      "wall_elapsed_s": 146.80234195990488
+    },
+    "normalized_cost_limit_unchanged": 1.0,
+    "failure_after_return_goal_sim_s": 2.704000001,
+    "failure_after_return_goal_wall_s": 3.0433591078035533,
+    "trigger_raw_position_error_m": 0.09125716735573179,
+    "trigger_raw_yaw_error_deg": 0.24572733860160173,
+    "actual_yaw_change_deg": -9.137584673584767,
+    "maximum_sampled_actual_yaw_rate_deg_s": 32.62264138314705,
+    "landed_and_disarmed": true,
+    "first_goal_independent_dwell_passed": true,
+    "interpretation": "Health gate exceeded after return began; neither estimator divergence nor turning as the root cause is established. No loop/optimization occurred. Subsequent lower residuals cannot authorize clearing the latched session.",
+    "inputs_sha256": {
+      "flight.json": "066ef6d4c87f52d660d268853630330a3efb8d4f904bc834809e29b879cf3999",
+      "debug-truth-evaluation.json": "3ab3390484f2da848d282fde23aa59347366c593b542df132828f39429da1f28",
+      "odometry-errors.csv": "8fd416249f4eae715fe86f28713906082fb32b5f562b3fa679144b6f2a97cd3f",
+      "arrival-evaluation.json": "b0af135fe4330473fc6c0286c630cd29f3c6bf48edddad962f6e703bddaa5e09"
+    }
+  },
+  "loop": {
+    "keyframes": 64,
+    "loop_candidates": 0,
+    "verified_loops": 0,
+    "optimizations": 0,
+    "max_image_pose_gap_ns": 1,
+    "maximum_observed_correction_m": 0.0
+  },
+  "odometry_diagnostic": {
+    "position_error_m": {
+      "count": 1329,
+      "rmse": 0.05418022985255514,
+      "median": 0.04008690245858858,
+      "p95": 0.09136239632838536,
+      "max": 0.09329808083073958
+    },
+    "interval": {
+      "start_phase": "PRESTREAM",
+      "end_phase": "LANDED",
+      "start_source_ns": 45176000000,
+      "end_source_ns": 132920000000,
+      "duration_sim_s": 87.744,
+      "paired_truth_path_length_m": 19.36941231411634
+    },
+    "invalid_status_samples": 130,
+    "note": "Failed flight diagnostic, not a passing navigation baseline."
+  },
+  "validation": {
+    "ros_packages_built": 17,
+    "unit_tests_final_passed": 162,
+    "real_ros_action_clock_integration": "PASS; final suite maximum pose receipt age 0.054s, see tests-final.log",
+    "transport_probe": {
+      "scope": "Synthetic isolated ROS transport/failure probe, never flight/SLAM accuracy evidence.",
+      "executable_sha256": "7fe31d4a11896433e891d9f94850ea63c43d78ac01e9724029b6919fb8d3d88b",
+      "ros_domain_id": "185",
+      "cases": [
+        {
+          "case": "bounded_buffers_and_time_rewind",
+          "exit": 2,
+          "last_status": {
+            "keyframes": 0,
+            "loop_candidates": 0,
+            "verified_loops": 0,
+            "optimizations": 0,
+            "extrinsic_source": "immutable_session",
+            "extrinsic_topic_verified": false,
+            "last_keyframe_ns": -1,
+            "max_image_pose_gap_ns": 0,
+            "image_buffer": 16,
+            "pose_buffer": 0,
+            "point_buffer": 0,
+            "dropped_buffer": 43,
+            "dropped_sync": 0,
+            "graph": []
+          },
+          "passed": true
+        },
+        {
+          "case": "wrong_frame",
+          "exit": 2,
+          "last_status": {
+            "keyframes": 0,
+            "loop_candidates": 0,
+            "verified_loops": 0,
+            "optimizations": 0,
+            "extrinsic_source": "immutable_session",
+            "extrinsic_topic_verified": false,
+            "last_keyframe_ns": -1,
+            "max_image_pose_gap_ns": 0,
+            "image_buffer": 0,
+            "pose_buffer": 0,
+            "point_buffer": 0,
+            "dropped_buffer": 0,
+            "dropped_sync": 0,
+            "graph": []
+          },
+          "passed": true
+        },
+        {
+          "case": "graceful_sigint",
+          "exit": 0,
+          "last_status": {
+            "keyframes": 0,
+            "loop_candidates": 0,
+            "verified_loops": 0,
+            "optimizations": 0,
+            "extrinsic_source": "immutable_session",
+            "extrinsic_topic_verified": false,
+            "last_keyframe_ns": -1,
+            "max_image_pose_gap_ns": 0,
+            "image_buffer": 0,
+            "pose_buffer": 0,
+            "point_buffer": 0,
+            "dropped_buffer": 0,
+            "dropped_sync": 0,
+            "graph": []
+          },
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "fresh_fetch": {
+      "files_compared": 222,
+      "mismatches": [],
+      "patch_sha256": "5e049fa8babe7fc27cba2185f8b929fda49f0b2c3c4dd7cf768e3bae609f92d6"
+    },
+    "legacy_arrival_regression": {
+      "source_run": "loop-observer-20261022-058-04",
+      "passed": true,
+      "navigation_check_passed": true
+    },
+    "navigation_checks": {
+      "terminal_position_velocity_acceleration_boundary": false,
+      "native_action_and_landing": false,
+      "independent_goal_and_health": false,
+      "boot_parameter_audit": true,
+      "isolated_mutable_state": true,
+      "runtime_hashes_unchanged": true,
+      "source_mutable_files_unchanged": true,
+      "sampled_nominal_body_clearance_positive": true,
+      "truth_samples_continuous_at_50hz": true
+    },
+    "loop_revisit_checks": {
+      "actual_verified_loop": false,
+      "actual_graph_optimization": false,
+      "independent_loop_geometry": false,
+      "nonzero_observed_pose_correction": false,
+      "native_mission_and_landing": false
+    },
+    "static_verification": "artifacts/runs/loop-return-20261022-059-checks/static-verification.json",
+    "loop_transport_checks": {
+      "identity": true,
+      "backend_normal_exit": true,
+      "keyframe_graph_progress": true,
+      "monotonic_keyframe_source_time": true,
+      "finite_graph_and_current_features": true,
+      "sequential_graph_edges_present": true,
+      "separate_consistent_output_frame": true,
+      "no_control_or_tf_publications": true,
+      "raw_session_inputs": true,
+      "bounded_queues": true,
+      "bounded_keyframes": true,
+      "same_camera_exposure": true,
+      "normal_navigation_and_landing": false,
+      "real_corrected_pose_overlap": true,
+      "no_correction_without_verified_loop": true
+    }
+  },
+  "runtime_contract_sha256": "12c83e24dff55b3dcf898877a46d83dbd488f7abd7e27676afe53782ef84326a",
+  "both_runs_runtime_contract_equal": true,
+  "observer_executable_sha256": "7fe31d4a11896433e891d9f94850ea63c43d78ac01e9724029b6919fb8d3d88b",
+  "artifacts_manifest": "artifacts/runs/loop-return-20261022-059-checks/artifact-sha256.json",
+  "artifacts_manifest_sha256": "b293cabf3dc764eb27b731c66c6aa318638fdb484a205986ec15c9daa9c03d0b",
+  "artifact_files_hashed": 119,
+  "limits": [
+    "No genuine loop or optimization observed; no improvement, saved-map reuse, map-to-odom or control feedback verified.",
+    "Telemetry startup and return-start residual problems remain unresolved; no health limit changed.",
+    "At the trigger actual yaw changed only about -9.14 degrees; rapid 180-degree rotation as root cause is not established.",
+    "Final diagnostic fix prevents completed first leg from hiding a failed second leg or donating its end stamp; unit/replay/negative actual-run checks passed, no successful multi-leg SITL exists.",
+    "No Nano changes or real flight. No milestone upgraded."
+  ],
+  "next_small_step": "Isolate the return-start quality-gate event with a bounded low-speed heading/change diagnostic; separate residual classification and image/IMU timing from actual estimator error before changing the gate or wiring loop output into control."
+}

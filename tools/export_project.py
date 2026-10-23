@@ -15,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def files_to_share(root):
     root=Path(root)
     result=[]
-    for name in ['README.md','AGENTS.md','GOAL.md','.gitignore']:
+    for name in ['README.md','AGENTS.md','GOAL.md','.gitignore','start.sh']:
         if (root/name).is_file():result.append(root/name)
     for folder in ['src/own','config','simulation','dependencies','docker','docs','tools','progress','collaboration']:
         for p in sorted((root/folder).rglob('*')):

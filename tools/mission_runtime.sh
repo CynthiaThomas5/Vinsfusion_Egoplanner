@@ -4,19 +4,21 @@ set -Ee -o pipefail
 cd /workspace
 RUN_ID=${1:?run id required}
 RUN=/workspace/artifacts/runs/$RUN_ID
+PROFILE=${2:-config/components/navigation/room_crossing_goal.json}
 source /opt/ros/jazzy/setup.bash
 source /workspace/install/local_setup.bash
 export FASTRTPS_DEFAULT_PROFILES_FILE=/workspace/config/middleware/fastdds_local_shm.xml
 for ((i=0;i<100;i++)); do [[ ! -f "$RUN/stack-started" ]] || break; sleep 1; done
 [[ -f "$RUN/stack-started" ]] || { echo 'Stack did not start' >&2; exit 10; }
 [[ ! -e "$RUN/flight.json" && ! -e "$RUN/preflight.json" ]] || { echo 'A task already used this run directory; start a new simulation' >&2; exit 9; }
+python3 -c 'import json,sys; from pathlib import Path; sys.path.insert(0,"/workspace/tools"); from flight_profile import legs; legs(json.loads(Path(sys.argv[1]).read_text()))' "$PROFILE"
 PIDS=()
 observe() { local label=$1; shift; "$@" > "$RUN/$label.log" 2>&1 & PIDS+=("$!"); }
 observe planner python3 tools/diagnostics/record_planner.py "$RUN"
 observe alignment python3 tools/diagnostics/record_alignment.py "$RUN"
 observe bridge python3 tools/diagnostics/record_bridge.py "$RUN"
 observe truth python3 tools/debug_truth/record_truth.py "$RUN"
-python3 tools/run_vio_ego_flight.py --project-root /workspace --output "$RUN/flight.json" > "$RUN/flight.log" 2>&1 &
+python3 tools/run_vio_ego_flight.py --project-root /workspace --goal-config "$PROFILE" --output "$RUN/flight.json" > "$RUN/flight.log" 2>&1 &
 FLIGHT=$!
 for ((i=0;i<30;i++)); do [[ ! -f "$RUN/flight-probe-ready" ]] || break; sleep 1; done
 [[ -f "$RUN/flight-probe-ready" ]]
@@ -28,5 +30,6 @@ if [[ "$RESULT" == 0 ]]; then
   python3 tools/debug_truth/evaluate_arrival.py "$RUN" > "$RUN/arrival-evaluation.log"
   python3 tools/debug_truth/evaluate_clearance.py "$RUN" > "$RUN/crossing-evaluation.log"
   python3 tools/check_navigation_result.py "$RUN"
+  python3 tools/debug_truth/evaluate_odometry.py "$RUN" > "$RUN/odometry-evaluation.log"
 fi
 exit "$RESULT"

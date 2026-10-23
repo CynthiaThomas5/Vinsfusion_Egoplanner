@@ -1,0 +1,50 @@
+{
+  "scope": "#063 ray traversal correctness and unarmed map diagnostics, no flight qualification",
+  "ray_before": {
+    "incorrect": 287,
+    "missing": 287,
+    "test_rays": 250
+  },
+  "ray_after": {
+    "incorrect": 0,
+    "missing": 0,
+    "test_rays": 250
+  },
+  "build_packages": 17,
+  "regressions": 183,
+  "ros_action_integration": "passed",
+  "fresh_fetch_files": 53,
+  "differences": 0,
+  "maps": [
+    {
+      "run_id": "flight-safety-20261022-063-map-01",
+      "runtime_contract_sha256": "fe2728c7025a544830e21236923e058f4a5060ba649a753cbf214ab8143225fb",
+      "unknown": 9588836,
+      "free": 10506,
+      "occupied": 658,
+      "maximum_free_center_EDT_m": 0.223606797749979
+    },
+    {
+      "run_id": "flight-safety-20261022-063-map-02",
+      "runtime_contract_sha256": "6aee58c9ccd6bd7925569ae6cf907e89c326072bf5caa5e52fb5ef1713825905",
+      "unknown": 9585086,
+      "free": 14252,
+      "occupied": 662,
+      "maximum_free_center_EDT_m": 0.447213595499958
+    }
+  ],
+  "live_queries": {
+    "outside_map": 3,
+    "unknown": 8,
+    "no_fresh_fused_depth": 8,
+    "map_id_mismatch": 1,
+    "free": 2,
+    "epoch_mismatch": 1,
+    "frame_mismatch": 1
+  },
+  "disarmed_status_samples": 4,
+  "navigation_commands": 0,
+  "full_body_free_live_observed": false,
+  "flight_passed": false,
+  "note": "Different cold starts/times; free-count change is not controlled performance AB. EDT is distance to nonfree cell centers, an upper bound rather than full-cell sphere certificate. Initial second-run empty snapshot retained."
+}

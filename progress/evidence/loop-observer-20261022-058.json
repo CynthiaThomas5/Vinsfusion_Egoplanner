@@ -1,0 +1,321 @@
+{
+  "status": "completed_observer_transport_only_not_loop_accuracy",
+  "date": "2026-10-22",
+  "server": "gpu4090",
+  "git_base_commit": "13228978e7c80046b8b5b164d56a42180d204639",
+  "worktree_dirty": true,
+  "run_id": "loop-observer-20261022-058-04",
+  "loop_transport": {
+    "scope": "Offline transport/isolation check, not a claim of correct loops or drift removal.",
+    "run_id": "loop-observer-20261022-058-04",
+    "passed": true,
+    "checks": {
+      "identity": true,
+      "backend_normal_exit": true,
+      "keyframe_graph_progress": true,
+      "monotonic_keyframe_source_time": true,
+      "finite_graph_and_current_features": true,
+      "sequential_graph_edges_present": true,
+      "separate_consistent_output_frame": true,
+      "no_control_or_tf_publications": true,
+      "raw_session_inputs": true,
+      "bounded_queues": true,
+      "bounded_keyframes": true,
+      "same_camera_exposure": true,
+      "normal_navigation_and_landing": true,
+      "real_corrected_pose_overlap": true,
+      "no_correction_without_verified_loop": true
+    },
+    "epoch": "0a7e0aab843a4eda8b2f7c7c176ec132",
+    "namespace": "/loop_observer/s_0a7e0aab843a4eda8b2f7c7c176ec132",
+    "map_frame": "loop_0a7e0aab843a4eda8b2f7c7c176ec132_map",
+    "keyframes": 67,
+    "loop_candidates": 0,
+    "verified_loops": 0,
+    "optimizations": 0,
+    "keyframe_xyz_span_m": [
+      15.742405437120976,
+      1.4408519828987931,
+      1.9814838406093596
+    ],
+    "last_keyframe_feature_count": 29,
+    "maximum_keyframe_feature_count": 122,
+    "last_graph_marker_count": 258,
+    "corrected_pose_raw_overlap": 1831,
+    "max_corrected_vs_raw_position_difference_m": 0.0,
+    "last_status": {
+      "wall_s": 153.57605411298573,
+      "keyframes": 67,
+      "loop_candidates": 0,
+      "verified_loops": 0,
+      "optimizations": 0,
+      "extrinsic_source": "immutable_session",
+      "extrinsic_topic_verified": false,
+      "last_keyframe_ns": 126756000000,
+      "max_image_pose_gap_ns": 1,
+      "image_buffer": 4,
+      "pose_buffer": 0,
+      "point_buffer": 0,
+      "dropped_buffer": 1600,
+      "dropped_sync": 0
+    },
+    "resources_on_x86_server": {
+      "peak_rss_mib": 469.109375,
+      "mean_cpu_one_core_percent": 1.6578738961054797,
+      "max_sample_cpu_one_core_percent": 4.00177516277819
+    },
+    "runtime_contract_sha256": "9d14860aa693d92bcacdcbed364aecc9e3adfcadfed2573dc8df2375b973481f",
+    "executable_sha256": "d2f7cbc3b12bb5800a9a2813a609ec9ca0cbf7aa4f6b875b6492ddc108ec93b2",
+    "input_sha256": {
+      "loop-observation.json": "a6bab458370acf51cc320c8384725ce8b1450ffb98d18a8525aa3659d150b70f",
+      "loop-observer-manifest.json": "d7ca3a6c93e90ab7afc3b8ecc94bc12c4c73fb3a8061a0fe48c10565edece5ed",
+      "qualification.json": "d44c8cbb80c3aeeee44adb89ad94e7113585f98ee6692664a50b0a5cce75ceef",
+      "flight.json": "c38a6d2c2a89e41b02b6d0e1a7b86f717cd1290d922b4d1619418196d347dbee",
+      "alignment-observation.json": "84de24104b2e9b36c88dff2819066874a987fc4ea384b719c80bc67da6c5720b"
+    },
+    "limitations": [
+      "Transport/graph observation only; loop edge correctness and drift improvement are unqualified.",
+      "Current keyframe cloud is not a persistent globally optimized landmark map.",
+      "No map-to-odom transform, flight feedback, saved-map loading or Nano benchmark.",
+      "One forward route does not establish successful revisit detection."
+    ]
+  },
+  "navigation_checks": {
+    "terminal_position_velocity_acceleration_boundary": true,
+    "native_action_and_landing": true,
+    "independent_goal_and_health": true,
+    "boot_parameter_audit": true,
+    "isolated_mutable_state": true,
+    "runtime_hashes_unchanged": true,
+    "source_mutable_files_unchanged": true,
+    "sampled_nominal_body_clearance_positive": true,
+    "truth_samples_continuous_at_50hz": true
+  },
+  "trials": [
+    {
+      "run_id": "loop-observer-20261022-058-01",
+      "flight_result": "PASS",
+      "action_goal_sent": true,
+      "landed_and_disarmed": true,
+      "last_bridge_status": {
+        "phase": "LANDED",
+        "armed": false,
+        "landed": true
+      },
+      "keyframes": 0,
+      "verified_loops": 0,
+      "scope_note": "Original extrinsic-topic wait blocked graph: navigation passed, backend integration failed."
+    },
+    {
+      "run_id": "loop-observer-20261022-058-02",
+      "flight_result": "FAIL",
+      "action_goal_sent": false,
+      "landed_and_disarmed": null,
+      "last_bridge_status": {
+        "phase": "DISABLED",
+        "armed": false,
+        "landed": true
+      },
+      "keyframes": 0,
+      "verified_loops": 0,
+      "scope_note": "Preflight telemetry_stale; no enable or navigation goal. No controller bypass."
+    },
+    {
+      "run_id": "loop-observer-20261022-058-03",
+      "flight_result": "PASS",
+      "action_goal_sent": true,
+      "landed_and_disarmed": true,
+      "last_bridge_status": {
+        "phase": "LANDED",
+        "armed": false,
+        "landed": true
+      },
+      "keyframes": 65,
+      "verified_loops": 0,
+      "scope_note": "Diagnostic graph transport success before final patch-base metadata correction; same compiled node bytes as final."
+    },
+    {
+      "run_id": "loop-observer-20261022-058-04",
+      "flight_result": "PASS",
+      "action_goal_sent": true,
+      "landed_and_disarmed": true,
+      "last_bridge_status": {
+        "phase": "LANDED",
+        "armed": false,
+        "landed": true
+      },
+      "keyframes": 67,
+      "verified_loops": 0,
+      "scope_note": "Final lock graph observation and navigation passed; no actual loop occurred."
+    }
+  ],
+  "validation": {
+    "ros_build_packages": 17,
+    "default_regression_tests": 157,
+    "ros_action_integration": "PASS,250Hzclock; max pose receipt age0.054s",
+    "transport_probe": {
+      "scope": "Synthetic isolated ROS transport/failure probe, never flight/SLAM accuracy evidence.",
+      "executable_sha256": "d2f7cbc3b12bb5800a9a2813a609ec9ca0cbf7aa4f6b875b6492ddc108ec93b2",
+      "ros_domain_id": "185",
+      "cases": [
+        {
+          "case": "bounded_buffers_and_time_rewind",
+          "exit": 2,
+          "last_status": {
+            "keyframes": 0,
+            "loop_candidates": 0,
+            "verified_loops": 0,
+            "optimizations": 0,
+            "extrinsic_source": "immutable_session",
+            "extrinsic_topic_verified": false,
+            "last_keyframe_ns": -1,
+            "max_image_pose_gap_ns": 0,
+            "image_buffer": 16,
+            "pose_buffer": 0,
+            "point_buffer": 0,
+            "dropped_buffer": 44,
+            "dropped_sync": 0
+          },
+          "passed": true
+        },
+        {
+          "case": "wrong_frame",
+          "exit": 2,
+          "last_status": {
+            "keyframes": 0,
+            "loop_candidates": 0,
+            "verified_loops": 0,
+            "optimizations": 0,
+            "extrinsic_source": "immutable_session",
+            "extrinsic_topic_verified": false,
+            "last_keyframe_ns": -1,
+            "max_image_pose_gap_ns": 0,
+            "image_buffer": 0,
+            "pose_buffer": 0,
+            "point_buffer": 0,
+            "dropped_buffer": 0,
+            "dropped_sync": 0
+          },
+          "passed": true
+        },
+        {
+          "case": "graceful_sigint",
+          "exit": 0,
+          "last_status": {
+            "keyframes": 0,
+            "loop_candidates": 0,
+            "verified_loops": 0,
+            "optimizations": 0,
+            "extrinsic_source": "immutable_session",
+            "extrinsic_topic_verified": false,
+            "last_keyframe_ns": -1,
+            "max_image_pose_gap_ns": 0,
+            "image_buffer": 0,
+            "pose_buffer": 0,
+            "point_buffer": 0,
+            "dropped_buffer": 0,
+            "dropped_sync": 0
+          },
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    "source_reconstruction": {
+      "scope": "Full pinned fetch with entire patch chain, fresh target, compared byte for byte with canonical vendor",
+      "passed": true,
+      "matched_files": 222,
+      "unchanged_loop_algorithm_files": [
+        "loop_fusion/src/ThirdParty/DBoW/BowVector.cpp",
+        "loop_fusion/src/ThirdParty/DBoW/BowVector.h",
+        "loop_fusion/src/ThirdParty/DBoW/DBoW2.h",
+        "loop_fusion/src/ThirdParty/DBoW/FBrief.cpp",
+        "loop_fusion/src/ThirdParty/DBoW/FBrief.h",
+        "loop_fusion/src/ThirdParty/DBoW/FClass.h",
+        "loop_fusion/src/ThirdParty/DBoW/FeatureVector.cpp",
+        "loop_fusion/src/ThirdParty/DBoW/FeatureVector.h",
+        "loop_fusion/src/ThirdParty/DBoW/QueryResults.cpp",
+        "loop_fusion/src/ThirdParty/DBoW/QueryResults.h",
+        "loop_fusion/src/ThirdParty/DBoW/ScoringObject.cpp",
+        "loop_fusion/src/ThirdParty/DBoW/ScoringObject.h",
+        "loop_fusion/src/ThirdParty/DBoW/TemplatedDatabase.h",
+        "loop_fusion/src/ThirdParty/DBoW/TemplatedVocabulary.h",
+        "loop_fusion/src/ThirdParty/DUtils/DException.h",
+        "loop_fusion/src/ThirdParty/DUtils/DUtils.h",
+        "loop_fusion/src/ThirdParty/DUtils/Random.cpp",
+        "loop_fusion/src/ThirdParty/DUtils/Random.h",
+        "loop_fusion/src/ThirdParty/DUtils/Timestamp.cpp",
+        "loop_fusion/src/ThirdParty/DUtils/Timestamp.h",
+        "loop_fusion/src/ThirdParty/DVision/BRIEF.cpp",
+        "loop_fusion/src/ThirdParty/DVision/BRIEF.h",
+        "loop_fusion/src/ThirdParty/DVision/DVision.h",
+        "loop_fusion/src/ThirdParty/VocabularyBinary.cpp",
+        "loop_fusion/src/ThirdParty/VocabularyBinary.hpp",
+        "loop_fusion/src/keyframe.cpp",
+        "loop_fusion/src/keyframe.h",
+        "loop_fusion/src/utility/utility.h"
+      ],
+      "source_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+      "license_sha256": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
+      "final_patch_sha256": "2d2ad6df832937bceb371879452a08446005a622248d8fe6b7f764c2ca38eeba"
+    },
+    "runtime_diff_vs_baseline": {
+      "changed": [
+        "dependencies/sources.json"
+      ],
+      "added": [
+        "config/components/localization/loop_observer.json",
+        "config/rviz/loop_observer.rviz",
+        "install/loop_fusion/lib/loop_fusion/loop_fusion_node"
+      ],
+      "removed": []
+    },
+    "rviz_preset": "YAML/substitution checked; actual GUI rendering not verified in this step",
+    "static_checks": "PASS: bash -n, local structure check and git diff --check; no stage upgrade"
+  },
+  "source_sha256": {
+    "dependencies/sources.json": "a4f26ea45f9233be2a6d9e2e8fba40afbedc6ef1907588c3adc271785a7f5393",
+    "dependencies/patches/vins/0015-loop-observer-transport.patch": "2d2ad6df832937bceb371879452a08446005a622248d8fe6b7f764c2ca38eeba",
+    "config/components/localization/loop_observer.json": "b1302bff626ba270464f114bccb2afd97987136570107f629772ac33617d5036",
+    "config/rviz/loop_observer.rviz": "98cbea183b5da421aa835452493f38543a2e780648a9743c1a762e9a97b50751",
+    "tools/project.sh": "5ee920706e1493c237dec6be33c72eeb4a467eac50d556e6cde461b2403ea822",
+    "tools/loop_runtime.sh": "9572cc4846b04b94109b2dda04b52a1b6ef14d3206c8c134028e0df3868e08b9",
+    "tools/run_loop_observer.py": "907fd4e5b55311b1012b6a25efe01dd5a3e3559f34fd698d33d8495a9836d987",
+    "tools/check_loop_observation.py": "d9625106a8ba933b899ad03c595887e980408293ba36a03dd8f27c4c5d6c4455",
+    "tools/probe_loop_transport.py": "c161d16a8c1b2aa2f8fe6d9fd2021e7d685434fc49323a3c3323fb0a94d78381",
+    "tools/diagnostics/record_loop.py": "999140a00cb3ded2c697b2ac6f9b961d7017888bb721d5df4606006f04578677",
+    "tools/prepare_mapping_rviz.py": "1faef812d009bb83465221c90cea6b4731f8bb6dc9e9e8c2d2d8270a94d1057f",
+    "tools/runtime_manifest.py": "21582662fa16ba74da7486f278ed6a4dd4cf66132d950e3e33ac6d95a9439b1d",
+    "tools/test_loop_observer.py": "ac70b1ec5cc77a31d7688277fd3dee912ff844b370e3d449f7fd013fb3ba9a82",
+    "tools/test_loop_observation_check.py": "cd8c0593c6175cec46a2c5c9dc8178edf688ea338b647ee0301a319cdcc7429c",
+    "tools/test_runtime_manifest.py": "fd5fd291ce3ad619cf23353c92ef3cac5a52085b981aab4ab2a29007557e6f13"
+  },
+  "artifact_manifest": {
+    "path": "artifacts/runs/loop-backend-20261022-058-checks/artifact-sha256.json",
+    "sha256": "b4368f943a0f8abdb5b2b5e65c2b43c8cc6919b7bd066c34faca3bdbdc0cffe2",
+    "files": 233
+  },
+  "reports": {
+    "metrics": "artifacts/runs/loop-observer-20261022-058-04/loop-qualification.json",
+    "plot": "artifacts/runs/loop-observer-20261022-058-04/loop-graph.png",
+    "raw_observation": "artifacts/runs/loop-observer-20261022-058-04/loop-observation.json"
+  },
+  "limitations": [
+    "Transport/graph observation only; loop edge correctness and drift improvement are unqualified.",
+    "Current keyframe cloud is not a persistent globally optimized landmark map.",
+    "No map-to-odom transform, flight feedback, saved-map loading or Nano benchmark.",
+    "One forward route does not establish successful revisit detection.",
+    "Preflight telemetry delivery sensitivity remains unresolved; run02 is retained, startup ordering is not a proven root-cause fix.",
+    "No five-minute/Nano/real-flight verification; x86 observer memory only.",
+    "No P0-P6/A-H stage status upgraded."
+  ],
+  "final_state": "Simulation stopped, no project session running; Nano and desktop untouched.",
+  "committed_or_pushed": false,
+  "identifiers": {
+    "run_id": "loop-observer-20261022-058-04",
+    "epoch": "0a7e0aab843a4eda8b2f7c7c176ec132",
+    "map_id": "0a7e0aab843a4eda8b2f7c7c176ec132-eb3d67b8297a4e8e98d7e0e30faa23f2",
+    "goal_id": "d2991407e6f646999357b8088e33620e",
+    "map_id_note": "Existing local EGO occupancy map identity, not a saved visual loop map."
+  }
+}

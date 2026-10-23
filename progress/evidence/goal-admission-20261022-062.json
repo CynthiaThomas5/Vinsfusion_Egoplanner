@@ -1,0 +1,73 @@
+{
+  "scope": "#062 endpoint raw-voxel sphere admission only; no path or flight qualification",
+  "result": "ENDPOINT_ADMISSION_IMPLEMENTED_BUILD_ISOLATION_AND_UNARMED_QUERY_PASSED",
+  "small_step_completed": true,
+  "formal_navigation_or_flight_passed": false,
+  "build": {
+    "packages": 17,
+    "exit_code": 0,
+    "log": "artifacts/runs/goal-admission-20261022-062-checks/goal-admission-20261022-062-build-final.log"
+  },
+  "tests": {
+    "regressions": 182,
+    "ros_action_integration": "passed",
+    "clock_load_hz": 250,
+    "max_pose_receipt_age_s": 0.053,
+    "log": "artifacts/runs/goal-admission-20261022-062-checks/goal-admission-20261022-062-tests-final.log"
+  },
+  "vendor_fetch": {
+    "files": 53,
+    "differences": [],
+    "report": "artifacts/runs/goal-admission-20261022-062-checks/goal-admission-20261022-062-fetch-verification.json"
+  },
+  "unarmed_run": {
+    "run_id": "goal-admission-20261022-062-01",
+    "runtime_contract_sha256": "9d1899af43e3168aa78843296472eed6e76bae5659fe0209017587b97a6f844f",
+    "queries": 24,
+    "response_counts": {
+      "outside_map": 4,
+      "no_fresh_fused_depth": 5,
+      "unknown": 13,
+      "map_id_mismatch": 1,
+      "epoch_mismatch": 1
+    },
+    "max_wall_query_round_trip_s": 0.0014767609536647797,
+    "vehicle_status_samples": 10,
+    "arming_states": [
+      1
+    ],
+    "navigation_commands_observed": 0,
+    "container_exit_code": 0,
+    "stopped": true
+  },
+  "limitations": [
+    "No arm or flight; no live positive full-body-free or occupied query observed. These classifications are covered by production C++ logic and synthetic ROS action tests.",
+    "Live wrong-frame request met no_fresh_fused_depth before reaching frame check; frame identity validation exists but no live frame_mismatch response was observed.",
+    "0.5m raw sphere covers nominal current model only. No uncertainty, braking, full-trajectory, ground-contact or landing clearance qualification.",
+    "Unknown far targets now fail closed; earlier default16m navigation evidence is not inherited.",
+    "VINS prior/cost root cause, actual verified loop and Nano migration remain unresolved. Old4m profile stays disabled."
+  ],
+  "excluded_checks": [
+    {
+      "log": "artifacts/runs/goal-admission-20261022-062-checks/unit-local.log",
+      "result": "local full suite failed: host lacks ROS modules; container suite is authoritative"
+    },
+    {
+      "log": "artifacts/runs/goal-admission-20261022-062-checks/goal-admission-20261022-062-tests.log",
+      "result": "initial action fixture wrongly expected uppercase REJECTED; actual outcome is lowercase rejected. Assertion corrected; retained."
+    }
+  ],
+  "artifacts_manifest": {
+    "path": "artifacts/runs/goal-admission-20261022-062-checks/SHA256SUMS",
+    "files": 22,
+    "sha256": "cf597e193b0c7f50f4d1f1e8295ed818a575b79736a1825afeeb0357218711ec"
+  },
+  "final_checks": {
+    "structure": "passed",
+    "python_compile": "passed",
+    "git_diff_check": "passed",
+    "code_files_synced": 11,
+    "source_sync_mismatches": 0,
+    "commit_or_push": false
+  }
+}

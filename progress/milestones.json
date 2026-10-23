@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-21",
+  "updated": "2026-10-23",
   "bootstrap": {
     "status": "passed",
     "scope": "structure_only",
@@ -174,7 +174,8 @@
         "progress/evidence/p0-ego-obstacle-inflation-20261020-245.json",
         "progress/evidence/p2-ego-dense-sphere-sweep-audit-20261021-383.json",
         "progress/evidence/p5-vio-ego-airborne-preflight-diagnostic-20261021-384-387.json",
-        "progress/evidence/cpu-navigation-convergence-20261021-051.json"
+        "progress/evidence/cpu-navigation-convergence-20261021-051.json",
+        "progress/evidence/goal-admission-20261022-062.json"
       ]
     },
     {
@@ -278,7 +279,7 @@
       ]
     }
   ],
-  "goal_revision": "2026-10-21-v2",
+  "goal_revision": "2026-10-22-v3",
   "execution_steps": [
     {
       "id": "S1",
@@ -295,8 +296,11 @@
     {
       "id": "S3",
       "title": "EGO 实际融合输入连续性",
-      "status": "not_started",
-      "evidence": []
+      "status": "passed",
+      "evidence": [
+        "progress/evidence/n03-depth-fusion-continuity-20261022-090.md",
+        "progress/evidence/n03-depth-fusion-continuity-20261022-090.json"
+      ]
     },
     {
       "id": "S4",
@@ -345,5 +349,454 @@
     "rebuilt_failed_runs": [
       "cleanup-room-02"
     ]
+  },
+  "gpu4090_deployment": {
+    "status": "passed",
+    "scope": "Ubuntu24.04 fixed-image remote build, regression and current-room 16m headless GPU navigation only; formal stages unchanged",
+    "source_commit": "13228978e7c80046b8b5b164d56a42180d204639",
+    "code_patch_sha256": "66ba2f127cde9f122aa1abe8648f2ee3c118a3d65f8bca1f9c6904de1b9dac2f",
+    "runtime_contract_sha256": "5b27c0fef05d246feeec5115c8f7dd131a283dbb57e54ab64d5c51382de32811",
+    "successful_runs": [
+      "server-room-04",
+      "server-room-05",
+      "server-room-06"
+    ],
+    "failed_runs": [
+      "server-room-01",
+      "server-room-02",
+      "server-room-03"
+    ],
+    "evidence": [
+      "progress/evidence/gpu4090-deployment-20261022-054.json",
+      "progress/evidence/gpu4090-deployment-20261022-054.md"
+    ]
+  },
+  "daily_gui_launcher": {
+    "status": "passed",
+    "scope": "Host convenience launcher, mocked routing tests and one actual GUI SITL mission; formal stage statuses unchanged",
+    "sitl_run": "gui-20261022-113110-714995",
+    "evidence": [
+      "progress/evidence/gui-launcher-20261022-056.json",
+      "progress/changes/2026-10-22-056-gui-launcher.md"
+    ]
+  },
+  "execution_plan": {
+    "revision": "2026-10-22-v3",
+    "document": "docs/remaining-small-goals.md",
+    "next_goal": "N05",
+    "status_semantics": "not_started means the v3 exit has not been executed/qualified; existing implementation and research are recorded separately. Planning does not pass tasks or change historical P/S statuses.",
+    "small_goals": [
+      {
+        "id": "N01",
+        "title": "原始 VIO 全状态误差与漂移基线",
+        "status": "passed",
+        "depends_on": [],
+        "execution_steps": [
+          "S1"
+        ],
+        "criteria": [
+          "B",
+          "F"
+        ],
+        "evidence": [
+          "progress/evidence/vio-full-state-baseline-20261022-083.md",
+          "progress/evidence/vio-full-state-baseline-20261022-083.json"
+        ],
+        "existing_evidence": [
+          "progress/evidence/vio-drift-baseline-20261022-057.md",
+          "progress/evidence/odometry-drift-20261022-069.md"
+        ]
+      },
+      {
+        "id": "N02",
+        "title": "定位健康触发与时序失效收敛",
+        "status": "passed",
+        "depends_on": [
+          "N01"
+        ],
+        "execution_steps": [
+          "S1",
+          "S2"
+        ],
+        "criteria": [
+          "B",
+          "E",
+          "F"
+        ],
+        "evidence": [
+          "progress/evidence/n02-health-timing-20261022-089.md",
+          "progress/evidence/n02-health-timing-20261022-089.json"
+        ],
+        "existing_evidence": [
+          "progress/evidence/vio-residual-audit-20261022-067.md",
+          "progress/evidence/vio-prior-20261022-068.md"
+        ]
+      },
+      {
+        "id": "N03",
+        "title": "深度实际融合连续性",
+        "status": "passed",
+        "depends_on": [
+          "N01"
+        ],
+        "execution_steps": [
+          "S3"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "E"
+        ],
+        "evidence": [
+          "progress/evidence/n03-depth-fusion-continuity-20261022-090.md",
+          "progress/evidence/n03-depth-fusion-continuity-20261022-090.json"
+        ],
+        "existing_evidence": [
+          "progress/changes/2026-10-22-064-full-curve-admission.md"
+        ]
+      },
+      {
+        "id": "N04",
+        "title": "raw 地图几何与空间分类",
+        "status": "passed",
+        "depends_on": [
+          "N01",
+          "N03"
+        ],
+        "execution_steps": [
+          "S4"
+        ],
+        "criteria": [
+          "C",
+          "F"
+        ],
+        "evidence": [
+          "progress/evidence/n04-map-geometry-20261023.md",
+          "progress/evidence/n04-map-geometry-20261023.json"
+        ],
+        "existing_evidence": [
+          "progress/evidence/depth-rays-20261022-063.json"
+        ]
+      },
+      {
+        "id": "N05",
+        "title": "起降、自身过滤与观测入口",
+        "status": "in_progress",
+        "depends_on": [
+          "N01",
+          "N04"
+        ],
+        "execution_steps": [
+          "S4"
+        ],
+        "criteria": [
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/preflight-scan-20261022-065.json"
+        ]
+      },
+      {
+        "id": "N06",
+        "title": "完整曲线、重规划、停止与保持集成",
+        "status": "not_started",
+        "depends_on": [
+          "N03",
+          "N04",
+          "N05"
+        ],
+        "execution_steps": [
+          "S4"
+        ],
+        "criteria": [
+          "C",
+          "D",
+          "E"
+        ],
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/goal-admission-20261022-062.md",
+          "progress/changes/2026-10-22-064-full-curve-admission.md"
+        ]
+      },
+      {
+        "id": "N07",
+        "title": "EKF2 融合与无目标悬停",
+        "status": "not_started",
+        "depends_on": [
+          "N02",
+          "N03",
+          "N05",
+          "N06"
+        ],
+        "execution_steps": [
+          "S1"
+        ],
+        "criteria": [
+          "B",
+          "D"
+        ],
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/gpu4090-deployment-20261022-054.md"
+        ]
+      },
+      {
+        "id": "N08",
+        "title": "低速制动与 hold 到 EGO 连续切换",
+        "status": "not_started",
+        "depends_on": [
+          "N06",
+          "N07"
+        ],
+        "execution_steps": [
+          "S2",
+          "S4"
+        ],
+        "criteria": [
+          "B",
+          "D",
+          "E",
+          "F"
+        ],
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/loop-revisit-20261022-059.md"
+        ]
+      },
+      {
+        "id": "N09",
+        "title": "三维目标与任务反馈",
+        "status": "not_started",
+        "depends_on": [
+          "N03",
+          "N06",
+          "N08"
+        ],
+        "execution_steps": [
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "D",
+          "G"
+        ],
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/gpu4090-deployment-20261022-054.md",
+          "progress/evidence/p6-handoff-interfaces.json"
+        ]
+      },
+      {
+        "id": "N10",
+        "title": "统一版本、干净重建与标准冻结",
+        "status": "not_started",
+        "depends_on": [
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "N05",
+          "N06",
+          "N07",
+          "N08",
+          "N09"
+        ],
+        "execution_steps": [
+          "S5"
+        ],
+        "criteria": [
+          "A",
+          "F"
+        ],
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/shareable-project-cleanup-20261021-052.md"
+        ]
+      },
+      {
+        "id": "N11",
+        "title": "空场正式三连",
+        "status": "not_started",
+        "depends_on": [
+          "N10"
+        ],
+        "execution_steps": [
+          "S3",
+          "S6"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "D"
+        ],
+        "evidence": [],
+        "existing_evidence": []
+      },
+      {
+        "id": "N12",
+        "title": "单障碍正式三连",
+        "status": "not_started",
+        "depends_on": [
+          "N11"
+        ],
+        "execution_steps": [
+          "S3",
+          "S6"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "D"
+        ],
+        "evidence": [],
+        "existing_evidence": []
+      },
+      {
+        "id": "N13",
+        "title": "错位多障碍正式三连",
+        "status": "not_started",
+        "depends_on": [
+          "N12"
+        ],
+        "execution_steps": [
+          "S3",
+          "S6"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "D"
+        ],
+        "evidence": [],
+        "existing_evidence": []
+      },
+      {
+        "id": "N14",
+        "title": "可通行窄道正式三连",
+        "status": "not_started",
+        "depends_on": [
+          "N13"
+        ],
+        "execution_steps": [
+          "S3",
+          "S6"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "D"
+        ],
+        "evidence": [],
+        "existing_evidence": []
+      },
+      {
+        "id": "N15",
+        "title": "六类故障正式验收",
+        "status": "not_started",
+        "depends_on": [
+          "N10"
+        ],
+        "execution_steps": [
+          "S3",
+          "S6"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "E"
+        ],
+        "evidence": [],
+        "existing_evidence": []
+      },
+      {
+        "id": "N16",
+        "title": "连续十分钟完整负载任务",
+        "status": "not_started",
+        "depends_on": [
+          "N11",
+          "N12",
+          "N13",
+          "N14",
+          "N15"
+        ],
+        "execution_steps": [
+          "S3",
+          "S6"
+        ],
+        "criteria": [
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "evidence": [],
+        "existing_evidence": []
+      },
+      {
+        "id": "N17",
+        "title": "A-H 回收与可重建交付",
+        "status": "not_started",
+        "depends_on": [
+          "N11",
+          "N12",
+          "N13",
+          "N14",
+          "N15",
+          "N16"
+        ],
+        "execution_steps": [
+          "S6"
+        ],
+        "criteria": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F",
+          "G",
+          "H"
+        ],
+        "evidence": [],
+        "existing_evidence": []
+      }
+    ],
+    "optional_research": [
+      {
+        "id": "R01",
+        "title": "原 #078 回环平移/yaw 鲁棒核拆分离线验证",
+        "status": "not_started",
+        "required_for_simulation_goal": false,
+        "execution_authorized_by_this_planning_turn": false,
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/loop-yaw-weight-replay-20261022-077.md"
+        ]
+      },
+      {
+        "id": "R02",
+        "title": "回环候选跨 epoch 收益与在线使用决策",
+        "status": "not_started",
+        "required_for_simulation_goal": false,
+        "execution_authorized_by_this_planning_turn": false,
+        "evidence": [],
+        "existing_evidence": [
+          "progress/evidence/loop-drift-evaluation-20261022-075.md"
+        ]
+      }
+    ],
+    "hardware_followup": {
+      "scope": "H0-H5 planning only; real-device changes/flights are outside the current simulation goal",
+      "document": "docs/simulation-to-hardware-roadmap.md"
+    }
   }
 }

@@ -1,0 +1,133 @@
+{
+  "status": "completed_short_term_measurement_only",
+  "date": "2026-10-22",
+  "run_id": "vio-baseline-20261022-057-01",
+  "server": "gpu4090",
+  "git_base_commit": "13228978e7c80046b8b5b164d56a42180d204639",
+  "worktree_dirty": true,
+  "scope": "One cold-start current-room 16m flight; raw VINS PRESTREAM-to-LANDED baseline, fixed initial pose alignment, scale 1; no accuracy acceptance threshold.",
+  "runtime_contract_sha256": "5b27c0fef05d246feeec5115c8f7dd131a283dbb57e54ab64d5c51382de32811",
+  "epoch": "da87e717019f4dd7a8050d07d682f189",
+  "map_id": "da87e717019f4dd7a8050d07d682f189-e95cd0d4a0e74241a6fb5de3914e7320",
+  "mission_exit": 0,
+  "landed_and_disarmed": true,
+  "navigation_qualification_checks": {
+    "terminal_position_velocity_acceleration_boundary": true,
+    "native_action_and_landing": true,
+    "independent_goal_and_health": true,
+    "boot_parameter_audit": true,
+    "isolated_mutable_state": true,
+    "runtime_hashes_unchanged": true,
+    "source_mutable_files_unchanged": true,
+    "sampled_nominal_body_clearance_positive": true,
+    "truth_samples_continuous_at_50hz": true
+  },
+  "measurement": {
+    "interval": {
+      "start_phase": "PRESTREAM",
+      "end_phase": "LANDED",
+      "start_source_ns": 45276000000,
+      "end_source_ns": 130420000000,
+      "duration_sim_s": 85.144,
+      "paired_truth_path_length_m": 19.184631998405994
+    },
+    "position_error_m": {
+      "count": 1290,
+      "rmse": 0.04557116688225811,
+      "median": 0.03279104746554493,
+      "p95": 0.08807751348709798,
+      "max": 0.0901425339093082
+    },
+    "absolute_yaw_error_deg": {
+      "count": 1290,
+      "rmse": 0.2942524127024447,
+      "median": 0.2885537554526638,
+      "p95": 0.4858627379575344,
+      "max": 0.5095233687129703
+    },
+    "endpoint": {
+      "source_ns": 130383999999,
+      "age_before_landed_sim_s": 0.036000001,
+      "position_error_m": 0.08771954510214909,
+      "yaw_error_deg": 0.5095233687129703
+    },
+    "coverage": {
+      "raw_samples_in_interval": 1290,
+      "paired_samples": 1290,
+      "paired_raw_fraction": 1.0,
+      "truth_grid_samples": 4257,
+      "supported_truth_grid_samples": 4253,
+      "truth_grid_support_fraction": 0.9990603711533944,
+      "bounded_time_support_fraction": 0.9991543737667951,
+      "truth_max_gap_sim_s": 0.02,
+      "raw_max_gap_sim_s": 0.068000001,
+      "paired_max_gap_sim_s": 0.068000001,
+      "start_uncovered_sim_s": 0.035999999,
+      "end_uncovered_sim_s": 0.036000001,
+      "truth_interpolation_limit_sim_s": 0.04,
+      "odometry_support_limit_sim_s": 0.2,
+      "note": "Reporting limits only; no extrapolation, timestamp repair or health gate changes.",
+      "rejected_samples": []
+    },
+    "raw_adapter_pose_check": {
+      "same_stamp_pairs": 1290,
+      "mismatched_pose_pairs": 0,
+      "adapted_samples_in_interval": 1290
+    },
+    "largest_residual_step": {
+      "source_ns": 62076000000,
+      "delta_m": 0.011572863035360075,
+      "interval_sim_s": 0.068,
+      "note": "Descriptive residual change, not a classified tracking failure."
+    },
+    "invalid_localization_status_samples": 0
+  },
+  "validation": {
+    "synthetic_unit_tests": 7,
+    "server_default_tests": 149,
+    "ros_action_integration": "PASS, 250Hz clock and active action",
+    "recording_replay": {
+      "scope": "Real recording replay on development host; compared against server mission report",
+      "max_absolute_numeric_difference": 2.220446049250313e-16,
+      "tolerance": 1e-12,
+      "input_and_evaluator_hashes_identical": true,
+      "passed": true,
+      "numpy_version": "1.21.5"
+    },
+    "ros_runtime_rebuild": "not required: runtime sources/configurations/binaries unchanged; only observer and offline tools changed",
+    "server_image_unchanged": true,
+    "structure_check": "PASS, structure only",
+    "diff_check": "PASS"
+  },
+  "source_sha256": {
+    "tools/debug_truth/evaluate_odometry.py": "641ec2a1c61f11d925a18fbf2410887e739fddade0896cea1cfa82771f9712ed",
+    "tools/test_odometry_evaluation.py": "f2d8fecc72f18a24bfe926c3514ea2961cba8e4ebe4f5bea33741db702a79fe3",
+    "tools/diagnostics/record_alignment.py": "ed9b209d3bfb35f591b4ea9c960722dca72c25ba65551734c42ea6babacd45a5",
+    "tools/mission_runtime.sh": "c178aa9cb47a532ff9cf54e87f4215420c565b95fbe5a3e091dbdb4ef689ab6e"
+  },
+  "artifact_manifest": {
+    "path": "artifacts/runs/vio-baseline-20261022-057-checks/artifact-sha256.json",
+    "sha256": "a2222b76b9fecd85eb267fa7be1ce40973d0eb7544f7b0a4f15895aa3914f37e",
+    "files": 55
+  },
+  "reports": {
+    "metrics": "artifacts/runs/vio-baseline-20261022-057-01/odometry-evaluation.json",
+    "curve_csv": "artifacts/runs/vio-baseline-20261022-057-01/odometry-errors.csv",
+    "plot_png": "artifacts/runs/vio-baseline-20261022-057-01/odometry-errors.png",
+    "phase_summary": "artifacts/runs/vio-baseline-20261022-057-01/phase-error-summary.json",
+    "graph": "artifacts/runs/vio-baseline-20261022-057-01/ros-graph-audit.json"
+  },
+  "final_server_state": "No running project session; experiment stopped after confirmed landed/disarmed; Nano unchanged.",
+  "limitations": [
+    "One simulation route; no loop closure, map reuse or real-device validation.",
+    "Reference pose uncertainty affects all subsequent errors; scale is never fitted.",
+    "RMSE is sample weighted; coverage is reported separately, gaps are not hidden.",
+    "Endpoint is the last paired source sample, with its age explicitly reported.",
+    "No accuracy acceptance threshold is declared by this diagnostic.",
+    "85.144 simulation seconds, not the future five-minute target.",
+    "No formal stage status upgraded; P0-P6/A-H acceptance remains incomplete.",
+    "PX4 ULog remains on server; its path and hash are stored in execution-results.json.",
+    "Plot replayed locally; numeric difference versus server report <=2.23e-16; original server JSON retained."
+  ],
+  "committed_or_pushed": false
+}

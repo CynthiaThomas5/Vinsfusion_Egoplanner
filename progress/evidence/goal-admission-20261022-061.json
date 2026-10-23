@@ -1,0 +1,754 @@
+{
+  "scope": "#061 offline goal/admissibility and nominal-clearance audit only; no flight authorization.",
+  "result": "OFFLINE_AUDIT_COMPLETE_RUNTIME_ADMISSION_PENDING",
+  "passed": false,
+  "offline_audit_completed": true,
+  "runtime_goal_admission_implemented": false,
+  "new_sitl_flights": 0,
+  "candidate_flight_config_enabled": false,
+  "geometry_reports": [
+    {
+      "scope": "Offline goal/landing-column audit; never authorizes a flight or publishes ROS.",
+      "run_id": "vio-residual-20261022-060-01",
+      "epoch": "5ea03681d56c4e06bf4c6b129cc97817",
+      "alignment": {
+        "method": "one pre-enable pose pair; never fitted to the flight path",
+        "scale": 1,
+        "target_source_ns": 42072000000,
+        "reference_source_ns": 42012000000,
+        "rotation": [
+          [
+            0.9999999822010232,
+            -0.00013636869973836116,
+            -0.00013038991947135682
+          ],
+          [
+            0.00013639255283451777,
+            0.9999999739640496,
+            0.00018294526980439495
+          ],
+          [
+            0.00013036496806796482,
+            -0.00018296305076213692,
+            0.9999999747647482
+          ]
+        ],
+        "translation_m": [
+          -7.867977097194745,
+          -0.0031634434122796086,
+          0.06493628633307397
+        ]
+      },
+      "profile_enabled": false,
+      "nominal_sphere_radius_m": 0.4819358706659999,
+      "envelope_source_sha256": {
+        "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
+        "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+        "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+        "config/components/mapping/ego_planner.json": "8cfdd5929b2dfd9208b1a7ff3fe2e8154c93f20c951269f9423af9b93947038a"
+      },
+      "max_sampling_step_m": 0.02,
+      "goals": [
+        {
+          "kind": "configured",
+          "offset_enu_m": [
+            16.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            8.093915568548468,
+            0.03358275284466404,
+            0.9857854321048667
+          ],
+          "signed_point_distance_m": 1.8310845547950123,
+          "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+          "nominal_sphere_margin_m": 1.3491486841290123,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9208491457717927,
+            "samples": 48,
+            "sample_cover_radius_m": 0.00979626750821056,
+            "sampled_nominal_margin_m": 1.3491486841290123,
+            "continuous_nominal_margin_lower_bound_m": 1.3393524166208017,
+            "nearest_sample_xyz": [
+              8.093915568548468,
+              0.03358275284466404,
+              0.9857854321048667
+            ],
+            "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 0.0,
+            "samples": 2,
+            "sample_cover_radius_m": 0.0,
+            "sampled_nominal_margin_m": 1.3491486841290123,
+            "continuous_nominal_margin_lower_bound_m": 1.3491486841290123,
+            "nearest_sample_xyz": [
+              8.093915568548468,
+              0.03358275284466404,
+              0.9857854321048667
+            ],
+            "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+            "static_non_ground_sphere_corridor_clear": true
+          }
+        },
+        {
+          "kind": "configured",
+          "offset_enu_m": [
+            4.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            -3.906084217863811,
+            0.031946042210649825,
+            0.9842210524880513
+          ],
+          "signed_point_distance_m": -0.20136002004399892,
+          "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+          "nominal_sphere_margin_m": -0.6832958907099989,
+          "point_inside_obstacle": true,
+          "static_non_ground_endpoint_clear": false,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9192847661549772,
+            "samples": 47,
+            "sample_cover_radius_m": 0.00999222571907584,
+            "sampled_nominal_margin_m": -0.683306002205158,
+            "continuous_nominal_margin_lower_bound_m": -0.6932982279242339,
+            "nearest_sample_xyz": [
+              -3.906084217863811,
+              0.031946042210649825,
+              0.06493628633307397
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 12.0,
+            "samples": 601,
+            "sample_cover_radius_m": 0.01,
+            "sampled_nominal_margin_m": -0.6832958907099989,
+            "continuous_nominal_margin_lower_bound_m": -0.6932958907099989,
+            "nearest_sample_xyz": [
+              -3.906084217863811,
+              0.031946042210649825,
+              0.9842210524880513
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          }
+        },
+        {
+          "kind": "configured",
+          "offset_enu_m": [
+            8.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            0.09391571094028173,
+            0.0324916124219879,
+            0.9847425123603231
+          ],
+          "signed_point_distance_m": 0.7997359380644058,
+          "nearest_obstacle": "unit_cylinder_0_5/link/collision",
+          "nominal_sphere_margin_m": 0.3178000673984059,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.919806226027249,
+            "samples": 47,
+            "sample_cover_radius_m": 0.009997893761165751,
+            "sampled_nominal_margin_m": 0.3178000673984059,
+            "continuous_nominal_margin_lower_bound_m": 0.3078021736372401,
+            "nearest_sample_xyz": [
+              0.09391571094028173,
+              0.0324916124219879,
+              0.9847425123603231
+            ],
+            "nearest_obstacle": "unit_cylinder_0_5/link/collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 8.0,
+            "samples": 401,
+            "sample_cover_radius_m": 0.01,
+            "sampled_nominal_margin_m": -0.49693002107017953,
+            "continuous_nominal_margin_lower_bound_m": -0.5069300210701795,
+            "nearest_sample_xyz": [
+              2.113915674986348,
+              0.032767125378713624,
+              0.9850058495958204
+            ],
+            "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          }
+        },
+        {
+          "kind": "candidate",
+          "offset_enu_m": [
+            6.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            -1.9060842534617644,
+            0.032218827316318865,
+            0.9844817824241872
+          ],
+          "signed_point_distance_m": 1.794155263203576,
+          "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+          "nominal_sphere_margin_m": 1.312219392537576,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9195454960911131,
+            "samples": 47,
+            "sample_cover_radius_m": 0.009995059740120795,
+            "sampled_nominal_margin_m": 1.3122039886987356,
+            "continuous_nominal_margin_lower_bound_m": 1.3022089289586147,
+            "nearest_sample_xyz": [
+              -1.9060842534617644,
+              0.032218827316318865,
+              0.06493628633307397
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 10.0,
+            "samples": 501,
+            "sample_cover_radius_m": 0.01,
+            "sampled_nominal_margin_m": -0.49693002107017953,
+            "continuous_nominal_margin_lower_bound_m": -0.5069300210701795,
+            "nearest_sample_xyz": [
+              2.113915674986349,
+              0.032767125378713624,
+              0.9850058495958204
+            ],
+            "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          }
+        },
+        {
+          "kind": "candidate",
+          "offset_enu_m": [
+            13.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            5.0939156219453965,
+            0.03317357518616049,
+            0.9853943372006628
+          ],
+          "signed_point_distance_m": 2.08486276031667,
+          "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+          "nominal_sphere_margin_m": 1.6029268896506699,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9204580508675888,
+            "samples": 48,
+            "sample_cover_radius_m": 0.009792106924123285,
+            "sampled_nominal_margin_m": 1.6029268896506699,
+            "continuous_nominal_margin_lower_bound_m": 1.5931347827265465,
+            "nearest_sample_xyz": [
+              5.0939156219453965,
+              0.03317357518616049,
+              0.9853943372006628
+            ],
+            "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 3.0000000000000018,
+            "samples": 152,
+            "sample_cover_radius_m": 0.009933774834437092,
+            "sampled_nominal_margin_m": 1.3491486841290123,
+            "continuous_nominal_margin_lower_bound_m": 1.3392149092945753,
+            "nearest_sample_xyz": [
+              8.093915568548468,
+              0.03358275284466404,
+              0.9857854321048667
+            ],
+            "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+            "static_non_ground_sphere_corridor_clear": true
+          }
+        }
+      ],
+      "online_goal_map_classification": "NOT_AVAILABLE: no goal-time raw voxel snapshot was captured by this mission recorder",
+      "ground_plane_checked": false,
+      "flight_admissible": false,
+      "input_sha256": {
+        "artifacts/runs/vio-residual-20261022-060-01/flight.json": "8b0bd9d8f8d8ca87ca1e7b54adf75634f1c202b7654f41df435fdaffd2aebd22",
+        "artifacts/runs/vio-residual-20261022-060-01/odometry-evaluation.json": "83e513130857a028fa887cb93416ba7f0bfc68e163f09845815fbb34d51a18db",
+        "artifacts/runs/vio-residual-20261022-060-01/world.json": "95a2a4e47fddc977313eb6509c8e8995b3844c37d7f097a6a79dc24bfcd62e47",
+        "artifacts/runs/vio-residual-20261022-060-01/runtime-contract.json": "594105ae05595b020f644859f1a40d2b8a8b5b9f5af268437b674a7bd80289a8",
+        "artifacts/runs/vio-residual-20261022-060-01/vio_initialization.sdf": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+        "config/components/navigation/room_loop_goal.json": "c94e534cf3a9e153c20ad2314d7eeb29c3d2bd5ca9b01fb8eec2b220dddc27f2"
+      },
+      "limitations": [
+        "Static scene geometry and conservative nominal body sphere only; no tracking/localization/braking error budget.",
+        "Ground plane omitted deliberately; landing column is only a geometric nonground check, not a landing controller qualification.",
+        "Straight connectors are geometry hypotheses, not recorded or newly approved planner trajectories.",
+        "Endpoint clearance cannot establish connected known-free space; current-epoch map identity, freshness and full trajectory sweep remain required.",
+        "Candidate offsets stay in this offline report; no enabled flight configuration is generated."
+      ]
+    },
+    {
+      "scope": "Offline goal/landing-column audit; never authorizes a flight or publishes ROS.",
+      "run_id": "vio-residual-20261022-060-02",
+      "epoch": "af1887f903a449f084fa266cb12f1a64",
+      "alignment": {
+        "method": "one pre-enable pose pair; never fitted to the flight path",
+        "scale": 1,
+        "target_source_ns": 40584000000,
+        "reference_source_ns": 40527999999,
+        "rotation": [
+          [
+            0.999999840312293,
+            -7.915236948272078e-05,
+            -0.0005595625888978674
+          ],
+          [
+            7.907014086060488e-05,
+            0.9999999860735421,
+            -0.00014697220286873
+          ],
+          [
+            0.0005595742143032477,
+            0.00014692793470635147,
+            0.9999998326444264
+          ]
+        ],
+        "translation_m": [
+          -7.867876368109584,
+          -0.0028209415413135925,
+          0.0648575756035931
+        ]
+      },
+      "profile_enabled": false,
+      "nominal_sphere_radius_m": 0.4819358706659999,
+      "envelope_source_sha256": {
+        "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
+        "simulation/models/x500_d435i/model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+        "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "96750bf06dcf6a60f7cddf7111056c79e70107be6597dfe13436211c2a5b0bee",
+        "config/components/mapping/ego_planner.json": "8cfdd5929b2dfd9208b1a7ff3fe2e8154c93f20c951269f9423af9b93947038a"
+      },
+      "max_sampling_step_m": 0.02,
+      "goals": [
+        {
+          "kind": "configured",
+          "offset_enu_m": [
+            16.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            8.093857142903701,
+            -0.009085329004250457,
+            0.9719704971588744
+          ],
+          "signed_point_distance_m": 1.8311428237111627,
+          "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+          "nominal_sphere_margin_m": 1.3492069530451627,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9071129215552813,
+            "samples": 47,
+            "sample_cover_radius_m": 0.009859923060383493,
+            "sampled_nominal_margin_m": 1.3492069530451627,
+            "continuous_nominal_margin_lower_bound_m": 1.3393470299847792,
+            "nearest_sample_xyz": [
+              8.093857142903701,
+              -0.009085329004250457,
+              0.9719704971588744
+            ],
+            "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 0.0,
+            "samples": 2,
+            "sample_cover_radius_m": 0.0,
+            "sampled_nominal_margin_m": 1.3492069530451627,
+            "continuous_nominal_margin_lower_bound_m": 1.3492069530451627,
+            "nearest_sample_xyz": [
+              8.093857142903701,
+              -0.009085329004250457,
+              0.9719704971588744
+            ],
+            "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+            "static_non_ground_sphere_corridor_clear": true
+          }
+        },
+        {
+          "kind": "configured",
+          "offset_enu_m": [
+            4.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            -3.9061409408438164,
+            -0.010034170694577717,
+            0.9652556065872354
+          ],
+          "signed_point_distance_m": -0.2053734416493533,
+          "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+          "nominal_sphere_margin_m": -0.6873093123153532,
+          "point_inside_obstacle": true,
+          "static_non_ground_endpoint_clear": false,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9003980309836424,
+            "samples": 47,
+            "sample_cover_radius_m": 0.009786935119387417,
+            "sampled_nominal_margin_m": -0.6873264186172089,
+            "continuous_nominal_margin_lower_bound_m": -0.6971133537365963,
+            "nearest_sample_xyz": [
+              -3.9061409408438164,
+              -0.010034170694577717,
+              0.0648575756035931
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 12.000000000000002,
+            "samples": 602,
+            "sample_cover_radius_m": 0.009983361064891848,
+            "sampled_nominal_margin_m": -0.6873093123153532,
+            "continuous_nominal_margin_lower_bound_m": -0.697292673380245,
+            "nearest_sample_xyz": [
+              -3.9061409408438164,
+              -0.010034170694577717,
+              0.9652556065872354
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          }
+        },
+        {
+          "kind": "configured",
+          "offset_enu_m": [
+            8.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            0.09385842040535675,
+            -0.009717890131135297,
+            0.9674939034444484
+          ],
+          "signed_point_distance_m": 0.8417922201246275,
+          "nearest_obstacle": "unit_cylinder_0_5/link/collision",
+          "nominal_sphere_margin_m": 0.3598563494586276,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9026363278408553,
+            "samples": 47,
+            "sample_cover_radius_m": 0.009811264433052776,
+            "sampled_nominal_margin_m": 0.3598563494586276,
+            "continuous_nominal_margin_lower_bound_m": 0.3500450850255748,
+            "nearest_sample_xyz": [
+              0.09385842040535675,
+              -0.009717890131135297,
+              0.9674939034444484
+            ],
+            "nearest_obstacle": "unit_cylinder_0_5/link/collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 8.0,
+            "samples": 401,
+            "sample_cover_radius_m": 0.01,
+            "sampled_nominal_margin_m": -0.5133228187929451,
+            "continuous_nominal_margin_lower_bound_m": -0.5233228187929451,
+            "nearest_sample_xyz": [
+              2.0938581010299426,
+              -0.009559749849414087,
+              0.9686130518730549
+            ],
+            "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          }
+        },
+        {
+          "kind": "candidate",
+          "offset_enu_m": [
+            6.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            -1.9061412602192291,
+            -0.009876030412856507,
+            0.9663747550158419
+          ],
+          "signed_point_distance_m": 1.7939104731323756,
+          "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+          "nominal_sphere_margin_m": 1.3119746024663757,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9015171794122488,
+            "samples": 47,
+            "sample_cover_radius_m": 0.009799099776220095,
+            "sampled_nominal_margin_m": 1.3119591911816166,
+            "continuous_nominal_margin_lower_bound_m": 1.3021600914053966,
+            "nearest_sample_xyz": [
+              -1.9061412602192291,
+              -0.009876030412856507,
+              0.0648575756035931
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 10.0,
+            "samples": 501,
+            "sample_cover_radius_m": 0.01,
+            "sampled_nominal_margin_m": -0.5133228187929451,
+            "continuous_nominal_margin_lower_bound_m": -0.5233228187929451,
+            "nearest_sample_xyz": [
+              2.0938581010299426,
+              -0.009559749849414087,
+              0.9686130518730549
+            ],
+            "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": false
+          }
+        },
+        {
+          "kind": "candidate",
+          "offset_enu_m": [
+            13.0,
+            0.0,
+            0.0
+          ],
+          "world_imu_goal_xyz": [
+            5.093857621966822,
+            -0.009322539426832272,
+            0.9702917745159647
+          ],
+          "signed_point_distance_m": 2.0812484397014033,
+          "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+          "nominal_sphere_margin_m": 1.5993125690354033,
+          "point_inside_obstacle": false,
+          "static_non_ground_endpoint_clear": true,
+          "vertical_column_to_preflight_ground_height": {
+            "length_m": 0.9054341989123716,
+            "samples": 47,
+            "sample_cover_radius_m": 0.009841676075134474,
+            "sampled_nominal_margin_m": 1.5993125690354033,
+            "continuous_nominal_margin_lower_bound_m": 1.5894708929602688,
+            "nearest_sample_xyz": [
+              5.093857621966822,
+              -0.009322539426832272,
+              0.9702917745159647
+            ],
+            "nearest_obstacle": "unit_cylinder_2_clone/link/collision",
+            "static_non_ground_sphere_corridor_clear": true
+          },
+          "straight_connector_from_first_goal": {
+            "length_m": 3.0000000000000004,
+            "samples": 152,
+            "sample_cover_radius_m": 0.009933774834437088,
+            "sampled_nominal_margin_m": 1.3492069530451627,
+            "continuous_nominal_margin_lower_bound_m": 1.3392731782107257,
+            "nearest_sample_xyz": [
+              8.093857142903701,
+              -0.009085329004250457,
+              0.9719704971588744
+            ],
+            "nearest_obstacle": "blank/Wall_1/Wall_1_Collision",
+            "static_non_ground_sphere_corridor_clear": true
+          }
+        }
+      ],
+      "online_goal_map_classification": "NOT_AVAILABLE: no goal-time raw voxel snapshot was captured by this mission recorder",
+      "ground_plane_checked": false,
+      "flight_admissible": false,
+      "input_sha256": {
+        "artifacts/runs/vio-residual-20261022-060-02/flight.json": "2b8c7c4d7351f2840fa4bbf2fe80f15c73662eb6d86f20fa667d65b5c21df2b1",
+        "artifacts/runs/vio-residual-20261022-060-02/odometry-evaluation.json": "038328a38c96db1a852d8351d1f707a2beedaadfaadc15129af7dd32700aa192",
+        "artifacts/runs/vio-residual-20261022-060-02/world.json": "281a787d77ea0412561e8e8b346ac11f9cd2601ecacab0ff49e1d1f269652555",
+        "artifacts/runs/vio-residual-20261022-060-02/runtime-contract.json": "594105ae05595b020f644859f1a40d2b8a8b5b9f5af268437b674a7bd80289a8",
+        "artifacts/runs/vio-residual-20261022-060-02/vio_initialization.sdf": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+        "config/components/navigation/room_loop_goal.json": "c94e534cf3a9e153c20ad2314d7eeb29c3d2bd5ca9b01fb8eec2b220dddc27f2"
+      },
+      "limitations": [
+        "Static scene geometry and conservative nominal body sphere only; no tracking/localization/braking error budget.",
+        "Ground plane omitted deliberately; landing column is only a geometric nonground check, not a landing controller qualification.",
+        "Straight connectors are geometry hypotheses, not recorded or newly approved planner trajectories.",
+        "Endpoint clearance cannot establish connected known-free space; current-epoch map identity, freshness and full trajectory sweep remain required.",
+        "Candidate offsets stay in this offline report; no enabled flight configuration is generated."
+      ]
+    }
+  ],
+  "source_admission_audit": {
+    "scope": "Read-only source and retained-message audit; absence of a captured map is not proof of its online classification.",
+    "findings": [
+      {
+        "path": "src/own/uav_navigation/uav_navigation/node.py",
+        "line": 119,
+        "observation": "Goal request validates localization, epoch, frame, pose/numeric limits and EGO subscription availability; it performs no map-cell/body-neighborhood query. Execution rechecks context before forwarding but also has no spatial query."
+      },
+      {
+        "path": "src/own/uav_navigation/uav_navigation/task_state.py",
+        "line": 123,
+        "observation": "Task submit performs localization/epoch/task policy, not occupied/unknown/free admission."
+      },
+      {
+        "path": "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp",
+        "line": 260,
+        "observation": "Native NavigationCommand callback validates ids, epoch, frame and finite pose, then queues target. planNextWaypoint calls global reference generation."
+      },
+      {
+        "path": "src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp",
+        "line": 469,
+        "observation": "planGlobalTraj generates a polynomial reference from endpoints; returning true here is not a target-cell or collision certificate."
+      },
+      {
+        "path": "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h",
+        "line": 370,
+        "observation": "getInflateOccupancy returns only the inflation mask for in-map points. Unknown is tracked separately and initialized raw-unknown/inflation-zero, so unknown is not inherently blocked by this query."
+      },
+      {
+        "path": "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp",
+        "line": 790,
+        "observation": "Some cells outside the local update neighborhood are reset to raw unknown. Actual goal-time classification/retention cannot be reconstructed without a synchronous voxel snapshot."
+      },
+      {
+        "path": "src/vendor/ego_planner/planner/bspline_opt/src/bspline_optimizer.cpp",
+        "line": 1618,
+        "observation": "Rebound/refine collision loops check the closest 2/3; FSM safety checking also contains a 2/3 cutoff. This does not establish a complete active-curve swept-body certificate."
+      }
+    ],
+    "source_sha256": {
+      "src/own/uav_navigation/uav_navigation/node.py": "519efff55e82633993d9042dce3fed0eb05b2e38eda5f9e6b2f495529fc0ee0e",
+      "src/own/uav_navigation/uav_navigation/task_state.py": "39c36c58b16a51666c48a5175dd119c8c3c4290ca3d59460ad1db4dccfb3c1fc",
+      "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "47ff46666c3d52c52a03122d64f76e62dcaf9d2d41f6f51e3f1ca916c4bd026f",
+      "src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp": "5949da0cd3f1bb844108107760f63a44931bcd009e4a5ffb55fbebcab4b598a7",
+      "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": "a70c35670eb536ba3232dc7b2215b35f9e3f82dbb6a1f4daf988b3cc5fddb80e",
+      "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": "8d27ed781bfb124d70f28cb8c41ca3322dbd2d4d45fb9f03ab21ed2cb9fd76fc",
+      "src/vendor/ego_planner/planner/bspline_opt/src/bspline_optimizer.cpp": "90875a6af18a89d281a0b903f9e155ab1e78e187ca3cdf6c7db7c49a9efb51d0",
+      "tools/diagnostics/record_planner.py": "903d9922a94b4a0263be0322bd6bae6014d0a87919e9f4260444d1e9f7b50005",
+      "tools/mission_runtime.sh": "3cd88310f2d4d47f5c141a7dfff955301a954da6a5973e11ad4a9ec6567379e8"
+    },
+    "retained_runs": [
+      {
+        "run_id": "vio-residual-20261022-060-01",
+        "epoch": "5ea03681d56c4e06bf4c6b129cc97817",
+        "forwarded_goal_ids": [
+          "41f2e3b020b247699c20979aa5ae550e",
+          "85b8e95eea7e44d38e7a2b2bfe3ae7c0"
+        ],
+        "failed_goal_id": "85b8e95eea7e44d38e7a2b2bfe3ae7c0",
+        "failed_goal_was_forwarded": true,
+        "raw_voxel_snapshot_captured_by_mission": false,
+        "navigation_source_matches_flown_contract": true,
+        "health_policy_hash_unchanged": true
+      },
+      {
+        "run_id": "vio-residual-20261022-060-02",
+        "epoch": "af1887f903a449f084fa266cb12f1a64",
+        "forwarded_goal_ids": [
+          "b4069fd782bd4c82939b2eae12f1642a",
+          "7f2f6b7d489743a28a36ef43e899a448"
+        ],
+        "failed_goal_id": "7f2f6b7d489743a28a36ef43e899a448",
+        "failed_goal_was_forwarded": true,
+        "raw_voxel_snapshot_captured_by_mission": false,
+        "navigation_source_matches_flown_contract": true,
+        "health_policy_hash_unchanged": true
+      }
+    ],
+    "limits": [
+      "No runtime map admission was implemented in this task.",
+      "No goal-time raw occupancy map is available for the retained #060 mission; do not call the goal known-occupied or unknown in that online map.",
+      "The source gaps are confirmed; their exact causal contribution to the recorded clearance failures is not resolved."
+    ]
+  },
+  "regressions": {
+    "unit_tests_passed": 175,
+    "actual_ros_action_250hz_clock": "PASS, maximum pose receipt age0.054s",
+    "clearance_replays": [
+      {
+        "run_id": "vio-residual-20261022-060-01",
+        "canonical_clearance_json_unchanged": true
+      },
+      {
+        "run_id": "vio-residual-20261022-060-02",
+        "canonical_clearance_json_unchanged": true
+      },
+      {
+        "run_id": "loop-observer-20261022-058-04",
+        "canonical_clearance_json_unchanged": true
+      }
+    ],
+    "actual_cli_invalid_offset": {
+      "scope": "Actual offline audit CLI malformed-offset rejection only, not a runtime map/flight test.",
+      "exit": 1,
+      "expected_error": true,
+      "output_created": false
+    },
+    "static_checks": [
+      {
+        "command": [
+          "python3",
+          "tools/project_status.py"
+        ],
+        "exit": 0,
+        "output": "Structure/design check: PASS\nSelf-maintained ROS package manifests: uav_interfaces, uav_localization, uav_mapping, uav_navigation, uav_px4_bridge, uav_sim\nROS builds and SITL are outside this structural check\nNext: qualify VINS map/fault response, trajectory tracking, snapshots and sustained runtime\n"
+      },
+      {
+        "command": [
+          "python3",
+          "-m",
+          "py_compile",
+          "tools/debug_truth/world_geometry.py",
+          "tools/debug_truth/audit_navigation_goals.py",
+          "tools/debug_truth/evaluate_clearance.py",
+          "tools/test_goal_geometry_audit.py"
+        ],
+        "exit": 0,
+        "output": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit": 0,
+        "output": ""
+      }
+    ]
+  },
+  "old_loop_profile_remains_disabled": true,
+  "limits": [
+    "Static nominal nonground clearance is not an uncertainty/braking budget, connected known-free path, landing controller validation or complete flight safety certificate.",
+    "Candidate13m means returning3m from16m, for a future small maneuver test only; the pinned loop matcher excludes the most recent50 keyframes, so this is not a ready true-loop test.",
+    "No health/control/mapping behavior or third-party numerical source changed; no milestone upgraded.",
+    "Unknown, out-of-map, map identity/freshness and whole-trajectory/body safety still need runtime admission/verification before flying."
+  ],
+  "next_small_step": "Implement a read-only current-epoch, fresh-map goal/body-neighborhood query and reject occupied/unknown/out-of-map before forwarding a goal. Validate in isolation without arming; full-trajectory safety remains a separate prerequisite.",
+  "audit_code_sha256": {
+    "tools/debug_truth/world_geometry.py": "5894e77f02bbf9b0ba1111018ecc0e0d26a805509d0ed9010a1bd9325a124052",
+    "tools/debug_truth/audit_navigation_goals.py": "e2b9f911c80424dd3c950f3c441ba3120a6a49b3dab7b466c028260370d54dbc",
+    "tools/debug_truth/evaluate_clearance.py": "e587590c389ea98bb733f5ca5585ca0ee8698321c6b954d8cef0ff9b9db3926b",
+    "tools/test_goal_geometry_audit.py": "71ec0af3ac4320a4d25552eb2a095ad93aed70f7a7f5ff55df00608e48897d6e"
+  },
+  "artifacts_manifest": "artifacts/runs/goal-admission-20261022-061-checks/artifact-sha256.json",
+  "artifacts_manifest_sha256": "a020d82a936c59fa76e08e52ac24584f997ce614ce4c804bcdf91dbaeab290e0",
+  "artifact_files_hashed": 13
+}

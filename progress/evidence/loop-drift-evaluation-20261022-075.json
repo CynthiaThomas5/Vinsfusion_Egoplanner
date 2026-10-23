@@ -1,0 +1,279 @@
+{
+  "goal": "#075: compare raw VINS and loop_fusion corrected odometry against independent truth in existing run 074-02",
+  "status": "completed_offline_evaluation",
+  "run_id": "real-loop-20261022-074-02",
+  "epoch": "d612f794c58d4c898a03adcc1d7603b0",
+  "method": "one rigid pose alignment from raw VINS to independent Gazebo IMU truth at the initial stationary hold; the identical rotation and translation are applied to loop output",
+  "alignment": {
+    "raw_anchor_source_ns": 37423999999,
+    "stationary_hold_begin_sim_s": 36.532,
+    "target_alignment_sim_s": 37.532,
+    "scale": 1,
+    "same_transform_applied_to_both_streams": true,
+    "post_loop_realignments": 0
+  },
+  "support": {
+    "paired_samples_after_alignment": 4586,
+    "raw_coverage_fraction_after_alignment": 1.0,
+    "duration_sim_s": 747.384,
+    "max_truth_interpolation_gap_ns": 20000000,
+    "max_raw_sample_gap_ns": 264000000,
+    "time_weighted_max_gap_ns": 200000000
+  },
+  "first_measured_pose_correction": {
+    "source_ns": 525495999999,
+    "sim_s": 525.495999999,
+    "seconds_after_nearest_verified_loop_keyframe": 0.332,
+    "nearest_loop_edge": {
+      "old_index": 5,
+      "current_index": 63,
+      "source_ns": 525163999999
+    },
+    "raw_to_corrected_translation_m": 0.034017444911993454,
+    "raw_to_corrected_rotation_deg": 0.011155180259250132,
+    "change_from_previous_transform_translation_m": 0.034017444911993454,
+    "change_from_previous_transform_rotation_deg": 0.011155180259250132,
+    "transform_step_detection_tolerance": {
+      "translation_m": 1e-05,
+      "rotation_deg": 1e-05
+    }
+  },
+  "verified_loop_edges": [
+    {
+      "old_index": 5,
+      "current_index": 63,
+      "old_source_ns": 122236000000,
+      "current_source_ns": 525163999999,
+      "separation_sim_s": 402.927999999,
+      "actual_imu_separation_m": 0.09178351971225114,
+      "translation_error_m": 0.035031895457202346,
+      "rotation_error_deg": 0.3173368353374574
+    },
+    {
+      "old_index": 7,
+      "current_index": 68,
+      "old_source_ns": 126063999999,
+      "current_source_ns": 571364000000,
+      "separation_sim_s": 445.300000001,
+      "actual_imu_separation_m": 0.038233352057130465,
+      "translation_error_m": 0.018219019628939313,
+      "rotation_error_deg": 0.10895688462544925
+    },
+    {
+      "old_index": 4,
+      "current_index": 92,
+      "old_source_ns": 120519999999,
+      "current_source_ns": 723628000000,
+      "separation_sim_s": 603.108000001,
+      "actual_imu_separation_m": 0.0010091531230475698,
+      "translation_error_m": 0.027546357009908,
+      "rotation_error_deg": 0.22591282339775703
+    },
+    {
+      "old_index": 6,
+      "current_index": 94,
+      "old_source_ns": 124016000000,
+      "current_source_ns": 727059999999,
+      "separation_sim_s": 603.043999999,
+      "actual_imu_separation_m": 0.000723768271016827,
+      "translation_error_m": 0.03324287908799399,
+      "rotation_error_deg": 0.18684673109700548
+    }
+  ],
+  "measured_pose_transform_steps": [
+    {
+      "source_ns": 525495999999,
+      "sim_s": 525.495999999,
+      "seconds_after_nearest_verified_loop_keyframe": 0.332,
+      "nearest_loop_edge": {
+        "old_index": 5,
+        "current_index": 63,
+        "source_ns": 525163999999
+      },
+      "raw_to_corrected_translation_m": 0.034017444911993454,
+      "raw_to_corrected_rotation_deg": 0.011155180259250132,
+      "change_from_previous_transform_translation_m": 0.034017444911993454,
+      "change_from_previous_transform_rotation_deg": 0.011155180259250132,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    },
+    {
+      "source_ns": 571892000000,
+      "sim_s": 571.892,
+      "seconds_after_nearest_verified_loop_keyframe": 0.528,
+      "nearest_loop_edge": {
+        "old_index": 7,
+        "current_index": 68,
+        "source_ns": 571364000000
+      },
+      "raw_to_corrected_translation_m": 0.04195073800102109,
+      "raw_to_corrected_rotation_deg": 0.024896615191315037,
+      "change_from_previous_transform_translation_m": 0.019448110995230635,
+      "change_from_previous_transform_rotation_deg": 0.013741434910802715,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    },
+    {
+      "source_ns": 724615999999,
+      "sim_s": 724.615999999,
+      "seconds_after_nearest_verified_loop_keyframe": 0.987999999,
+      "nearest_loop_edge": {
+        "old_index": 4,
+        "current_index": 92,
+        "source_ns": 723628000000
+      },
+      "raw_to_corrected_translation_m": 0.08123143444232732,
+      "raw_to_corrected_rotation_deg": 0.053506362861872506,
+      "change_from_previous_transform_translation_m": 0.03943604240019786,
+      "change_from_previous_transform_rotation_deg": 0.028609747662627596,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    },
+    {
+      "source_ns": 728248000000,
+      "sim_s": 728.248,
+      "seconds_after_nearest_verified_loop_keyframe": 1.188000001,
+      "nearest_loop_edge": {
+        "old_index": 6,
+        "current_index": 94,
+        "source_ns": 727059999999
+      },
+      "raw_to_corrected_translation_m": 0.0755819750967553,
+      "raw_to_corrected_rotation_deg": 0.07768410304891987,
+      "change_from_previous_transform_translation_m": 0.009593308265598212,
+      "change_from_previous_transform_rotation_deg": 0.02417774019272007,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    }
+  ],
+  "metrics": {
+    "entire_supported_record_after_alignment": {
+      "sample_pairs": 4586,
+      "sample_span_s": 747.384,
+      "position_sample_rmse_cm": {
+        "raw_vins": 7.014645319338316,
+        "loop_corrected": 4.815397796911015,
+        "reduction_percent": 31.352226980946675
+      },
+      "yaw_sample_rmse_deg": {
+        "raw_vins": 0.8103134778901883,
+        "loop_corrected": 0.7913996289647007,
+        "reduction_percent": 2.33413974240358
+      },
+      "position_time_weighted_rmse_cm": {
+        "raw_vins": 6.93291191156572,
+        "loop_corrected": 4.8115100233178865,
+        "support_fraction": 0.90322511539182
+      }
+    },
+    "after_first_pose_correction_through_end": {
+      "sample_pairs": 1604,
+      "sample_span_s": 259.312,
+      "position_sample_rmse_cm": {
+        "raw_vins": 10.336937362447378,
+        "loop_corrected": 5.697934634340638,
+        "reduction_percent": 44.87792240049337
+      },
+      "yaw_sample_rmse_deg": {
+        "raw_vins": 1.196415459200866,
+        "loop_corrected": 1.1596528391342895,
+        "reduction_percent": 3.0727302780868215
+      },
+      "position_time_weighted_rmse_cm": {
+        "raw_vins": 10.299480960375606,
+        "loop_corrected": 5.7043425015635565,
+        "support_fraction": 0.881748626550256
+      }
+    },
+    "cycle_7_return_last_10_seconds": {
+      "sample_pairs": 60,
+      "sample_span_s": 9.635999999,
+      "position_sample_rmse_cm": {
+        "raw_vins": 12.34802141123078,
+        "loop_corrected": 4.915396373771568,
+        "reduction_percent": 60.19284215606467
+      },
+      "yaw_sample_rmse_deg": {
+        "raw_vins": 1.3645991784884344,
+        "loop_corrected": 1.2869150856797644,
+        "reduction_percent": 5.692813980345537
+      },
+      "position_time_weighted_rmse_cm": {
+        "raw_vins": 12.348005245001342,
+        "loop_corrected": 4.915408867667458,
+        "support_fraction": 0.8962224984325676
+      }
+    }
+  },
+  "run_state": {
+    "fixture_outcome": "unarmed_support_loop_revisit_completed",
+    "fixture_error": "",
+    "fixture_may_remain_attached": false,
+    "disarmed_before_stop": true,
+    "px4_arming_state": 1,
+    "backend_exit_code": 0
+  },
+  "loop_evaluation": {
+    "keyframes": 101,
+    "candidates": 50,
+    "verified_loops": 4,
+    "optimizations": 4,
+    "checks_all_true": true,
+    "checks": {
+      "actual_candidate": true,
+      "actual_verified_loop": true,
+      "actual_graph_optimization": true,
+      "finite_graph_solution": true,
+      "observed_graph_pose_update": true,
+      "independent_edge_geometry": true,
+      "normal_backend_exit": true,
+      "consistent_output_frame": true,
+      "no_control_or_tf_outputs": true,
+      "no_truth_input_to_backend": true,
+      "raw_session_inputs": true,
+      "same_camera_exposure": true,
+      "bounded_queues": true
+    },
+    "no_truth_input_to_backend": true,
+    "no_control_or_tf_outputs": true
+  },
+  "independent_validation": {
+    "analysis_command_exit_code": 0,
+    "csv_position_rmse_recomputed_for_all_three_windows": true,
+    "csv_rmse_max_absolute_delta": 6.938893903907228e-18,
+    "input_hashes_match": {
+      "fixture-odometry.jsonl": true,
+      "fixture-truth.jsonl": true,
+      "fixture-trace.jsonl": true,
+      "fixture-stages.json": true,
+      "fixture-result.json": true,
+      "loop-observation.json": true,
+      "loop-observer-manifest.json": true,
+      "real-loop-evaluation.json": true
+    },
+    "analysis_script_hash_matches": true,
+    "model_sdf_hash_matches": true
+  },
+  "artifact_sha256": {
+    "compare_loop_drift.py": "ef505b2834d7f53c85a931ee54757371b08a3f9616a39f4cf28cde308e1f3408",
+    "loop-drift-comparison.json": "ac33ecf3688338918b6fccf24bd8249829e67a71492115c6699773a9a932a460",
+    "loop-drift-comparison.csv": "9f9eeb4124dda4b9d3a8f99e764cc2ba528c462fd461e4df3c69bfb964f074d3",
+    "loop-drift-comparison.png": "7d19f4847996e8a6dcca67807cbcb887443d3f423810a7baf631e2d372299a84",
+    "loop-drift-comparison.log": "ac33ecf3688338918b6fccf24bd8249829e67a71492115c6699773a9a932a460"
+  },
+  "interpretation": "Loop corrections reduced this run’s position error, but residual position and yaw error remain; a single unarmed simulation does not establish non-drifting behavior, repeatability, flight qualification, or control integration.",
+  "limitations": [
+    "Single Gazebo fixture run.",
+    "Offline truth is not consumed by the loop backend or control chain.",
+    "Time-weighted statistics exclude intervals with source-sample gaps greater than 200ms.",
+    "No flight, real-device or control-integration evidence."
+  ]
+}

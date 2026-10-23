@@ -1,0 +1,505 @@
+{
+  "schema": "n03-depth-fusion-continuity-evidence-v1",
+  "goal": "N03 深度实际融合连续性",
+  "status": "passed",
+  "scope": "Three independent 150-second full idle PX4 SITL/VINS/adapter/plan_env/EGO/navigation epochs plus one current-version bounded depth-drop/reset run; no arming, navigation command, displacement, or trajectory.",
+  "predeclared_limits": {
+    "plan_env_source_age_sim_s": 0.4,
+    "plan_env_fusion_completion_interval_sim_s": 0.4,
+    "adapter_pending_depth_queue_size": 8,
+    "qualification": "three distinct fresh epochs; no normal input gaps; reset ack and new map identity rebuild after bounded depth outage"
+  },
+  "build": {
+    "command": "bash tools/project.sh build ros",
+    "result": "passed",
+    "packages_finished": 17
+  },
+  "regression": {
+    "command": "bash tools/project.sh test",
+    "result": "passed",
+    "tests_passed": 223
+  },
+  "structure_check": {
+    "command": "python3 tools/project_status.py",
+    "result": "passed",
+    "scope_note": "Structure/design only; not build or SITL evidence."
+  },
+  "patch_check": {
+    "command": "patch --dry-run -R -p1 -d src/vendor/ego_planner < dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch",
+    "result": "passed"
+  },
+  "runtime_contract_sha256": "c282fbf2644770a260b11cc85c8eb7378a2e9cac5f1b68ae8c04701ea076ed7f",
+  "runtime_contract_sha256_identical_across_all_runs": true,
+  "source_hashes": {
+    "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch": "415bda74f7b180ad7904825c019c2606395361095dcaeeefd584012526856b2f",
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": "a8e4ff2a87d0dd46cee4b03f6acca05ffc803f65630674f50369d47225e437bf",
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": "83dc43ec044e22b00ee06c67ec6d1839600f13481cb0bd8f03c4bbcdbd392d92",
+    "src/own/uav_interfaces/msg/MapStatus.msg": "1822d5169f20c505764378bcef4498a0742b892eeebc94c3ff597c4a46c94b6f",
+    "src/own/uav_mapping/uav_mapping/adapter.py": "249b6c2f9f93372b9d978311377c121e38ba279ff06066e336576436f66f3cd7",
+    "tools/probe_depth_fusion_continuity.py": "b9aa5752dbd7983b70a4b7f005ba99da25564940ce5be6b05bc553babcfedfd6",
+    "tools/test_depth_fusion_continuity.py": "9f1a203c42d0c69d98a71f9feaf885286f8512985eec85cd5e552386f05f9085",
+    "config/components/simulation/n03_depth_fault_bridge.yaml": "ea5c6b7e1ee04dd91b2b3d3599ba56473eb4d7a2b6c1f5e39a5a59adcf66474f"
+  },
+  "qualification_runs": [
+    {
+      "run_id": "n03-fusion-20261022-090-01",
+      "classification": "qualified_idle_epoch",
+      "wall_seconds": 150.050916,
+      "runtime_contract_sha256": "c282fbf2644770a260b11cc85c8eb7378a2e9cac5f1b68ae8c04701ea076ed7f",
+      "raw_report": "artifacts/runs/n03-fusion-20261022-090-01/depth-fusion-continuity.json",
+      "raw_report_sha256": "8af62879b9daef328a2efa9c36f9224e0d9df92f0865f1d67f9f4d5df49a298e",
+      "epochs": [
+        "d00e7534177b49d696c9b44b0a63e357"
+      ],
+      "map_ids": [
+        "d00e7534177b49d696c9b44b0a63e357-74554bb9ac1245b9b1bb2c172ce5e49e"
+      ],
+      "raw_depth_count": 3396,
+      "adapter_depth_output_count": 3394,
+      "adapter_pose_output_count": 3394,
+      "exact_adapter_depth_pose_stamp_pairs": 3394,
+      "ego_synced_pair_callback_count": 3394,
+      "ego_synced_stamp_mismatch_count": 0,
+      "plan_env_fusion_complete_count": 1740,
+      "fusion_complete_ros_interval_s": {
+        "count": 1739,
+        "p50_s": 0.068,
+        "p95_s": 0.088,
+        "max_s": 0.104
+      },
+      "fusion_complete_source_interval_s": {
+        "count": 1739,
+        "p50_s": 0.064,
+        "p95_s": 0.1,
+        "max_s": 0.1
+      },
+      "callback_source_age_s": {
+        "p95": 0.132,
+        "max": 0.136
+      },
+      "fusion_source_age_s": {
+        "p95": 0.132,
+        "max": 0.156
+      },
+      "adapter_publish_to_ego_callback_wall_s": {
+        "count": 647,
+        "p95": 0.003896,
+        "max": 0.019025
+      },
+      "ego_callback_to_fusion_wall_s": {
+        "count": 1740,
+        "p95": 0.05687,
+        "max": 0.061488
+      },
+      "map_status_input_ready_duration_s": {
+        "sample_count": 647,
+        "max_true_s": 147.761476,
+        "max_false_s": 0.0
+      },
+      "map_status_input_ready_after_bootstrap_duration_s": {
+        "sample_count": 647,
+        "max_true_s": 147.761476,
+        "max_false_s": 0.0
+      },
+      "pending_depth_high_water_count": 4,
+      "pending_depth_count_max": 3,
+      "map_query_count": 590,
+      "map_query_accepted_count": 372,
+      "map_query_acceptance_ratio": 0.630508,
+      "map_query_rejections_by_reason": {
+        "no_fresh_fused_depth": 218
+      },
+      "successful_query_source_age_s": {
+        "p95": 0.16,
+        "max": 0.168
+      },
+      "successful_query_max_sim_gap_s": 1.372,
+      "diagnostic_freshness_gate": {
+        "limit_s": 0.4,
+        "query_age_pass": true,
+        "fusion_age_and_interval_pass": true,
+        "adapter_ready_after_bootstrap_pass": true,
+        "adapter_pending_queue_pass": true,
+        "pass": true
+      },
+      "vehicle_arming_states": [
+        1
+      ],
+      "navigation_command_count": 0,
+      "cgroup_memory_peak_bytes": 1847156736,
+      "cgroup_cpu_usage_usec_delta": 924291740,
+      "dropped_depth_count_at_first_ready": 41,
+      "steady_state_dropped_depth_count_delta_after_10s": 0,
+      "steady_state_dropped_depth_count_min_after_10s": 41,
+      "steady_state_dropped_depth_count_max_after_10s": 41
+    },
+    {
+      "run_id": "n03-fusion-20261022-090-02",
+      "classification": "qualified_idle_epoch",
+      "wall_seconds": 150.07468,
+      "runtime_contract_sha256": "c282fbf2644770a260b11cc85c8eb7378a2e9cac5f1b68ae8c04701ea076ed7f",
+      "raw_report": "artifacts/runs/n03-fusion-20261022-090-02/depth-fusion-continuity.json",
+      "raw_report_sha256": "3089080dcbd9b1ee5b3b49f2f7a3529ce6af74cd2891ae7a1c1691675e695420",
+      "epochs": [
+        "df676b0c309a472da3df4b3a4f0a087a"
+      ],
+      "map_ids": [
+        "df676b0c309a472da3df4b3a4f0a087a-36c65e7c3e464317b5d0a9fa4ce101cc"
+      ],
+      "raw_depth_count": 3437,
+      "adapter_depth_output_count": 3439,
+      "adapter_pose_output_count": 3439,
+      "exact_adapter_depth_pose_stamp_pairs": 3439,
+      "ego_synced_pair_callback_count": 3436,
+      "ego_synced_stamp_mismatch_count": 0,
+      "plan_env_fusion_complete_count": 1751,
+      "fusion_complete_ros_interval_s": {
+        "count": 1750,
+        "p50_s": 0.072,
+        "p95_s": 0.088,
+        "max_s": 0.108
+      },
+      "fusion_complete_source_interval_s": {
+        "count": 1750,
+        "p50_s": 0.064,
+        "p95_s": 0.1,
+        "max_s": 0.1
+      },
+      "callback_source_age_s": {
+        "p95": 0.132,
+        "max": 0.132
+      },
+      "fusion_source_age_s": {
+        "p95": 0.132,
+        "max": 0.156
+      },
+      "adapter_publish_to_ego_callback_wall_s": {
+        "count": 655,
+        "p95": 0.003689,
+        "max": 0.017003
+      },
+      "ego_callback_to_fusion_wall_s": {
+        "count": 1751,
+        "p95": 0.056776,
+        "max": 0.061053
+      },
+      "map_status_input_ready_duration_s": {
+        "sample_count": 656,
+        "max_true_s": 149.905265,
+        "max_false_s": 0.0
+      },
+      "map_status_input_ready_after_bootstrap_duration_s": {
+        "sample_count": 656,
+        "max_true_s": 149.905265,
+        "max_false_s": 0.0
+      },
+      "pending_depth_high_water_count": 3,
+      "pending_depth_count_max": 3,
+      "map_query_count": 595,
+      "map_query_accepted_count": 404,
+      "map_query_acceptance_ratio": 0.678992,
+      "map_query_rejections_by_reason": {
+        "no_fresh_fused_depth": 191
+      },
+      "successful_query_source_age_s": {
+        "p95": 0.156,
+        "max": 0.164
+      },
+      "successful_query_max_sim_gap_s": 1.424,
+      "diagnostic_freshness_gate": {
+        "limit_s": 0.4,
+        "query_age_pass": true,
+        "fusion_age_and_interval_pass": true,
+        "adapter_ready_after_bootstrap_pass": true,
+        "adapter_pending_queue_pass": true,
+        "pass": true
+      },
+      "vehicle_arming_states": [
+        1
+      ],
+      "navigation_command_count": 0,
+      "cgroup_memory_peak_bytes": 1672847360,
+      "cgroup_cpu_usage_usec_delta": 937738311,
+      "dropped_depth_count_at_first_ready": 41,
+      "steady_state_dropped_depth_count_delta_after_10s": 0,
+      "steady_state_dropped_depth_count_min_after_10s": 41,
+      "steady_state_dropped_depth_count_max_after_10s": 41
+    },
+    {
+      "run_id": "n03-fusion-20261022-090-04",
+      "classification": "qualified_idle_epoch",
+      "wall_seconds": 150.071382,
+      "runtime_contract_sha256": "c282fbf2644770a260b11cc85c8eb7378a2e9cac5f1b68ae8c04701ea076ed7f",
+      "raw_report": "artifacts/runs/n03-fusion-20261022-090-04/depth-fusion-continuity.json",
+      "raw_report_sha256": "fd5b3376c64f32abc89fafc55a79c4e40e389565fc68b0edd8497cb8fc48b211",
+      "epochs": [
+        "873c93bf204e43398ad93e9540865cb9"
+      ],
+      "map_ids": [
+        "873c93bf204e43398ad93e9540865cb9-367b06d82e1e4e21bfd8d5df8bbdbef4"
+      ],
+      "raw_depth_count": 3427,
+      "adapter_depth_output_count": 3429,
+      "adapter_pose_output_count": 3429,
+      "exact_adapter_depth_pose_stamp_pairs": 3429,
+      "ego_synced_pair_callback_count": 3424,
+      "ego_synced_stamp_mismatch_count": 0,
+      "plan_env_fusion_complete_count": 1764,
+      "fusion_complete_ros_interval_s": {
+        "count": 1763,
+        "p50_s": 0.068,
+        "p95_s": 0.088,
+        "max_s": 0.112
+      },
+      "fusion_complete_source_interval_s": {
+        "count": 1763,
+        "p50_s": 0.064,
+        "p95_s": 0.1,
+        "max_s": 0.1
+      },
+      "callback_source_age_s": {
+        "p95": 0.128,
+        "max": 0.14
+      },
+      "fusion_source_age_s": {
+        "p95": 0.132,
+        "max": 0.152
+      },
+      "adapter_publish_to_ego_callback_wall_s": {
+        "count": 657,
+        "p95": 0.004789,
+        "max": 0.016944
+      },
+      "ego_callback_to_fusion_wall_s": {
+        "count": 1764,
+        "p95": 0.055605,
+        "max": 0.0612
+      },
+      "map_status_input_ready_duration_s": {
+        "sample_count": 658,
+        "max_true_s": 149.91611,
+        "max_false_s": 0.0
+      },
+      "map_status_input_ready_after_bootstrap_duration_s": {
+        "sample_count": 658,
+        "max_true_s": 149.91611,
+        "max_false_s": 0.0
+      },
+      "pending_depth_high_water_count": 4,
+      "pending_depth_count_max": 3,
+      "map_query_count": 596,
+      "map_query_accepted_count": 358,
+      "map_query_acceptance_ratio": 0.600671,
+      "map_query_rejections_by_reason": {
+        "no_fresh_fused_depth": 238
+      },
+      "successful_query_source_age_s": {
+        "p95": 0.148,
+        "max": 0.164
+      },
+      "successful_query_max_sim_gap_s": 1.584,
+      "diagnostic_freshness_gate": {
+        "limit_s": 0.4,
+        "query_age_pass": true,
+        "fusion_age_and_interval_pass": true,
+        "adapter_ready_after_bootstrap_pass": true,
+        "adapter_pending_queue_pass": true,
+        "pass": true
+      },
+      "vehicle_arming_states": [
+        1
+      ],
+      "navigation_command_count": 0,
+      "cgroup_memory_peak_bytes": 1644412928,
+      "cgroup_cpu_usage_usec_delta": 916221510,
+      "dropped_depth_count_at_first_ready": 41,
+      "steady_state_dropped_depth_count_delta_after_10s": 0,
+      "steady_state_dropped_depth_count_min_after_10s": 41,
+      "steady_state_dropped_depth_count_max_after_10s": 41
+    }
+  ],
+  "retained_failed_startup": {
+    "run_id": "n03-fusion-20261022-090-03",
+    "classification": "retained_failed_startup",
+    "wall_seconds": 150.035284,
+    "runtime_contract_sha256": "c282fbf2644770a260b11cc85c8eb7378a2e9cac5f1b68ae8c04701ea076ed7f",
+    "raw_report": "artifacts/runs/n03-fusion-20261022-090-03/depth-fusion-continuity.json",
+    "raw_report_sha256": "a4f1545e34c6f0a78b6898591afc6d7e914832d674d7541487ec9285f53211c2",
+    "epochs": [],
+    "map_ids": [
+      "f8a0d4d932944e15bb98ea90235dd530-0f8d4ddcdf5842f3bbb4c8bd6dee8662",
+      "f8a0d4d932944e15bb98ea90235dd530-3ff73538ab274b5c81e9cd723e44a9e0"
+    ],
+    "raw_depth_count": 3425,
+    "adapter_depth_output_count": 2,
+    "adapter_pose_output_count": 2,
+    "exact_adapter_depth_pose_stamp_pairs": 2,
+    "ego_synced_pair_callback_count": 0,
+    "ego_synced_stamp_mismatch_count": 0,
+    "plan_env_fusion_complete_count": 0,
+    "fusion_complete_ros_interval_s": {
+      "count": 0,
+      "p50_s": null,
+      "p95_s": null,
+      "max_s": null
+    },
+    "fusion_complete_source_interval_s": {
+      "count": 0,
+      "p50_s": null,
+      "p95_s": null,
+      "max_s": null
+    },
+    "callback_source_age_s": {
+      "p95": null,
+      "max": null
+    },
+    "fusion_source_age_s": {
+      "p95": null,
+      "max": null
+    },
+    "adapter_publish_to_ego_callback_wall_s": {
+      "count": 0,
+      "p95": null,
+      "max": null
+    },
+    "ego_callback_to_fusion_wall_s": {
+      "count": 0,
+      "p95": null,
+      "max": null
+    },
+    "map_status_input_ready_duration_s": {
+      "sample_count": 652,
+      "max_true_s": 0.12281,
+      "max_false_s": 149.493507
+    },
+    "map_status_input_ready_after_bootstrap_duration_s": {
+      "sample_count": 652,
+      "max_true_s": 0.12281,
+      "max_false_s": 149.493507
+    },
+    "pending_depth_high_water_count": 8,
+    "pending_depth_count_max": 0,
+    "map_query_count": 0,
+    "map_query_accepted_count": 0,
+    "map_query_acceptance_ratio": 0.0,
+    "map_query_rejections_by_reason": {},
+    "successful_query_source_age_s": {
+      "p95": null,
+      "max": null
+    },
+    "successful_query_max_sim_gap_s": null,
+    "diagnostic_freshness_gate": {
+      "limit_s": 0.4,
+      "query_age_pass": false,
+      "fusion_age_and_interval_pass": false,
+      "adapter_ready_after_bootstrap_pass": false,
+      "adapter_pending_queue_pass": true,
+      "pass": false
+    },
+    "vehicle_arming_states": [
+      1
+    ],
+    "navigation_command_count": 0,
+    "cgroup_memory_peak_bytes": 1653157888,
+    "cgroup_cpu_usage_usec_delta": 882867543,
+    "localization_history": [
+      {
+        "wall_elapsed_s": 0.085441,
+        "monotonic_ns": 1173823061406316,
+        "epoch": "f8a0d4d932944e15bb98ea90235dd530",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_f8a0d4d932944e15bb98ea90235dd530"
+      },
+      {
+        "wall_elapsed_s": 0.436944,
+        "monotonic_ns": 1173823412899617,
+        "epoch": "f8a0d4d932944e15bb98ea90235dd530",
+        "state": 4,
+        "valid": false,
+        "reason": "telemetry_stale",
+        "frame_id": "odom_f8a0d4d932944e15bb98ea90235dd530"
+      }
+    ],
+    "note": "At 0.437 wall seconds existing localization health locked on telemetry_stale; VINS/telemetry later continued, but adapter correctly cleared the map. This run has no EGO fusion and is not counted as a qualified epoch. No health threshold was changed."
+  },
+  "fault_injection": {
+    "run_id": "n03-fusion-20261022-090-fault",
+    "raw_report": "artifacts/runs/n03-fusion-20261022-090-fault/depth-fusion-continuity.json",
+    "raw_report_sha256": "87adc7ab9f4c1e8dabbca73bc358a5d29b1f7f35e045f5f006904f859587d127",
+    "relay_topic": "/fault/input/depth -> /sensors/d435i/depth",
+    "forwarded_before_drop": 300,
+    "requested_drop_duration_s": 2.0,
+    "actual_drop_duration_s": 2.015343,
+    "depth_health_stale_wall_elapsed_s": 15.244991,
+    "depth_health_ready_after_stale_wall_elapsed_s": 16.253071,
+    "depth_health_stale_duration_s": 1.00808,
+    "map_identity_timeline": [
+      {
+        "wall_elapsed_s": 0.088599,
+        "map_id": "d382ec11036746caaf194f6102aec7e9-f742b82830ae4c839c546f5251b7ee60",
+        "reset_acknowledged": true,
+        "input_ready": false,
+        "reason": "map_reset_acknowledged"
+      },
+      {
+        "wall_elapsed_s": 1.450397,
+        "map_id": "d382ec11036746caaf194f6102aec7e9-f742b82830ae4c839c546f5251b7ee60",
+        "reset_acknowledged": true,
+        "input_ready": true,
+        "reason": "ready"
+      },
+      {
+        "wall_elapsed_s": 15.290926,
+        "map_id": "d382ec11036746caaf194f6102aec7e9-5cfd7bd33d5d4a1da7ca09f86f6e88e9",
+        "reset_acknowledged": true,
+        "input_ready": false,
+        "reason": "map_reset_acknowledged"
+      },
+      {
+        "wall_elapsed_s": 16.391693,
+        "map_id": "d382ec11036746caaf194f6102aec7e9-5cfd7bd33d5d4a1da7ca09f86f6e88e9",
+        "reset_acknowledged": true,
+        "input_ready": true,
+        "reason": "ready"
+      }
+    ],
+    "old_map_id": "d382ec11036746caaf194f6102aec7e9-f742b82830ae4c839c546f5251b7ee60",
+    "new_map_id": "d382ec11036746caaf194f6102aec7e9-5cfd7bd33d5d4a1da7ca09f86f6e88e9",
+    "plan_env_reset_trace_count": 1,
+    "first_fusion_new_identity": {
+      "wall_elapsed_s": 16.435971,
+      "source_stamp_ns": 53496000000,
+      "fused_count": 1
+    },
+    "new_identity_fusion_count": 1571,
+    "stale_identity_queries": [
+      {
+        "accepted": false,
+        "reason": "map_id_mismatch",
+        "expected_map_id": "d382ec11036746caaf194f6102aec7e9-f742b82830ae4c839c546f5251b7ee60"
+      }
+    ],
+    "new_identity_accepted_query_count": 300,
+    "new_identity_accepted_query_max_source_age_s": 0.184,
+    "full_window_continuity_gate_pass": false,
+    "expected_gate_closure_evidence": {
+      "max_false_run_after_bootstrap_wall_s": 1.100767,
+      "fusion_max_interval_s_sim": 1.588
+    },
+    "vehicle_arming_states": [
+      1
+    ],
+    "navigation_command_count": 0
+  },
+  "interpretation": {
+    "planner_freshness": "The EGO curve-admission path calls GridMap::queryReadiness with require_no_pending=false and retains epoch/map identity, pose-in-map, timeout, and 0.4-second source/update age guards. The sphere query service remains stricter and rejects while a new input pair is pending; those no_fresh_fused_depth responses are recorded separately and do not replace the continuous completed-fusion trace.",
+    "limits": "These are unarmed static idle windows. N09/formal task runs still need to show continuity from target admission through task completion. The retained telemetry_stale cold-start failure remains for N10 applicability follow-up."
+  },
+  "stop_state": {
+    "all_project_containers_stopped": true,
+    "all_observed_vehicle_arming_states_disarmed": true,
+    "navigation_commands_observed": 0
+  }
+}

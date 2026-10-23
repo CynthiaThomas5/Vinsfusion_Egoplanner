@@ -70,6 +70,9 @@ class MappingInputAdapter(Node):
         self.last_depth_stamp = None
         self.forwarded = 0
         self.dropped = 0
+        self.depth_callback_count = 0
+        self.pending_depth_high_water_count = 0
+        self.last_depth_forward_monotonic_ns = 0
 
         sensor_qos = qos_profile_sensor_data
         status_qos = QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE,
@@ -113,6 +116,7 @@ class MappingInputAdapter(Node):
         self.pending_keyframe_depth.clear()
         self.last_keyframe_stamp_ns = None
         self.last_map_source_stamp_ns = None
+        self.last_depth_forward_monotonic_ns = 0
         self.last_occupancy_stamp_ns = None
         self.occupied_point_count = 0
         self.occupancy_cloud_received = False
@@ -244,6 +248,7 @@ class MappingInputAdapter(Node):
         self._flush()
 
     def on_depth(self, msg):
+        self.depth_callback_count += 1
         if self.latched:
             return
         stamp = stamp_ns(msg.header)
@@ -274,6 +279,8 @@ class MappingInputAdapter(Node):
         while len(self.pending_depth) > self.policy['pending_depth_size']:
             self.pending_depth.popleft()
             self.dropped += 1
+        self.pending_depth_high_water_count = max(
+            self.pending_depth_high_water_count, len(self.pending_depth))
         self._flush()
 
     def on_color(self, msg):
@@ -334,6 +341,11 @@ class MappingInputAdapter(Node):
         status.occupancy_cloud_received = self.occupancy_cloud_received
         status.occupied_point_count = self.occupied_point_count
         status.forwarded_depth_count = self.forwarded
+        status.depth_callback_count = self.depth_callback_count
+        status.pending_depth_count = len(self.pending_depth)
+        status.pending_depth_high_water_count = self.pending_depth_high_water_count
+        status.dropped_depth_count = self.dropped
+        status.last_depth_forward_monotonic_ns = self.last_depth_forward_monotonic_ns
         status.calibration_sha256 = self.rig['model_sha256']
         status.input_config_sha256 = self.policy_sha256
         status.keyframe_count = self.keyframe_count
@@ -465,6 +477,7 @@ class MappingInputAdapter(Node):
                 out_pose.pose.position.x, out_pose.pose.position.y, out_pose.pose.position.z = camera_position
                 (out_pose.pose.orientation.x, out_pose.pose.orientation.y,
                  out_pose.pose.orientation.z, out_pose.pose.orientation.w) = camera_orientation
+                self.last_depth_forward_monotonic_ns = time.monotonic_ns()
                 self.depth_pub.publish(image)
                 self.pose_pub.publish(out_pose)
                 self.pending_depth.popleft()

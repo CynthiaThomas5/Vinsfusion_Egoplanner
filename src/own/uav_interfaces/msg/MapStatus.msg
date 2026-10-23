@@ -11,6 +11,11 @@ builtin_interfaces/Time last_occupancy_stamp
 bool occupancy_cloud_received
 uint32 occupied_point_count
 uint64 forwarded_depth_count
+uint64 depth_callback_count
+uint32 pending_depth_count
+uint32 pending_depth_high_water_count
+uint64 dropped_depth_count
+uint64 last_depth_forward_monotonic_ns
 string calibration_sha256
 string input_config_sha256
 uint64 keyframe_count

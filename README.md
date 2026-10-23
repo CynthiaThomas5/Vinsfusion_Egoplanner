@@ -16,12 +16,15 @@ ROS 2 Jazzy · Gazebo Harmonic · PX4 v1.17.0。
 bash tools/project.sh fetch             # 固定上游、补丁哈希与许可；拒绝覆盖已有依赖
 bash tools/project.sh build             # 单一 install/，构建ROS与PX4
 bash tools/project.sh test              # 回归测试
-bash tools/project.sh sim room-01 --gui # 只启动仿真，不使能／解锁
-bash tools/project.sh mission room-01   # 显式前检→起飞→16m目标→降落→独立评估
-bash tools/project.sh stop room-01
+./start.sh                             # 自动识别桌面，打开Gazebo与RViz，不起飞
+./start.sh fly                         # 前检→起飞→16m目标→降落→独立评估
+./start.sh status                      # 当前会话和最近任务结果
+./start.sh stop                        # 关闭已落地的会话
 ```
 
-任务报告在 `artifacts/runs/room-01/qualification.json`；新会话必须使用新的run id，不复用PX4参数状态或VINS epoch。每次只启动一套项目仿真，所有PX4控制消息由桥独占。
+`start.sh`自动生成新run id；任务完成后再次`fly`会从新会话开始。已有部署直接使用这四条命令，无需重复fetch/build。须先登录服务器桌面；脚本支持当前DISPLAY或自动识别自己的XRDP桌面，底层仍调用`tools/project.sh`。
+
+任务报告在 `artifacts/runs/<run_id>/qualification.json`；新会话不复用PX4参数状态或VINS epoch。每次只启动一套项目仿真，所有PX4控制消息由桥独占。
 
 ## 工程入口
 
@@ -40,6 +43,8 @@ bash tools/project.sh stop room-01
 [运行与分享](docs/running.md) · [架构](docs/architecture.md) · [坐标与控制契约](docs/contracts.md) · [目标及范围](GOAL.md) · [依赖](dependencies/README.md)
 
 ## 验证范围
+
+#062已增加目标原始体素球准入：未知、占据、越界或查询失败会阻止向EGO转发。已完成构建、隔离测试和不解锁查询；历史16m演示通过不能继承到新版本，完整轨迹及失效降落净空仍待验证。见[当前进度](progress/CURRENT.md)。
 
 当前房间候选曾完成三次独立冷启动；不是任意目标／场景或实机验收。未知空间、完整机体扫掠、制动预算、长时负载和正式A–H仍按GOAL推进。虚拟IMU250Hz对齐4ms物理步，不声明真实D435i标定已经完成。
 

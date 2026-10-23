@@ -1,0 +1,304 @@
+--- a/loop_fusion/src/keyframe.h
++++ b/loop_fusion/src/keyframe.h
+@@ -12,6 +12,7 @@
+ #pragma once
+ 
+ #include <vector>
++#include <string>
+ #include <eigen3/Eigen/Dense>
+ #include <opencv2/opencv.hpp>
+ #include <opencv2/core/eigen.hpp>
+@@ -26,6 +27,23 @@
+ 
+ #define MIN_LOOP_NUM 25
+ 
++struct LoopVerificationDiagnostics
++{
++	int minimum_loop_matches = MIN_LOOP_NUM;
++	int descriptor_matches = 0;
++	int pnp_input_matches = 0;
++	int pnp_inliers = 0;
++	bool pnp_ransac_ran = false;
++	bool pnp_solve_returned_successfully = false;
++	bool relative_transform_available = false;
++	double relative_yaw_deg = 0.0;
++	double relative_translation_m = 0.0;
++	bool yaw_gate_passed = false;
++	bool translation_gate_passed = false;
++	bool accepted = false;
++	std::string rejection_stage = "descriptor_matches_le_minimum";
++};
++
+ using namespace Eigen;
+ using namespace std;
+ using namespace DVision;
+@@ -49,7 +67,7 @@
+ 	KeyFrame(double _time_stamp, int _index, Vector3d &_vio_T_w_i, Matrix3d &_vio_R_w_i, Vector3d &_T_w_i, Matrix3d &_R_w_i,
+ 			 cv::Mat &_image, int _loop_index, Eigen::Matrix<double, 8, 1 > &_loop_info,
+ 			 vector<cv::KeyPoint> &_keypoints, vector<cv::KeyPoint> &_keypoints_norm, vector<BRIEF::bitset> &_brief_descriptors);
+-	bool findConnection(KeyFrame* old_kf);
++	bool findConnection(KeyFrame* old_kf, LoopVerificationDiagnostics* diagnostics = nullptr);
+ 	void computeWindowBRIEFPoint();
+ 	void computeBRIEFPoint();
+ 	//void extractBrief();
+@@ -72,7 +90,8 @@
+ 	void PnPRANSAC(const vector<cv::Point2f> &matched_2d_old_norm,
+ 	               const std::vector<cv::Point3f> &matched_3d,
+ 	               std::vector<uchar> &status,
+-	               Eigen::Vector3d &PnP_T_old, Eigen::Matrix3d &PnP_R_old);
++	               Eigen::Vector3d &PnP_T_old, Eigen::Matrix3d &PnP_R_old,
++	               bool *solve_succeeded = nullptr);
+ 	void getVioPose(Eigen::Vector3d &_T_w_i, Eigen::Matrix3d &_R_w_i);
+ 	void getPose(Eigen::Vector3d &_T_w_i, Eigen::Matrix3d &_R_w_i);
+ 	void updatePose(const Eigen::Vector3d &_T_w_i, const Eigen::Matrix3d &_R_w_i);
+--- a/loop_fusion/src/keyframe.cpp
++++ b/loop_fusion/src/keyframe.cpp
+@@ -211,7 +211,8 @@
+ void KeyFrame::PnPRANSAC(const vector<cv::Point2f> &matched_2d_old_norm,
+                          const std::vector<cv::Point3f> &matched_3d,
+                          std::vector<uchar> &status,
+-                         Eigen::Vector3d &PnP_T_old, Eigen::Matrix3d &PnP_R_old)
++                         Eigen::Vector3d &PnP_T_old, Eigen::Matrix3d &PnP_R_old,
++                         bool *solve_succeeded)
+ {
+ 	//for (int i = 0; i < matched_3d.size(); i++)
+ 	//	printf("3d x: %f, y: %f, z: %f\n",matched_3d[i].x, matched_3d[i].y, matched_3d[i].z );
+@@ -232,17 +233,20 @@
+ 
+     cv::Mat inliers;
+     TicToc t_pnp_ransac;
++    bool pnp_solve_succeeded = false;
+ 
+     if (CV_MAJOR_VERSION < 3)
+-        solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, 10.0 / 460.0, 100, inliers);
++        pnp_solve_succeeded = solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, 10.0 / 460.0, 100, inliers);
+     else
+     {
+         if (CV_MINOR_VERSION < 2)
+-            solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, sqrt(10.0 / 460.0), 0.99, inliers);
++            pnp_solve_succeeded = solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, sqrt(10.0 / 460.0), 0.99, inliers);
+         else
+-            solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, 10.0 / 460.0, 0.99, inliers);
++            pnp_solve_succeeded = solvePnPRansac(matched_3d, matched_2d_old_norm, K, D, rvec, t, true, 100, 10.0 / 460.0, 0.99, inliers);
+ 
+     }
++    if (solve_succeeded)
++        *solve_succeeded = pnp_solve_succeeded;
+ 
+     for (int i = 0; i < (int)matched_2d_old_norm.size(); i++)
+         status.push_back(0);
+@@ -267,8 +271,11 @@
+ }
+ 
+ 
+-bool KeyFrame::findConnection(KeyFrame* old_kf)
++bool KeyFrame::findConnection(KeyFrame* old_kf, LoopVerificationDiagnostics* diagnostics)
+ {
++	LoopVerificationDiagnostics local_diagnostics;
++	LoopVerificationDiagnostics &verification = diagnostics ? *diagnostics : local_diagnostics;
++	verification = LoopVerificationDiagnostics();
+ 	TicToc tmp_t;
+ 	//printf("find Connection\n");
+ 	vector<cv::Point2f> matched_2d_cur, matched_2d_old;
+@@ -316,6 +323,7 @@
+ 	reduceVector(matched_2d_old_norm, status);
+ 	reduceVector(matched_3d, status);
+ 	reduceVector(matched_id, status);
++	verification.descriptor_matches = (int)matched_2d_cur.size();
+ 	//printf("search by des finish\n");
+ 
+ 	#if 0 
+@@ -416,14 +424,20 @@
+ 	double relative_yaw;
+ 	if ((int)matched_2d_cur.size() > MIN_LOOP_NUM)
+ 	{
++		verification.pnp_ransac_ran = true;
++		verification.pnp_input_matches = (int)matched_2d_cur.size();
+ 		status.clear();
+-	    PnPRANSAC(matched_2d_old_norm, matched_3d, status, PnP_T_old, PnP_R_old);
++	    PnPRANSAC(matched_2d_old_norm, matched_3d, status, PnP_T_old, PnP_R_old,
++	              &verification.pnp_solve_returned_successfully);
+ 	    reduceVector(matched_2d_cur, status);
+ 	    reduceVector(matched_2d_old, status);
+ 	    reduceVector(matched_2d_cur_norm, status);
+ 	    reduceVector(matched_2d_old_norm, status);
+ 	    reduceVector(matched_3d, status);
+ 	    reduceVector(matched_id, status);
++		verification.pnp_inliers = (int)matched_2d_cur.size();
++		if (verification.pnp_inliers <= MIN_LOOP_NUM)
++			verification.rejection_stage = "pnp_inliers_le_minimum";
+ 	    #if 1
+ 	    	if (DEBUG_IMAGE)
+ 	        {
+@@ -491,11 +505,18 @@
+ 	    relative_t = PnP_R_old.transpose() * (origin_vio_T - PnP_T_old);
+ 	    relative_q = PnP_R_old.transpose() * origin_vio_R;
+ 	    relative_yaw = Utility::normalizeAngle(Utility::R2ypr(origin_vio_R).x() - Utility::R2ypr(PnP_R_old).x());
++		verification.relative_transform_available = true;
++		verification.relative_yaw_deg = relative_yaw;
++		verification.relative_translation_m = relative_t.norm();
++		verification.yaw_gate_passed = abs(relative_yaw) < 30.0;
++		verification.translation_gate_passed = verification.relative_translation_m < 20.0;
+ 	    //printf("PNP relative\n");
+ 	    //cout << "pnp relative_t " << relative_t.transpose() << endl;
+ 	    //cout << "pnp relative_yaw " << relative_yaw << endl;
+ 	    if (abs(relative_yaw) < 30.0 && relative_t.norm() < 20.0)
+ 	    {
++			verification.accepted = true;
++			verification.rejection_stage = "accepted";
+ 
+ 	    	has_loop = true;
+ 	    	loop_index = old_kf->index;
+@@ -506,6 +527,12 @@
+ 	    	//cout << "pnp relative_q " << relative_q.w() << " " << relative_q.vec().transpose() << endl;
+ 	        return true;
+ 	    }
++		if (!verification.yaw_gate_passed && !verification.translation_gate_passed)
++			verification.rejection_stage = "relative_yaw_and_translation_limit";
++		else if (!verification.yaw_gate_passed)
++			verification.rejection_stage = "relative_yaw_limit";
++		else
++			verification.rejection_stage = "relative_translation_limit";
+ 	}
+ 	//printf("loop final use num %d %lf--------------- \n", (int)matched_2d_cur.size(), t_match.toc());
+ 	return false;
+--- a/loop_fusion/src/pose_graph.h
++++ b/loop_fusion/src/pose_graph.h
+@@ -17,9 +17,11 @@
+ #include <opencv2/opencv.hpp>
+ #include <eigen3/Eigen/Dense>
+ #include <string>
++#include <vector>
+ #include <ceres/ceres.h>
+ #include <ceres/rotation.h>
+ #include <queue>
++#include <cstdint>
+ #include <assert.h>
+ #include <nav_msgs/msg/path.hpp>
+ #include <geometry_msgs/msg/point_stamped.hpp>
+@@ -70,6 +72,7 @@
+ 	void loadPoseGraph();
+ 	void publish();
+ 	std::string diagnosticsJson();
++	std::string takeLoopCandidateDiagnosticsJson();
+ 	Vector3d t_drift;
+ 	double yaw_drift;
+ 	Matrix3d r_drift;
+@@ -99,6 +102,11 @@
+ 	int earliest_loop_index;
+ 	int base_sequence;
+ 	bool use_imu;
++	std::uint64_t loop_candidate_diagnostic_sequence = 0;
++	std::size_t dropped_loop_candidate_diagnostics = 0;
++	std::vector<std::string> pending_loop_candidate_diagnostics;
++	void recordLoopCandidateDiagnostic(KeyFrame* current, KeyFrame* old,
++	                                   const LoopVerificationDiagnostics& verification);
+ 
+ 	BriefDatabase db;
+ 	BriefVocabulary* voc;
+--- a/loop_fusion/src/pose_graph.cpp
++++ b/loop_fusion/src/pose_graph.cpp
+@@ -110,8 +110,11 @@
+         loop_candidates++;
+         //printf(" %d detect loop with %d \n", cur_kf->index, loop_index);
+         KeyFrame* old_kf = getKeyFrame(loop_index);
++		LoopVerificationDiagnostics verification;
++		bool verified = cur_kf->findConnection(old_kf, &verification);
++		recordLoopCandidateDiagnostic(cur_kf, old_kf, verification);
+ 
+-        if (cur_kf->findConnection(old_kf))
++		if (verified)
+         {
+             verified_loops++;
+             if (earliest_loop_index > loop_index || earliest_loop_index == -1)
+@@ -270,7 +273,10 @@
+     {
+         printf(" %d detect loop with %d \n", cur_kf->index, loop_index);
+         KeyFrame* old_kf = getKeyFrame(loop_index);
+-        if (cur_kf->findConnection(old_kf))
++		LoopVerificationDiagnostics verification;
++		bool verified = cur_kf->findConnection(old_kf, &verification);
++		recordLoopCandidateDiagnostic(cur_kf, old_kf, verification);
++		if (verified)
+         {
+             verified_loops++;
+             if (earliest_loop_index > loop_index || earliest_loop_index == -1)
+@@ -1148,3 +1154,65 @@
+     }
+     out << "]"; return out.str();
+ }
++
++void PoseGraph::recordLoopCandidateDiagnostic(KeyFrame* current, KeyFrame* old,
++                                              const LoopVerificationDiagnostics& verification)
++{
++    std::lock_guard<std::recursive_mutex> guard(state_mutex);
++    if (pending_loop_candidate_diagnostics.size() >= 512)
++    {
++        dropped_loop_candidate_diagnostics++;
++        return;
++    }
++    std::ostringstream out;
++    out << std::setprecision(17)
++        << "{\"event\":" << ++loop_candidate_diagnostic_sequence
++        << ",\"current_index\":" << current->index
++        << ",\"current_source_ns\":" << std::llround(current->time_stamp * 1e9)
++        << ",\"old_index\":" << old->index
++        << ",\"old_source_ns\":" << std::llround(old->time_stamp * 1e9)
++        << ",\"minimum_loop_matches\":" << verification.minimum_loop_matches
++        << ",\"descriptor_matches\":" << verification.descriptor_matches
++        << ",\"pnp_ransac_ran\":" << (verification.pnp_ransac_ran ? "true" : "false")
++		<< ",\"pnp_solve_returned_successfully\":";
++	if (verification.pnp_ransac_ran) out << (verification.pnp_solve_returned_successfully ? "true" : "false");
++	else out << "null";
++	out
++        << ",\"pnp_input_matches\":";
++    if (verification.pnp_ransac_ran) out << verification.pnp_input_matches;
++    else out << "null";
++    out << ",\"pnp_inliers\":";
++    if (verification.pnp_ransac_ran) out << verification.pnp_inliers;
++    else out << "null";
++    out << ",\"relative_yaw_deg\":";
++    if (verification.relative_transform_available) out << verification.relative_yaw_deg;
++    else out << "null";
++    out << ",\"relative_translation_m\":";
++    if (verification.relative_transform_available) out << verification.relative_translation_m;
++    else out << "null";
++    out << ",\"yaw_gate_passed\":";
++    if (verification.relative_transform_available) out << (verification.yaw_gate_passed ? "true" : "false");
++    else out << "null";
++    out << ",\"translation_gate_passed\":";
++    if (verification.relative_transform_available) out << (verification.translation_gate_passed ? "true" : "false");
++    else out << "null";
++    out << ",\"accepted\":" << (verification.accepted ? "true" : "false")
++        << ",\"rejection_stage\":\"" << verification.rejection_stage << "\"}";
++    pending_loop_candidate_diagnostics.push_back(out.str());
++}
++
++std::string PoseGraph::takeLoopCandidateDiagnosticsJson()
++{
++    std::lock_guard<std::recursive_mutex> guard(state_mutex);
++    std::ostringstream out;
++    out << "{\"events\":[";
++    for (std::size_t i = 0; i < pending_loop_candidate_diagnostics.size(); ++i)
++    {
++        if (i) out << ",";
++        out << pending_loop_candidate_diagnostics[i];
++    }
++    out << "],\"dropped\":" << dropped_loop_candidate_diagnostics << "}";
++    pending_loop_candidate_diagnostics.clear();
++    dropped_loop_candidate_diagnostics = 0;
++    return out.str();
++}
+--- a/loop_fusion/src/pose_graph_node.cpp
++++ b/loop_fusion/src/pose_graph_node.cpp
+@@ -171,7 +171,9 @@
+         << ",\"last_keyframe_ns\":" << last_keyframe_stamp << ",\"max_image_pose_gap_ns\":" << max_image_gap
+         << ",\"image_buffer\":" << images.size() << ",\"pose_buffer\":" << poses.size()
+         << ",\"point_buffer\":" << points.size() << ",\"dropped_buffer\":" << dropped_buffer
+-        << ",\"dropped_sync\":" << dropped_sync << ",\"graph\":" << posegraph->diagnosticsJson() << "}";
++	        << ",\"dropped_sync\":" << dropped_sync
++	        << ",\"candidate_diagnostics\":" << posegraph->takeLoopCandidateDiagnosticsJson()
++	        << ",\"graph\":" << posegraph->diagnosticsJson() << "}";
+     std_msgs::msg::String msg; msg.data=out.str(); status_pub->publish(msg);
+ }
+ int main(int argc,char **argv)

@@ -20,6 +20,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/ResetMapping.srv"
   "srv/GetMapStatus.srv"
   "srv/GetOccupancySnapshot.srv"
+  "srv/QueryOccupancySphere.srv"
   "srv/EnableOffboard.srv"
   DEPENDENCIES action_msgs std_msgs builtin_interfaces geometry_msgs sensor_msgs
 )

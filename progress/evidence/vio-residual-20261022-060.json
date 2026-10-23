@@ -1,0 +1,671 @@
+{
+  "scope": "#060 diagnostic attribution only; invalid return goal and failed clearance mean NO valid safe-flight or loop qualification.",
+  "result": "DIAGNOSTIC_REPRODUCED_INVALID_ROUTE_DISABLED",
+  "passed": false,
+  "route_selection_error_confirmed": true,
+  "no_further_project_flights_after_discovery": true,
+  "runs": [
+    {
+      "run_id": "vio-residual-20261022-060-01",
+      "result": "FAIL",
+      "reason": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "completed_native_goals": 1,
+      "first_goal_independent_dwell_passed": true,
+      "landed_and_disarmed": true,
+      "backend_exit": 0,
+      "container_exit": 0,
+      "residual_report": {
+        "scope": "Offline attribution of recorded Ceres costs; not physical noise calibration.",
+        "run_id": "vio-residual-20261022-060-01",
+        "epoch": "5ea03681d56c4e06bf4c6b129cc97817",
+        "mission_result": "FAIL",
+        "mission_failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+        "landed_and_disarmed": true,
+        "diagnostic_mode": {
+          "cost_groups_mode": "continuous",
+          "scope": "read-only Ceres residual evaluation; no health or control changes"
+        },
+        "diagnostic_frames": 2386,
+        "health_limit_unchanged": 1.0,
+        "quality_crossing_observed": true,
+        "trigger": {
+          "source_ns": 162460000000,
+          "normalized_cost": 1.0308077677888283,
+          "groups": {
+            "marginalization": {
+              "cost": 1653.6454396353186,
+              "residual_components": 82,
+              "normalized_squared_contribution": 0.9608631258775819,
+              "group_normalized_cost": 6.350812200093893,
+              "cost_fraction": 0.9042867388252125
+            },
+            "imu": {
+              "cost": 2.250549933813953,
+              "residual_components": 150,
+              "normalized_squared_contribution": 0.0013076989737443076,
+              "group_normalized_cost": 0.173226246426033,
+              "cost_fraction": 0.0012307006153995932
+            },
+            "visual": {
+              "cost": 172.77778019511504,
+              "residual_components": 3210,
+              "normalized_squared_contribution": 0.10039382928246081,
+              "group_normalized_cost": 0.3281001482576258,
+              "cost_fraction": 0.09448256055938811
+            }
+          },
+          "evaluation_seconds": 0.00028965,
+          "cost_sum_error": 2.2737367544323206e-13,
+          "input_features": 152,
+          "stereo_features": 135,
+          "continued_tracks": 134,
+          "long_tracks": 94
+        },
+        "previous": {
+          "source_ns": 162395999999,
+          "normalized_cost": 0.976944512670268,
+          "groups": {
+            "marginalization": {
+              "cost": 1651.8153139603478,
+              "residual_components": 82,
+              "normalized_squared_contribution": 0.8518903114803238,
+              "group_normalized_cost": 6.347296935647234,
+              "cost_fraction": 0.8925732832936647
+            },
+            "imu": {
+              "cost": 3.994138442449101,
+              "residual_components": 150,
+              "normalized_squared_contribution": 0.002059896050773131,
+              "group_normalized_cost": 0.23077083704977688,
+              "cost_fraction": 0.0021582686837784207
+            },
+            "visual": {
+              "cost": 194.8120538392683,
+              "residual_components": 3646,
+              "normalized_squared_contribution": 0.10047037330545038,
+              "group_normalized_cost": 0.32689974226304414,
+              "cost_fraction": 0.1052684480225566
+            }
+          },
+          "evaluation_seconds": 0.000343342,
+          "cost_sum_error": -4.547473508864641e-13,
+          "input_features": 180,
+          "stereo_features": 156,
+          "continued_tracks": 120,
+          "long_tracks": 90
+        },
+        "trigger_squared_contribution_change": {
+          "marginalization": 0.10897281439725814,
+          "imu": -0.0007521970770288232,
+          "visual": -7.654402298956642e-05
+        },
+        "previous_solver_total": {
+          "stamp_ns": 162395999999,
+          "final_cost": 1850.6215062420656,
+          "residual_components": 3878
+        },
+        "trigger_total_transition": {
+          "previous_cost": 1850.6215062420656,
+          "current_cost": 1828.6737697642473,
+          "previous_count": 3878,
+          "current_count": 3442,
+          "cost_change_contribution": -0.012752897430458078,
+          "residual_count_change_contribution": 0.1208969707276974,
+          "total_squared_cost_change": 0.10814407329723952
+        },
+        "trigger_numerator_denominator_decomposition": {
+          "cost_change_contribution": {
+            "marginalization": 0.0010634082945791743,
+            "imu": -0.0010131252229140892,
+            "visual": -0.012803180502122745
+          },
+          "residual_count_change_contribution": 0.12089697072769737,
+          "previous_total_components": 3878,
+          "current_total_components": 3442,
+          "total_squared_cost_change": 0.10814407329723941
+        },
+        "largest_trigger_cost_group": "marginalization",
+        "largest_positive_spike_group": "marginalization",
+        "return_goal_source_ns": 126951999999,
+        "trigger_relative_to_current_goal_sim_s": 35.508000001,
+        "diagnostic_evaluation_seconds": {
+          "maximum": 0.00128328,
+          "mean": 0.0003935769945515508
+        },
+        "max_absolute_group_sum_error": 3.865352482534945e-12,
+        "input_sha256": {
+          "flight.json": "8b0bd9d8f8d8ca87ca1e7b54adf75634f1c202b7654f41df435fdaffd2aebd22",
+          "vins-diagnostics.json": "afe614a03eeb52b553a345e7fba6a32e93c002e4195d920385fc03b557cced53",
+          "odometry-errors.csv": "a6ee1bfb40d78517b1979207e2f22ed39f478f2254a6c57699314acfdb885b34"
+        },
+        "limitations": [
+          "Cost groups are whitened/robust objective terms; magnitudes are not pixel or metre errors.",
+          "Dominant marginalization cost does not identify which historical measurements caused the prior.",
+          "Continuous diagnostic evaluation can perturb scheduling; evaluate overhead and retain failures.",
+          "Attribution is not evidence to loosen a threshold or clear a locked session."
+        ],
+        "trigger_independent_error": {
+          "source_ns": 162460000000,
+          "position_error_m": 0.08931023749612275,
+          "yaw_error_deg": 0.6022580896481682
+        }
+      },
+      "odometry_position_error_m": {
+        "count": 1824,
+        "rmse": 0.036186171798368465,
+        "median": 0.02180686911665669,
+        "p95": 0.08396414617659241,
+        "max": 0.10774847425635671
+      },
+      "duration_sim_s": 120.324,
+      "navigation_checks": {
+        "terminal_position_velocity_acceleration_boundary": true,
+        "native_action_and_landing": false,
+        "independent_goal_and_health": false,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": false,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "clearance": {
+        "scope": "Single-run offline Gazebo model-world truth plus sampled nominal body-envelope diagnostic; no control/truth feedback, no formal collision or acceptance qualification.",
+        "truth_frame_note": "OdometryPublisher model world pose with no xyz_offset; robot_base_frame text is a label only. IMU point reconstructed from the project SDF mount.",
+        "truth_source_reference": "https://raw.githubusercontent.com/gazebosim/gz-sim/gz-sim8/src/systems/odometry_publisher/OdometryPublisher.cc",
+        "sample_count": 7927,
+        "airborne_samples": 4809,
+        "truth_x_range_m": [
+          -8.043789133465035,
+          7.975984038015753
+        ],
+        "closest_nominal_world_goal_xy_error_m": 0.024298285310052903,
+        "closest_nominal_world_goal_xyz": [
+          7.9759373182842666,
+          -0.0033755025782896252,
+          0.891487958941687
+        ],
+        "max_truth_sample_gap_sim_s": 0.02,
+        "nominal_imu_envelope_radius_m": 0.4819358706659999,
+        "minimum_airborne_imu_point_to_non_ground_obstacle_m": 0.3501568418039119,
+        "sampled_envelope_margin_m": -0.13177902886208803,
+        "nearest_obstacle": "unit_cylinder_0_6_clone/link",
+        "at_world_model_xyz": [
+          -3.3167454534995584,
+          0.22969311467034903,
+          0.640948589916326
+        ],
+        "action_result": {
+          "final_position": [
+            4.92099456246277,
+            0.013514412117990605,
+            0.895196467687683
+          ],
+          "outcome": "aborted",
+          "reason": "localization_normalized_cost_exceeded",
+          "status": 6,
+          "success": false
+        },
+        "landed_and_disarmed": true,
+        "limitations": [
+          "Single sampled run, no continuous collision sweep proof.",
+          "Ground omitted from obstacle-distance diagnostic; takeoff/landing require intentional ground contact.",
+          "No multi-scene, braking-distance or uncertainty acceptance."
+        ]
+      },
+      "clearance_phase_analysis": {
+        "scope": "Offline same conservative sphere-envelope diagnostic, divided by first recorded invalid status and actual bridge LANDING. Negative bound is failed clearance, not proof of collision.",
+        "first_observed_invalid_clock_ns": 162520000000,
+        "landing_source_ns": 162556000000,
+        "minimum_by_phase": [
+          {
+            "phase": "before_first_observed_invalid_status",
+            "stamp_ns": 162512000000,
+            "margin_m": 0.2165500329645032,
+            "obstacle": "unit_cylinder_0_6_clone/link",
+            "model_xyz": [
+              -2.974110509653633,
+              0.21936448413193632,
+              0.8737429794386236
+            ],
+            "relative_to_landing_sim_s": -0.044
+          },
+          {
+            "phase": "between_observed_invalid_and_landing",
+            "stamp_ns": 162552000000,
+            "margin_m": 0.19002120658580207,
+            "obstacle": "unit_cylinder_0_6_clone/link",
+            "model_xyz": [
+              -2.99681721401055,
+              0.22065389456404147,
+              0.8734004852383772
+            ],
+            "relative_to_landing_sim_s": -0.004
+          },
+          {
+            "phase": "during_landing",
+            "stamp_ns": 163272000000,
+            "margin_m": -0.13177902886208803,
+            "obstacle": "unit_cylinder_0_6_clone/link",
+            "model_xyz": [
+              -3.3167454534995584,
+              0.22969311467034903,
+              0.640948589916326
+            ],
+            "relative_to_landing_sim_s": 0.716
+          }
+        ]
+      },
+      "loop": {
+        "keyframes": 107,
+        "loop_candidates": 20,
+        "verified_loops": 0,
+        "optimizations": 0
+      },
+      "runtime_contract_sha256": "59d67edfa1382843f326b8c0aa5051a9fe561da3706090bf6f25634d02cbb46f",
+      "flown_loop_profile_sha256": "6a048f05ee5f668137076f009d600b7d1770b622a101a0143a9b11c3fe5f01b8",
+      "vins_binary_sha256": {
+        "install/vins/lib/vins/vins_node": "1f878b2dabe2610e7b56eb65db18df4cd6bebf26891827a7b15cb1c551a7dfba"
+      }
+    },
+    {
+      "run_id": "vio-residual-20261022-060-02",
+      "result": "FAIL",
+      "reason": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+      "completed_native_goals": 1,
+      "first_goal_independent_dwell_passed": true,
+      "landed_and_disarmed": true,
+      "backend_exit": 0,
+      "container_exit": 0,
+      "residual_report": {
+        "scope": "Offline attribution of recorded Ceres costs; not physical noise calibration.",
+        "run_id": "vio-residual-20261022-060-02",
+        "epoch": "af1887f903a449f084fa266cb12f1a64",
+        "mission_result": "FAIL",
+        "mission_failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+        "landed_and_disarmed": true,
+        "diagnostic_mode": {
+          "cost_groups_mode": "1",
+          "scope": "read-only Ceres residual evaluation; no health or control changes"
+        },
+        "diagnostic_frames": 1,
+        "health_limit_unchanged": 1.0,
+        "quality_crossing_observed": true,
+        "trigger": {
+          "source_ns": 163683999999,
+          "normalized_cost": 1.0270977050249606,
+          "groups": {
+            "marginalization": {
+              "cost": 1221.3413544126759,
+              "residual_components": 82,
+              "normalized_squared_contribution": 0.8440506941345376,
+              "group_normalized_cost": 5.457912927324911,
+              "cost_fraction": 0.800101369409681
+            },
+            "imu": {
+              "cost": 0.9325138623771185,
+              "residual_components": 150,
+              "normalized_squared_contribution": 0.0006444463458031227,
+              "group_normalized_cost": 0.11150568669367607,
+              "cost_fraction": 0.0006108903261039859
+            },
+            "visual": {
+              "cost": 304.2094013558786,
+              "residual_components": 2662,
+              "normalized_squared_contribution": 0.21023455518720013,
+              "group_normalized_cost": 0.4780763807301926,
+              "cost_fraction": 0.19928774026421486
+            }
+          },
+          "evaluation_seconds": 0.000278844,
+          "cost_sum_error": -2.2737367544323206e-13,
+          "input_features": 113,
+          "stereo_features": 86,
+          "continued_tracks": 60,
+          "long_tracks": 51
+        },
+        "previous": null,
+        "trigger_squared_contribution_change": null,
+        "previous_solver_total": {
+          "stamp_ns": 163616000000,
+          "final_cost": 1532.1257612219645,
+          "residual_components": 3132
+        },
+        "trigger_total_transition": {
+          "previous_cost": 1532.1257612219645,
+          "current_cost": 1526.4832696309318,
+          "previous_count": 3132,
+          "current_count": 2894,
+          "cost_change_contribution": -0.0038994413206860363,
+          "residual_count_change_contribution": 0.08046019623346032,
+          "total_squared_cost_change": 0.07656075491277436
+        },
+        "trigger_numerator_denominator_decomposition": null,
+        "largest_trigger_cost_group": "marginalization",
+        "largest_positive_spike_group": null,
+        "return_goal_source_ns": 126656000000,
+        "trigger_relative_to_current_goal_sim_s": 37.027999999,
+        "diagnostic_evaluation_seconds": {
+          "maximum": 0.000278844,
+          "mean": 0.000278844
+        },
+        "max_absolute_group_sum_error": 2.2737367544323206e-13,
+        "input_sha256": {
+          "flight.json": "2b8c7c4d7351f2840fa4bbf2fe80f15c73662eb6d86f20fa667d65b5c21df2b1",
+          "vins-diagnostics.json": "2b18d9f8db26eddf9cec4883abfb65b8182db06512fe3383afe2fcd7cd572a9f",
+          "odometry-errors.csv": "2591cc2c7a79d6ac7356a8ff2555e5b447f596282cb59fa57db653b0688d29c6"
+        },
+        "limitations": [
+          "Cost groups are whitened/robust objective terms; magnitudes are not pixel or metre errors.",
+          "Dominant marginalization cost does not identify which historical measurements caused the prior.",
+          "Continuous diagnostic evaluation can perturb scheduling; evaluate overhead and retain failures.",
+          "Attribution is not evidence to loosen a threshold or clear a locked session."
+        ],
+        "trigger_independent_error": {
+          "source_ns": 163683999999,
+          "position_error_m": 0.0722654794620899,
+          "yaw_error_deg": 0.22193815116032986
+        }
+      },
+      "odometry_position_error_m": {
+        "count": 1861,
+        "rmse": 0.03270104674319263,
+        "median": 0.024122899612825616,
+        "p95": 0.06183152630397163,
+        "max": 0.07325007809781017
+      },
+      "duration_sim_s": 122.828,
+      "navigation_checks": {
+        "terminal_position_velocity_acceleration_boundary": false,
+        "native_action_and_landing": false,
+        "independent_goal_and_health": false,
+        "boot_parameter_audit": true,
+        "isolated_mutable_state": true,
+        "runtime_hashes_unchanged": true,
+        "source_mutable_files_unchanged": true,
+        "sampled_nominal_body_clearance_positive": false,
+        "truth_samples_continuous_at_50hz": true
+      },
+      "clearance": {
+        "scope": "Single-run offline Gazebo model-world truth plus sampled nominal body-envelope diagnostic; no control/truth feedback, no formal collision or acceptance qualification.",
+        "truth_frame_note": "OdometryPublisher model world pose with no xyz_offset; robot_base_frame text is a label only. IMU point reconstructed from the project SDF mount.",
+        "truth_source_reference": "https://raw.githubusercontent.com/gazebosim/gz-sim/gz-sim8/src/systems/odometry_publisher/OdometryPublisher.cc",
+        "sample_count": 8066,
+        "airborne_samples": 4922,
+        "truth_x_range_m": [
+          -8.039843818904561,
+          7.948945251551025
+        ],
+        "closest_nominal_world_goal_xy_error_m": 0.05363386356555844,
+        "closest_nominal_world_goal_xyz": [
+          7.948863825255429,
+          -0.016176617491354676,
+          0.9134054812402785
+        ],
+        "max_truth_sample_gap_sim_s": 0.02,
+        "nominal_imu_envelope_radius_m": 0.4819358706659999,
+        "minimum_airborne_imu_point_to_non_ground_obstacle_m": 0.2805701308944207,
+        "sampled_envelope_margin_m": -0.20136573977157923,
+        "nearest_obstacle": "unit_cylinder_0_6_clone/link",
+        "at_world_model_xyz": [
+          -3.3085690162261243,
+          -0.019848821565527065,
+          0.703022977093394
+        ],
+        "action_result": {
+          "final_position": [
+            4.537154610847523,
+            -0.04993673827869301,
+            0.8902812682297999
+          ],
+          "outcome": "aborted",
+          "reason": "localization_normalized_cost_exceeded",
+          "status": 6,
+          "success": false
+        },
+        "landed_and_disarmed": true,
+        "limitations": [
+          "Single sampled run, no continuous collision sweep proof.",
+          "Ground omitted from obstacle-distance diagnostic; takeoff/landing require intentional ground contact.",
+          "No multi-scene, braking-distance or uncertainty acceptance."
+        ]
+      },
+      "clearance_phase_analysis": {
+        "scope": "Offline same conservative sphere-envelope diagnostic, divided by first recorded invalid status and actual bridge LANDING. Negative bound is failed clearance, not proof of collision.",
+        "first_observed_invalid_clock_ns": 163748000000,
+        "landing_source_ns": 163796000000,
+        "minimum_by_phase": [
+          {
+            "phase": "before_first_observed_invalid_status",
+            "stamp_ns": 163740000000,
+            "margin_m": -0.10703417785710023,
+            "obstacle": "unit_cylinder_0_6_clone/link",
+            "model_xyz": [
+              -3.2244688553628564,
+              -0.06772032324329419,
+              0.878635509636749
+            ],
+            "relative_to_landing_sim_s": -0.056
+          },
+          {
+            "phase": "between_observed_invalid_and_landing",
+            "stamp_ns": 163780000000,
+            "margin_m": -0.11692699578106858,
+            "obstacle": "unit_cylinder_0_6_clone/link",
+            "model_xyz": [
+              -3.2317056529123094,
+              -0.06651599737585669,
+              0.8785211570375391
+            ],
+            "relative_to_landing_sim_s": -0.016
+          },
+          {
+            "phase": "during_landing",
+            "stamp_ns": 164440000000,
+            "margin_m": -0.20136573977157923,
+            "obstacle": "unit_cylinder_0_6_clone/link",
+            "model_xyz": [
+              -3.3085690162261243,
+              -0.019848821565527065,
+              0.703022977093394
+            ],
+            "relative_to_landing_sim_s": 0.644
+          }
+        ]
+      },
+      "loop": {
+        "keyframes": 110,
+        "loop_candidates": 15,
+        "verified_loops": 0,
+        "optimizations": 0
+      },
+      "runtime_contract_sha256": "59d67edfa1382843f326b8c0aa5051a9fe561da3706090bf6f25634d02cbb46f",
+      "flown_loop_profile_sha256": "6a048f05ee5f668137076f009d600b7d1770b622a101a0143a9b11c3fe5f01b8",
+      "vins_binary_sha256": {
+        "install/vins/lib/vins/vins_node": "1f878b2dabe2610e7b56eb65db18df4cd6bebf26891827a7b15cb1c551a7dfba"
+      }
+    }
+  ],
+  "goal_geometry_audit": {
+    "scope": "Offline only: reuse the canonical clearance functions on retained #060 data.",
+    "method": "Actual single preflight SE(3) alignment plus collision geometry. Third target was never dispatched. No online truth or map feedback.",
+    "world_sha256": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+    "runs": [
+      {
+        "run_id": "vio-residual-20261022-060-01",
+        "goals": [
+          {
+            "offset_m": 16,
+            "world_imu_goal": [
+              8.09390584660273,
+              0.03357961313927432,
+              0.9858026511235939
+            ],
+            "nearest_obstacle": "blank/Wall_1",
+            "signed_point_distance_m": 1.8310942767292169,
+            "nominal_sphere_margin_m": 1.349158406063217,
+            "goal_point_inside_obstacle": false,
+            "dispatched": true
+          },
+          {
+            "offset_m": 4,
+            "world_imu_goal": [
+              -3.906093938670007,
+              0.031951630363244464,
+              0.9842205239784015
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link",
+            "signed_point_distance_m": -0.2013675715699735,
+            "nominal_sphere_margin_m": -0.6833034422359734,
+            "goal_point_inside_obstacle": true,
+            "dispatched": true
+          },
+          {
+            "offset_m": 8,
+            "world_imu_goal": [
+              0.0939059897542398,
+              0.03249429128858775,
+              0.9847478996934657
+            ],
+            "nearest_obstacle": "unit_cylinder_0_5/link",
+            "signed_point_distance_m": 0.7997324388421281,
+            "nominal_sphere_margin_m": 0.31779656817612817,
+            "goal_point_inside_obstacle": false,
+            "dispatched": false
+          }
+        ]
+      },
+      {
+        "run_id": "vio-residual-20261022-060-02",
+        "goals": [
+          {
+            "offset_m": 16,
+            "world_imu_goal": [
+              8.093848867598734,
+              -0.009083135665356875,
+              0.9719805975558206
+            ],
+            "nearest_obstacle": "blank/Wall_1",
+            "signed_point_distance_m": 1.8311510990241866,
+            "nominal_sphere_margin_m": 1.3492152283581866,
+            "goal_point_inside_obstacle": false,
+            "dispatched": true
+          },
+          {
+            "offset_m": 4,
+            "world_imu_goal": [
+              -3.9061492115320298,
+              -0.010034458881547926,
+              0.9652578122576351
+            ],
+            "nearest_obstacle": "unit_cylinder_0_6_clone/link",
+            "signed_point_distance_m": -0.20538161067910282,
+            "nominal_sphere_margin_m": -0.6873174813451027,
+            "goal_point_inside_obstacle": true,
+            "dispatched": true
+          },
+          {
+            "offset_m": 8,
+            "world_imu_goal": [
+              0.09385014817822412,
+              -0.009717351142817576,
+              0.9674987406903636
+            ],
+            "nearest_obstacle": "unit_cylinder_0_5/link",
+            "signed_point_distance_m": 0.841791002983155,
+            "nominal_sphere_margin_m": 0.3598551323171551,
+            "goal_point_inside_obstacle": false,
+            "dispatched": false
+          }
+        ]
+      }
+    ]
+  },
+  "old_059_total_transition": {
+    "previous_cost": 486.80096813579655,
+    "current_cost": 1092.0189273470091,
+    "previous_count": 2036,
+    "current_count": 2168,
+    "cost_change_contribution": 0.5583191505638493,
+    "residual_count_change_contribution": -0.029115101509510136,
+    "total_squared_cost_change": 0.529204049054339,
+    "scope": "Original #059 totals only; residual-group fields were not retained, so attribution cannot be transferred from #060.",
+    "source_ns": 127712000000
+  },
+  "current_profile_disabled": true,
+  "current_disabled_profile_sha256": "c94e534cf3a9e153c20ad2314d7eeb29c3d2bd5ca9b01fb8eec2b220dddc27f2",
+  "disabled_profile_actual_cli_probe": {
+    "scope": "Actual flight-probe CLI in isolated domain185; disabled real profile must reject before rclpy.init, preflight or enable.",
+    "exit": 1,
+    "profile_disabled_error": true,
+    "flight_output_created": false,
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/tools/run_vio_ego_flight.py\", line 618, in <module>\n    main()\n  File \"/workspace/tools/run_vio_ego_flight.py\", line 373, in main\n    mission_legs = legs(goal_config)\n                   ^^^^^^^^^^^^^^^^^\n  File \"/workspace/tools/flight_profile.py\", line 7, in legs\n    raise ValueError('Mission profile disabled: '+str(config.get('disabled_reason', 'pending safety review')))\nValueError: Mission profile disabled: Known invalid #059/#060 experiment: the 4m return goal is inside unit_cylinder_0_6_clone in offline geometry. Clearance/goal admissibility must be reviewed before any further flight. Do not re-enable this route.\n"
+  },
+  "validation": {
+    "ros_packages_built": 17,
+    "final_unit_tests_passed": 168,
+    "actual_ros_action_250hz_clock": "PASS, maximum pose receipt age 0.054s",
+    "fresh_fetch": {
+      "files_compared": 222,
+      "mismatches": [],
+      "patch_sha256": "fdaa70d2f2e1a27477f71a5f9849734acebfba7424926c9b4a07f41990e0a030"
+    },
+    "static_checks": [
+      {
+        "command": [
+          "python3",
+          "tools/project_status.py"
+        ],
+        "returncode": 0,
+        "output": "Structure/design check: PASS\nSelf-maintained ROS package manifests: uav_interfaces, uav_localization, uav_mapping, uav_navigation, uav_px4_bridge, uav_sim\nROS builds and SITL are outside this structural check\nNext: qualify VINS map/fault response, trajectory tracking, snapshots and sustained runtime\n"
+      },
+      {
+        "command": [
+          "bash",
+          "-n",
+          "tools/project.sh",
+          "tools/sim_runtime.sh",
+          "tools/mission_runtime.sh"
+        ],
+        "returncode": 0,
+        "output": ""
+      },
+      {
+        "command": [
+          "python3",
+          "-m",
+          "py_compile",
+          "tools/run_vio_ego_flight.py",
+          "tools/flight_profile.py",
+          "tools/debug_truth/evaluate_residual_transition.py",
+          "tools/test_residual_transition.py",
+          "tools/test_flight_profile.py"
+        ],
+        "returncode": 0,
+        "output": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "returncode": 0,
+        "output": ""
+      }
+    ]
+  },
+  "supported_inference": "For both #060 crossings total cost fell and count fell more; normalization-count change dominated the crossing. Prior cost dominated both trigger objectives. This is not proof of healthy estimation, gate false positive, or the root cause of prior accumulation.",
+  "limits": [
+    "The selected 4m goal was inside a column; these are not valid normal-route experiments. Profile is now disabled before preflight/arm.",
+    "Conservative body-envelope clearance failed; actual collision or collision-free flight was not established. Only landing/disarm completion is confirmed.",
+    "Original #059 had a total-cost numerator spike and missing group fields; its cause cannot be transferred from these two cases.",
+    "Different actual trajectories/background load and different diagnostic modes are not a strict causal A/B experiment. First trial briefly overlapped an isolated test suite roughly40s before its trigger; second flight did not.",
+    "No image/IMU timing calibration, prior-history root-cause resolution, loop correctness or drift removal, saved-map reuse, Nano or real-flight qualification.",
+    "Post-trial profile disable changes the current configuration fingerprint. No SITL flight was run after the disable. Health limits and sole bridge control ownership unchanged."
+  ],
+  "next_small_step": "Offline review of admissible goals, conservative clearance, and prior/quality metrics. Resolve the invalid route and clearance failure before any further SITL on a replacement route; do not re-enable the old profile.",
+  "artifact_files_hashed": 132,
+  "artifacts_manifest": "artifacts/runs/vio-residual-20261022-060-checks/artifact-sha256.json",
+  "artifacts_manifest_sha256": "873dce8b6a2f5cc3bea8faa6666b7870a5f6693025b927dcf832e70b63bae3be"
+}

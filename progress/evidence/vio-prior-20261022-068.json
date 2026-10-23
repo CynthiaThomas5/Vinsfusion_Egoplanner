@@ -1,0 +1,388 @@
+{
+  "scope": "Read-only VINS prior diagnostics, one unarmed support movement and a separate 200-s stationary observation; no flight",
+  "flight_passed": false,
+  "vins_failure_reproduced": false,
+  "root_cause_proven": false,
+  "source": {
+    "vins_base": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "patch": "dependencies/patches/vins/0018-prior-readonly-diagnostics.patch",
+    "patch_sha256": "09b88746f6c126b66a5e3410909280c4b1458a284e8121db4c6dd7a3ad2d03b8",
+    "license": "GPL-3.0",
+    "installed_vins_binary": {
+      "install/vins/lib/vins/vins_node": "649567deaed0d7fa48826f0609bbd279001025a1b858765b83d80017f3f95aac"
+    },
+    "tool_sha256": {
+      "tools/debug_truth/evaluate_fixture_odometry.py": "582984fe86f80c3cc3f60496c67ef950baaf8e1e3ae7d86dd9f250e7ec2f1f84",
+      "tools/debug_truth/evaluate_prior_diagnostics.py": "195d2d81b8bb90f04987f13ef38e4628855960f2537f30637efef715da90cfc9",
+      "tools/debug_truth/record_fixture_truth.py": "17c95d6ed14c655e26bf59497941528e1ddd7bbeb66e5c55e561aa3aa9758e8c",
+      "tools/probe_prior_idle.py": "0be6fc5f133bd650e25ffc92f0501dd80326cd465bb77ff290435c6bb1038aa0",
+      "tools/test_prior_diagnostics.py": "d8e22b3a57961e02e05ad7ef45649b3a6de6d59151bb9180cf7a6d14d1a1e78f",
+      "tools/test_fixture_odometry.py": "56fca101141973bbf0477b9879647c5e14e13f1ebb01de7f04e7214a5642be60"
+    }
+  },
+  "protected_config_and_own_source_differences": [],
+  "runs": [
+    {
+      "run_id": "vio-prior-20261022-068-01",
+      "result": {
+        "scope": "unarmed whole-airframe support smoke only, not map coverage or flight approval",
+        "outcome": "failed",
+        "error": "detached fixture removal was not acknowledged",
+        "epoch": "4b7df234dfed4237aa0413086f4a19ad",
+        "profile": "coverage",
+        "last_localization": {
+          "state": 1,
+          "valid": true,
+          "reason": "fresh_inputs_and_usable_solver",
+          "normalized_cost": 0.8169541168222979
+        },
+        "vehicle_states": [
+          1
+        ],
+        "vehicle_status_samples": 397,
+        "attachment_states": [
+          "attached",
+          "detached"
+        ],
+        "final_joint_states": {
+          "x": [
+            -2.8768362560977034e-17,
+            -3.2279561646255187e-15
+          ],
+          "z": [
+            0.0005565282483988822,
+            0.1391139899469104
+          ],
+          "yaw": [
+            -0.0031675500773786676,
+            0.0020899313762405515
+          ],
+          "pitch": [
+            -6.578603931211918e-05,
+            -0.016445040028516603
+          ]
+        },
+        "fixture_may_remain_attached": false,
+        "publishers": "Gazebo fixture joints/detach only; no ROS control or goal publisher"
+      },
+      "diagnostic": {
+        "scope": "Validate read-only prior telemetry; no calibration or flight qualification.",
+        "input_sha256": "8dba6bb57d7b1e0ef081f76b0181609a91f9e49323bd24f7357cf40b5bcd0e80",
+        "solve_frames": 1353,
+        "diagnostic_frames": 1353,
+        "prior_frames": 1299,
+        "all_recorded_identities_valid": true,
+        "prior_norm_identity_checks": 1299,
+        "group_total_checks": 1353,
+        "complete_visual_count_checks": 1351,
+        "truncated_visual_lower_bound_checks": 2,
+        "branch_counts": {
+          "second_newest": 1065,
+          "oldest": 288
+        },
+        "evaluation_s": {
+          "mean": 0.0007361170014781966,
+          "maximum": 0.001741152
+        },
+        "crossing_frames": 0,
+        "limitations": [
+          "Window span is not total tracker lifetime.",
+          "Truncated window lists only validate a lower bound, not full visual-count reconstruction.",
+          "Spectrum uses mixed state units and absolute rank epsilon; not a calibrated health criterion.",
+          "Diagnostic identities do not prove correct estimates or harmless marginalization."
+        ]
+      },
+      "maximum_q": 0.8279058738462542,
+      "maximum_q_frame_source_ns": 236876000000,
+      "maximum_q_groups": {
+        "marginalization": {
+          "cost": 1099.384910994461,
+          "residual_components": 82
+        },
+        "visual": {
+          "cost": 624.8745023257643,
+          "residual_components": 4858
+        },
+        "imu": {
+          "cost": 20.155192670310615,
+          "residual_components": 150
+        }
+      },
+      "maximum_q_prior_details": {
+        "next_marginalization_branch": "second_newest",
+        "available": true,
+        "evaluation_ok": true,
+        "retained_dimension": 82,
+        "r0_squared_norm": 2203.1796725428553,
+        "current_squared_norm": 2198.769821988922,
+        "Jdx_squared_norm": 6.881693094395382,
+        "twice_r0_dot_Jdx": -11.29154364832802,
+        "spectrum_ok": true,
+        "rank_absolute_epsilon": 1e-08,
+        "information_rank": 82,
+        "information_min_positive": 0.0007180499734046798,
+        "information_max": 97751780099.49138,
+        "window_tracks_truncated": false
+      },
+      "odometry": {
+        "scope": "Offline unarmed-fixture pose errors; one stationary alignment, scale one.",
+        "anchor_ns": 50491999999,
+        "alignment_rotation": [
+          [
+            0.9999999879284218,
+            -0.00013386211833879522,
+            -7.889289974971716e-05
+          ],
+          [
+            0.00013387764527378877,
+            0.9999999716658106,
+            0.0001968378878577336
+          ],
+          [
+            7.886654837771281e-05,
+            -0.00019684844747723694,
+            0.9999999775153778
+          ]
+        ],
+        "alignment_translation": [
+          -7.86801844194552,
+          -0.0031448595076739093,
+          0.06493100293005552
+        ],
+        "pairs": 1344,
+        "rejected": [],
+        "duration_sim_s": 198.596,
+        "raw_gap_max_s": 0.200000001,
+        "raw_intervals_over_0_2_s": 0,
+        "timestamp_comparison_tolerance_ns": 2,
+        "position_rmse_m": 0.04609724162623339,
+        "position_max_m": 0.07194871215475132,
+        "position_last_m": 0.005659010051383433,
+        "yaw_rmse_deg": 0.779341577174849,
+        "yaw_max_abs_deg": 1.5411279497053239,
+        "limitations": [
+          "Alignment fixes one initial pose; no trajectory/time/scale fitting.",
+          "Unarmed physical support is not a flight qualification."
+        ],
+        "epoch": "4b7df234dfed4237aa0413086f4a19ad",
+        "sensor_mount": {
+          "model_sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+          "parent_frame": "base_link",
+          "sensor_frame": "d435i_imu",
+          "translation_frd_m": [
+            0.12,
+            -0.0,
+            -0.08
+          ]
+        },
+        "input_sha256": {
+          "fixture-odometry.jsonl": "e616199ef5792452906bacd187e02657663573fe5f335b8aa1f6819c5b7e4511",
+          "fixture-truth.jsonl": "37d3177c2cc4ef45037a9fe6c85ebccfb64f511d2758bfc0ce85442cb5476262",
+          "fixture-trace.jsonl": "6a28aa6a839bd887f94bec7752584ed8542288c2f05fbac8e07bbcb806ecbc72",
+          "fixture-result.json": "a2c6d4ac7c73f411ba801be04eff45403564cf57682dd5daa9f91d79b6a4dda8"
+        }
+      },
+      "solve_observed_span_sim_s": 199.252000001,
+      "source_gap_max_s": 0.200000001,
+      "source_gap_mean_s": 0.14737573964571005,
+      "max_solver_s": 0.028970003128051758,
+      "runtime_contract_sha256": "f49242c1fdbfc67ca92881cbe3034adf9278c10e6e353021400b6f799c4e4509",
+      "matches_postrun_runtime_fingerprint": true,
+      "stop_exit_code": 0,
+      "live_disarmed_before_stop": true,
+      "fixture_absent_in_model_list": true,
+      "workflow_passed": false,
+      "input_sha256": {
+        "artifacts/runs/vio-prior-20261022-068-01/fixture-vins.jsonl": "8dba6bb57d7b1e0ef081f76b0181609a91f9e49323bd24f7357cf40b5bcd0e80",
+        "artifacts/runs/vio-prior-20261022-068-01/fixture-odometry.jsonl": "e616199ef5792452906bacd187e02657663573fe5f335b8aa1f6819c5b7e4511",
+        "artifacts/runs/vio-prior-20261022-068-01/fixture-truth.jsonl": "37d3177c2cc4ef45037a9fe6c85ebccfb64f511d2758bfc0ce85442cb5476262",
+        "artifacts/runs/vio-prior-20261022-068-01/fixture-result.json": "a2c6d4ac7c73f411ba801be04eff45403564cf57682dd5daa9f91d79b6a4dda8",
+        "artifacts/runs/vio-prior-20261022-068-01/runtime-contract.json": "5be22387d4991eb6272ed6a4ffc30b2cab45f649d66ffd151c17896ef6719252",
+        "artifacts/runs/vio-prior-20261022-068-01/prior-diagnostics.json": "0eac27b63ab5be5a3ca0b10204a1ab1b1140c5a54829a67d00cde03040331447",
+        "artifacts/runs/vio-prior-20261022-068-01/fixture-odometry-errors.json": "314312be36edcb79e8ed507b921dd8ad6aa2c0666716c158a75ffb3581ce8b92",
+        "artifacts/runs/vio-prior-20261022-068-01/fixture-odometry-errors.csv": "d61f107ff5bcd9e288fddabf7a720f4e11e1eb3d0771bc8fe9223e695f0dad79",
+        "artifacts/runs/vio-prior-20261022-068-01/fixture-trace.jsonl": "6a28aa6a839bd887f94bec7752584ed8542288c2f05fbac8e07bbcb806ecbc72",
+        "artifacts/runs/vio-prior-20261022-068-01/models-before-stop.log": "323d994c4a854ce3dc5f336d578b06666e1c9b748fecb36df99fee51f586df31"
+      }
+    },
+    {
+      "run_id": "vio-prior-20261022-068-idle-01",
+      "result": {
+        "scope": "Bounded stationary VINS observation: subscriptions only, no control or fixture.",
+        "outcome": "stationary_observation_completed",
+        "error": "",
+        "epoch": "0f9fae5a57f346fe98d3cb1207ef0bfc",
+        "start_ns": 26600000000,
+        "end_ns": 226600000000,
+        "vehicle_states": [
+          1
+        ],
+        "vehicle_status_samples": 398,
+        "ros_or_gazebo_publishers_created": 0
+      },
+      "diagnostic": {
+        "scope": "Validate read-only prior telemetry; no calibration or flight qualification.",
+        "input_sha256": "d213faf38cba2751307f91626ffaf88cb2102ef61cae6d51f7b2f3a95bb68de8",
+        "solve_frames": 3030,
+        "diagnostic_frames": 3030,
+        "prior_frames": 0,
+        "all_recorded_identities_valid": true,
+        "prior_norm_identity_checks": 0,
+        "group_total_checks": 3030,
+        "complete_visual_count_checks": 3030,
+        "truncated_visual_lower_bound_checks": 0,
+        "branch_counts": {
+          "second_newest": 3030
+        },
+        "evaluation_s": {
+          "mean": 0.0005544094254125412,
+          "maximum": 0.001400199
+        },
+        "crossing_frames": 0,
+        "limitations": [
+          "Window span is not total tracker lifetime.",
+          "Truncated window lists only validate a lower bound, not full visual-count reconstruction.",
+          "Spectrum uses mixed state units and absolute rank epsilon; not a calibrated health criterion.",
+          "Diagnostic identities do not prove correct estimates or harmless marginalization."
+        ]
+      },
+      "maximum_q": 0.19066341618052746,
+      "maximum_q_frame_source_ns": 26568000000,
+      "maximum_q_groups": {
+        "marginalization": {
+          "cost": 0,
+          "residual_components": 0
+        },
+        "visual": {
+          "cost": 106.85730433243293,
+          "residual_components": 5744
+        },
+        "imu": {
+          "cost": 0.0009819111416459142,
+          "residual_components": 135
+        }
+      },
+      "maximum_q_prior_details": {
+        "next_marginalization_branch": "second_newest",
+        "available": false,
+        "window_tracks_truncated": false
+      },
+      "odometry": {
+        "scope": "Offline unarmed-fixture pose errors; one stationary alignment, scale one.",
+        "anchor_ns": 27556000000,
+        "alignment_rotation": [
+          [
+            0.9999999530088766,
+            -0.00013870719270143514,
+            -0.00027339085449906643
+          ],
+          [
+            0.00013872981272875924,
+            0.9999999869555913,
+            8.272155866052359e-05
+          ],
+          [
+            0.00027337937685766674,
+            -8.275948223539104e-05,
+            0.9999999592072915
+          ]
+        ],
+        "alignment_translation": [
+          -7.868145035845628,
+          -0.0031405421088204345,
+          0.06496177128856959
+        ],
+        "pairs": 3015,
+        "rejected": [],
+        "duration_sim_s": 198.923999999,
+        "raw_gap_max_s": 0.068000001,
+        "raw_intervals_over_0_2_s": 0,
+        "timestamp_comparison_tolerance_ns": 2,
+        "position_rmse_m": 7.13450643003717e-07,
+        "position_max_m": 1.016328723790821e-06,
+        "position_last_m": 1.016328723790821e-06,
+        "yaw_rmse_deg": 8.883548401839393e-06,
+        "yaw_max_abs_deg": 1.1845402982645847e-05,
+        "limitations": [
+          "Alignment fixes one initial pose; no trajectory/time/scale fitting.",
+          "Unarmed physical support is not a flight qualification.",
+          "Ideal stationary simulation is not a real sensor precision measurement."
+        ],
+        "epoch": "0f9fae5a57f346fe98d3cb1207ef0bfc",
+        "sensor_mount": {
+          "model_sha256": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+          "parent_frame": "base_link",
+          "sensor_frame": "d435i_imu",
+          "translation_frd_m": [
+            0.12,
+            -0.0,
+            -0.08
+          ]
+        },
+        "truth_max_translation_from_first_m": 0.0,
+        "input_sha256": {
+          "idle-odometry.jsonl": "9bc6d8fe62fad2f4722d2832637f20502621d5002a67c80307d013b09be33afc",
+          "idle-truth.jsonl": "7bfa27ed3af2a9d16af21f70379ee06b6df7060dcf4449813fd85e0bf5a9ff6d",
+          "idle-result.json": "27542f9c2a527a67f2aa043a89235201c5701eebe5227b25dc0584369b5eeadd"
+        }
+      },
+      "solve_observed_span_sim_s": 199.911999999,
+      "source_gap_max_s": 0.068000001,
+      "source_gap_mean_s": 0.06599933971574777,
+      "max_solver_s": 0.02737879753112793,
+      "runtime_contract_sha256": "f49242c1fdbfc67ca92881cbe3034adf9278c10e6e353021400b6f799c4e4509",
+      "matches_postrun_runtime_fingerprint": true,
+      "stop_exit_code": 0,
+      "live_disarmed_before_stop": true,
+      "workflow_passed": true,
+      "input_sha256": {
+        "artifacts/runs/vio-prior-20261022-068-idle-01/idle-vins.jsonl": "d213faf38cba2751307f91626ffaf88cb2102ef61cae6d51f7b2f3a95bb68de8",
+        "artifacts/runs/vio-prior-20261022-068-idle-01/idle-odometry.jsonl": "9bc6d8fe62fad2f4722d2832637f20502621d5002a67c80307d013b09be33afc",
+        "artifacts/runs/vio-prior-20261022-068-idle-01/idle-truth.jsonl": "7bfa27ed3af2a9d16af21f70379ee06b6df7060dcf4449813fd85e0bf5a9ff6d",
+        "artifacts/runs/vio-prior-20261022-068-idle-01/idle-result.json": "27542f9c2a527a67f2aa043a89235201c5701eebe5227b25dc0584369b5eeadd",
+        "artifacts/runs/vio-prior-20261022-068-idle-01/runtime-contract.json": "5be22387d4991eb6272ed6a4ffc30b2cab45f649d66ffd151c17896ef6719252",
+        "artifacts/runs/vio-prior-20261022-068-idle-01/prior-diagnostics.json": "a06ec3bfdd53a640b75fa36d7ef09e2fe17b895d82bc386fbab4dcbca30c59e9",
+        "artifacts/runs/vio-prior-20261022-068-idle-01/idle-odometry-errors.json": "c0f250b6e99195c6f269edc8a1cad0040220b36209bad35464b01bd546e8c0d1",
+        "artifacts/runs/vio-prior-20261022-068-idle-01/idle-odometry-errors.csv": "67cf0521a67ff9efc715198948216a9b18d0c78436ac967f9dcbceca5d024af9"
+      }
+    }
+  ],
+  "validation": {
+    "build_packages": 17,
+    "fresh_fetch": {
+      "files": 222,
+      "differences": []
+    },
+    "unit_tests": 192,
+    "unit_seconds": 8.597,
+    "ros_action_integration": "PASS",
+    "max_pose_receipt_age_s": 0.054,
+    "structure": "PASS",
+    "optional_historical_artifact_links_absent": 80,
+    "git_diff_check": "PASS",
+    "no_new_flight": true,
+    "artifact_sha256": {
+      "artifacts/runs/vio-prior-20261022-068-checks/build.log": "5681eab819b4e417fdabd52ab492ab2234aee534938d7259eff508a2d5aedf3f",
+      "artifacts/runs/vio-prior-20261022-068-checks/fetch.log": "0343ca882c79cbb86767ee00bab732d3b4fedba0a930451e9e794cbaa5245ed7",
+      "artifacts/runs/vio-prior-20261022-068-checks/fetch-comparison.json": "71f4320ffa5d217dfd6999d7a48b0124f8ac5798dcff8e4aba4de38d48f20d34",
+      "artifacts/runs/vio-prior-20261022-068-checks/tests-final.log": "ed96e7c93ecb96f689501866588a4babc1c62cb2bdf793a6ae19d1e6d4a31dc4",
+      "artifacts/runs/vio-prior-20261022-068-checks/structure-final.log": "886b0e76a3099fcd55ff19f25f1eb20fb72f5f6b32b300b21309e51c23979de1",
+      "artifacts/runs/vio-prior-20261022-068-checks/summarize.py": "bf7d9de35f7ed80ff0049788637c84bf53fc95c1f7a23b9fd90f1a6344db3bce"
+    }
+  },
+  "interpretation": [
+    "Motion highest-q prior: r0^2=2203.17967, Jdx^2=6.88169, cross=-11.29154; current prior norm^2=2198.76982. The current increment reduces this prior norm relative to its base.",
+    "Stationary observation has zero prior frames across 200 simulation seconds and q<=0.190664; elapsed time alone is not a sufficient explanation in this control.",
+    "Both runs remain below q=1.0. Neither reproduces or identifies the cause of the old flight threshold crossings."
+  ],
+  "limitations": [
+    "Separate initializations, estimator ages, fixture presence, feature geometries and source-frame intervals differ; this is descriptive evidence, not a strictly isolated solver intervention.",
+    "Two motion frames have truncated window lists: validate only visual-count lower bounds there.",
+    "JtJ eigenvalue rank uses an absolute epsilon with mixed units and large dynamic range; near-zero eigenvalues may be numerically unreliable.",
+    "Only the static control used the final callback-close guard in the truth recorder. First motion recording started before this small guard was added; no estimator/driver/binary changed during either run.",
+    "Idle probe publisher count means explicitly created application publishers; it is not a census of ROS automatic metadata publishers.",
+    "Ideal stationary simulation errors are not a real sensor precision claim.",
+    "Motion cleanup acknowledgement failed. Actual model absence does not convert the raw failure into a pass."
+  ],
+  "next_bounded_hypothesis": "Inspect how the prior base residual is formed at marginalization (before/after Schur elimination and spectrum truncation); do not loosen a health threshold or infer a fault from this cost alone."
+}

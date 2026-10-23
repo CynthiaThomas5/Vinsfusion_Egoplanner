@@ -5,8 +5,9 @@ import numpy as np
 root=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(root/'tools'))
 from evaluate_vins_motion import rotation
+from flight_profile import attempts
 run=Path(sys.argv[1]);load=lambda n:json.loads((run/n).read_text())
-flight=load('flight.json');truth=load('debug-truth-evaluation.json')['samples'];odom=[x for x in load('alignment-observation.json')['samples'] if x['kind']=='odom'];preflight=load('preflight.json');cfg=json.loads((root/'config/components/navigation/room_crossing_goal.json').read_text())
+flight=load('flight.json');truth=load('debug-truth-evaluation.json')['samples'];odom=[x for x in load('alignment-observation.json')['samples'] if x['kind']=='odom'];preflight=load('preflight.json');cfg=json.loads((root/flight.get('goal_config','config/components/navigation/room_crossing_goal.json')).read_text())
 if not flight.get('goal'):raise ValueError('No navigation goal was dispatched')
 refstamp=preflight['clock_samples'][-1]['sim_ns']-1_000_000_000
 ref=min(odom,key=lambda p:abs(p['source_ns']-refstamp));tr=min(truth,key=lambda p:abs(p['stamp_ns']-ref['source_ns']));assert abs(tr['stamp_ns']-ref['source_ns'])<=20_000_000
@@ -15,26 +16,38 @@ from uav_sim.geometry import px4_sensor_mount
 mount=px4_sensor_mount(root/'simulation/models/x500_d435i/model.sdf')
 lever=np.array(mount['translation_frd_m'])*np.array([1,-1,-1]);A=rotation(tr['q_xyzw'])@rotation(ref['q_xyzw']).T
 origin=np.asarray(tr['xyz'])+rotation(tr['q_xyzw'])@lever-A@ref['xyz']
-goal=A@flight['goal']['target_enu']+origin
-yawoff=math.atan2(A[1,0],A[0,0]);goalyaw=flight['goal']['yaw_enu']+yawoff
-phases=[json.loads(s) for s in (run/'bridge-alignment-timeline.jsonl').read_text().splitlines()]
-start=next(x['stamp_ns'] for x in phases if x['phase']=='PRESTREAM');end=next((x['stamp_ns'] for x in phases if x['phase']=='LANDING'),truth[-1]['stamp_ns'])
-goal_events=[x for x in load('planner-observation.json')['messages'] if x['type']=='goal'];h=goal_events[0]['message']['target']['header']['stamp'];goalstamp=h['sec']*10**9+h['nanosec']
-rows=[]
-for p in truth:
- if not goalstamp<=p['stamp_ns']<=end:continue
- R=rotation(p['q_xyzw']);imu=np.asarray(p['xyz'])+R@lever;error=float(np.linalg.norm(imu-goal));yaw=math.atan2(R[1,0],R[0,0]);ye=abs(math.atan2(math.sin(yaw-goalyaw),math.cos(yaw-goalyaw)));rows.append((p['wall_s'],p['stamp_ns'],error,ye,error<=cfg.get('verification_position_tolerance_m',cfg['position_tolerance_m']) and ye<=cfg['yaw_tolerance_rad']))
-assert rows
-longest=0.;since=None;last=None
-for wall,stamp,error,ye,inside in rows:
- if not inside or (last is not None and wall-last>.12):since=None
- if inside:
-  if since is None:since=wall
-  longest=max(longest,wall-since)
- last=wall
-landed_stamp=next((x['stamp_ns'] for x in phases if x['phase']=='LANDED'),truth[-1]['stamp_ns'])
-invalid=[x for x in flight['localization_quality_history'] if start<=x['stamp_ns']<=landed_stamp and not x['valid']]
-report={'scope':'Offline, single fixed ground SE(3), scale 1; no truth feedback or timestamp repair. Sampled current-room diagnostic, not full P0-P6 acceptance.','reference_source_ns':ref['source_ns'],'reference_truth_gap_sim_s':abs(tr['stamp_ns']-ref['source_ns'])/1e9,'world_imu_goal_xyz':goal.tolist(),'minimum_true_3d_position_error_m':min(x[2] for x in rows),'max_contiguous_true_goal_dwell_wall_s':longest,'required_dwell_wall_s':cfg['dwell_s'],'native_position_tolerance_m':flight['goal']['position_tolerance_m'],'verification_position_tolerance_m':cfg.get('verification_position_tolerance_m',cfg['position_tolerance_m']),'independent_goal_dwell_passed':longest>=cfg['dwell_s'],'native_action_success':flight.get('action_success',False),'landed_and_disarmed':flight.get('landed_and_disarmed',False),'invalid_localization_samples_after_enable':len(invalid),'first_invalid_localization_after_enable':invalid[0] if invalid else None,'ground_rotation':A.tolist(),'ground_translation':origin.tolist()}
+leg_reports=[]
+for leg in attempts(flight):
+ goal=A@leg['goal']['target_enu']+origin
+ yawoff=math.atan2(A[1,0],A[0,0]);goalyaw=leg['goal']['yaw_enu']+yawoff
+ phases=[json.loads(s) for s in (run/'bridge-alignment-timeline.jsonl').read_text().splitlines()]
+ start=next(x['stamp_ns'] for x in phases if x['phase']=='PRESTREAM');end=next((x['stamp_ns'] for x in phases if x['phase']=='LANDING'),truth[-1]['stamp_ns'])
+ if 'source_ns' in leg['goal']:
+  goalstamp=leg['goal']['source_ns']
+ else:
+  event=next(x for x in load('planner-observation.json')['messages'] if x['type']=='goal')
+  h=event['message']['target']['header']['stamp'];goalstamp=h['sec']*10**9+h['nanosec']
+ end=min(end,leg.get('goal_completed_source_ns',end))
+ rows=[]
+ for p in truth:
+  if not goalstamp<=p['stamp_ns']<=end:continue
+  R=rotation(p['q_xyzw']);imu=np.asarray(p['xyz'])+R@lever;error=float(np.linalg.norm(imu-goal));yaw=math.atan2(R[1,0],R[0,0]);ye=abs(math.atan2(math.sin(yaw-goalyaw),math.cos(yaw-goalyaw)));rows.append((p['wall_s'],p['stamp_ns'],error,ye,error<=cfg.get('verification_position_tolerance_m',cfg['position_tolerance_m']) and ye<=cfg['yaw_tolerance_rad']))
+ assert rows
+ longest=0.;since=None;last=None
+ for wall,stamp,error,ye,inside in rows:
+  if not inside or (last is not None and wall-last>.12):since=None
+  if inside:
+   if since is None:since=wall
+   longest=max(longest,wall-since)
+  last=wall
+ landed_stamp=next((x['stamp_ns'] for x in phases if x['phase']=='LANDED'),truth[-1]['stamp_ns'])
+ invalid=[x for x in flight['localization_quality_history'] if start<=x['stamp_ns']<=landed_stamp and not x['valid']]
+ report={'scope':'Offline, single fixed ground SE(3), scale 1; no truth feedback or timestamp repair. Sampled current-room diagnostic, not full P0-P6 acceptance.','reference_source_ns':ref['source_ns'],'reference_truth_gap_sim_s':abs(tr['stamp_ns']-ref['source_ns'])/1e9,'world_imu_goal_xyz':goal.tolist(),'minimum_true_3d_position_error_m':min(x[2] for x in rows),'max_contiguous_true_goal_dwell_wall_s':longest,'required_dwell_wall_s':cfg['dwell_s'],'native_position_tolerance_m':leg['goal']['position_tolerance_m'],'verification_position_tolerance_m':cfg.get('verification_position_tolerance_m',cfg['position_tolerance_m']),'independent_goal_dwell_passed':longest>=cfg['dwell_s'],'native_action_success':leg.get('action_success',False),'landed_and_disarmed':flight.get('landed_and_disarmed',False),'invalid_localization_samples_after_enable':len(invalid),'first_invalid_localization_after_enable':invalid[0] if invalid else None,'ground_rotation':A.tolist(),'ground_translation':origin.tolist()}
+ leg_reports.append(report)
+report=leg_reports[-1].copy()
+report['legs']=leg_reports
+report['independent_goal_dwell_passed']=all(x['independent_goal_dwell_passed'] for x in leg_reports)
+report['native_action_success']=flight.get('result')=='PASS' and all(x['native_action_success'] for x in leg_reports)
 lines=(run/'vio.log').read_text().splitlines()
 begin=next(i for i,line in enumerate(lines) if 'bridge phase=PRESTREAM' in line)
 finish=next((i for i,line in enumerate(lines[begin:],begin) if 'bridge phase=LANDED' in line),len(lines))

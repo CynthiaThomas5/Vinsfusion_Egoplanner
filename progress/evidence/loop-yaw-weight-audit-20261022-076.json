@@ -1,0 +1,225 @@
+{
+  "goal": "#076: read-only audit of loop_fusion rotation constraints and corrected odometry orientation",
+  "status": "completed_read_only_audit",
+  "run_id": "real-loop-20261022-074-02",
+  "epoch": "d612f794c58d4c898a03adcc1d7603b0",
+  "scope": "No source/configuration/control changes; static inspection of pinned source plus offline analysis of existing 074-02 artifacts.",
+  "runtime_identity": {
+    "session_imu": 1,
+    "observer_set_imu_flag": true,
+    "selected_optimizer": "optimize4DoF",
+    "runtime_configuration_sha256": "dc499d7c2a5fc013e38d41480ab2392042d30d8dc5db5112da70ed573bbbbb64",
+    "configuration_hash_matches_manifest": true,
+    "loop_fusion_executable_sha256": "8762600f20c9f4b07f3e889b2f3ef1d6662439eaa186d21a7f5bff114acaaf7a",
+    "executable_hash_matches_manifest": true,
+    "source_file_sha256": {
+      "pose_graph.cpp": "d0e117e7a2d5504193d0d17dce33b2e0efef2700d21a3afb23e04e35adf2df22",
+      "pose_graph.h": "2ac3ddb22a18af13d062e23103d8477ab6e16fac6075ff1c7480f04276d4bc83",
+      "pose_graph_node.cpp": "62a16d1dce67c5f2a5ad4ef312166ddfc805349ded972b86943dc3e8fe76a7f7"
+    },
+    "source_files_match_dependency_lock": {
+      "pose_graph.cpp": true,
+      "pose_graph.h": true,
+      "pose_graph_node.cpp": true
+    },
+    "loop_mode_reason": "pose_graph_node loads a fresh stereo-IMU session and explicitly calls setIMUFlag(true); the pinned source dispatches this mode to optimize4DoF."
+  },
+  "optimizer_audit": {
+    "state_variables": "x,y,z and yaw; roll/pitch are held from the VIO keyframe attitude when the 4DoF residual is constructed.",
+    "neighbor_edges": "four previous same-sequence neighbors are added where available; yaw residual is direct and these residual blocks have no robust loss.",
+    "loop_edges": "three translation residuals plus PnP relative-yaw residual; the loop yaw residual is divided by 10, and the loop block alone uses HuberLoss(0.1).",
+    "angle_unit": "Utility::R2ypr returns degrees and NormalizeAngle wraps at +/-180 degrees; the 1/10 loop yaw scale is applied to degree-valued yaw residuals.",
+    "iteration_cap": 5,
+    "post_optimization": "optimized keyframe poses establish r_drift/t_drift; in IMU mode r_drift is built from yaw difference only. Subsequent odometry_rect orientations are multiplied by r_drift (and the sequence transform), while previously published samples are not republished.",
+    "relevant_source_lines": {
+      "pose_graph.cpp": "53-65, 538-573, 592-633",
+      "pose_graph.h": "201-290, especially FourDOFError and FourDOFWeightError",
+      "pose_graph_node.cpp": "203-219, 106-123"
+    }
+  },
+  "graph_snapshot": {
+    "revision": [
+      101,
+      4,
+      4
+    ],
+    "keyframes": 101,
+    "verified_loops": 4,
+    "optimizations": 4
+  },
+  "accepted_edge_analysis_at_final_snapshot": [
+    {
+      "old_index": 5,
+      "current_index": 63,
+      "pnp_yaw_target_deg": 0.23489992534219617,
+      "raw_vio_relative_yaw_deg": 0.7414118794878277,
+      "optimized_relative_yaw_deg": 0.6854855150984918,
+      "raw_yaw_residual_deg": 0.5065119541456227,
+      "optimized_yaw_residual_deg": 0.4505855897562867,
+      "yaw_residual_reduction_deg": 0.05592636438933596,
+      "current_keyframe_yaw_delta_deg": -0.05753526452505753,
+      "current_keyframe_translation_delta_m": 0.05268369044381375,
+      "independent_edge_rotation_error_deg": 0.3173368353374574,
+      "independent_edge_translation_error_m": 0.035031895457202346
+    },
+    {
+      "old_index": 7,
+      "current_index": 68,
+      "pnp_yaw_target_deg": -0.005317907780182374,
+      "raw_vio_relative_yaw_deg": 0.6927778855092015,
+      "optimized_relative_yaw_deg": 0.6335036379732912,
+      "raw_yaw_residual_deg": 0.698095793289383,
+      "optimized_yaw_residual_deg": 0.6388215457534727,
+      "yaw_residual_reduction_deg": 0.05927424753591026,
+      "current_keyframe_yaw_delta_deg": -0.06176708544177245,
+      "current_keyframe_translation_delta_m": 0.05778730838162089,
+      "independent_edge_rotation_error_deg": 0.10895688462544925,
+      "independent_edge_translation_error_m": 0.018219019628939313
+    },
+    {
+      "old_index": 4,
+      "current_index": 92,
+      "pnp_yaw_target_deg": -0.18461261249051875,
+      "raw_vio_relative_yaw_deg": 1.1156398293227312,
+      "optimized_relative_yaw_deg": 1.038947964641153,
+      "raw_yaw_residual_deg": 1.3002524418132566,
+      "optimized_yaw_residual_deg": 1.2235605771316784,
+      "yaw_residual_reduction_deg": 0.07669186468157818,
+      "current_keyframe_yaw_delta_deg": -0.07669186468157818,
+      "current_keyframe_translation_delta_m": 0.07835421434022748,
+      "independent_edge_rotation_error_deg": 0.22591282339775703,
+      "independent_edge_translation_error_m": 0.027546357009908
+    },
+    {
+      "old_index": 6,
+      "current_index": 94,
+      "pnp_yaw_target_deg": 0.1548663727375874,
+      "raw_vio_relative_yaw_deg": 1.1015896835707792,
+      "optimized_relative_yaw_deg": 1.025483701132714,
+      "raw_yaw_residual_deg": 0.9467233108331925,
+      "optimized_yaw_residual_deg": 0.8706173283951273,
+      "yaw_residual_reduction_deg": 0.07610598243806521,
+      "current_keyframe_yaw_delta_deg": -0.07768410304836948,
+      "current_keyframe_translation_delta_m": 0.07505929380365275,
+      "independent_edge_rotation_error_deg": 0.18684673109700548,
+      "independent_edge_translation_error_m": 0.03324287908799399
+    }
+  ],
+  "observed_odometry_correction_steps": [
+    {
+      "source_ns": 525495999999,
+      "sim_s": 525.495999999,
+      "seconds_after_nearest_verified_loop_keyframe": 0.332,
+      "nearest_loop_edge": {
+        "old_index": 5,
+        "current_index": 63,
+        "source_ns": 525163999999
+      },
+      "raw_to_corrected_translation_m": 0.034017444911993454,
+      "raw_to_corrected_rotation_deg": 0.011155180259250132,
+      "change_from_previous_transform_translation_m": 0.034017444911993454,
+      "change_from_previous_transform_rotation_deg": 0.011155180259250132,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    },
+    {
+      "source_ns": 571892000000,
+      "sim_s": 571.892,
+      "seconds_after_nearest_verified_loop_keyframe": 0.528,
+      "nearest_loop_edge": {
+        "old_index": 7,
+        "current_index": 68,
+        "source_ns": 571364000000
+      },
+      "raw_to_corrected_translation_m": 0.04195073800102109,
+      "raw_to_corrected_rotation_deg": 0.024896615191315037,
+      "change_from_previous_transform_translation_m": 0.019448110995230635,
+      "change_from_previous_transform_rotation_deg": 0.013741434910802715,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    },
+    {
+      "source_ns": 724615999999,
+      "sim_s": 724.615999999,
+      "seconds_after_nearest_verified_loop_keyframe": 0.987999999,
+      "nearest_loop_edge": {
+        "old_index": 4,
+        "current_index": 92,
+        "source_ns": 723628000000
+      },
+      "raw_to_corrected_translation_m": 0.08123143444232732,
+      "raw_to_corrected_rotation_deg": 0.053506362861872506,
+      "change_from_previous_transform_translation_m": 0.03943604240019786,
+      "change_from_previous_transform_rotation_deg": 0.028609747662627596,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    },
+    {
+      "source_ns": 728248000000,
+      "sim_s": 728.248,
+      "seconds_after_nearest_verified_loop_keyframe": 1.188000001,
+      "nearest_loop_edge": {
+        "old_index": 6,
+        "current_index": 94,
+        "source_ns": 727059999999
+      },
+      "raw_to_corrected_translation_m": 0.0755819750967553,
+      "raw_to_corrected_rotation_deg": 0.07768410304891987,
+      "change_from_previous_transform_translation_m": 0.009593308265598212,
+      "change_from_previous_transform_rotation_deg": 0.02417774019272007,
+      "transform_step_detection_tolerance": {
+        "translation_m": 1e-05,
+        "rotation_deg": 1e-05
+      }
+    }
+  ],
+  "observed_yaw_rmse_deg": {
+    "full": {
+      "raw_vins": 0.8103134778901883,
+      "loop_corrected": 0.7913996289647007
+    },
+    "after_first_correction_to_end": {
+      "raw_vins": 1.196415459200866,
+      "loop_corrected": 1.1596528391342895
+    },
+    "cycle_7_last_10s": {
+      "raw_vins": 1.3645991784884344,
+      "loop_corrected": 1.2869150856797644
+    }
+  },
+  "interpretation": {
+    "evidence_supported": "The loop yaw target is explicitly weakened relative to the local VIO yaw edges; in the final graph snapshot the loop-edge yaw residuals shrink only slightly and remain 0.451-1.224 degrees. The measured loop-to-output rotation changes are small while translation shifts are centimetres. This is consistent with limited yaw correction.",
+    "hypothesis_not_proven": "The explicit 1/10 loop-yaw scale and local sequential-edge dominance are the strongest code/data-supported explanation; current artifacts do not establish that this is the sole or primary causal limiter.",
+    "alternatives": "PnP relative-yaw error, the five-iteration solver cap, Huber downweighting on loop-factor residual norms, and the 4DoF gravity-preserving design may also affect results. Per-factor effective robust weights and convergence traces were not recorded."
+  },
+  "minimal_validation_proposal_for_next_goal": {
+    "scope": "Offline deterministic replay using captured 074-02 VIO keyframe poses, four verified loop constraints and the existing truth/return samples; no new simulation or control.",
+    "baseline_gate": "Recreate the existing four-edge 4DoF solution with the current 0.1 loop-yaw residual scale, Huber(0.1), neighbor factors and five iterations; require it to reproduce the saved optimized keyframe poses and final corrected return-window result within predeclared numeric tolerances.",
+    "single_intervention": "Change only the loop-factor yaw residual scale from 0.1 to 1.0; retain the same loop translations, neighbor factors, Huber loss, initialization, iteration limit and source data.",
+    "decision": "If the replay baseline matches and the intervention lowers final loop-edge yaw residuals and seventh-return yaw RMSE without a meaningful position-RMSE regression, the weighting hypothesis gains support. If not, reject it as a sufficient explanation and investigate PnP yaw quality or optimizer convergence."
+  },
+  "run_checks": {
+    "loop_evaluation_checks_all_pass": true,
+    "no_truth_input_to_backend": true,
+    "no_control_or_tf_outputs": true,
+    "four_verified_edges_and_optimizations": true
+  },
+  "input_sha256": {
+    "loop-observation.json": "45f6ecdda3f007006984b341af068ae8103b368bf2c45c3b07cf40d34c49a15b",
+    "candidate-diagnostics-summary.json": "d8ab97009576da43e35979b01cceeecac131de70a5be7757fb439d7b786ac56b",
+    "real-loop-evaluation.json": "9bf846efa77d31dd6bffdd5a788c3769ad4b39b94edfa6f427420d4e69327223",
+    "loop-drift-comparison.json": "ac33ecf3688338918b6fccf24bd8249829e67a71492115c6699773a9a932a460",
+    "loop-observer-manifest.json": "904343274502cb25e3acabdaeb53b24c40851f920f51fa1c913210b8a626242a"
+  },
+  "limitations": [
+    "Read-only audit; no factor ablation or causal intervention was run.",
+    "The last graph snapshot contains final keyframe states; per-factor Huber weights and Ceres convergence summaries are not recorded.",
+    "This observer output is isolated from navigation and PX4; results are not flight qualification."
+  ]
+}

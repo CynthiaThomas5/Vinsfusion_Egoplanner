@@ -16,14 +16,18 @@ from rclpy.action import ActionServer, CancelResponse, GoalResponse
 from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.clock import Clock as RclpyClock, ClockType, JumpThreshold
 from rclpy.duration import Duration
-from rclpy.executors import ExternalShutdownException, MultiThreadedExecutor
+from rclpy.executors import ExternalShutdownException
+from rclpy.experimental.events_executor import EventsExecutor
 from rclpy._rclpy_pybind11 import RCLError
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from rclpy.signals import SignalHandlerOptions
 from uav_interfaces.action import NavigateToPose
-from uav_interfaces.msg import LocalizationStatus, NavigationCommand, TrajectoryCancel
+from uav_interfaces.msg import LocalizationStatus, MapStatus, NavigationCommand, TrajectoryCancel
 
+from uav_interfaces.srv import QueryOccupancySphere
+
+from .admission import query_rejection
 from .task_state import NavigationGoal, Outcome, TaskEvent, TaskSupervisor
 
 
@@ -66,6 +70,20 @@ class NavigationNode(Node):
         if min(self.max_localization_age_s, self.max_odometry_age_s) <= 0:
             raise RuntimeError('navigation freshness guards must be positive')
 
+        mapping = json.loads((Path(project_root) /
+                              'config/components/mapping/ego_planner.json').read_text())
+        self.query_radius_m = float(mapping['obstacles_inflation_m'])
+        self.max_map_source_age_s = float(mapping['odom_depth_timeout_sim_s'])
+        self.query_timeout_s = float(self.config['map_query_timeout_wall_s'])
+        if (not all(math.isfinite(v) and v > 0 for v in
+                    (self.query_radius_m, self.max_map_source_age_s, self.query_timeout_s))
+                or self.query_radius_m > 2.0):
+            raise RuntimeError('invalid target query policy')
+        self._map_status = None
+        self._map_received = None
+        self._map_revision = 0
+        self._pending_admission = None
+        self._forwarded_goals = {}
         self.core = TaskSupervisor()
         self._lock = threading.RLock()
         self._action_callback_condition = threading.Condition(self._lock)
@@ -91,6 +109,15 @@ class NavigationNode(Node):
         self._status_sub = self.create_subscription(
             LocalizationStatus, self.config['localization_status_topic'],
             self._on_localization, status_qos, callback_group=self._callbacks)
+        self._map_sub = self.create_subscription(
+            MapStatus, '/mapping/status', self._on_map, status_qos,
+            callback_group=self._callbacks)
+        self._map_query = self.create_client(
+            QueryOccupancySphere, '/mapping/query_occupancy_sphere',
+            callback_group=self._callbacks)
+        self._planner_fault_sub = self.create_subscription(
+            TrajectoryCancel, '/navigation/planner_fault', self._on_planner_fault, 10,
+            callback_group=self._callbacks)
         self._odom_sub = self.create_subscription(
             Odometry, self.config['odometry_topic'], self._on_odometry, 10,
             callback_group=self._callbacks)
@@ -152,6 +179,10 @@ class NavigationNode(Node):
                     rejection_reason = (
                         f'optimized odometry is stale ({odometry_age:.3f}s > '
                         f'{self.max_odometry_age_s:.3f}s)')
+                elif not self._map_ready(now):
+                    rejection_reason = 'map status is unavailable, stale or invalid'
+                elif not self._map_query.service_is_ready():
+                    rejection_reason = 'map query service is unavailable'
                 elif self._ego_goal_pub.get_subscription_count() < 1:
                     rejection_reason = 'EGO goal subscriber is unavailable'
                 elif self._trajectory_cancel_pub.get_subscription_count() < 1:
@@ -174,6 +205,114 @@ class NavigationNode(Node):
             return reject(f'invalid goal: {exc}')
         return GoalResponse.ACCEPT
 
+    def _clear_forwarded(self, reason):
+        for goal_id, epoch in tuple(self._forwarded_goals.items()):
+            cancel = TrajectoryCancel()
+            cancel.goal_id, cancel.epoch = goal_id, epoch
+            cancel.mode = TrajectoryCancel.MODE_ABORT
+            cancel.reason = reason
+            self._trajectory_cancel_pub.publish(cancel)
+        self._forwarded_goals.clear()
+
+    def _on_planner_fault(self, msg):
+        with self._lock:
+            if self._forwarded_goals.get(msg.goal_id) != msg.epoch:
+                return
+            reason = 'planner_' + msg.reason
+            if self.core.active_goal is not None:
+                self._process_events(self.core.abort(self.core.active_goal.goal_id, reason))
+            # A completed action may still supply the bridge's final hold point.
+            self._clear_forwarded(reason)
+
+    def _map_ready(self, now):
+        status = self._map_status
+        return bool(status is not None and status.epoch == self.core.epoch
+                    and status.map_id and status.reset_acknowledged and status.input_ready
+                    and self._map_received is not None
+                    and now - self._map_received <= self.max_localization_age_s)
+
+    def _on_map(self, msg):
+        with self._lock:
+            previous = self._map_status
+            if previous is None or (previous.epoch, previous.map_id) != (msg.epoch, msg.map_id):
+                self._map_revision += 1
+                if self.core.active_goal is not None:
+                    self._process_events(self.core.abort(
+                        self.core.active_goal.goal_id, 'map_identity_changed'))
+                self._clear_forwarded('map_identity_changed')
+            self._map_status = copy.deepcopy(msg)
+            self._map_received = time.monotonic()
+            if self.core.active_goal is not None and not self._map_ready(self._map_received):
+                self._process_events(self.core.abort(
+                    self.core.active_goal.goal_id, 'map_status_invalid'))
+            if not self._map_ready(self._map_received):
+                self._clear_forwarded('map_status_invalid')
+
+    def _query_request_for_check(self, action_request, epoch, map_id):
+        request = QueryOccupancySphere.Request()
+        request.expected_epoch = epoch
+        request.expected_map_id = map_id
+        request.frame_id = action_request.target.header.frame_id
+        request.center = copy.deepcopy(action_request.target.pose.position)
+        request.radius_m = self.query_radius_m
+        return request
+
+    def _query_target(self, goal_handle, goal_id):
+        with self._lock:
+            if self._pending_admission is not None:
+                return 'map_query_busy', None
+            if not self._map_ready(time.monotonic()):
+                return 'map_status_unavailable', None
+            self._pending_admission = goal_id
+            revision = self._map_revision
+            request = QueryOccupancySphere.Request()
+            request.expected_epoch = epoch_from_frame(goal_handle.request.target.header.frame_id)
+            request.expected_map_id = self._map_status.map_id
+            request.frame_id = goal_handle.request.target.header.frame_id
+            request.center = copy.deepcopy(goal_handle.request.target.pose.position)
+            request.radius_m = self.query_radius_m
+        future = None
+        try:
+            if not self._map_query.service_is_ready():
+                return 'map_query_unavailable', None
+            deadline = time.monotonic() + self.query_timeout_s
+            while True:
+                if self._stopping or not rclpy.ok():
+                    return 'navigation_node_shutdown', None
+                if goal_handle.is_cancel_requested:
+                    return 'caller_cancel', None
+                if time.monotonic() >= deadline:
+                    return 'map_query_timeout', None
+                future = self._map_query.call_async(request)
+                while not future.done():
+                    if self._stopping or not rclpy.ok():
+                        return 'navigation_node_shutdown', None
+                    if goal_handle.is_cancel_requested:
+                        return 'caller_cancel', None
+                    if time.monotonic() >= deadline:
+                        return 'map_query_timeout', None
+                    time.sleep(0.005)
+                if time.monotonic() >= deadline:
+                    return 'map_query_timeout', None
+                response = future.result()
+                if (not response.accepted and response.reason in
+                        ('no_fresh_fused_depth', 'occupancy_update_stale', 'depth_source_stale')):
+                    # Wait for a newly completed fusion within the original wall deadline.
+                    time.sleep(0.005)
+                    continue
+                reason = query_rejection(response, request, self.get_clock().now().nanoseconds / 1e9,
+                                         self.max_map_source_age_s)
+                return reason, (revision, request.expected_map_id, response)
+        except Exception as exc:
+            self.get_logger().warning(f'map query failed: {type(exc).__name__}')
+            return 'map_query_failed', None
+        finally:
+            if future is not None and not future.done():
+                future.cancel()
+                self._map_query.remove_pending_request(future)
+            with self._lock:
+                self._pending_admission = None
+
     def _cancel_request(self, _goal_handle):
         return CancelResponse.ACCEPT
 
@@ -181,23 +320,45 @@ class NavigationNode(Node):
     def _action_goal_id(goal_handle):
         return uuid.UUID(bytes=bytes(goal_handle.goal_id.uuid)).hex
 
-    def _execute_goal(self, goal_handle):
+    async def _execute_goal(self, goal_handle):
         goal_id = self._action_goal_id(goal_handle)
+        completion = self.executor.create_future()
         with self._action_callback_condition:
             self._executing_goal_ids.add(goal_id)
-        try:
-            return self._execute_goal_impl(goal_handle, goal_id)
-        finally:
-            with self._action_callback_condition:
-                self._executing_goal_ids.discard(goal_id)
-                self._action_callback_condition.notify_all()
+
+        # The action waits for flight completion; keep the event loop serving inputs.
+        def execute():
+            try:
+                completion.set_result(self._execute_goal_impl(goal_handle, goal_id))
+            except Exception as exc:
+                completion.set_exception(exc)
+            finally:
+                with self._action_callback_condition:
+                    self._executing_goal_ids.discard(goal_id)
+                    self._action_callback_condition.notify_all()
+
+        threading.Thread(target=execute, name=f'navigation_goal_{goal_id}',
+                         daemon=True).start()
+        return await completion
 
     def _execute_goal_impl(self, goal_handle, goal_id):
         request = goal_handle.request
         pose = request.target.pose
+        query_reason, certificate = self._query_target(goal_handle, goal_id)
         with self._lock:
             now = time.monotonic()
             epoch = epoch_from_frame(request.target.header.frame_id)
+            if certificate is not None:
+                revision, map_id, response = certificate
+                if (revision != self._map_revision or not self._map_ready(now)
+                        or self._map_status.map_id != map_id):
+                    query_reason = 'map_context_changed_or_stale'
+                elif not query_reason:
+                    query_reason = query_rejection(
+                        response, self._query_request_for_check(request, epoch, map_id),
+                        self.get_clock().now().nanoseconds / 1e9, self.max_map_source_age_s)
+            if goal_handle.is_cancel_requested:
+                query_reason = 'caller_cancel'
             context_valid = bool(
                 not self._stopping and epoch and epoch == self.core.epoch
                 and self.core.localization_ready
@@ -209,7 +370,10 @@ class NavigationNode(Node):
                 and now - self._latest_pose_received <= self.max_odometry_age_s
                 and self._ego_goal_pub.get_subscription_count() > 0
                 and self._trajectory_cancel_pub.get_subscription_count() > 0)
-            if not context_valid:
+            if query_reason:
+                outcome = Outcome.CANCELED if query_reason == 'caller_cancel' else Outcome.REJECTED
+                events = (TaskEvent(outcome, goal_id, query_reason),)
+            elif not context_valid:
                 events = (TaskEvent(Outcome.REJECTED, goal_id,
                                     'goal_context_changed_or_stale'),)
             else:
@@ -231,8 +395,10 @@ class NavigationNode(Node):
                 command = NavigationCommand()
                 command.goal_id = goal_id
                 command.epoch = epoch
+                command.map_id = map_id
                 command.target = copy.deepcopy(request.target)
                 command.target.header.stamp = self.get_clock().now().to_msg()
+                self._forwarded_goals[goal_id] = epoch
                 self._ego_goal_pub.publish(command)
 
         if accepted:
@@ -242,7 +408,10 @@ class NavigationNode(Node):
             terminal = self._pop_terminal(goal_id)
             result = self._result(terminal or TaskEvent(Outcome.REJECTED, goal_id,
                                                         'localization_not_ready'))
-            goal_handle.abort()
+            if terminal is not None and terminal.outcome == Outcome.CANCELED:
+                goal_handle.canceled()
+            else:
+                goal_handle.abort()
             self._forget_goal(goal_id)
             return result
 
@@ -301,11 +470,15 @@ class NavigationNode(Node):
             if self._stopping:
                 return
             self._stopping = True
-            if not rclpy.ok() or self.core.active_goal is None:
+            if not rclpy.ok():
+                return
+            if self.core.active_goal is None:
+                self._clear_forwarded('navigation_node_shutdown')
                 return
             events = self.core.abort(
                 self.core.active_goal.goal_id, 'navigation_node_shutdown')
             self._process_events(events)
+            self._clear_forwarded('navigation_node_shutdown')
 
     def wait_for_action_callbacks(self, timeout_sec=5.0):
         deadline = time.monotonic() + timeout_sec
@@ -337,6 +510,12 @@ class NavigationNode(Node):
                 msg.epoch, msg.state == LocalizationStatus.TRACKING,
                 bool(msg.valid), msg.reason)
             self._process_events(events)
+            if not self._last_status_valid or self._last_status_epoch != self.core.epoch:
+                self._clear_forwarded('localization_invalid')
+            for goal_id, epoch in tuple(self._forwarded_goals.items()):
+                if epoch != self.core.epoch:
+                    self._clear_forwarded('localization_epoch_changed')
+                    break
         if status_warning is not None:
             self.get_logger().warning(status_warning)
 
@@ -381,6 +560,7 @@ class NavigationNode(Node):
             self.core.last_clock_ns = previous_stamp_ns
             events = self.core.update_clock(stamp_ns)
             self._process_events(events)
+            self._clear_forwarded('clock_regression')
         self.get_logger().warning(
             f'ROS clock regression: {previous_stamp_ns} -> {stamp_ns} ns')
 
@@ -411,11 +591,19 @@ class NavigationNode(Node):
                 events = self.core.update_localization(
                     self.core.epoch or '', False, False, 'status_stale')
                 self._process_events(events)
+                self._clear_forwarded('localization_status_stale')
             if (self.core.active_goal is not None and self._latest_pose_received is not None
                     and now - self._latest_pose_received > self.max_odometry_age_s):
                 events = self.core.update_pose(
                     self._latest_pose_epoch, (0.0, 0.0, 0.0), 0.0, now, fresh=False)
                 self._process_events(events)
+            if self._forwarded_goals and not self._map_ready(now):
+                if self.core.active_goal is not None:
+                    self._process_events(self.core.abort(self.core.active_goal.goal_id, 'map_status_stale'))
+                self._clear_forwarded('map_status_stale')
+            if (self._forwarded_goals and self._latest_pose_received is not None
+                    and now - self._latest_pose_received > self.max_odometry_age_s):
+                self._clear_forwarded('odometry_stale')
             events = self.core.tick(now)
             self._process_events(events)
         for warning in warnings:
@@ -430,6 +618,7 @@ class NavigationNode(Node):
                 cancel.mode = TrajectoryCancel.MODE_ABORT
                 cancel.reason = event.reason
                 self._trajectory_cancel_pub.publish(cancel)
+                self._forwarded_goals.pop(event.goal_id, None)
             if event.outcome in (Outcome.SUCCEEDED, Outcome.CANCELED,
                                  Outcome.ABORTED, Outcome.REJECTED):
                 self._terminal_events.setdefault(event.goal_id, []).append(event)
@@ -495,7 +684,7 @@ def main(args=None):
     signal.signal(signal.SIGINT, request_shutdown)
     rclpy.init(args=args, signal_handler_options=SignalHandlerOptions.NO)
     node = NavigationNode()
-    executor = MultiThreadedExecutor(num_threads=4)
+    executor = EventsExecutor()
     executor.add_node(node)
 
     def finish_shutdown():

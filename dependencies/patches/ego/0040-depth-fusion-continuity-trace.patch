@@ -1,0 +1,172 @@
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -11,6 +11,7 @@
+ #include <nav_msgs/msg/odometry.hpp>
+ #include <queue>
+ #include <rclcpp/rclcpp.hpp>
++#include <std_msgs/msg/string.hpp>
+ #include <string>
+ #include <tuple>
+ #include <visualization_msgs/msg/marker.hpp>
+@@ -128,7 +129,13 @@
+   std::int64_t last_fused_depth_source_stamp_ns_ = 0;
+   unsigned long long depth_pose_callback_count_ = 0;
+   long long last_depth_pose_stamp_ns_ = 0;
++  long long last_depth_image_stamp_ns_ = 0;
+   double last_depth_pose_callback_now_s_ = -1.0;
++  long long last_depth_pose_callback_stamp_ns_ = 0;
++  std::uint64_t last_depth_pose_callback_monotonic_ns_ = 0;
++  std::uint64_t fused_depth_count_ = 0;
++  long long last_depth_fusion_complete_stamp_ns_ = 0;
++  std::uint64_t last_depth_fusion_complete_monotonic_ns_ = 0;
+   bool last_depth_pose_in_map_ = false;
+ 
+   // depth image projected point cloud
+@@ -272,6 +279,7 @@
+ 
+   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr map_pub_;
+   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr map_inf_pub_;
++  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr depth_fusion_trace_pub_;
+ 
+   rclcpp::TimerBase::SharedPtr occ_timer_;
+   rclcpp::TimerBase::SharedPtr vis_timer_;
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -1,9 +1,11 @@
+ #include "plan_env/grid_map.h"
+ 
+ #include <algorithm>
++#include <chrono>
+ #include <cmath>
+ #include <cstdint>
+ #include <limits>
++#include <sstream>
+ #include <uav_interfaces/srv/reset_mapping.hpp>
+ #include <uav_interfaces/srv/get_occupancy_snapshot.hpp>
+ #include <uav_interfaces/srv/query_occupancy_sphere.hpp>
+@@ -267,6 +269,8 @@
+   // 发布者
+   map_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("grid_map/occupancy", 10);
+   map_inf_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("grid_map/occupancy_inflate", 10);
++  depth_fusion_trace_pub_ = node_->create_publisher<std_msgs::msg::String>(
++      "/mapping/depth_fusion_trace", rclcpp::QoS(100).best_effort());
+   reset_map_service_ = node_->create_service<uav_interfaces::srv::ResetMapping>(
+       "/mapping/reset_map",
+       [this](const std::shared_ptr<uav_interfaces::srv::ResetMapping::Request> request,
+@@ -433,15 +437,21 @@
+   md_.flag_use_depth_fusion = false;
+   md_.has_fused_depth_ = false;
+   md_.last_fused_depth_source_stamp_ns_ = 0;
++  md_.depth_pose_callback_count_ = 0;
++  md_.last_depth_image_stamp_ns_ = 0;
++  md_.last_depth_pose_stamp_ns_ = 0;
++  md_.last_depth_pose_callback_now_s_ = -1.0;
++  md_.last_depth_pose_callback_stamp_ns_ = 0;
++  md_.last_depth_pose_callback_monotonic_ns_ = 0;
++  md_.fused_depth_count_ = 0;
++  md_.last_depth_fusion_complete_stamp_ns_ = 0;
++  md_.last_depth_fusion_complete_monotonic_ns_ = 0;
+   md_.depth_image_.release();
+   md_.last_depth_image_.release();
+   md_.camera_pos_.setZero();
+   md_.last_camera_pos_.setZero();
+   md_.camera_r_m_.setIdentity();
+   md_.last_camera_r_m_.setIdentity();
+-  md_.depth_pose_callback_count_ = 0;
+-  md_.last_depth_pose_stamp_ns_ = 0;
+-  md_.last_depth_pose_callback_now_s_ = -1.0;
+   md_.last_depth_pose_in_map_ = false;
+   active_epoch_ = epoch;
+   active_map_id_ = map_id;
+@@ -457,6 +467,19 @@
+   reason = "map_cleared:" + map_id;
+   RCLCPP_INFO(node_->get_logger(), "Cleared occupancy map for epoch %s map_id %s",
+               epoch.c_str(), map_id.c_str());
++  if (depth_fusion_trace_pub_)
++  {
++    std_msgs::msg::String trace;
++    std::ostringstream data;
++    data << "{\"phase\":\"reset\",\"epoch\":\"" << active_epoch_
++         << "\",\"map_id\":\"" << active_map_id_
++         << "\",\"ros_stamp_ns\":" << node_->now().nanoseconds()
++         << ",\"monotonic_ns\":"
++         << std::chrono::duration_cast<std::chrono::nanoseconds>(
++                std::chrono::steady_clock::now().time_since_epoch()).count() << "}";
++    trace.data = data.str();
++    depth_fusion_trace_pub_->publish(trace);
++  }
+   return true;
+ }
+ 
+@@ -1022,11 +1045,60 @@
+   md_.local_updated_ = false;
+   md_.has_fused_depth_ = true;
+   md_.last_fused_depth_source_stamp_ns_ = md_.last_depth_pose_stamp_ns_;
++  md_.fused_depth_count_ += 1;
++  md_.last_depth_fusion_complete_stamp_ns_ = node_->now().nanoseconds();
++  md_.last_depth_fusion_complete_monotonic_ns_ = static_cast<std::uint64_t>(
++      std::chrono::duration_cast<std::chrono::nanoseconds>(
++          std::chrono::steady_clock::now().time_since_epoch()).count());
++  if (depth_fusion_trace_pub_)
++  {
++    std_msgs::msg::String trace;
++    std::ostringstream data;
++    data << "{\"phase\":\"fused\",\"epoch\":\"" << active_epoch_
++         << "\",\"map_id\":\"" << active_map_id_
++         << "\",\"callback_count\":" << md_.depth_pose_callback_count_
++         << ",\"fused_count\":" << md_.fused_depth_count_
++         << ",\"image_source_stamp_ns\":" << md_.last_depth_image_stamp_ns_
++         << ",\"pose_source_stamp_ns\":" << md_.last_depth_pose_stamp_ns_
++         << ",\"callback_ros_stamp_ns\":" << md_.last_depth_pose_callback_stamp_ns_
++         << ",\"callback_monotonic_ns\":" << md_.last_depth_pose_callback_monotonic_ns_
++         << ",\"fusion_ros_stamp_ns\":" << md_.last_depth_fusion_complete_stamp_ns_
++         << ",\"fusion_monotonic_ns\":" << md_.last_depth_fusion_complete_monotonic_ns_
++         << "}";
++    trace.data = data.str();
++    depth_fusion_trace_pub_->publish(trace);
++  }
+ }
+ 
+ void GridMap::depthPoseCallback(const sensor_msgs::msg::Image::ConstPtr &img,
+                                 const geometry_msgs::msg::PoseStamped::ConstPtr &pose)
+ {
++  md_.depth_pose_callback_count_ += 1;
++  md_.last_depth_image_stamp_ns_ =
++      static_cast<long long>(img->header.stamp.sec) * 1000000000LL + img->header.stamp.nanosec;
++  md_.last_depth_pose_stamp_ns_ =
++      static_cast<long long>(pose->header.stamp.sec) * 1000000000LL + pose->header.stamp.nanosec;
++  md_.last_depth_pose_callback_stamp_ns_ = node_->now().nanoseconds();
++  md_.last_depth_pose_callback_now_s_ = node_->now().seconds();
++  md_.last_depth_pose_callback_monotonic_ns_ = static_cast<std::uint64_t>(
++      std::chrono::duration_cast<std::chrono::nanoseconds>(
++          std::chrono::steady_clock::now().time_since_epoch()).count());
++  if (depth_fusion_trace_pub_)
++  {
++    std_msgs::msg::String trace;
++    std::ostringstream data;
++    data << "{\"phase\":\"ego_received\",\"epoch\":\"" << active_epoch_
++         << "\",\"map_id\":\"" << active_map_id_
++         << "\",\"callback_count\":" << md_.depth_pose_callback_count_
++         << ",\"image_source_stamp_ns\":" << md_.last_depth_image_stamp_ns_
++         << ",\"pose_source_stamp_ns\":" << md_.last_depth_pose_stamp_ns_
++         << ",\"callback_ros_stamp_ns\":" << md_.last_depth_pose_callback_stamp_ns_
++         << ",\"callback_monotonic_ns\":" << md_.last_depth_pose_callback_monotonic_ns_
++         << "}";
++    trace.data = data.str();
++    depth_fusion_trace_pub_->publish(trace);
++  }
++
+   /* get depth image */
+   cv_bridge::CvImagePtr cv_ptr;
+   cv_ptr = cv_bridge::toCvCopy(img, img->encoding);
+@@ -1046,10 +1118,6 @@
+   md_.camera_r_m_ = Eigen::Quaterniond(pose->pose.orientation.w, pose->pose.orientation.x,
+                                        pose->pose.orientation.y, pose->pose.orientation.z)
+                         .toRotationMatrix();
+-  md_.depth_pose_callback_count_ += 1;
+-  md_.last_depth_pose_stamp_ns_ =
+-      static_cast<long long>(pose->header.stamp.sec) * 1000000000LL + pose->header.stamp.nanosec;
+-  md_.last_depth_pose_callback_now_s_ = node_->now().seconds();
+   md_.last_depth_pose_in_map_ = isInMap(md_.camera_pos_);
+   if (md_.last_depth_pose_in_map_)
+   {

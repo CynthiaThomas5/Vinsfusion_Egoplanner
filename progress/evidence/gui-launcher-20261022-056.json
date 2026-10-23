@@ -1,0 +1,75 @@
+{
+  "status": "passed_for_daily_launcher_and_one_current_room_gui_sitl",
+  "date": "2026-10-22",
+  "server": "gpu4090",
+  "workspace": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2",
+  "commands": {
+    "gui": "./start.sh",
+    "flight_demo": "./start.sh fly",
+    "status": "./start.sh status",
+    "stop": "./start.sh stop"
+  },
+  "source_sha256": {
+    "start.sh": "58ad61d99953715ca5233e5dac06bf3cc03f9545c05f07b80b610ef906b8c447",
+    "tools/test_start_launcher.py": "1f8c44da6a7a3ca0dd4bf86a280303d8e50c9d480958053f03e3adf808329687",
+    "tools/export_project.py": "a4a2136290d6ea1e3d017edd7f16845c72b95ce5a914822a065cae71ae2dde95",
+    "tools/test_export_project.py": "87f755701b5f8ec6c787716550a2357b60ddb57a7cc693cd95a04f9be6f72931",
+    "README.md": "0e6da7a4af81ca28cf295ed4d5206f836f53e6a6a7245509611416a88d4698df",
+    "docs/running.md": "be53a5a8eaa33a9e15e85608514370317316996db723a5f2a57b899c33240b85"
+  },
+  "start_mode": "0o775",
+  "validation": {
+    "shell_syntax": "PASS",
+    "local_launcher_unit_tests": 9,
+    "export_unit": "PASS, includes executable start.sh",
+    "actual_code_only_export": "PASS, source bytes and executable mode verified",
+    "server_default_unit_tests": 142,
+    "server_action_integration": "PASS including 250Hz clock",
+    "server_regression_exit": 0,
+    "ssh_auto_display": ":11",
+    "duplicate_launch_exit": 9,
+    "status_while_flying": "PASS",
+    "stop_after_landing_exit": 0,
+    "fresh_gui_restart_exit": 0,
+    "reuse_existing_gui_exit": 0,
+    "ros_rebuild": "not needed: host launcher/export changes only; runtime source/binary unchanged"
+  },
+  "sitl": {
+    "run_id": "gui-20261022-113110-714995",
+    "mission_exit": 0,
+    "passed": true,
+    "checks": {
+      "terminal_position_velocity_acceleration_boundary": true,
+      "native_action_and_landing": true,
+      "independent_goal_and_health": true,
+      "boot_parameter_audit": true,
+      "isolated_mutable_state": true,
+      "runtime_hashes_unchanged": true,
+      "source_mutable_files_unchanged": true,
+      "sampled_nominal_body_clearance_positive": true,
+      "truth_samples_continuous_at_50hz": true
+    },
+    "epoch": "85237e6fc3b345789a96d39537ec7596",
+    "map_id": "85237e6fc3b345789a96d39537ec7596-a19822d90c964845bdb21632e820c6b5",
+    "runtime_contract_sha256": "5b27c0fef05d246feeec5115c8f7dd131a283dbb57e54ab64d5c51382de32811",
+    "landed_and_disarmed": true,
+    "independent_true_min_3d_error_m": 0.14923518820318166,
+    "sampled_nominal_body_clearance_m": 0.25598380024864925,
+    "invalid_localization_after_enable": 0
+  },
+  "final_gui_session": "gui-20261022-113429-724608",
+  "final_gui_state": "running; no flight mission issued",
+  "artifact_manifest": {
+    "path": "artifacts/runs/gui-launcher-20261022-056/artifact-sha256.json",
+    "sha256": "7b9f510bb36370058ca989f0a61ace8253ad451c27dddbad1e261d124f02ba1c",
+    "files": 61
+  },
+  "limitations": [
+    "Requires an already logged-in accessible X11/XRDP desktop; not a desktop login service.",
+    "Does not change GPU sharing or XRDP performance.",
+    "Stop/restart guards apply to canonical project missions and their completion reports; not an emergency landing command.",
+    "Only current-room single GUI flight validated; formal P0-P6/S1-S6/A-H unchanged.",
+    "Raw PX4 ULogs remain on server; local mirror excludes px4_sitl_default."
+  ],
+  "committed_or_pushed": false
+}

@@ -24,6 +24,12 @@ class RuntimeManifestTest(unittest.TestCase):
             binary = root / 'install/pkg/lib/vins_node'
             binary.write_text('changed binary')
             self.assertNotEqual(first['sha256'], snapshot(root)['sha256'])
+            loop_binary = root / 'install/pkg/lib/loop_fusion_node'
+            loop_binary.write_text('loop backend binary')
+            with_loop = snapshot(root)
+            self.assertIn('install/pkg/lib/loop_fusion_node', with_loop['files'])
+            loop_binary.write_text('changed loop backend binary')
+            self.assertNotEqual(with_loop['sha256'], snapshot(root)['sha256'])
             binary.write_text('binary')
             (root / 'config/flight.json').write_text('{"speed": 1}')
             self.assertNotEqual(first['sha256'], snapshot(root)['sha256'])

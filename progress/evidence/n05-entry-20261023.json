@@ -1,0 +1,756 @@
+{
+  "schema": "n05-entry-qualification/v1",
+  "date": "2026-10-23",
+  "small_goal": "N05",
+  "small_goal_status": "passed",
+  "status_scope": "N05 is passed for executable fail-closed entry rules, multi-layout offline/online consistency, and the no-go prescan transfer process. This does not authorize takeoff or claim a flight pass.",
+  "execution_mode": "Goal completion mode",
+  "user_goal_scope": "N05 only",
+  "takeoff_admission": "NOT_AUTHORIZED: no tested wall_box_column or corridor_box_column snapshot admitted the full uncertainty-expanded vehicle entry envelope; the released wall-r05 check also rejected raw unknown.",
+  "qualification": "DISARMED SITL support scan and read-only raw-map admission diagnostics only; no Offboard, no navigation goal, no PX4 control command, no real hardware.",
+  "geometry_and_budget": {
+    "policy_path": "config/components/navigation/vehicle_envelope.json",
+    "policy_sha256": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951",
+    "reference_frame": "d435i_imu_frame / d435i_link origin",
+    "orientation_invariant_rotor_sweep_radius_m": 0.4819358706659999,
+    "combined_uncertainty_margin_m": 0.24868204641820268,
+    "body_reference_clearance_radius_m": 0.7306179170842027,
+    "terms_m": {
+      "localization_10s_rpe_max_observed": 0.04172867921525873,
+      "map_surface_error_max_observed": 0.09535082682450007,
+      "voxel_half_diagonal": 0.08660254037844387,
+      "sweep_sample_half_step": 0.025
+    },
+    "qualification": "PROVISIONAL observed finite-sample inputs; not a hard bound or flight clearance."
+  },
+  "entry_rules": {
+    "phases": [
+      "TAKEOFF_CONTACT",
+      "ASCENT",
+      "HOLD",
+      "DESCENT",
+      "LANDING_CONTACT",
+      "start_pose_exemption"
+    ],
+    "raw_occupancy_only": true,
+    "unknown_or_out_of_bounds": "reject",
+    "raw_occupied": "reject_except_observed_skid_contact_in_allowed_phase",
+    "self_filter": "No vehicle-shaped voxels are erased and no free rays are synthesized. Near-camera and image-margin filtering follows the existing plan_env depth filter; self-occluded volume remains unknown and is rejected if it intersects the required entry envelope.",
+    "start_pose_exemption": "forbidden",
+    "scan_does_not_clear_voxels": true
+  },
+  "complete_two_layout_support_scans_at_0p6m": [
+    {
+      "run_id": "n05-20261023-wall-r03",
+      "layout_id": "wall_box_column",
+      "profile": "coverage @ 0.6 m",
+      "completed_stages": 12,
+      "attachment_states": [
+        "attached",
+        "detached"
+      ],
+      "fixture_removed": false,
+      "fixture_may_remain_attached": false,
+      "runner_outcome": "failed",
+      "runner_error": "detached fixture removal was not acknowledged",
+      "vehicle_arming_states": [
+        1
+      ],
+      "checks": {
+        "n05-before": {
+          "online_accepted": false,
+          "online_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "offline_accepted": false,
+          "offline_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "online_offline_match": true,
+          "archived_replay_matches_online": true,
+          "identity": {
+            "epoch": "f9737c2c8e29492397fdd549695862f2",
+            "map_id": "f9737c2c8e29492397fdd549695862f2-9a07a208ac534356b562a6bfa5f3a5b8",
+            "frame_id": "odom_f9737c2c8e29492397fdd549695862f2",
+            "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+            "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+            "envelope_policy_sha256": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951"
+          },
+          "raw_snapshot_sha256": "c3f0f3d52efceb5248599af37fef6eab2fb093bc78ab2e8b2287817f54815289",
+          "phase_maxima": {
+            "TAKEOFF_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 533,
+              "occupied_cells_max": 0
+            },
+            "ASCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 602,
+              "occupied_cells_max": 0
+            },
+            "HOLD": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 602,
+              "occupied_cells_max": 0
+            },
+            "DESCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 602,
+              "occupied_cells_max": 0
+            },
+            "LANDING_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 533,
+              "occupied_cells_max": 0
+            }
+          },
+          "debug_truth_subscribed": false,
+          "control_or_goal_published": false,
+          "artifacts": [
+            {
+              "path": "artifacts/runs/n05-20261023-wall-r03/n05-before/n05-live-entry-check.json",
+              "sha256": "cdea85eabffcdd87862a3aa743448abcfb80cc1eb001a8a704c45600fef07ca1"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-wall-r03/n05-before/n05-live-raw-map.npz",
+              "sha256": "c3f0f3d52efceb5248599af37fef6eab2fb093bc78ab2e8b2287817f54815289"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-wall-r03/n05-before/n05-offline-entry-replay.json",
+              "sha256": "8cbacd7548d7118308732b451442fe2962b62308f2957763cc2ba5dda2be10a6"
+            }
+          ]
+        },
+        "n05-after": {
+          "online_accepted": false,
+          "online_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "offline_accepted": false,
+          "offline_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "online_offline_match": true,
+          "archived_replay_matches_online": true,
+          "identity": {
+            "epoch": "f9737c2c8e29492397fdd549695862f2",
+            "map_id": "f9737c2c8e29492397fdd549695862f2-9a07a208ac534356b562a6bfa5f3a5b8",
+            "frame_id": "odom_f9737c2c8e29492397fdd549695862f2",
+            "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+            "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+            "envelope_policy_sha256": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951"
+          },
+          "raw_snapshot_sha256": "ce46441aa43a03871667e6e720b659eddd50e7a8349858c6187d8a586d53e47f",
+          "phase_maxima": {
+            "TAKEOFF_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 507,
+              "occupied_cells_max": 0
+            },
+            "ASCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 475,
+              "occupied_cells_max": 0
+            },
+            "HOLD": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 338,
+              "occupied_cells_max": 0
+            },
+            "DESCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 475,
+              "occupied_cells_max": 0
+            },
+            "LANDING_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 507,
+              "occupied_cells_max": 0
+            }
+          },
+          "debug_truth_subscribed": false,
+          "control_or_goal_published": false,
+          "artifacts": [
+            {
+              "path": "artifacts/runs/n05-20261023-wall-r03/n05-after/n05-live-entry-check.json",
+              "sha256": "2f31dceb83cf1c63c5207ba0c60da8e7c4c710d5f7d4d086e182622483a366b5"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-wall-r03/n05-after/n05-live-raw-map.npz",
+              "sha256": "ce46441aa43a03871667e6e720b659eddd50e7a8349858c6187d8a586d53e47f"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-wall-r03/n05-after/n05-offline-entry-replay.json",
+              "sha256": "9afa8f7a99d8d0a0ea767e59605855d6918dbd63f15b02bbeb6db3534487b22d"
+            }
+          ]
+        }
+      },
+      "fixture_report": {
+        "path": "artifacts/runs/n05-20261023-wall-r03/fixture-result.json",
+        "sha256": "3ee5e18b7e022e613068a9c97329295f89aa91167282fd9a01006652567f2a3a"
+      },
+      "run_input_manifest": {
+        "path": "artifacts/runs/n05-20261023-wall-r03/n05-run-inputs.json",
+        "sha256": "437a714cfe8b4cdfac26970eeb86b1cd74c42034b3836f7116b3b9ab07598cb8"
+      }
+    },
+    {
+      "run_id": "n05-20261023-corridor-r01",
+      "layout_id": "corridor_box_column",
+      "profile": "coverage @ 0.6 m",
+      "completed_stages": 12,
+      "attachment_states": [
+        "attached",
+        "detached"
+      ],
+      "fixture_removed": true,
+      "fixture_may_remain_attached": false,
+      "runner_outcome": "failed",
+      "runner_error": "localization changed or became invalid during physical scan",
+      "vehicle_arming_states": [
+        1
+      ],
+      "checks": {
+        "n05-before": {
+          "online_accepted": false,
+          "online_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "offline_accepted": false,
+          "offline_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "online_offline_match": true,
+          "archived_replay_matches_online": true,
+          "identity": {
+            "epoch": "e85cabe85db64b1ab984b3fe1b291f84",
+            "map_id": "e85cabe85db64b1ab984b3fe1b291f84-02abf32de66141d49dd39d80c287005f",
+            "frame_id": "odom_e85cabe85db64b1ab984b3fe1b291f84",
+            "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+            "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+            "envelope_policy_sha256": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951"
+          },
+          "raw_snapshot_sha256": "eb8e81f288aa0e88ec0182406b00067db092b9a15c64a5c1c4bb9124bac875c9",
+          "phase_maxima": {
+            "TAKEOFF_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 533,
+              "occupied_cells_max": 0
+            },
+            "ASCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 602,
+              "occupied_cells_max": 0
+            },
+            "HOLD": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 602,
+              "occupied_cells_max": 0
+            },
+            "DESCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 602,
+              "occupied_cells_max": 0
+            },
+            "LANDING_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 533,
+              "occupied_cells_max": 0
+            }
+          },
+          "debug_truth_subscribed": false,
+          "control_or_goal_published": false,
+          "artifacts": [
+            {
+              "path": "artifacts/runs/n05-20261023-corridor-r01/n05-before/n05-live-entry-check.json",
+              "sha256": "7d50cdf310c56467c885ceab8b4c2f38e2e0acedcee08ec1762a0342ec308f12"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-corridor-r01/n05-before/n05-live-raw-map.npz",
+              "sha256": "eb8e81f288aa0e88ec0182406b00067db092b9a15c64a5c1c4bb9124bac875c9"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-corridor-r01/n05-before/n05-offline-entry-replay.json",
+              "sha256": "216168e59fcba3db50c184d04c5cf7a933bfb991f4c5aff29cf5adb2cb2126c6"
+            }
+          ]
+        },
+        "n05-after": {
+          "online_accepted": false,
+          "online_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "offline_accepted": false,
+          "offline_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+          "online_offline_match": true,
+          "archived_replay_matches_online": true,
+          "identity": {
+            "epoch": "e85cabe85db64b1ab984b3fe1b291f84",
+            "map_id": "e85cabe85db64b1ab984b3fe1b291f84-02abf32de66141d49dd39d80c287005f",
+            "frame_id": "odom_e85cabe85db64b1ab984b3fe1b291f84",
+            "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+            "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+            "envelope_policy_sha256": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951"
+          },
+          "raw_snapshot_sha256": "427d7dbbd5d45b177c24cbb22ec3aa1bb583c4c8f9abd418dd834a9b65ff6889",
+          "phase_maxima": {
+            "TAKEOFF_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 498,
+              "occupied_cells_max": 0
+            },
+            "ASCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 466,
+              "occupied_cells_max": 0
+            },
+            "HOLD": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 324,
+              "occupied_cells_max": 0
+            },
+            "DESCENT": {
+              "samples": 19,
+              "accepted_samples": 0,
+              "unknown_cells_max": 466,
+              "occupied_cells_max": 0
+            },
+            "LANDING_CONTACT": {
+              "samples": 1,
+              "accepted_samples": 0,
+              "unknown_cells_max": 498,
+              "occupied_cells_max": 0
+            }
+          },
+          "debug_truth_subscribed": false,
+          "control_or_goal_published": false,
+          "artifacts": [
+            {
+              "path": "artifacts/runs/n05-20261023-corridor-r01/n05-after/n05-live-entry-check.json",
+              "sha256": "9dbf099ef037e0dddf0c1faf7ebd9aeaa364853cf41db3b2eefc0530691136ff"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-corridor-r01/n05-after/n05-live-raw-map.npz",
+              "sha256": "427d7dbbd5d45b177c24cbb22ec3aa1bb583c4c8f9abd418dd834a9b65ff6889"
+            },
+            {
+              "path": "artifacts/runs/n05-20261023-corridor-r01/n05-after/n05-offline-entry-replay.json",
+              "sha256": "124d50ea518d66dd6f69259bcff857c9af651879a2d5650186b438b3c4592937"
+            }
+          ]
+        }
+      },
+      "fixture_report": {
+        "path": "artifacts/runs/n05-20261023-corridor-r01/fixture-result.json",
+        "sha256": "741a66009a7bcf1afc76fa3aa732669ebd97cfb2ad0fad77358d8dd53a1353d9"
+      },
+      "run_input_manifest": {
+        "path": "artifacts/runs/n05-20261023-corridor-r01/n05-run-inputs.json",
+        "sha256": "5c2e4c44027cb90268c3382a6536237acb51891896c2357d5f40322f3b0a812f"
+      }
+    }
+  ],
+  "raised_support_scan_and_release_transfer": {
+    "run_id": "n05-20261023-wall-r05",
+    "layout_id": "wall_box_column",
+    "profile": "coverage @ 1.0 m",
+    "completed_stages": 12,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "runner_outcome": "failed",
+    "runner_error": "fresh DISARMED status is required for every fixture command",
+    "vehicle_arming_states": [
+      1
+    ],
+    "checks": {
+      "n05-before": {
+        "online_accepted": false,
+        "online_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+        "offline_accepted": false,
+        "offline_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+        "online_offline_match": true,
+        "archived_replay_matches_online": true,
+        "identity": {
+          "epoch": "7479fef27c8b4ba896eef9e6295144e4",
+          "map_id": "7479fef27c8b4ba896eef9e6295144e4-0eb5841646884433a1d19963652d7116",
+          "frame_id": "odom_7479fef27c8b4ba896eef9e6295144e4",
+          "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+          "envelope_policy_sha256": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951"
+        },
+        "raw_snapshot_sha256": "0d970390b39a0c5bab24f2d4b53c79ddc071b2d611b3d86edc6a1ff7afbb8590",
+        "phase_maxima": {
+          "TAKEOFF_CONTACT": {
+            "samples": 1,
+            "accepted_samples": 0,
+            "unknown_cells_max": 533,
+            "occupied_cells_max": 0
+          },
+          "ASCENT": {
+            "samples": 19,
+            "accepted_samples": 0,
+            "unknown_cells_max": 602,
+            "occupied_cells_max": 0
+          },
+          "HOLD": {
+            "samples": 1,
+            "accepted_samples": 0,
+            "unknown_cells_max": 602,
+            "occupied_cells_max": 0
+          },
+          "DESCENT": {
+            "samples": 19,
+            "accepted_samples": 0,
+            "unknown_cells_max": 602,
+            "occupied_cells_max": 0
+          },
+          "LANDING_CONTACT": {
+            "samples": 1,
+            "accepted_samples": 0,
+            "unknown_cells_max": 533,
+            "occupied_cells_max": 0
+          }
+        },
+        "debug_truth_subscribed": false,
+        "control_or_goal_published": false,
+        "artifacts": [
+          {
+            "path": "artifacts/runs/n05-20261023-wall-r05/n05-before/n05-live-entry-check.json",
+            "sha256": "ff09bd2e5bf22748c42453eaee17e10f4e0dd6e70d5adca3d4cce0cb966cc874"
+          },
+          {
+            "path": "artifacts/runs/n05-20261023-wall-r05/n05-before/n05-live-raw-map.npz",
+            "sha256": "0d970390b39a0c5bab24f2d4b53c79ddc071b2d611b3d86edc6a1ff7afbb8590"
+          },
+          {
+            "path": "artifacts/runs/n05-20261023-wall-r05/n05-before/n05-offline-entry-replay.json",
+            "sha256": "ba3159763c61853745e68c8339ea11f812bac6f6044b61017bdec363e21f5ca4"
+          }
+        ]
+      },
+      "n05-after": {
+        "online_accepted": false,
+        "online_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+        "offline_accepted": false,
+        "offline_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+        "online_offline_match": true,
+        "archived_replay_matches_online": true,
+        "identity": {
+          "epoch": "7479fef27c8b4ba896eef9e6295144e4",
+          "map_id": "7479fef27c8b4ba896eef9e6295144e4-0eb5841646884433a1d19963652d7116",
+          "frame_id": "odom_7479fef27c8b4ba896eef9e6295144e4",
+          "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+          "envelope_policy_sha256": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951"
+        },
+        "raw_snapshot_sha256": "ab4266cb787e664534a3c657f48265033e5707db5c4f89fc0c6475760ce4197b",
+        "phase_maxima": {
+          "TAKEOFF_CONTACT": {
+            "samples": 1,
+            "accepted_samples": 0,
+            "unknown_cells_max": 498,
+            "occupied_cells_max": 0
+          },
+          "ASCENT": {
+            "samples": 19,
+            "accepted_samples": 0,
+            "unknown_cells_max": 475,
+            "occupied_cells_max": 0
+          },
+          "HOLD": {
+            "samples": 1,
+            "accepted_samples": 0,
+            "unknown_cells_max": 163,
+            "occupied_cells_max": 0
+          },
+          "DESCENT": {
+            "samples": 19,
+            "accepted_samples": 0,
+            "unknown_cells_max": 475,
+            "occupied_cells_max": 0
+          },
+          "LANDING_CONTACT": {
+            "samples": 1,
+            "accepted_samples": 0,
+            "unknown_cells_max": 498,
+            "occupied_cells_max": 0
+          }
+        },
+        "debug_truth_subscribed": false,
+        "control_or_goal_published": false,
+        "artifacts": [
+          {
+            "path": "artifacts/runs/n05-20261023-wall-r05/n05-after/n05-live-entry-check.json",
+            "sha256": "fda16abe220fb12d469c21f1f46778c50fe28636e9127fd1b30a08775b31f7aa"
+          },
+          {
+            "path": "artifacts/runs/n05-20261023-wall-r05/n05-after/n05-live-raw-map.npz",
+            "sha256": "ab4266cb787e664534a3c657f48265033e5707db5c4f89fc0c6475760ce4197b"
+          },
+          {
+            "path": "artifacts/runs/n05-20261023-wall-r05/n05-after/n05-offline-entry-replay.json",
+            "sha256": "3480c93fa40d5224462891b27d5a3049cc4d642194deaaafbcc295450ff91433"
+          }
+        ]
+      }
+    },
+    "fixture_report": {
+      "path": "artifacts/runs/n05-20261023-wall-r05/fixture-result.json",
+      "sha256": "db2745fba9582503902cb0edfd223a5ea401296aedc855fe33deb9aaab163b8f"
+    },
+    "run_input_manifest": {
+      "path": "artifacts/runs/n05-20261023-wall-r05/n05-run-inputs.json",
+      "sha256": "da88c6c5cf678d3e0f366cb1d456aca52ed6798593410f54ad46add005347b9d"
+    },
+    "diagnostic_summary": {
+      "diagnostic_pass": true,
+      "checks": {
+        "layout_identity_consistent": true,
+        "same_epoch_before_after": true,
+        "same_map_id_before_after": true,
+        "scan_identity_matches_after_snapshot": true,
+        "vehicle_disarmed_for_all_recorded_states": true,
+        "support_detached_and_fixture_absent": true,
+        "fixture_runner_profile_completed": true,
+        "online_and_offline_checks_identical": true,
+        "post_release_check_recorded": true,
+        "post_release_same_identity": true,
+        "post_release_pose_within_budget": true,
+        "post_release_entry_accepted": false,
+        "control_and_navigation_goal_absent": true,
+        "debug_truth_absent_from_online_inputs": true
+      },
+      "post_release": {
+        "available": true,
+        "admission_accepted": false,
+        "admission_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+        "same_epoch_and_map_id": true,
+        "pose_shift_m": 0.0004682730289101294,
+        "pose_shift_within_spatial_budget": true,
+        "online_offline_match": true,
+        "transfer_gate_passed": false
+      },
+      "summary_artifact": {
+        "path": "artifacts/runs/n05-20261023-wall-r05/n05-run-summary.json",
+        "sha256": "f787364ef83e19d71df89bca279b8bd9d98e4760c564e2c2bdafa5647aa89665"
+      }
+    }
+  },
+  "height_hypothesis": {
+    "hypothesis": "Unknown cells in the 1.0 m HOLD envelope might be reduced by scanning the attached aircraft at the target height; primary variable was support scan lift height 0.6 m -> 1.0 m. All phase gates and uncertainty margins were held fixed.",
+    "wall_hold_unknown_cells_max_before_profile_change": 338,
+    "wall_hold_unknown_cells_max_at_1p0m": 163,
+    "wall_takeoff_contact_unknown_cells_max_at_1p0m": 498,
+    "interpretation": "Observed reduction at HOLD in one wall run, but takeoff contact still rejects. This is a diagnostic observation, not a generalized causal estimate."
+  },
+  "failure_and_cleanup_records": [
+    {
+      "run_id": "n05-20261023-wall-r04",
+      "layout_id": "wall_box_column",
+      "completed_stages": 12,
+      "attachment_states": [
+        "attached",
+        "detached"
+      ],
+      "fixture_removed": true,
+      "fixture_may_remain_attached": false,
+      "error": "fresh DISARMED status is required for every fixture command",
+      "last_localization": {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.8746077324563772
+      },
+      "vehicle_states": [
+        1
+      ],
+      "fixture_result": {
+        "path": "artifacts/runs/n05-20261023-wall-r04/fixture-result.json",
+        "sha256": "94dab29ee39ffc628db07b8dfde1595eb045b9ba8416d26887593c8081cf3e47"
+      },
+      "post_release_refusal": {
+        "reason": "online_snapshot_or_prerequisite_check_failed",
+        "error": "timed out waiting for current localization/map/bridge/odom/clock state",
+        "artifact": {
+          "path": "artifacts/runs/n05-20261023-wall-r04/n05-post-release/n05-live-entry-check-error.json",
+          "sha256": "0d41c12d507e05388144d9c69d7bda1693ca4ef43e106eea62a70d531dcd0e64"
+        }
+      },
+      "runtime_correlation": {
+        "path": "artifacts/runs/n05-20261023-wall-r04/n05-post-release-runtime-correlation.json",
+        "sha256": "b4c01cf9df7f99737ec35c092e2e53f4454c1578a282ade9219be5a1e7d3c916"
+      }
+    },
+    {
+      "run_id": "n05-20261023-corridor-r02",
+      "layout_id": "corridor_box_column",
+      "completed_stages": 10,
+      "attachment_states": [
+        "attached"
+      ],
+      "fixture_removed": false,
+      "fixture_may_remain_attached": true,
+      "error": "localization changed or became invalid during physical scan",
+      "last_localization": {
+        "state": 4,
+        "valid": false,
+        "reason": "normalized_cost_exceeded",
+        "normalized_cost": 1.0206328474942032
+      },
+      "vehicle_states": [
+        1
+      ],
+      "fixture_result": {
+        "path": "artifacts/runs/n05-20261023-corridor-r02/fixture-result.json",
+        "sha256": "0458718eb20c0b0ffb93e5edad89fd8d1c4a4ea89c2230fb41f76e0a92a95240"
+      },
+      "recovery_followup": {
+        "path": "artifacts/runs/n05-20261023-corridor-r02/n05-recovery-followup-verification.json",
+        "sha256": "1b02619ce6cbc1ad35ea49c2c702d1122a0bfa858559d62c0c5a4030c5b2ab6a",
+        "outcome": "Safe to stop; no preflight_scan_fixture remains and the vehicle was DISARMED with bridge DISABLED/landed."
+      }
+    },
+    {
+      "run_id": "n05-20261023-corridor-r03",
+      "layout_id": "corridor_box_column",
+      "completed_stages": 8,
+      "attachment_states": [
+        "attached",
+        "detached"
+      ],
+      "fixture_removed": true,
+      "fixture_may_remain_attached": false,
+      "error": "localization changed or became invalid during physical scan",
+      "last_localization": {
+        "state": 4,
+        "valid": false,
+        "reason": "normalized_cost_exceeded",
+        "normalized_cost": 1.0994866075115846
+      },
+      "vehicle_states": [
+        1
+      ],
+      "fixture_result": {
+        "path": "artifacts/runs/n05-20261023-corridor-r03/fixture-result.json",
+        "sha256": "5d7067f06a26bf8eab3965c075c9691b2bf3d0cfc4edc46d12cd7204148e2033"
+      },
+      "safety_cleanup": {
+        "attempted": true,
+        "verified_detached": true,
+        "error": ""
+      },
+      "fixture_removal_confirmation": {
+        "remove_service_acknowledged": true,
+        "scene_model_absent": true,
+        "method": "gz model --list after detach/removal request",
+        "scene_model_names": [
+          "blank",
+          "ground_plane",
+          "n05_corridor_box_column_0",
+          "n05_corridor_box_column_1",
+          "n05_corridor_box_column_2",
+          "n05_corridor_box_column_3",
+          "unit_cylinder",
+          "unit_cylinder_0",
+          "unit_cylinder_0_0",
+          "unit_cylinder_0_1",
+          "unit_cylinder_0_2",
+          "unit_cylinder_0_2_clone",
+          "unit_cylinder_0_3",
+          "unit_cylinder_0_4",
+          "unit_cylinder_0_5",
+          "unit_cylinder_0_6",
+          "unit_cylinder_0_6_clone",
+          "unit_cylinder_0_6_clone_0",
+          "unit_cylinder_0_6_clone_clone",
+          "unit_cylinder_1",
+          "unit_cylinder_2",
+          "unit_cylinder_2_clone",
+          "unit_cylinder_3",
+          "unit_cylinder_4",
+          "unit_cylinder_4_clone",
+          "x500_d435i_0"
+        ]
+      },
+      "fixture_log": {
+        "path": "artifacts/runs/n05-20261023-corridor-r03/n05-fixture.log",
+        "sha256": "1363b5aa95dde1ea08557cfe56e0cd418c772874f111d0e26f29eea7cf2a9b3f"
+      }
+    }
+  ],
+  "legal_process": {
+    "current_decision": "NO-GO for takeoff in the tested layouts and profiles.",
+    "required_action_on_any_refusal_or_missing_state": "Keep PX4 DISARMED and bridge DISABLED; publish no takeoff goal. Preserve stale/unknown evidence and recover/remove the support fixture before stopping a project container.",
+    "prescan_transfer_conditions": "Fresh released snapshot; same VINS epoch, map_id, frame and hashes; no reset; pose shift within provisional spatial budget; then rerun online admission. A diagnostic pass is not flight approval.",
+    "workflow_document": "docs/running.md",
+    "no_arbitrary_start_or_unknown_clearing": true
+  },
+  "validation": {
+    "unit_suites_from_prior_N05_turn": {
+      "command": "PYTHONPYCACHEPREFIX=/tmp/codex-n05-pycache python3 -m unittest tools.test_n05_entry tools.test_preflight_scan tools.test_recover_preflight_fixture -v",
+      "result": "17 tests passed; no source-code changes after that run in this closeout."
+    },
+    "current_profile_validation": {
+      "command": "python3 -c invoking probe_preflight_scan.validate_profile for coverage",
+      "result": "passed; 12 bounded stages; nonzero z target 1.0 m."
+    },
+    "vehicle_envelope_audit": "passed previously; rotor sweep radius 0.4819358707 m; source hashes unchanged.",
+    "sitl_summary": "wall-r03 and corridor-r01 full support scans matched online admission with independent offline replay; wall-r05 added a completed released check; corridor-r03 failed closed and safely removed its fixture."
+  },
+  "limitations": [
+    "No unarmed or armed flight was attempted.",
+    "No takeoff admission is currently available in the tested layouts.",
+    "Spatial error budget and support fixture transfer remain provisional; only wall-r05 achieved a fresh released admission query.",
+    "corridor-r03 did not reach a live post-release query because VINS crossed its existing normalized-cost health limit; this remains a retained failure, not a pass.",
+    "The observations do not prove universal physical impossibility for every one-camera scan pattern."
+  ],
+  "artifacts": [
+    {
+      "path": "artifacts/runs/n05-20261023-wall-r03/n05-run-summary.json",
+      "sha256": "474a4e43c1ece5b26404c9b16693a7f6e72a2b232fc5034e3bbf61de8e119fe6"
+    },
+    {
+      "path": "artifacts/runs/n05-20261023-wall-r03/n05-fixture-removal-verification.json",
+      "sha256": "ece103077740c4202a84ab74383ae5717d2c19c5dfd5834805f8c1634b3bc3e1"
+    },
+    {
+      "path": "artifacts/runs/n05-20261023-corridor-r01/fixture-result.json",
+      "sha256": "741a66009a7bcf1afc76fa3aa732669ebd97cfb2ad0fad77358d8dd53a1353d9"
+    },
+    {
+      "path": "artifacts/runs/n05-20261023-wall-r04/n05-run-summary.json",
+      "sha256": "908cf9a0f322861b8c12737701abe0ea0cc84a2b184e8dab43447f917557b9d5"
+    },
+    {
+      "path": "artifacts/runs/n05-20261023-corridor-r02/n05-recovery-followup-verification.json",
+      "sha256": "1b02619ce6cbc1ad35ea49c2c702d1122a0bfa858559d62c0c5a4030c5b2ab6a"
+    },
+    {
+      "path": "artifacts/runs/n05-20261023-wall-r05/n05-run-summary.json",
+      "sha256": "f787364ef83e19d71df89bca279b8bd9d98e4760c564e2c2bdafa5647aa89665"
+    },
+    {
+      "path": "artifacts/runs/n05-20261023-corridor-r03/fixture-result.json",
+      "sha256": "5d7067f06a26bf8eab3965c075c9691b2bf3d0cfc4edc46d12cd7204148e2033"
+    }
+  ],
+  "code_and_config_sha256": {
+    "tools/n05_entry.py": "ff6d58acbfe7e71421a44fd2390805e4f64af5524128db9fd5b19188711c833d",
+    "tools/check_n05_entry_live.py": "b5a37dd244d3b5ec1809c83facf5dbdb6ca175ca883107112eaee6dc57d19324",
+    "tools/evaluate_n05_entry.py": "b0209bc5c044385859dee7ab116a4f29dea987d5fe8cb9dd3e53ac126ecc8659",
+    "tools/probe_preflight_scan.py": "20acc2b26ffa20021c290ed1c701f7a507caaefb9c004a8105bc506145516493",
+    "tools/run_n05_preflight_layout.sh": "d44062fd59747097bbf63cd385233cf418bdeb44d0da52d99ba71d17607a431e",
+    "tools/summarize_n05_layout_run.py": "2fe284ab8d6be77d0ae3a57a1e811780046efa494c44903e0259e8a77e534ccb",
+    "config/components/navigation/vehicle_envelope.json": "7bc2f9f7b44ad186b5704dc3964e9774c7e1b0855cce7503e714b7e7e0714951",
+    "config/components/simulation/preflight_scan.json": "b97766ec14014e55a66248cd07e0903cfa661d900a3234ad8d6e0b8095afff29"
+  }
+}

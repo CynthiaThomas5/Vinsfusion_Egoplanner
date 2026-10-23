@@ -1,0 +1,90 @@
+{
+  "scope": "065 existing unarmed run closeout and late post-scan raw-map analysis; not flight approval",
+  "fixture_result": {
+    "scope": "unarmed whole-airframe support smoke only, not map coverage or flight approval",
+    "outcome": "unarmed_support_coverage_completed",
+    "error": "",
+    "epoch": "ee4e06fb07304bb9ae879eaaa04faf98",
+    "profile": "coverage",
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.8338860067382783
+    },
+    "vehicle_states": [
+      1
+    ],
+    "vehicle_status_samples": 400,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "final_joint_states": {
+      "x": [
+        -2.630950791847498e-17,
+        -2.9520461934857446e-15
+      ],
+      "z": [
+        0.000556317297522967,
+        0.13906125440828412
+      ],
+      "yaw": [
+        -0.0031898618552708632,
+        0.002295585268898997
+      ],
+      "pitch": [
+        -6.577878497391866e-05,
+        -0.01644322567149844
+      ]
+    },
+    "fixture_may_remain_attached": false,
+    "publishers": "Gazebo fixture joints/detach only; no ROS control or goal publisher"
+  },
+  "closeout": {
+    "live_vehicle_arming_state_before_stop": 1,
+    "model_list_before_stop_fixture_present": false,
+    "stop_command_exit": 0,
+    "other_containers_untouched": [
+      "volant-height-route-probe",
+      "natfrp-service"
+    ]
+  },
+  "map": {
+    "epoch": "ee4e06fb07304bb9ae879eaaa04faf98",
+    "snapshot_sim_s": 649.652,
+    "free": 39155,
+    "occupied": 1952,
+    "unknown": 9558893,
+    "maximum_free_center_EDT_m": 0.7000000000000001,
+    "test_sphere_center_odom_m": [
+      -0.25,
+      3.3500000000000014,
+      0.6
+    ],
+    "radius_m": 0.5,
+    "intersecting_voxels": 823,
+    "all_intersecting_voxels_free": true
+  },
+  "unarmed_vins": {
+    "solve_frames": 1381,
+    "duration_sim_s": 201.367999999,
+    "q_min": 0.14577485108002183,
+    "q_max": 0.8526222779457716,
+    "group_frames": 0
+  },
+  "limitations": [
+    "Snapshot captured after scan completion, at 649.652 simulation seconds, not immediately at detach.",
+    "Free sphere exists away from origin; no starting-body, ascent, continuous flight, contingency or landing certification.",
+    "No exact time-aligned airframe truth; joint states are not odometry ground truth.",
+    "No cost crossing/group diagnostics in this fixture record; cannot explain prior accumulation."
+  ],
+  "input_sha256": {
+    "artifacts/runs/flight-safety-20261022-065-coverage-01/fixture-result.json": "a2a8b4aacb3b11a21a9ececbb0c9b1c25b0cb3932697178ff225b1ab07a9e79c",
+    "artifacts/runs/flight-safety-20261022-065-coverage-01/fixture-vins.jsonl": "9b87b855fba36e5ca7c65b64f76b40f37f51a70b21e18daaf72a23ddf1d2b587",
+    "artifacts/runs/flight-safety-20261022-065-coverage-01/fixture-trace.jsonl": "21a5a03ce484edf223df121b13a9e6980c424d1dd2ce5722605c556ac857144a",
+    "artifacts/runs/flight-safety-20261022-065-coverage-01/fixture-odometry.jsonl": "a930ea88521109c4246e9b7c35ca16fedaef871bbe02fe51367493c873379a73",
+    "artifacts/runs/flight-safety-20261022-065-coverage-01/map-after-scan/raw-grid.npz": "891ee6b57b6342c3509752cf19348c41f2d1b9523e7ee12c9671d17fb3967b5f",
+    "artifacts/runs/flight-safety-20261022-065-coverage-01/map-after-scan/raw-grid.json": "6ed78858f7a2be34dffe6f6fc421117cced57938c9a4367dc126a448b3b45f29"
+  }
+}

@@ -1,0 +1,454 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -12,7 +12,7 @@
+ // #define current_img_ md_.depth_image_[image_cnt_ & 1]
+ // #define last_img_ md_.depth_image_[!(image_cnt_ & 1)]
+ 
+-std::string GridMap::queryReadiness(const std::string &epoch, const std::string &map_id) const
++std::string GridMap::queryReadiness(const std::string &epoch, const std::string &map_id, bool require_no_pending) const
+ {
+   if (active_epoch_.empty() || active_map_id_.empty())
+   {
+@@ -26,7 +26,7 @@
+   {
+     return "map_id_mismatch";
+   }
+-  if (!md_.has_first_depth_ || !md_.has_fused_depth_ || md_.occ_need_update_)
++  if (!md_.has_first_depth_ || !md_.has_fused_depth_ || (require_no_pending && md_.occ_need_update_))
+   {
+     return "no_fresh_fused_depth";
+   }
+@@ -50,6 +50,39 @@
+   }
+ 
+   return "";
++}
++
++plan_env::SphereQueryResult GridMap::queryRawSphere(
++    const std::array<double, 3> &center, double radius) const
++{
++  return plan_env::querySphere(center, radius,
++      {mp_.map_origin_(0), mp_.map_origin_(1), mp_.map_origin_(2)},
++      {mp_.map_size_(0), mp_.map_size_(1), mp_.map_size_(2)},
++      {mp_.map_voxel_num_(0), mp_.map_voxel_num_(1), mp_.map_voxel_num_(2)},
++      mp_.resolution_, [this](int x, int y, int z) {
++        const double value = md_.occupancy_buffer_[toAddress(x, y, z)];
++        return value < mp_.clamp_min_log_ - 1e-3 ? -1 :
++            value >= mp_.min_occupancy_log_ ? 1 : 0;
++      });
++}
++
++plan_env::SweepResult GridMap::certifyCurve(
++    const std::string &epoch, const std::string &map_id, double begin, double end,
++    double speed_bound, const std::function<std::array<double, 3>(double)> &evaluate) const
++{
++  // Serialized callbacks read the last completed fusion, never the pending image.
++  // Keep the exact source/update age and pose gates; pending input does not mutate the grid.
++  const auto reason = queryReadiness(epoch, map_id, false);
++  if (!reason.empty())
++  {
++    plan_env::SweepResult result;
++    result.reason = reason;
++    return result;
++  }
++  return plan_env::certifySweep(begin, end, speed_bound, mp_.obstacles_inflation_,
++      mp_.resolution_, evaluate, [this](auto center, double radius) {
++        return queryRawSphere(center, radius);
++      });
+ }
+ 
+ void GridMap::initMap(rclcpp::Node::SharedPtr node)
+@@ -327,16 +360,8 @@
+           response->reason = "frame_mismatch";
+           return;
+         }
+-        const auto result = plan_env::querySphere(
+-            {request->center.x, request->center.y, request->center.z}, request->radius_m,
+-            {mp_.map_origin_(0), mp_.map_origin_(1), mp_.map_origin_(2)},
+-            {mp_.map_size_(0), mp_.map_size_(1), mp_.map_size_(2)},
+-            {mp_.map_voxel_num_(0), mp_.map_voxel_num_(1), mp_.map_voxel_num_(2)},
+-            mp_.resolution_, [this](int x, int y, int z) {
+-              const double value = md_.occupancy_buffer_[toAddress(x, y, z)];
+-              return value < mp_.clamp_min_log_ - 1e-3 ? -1 :
+-                  value >= mp_.min_occupancy_log_ ? 1 : 0;
+-            });
++        const auto result = queryRawSphere(
++            {request->center.x, request->center.y, request->center.z}, request->radius_m);
+         response->accepted = result.accepted;
+         response->free = result.accepted && result.reason == "free";
+         response->reason = result.reason;
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -25,6 +25,9 @@
+ #include <message_filters/time_synchronizer.h>
+ 
+ #include <plan_env/raycast.h>
++#include <plan_env/sphere_query.h>
++#include <plan_env/swept_curve.h>
++#include <functional>
+ 
+ #define logit(x) (log((x) / (1 - (x))))
+ 
+@@ -171,8 +174,8 @@
+ 
+   inline void posToIndex(const Eigen::Vector3d &pos, Eigen::Vector3i &id);
+   inline void indexToPos(const Eigen::Vector3i &id, Eigen::Vector3d &pos);
+-  inline int toAddress(const Eigen::Vector3i &id);
+-  inline int toAddress(int &x, int &y, int &z);
++  inline int toAddress(const Eigen::Vector3i &id) const;
++  inline int toAddress(int &x, int &y, int &z) const;
+   inline bool isInMap(const Eigen::Vector3d &pos);
+   inline bool isInMap(const Eigen::Vector3i &idx);
+ 
+@@ -198,6 +201,9 @@
+   bool hasDepthObservation();
+   bool odomValid();
+   void getRegion(Eigen::Vector3d &ori, Eigen::Vector3d &size);
++  plan_env::SweepResult certifyCurve(
++      const std::string &epoch, const std::string &map_id, double begin, double end,
++      double speed_bound, const std::function<std::array<double, 3>(double)> &evaluate) const;
+   inline double getResolution();
+   Eigen::Vector3d getOrigin();
+   int getVoxelNum();
+@@ -248,7 +254,10 @@
+   rclcpp::ServiceBase::SharedPtr reset_map_service_;
+   rclcpp::ServiceBase::SharedPtr occupancy_snapshot_service_;
+   rclcpp::ServiceBase::SharedPtr occupancy_sphere_service_;
+-  std::string queryReadiness(const std::string &epoch, const std::string &map_id) const;
++  std::string queryReadiness(const std::string &epoch, const std::string &map_id,
++                             bool require_no_pending = true) const;
++  plan_env::SphereQueryResult queryRawSphere(const std::array<double, 3> &center,
++                                            double radius) const;
+   std::string active_epoch_;
+   std::string active_map_id_;
+   std::shared_ptr<message_filters::Subscriber<sensor_msgs::msg::Image>> depth_sub_;
+@@ -276,12 +285,12 @@
+ /* ============================== definition of inline function
+  * ============================== */
+ 
+-inline int GridMap::toAddress(const Eigen::Vector3i &id)
++inline int GridMap::toAddress(const Eigen::Vector3i &id) const
+ {
+   return id(0) * mp_.map_voxel_num_(1) * mp_.map_voxel_num_(2) + id(1) * mp_.map_voxel_num_(2) + id(2);
+ }
+ 
+-inline int GridMap::toAddress(int &x, int &y, int &z)
++inline int GridMap::toAddress(int &x, int &y, int &z) const
+ {
+   return x * mp_.map_voxel_num_(1) * mp_.map_voxel_num_(2) + y * mp_.map_voxel_num_(2) + z;
+ }
+@@ -371,13 +380,15 @@
+ 
+ inline int GridMap::getInflateOccupancy(Eigen::Vector3d pos)
+ {
+-  if (!isInMap(pos))
+-    return -1;
+-
++  // Planning predicate: unknown and outside are blocked. The stored inflation
++  // mask returned by the read-only snapshot remains a separate raw layer.
++  if (!isInMap(pos)) return 1;
+   Eigen::Vector3i id;
+   posToIndex(pos, id);
+-
+-  return int(md_.occupancy_buffer_inflate_[toAddress(id)]);
++  const int address = toAddress(id);
++  const double value = md_.occupancy_buffer_[address];
++  return value < mp_.clamp_min_log_ - 1e-3 || value >= mp_.min_occupancy_log_ ||
++      md_.occupancy_buffer_inflate_[address] != 0;
+ }
+ 
+ inline int GridMap::getOccupancy(Eigen::Vector3i id)
+--- /dev/null
++++ b/planner/plan_env/include/plan_env/swept_curve.h
+@@ -0,0 +1,65 @@
++#ifndef PLAN_ENV_SWEPT_CURVE_H
++#define PLAN_ENV_SWEPT_CURVE_H
++#include <algorithm>
++#include <array>
++#include <cmath>
++#include <string>
++namespace plan_env
++{
++struct SweepResult
++{
++  bool free = false;
++  std::string reason;
++  int checked = 0;
++  double failed_time = 0;
++};
++// A valid speed bound gives |p(t)-p(mid)| <= vmax * dt/2. Enlarging the
++// midpoint sphere by that amount covers every point, including both ends.
++template <class Evaluate, class Query>
++SweepResult certifySweep(double begin, double end, double speed_bound,
++                         double radius, double resolution,
++                         Evaluate evaluate, Query query)
++{
++  SweepResult result;
++  if (!std::isfinite(begin) || !std::isfinite(end) || begin < 0 || end < begin ||
++      !std::isfinite(speed_bound) || speed_bound < 0 ||
++      !std::isfinite(radius) || radius <= 0 ||
++      !std::isfinite(resolution) || resolution <= 0)
++  {
++    result.reason = "invalid_sweep";
++    return result;
++  }
++  const double count = std::max(1.0, std::ceil(speed_bound * (end-begin) / (resolution/4.0)));
++  if (!std::isfinite(count) || count > 10000)
++  {
++    result.reason = "sweep_too_large";
++    return result;
++  }
++  const int intervals = static_cast<int>(count);
++  const double dt = (end-begin)/intervals;
++  const double cover_radius = radius + speed_bound*dt/2.0;
++  for (int index = 0; index < intervals; ++index)
++  {
++    const double mid = begin + (index+.5)*dt;
++    const auto center = evaluate(mid);
++    for (double value : center)
++      if (!std::isfinite(value))
++      {
++        result.reason = "invalid_curve";
++        return result;
++      }
++    const auto sample = query(center, cover_radius);
++    ++result.checked;
++    if (!sample.accepted || sample.reason != "free")
++    {
++      result.reason = sample.reason;
++      result.failed_time = mid;
++      return result;
++    }
++  }
++  result.free = true;
++  result.reason = "free";
++  return result;
++}
++}
++#endif
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -110,6 +110,8 @@
+           this->BroadcastBsplineCallback(msg);
+         });
+ 
++    safety_fault_pub_ = node_->create_publisher<uav_interfaces::msg::TrajectoryCancel>(
++        "/navigation/planner_fault", 10);
+     bspline_pub_ = node_->create_publisher<traj_utils::msg::Bspline>("planning/bspline", 10);
+     data_disp_pub_ = node_->create_publisher<traj_utils::msg::DataDisp>("planning/data_display", 100);
+ 
+@@ -264,7 +266,7 @@
+     const auto &orientation = pose.orientation;
+     const double q_norm = std::sqrt(orientation.x * orientation.x + orientation.y * orientation.y +
+                                     orientation.z * orientation.z + orientation.w * orientation.w);
+-    if (msg->goal_id.empty() || msg->epoch.empty() || !have_odom_ ||
++    if (msg->goal_id.empty() || msg->epoch.empty() || msg->map_id.empty() || !have_odom_ ||
+         msg->epoch != odom_epoch_ || msg->target.header.frame_id != "odom_" + msg->epoch ||
+         !std::isfinite(pose.position.x) || !std::isfinite(pose.position.y) ||
+         !std::isfinite(pose.position.z) || !std::isfinite(q_norm) || q_norm < 1e-9)
+@@ -282,6 +284,7 @@
+                                          1.0 - 2.0 * (qy * qy + qz * qz));
+     pending_navigation_goal_id_ = msg->goal_id;
+     pending_navigation_epoch_ = msg->epoch;
++    pending_navigation_map_id_ = msg->map_id;
+     have_pending_navigation_goal_ = true;
+   }
+ 
+@@ -491,6 +494,7 @@
+ 
+   void EGOReplanFSM::changeFSMExecState(FSM_EXEC_STATE new_state, string pos_call)
+   {
++    if (safety_latched_) new_state = WAIT_TARGET;
+ 
+     if (new_state == exec_state_)
+       continously_called_times_++;
+@@ -550,8 +554,10 @@
+         (exec_state_ == WAIT_TARGET || exec_state_ == EXEC_TRAJ))
+     {
+       const Eigen::Vector3d target = pending_navigation_target_;
++      safety_latched_ = false;
+       active_goal_id_ = pending_navigation_goal_id_;
+       active_goal_epoch_ = pending_navigation_epoch_;
++      active_goal_map_id_ = pending_navigation_map_id_;
+       active_goal_yaw_ = pending_navigation_yaw_;
+       have_active_goal_yaw_ = true;
+       have_pending_navigation_goal_ = false;
+@@ -628,7 +634,7 @@
+           else
+           {
+             RCLCPP_ERROR(node_->get_logger(), "Failed to generate the first trajectory!!!");
+-            changeFSMExecState(SEQUENTIAL_START, "FSM");
++            if (!safety_latched_) stopForSafety("planning_failed");
+           }
+         }
+         else
+@@ -652,7 +658,7 @@
+       }
+       else
+       {
+-        changeFSMExecState(GEN_NEW_TRAJ, "FSM");
++        if (!safety_latched_) stopForSafety("planning_failed");
+       }
+       break;
+     }
+@@ -667,7 +673,7 @@
+       }
+       else
+       {
+-        changeFSMExecState(REPLAN_TRAJ, "FSM");
++        if (!safety_latched_) stopForSafety("planning_failed");
+       }
+ 
+       break;
+@@ -764,6 +770,7 @@
+ 
+     for (int i = 0; i < trial_times; i++)
+     {
++      if (safety_latched_) return false;
+       if (callReboundReplan(true, flag_random_poly_init))
+       {
+         return true;
+@@ -808,14 +815,60 @@
+     return true;
+   }
+ 
++  bool EGOReplanFSM::certifyLocalCurve(double begin, std::string &reason)
++  {
++    auto info = &planner_manager_->local_data_;
++    auto velocity_points = info->velocity_traj_.getControlPoint();
++    if (velocity_points.cols() == 0 || !velocity_points.allFinite())
++    {
++      reason = "invalid_velocity_bound";
++      return false;
++    }
++    // B-spline derivative is a convex combination of its derivative control points.
++    const double speed_bound = velocity_points.colwise().norm().maxCoeff();
++    const auto result = planner_manager_->grid_map_->certifyCurve(
++        active_goal_epoch_, active_goal_map_id_, begin, info->duration_, speed_bound,
++        [info](double t) {
++          const auto point = info->position_traj_.evaluateDeBoorT(t);
++          return std::array<double, 3>{point(0), point(1), point(2)};
++        });
++    reason = result.reason;
++    return result.free;
++  }
++
++  void EGOReplanFSM::stopForSafety(const std::string &reason)
++  {
++    RCLCPP_ERROR(node_->get_logger(), "Full-curve safety rejected: %s", reason.c_str());
++    uav_interfaces::msg::TrajectoryCancel fault;
++    fault.goal_id = active_goal_id_;
++    fault.epoch = active_goal_epoch_;
++    fault.mode = uav_interfaces::msg::TrajectoryCancel::MODE_ABORT;
++    fault.reason = "full_curve_" + reason;
++    safety_fault_pub_->publish(fault);
++    safety_latched_ = true;
++    have_target_ = false;
++    have_trigger_ = false;
++    have_active_goal_yaw_ = false;
++    have_pending_navigation_goal_ = false;
++    changeFSMExecState(WAIT_TARGET, "FULL_CURVE_SAFETY");
++  }
++
+   void EGOReplanFSM::checkCollisionCallback()
+   {
+ 
+     LocalTrajData *info = &planner_manager_->local_data_;
+     auto map = planner_manager_->grid_map_;
+     
+-    if (exec_state_ == WAIT_TARGET || info->start_time_.seconds() < 1e-5)
++    if (safety_latched_ || active_goal_id_.empty() || info->start_time_.seconds() < 1e-5)
+       return;
++
++    std::string safety_reason;
++    const double elapsed = (node_->now() - info->start_time_).seconds();
++    if (!certifyLocalCurve(std::min(elapsed, info->duration_), safety_reason))
++    {
++      stopForSafety(safety_reason);
++      return;
++    }
+ 
+     /* ---------- check lost of depth ---------- */
+     if (map->getOdomDepthTimeout())
+@@ -836,12 +889,8 @@
+     // double t_cur_global = ros::Time::now().toSec();
+     double t_cur_global = node_->get_clock()->now().seconds();
+ 
+-    double t_2_3 = info->duration_ * 2 / 3;
+     for (double t = t_cur; t < info->duration_; t += time_step)
+     {
+-      if (t_cur < t_2_3 && t >= t_2_3) // If t_cur < t_2_3, only the first 2/3 partition of the trajectory is considered valid and will get checked.
+-        break;
+-
+       bool occ = false;
+       occ |= map->getInflateOccupancy(info->position_traj_.evaluateDeBoorT(t));
+ 
+@@ -894,6 +943,7 @@
+ 
+   bool EGOReplanFSM::callReboundReplan(bool flag_use_poly_init, bool flag_randomPolyTraj)
+   {
++    if (safety_latched_) return false;
+ 
+     getLocalTarget();
+ 
+@@ -932,6 +982,13 @@
+         bspline.knots.push_back(knots(i));
+       }
+       fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
++
++      std::string safety_reason;
++      if (!certifyLocalCurve(0.0, safety_reason))
++      {
++        stopForSafety(safety_reason);
++        return false;
++      }
+ 
+       /* 1. publish traj to traj_server */
+       bspline_pub_->publish(bspline);
+@@ -1079,6 +1136,12 @@
+     }
+     fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
+ 
++    std::string safety_reason;
++    if (!certifyLocalCurve(0.0, safety_reason))
++    {
++      stopForSafety(safety_reason);
++      return false;
++    }
+     bspline_pub_->publish(bspline);
+ 
+     return true;
+--- a/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
++++ b/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
+@@ -76,13 +76,16 @@
+     double pending_navigation_yaw_{0.0};
+     std::string pending_navigation_goal_id_;
+     std::string pending_navigation_epoch_;
++    std::string pending_navigation_map_id_;
+     bool cancel_pending_{false};
+     uav_interfaces::msg::TrajectoryCancel pending_cancel_;
+     std::string active_goal_id_;
+     std::string active_goal_epoch_;
++    std::string active_goal_map_id_;
+     std::string odom_epoch_;
+     double active_goal_yaw_{0.0};
+     bool have_active_goal_yaw_{false};
++    bool safety_latched_{false};
+     FSM_EXEC_STATE exec_state_;
+     int continously_called_times_{0};
+ 
+@@ -112,11 +115,14 @@
+     // rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr replan_pub_;
+     // rclcpp::Publisher<std_msgs::msg::Empty>::SharedPtr new_pub_;
+     rclcpp::Publisher<traj_utils::msg::Bspline>::SharedPtr bspline_pub_;
++    rclcpp::Publisher<uav_interfaces::msg::TrajectoryCancel>::SharedPtr safety_fault_pub_;
+     rclcpp::Publisher<traj_utils::msg::DataDisp>::SharedPtr data_disp_pub_;
+     rclcpp::Publisher<traj_utils::msg::MultiBsplines>::SharedPtr swarm_trajs_pub_;
+     rclcpp::Publisher<traj_utils::msg::Bspline>::SharedPtr broadcast_bspline_pub_;
+ 
+     /* helper functions */
++    bool certifyLocalCurve(double begin, std::string &reason);
++    void stopForSafety(const std::string &reason);
+     bool callReboundReplan(bool flag_use_poly_init, bool flag_randomPolyTraj); // front-end and back-end method
+     bool callEmergencyStop(Eigen::Vector3d stop_pos);                          // front-end and back-end method
+     bool planFromGlobalTraj(const int trial_times = 1);

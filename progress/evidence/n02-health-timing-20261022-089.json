@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "goal": "N02",
+  "status": "passed",
+  "scope": "Current tested single-camera simulation support motion and current-version stereo input-stale response. Does not establish free-flight safety, real D435i behavior, or a root cause for the historical normalized-cost crossing.",
+  "normal_motion_identity": {
+    "runtime_contract_sha256": "4e2b88bd5536e8e49e80ba68bc96a95b9de363305010deb1f66bba477354478e",
+    "runtime_contract_file_sha256": "36715e73a037ca7943681c06e3bc7923a04855013a540445de44f63400b39b65",
+    "vins_binary_sha256": "649567deaed0d7fa48826f0609bbd279001025a1b858765b83d80017f3f95aac",
+    "health_source_sha256": "2716ab8f3892ce43e0b4cb59f531860997f020a4efd8f973097ea10ce7dcdd71",
+    "health_config_sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "runs_with_exact_contract": [
+      "n01-vio-state-20261022-083-01",
+      "n01-vio-state-20261022-083-02",
+      "n01-vio-state-20261022-083-03",
+      "n01-vio-state-20261022-083-05",
+      "n02-health-20261022-085-01",
+      "n02-health-20261022-086-01",
+      "n02-health-20261022-087-stereo-stale"
+    ]
+  },
+  "normal_motion_observations": [
+    {
+      "run_id": "n02-health-20261022-085-01",
+      "fixture_outcome": "unarmed_support_drift_completed",
+      "completed_stages": 23,
+      "epoch": "e245dbf9ab984f1f9564fbc2771b15a6",
+      "max_normalized_cost": 0.6398982841078671,
+      "configured_cost_limit": 1.0,
+      "threshold_crossings": 0,
+      "position_rmse_m": 0.0317206,
+      "position_max_m": 0.0590875,
+      "position_final_m": 0.0481696,
+      "yaw_rmse_deg": 0.389586,
+      "yaw_max_abs_deg": 0.641878,
+      "optimized_odometry_max_receipt_gap_s": 0.274701,
+      "optimized_odometry_source_gap_max_s": 0.068,
+      "observer_event_bytes": 43854791,
+      "health_timing_analysis": "artifacts/runs/n02-health-20261022-085-01/health-timing-analysis.json"
+    },
+    {
+      "run_id": "n02-health-20261022-086-01",
+      "fixture_outcome": "failed_after_all_motion_stages_due_to_remove_rpc_not_acknowledged",
+      "completed_stages": 23,
+      "epoch": "7f55935aa1d542b19a2dfd5c02834421",
+      "last_localization": "TRACKING, valid, fresh_inputs_and_usable_solver",
+      "max_normalized_cost": 0.9730176419481031,
+      "configured_cost_limit": 1.0,
+      "threshold_crossings": 0,
+      "position_rmse_m": 0.0322716,
+      "position_max_m": 0.0646996,
+      "position_final_m": 0.0563574,
+      "yaw_rmse_deg": 0.366004,
+      "yaw_max_abs_deg": 0.634063,
+      "optimized_odometry_max_receipt_gap_s": 0.229139,
+      "optimized_odometry_source_gap_max_s": 0.068,
+      "observer_event_bytes": 15777118,
+      "cleanup_audit": {
+        "gazebo_model_count": 94,
+        "flight_model_present": true,
+        "fixture_present": false,
+        "px4_arming_state": 1,
+        "px4_landed": true
+      },
+      "health_timing_analysis": "artifacts/runs/n02-health-20261022-086-01/health-timing-analysis.json",
+      "qualification_note": "The fixture RPC failure remains in fixture-result.json. Independent world/status queries verify the fixture was gone and PX4 was landed/disarmed; this run supports the completed motion and health observation, but is not relabeled as an unqualified successful collector run."
+    }
+  ],
+  "historical_quality_trigger": {
+    "run_id": "n01-vio-state-20261022-083-02",
+    "observed_normalized_cost": 1.205982,
+    "stage": "11/23",
+    "same_source_truth_error_at_exact_trigger": null,
+    "root_cause": "unresolved",
+    "current_reproduction": "Not reproduced in #085 or #086 under the exact same runtime contract and drift support profile. #086 approached the 1.0 health limit at 0.9730 without crossing it.",
+    "interpretation": "Do not call the historical event a false alarm or claim its cause was fixed. The original trigger-frame telemetry/input/prior alignment was not captured. Carry this uncertainty into N10 applicability and regression decisions."
+  },
+  "historical_timing_observations": {
+    "n01_run_04": {
+      "status_receipt_age_s": 0.520,
+      "status_guard_s": 0.500,
+      "optimized_odometry_receipt_age_s": 0.599,
+      "motion": false
+    },
+    "n01_run_05": {
+      "optimized_odometry_max_receipt_gap_s": 0.3585,
+      "navigation_guard_s": 0.300,
+      "motion": false
+    },
+    "current_repeat_interpretation": "The two controlled normal support-motion observations #085/#086 had optimized-odometry maximum receipt gaps below 0.300 s. The old isolated receipt-age events were not root-caused; do not generalize these two runs to other load profiles."
+  },
+  "current_sensor_fault_injection": {
+    "run_id": "n02-health-20261022-088-stereo-stale",
+    "epoch": "e3b809517f484a0490c4daae538f9dac",
+    "runtime_contract_sha256": "6f0969745edecc63a849ad341dceea225ef0e0068fd9de80476f5c2d2d468716",
+    "vins_binary_sha256": "649567deaed0d7fa48826f0609bbd279001025a1b858765b83d80017f3f95aac",
+    "fault_config": "config/components/simulation/n02_stereo_fault_bridge.yaml",
+    "fault_config_sha256": "7b111c9fb578afd23d650d759bb5ab6523c4f14fa23baf60fdbe80e0840c5aed",
+    "method": "The launch-time bridge maps Gazebo stereo images to /fault/input; the existing source-stamp relay forwards normal frames, drops one bounded window, then resumes. The /clock bridge is continuous and was not restarted.",
+    "healthy_before_fault": {
+      "status_state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "good_pairs": 104,
+      "normalized_cost": 0.19391156122607645,
+      "status_header_stamp_ns": 15224000000
+    },
+    "fault_window": {
+      "source_origin_ns": 7684000000,
+      "start_ns": 15684000000,
+      "end_ns": 23684000000,
+      "infra1_forwarded_before": 244,
+      "infra1_dropped": 242,
+      "infra1_forwarded_after": 591,
+      "infra2_forwarded_before": 244,
+      "infra2_dropped": 242,
+      "infra2_forwarded_after": 590,
+      "first_dropped_stamp_ns": 15712000000,
+      "first_forwarded_after_stamp_ns": 23696000000,
+      "relay_window_observed": true
+    },
+    "health_response": {
+      "state": 4,
+      "valid": false,
+      "reason": "left_stale",
+      "status_header_stamp_ns": 16016000000,
+      "propagated_source_stamp_ns": 15976000000,
+      "normalized_cost": 0.19395944594162814,
+      "fault_to_lock_after_first_drop_s": 0.304,
+      "returned_images_restore_tracking": false
+    },
+    "observation": {
+      "event_count": 1287,
+      "event_bytes": 916702,
+      "observer_stop_reason": "end_marker_tail_complete",
+      "post_end_observation_s": 2.0037,
+      "read_only": true,
+      "publishes": []
+    },
+    "cleanup_audit": {
+      "gazebo_model_count": 94,
+      "flight_model_present": true,
+      "fixture_present": false,
+      "px4_arming_state": 1,
+      "px4_landed": true
+    },
+    "artifacts": {
+      "fault_report_sha256": "69329128ff637c25b730566bf9d2119d5f76872c9f62cd73043134bc1b83c67c",
+      "observer_summary_sha256": "b774767acc7747055c8195135dc21d2ae0223b268f0228c1853858577f157f87",
+      "observer_events_sha256": "01ba62f145b1eab1859f248ee0bf64abd2d7749b45822a9587cce74f2622495d",
+      "runtime_contract_file_sha256": "f8ea871de6062923f6d68bb84aacacacd6f1a24de0f25543d6fccca8f9bbd9a0"
+    }
+  },
+  "visual_quality_fault_evidence": {
+    "historical_report": "progress/evidence/p2-visual-degradation-gate.json",
+    "historical_result": "Two independent black-image injections preserved advancing stamps, produced zero-feature VINS telemetry, and locked the adapter with input_features_insufficient.",
+    "historical_vins_binary_sha256": "858e356677decfd0a4d88db1861a293ace7a91f7a3909333401b8f598fe8a010",
+    "current_health_test": "tools.test_localization_health.HealthTests.test_quality_guards_reject_unusable_solve_and_weak_tracks passes in the current 219-test suite.",
+    "version_limit": "The historical black-image injection predates the current VINS binary. Patches 0015-0019 are documented as observer/diagnostic additions that do not alter the feature pipeline, but this is not an exact current-binary black-image rerun. Current-binary input-stale behavior is independently verified by #088."
+  },
+  "invalid_attempts": [
+    {
+      "run_id": "n02-health-20261022-087-stereo-stale",
+      "result": "excluded",
+      "reason": "The test replaced the live sensor bridge. Health locked on clock_stalled at source/status time 46.716 s before the scheduled stereo drop began at 66.200 s; it cannot qualify the left/right stale response.",
+      "lesson": "Use the launch-time bridge override so /clock has a single continuous publisher throughout the fault test."
+    }
+  ],
+  "implementation_and_verification": {
+    "changes": [
+      "The stream observer now records only the latest left/right/IMU input stamp per telemetry event; interval distributions remain in the summary. The analyzer reads both compact and legacy event formats.",
+      "An optional sensor_bridge_config launch argument and D435I_SENSOR_BRIDGE_CONFIG runtime input allow a run-local Gazebo bridge YAML. Unset behavior retains the original default bridge.",
+      "No localization-health algorithm, threshold, latch, or PX4 control behavior was changed."
+    ],
+    "build": "bash tools/project.sh build ros: 17 packages finished.",
+    "tests": "bash tools/project.sh test: 219 tests passed; includes current fail-closed stale-stream and feature-quality guards.",
+    "structure": "python3 tools/project_status.py: PASS; reports 80 optional historical artifact links absent. This is not build/SITL evidence.",
+    "gpu_host_index": 1,
+    "gpu_uuid": "GPU-69166ee5-0898-2e26-c11f-1279c1e90e16"
+  },
+  "n10_follow_up": [
+    "Do not classify #02 as false alarm or repaired. Decide whether its unknown trigger conditions are inside the final declared operating envelope; preserve fail-closed response and add an input/prior/window-aligned repeat if that envelope depends on it.",
+    "Keep #04/#05 receipt-age incidents as unresolved load-profile observations until repeated measurements attribute their cause."
+  ]
+}

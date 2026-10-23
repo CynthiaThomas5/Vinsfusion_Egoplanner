@@ -1,0 +1,125 @@
+{
+  "goal": "#072 / fourth small goal: repeat real-loop drift comparison in a fresh epoch",
+  "status": "partial_reproduction",
+  "run_id": "real-loop-20261022-072-01",
+  "epoch": "e4991d9fc740425bb45eb9bd578ff66d",
+  "scope": "Unarmed Gazebo physical-support simulation; independent loop observer; truth used only for offline evaluation.",
+  "runtime": {
+    "sha256": "da30b333a4d5589bc20b6500ecd18c9d3a8f16211f5a42f76ad9f0ea8a062256",
+    "matches_070_02": true,
+    "observer_config": "config/components/localization/loop_observer_local_revisit.json",
+    "minimum_distance_m": 0.1,
+    "default_minimum_distance_changed": false,
+    "matching_pnp_or_health_thresholds_changed": false
+  },
+  "route": {
+    "profile": "loop_revisit",
+    "completed_stages": 47,
+    "planned_stages": 47,
+    "cycles": 7
+  },
+  "loop": {
+    "keyframes": 94,
+    "candidates": 43,
+    "verified_edges": 1,
+    "optimizations": 1,
+    "edge": {
+      "old_index": 0,
+      "current_index": 57,
+      "separation_sim_s": 445.368,
+      "actual_imu_separation_m": 0.04214706836852058,
+      "translation_error_m": 0.031404363305464936,
+      "rotation_error_deg": 0.27814501494355065
+    },
+    "raw_to_corrected_transform_step_s_after_edge": 0.200000001,
+    "raw_to_corrected_translation_step_m": 0.050260027002561276,
+    "loop_specific_checks_passed": 13,
+    "loop_specific_checks_total": 13
+  },
+  "comparison": {
+    "alignment": "One rigid pose alignment during initial stationary hold; scale 1; identical transform for raw and corrected; no post-loop realignment.",
+    "paired_samples": 5093,
+    "duration_sim_s": 744.348000001,
+    "raw_coverage_fraction": 1.0,
+    "maximum_truth_interpolation_gap_ns": 20000000,
+    "exact_source_timestamp_matching": true,
+    "full_interval_sample_rmse": {
+      "raw_position_m": 0.0593016499396141,
+      "loop_position_m": 0.04273090077080678,
+      "position_reduction_percent": 27.943150292919405,
+      "raw_yaw_deg": 0.7650342108350398,
+      "loop_yaw_deg": 0.7561342743749013,
+      "yaw_reduction_percent": 1.1633383624013476
+    },
+    "after_first_correction_sample_rmse": {
+      "raw_position_m": 0.08382996598228809,
+      "loop_position_m": 0.047054743426835056,
+      "position_reduction_percent": 43.86882676681873,
+      "raw_yaw_deg": 1.0868890063404195,
+      "loop_yaw_deg": 1.0690118359779093,
+      "yaw_reduction_percent": 1.6448018388467365
+    },
+    "cycle_7_return_last_10_s": {
+      "raw_position_m": 0.10791195367935774,
+      "loop_position_m": 0.07153307473014861,
+      "position_reduction_percent": 33.711630369794676,
+      "raw_yaw_deg": 1.2858138324705135,
+      "loop_yaw_deg": 1.2677687015125465,
+      "yaw_reduction_percent": 1.4034015268987874
+    },
+    "time_weighted_full_position_rmse_m": {
+      "raw": 0.05887796601628862,
+      "loop": 0.042654109190592884,
+      "supported_duration_s": 703.9479997990001,
+      "possible_duration_s": 744.348000001
+    }
+  },
+  "repeatability_comparison": {
+    "run_070_02_verified_edges": 2,
+    "run_072_verified_edges": 1,
+    "classification": "partial_reproduction; positional improvement recurred, loop count did not"
+  },
+  "fixture_probe": {
+    "outcome": "failed",
+    "error": "detached fixture removal was not acknowledged",
+    "vehicle_status_before_stop_disarmed": true,
+    "attachment_states": ["attached", "detached"],
+    "fixture_may_remain_attached": false,
+    "gazebo_models_available_before_stop": 0,
+    "fixture_model_present_before_stop": false,
+    "loop_backend_exit_code": 0,
+    "project_container_stop_exit_code": 0,
+    "unrelated_containers_left_running": ["volant-height-route-probe", "natfrp-service"]
+  },
+  "integrity": {
+    "comparison_input_hashes_match": true,
+    "analysis_script_hash_matches": true,
+    "model_sdf_hash_matches": true,
+    "csv_rows": 5093,
+    "csv_recomputed_rmse_matches_report": true,
+    "plot_generated_by_separate_host_script": true,
+    "full_analysis_command_exited_zero": false,
+    "analysis_command_note": "Container completed JSON/CSV emission but could not import optional matplotlib; host replay could not overwrite container-owned outputs. Original log retained."
+  },
+  "limitations": [
+    "One unarmed Gazebo physical-support route only; no free-flight or real-device evidence.",
+    "Only one verified loop in this run versus two in 070-02; loop count and correction magnitude are not stable across repeats.",
+    "Position error remained about 7.15 cm and yaw error about 1.27 degrees at the seventh return hold.",
+    "Loop output was not routed to navigation or PX4 control.",
+    "Does not prove odometry is drift-free."
+  ],
+  "sha256": {
+    "fixture-odometry.jsonl": "7786a4e6a30712cca1339cd2d90394ef02cbac67f46bb55206986aaca9218b41",
+    "fixture-truth.jsonl": "cad86195935231534d89a60d1202bf956e230b62c3f40e3908f926245bef86df",
+    "fixture-trace.jsonl": "61d968c22ec2c95c9d10a8823a1b4ccad09353d98c3f944a02b41a32b6fc6e2c",
+    "fixture-stages.json": "286df73e9cbfc373f9ababac64ecbb7a32447d8791cfba6213194bac3cf31318",
+    "fixture-result.json": "789f27e504202ca7d8aa98de032ee1459b2c3edc7c84928e71541f72d8dd2f6b",
+    "loop-observation.json": "1fbe00c0186b74f6c478faa979114c8cf9704e356b78022f57756fbdb500883b",
+    "loop-observer-manifest.json": "c95062c77880f72b6332c3de0c6a60d38c76d7cb99e3d9699a5d8aae4c1e42ab",
+    "real-loop-evaluation.json": "dfe569126ef1001a8139752dba7a38eac79e69aa3dbd9fe84591c1f8415f292a",
+    "compare_loop_drift.py": "a4d4aa130baa2aac0d098e5dc3f979b9ac175d48c296eda5003591e71cd886e3",
+    "model.sdf": "b44035c7fd5650615a2124a6ec4b7655a333778c5105791f2a4cff3179cf2c37",
+    "loop-drift-comparison.csv": "e2bce319f0c563465055b8b01bbd47eb4614e42a1179200ba1ba99efdd64cb51",
+    "loop-drift-comparison.png": "44e6f15d0885f6a9ad79f78ecf380b1841ca9650b868cdc4356032396fe62403"
+  }
+}
