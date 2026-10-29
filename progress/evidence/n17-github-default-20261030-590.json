@@ -1,0 +1,76 @@
+{
+  "run_id": "n17-20261030-590-github-default",
+  "status": "PASS",
+  "qualification": {
+    "schema": "normal-navigation-qualification/v1",
+    "run_id": "n17-20261030-590-github-default",
+    "passed": true,
+    "checks": {
+      "native_mission": true,
+      "independent_arrival": true,
+      "contact": true,
+      "normal_landed_disarmed": true,
+      "terminal_identity": true,
+      "runtime_identity": true,
+      "unique_control_publishers": true
+    },
+    "missing_or_invalid": [],
+    "input_sha256": {
+      "flight.json": "92cbde75d4879dc766349467e8f2898c9d4ce6db4938d8eee709b2170df9c636",
+      "arrival-evaluation.json": "3db52a15a9cd684d3443e71efa507926b8b34876bec7871a1582545c494204e6",
+      "n09-contact-observation.json": "7cdd6708c52019f0ef547be74e69249a1e73aefbb274d7905de7263fe9bf7647",
+      "n09-contact-model-manifest.json": "428a7eefa76fa2e62e1ef39928e4b76f8b81d271217f644e1ae7894400b98568",
+      "bridge-alignment-timeline.jsonl": "befcd20cb5bed1e8bda510c68ed5dc0488a2e2631d9b44a52e92bd03065232c4",
+      "safe-to-stop.json": "1dbe2b94d1562b02420e5185a3b02cbe98493b7b9146248c737c2faf09bbebf4",
+      "runtime-contract.json": "3d4746323f8bc58d16e5bd1b519533317cd00907380cca2b80ecfd7404f5e564",
+      "n09-runtime-contract-current.json": "3d4746323f8bc58d16e5bd1b519533317cd00907380cca2b80ecfd7404f5e564",
+      "postflight-px4-bridge-readback.json": "706508f6598135d73fdefa320ccfcb4ad2cc248051fee3b859f893a8b24c63dc"
+    },
+    "runtime_effect": false,
+    "formal_count_eligible": false,
+    "scope": "everyday single-goal navigation result only; formal scene and duration evidence evaluated separately"
+  },
+  "safe_to_stop": {
+    "classification": "independent normal safe-stop readback; no flight-control effect",
+    "safe_to_stop_project_container": true,
+    "checks": {
+      "bridge_landed_phase": true,
+      "bridge_landed": true,
+      "bridge_disarmed": true,
+      "bridge_control_disabled": true,
+      "px4_disarmed": true,
+      "px4_land_detected": true,
+      "zero_control_after_terminal": true,
+      "goal_identity_present": true,
+      "epoch_identity_present": true,
+      "no_old_epoch_goal_or_trajectory": true,
+      "stable_terminal_window": true,
+      "no_terminal_state_violation": true
+    },
+    "native_terminal_evidence_complete": true,
+    "native_terminal_evidence_summary": {
+      "native_terminal_evidence_complete": true,
+      "emergency_closeout_used": false,
+      "missing_evidence": [],
+      "observed_state_failures": [],
+      "post_terminal_failures": [],
+      "checks": {
+        "bridge_phase_landed": true,
+        "bridge_landed": true,
+        "bridge_disarmed": true,
+        "bridge_control_disabled": true,
+        "px4_disarmed": true,
+        "px4_land_detected": true,
+        "zero_control_after_terminal": true,
+        "no_old_epoch_goal_or_trajectory": true
+      },
+      "stable_terminal_window_wall_s": null,
+      "terminal_state_violation_count": 0
+    },
+    "expected_goal_id": "4fe2b730ac0b423b97cd35202188abb4",
+    "expected_epoch": "9f6ac714d4974aa098d4aa0702aaf09a",
+    "emergency_disarm_used": false,
+    "readback_sha256": "706508f6598135d73fdefa320ccfcb4ad2cc248051fee3b859f893a8b24c63dc"
+  },
+  "source": "fresh GitHub clone and clean ROS/PX4 rebuild; actual default start.sh fly/status/stop"
+}
