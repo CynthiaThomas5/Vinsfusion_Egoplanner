@@ -162,5 +162,11 @@ next_steps = {
     "P5": "verify VIO bridge EKF2 fusion with GNSS disabled",
     "P6": "complete A-H final acceptance and handoff",
 }
-print("Next:", next_steps.get(next_stage, "all listed milestones passed; audit GOAL.md A-H"))
+plan = milestones.get("execution_plan", {})
+next_goal = plan.get("next_goal")
+entry = next((item for item in plan.get("small_goals", []) if item.get("id") == next_goal), None)
+if entry:
+    print("Next:", entry["id"], entry.get("title", ""), "(" + entry.get("status", "unknown") + ")")
+else:
+    print("Next:", next_steps.get(next_stage, "all listed milestones passed; audit GOAL.md A-H"))
 sys.exit(1 if errors else 0)
