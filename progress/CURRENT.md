@@ -10,7 +10,7 @@
 - 交付入口修复候选：普通导航缺qualification.json，现补只读独立终态/到达/接触/唯一控制评估并提前观察器；默认16m的spawn恢复-8避免x=9.5墙边无解，使用已验证0.4m/s、0.25m/s²和native5s驻留。独立仍0.3m/15度/3秒。旧诊断几何实体未变，已复算并更新来源hash；不恢复健康/净空数值门。
 - #573默认16m GUI真实飞行与新qualification流程PASS，正常落地上锁/控制归零后已停止归档。独立G调用收到map_query_occupied明确终态，自身无PX4控制发布；10组真实RGB-D/MapStatus经MCAP反序列化回读，raw/inflated地图npz也真实回读，同epoch/map身份。证据progress/evidence/n17-default-interface-regression-20261029-573.md。
 - #574四场景当前交付版本回归完成：empty/single/staggered/corridor各3次，#575–#586共12次PASS；逐次原始记录、协议、评估与哈希见matrix-release/final-matrix-index.json及#574报告。所有运行独立安全终态后关闭容器。
-- #587仅修复postflight JSON原子写入及只读日志解析竞态，2项定向测试通过；不改变控制、参数和阈值。当前唯一子项#588最终干净构建版本≥300sim连续GUI运行，驱动artifacts/runs/n17-20261030-588-continuous-driver/run.py；工具会话20754。候选/home/huangxiaocheng/n17-20261029-570-clean/project，运行中不改源码/参数。
+- #587仅修复postflight JSON原子写入及只读日志解析竞态，2项定向测试通过；不改变控制、参数和阈值。#588最终连续GUI回归已安全结束但独立驻留FAIL（返程3段仅2.42–2.464秒），报告n17-final-continuous-attempt-20261030-588.md；原FAIL保留。当前唯一子项：远端源码依赖恢复/真实构建后，以native到达0.10m（原0.25m）单变量验证#589，独立0.30m/15度/3秒不变。候选/home/huangxiaocheng/n17-20261029-570-clean/project，无活动飞行会话。
 - 固定环境runtime-environment-v1已上传且独立GitHub clone/LFS下载SHA校验PASS，commit等见docker/environment.json；源码main尚未发布。既有7个自维护包Apache-2.0声明已核实，保留既有许可，第三方按各自许可。
 - 尚待#588结果、源码GitHub发布及远端干净恢复复验、最后A–H/P/S/N审计和交付打包。未执行物理第二设备验证，不冒称异机实测；使用N17 A.2干净环境/目录重建证据。N17保持in_progress。
 
