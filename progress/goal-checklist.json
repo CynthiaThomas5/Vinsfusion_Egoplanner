@@ -1,13 +1,13 @@
 {
   "goal_document": "GOAL.md",
-  "date": "2026-10-22",
+  "date": "2026-10-30",
   "completion_rule": "All user-scoped required N01-N17 exits, applicable mapped S1-S6/P0-P6/A-H exits require actual evidence. User#547 excludes N15 and fault handling/injection qualification; exclusion never implies PASS. E continuous five-minute full-load requirement remains. Historical/diagnostic results do not qualify final runtime; optional research/hardware remain excluded.",
-  "status": "pending_execution",
+  "status": "passed",
   "criteria": [
     {
       "id": "A",
       "title": "可重建与可启动",
-      "status": "pending",
+      "status": "passed",
       "evidence": [
         "progress/evidence/p0-ego-planner-build.json",
         "progress/evidence/p0-px4-msgs-build.json",
@@ -50,13 +50,15 @@
         "progress/evidence/p2-ego-dense-spline-collision-check-20261020-318.json",
         "progress/evidence/p2-ego-dense-spline-snapshot-validation-20261020-319.json",
         "progress/evidence/p2-ego-dense-spline-second-layout-20261020-320.json",
-        "progress/evidence/p2-ego-dense-spline-second-layout-snapshot-20261020-321.json"
+        "progress/evidence/p2-ego-dense-spline-second-layout-snapshot-20261020-321.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ]
     },
     {
       "id": "B",
       "title": "单相机输入与VINS定位真实生效",
-      "status": "pending",
+      "status": "passed",
       "evidence": [
         "progress/evidence/p1-static-sensors.json",
         "progress/evidence/p1-static-sensors-runtime.json",
@@ -121,13 +123,15 @@
         "progress/evidence/p2-propagated-clock-observation-20261020-276-277.json",
         "progress/evidence/p2-moving-map-snapshot-20261020-278-279.json",
         "progress/evidence/p2-ego-current-vendor-runtime-20261020-280-281.json",
-        "progress/evidence/p2-ego-current-vendor-manual-goal-20261020-282-284.json"
+        "progress/evidence/p2-ego-current-vendor-manual-goal-20261020-282-284.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ]
     },
     {
       "id": "C",
       "title": "在线建图可用于避障",
-      "status": "pending",
+      "status": "passed",
       "evidence": [
         "progress/evidence/p2-ego-map-input.json",
         "progress/evidence/p2-ego-map-live.json",
@@ -195,13 +199,15 @@
         "progress/evidence/p2-ego-pose-rmw-unread-history-trace-20261021-348.json",
         "progress/evidence/p2-ego-pose-rmw-recv-meter-trace-20261021-359.json",
         "progress/evidence/p2-ego-dense-sphere-sweep-audit-20261021-383.json",
-        "progress/evidence/p5-vio-ego-airborne-preflight-diagnostic-20261021-384-387.json"
+        "progress/evidence/p5-vio-ego-airborne-preflight-diagnostic-20261021-384-387.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ]
     },
     {
       "id": "D",
       "title": "EGO避障与任务闭环",
-      "status": "pending",
+      "status": "passed",
       "evidence": [
         "progress/evidence/p0-ego-planner-build.json",
         "progress/evidence/p2-ego-odom-qos.json",
@@ -252,13 +258,15 @@
         "progress/evidence/p2-ego-dense-spline-collision-check-20261020-318.json",
         "progress/evidence/p2-ego-dense-spline-snapshot-validation-20261020-319.json",
         "progress/evidence/p2-ego-dense-spline-second-layout-20261020-320.json",
-        "progress/evidence/p2-ego-dense-spline-second-layout-snapshot-20261020-321.json"
+        "progress/evidence/p2-ego-dense-spline-second-layout-snapshot-20261020-321.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ]
     },
     {
       "id": "E",
       "title": "故障与长时运行",
-      "status": "pending",
+      "status": "passed",
       "evidence": [
         "progress/evidence/p2-stereo-dropout.json",
         "progress/evidence/p2-imu-dropout.json",
@@ -288,23 +296,25 @@
         "progress/evidence/p5-vins-anisotropy-filter-010-horizontal-paired-20261020-211.json",
         "progress/evidence/p5-vins-anisotropy-filter-001-horizontal-20261020-212.json",
         "progress/evidence/p5-vins-anisotropy-filter-0025-horizontal-20261020-213.json",
-        "progress/evidence/p2-ego-current-vendor-manual-goal-20261020-282-284.json"
+        "progress/evidence/p2-ego-current-vendor-manual-goal-20261020-282-284.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ],
       "scope_override_547": {
         "excluded": "E.1/E.2 formal fault injection and fault-exit qualification; E.3 fault-injection validation",
-        "retained": "E.4 continuous ten-minute normal full-load task and existing normal-session epoch/time identity behavior",
-        "status_note": "still pending; not fault-qualified"
+        "retained": "E.4 continuous >=300sim-second normal full-load task and existing normal-session identity behavior",
+        "status_note": "normal-operation scope passed; fault qualification excluded and not claimed"
       },
       "duration_override_552": {
         "minimum_continuous_sim_s": 300,
         "old_600_sim_s_superseded": true,
-        "not_yet_passed": true
+        "not_yet_passed": false
       }
     },
     {
       "id": "F",
       "title": "先冻结定量标准再验收",
-      "status": "pending",
+      "status": "passed",
       "evidence": [
         "progress/evidence/p0-ego-obstacle-inflation-20261020-245.json",
         "progress/evidence/p0-d435i-footprint-20261020-246.json",
@@ -314,7 +324,9 @@
         "progress/evidence/p2-ego-manual-goal-planner-20261020-255.json",
         "progress/evidence/p2-moving-map-snapshot-20261020-278-279.json",
         "progress/evidence/p2-ego-current-vendor-runtime-20261020-280-281.json",
-        "progress/evidence/p2-ego-current-vendor-manual-goal-20261020-282-284.json"
+        "progress/evidence/p2-ego-current-vendor-manual-goal-20261020-282-284.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ]
     },
     {
@@ -325,13 +337,15 @@
         "progress/evidence/p6-handoff-interfaces.json",
         "progress/evidence/p4-navigation-ego-action-cancel.json",
         "progress/evidence/p2-ego-map-epoch-switch.json",
-        "progress/evidence/p2-clock-rollback.json"
+        "progress/evidence/p2-clock-rollback.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ]
     },
     {
       "id": "H",
       "title": "工程交接与证据闭环",
-      "status": "pending",
+      "status": "passed",
       "evidence": [
         "progress/evidence/p5-vio-truth-error-diagnostic-20261019-172-175.json",
         "progress/evidence/p5-vio-truth-error-repeat-20261019-176.json",
@@ -380,7 +394,9 @@
         "progress/evidence/p2-ego-dense-spline-collision-check-20261020-318.json",
         "progress/evidence/p2-ego-dense-spline-snapshot-validation-20261020-319.json",
         "progress/evidence/p2-ego-dense-spline-second-layout-20261020-320.json",
-        "progress/evidence/p2-ego-dense-spline-second-layout-snapshot-20261020-321.json"
+        "progress/evidence/p2-ego-dense-spline-second-layout-snapshot-20261020-321.json",
+        "progress/evidence/FINAL_ACCEPTANCE.md",
+        "progress/evidence/n17-github-publication-20261030-591.json"
       ]
     }
   ],
@@ -409,5 +425,6 @@
       "other_full_load_and_normal_terminal_requirements_unchanged": true,
       "record": "progress/changes/2026-10-29-552-n16-five-minutes.md"
     }
-  ]
+  ],
+  "qualification_scope": "user-scoped normal single-D435i low-speed static indoor simulation; excluded fault/hardware claims never implied"
 }

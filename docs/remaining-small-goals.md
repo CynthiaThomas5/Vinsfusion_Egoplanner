@@ -1,5 +1,7 @@
 # GOAL v3 后续小目标：EGO 复用与剩余集成规划
 
+2026-10-30收尾：当前用户约定的N01–N17仿真范围已完成，N15按用户排除而非通过；R01/R02及实机不纳入。本文件后文保留历史执行规划和当时缺口，最新状态以[CURRENT](../progress/CURRENT.md)和[最终验收](../progress/evidence/FINAL_ACCEPTANCE.md)为准。
+
 > 当前策略更新（#331，用户授权）：执行 [FAST Lab 官方规则](official-ego-policy.md)，独立垂直起飞→悬停→EGO 目标；unknown 保留 raw 分类而不单独阻断规划。N05 五阶段 raw-known-free、支架扫描、N06 额外 raw-free 整曲线/hold 球证书属于旧诊断策略，不是当前起飞前置。下文旧证据／实验流程仅按记录的原策略解读；当前普通任务走官方规则 runner，N08 专项试验不自动套用到新策略。
 
 

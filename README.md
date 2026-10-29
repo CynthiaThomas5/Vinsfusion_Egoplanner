@@ -4,7 +4,7 @@
 
 定位和规划使用 CPU；Gazebo 相机与 RViz 使用 NVIDIA GPU。默认视觉链路从初始化开始不使用 GNSS、真值定位或完整世界地图；真值记录仅作独立离线评估。
 
-**交付状态：N17 最终版本回归与发布审计进行中。** 干净依赖重建、18 个 ROS 包及 PX4 构建、729 项单元测试和 ROS 集成、默认 16 m GUI 飞行及地图／关键帧接口回读已验证。最终进度以 [CURRENT](progress/CURRENT.md) 为准；[最终验收报告](progress/evidence/FINAL_ACCEPTANCE.md) 在全部出口完成后定稿。
+**交付状态：N17及当前仿真范围已完成，发布标记 `sim-nav-v1.0.0`。** GitHub源码独立恢复、18个ROS包/PX4干净构建、734项单元与ROS集成、四场景12次回归、325.8sim秒连续任务及默认16m GUI示例均通过。见[最终验收报告](progress/evidence/FINAL_ACCEPTANCE.md)和[当前状态](progress/CURRENT.md)。
 
 ## 环境
 
@@ -16,6 +16,7 @@
 
 ```bash
 git clone git@github.com:CynthiaThomas5/D435i-VINS-EGO-ROS2.git
+git -C D435i-VINS-EGO-ROS2 checkout sim-nav-v1.0.0
 # 在另外一个目录取得固定运行环境
 git clone --single-branch --branch runtime-environment-v1 \
   git@github.com:CynthiaThomas5/D435i-VINS-EGO-ROS2.git d435i-runtime
