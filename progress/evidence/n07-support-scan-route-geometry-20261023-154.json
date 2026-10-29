@@ -1,0 +1,150 @@
+{
+  "schema": "n07-support-scan-static-geometry/v1",
+  "task_id": "N07.1 #154",
+  "date": "2026-10-23",
+  "candidate_profile": "n07_default_spawn_translation_only",
+  "qualification": "static SDF route geometry only; does not qualify support hardware, localization, N05 admission, or flight",
+  "inputs": {
+    "world_sdf": "artifacts/runs/n07-20261023-154-01/vio_initialization.sdf",
+    "world_sdf_sha256": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+    "layout_id": "wall_box_column",
+    "layout_config": "config/components/simulation/n04_geometry_layouts.json",
+    "layout_config_sha256": "c4d4fb752e7c2af01054fc678905f888f70964e68dfc3f53388869f45364e234",
+    "layout_offset_xy_m": [
+      -6.5,
+      0.0
+    ],
+    "layout_objects_included": [
+      "n05_wall_box_column_0",
+      "n05_wall_box_column_1"
+    ],
+    "spawn_pose_m_rad": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scan_profile_config_sha256": "6bb977097ab46cfc4146405ce1a2c5bfc3e31c0fb3ecbe1c0f2c5d2ac9ae25e1",
+    "vehicle_clearance_radius_m": 0.7306179170842027,
+    "vehicle_envelope_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+    "imu_start_height_m": 0.62,
+    "imu_scan_height_m": 1.62
+  },
+  "method": {
+    "function": "tools/debug_truth/world_geometry.py::segment_bound",
+    "max_sample_step_m": 0.01,
+    "continuous_bound": "signed distance lower bound subtracts half sample interval",
+    "orientation_handling": "orientation-invariant N05 vehicle reference sphere bounds all attitudes; candidate profile keeps yaw and pitch at zero"
+  },
+  "results": [
+    {
+      "segment": "vertical_lift",
+      "start_imu_m": [
+        -8,
+        0,
+        0.62
+      ],
+      "end_imu_m": [
+        -8,
+        0,
+        1.62
+      ],
+      "length_m": 1.0,
+      "samples": 101,
+      "sample_cover_radius_m": 0.005,
+      "sampled_nominal_margin_m": 1.1943820829023049,
+      "continuous_nominal_margin_lower_bound_m": 1.189382082902305,
+      "nearest_sample_xyz": [
+        -8.0,
+        0.0,
+        0.62
+      ],
+      "nearest_obstacle": "blank/Wall_3/Wall_3_Collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "outbound_translation",
+      "start_imu_m": [
+        -8,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -6.8,
+        0,
+        1.62
+      ],
+      "length_m": 1.2000000000000002,
+      "samples": 122,
+      "sample_cover_radius_m": 0.0049586776859504135,
+      "sampled_nominal_margin_m": 1.0344316572904095,
+      "continuous_nominal_margin_lower_bound_m": 1.029472979604459,
+      "nearest_sample_xyz": [
+        -6.8,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "n05_wall_box_column_0/body/collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "return_translation",
+      "start_imu_m": [
+        -6.8,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -8,
+        0,
+        1.62
+      ],
+      "length_m": 1.2000000000000002,
+      "samples": 122,
+      "sample_cover_radius_m": 0.0049586776859504135,
+      "sampled_nominal_margin_m": 1.0344316572904095,
+      "continuous_nominal_margin_lower_bound_m": 1.029472979604459,
+      "nearest_sample_xyz": [
+        -6.8,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "n05_wall_box_column_0/body/collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "landing_lower",
+      "start_imu_m": [
+        -8,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -8,
+        0,
+        0.62
+      ],
+      "length_m": 1.0,
+      "samples": 101,
+      "sample_cover_radius_m": 0.005,
+      "sampled_nominal_margin_m": 1.1943820829023049,
+      "continuous_nominal_margin_lower_bound_m": 1.189382082902305,
+      "nearest_sample_xyz": [
+        -8.0,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "blank/Wall_3/Wall_3_Collision",
+      "static_non_ground_sphere_corridor_clear": true
+    }
+  ],
+  "minimum_continuous_nominal_margin_m": 1.029472979604459,
+  "all_static_obstacle_segments_clear": true,
+  "limitations": [
+    "ground plane is omitted by this world-geometry audit",
+    "support fixture hardware is not part of the vehicle sphere",
+    "static model clearance is not a flight or braking certificate"
+  ]
+}

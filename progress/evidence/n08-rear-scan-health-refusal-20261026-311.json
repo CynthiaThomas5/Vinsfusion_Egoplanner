@@ -1,0 +1,154 @@
+{
+  "schema": "n08-rear-support-scan-health-refusal/v1",
+  "date": "2026-10-26",
+  "subtask": "#311",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-311",
+  "profile": "n08_overhead_free_sector_negative_y_rear_short_hold_slow_descent",
+  "result": "rear observation not reached; scan refused during early horizontal return before the modified slow-descent stage",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "online_offline_identical": true,
+    "identity": {
+      "epoch": "ace64aba76cf412db893eb74301969c9",
+      "map_id": "ace64aba76cf412db893eb74301969c9-bb2241a62e994f40a2ad49a967015c7c",
+      "frame_id": "odom_ace64aba76cf412db893eb74301969c9",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    }
+  },
+  "scan": {
+    "planned_stages": 17,
+    "completed_stages": 7,
+    "outcome": "failed",
+    "error": "localization changed or became invalid during physical scan",
+    "lockout_sim_s": 293.008,
+    "last_pair_sim_s": 292.875999999,
+    "normalized_cost": 1.0489861623567607,
+    "limit": 1.0,
+    "reason": "normalized_cost_exceeded",
+    "last_trace": {
+      "sim_s": 293.1,
+      "target": [
+        -0.9841945318541033,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "joints": {
+        "x": [
+          -0.9851151149018946,
+          0.034356769167457675
+        ],
+        "z": [
+          1.0000000000000004,
+          -4.6308172140657744e-15
+        ],
+        "yaw": [
+          -1.0565564362810701e-21,
+          9.309156066528534e-21
+        ],
+        "pitch": [
+          -0.0002457375308823228,
+          0.003037473473769037
+        ]
+      },
+      "leg_index": 7,
+      "label": null,
+      "cycle": null,
+      "epoch": "ace64aba76cf412db893eb74301969c9",
+      "attachment": "attached",
+      "localization": {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.6029688738726391
+      }
+    },
+    "metrics": {
+      "final_cost": 2748.17899211787,
+      "residual_components": 4995,
+      "input_features": 180,
+      "stereo_features": 172,
+      "continued_tracks": 179,
+      "visual_observations": 1302,
+      "accel_bias_norm": 0.04144007940491949,
+      "gyro_bias_norm": 7.075909349492926e-05
+    },
+    "cost_components": {
+      "imu": {
+        "cost": 4.449208583196573,
+        "residual_components": 105
+      },
+      "marginalization": {
+        "cost": 354.58643111515545,
+        "residual_components": 82
+      },
+      "visual": {
+        "cost": 2389.1433524195168,
+        "residual_components": 4808
+      }
+    }
+  },
+  "modified_stage_reached": false,
+  "fixture_cleanup": {
+    "detached": true,
+    "model_removed": true,
+    "may_remain_attached": false,
+    "landed": true,
+    "landed_verified": true,
+    "px4_independent_readback": {
+      "arming_state": 1,
+      "landed": true,
+      "at_rest": true
+    },
+    "bridge_independent_readback": {
+      "phase": "DISABLED",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true
+    },
+    "project_stop_exit_code": 0,
+    "container_exit_code": 0
+  },
+  "mission": {
+    "post_release_n05": false,
+    "mission_current_area": false,
+    "preflight": false,
+    "goal_sent": false,
+    "control_enabled": false,
+    "takeoff": false,
+    "braking_data": false
+  },
+  "comparison": {
+    "309_lockout_sim_s": 312.38,
+    "309_lockout_position_approx_x_m": -0.46,
+    "310_same_initial_return_path_completed": true,
+    "310_trace_max_cost": 0.9531082016,
+    "311_lockout_position_x_m": -0.985,
+    "311_visual_cost": 2389.1433524195168,
+    "311_visual_residuals": 4808,
+    "311_imu_cost": 4.449208583196573,
+    "311_marginalization_cost": 354.58643111515545
+  },
+  "input_sha256": {
+    "config/components/simulation/preflight_scan.json": "78e4001fc13510440c0c2ef65bdb90611e8a5554629ad51ffac116ad26b55f9e",
+    "tools/probe_preflight_scan.py": "f6088e2795a26fe631de41c2dc21c467a66f3dda4dbb5a0ae45e7ee91639cae8",
+    "tools/run_n05_preflight_layout.sh": "563c5e7a4c039b1a48b47cf29e8388d7bf6ba1c45cf781d25a3835aebfbaff7f",
+    "tools/test_preflight_scan.py": "0d9aaf714dab77261c8b5642416d0ac22900173b81e942309f62dbb9aa326ffe"
+  },
+  "artifact_sha256": {
+    "fixture-result.json": "c24c7d5bd96028be80ebe53e4997415bc68f8d434d67473900caa918ee39617f",
+    "fixture-trace.jsonl": "e63746321ecb91077a4e7129b91c56b5ffe52cb67fa9d492d320f5b7ebcd5042",
+    "fixture-vins.jsonl": "edb0fce09d4deeadf54d2fbebbc2ccb9c602ff2ec9f13c472b06803eaccf1cdb",
+    "vio.log": "3dd5dcd536e6d993861538e48bf6417c6138f39a7e750aad372a95bf142b5949",
+    "n05-before/n05-live-entry-check.json": "826c2261052d19a1ac0a783a3ec86bf77b5967679d318093ef55033b4b1129b5",
+    "n05-run-inputs.json": "5c50bd24a75b1e85e60fe93c6341cbd515e669c844d5a0dc8b9e227dfc282a88"
+  },
+  "limits": [
+    "The unique 12 s descent change was never reached; this run does not measure its effect.",
+    "No N05 post-release or N08 live gate was reached.",
+    "The 1.048986 visual-cost lockout occurred in stage 7 before rear-facing observation; the profile remains unqualified."
+  ]
+}

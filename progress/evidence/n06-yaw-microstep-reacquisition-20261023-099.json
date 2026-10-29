@@ -1,0 +1,160 @@
+{
+  "schema": "n06-yaw-microstep-reacquisition/v1",
+  "report_id": "2026-10-23-099",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "parent_status": "in_progress",
+  "subtask": "N06.4",
+  "run_id": "n06-20261023-wall-r24",
+  "profile": {
+    "path": "config/components/simulation/n06_yaw_microstep_025deg_pilot.json",
+    "sha256": "5753bf392b2cabecaeeefd7e44fa361d73af908cb1f71cca23b93e15a5d5d191"
+  },
+  "hypothesis_result": {
+    "primary_variable": "Maximum uninterrupted yaw increment was 0.25 degrees; angular acceleration remained 0.0104719755 rad/s^2, with a 5.16398-second fixed-view hold after each rest-to-rest step.",
+    "first_normalized_cost_mapping_gate_closure": {
+      "sim_time_s": 29.668,
+      "vins_estimated_yaw_deg": 2.3098704899146645,
+      "debug_truth_yaw_deg": 1.1987015959954803,
+      "imu_integrated_yaw_deg": 1.1986212,
+      "logger_wall_time_s": 1792734329.012811
+    },
+    "first_invalid_localization_status": {
+      "stamp_ns": 29751000000,
+      "sim_time_s": 29.751,
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "wall_elapsed_s": 26.053118
+    },
+    "truth_yaw_at_first_invalid_deg": 1.2094157959955207,
+    "first_invalid_map_status": {
+      "header_stamp_ns": 29854000000,
+      "sim_time_s": 29.854,
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "map_id": "e72ab78abca64a91934752fa958120c0-e01fd6880a864b40b99afb764d374b38"
+    },
+    "map_status_last": {
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "forwarded_depth_count": 857,
+      "dropped_depth_count": 1938
+    },
+    "localization_status_counts": {
+      "valid": 515,
+      "invalid": 1280,
+      "total": 1795
+    },
+    "feature_counts": {
+      "static_hold_intervals": [
+        {
+          "interval_s": [
+            11.392,
+            16.544
+          ],
+          "min": 2,
+          "median": 109,
+          "max": 114,
+          "zero_samples": 0
+        },
+        {
+          "interval_s": [
+            17.819,
+            23.005
+          ],
+          "min": 3,
+          "median": 112,
+          "max": 114,
+          "zero_samples": 0
+        },
+        {
+          "interval_s": [
+            24.289,
+            29.464
+          ],
+          "min": 2,
+          "median": 114,
+          "max": 116,
+          "zero_samples": 0
+        }
+      ],
+      "near_gate": "At sim 29.602 n_pts was 116/115; at sim 29.668 it was 2/3 as the gate closed, followed by 115/43 at sim 29.734. Counts therefore dipped briefly and returned despite latched invalid health."
+    },
+    "imu_truth_comparison": "Gyroscope z integration and debug fixture truth differ by about 0.00008 degrees at the gate; VINS estimated yaw was about 1.11 degrees above truth.",
+    "interpretation": "The 0.25-degree steps and 5.164-second holds did not preserve health: the gate closed during the fourth step at about 1.20 degrees truth yaw, before the previous r23 failure point of about 1.55 degrees. Feature counts were generally high through the first three holds and briefly recovered after the gate. This weakens persistent feature starvation as a sufficient explanation and makes the VINS estimate/truth divergence a useful diagnostic signal. The hypothesis that smaller steps alone preserve localization is not supported.",
+    "pilot_success": false
+  },
+  "motion_truth": {
+    "truth_samples": 5667,
+    "imu_samples": 14167,
+    "command_count": 24,
+    "clock_s": [
+      5.057,
+      61.724
+    ],
+    "wall_seconds": 57.84024827484973,
+    "commanded_total_yaw_deg": 2.0,
+    "achieved_unwrapped_yaw_delta_deg": 2.7267941959959097,
+    "truth_yaw_near_gate_deg": 1.1987015959954803,
+    "qualification": "Debug-only sensor-fixture truth and IMU were used offline only; mapping received no truth input. The configured 2-degree pilot produced about 2.73 degrees actual accumulated yaw."
+  },
+  "input_capture": {
+    "requested_wall_seconds": 90.0,
+    "actual_wall_seconds": 91.128,
+    "raw_depth_header_count": 2670,
+    "forwarded_depth_frame_count": 770,
+    "camera_pose_count": 770,
+    "optimized_odometry_count": 385,
+    "fusion_trace_count_by_phase": {
+      "fused": 426,
+      "ego_received": 765,
+      "reset": 1
+    },
+    "last_forwarded_depth_stamp_ns": 29602000000,
+    "qualification": "Recorder completed its 90-second window. Forwarded depth and camera pose stop at sim 29.602 seconds just before the health lock; raw headers and status telemetry continue through the recorder window."
+  },
+  "snapshot": {
+    "attempted": true,
+    "captured": 0,
+    "failure": "MapStatus did not become ready within 120 seconds: map_reset_acknowledged",
+    "runner_exit_code": 1
+  },
+  "cleanup": {
+    "container_remaining": false,
+    "matching_project_processes_remaining": false,
+    "runner_exit_code": 1
+  },
+  "source_hashes": {
+    "motion.json": "37dddbe34af1924e7d489b7f47014e5e35f682954c43ad2f00a7390b59ed44a3",
+    "mapping-stack.log": "c1d3bb4c4fdd5bcb3b03f167f2ab9da2f0102b7b36db38bb7ebc5630e6c5fb82",
+    "inputs/mapping-inputs.json": "f29a238860f34433b8d8f91ac1e07ad67c90b5c45d6dc9d027d40b9a0cc18852",
+    "inputs/mapping-depth-pixels.npz": "d3a0adcdf56a8cf47fb80dd336137e09761e3b5bb1c9f388ef5b46b8cfeb1ea3",
+    "run-inputs.json": "cc3e2970a8d773f0978981f6bf52aeb56a113f0a9f3ea2ef0d880aba818fe1b1",
+    "snapshot-01-capture.log": "b5eea973a5962a37f69e42e0e7e16e1fd4c2255e5cbadb892411a3af51e6830f",
+    "input-recorder.log": "7d5a894f5406e46ee1074970052f8314aac49bd9305564377d4063ca326caefe"
+  },
+  "next_experiment": {
+    "run_id": "n06-20261023-wall-r25",
+    "profile_path": "config/components/simulation/n06_yaw_microstep_025deg_quarter_accel.json",
+    "profile_sha256": "d531d6cbe689d2fb77354d27694c0c227de53934a7289c428713c79482854b20",
+    "primary_variable": "Reduce angular acceleration fourfold from 0.0104719755 to 0.0026179939 rad/s^2; keep 0.25-degree steps, 2-degree nominal total, 5.164-second fixed-view holds, location and surround unchanged.",
+    "hypothesis": "The health gate may be responding to motion transients or visual-inertial inconsistency rather than persistent feature starvation; gentler acceleration should keep VINS yaw closer to truth and preserve health past the r24 1.21-degree failure point.",
+    "pilot": {
+      "steps": 8,
+      "step_degrees": 0.25,
+      "phase_seconds": 1.2909944487358056,
+      "hold_seconds_per_step": 5.163977794943222,
+      "commanded_total_yaw_deg": 2.0,
+      "angular_acceleration_rad_s2": 0.002617993877991494,
+      "peak_rate_rad_s": 0.003379815563311343,
+      "stop_seconds": 66.96773353931867,
+      "record_wall_seconds": 105
+    },
+    "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r25 wall_box_column 88 motion_n06 config/components/simulation/n06_yaw_microstep_025deg_quarter_accel.json",
+    "success_criterion": "Localization remains valid through achieved truth yaw of at least 1.5 degrees; MapStatus remains input_ready on the same epoch/map identity with fresh depth; and a matched snapshot can be captured. A pilot success is not full-turn coverage or an N06 pass."
+  },
+  "status": "N06 and S4 remain in_progress; next_goal remains N06; original N06 exits are unchanged.",
+  "stop_reason": "The 0.25-degree step pilot failed at about 1.21 degrees truth yaw and produced no snapshot. Continue N06.4 with an acceleration-only diagnostic."
+}

@@ -1,0 +1,363 @@
+{
+  "schema": "n08-candidate-landing-archive-audit/v1",
+  "result": "PASS",
+  "scope": "prospective landing candidate geometry; no run, mode or physical touchdown is certified",
+  "source_sha256": {
+    "tools/diagnostics/audit_n08_candidate_landing_archives.py": "9719ce7b39ae0ac0079b9b20b56c2ef1cfea3266a8bcf14f44b12d9776c424d9",
+    "tools/n05_entry.py": "6e13627dba11ef0c58a43cabb02fddc0daabdf14a7d5139e5ef83767fe8dac2a",
+    "tools/n08_trial_gate.py": "ee06a917c7bd3ff60cdcebdd4448f734f41f0afd55c40e0dcaa55ad8e37751ca"
+  },
+  "runs": [
+    {
+      "run_id": "n08-20261025-260-terminal-braking-measurement",
+      "map_label": "n08-trial-airborne-map",
+      "map_identity": {
+        "epoch": "74c03797508c48c3b89cbf7480b70086",
+        "map_id": "74c03797508c48c3b89cbf7480b70086-d44594548dcb4afb95f65300bb0b2354"
+      },
+      "goal_target_enu_m": [
+        0.6276345118455523,
+        0.02168498005086382,
+        0.9324095820644309
+      ],
+      "landing_pose": {
+        "center_xyz_m": [
+          0.6276345118455523,
+          0.02168498005086382,
+          0.006795520159997903
+        ],
+        "yaw_rad": -0.003037285059963911,
+        "home_ground_plane_z_m": -0.34999999999999987,
+        "candidate_ground_plane_z_m": -0.35000000000000003,
+        "imu_standoff_above_raw_ground_m": 0.35679552015999794,
+        "candidate_plane_height_delta_m": -1.6653345369377348e-16,
+        "actual_ground_confirmed": false
+      },
+      "candidate_ground_plane": {
+        "valid": true,
+        "reason": "raw_occupied_plane_fit",
+        "z_at_center_m": -0.35000000000000003,
+        "coefficients_ax_by_c_m": [
+          -8.985467495691514e-16,
+          -1.1102230246251565e-16,
+          -0.3499999999999995
+        ],
+        "residual_p95_m": 1.0269562977782698e-15,
+        "slope": 9.053795959736255e-16,
+        "raw_occupied_voxel_count": 231,
+        "xy_span_m": [
+          2.3999999999999986,
+          2.3000000000000007
+        ],
+        "source": "raw occupancy only",
+        "debug_truth_used": false
+      },
+      "certificate": {
+        "accepted": true,
+        "reason": "candidate_landing_volume_known_and_clear",
+        "ground_plane": {
+          "valid": true,
+          "reason": "raw_occupied_plane_fit",
+          "z_at_center_m": -0.35000000000000003,
+          "coefficients_ax_by_c_m": [
+            -8.985467495691514e-16,
+            -1.1102230246251565e-16,
+            -0.3499999999999995
+          ],
+          "residual_p95_m": 1.0269562977782698e-15,
+          "slope": 9.053795959736255e-16,
+          "raw_occupied_voxel_count": 231,
+          "xy_span_m": [
+            2.3999999999999986,
+            2.3000000000000007
+          ],
+          "source": "raw occupancy only",
+          "debug_truth_used": false
+        },
+        "ground_confirmed": false,
+        "candidate_ground_contact_authorized": true,
+        "hold_height_m": 1.0,
+        "sample_step_m": 0.05,
+        "sample_count": 21,
+        "phases": {
+          "HOLD": {
+            "samples": 1,
+            "accepted_samples": 1,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 1
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 0,
+            "maximum_subground_excluded_cells": 0
+          },
+          "DESCENT": {
+            "samples": 19,
+            "accepted_samples": 19,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 19
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 23,
+            "maximum_subground_excluded_cells": 31
+          },
+          "LANDING_CONTACT": {
+            "samples": 1,
+            "accepted_samples": 1,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 1
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 29,
+            "maximum_subground_excluded_cells": 40
+          }
+        },
+        "scope": "prospective landing geometry only; actual PX4 landed/disarmed readback is required after descent"
+      },
+      "actual_ground_confirmed": false,
+      "scope": "raw-map prospective landing geometry replay only; not touchdown or flight evidence",
+      "input_sha256": {
+        "flight.json": "88c3258c3d920f0a12fd2788c5f6933d682b91659ab794145482ee014a7be227",
+        "n05-live-entry-check.json": "37e36ae0da525ef53c46b61aada639d91651fa14cc556f042f0961447a84c09f",
+        "n08-trial-airborne-map.json": "b7b272f0c25312324e7696554853b77e7a1e35a094b8ec37b2f64ae7c3d687ff",
+        "n08-trial-airborne-map.npz": "a44f127094850d5b8692ba500e53d005453b7721df141e183af87c49a4fbd3f0"
+      }
+    },
+    {
+      "run_id": "n08-20261025-267-yaw-first-return",
+      "map_label": "n08-trial-airborne-map",
+      "map_identity": {
+        "epoch": "778678eaf1e142a997aae2576b5acfd7",
+        "map_id": "778678eaf1e142a997aae2576b5acfd7-a0a638078b5b4383b4b4e77f6770bbd3"
+      },
+      "goal_target_enu_m": [
+        0.6039470560735725,
+        -0.0023626041202365073,
+        0.9370420045087856
+      ],
+      "landing_pose": {
+        "center_xyz_m": [
+          0.6039470560735725,
+          -0.0023626041202365073,
+          0.014563412684947152
+        ],
+        "yaw_rad": 8.545632356751938e-05,
+        "home_ground_plane_z_m": -0.3499999999999999,
+        "candidate_ground_plane_z_m": -0.34999999999999987,
+        "imu_standoff_above_raw_ground_m": 0.364563412684947,
+        "candidate_plane_height_delta_m": 5.551115123125783e-17,
+        "actual_ground_confirmed": false
+      },
+      "candidate_ground_plane": {
+        "valid": true,
+        "reason": "raw_occupied_plane_fit",
+        "z_at_center_m": -0.34999999999999987,
+        "coefficients_ax_by_c_m": [
+          -2.497478595875023e-16,
+          3.3306690738754696e-16,
+          -0.3499999999999997
+        ],
+        "residual_p95_m": 6.106226635438361e-16,
+        "slope": 4.1630224376676563e-16,
+        "raw_occupied_voxel_count": 122,
+        "xy_span_m": [
+          2.1999999999999993,
+          2.200000000000003
+        ],
+        "source": "raw occupancy only",
+        "debug_truth_used": false
+      },
+      "certificate": {
+        "accepted": true,
+        "reason": "candidate_landing_volume_known_and_clear",
+        "ground_plane": {
+          "valid": true,
+          "reason": "raw_occupied_plane_fit",
+          "z_at_center_m": -0.34999999999999987,
+          "coefficients_ax_by_c_m": [
+            -2.497478595875023e-16,
+            3.3306690738754696e-16,
+            -0.3499999999999997
+          ],
+          "residual_p95_m": 6.106226635438361e-16,
+          "slope": 4.1630224376676563e-16,
+          "raw_occupied_voxel_count": 122,
+          "xy_span_m": [
+            2.1999999999999993,
+            2.200000000000003
+          ],
+          "source": "raw occupancy only",
+          "debug_truth_used": false
+        },
+        "ground_confirmed": false,
+        "candidate_ground_contact_authorized": true,
+        "hold_height_m": 1.0,
+        "sample_step_m": 0.05,
+        "sample_count": 21,
+        "phases": {
+          "HOLD": {
+            "samples": 1,
+            "accepted_samples": 1,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 1
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 0,
+            "maximum_subground_excluded_cells": 0
+          },
+          "DESCENT": {
+            "samples": 19,
+            "accepted_samples": 19,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 19
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 3,
+            "maximum_subground_excluded_cells": 28
+          },
+          "LANDING_CONTACT": {
+            "samples": 1,
+            "accepted_samples": 1,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 1
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 3,
+            "maximum_subground_excluded_cells": 36
+          }
+        },
+        "scope": "prospective landing geometry only; actual PX4 landed/disarmed readback is required after descent"
+      },
+      "actual_ground_confirmed": false,
+      "scope": "raw-map prospective landing geometry replay only; not touchdown or flight evidence",
+      "input_sha256": {
+        "flight.json": "a11df9269a601f0542c497eee76c71c9825b71915f477d9131c04b40800c301c",
+        "n05-live-entry-check.json": "537a5f45c06f83769bc6a4c693d7565ea25b97abbf965045a4fbabb54b88b426",
+        "n08-trial-airborne-map.json": "0c4b7c9a900cc3bccc0c8c3aec2d63212907d4820483639a018fc717d6611013",
+        "n08-trial-airborne-map.npz": "c33e21c44dbdaa0f90b23609f9ca144da84bcf57dabfa06d043bec451ac18b0a"
+      }
+    },
+    {
+      "run_id": "n08-20261025-273-observer-pre-enable-repeatability",
+      "map_label": "n08-trial-pre-turn-map",
+      "map_identity": {
+        "epoch": "97f57872b7de4418815b3562c02cd0fa",
+        "map_id": "97f57872b7de4418815b3562c02cd0fa-1fe67845100a46f6aac200f51417dddc"
+      },
+      "goal_target_enu_m": [
+        0.604240700922205,
+        0.009556942696120244,
+        0.8980675641276843
+      ],
+      "landing_pose": {
+        "center_xyz_m": [
+          0.604240700922205,
+          0.009556942696120244,
+          0.010059966216405591
+        ],
+        "yaw_rad": -0.0038952759554290247,
+        "home_ground_plane_z_m": -0.3500000000000001,
+        "candidate_ground_plane_z_m": -0.3499999999999991,
+        "imu_standoff_above_raw_ground_m": 0.3600599662164047,
+        "candidate_plane_height_delta_m": 9.992007221626409e-16,
+        "actual_ground_confirmed": false
+      },
+      "candidate_ground_plane": {
+        "valid": true,
+        "reason": "raw_occupied_plane_fit",
+        "z_at_center_m": -0.3499999999999991,
+        "coefficients_ax_by_c_m": [
+          1.0582732368509552e-15,
+          -4.996003610813204e-16,
+          -0.3499999999999997
+        ],
+        "residual_p95_m": 2.1455059950881138e-15,
+        "slope": 1.1702746535012983e-15,
+        "raw_occupied_voxel_count": 308,
+        "xy_span_m": [
+          2.1999999999999993,
+          2.3000000000000007
+        ],
+        "source": "raw occupancy only",
+        "debug_truth_used": false
+      },
+      "certificate": {
+        "accepted": true,
+        "reason": "candidate_landing_volume_known_and_clear",
+        "ground_plane": {
+          "valid": true,
+          "reason": "raw_occupied_plane_fit",
+          "z_at_center_m": -0.3499999999999991,
+          "coefficients_ax_by_c_m": [
+            1.0582732368509552e-15,
+            -4.996003610813204e-16,
+            -0.3499999999999997
+          ],
+          "residual_p95_m": 2.1455059950881138e-15,
+          "slope": 1.1702746535012983e-15,
+          "raw_occupied_voxel_count": 308,
+          "xy_span_m": [
+            2.1999999999999993,
+            2.3000000000000007
+          ],
+          "source": "raw occupancy only",
+          "debug_truth_used": false
+        },
+        "ground_confirmed": false,
+        "candidate_ground_contact_authorized": true,
+        "hold_height_m": 1.0,
+        "sample_step_m": 0.05,
+        "sample_count": 21,
+        "phases": {
+          "HOLD": {
+            "samples": 1,
+            "accepted_samples": 1,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 1
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 0,
+            "maximum_subground_excluded_cells": 0
+          },
+          "DESCENT": {
+            "samples": 19,
+            "accepted_samples": 19,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 19
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 20,
+            "maximum_subground_excluded_cells": 30
+          },
+          "LANDING_CONTACT": {
+            "samples": 1,
+            "accepted_samples": 1,
+            "refusal_counts": {
+              "raw_vehicle_envelope_known_free": 1
+            },
+            "maximum_unknown_cells": 0,
+            "maximum_occupied_cells": 0,
+            "maximum_ground_contact_cells": 23,
+            "maximum_subground_excluded_cells": 36
+          }
+        },
+        "scope": "prospective landing geometry only; actual PX4 landed/disarmed readback is required after descent"
+      },
+      "actual_ground_confirmed": false,
+      "scope": "raw-map prospective landing geometry replay only; not touchdown or flight evidence",
+      "input_sha256": {
+        "flight.json": "4de2512b8074cb2c4ee43a06dce10aff168e7dc08a2ba2885038e12ce24d4bf6",
+        "n05-live-entry-check.json": "8207bcb4e73e0596d0bb6f8753999277b1bdaadb18267eedf7363b03ddeb560b",
+        "n08-trial-pre-turn-map.json": "f73496875a94ba2d91fa1f71c52f2d764435811bc5b304c5d7047d1561e2b5d1",
+        "n08-trial-pre-turn-map.npz": "c7f577554b5af4e805bd529ecebc82d9e7644b6bdb516e3249eac8023fcb0030"
+      }
+    }
+  ]
+}

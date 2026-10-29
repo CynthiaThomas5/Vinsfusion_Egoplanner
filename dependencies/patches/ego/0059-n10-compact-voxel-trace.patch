@@ -1,0 +1,58 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -792,7 +792,7 @@
+   std_msgs::msg::String trace;
+   std::ostringstream data;
+   data.precision(17);
+-  data << "{\"schema\":\"n10-voxel-update-trace/v1\",\"phase\":\"fused\","
++  data << "{\"schema\":\"n10-voxel-update-trace/v2\",\"phase\":\"fused\","
+        << "\"epoch\":\"" << active_epoch_ << "\",\"map_id\":\""
+        << active_map_id_ << "\",\"callback_count\":" << md_.depth_pose_callback_count_
+        << ",\"fused_count\":" << (md_.fused_depth_count_ + 1)
+@@ -813,7 +813,9 @@
+        << mp_.n10_voxel_trace_center_(1) << "," << mp_.n10_voxel_trace_center_(2)
+        << "],\"roi_half_extents_m\":[" << mp_.n10_voxel_trace_half_extents_(0) << ","
+        << mp_.n10_voxel_trace_half_extents_(1) << "," << mp_.n10_voxel_trace_half_extents_(2)
+-       << "],\"voxel_count\":" << voxel_count << ",\"updates\":" << updates_json << "}";
++       << "],\"update_fields\":[\"ix\",\"iy\",\"iz\",\"hit_votes\",\"miss_votes\","
++       << "\"pre_log_odds\",\"post_log_odds\",\"pre_class_code\",\"post_class_code\"],"
++       << "\"voxel_count\":" << voxel_count << ",\"updates\":" << updates_json << "}";
+   trace.data = data.str();
+   n10_voxel_update_trace_pub_->publish(trace);
+ }
+@@ -950,9 +952,9 @@
+     voxel_updates << "[";
+   }
+   std::size_t traced_voxel_count = 0;
+-  const auto occupancy_class = [this](double value) {
+-    if (value < mp_.clamp_min_log_ - 1e-3) return "unknown";
+-    return value >= mp_.min_occupancy_log_ ? "occupied" : "free";
++  const auto occupancy_class_code = [this](double value) {
++    if (value < mp_.clamp_min_log_ - 1e-3) return 0;
++    return value >= mp_.min_occupancy_log_ ? 2 : 1;
+   };
+ 
+   // update occupancy cached in queue
+@@ -1025,17 +1027,11 @@
+       if (!trace_voxel) return;
+       if (traced_voxel_count++ > 0) voxel_updates << ",";
+       const double current_log_odds = md_.occupancy_buffer_[idx_ctns];
+-      voxel_updates << "{\"index\":[" << idx(0) << "," << idx(1) << "," << idx(2)
+-                    << "],\"center_m\":[" << voxel_center(0) << "," << voxel_center(1)
+-                    << "," << voxel_center(2) << "],\"hit_votes\":" << hit_votes
+-                    << ",\"miss_votes\":" << miss_votes << ",\"selected_vote\":\""
+-                    << (selected_hit ? "hit" : "miss") << "\",\"update_log_odds\":"
+-                    << log_odds_update << ",\"pre_log_odds\":" << previous_log_odds
+-                    << ",\"post_log_odds\":" << current_log_odds
+-                    << ",\"pre_class\":\"" << occupancy_class(previous_log_odds)
+-                    << "\",\"post_class\":\"" << occupancy_class(current_log_odds)
+-                    << "\",\"in_local_update_range\":" << (in_local ? "true" : "false")
+-                    << "}";
++      voxel_updates << "[" << idx(0) << "," << idx(1) << "," << idx(2)
++                    << "," << hit_votes << "," << miss_votes
++                    << "," << previous_log_odds << "," << current_log_odds
++                    << "," << occupancy_class_code(previous_log_odds)
++                    << "," << occupancy_class_code(current_log_odds) << "]";
+     };
+ 
+     if (log_odds_update >= 0 && md_.occupancy_buffer_[idx_ctns] >= mp_.clamp_max_log_)

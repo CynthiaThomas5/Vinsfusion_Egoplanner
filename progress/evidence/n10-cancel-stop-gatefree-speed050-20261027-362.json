@@ -1,0 +1,64 @@
+{
+  "schema": "n10-cancel-braking-repeat-summary/v1",
+  "run_id": "n10-20261027-362-current-gate-free-speed050-cancel-repeat",
+  "classification": "diagnostic_measurement; not a braking guarantee or formal qualification",
+  "measurement_complete": true,
+  "formal_qualification": false,
+  "action_canceled": true,
+  "action_success": false,
+  "checks_passed": 11,
+  "checks_total": 11,
+  "runtime_contract_sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+  "metrics": {
+    "trigger_px4_horizontal_speed_m_s": 0.5001796340889137,
+    "trigger_ego_reference_speed_m_s": 0.5338711405636489,
+    "cancel_ack_wall_delay_s": 0.0009956508874893188,
+    "replacement_trajectory_delay_sim_s": 0.032,
+    "px4_stop_band_entry_delay_sim_s": 6.76,
+    "px4_stop_band_dwell_sim_s": 1.02,
+    "truth_horizontal_path_length_m": 1.260993936144578,
+    "truth_horizontal_endpoint_displacement_m": 0.9905631407207542,
+    "truth_3d_path_length_m": 1.2619626042198189,
+    "truth_stop_band_1s_max_horizontal_excursion_m": 0.015393844670912838,
+    "px4_observed_max_horizontal_speed_during_cancel_m_s": 0.5096618025524469,
+    "px4_observed_p10_horizontal_deceleration_m_s2": 0.014111789867118163,
+    "time_to_first_10pct_speed_reduction_sim_s": 1.3,
+    "normalized_cost_max_observed": 0.8803841155225205,
+    "prohibited_contact_events": 0,
+    "terminal_bridge_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "control_samples_zero": true,
+    "safe_to_stop_project_container": true
+  },
+  "comparison_to_run_359": {
+    "run_359_trigger_px4_horizontal_speed_m_s": 0.500241,
+    "run_359_truth_horizontal_path_length_m": 1.304474,
+    "run_359_stop_band_entry_delay_sim_s": 4.96,
+    "path_length_difference_m": -0.04348006385542199,
+    "path_length_difference_fraction": -0.0333,
+    "stop_band_entry_delay_difference_sim_s": 1.8,
+    "interpretation": "two diagnostic samples are insufficient for a general stopping model or guarantee"
+  },
+  "observers": {
+    "truth": true,
+    "planner": true,
+    "bridge": true,
+    "contact": true,
+    "flight_record": true
+  },
+  "limitations": [
+    "One SITL cancellation sample; not a lower bound or general stopping guarantee.",
+    "No obstacle minimum body-clearance measurement; contact-free is not a clearance measurement.",
+    "No dynamic replan or fault-injection evidence in this run.",
+    "Truth is read-only and is not a navigation or control input."
+  ],
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261027-362-current-gate-free-speed050-cancel-repeat",
+    "raw_evaluator": "artifacts/runs/n10-20261027-362-current-gate-free-speed050-cancel-repeat/n10-cancel-braking-evaluation.json",
+    "safe_to_stop": "artifacts/runs/n10-20261027-362-current-gate-free-speed050-cancel-repeat/safe-to-stop.json",
+    "protocol": "progress/evidence/n10-cancel-stop-gatefree-speed050-protocol-20261027-362.md",
+    "runtime_snapshot": "progress/evidence/n10-cancel-stop-gatefree-speed050-runtime-prelaunch-20261027-362.json"
+  }
+}

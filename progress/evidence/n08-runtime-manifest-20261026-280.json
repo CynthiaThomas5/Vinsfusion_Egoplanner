@@ -1,0 +1,32 @@
+{
+  "schema": "n08-runtime-manifest-entrypoint-verification/v1",
+  "task_id": "#280",
+  "result": "PASS",
+  "flight_qualification": false,
+  "change": "runtime_manifest.py now fingerprints the navigation_supervisor installed launcher; regression test added.",
+  "targeted_test": {
+    "command": "PYTHONPYCACHEPREFIX=/tmp/n08-python-cache python3 -m unittest discover -s tools -p 'test_runtime_manifest.py'",
+    "passed": true,
+    "tests_run": 1
+  },
+  "workspace_runtime_snapshot": {
+    "path": "install/uav_navigation/lib/uav_navigation/navigation_supervisor",
+    "present": true,
+    "sha256": "c9ddb17931ef244d150caffe9f04164c3fd2ba76160cd02b03c7455267c11923",
+    "matches_n08_build_evidence": true
+  },
+  "shell_syntax_check": {
+    "command": "bash -n tools/sim_runtime.sh tools/mission_runtime.sh",
+    "passed": true
+  },
+  "git_diff_check": {
+    "command": "git diff --check",
+    "passed": true
+  },
+  "source_sha256": {
+    "tools/runtime_manifest.py": "1feff03a7aee55062d37a97299a5d5923e53b65ef8096b2ca4abc0c956989fdd",
+    "tools/test_runtime_manifest.py": "f781f42d933c09e1c9be1d3e685785f7c4b310a01774c6414faa83682fd1b911"
+  },
+  "scope": "Tooling verification only; no flight outcome.",
+  "created_at_utc": "2026-10-25T16:38:24.572831+00:00"
+}

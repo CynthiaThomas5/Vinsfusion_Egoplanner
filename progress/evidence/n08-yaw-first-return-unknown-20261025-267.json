@@ -1,0 +1,205 @@
+{
+  "schema": "n08-yaw-first-return-unknown/v1",
+  "run_id": "n08-20261025-267-yaw-first-return",
+  "result": "FAIL",
+  "qualification": "One fresh N08 SITL attempt; 0.6 m EGO terminal braking measured. Turn and return were refused before any yaw or return translation.",
+  "identity": {
+    "epoch": "778678eaf1e142a997aae2576b5acfd7",
+    "map_id": "778678eaf1e142a997aae2576b5acfd7-a0a638078b5b4383b4b4e77f6770bbd3",
+    "frame_id": "odom_778678eaf1e142a997aae2576b5acfd7"
+  },
+  "n05_and_preflight": {
+    "support_scan_profile": "n08_far_small_pitch_view",
+    "completed_stages": 15,
+    "total_stages": 15,
+    "post_release_n05_accepted": true,
+    "mission_current_area_n05_accepted": true,
+    "same_epoch_and_map_id": true,
+    "mission_pre_enable_capsule_queries": 24,
+    "mission_pre_enable_capsule_passed": true,
+    "home_pad_n05_accepted": true,
+    "read_only_preflight_passed": true,
+    "observed_wall_s": 40.00306605594233,
+    "max_optimized_odometry_receipt_gap_wall_s": 0.08783268299885094,
+    "fixture_runner_warning": "localization changed or became invalid during physical scan",
+    "fixture_runner_warning_attribution": "unresolved; 15 stages completed and post-release/current-area N05 accepted"
+  },
+  "forward_terminal_stop": {
+    "goal_offset_m": [
+      0.6,
+      0,
+      0
+    ],
+    "action_success": true,
+    "live_reference_tube_certificate": {
+      "passed": true,
+      "reason": "curve_and_inter_sample_bound_inside_trial_tube",
+      "forward_x_bounds_relative_to_start_m": [
+        -0.05,
+        0.65
+      ],
+      "lateral_vertical_radius_m": 0.05,
+      "sample_count": 1152,
+      "sample_interval_s": 0.012356405058403323,
+      "maximum_sample_spacing_m": 0.0009995851483886728,
+      "derivative_control_speed_bound_m_s": 0.0808961136887364,
+      "between_sample_displacement_bound_m": 0.0004997925741943364,
+      "continuous_required_sample_clearance_m": 0.0004997935741943364,
+      "minimum_sample_clearance_m": 0.002510058818290202,
+      "limiting_boundary": "lateral_vertical",
+      "limiting_sample_time_s": 3.706921517520997,
+      "curve_x_delta_min_m": 0.000961161750238645,
+      "curve_x_delta_max_m": 0.6,
+      "curve_lateral_vertical_deviation_max_m": 0.0474899411817098
+    },
+    "measurement_checks": {
+      "nonzero_reference_speed": true,
+      "reference_speed_within_trial_limit": true,
+      "actual_speed_within_abort_limit": true,
+      "meaningful_actual_displacement": true,
+      "actual_stop_and_dwell_observed": true,
+      "reference_terminal_zero_observed": true,
+      "reference_source_gaps_bounded": true,
+      "deceleration_measurement_supported": true,
+      "sustained_deceleration_response_observed": true,
+      "independent_tracking_inside_certified_margin": true
+    },
+    "metrics": {
+      "reference_identical_source_repeats": 135,
+      "reference_unique_source_samples": 1792,
+      "reference_peak_vector_speed_m_s": 0.08082082977698572,
+      "reference_braking_start_elapsed_sim_s": 7.996,
+      "reference_zero_speed_elapsed_sim_s": 13.256,
+      "actual_peak_horizontal_speed_m_s": 0.08099960699368491,
+      "actual_peak_vector_speed_m_s": 0.08141412539153156,
+      "actual_stop_elapsed_sim_s": 12.64,
+      "actual_stop_observed": true,
+      "stop_speed_threshold_m_s": 0.03,
+      "stop_dwell_sim_s": 1.0,
+      "response_delay_to_sustained_deceleration_s": 0.8439999999999994,
+      "actual_net_horizontal_displacement_m": 0.598513397935924,
+      "truth_max_source_gap_sim_s": 0.02,
+      "truth_derivative_smoothing_window_sim_s": 0.22,
+      "reference_max_source_gap_sim_s": 0.02,
+      "actual_distance_from_reference_braking_start_m": 0.2879399210048773,
+      "time_from_reference_braking_start_to_actual_stop_s": 4.644,
+      "actual_residual_distance_after_reference_zero_m": 0.0,
+      "actual_stop_dwell_position_excursion_m": 0.021119800608196303,
+      "deceleration_speed_band_m_s": [
+        0.03,
+        0.07289964629431643
+      ],
+      "deceleration_samples": 157,
+      "observed_deceleration_p10_m_s2": 0.008216072384413659,
+      "observed_deceleration_mean_m_s2": 0.013609644381736064,
+      "independent_reference_tracking_error_max_m": 0.0786206566150561
+    },
+    "limitations": [
+      "Finite simulation sample; observed deceleration quantiles are not guaranteed lower bounds.",
+      "Symmetric0.22s smoothing limits response-delay precision; raw position records remain available.",
+      "One fixed pre-enable SE(3) alignment, scale1; no truth or full map fed to control.",
+      "Exact equal-stamp reference repeats are counted once; no sorting, stamp rewriting or conflicting-state deduplication.",
+      "Moving-cancel braking and three-run N08 qualification remain separate exits."
+    ]
+  },
+  "yaw_precheck": {
+    "position_enu_m": [
+      0.5989826947069731,
+      -0.0026018383621848034,
+      0.9370696858549612
+    ],
+    "observed_yaw_enu_rad": 8.545632356751938e-05,
+    "turn_radius_m": 1.0306179170842027,
+    "pre_turn_map_source_age_s": 0.148,
+    "pre_turn_map_fusion_age_s": 0.076,
+    "ground_before_takeoff_same_volume_query": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 5667,
+      "occupied_count": 0
+    },
+    "pre_turn_query": {
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 30,
+      "free_count": 5637,
+      "occupied_count": 0
+    },
+    "ground_to_pre_turn_status_transitions_within_sphere": {
+      "0->-1": 30
+    },
+    "unknown_cell_center_bounds_m": {
+      "min_xyz": [
+        -0.45,
+        -0.25,
+        0.65
+      ],
+      "max_xyz": [
+        -0.45,
+        0.25,
+        1.15
+      ]
+    },
+    "cause_assessment": "All 30 queried unknown cells were raw free in the fresh ground snapshot, then raw unknown in the fresh post-forward snapshot while the aircraft remained pointed +x. Their position is behind the current heading. This is consistent with loss of current rear-side observation; it does not establish whether the mapper cleared unobserved voxels, occlusion, or another sensor/mapping cause.",
+    "turn_started": false,
+    "return_goal_started": false
+  },
+  "offline_candidate_diagnostic_only": {
+    "hypothesis": "after the measured 0.6 m stop, issue one additional EGO-forward 0.22 m positioning goal only if the current turn-hold query is unknown; then take a new map and recheck the actual turn volume.",
+    "distance_m": 0.22,
+    "candidate_center_xyz_m": [
+      0.8239470552702663,
+      -0.0023438037290745358,
+      0.9370420045087857
+    ],
+    "candidate_forward_capsule_passed_on_archived_pre_turn_map": true,
+    "candidate_forward_capsule_query_count": 9,
+    "candidate_turn_hold_query_on_archived_pre_turn_map": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 5646,
+      "occupied_count": 0
+    },
+    "pre_yaw_return_corridor_on_archived_pre_turn_map_passed": false,
+    "pre_yaw_return_first_failure": {
+      "distance_from_start_m": 0.23606060589139524,
+      "center_xyz_m": [
+        0.5878864494409151,
+        -0.0023492159628938913,
+        0.9370420045087857
+      ],
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 7,
+      "free_count": 5082,
+      "occupied_count": 0
+    },
+    "qualification": "Diagnostic replay only; no motion permission. Next SITL must recapture a fresh map before the hop and recheck the actual post-hop turn volume. Post-turn map must also be fresh before forward EGO return."
+  },
+  "final_safety": {
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "project_stop_exit_code": 0,
+    "project_container_running_after_stop": false
+  },
+  "evaluator_report_passed": false,
+  "native_failure": "yaw_reorientation_hold_volume_not_known_free:unknown",
+  "artifact_sha256": {
+    "flight.json": "a11df9269a601f0542c497eee76c71c9825b71915f477d9131c04b40800c301c",
+    "n08-braking-evaluation.json": "63d8de4a61e9378d95ffe17f28e8cbc75fe3821a4c6273d488e28c517394492d",
+    "debug-truth-evaluation.json": "8be1e25fcea910f64e04cef6328c3d5ee359c823773e6de37c39c0a383882150",
+    "odometry-evaluation.json": "f6bff059d28b1e0f827cfb0692fb825b86f92e9d968e285276d3b76d1c3b3287",
+    "n08-trial-ground-map.npz": "245790e267cdf0586a6e7e49a42d2cdb05faa0d35e520bda3507a0796ffdd434",
+    "n08-trial-pre-turn-map.npz": "f04a8c000d3da161b5fa787630084afaa1bc311f177bc5a55d519caff315474f",
+    "n05-run-summary.json": "87604aab24c80a6b17faa2ddf4d1dc180f4822e9914a6d5fb87e0856e63cb29c",
+    "n05-run-inputs.json": "e1c64f0e38a1a25dce6fdb15267369d5340656f1167bf08c02998aae35a5be01",
+    "launch-manifest.json": "29cba50b7e23cf13afba01b3d50df2f176ca14b73f1254b5af4f02fde564bc9a"
+  },
+  "next_subtask": "#268: preserve the measured 0.6 m braking segment; when its turn-hold volume is unknown, test one map-certified 0.22 m forward EGO positioning goal, then verify a fresh actual turn-hold map, stationary 180-degree yaw, a newer fused map, and a raw-free forward return corridor. Do not alter unknown gates, tracking margins, or speed limits."
+}

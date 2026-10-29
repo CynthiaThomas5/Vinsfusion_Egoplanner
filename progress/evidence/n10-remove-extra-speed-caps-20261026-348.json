@@ -1,0 +1,55 @@
+{
+  "schema": "n10-extra-speed-caps-removal/v1",
+  "id": "#348",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "scope": "User-authorized removal of additional speed-triggered cancellation and cancel-stop admission caps; implementation/build/regression only.",
+  "removed": {
+    "runner_reference_and_px4_vector_speed_cancel_m_s": 0.12,
+    "cancel_stop_total_speed_admission_m_s": 0.1,
+    "cancel_stop_absolute_vertical_speed_admission_m_s": 0.01
+  },
+  "speed_observation_retained": true,
+  "planner_max_velocity_m_s_per_axis": 0.25,
+  "planner_max_acceleration_m_s2_per_axis": 0.25,
+  "validation": {
+    "ros_build": "PASS: 17 packages",
+    "patch_replay": "PASS: pinned source plus 33 patches; entire resulting vendor tree matches active source",
+    "unit_tests": "PASS: 407 tests",
+    "navigation_adapter_integration": "PASS",
+    "official_policy_ros_integration": "PASS",
+    "installed_binary": {
+      "old_cancel_speed_reason_absent": true,
+      "finite_state_reason_present": true,
+      "binary_sha256": "f5feaa5eec8122af837bb72b2e97627ebd5f2c0e62242e1853c0b8e0568f0d29"
+    },
+    "sitl": "NOT_RUN",
+    "hardware": "NOT_RUN",
+    "structure_check": "PASS: optional historical missing artifacts=80; no required link errors",
+    "git_diff_check": "PASS"
+  },
+  "limitations": [
+    "Cancellation stopping-distance strategy remains the existing low-speed-derived candidate; wider-speed stopping performance is unqualified.",
+    "Existing N08/N09 evidence retains its original source/config/runtime identity.",
+    "Historical N08 dedicated measurement tools retain their explicit trial protocols; they are not the active official_ego navigation entry."
+  ],
+  "input_sha256": {
+    "tools/run_vio_ego_flight.py": "e72507849e57a53612223dab00ffd647cdfdbc3fc750dfed45d0090ffd359165",
+    "tools/test_speed_observation.py": "5ed297e791466cddea57bea3d72d7cdf8b9f444a6b9e5a490e045408a20d00bd",
+    "dependencies/patches/ego/0052-remove-cancel-stop-speed-caps.patch": "2479c81ce35a80a7b3101fe70a8ea65b6831a31d892561e155f8174308a1dd68",
+    "dependencies/sources.json": "52aa5189d764fa9ccb50feec9d354fbfcc6bb0ab2c3bf17fd30cc55e1276f93c",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "9228431f4222923b0e1e559ec39bd16c9901215263e9b19e441457be1ee0d9e2",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json": "23617388b441e093bbf45f83d19c64fdf69bd77a6ed6c82b2f6d0e6cc1a30aa0",
+    "config/components/mapping/n10_horizon1_speed025_calibration.json": "2c41948e7bbfbd3c2679feac73dbb48e6d5069a55dcb59254260ccaabf192911",
+    "install/ego_planner/lib/ego_planner/ego_planner_node": "f5feaa5eec8122af837bb72b2e97627ebd5f2c0e62242e1853c0b8e0568f0d29"
+  },
+  "artifact_sha256": {
+    "artifacts/runs/n10-20261026-348-remove-extra-speed-caps/replay-comparison.json": "40fde2870350fc5bbe097b1beff4f8681b024fd02ed40f8fa4ae62604ff4dc6e",
+    "artifacts/runs/n10-20261026-348-remove-extra-speed-caps/installed-binary-check.json": "66dd86cb35151630ce29a6435eba39f230c21cf829189f08077762101649457f",
+    "artifacts/runs/n10-20261026-348-remove-extra-speed-caps/project-test.log": "42dde5c91c143bf6927f635e68cc06ac20ce2d3b177cc0651923006887ae681f",
+    "artifacts/runs/n10-20261026-348-remove-extra-speed-caps/build-ros.log": "cdd0fa2d73200eda316854d947fda4a5cdd5bfb5867bfb976644772f31219940",
+    "artifacts/runs/n10-20261026-348-remove-extra-speed-caps/patch-replay.log": "708dff54ec1a3e45baf39ee9370ca8b699a4d7f998064df9c0691f51bb7e8cdc",
+    "artifacts/runs/n10-20261026-348-remove-extra-speed-caps/project-status.log": "886b0e76a3099fcd55ff19f25f1eb20fb72f5f6b32b300b21309e51c23979de1",
+    "artifacts/runs/n10-20261026-348-remove-extra-speed-caps/git-status-after.txt": "9581bbfdbbfe6703bf3ee8764b5504a08ca67c3e7610920f2b902023921abae5"
+  }
+}

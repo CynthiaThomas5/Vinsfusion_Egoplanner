@@ -1,0 +1,33 @@
+diff --git a/planner/plan_manage/src/ego_replan_fsm.cpp b/planner/plan_manage/src/ego_replan_fsm.cpp
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -873,7 +873,28 @@
+     const double elapsed = (node_->now() - info->start_time_).seconds();
+     if (!certifyLocalCurve(std::min(elapsed, info->duration_), safety_reason))
+     {
+-      stopForSafety(safety_reason);
++      const bool map_blocked = safety_reason == "occupied" ||
++                               safety_reason == "unknown" ||
++                               safety_reason == "outside_map" ||
++                               safety_reason == "terminal_hold_occupied" ||
++                               safety_reason == "terminal_hold_unknown" ||
++                               safety_reason == "terminal_hold_outside_map";
++      if (map_blocked)
++      {
++        RCLCPP_WARN(node_->get_logger(),
++                    "Active curve blocked by map (%s); checking a stationary emergency hold",
++                    safety_reason.c_str());
++        // A stationary hold must pass the same fresh-map, identity, raw-body,
++        // and terminal-hold certificate in callEmergencyStop before publish.
++        // Keep fail-safe re-planning disabled after the hold is emitted.
++        enable_fail_safe_ = false;
++        flag_escape_emergency_ = true;
++        changeFSMExecState(EMERGENCY_STOP, "FULL_CURVE_BLOCKED");
++      }
++      else
++      {
++        stopForSafety(safety_reason);
++      }
+       return;
+     }
+ 

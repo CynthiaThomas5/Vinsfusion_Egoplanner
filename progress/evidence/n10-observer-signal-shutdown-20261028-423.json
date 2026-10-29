@@ -1,0 +1,44 @@
+{
+  "schema": "n10-observer-signal-shutdown/v1",
+  "id": "N10-423",
+  "date": "2026-10-28",
+  "classification": "offline observer implementation repair; no runtime control change",
+  "purpose": "Ensure read-only truth/contact observers handle inherited SIGINT/SIGTERM ignore by recording a stop request, unsubscribing, and writing explicit partial evidence.",
+  "behavior": {
+    "safe_terminal_signal_is_not_terminal": true,
+    "truth_observer_writes_partial_record": true,
+    "contact_observer_writes_partial_record": true,
+    "external_signal_stop_reason": "signal_requested",
+    "active_runtime_modified": false
+  },
+  "validation": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tools.test_observer_window tools.test_n10_truth_observer",
+    "tests_passed": 10,
+    "result": "passed",
+    "py_compile": "passed",
+    "git_diff_check": "passed",
+    "subprocess_inherited_sigint_ignore_case": "passed"
+  },
+  "sha256": {
+    "tools/observer_window.py": "770b3f45fb96b666954da68fc3472a92b1d9b228d51c6c87a3c84d38ca3d7346",
+    "tools/debug_truth/record_truth.py": "2988d7879c0bf84dfba8b9e731cf72c1382963715cfd6cf9762e936cc398209f",
+    "tools/record_n09_contacts.py": "b583a843b109ead4d0b72af31ba08493fa86a560f0129a3f713b3d18dc8e16a0",
+    "tools/test_observer_window.py": "0257738c289ca6d15c9780f165758610817f3e4abb5a224eee7113567b39bfae"
+  },
+  "active_run": {
+    "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+    "truth_and_contact_observer_processes_active_at_check": false,
+    "latest_recorded_state": "bridge LANDING; PX4 armed failsafe DESCEND; land_detected=false; no terminal readback",
+    "one_time_emergency_disarm_authorization_from_391_reusable": false,
+    "control_command_sent": false
+  },
+  "limitations": [
+    "This is offline code-level verification; no flight or PX4 terminal evidence.",
+    "N10 remains in_progress; N10.5 clean rebuild, N10.6 regression, and N10.7 freeze remain incomplete."
+  ],
+  "artifacts": {
+    "report": "progress/evidence/n10-observer-signal-shutdown-20261028-423.md",
+    "change_record": "progress/changes/2026-10-28-423-n10-observer-signal-shutdown.md",
+    "dialogue": "collaboration/dialogues/2026-10-28-423-n10-observer-signal-shutdown.md"
+  }
+}

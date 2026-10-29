@@ -1,0 +1,70 @@
+{
+  "schema": "n08-motion-cancel-independent-replay/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-294",
+  "parent_goal": "N08",
+  "status": "passed_by_read_only_independent_replay",
+  "native_flight_result": "PASS",
+  "initial_evaluator_result": "FAIL: conflicting reference states at an identical source stamp",
+  "replay_result": {
+    "passed": true,
+    "checks_passed": 35,
+    "checks_failed": 0,
+    "replay_report": "artifacts/runs/n08-cancel-translation-prescan-20261026-294/diagnostics/n08-braking-evaluation-replay-20261026-294.json",
+    "replay_curve": "artifacts/runs/n08-cancel-translation-prescan-20261026-294/diagnostics/n08-braking-curve-replay-20261026-294.json",
+    "replay_report_sha256": "a43ea857de4520ebb3b9f78fdbafd8634c3bb3b9cbdec16a0775c9789e2da9bd",
+    "replay_curve_sha256": "332d267a7a9d2ca1dc2796dffa1d90f77f4c6508b724f588137d649d68146dc6"
+  },
+  "evaluator_version": {
+    "replay_evaluator_sha256": "131b3ba92ce4ab581a9953a7906ba4c971cac694e38af7d1eef7f95100baa33f",
+    "runtime_locked_evaluator_sha256": "84d61efcebcb58022a2ba73903244f550bae4f63b4b3ad4d877c4794f8a17842",
+    "same_hash": false,
+    "difference_scope": "offline handling of an old/new certified trajectory handoff at the same source timestamp; movement runner and flight inputs unchanged"
+  },
+  "cancel_stop_metrics": {
+    "trigger_px4_horizontal_speed_m_s": 0.040210891181610885,
+    "trigger_ego_reference_speed_m_s": 0.05760125464591963,
+    "reference_peak_vector_speed_m_s": 0.08717025919242051,
+    "actual_peak_horizontal_speed_m_s": 0.08772196857826677,
+    "actual_peak_vector_speed_m_s": 0.08791400441842723,
+    "actual_distance_from_reference_braking_start_m": 0.20035242021559035,
+    "cancel_to_stop_distance_m": 0.30992395846178167,
+    "cancel_to_stop_elapsed_sim_s": 4.712000000000001,
+    "cancel_to_sustained_deceleration_response_s": 2.8520000000000003,
+    "independent_reference_tracking_error_max_m": 0.09020065738413682,
+    "actual_stop_dwell_position_excursion_m": 0.012151994941198166,
+    "native_measured_stop_hold_sim_s": 3.0,
+    "native_hold_unique_px4_samples": 151,
+    "candidate_stop_distance_envelope_m": 0.5
+  },
+  "certified_handoff": {
+    "source_stamp_ns": 354520000000,
+    "old_trajectory_id": 1,
+    "new_trajectory_id": 2,
+    "position_delta_m": 0.0004918768430750562,
+    "velocity_delta_m_s": 0.00017369646245273367,
+    "acceleration_delta_m_s2": 0.000026416349000232938,
+    "yaw_delta_rad": 0.0015751433441035835
+  },
+  "landing_and_safety": {
+    "destination_pre_goal_candidate_passed": true,
+    "destination_final_candidate_passed": true,
+    "landing_command_after_certified_cancel_stop": true,
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "px4_armed": false,
+    "px4_landed": true,
+    "control_messages_zero_after_readback": true,
+    "project_container_stopped_exit_code": 0
+  },
+  "source_artifacts_sha256": {
+    "flight.json": "00fb6b05cdc2738735011370a9d9a6fdddafda273ccab08600d66c236bdaf3da",
+    "n08-braking-evaluation.json_original": "0b08d65de7d75fe84b488e0448f256e8730370b4656c20be88b4d7606b5fc31d",
+    "post-mission-px4-readback.json": "8238d5f45dd64ca4c22974773a5a7541657d0a09c7766d413081ed6c02704601",
+    "runtime-contract.json": "991405888bf12e2c65a678e0de6e6c8ec1984440393cd264c3391ce55a57f593"
+  },
+  "limitations": [
+    "The new evaluator replay hash differs from the run-time evaluator hash; the difference is restricted to correctly recognizing and measuring certified same-stamp trajectory handoff.",
+    "The measured cancel distance and response apply only to the calibrated low-speed forward window and do not establish a general cancellation guarantee.",
+    "N08 remains in progress: controlled comparison audit, N05/N06 budget feedback and three frozen-version terminal_stop runs are outstanding."
+  ]
+}

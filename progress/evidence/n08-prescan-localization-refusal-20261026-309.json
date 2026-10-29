@@ -1,0 +1,135 @@
+{
+  "schema": "n08-prescan-localization-refusal/v1",
+  "date": "2026-10-26",
+  "subtask": "#309",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-308",
+  "result": "N05 preflight scan refused before N08 mission; safe fail-closed cleanup verified",
+  "selected_profile": "n08_overhead_free_sector_negative_y_side_view",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "identity": {
+      "epoch": "358977b29cf54344998cd40ea281a02e",
+      "map_id": "358977b29cf54344998cd40ea281a02e-2a93f28928fb46e1b5d89176ca038ed3",
+      "frame_id": "odom_358977b29cf54344998cd40ea281a02e",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    },
+    "voxel_counts": {
+      "unknown": 9600000,
+      "free": 0,
+      "occupied": 0,
+      "inflated": 0
+    },
+    "snapshot_sha256": "bc23e2a04faf6c7fb4587cb1b2b0fdaebd3510c69b0d8e82da0ff913c25813bb"
+  },
+  "scan": {
+    "outcome": "failed",
+    "error": "localization changed or became invalid during physical scan",
+    "completed_stages": 7,
+    "planned_stages": 15,
+    "last_localization": {
+      "state": 3,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.0940021374562232
+    },
+    "sim_time_health_lockout_s": 312.38,
+    "last_pair_sim_s": 312.247999999,
+    "max_normalized_cost": 1.0,
+    "normalized_cost": 1.0940021374562232,
+    "normalized_cost_recomputed": 1.0940021374562232,
+    "final_cost": 2948.417007195267,
+    "residual_components": 4927,
+    "cost_components": {
+      "imu": {
+        "cost": 6.888713490434383,
+        "residual_components": 120
+      },
+      "marginalization": {
+        "cost": 127.56845892874955,
+        "residual_components": 73
+      },
+      "visual": {
+        "cost": 2813.959834776093,
+        "residual_components": 4734
+      }
+    },
+    "input_features": 180,
+    "stereo_features": 167,
+    "continued_tracks": 178,
+    "accel_bias_norm": 0.03387238690307774,
+    "gyro_bias_norm": 7.698167158086805e-05,
+    "post_lockout_vins_samples": [
+      {
+        "sim_s": 312.512,
+        "normalized_cost_recomputed": 0.5861491815699985
+      },
+      {
+        "sim_s": 312.711999999,
+        "normalized_cost_recomputed": 0.5874148688552873
+      },
+      {
+        "sim_s": 312.776,
+        "normalized_cost_recomputed": 0.5832897222253451
+      }
+    ]
+  },
+  "cleanup": {
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "landed": true,
+    "landed_verified": true,
+    "px4_independent_readback": {
+      "arming_state": 1,
+      "landed": true,
+      "at_rest": true
+    },
+    "bridge_independent_readback": {
+      "phase": "DISABLED",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true,
+      "reason": "localization_not_tracking"
+    },
+    "project_stop_exit_code": 0,
+    "project_container_exit_code": 0
+  },
+  "mission": {
+    "post_release_n05_run": false,
+    "n08_preflight_run": false,
+    "goal_sent": false,
+    "bridge_enabled": false,
+    "takeoff": false,
+    "flight_or_braking_measurement": false
+  },
+  "source_sha256": {
+    "tools/probe_preflight_scan.py": "5d9895582e5ebca008b8e1df80019fe544c79b33d252a7785521f3d5ceb20cce",
+    "config/components/simulation/preflight_scan.json": "b51748e5099f30c2e8663d504f0ebd083455d0adda9db19736e16a8b25ee9674",
+    "config/components/mapping/n08_low_speed_trial.json": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce"
+  },
+  "artifact_sha256": {
+    "fixture-result.json": "fd2fd3f27ed68ce3375bb826943db28d05f15ff1b305456935bd6eaa1e21685b",
+    "n05-before/n05-live-entry-check.json": "cd27b181b30e472aeca8805d17b101c4809d5c5a2c38a48d44b6362778ed1ea3",
+    "n05-before/n05-live-raw-map.npz": "bc23e2a04faf6c7fb4587cb1b2b0fdaebd3510c69b0d8e82da0ff913c25813bb",
+    "fixture-trace.jsonl": "69b4a89df68a942ff4c8811c1bba08ee0523d1032c0fe167bf38605de0ae0c3f",
+    "fixture-vins.jsonl": "8fff94ae69e1367be61cd8c716b855a6cfc0e0836990bcd063cdc173848aeaed",
+    "vio.log": "7071f2dfe415b853088dbfd0ee8b9bce056877aa33462b5c6455713c7b1b147d",
+    "n05-run-inputs.json": "62063654fcaf9d15fb4c8107429dc99c194448a6853193e69668b7fa74918f59"
+  },
+  "comparison": {
+    "prior_run": "n08-cancel-highspeed-prescan-20261026-305",
+    "same_selected_profile": true,
+    "profile_rows_and_durations_match": true,
+    "probe_preflight_scan_source_changed": true,
+    "prior_scan_source_sha256": "06bff789f0b769f8dfa92e3fee1547a8a64f7a22f4f41d63f5c0161fc0d1f221",
+    "current_scan_source_sha256": "5d9895582e5ebca008b8e1df80019fe544c79b33d252a7785521f3d5ceb20cce",
+    "prior_outcome": "15/15, post-release and mission-current-area N05 accepted; N08 corridor refused unknown"
+  },
+  "limits": [
+    "The initial pre-scan map is all unknown; this was the baseline failure before the physical observation scan, not the post-release gate.",
+    "The health latch correctly remains invalid after the isolated optimizer spike; later low-cost solves do not restore N05 eligibility.",
+    "No N08 goal, control enable, takeoff, or braking evidence was produced."
+  ]
+}

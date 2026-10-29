@@ -1,0 +1,325 @@
+{
+  "schema": "n10-correct-spawn-dynamic-box-diagnostic/v1",
+  "run_id": "n10-20261027-376-gatefree-cylinder0-observation",
+  "classification": "successful single diagnostic PX4 SITL task; not a formal N10.3 or N10 acceptance",
+  "protocol_sha256": "8920d26b7cddbcb0976e6bf73db872f7d71a49dbd555a07ef52be56958dc5d27",
+  "prelaunch_sha256": "735ab5b20731a35dd9dc1820ee2d9a4c90a32450d25e864e6053c9061e89ae91",
+  "runtime_source_install_manifest_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+  "runtime_file_count": 665,
+  "planner": {
+    "path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "max_vel_axis_m_s": 0.8,
+    "max_acc_axis_m_s2": 0.25,
+    "planning_horizon_s": 5.0,
+    "collision_policy": "official_ego"
+  },
+  "spawn": {
+    "path": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "mission": {
+    "flight_result": "PASS",
+    "action_success": true,
+    "action_result": {
+      "final_position": [
+        15.964660329881188,
+        0.005154297702810288,
+        1.0307896502760636
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "goal_odom": {
+      "frame": "odom_5de69a914f2b43759a4c9b3c8266ef76",
+      "position_tolerance_m": 0.25,
+      "source_ns": 387819999999,
+      "target_enu": [
+        15.983714914790614,
+        -0.0030316871522280526,
+        1.0317702960791966
+      ],
+      "timeout_s": 360.0,
+      "yaw_enu": 0.1981944959583109,
+      "yaw_offset_rad": 0.2,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "goal_elapsed_sim_s": 43.02,
+    "goal_elapsed_wall_s": 48.77917378395796,
+    "independent_goal_dwell_wall_s": 3.113614629022777,
+    "required_dwell_s": 3.0,
+    "independent_goal_evaluation_passed": true,
+    "joint_position_yaw_goal_to_landed_window": {
+      "sample_count": 12266,
+      "sim_duration_s": 245.29999999999995,
+      "wall_duration_s": 276.4773305479903,
+      "start_sim_s": 428.052,
+      "end_sim_s": 673.352,
+      "max_position_error_m": 0.2999528172697855,
+      "max_yaw_error_deg": 7.193274839014911
+    },
+    "joint_evaluation_limits": {
+      "position_error_max_m": 0.3,
+      "yaw_error_max_deg": 15.0,
+      "simultaneous_dwell_min_s": 3.0,
+      "dwell_time_domains_reported": [
+        "gazebo_sim_clock",
+        "host_wall_clock"
+      ],
+      "qualification_time_domain": null,
+      "note": "GOAL F sets a 3 s dwell but does not select a clock domain; both are reported pending N10 freeze."
+    },
+    "joint_diagnostic_checks": {
+      "position_and_yaw_met_simultaneously": true,
+      "simultaneous_sim_dwell_met": true,
+      "simultaneous_wall_dwell_met": true,
+      "truth_sample_gaps_bounded": true,
+      "native_and_independent_terminal_state_present": true
+    },
+    "active_hold": {
+      "abort_reason": null,
+      "bridge_status_at_end": {
+        "armed": true,
+        "landed": false,
+        "phase": "ACTIVE",
+        "reason": "takeoff_complete_waiting_for_trajectory"
+      },
+      "clock_stall_watchdog_s": 15.0,
+      "completed": true,
+      "end_odometry_position_enu_m": [
+        15.986855678212171,
+        -0.0019943083866579125,
+        1.0313850384818501
+      ],
+      "observed_sim_s": 600.0,
+      "realtime_factor_sim_over_wall": 0.8886846825856459,
+      "requested_sim_s": 600.0,
+      "start_odometry_position_enu_m": [
+        15.964660329881188,
+        0.005154297702810288,
+        1.0307896502760636
+      ],
+      "wall_elapsed_s": 675.1551047940738,
+      "wall_watchdog_s": 2400.0
+    },
+    "hold_start_end_displacement_m": 0.023325748512570115
+  },
+  "speed_observation": {
+    "configured_max_vel_axis_m_s": 0.8,
+    "configured_max_acc_axis_m_s2": 0.25,
+    "observed_ego_reference_max_vector_m_s": 0.6816561974735913,
+    "observed_px4_max_vector_m_s": 0.7517246787650508,
+    "observed_px4_max_horizontal_m_s": 0.7417871112673062,
+    "peak_px4_sample": {
+      "sim_time_ns": 409528000000,
+      "timestamp_sample_us": 409528000,
+      "vx": 0.436735063791275,
+      "vy": 0.5995920300483704,
+      "vz": 0.12131592631340027
+    },
+    "n10_377_evidence_based_cancel_window_horizontal_m_s": [
+      0.7,
+      0.8
+    ],
+    "cancel_window_basis": "0.70 m/s is 94.4% of this run’s 0.7418 m/s observed horizontal peak; 0.80 m/s brackets that observation. This is a measurement trigger window, not a flight speed cap or acceptance limit."
+  },
+  "localization_and_timing_observations": {
+    "raw_vio_rmse_m": 0.2726764030000056,
+    "raw_vio_p95_m": 0.40730223249390973,
+    "raw_vio_max_m": 0.42252669119963154,
+    "raw_vio_abs_yaw_rmse_deg": 7.895661464316389,
+    "raw_vio_abs_yaw_max_deg": 12.358094538251775,
+    "bounded_time_support_fraction": 0.9998688477680274,
+    "map_source_age_max_sim_s": 0.168,
+    "occupancy_age_max_sim_s": 0.132,
+    "position_command_to_truth_error_m": {
+      "median": 0.3161737823046848,
+      "p95": 0.5380859082048736,
+      "max": 1.1101984073276316,
+      "mean": 0.2881181414379682
+    },
+    "tracking_error_semantics": "descriptive simultaneous command/truth pairing; acceptance interpretation still pending N10.3"
+  },
+  "dynamic_box": {
+    "model_name": "n10_live_replan_box",
+    "expected_center_odom_m": [
+      8.0,
+      0.0,
+      1.0999999999999999
+    ],
+    "size_m": [
+      0.8,
+      0.8,
+      2.8
+    ],
+    "create_acknowledged": true,
+    "trigger_delay_sim_s": 12.004,
+    "replacement_spline_seen": true,
+    "first_replacement_centerline_distance_m": 0.0,
+    "first_replacement_delay_sim_s": 0.008,
+    "first_radius_clear_spline": {
+      "receipt_sim_ns": 400472000000,
+      "traj_id": 27,
+      "sample_count": 401,
+      "sampled_centerline_min_distance_to_box_m": 1.0122200869272002,
+      "closest_sample_odom_xyz_m": [
+        9.078876258412686,
+        1.1508105820661432,
+        1.065051231908975
+      ]
+    },
+    "first_recorded_roi_sample": {
+      "receipt_sim_ns": 400736000000,
+      "relative_to_injection_sim_s": 0.816,
+      "header_stamp_ns": 400736000000,
+      "frame_id": "odom_5de69a914f2b43759a4c9b3c8266ef76",
+      "width": 1723,
+      "height": 1,
+      "point_count": 1723,
+      "obstacle_roi_point_count": 194,
+      "nearest_point_to_expected_obstacle_center_m": 0.35707143895446525,
+      "expected_obstacle_center_odom_m": [
+        8.0,
+        0.0,
+        1.0999999999999999
+      ],
+      "sampling_method": "read-only subset of every tenth EGO raw occupied cloud"
+    },
+    "raw_map_center_queries": [
+      {
+        "label": "before_injection",
+        "accepted": true,
+        "reason": "free",
+        "free": true,
+        "unknown_count": 0,
+        "free_count": 160,
+        "occupied_count": 0,
+        "request_sim_ns": 399680000000,
+        "response_sim_ns": 399700000000
+      },
+      {
+        "label": "after_0.5",
+        "accepted": true,
+        "reason": "free",
+        "free": true,
+        "unknown_count": 0,
+        "free_count": 160,
+        "occupied_count": 0,
+        "request_sim_ns": 400420000000,
+        "response_sim_ns": 400440000000
+      },
+      {
+        "label": "after_1.25",
+        "accepted": true,
+        "reason": "free",
+        "free": true,
+        "unknown_count": 0,
+        "free_count": 160,
+        "occupied_count": 0,
+        "request_sim_ns": 401180000000,
+        "response_sim_ns": 401200000000
+      }
+    ],
+    "raw_cloud_roi_sample_count_after_injection": 5,
+    "raw_cloud_roi_point_count_max": 194,
+    "truth_sampled_box_clearance_m": 0.8301686158387683,
+    "truth_sampled_box_clearance_minus_inter_sample_motion_m": 0.8128947235785229,
+    "centerline_replay_sha256": "67051af9f727c4511aabfab70a3f9e576a106e75b0566b0b2cff6cd3cd6d8387",
+    "limitations": [
+      "The raw map query sampled the box center with radius 0.25 m, smaller than the 0.4 m half-extents; it did not query the visible surface.",
+      "The first replacement spline still intersected the box; trajectory 27 at +0.552 sim s was the first sampled spline with more than the vehicle-radius distance.",
+      "Trajectory timing and ROI sampling are consistent with response but do not, alone, prove causal attribution."
+    ]
+  },
+  "static_scene": {
+    "overall_sampled_minimum_clearance_m": 0.12486197088148432,
+    "overall_clearance_after_inter_sample_motion_m": 0.10758807862123887,
+    "limiting_obstacle": "unit_cylinder_0/link/collision",
+    "static_cylinder_map_query_results": [
+      {
+        "label": "static_cylinder_approach",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 216,
+        "free_count": 0,
+        "occupied_count": 0,
+        "request_sim_ns": 407080000000,
+        "response_sim_ns": 407096000000
+      },
+      {
+        "label": "static_cylinder_near_pass",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 216,
+        "free_count": 0,
+        "occupied_count": 0,
+        "request_sim_ns": 407720000000,
+        "response_sim_ns": 407756000000
+      }
+    ]
+  },
+  "contacts": {
+    "evaluation_passed": true,
+    "prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": true
+  },
+  "terminal_readback": {
+    "safe_to_stop_project_container": true,
+    "bridge": {
+      "alignment_drift_m": 0.0026393323091770376,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "5de69a914f2b43759a4c9b3c8266ef76",
+      "ev_position_fused": true,
+      "ev_yaw_fused": true,
+      "frame_offset_ned": [
+        0.00017150949932624357,
+        -0.00022948398027075817,
+        -8.665348424864066e-05
+      ],
+      "frame_yaw_offset_ned": -0.00013908738652013142,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true
+  },
+  "container_exit_code": 0,
+  "artifact_sha256": {
+    "flight.json": "4c1c7e0f3ee9d765a74a3d44b4983dca5ac1af7e94e5441ee7809bac9bcd737c",
+    "arrival-evaluation.json": "ad12307337bdaf2e10a0c2d1b0d2246f9fb7e28afd9e06cea190e2cecc079c4e",
+    "n10-arrival-metrics.json": "e18a2ccf71448c81f26b9dbbe1ff78eeffa6439346789e610cd098468a52ff44",
+    "n10-calibration-evaluation.json": "a9db5132c1a34fceb084695fafabd4ae07770162fdc4dc4e0de9ea66df97e037",
+    "n10-live-obstacle-observation.json": "38732e13814c2aad73fa37ef116a5f110a8b9998362364fedfa932cadacd8311",
+    "n10-live-obstacle-analysis.json": "0d9b59bdd49e00024c3d32cb4ac4e023e93d0b136bc1e64019b135c76e26c632",
+    "n10-live-obstacle-box-clearance.json": "c7214e5baa3f87c560fd52848a6ae79b3974eff04e975f49888c307b4d07820c",
+    "n10-clearance-evaluation.json": "82f497dc98df2576978dd67bd42266cd6279f3e46bf24af7352b63707f6b2d98",
+    "vehicle-contact-evaluation.json": "867b623282db63263449a5c512a13eee33faf049add0a9fa7e9ace2bbe875858",
+    "postflight-px4-bridge-readback.json": "c2d58aac45a813f943c3359382b70e178e7694f74e396c6b8a503a979b66bcea",
+    "safe-to-stop.json": "fc1dffd90c3a4fa3ce3c393e7de282c5afa04915d1c87be5cb3e2d645bcf50cd",
+    "n10-trajectory-box-clearance-replay.json": "67051af9f727c4511aabfab70a3f9e576a106e75b0566b0b2cff6cd3cd6d8387"
+  },
+  "unresolved_for_n10_3": [
+    "Repeatability and a justified position/yaw error margin across the supported range.",
+    "Interpretation/threshold for same-source-time EGO command-to-truth tracking error.",
+    "A braking measurement at the observed high-speed end; earlier #359/#362 samples only reached about 0.50 m/s.",
+    "Repeatability/appropriateness of sampled clearance and obstacle response, plus a unified time-domain decision.",
+    "Failure/replan exit boundary evidence remains incomplete."
+  ],
+  "status": "N10.3 remains in_progress; this diagnostic is not counted as formal N10 qualification."
+}

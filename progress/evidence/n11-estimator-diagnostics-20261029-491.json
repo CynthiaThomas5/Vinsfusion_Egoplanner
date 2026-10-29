@@ -1,0 +1,641 @@
+{
+  "schema": "n11-estimator-rpe-diagnostic-review/v1",
+  "run_id": "n11-20261029-491-formal06",
+  "classification": "offline read-only analysis; no acceptance threshold, runtime source or control change",
+  "runtime_contract_sha256": "3a0111a1814c8f6ccb3f7155450fad044026201e8c94b844ce02210fffea5820",
+  "formal_result": {
+    "overall_status": "FAIL",
+    "formal_count_eligible": false,
+    "rpe_goal_motion_translation_p95_m": 0.10618901166642726,
+    "threshold_m": 0.05
+  },
+  "windowed_result": [
+    {
+      "goal_elapsed_bin_s": [
+        0,
+        10
+      ],
+      "rpe_translation_p95_m": 0.11248754722877094,
+      "rpe_signed_component_median_m": [
+        -0.06424612456243173,
+        0.010623036488649719,
+        0.002571350459926701
+      ],
+      "velocity_error_p95_m_s": 0.01709190396238851,
+      "velocity_error_component_median_m_s": [
+        -0.009471263161265397,
+        0.00035235715417168516,
+        0.0012994257218544216
+      ],
+      "forward_velocity_ratio_median": 0.9554365827679584
+    },
+    {
+      "goal_elapsed_bin_s": [
+        10,
+        20
+      ],
+      "rpe_translation_p95_m": 0.01617400531885352,
+      "rpe_signed_component_median_m": [
+        -0.0015681534788318796,
+        0.008087012852897169,
+        0.0033383911330692783
+      ],
+      "velocity_error_p95_m_s": 0.015739007089004237,
+      "velocity_error_component_median_m_s": [
+        0.009882995786022808,
+        -0.0003437594098975256,
+        0.0009598842914377483
+      ],
+      "forward_velocity_ratio_median": 1.0364017269144667
+    },
+    {
+      "goal_elapsed_bin_s": [
+        20,
+        30
+      ],
+      "rpe_translation_p95_m": 0.022509420201228814,
+      "rpe_signed_component_median_m": [
+        0.014694590912045058,
+        0.0014084041408677639,
+        0.002010301457780715
+      ],
+      "velocity_error_p95_m_s": 0.009210366071200682,
+      "velocity_error_component_median_m_s": [
+        0.006146418235949247,
+        -0.0012656241019343081,
+        0.0003051936510338263
+      ],
+      "forward_velocity_ratio_median": 1.0234042420147593
+    },
+    {
+      "goal_elapsed_bin_s": [
+        30,
+        40
+      ],
+      "rpe_translation_p95_m": 0.018577668595788664,
+      "rpe_signed_component_median_m": [
+        0.00028765091485505323,
+        0.013595926708213895,
+        0.002288825992908721
+      ],
+      "velocity_error_p95_m_s": 0.003996838499325443,
+      "velocity_error_component_median_m_s": [
+        0.0014062348339612118,
+        -0.0011224324105645904,
+        0.00177136543663496
+      ],
+      "forward_velocity_ratio_median": 1.0052163051777114
+    },
+    {
+      "goal_elapsed_bin_s": [
+        40,
+        50
+      ],
+      "rpe_translation_p95_m": 0.017302230173634504,
+      "rpe_signed_component_median_m": [
+        0.006783713736385977,
+        0.011799270702538769,
+        -0.002970916713756974
+      ],
+      "velocity_error_p95_m_s": 0.002749269648841429,
+      "velocity_error_component_median_m_s": [
+        0.0007627953402295218,
+        -0.0008768611627997004,
+        0.0009065908288906147
+      ],
+      "forward_velocity_ratio_median": 1.0045076620079996
+    },
+    {
+      "goal_elapsed_bin_s": [
+        50,
+        60
+      ],
+      "rpe_translation_p95_m": null,
+      "rpe_signed_component_median_m": null,
+      "velocity_error_p95_m_s": 0.010686827685224047,
+      "velocity_error_component_median_m_s": [
+        0.0038346722291402457,
+        8.268862376109229e-05,
+        0.00017952232936402465
+      ],
+      "forward_velocity_ratio_median": 1.0255198101337573
+    }
+  ],
+  "native_estimator_telemetry": {
+    "goal_motion_samples": 808,
+    "received_messages_total": 2246,
+    "malformed_messages": 0,
+    "bins": [
+      {
+        "goal_elapsed_bin_s": [
+          0,
+          10
+        ],
+        "sample_count": 152,
+        "rpe_translation_p95_m": 0.11248754722877094,
+        "solver_usable_true_fraction": 1.0,
+        "state_finite_true_fraction": 1.0,
+        "solve_current_true_fraction": 1.0,
+        "maximum_waiting_features": 0,
+        "maximum_pending_feature_span_ns": 0,
+        "cost_components_present_count": 0,
+        "input_features": {
+          "count": 152,
+          "min": 80.0,
+          "median": 103.0,
+          "p95": 118.44999999999999,
+          "max": 132.0
+        },
+        "stereo_features": {
+          "count": 152,
+          "min": 68.0,
+          "median": 85.0,
+          "p95": 100.0,
+          "max": 110.0
+        },
+        "continued_tracks": {
+          "count": 152,
+          "min": 59.0,
+          "median": 79.0,
+          "p95": 93.44999999999999,
+          "max": 100.0
+        },
+        "long_tracks": {
+          "count": 152,
+          "min": 37.0,
+          "median": 43.0,
+          "p95": 50.0,
+          "max": 57.0
+        },
+        "visual_observations": {
+          "count": 152,
+          "min": 434.0,
+          "median": 470.5,
+          "p95": 511.24999999999994,
+          "max": 537.0
+        },
+        "iterations": {
+          "count": 152,
+          "min": 9.0,
+          "median": 9.0,
+          "p95": 9.0,
+          "max": 9.0
+        },
+        "solve_seconds": {
+          "count": 152,
+          "min": 0.00806117057800293,
+          "median": 0.009525537490844727,
+          "p95": 0.011055445671081542,
+          "max": 0.012681961059570312
+        },
+        "initial_cost": {
+          "count": 152,
+          "min": 486.10885166554726,
+          "median": 572.3677311924208,
+          "p95": 655.135502094956,
+          "max": 1389.7996114290213
+        },
+        "final_cost": {
+          "count": 152,
+          "min": 477.7134665376149,
+          "median": 564.4264003427506,
+          "p95": 649.3389364443349,
+          "max": 689.9880816871461
+        }
+      },
+      {
+        "goal_elapsed_bin_s": [
+          10,
+          20
+        ],
+        "sample_count": 152,
+        "rpe_translation_p95_m": 0.01617400531885352,
+        "solver_usable_true_fraction": 1.0,
+        "state_finite_true_fraction": 1.0,
+        "solve_current_true_fraction": 1.0,
+        "maximum_waiting_features": 0,
+        "maximum_pending_feature_span_ns": 0,
+        "cost_components_present_count": 0,
+        "input_features": {
+          "count": 152,
+          "min": 88.0,
+          "median": 106.0,
+          "p95": 117.0,
+          "max": 128.0
+        },
+        "stereo_features": {
+          "count": 152,
+          "min": 62.0,
+          "median": 85.0,
+          "p95": 102.0,
+          "max": 106.0
+        },
+        "continued_tracks": {
+          "count": 152,
+          "min": 57.0,
+          "median": 78.0,
+          "p95": 93.44999999999999,
+          "max": 97.0
+        },
+        "long_tracks": {
+          "count": 152,
+          "min": 36.0,
+          "median": 43.0,
+          "p95": 52.0,
+          "max": 59.0
+        },
+        "visual_observations": {
+          "count": 152,
+          "min": 440.0,
+          "median": 487.0,
+          "p95": 526.25,
+          "max": 566.0
+        },
+        "iterations": {
+          "count": 152,
+          "min": 9.0,
+          "median": 9.0,
+          "p95": 9.0,
+          "max": 9.0
+        },
+        "solve_seconds": {
+          "count": 152,
+          "min": 0.007867097854614258,
+          "median": 0.009616971015930176,
+          "p95": 0.011457777023315428,
+          "max": 0.015647172927856445
+        },
+        "initial_cost": {
+          "count": 152,
+          "min": 578.7972290761468,
+          "median": 844.6797626676364,
+          "p95": 993.8650234980596,
+          "max": 1036.5014533490132
+        },
+        "final_cost": {
+          "count": 152,
+          "min": 571.59337285793,
+          "median": 833.4353620608381,
+          "p95": 977.5678654468401,
+          "max": 985.0653533267604
+        }
+      },
+      {
+        "goal_elapsed_bin_s": [
+          20,
+          30
+        ],
+        "sample_count": 151,
+        "rpe_translation_p95_m": 0.022509420201228814,
+        "solver_usable_true_fraction": 1.0,
+        "state_finite_true_fraction": 1.0,
+        "solve_current_true_fraction": 1.0,
+        "maximum_waiting_features": 0,
+        "maximum_pending_feature_span_ns": 0,
+        "cost_components_present_count": 0,
+        "input_features": {
+          "count": 151,
+          "min": 84.0,
+          "median": 112.0,
+          "p95": 169.0,
+          "max": 189.0
+        },
+        "stereo_features": {
+          "count": 151,
+          "min": 60.0,
+          "median": 96.0,
+          "p95": 156.5,
+          "max": 165.0
+        },
+        "continued_tracks": {
+          "count": 151,
+          "min": 26.0,
+          "median": 89.0,
+          "p95": 145.5,
+          "max": 154.0
+        },
+        "long_tracks": {
+          "count": 151,
+          "min": 11.0,
+          "median": 48.0,
+          "p95": 84.0,
+          "max": 102.0
+        },
+        "visual_observations": {
+          "count": 151,
+          "min": 388.0,
+          "median": 517.0,
+          "p95": 645.5,
+          "max": 709.0
+        },
+        "iterations": {
+          "count": 151,
+          "min": 9.0,
+          "median": 9.0,
+          "p95": 9.0,
+          "max": 9.0
+        },
+        "solve_seconds": {
+          "count": 151,
+          "min": 0.008311033248901367,
+          "median": 0.010341882705688477,
+          "p95": 0.012923479080200195,
+          "max": 0.019914865493774414
+        },
+        "initial_cost": {
+          "count": 151,
+          "min": 1022.8355527829783,
+          "median": 1525.271547739616,
+          "p95": 1607.873742440608,
+          "max": 1666.5199266789969
+        },
+        "final_cost": {
+          "count": 151,
+          "min": 1011.9458142357922,
+          "median": 1514.78946830283,
+          "p95": 1594.5790291767296,
+          "max": 1639.8690342098375
+        }
+      },
+      {
+        "goal_elapsed_bin_s": [
+          30,
+          40
+        ],
+        "sample_count": 152,
+        "rpe_translation_p95_m": 0.018577668595788664,
+        "solver_usable_true_fraction": 1.0,
+        "state_finite_true_fraction": 1.0,
+        "solve_current_true_fraction": 1.0,
+        "maximum_waiting_features": 0,
+        "maximum_pending_feature_span_ns": 0,
+        "cost_components_present_count": 0,
+        "input_features": {
+          "count": 152,
+          "min": 113.0,
+          "median": 146.0,
+          "p95": 161.45,
+          "max": 168.0
+        },
+        "stereo_features": {
+          "count": 152,
+          "min": 91.0,
+          "median": 124.0,
+          "p95": 147.0,
+          "max": 157.0
+        },
+        "continued_tracks": {
+          "count": 152,
+          "min": 88.0,
+          "median": 116.0,
+          "p95": 138.45,
+          "max": 147.0
+        },
+        "long_tracks": {
+          "count": 152,
+          "min": 57.0,
+          "median": 65.0,
+          "p95": 71.44999999999999,
+          "max": 76.0
+        },
+        "visual_observations": {
+          "count": 152,
+          "min": 593.0,
+          "median": 715.0,
+          "p95": 749.8,
+          "max": 782.0
+        },
+        "iterations": {
+          "count": 152,
+          "min": 9.0,
+          "median": 9.0,
+          "p95": 9.0,
+          "max": 9.0
+        },
+        "solve_seconds": {
+          "count": 152,
+          "min": 0.010124921798706055,
+          "median": 0.01337587833404541,
+          "p95": 0.01588972806930542,
+          "max": 0.01662588119506836
+        },
+        "initial_cost": {
+          "count": 152,
+          "min": 1514.890539735436,
+          "median": 1568.059339818199,
+          "p95": 1636.9181352802375,
+          "max": 1652.8128848539234
+        },
+        "final_cost": {
+          "count": 152,
+          "min": 1503.6904545937184,
+          "median": 1560.649972744785,
+          "p95": 1628.7846544343972,
+          "max": 1632.8150097678526
+        }
+      },
+      {
+        "goal_elapsed_bin_s": [
+          40,
+          50
+        ],
+        "sample_count": 151,
+        "rpe_translation_p95_m": 0.017302230173634504,
+        "solver_usable_true_fraction": 1.0,
+        "state_finite_true_fraction": 1.0,
+        "solve_current_true_fraction": 1.0,
+        "maximum_waiting_features": 0,
+        "maximum_pending_feature_span_ns": 0,
+        "cost_components_present_count": 0,
+        "input_features": {
+          "count": 151,
+          "min": 97.0,
+          "median": 119.0,
+          "p95": 136.5,
+          "max": 145.0
+        },
+        "stereo_features": {
+          "count": 151,
+          "min": 77.0,
+          "median": 99.0,
+          "p95": 119.0,
+          "max": 125.0
+        },
+        "continued_tracks": {
+          "count": 151,
+          "min": 75.0,
+          "median": 91.0,
+          "p95": 109.0,
+          "max": 115.0
+        },
+        "long_tracks": {
+          "count": 151,
+          "min": 50.0,
+          "median": 60.0,
+          "p95": 68.0,
+          "max": 72.0
+        },
+        "visual_observations": {
+          "count": 151,
+          "min": 602.0,
+          "median": 680.0,
+          "p95": 730.5,
+          "max": 742.0
+        },
+        "iterations": {
+          "count": 151,
+          "min": 9.0,
+          "median": 9.0,
+          "p95": 9.0,
+          "max": 9.0
+        },
+        "solve_seconds": {
+          "count": 151,
+          "min": 0.010657072067260742,
+          "median": 0.012695074081420898,
+          "p95": 0.014907479286193848,
+          "max": 0.017117023468017578
+        },
+        "initial_cost": {
+          "count": 151,
+          "min": 1348.113552686778,
+          "median": 1453.7582272321947,
+          "p95": 1536.3048230993772,
+          "max": 1572.9746124217183
+        },
+        "final_cost": {
+          "count": 151,
+          "min": 1340.5790599381082,
+          "median": 1443.053102260975,
+          "p95": 1526.0559341137446,
+          "max": 1547.6461141750735
+        }
+      },
+      {
+        "goal_elapsed_bin_s": [
+          50,
+          60
+        ],
+        "sample_count": 50,
+        "rpe_translation_p95_m": null,
+        "solver_usable_true_fraction": 1.0,
+        "state_finite_true_fraction": 1.0,
+        "solve_current_true_fraction": 1.0,
+        "maximum_waiting_features": 0,
+        "maximum_pending_feature_span_ns": 0,
+        "cost_components_present_count": 0,
+        "input_features": {
+          "count": 50,
+          "min": 108.0,
+          "median": 137.0,
+          "p95": 161.55,
+          "max": 168.0
+        },
+        "stereo_features": {
+          "count": 50,
+          "min": 88.0,
+          "median": 113.0,
+          "p95": 122.55,
+          "max": 124.0
+        },
+        "continued_tracks": {
+          "count": 50,
+          "min": 85.0,
+          "median": 96.5,
+          "p95": 116.74999999999999,
+          "max": 120.0
+        },
+        "long_tracks": {
+          "count": 50,
+          "min": 57.0,
+          "median": 63.0,
+          "p95": 76.55,
+          "max": 83.0
+        },
+        "visual_observations": {
+          "count": 50,
+          "min": 632.0,
+          "median": 696.5,
+          "p95": 758.0,
+          "max": 769.0
+        },
+        "iterations": {
+          "count": 50,
+          "min": 9.0,
+          "median": 9.0,
+          "p95": 9.0,
+          "max": 9.0
+        },
+        "solve_seconds": {
+          "count": 50,
+          "min": 0.011108160018920898,
+          "median": 0.0130845308303833,
+          "p95": 0.015497219562530518,
+          "max": 0.01906299591064453
+        },
+        "initial_cost": {
+          "count": 50,
+          "min": 1289.3568393384312,
+          "median": 1373.2072711124597,
+          "p95": 1824.2303329502881,
+          "max": 2290.177960352441
+        },
+        "final_cost": {
+          "count": 50,
+          "min": 1282.2852483198878,
+          "median": 1365.6965471402646,
+          "p95": 1665.0459208662571,
+          "max": 1899.0308407289285
+        }
+      }
+    ]
+  },
+  "time_offset_sweep": {
+    "tested_truth_timestamp_offset_ms": [
+      -200,
+      200
+    ],
+    "offset_definition": "Add offset to truth source timestamps; positive means truth records are labelled later relative to VINS. This is not a proposed correction.",
+    "zero_offset_rpe_p95_m": 0.10618901166642726,
+    "best_offset_ms": 200,
+    "best_rpe_p95_m": 0.07832783784745387,
+    "best_offset_still_over_threshold": true,
+    "velocity_error_zero_offset_p95_m_s": 0.015554845600002415,
+    "best_velocity_offset_ms": -10,
+    "best_velocity_error_p95_m_s": 0.015365543707662776
+  },
+  "pose_velocity_consistency_secondary_check": {
+    "norm_pearson_r": 0.3350261983032366,
+    "vector_cosine_median": 0.9156997864998492,
+    "pose_minus_integrated_velocity_p95_m": 0.10460378040835283,
+    "comparison_pass_runs": {
+      "n11-20261029-484-formal01": 0.08991185409686858,
+      "n11-20261029-485-formal02": 0.09689827690125606
+    },
+    "interpretation": "not discriminative: similarly large mismatch appears on prior RPE-PASS runs; do not treat as cause"
+  },
+  "cross_attempt_temporal_pattern": {
+    "n11-20261029-488-formal04": "RPE elevated in first 0–20 s",
+    "n11-20261029-490-formal05": "RPE elevated mainly in 20–30 s",
+    "n11-20261029-491-formal06": "RPE elevated mainly in 0–10 s"
+  },
+  "findings": [
+    "No feature starvation, invalid solver state, or native pending-work backlog was observed in #491 goal telemetry.",
+    "The high-RPE 0–10 s bin has feature counts similar to the next bin, where RPE passes; later feature counts increase while RPE remains low.",
+    "Per-residual-family cost components were absent in all 808 goal telemetry messages, limiting visual/inertial residual attribution.",
+    "A uniform truth timestamp shift up to 200 ms cannot bring #491 RPE below 0.05 m; best tested remains 0.07833 m.",
+    "The fail interval differs from #488 and #490. Root cause remains unproven."
+  ],
+  "next_discriminating_action": "Repeat the frozen revision9 formal task once without the supplemental telemetry subscription; capture the required GUI listing before goal dispatch. This isolates the observer-load/evidence-integrity hypothesis while retaining a chance to add the third qualifying cold start.",
+  "input_sha256": {
+    "artifacts/runs/n11-20261029-491-formal06/flight.json": "ba8e66a2a6049178f96d1efc25e78413a7939f1517990f218f472ac1529cc136",
+    "artifacts/runs/n11-20261029-491-formal06/alignment-observation.json": "4b6ae4c95f7f00c2bd04a0ffef7efc1bdba6afd02d58b9d0c422c3103422eb82",
+    "artifacts/runs/n11-20261029-491-formal06/debug-truth-evaluation.json": "ac61f343b84d7dbfcea455c8bafb88a8ba2c1694d7bb2f781b23957225be047f",
+    "artifacts/runs/n11-20261029-491-formal06/n11-vins-estimator-telemetry.jsonl": "8213413f2c85f002c643fa45d6f0673e53bafe7d8557ceb8975c7bd7629957dc",
+    "artifacts/runs/n11-20261029-491-formal06/n10-sensor-capture-evaluation.json": "d388ece0d4db5fe20410d50e6460614548dd76598545221a717dea7d9b7493df",
+    "artifacts/n11-prepared/n11-20261029-491-formal06/analyze_motion_origin.py": "abd23b7930003b59716ea3c7332811aa55c969806124cba7d04232b3f1a73091",
+    "artifacts/n11-prepared/n11-20261029-491-formal06/analyze_truth_clock_sensitivity.py": "9b05ee8832d625e58cf044f338acdc401c4c6f6c6578dfe091037d6508de5efc",
+    "artifacts/n11-prepared/n11-20261029-491-formal06/analyze_pose_velocity_consistency.py": "79941213248ab9c6d215bd3694ce505668cba5f94d94b41cc4392928e69ae687",
+    "artifacts/n11-prepared/n11-20261029-491-formal06/analyze_estimator_telemetry.py": "a589314c1ac762d004e9f4d71aa4ec6d1987ec51dd2fe268b83da1766f10813f"
+  }
+}

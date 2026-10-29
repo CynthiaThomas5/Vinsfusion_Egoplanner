@@ -1,0 +1,502 @@
+{
+  "classification": "offline stride comparison on common baseline source-time queries with bounded interpolation; raw outputs unchanged; no flight or formal qualification",
+  "only_major_variable": "gyr_w1e-5 versus1e-6; gyr_n0.0001 retained, acc_n0.01/stride2/g9.80665/iteration8/time0.04 unchanged",
+  "truth_reference_contract": {
+    "schema": "gazebo-model-to-imu-reference/v1",
+    "conversion_tool_sha256": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+    "raw_pose_reference": "gazebo_model_origin",
+    "output_pose_reference": "d435i_imu",
+    "model_origin_to_imu_m": [
+      0.12,
+      0.0,
+      0.32
+    ],
+    "source_sha256": {
+      "simulation/models/x500_d435i/model.sdf": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+      "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+    },
+    "raw_twist_semantics": "body-frame rolling-mean velocities; not instantaneous endpoint state",
+    "velocity_comparison": "differentiate converted IMU positions at source time; do not use raw twist as world velocity"
+  },
+  "same_input_monitor_count_stamp_hashes": false,
+  "complete_input_matches_original_bag": false,
+  "same_common_evaluation_stamp_hashes": true,
+  "source_pose_rate_differs_by_intended_treatment": false,
+  "cases": [
+    {
+      "case": "baseline_reused",
+      "g_norm": 9.80665,
+      "status": "MEASURED",
+      "segments": {
+        "goal_motion": {
+          "source_window_ns": [
+            51119999999,
+            135996000000
+          ],
+          "pose_samples": 1287,
+          "position_error_m": {
+            "count": 1287,
+            "rmse": 0.07055502351788921,
+            "median": 0.0750797196560525,
+            "p95": 0.10546358526032384,
+            "max": 0.10679494169423018
+          },
+          "absolute_yaw_error_deg": {
+            "count": 1287,
+            "rmse": 0.46007682208917705,
+            "median": 0.36828351008807014,
+            "p95": 0.7829277249433345,
+            "max": 0.8273997106830794
+          },
+          "velocity_error_m_s": {
+            "count": 1287,
+            "rmse": 0.004506609828612461,
+            "median": 0.003331577774671256,
+            "p95": 0.00831813765984713,
+            "max": 0.04544763110303362
+          },
+          "rpe10_translation_error_m": {
+            "count": 1135,
+            "rmse": 0.027160791736208376,
+            "median": 0.018669352251266282,
+            "p95": 0.05641529132189549,
+            "max": 0.060053376466054506
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1135,
+            "rmse": 0.10588207525129277,
+            "median": 0.10230615389648942,
+            "p95": 0.13403549643987675,
+            "max": 0.2225861512330743
+          }
+        },
+        "active_hold": {
+          "source_window_ns": [
+            135996000000,
+            155996000000
+          ],
+          "pose_samples": 304,
+          "position_error_m": {
+            "count": 304,
+            "rmse": 0.10968371496701648,
+            "median": 0.10705248667777592,
+            "p95": 0.12030654066210072,
+            "max": 0.12448334444515385
+          },
+          "absolute_yaw_error_deg": {
+            "count": 304,
+            "rmse": 0.909912573100459,
+            "median": 0.9116554459236441,
+            "p95": 0.9685386683690259,
+            "max": 0.9744095875722166
+          },
+          "velocity_error_m_s": {
+            "count": 304,
+            "rmse": 0.0032878244924529044,
+            "median": 0.0009756186210989034,
+            "p95": 0.008797792995552526,
+            "max": 0.00999078203927709
+          },
+          "rpe10_translation_error_m": {
+            "count": 152,
+            "rmse": 0.013714552735339114,
+            "median": 0.011719831659856031,
+            "p95": 0.026946261454726127,
+            "max": 0.029595650384601983
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 152,
+            "rmse": 0.07025885612502768,
+            "median": 0.06843227502523695,
+            "p95": 0.08265328268115943,
+            "max": 0.08424781924467796
+          }
+        },
+        "landing": {
+          "source_window_ns": [
+            155996000000,
+            161372000000
+          ],
+          "pose_samples": 81,
+          "position_error_m": {
+            "count": 81,
+            "rmse": 0.1117111622226114,
+            "median": 0.11198970472622138,
+            "p95": 0.11306508951844971,
+            "max": 0.11360015098212818
+          },
+          "absolute_yaw_error_deg": {
+            "count": 81,
+            "rmse": 0.991066901393431,
+            "median": 0.9910243626349993,
+            "p95": 1.0056244824163327,
+            "max": 1.0072440035291261
+          },
+          "velocity_error_m_s": {
+            "count": 81,
+            "rmse": 0.018986791894603207,
+            "median": 0.0007615012241032681,
+            "p95": 0.012810676189422507,
+            "max": 0.13685925168828675
+          },
+          "rpe10_translation_error_m": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          }
+        },
+        "full_task": {
+          "source_window_ns": [
+            28564000000,
+            161372000000
+          ],
+          "pose_samples": 2012,
+          "position_error_m": {
+            "count": 2012,
+            "rmse": 0.07432964566650298,
+            "median": 0.07562607898432862,
+            "p95": 0.11219243245517584,
+            "max": 0.12448334444515385
+          },
+          "absolute_yaw_error_deg": {
+            "count": 2012,
+            "rmse": 0.5476958219700387,
+            "median": 0.3797786161224027,
+            "p95": 0.9666339933547358,
+            "max": 1.0072440035291261
+          },
+          "velocity_error_m_s": {
+            "count": 2012,
+            "rmse": 0.006874351088962719,
+            "median": 0.0027900143391437794,
+            "p95": 0.009491204971656009,
+            "max": 0.13685925168828675
+          },
+          "rpe10_translation_error_m": {
+            "count": 1860,
+            "rmse": 0.023193606489801427,
+            "median": 0.015108690998703184,
+            "p95": 0.04988957046927752,
+            "max": 0.060053376466054506
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1860,
+            "rmse": 0.13821769295615377,
+            "median": 0.1009855453447967,
+            "p95": 0.26099031648634413,
+            "max": 0.5654480909504849
+          }
+        }
+      },
+      "raw_pose_count": 2364,
+      "common_evaluation_sample_count": 2013,
+      "source_raw_max_gap_sim_s": 0.068000001,
+      "raw_first_last_source_ns": [
+        28548000000,
+        161340000000
+      ],
+      "raw_max_gap_sim_s": 0.068000001,
+      "pose_stamp_sha256": "abee04961be1982ac01e3c202b6ada122beeddc6055d6b220139e98d3e1527e6",
+      "inputs": {
+        "/sensors/d435i/imu": {
+          "count": 39181,
+          "first_source_ns": 7876000000,
+          "last_source_ns": 164596000000,
+          "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra1/image_rect": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra2/image_rect": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        }
+      },
+      "alignment": {
+        "scale": 1,
+        "reference_source_ns": 28548000000,
+        "rotation": [
+          [
+            0.9999999922125874,
+            0.00011866183089313463,
+            3.8654819592213764e-05
+          ],
+          [
+            -0.00011866754561665538,
+            0.9999999820260697,
+            0.0001478711396762109
+          ],
+          [
+            -3.863727223726449e-05,
+            -0.0001478757255972446,
+            0.9999999883199654
+          ]
+        ],
+        "translation": [
+          -7.878557388277778,
+          0.00016351616303495449,
+          0.30611319970366463
+        ]
+      },
+      "player_exit_code": 0,
+      "stop_reason": "bag_finished_plus_drain",
+      "failure": null
+    },
+    {
+      "case": "gyro_walk",
+      "g_norm": 9.80665,
+      "status": "MEASURED",
+      "segments": {
+        "goal_motion": {
+          "source_window_ns": [
+            51119999999,
+            135996000000
+          ],
+          "pose_samples": 1287,
+          "position_error_m": {
+            "count": 1287,
+            "rmse": 0.08031144404133436,
+            "median": 0.08639879209132456,
+            "p95": 0.1204877733923959,
+            "max": 0.12349360321672137
+          },
+          "absolute_yaw_error_deg": {
+            "count": 1287,
+            "rmse": 0.4997057866349526,
+            "median": 0.4341073185643898,
+            "p95": 0.7909944859137527,
+            "max": 0.8303227908751737
+          },
+          "velocity_error_m_s": {
+            "count": 1287,
+            "rmse": 0.005141804903000911,
+            "median": 0.0039778904761844005,
+            "p95": 0.010686081751518946,
+            "max": 0.024527518900256128
+          },
+          "rpe10_translation_error_m": {
+            "count": 1135,
+            "rmse": 0.03550491574178367,
+            "median": 0.02606919742237456,
+            "p95": 0.07888988360977998,
+            "max": 0.09001367510213133
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1135,
+            "rmse": 0.09297637354188232,
+            "median": 0.08809339063253682,
+            "p95": 0.12380258701499351,
+            "max": 0.19700000293208092
+          }
+        },
+        "active_hold": {
+          "source_window_ns": [
+            135996000000,
+            155996000000
+          ],
+          "pose_samples": 304,
+          "position_error_m": {
+            "count": 304,
+            "rmse": 0.1244863660634524,
+            "median": 0.12136483746722698,
+            "p95": 0.1358940444096178,
+            "max": 0.1391436852188928
+          },
+          "absolute_yaw_error_deg": {
+            "count": 304,
+            "rmse": 0.9012678982554392,
+            "median": 0.9040789762496813,
+            "p95": 0.9473447469149395,
+            "max": 0.9512360638867841
+          },
+          "velocity_error_m_s": {
+            "count": 304,
+            "rmse": 0.0035365433136509286,
+            "median": 0.0012149999850415015,
+            "p95": 0.009071047943238,
+            "max": 0.00990568884023959
+          },
+          "rpe10_translation_error_m": {
+            "count": 152,
+            "rmse": 0.01782547884155331,
+            "median": 0.018204349025525757,
+            "p95": 0.03173504066535294,
+            "max": 0.03359832640829893
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 152,
+            "rmse": 0.05984424431885394,
+            "median": 0.058987878731507265,
+            "p95": 0.07197596653691883,
+            "max": 0.07375704501166742
+          }
+        },
+        "landing": {
+          "source_window_ns": [
+            155996000000,
+            161372000000
+          ],
+          "pose_samples": 81,
+          "position_error_m": {
+            "count": 81,
+            "rmse": 0.13006589781213726,
+            "median": 0.1304582180814502,
+            "p95": 0.1314516880867949,
+            "max": 0.13196639515036523
+          },
+          "absolute_yaw_error_deg": {
+            "count": 81,
+            "rmse": 0.962550663457582,
+            "median": 0.9625320327949027,
+            "p95": 0.9724257916220941,
+            "max": 0.9735257407804837
+          },
+          "velocity_error_m_s": {
+            "count": 81,
+            "rmse": 0.01910995874297891,
+            "median": 0.0006767347659342394,
+            "p95": 0.01033310966261495,
+            "max": 0.13696476402480054
+          },
+          "rpe10_translation_error_m": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          }
+        },
+        "full_task": {
+          "source_window_ns": [
+            28564000000,
+            161372000000
+          ],
+          "pose_samples": 2012,
+          "position_error_m": {
+            "count": 2012,
+            "rmse": 0.08456263998557162,
+            "median": 0.08660931681296,
+            "p95": 0.13034402717139562,
+            "max": 0.1391436852188928
+          },
+          "absolute_yaw_error_deg": {
+            "count": 2012,
+            "rmse": 0.5655626440632718,
+            "median": 0.44217367282877296,
+            "p95": 0.9460418114038133,
+            "max": 0.9735257407804837
+          },
+          "velocity_error_m_s": {
+            "count": 2012,
+            "rmse": 0.006375594564568616,
+            "median": 0.0033444404614123386,
+            "p95": 0.010090923389955299,
+            "max": 0.13696476402480054
+          },
+          "rpe10_translation_error_m": {
+            "count": 1860,
+            "rmse": 0.029095419042185766,
+            "median": 0.018676073620557253,
+            "p95": 0.07007446044864998,
+            "max": 0.09001367510213133
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1860,
+            "rmse": 0.10178018361969396,
+            "median": 0.08652446745604553,
+            "p95": 0.18996033164106318,
+            "max": 0.2814483692795462
+          }
+        }
+      },
+      "raw_pose_count": 2364,
+      "common_evaluation_sample_count": 2013,
+      "source_raw_max_gap_sim_s": 0.068000001,
+      "raw_first_last_source_ns": [
+        28548000000,
+        161340000000
+      ],
+      "raw_max_gap_sim_s": 0.068000001,
+      "pose_stamp_sha256": "abee04961be1982ac01e3c202b6ada122beeddc6055d6b220139e98d3e1527e6",
+      "inputs": {
+        "/sensors/d435i/imu": {
+          "count": 39181,
+          "first_source_ns": 7876000000,
+          "last_source_ns": 164596000000,
+          "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra1/image_rect": {
+          "count": 4748,
+          "first_source_ns": 7888000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "7757a1cf945d79ef18533dbb740bfd721cd02bb3490f7c94de4b4285844ab57b",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra2/image_rect": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        }
+      },
+      "alignment": {
+        "scale": 1,
+        "reference_source_ns": 28548000000,
+        "rotation": [
+          [
+            0.9999999927664318,
+            0.00011780515227204837,
+            -2.4271020505743305e-05
+          ],
+          [
+            -0.00011780350779027746,
+            0.9999999907664578,
+            6.774524175421979e-05
+          ],
+          [
+            2.4279001020156377e-05,
+            -6.774238205282676e-05,
+            0.99999999741075
+          ]
+        ],
+        "translation": [
+          -7.87797670294988,
+          0.00013382559222779633,
+          0.30558370367424315
+        ]
+      },
+      "player_exit_code": 0,
+      "stop_reason": "bag_finished_plus_drain",
+      "failure": null
+    }
+  ],
+  "paired_comparison_supported": false,
+  "live_parameters_changed": false
+}

@@ -1,0 +1,299 @@
+{
+  "schema": "n06-observation-coverage-diagnostics/v1",
+  "report_id": "2026-10-23-095",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "parent_status": "in_progress",
+  "n06_3": {
+    "status": "diagnostic complete; positive entry not established",
+    "projection_report_path": "artifacts/runs/n06-observation-coverage-20261023-r01/report.json",
+    "projection_report_sha256": "10d656733be81c669d890c06c0ebac8a23cdc2a272aca84844fd214e427ad7a8",
+    "method": {
+      "map": "snapshot-03 from each current-configuration r10 layout",
+      "body_center": "latest optimized VINS odometry at or before snapshot stamp",
+      "sphere_cells": "closed voxel-cell intersection with exact body/terminal query sphere; compared against raw occupancy codes",
+      "camera": "camera pose and intrinsics exactly at last_fused_depth_source_stamp_ns",
+      "projection": "unknown cell centers projected into optical image coordinates; repeated over all captured camera poses through that source stamp",
+      "classification_order": [
+        "behind_camera (z<=0)",
+        "inside_near_clip (0<z<0.2m)",
+        "horizontal_outside_image",
+        "vertical_outside_image",
+        "inside_geometric_image"
+      ],
+      "limitations": [
+        "does not test depth values",
+        "does not integrate rays or establish occlusion/classification correctness",
+        "classifies cell centers, not every point in each voxel volume"
+      ]
+    },
+    "layouts": [
+      {
+        "run_id": "n06-20261023-wall-r10",
+        "layout_id": "wall_box_column",
+        "snapshot": "snapshot-03",
+        "map_identity": {
+          "epoch": "c320d47a56b94d9690da10866c097add",
+          "map_id": "c320d47a56b94d9690da10866c097add-aec02e2177054dceba90bcd2eb2febef",
+          "frame_id": "odom_c320d47a56b94d9690da10866c097add",
+          "snapshot_stamp_ns": 39259000000,
+          "last_fused_depth_source_stamp_ns": 39139000000,
+          "last_fusion_stamp_ns": 39221000000,
+          "source_age_at_response_s": 0.12
+        },
+        "body_center_pose": {
+          "stamp_ns": 39237999999,
+          "frame_id": "odom_c320d47a56b94d9690da10866c097add",
+          "position_xyz_m": [
+            0.003418075141913648,
+            -0.000503202910378251,
+            -0.005095164026133378
+          ],
+          "snapshot_minus_pose_s": 0.021000001
+        },
+        "camera_at_fused_depth_source": {
+          "stamp_ns": 39139000000,
+          "frame_id": "odom_c320d47a56b94d9690da10866c097add",
+          "position_xyz_m": [
+            0.003408458331058105,
+            0.024496475506996407,
+            -0.005086711796122259
+          ],
+          "quaternion_xyzw": [
+            0.4999771287760925,
+            -0.5000119209194844,
+            0.5000196252471164,
+            -0.49999132393168116
+          ],
+          "intrinsics_fx_fy_cx_cy": [
+            337.20964008990796,
+            337.209640089908,
+            320.0,
+            240.0
+          ],
+          "capture_pose_count_through_source_stamp": 692
+        },
+        "queries": {
+          "body": {
+            "radius_m": 0.7306179170842027,
+            "raw_query_counts": {
+              "unknown": 1801,
+              "free": 410,
+              "occupied": 0
+            },
+            "unknown_cell_center_projection": {
+              "behind_camera": 1093,
+              "inside_near_clip": 379,
+              "horizontal_outside_image": 180,
+              "vertical_outside_image": 149,
+              "inside_geometric_image": 0
+            },
+            "capture_pose_count_through_source_stamp": 692,
+            "ever_inside_geometric_image_during_capture": 0,
+            "never_inside_geometric_image_during_capture": 1801,
+            "qualification": "cell-center geometric projection only; depth values and ray occlusion/classification are not tested"
+          },
+          "terminal_hold": {
+            "radius_m": 0.9806179170842027,
+            "raw_query_counts": {
+              "unknown": 4048,
+              "free": 804,
+              "occupied": 0
+            },
+            "unknown_cell_center_projection": {
+              "behind_camera": 2419,
+              "inside_near_clip": 640,
+              "horizontal_outside_image": 591,
+              "vertical_outside_image": 398,
+              "inside_geometric_image": 0
+            },
+            "capture_pose_count_through_source_stamp": 692,
+            "ever_inside_geometric_image_during_capture": 0,
+            "never_inside_geometric_image_during_capture": 4048,
+            "qualification": "cell-center geometric projection only; depth values and ray occlusion/classification are not tested"
+          }
+        },
+        "source_hashes": {
+          "mapping_inputs": "a5ebeb1e003724be1e89e6e2aea1ad412702d88fadb80ae8c40f65ce20c46965",
+          "snapshot_metadata": "1b0af5a84ca4db249bebc510193771f0534b85f249805a75431ffaedbd721dbc",
+          "raw_occupancy_archive": "7788aa86e0df2efd44a5bbe88dff92ac893043da01323d00373c9f08c615acb0",
+          "analyzer": "dab5555442bf6e50d0008902d223d0247448fa510403b231bde3a746e564fdaa"
+        }
+      },
+      {
+        "run_id": "n06-20261023-corridor-r10",
+        "layout_id": "corridor_box_column",
+        "snapshot": "snapshot-03",
+        "map_identity": {
+          "epoch": "453a54a882ca4aab8b8ebfd137a9c011",
+          "map_id": "453a54a882ca4aab8b8ebfd137a9c011-d3129fe5e92246ee9120e81387a53ff2",
+          "frame_id": "odom_453a54a882ca4aab8b8ebfd137a9c011",
+          "snapshot_stamp_ns": 39004000000,
+          "last_fused_depth_source_stamp_ns": 38908000000,
+          "last_fusion_stamp_ns": 38978000000,
+          "source_age_at_response_s": 0.096
+        },
+        "body_center_pose": {
+          "stamp_ns": 38973999999,
+          "frame_id": "odom_453a54a882ca4aab8b8ebfd137a9c011",
+          "position_xyz_m": [
+            -0.0278556321691022,
+            0.011958491214271708,
+            -0.012584647202037778
+          ],
+          "snapshot_minus_pose_s": 0.030000001
+        },
+        "camera_at_fused_depth_source": {
+          "stamp_ns": 38908000000,
+          "frame_id": "odom_453a54a882ca4aab8b8ebfd137a9c011",
+          "position_xyz_m": [
+            -0.02768888302977703,
+            0.03693796831632548,
+            -0.012562729957329412
+          ],
+          "quaternion_xyzw": [
+            0.49879542382020225,
+            -0.5012032403147517,
+            0.5011928808422698,
+            -0.4988026997391298
+          ],
+          "intrinsics_fx_fy_cx_cy": [
+            337.20964008990796,
+            337.209640089908,
+            320.0,
+            240.0
+          ],
+          "capture_pose_count_through_source_stamp": 697
+        },
+        "queries": {
+          "body": {
+            "radius_m": 0.7306179170842027,
+            "raw_query_counts": {
+              "unknown": 1807,
+              "free": 384,
+              "occupied": 0
+            },
+            "unknown_cell_center_projection": {
+              "behind_camera": 1153,
+              "inside_near_clip": 368,
+              "horizontal_outside_image": 157,
+              "vertical_outside_image": 129,
+              "inside_geometric_image": 0
+            },
+            "capture_pose_count_through_source_stamp": 697,
+            "ever_inside_geometric_image_during_capture": 0,
+            "never_inside_geometric_image_during_capture": 1807,
+            "qualification": "cell-center geometric projection only; depth values and ray occlusion/classification are not tested"
+          },
+          "terminal_hold": {
+            "radius_m": 0.9806179170842027,
+            "raw_query_counts": {
+              "unknown": 4085,
+              "free": 836,
+              "occupied": 0
+            },
+            "unknown_cell_center_projection": {
+              "behind_camera": 2546,
+              "inside_near_clip": 642,
+              "horizontal_outside_image": 529,
+              "vertical_outside_image": 368,
+              "inside_geometric_image": 0
+            },
+            "capture_pose_count_through_source_stamp": 697,
+            "ever_inside_geometric_image_during_capture": 0,
+            "never_inside_geometric_image_during_capture": 4085,
+            "qualification": "cell-center geometric projection only; depth values and ray occlusion/classification are not tested"
+          }
+        },
+        "source_hashes": {
+          "mapping_inputs": "d48497e6b7fc704f5b62c874305c64a2656ee658ce807b306c0c256a62dea65b",
+          "snapshot_metadata": "7a604bfe5e669c44590ddd66df91b3d4584e6cd9ef2dedc11713d28ddc0426d9",
+          "raw_occupancy_archive": "3800acfa5081e84ca76a19010a80881d0947d844aa6164fda799756f366774c6",
+          "analyzer": "dab5555442bf6e50d0008902d223d0247448fa510403b231bde3a746e564fdaa"
+        }
+      }
+    ],
+    "finding": "All unknown body and terminal-hold cell centers lie outside geometric image bounds, including across every recorded camera pose up to the map source stamp. Most lie behind the camera or inside its 0.2 m near clip. This supports a single-D435i observation-coverage explanation for the raw unknown start/hold regions; it does not by itself explain every occupancy update.",
+    "readiness": {
+      "wall_r10": {
+        "map_status_fresh": true,
+        "source_age_s": 0.106,
+        "fusion_age_s": 0.018,
+        "body_query_reason": "no_fresh_fused_depth",
+        "status_identity_stable": true,
+        "pending_input_at_query_recorded": false,
+        "interpretation": "N03 has prior examples where the conservative query refusal occurred while a fresh completed fusion remained available; r10 did not record pending-pair state at the request, so a transient pending-pair explanation remains plausible but unproven."
+      },
+      "corridor_r10": {
+        "fresh_odometry_received_by_probe": false,
+        "goal_sent": false,
+        "captured_optimized_odometry_count": 356,
+        "first_invalid_localization": {
+          "stamp_ns": 39597000000,
+          "epoch": "453a54a882ca4aab8b8ebfd137a9c011",
+          "state": 4,
+          "valid": false,
+          "reason": "normalized_cost_exceeded",
+          "frame_id": "odom_453a54a882ca4aab8b8ebfd137a9c011",
+          "wall_elapsed_s": 24.20452
+        },
+        "interpretation": "The input capture contains optimized odometry earlier in the run, then localization becomes normalized_cost_exceeded around the later probe window; therefore probe odometry timeout is consistent with a localization health lock, not evidence that no odometry was ever published."
+      }
+    }
+  },
+  "n06_4_next_experiment": {
+    "run_id": "n06-20261023-wall-r21",
+    "hypothesis": "At fixed translation and unchanged textured surround/360-degree yaw endpoints, reducing angular rate fourfold will delay or prevent the early VINS health lock seen in r20 if angular rate is the dominant cause.",
+    "single_primary_variable": "yaw angular rate (profile acceleration also scaled by 1/16 to preserve the same endpoints over four times the phase duration)",
+    "r20_comparator": {
+      "run_id": "n06-20261023-wall-r20",
+      "profile": "config/components/simulation/n06_yaw_360_slow.json",
+      "profile_peak_rate_rad_s": 0.2094395102,
+      "profile_phase_seconds": 30,
+      "first_empty_features_stamp_s": 13.432,
+      "yaw_at_first_empty_features_deg": 2.3045267280171724,
+      "first_invalid_localization_stamp_s": 13.63,
+      "first_invalid_localization_reason": "normalized_cost_exceeded",
+      "yaw_at_first_invalid_localization_deg": 2.5840867280449484,
+      "scan_completed": true,
+      "positive_health_through_scan": false,
+      "snapshots_captured": false,
+      "motion_sha256": "f6ed703a34026771e543d5dde0cd4f2c38cb53c51620f9889a3299abf2cf0249",
+      "mapping_stack_log_sha256": "9772bd0358136778db1e071ef05d1bbf672635a81cc68809c945baa591c87fb6"
+    },
+    "profile": {
+      "path": "config/components/simulation/n06_yaw_360_very_slow.json",
+      "sha256": "079adb5e85ac009c4948f976e8c30af91d90b49d97792c64016584310ff69902",
+      "peak_rate_rad_s": 0.0523598776,
+      "phase_seconds": 120,
+      "translation": "fixed",
+      "surround": "same N06 textured observation surround",
+      "endpoints": "same full 360-degree turn",
+      "input_recorder_wall_seconds": 308,
+      "recorder_horizon_rationale": "covers the profile 300-second wall timeout plus 8 seconds, so its end can capture the slow scan even if Gazebo real-time factor is below 1."
+    },
+    "acceptance_for_this_subtask": "Determine whether localization health remains valid through the complete turn. If health locks, preserve motion and input artifacts and stop before the snapshot wait; if healthy, complete map snapshots and continue the planner-only live diagnostic.",
+    "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r21 wall_box_column 84 motion_n06 config/components/simulation/n06_yaw_360_very_slow.json"
+  },
+  "implementation_changes": [
+    "Added an isolated textured observation surround to the generated N06 moving-world variant; ordinary N04 motion/static worlds remain unchanged.",
+    "Added no-daemon direct parameter-service readiness check after r17-r19 CLI graph false negatives; r20 passed the gate.",
+    "Added a four-times-slower full-yaw profile and a recorder wall-horizon override so all captured inputs can cover the long scan."
+  ],
+  "verification": {
+    "projection_analyzer": "python3 tools/analyze_n06_observation_coverage.py --output artifacts/runs/n06-observation-coverage-20261023-r01/report.json; completed, raw query counts match N06 r04 report and all four visibility-union counts are zero.",
+    "python_compile": "PYTHONPYCACHEPREFIX=/tmp/n06-python-cache python3 -m py_compile tools/analyze_n06_observation_coverage.py; passed.",
+    "project_tests": "bash tools/project.sh test completed after the runner and recorder stop-handler changes in #097: 243 tests passed; navigation adapter integration passed.",
+    "runner_syntax": "bash -n tools/run_n04_map_layout.sh tools/run_n04_map_layout_container.sh passed in #097.",
+    "project_status": "python3 tools/project_status.py passed in #097; structural check only."
+  },
+  "status": "N06 and S4 remain in_progress; next_goal remains N06.",
+  "unresolved": [
+    "Exact depth-ray/occlusion and occupancy update contribution are not classified by center projection.",
+    "wall-r10 no_fresh_fused_depth request-time pending-pair state is absent.",
+    "r21 has not yet run."
+  ],
+  "stop_reason": "N06.3 diagnosis delivered; N06 remains incomplete. Continuing Goal scope into N06.4 r21.",
+  "next_action": "Run r21 with the single changed yaw-rate profile; keep all PX4/control components off and inspect health through full turn."
+}

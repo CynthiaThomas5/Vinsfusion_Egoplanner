@@ -1,0 +1,338 @@
+{
+  "schema": "n08-n05-contact-unknown-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-299",
+  "status": "preflight_refused_no_mission_or_flight",
+  "trial_intent": "0.07-0.09 m/s motion-cancel braking trial; not reached",
+  "layout_id": "n08_overhead_calibration",
+  "n05_scan": {
+    "profile": "n06_full_airframe_retreat_240_translation_only",
+    "completed_stages": 6,
+    "expected_stages": 6,
+    "helper_outcome": "failed",
+    "helper_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_removed": true,
+    "same_epoch": true,
+    "same_map_id": true
+  },
+  "post_release_admission": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_result_identical": true,
+    "epoch": "11d7eddff1cf4e5d89353a288c1b21c4",
+    "map_id": "11d7eddff1cf4e5d89353a288c1b21c4-78dc66a65b6e4144a0e9265ac389f9f3",
+    "raw_map_sha256": "9077e16924d1c48a4bc696de18c14dc6bc41a00cc37356bab534d9600169ba1b",
+    "freshness": {
+      "snapshot_age_sim_s": 0.1,
+      "depth_source_age_sim_s": 0.12,
+      "fusion_age_sim_s": 0.032,
+      "map_status_receipt_age_wall_s": 0.050552336033433676,
+      "localization_receipt_age_wall_s": 0.03910337598063052,
+      "odometry_receipt_age_wall_s": 0.033114000922068954,
+      "limit_sim_s": 0.4
+    },
+    "ground_plane": {
+      "valid": true,
+      "reason": "raw_occupied_plane_fit",
+      "z_at_center_m": -0.3500000000000003,
+      "coefficients_ax_by_c_m": [
+        -1.1851543113663601e-16,
+        -2.7755575615628914e-16,
+        -0.3500000000000003
+      ],
+      "residual_p95_m": 6.106226635438361e-16,
+      "slope": 3.0179977666160083e-16,
+      "raw_occupied_voxel_count": 202,
+      "xy_span_m": [
+        1.7999999999999972,
+        2.0
+      ],
+      "source": "raw occupancy only",
+      "debug_truth_used": false
+    },
+    "phase_results": {
+      "TAKEOFF_CONTACT": {
+        "samples": 1,
+        "accepted_samples": 0,
+        "refusal_counts": {
+          "raw_unknown_in_expanded_vehicle_envelope": 1
+        },
+        "maximum_unknown_cells": 24,
+        "maximum_occupied_cells": 0,
+        "maximum_ground_contact_cells": 22,
+        "maximum_subground_excluded_cells": 36
+      },
+      "ASCENT": {
+        "samples": 19,
+        "accepted_samples": 16,
+        "refusal_counts": {
+          "raw_unknown_in_expanded_vehicle_envelope": 3,
+          "raw_vehicle_envelope_known_free": 16
+        },
+        "maximum_unknown_cells": 23,
+        "maximum_occupied_cells": 0,
+        "maximum_ground_contact_cells": 20,
+        "maximum_subground_excluded_cells": 27
+      },
+      "HOLD": {
+        "samples": 1,
+        "accepted_samples": 1,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 1
+        },
+        "maximum_unknown_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_ground_contact_cells": 0,
+        "maximum_subground_excluded_cells": 0
+      },
+      "DESCENT": {
+        "samples": 19,
+        "accepted_samples": 16,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 16,
+          "raw_unknown_in_expanded_vehicle_envelope": 3
+        },
+        "maximum_unknown_cells": 23,
+        "maximum_occupied_cells": 0,
+        "maximum_ground_contact_cells": 20,
+        "maximum_subground_excluded_cells": 27
+      },
+      "LANDING_CONTACT": {
+        "samples": 1,
+        "accepted_samples": 0,
+        "refusal_counts": {
+          "raw_unknown_in_expanded_vehicle_envelope": 1
+        },
+        "maximum_unknown_cells": 24,
+        "maximum_occupied_cells": 0,
+        "maximum_ground_contact_cells": 22,
+        "maximum_subground_excluded_cells": 36
+      }
+    }
+  },
+  "read_only_unknown_audit": {
+    "schema": "n07-n05-unknown-volume-audit/v1",
+    "source_live_report": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-299/n05-post-release/n05-live-entry-check.json",
+    "source_live_report_sha256": "f5768d7a1ebfd0151d9b77da7c980d176b354911e4ee598a529c374570904610",
+    "source_snapshot_sha256": "9077e16924d1c48a4bc696de18c14dc6bc41a00cc37356bab534d9600169ba1b",
+    "epoch": "11d7eddff1cf4e5d89353a288c1b21c4",
+    "map_id": "11d7eddff1cf4e5d89353a288c1b21c4-78dc66a65b6e4144a0e9265ac389f9f3",
+    "scope": "read-only enumeration of raw unknown cells intersecting N05 entry volumes; no controller input",
+    "ground_plane_z_m": -0.3500000000000003,
+    "hold_height_m": 1.0,
+    "combined_uncertainty_margin_m": 0.24868204641820268,
+    "hold_unknown_center_count": 0,
+    "hold_unknown_center_count_below_ground_plane": 0,
+    "phases": [
+      {
+        "phase": "TAKEOFF_CONTACT",
+        "check_pose_counts": {
+          "free": 1382,
+          "unknown": 55,
+          "occupied": 0,
+          "ground_contact": 41,
+          "unknown_cells": 24,
+          "occupied_cells": 0,
+          "ground_contact_cells": 22,
+          "subground_excluded_cells": 36
+        },
+        "unknown_count_unique": 24,
+        "subground_excluded_unique": 36,
+        "minimum_xyz_m": [
+          -0.34999999999999787,
+          -0.14999999999999858,
+          -0.35
+        ],
+        "maximum_xyz_m": [
+          0.15000000000000213,
+          0.3500000000000014,
+          -0.35
+        ],
+        "x_center_histogram_m": {
+          "-0.3": 1,
+          "-0.2": 3,
+          "-0.1": 5,
+          "-0.0": 6,
+          "0.1": 5,
+          "0.2": 4
+        },
+        "z_center_histogram_m": {
+          "-0.3": 24
+        },
+        "x_negative_count": 15,
+        "x_nonnegative_count": 9,
+        "centers_odom_m": [
+          [
+            -0.14999999999999858,
+            -0.04999999999999716,
+            -0.35
+          ],
+          [
+            -0.14999999999999858,
+            0.05000000000000071,
+            -0.35
+          ],
+          [
+            -0.04999999999999716,
+            -0.14999999999999858,
+            -0.35
+          ],
+          [
+            -0.04999999999999716,
+            -0.04999999999999716,
+            -0.35
+          ],
+          [
+            -0.04999999999999716,
+            0.05000000000000071,
+            -0.35
+          ],
+          [
+            0.05000000000000071,
+            -0.04999999999999716,
+            -0.35
+          ],
+          [
+            0.05000000000000071,
+            0.05000000000000071,
+            -0.35
+          ],
+          [
+            -0.25,
+            0.15000000000000213,
+            -0.35
+          ],
+          [
+            -0.25,
+            0.25,
+            -0.35
+          ],
+          [
+            -0.25,
+            0.3500000000000014,
+            -0.35
+          ],
+          [
+            -0.14999999999999858,
+            0.15000000000000213,
+            -0.35
+          ],
+          [
+            -0.14999999999999858,
+            0.25,
+            -0.35
+          ],
+          [
+            -0.14999999999999858,
+            0.3500000000000014,
+            -0.35
+          ],
+          [
+            -0.04999999999999716,
+            0.15000000000000213,
+            -0.35
+          ],
+          [
+            -0.04999999999999716,
+            0.25,
+            -0.35
+          ],
+          [
+            -0.04999999999999716,
+            0.3500000000000014,
+            -0.35
+          ],
+          [
+            0.05000000000000071,
+            0.15000000000000213,
+            -0.35
+          ],
+          [
+            0.05000000000000071,
+            0.25,
+            -0.35
+          ],
+          [
+            0.15000000000000213,
+            -0.04999999999999716,
+            -0.35
+          ],
+          [
+            0.15000000000000213,
+            0.05000000000000071,
+            -0.35
+          ],
+          [
+            -0.34999999999999787,
+            0.3500000000000014,
+            -0.35
+          ],
+          [
+            0.05000000000000071,
+            0.3500000000000014,
+            -0.35
+          ],
+          [
+            0.15000000000000213,
+            0.15000000000000213,
+            -0.35
+          ],
+          [
+            0.15000000000000213,
+            0.25,
+            -0.35
+          ]
+        ]
+      },
+      {
+        "phase": "HOLD",
+        "check_pose_counts": {
+          "free": 1547,
+          "unknown": 0,
+          "occupied": 0,
+          "ground_contact": 0,
+          "unknown_cells": 0,
+          "occupied_cells": 0,
+          "ground_contact_cells": 0,
+          "subground_excluded_cells": 0
+        },
+        "unknown_count_unique": 0,
+        "subground_excluded_unique": 0,
+        "minimum_xyz_m": null,
+        "maximum_xyz_m": null,
+        "x_center_histogram_m": {},
+        "z_center_histogram_m": {},
+        "x_negative_count": 0,
+        "x_nonnegative_count": 0,
+        "centers_odom_m": []
+      }
+    ],
+    "debug_truth_used": false
+  },
+  "safety": {
+    "independent_readback_wall_s": 4.0,
+    "bridge_phase": "DISABLED",
+    "bridge_armed": false,
+    "bridge_control_enabled": false,
+    "bridge_landed": true,
+    "bridge_ready": false,
+    "bridge_reason": "px4_preflight_failed",
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1
+    },
+    "project_container_exit_code": 0
+  },
+  "source_hashes": {
+    "n05_run_summary": "3d2ab105eda91b8d6faad91c76bbd91b53c55667b3771c4117534e04724b2bbf",
+    "live_entry_report": "f5768d7a1ebfd0151d9b77da7c980d176b354911e4ee598a529c374570904610",
+    "independent_readback": "0cd0457f191581aa493f0ef413fac94191370dc7251452f8e0f59fab630bf416",
+    "fixture_result": "02799aa3b34c54beb32eeacf60c53197f39ab4a0ae1dd2934f42b3aad6b4329c"
+  },
+  "no_flight": true,
+  "debug_truth_used": false,
+  "control_or_goal_published": false
+}

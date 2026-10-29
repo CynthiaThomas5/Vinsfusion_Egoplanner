@@ -1,0 +1,49 @@
+{
+  "schema": "n10-runtime-preflight-result/v1",
+  "subtask_id": "N10.3/#372",
+  "run_id": "n10-20261027-372-gatefree-cylinder0-observation",
+  "classification": "failed preflight; no flight and not qualification evidence",
+  "status": "aborted_before_goal_due_to_launch_config_mismatch",
+  "runtime_contract_sha256": "ff7ccf032737fd31b77ccbc2015590ef846b159a5b320ef87b720a51ed86075c",
+  "expected_ego_launch": {
+    "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "max_vel": 0.8,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0,
+    "official_ego_collision_policy": true
+  },
+  "observed_ego_launch": {
+    "planner_config": "config/components/mapping/ego_planner.json",
+    "max_vel": 0.5,
+    "max_acc": 0.8,
+    "planning_horizon": 5.0,
+    "official_ego_collision_policy": true
+  },
+  "driver_exit_code": 1,
+  "driver_message": "Loaded EGO planner profile does not match frozen calibration settings",
+  "action_goal_sent": false,
+  "obstacle_injected": false,
+  "flight_record_present": false,
+  "observers_started": false,
+  "bridge_readback": {
+    "phase": "DISABLED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "reason": "px4_preflight_failed"
+  },
+  "vehicle_remained_disarmed": true,
+  "control_samples_zero": true,
+  "safe_stop_confirmed": true,
+  "container_stopped": true,
+  "artifacts": {
+    "launch_manifest": "artifacts/runs/n10-20261027-372-gatefree-cylinder0-observation-stack/launch-manifest.json",
+    "launch_manifest_sha256": "da6de36fdb32acf4297c659c8c6d44cda9ec2b2e87142886e645448f7d2e9464",
+    "runtime_contract": "artifacts/runs/n10-20261027-372-gatefree-cylinder0-observation/runtime-contract.json",
+    "runtime_contract_file_sha256": "98e097611e81417a3872be023f3e67482314857ede9dfaf2a1d90ff767c8af26",
+    "post_launch_readback": "artifacts/runs/n10-20261027-372-gatefree-cylinder0-observation/post-launch-no-flight-readback.json",
+    "post_launch_readback_sha256": "a9fdb8e2448073d2856b57d7dbede3b1fbfdd735065b12b1b002149fdaa07e9d"
+  },
+  "cause": "The sim was started without D435I_PLANNER_CONFIG. It loaded the default ego_planner.json (0.5 m/s, 0.8 m/s^2), while the frozen scenario requires n10_horizon5_speed080_calibration.json (0.8 m/s, 0.25 m/s^2). The driver correctly stopped before sending the goal.",
+  "correction": "Use D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json when starting the new #373 run. This restores the protocol settings; it does not change the scenario or thresholds."
+}

@@ -1,0 +1,99 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "protocol_id": 355,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "frozen_before_SITL",
+  "run_id": "n10-20261026-355-upstream-spline-speed080-health-bypass-16m",
+  "hypothesis": "With the run-scoped localization health-policy bypass enabled, the same 0.8 m/s/axis EGO profile and 16 m task may continue beyond the project normalized-cost/freshness policy gates. Measure independent arrival, dwell, tracking, raw VIO, map/source timing, contacts, any ACTIVE hold and terminal PX4 state without changing the configured policy thresholds.",
+  "sole_changed_factor": {
+    "parameter": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES",
+    "from_previous_run": false,
+    "to": true,
+    "scope": "Run-scoped project localization adapter quality/freshness policy gates and initialization timeout; no threshold/config value change."
+  },
+  "held_fixed": {
+    "source_flow": "Upstream EGO single feasibility check plus one time-reallocation/refinement attempt; project-added patch 0044 final-curve rejection absent.",
+    "max_velocity_m_s_per_axis": 0.8,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 5.0,
+    "collision_policy": "official_ego",
+    "spawn_config": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "goal_config": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal": "same +16.0 m ENU, +0.10 m, +0.20 rad single goal; 3 s arrival dwell; 600 simulated-second ACTIVE hold",
+    "health_policy_file": "unchanged",
+    "max_normalized_cost": 1.0,
+    "health_policy_sha256": "54c5a7b83d858f44ca6a8957a1aa96b8b3f25168f11b2fcff016c538d4e348c6",
+    "runtime_speed_guard": "disabled; EGO/PX4 speed remains observation-only",
+    "px4_control_owner": "uav_px4_bridge only",
+    "ground_truth": "read-only offline evaluation; no online truth in control",
+    "contact_overlay": "read-only observation; no collision geometry changes"
+  },
+  "bypass_contract": {
+    "bypassed": [
+      "localization quality policy thresholds",
+      "localization source/receipt freshness policy thresholds",
+      "localization initialization timeout",
+      "required good-pair count reduced to one for diagnostic tracking"
+    ],
+    "preserved": [
+      "malformed telemetry and invalid telemetry values",
+      "non-increasing stream stamps and clock regression",
+      "epoch/publisher identity and frame/odometry structural checks",
+      "map/collision and navigation context checks",
+      "downstream localization-status receipt freshness",
+      "PX4/bridge telemetry, landed/disarmed and control-state checks"
+    ],
+    "observability": [
+      "LocalizationStatus.health_gate_bypassed",
+      "cumulative diagnostic_bypass reason in status reason",
+      "raw VINS telemetry and normalized cost history",
+      "unchanged policy JSON hash"
+    ]
+  },
+  "measurements": [
+    "effective planner settings and input identity",
+    "EGO spline/action outcomes",
+    "full EGO command and PX4 local-position vector-speed histories",
+    "fixed preflight SE(3) READY-command to truth-IMU tracking error",
+    "raw VIO error against read-only truth",
+    "localization bypass flag/reasons and raw quality/cost samples",
+    "independent true 3D goal error and continuous dwell",
+    "map/source timing",
+    "contact evaluation",
+    "600 s ACTIVE hold if reached",
+    "controlled braking only if reached/measured",
+    "independent landed/disarmed/control-disabled/zero-command terminal readback"
+  ],
+  "decision_rules": {
+    "sample_validity": "A task may provide diagnostic motion/calibration data even when a localization quality/freshness policy event is bypassed; report each actual metric and event. Any structural/identity/time fault remains a hard failure.",
+    "formal_qualification": "Not granted by this diagnostic run because the localization policy is bypassed. N10 remains in progress until all original N10 exits are supported.",
+    "thresholds": "The original provisional max_normalized_cost=1.0 and all health.json bytes remain unchanged.",
+    "speed_interpretation": "The 0.8 m/s/axis planner value is not an external vector-speed guard or total-speed limit."
+  },
+  "input_identity": {
+    "source_head": "fd90f3b73e48101ad35c5a0ed9372865392eca7c",
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_file_count": 658,
+    "runtime_contract_sha256": "8e05456f4e2bcfddf2a2a41799aa7e3368ef15dfa9d3e627220244c981f71011",
+    "runtime_contract_path": "progress/evidence/n10-upstream-spline-speed080-health-bypass-16m-runtime-contract-prelaunch-20261026-355.json",
+    "planner_config_path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "planner_config_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "goal_config_path": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal_config_sha256": "23617388b441e093bbf45f83d19c64fdf69bd77a6ed6c82b2f6d0e6cc1a30aa0",
+    "health_policy_path": "config/components/localization/health.json",
+    "health_policy_sha256": "54c5a7b83d858f44ca6a8957a1aa96b8b3f25168f11b2fcff016c538d4e348c6",
+    "calibration_analyzer_sha256": "f94812ecdc16006513f987952398f8240fb1beab36d452cbee54628864017ba8",
+    "runtime_driver_sha256": "e447c3901bf4178cd56f128d5089c337cedf78497030df4c8e7edc1f60485eee",
+    "previous_run": "n10-20261026-354-upstream-spline-speed080-open-speed-16m",
+    "previous_runtime_contract_sha256": "304c2f8551172d95813fbdeb62f2c7aa68f57cfbf467c90bce71dee18db58591"
+  },
+  "procedure": {
+    "start_command": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES=1 D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json D435I_SPAWN_CONFIG=config/components/simulation/n10_long_range_spawn_minus8.json bash tools/project.sh sim n10-20261026-355-upstream-spline-speed080-health-bypass-16m",
+    "driver_inside_container": "bash /workspace/artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/n10-runtime-driver.sh",
+    "safe_stop": "Stop only this project container after independent 6 s readback confirms bridge LANDED or DISABLED, landed=true, armed=false, control_enabled=false, vehicle remained disarmed and zero control samples.",
+    "raw_artifacts": "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m"
+  },
+  "outcome": "pending"
+}

@@ -1,0 +1,147 @@
+{
+  "schema": "n08-trial-preactive-abort/v1",
+  "run_id": "n08-20261025-271-vertical-settle-correct-profile",
+  "result": "FAIL_BEFORE_EGO_GOAL",
+  "scope": "Correct low-speed planner profile, N05 admission, preflight and trial takeoff/settle-gate diagnosis; no new braking measurement.",
+  "planner_profile": {
+    "path": "config/components/mapping/n08_low_speed_trial.json",
+    "sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "max_velocity_m_s": 0.1,
+    "max_acceleration_m_s2": 0.25,
+    "manifest_sha256": "5f4cd5770a4cfd37988a6352c8c0332a15e21bcf94285e288c2d805c812b9f3f"
+  },
+  "n05": {
+    "fixture_completed_stages": 15,
+    "fixture_outcome": "failed",
+    "fixture_warning": "localization changed or became invalid during physical scan",
+    "after_scan_online_accepted": true,
+    "post_release_online_accepted": true,
+    "post_release_offline_accepted": true,
+    "same_epoch_and_map_id": true,
+    "mission_current_area_online_accepted": true,
+    "mission_current_area_offline_accepted": true,
+    "diagnostic_pass": true
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.001491672126576,
+    "max_optimized_odom_receipt_gap_wall_s": 0.11583394696936011,
+    "optimized_odom_gap_over_guard_count": 0
+  },
+  "pre_enable_raw_map": {
+    "forward_capsule_passed": true,
+    "home_pad_entry_accepted": true,
+    "source_age_s": 0.132,
+    "fusion_age_s": 0.072
+  },
+  "failure": {
+    "runner_error": "trial_takeoff_did_not_reach_active",
+    "action_goal_sent": false,
+    "takeoff_settle_recorded": false,
+    "bridge_phases": [
+      [
+        "DISABLED",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "PRESTREAM",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_OFFBOARD",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_ARM",
+        "requesting_arm",
+        false,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "operator_disable",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "operator_disable",
+        true,
+        true
+      ],
+      [
+        "LANDED",
+        "px4_preflight_failed",
+        false,
+        true
+      ]
+    ],
+    "localization_status_count": 906,
+    "all_localization_samples_valid_tracking": true,
+    "receipt_gaps_over_existing_0_2s_gate": [
+      {
+        "gap_wall_s": 0.2676508368458599,
+        "from_wall_elapsed_s": 3.020977745996788,
+        "to_wall_elapsed_s": 3.288628582842648,
+        "from_valid": true,
+        "to_valid": true,
+        "from_state": 1,
+        "to_state": 1,
+        "from_reason": "fresh_inputs_and_usable_solver",
+        "to_reason": "fresh_inputs_and_usable_solver"
+      },
+      {
+        "gap_wall_s": 1.6846123251598328,
+        "from_wall_elapsed_s": 3.288628582842648,
+        "to_wall_elapsed_s": 4.973240908002481,
+        "from_valid": true,
+        "to_valid": true,
+        "from_state": 1,
+        "to_state": 1,
+        "from_reason": "fresh_inputs_and_usable_solver",
+        "to_reason": "fresh_inputs_and_usable_solver"
+      },
+      {
+        "gap_wall_s": 0.3449543428141624,
+        "from_wall_elapsed_s": 39.57107642898336,
+        "to_wall_elapsed_s": 39.91603077179752,
+        "from_valid": true,
+        "to_valid": true,
+        "from_state": 1,
+        "to_state": 1,
+        "from_reason": "fresh_inputs_and_usable_solver",
+        "to_reason": "fresh_inputs_and_usable_solver"
+      }
+    ],
+    "suspected_abort_gap_wall_s": 0.3449543428141624,
+    "interpretation": "The 0.344954s gap exceeds the unchanged 0.2s status freshness gate and is the leading explanation for abort before ACTIVE. Both adjacent samples are valid TRACKING. This does not identify why the callback gap occurred."
+  },
+  "safety_readback_archive": "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile/final-safety-readback-archive.json",
+  "source_sha256": {
+    "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile/flight.json": "4cd8b80c573d93e7dc27f229bfabe91b576f4894a407ba021bb177c9a267ba85",
+    "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile/n05-run-summary.json": "8c336cfd57aa42f2685f44d0ca008ca2739f6a548fa611f9022263bbd847e80d",
+    "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile/preflight.json": "1c2d3d227172c5ae1dca1fdc8d5c1949a7d85866e0536e3d5d542ee51f2a7f34",
+    "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile/n08-trial-pre-enable-admission.json": "38797fdb0c94d17876cc7de9ab3546c2a2987a8705d3538b41d13a2020c72a0a",
+    "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile/n08-localization-source-timeline.json": "d3fc36bf3ddeb36cf29270dacfb5371f398789c4cbed822aa0f0c9a198d2ce75",
+    "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile/px4.log": "48402b6ae0bbb04e0b9a3479ea9493ccfae9f8bd166a41797644b706aca00a7a",
+    "artifacts/runs/n08-20261025-271-vertical-settle-correct-profile-stack/launch-manifest.json": "5f4cd5770a4cfd37988a6352c8c0332a15e21bcf94285e288c2d805c812b9f3f"
+  }
+}

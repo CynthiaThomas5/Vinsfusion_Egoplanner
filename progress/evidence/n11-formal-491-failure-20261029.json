@@ -1,0 +1,185 @@
+{
+  "schema": "n11-formal-run-report/v1",
+  "run_id": "n11-20261029-491-formal06",
+  "scenario": "empty_room",
+  "formal_attempt_number": 6,
+  "classification": "formal attempt; failed and not counted toward 3 qualifying cold starts",
+  "overall_status": "FAIL",
+  "formal_count_eligible": false,
+  "formal_pass_count_before_and_after": 2,
+  "required_passes": 3,
+  "frozen_identity": {
+    "runtime_contract_sha256": "3a0111a1814c8f6ccb3f7155450fad044026201e8c94b844ce02210fffea5820",
+    "acceptance_config_sha256": "eebdb7306e7513b97ce26d5ec983d9df7bf62dbb07da4bd0d0e6d7aa1cdb3c3f",
+    "protocol_sha256": "8fa87d9bf50e107116ca6014fefdacbbee54bcafa843fc61db301ab2b088c442",
+    "vins_binary_sha256": "4d19e003654b2a1a2ec1996b07701a5ec4c304622e410965a7b9ccaac06f6800",
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "supplemental_telemetry_observer_sha256": "3093cecb9566a8734ba644f93a01f9305038558f6bf7e64b8c85206b1a951d29",
+    "runtime_or_threshold_changes": false
+  },
+  "flight": {
+    "action_success": true,
+    "action_result": {
+      "final_position": [
+        12.02058149823603,
+        -0.014098381536918217,
+        1.019553828297839
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "landed_and_disarmed": true,
+    "goal_start_source_ns": 63628000000,
+    "goal_completed_source_ns": 116888000000,
+    "post_goal_hold": {
+      "abort_reason": null,
+      "bridge_status_at_end": {
+        "armed": true,
+        "landed": false,
+        "phase": "ACTIVE",
+        "reason": "takeoff_complete_waiting_for_trajectory"
+      },
+      "clock_stall_watchdog_s": 15.0,
+      "completed": true,
+      "end_odometry_position_enu_m": [
+        12.035338440034499,
+        -0.015143722953141571,
+        1.0212529221107502
+      ],
+      "observed_sim_s": 20.0,
+      "realtime_factor_sim_over_wall": 0.784173747371645,
+      "requested_sim_s": 20.0,
+      "start_odometry_position_enu_m": [
+        12.02058149823603,
+        -0.014098381536918217,
+        1.019553828297839
+      ],
+      "wall_elapsed_s": 25.504551850957796,
+      "wall_watchdog_s": 600.0
+    }
+  },
+  "safety_terminal": {
+    "safe_to_stop_project_container": true,
+    "checks": {
+      "bridge_landed_phase": true,
+      "bridge_landed": true,
+      "bridge_disarmed": true,
+      "bridge_control_disabled": true,
+      "px4_disarmed": true,
+      "px4_land_detected": true,
+      "zero_control_after_terminal": true,
+      "goal_identity_present": true,
+      "epoch_identity_present": true,
+      "no_old_epoch_goal_or_trajectory": true,
+      "stable_terminal_window": true,
+      "no_terminal_state_violation": true
+    },
+    "emergency_disarm_used": false
+  },
+  "metric_status": {
+    "arrival_position_yaw_dwell": "PASS",
+    "raw_vio_absolute_error": "PASS",
+    "raw_vio_rpe_10s": "FAIL",
+    "raw_vio_velocity_error": "PASS",
+    "map_source_and_update_age": "PASS",
+    "ego_tracking_error": "PASS",
+    "ego_tracking_clearance_budget": "PASS",
+    "full_body_clearance_and_contact": "PASS",
+    "raw_map_surface_geometry": "PASS",
+    "raw_map_classification": "PASS",
+    "dynamic_replanning": "NOT_APPLICABLE",
+    "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+    "resource_and_queue_behavior": "PASS",
+    "observer_identity_binding": "INSUFFICIENT"
+  },
+  "rpe": {
+    "goal_motion_translation_p95_m": 0.10618901166642726,
+    "goal_motion_translation_threshold_m": 0.05,
+    "goal_motion_rotation_p95_deg": 0.4639428492008008,
+    "hold_translation_p95_m": 0.007801802709164916,
+    "hold_rotation_p95_deg": 0.10445167105103659,
+    "failure_intervals_from_motion_origin_review": [
+      [
+        0,
+        10,
+        0.11248754722877094
+      ],
+      [
+        10,
+        20,
+        0.01617400531885352
+      ],
+      [
+        20,
+        30,
+        0.022509420201228814
+      ],
+      [
+        30,
+        40,
+        0.018577668595788664
+      ],
+      [
+        40,
+        50,
+        0.017302230173634504
+      ]
+    ]
+  },
+  "static_map": {
+    "raw_map_surface_geometry": {
+      "status": "PASS",
+      "maximum_observed_error_m": 0.08101151291842423,
+      "threshold_m": 0.1
+    },
+    "raw_map_classification": {
+      "status": "PASS",
+      "fully_solid_known_cells": 0,
+      "fully_solid_free_cells": 0,
+      "fully_occluded_free_cells": 0,
+      "visible_free_controls": 151780,
+      "threshold": 0
+    }
+  },
+  "capture_integrity": {
+    "status": "INSUFFICIENT",
+    "errors": [
+      "compressed_payload_message_missing_receipt_metadata"
+    ],
+    "imu_payload_without_receipt_count": 31,
+    "imu_receipt_without_payload_boundary_count": 110,
+    "imu_receipt_bag_key_mismatch_count": 31
+  },
+  "gui_evidence": {
+    "gazebo_and_rviz_visually_observed_during_run": true,
+    "archived_gui_window_listing_present": false,
+    "acceptance_issue": "visible_gui_evidence_missing_or_mismatched"
+  },
+  "supplemental_vins_telemetry": {
+    "read_only": true,
+    "truth_subscribed": false,
+    "control_published": false,
+    "received_messages": 2246,
+    "malformed_messages": 0,
+    "goal_motion_samples": 808,
+    "summary_status": "complete source-stamped payload; collector shutdown log contains expected rclpy signal exception"
+  },
+  "root_cause": {
+    "status": "not_established",
+    "note": "Native feature/solver/queue data did not show starvation or solver unusability; timing shift sweep did not bring RPE within threshold."
+  },
+  "input_sha256": {
+    "flight.json": "ba8e66a2a6049178f96d1efc25e78413a7939f1517990f218f472ac1529cc136",
+    "runtime-contract.json": "330fa1f6513fb371cec5522333af4836b6ded38cffd617c100a4c80b9da30141",
+    "alignment-observation.json": "4b6ae4c95f7f00c2bd04a0ffef7efc1bdba6afd02d58b9d0c422c3103422eb82",
+    "debug-truth-evaluation.json": "ac61f343b84d7dbfcea455c8bafb88a8ba2c1694d7bb2f781b23957225be047f",
+    "n11-vins-estimator-telemetry.jsonl": "8213413f2c85f002c643fa45d6f0673e53bafe7d8557ceb8975c7bd7629957dc",
+    "n11-vins-estimator-telemetry.jsonl.summary.json": "35912453077a10422297692a2d076befec3b7dc8e5f28f20a215d849671651f4",
+    "n10-sensor-capture-evaluation.json": "d388ece0d4db5fe20410d50e6460614548dd76598545221a717dea7d9b7493df",
+    "n10-resource-observation.json": "257c2db7a93cbc280fc7a3a619a1053165b1958870423782def4c412b071b9cc",
+    "n11-static-map-observation.json": "88e9dee0f40944d74909a3de25bf1a9e55e2a92cc557dc6a74d92a88e113c66d",
+    "safe-to-stop.json": "10cd83c0203a64589e662b80ff8e0cb99f04fbb763375c05987849fbc06e53f5"
+  }
+}

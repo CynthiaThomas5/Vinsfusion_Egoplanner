@@ -1,0 +1,88 @@
+{
+  "schema": "n08-motion-cancel-runner-classification-failure/v1",
+  "run_id": "n08-cancel-low-prescan-20261026-281",
+  "classification": "cancel_requested_then_runner_misclassified_action_result_and_landed",
+  "n05_support_scan": {
+    "diagnostic_pass": true,
+    "after_admission": "all_entry_phases_known_and_clear",
+    "same_epoch": true,
+    "same_map_id": true,
+    "fixture_removed": true
+  },
+  "mission_preflight_passed": true,
+  "current_n05_admission": {
+    "accepted": true,
+    "reason": "all_entry_phases_known_and_clear",
+    "identity": {
+      "epoch": "5ac7800f23e642bdb7112a648d3cc7ca",
+      "map_id": "5ac7800f23e642bdb7112a648d3cc7ca-788c72e5a15c413d91906cdd24601fc2",
+      "frame_id": "odom_5ac7800f23e642bdb7112a648d3cc7ca",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    }
+  },
+  "action_goal_sent": true,
+  "goal_id": "e5c6c4cc4b884cf0a9e17875c555b70e",
+  "cancel_event": {
+    "wall_elapsed_s": 48.25153802195564,
+    "reason": "caller_cancel",
+    "mode": 1,
+    "goal_id": "e5c6c4cc4b884cf0a9e17875c555b70e"
+  },
+  "nearest_same_source_motion_sample": {
+    "px4_wall_elapsed_s": 48.2568293469958,
+    "ego_command_wall_elapsed_s": 48.247277814894915,
+    "px4_timestamp_sample_us": 537160000,
+    "ego_source_stamp_ns": 537144000000,
+    "px4_actual_horizontal_speed_m_s": 0.04323355682901061,
+    "ego_reference_vector_speed_m_s": 0.06092207624019454,
+    "ego_longitudinal_acceleration_m_s2": 0.013874014448795375
+  },
+  "trigger_window_m_s": [
+    0.04,
+    0.06
+  ],
+  "failure": "navigation_action_did_not_report_caller_canceled",
+  "trajectory_ids_observed": [
+    1
+  ],
+  "replacement_stop_spline_observed": false,
+  "stop_distance_or_response_qualified": false,
+  "bridge_and_px4_final_state": {
+    "bridge": {
+      "phase": "LANDED",
+      "reason": "px4_preflight_failed",
+      "armed": false,
+      "landed": true
+    },
+    "landed_and_disarmed": true
+  },
+  "service_calls": [
+    {
+      "enable": true,
+      "accepted": true,
+      "reason": "prestreaming_offboard_setpoints"
+    },
+    {
+      "enable": false,
+      "accepted": true,
+      "reason": "operator_disable"
+    }
+  ],
+  "interpretation": "The planner observer recorded MODE_STOP_HOLD (1) with reason caller_cancel. The navigation result serializes Outcome.CANCELED as outcome=\"canceled\" and carries caller_cancel in the separate reason field. The runner compared outcome to caller_cancel, raised before replacement-spline observation, then took the fail-closed operator-disable landing path. This run does not establish EGO stop-spline behavior or N08 pass.",
+  "process_cleanup": {
+    "project_container_stopped": true
+  },
+  "artifact_sha256": {
+    "flight.json": "4648e5883d4c3104982c6e062241cec32f25bca1d6d616b59aae266b481c19ca",
+    "flight.log": "1501d1a2b9b09c599f1e8f9f5b20e67689f82f182247b3d848c517a043716ffd",
+    "planner-observation.json": "932059db9f808996872cdbe57e6cdaea2eaf748c4cedf00ea5a4eef9e758a9eb",
+    "bridge-alignment-timeline.jsonl": "cb111a7988dcec2ab2d99db161b897f8bdf3f4b8e86b1ac2450997bee579f85e",
+    "px4.log": "89ed6095108abdbf0dbf0dc0d4cecb9fa581a688beeb19f0d25928f015f75d9f",
+    "n05-current-area/n05-live-entry-check.json": "fbcd38f08b9545428c2926c654fee1c69754597d6ca05e53890f5f271c2686d1",
+    "n05-run-summary.json": "4a926b8ac45ff80300c86d8cbafdc4915fa490af82dc0f56a535d1a256b42d33",
+    "runtime-contract.json": "7a09e8cc869cfad4bae2c0b1115aa7d18cae84f849ca7268e7580877b703b397"
+  },
+  "created_at_utc": "2026-10-25T16:56:35.332773+00:00"
+}

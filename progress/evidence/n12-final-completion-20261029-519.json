@@ -1,0 +1,37 @@
+{
+  "id": "#519",
+  "schema": "n12-final-completion-evidence/v1",
+  "status": "PASS",
+  "scope": "N12 single static obstacle simulation qualification",
+  "qualifying_runs": [
+    "n12-20261029-498-formal02",
+    "n12-20261029-501-formal03",
+    "n12-20261029-518-formal09"
+  ],
+  "formal_attempt_count": 9,
+  "formal_pass_count": 3,
+  "failed_formal_attempts": [
+    "#494 arrival",
+    "#502 map classification",
+    "#506 map surface/classification",
+    "#509 native resource lag",
+    "#512 map/hold velocity"
+  ],
+  "insufficient_formal_attempts": [
+    "#504 native source coverage"
+  ],
+  "startup_aborts": [
+    "#496 before goal/enable"
+  ],
+  "audit_report": "artifacts/runs/n12-20261029-519-final-audit/qualification-audit.json",
+  "audit_sha256": "e52c450eb5a2a11731f449f018bee1e1a946cdc78d7c2d95d4f2da6c06c749af",
+  "policy": "User#500 removes translation RPE and#508 removes map surface numeric rejection only; preserve measurements and other criteria. Original reports preserved, new reassessments separate.",
+  "optional_research": "#514–#517 partial/negative, isolated and never deployed; not an added N12 prerequisite",
+  "limits": [
+    "Historical#502/#506 map classification and#504/#509 native coverage/lag failures retained; no claim their causes are fully repaired.",
+    "Static single-cylinder N12 only; dynamic event not applicable.",
+    "Fault calibration/N15 excluded by previous user scope; N16 sustained duration not qualified.",
+    "VINS queue capacity remains unknown by source; observed native pending-work/resource metrics passed.",
+    "#502/#506 occluded raw-free classification root cause remains unresolved; #504 source coverage gap and#509 native lag/gap remain failures/insufficiency; the observer consolidation does not establish a unique cause or guarantee all stalls eliminated. These attempts do not count as passes."
+  ]
+}

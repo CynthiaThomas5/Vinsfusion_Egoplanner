@@ -195,6 +195,8 @@ def find_chain(snapshot, points, body_radius, hold_radius, speed_bound):
 def analyze_run(run_id, snapshot_name, policy, planner_config):
     run_dir = ROOT / 'artifacts/runs' / run_id
     snap_dir = run_dir / 'snapshots' / snapshot_name
+    run_inputs_path = run_dir / 'run-inputs.json'
+    run_inputs = json.loads(run_inputs_path.read_text())
     metadata_path = snap_dir / 'metadata.json'
     archive_path = snap_dir / 'occupancy_snapshot.npz'
     metadata = json.loads(metadata_path.read_text())
@@ -220,6 +222,12 @@ def analyze_run(run_id, snapshot_name, policy, planner_config):
         'max_sim_age_s': 0.4,
     }
     configuration = metadata['configuration']
+    current_planner_hash = sha256(ROOT / 'config/components/mapping/ego_planner.json')
+    current_policy_hash = sha256(ROOT / 'config/components/navigation/vehicle_envelope.json')
+    toolchain = run_inputs.get('toolchain_sha256', {})
+    run_source_match = bool(
+        toolchain.get('config/components/mapping/ego_planner.json') == current_planner_hash
+        and toolchain.get('config/components/navigation/vehicle_envelope.json') == current_policy_hash)
     source_valid = bool(
         identity['epoch_match'] and identity['map_id_matches_epoch']
         and identity['frame_matches_epoch'] and identity['status_before_matches']
@@ -228,9 +236,32 @@ def analyze_run(run_id, snapshot_name, policy, planner_config):
         and np.isin(occupancy, (-1, 0, 100)).all()
         and freshness['source_age_at_response_s'] <= 0.4
         and freshness['fusion_age_at_response_s'] <= 0.4
-        and configuration['planner_config_sha256'] == sha256(
-            ROOT / 'config/components/mapping/ego_planner.json')
+        and configuration['planner_config_sha256'] == current_planner_hash
+        and run_source_match
     )
+    sibling_snapshots = []
+    for sibling_meta_path in sorted((run_dir / 'snapshots').glob('snapshot-*/metadata.json')):
+        sibling = json.loads(sibling_meta_path.read_text())
+        sibling_archive = sibling_meta_path.with_name('occupancy_snapshot.npz')
+        sibling_snapshots.append({
+            'snapshot': sibling_meta_path.parent.name,
+            'archive_sha256': sha256(sibling_archive),
+            'epoch': sibling['epoch'], 'map_id': sibling['map_id'],
+            'frame_id': sibling['frame_id'],
+            'source_age_at_response_s': sibling['source_age_at_response_s'],
+            'fusion_age_at_response_s': (sibling['snapshot_stamp_ns']
+                                         - sibling['last_fusion_stamp_ns']) / 1e9,
+            'fresh': (sibling['source_age_at_response_s'] <= 0.4
+                      and (sibling['snapshot_stamp_ns']
+                           - sibling['last_fusion_stamp_ns']) / 1e9 <= 0.4),
+        })
+    matching_snapshot_set = bool(
+        len(sibling_snapshots) >= 2
+        and all(item['epoch'] == metadata['epoch']
+                and item['map_id'] == metadata['map_id']
+                and item['frame_id'] == metadata['frame_id'] and item['fresh']
+                for item in sibling_snapshots))
+    source_valid = source_valid and matching_snapshot_set
     snapshot = {'occupancy': occupancy, 'origin_m': metadata['origin_m'],
                 'resolution_m': metadata['resolution_m'],
                 'dimensions_xyz': metadata['dimensions_xyz']}
@@ -273,6 +304,17 @@ def analyze_run(run_id, snapshot_name, policy, planner_config):
             'path': str(archive_path.relative_to(ROOT)), 'sha256': archive_hash,
             'schema': metadata['schema'], 'data_order': metadata['data_order'],
             'raw_codes': metadata['occupancy_codes']},
+        'run_inputs': {'path': str(run_inputs_path.relative_to(ROOT)),
+                       'sha256': sha256(run_inputs_path),
+                       'planner_hash_matches_current': (
+                           toolchain.get('config/components/mapping/ego_planner.json')
+                           == current_planner_hash),
+                       'n05_policy_hash_matches_current': (
+                           toolchain.get('config/components/navigation/vehicle_envelope.json')
+                           == current_policy_hash),
+                       'capture_mode': run_inputs.get('capture_mode', 'legacy_motion')},
+        'matching_snapshot_set': {'all_same_epoch_map_frame_and_fresh': matching_snapshot_set,
+                                  'snapshots': sibling_snapshots},
         'identity': identity, 'freshness': freshness,
         'source_valid_for_replay': source_valid,
         'configuration': {
@@ -314,6 +356,7 @@ def main():
         'schema': 'n06-actual-map-sweep-replay/v1',
         'scope': 'N06 offline certificate search on actual Gazebo+VINS+plan_env raw occupancy snapshots; not a live EGO trajectory or movement qualification.',
         'source_files': {
+            'analyzer_sha256': sha256(Path(__file__).resolve()),
             'vehicle_envelope_sha256': sha256(ROOT / 'config/components/navigation/vehicle_envelope.json'),
             'planner_config_sha256': sha256(ROOT / 'config/components/mapping/ego_planner.json'),
             'sphere_query_header_sha256': sha256(ROOT / 'src/vendor/ego_planner/planner/plan_env/include/plan_env/sphere_query.h'),
@@ -324,10 +367,15 @@ def main():
                     for run_id in args.run_id],
     }
     result['all_snapshots_valid'] = all(x['source_valid_for_replay'] for x in result['layouts'])
-    result['two_layout_certificates'] = (len({x['layout_id'] for x in result['layouts']
-                                             if x['offline_curve_chain']}) >= 2)
-    result['n06_positive_exit_supported'] = bool(
-        result['all_snapshots_valid'] and result['two_layout_certificates'])
+    result['two_layout_offline_candidate_chains'] = (
+        len({x['layout_id'] for x in result['layouts']
+             if x['offline_curve_chain']}) >= 2)
+    # Offline candidates are useful for map diagnosis but can never establish
+    # the N06 exit, which requires actual EGO-generated curves on both layouts.
+    result['n06_positive_exit_supported'] = False
+    result['n06_positive_exit_reason'] = (
+        'This offline analyzer does not observe live EGO curves, replanning, '
+        'or control; a separate live integration report must establish those exits.')
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result, indent=2))

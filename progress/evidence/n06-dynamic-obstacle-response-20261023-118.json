@@ -1,0 +1,181 @@
+{
+  "schema": "n06-dynamic-obstacle-response/v1",
+  "date": "2026-10-23",
+  "task_id": "#118",
+  "subtask": "N06 actual-layout dynamic terminal-hold obstacle response",
+  "subtask_passed": true,
+  "parent_goal": {
+    "id": "N06",
+    "status": "in_progress",
+    "next_goal": "N06",
+    "remaining_exit_rule": "N05 no-go is not a lawful positive entry; N06 requires full-airframe support-release fresh admission before N07."
+  },
+  "scope": "Actual Gazebo wall_box_column with D435i, VINS, plan_env, and EGO planner. Planner-only commands and B-spline observation; no PX4, bridge, controller, trajectory consumer, navigation supervisor, control publisher, or curve execution.",
+  "hypothesis": {
+    "one_main_variable": "A 0.15 m cube, injected after a certified planner curve, can be observed by the raw depth map and block the target terminal hold while preserving the current-position hold and localization/map identity.",
+    "result": "supported for the recorded wall layout and configuration",
+    "limits": "One successful planner-only run; not dynamic flight, controller response, or N06 parent qualification."
+  },
+  "runs": [
+    {
+      "run_id": "n06-20261023-wall-124",
+      "profile": "config/components/simulation/n06_x_dynamic_hold_obstacle.json",
+      "profile_sha256": "fb52b07614675122ef9c9e5b7ce3bfda37fb8760fee468e0b3f48b772a66a28b",
+      "outcome": "baseline_gate_rejected_before_injection",
+      "reason": "The existing wall map made the +0.4 m X terminal hold raw occupied in all three snapshots and live query. No goal curve was published and no obstacle was spawned."
+    },
+    {
+      "run_id": "n06-20261023-wall-125",
+      "profile": "config/components/simulation/n06_xy_dynamic_hold_obstacle.json",
+      "profile_sha256": "4573809cf0bf09491ebe7e726fb8548aad5b9f7ab82d67d042dfac52e8df7c9c",
+      "outcome": "localization_gate_closed_and_goal_failed_closed",
+      "reason": "The baseline +0.4 m X/+0.3 m Y certificate passed and a curve was published. After creating a 0.3 x 0.3 x 0.6 m box, mapping logged normalized_cost_exceeded, reset map_id within the same epoch, and closed MapStatus. EGO rejected the old map identity with full_curve_map_id_mismatch and transitioned EXEC_TRAJ to WAIT_TARGET. No raw occupied observation or emergency hold was established."
+    },
+    {
+      "run_id": "n06-20261023-wall-126",
+      "profile": "config/components/simulation/n06_xysmall_dynamic_hold_obstacle.json",
+      "profile_sha256": "a0fb5cef9992af7c3799efd22aca9c852ffab43f08d18b285b0dd53d113ec85d",
+      "outcome": "passed",
+      "layout_id": "wall_box_column",
+      "ros_domain_id": 116,
+      "capture_mode": "motion_n06",
+      "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+      "epoch": "727ab1272db54d0cab9f6a79d3f9a782",
+      "map_id": "727ab1272db54d0cab9f6a79d3f9a782-ecc97b54fcf04577b648f7741f81c95b",
+      "profile_goal_offset_xyz_m": [
+        0.4,
+        0.3,
+        0.0
+      ],
+      "baseline_goal_certificate": {
+        "passed": true,
+        "source_matched_snapshots": 3,
+        "snapshot_details": [
+          {
+            "name": "snapshot-01",
+            "exact_unique_source_pose": true,
+            "source_age_s": 0.099,
+            "fusion_age_s": 0.039,
+            "body": "free",
+            "sweep_queries": 20,
+            "terminal_hold": "free"
+          },
+          {
+            "name": "snapshot-02",
+            "exact_unique_source_pose": true,
+            "source_age_s": 0.113,
+            "fusion_age_s": 0.047,
+            "body": "free",
+            "sweep_queries": 20,
+            "terminal_hold": "free"
+          },
+          {
+            "name": "snapshot-03",
+            "exact_unique_source_pose": true,
+            "source_age_s": 0.113,
+            "fusion_age_s": 0.039,
+            "body": "free",
+            "sweep_queries": 20,
+            "terminal_hold": "free"
+          }
+        ],
+        "live_body_sweep_hold": "free",
+        "live_sweep_queries": 40,
+        "ego_full_curve_certificate": "reason=free; 40 queries; 0.416 ms"
+      },
+      "injected_obstacle": {
+        "model_name": "n06_dynamic_terminal_hold_obstacle",
+        "size_xyz_m": [
+          0.15,
+          0.15,
+          0.15
+        ],
+        "world_pose_xyz_m": [
+          1.4,
+          0.25,
+          1.0
+        ],
+        "gazebo_create_acknowledged": true,
+        "sdf_sha256": "ca4707de83430a06dfb398fb8f1c07598078423d826b34ec9520bf96b144d062"
+      },
+      "map_after_injection": {
+        "identity_stable": true,
+        "input_ready": true,
+        "reset_acknowledged": true,
+        "source_age_s": 0.065,
+        "fusion_age_s": 0.099,
+        "freshness_limit_s": 0.4,
+        "injection_site_query": {
+          "center_xyz_m": [
+            1.25,
+            0.1,
+            0.0
+          ],
+          "radius_m": 0.12,
+          "accepted": true,
+          "reason": "occupied",
+          "occupied_voxel_count": 4,
+          "unknown_voxel_count": 0,
+          "free_voxel_count": 32
+        },
+        "new_obstacle_raw_occupied": true
+      },
+      "hold_queries": {
+        "current_position_xyz_m": [
+          0.017556953538191245,
+          -0.001153377483567078,
+          -0.009525360852827517
+        ],
+        "current_hold_radius_m": 0.9806179170842027,
+        "current_hold": "free",
+        "current_hold_unknown_voxel_count": 0,
+        "current_hold_occupied_voxel_count": 0,
+        "goal_xyz_m": [
+          0.41788979570309787,
+          0.29892396792230497,
+          -0.00943952350471437
+        ],
+        "goal_hold_radius_m": 0.9806179170842027,
+        "goal_hold": "occupied",
+        "goal_hold_unknown_voxel_count": 0,
+        "goal_hold_occupied_voxel_count": 6
+      },
+      "safety_response": {
+        "active_curve_blocked_log": "Active curve blocked by map (terminal_hold_occupied); checking a stationary emergency hold",
+        "fsm_transition": "EXEC_TRAJ to EMERGENCY_STOP",
+        "hold_certificate": "reason=free; 2 queries; 0.066 ms",
+        "stationary_hold_bspline": true,
+        "hold_traj_id": 2,
+        "nonstationary_curves_after_injection": 0,
+        "planner_faults": 0,
+        "control_free_graph": true,
+        "passed": true
+      },
+      "curve_execution": false,
+      "probe_source_sha256_at_run": "3e3933fa6bf97f635814aad30b4730e4beac1d014101f55450badff0129d93bb"
+    }
+  ],
+  "artifact_hashes": {
+    "artifacts/runs/n06-20261023-wall-124/n06-live-layout-probe.json": "aea69e96359803a1611a66851e8be45fddf139761f944c7cdbc4a4927bc27260",
+    "artifacts/runs/n06-20261023-wall-124/run-inputs.json": "711974639e758db6522ea481fc4cc7ccc31f96370ddd8d7d2ae1dd630c69737c",
+    "artifacts/runs/n06-20261023-wall-124/mapping-stack.log": "9c9216a931cf704786cb2ac1703bbefb36f54530630e77f284a0621eca48f928",
+    "artifacts/runs/n06-20261023-wall-125/n06-live-layout-probe.json": "385dbc1389c4aeb1bb3f914a9d70667c25d56057b967a70baf6427c136921f9c",
+    "artifacts/runs/n06-20261023-wall-125/run-inputs.json": "2df2311509ebcba0c89f10caeb133ad32cdc3a8ba4d8dc9ce89750f4e0d889f3",
+    "artifacts/runs/n06-20261023-wall-125/mapping-stack.log": "6b457f100369cda4f392bfa1eb66ccb65ad6dce2cd1249d2bc24b51c259f5cb4",
+    "artifacts/runs/n06-20261023-wall-126/n06-live-layout-probe.json": "bc82cf7351dd35310e5e1966f789fb61b62f7ce2d82b543ff64c6213cc5952dc",
+    "artifacts/runs/n06-20261023-wall-126/run-inputs.json": "3a7addfd550aa5756eb1deb9fb4713e2a42cf4d161933fe6a64186dc0eb67197",
+    "artifacts/runs/n06-20261023-wall-126/motion.json": "f10ccc9168a9f25b2900d23c67fa74d5104c41952051e3cca9d22fc01a3144aa",
+    "artifacts/runs/n06-20261023-wall-126/mapping-stack.log": "6ae58b284f2a994f4632b6d99cacebeea2be379ce18809709e6afabd86cb22c6",
+    "artifacts/runs/n06-20261023-wall-126/n06-dynamic-obstacle.sdf": "ca4707de83430a06dfb398fb8f1c07598078423d826b34ec9520bf96b144d062",
+    "artifacts/runs/n06-20261023-wall-126/snapshots/snapshot-01/occupancy_snapshot.npz": "e5cbca952bc90446b3270864e5621bb29add1f563454b1aa9e205ecfc4661cf2",
+    "artifacts/runs/n06-20261023-wall-126/snapshots/snapshot-02/occupancy_snapshot.npz": "c8e3be4aafda6976e958c5ee27b35096476b5cb87de277f75fe5ea14d480aada",
+    "artifacts/runs/n06-20261023-wall-126/snapshots/snapshot-03/occupancy_snapshot.npz": "566824d3704896a91e4bf239d9f7742cb070eb3391cbcc3052d7cae7de1fd3ec"
+  },
+  "limits": [
+    "The obstacle was spawned once and remained static; moving-obstacle velocity and repeated appearance are untested.",
+    "EGO B-splines were observed only. No controller, trajectory server, PX4, or closed-loop vehicle response was active.",
+    "The 0.15 m cube is a diagnostic stimulus; no physical obstacle-size qualification is implied.",
+    "#125 normalized_cost_exceeded followed the large-box spawn in time, but the run did not isolate causation; #126 passed with the smaller box.",
+    "The #126 mapping adapter reported exit code -11 during runner shutdown after the probe had passed; the planner response result and recorded artifacts remain available."
+  ]
+}

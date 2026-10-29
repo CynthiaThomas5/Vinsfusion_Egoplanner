@@ -1,0 +1,110 @@
+{
+  "schema": "n10-live-obstacle-forensics/v1",
+  "subtask": "N10.3/#370",
+  "run_id": "n10-20261027-369-alignment-gates-removed-live-obstacle",
+  "classification": "offline_forensic_reanalysis; not qualification",
+  "overall_n10_pass": false,
+  "mission": {
+    "native_action_success": true,
+    "goal_target_distance_m": 16.0,
+    "post_goal_active_hold_sim_s": 600.0,
+    "post_goal_hold_completed": true,
+    "final_bridge_phase": "LANDED",
+    "final_armed": false,
+    "final_landed": true,
+    "final_control_enabled": false,
+    "postflight_control_samples_zero": true,
+    "container_stopped": true
+  },
+  "static_cylinder_contact": {
+    "passed": false,
+    "model": "unit_cylinder_4",
+    "center_world_xyz_m": [
+      -2.75559,
+      -2.44735,
+      0.5
+    ],
+    "radius_m": 0.5,
+    "length_m": 3.0,
+    "top_z_m": 2.0,
+    "first_contact_sim_s": 99.652,
+    "last_contact_sim_s": 100.28,
+    "contact_messages": 134,
+    "max_penetration_m": 0.0005208018965656702,
+    "first_pair": [
+      "x500_d435i_0::base_link::base_link_collision_4",
+      "unit_cylinder_4::link::collision"
+    ],
+    "truth_body_position_at_first_contact_xyz_m": [
+      -2.2175235194886667,
+      -2.432306517987273,
+      1.9859991133139707
+    ],
+    "truth_body_center_horizontal_axis_distance_m": 0.538276735333156,
+    "body_center_vertical_distance_below_cylinder_top_m": 0.014000886686029279,
+    "ego_reference_world_imu_xyz_m": [
+      -1.9650707477664184,
+      -1.8990025330064577,
+      1.8482630679850613
+    ],
+    "ego_reference_center_horizontal_axis_distance_m": 0.9620840050173246,
+    "ego_reference_to_truth_imu_error_m": 0.5187432692204685,
+    "causal_status": "tracking deviation plausibly consumed the commanded path separation; static-cylinder map visibility at contact was not recorded, so primary cause remains unproven"
+  },
+  "arrival_window_reconciliation": {
+    "goal_start_sim_s": 76.364,
+    "native_action_complete_sim_s": 132.332,
+    "first_landed_sim_s": 737.604,
+    "goal_to_action_feedback": {
+      "longest_joint_position_yaw_dwell_sim_s": 2.2,
+      "longest_joint_position_yaw_dwell_wall_s": 2.7595225020777434,
+      "required_dwell_s": 3.0,
+      "independently_supported_at_action_completion": false,
+      "source": "arrival-evaluation.json"
+    },
+    "goal_to_landed": {
+      "longest_joint_position_yaw_dwell_sim_s": 267.03999999999996,
+      "longest_joint_position_yaw_dwell_wall_s": 342.0012426059693,
+      "includes_post_action_600_sim_s_hold": true,
+      "source": "offline rerun of tools/debug_truth/evaluate_n10_arrival.py"
+    },
+    "interpretation": "The metrics use different end events. Preserve both; the later hold does not establish the state at native action feedback. N10.4 must bind the official arrival verdict to an explicit task-feedback window without changing the 0.30 m/15 degree/3 s values."
+  },
+  "injected_box": {
+    "gazebo_create_acknowledged": true,
+    "occupied_cloud_roi_samples": 7,
+    "occupied_cloud_roi_max_points": 549,
+    "replacement_spline_seen": true,
+    "sampled_clearance_m": 0.5471484850361178,
+    "sampled_clearance_minus_max_adjacent_motion_m": 0.4626982825281384,
+    "prohibited_static_cylinder_contacts_are_not_excluded_by_this_box_metric": true
+  },
+  "next_action": {
+    "subtask": "N10.3/#371",
+    "hypothesis": "The #369 physical cylinder graze may be associated with EGO-reference/truth tracking deviation; cylinder perception/map occupancy was not captured at the encounter.",
+    "single_control_variable": "read-only observer coverage only; leave runtime, mission, planner, world, and injected-box timing unchanged",
+    "measurements": [
+      "depth/color frames when command approaches the static cylinder",
+      "occupied-cloud points in static-cylinder ROI",
+      "same-identity occupancy-sphere queries at approach/contact window",
+      "matched EGO command and independent truth tracking error"
+    ],
+    "acceptance_thresholds_changed": false,
+    "controls_published_by_observer": false
+  },
+  "inputs_sha256": {
+    "flight.json": "50f77b7015d15af6692b1c27f417f2badd843fb73f223a1713c1444f27a83cf1",
+    "arrival-evaluation.json": "51a3896200999c390042d94dadbbcd006efb311fe11ae262601c02765b46839e",
+    "debug-truth-evaluation.json": "04f5129bab7245351c2eca83eb2e2b54f8cde7d4fbf5270fe9373fbda60a21c8",
+    "vehicle-contact-evaluation.json": "2674f212edaae2bc7540b5b9849dd0da3d23335928e30c600940625b88bc8124",
+    "n09-contact-observation.json": "988af74b08d950661964d8b67ee9a8b4d24cc2bedc2464e1415a844dc184d57d",
+    "n10-calibration-evaluation.json": "5d382c9f63075044925d79d3bf6b3752120c76ab43db933897890778dbda0d9b",
+    "n10-live-obstacle-box-clearance.json": "99f01b1ea11087645591f3f1e89a1681922c42c297aa490df38b6da680a200b9",
+    "n10-live-obstacle-observation.json": "10c16686291220fb406393692bea809d3aea3c49e47dcbfd6a504e91527db4fa",
+    "vio_initialization.sdf": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+    "planner-observation.json": "aa861a9b0ec9c6257bd45e2e4457a79697e2759c83ff1eb6b2cd6071fe37cbed",
+    "tools/debug_truth/evaluate_arrival.py": "8277438c973ae81267a2046b6b9652e1b4b96effd2766f4a5b9a50e2fd052d86",
+    "tools/debug_truth/evaluate_n10_arrival.py": "701e77eee1f5a93b2dff2d55df4817957fa5d962c4cdb7b08603c58084d99fb8"
+  },
+  "evidence_report": "progress/evidence/n10-live-obstacle-forensics-20261027-370.md"
+}

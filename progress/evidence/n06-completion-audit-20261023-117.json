@@ -1,0 +1,78 @@
+{
+  "schema": "n06-completion-audit/v1",
+  "task_id": "117",
+  "date": "2026-10-23",
+  "goal": "N06",
+  "execution_mode": "goal_completion",
+  "audit_only": true,
+  "result": {
+    "planner_integration_subtasks": "supported_by_existing_evidence",
+    "lawful_positive_entry": "not_established",
+    "parent_status": "in_progress",
+    "next_goal": "N06",
+    "reason": "#094 remaining_exit_rule requires a lawful positive entry before N07; N05 evidence remains no-go and N06 debug sensor-rig runs do not prove full-airframe support-release admission."
+  },
+  "requirements": [
+    {
+      "id": "N06 planner integration exits",
+      "status": "subtask_evidence_retained",
+      "evidence": [
+        "progress/evidence/n06-freshness-identity-resource-refusal-20261023-113.md",
+        "progress/evidence/n06-emergency-hold-fallback-20261023-116.md",
+        "artifacts/runs/n06-20261023-corridor-121/n06-live-layout-probe.json",
+        "artifacts/runs/n06-20261023-wall-122/n06-live-layout-probe.json",
+        "artifacts/runs/n06-20261023-corridor-123/n06-live-layout-probe.json"
+      ]
+    },
+    {
+      "id": "#094 lawful positive entry before N07",
+      "status": "unmet",
+      "evidence": [
+        "progress/changes/2026-10-23-094-ego-reuse-task-plan.md",
+        "progress/evidence/n05-entry-20261023.md",
+        "progress/evidence/n06-translation-entry-pilot-20261023-103.md"
+      ],
+      "reason": "N05 two-layout support scans and wall-r05 released gate did not admit; #122/#123 only use a gravity-disabled D435i debug rig with planner-only goals."
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "n06-20261023-wall-122",
+      "layout": "wall_box_column",
+      "scope": "planner-only map/curve diagnostic after force-driven sensor-rig motion",
+      "probe_sha256": "834f3a0e72f392fe53456ea9817f14866beded93f01ae164c250e7d6a1216639",
+      "run_inputs_sha256": "7bb50d1ef603b65bbee779722e985bc94a24c7c9e6c6fc144203d4120ec0ec96",
+      "motion_sha256": "d63b7dfb29f5f0f8523369dd999a7e6718508d83367bfa23b02d13009593f6da",
+      "has_full_airframe": false,
+      "has_support_release_admission": false,
+      "curve_executed": false
+    },
+    {
+      "run_id": "n06-20261023-corridor-123",
+      "layout": "corridor_box_column",
+      "scope": "planner-only map/curve diagnostic after force-driven sensor-rig motion",
+      "probe_sha256": "7232cc74a28cece8cf2c35df4b6c1205a425aa992a2ca7299a7095a92ee04fec",
+      "run_inputs_sha256": "137f069b68cf86d916254fb3faf26dbb239eb017ad6ea15c5886c2d03f935b5a",
+      "motion_sha256": "0f7a81f5d057a3571a6581060cc1fcde8b58131fede99a7d96d0bed99589f378",
+      "has_full_airframe": false,
+      "has_support_release_admission": false,
+      "curve_executed": false
+    }
+  ],
+  "generator_hashes": {
+    "tools/prepare_motion_world.py": "e83fbacb80f9e57ec892ef06161bd29bade2f72477f917210b8afc71b537dd5e",
+    "tools/run_sensor_motion.py": "8b9b1262843cc9ceaf7b057355079e90883002db23ca3478140d156521f98e84"
+  },
+  "scope_conflict": {
+    "n06_constraint": "do not start PX4, bridge, controller, traj_server, navigation supervisor, control publisher, or execute trajectories",
+    "required_evidence_process": "full-airframe support scan and fresh N05 admission after support release with live DISARMED state",
+    "resolved": false
+  },
+  "next_subtask": "N06.4 full-airframe observation with fresh admission after support release",
+  "runtime_started_by_audit": false,
+  "limitations": [
+    "No new runtime, SITL, build, test-suite, or flight was run for this audit.",
+    "N05 no-go remains active; planner certificates do not authorize takeoff or trajectory execution.",
+    "N08 still owns dynamic braking and final speed certification."
+  ]
+}

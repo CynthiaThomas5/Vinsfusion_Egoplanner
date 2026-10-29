@@ -1,0 +1,141 @@
+{
+  "schema": "n10-feedforward-archive-observability-and-live-readback/v1",
+  "task_id": "N10.3/#425",
+  "classification": "read-only archive observability audit plus same-domain live safety supervision",
+  "archive_audit": {
+    "run_id": "n10-20261028-412-speed040-yaw-lookahead-calibration",
+    "flight_json": "artifacts/runs/n10-20261028-412-speed040-yaw-lookahead-calibration/flight.json",
+    "flight_json_sha256": "60cddc369542ac56ec01a47e9a7f89eb9519acbd0b8580064d925a73bde3934e",
+    "position_command_history_fields": [
+      "acceleration_enu_m_s2",
+      "epoch",
+      "flag",
+      "goal_id",
+      "position_enu",
+      "source_stamp_ns",
+      "trajectory_id",
+      "velocity_enu_m_s",
+      "wall_elapsed_s",
+      "yaw_enu"
+    ],
+    "px4_trajectory_setpoint_observations_fields": [
+      "position_ned",
+      "timestamp_us",
+      "wall_elapsed_s",
+      "yaw_ned_rad",
+      "yawspeed_ned_rad_s"
+    ],
+    "mcap_metadata": "artifacts/runs/n10-20261028-412-speed040-yaw-lookahead-calibration/n10-sensor-payload/metadata.yaml",
+    "mcap_metadata_sha256": "9c24592ea1bc02f08640f71c0d327a8c22f84e5ce6319117fcad02952fbcb158",
+    "mcap": "artifacts/runs/n10-20261028-412-speed040-yaw-lookahead-calibration/n10-sensor-payload/n10-sensor-payload_0.mcap",
+    "mcap_sha256": "d4fe2556829a62d802359b4b69fec03cac515ee9932f81e00fe6b39829cde612",
+    "mcap_topics": {
+      "/sensors/d435i/infra1/image_rect": 4929,
+      "/sensors/d435i/infra2/image_rect": 4929,
+      "/sensors/d435i/imu": 40664
+    },
+    "mcap_total_messages": 50522,
+    "actual_px4_velocity_acceleration_setpoint_retained": false,
+    "conclusion": "Archive confirms EGO velocity input exists and sampled PX4 setpoint observations omit velocity/acceleration. Together with source audit this supports position-only publishing, but cannot establish causal effect or benefit of feed-forward."
+  },
+  "live_readback": {
+    "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+    "artifact": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-live-fault-state-probe-r15.json",
+    "sha256": "b3338bfb0f5ea275d272f9dec53e1240d82508be50af3bd7cfb3ba5eee8f7308",
+    "duration_wall_s": 6.0,
+    "counts": {
+      "attitude": 376,
+      "bridge_status": 26,
+      "control_mode": 0,
+      "estimator_flags": 18,
+      "land_detected": 3,
+      "local_position": 187,
+      "px4_status": 8,
+      "timesync_status": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0,
+      "visual_odometry_input": 0
+    },
+    "latest_bridge": {
+      "alignment_drift_m": 0.3704932311597995,
+      "armed": true,
+      "control_enabled": true,
+      "epoch": "0733195d5bde4515b0c330ba15fc7bf0",
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "frame_offset_ned": [
+        -5.1876746892631147e-05,
+        -1.242299777870601e-05,
+        -4.304183155730626e-05
+      ],
+      "frame_yaw_offset_ned": 4.806439553561859e-05,
+      "gnss_aiding_active": false,
+      "landed": false,
+      "local_position_valid": false,
+      "phase": "LANDING",
+      "ready": false,
+      "reason": "planner_fault:full_curve_depth_odom_timeout"
+    },
+    "latest_px4_status": {
+      "arming_state": 2,
+      "failsafe": true,
+      "nav_state": 12,
+      "pre_flight_checks_pass": false
+    },
+    "latest_land_detected": {
+      "landed": false
+    },
+    "latest_local_position": {
+      "heading": -3.1252317428588867,
+      "heading_good_for_control": true,
+      "position_ned": [
+        206528.296875,
+        -32099.34765625,
+        -1.5016766786575317
+      ],
+      "velocity_ned": [
+        24.010347366333008,
+        99.616943359375,
+        -0.10998773574829102
+      ],
+      "xy_valid": false,
+      "z_valid": true
+    },
+    "latest_estimator": {
+      "cs_aux_gpos": false,
+      "cs_ev_hgt": false,
+      "cs_ev_pos": false,
+      "cs_ev_vel": false,
+      "cs_ev_yaw": false,
+      "cs_gnss_pos": false,
+      "cs_gnss_vel": false,
+      "cs_gnss_yaw": false,
+      "cs_gps_hgt": false
+    },
+    "terminal_readback_samples": 0,
+    "control_topic_events": 0,
+    "control_publisher_endpoints": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1
+    },
+    "safe_to_stop": false,
+    "cumulative_separated_readback_wall_seconds_r06_r15": 104.0,
+    "emergency_disarm_authorization_from_391_consumed": true
+  },
+  "validation": {
+    "targeted_unit_tests": 12,
+    "py_compile": "pass using PYTHONPYCACHEPREFIX=/tmp/n10-20261028-pycache; repository __pycache__ is not writable",
+    "git_diff_check": "pass",
+    "project_status": "pass; 80 optional historic artifact links absent",
+    "runtime_source_or_config_modified": false,
+    "acceptance_thresholds_changed": false,
+    "build_or_flight_started": false
+  },
+  "artifacts": {
+    "report": "progress/evidence/n10-feedforward-archive-observability-20261028-425.md",
+    "change_record": "progress/changes/2026-10-28-425-n10-feedforward-archive-observability.md",
+    "dialogue": "collaboration/dialogues/2026-10-28-425-n10-feedforward-archive-observability.md"
+  }
+}

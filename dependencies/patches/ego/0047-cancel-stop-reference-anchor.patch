@@ -1,0 +1,39 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -657,7 +657,24 @@
+             // terminal hold still require the live raw-map certificate.
+             const double distance = std::min(
+                 0.45, std::max(0.20, 0.30234 * speed / 0.08105 + 0.10));
+-            const Eigen::Vector3d stop_target = odom_pos_ + odom_vel_ * (distance / speed);
++            LocalTrajData *active = &planner_manager_->local_data_;
++            const double reference_elapsed =
++                (node_->get_clock()->now() - active->start_time_).seconds();
++            if (!std::isfinite(reference_elapsed) || reference_elapsed < 0.0 ||
++                !active->position_traj_.getControlPoint().allFinite())
++            {
++              stopForSafety("cancel_stop_reference_unavailable");
++              goto force_return;
++            }
++            const Eigen::Vector3d reference_anchor =
++                active->position_traj_.evaluateDeBoorT(reference_elapsed);
++            if (!reference_anchor.allFinite())
++            {
++              stopForSafety("cancel_stop_reference_unavailable");
++              goto force_return;
++            }
++            const Eigen::Vector3d stop_target =
++                reference_anchor + odom_vel_ * (distance / speed);
+             const bool planned = planner_manager_->planGlobalTraj(
+                 odom_pos_, odom_vel_, Eigen::Vector3d::Zero(), stop_target,
+                 Eigen::Vector3d::Zero(), Eigen::Vector3d::Zero());
+@@ -682,8 +699,8 @@
+               have_new_target_ = true;
+               changeFSMExecState(REPLAN_TRAJ, "CANCEL_STOP_HOLD");
+               RCLCPP_WARN(node_->get_logger(),
+-                          "Canceled action; planning EGO stop/hold %.3f m along measured velocity",
+-                          distance);
++                          "Canceled action; planning EGO stop/hold %.3f m along measured velocity from active reference (position offset %.3f m)",
++                          distance, (reference_anchor - odom_pos_).norm());
+             }
+           }
+         }

@@ -32,6 +32,103 @@ Visualization Manager:
       Max Value: 3
     Use rainbow: true
     Color: 60; 200; 240
+  - Class: rviz_default_plugins/Path
+    Name: EGO Planned Curve
+    Enabled: true
+    Topic:
+      Value: /visualization/ego/planned_path
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Color: 255; 90; 70
+    Line Style: Lines
+    Line Width: 0.05
+    Pose Style: None
+    Buffer Length: 1
+  - Class: rviz_default_plugins/Path
+    Name: VINS Actual Path
+    Enabled: true
+    Topic:
+      Value: /visualization/ego/actual_path
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Color: 70; 220; 255
+    Line Style: Lines
+    Line Width: 0.04
+    Pose Style: None
+    Buffer Length: 1
+  - Class: rviz_default_plugins/Marker
+    Name: Accepted Target and Yaw
+    Enabled: true
+    Topic:
+      Value: /visualization/ego/goal
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Queue Size: 10
+  - Class: rviz_default_plugins/Marker
+    Name: Provisional Clearance Envelope
+    Enabled: true
+    Topic:
+      Value: /visualization/ego/envelope
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Queue Size: 10
+  - Class: rviz_default_plugins/Marker
+    Name: Localization Map and Planner Status
+    Enabled: true
+    Topic:
+      Value: /visualization/ego/status
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Queue Size: 10
+  - Class: rviz_common/Group
+    Name: EGO Debug Layers
+    Enabled: false
+    Displays:
+    - Class: rviz_default_plugins/Marker
+      Name: Global Reference
+      Enabled: true
+      Topic:
+        Value: /visualization/ego/global_reference
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Queue Size: 10
+    - Class: rviz_default_plugins/Marker
+      Name: Initial Candidates
+      Enabled: true
+      Topic:
+        Value: /visualization/ego/initial_candidates
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Queue Size: 10
+    - Class: rviz_default_plugins/Marker
+      Name: Control Polygon (not the spline curve)
+      Enabled: true
+      Topic:
+        Value: /visualization/ego/control_polygon
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Queue Size: 10
+    - Class: rviz_default_plugins/Marker
+      Name: AStar (when published upstream)
+      Enabled: true
+      Topic:
+        Value: /visualization/ego/astar
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Queue Size: 10
+    - Class: rviz_default_plugins/Marker
+      Name: Provisional Hold Envelope
+      Enabled: true
+      Topic:
+        Value: /visualization/ego/hold_envelope
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+      Queue Size: 10
   - Class: rviz_default_plugins/Image
     Name: D435i RGB
     Enabled: true

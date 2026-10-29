@@ -1,0 +1,147 @@
+{
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "run_id": "n07-20261024-184-01",
+  "result": "FAIL_NO_FLIGHT",
+  "consecutive_passes_after_reset": "0/3",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout_id": "wall_box_column",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "identity": {
+    "epoch": "a82f3a619ab5408ebc8695ca0a9e9677",
+    "initial_map_id": "a82f3a619ab5408ebc8695ca0a9e9677-8630a456f77947bb8d19866c9db74958"
+  },
+  "n05_initial_gate": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "bridge_phase": "DISABLED",
+    "armed": false,
+    "landed": true,
+    "localization_valid": true,
+    "offline_matches_online": true
+  },
+  "support_scan": {
+    "outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "completed_stages": 7,
+    "total_stages": 12,
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.9696420427526087
+    },
+    "failure_leg_index": 7,
+    "failure_nearest_trace_sim_s": 328.208,
+    "failure_nearest_body_joints": {
+      "x": [
+        -0.5675991287251428,
+        0.022452354804630124
+      ],
+      "z": [
+        1.0000000000000004,
+        -3.76883582935833e-15
+      ],
+      "yaw": [
+        8.23876659384881e-21,
+        4.639792817700476e-19
+      ],
+      "pitch": [
+        0.00016466936101192353,
+        0.009298313139225673
+      ]
+    }
+  },
+  "residual_diagnostic": {
+    "configured_max_normalized_cost": 1.0,
+    "formula": "sqrt(2*final_cost/residual_components)",
+    "source_stamp_ns": 328252000000,
+    "normalized_cost": 1.9696420427526087,
+    "final_cost": 8620.226283557802,
+    "residual_components": 4444,
+    "visual_observations": 1177,
+    "stereo_features": 158,
+    "continued_tracks": 178,
+    "long_tracks": 128,
+    "accel_bias_norm": 0.10952062266966481,
+    "state_finite": true,
+    "solve_current": true,
+    "solver_usable": true,
+    "termination_type": 1,
+    "subsequent_telemetry_rows_recovered_below_1": true
+  },
+  "flight": {
+    "started": false,
+    "ready_marker_created": false,
+    "attached_gate_run": false,
+    "flight_json_created": false,
+    "arm_or_goal_command_sent": false
+  },
+  "cleanup": {
+    "helper_cleanup_attempted": true,
+    "verified_detached": true,
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "PX4_all_recorded_states_disarmed": true,
+    "PX4_status_samples": 603,
+    "LandDetected_all_landed": true,
+    "LandDetected_samples": 320,
+    "independent_bridge_disabled": true,
+    "independent_bridge_unarmed": true,
+    "independent_bridge_landed": true,
+    "independent_px4_disarmed": true,
+    "independent_land_detector_landed": true,
+    "independent_scene_model_absent": true
+  },
+  "container": {
+    "stop_command": "bash tools/project.sh stop n07-20261024-184-01",
+    "final_status": "exited",
+    "exit_code": 0,
+    "active_project_containers": 0
+  },
+  "interpretation": {
+    "same_stage_pattern_as_183": true,
+    "evidence": "One captured raw VINS telemetry sample at source 328.252 s reproduces the helper normalized_cost exactly; health gate remains unchanged and rejects the sample. This is a localized estimator-quality failure during the return leg, not a ground-boundary admission."
+  },
+  "limitations": [
+    "No N05 ready marker, attached gate, N07 hover, EKF2 flight, ULog qualification, or airborne ROS graph evidence was produced.",
+    "N07 consecutive cold-start sequence resets to 0/3.",
+    "The high residual was transient in the captured telemetry, but the localization health gate fail-closed; later usable solves do not erase the gate failure."
+  ],
+  "artifact_sha256": {
+    "gpu-request.json": "408545c45700f62fbe5065ab06e1e2a072d07d4cff8b3226ab9b269ccb7d6743",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-run-inputs.json": "b232850201991bb201ca1f2cb91b123c19ae866619f895149cfa573d0d96fcf8",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "n05-before-check.log": "da61c84143eee95f85373d9629c0fe79206d833c2280cdfab3bbcadf4df72b23",
+    "n05-before-check.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-before-replay.log": "6d4e2610bdca391326a9c952f1d7ae793147012edd1184cd4b882b230ff86f52",
+    "n05-before/n05-live-entry-check.json": "4f446735a9d528d3a3bf18a64c94e0e4ff4b907f952e0e996cf75291ddece620",
+    "n05-before/n05-offline-entry-replay.json": "d7cb5c4805c4dff2ff3a28eea652005864ba0e98e7fe937fb1a4358784e7356e",
+    "fixture-result.json": "028ca068fcc9677bbfb37ae34a5449f91d1661c486e045e282a69a5f9cb8ef13",
+    "fixture-stages.json": "84d5baf98e229f437401b9e4647a98f582612223050f98fd52b93a22427b092e",
+    "fixture-trace.jsonl": "eb273ac978cb0c51b6c1dd5806806d19a48e980d2bb733d5a852551fe54630f6",
+    "fixture-vins.jsonl": "f665370e7aab698c307ce1f41739baeae59fd56c165d151e20dbfb37d1eece6e",
+    "fixture-odometry.jsonl": "a569452b3e7ba1fb2a98d7cf5906abb3c286ee78221829c8fd16792a42b44e4e",
+    "n05-fixture.log": "2e0dc92513adb5a4503a400dc0c4368b07a8253226dad72192060199fae89f3c",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "postscan-safety-readback.log": "83c3be249560355891ea5f9265fa49dace3efd73caa8ad04ef37eafd7eee0d69"
+  },
+  "missing_expected_artifacts": [
+    "n05-prescan-ready.json",
+    "n05-after/n05-live-entry-check.json",
+    "n05-post-release/n05-live-entry-check.json",
+    "n05-current-area/n05-live-entry-check.json",
+    "flight.json",
+    "n07-hover-evaluation.json",
+    "px4-ulog-analysis.json",
+    "ros-graph-audit.json"
+  ]
+}

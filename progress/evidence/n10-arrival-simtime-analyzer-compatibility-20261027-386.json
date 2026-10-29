@@ -1,0 +1,47 @@
+{
+  "schema": "n10-arrival-evaluator-compatibility/v1",
+  "subtask": "N10.3/#386",
+  "classification": "offline evaluator compatibility repair; no flight/runtime behavior changed",
+  "preserved_frozen_evaluator": {
+    "path": "artifacts/n10-prepared/n10-20261027-385-arrival-dwell4-retry/evaluate_arrival-frozen-v1.py",
+    "sha256": "f15e952ca8d5b4f606b142317317d4cddb5d41249b259d86e5ceaf6538ad8d19"
+  },
+  "updated_evaluator": {
+    "path": "tools/debug_truth/evaluate_arrival.py",
+    "sha256": "0380e13582f4632c6b47eb6549472b83f35ff1e18afde099a00a6be73a77ee71",
+    "added_report_fields": [
+      "ground_rotation",
+      "ground_translation",
+      "ground_yaw_offset_rad",
+      "minimum_true_3d_position_error_m"
+    ]
+  },
+  "unit_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest tools.test_arrival_evaluator -v",
+    "passed": 6,
+    "failed": 0
+  },
+  "syntax_check": "in-memory compile() passed for updated evaluator and postrun analyzer",
+  "rerun_arrival": {
+    "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/arrival-evaluation-simtime-v2.json",
+    "sha256": "aec27d1c3f261115ee19d6a60ac57769f6def9eb2d5c92db59445dccdc99d3d4",
+    "classification": "PASS",
+    "dwell_status": "PASS",
+    "dwell_sim_s": 3.319999999999993,
+    "required_sim_s": 3.0
+  },
+  "postrun_calibration_analysis": {
+    "script": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10_calibration_postrun_v2.py",
+    "sha256": "e5ae45fd6dbd35b9747ff38de74f671eb04a3e8fa92010b36c1acb2ffc81e261",
+    "output": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-calibration-evaluation-simtime-v2.json",
+    "output_sha256": "eb4ec4a8dbaaecbf5a13fa1fe42ea8538a13dfc4930e0159912bd4ba441de5ea",
+    "classification": "diagnostic_sample_with_project_quality_freshness_gates_removed; not formal qualification",
+    "completed": true
+  },
+  "original_run_artifacts_preserved": [
+    "arrival-evaluation.json",
+    "n10-calibration-evaluation.log",
+    "artifacts/n10-prepared/n10-20261027-385-arrival-dwell4-retry/analyze_n10_calibration.py"
+  ],
+  "limitation": "The compatibility repair completes offline measurements only. It does not convert the single #385 diagnostic into formal qualification; dynamic obstacle geometry remains unresolved."
+}

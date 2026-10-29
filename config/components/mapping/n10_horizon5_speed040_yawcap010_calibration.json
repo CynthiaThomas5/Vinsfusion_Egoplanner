@@ -1,0 +1,39 @@
+{
+  "qualification": "N10.3/#414 fixed-route calibration: change only EGO yaw-rate cap from pi to 0.10 rad/s through patch 0057; keep speed040, acceleration, 5 m horizon, one-second heading lookahead, spawn, goal, obstacle and collision geometry identical to #412. Patch 0058 only adds a disabled-by-default read-only per-voxel trace, enabled for the injected-box ROI. This is a diagnostic, not formal N11-N16 qualification.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.4,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "#396 held the same 16 m route and obstacle scenario at max_velocity=0.8 m/s, while same-domain PX4 setpoint-to-local-position error P95 was 0.665 m and route EGO tracking P95 was 0.707 m. Test only max_velocity=0.4 m/s; preserve acceleration, horizon, inflation, spawn, target, native dwell, collision policy, obstacle timing/geometry, observers, and every flight decision. Compare actual EGO/PX4 speed, tracking error, route completion, and clearance. This candidate does not add a runtime speed cap or acceptance gate.",
+  "n10_voxel_update_trace": {
+    "enabled": true,
+    "roi_center_odom_m": [
+      8.0,
+      0.0,
+      1.1
+    ],
+    "roi_half_extents_m": [
+      0.6,
+      0.6,
+      1.6
+    ],
+    "rationale": "Read-only per-fusion-frame vote and log-odds evidence for the injected box plus 0.2 m padding; ROI is derived from #412 world pose and spawn. No planning or runtime acceptance decision consumes this trace."
+  }
+}

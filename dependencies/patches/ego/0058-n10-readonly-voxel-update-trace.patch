@@ -1,0 +1,329 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -139,6 +139,13 @@
+   node_->declare_parameter("grid_map/obstacles_inflation", -1.0);
+   node_->declare_parameter("grid_map/terminal_hold_neighborhood", -1.0);
+   node_->declare_parameter("grid_map/official_ego_collision_policy", false);
++  node_->declare_parameter("grid_map/n10_voxel_trace_enabled", false);
++  node_->declare_parameter("grid_map/n10_voxel_trace_center_x", 0.0);
++  node_->declare_parameter("grid_map/n10_voxel_trace_center_y", 0.0);
++  node_->declare_parameter("grid_map/n10_voxel_trace_center_z", 0.0);
++  node_->declare_parameter("grid_map/n10_voxel_trace_half_x", 0.0);
++  node_->declare_parameter("grid_map/n10_voxel_trace_half_y", 0.0);
++  node_->declare_parameter("grid_map/n10_voxel_trace_half_z", 0.0);
+   node_->declare_parameter("grid_map/fx", -1.0);
+   node_->declare_parameter("grid_map/fy", -1.0);
+   node_->declare_parameter("grid_map/cx", -1.0);
+@@ -178,6 +185,13 @@
+   node_->get_parameter("grid_map/obstacles_inflation", mp_.obstacles_inflation_);
+   node_->get_parameter("grid_map/terminal_hold_neighborhood", mp_.terminal_hold_neighborhood_);
+   node_->get_parameter("grid_map/official_ego_collision_policy", mp_.official_ego_collision_policy_);
++  node_->get_parameter("grid_map/n10_voxel_trace_enabled", mp_.n10_voxel_trace_enabled_);
++  node_->get_parameter("grid_map/n10_voxel_trace_center_x", mp_.n10_voxel_trace_center_(0));
++  node_->get_parameter("grid_map/n10_voxel_trace_center_y", mp_.n10_voxel_trace_center_(1));
++  node_->get_parameter("grid_map/n10_voxel_trace_center_z", mp_.n10_voxel_trace_center_(2));
++  node_->get_parameter("grid_map/n10_voxel_trace_half_x", mp_.n10_voxel_trace_half_extents_(0));
++  node_->get_parameter("grid_map/n10_voxel_trace_half_y", mp_.n10_voxel_trace_half_extents_(1));
++  node_->get_parameter("grid_map/n10_voxel_trace_half_z", mp_.n10_voxel_trace_half_extents_(2));
+   node_->get_parameter("grid_map/fx", mp_.fx_);
+   node_->get_parameter("grid_map/fy", mp_.fy_);
+   node_->get_parameter("grid_map/cx", mp_.cx_);
+@@ -207,6 +221,14 @@
+   node_->get_parameter("grid_map/ground_height", mp_.ground_height_);
+   node_->get_parameter("grid_map/odom_depth_timeout", mp_.odom_depth_timeout_);
+ 
++  if (mp_.n10_voxel_trace_enabled_ &&
++      (!mp_.n10_voxel_trace_center_.allFinite() ||
++       !mp_.n10_voxel_trace_half_extents_.allFinite() ||
++       (mp_.n10_voxel_trace_half_extents_.array() <= 0.0).any()))
++  {
++    throw std::runtime_error("Invalid N10 voxel update trace ROI");
++  }
++
+   if (!std::isfinite(mp_.obstacles_inflation_) || mp_.obstacles_inflation_ <= 0.0 ||
+       !std::isfinite(mp_.terminal_hold_neighborhood_) || mp_.terminal_hold_neighborhood_ < 0.0 ||
+       mp_.obstacles_inflation_ + mp_.terminal_hold_neighborhood_ > 2.0)
+@@ -318,6 +340,11 @@
+   map_inf_pub_ = node_->create_publisher<sensor_msgs::msg::PointCloud2>("grid_map/occupancy_inflate", 10);
+   depth_fusion_trace_pub_ = node_->create_publisher<std_msgs::msg::String>(
+       "/mapping/depth_fusion_trace", rclcpp::QoS(100).best_effort());
++  if (mp_.n10_voxel_trace_enabled_)
++  {
++    n10_voxel_update_trace_pub_ = node_->create_publisher<std_msgs::msg::String>(
++        "/mapping/n10_voxel_update_trace", rclcpp::QoS(100).best_effort());
++  }
+   reset_map_service_ = node_->create_service<uav_interfaces::srv::ResetMapping>(
+       "/mapping/reset_map",
+       [this](const std::shared_ptr<uav_interfaces::srv::ResetMapping::Request> request,
+@@ -756,11 +783,49 @@
+   md_.last_depth_image_ = md_.depth_image_;
+ }
+ 
++void GridMap::publishN10VoxelUpdateTrace(std::size_t voxel_count,
++                                        const std::string &updates_json)
++{
++  if (!mp_.n10_voxel_trace_enabled_ || !n10_voxel_update_trace_pub_)
++    return;
++
++  std_msgs::msg::String trace;
++  std::ostringstream data;
++  data.precision(17);
++  data << "{\"schema\":\"n10-voxel-update-trace/v1\",\"phase\":\"fused\","
++       << "\"epoch\":\"" << active_epoch_ << "\",\"map_id\":\""
++       << active_map_id_ << "\",\"callback_count\":" << md_.depth_pose_callback_count_
++       << ",\"fused_count\":" << (md_.fused_depth_count_ + 1)
++       << ",\"image_source_stamp_ns\":" << md_.last_depth_image_stamp_ns_
++       << ",\"pose_source_stamp_ns\":" << md_.last_depth_pose_stamp_ns_
++       << ",\"camera_position_m\":[" << md_.camera_pos_(0) << ","
++       << md_.camera_pos_(1) << "," << md_.camera_pos_(2)
++       << "],\"camera_rotation_row_major\":[";
++  for (int row = 0; row < 3; ++row)
++  {
++    for (int col = 0; col < 3; ++col)
++    {
++      if (row != 0 || col != 0) data << ",";
++      data << md_.camera_r_m_(row, col);
++    }
++  }
++  data << "],\"roi_center_m\":[" << mp_.n10_voxel_trace_center_(0) << ","
++       << mp_.n10_voxel_trace_center_(1) << "," << mp_.n10_voxel_trace_center_(2)
++       << "],\"roi_half_extents_m\":[" << mp_.n10_voxel_trace_half_extents_(0) << ","
++       << mp_.n10_voxel_trace_half_extents_(1) << "," << mp_.n10_voxel_trace_half_extents_(2)
++       << "],\"voxel_count\":" << voxel_count << ",\"updates\":" << updates_json << "}";
++  trace.data = data.str();
++  n10_voxel_update_trace_pub_->publish(trace);
++}
++
+ void GridMap::raycastProcess()
+ {
+   // if (md_.proj_points_.size() == 0)
+   if (md_.proj_points_cnt == 0)
++  {
++    publishN10VoxelUpdateTrace(0, "[]");
+     return;
++  }
+ 
+   rclcpp::Time t1, t2;
+ 
+@@ -876,6 +941,20 @@
+ 
+   md_.local_updated_ = true;
+ 
++  // Read-only trace state. The publisher is disabled by default and its output
++  // is never consumed by planning, occupancy classification, or control.
++  std::ostringstream voxel_updates;
++  if (mp_.n10_voxel_trace_enabled_)
++  {
++    voxel_updates.precision(17);
++    voxel_updates << "[";
++  }
++  std::size_t traced_voxel_count = 0;
++  const auto occupancy_class = [this](double value) {
++    if (value < mp_.clamp_min_log_ - 1e-3) return "unknown";
++    return value >= mp_.min_occupancy_log_ ? "occupied" : "free";
++  };
++
+   // update occupancy cached in queue
+   Eigen::Vector3d local_range_min = md_.camera_pos_ - mp_.local_update_range_;
+   Eigen::Vector3d local_range_max = md_.camera_pos_ + mp_.local_update_range_;
+@@ -895,23 +974,82 @@
+     int idx_ctns = toAddress(idx);
+     md_.cache_voxel_.pop();
+ 
+-    double log_odds_update =
+-        md_.count_hit_[idx_ctns] >= md_.count_hit_and_miss_[idx_ctns] - md_.count_hit_[idx_ctns] ? mp_.prob_hit_log_ : mp_.prob_miss_log_;
++    // Keep the ordinary path byte-for-byte equivalent in its map updates when
++    // the diagnostic is disabled; no per-voxel trace work runs in other profiles.
++    if (!mp_.n10_voxel_trace_enabled_)
++    {
++      double log_odds_update =
++          md_.count_hit_[idx_ctns] >= md_.count_hit_and_miss_[idx_ctns] - md_.count_hit_[idx_ctns] ? mp_.prob_hit_log_ : mp_.prob_miss_log_;
++
++      md_.count_hit_[idx_ctns] = md_.count_hit_and_miss_[idx_ctns] = 0;
++
++      if (log_odds_update >= 0 && md_.occupancy_buffer_[idx_ctns] >= mp_.clamp_max_log_)
++      {
++        continue;
++      }
++      else if (log_odds_update <= 0 && md_.occupancy_buffer_[idx_ctns] <= mp_.clamp_min_log_)
++      {
++        md_.occupancy_buffer_[idx_ctns] = mp_.clamp_min_log_;
++        continue;
++      }
++
++      bool in_local = idx(0) >= min_id(0) && idx(0) <= max_id(0) && idx(1) >= min_id(1) &&
++                      idx(1) <= max_id(1) && idx(2) >= min_id(2) && idx(2) <= max_id(2);
++      if (!in_local)
++      {
++        md_.occupancy_buffer_[idx_ctns] = mp_.clamp_min_log_;
++      }
++
++      md_.occupancy_buffer_[idx_ctns] =
++          std::min(std::max(md_.occupancy_buffer_[idx_ctns] + log_odds_update, mp_.clamp_min_log_),
++                   mp_.clamp_max_log_);
++      continue;
++    }
++
++    const int hit_votes = static_cast<int>(md_.count_hit_[idx_ctns]);
++    const int total_votes = static_cast<int>(md_.count_hit_and_miss_[idx_ctns]);
++    const int miss_votes = total_votes - hit_votes;
++    const bool selected_hit = hit_votes >= miss_votes;
++    const double log_odds_update = selected_hit ? mp_.prob_hit_log_ : mp_.prob_miss_log_;
+ 
+     md_.count_hit_[idx_ctns] = md_.count_hit_and_miss_[idx_ctns] = 0;
+ 
++    const double previous_log_odds = md_.occupancy_buffer_[idx_ctns];
++    const Eigen::Vector3d voxel_center = mp_.map_origin_ + (idx.cast<double>() + half) * mp_.resolution_;
++    const bool trace_voxel = mp_.n10_voxel_trace_enabled_ &&
++        ((voxel_center - mp_.n10_voxel_trace_center_).cwiseAbs().array() <=
++         mp_.n10_voxel_trace_half_extents_.array()).all();
++    const bool in_local = idx(0) >= min_id(0) && idx(0) <= max_id(0) && idx(1) >= min_id(1) &&
++                          idx(1) <= max_id(1) && idx(2) >= min_id(2) && idx(2) <= max_id(2);
++    const auto append_voxel_trace = [&, this]() {
++      if (!trace_voxel) return;
++      if (traced_voxel_count++ > 0) voxel_updates << ",";
++      const double current_log_odds = md_.occupancy_buffer_[idx_ctns];
++      voxel_updates << "{\"index\":[" << idx(0) << "," << idx(1) << "," << idx(2)
++                    << "],\"center_m\":[" << voxel_center(0) << "," << voxel_center(1)
++                    << "," << voxel_center(2) << "],\"hit_votes\":" << hit_votes
++                    << ",\"miss_votes\":" << miss_votes << ",\"selected_vote\":\""
++                    << (selected_hit ? "hit" : "miss") << "\",\"update_log_odds\":"
++                    << log_odds_update << ",\"pre_log_odds\":" << previous_log_odds
++                    << ",\"post_log_odds\":" << current_log_odds
++                    << ",\"pre_class\":\"" << occupancy_class(previous_log_odds)
++                    << "\",\"post_class\":\"" << occupancy_class(current_log_odds)
++                    << "\",\"in_local_update_range\":" << (in_local ? "true" : "false")
++                    << "}";
++    };
++
+     if (log_odds_update >= 0 && md_.occupancy_buffer_[idx_ctns] >= mp_.clamp_max_log_)
+     {
++      append_voxel_trace();
+       continue;
+     }
+     else if (log_odds_update <= 0 && md_.occupancy_buffer_[idx_ctns] <= mp_.clamp_min_log_)
+     {
+       md_.occupancy_buffer_[idx_ctns] = mp_.clamp_min_log_;
++      append_voxel_trace();
+       continue;
+     }
+ 
+-    bool in_local = idx(0) >= min_id(0) && idx(0) <= max_id(0) && idx(1) >= min_id(1) &&
+-                    idx(1) <= max_id(1) && idx(2) >= min_id(2) && idx(2) <= max_id(2);
+     if (!in_local)
+     {
+       md_.occupancy_buffer_[idx_ctns] = mp_.clamp_min_log_;
+@@ -920,6 +1058,12 @@
+     md_.occupancy_buffer_[idx_ctns] =
+         std::min(std::max(md_.occupancy_buffer_[idx_ctns] + log_odds_update, mp_.clamp_min_log_),
+                  mp_.clamp_max_log_);
++    append_voxel_trace();
++  }
++  if (mp_.n10_voxel_trace_enabled_)
++  {
++    voxel_updates << "]";
++    publishN10VoxelUpdateTrace(traced_voxel_count, voxel_updates.str());
+   }
+ }
+ 
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -4,6 +4,7 @@
+ #include <Eigen/Eigen>
+ #include <Eigen/StdVector>
+ #include <cv_bridge/cv_bridge.hpp>
++#include <cstddef>
+ #include <cstdint>
+ #include <geometry_msgs/msg/pose_stamped.hpp>
+ #include <iostream>
+@@ -64,6 +65,8 @@
+   double obstacles_inflation_;
+   double terminal_hold_neighborhood_;
+   bool official_ego_collision_policy_;
++  bool n10_voxel_trace_enabled_;
++  Eigen::Vector3d n10_voxel_trace_center_, n10_voxel_trace_half_extents_;
+   string frame_id_;
+   int pose_type_;
+ 
+@@ -242,6 +245,7 @@
+   // main update process
+   void projectDepthImage();
+   void raycastProcess();
++  void publishN10VoxelUpdateTrace(std::size_t voxel_count, const std::string &updates_json);
+   void clearAndInflateLocalMap();
+ 
+   inline void inflatePoint(const Eigen::Vector3i &pt, int step, vector<Eigen::Vector3i> &pts);
+@@ -283,6 +287,7 @@
+   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr map_pub_;
+   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr map_inf_pub_;
+   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr depth_fusion_trace_pub_;
++  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr n10_voxel_update_trace_pub_;
+ 
+   rclcpp::TimerBase::SharedPtr occ_timer_;
+   rclcpp::TimerBase::SharedPtr vis_timer_;
+--- a/planner/plan_manage/launch/advanced_param.launch.py
++++ b/planner/plan_manage/launch/advanced_param.launch.py
+@@ -3,6 +3,7 @@
+ from launch.actions import DeclareLaunchArgument
+ from launch.substitutions import LaunchConfiguration, PythonExpression
+ from launch_ros.actions import Node
++from launch_ros.parameter_descriptions import ParameterValue
+ 
+ def generate_launch_description():
+     # LaunchConfigurations
+@@ -28,6 +29,13 @@
+     obstacles_inflation = LaunchConfiguration('obstacles_inflation', default=0.099)
+     terminal_hold_neighborhood = LaunchConfiguration('terminal_hold_neighborhood', default=-1.0)
+     official_ego_collision_policy = LaunchConfiguration('official_ego_collision_policy', default=False)
++    n10_voxel_trace_enabled = LaunchConfiguration('n10_voxel_trace_enabled', default='false')
++    n10_voxel_trace_center_x = LaunchConfiguration('n10_voxel_trace_center_x', default='0.0')
++    n10_voxel_trace_center_y = LaunchConfiguration('n10_voxel_trace_center_y', default='0.0')
++    n10_voxel_trace_center_z = LaunchConfiguration('n10_voxel_trace_center_z', default='0.0')
++    n10_voxel_trace_half_x = LaunchConfiguration('n10_voxel_trace_half_x', default='0.0')
++    n10_voxel_trace_half_y = LaunchConfiguration('n10_voxel_trace_half_y', default='0.0')
++    n10_voxel_trace_half_z = LaunchConfiguration('n10_voxel_trace_half_z', default='0.0')
+     ground_height = LaunchConfiguration('ground_height', default=-0.01)
+     
+     point_num = LaunchConfiguration('point_num', default=1)
+@@ -72,6 +80,13 @@
+     obstacles_inflation_arg = DeclareLaunchArgument('obstacles_inflation', default_value=obstacles_inflation, description='Obstacle inflation distance in meters')
+     terminal_hold_neighborhood_arg = DeclareLaunchArgument('terminal_hold_neighborhood', default_value=terminal_hold_neighborhood, description='Additional terminal/emergency hold radius outside the N05 body sphere')
+     official_ego_collision_policy_arg = DeclareLaunchArgument('official_ego_collision_policy', default_value=official_ego_collision_policy, description='Use upstream inflated-occupied collision semantics')
++    n10_voxel_trace_enabled_arg = DeclareLaunchArgument('n10_voxel_trace_enabled', default_value=n10_voxel_trace_enabled)
++    n10_voxel_trace_center_x_arg = DeclareLaunchArgument('n10_voxel_trace_center_x', default_value=n10_voxel_trace_center_x)
++    n10_voxel_trace_center_y_arg = DeclareLaunchArgument('n10_voxel_trace_center_y', default_value=n10_voxel_trace_center_y)
++    n10_voxel_trace_center_z_arg = DeclareLaunchArgument('n10_voxel_trace_center_z', default_value=n10_voxel_trace_center_z)
++    n10_voxel_trace_half_x_arg = DeclareLaunchArgument('n10_voxel_trace_half_x', default_value=n10_voxel_trace_half_x)
++    n10_voxel_trace_half_y_arg = DeclareLaunchArgument('n10_voxel_trace_half_y', default_value=n10_voxel_trace_half_y)
++    n10_voxel_trace_half_z_arg = DeclareLaunchArgument('n10_voxel_trace_half_z', default_value=n10_voxel_trace_half_z)
+     ground_height_arg = DeclareLaunchArgument('ground_height', default_value=ground_height, description='Lower map boundary in odometry-frame meters')
+     
+     point_num_arg = DeclareLaunchArgument('point_num', default_value=point_num, description='Number of waypoints')
+@@ -160,6 +175,13 @@
+             {'grid_map/obstacles_inflation': obstacles_inflation},
+             {'grid_map/terminal_hold_neighborhood': terminal_hold_neighborhood},
+             {'grid_map/official_ego_collision_policy': official_ego_collision_policy},
++            {'grid_map/n10_voxel_trace_enabled': ParameterValue(n10_voxel_trace_enabled, value_type=bool)},
++            {'grid_map/n10_voxel_trace_center_x': ParameterValue(n10_voxel_trace_center_x, value_type=float)},
++            {'grid_map/n10_voxel_trace_center_y': ParameterValue(n10_voxel_trace_center_y, value_type=float)},
++            {'grid_map/n10_voxel_trace_center_z': ParameterValue(n10_voxel_trace_center_z, value_type=float)},
++            {'grid_map/n10_voxel_trace_half_x': ParameterValue(n10_voxel_trace_half_x, value_type=float)},
++            {'grid_map/n10_voxel_trace_half_y': ParameterValue(n10_voxel_trace_half_y, value_type=float)},
++            {'grid_map/n10_voxel_trace_half_z': ParameterValue(n10_voxel_trace_half_z, value_type=float)},
+             {'grid_map/local_map_margin': 10},
+             {'grid_map/ground_height': ground_height},
+             # camera parameter
+@@ -242,6 +264,13 @@
+     ld.add_action(obstacles_inflation_arg)
+     ld.add_action(terminal_hold_neighborhood_arg)
+     ld.add_action(official_ego_collision_policy_arg)
++    ld.add_action(n10_voxel_trace_enabled_arg)
++    ld.add_action(n10_voxel_trace_center_x_arg)
++    ld.add_action(n10_voxel_trace_center_y_arg)
++    ld.add_action(n10_voxel_trace_center_z_arg)
++    ld.add_action(n10_voxel_trace_half_x_arg)
++    ld.add_action(n10_voxel_trace_half_y_arg)
++    ld.add_action(n10_voxel_trace_half_z_arg)
+     ld.add_action(ground_height_arg)
+     
+     ld.add_action(point_num_arg)

@@ -1,0 +1,379 @@
+{
+  "schema": "n10-offline-source-audit/v1",
+  "subtask": "N10.3/#413",
+  "status": "AUDIT_COMPLETE_PARENT_N10_INSUFFICIENT",
+  "classification": "read-only archival/source replay; no runtime or threshold effect",
+  "flight_started": false,
+  "runtime_code_changed": false,
+  "runtime_thresholds_changed": false,
+  "archive_json": "artifacts/runs/n10-20261028-413-offline-source-audit/n10-offline-source-audit.json",
+  "archive_json_sha256": "b936b52c5d335f0086351d3c1ebc8639ce6bf3fd97095fdc2a9d5cb566a5c757",
+  "audit_script": "artifacts/runs/n10-20261028-413-offline-source-audit/analyze_n10_offline_source_audit.py",
+  "audit_script_sha256": "e9dca640c55d26d286fcf8d782ad99747546c1391877214769ccd988f8cf2ffe",
+  "source_lock": {
+    "sources_json_sha256": "506bac8dbbf5fddd7b06dd623e1442b3cf7f76f7e836ffcb960ed95099597c0e",
+    "px4_head": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_worktree_status": "",
+    "px4_gz_head": "b6127f4ec20de867e215fb5f78ae88b80f371909",
+    "qualification": "#412 host replay passes all 19 runtime/source-lock/model/contact identity checks"
+  },
+  "runs": [
+    {
+      "run_id": "n10-20261028-404-speed040-integrated-calibration",
+      "runtime_contract_sha256": "743b0091476969ae8e25e7bdd710adc8b15475ddd296f89462ae60bd987ceb79",
+      "goal_id": "11393d9065594ccbb6d23561911c9e02",
+      "epoch": "c7a519e4fb364007807b5f9daacbbbc2",
+      "goal_duration_sim_s": 83.587999999,
+      "truth_yaw_total_variation_deg": 53.28283004170637,
+      "truth_abs_yaw_rate_rad_s": {
+        "count": 20896,
+        "p50": 0.004278057204944695,
+        "p95": 0.04664678486930195,
+        "max": 0.07669346492929219
+      },
+      "goal_absolute_position_error_m": {
+        "count": 1267,
+        "p50": 0.05894435259223495,
+        "p95": 0.07211111709585012,
+        "max": 0.08112809534188734
+      },
+      "goal_rpe10_translation_m": {
+        "count": 1117,
+        "rmse": 0.023539389098199064,
+        "median": 0.020814560041239275,
+        "p95": 0.038564335964068656,
+        "max": 0.042189548385524155
+      },
+      "goal_rpe10_rotation_deg": {
+        "count": 1117,
+        "rmse": 0.2038697917600015,
+        "median": 0.07042784182819983,
+        "p95": 0.4203221665400538,
+        "max": 0.4446736843605953
+      },
+      "yaw_rate_binned_rpe10": {
+        "method": "10 s translation RPE grouped by maximum absolute truth yaw rate in the same source-time window; windows start during goal motion, and may extend into the subsequent hold as in the canonical segment evaluator",
+        "classification": "descriptive within-run association only; overlapping windows; not causal and not an acceptance limit",
+        "goal_motion_rpe_windows_grouped": 1267,
+        "bins": {
+          "<=0.10": {
+            "count": 1267,
+            "p50": 0.020246661172051157,
+            "p95": 0.03833631301677158,
+            "max": 0.042189548385524155
+          },
+          "0.10-0.25": {
+            "count": 0,
+            "p50": null,
+            "p95": null,
+            "max": null
+          },
+          "0.25-0.50": {
+            "count": 0,
+            "p50": null,
+            "p95": null,
+            "max": null
+          },
+          ">0.50": {
+            "count": 0,
+            "p50": null,
+            "p95": null,
+            "max": null
+          }
+        }
+      },
+      "run_source_identity": {
+        "runtime_contract_source_lock_sha256": "4ec4713f04817abd4b6aa0740387c5a5fdbda907bd18b4e53ea34cbb91fb6c4d",
+        "runtime_contract_binds_host_source_lock": false,
+        "host_px4_checkout_matches_lock": true,
+        "host_model_and_plugin_checks_pass": true,
+        "interval_clearance_status": "INSUFFICIENT_MODEL_IDENTITY"
+      },
+      "interval_clearance_host_replay": {
+        "status": "INSUFFICIENT_MODEL_IDENTITY",
+        "minimum_free_flight_lower_bound_m": 0.1627606473870742,
+        "free_flight_intervals": 25187,
+        "nonpositive_intervals": 0
+      }
+    },
+    {
+      "run_id": "n10-20261028-411-speed040-yaw-follow-calibration",
+      "runtime_contract_sha256": "49fd5d33a091252497c593d30ca9b0c3ae0391bc0113d17a5c0f0e9b132929cb",
+      "goal_id": "e00020d11eeb4f34a7e4137b5b3c9c5c",
+      "epoch": "374df7cdacc64380af0513fe5951ac09",
+      "goal_duration_sim_s": 90.091999999,
+      "truth_yaw_total_variation_deg": 750.8159465877857,
+      "truth_abs_yaw_rate_rad_s": {
+        "count": 22522,
+        "p50": 0.06839247241959001,
+        "p95": 0.4254415978943442,
+        "max": 2.812864102531759
+      },
+      "goal_absolute_position_error_m": {
+        "count": 1365,
+        "p50": 0.23894199537111102,
+        "p95": 0.4689904330722767,
+        "max": 0.4779021388159538
+      },
+      "goal_rpe10_translation_m": {
+        "count": 1215,
+        "rmse": 0.14167253046787098,
+        "median": 0.11594626452272866,
+        "p95": 0.26858723228214915,
+        "max": 0.32682344402701213
+      },
+      "goal_rpe10_rotation_deg": {
+        "count": 1215,
+        "rmse": 0.11249844961288395,
+        "median": 0.05990038765240691,
+        "p95": 0.20290042350970008,
+        "max": 0.5280539691353412
+      },
+      "yaw_rate_binned_rpe10": {
+        "method": "10 s translation RPE grouped by maximum absolute truth yaw rate in the same source-time window; windows start during goal motion, and may extend into the subsequent hold as in the canonical segment evaluator",
+        "classification": "descriptive within-run association only; overlapping windows; not causal and not an acceptance limit",
+        "goal_motion_rpe_windows_grouped": 1365,
+        "bins": {
+          "<=0.10": {
+            "count": 470,
+            "p50": 0.09216229633761511,
+            "p95": 0.16237838013000602,
+            "max": 0.16518565755762551
+          },
+          "0.10-0.25": {
+            "count": 418,
+            "p50": 0.04547409103623169,
+            "p95": 0.15117336229301623,
+            "max": 0.16639346446508305
+          },
+          "0.25-0.50": {
+            "count": 200,
+            "p50": 0.1712349156961782,
+            "p95": 0.2093421627838936,
+            "max": 0.21046571609627132
+          },
+          ">0.50": {
+            "count": 277,
+            "p50": 0.11449290889810973,
+            "p95": 0.3199493015101158,
+            "max": 0.32682344402701213
+          }
+        }
+      },
+      "run_source_identity": {
+        "runtime_contract_source_lock_sha256": "9f696777f10da7cef98ba49c4c6e4695d2056c82d3b5fbfc230efec38032ab96",
+        "runtime_contract_binds_host_source_lock": false,
+        "host_px4_checkout_matches_lock": true,
+        "host_model_and_plugin_checks_pass": true,
+        "interval_clearance_status": "INSUFFICIENT_MODEL_IDENTITY"
+      },
+      "interval_clearance_host_replay": {
+        "status": "INSUFFICIENT_MODEL_IDENTITY",
+        "minimum_free_flight_lower_bound_m": 0.254816814244861,
+        "free_flight_intervals": 28086,
+        "nonpositive_intervals": 0
+      }
+    },
+    {
+      "run_id": "n10-20261028-412-speed040-yaw-lookahead-calibration",
+      "runtime_contract_sha256": "0bf84419cc3f81d1cf22645f56e74358e60bbc74c1dbe09793900d81733057f2",
+      "goal_id": "72d50119d40343f8932799e563c4bae3",
+      "epoch": "0b4b77dc9f8147119b68383999093457",
+      "goal_duration_sim_s": 87.679999999,
+      "truth_yaw_total_variation_deg": 670.422784594082,
+      "truth_abs_yaw_rate_rad_s": {
+        "count": 21919,
+        "p50": 0.07431017094489123,
+        "p95": 0.3700027594511624,
+        "max": 2.9149305641846257
+      },
+      "goal_absolute_position_error_m": {
+        "count": 1329,
+        "p50": 0.11133405953239517,
+        "p95": 0.16403494903825785,
+        "max": 0.2358846649319134
+      },
+      "goal_rpe10_translation_m": {
+        "count": 1179,
+        "rmse": 0.13642096961006017,
+        "median": 0.10799832403367046,
+        "p95": 0.2634833656435655,
+        "max": 0.28374983510762836
+      },
+      "goal_rpe10_rotation_deg": {
+        "count": 1179,
+        "rmse": 0.10424243145294668,
+        "median": 0.07027880233445108,
+        "p95": 0.17891120571361147,
+        "max": 0.4552833988738494
+      },
+      "yaw_rate_binned_rpe10": {
+        "method": "10 s translation RPE grouped by maximum absolute truth yaw rate in the same source-time window; windows start during goal motion, and may extend into the subsequent hold as in the canonical segment evaluator",
+        "classification": "descriptive within-run association only; overlapping windows; not causal and not an acceptance limit",
+        "goal_motion_rpe_windows_grouped": 1329,
+        "bins": {
+          "<=0.10": {
+            "count": 294,
+            "p50": 0.030051669427791597,
+            "p95": 0.050507315994449346,
+            "max": 0.053087817093856085
+          },
+          "0.10-0.25": {
+            "count": 709,
+            "p50": 0.10328180092271276,
+            "p95": 0.18679223810315956,
+            "max": 0.1936592821369751
+          },
+          "0.25-0.50": {
+            "count": 47,
+            "p50": 0.05416696005974182,
+            "p95": 0.07935043141964306,
+            "max": 0.13090345133906528
+          },
+          ">0.50": {
+            "count": 279,
+            "p50": 0.19399844337042232,
+            "p95": 0.28191684178622317,
+            "max": 0.28374983510762836
+          }
+        }
+      },
+      "run_source_identity": {
+        "runtime_contract_source_lock_sha256": "506bac8dbbf5fddd7b06dd623e1442b3cf7f76f7e836ffcb960ed95099597c0e",
+        "runtime_contract_binds_host_source_lock": true,
+        "host_px4_checkout_matches_lock": true,
+        "host_model_and_plugin_checks_pass": true,
+        "interval_clearance_status": "AIRBORNE_MODEL_BOUND_POSITIVE_CONTACT_PHASE_SEPARATE"
+      },
+      "interval_clearance_host_replay": {
+        "status": "AIRBORNE_MODEL_BOUND_POSITIVE_CONTACT_PHASE_SEPARATE",
+        "minimum_free_flight_lower_bound_m": 0.41054370747248664,
+        "free_flight_intervals": 27461,
+        "nonpositive_intervals": 0
+      }
+    }
+  ],
+  "map": {
+    "grid_map_cpp": "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp",
+    "raycast_cpp": "src/vendor/ego_planner/planner/plan_env/src/raycast.cpp",
+    "relevant_patch": "dependencies/patches/ego/0038-complete-depth-rays.patch",
+    "map_vote_behavior": "setCacheOccupancy accumulates hit/miss counts; updateOccupancy selects hit when hit count >= miss count, so ties favor occupied. The snapshot has no per-voxel per-ray source history.",
+    "ray_behavior": "each depth return sets one endpoint hit; traversal excludes that endpoint cell and marks prior traversed voxel centers free. Hit and traversal de-duplication flags are separate per frame.",
+    "fully_contained_known_free_voxels": 39,
+    "closest_truth_box_face_counts": {
+      "x_negative": 4,
+      "y_positive": 35
+    },
+    "nearest_face_interior_margin_m": {
+      "min": 0.0005621574157830267,
+      "max": 0.0013913599771809837
+    },
+    "voxel_resolution_m": 0.1,
+    "map_snapshot_pair_status": "INSUFFICIENT",
+    "snapshot_source_coverage": {
+      "status": "no_roi_cloud_observed",
+      "covered": null,
+      "should_retry": false,
+      "watermark_stamp_ns": null,
+      "snapshot_source_stamp_ns": 74384000000
+    },
+    "inside_obstacle_class_transitions": {
+      "cell_count": 1792,
+      "before_class_counts": {
+        "unknown": 1792,
+        "known_free": 0,
+        "raw_occupied": 0
+      },
+      "after_class_counts": {
+        "unknown": 1653,
+        "known_free": 40,
+        "raw_occupied": 99
+      },
+      "class_transitions": {
+        "unknown->unknown": 1653,
+        "unknown->known_free": 40,
+        "unknown->raw_occupied": 99
+      },
+      "inflated_before_count": 0,
+      "inflated_after_count": 1792,
+      "geometric_cell_count": 1792
+    },
+    "saved_depth_roi_frames": 6,
+    "post_injection_depth_roi_frames": 4,
+    "root_cause_status": "INSUFFICIENT: #412 cloud observer undersampled and stopped before the fallback snapshot; no per-voxel vote history. The raw-map cause cannot be inferred from its no-ROI observation.",
+    "snapshot_observer_coverage_limits": {
+      "observer_path": "artifacts/n10-prepared/n10-20261028-412-speed040-yaw-lookahead-calibration/n10_live_obstacle_injector.py",
+      "observer_sha256": "8bfc731c39769b94dd71b2c65fd7660be158b01252181e433b789d5c18efed10",
+      "cloud_messages_skipped_between_samples": 9,
+      "sampled_cloud_every_n_messages": 10,
+      "roi_window_relative_to_injection_s": [
+        -0.5,
+        5.0
+      ],
+      "snapshot_fallback_relative_to_injection_s": 8.0,
+      "coverage_interpretation": "no_roi_cloud_observed means no positive ROI point was found in the every-Nth cloud subset within the limited pre-snapshot window; it does not establish absence of ROI clouds or absence of voxel updates"
+    }
+  },
+  "resources": {
+    "resource_wall_s": 184.267942877952,
+    "resource_samples_1hz": 183,
+    "vins_goal_queue_distribution": {
+      "acc": {
+        "during_goal_current": {
+          "count": 1329,
+          "p50": 28.0,
+          "p95": 29.0,
+          "max": 30.0
+        },
+        "process_high_water_max": 90
+      },
+      "gyr": {
+        "during_goal_current": {
+          "count": 1329,
+          "p50": 28.0,
+          "p95": 29.0,
+          "max": 30.0
+        },
+        "process_high_water_max": 90
+      },
+      "feature": {
+        "during_goal_current": {
+          "count": 1329,
+          "p50": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        },
+        "process_high_water_max": 2
+      }
+    },
+    "vins_source_capacity": "unbounded / not declared by source",
+    "mapping_terminal_counters": {
+      "epoch": "0b4b77dc9f8147119b68383999093457",
+      "map_id": "0b4b77dc9f8147119b68383999093457-2e6f0d8d36594efb82c1cf4d100fa797",
+      "pending_depth_count": 2,
+      "pending_depth_high_water_count": 8,
+      "dropped_depth_count": 26,
+      "forwarded_depth_count": 4834,
+      "keyframe_count": 157,
+      "keyframe_dropped_count": 21,
+      "keyframe_max_rgbd_stamp_delta_s": 0.02
+    },
+    "rtf_min_median_p95_max": [
+      0.5157087336679282,
+      0.8904467625005634,
+      0.9176819738768586,
+      1.1724462854787345
+    ],
+    "container_memory_peak_gib": 3.247020721435547,
+    "cgroup_oom_kill_count": 0,
+    "cpu_throttled_periods": 0,
+    "basis_status": "partial: platform/cgroup and configured mapping/observer queues are identified; VINS queue capacity is undeclared and 184 s cannot establish 600 s growth. N16 remains the formal long-duration check."
+  },
+  "decision": {
+    "qualified_continuous_clearance_run": "n10-20261028-412-speed040-yaw-lookahead-calibration",
+    "raw_map_root_cause": "INSUFFICIENT; #412 sampled every tenth occupancy cloud only through injection +5 s, while its no-ROI fallback snapshot was scheduled at +8 s; lack of an ROI point in that subset does not prove absence of clouds or voxel updates. No per-voxel vote history was captured.",
+    "yaw_rpe_relation": "descriptive only; supports one fixed-route yaw-rate-cap calibration but does not prove causality",
+    "queue_limit": "do not infer VINS capacity or a 600-s growth threshold from the 184-s archive; keep N16 as formal long-duration run",
+    "next_subtask": "N10.3/#414: fixed-route single-variable yaw-rate-cap diagnostic with improved read-only ROI source/vote evidence"
+  }
+}

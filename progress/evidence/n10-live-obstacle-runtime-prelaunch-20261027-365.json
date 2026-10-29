@@ -1,0 +1,66 @@
+{
+  "schema": "n10-live-obstacle-runtime-prelaunch/v1",
+  "subtask_id": "N10.3/#365",
+  "status": "instrumentation_frozen_sitl_not_started",
+  "formal_qualification": false,
+  "run_id": "n10-20261027-365-live-obstacle-replan-current",
+  "runtime_contract_sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+  "runtime_contract_file_count": 665,
+  "protocol": {
+    "path": "progress/evidence/n10-live-obstacle-replan-protocol-20261027-364.json",
+    "sha256": "c003ed51246e9d423b5a40ccabb098f7e1d42db9ed53d50c00326670e05fcdd8"
+  },
+  "tools": {
+    "freeze": "artifacts/n10-prepared/n10-20261027-365-live-obstacle-replan-current/n10-tool-freeze.json",
+    "injector_sha256": "fc9403820613da193d203b5170615d79c8d48f4bcf8c1b39d63faa741df355b9",
+    "driver_sha256": "27b651d56474b093111e8ad25d4c6d1f95a17d012b7002db2e93f1febde1e251",
+    "calibration_analyzer_sha256": "8243ec0f569e930e4c59fa420f10c1522def1515f3a872cdfe62e895a18b8773",
+    "dynamic_analyzer_sha256": "686e410c49472dc6b5cf66490a776dd879a2bd0a9718eddedd4419ccc74d3453"
+  },
+  "frozen_scenario": {
+    "world": "vio_initialization",
+    "model_name": "n10_live_replan_box",
+    "static": true,
+    "pose_xyz_m": [0.0, 0.0, 1.4],
+    "size_xyz_m": [0.8, 0.8, 2.8],
+    "trigger": "NavigationCommand.target.header.stamp + 12.0 simulation seconds, after the first same-goal/epoch B-spline",
+    "diagnostic_abort": "ROS action caller-cancel if no changed traj_id is observed within 1.0 simulation second; not a production threshold"
+  },
+  "observer_contract": {
+    "ros_publishers": [],
+    "control_publishers": [],
+    "truth_subscriptions": [],
+    "allowed_mutations": [
+      "one Gazebo EntityFactory create request",
+      "one action CancelGoal request only at the frozen diagnostic abort boundary"
+    ],
+    "recorded": [
+      "goal/epoch/map identity and timestamps",
+      "matching complete B-splines and position commands",
+      "D435i depth/color frame samples",
+      "raw occupancy sphere queries",
+      "EGO occupancy cloud local ROI counts",
+      "Gazebo create acknowledgement",
+      "terminal status and action cancel response"
+    ]
+  },
+  "source_audit": {
+    "localization_quality_and_localization_receipt_age_thresholds": "removed from current mission path; raw values observational",
+    "raw_free_full_curve_gate": "not in the current official_ego mission path",
+    "retained": [
+      "epoch/time/message integrity",
+      "map identity and freshness",
+      "official_ego inflated-occupied collision semantics",
+      "PX4 bridge state/control ownership constraints"
+    ],
+    "runtime_source_changed_by_this_subtask": false
+  },
+  "validation": {
+    "bash_syntax": "passed",
+    "python_syntax_compilation": "passed",
+    "runtime_contract_match": true,
+    "Gazebo_service_online_check": "pending SITL startup",
+    "PX4_SITL": "not started"
+  },
+  "interpretation_limit": "Normal receding-horizon planning also changes traj_id; a changed ID alone is not causal proof. The frozen run records sensor/map evidence and trajectory geometry for context."
+}

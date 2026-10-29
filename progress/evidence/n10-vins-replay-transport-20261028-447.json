@@ -1,0 +1,505 @@
+{
+  "classification": "offline stride comparison on common baseline source-time queries with bounded interpolation; raw outputs unchanged; no flight or formal qualification",
+  "only_major_variable": "gyr_n0.001 versus0.0001 only; shared reliable transport, original other estimator settings unchanged",
+  "truth_reference_contract": {
+    "schema": "gazebo-model-to-imu-reference/v1",
+    "conversion_tool_sha256": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+    "raw_pose_reference": "gazebo_model_origin",
+    "output_pose_reference": "d435i_imu",
+    "model_origin_to_imu_m": [
+      0.12,
+      0.0,
+      0.32
+    ],
+    "source_sha256": {
+      "simulation/models/x500_d435i/model.sdf": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+      "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+    },
+    "raw_twist_semantics": "body-frame rolling-mean velocities; not instantaneous endpoint state",
+    "velocity_comparison": "differentiate converted IMU positions at source time; do not use raw twist as world velocity"
+  },
+  "same_input_monitor_count_stamp_hashes": true,
+  "complete_input_matches_original_bag": true,
+  "same_common_evaluation_stamp_hashes": true,
+  "source_pose_rate_differs_by_intended_treatment": false,
+  "cases": [
+    {
+      "case": "baseline",
+      "g_norm": 9.80665,
+      "status": "MEASURED",
+      "segments": {
+        "goal_motion": {
+          "source_window_ns": [
+            51119999999,
+            135996000000
+          ],
+          "pose_samples": 1286,
+          "position_error_m": {
+            "count": 1286,
+            "rmse": 0.08256495550784848,
+            "median": 0.08721316916021613,
+            "p95": 0.1251290820771539,
+            "max": 0.12631928045837726
+          },
+          "absolute_yaw_error_deg": {
+            "count": 1286,
+            "rmse": 0.5213764970367261,
+            "median": 0.44399147273183265,
+            "p95": 0.8269419596197876,
+            "max": 0.8664376062445722
+          },
+          "velocity_error_m_s": {
+            "count": 1286,
+            "rmse": 0.006088073001240837,
+            "median": 0.004862386466020335,
+            "p95": 0.011122227105688389,
+            "max": 0.01510509745259942
+          },
+          "rpe10_translation_error_m": {
+            "count": 1135,
+            "rmse": 0.03567768376899543,
+            "median": 0.026058049298373503,
+            "p95": 0.07386758261790731,
+            "max": 0.08723273748020856
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1135,
+            "rmse": 0.10980315323330442,
+            "median": 0.09983604405769572,
+            "p95": 0.15288167589063392,
+            "max": 0.2023540712229701
+          }
+        },
+        "active_hold": {
+          "source_window_ns": [
+            135996000000,
+            155996000000
+          ],
+          "pose_samples": 303,
+          "position_error_m": {
+            "count": 303,
+            "rmse": 0.1311307689965338,
+            "median": 0.12686160564132087,
+            "p95": 0.15011841121935113,
+            "max": 0.15654072224027332
+          },
+          "absolute_yaw_error_deg": {
+            "count": 303,
+            "rmse": 0.9155202508279106,
+            "median": 0.9209012529854353,
+            "p95": 0.9381264733530675,
+            "max": 0.9404654791041861
+          },
+          "velocity_error_m_s": {
+            "count": 303,
+            "rmse": 0.00686347225404822,
+            "median": 0.0025077454500905872,
+            "p95": 0.017070454845524795,
+            "max": 0.019855501690895273
+          },
+          "rpe10_translation_error_m": {
+            "count": 152,
+            "rmse": 0.022228956275844158,
+            "median": 0.01752591891243514,
+            "p95": 0.04672408778575721,
+            "max": 0.05007016335907356
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 152,
+            "rmse": 0.043057666500871006,
+            "median": 0.04827242618686477,
+            "p95": 0.053246946116478684,
+            "max": 0.05386332674510738
+          }
+        },
+        "landing": {
+          "source_window_ns": [
+            155996000000,
+            161372000000
+          ],
+          "pose_samples": 82,
+          "position_error_m": {
+            "count": 82,
+            "rmse": 0.13728255421234284,
+            "median": 0.137696777507742,
+            "p95": 0.1386738531894927,
+            "max": 0.1391052311424061
+          },
+          "absolute_yaw_error_deg": {
+            "count": 82,
+            "rmse": 0.9504773877383482,
+            "median": 0.9511975780450856,
+            "p95": 0.9590332035239495,
+            "max": 0.959989681277378
+          },
+          "velocity_error_m_s": {
+            "count": 82,
+            "rmse": 0.0355103862330931,
+            "median": 0.0006865364862514231,
+            "p95": 0.013039050483260315,
+            "max": 0.2457200119104729
+          },
+          "rpe10_translation_error_m": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          }
+        },
+        "full_task": {
+          "source_window_ns": [
+            28564000000,
+            161372000000
+          ],
+          "pose_samples": 2013,
+          "position_error_m": {
+            "count": 2013,
+            "rmse": 0.08800409314247855,
+            "median": 0.08750971372602462,
+            "p95": 0.1370272044108404,
+            "max": 0.15654072224027332
+          },
+          "absolute_yaw_error_deg": {
+            "count": 2013,
+            "rmse": 0.5807125130280968,
+            "median": 0.45544314291442806,
+            "p95": 0.9379739802561748,
+            "max": 0.959989681277378
+          },
+          "velocity_error_m_s": {
+            "count": 2013,
+            "rmse": 0.009935756915909347,
+            "median": 0.003936155027567023,
+            "p95": 0.013851274518702349,
+            "max": 0.2457200119104729
+          },
+          "rpe10_translation_error_m": {
+            "count": 1861,
+            "rmse": 0.029950621462713455,
+            "median": 0.021724258399835796,
+            "p95": 0.06750516869447487,
+            "max": 0.08723273748020856
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1861,
+            "rmse": 0.12978297869925476,
+            "median": 0.09325234190098224,
+            "p95": 0.2508355488745389,
+            "max": 0.4828060836853236
+          }
+        }
+      },
+      "raw_pose_count": 2364,
+      "common_evaluation_sample_count": 2014,
+      "source_raw_max_gap_sim_s": 0.068000001,
+      "raw_first_last_source_ns": [
+        28515999999,
+        161372000000
+      ],
+      "raw_max_gap_sim_s": 0.068000001,
+      "pose_stamp_sha256": "9ca29df5ddd0303509cedd0eceec474b869975651688de459fc5be9d9352e687",
+      "inputs": {
+        "/sensors/d435i/imu": {
+          "count": 39181,
+          "first_source_ns": 7876000000,
+          "last_source_ns": 164596000000,
+          "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra1/image_rect": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra2/image_rect": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        }
+      },
+      "alignment": {
+        "scale": 1,
+        "reference_source_ns": 28515999999,
+        "rotation": [
+          [
+            0.9999999905330307,
+            0.00013714336082140503,
+            -1.1208804426455762e-05
+          ],
+          [
+            -0.0001371428961819876,
+            0.9999999897371379,
+            4.144333721466376e-05
+          ],
+          [
+            1.121448798997062e-05,
+            -4.144179961441918e-05,
+            0.9999999990784062
+          ]
+        ],
+        "translation": [
+          -7.877897416314851,
+          0.0002272939999110473,
+          0.3055394882953867
+        ]
+      },
+      "player_exit_code": 0,
+      "stop_reason": "bag_finished_plus_drain",
+      "failure": null
+    },
+    {
+      "case": "gyro_noise",
+      "g_norm": 9.80665,
+      "status": "MEASURED",
+      "segments": {
+        "goal_motion": {
+          "source_window_ns": [
+            51119999999,
+            135996000000
+          ],
+          "pose_samples": 1286,
+          "position_error_m": {
+            "count": 1286,
+            "rmse": 0.08296830200043212,
+            "median": 0.08620088687004485,
+            "p95": 0.12749940130732246,
+            "max": 0.13580722324389546
+          },
+          "absolute_yaw_error_deg": {
+            "count": 1286,
+            "rmse": 0.5609965558863929,
+            "median": 0.49116772758526395,
+            "p95": 0.8814748340108821,
+            "max": 0.9234615941007075
+          },
+          "velocity_error_m_s": {
+            "count": 1286,
+            "rmse": 0.005280548496419415,
+            "median": 0.004182901150738478,
+            "p95": 0.009909945981577108,
+            "max": 0.04959689563766
+          },
+          "rpe10_translation_error_m": {
+            "count": 1135,
+            "rmse": 0.03537781567041733,
+            "median": 0.026232851441272045,
+            "p95": 0.07814032711977181,
+            "max": 0.0901868546213622
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1135,
+            "rmse": 0.10293748054256806,
+            "median": 0.09732914112271608,
+            "p95": 0.14049770493866315,
+            "max": 0.21530795777335152
+          }
+        },
+        "active_hold": {
+          "source_window_ns": [
+            135996000000,
+            155996000000
+          ],
+          "pose_samples": 303,
+          "position_error_m": {
+            "count": 303,
+            "rmse": 0.1320276602239681,
+            "median": 0.12867954474271445,
+            "p95": 0.14524890186555758,
+            "max": 0.14838688576088904
+          },
+          "absolute_yaw_error_deg": {
+            "count": 303,
+            "rmse": 0.9987017897429062,
+            "median": 1.0018791769273372,
+            "p95": 1.0465360119876073,
+            "max": 1.050647909387042
+          },
+          "velocity_error_m_s": {
+            "count": 303,
+            "rmse": 0.003929005775146801,
+            "median": 0.0013340088236698485,
+            "p95": 0.009986619649902722,
+            "max": 0.011164810608245087
+          },
+          "rpe10_translation_error_m": {
+            "count": 152,
+            "rmse": 0.018356984389013595,
+            "median": 0.017802299514472552,
+            "p95": 0.033511816362462594,
+            "max": 0.035226266225996054
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 152,
+            "rmse": 0.06283322174466607,
+            "median": 0.061906835200466886,
+            "p95": 0.07630666566310094,
+            "max": 0.07794377955655628
+          }
+        },
+        "landing": {
+          "source_window_ns": [
+            155996000000,
+            161372000000
+          ],
+          "pose_samples": 82,
+          "position_error_m": {
+            "count": 82,
+            "rmse": 0.1378677394509189,
+            "median": 0.13818872347360273,
+            "p95": 0.13925244736085382,
+            "max": 0.13967936841492629
+          },
+          "absolute_yaw_error_deg": {
+            "count": 82,
+            "rmse": 1.0623078853527501,
+            "median": 1.0622843472371095,
+            "p95": 1.0725450578625697,
+            "max": 1.0736833803275982
+          },
+          "velocity_error_m_s": {
+            "count": 82,
+            "rmse": 0.035512236617359576,
+            "median": 0.0007066660733432285,
+            "p95": 0.012959832220528131,
+            "max": 0.2458375961720626
+          },
+          "rpe10_translation_error_m": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 0,
+            "rmse": null,
+            "median": null,
+            "p95": null,
+            "max": null
+          }
+        },
+        "full_task": {
+          "source_window_ns": [
+            28564000000,
+            161372000000
+          ],
+          "pose_samples": 2013,
+          "position_error_m": {
+            "count": 2013,
+            "rmse": 0.08848437169110045,
+            "median": 0.08689230001353299,
+            "p95": 0.13815327849332354,
+            "max": 0.14838688576088904
+          },
+          "absolute_yaw_error_deg": {
+            "count": 2013,
+            "rmse": 0.6306837639767177,
+            "median": 0.5030374056255713,
+            "p95": 1.0454092402154698,
+            "max": 1.0736833803275982
+          },
+          "velocity_error_m_s": {
+            "count": 2013,
+            "rmse": 0.009389719646820763,
+            "median": 0.003503532313103804,
+            "p95": 0.01185903171742108,
+            "max": 0.2458375961720626
+          },
+          "rpe10_translation_error_m": {
+            "count": 1861,
+            "rmse": 0.029545751248572123,
+            "median": 0.01936879198025865,
+            "p95": 0.06963793209776845,
+            "max": 0.0901868546213622
+          },
+          "rpe10_rotation_error_deg": {
+            "count": 1861,
+            "rmse": 0.1309959849221503,
+            "median": 0.09462008130195304,
+            "p95": 0.25906226228341245,
+            "max": 0.48444458128143053
+          }
+        }
+      },
+      "raw_pose_count": 2364,
+      "common_evaluation_sample_count": 2014,
+      "source_raw_max_gap_sim_s": 0.068000001,
+      "raw_first_last_source_ns": [
+        28515999999,
+        161372000000
+      ],
+      "raw_max_gap_sim_s": 0.068000001,
+      "pose_stamp_sha256": "9ca29df5ddd0303509cedd0eceec474b869975651688de459fc5be9d9352e687",
+      "inputs": {
+        "/sensors/d435i/imu": {
+          "count": 39181,
+          "first_source_ns": 7876000000,
+          "last_source_ns": 164596000000,
+          "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra1/image_rect": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        },
+        "/sensors/d435i/infra2/image_rect": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        }
+      },
+      "alignment": {
+        "scale": 1,
+        "reference_source_ns": 28515999999,
+        "rotation": [
+          [
+            0.999999990309418,
+            0.00013639633168001367,
+            -2.7878390016394753e-05
+          ],
+          [
+            -0.00013639505850235548,
+            0.9999999896555122,
+            4.566578108569508e-05
+          ],
+          [
+            2.7884618373030477e-05,
+            -4.566197816852985e-05,
+            0.9999999985687159
+          ]
+        ],
+        "translation": [
+          -7.877904179940129,
+          0.00022492500785335588,
+          0.3055315175213042
+        ]
+      },
+      "player_exit_code": 0,
+      "stop_reason": "bag_finished_plus_drain",
+      "failure": null
+    }
+  ],
+  "paired_comparison_supported": false,
+  "live_parameters_changed": false,
+  "external_monitor_pair_supported": true,
+  "native_consumed_input_equivalence_verified": false,
+  "strict_comparison_limitation": "Native receipt and consumed-frame ledger unavailable;439 and447 identical-profile baseline phases differ; external monitor completeness alone insufficient."
+}

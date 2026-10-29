@@ -1,0 +1,553 @@
+{
+  "changed_variable": "Relative to #218 wall_box_column, the only scene geometry addition is the real static overhead panel; N05 profile, thresholds, raw occupancy policy and EGO radii are unchanged.",
+  "command": "N05_KEEP_SIM=1 D435I_N08_MODE=compute_only D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_calibration.json bash tools/run_n05_preflight_layout.sh n08-20261024-221-overhead-ceiling-isolated-01 n08_overhead_calibration n08_overhead_free_sector_view",
+  "interpretation": [
+    "The same-run N05 release/current-area gate passed online and offline with stable epoch/map identity.",
+    "Raw occupied voxels were observed in the configured overhead-panel footprint.",
+    "The 0.730618 m start and +0.6 m goal body spheres are free. The 0.980618 m terminal-hold spheres still contain 41 and 16 unknown cells, so the production continuous-line certificate fails only at the terminal-hold neighborhood.",
+    "The unknown clusters lie behind the start (y≈−1.05 m) and beyond the target (+Y to y≈1.45 m); more horizontal −Y/+Y sensor views are the next evidence-driven action.",
+    "No EGO compute-only was started; no XY movement or braking data exists."
+  ],
+  "map_queries": {
+    "body_start_goal": {
+      "goal": {
+        "accepted": true,
+        "free": 2175,
+        "occupied": 0,
+        "reason": "free",
+        "unknown": 0
+      },
+      "start": {
+        "accepted": true,
+        "free": 2175,
+        "occupied": 0,
+        "reason": "free",
+        "unknown": 0
+      }
+    },
+    "candidate_line": {
+      "body_radius_m": 0.7306179170842027,
+      "continuous_cover_radius_m": 0.7431179170842026,
+      "duration_s": 4.0,
+      "first_failure": {
+        "accepted": true,
+        "center_xyz_m": [
+          0.18570774577146995,
+          0.5348326719752873,
+          1.0522347013896192
+        ],
+        "free": 4903,
+        "occupied": 0,
+        "phase": "terminal_hold_neighborhood",
+        "reason": "unknown",
+        "sample_index": 24,
+        "time_s": 4.0,
+        "unknown": 16
+      },
+      "free": false,
+      "length_m": 0.6,
+      "queries": 25,
+      "reason": "unknown",
+      "speed_bound_m_s": 0.15,
+      "terminal_hold": {
+        "accepted": true,
+        "free": 4903,
+        "occupied": 0,
+        "reason": "unknown",
+        "unknown": 16
+      },
+      "terminal_hold_radius_m": 0.9806179170842027,
+      "wall_ms": 2.7754241600632668
+    },
+    "goal_offset_enu_m": [
+      0.0,
+      0.6,
+      0.0
+    ],
+    "goal_terminal_unknown_cells": {
+      "centers_xyz_m": [
+        [
+          -0.34999999999999787,
+          1.25,
+          0.9500000000000002
+        ],
+        [
+          -0.34999999999999787,
+          1.25,
+          1.15
+        ],
+        [
+          -0.34999999999999787,
+          1.25,
+          1.25
+        ],
+        [
+          -0.34999999999999787,
+          1.3500000000000014,
+          1.25
+        ],
+        [
+          -0.25,
+          1.3500000000000014,
+          1.25
+        ],
+        [
+          -0.25,
+          1.4500000000000028,
+          1.35
+        ],
+        [
+          -0.14999999999999858,
+          1.4500000000000028,
+          1.35
+        ],
+        [
+          -0.04999999999999716,
+          1.3500000000000014,
+          1.35
+        ],
+        [
+          -0.04999999999999716,
+          1.4500000000000028,
+          1.35
+        ],
+        [
+          0.05000000000000071,
+          1.3500000000000014,
+          1.35
+        ],
+        [
+          0.05000000000000071,
+          1.4500000000000028,
+          1.35
+        ],
+        [
+          0.15000000000000213,
+          1.3500000000000014,
+          1.35
+        ],
+        [
+          0.15000000000000213,
+          1.4500000000000028,
+          1.35
+        ],
+        [
+          0.25,
+          1.3500000000000014,
+          1.35
+        ],
+        [
+          0.25,
+          1.4500000000000028,
+          1.35
+        ],
+        [
+          0.3500000000000014,
+          1.4500000000000028,
+          1.35
+        ]
+      ],
+      "count": 16,
+      "max_xyz_m": [
+        0.3500000000000014,
+        1.4500000000000028,
+        1.35
+      ],
+      "min_xyz_m": [
+        -0.34999999999999787,
+        1.25,
+        0.9500000000000002
+      ]
+    },
+    "max_velocity_m_s": 0.15,
+    "overhead_panel_raw": {
+      "note": "raw occupied evidence near the configured panel; diagnostic bounding ROI, not an exact surface segmentation",
+      "observed_bounds_xyz_m": [
+        [
+          -0.8499999999999979,
+          -2.75,
+          2.1500000000000004
+        ],
+        [
+          4.150000000000002,
+          3.950000000000003,
+          2.45
+        ]
+      ],
+      "occupied_voxels_in_projected_8m_footprint_z_2_1_to_2_7": 1176
+    },
+    "sphere_radius_m": 0.7306179170842027,
+    "start_terminal_unknown_cells": {
+      "centers_xyz_m": [
+        [
+          -0.14999999999999858,
+          -1.0500000000000007,
+          0.9500000000000002
+        ],
+        [
+          -0.14999999999999858,
+          -1.0500000000000007,
+          1.0500000000000003
+        ],
+        [
+          -0.14999999999999858,
+          -1.0500000000000007,
+          1.15
+        ],
+        [
+          -0.04999999999999716,
+          -1.0500000000000007,
+          0.8500000000000001
+        ],
+        [
+          -0.04999999999999716,
+          -1.0500000000000007,
+          0.9500000000000002
+        ],
+        [
+          -0.04999999999999716,
+          -1.0500000000000007,
+          1.0500000000000003
+        ],
+        [
+          -0.04999999999999716,
+          -1.0500000000000007,
+          1.15
+        ],
+        [
+          -0.04999999999999716,
+          -1.0500000000000007,
+          1.25
+        ],
+        [
+          0.05000000000000071,
+          -1.0500000000000007,
+          0.75
+        ],
+        [
+          0.05000000000000071,
+          -1.0500000000000007,
+          0.8500000000000001
+        ],
+        [
+          0.05000000000000071,
+          -1.0500000000000007,
+          0.9500000000000002
+        ],
+        [
+          0.05000000000000071,
+          -1.0500000000000007,
+          1.0500000000000003
+        ],
+        [
+          0.05000000000000071,
+          -1.0500000000000007,
+          1.15
+        ],
+        [
+          0.05000000000000071,
+          -1.0500000000000007,
+          1.25
+        ],
+        [
+          0.05000000000000071,
+          -1.0500000000000007,
+          1.35
+        ],
+        [
+          0.15000000000000213,
+          -1.0500000000000007,
+          0.75
+        ],
+        [
+          0.15000000000000213,
+          -1.0500000000000007,
+          0.8500000000000001
+        ],
+        [
+          0.15000000000000213,
+          -1.0500000000000007,
+          0.9500000000000002
+        ],
+        [
+          0.15000000000000213,
+          -1.0500000000000007,
+          1.0500000000000003
+        ],
+        [
+          0.15000000000000213,
+          -1.0500000000000007,
+          1.15
+        ],
+        [
+          0.15000000000000213,
+          -1.0500000000000007,
+          1.25
+        ],
+        [
+          0.15000000000000213,
+          -1.0500000000000007,
+          1.35
+        ],
+        [
+          0.25,
+          -1.0500000000000007,
+          0.75
+        ],
+        [
+          0.25,
+          -1.0500000000000007,
+          0.8500000000000001
+        ],
+        [
+          0.25,
+          -1.0500000000000007,
+          0.9500000000000002
+        ],
+        [
+          0.25,
+          -1.0500000000000007,
+          1.0500000000000003
+        ],
+        [
+          0.25,
+          -1.0500000000000007,
+          1.15
+        ],
+        [
+          0.25,
+          -1.0500000000000007,
+          1.25
+        ],
+        [
+          0.25,
+          -1.0500000000000007,
+          1.35
+        ],
+        [
+          0.3500000000000014,
+          -1.0500000000000007,
+          0.75
+        ],
+        [
+          0.3500000000000014,
+          -1.0500000000000007,
+          0.8500000000000001
+        ],
+        [
+          0.3500000000000014,
+          -1.0500000000000007,
+          0.9500000000000002
+        ],
+        [
+          0.3500000000000014,
+          -1.0500000000000007,
+          1.0500000000000003
+        ],
+        [
+          0.3500000000000014,
+          -1.0500000000000007,
+          1.15
+        ],
+        [
+          0.3500000000000014,
+          -1.0500000000000007,
+          1.25
+        ],
+        [
+          0.3500000000000014,
+          -1.0500000000000007,
+          1.35
+        ],
+        [
+          0.45000000000000284,
+          -1.0500000000000007,
+          0.8500000000000001
+        ],
+        [
+          0.45000000000000284,
+          -1.0500000000000007,
+          0.9500000000000002
+        ],
+        [
+          0.45000000000000284,
+          -1.0500000000000007,
+          1.0500000000000003
+        ],
+        [
+          0.45000000000000284,
+          -1.0500000000000007,
+          1.15
+        ],
+        [
+          0.45000000000000284,
+          -1.0500000000000007,
+          1.25
+        ]
+      ],
+      "count": 41,
+      "max_xyz_m": [
+        0.45000000000000284,
+        -1.0500000000000007,
+        1.35
+      ],
+      "min_xyz_m": [
+        -0.14999999999999858,
+        -1.0500000000000007,
+        0.75
+      ]
+    },
+    "terminal_hold_extra_radius_m": 0.25,
+    "terminal_start_goal": {
+      "goal": {
+        "accepted": true,
+        "free": 4903,
+        "occupied": 0,
+        "reason": "unknown",
+        "unknown": 16
+      },
+      "start": {
+        "accepted": true,
+        "free": 4878,
+        "occupied": 0,
+        "reason": "unknown",
+        "unknown": 41
+      }
+    }
+  },
+  "mission": {
+    "EGO_ready_seen": false,
+    "XY_executed": false,
+    "braking_measured": false,
+    "compute_only_started": false,
+    "reason_withheld": "N08 terminal-hold sphere queries contain raw unknown cells; candidate full line terminal hold is not free"
+  },
+  "n05": {
+    "accepted_after_scan": true,
+    "accepted_post_release": true,
+    "epoch": "a3940a23e72b445ba0f951c04f6fa0b9",
+    "freshness": {
+      "depth_source_age_sim_s": 0.152,
+      "fusion_age_sim_s": 0.036,
+      "limit_sim_s": 0.4,
+      "localization_receipt_age_wall_s": 0.025750338099896908,
+      "map_status_receipt_age_wall_s": 0.16754549299366772,
+      "odometry_receipt_age_wall_s": 0.039028401020914316,
+      "snapshot_age_sim_s": 0.108
+    },
+    "map_id": "a3940a23e72b445ba0f951c04f6fa0b9-f5272e80e3f440c1a0f28f26d5b00f94",
+    "online_offline_identical": true,
+    "post_release_report_sha256": "2a6737daf7281c1b38a42488e76dde4dc3a2b861ea8a3084a998c9106a79b7c6",
+    "raw_map_path": "artifacts/runs/n08-20261024-221-overhead-ceiling-isolated-01/n05-post-release/n05-live-raw-map.npz",
+    "raw_map_sha256": "eb6aa6644ae21b82712f82e96ea0bbbccdd3e99b8edeefa6ef23952d1b5ea14d",
+    "reason": "all_entry_phases_known_and_clear",
+    "same_epoch_before_after": true,
+    "same_map_id_before_after": true
+  },
+  "result": "N05 PASSED; BODY SPHERES FREE; TERMINAL HOLD/CURVE NOT CERTIFIED; N08 IN_PROGRESS",
+  "run_id": "n08-20261024-221-overhead-ceiling-isolated-01",
+  "scene": {
+    "base_layout_id": "wall_box_column",
+    "layout_id": "n08_overhead_calibration",
+    "layout_scene_sha256": "650293d82e13b8a455bc07e00fa9ac028cdf3b6d92bf84843e653a6382f84500",
+    "objects": [
+      {
+        "name": "n04_box",
+        "pose_xyz_rpy_m_rad": [
+          1.55,
+          -0.43,
+          0.78,
+          0,
+          0,
+          0
+        ],
+        "rgba": [
+          0.75,
+          0.18,
+          0.1,
+          1.0
+        ],
+        "shape": "box",
+        "size_m": [
+          0.32,
+          0.52,
+          0.72
+        ]
+      },
+      {
+        "length_m": 0.72,
+        "name": "n04_column",
+        "pose_xyz_rpy_m_rad": [
+          1.85,
+          0.48,
+          0.72,
+          0,
+          0,
+          0
+        ],
+        "radius_m": 0.17,
+        "rgba": [
+          0.1,
+          0.3,
+          0.78,
+          1.0
+        ],
+        "shape": "cylinder"
+      },
+      {
+        "name": "n08_overhead_boundary",
+        "pose_xyz_rpy_m_rad": [
+          -1.5,
+          0.0,
+          2.7,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba": [
+          0.78,
+          0.8,
+          0.82,
+          1.0
+        ],
+        "shape": "box",
+        "size_m": [
+          8.0,
+          8.0,
+          0.1
+        ]
+      }
+    ],
+    "run_inputs_sha256": "d35d6cb7993e6d3e21a3de9d1fdfbd980d9a528ea236bee6bbf38291933429eb",
+    "source_configs": [
+      {
+        "path": "config/components/simulation/n08_overhead_calibration.json",
+        "sha256": "991e16d96c1a45bb2aa56767cf519ac8d137f23b352ffaca3329c824850e54f9"
+      },
+      {
+        "path": "config/components/simulation/n04_geometry_layouts.json",
+        "sha256": "c4d4fb752e7c2af01054fc678905f888f70964e68dfc3f53388869f45364e234"
+      }
+    ]
+  },
+  "schema": "n08-overhead-ceiling-isolated/v1",
+  "subtask": "N08.2k",
+  "support_scan": {
+    "completed_stages": 15,
+    "final_landed": true,
+    "last_localization": {
+      "normalized_cost": 0.7585130179308099,
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "planned_stages": 15,
+    "profile": "n08_overhead_free_sector_view",
+    "project_stop_exit": "0",
+    "runner_error": "localization changed or became invalid during physical scan",
+    "support_detached_and_fixture_absent": true,
+    "vehicle_states": [
+      1
+    ]
+  }
+}

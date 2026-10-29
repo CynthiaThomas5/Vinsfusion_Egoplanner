@@ -1,0 +1,78 @@
+{
+  "schema": "n08-goal-unknown/v1",
+  "task": "N08.2g #217",
+  "run_id": "n08-20261024-217-lock-window-01",
+  "result": "N05_PASSED_COMPUTE_ONLY_GOAL_REJECTED_BY_UNKNOWN",
+  "experiment": {
+    "hypothesis": "The earlier localization stale lock could occur between support scan and bridge readiness.",
+    "variable": "Low-load, read-only recorder continuously observed VINS and localization timing from before support scan until bridge PRESTREAM.",
+    "thresholds_changed": false
+  },
+  "support_scan": {
+    "completed_stages": 12,
+    "required_stages": 12,
+    "helper_outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "fixture_removed": true,
+    "landed_and_disarmed": true,
+    "outer_n05_diagnostic_pass": true,
+    "outer_n05_checks_passed": 14
+  },
+  "n05": {
+    "post_release_accepted": true,
+    "current_area_accepted": true,
+    "online_offline_identical": true,
+    "same_epoch": true,
+    "same_map_id": true
+  },
+  "timeline_before_prestream": {
+    "telemetry_count": 6019,
+    "telemetry_max_source_gap_s": 0.068000001,
+    "telemetry_max_clock_age_s": 0.148000001,
+    "optimized_odometry_max_source_gap_s": 0.068000001,
+    "optimized_odometry_max_receipt_gap_s": 0.397418345,
+    "localization_stale_transition_seen": false,
+    "bridge_prestream_seen": true,
+    "observer_stopped_at_prestream": true
+  },
+  "compute_only": {
+    "navigation_preflight_passed": true,
+    "action_goal_sent": true,
+    "trajectory_ready_seen": false,
+    "planner_failure": "planner_full_curve_unknown",
+    "planner_certificate_queries": 1,
+    "position_command_samples": 0,
+    "bridge_position_cmd_input_isolated": true,
+    "clock_regressions": 0,
+    "landed_and_disarmed": true
+  },
+  "offline_map_audit": {
+    "report": "artifacts/runs/n08-20261024-217-lock-window-01/n08-goal-clearance-audit.json",
+    "snapshot_sha256": "da803352dc77dd9a9d2d9e99b9a59dc4df13e4a5472484c3160e55c4ecc81912",
+    "ego_clearance_radius_m": 0.7306179170842027,
+    "start_sphere": {
+      "reason": "unknown",
+      "unknown_voxels": 61,
+      "occupied_voxels": 0,
+      "unknown_cell_center_bounds_xyz_m": {
+        "min": [-0.55, 0.45, 1.25],
+        "max": [0.45, 0.75, 1.55]
+      }
+    },
+    "goal_sphere": {
+      "reason": "free",
+      "unknown_voxels": 0,
+      "occupied_voxels": 0
+    },
+    "hold_sphere": {
+      "reason": "unknown",
+      "unknown_voxels": 79,
+      "occupied_voxels": 0
+    },
+    "same_map_identity": true,
+    "exact_action_time_failure_center_archived": false
+  },
+  "interpretation": "A conservative map-coverage explanation is supported: the selected N05 scan profile never changed yaw and left an unknown sector in +Y that intersects EGO's orientation-invariant sphere. The nominal-level modeled airframe plus existing margin ends below that sector, but no N08 attitude bound is validated, so the unknown volume cannot be removed from the safety check. The frozen N05 map is earlier than the planner callback; exact failed cell is unproven.",
+  "n07_passes_retested": false,
+  "next": "N08.2h #218: add one stationary +Y, slightly upward support-view segment, return the fixture to neutral, require the fresh same-run N05 gate, and retry compute-only with unchanged limits and no XY execution."
+}

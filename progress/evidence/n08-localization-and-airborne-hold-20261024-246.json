@@ -1,0 +1,79 @@
+{
+  "schema": "n08-localization-and-airborne-hold/v1",
+  "run_id": "n08-20261024-246-localization-freshness-diagnostic",
+  "goal": "N08",
+  "child": "N08.2ai",
+  "status": "diagnostic_only",
+  "n07_retested": false,
+  "px4_clock": {
+    "samples": 266,
+    "valid_samples": 266,
+    "ros_clock_gap_s": [
+      -0.008,
+      0.016
+    ],
+    "clock_regressions": 0,
+    "result": "valid; #245 timing failure not reproduced"
+  },
+  "localization": {
+    "status_samples": 304,
+    "valid_samples": 304,
+    "max_status_source_age_s": 0.012000001,
+    "telemetry_stale_lockout_reproduced": false,
+    "root_cause_of_245_proven": false
+  },
+  "n05": {
+    "profile": "n08_overhead_free_sector_view_decoupled_slow_vertical_return",
+    "completed_stages": 16,
+    "stage_count": 16,
+    "after_post_release_current_area_same_identity_accepted": true,
+    "helper_warning": "fresh DISARMED status is required for every fixture command",
+    "independent_final_readback_confirmed_landed_disarmed_fixture_absent": true
+  },
+  "compute_only": {
+    "evaluator_checks_passed": 12,
+    "evaluator_checks_total": 12,
+    "ready_seen": true,
+    "cancel_accepted": true,
+    "bridge_hold_confirmed": true,
+    "landed_and_disarmed": true,
+    "xy_executed": false
+  },
+  "curve_certificate": {
+    "passed": false,
+    "execution_authorized": false,
+    "stopping_envelope_proven": false,
+    "per_axis_speed_bound_m_s": [
+      0.09259683174808135,
+      0.03700943245026926,
+      0.044998344004928165
+    ],
+    "per_axis_limit_m_s": 0.07885,
+    "vector_speed_bound_m_s": 0.10205058724807708,
+    "vector_limit_m_s": 0.15,
+    "start_hold_unknown_cells": 100,
+    "map_freshness_pass": true,
+    "continuous_sweep_queries": 44,
+    "continuous_sweep_pass": true
+  },
+  "final_safety": {
+    "vehicle": "DISARMED",
+    "landed": true,
+    "at_rest": true,
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "fixture_absent": true,
+    "container_state": "exited",
+    "container_exit_code": 0
+  },
+  "artifacts": {
+    "run_dir": "artifacts/runs/n08-20261024-246-localization-freshness-diagnostic",
+    "n05_summary_sha256": "0783c4bcdaea5c4967a0df7c5bf2a9e9ecb197cacdfa6cf1e272d328d5e624ad",
+    "compute_only_evaluation_sha256": "b6ddde89464d27be89293028e756d496064c8e016d915159d6556a1c08c2d817",
+    "curve_certificate_sha256": "da46a9c9d05218dabc9ba6cfcaf8a97792add3bdbd5c4a8a9d218adf57b02e0b",
+    "localization_timeline_sha256": "39639149b384c96beb16c2b65d2c9986458cd172757c9c3bc2c1845ec35ded22",
+    "live_map_sha256": "c8252eeeef9cdab32f6f28848d74c1696f8fe2fccbb2f8b0ae9c112d6dfb5b43",
+    "final_safety_readback_sha256": "ae056a4155a56d97c91b0fd9c1f9fd04a28143ede0e9a4deb5a6e4619faafa5d"
+  },
+  "next_step": "N08.2aj #247: add one negative-Y observation/dwell/return to the qualified slow-return N05 profile; keep planner and certificate thresholds fixed; no XY until same-run curve certificate passes."
+}

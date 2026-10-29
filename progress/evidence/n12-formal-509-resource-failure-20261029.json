@@ -1,0 +1,34 @@
+{
+  "id": "#509",
+  "run_id": "n12-20261029-509-formal07",
+  "status": "FAIL",
+  "formal_count_eligible": false,
+  "report": "artifacts/reanalysis/n12-20261029-509-formal07-evaluation/n12-20261029-509-formal07/n12-scene-acceptance.json",
+  "report_sha256": "3dba8630854f444f33c1a6a917ce53e9f1e2994ec76294da8c93325c43843c0e",
+  "failures": [
+    "common_evaluation_failed",
+    "observed_failure:resource_and_queue_behavior"
+  ],
+  "insufficient": [
+    "resource_and_queue_behavior:not_pass"
+  ],
+  "native_work": {
+    "schema": "n11-native-work-result/v1",
+    "status": "FAIL",
+    "sample_count": 2351,
+    "maximum_native_lag_s": 0.388,
+    "maximum_pending_source_span_s": 0.0,
+    "maximum_waiting_features": 0,
+    "maximum_telemetry_source_gap_s": 0.332,
+    "violations": [
+      "686:source_lag_budget"
+    ],
+    "missing_or_inconsistent": [
+      "native_source_coverage_gap"
+    ],
+    "runtime_effect": false,
+    "raw_buffer_ols_is_diagnostic_only": true
+  },
+  "safe_terminal": true,
+  "container_stopped_normally": true
+}

@@ -1,0 +1,19 @@
+--- a/src/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/src/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -118,13 +118,9 @@
+ 
+     if (target_type_ == TARGET_TYPE::MANUAL_TARGET)
+     {
+-      waypoint_sub_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
+-          "/move_base_simple/goal",
+-          1,
+-          [this](const std::shared_ptr<const geometry_msgs::msg::PoseStamped> &msg)
+-          {
+-            this->waypointCallback(msg);
+-          });
++      RCLCPP_WARN(node_->get_logger(),
++                  "Direct /move_base_simple/goal input is disabled; use the validated "
++                  "/navigation/navigate_to_pose action");
+     }
+     else if (target_type_ == TARGET_TYPE::PRESET_TARGET)
+     {

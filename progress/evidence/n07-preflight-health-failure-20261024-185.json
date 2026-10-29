@@ -1,0 +1,166 @@
+{
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "run_id": "n07-20261024-185-01",
+  "result": "FAIL_NO_FLIGHT",
+  "consecutive_passes_after_reset": "0/3",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout_id": "wall_box_column",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "identity": {
+    "epoch": "bdcee586935e43caba090bdd70d90fde",
+    "map_id": "bdcee586935e43caba090bdd70d90fde-e1c63c746c794d4f81ec22379543c0b1"
+  },
+  "n05_initial_gate": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "offline_matches_online": true,
+    "bridge_phase": "DISABLED",
+    "armed": false,
+    "landed": true,
+    "localization_valid": true
+  },
+  "support_scan": {
+    "ready_marker_created": true,
+    "completed_stages": 12,
+    "total_stages": 12,
+    "attachment_at_marker": "attached",
+    "vehicle_arming_state": 1,
+    "truth_input_used": false,
+    "control_or_goal_published": false,
+    "n05_attached_live_check_completed": true,
+    "helper_exit_code": 1,
+    "helper_outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.4386971394716981
+    },
+    "measured_attached_settle_wall_s": 2.000073489
+  },
+  "n05_attached_gate": {
+    "accepted": true,
+    "reason": "all_entry_phases_known_and_clear",
+    "online_offline_identical": true,
+    "offline_matches_online": true,
+    "identity_matches_marker": true,
+    "freshness": {
+      "snapshot_age_sim_s": 0.092,
+      "depth_source_age_sim_s": 0.12,
+      "fusion_age_sim_s": 0.056,
+      "map_status_receipt_age_wall_s": 0.10509920702315867,
+      "localization_receipt_age_wall_s": 3.1177885830402374e-05,
+      "odometry_receipt_age_wall_s": 0.03073804290033877,
+      "limit_sim_s": 0.4
+    },
+    "original_limit_sim_s": 0.4
+  },
+  "post_release": {
+    "live_gate_run": false,
+    "current_area_gate_run": false,
+    "n05_summary_created": false
+  },
+  "telemetry_diagnostic": {
+    "max_observed_normalized_cost": 0.7971408997956735,
+    "over_original_1_0_threshold_count": 0,
+    "final_localization_reported_by_fixture": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.4386971394716981
+    },
+    "limitation": "No independent LocalizationStatus timeline was captured across helper error; bridge readback reported readiness reason localization_not_tracking. Exact transition timing remains unresolved."
+  },
+  "bridge_readback": {
+    "topic_info_publisher_count": 1,
+    "first_echo_failure_due_discovery": true,
+    "retry_with_explicit_type_exit_code": 0,
+    "phase": "DISABLED",
+    "reason": "localization_not_tracking",
+    "ready": false,
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "local_position_valid": false,
+    "ev_position_fused": false,
+    "ev_yaw_fused": false,
+    "gnss_aiding_active": false
+  },
+  "cleanup": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "helper_cleanup_attempted": false,
+    "helper_verified_detached": false,
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "PX4_all_recorded_states_disarmed": true,
+    "PX4_status_samples": 803,
+    "LandDetected_all_landed": true,
+    "LandDetected_samples": 425
+  },
+  "container": {
+    "stop_command": "bash tools/project.sh stop n07-20261024-185-01",
+    "final_status": "exited",
+    "exit_code": 0,
+    "active_project_containers": 0
+  },
+  "flight": {
+    "started": false,
+    "flight_json_created": false,
+    "arm_or_goal_command_sent": false
+  },
+  "limitations": [
+    "Attached gate passed, but helper exited 1 after completing 12/12 stages with localization changed/invalid error.",
+    "No post-release or current-area N05 gate was executed; no N05 14/14 summary and no N07 flight qualification.",
+    "The fixture final localization sample was valid, while later bridge readiness readback reason was localization_not_tracking; an independent status timeline is needed to resolve timing.",
+    "No threshold or configuration was changed; no control command or flight was sent."
+  ],
+  "artifact_sha256": {
+    "gpu-request.json": "408545c45700f62fbe5065ab06e1e2a072d07d4cff8b3226ab9b269ccb7d6743",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-run-inputs.json": "c6f1fa027878979e8b78ebb453133487ee7c643762510437d764523dc6618b63",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "n05-before-check.log": "6caee92163cb91b653ffd70119f41a5ec28d86050d6105c4eaa1432ba14767ca",
+    "n05-before-check.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-before-replay.log": "6d4e2610bdca391326a9c952f1d7ae793147012edd1184cd4b882b230ff86f52",
+    "n05-before/n05-live-entry-check.json": "7d635c3bf695e776af78ae91a3a71b74361bedce5d3e56163c1de3d5448fb54e",
+    "n05-before/n05-offline-entry-replay.json": "a5f3e0e0e3cd7f9031b2b4fd95534b9245ffa55e84b49862a5b129fa51c9e1ff",
+    "n05-prescan-ready.json": "07ee3fad560080cae00b940e73f2f3eaf7c357e5083537b5f8366d2158267a22",
+    "n05-attached-settle.json": "381502cedd6144b8addafd961b18814fb9372df067697b180456f4f50e7b9d40",
+    "n05-after-check.log": "96217125bddb563a06c66a6c2839ade99e38ccea2f39254a8d34c448ed795af0",
+    "n05-after-replay.log": "bfd0b7322ff24c034180c9c54f411170df1c4ee5f00c55f1ff4244193de8e9bb",
+    "n05-after/n05-live-entry-check.json": "2aa537489ca9a1f52fee668b27fd62a91ef7bdd836760a5b08151b945fe18e75",
+    "n05-after/n05-offline-entry-replay.json": "d95d927b14713931c3fdb4f1ab4f4efc3f3698b0c45a8192e582bc2245e358e8",
+    "fixture-result.json": "971e0b2712bba6b3defb8c4c9d382467aff336644fe8b4689f807a60755fbcee",
+    "fixture-stages.json": "811bdb7060e6adf0052db6a30bd40a30b426940f11ce9708557133ebc7a1c755",
+    "fixture-trace.jsonl": "68863ea60a0dc6ff466464f0f798fb9cd8951579687eca5afa445c46610cc3c4",
+    "fixture-vins.jsonl": "73252c9a8f504172983fa437ce154857736d43f70f33643bcc3b60575d685f4d",
+    "fixture-odometry.jsonl": "23259cdf239889478b13751b21b6cff17225db13cf8620e90020806f3524617e",
+    "n05-fixture.log": "951b736fe73259f66d309ee6925401f7a6c36fa006ab2b4d58352fd25e6e1b07",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-release-fixture": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "postscan-safety-readback.log": "8a78b000c04ecbe55e846c78f6077b1991cea36435d874d4e9e14b803e0bf109",
+    "n07-20261024-185-01-stack/session/session.json": "c653169df167445ce0564376ab6b3a2f19695d4388518397380944da8295e6a0",
+    "n07-20261024-185-01-stack/launch-manifest.json": "f8c0f095d1f5b1540dcba6ca22402a43848bb6e61a5755031084a84d74d7fd0e"
+  },
+  "missing_expected_artifacts": [
+    "n05-post-release/n05-live-entry-check.json",
+    "n05-current-area/n05-live-entry-check.json",
+    "n05-run-summary.json",
+    "flight.json",
+    "n07-hover-evaluation.json",
+    "px4-ulog-analysis.json",
+    "ros-graph-audit.json"
+  ]
+}

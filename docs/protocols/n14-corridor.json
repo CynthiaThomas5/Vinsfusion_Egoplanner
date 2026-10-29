@@ -1,0 +1,55 @@
+{
+  "schema": "n14-corridor-protocol/v1",
+  "status": "ready_for_formal",
+  "goal_scope": "Complete N14, three independent cold starts plus blocked/unknown-target behavior",
+  "runtime_basis": "N13/#536 unchanged production runtime except scene",
+  "clear_width_m": 2.4,
+  "length_m": 6,
+  "height_m": 3,
+  "width_basis": {
+    "inflation_radius_m": 0.7306179170842027,
+    "conservative_body_horizontal_diameter_m": 0.9638717413319998,
+    "N13_observed_max_lateral_tracking_error_m": [
+      0.3213598698236204,
+      0.20063120592510275,
+      0.19654559701866003
+    ],
+    "inflated_centerline_half_width_m": 0.4693820829157973,
+    "observations_are_not_bounds": true
+  },
+  "scene": "artifacts/runs/n14-20261029-537-preparation/ego.sdf",
+  "required": [
+    "actual entry-to-exit corridor traversal; outside-wall detour does not qualify",
+    "identity-bound map support of both side walls before passage",
+    "actual commands and goal/epoch/planner identity",
+    "arrival, zero prohibited contact, normal safe terminal",
+    "three qualifying independent GUI cold starts",
+    "blocked/unknown target explicit refusal or timeout, separate from success count"
+  ],
+  "diagnostic_only": [
+    "independent VIO/map/resource numeric budgets",
+    "tracking error and dense interval clearance"
+  ],
+  "minimum_clearance_numeric_gate": false,
+  "motion_parameters_changed": false,
+  "existing_3D_yaw_evidence": "N11–N13 goal profiles and final audit; verify reuse explicitly",
+  "formal_pass_count": 0,
+  "pending": [
+    "three actual GUI flights",
+    "blocked/unknown target validation and final audit"
+  ],
+  "acceptance_config": "config/acceptance_n14.json",
+  "formal_evaluator": "tools/debug_truth/evaluate_n14_run.py",
+  "evaluation_pipeline": "tools/debug_truth/prepare_n14_evaluation.py",
+  "release_id": "#540",
+  "acceptance_config_sha256": "c19da4411074d06f61416086f58b6198eb7f83f72fde4e2de624b7d8cc45fab2",
+  "frozen_runtime_contract_sha256": "923ac373da0e695befea074ad605ae82e9ae2efba2707e1e8b1c0c247891c2ea",
+  "scene_source_sha256": "8e63f82c5182784841f2f674639db4061a181262fc20c288498f985ab5e29157",
+  "planner_config": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+  "effective_dynamics": {
+    "max_vel": 0.4,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0
+  },
+  "goal_profile_sha256": "2587703131ad8b2e87b8e6999bd076813dd7f6f97cca1796d3b6289dc8019f9a"
+}

@@ -1,0 +1,64 @@
+{
+  "schema": "n08-small-pitch-map-qualification/v1",
+  "run_id": "n08-20261024-253-small-pitch-speed-trial",
+  "child": "N08.2ap #253",
+  "completed_stages": 15,
+  "fixture_runner_error_preserved": "localization changed or became invalid during physical scan",
+  "n05_diagnostic_pass": true,
+  "same_epoch_and_map": {
+    "epoch_before": "499df491e0c54135a6410cf3842bbd6b",
+    "epoch_after": "499df491e0c54135a6410cf3842bbd6b",
+    "map_id_before": "499df491e0c54135a6410cf3842bbd6b-ef26a1317a4146adb56c09167182d4c3",
+    "map_id_after": "499df491e0c54135a6410cf3842bbd6b-ef26a1317a4146adb56c09167182d4c3",
+    "same_epoch": true,
+    "same_map_id": true,
+    "scan_identity_matches_after_snapshot": true
+  },
+  "post_release_accepted": true,
+  "offline_forward_capsule_clear": true,
+  "offline_forward_capsule_radius_m": 0.9931179170842026,
+  "offline_forward_capsule_queries": 24,
+  "prospective_landings_along_path": {
+    "passed": false,
+    "queries": [
+      {
+        "distance_from_start_m": 0.0,
+        "accepted": true,
+        "reason": "all_entry_phases_known_and_clear"
+      },
+      {
+        "distance_from_start_m": 0.09999999999999999,
+        "accepted": true,
+        "reason": "all_entry_phases_known_and_clear"
+      },
+      {
+        "distance_from_start_m": 0.19999999999999998,
+        "accepted": false,
+        "reason": "TAKEOFF_CONTACT:raw_occupied_in_expanded_vehicle_envelope"
+      }
+    ]
+  },
+  "scope_decision": "Use the existing qualified home takeoff pad for normal landing; the terminal braking trial returns over its checked corridor. Do not claim arbitrary touchdown points passed N05.",
+  "interruption": "User interrupted after scan launch. The scan completed; idle simulation remained running ~12h. At resume VIO had latched telemetry_stale, so no mission was started in this old epoch.",
+  "compute_only_run": false,
+  "xy_executed": false,
+  "braking_measured": false,
+  "safety": {
+    "disarmed": true,
+    "landed": true,
+    "bridge_disabled": true,
+    "control_samples_zero": true,
+    "fixture_absent": true,
+    "stop_exit_code": 0,
+    "container": "exited 0",
+    "reason": "long idle epoch became invalid after interrupted turn; no mission executed"
+  },
+  "artifacts_sha256": {
+    "artifacts/runs/n08-20261024-253-small-pitch-speed-trial/fixture-result.json": "4db68a5655ea48e4ab1d278733ccd678d4919494c0af73a096e382ec4072d931",
+    "artifacts/runs/n08-20261024-253-small-pitch-speed-trial/n05-run-summary.json": "3a18132d132bfea60ef7142c20a7e9993cbc205e593bee4e36ef749267706c9f",
+    "artifacts/runs/n08-20261024-253-small-pitch-speed-trial/n05-post-release/n05-live-entry-check.json": "bc71a7d615d1103b4f12139b9a9e0914104e644cfc3df9434e3d474d21aae4ee",
+    "artifacts/runs/n08-20261024-253-small-pitch-speed-trial/offline-trial-envelope-audit.json": "581ccc199457ffd89ff6f6451813080433271c0c75612039ed9d0eac26bf0751",
+    "artifacts/runs/n08-20261024-253-small-pitch-speed-trial/resume-live-readback.json": "efbd8a355056ae1387a6f04309fa054d95854d85133a46bd223e151dc75c9aa5",
+    "artifacts/runs/n08-20261024-253-small-pitch-speed-trial/final-safety-readback.json": "d546151522ee331585a8bfd2a174ddaa75e1e49585ba56003b6f37749ef312a9"
+  }
+}

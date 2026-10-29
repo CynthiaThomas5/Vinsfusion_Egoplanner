@@ -1,0 +1,77 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "experiment_id": "#343",
+  "run_id": "n10-20261026-343-speed031-start8-r01",
+  "protocol_revision": 2,
+  "parent_subtask": "N10.3",
+  "status": "frozen_before_run",
+  "purpose": "Diagnose whether #342's initial EGO local target was refused because it fell inside the ego.sdf cylinder's inflated occupied region; this is not an N11-N16 formal run.",
+  "hypothesis": "With spawn x=-8.0m and all other inputs fixed, the first forward local target near x=-6.0m should avoid the cylinder centered near x=-4.0m; live inflated-occupied planning must still clear and replan around obstacles.",
+  "single_primary_variable": {
+    "name": "run-specific PX4/Gazebo spawn world x",
+    "control": -6.5,
+    "candidate": -8.0,
+    "other_pose_components_xyzrpy": [0.0, 0.3, 0.0, 0.0, 0.0]
+  },
+  "fixed": {
+    "goal_offset_enu_m": [16.0, 0.0, 0.1],
+    "yaw_offset_rad": 0.2,
+    "position_tolerance_m": 0.25,
+    "yaw_tolerance_rad": 0.2617993877991494,
+    "dwell_sim_s": 3.0,
+    "goal_timeout_sim_s": 360.0,
+    "post_goal_active_hold_sim_s": 600.0,
+    "planner_max_velocity_m_s_per_axis": 0.31,
+    "planner_max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 2.0,
+    "inflation_m": 0.7306179170842027,
+    "official_ego_inflated_occupied_collision_policy": true,
+    "runtime_max_vector_speed_m_s": 0.12,
+    "ground_truth_online_control_or_guard": false
+  },
+  "safety": {
+    "invalid_speed_sample": "fail closed",
+    "speed_guard_trip": "cancel action, STOP_HOLD, and bridge-owned landing",
+    "health_map_clock_contact_failure": "preserve logs and use existing fail-closed cancellation/landing path",
+    "collision_or_inflation_gates_changed": false,
+    "thresholds_changed": false,
+    "retries_after_first_px4_flight_attempt": 0,
+    "preflight_startup_repair_before_any_px4_spawn": "allowed; prior failure was sim_runtime resolver path exit before PX4 launch and is retained as an infrastructure startup failure"
+  },
+  "acceptance": {
+    "spawn_source_and_sha256_match": true,
+    "preflight_takeoff_admission_and_ros_graph_pass": true,
+    "same_goal_identity_ready_ego_trajectory_and_replanning": true,
+    "reference_and_px4_vector_speed_never_exceed_0.12_m_s": true,
+    "independent_goal_arrival_and_3s_dwell_pass": true,
+    "600_sim_second_active_hold_completes": true,
+    "localization_map_freshness_tracking_contact_and_terminal_state_evidence_complete": true
+  },
+  "pre_run_verification": {
+    "command": "bash tools/project.sh test",
+    "unittest_count": 405,
+    "navigation_adapter_integration": "passed",
+    "official_policy_ros_probe": "passed",
+    "log_sha256": "9e183c3e0043a5c9b17b198a1f9291562aa21cdafbd997d08f2568e5cd4a3f4b",
+    "git_diff_check": "passed"
+  },
+  "input_sha256": {
+    "config/components/simulation/n10_long_range_spawn_minus8.json": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "config/runtime.json": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "config/components/mapping/n10_horizon2_speed031_calibration.json": "33864323ae310e47d2d268b6ad091037c438a5aeb66bf4b8adcd4b7e3cbf64e0",
+    "config/components/mapping/ego_planner.json": "077f7711b70d04c1c41e191c4518d18fcaf5d962871bb34ce33db02420b14337",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json": "d1e73365f0cc12d4f30a5445fa25ed54e35267eb2ff80a788c5f3d7162212821",
+    "config/components/navigation/vehicle_envelope.json": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+    "config/components/navigation/task_supervisor.json": "2ebcc06d25a6f550725161d3542915c29989a912ef1d6c8d48e596873980bb56",
+    "simulation/worlds/ego.sdf": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+    "simulation/models/x500_d435i/model.sdf": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+    "tools/project.sh": "2be7f68c2b0cb2f5c8ac0736f8a95f757235b867844dc576ff00cf7de1c13f7b",
+    "tools/sim_runtime.sh": "6aea8608e696c6a5baf818a90dfeecb6c5e9049da84eb4fb8d1050fd5ae616c2",
+    "tools/resolve_sim_spawn.py": "8d1c1a513d2dd831f6152f4df7e433bbc62deaf09dbb6ddd53cd4cb1d20e52e7",
+    "tools/test_resolve_sim_spawn.py": "2a1a6fc9eac9f547205df7a0586bac16fbe37cfe398e335517f5264132b49721",
+    "tools/n09_runtime.sh": "7db94d809ca887b5f829169efaa473d2b1cdd0c059189ca48f240183b4db45a3",
+    "tools/run_vio_ego_flight.py": "a5d0794130dcff8a44405db6bde94a0d378fde43a7b407fbe7a766b9cbcbea6d",
+    "tools/speed_guard.py": "d3e3227407da9c391dad0d564bddd4b621decf56586aa416da0265b396f72da2",
+    "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch": "b41440d75badb304fc59684718a4b2fe9a295d1fc13485c43ee0900161f8b4d1"
+  }
+}

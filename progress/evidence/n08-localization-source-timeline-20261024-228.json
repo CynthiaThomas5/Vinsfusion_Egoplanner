@@ -1,0 +1,122 @@
+{
+  "schema": "n08-localization-source-timeline-evidence/v1",
+  "id": "N08.2r-228",
+  "status": "diagnostic_complete_n08_incomplete",
+  "run_id": "n08-20261024-228-localization-timeline-01",
+  "scope": "read-only localization source/receipt timeline plus compute-only trajectory, cancel, bridge hold and same-map geometry; no horizontal execution or braking measurement",
+  "identity": {
+    "epoch": "7af4ed28ae2c42d2bf002304b848daf3",
+    "map_id": "7af4ed28ae2c42d2bf002304b848daf3-6d1adadbdee843f680e63026c95508a0",
+    "same_epoch_through_support_scan": true,
+    "same_map_through_support_scan": true
+  },
+  "localization_timeline": {
+    "events": 29136,
+    "wall_duration_s": 39.22,
+    "sim_clock_start_s": 505.864,
+    "sim_clock_end_s": 541.42,
+    "clock_regressions": 0,
+    "localization_status_count": 794,
+    "localization_valid_count": 794,
+    "localization_reason_counts": {
+      "fresh_inputs_and_usable_solver": 794
+    },
+    "max_localization_status_source_gap_s": 0.056000001,
+    "map_status_count": 174,
+    "map_input_ready_count": 174,
+    "map_reason_counts": {
+      "ready": 174
+    },
+    "max_map_status_source_gap_s": 0.3,
+    "raw_vins_telemetry_count": 536,
+    "raw_optimized_count": 536,
+    "raw_vins_max_source_gap_s": 0.068000001,
+    "adapter_optimized_count": 540,
+    "adapter_optimized_max_source_gap_s": 0.068000001,
+    "adapter_optimized_max_source_age_s": 0.184000001,
+    "raw_propagated_count": 8848,
+    "raw_propagated_max_source_gap_s": 0.004000001,
+    "adapter_propagated_count": 8854,
+    "adapter_propagated_max_source_gap_s": 0.219999999,
+    "clock_count": 8854,
+    "clock_max_source_gap_s": 0.148
+  },
+  "n05": {
+    "support_scan_stages_completed": 15,
+    "fixture_helper_outcome": "failed",
+    "fixture_helper_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_detached": true,
+    "fixture_model_absent": true,
+    "final_landed": true,
+    "before_gate": {
+      "accepted": false,
+      "reason": "ground_plane_insufficient_raw_occupied_voxels"
+    },
+    "post_release_online_offline_accepted": true,
+    "mission_current_area_online_offline_accepted": true,
+    "same_epoch_map_online_offline": true,
+    "post_release_reason": "all_entry_phases_known_and_clear"
+  },
+  "compute_only": {
+    "runner_pass": true,
+    "one_ready_curve": true,
+    "cancel_accepted_and_confirmed": true,
+    "bridge_hold_after_cancel_sim_s": 2.0,
+    "landed_and_disarmed": true,
+    "n08_compute_only_evaluator_pass": true,
+    "evaluation_check_count": 12,
+    "horizontal_control_executed": false
+  },
+  "curve_and_stopping_envelope": {
+    "vector_speed_bound_m_s": 0.09995721999320781,
+    "explicit_vector_speed_cap_m_s": 0.15,
+    "map_freshness_pass": true,
+    "start_body_free": true,
+    "start_hold_radius_m": 0.9806179170842027,
+    "start_hold_unknown_voxels": 71,
+    "end_body_free": true,
+    "end_terminal_hold_free": true,
+    "continuous_sweep_queries": 43,
+    "continuous_sweep_pass": true,
+    "geometry_pass": false,
+    "stopping_envelope_proven": false,
+    "execute_authorized": false,
+    "minimum_deceleration_measured": false,
+    "response_delay_bound_measured": false,
+    "actual_stop_distance_measured": false
+  },
+  "snapshot_timing": {
+    "snapshot_sim_s": 804.78,
+    "goal_sim_s": 533.392,
+    "same_epoch_map_id": true,
+    "fusion_age_s": 0.028,
+    "source_age_s": 0.104,
+    "synchronous_with_spline_generation": false,
+    "capture_recovered_from_prior_transient_refusal": true,
+    "map_status_service_response_reconstructed": false
+  },
+  "px4_boot_readback": {
+    "MPC_ACC_HOR": 3.0,
+    "MPC_ACC_HOR_MAX": 5.0,
+    "MPC_JERK_AUTO": 4.0,
+    "MPC_XY_VEL_MAX": 12.0,
+    "provides_minimum_deceleration_or_response_delay_bound": false
+  },
+  "artifacts": {
+    "flight.json": "02b652ff62c7e44b37534bfbbef69d7029feff679f0aaeac242bc7ee38a5e5d5",
+    "n08-compute-only-evaluation.json": "5ae2cb0e9e875448d104af80a4db3bb58498df1eb7511e5bf8ca178268152a1c",
+    "n08-curve-certificate.json": "2926f66908978df0c43733d2e4277be96098f6ad6ef725b25d2d8e400259cb86",
+    "n08-live-curve-map.json": "304df7563532a92544e46e2eac7bb800acb5fb825c0328f2662313eb6584ab09",
+    "n08-live-curve-map.npz": "d2e46be5cd21e9173c7897676e1f6a39dfbc6d5cb969a5101e0dfa74b08cb42e",
+    "n08-localization-source-timeline.json": "00a0f9aea26251bfe8787bd0ffe7121028a2b67976a5347bb166de0b6d3b0e80",
+    "n05-run-summary.json": "6eb7efa35828c69d28c6bff93d63d544cc709e0cd330212e218d01d6256404bd",
+    "fixture-result.json": "5b4a0e65160bc78d36b1e0ccd3d62800962981f548002e5fa6af4f7b926b7e58"
+  },
+  "next_subtask": {
+    "id": "N08.2s-229",
+    "hypothesis": "one −π/2 horizontal observation and return to neutral can clear the remaining start-hold unknown sector without taking the second-side yaw step that crossed the fixed localization-cost limit in #223",
+    "only_experimental_variable": "add one-sided yaw observation and neutral return to the #228 overhead support profile",
+    "acceptance": "fresh same-identity post-release and mission N05 online/offline admission; scan complete and detached; localization valid throughout; recalculate same-run start-hold, body, terminal-hold and continuous-path raw queries",
+    "xy_execution": false
+  }
+}

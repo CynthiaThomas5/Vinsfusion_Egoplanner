@@ -1,0 +1,189 @@
+{
+  "schema": "n08-decoupled-return-attempt/v1",
+  "subtask": "N08.2af #243",
+  "parent": "N08",
+  "status": "incomplete_diagnostic",
+  "run_id": "n08-20261024-243-overhead-free-sector-decoupled-return",
+  "scene": "n08_overhead_calibration",
+  "profile": "n08_overhead_free_sector_view_decoupled_return",
+  "planner_config": "config/components/mapping/n08_low_speed_calibration.json",
+  "launch_mode": "compute_only",
+  "n05_initial": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "online_offline_result_identical": true
+  },
+  "scan": {
+    "completed_stages": 14,
+    "planned_stages": 16,
+    "error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.013032026835467
+    },
+    "fixture_removed": true,
+    "fixture_final_landed": true,
+    "fixture_final_disarmed": true
+  },
+  "exact_health_lockout_snapshot": {
+    "epoch": "8579e98bfafa47d79dc2c342c3240be4",
+    "state": "LOCKED",
+    "reason": "normalized_cost_exceeded",
+    "clock_ns": 417048000000,
+    "max_normalized_cost": 1.0,
+    "normalized_cost": 1.013032026835467,
+    "metrics": {
+      "stamp_ns": 416956000000,
+      "final_cost": 2421.911974250723,
+      "residual_components": 4720,
+      "input_features": 180,
+      "stereo_features": 166,
+      "continued_tracks": 169,
+      "long_tracks": 121,
+      "solve_seconds": 0.022220134735107422,
+      "visual_observations": 1250,
+      "iterations": 9
+    },
+    "cost_groups": {
+      "imu": {
+        "cost": 124.21770344822627,
+        "residual_components": 150,
+        "share": 0.0512891074361429
+      },
+      "marginalization": {
+        "cost": 1203.9033758926244,
+        "residual_components": 82,
+        "share": 0.4970879985285514
+      },
+      "visual": {
+        "cost": 1093.7908949098737,
+        "residual_components": 4488,
+        "share": 0.4516228940353063
+      }
+    },
+    "grouped_cost_sum": 2421.9119742507246,
+    "grouped_cost_error": 1.8189894035458565e-12,
+    "group_evaluation_ok": true,
+    "prior_evaluation_ok": true,
+    "prior_spectrum_ok": true,
+    "prior_information_rank": 82,
+    "prior_retained_dimension": 82,
+    "sample_source_ages_ms": {
+      "imu": 0.0,
+      "left": 20.0,
+      "optimized": 60.000001,
+      "propagated": 0.0,
+      "right": 32.0,
+      "telemetry": 68.0
+    },
+    "nearest_fixture_sample": {
+      "sim_s": 416.992,
+      "leg_index": 14,
+      "target": [
+        0.0,
+        0.3336279649929604,
+        0.0,
+        0.0
+      ],
+      "joints": {
+        "x": [
+          -4.501019665579031e-06,
+          7.195451628838277e-05
+        ],
+        "z": [
+          0.3512375770976095,
+          -0.017098335665344067
+        ],
+        "yaw": [
+          -0.005803830655795083,
+          0.0005924742603980679
+        ],
+        "pitch": [
+          0.002101167466293108,
+          -0.00019428670319592443
+        ]
+      }
+    },
+    "stage15_profile_target": {
+      "duration_sim_s": 7,
+      "target": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "stage15_started_sim_s": 414.252
+  },
+  "post_release_n05_reached": false,
+  "compute_only_mission_started": false,
+  "goal_sent": false,
+  "xy_or_braking": false,
+  "px4_time_domain_observer_enabled": false,
+  "safety_readback": {
+    "schema": "n08-final-safety-readback/v1",
+    "run_id": "n08-20261024-243-overhead-free-sector-decoupled-return",
+    "observed_utc": "2026-10-24T13:28:40.161976+00:00",
+    "source": "fresh ROS 2 topic echoes after fixture removal and before project container stop",
+    "vehicle_status": {
+      "topic": "/fmu/out/vehicle_status_v1",
+      "timestamp_us": 437668000,
+      "arming_state": 1,
+      "arming_state_name": "DISARMED",
+      "failsafe": false,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "topic": "/fmu/out/vehicle_land_detected",
+      "timestamp_us": 458260000,
+      "qos": "BEST_EFFORT + TRANSIENT_LOCAL",
+      "landed": true,
+      "ground_contact": true,
+      "at_rest": true,
+      "horizontal_movement": false,
+      "vertical_movement": false,
+      "rotational_movement": false
+    },
+    "bridge_status": {
+      "topic": "/uav_px4_bridge/status",
+      "timestamp_us": 451020000,
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true,
+      "local_position_valid": false,
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "gnss_aiding_active": false
+    },
+    "fixture": {
+      "fixture_removed": true,
+      "fixture_may_remain_attached": false,
+      "remove_service_acknowledged": true,
+      "scene_model_absent": true,
+      "final_land_detector_landed": true
+    },
+    "container_stop_exit_code": 0,
+    "mission_or_goal_started": false,
+    "notes": [
+      "Support scan ended after 14/16 completed stages due normalized_cost_exceeded.",
+      "No N05 post-release/current-area admission was obtained.",
+      "No compute-only mission or horizontal position command ran."
+    ]
+  },
+  "artifact_sha256": {
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/n05-run-inputs.json": "b959090c8a23e08f31301eaac1f5c30d407bfff49fc536590e21da41df07fb67",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/n05-before/n05-live-entry-check.json": "d21eeecf5abeb08f8fefb689833edbd3376be66554f0efc0a9deac03880682fa",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/fixture-result.json": "9462e411f8d4362e78839c536a48b9df667b1a46fd0f5cb2c0b7cb3f65f1d446",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/fixture-stages.json": "f3de66d0d884cd9d75dae9ebae8076786b8bb30cab9d32588cdea7a8af7e5dc3",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/fixture-trace.jsonl": "906c16a744d17e603ed6f81352a597143b63e8a476a6bf774550f52a41620df0",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/fixture-vins.jsonl": "88b39f5cc1cbec1f032dde3a54132f7425a40e7028fa007bb079ee510c66eb9a",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/fixture-odometry.jsonl": "722b6f26b20ab41c0318d0f02e836e2f989f28255b70bc0ec7757ca602c34050",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/final-safety-readback.json": "b2398024baf3788f67c974ad2760ed192557047bc9f94ae6fdf7eb6b159e4d9a",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/px4.log": "32bdb61238a5bd9c2574700280ee6daeac3d75d15dc4050ab55c29faa8112599",
+    "artifacts/runs/n08-20261024-243-overhead-free-sector-decoupled-return/vio.log": "4264dc5922ef5e700bb016aa50bf4463c155bafcb82af9032641896a8528d9a4"
+  }
+}

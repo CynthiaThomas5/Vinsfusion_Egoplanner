@@ -1,0 +1,124 @@
+{
+  "flight": {
+    "action_goal_sent": false,
+    "bridge_detail_samples": 254,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "gazebo_truth_hold_drift": {
+      "count": 1499,
+      "endpoint_m": 0.07307423001391312,
+      "maximum_m": 0.07307423001391312,
+      "p95_m": 0.07211433155282018
+    },
+    "hover_completed_without_quality_abort": true,
+    "landed_and_disarmed": true,
+    "localization_status_samples": 671,
+    "measured_hold_sim_s": 30.0,
+    "measured_hold_wall_s": 33.508727764943615,
+    "odometry_time_errors": [
+      ""
+    ],
+    "position_command_count_during_hold": 0,
+    "px4_local_hold_drift": {
+      "count": 1499,
+      "endpoint_m": 0.07528117759045566,
+      "maximum_m": 0.07528117759045566,
+      "p95_m": 0.07396429087632923
+    },
+    "px4_local_position_samples": 1499,
+    "px4_time_domain_valid_samples": 254,
+    "requested_hold_sim_s": 30.0,
+    "runner_result": "PASS",
+    "simulation_clock_regressions": 0,
+    "valid_localization_status_samples": 671
+  },
+  "independent_vins_vs_truth": {
+    "hold_window_absolute_yaw_error_deg": {
+      "count": 454,
+      "maximum": 0.049685700471993166,
+      "p95": 0.046898354400775034,
+      "rmse": 0.03964083707914268
+    },
+    "hold_window_position_error_m": {
+      "count": 454,
+      "maximum": 0.006509868676229538,
+      "p95": 0.00581045814152382,
+      "rmse": 0.005195746073421131
+    },
+    "prestream_reference_age_sim_s": 1e-09,
+    "whole_flight_absolute_yaw_error_deg": {
+      "count": 886,
+      "max": 0.05747951010605541,
+      "median": 0.03366294885878766,
+      "p95": 0.04686650471631387,
+      "rmse": 0.03222678840940743
+    },
+    "whole_flight_position_error_m": {
+      "count": 886,
+      "max": 0.009191230175482455,
+      "median": 0.0049521037321200705,
+      "p95": 0.006426272632517212,
+      "rmse": 0.004541765812335458
+    },
+    "whole_flight_truth_grid_support_fraction": 0.9982911825017088
+  },
+  "limitations": [
+    "No EGO trajectory, compute-only switch, trajectory cancel, translation, braking, deceleration, latency or stopping-distance evidence.",
+    "Hold drift values are descriptive; no N08 numeric static-hold threshold is defined.",
+    "This report completes only the fixed-hold submode and leaves N08 in_progress."
+  ],
+  "mode": "hold",
+  "mode_manifest": {
+    "bridge_trajectory_input_topic": "/position_cmd",
+    "control_owner": "uav_px4_bridge only",
+    "ego_position_command_topic": "/position_cmd",
+    "ground_truth_online_allowed": false
+  },
+  "n05": {
+    "current_area_accepted": true,
+    "current_area_reason": "all_entry_phases_known_and_clear",
+    "epoch": "9a6dd731a0524d34ad55af147f5b26e7",
+    "map_id": "9a6dd731a0524d34ad55af147f5b26e7-1fbdfde3d94f454b84013116c7ea57c1",
+    "offline_matches_online": true,
+    "online_offline_identical": true,
+    "post_release_entry_accepted": true,
+    "same_epoch_before_after": true,
+    "scan_health_note": "Inner scan process returned status 2 after reporting health/status change; wrapper ran explicit post-release check, which accepted. Hold only started after the separate fresh current-area gate accepted.",
+    "support_fixture_removed": true,
+    "support_scan_wrapper_diagnostic_pass": true
+  },
+  "parent_goal": "N08",
+  "parent_status": "in_progress",
+  "postprocessing": {
+    "corrected_offline_replay_command": "python3 tools/debug_truth/evaluate_odometry.py artifacts/runs/n08-20261024-211-hold-01",
+    "corrected_offline_replay_exit_code": 0,
+    "first_failure": "Old preflight /clock target had no corresponding raw VINS observation because the alignment recorder starts after the fresh N05 gate.",
+    "first_mission_wrapper_exit_code": 1,
+    "n07_previous_runs_retested": false,
+    "thresholds_lowered": false
+  },
+  "run_id": "n08-20261024-211-hold-01",
+  "schema": "n08-hold-baseline-evidence/v1",
+  "sha256": {
+    "alignment-observation.json": "8fa42034555c48189156418301795e7caed411037716edc59a7c23c8d32a849b",
+    "bridge-alignment-timeline.jsonl": "04dd0048e3403f8d596687cc98fa332b9fc37ec98584081765ccf0492e69eb8a",
+    "debug-truth-evaluation.json": "c102edc810466edf72fc60f2c95b75b9279c9bfe9e9a753e92dd0954aaac5d36",
+    "flight.json": "4d4ba893213979afe2e81ab86190f9db8eceb69d24b3bda31c62946ebbedee9d",
+    "n05-current-area/n05-live-entry-check.json": "a9e3f7310caddefa353fd012f61e6d9f472c57e0e86b93cc857f8bfa00ce0e2d",
+    "n05-current-area/n05-offline-entry-replay.json": "ce0311fd78f3fd2a48b751b86c7e7aecf009003514aa9881d085a4a25954de73",
+    "n05-run-summary.json": "cf784d600a6eb4f8dabd71284bd59434268f475c2c0ec03463a0ffa43cfe05de",
+    "n08-runtime-mode.json": "80ba5a5b391cdfbeec5ed526ecb77872d786e7c7ca35e8ca198688da09ceacc3",
+    "odometry-evaluation.json": "e59ce9dfd3f3c29f7fb33dc28d7e4979afc8977d0ffc089cd38d9d300c8b00e9",
+    "runtime-contract.json": "cd5eada29ed16efc9f7223629afedcde0ade53715f4b2b33c27a71987fd9300a",
+    "tools/debug_truth/evaluate_n07_hover.py": "c24e340fdf380ad183742f4211ba8730d6c74a5f785d625ddd0fd384f9e48143",
+    "tools/debug_truth/evaluate_odometry.py": "8976ceeb325a1e4592a52f2f538716ca015ade02ee389df87e4b155609ad4d8c",
+    "tools/test_odometry_evaluation.py": "c24eda88861f29ba7947503972c5e2dace0cf7748846c6ae261ef550aa954c54"
+  },
+  "submode_result": "fixed_hold_completed_and_offline_evaluation_passed",
+  "task_id": "#212"
+}

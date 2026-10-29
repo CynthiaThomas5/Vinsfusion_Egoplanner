@@ -5,6 +5,7 @@ from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 from export_project import export
 
 
@@ -28,6 +29,28 @@ class ExportTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):export(root,output,code_only=True)
             with self.assertRaisesRegex(ValueError,'image bundle'):export(root,Path(tmp)/'full',code_only=False)
             self.assertFalse((Path(tmp)/'full').exists())
+
+    def test_missing_historical_archive_exports_verified_local_image(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'root';(root/'dependencies').mkdir(parents=True);(root/'config').mkdir()
+            (root/'dependencies/sources.json').write_text(json.dumps({'container_rebuild':{'portable_image_bundle':{'path':'absent','sha256':'old'}}}))
+            (root/'config/runtime.json').write_text(json.dumps({'image':'fixed:tag','image_id':'sha256:verified'}))
+            output=Path(tmp)/'delivery'
+            with patch('export_project.subprocess.check_output',return_value='sha256:verified\n'), patch('export_project.save_local_image',side_effect=lambda image,path:Path(path).write_bytes(b'verified image archive')) as save:
+                report=export(root,output)
+            save.assert_called_once();self.assertTrue(report['image_included'])
+            self.assertEqual(report['image_export']['image_id'],'sha256:verified')
+            self.assertIn('container-images.tar.zst',report['artifacts_sha256'])
+
+    def test_wrong_local_image_refuses_before_creating_delivery(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)/'root';(root/'dependencies').mkdir(parents=True);(root/'config').mkdir()
+            (root/'dependencies/sources.json').write_text(json.dumps({'container_rebuild':{'portable_image_bundle':{'path':'absent','sha256':'old'}}}))
+            (root/'config/runtime.json').write_text(json.dumps({'image':'fixed:tag','image_id':'sha256:verified'}))
+            output=Path(tmp)/'delivery'
+            with patch('export_project.subprocess.check_output',return_value='sha256:wrong\n'):
+                with self.assertRaisesRegex(ValueError,'identity mismatch'):export(root,output)
+            self.assertFalse(output.exists())
 
 
 if __name__=='__main__':unittest.main()

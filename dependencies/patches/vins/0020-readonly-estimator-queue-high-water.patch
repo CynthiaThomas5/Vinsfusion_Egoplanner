@@ -1,0 +1,104 @@
+--- a/vins/src/estimator/estimator.h
++++ b/vins/src/estimator/estimator.h
+@@ -16,6 +16,7 @@
+ #include <ceres/ceres.h>
+ #include <unordered_map>
+ #include <queue>
++#include <cstddef>
+ #include <opencv2/core/eigen.hpp>
+ #include <eigen3/Eigen/Dense>
+ #include <eigen3/Eigen/Geometry>
+@@ -102,6 +103,10 @@
+     queue<pair<double, Eigen::Vector3d>> accBuf;
+     queue<pair<double, Eigen::Vector3d>> gyrBuf;
+     queue<pair<double, map<int, vector<pair<int, Eigen::Matrix<double, 7, 1> > > > > > featureBuf;
++    // Read-only high-water counters; updated under mBuf and never cap or drop input.
++    size_t accBufHighWater;
++    size_t gyrBufHighWater;
++    size_t featureBufHighWater;
+     double prevTime, curTime;
+     bool openExEstimation;
+ 
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -8,6 +8,7 @@
+  *******************************************************/
+ 
+ #include "estimator.h"
++#include <algorithm>
+ #include <sstream>
+ #include <iomanip>
+ #include <cstdlib>
+@@ -56,6 +57,9 @@
+ 
+ Estimator::Estimator(): f_manager{Rs}
+ {
++    accBufHighWater = 0;
++    gyrBufHighWater = 0;
++    featureBufHighWater = 0;
+     ROS_INFO("init begins");
+     initThreadFlag = false;
+     clearState();
+@@ -232,6 +236,7 @@
+         {
+             mBuf.lock();
+             featureBuf.push(make_pair(t, featureFrame));
++            featureBufHighWater = std::max(featureBufHighWater, featureBuf.size());
+             mBuf.unlock();
+         }
+     }
+@@ -239,6 +244,7 @@
+     {
+         mBuf.lock();
+         featureBuf.push(make_pair(t, featureFrame));
++        featureBufHighWater = std::max(featureBufHighWater, featureBuf.size());
+         mBuf.unlock();
+         TicToc processTime;
+         processMeasurements();
+@@ -252,6 +258,8 @@
+     mBuf.lock();
+     accBuf.push(make_pair(t, linearAcceleration));
+     gyrBuf.push(make_pair(t, angularVelocity));
++    accBufHighWater = std::max(accBufHighWater, accBuf.size());
++    gyrBufHighWater = std::max(gyrBufHighWater, gyrBuf.size());
+     //printf("input imu with time %f \n", t);
+     mBuf.unlock();
+ 
+@@ -337,6 +345,8 @@
+ 
+         pair<double, map<int, vector<pair<int, Eigen::Matrix<double, 7, 1> > > > > feature;
+         vector<pair<double, Eigen::Vector3d>> accVector, gyrVector;
++        size_t accQueueSizeSample = 0, gyrQueueSizeSample = 0, featureQueueSizeSample = 0;
++        size_t accQueueHighWaterSample = 0, gyrQueueHighWaterSample = 0, featureQueueHighWaterSample = 0;
+         if(!featureBuf.empty())
+         {
+             // cout << "1" << endl;
+@@ -360,6 +370,12 @@
+             }
+             // cout << "2" << endl;
+             mBuf.lock();
++            accQueueSizeSample = accBuf.size();
++            gyrQueueSizeSample = gyrBuf.size();
++            featureQueueSizeSample = featureBuf.size();
++            accQueueHighWaterSample = accBufHighWater;
++            gyrQueueHighWaterSample = gyrBufHighWater;
++            featureQueueHighWaterSample = featureBufHighWater;
+             if(USE_IMU)
+             {
+                 // cout << "2-1)" << endl;
+@@ -438,7 +454,14 @@
+                 << ",\"iterations\":" << observed_solve.iterations
+                 << ",\"solve_seconds\":" << jsonNumber(observed_solve.seconds)
+                 << ",\"cost_components\":"
+-                << (solve_current ? observed_solve.cost_components_json : "null") << "}";
++                << (solve_current ? observed_solve.cost_components_json : "null")
++                << ",\"queue_metrics\":{\"scope\":\"estimator_process_lifetime\""
++                << ",\"acc_current_before_feature_dequeue\":" << accQueueSizeSample
++                << ",\"gyr_current_before_feature_dequeue\":" << gyrQueueSizeSample
++                << ",\"feature_current_before_feature_dequeue\":" << featureQueueSizeSample
++                << ",\"acc_high_water\":" << accQueueHighWaterSample
++                << ",\"gyr_high_water\":" << gyrQueueHighWaterSample
++                << ",\"feature_high_water\":" << featureQueueHighWaterSample << "}}";
+             pubEstimatorTelemetry(telemetry.str());
+ 
+             pubOdometry(*this, header);

@@ -1,0 +1,690 @@
+{
+  "schema": "n10-vins-velocity-full-route-result/v1",
+  "subtask_id": "N10.3/#381",
+  "classification": "completed single-D435i PX4 SITL diagnostic; not formal N10/N11-N16 qualification",
+  "run_id": "n10-20261027-381-vins-velocity-full-route",
+  "runtime_contract_sha256": "547082a4538a871dd3c3b9b26c0f6b45369fa18bf1b73a8d93f219ef3e537cce",
+  "runtime_contract_file_count": 666,
+  "protocol_sha256": "053e4924c424501af851f32ae136c7cc15de54aab9cfbaf85ae7cbb431cd7ae1",
+  "flight_runtime_change": "read-only raw VINS WORLD_FRAME_ID twist.linear capture; no controller, PX4, EGO, map, goal, geometry, collision policy, speed setting or runtime-gate change",
+  "loaded_identity": {
+    "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "effective_ego_launch_arguments": {
+      "drone_id": 0,
+      "map_size_x_": 40.0,
+      "map_size_y_": 40.0,
+      "map_size_z_": 6.0,
+      "odometry_topic": "/localization/optimized_imu_odom",
+      "camera_pose_topic": "camera_pose",
+      "depth_topic": "depth_image",
+      "cloud_topic": "cloud",
+      "cx": 320.0,
+      "cy": 240.0,
+      "fx": 337.20964008990796,
+      "fy": 337.20964008990796,
+      "max_vel": 0.8,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "odom_depth_timeout": 0.4,
+      "obstacles_inflation": 0.7306179170842027,
+      "terminal_hold_neighborhood": 0.0,
+      "official_ego_collision_policy": true,
+      "ground_height": -1.0,
+      "flight_type": 1,
+      "point_num": 1,
+      "point0_x": 0.0,
+      "point0_y": 0.0,
+      "point0_z": 0.0,
+      "obj_num_set": 0,
+      "use_distinctive_trajs": true
+    },
+    "spawn": {
+      "schema": "sim-spawn-pose/v1",
+      "source": "config/components/simulation/n10_long_range_spawn_minus8.json",
+      "source_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+      "qualification": "N10.3 geometry-diagnostic spawn only; single D435i Gazebo/PX4 SITL, not an N11-N16 run.",
+      "spawn_pose_xyzrpy": [
+        -8.0,
+        0.0,
+        0.3,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "goal_config": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal": {
+      "frame": "odom_1bd3ad04c04b4415b9f52f60ff789f00",
+      "position_tolerance_m": 0.25,
+      "source_ns": 41320000000,
+      "target_enu": [
+        15.969996668291106,
+        0.004677846281716209,
+        1.0127479345236419
+      ],
+      "timeout_s": 360.0,
+      "yaw_enu": 0.19786412706106857,
+      "yaw_offset_rad": 0.2,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "initial_preflight_passed": true,
+    "official_ego_takeoff_admission_passed": true,
+    "control_publisher_counts": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/navigation/ego_goal": 1,
+      "/navigation/trajectory_cancel": 1,
+      "/position_cmd": 1
+    }
+  },
+  "mission": {
+    "action_goal_sent": true,
+    "action_success": true,
+    "action_result": {
+      "final_position": [
+        15.967656807603365,
+        0.005811271734866862,
+        1.009072066361645
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "independent_arrival": {
+      "truth_target_position_world_m": [
+        8.09143728226836,
+        0.0031908189170419977,
+        1.0798583540337008
+      ],
+      "truth_target_yaw_world_deg": 11.330974305428956,
+      "position_tolerance_m": 0.3,
+      "yaw_tolerance_deg": 14.999999999999998,
+      "required_contiguous_dwell_wall_s": 3.0,
+      "truth_pose_sample_count_during_goal_action": 2294,
+      "truth_max_source_gap_sim_s": 0.02,
+      "action_success": true,
+      "longest_joint_tolerance_dwell": {
+        "start_source_ns": 84844000000,
+        "end_source_ns": 87184000000,
+        "duration_wall_s": 3.0551289659924805,
+        "duration_sim_s": 2.34,
+        "position_error_m": {
+          "count": 118,
+          "rmse": 0.16472442850119182,
+          "median": 0.12979676006444607,
+          "p95": 0.2712983397519453,
+          "max": 0.29841847002229394
+        },
+        "absolute_yaw_error_deg": {
+          "count": 118,
+          "rmse": 7.771027309508434,
+          "median": 6.1153188820216755,
+          "p95": 11.886810444727901,
+          "max": 11.892150631782503
+        },
+        "window_endpoint_source_ns": 87188000000,
+        "goal_completion_gap_after_last_truth_sample_sim_s": 0.004,
+        "goal_completion_covered_within_truth_support": true
+      },
+      "independent_joint_arrival_passed": true,
+      "truth_is_offline_only": true
+    },
+    "post_goal_hold": {
+      "abort_reason": null,
+      "bridge_status_at_end": {
+        "armed": true,
+        "landed": false,
+        "phase": "ACTIVE",
+        "reason": "takeoff_complete_waiting_for_trajectory"
+      },
+      "clock_stall_watchdog_s": 15.0,
+      "completed": true,
+      "end_odometry_position_enu_m": [
+        15.970636511967172,
+        0.0007885652315081167,
+        1.0135067102240247
+      ],
+      "observed_sim_s": 600.0,
+      "realtime_factor_sim_over_wall": 0.7644075914801821,
+      "requested_sim_s": 600.0,
+      "start_odometry_position_enu_m": [
+        15.967656807603365,
+        0.005811271734866862,
+        1.009072066361645
+      ],
+      "wall_elapsed_s": 784.9215610721149,
+      "wall_watchdog_s": 2400.0
+    },
+    "contact": {
+      "passed": true,
+      "sensor_topics_ready": true,
+      "ground_contact_event_count": 14220,
+      "prohibited_contact_event_count": 0,
+      "landing_ground_contact_observed": true,
+      "first_prohibited_contact": null
+    },
+    "observer_terminal_coverage": {
+      "debug-truth-evaluation.json": true,
+      "alignment-observation.json": true,
+      "planner-observation.json": true,
+      "bridge-observation.json": true,
+      "n09-contact-observation.json": true,
+      "n10-live-obstacle-observation.json": true
+    },
+    "target_relative_truth_during_hold": {
+      "start_source_ns": 87204000000,
+      "end_source_ns": 687184000000,
+      "duration_sim_s": 599.98,
+      "truth_sample_count": 30000,
+      "position_error_to_goal_m": {
+        "count": 30000,
+        "rmse": 0.3516664912562174,
+        "median": 0.3848301043991364,
+        "p95": 0.4468610304448455,
+        "max": 0.4559036584246266
+      },
+      "absolute_yaw_error_to_goal_deg": {
+        "count": 30000,
+        "rmse": 4.966912312586524,
+        "median": 5.332774058189081,
+        "p95": 6.826301709739357,
+        "max": 6.869017177092764
+      },
+      "inside_simultaneous_goal_tolerances_fraction": 0.3862333333333333,
+      "first_position_exit_from_goal_sphere": {
+        "source_ns": 313284000000,
+        "elapsed_from_goal_completion_sim_s": 226.096,
+        "position_error_m": 0.30005480069956886,
+        "position_tolerance_m": 0.3
+      },
+      "truth_is_offline_only": true
+    }
+  },
+  "localization": {
+    "alignment": {
+      "method": "latest raw VINS pose strictly before PRESTREAM; never fitted to the flight path",
+      "scale": 1,
+      "target_source_ns": 18944000000,
+      "reference_source_ns": 18943999999,
+      "reference_age_sim_s": 1e-09,
+      "maximum_reference_age_sim_s": 0.15,
+      "rotation": [
+        [
+          0.999999993248666,
+          0.00011300773394447216,
+          2.7054022270040316e-05
+        ],
+        [
+          -0.00011300994021763652,
+          0.9999999902881137,
+          8.156301834684354e-05
+        ],
+        [
+          -2.7044804755417684e-05,
+          -8.156607516962374e-05,
+          0.999999996307777
+        ]
+      ],
+      "translation_m": [
+        -7.998451993020654,
+        0.00013900439361169543,
+        -0.013977010632374113
+      ]
+    },
+    "interval": {
+      "start_phase": "PRESTREAM",
+      "end_phase": "LANDED",
+      "start_source_ns": 18944000000,
+      "end_source_ns": 692540000000,
+      "duration_sim_s": 673.596,
+      "paired_truth_path_length_m": 27.650236929097908
+    },
+    "position_error_m": {
+      "count": 10206,
+      "rmse": 0.3281159007052482,
+      "median": 0.33912399713465946,
+      "p95": 0.4389976148745649,
+      "max": 0.4577722369226947
+    },
+    "absolute_yaw_error_deg": {
+      "count": 10206,
+      "rmse": 4.661699768910752,
+      "median": 4.447695855427637,
+      "p95": 6.585133084211062,
+      "max": 6.8687531495862295
+    },
+    "goal_motion": {
+      "sample_count": 696,
+      "supported": true,
+      "position_error_m": {
+        "count": 696,
+        "rmse": 0.08010774961702494,
+        "median": 0.07189067285638043,
+        "p95": 0.11668650730913291,
+        "max": 0.11920243257724839
+      },
+      "absolute_yaw_error_deg": {
+        "count": 696,
+        "rmse": 0.7498809805663116,
+        "median": 0.5828282946464756,
+        "p95": 1.2773279171673895,
+        "max": 1.3461552143778714
+      },
+      "source_max_gap_sim_s": 0.068000001
+    },
+    "600s_hold": {
+      "sample_count": 9091,
+      "supported": true,
+      "position_error_m": {
+        "count": 9091,
+        "rmse": 0.34443552796605736,
+        "median": 0.3782254541069929,
+        "p95": 0.4391353378826174,
+        "max": 0.4577722369226947
+      },
+      "absolute_yaw_error_deg": {
+        "count": 9091,
+        "rmse": 4.895237524908682,
+        "median": 5.2292548016314395,
+        "p95": 6.585918593742997,
+        "max": 6.8687531495862295
+      },
+      "source_max_gap_sim_s": 0.068000001
+    },
+    "full_run_rpe": {
+      "1s": {
+        "candidate_pairs": 10190,
+        "supported_pairs": 10190,
+        "rejected_pairs": 0,
+        "supported": true,
+        "translation_error_m": {
+          "count": 10190,
+          "rmse": 0.004252956715926817,
+          "median": 0.0020481523154987215,
+          "p95": 0.008693376694052152,
+          "max": 0.03336244071447242
+        },
+        "rotation_error_deg": {
+          "count": 10190,
+          "rmse": 0.03510759147084241,
+          "median": 0.02483974510698534,
+          "p95": 0.056301255032873254,
+          "max": 0.36178198104553894
+        }
+      },
+      "5s": {
+        "candidate_pairs": 10130,
+        "supported_pairs": 10130,
+        "rejected_pairs": 0,
+        "supported": true,
+        "translation_error_m": {
+          "count": 10130,
+          "rmse": 0.012344306012217716,
+          "median": 0.005165010236838748,
+          "p95": 0.030062134084855478,
+          "max": 0.0773430281117244
+        },
+        "rotation_error_deg": {
+          "count": 10130,
+          "rmse": 0.10740743371763889,
+          "median": 0.09981597309533279,
+          "p95": 0.16472478192926412,
+          "max": 0.363480678456686
+        }
+      },
+      "10s": {
+        "candidate_pairs": 10054,
+        "supported_pairs": 10054,
+        "rejected_pairs": 0,
+        "supported": true,
+        "translation_error_m": {
+          "count": 10054,
+          "rmse": 0.01854392481187802,
+          "median": 0.0098053878693884,
+          "p95": 0.04166794294432002,
+          "max": 0.09975770533748268
+        },
+        "rotation_error_deg": {
+          "count": 10054,
+          "rmse": 0.20073170067886043,
+          "median": 0.1813363099700659,
+          "p95": 0.3004587018944184,
+          "max": 0.4959113013007034
+        }
+      }
+    },
+    "tracking": {
+      "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+      "candidate_max_error_m_not_enforced_by_runner": 0.15,
+      "matching_ready_commands": 85283,
+      "paired_commands": 85283,
+      "error_m": {
+        "median": 0.4112994962451827,
+        "p95": 0.559627040965473,
+        "max": 1.105082717335015,
+        "mean": 0.34793075500715326
+      },
+      "max_truth_interpolation_gap_s": 0.02
+    }
+  },
+  "raw_vins_velocity": {
+    "source": {
+      "topic": "/vins_raw/s_1bd3ad04c04b4415b9f52f60ff789f00/odometry",
+      "field": "nav_msgs/Odometry.twist.twist.linear",
+      "frame": "header.frame_id / VINS WORLD_FRAME_ID",
+      "source_semantics": "The locked VINS visualization publisher copies estimator.Vs into twist.linear; estimator.Vs is expressed in WORLD_FRAME_ID. The recorder does not rotate or otherwise alter these values.",
+      "vendor_source": "src/vendor/vins_fusion/vins/src/utility/visualization.cpp"
+    },
+    "method": {
+      "reference_point": "Gazebo d435i_link, coincident with the D435i IMU; no base lever arm added to truth position",
+      "method": "Centered finite difference of truth IMU positions over a symmetric 0.2 simulated-second window; lever-arm reconstruction is separately audited.",
+      "half_window_sim_s": 0.1,
+      "truth_pose_interpolation_max_bracket_gap_sim_s": 0.04,
+      "no_extrapolation_or_timestamp_repair": true,
+      "raw_to_truth_alignment": "Use the one prestream rigid rotation from odometry-evaluation.json; scale remains 1; no per-segment/path fit."
+    },
+    "coverage": {
+      "raw_velocity_samples": 10206,
+      "truth_supported_pairs": 10206,
+      "truth_pair_fraction": 1.0,
+      "truth_max_gap_sim_s": 0.02,
+      "raw_velocity_max_gap_sim_s": 0.068000001,
+      "truth_interpolation_limit_sim_s": 0.04,
+      "velocity_window_total_sim_s": 0.2,
+      "rejected_samples": []
+    },
+    "goal_motion": {
+      "sample_count": 696,
+      "supported": true,
+      "velocity_error_norm_m_s": {
+        "count": 696,
+        "rmse": 0.01588971184228872,
+        "median": 0.010792536761658866,
+        "p95": 0.028189858477824827,
+        "max": 0.06863608577351787
+      },
+      "truth_speed_imu_m_s": {
+        "count": 696,
+        "rmse": 0.5018102703033146,
+        "median": 0.5214066355284821,
+        "p95": 0.5945954355226652,
+        "max": 0.617873164464133
+      },
+      "source_max_gap_sim_s": 0.068000001
+    },
+    "exact_600s_active_hold": {
+      "sample_count": 9091,
+      "supported": true,
+      "velocity_error_norm_m_s": {
+        "count": 9091,
+        "rmse": 0.0033377913256505166,
+        "median": 0.0018708058644883513,
+        "p95": 0.006969492858844467,
+        "max": 0.026066051979734585
+      },
+      "truth_speed_imu_m_s": {
+        "count": 9091,
+        "rmse": 0.006781290724567144,
+        "median": 0.004240001694808972,
+        "p95": 0.013600501252442254,
+        "max": 0.036383665828924716
+      },
+      "source_max_gap_sim_s": 0.068000001
+    },
+    "hold_end_to_landed": {
+      "sample_count": 82,
+      "supported": true,
+      "velocity_error_norm_m_s": {
+        "count": 82,
+        "rmse": 0.03815240075278202,
+        "median": 0.0007798207843183634,
+        "p95": 0.013869541110378287,
+        "max": 0.2971310956337395
+      },
+      "truth_speed_imu_m_s": {
+        "count": 82,
+        "rmse": 0.35615943530800453,
+        "median": 0.0009984621320343423,
+        "p95": 0.6908482852202352,
+        "max": 0.7342095259089401
+      },
+      "source_max_gap_sim_s": 0.068000001
+    },
+    "full_window_including_landing": {
+      "sample_count": 10206,
+      "supported": true,
+      "velocity_error_norm_m_s": {
+        "count": 10206,
+        "rmse": 0.0064020864828108,
+        "median": 0.0019724161444654048,
+        "p95": 0.010473121628460397,
+        "max": 0.2971310956337395
+      },
+      "truth_speed_imu_m_s": {
+        "count": 10206,
+        "rmse": 0.13607556647435284,
+        "median": 0.004504467303199202,
+        "p95": 0.49584554548750054,
+        "max": 0.7342095259089401
+      },
+      "source_max_gap_sim_s": 0.068000001
+    }
+  },
+  "speed_and_timing": {
+    "effective_parameters": {
+      "max_vel": 0.8,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "obstacles_inflation": 0.7306179170842027,
+      "odom_depth_timeout": 0.4
+    },
+    "observed_vector_speeds": {
+      "guard_enabled": false,
+      "sources": [
+        "ego_position_command_reference",
+        "px4_vehicle_local_position"
+      ],
+      "max_vector_speed_m_s": {
+        "ego_position_command_reference": 0.6776332396592245,
+        "px4_vehicle_local_position": 0.6093119067260047
+      },
+      "sample_counts": {
+        "ego_position_command_reference": 84581,
+        "px4_vehicle_local_position": 32292
+      },
+      "candidate_planner_max_velocity_per_axis_m_s": 0.8,
+      "candidate_planner_max_acceleration_per_axis_m_s2": 0.25
+    },
+    "map_age": {
+      "source_max_sim_s": 0.16,
+      "occupancy_max_sim_s": 0.108,
+      "receipt_gap_s_decimated": {
+        "localization_status": 0.15123705299998846,
+        "adapter_optimized": 0.2052567510000003,
+        "map_status": 0.32717192000000006,
+        "clock": 0.18462415300000146
+      }
+    },
+    "health_diagnostic": {
+      "project_quality_and_freshness_gates_removed": true,
+      "normalized_cost_historical_reference_not_gate": 1.0,
+      "normalized_cost_p95": 2.419720295035155,
+      "normalized_cost_max": 2.7225834155228545,
+      "invalid_localization_status_samples": 0
+    }
+  },
+  "dynamic_obstacle": {
+    "trigger_delay_from_goal_sim_s": 12.004,
+    "injection_acknowledged": true,
+    "replacement_traj_id": 40,
+    "injection_to_replacement_spline_sim_s": 0.536,
+    "pre_injection_centerline_distance_m": 0.06741156491868842,
+    "replacement_centerline_distance_m": 1.4506535505942666,
+    "raw_map_queries": [
+      {
+        "label": "before_injection",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 112,
+        "free_count": 48,
+        "occupied_count": 0,
+        "request_sim_ns": 53180000000,
+        "response_sim_ns": 53200000000
+      },
+      {
+        "label": "after_0.5",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 112,
+        "free_count": 48,
+        "occupied_count": 0,
+        "request_sim_ns": 53920000000,
+        "response_sim_ns": 53940000000
+      },
+      {
+        "label": "after_1.25",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 112,
+        "free_count": 48,
+        "occupied_count": 0,
+        "request_sim_ns": 54680000000,
+        "response_sim_ns": 54720000000
+      }
+    ],
+    "occupied_cloud_roi_samples": 8,
+    "mission_result": {
+      "action_goal_sent": true,
+      "action_success": true,
+      "action_result": {
+        "final_position": [
+          15.967656807603365,
+          0.005811271734866862,
+          1.009072066361645
+        ],
+        "outcome": "succeeded",
+        "reason": "position_yaw_tolerance_held",
+        "status": 4,
+        "success": true
+      },
+      "result": "PASS",
+      "landed_and_disarmed": true,
+      "terminal_observation_covered": true
+    }
+  },
+  "clearance": {
+    "whole_scene": {
+      "clearance_lower_bound_m": 0.27961042592930474,
+      "truth_stamp_ns": 60404000000,
+      "truth_position_xyz_m": [
+        -1.5039286419968798,
+        -2.26931048288509,
+        1.0731838412555774
+      ],
+      "obstacle": {
+        "name": "unit_cylinder_4/link/collision",
+        "kind": "vertical_cylinder",
+        "center_xyz_m": [
+          -2.75559,
+          -2.44735,
+          0.5
+        ],
+        "radius_m": 0.5,
+        "z_min_m": -1.0,
+        "z_max_m": 2.0
+      },
+      "vehicle_envelope_radius_m": 0.4846499209821714,
+      "vehicle_vertical_bounds_world_m": [
+        0.7619352578821864,
+        1.0899439332377754
+      ],
+      "body_tilt_sin": 0.008840554775802978
+    },
+    "whole_scene_adjusted_sampled_lower_bound_m": 0.2622468676990389,
+    "dynamic_box": {
+      "clearance_m": 0.8564415370762313,
+      "stamp_ns": 57784000000,
+      "position_world_xyz_m": [
+        -1.6878810864082952,
+        -0.7798415657476344,
+        0.8751548016589732
+      ],
+      "vehicle_radius_m": 0.48628602568466817,
+      "vehicle_vertical_bounds_world_m": [
+        0.5613566474338647,
+        0.8944825230583465
+      ],
+      "body_tilt_sin": 0.014169886054293911
+    },
+    "dynamic_box_adjusted_sampled_lower_bound_m": 0.8390779788459655,
+    "continuous_dynamics_certificate": false
+  },
+  "terminal_readback": {
+    "safe_to_stop": true,
+    "bridge_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "bridge_reason_after_landing": "px4_preflight_failed",
+    "px4_pre_flight_checks_pass_after_landing": false,
+    "interpretation": "Initial preflight and takeoff admission passed. The bridge reason and pre_flight_checks_pass=false were sampled after completed landing/disarm and describe terminal readiness, not initial preflight.",
+    "container_stopped_with_project_helper": true,
+    "stop_exit_code": 0
+  },
+  "limitations": [
+    "One full-route velocity diagnostic; no repeated long-route raw-velocity sample and no real-aircraft evidence.",
+    "Single-run replan and sampled clearances do not define a general safety envelope or deadline.",
+    "Raw 0.25 m occupancy queries around the box returned unknown (112 unknown/48 free/0 occupied); the project did not reject the entire curve on raw-free status.",
+    "Normalized cost exceeded the old 1.0 reference without project quality/freshness lockout; values remain observational.",
+    "Clearance subtracts observed inter-sample motion but is not a continuous-dynamics certificate.",
+    "Independent arrival dwell passed 3.0 s by 0.055 s in this sample; keep the acceptance threshold exact.",
+    "During the 600 s target hold, independent truth position relative to the commanded goal crossed 0.30 m after 226.096 simulated seconds; p95/max were 0.447/0.456 m."
+  ],
+  "evidence_paths": {
+    "protocol": "progress/evidence/n10-vins-velocity-full-route-protocol-20261027-381.md",
+    "prelaunch": "progress/evidence/n10-vins-velocity-calibration-prelaunch-20261027-381.md",
+    "segmented_metrics": "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-full-route-vio-segmented-metrics.json",
+    "archive": "artifacts/runs/n10-20261027-381-vins-velocity-full-route"
+  },
+  "input_sha256": {
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/runtime-contract.json": "fe8762c6476a2da7fa294b290146a3b7ca684f3fb9976a91462fe1fa4da27f09",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-tool-freeze-used.json": "0ea667ea33ae73dc7bbfd8d1c7fe48d29d1cccb0a82a9f9f7156d22d282b08d2",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-run-manifest.json": "c06d3d7ae76f96802a706308bee20ef588406a1ff556ff9c11f21f4b1b82f6e6",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/spawn-pose.json": "686b58ccf16cf3595ea975a8ea751cb23be9cd4f60efb5425ebb056e32da7fdd",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/preflight.json": "76e8cfaec3ec0b4f78d8df04fd991f8df646a13cb1b62dfc297565cb556a6c90",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/takeoff-admission.json": "7704cd5e249d1a0a5b4cf3e773c44a7dd02af9b7d6c7a33bd2f810ea5b0afbcc",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route-stack/launch-manifest.json": "8c95428adef9b6da20a70e13ae61d420a6b954342e0503064471b4fe1208e3fb",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/flight.json": "38c4bd2968b839fa3275fee54210d08cd1b55a623f95b22e43cc7b8518902be6",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/arrival-evaluation.json": "0bbeafc4f26e4e9f7a2ee42af4b15c45f4b885d25fd8b332f5b50f12abab70e6",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/alignment-observation.json": "698d726d9eba2090468ebf585ddd7fcc4a45a8f03cd333618f1a88aa063d1a3e",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/debug-truth-evaluation.json": "a85e198f488993a57e6baf54a8e6fc2e326b23c6fdbf7a94aca6ad996a5ca3ea",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/odometry-evaluation.json": "8489849eb40e950ccd2c32aa94c71f5a2b1f09a28998e8365f04d4cccef170d0",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/odometry-errors.csv": "72020b86f827ac2a90db1afa5c3daf024d25649278b2d5e7c83a23d6f78e1d8a",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-vins-velocity-evaluation.json": "0e52428d66c2178b1c4e45418f4ffa375e57218ee7b9dfd3187f1fb2bbc6d124",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-full-route-vio-segmented-metrics.json": "326ec34f9392cb006859f64e8b331b385718f2eab20322d44354f008a983bc29",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-calibration-evaluation.json": "c4becc2b3f1da63d3b6e6e4f8be7aed46c87bab5797af826744a8cdcb5c34676",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/planner-observation.json": "6ae971054cab36bddfe2b15c7a79b4bb8e105a65d792f9b62e2be0973bc6d517",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-live-obstacle-observation.json": "5e094e65ddd7e67397170a397999fbbaf5ff11e46aef0b5a97cd94eb1b7cbba1",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-live-obstacle-events.jsonl": "cd574ef30769b89e49a7d047dc9ae3017b054bcf1dce7295f56c1aad7ce57e33",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-clearance-evaluation.json": "d148d20d35664c0f00303d71443545375e4d2a57c87ec1f0bf4a67bb90a71e18",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-live-obstacle-box-clearance.json": "0746a2d9f23c05c5c349913ddccb2749cce79d3c12a51440b26ad26c428f2ce6",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/vehicle-contact-evaluation.json": "8ca613b32335c8ed6fc74765163caaba9ef621ade9a27dc67dc07d3da05dcac9",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/postflight-px4-bridge-readback.json": "695de9b4dd9cd638929ad1f54b79bb1f9f82329c4063d413e0e8909399323d5b",
+    "artifacts/runs/n10-20261027-381-vins-velocity-full-route/safe-to-stop.json": "b4a417b435b85dfe39a0531a5ee35603b5d15b7e9786094cb609b7880f35551e"
+  },
+  "evaluator_sha256": {
+    "tools/debug_truth/evaluate_n10_vins_velocity.py": "4a6a3d5c44fbd60a115a46c1657feba69ab2f638d9a44ad11470ddc8b8e6ec1c",
+    "tools/debug_truth/evaluate_n10_full_route_vio_metrics.py": "ff363568533f017726b0c7fccf39cf6975d22fd3cd80ce0939fb7bdd3a725a01",
+    "tools/debug_truth/evaluate_odometry.py": "a54338b6b21f3226c2413878b8c616cdd19b16ce282751041bd1597c4a9d16ba",
+    "artifacts/n10-prepared/n10-20261027-381-vins-velocity-full-route/analyze_n10_dynamic_obstacle.py": "686e410c49472dc6b5cf66490a776dd879a2bd0a9718eddedd4419ccc74d3453",
+    "artifacts/n10-prepared/n10-20261027-381-vins-velocity-full-route/evaluate_n10_live_obstacle_clearance.py": "8b2b74b8dc3473ccde413e9d6d85f244600e9d3855fa6644e7a2f7abec946aaf"
+  }
+}

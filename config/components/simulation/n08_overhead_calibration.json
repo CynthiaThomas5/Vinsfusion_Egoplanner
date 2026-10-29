@@ -1,0 +1,26 @@
+{
+  "schema": "n08-overhead-calibration-layout/v1",
+  "qualification": "PROVISIONAL N08 depth-return calibration scene only; the physical ceiling is mapped as occupied and does not authorize flight.",
+  "layout_id": "n08_overhead_calibration",
+  "base_layout_id": "wall_box_column",
+  "description": "A finite overhead boundary around the N08 support-scan and low-speed calibration volume. The depth mapper must observe the surface and establish free rays; no occupancy is injected into the map.",
+  "objects": [
+    {
+      "name": "n08_overhead_boundary",
+      "shape": "box",
+      "pose_xyz_rpy_m_rad": [-1.5, 0.0, 2.7, 0.0, 0.0, 0.0],
+      "size_m": [8.0, 8.0, 0.1],
+      "rgba": [0.78, 0.80, 0.82, 1.0]
+    }
+  ],
+  "geometry": {
+    "frame": "spawn-relative N05 layout; runtime layout offset is spawn position plus 1.5 m along spawn yaw",
+    "ceiling_bottom_world_z_m": 2.65,
+    "ceiling_footprint_m": [8.0, 8.0],
+    "nominal_hold_height_m": 1.0,
+    "ego_body_query_radius_m": 0.7306179170842027,
+    "terminal_hold_neighborhood_radius_m": 0.25,
+    "minimum_nominal_clearance_above_terminal_query_m": 0.4
+  },
+  "rationale": "The source world has no overhead depth-return surface. A real collision/visual ceiling inside sensor range can make rays through the intended low-speed volume observable while remaining above the EGO body plus terminal-hold query. Raw unknown remains blocked; the ceiling must appear as raw occupied in the map."
+}

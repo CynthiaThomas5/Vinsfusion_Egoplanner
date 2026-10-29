@@ -1,0 +1,115 @@
+{
+  "schema": "n08-one-sided-support-view-evidence/v1",
+  "id": "N08.2s-229",
+  "status": "diagnostic_failed_closed_n08_incomplete",
+  "run_id": "n08-20261024-229-one-sided-rear-view-01",
+  "scope": "unarmed support scan plus compute-only planner refusal and same-identity pre-action raw-map geometry; no horizontal execution or braking measurement",
+  "hypothesis": "one yaw=-pi/2 view and return-to-neutral would reduce unknown around the current hold sphere without the second horizontal-side turn",
+  "result": "not supported; target remained unknown and the planner rejected the full curve",
+  "support_scan": {
+    "profile": "n08_overhead_rear_one_side_view",
+    "stages_expected": 19,
+    "stages_completed": 19,
+    "fixture_helper_outcome": "failed",
+    "fixture_helper_error": "localization changed or became invalid during physical scan",
+    "fixture_detached": true,
+    "fixture_model_absent": true,
+    "final_landed": true,
+    "vehicle_disarmed_for_scan": true,
+    "before_gate_reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "after_post_release_current_area_online_offline_accepted": true,
+    "all_post_scan_gates_same_identity": true
+  },
+  "identity": {
+    "epoch": "d8c64e91249a491788c439dc1dffb4e3",
+    "map_id": "d8c64e91249a491788c439dc1dffb4e3-adf5b7f22e964d888f6a5b03da98ddf2"
+  },
+  "localization_timeline": {
+    "events": 27423,
+    "sim_clock_start_s": 543.296,
+    "sim_clock_end_s": 576.696,
+    "localization_status_count": 754,
+    "localization_valid_count": 754,
+    "localization_reason": "fresh_inputs_and_usable_solver",
+    "map_status_count": 164,
+    "map_ready_count": 164,
+    "max_map_status_source_gap_s": 0.428,
+    "mission_preflight_passed": true,
+    "preflight_wall_s": 40.015,
+    "max_optimized_odom_receipt_gap_wall_s": 0.08430729899555445
+  },
+  "compute_only": {
+    "result": "FAIL",
+    "failure": "navigation_action_terminal_before_ready:aborted:planner_full_curve_unknown",
+    "goal_sent": true,
+    "trajectory_ready_seen": false,
+    "cancel_accepted": false,
+    "landed_and_disarmed": true,
+    "bridge_phase_final": "LANDED",
+    "bridge_control_enabled_final": false,
+    "bridge_armed_final": false,
+    "horizontal_trajectory_input_isolated": true,
+    "xy_executed": false,
+    "planner_full_curve_query_count": 36,
+    "planner_rejection_reason": "unknown"
+  },
+  "pre_action_map_queries": {
+    "source": "same-identity N05 post-release/current-area archive; not an action-time snapshot",
+    "archive_sha256": "6e1a25d29107e5e0a0316b4ba4def7d9960db339a68632cf5d96716cd43f2853",
+    "query_implementation_source": "tools/probe_n06_live_layout.py",
+    "query_implementation_sha256": "8c90741621fcac95680891d7c22526810b9c84a588d7c4ab38beb1993a67a11a",
+    "start_xyz_m": [-0.08373360502756699, -0.13344120495332473, 0.9628218798943425],
+    "target_xyz_m": [0.416266394972433, 0.06655879504667528, 0.9628218798943425],
+    "body_radius_m": 0.7306179170842027,
+    "hold_radius_m": 0.9806179170842027,
+    "start_body": {"reason": "free", "unknown": 0, "free": 2175, "occupied": 0},
+    "start_hold": {"reason": "unknown", "unknown": 209, "free": 4704, "occupied": 0},
+    "target_body": {"reason": "free", "unknown": 0, "free": 2175, "occupied": 0},
+    "target_terminal_hold": {"reason": "unknown", "unknown": 254, "free": 4659, "occupied": 0},
+    "straight_sweep": {
+      "free": false,
+      "queries": 22,
+      "first_failure_sample_index": 21,
+      "failure_reason": "unknown",
+      "failure_unknown": 6,
+      "failure_center_xyz_m": [0.40490275860879665, 0.06201334050122073, 0.9628218798943425]
+    },
+    "start_hold_angular_unknown_centers_relative_to_yaw": {
+      "front_0_45_deg": 0,
+      "front_side_45_90_deg": 30,
+      "rear_side_90_135_deg": 12,
+      "rear_135_180_deg": 167
+    },
+    "target_hold_angular_unknown_centers_relative_to_yaw": {
+      "front_0_45_deg": 0,
+      "front_side_45_90_deg": 113,
+      "rear_side_90_135_deg": 141,
+      "rear_135_180_deg": 0
+    },
+    "unknown_centers_are_above_ground_plane_z_minus_0_35_m": true,
+    "action_time_map_capture_available": false
+  },
+  "safety": {
+    "stopping_envelope_proven": false,
+    "minimum_deceleration_measured": false,
+    "response_delay_bound_measured": false,
+    "actual_stop_distance_measured": false,
+    "execute_authorized": false
+  },
+  "next_subtask": {
+    "id": "N08.2t-230",
+    "only_physical_experimental_variable": "add one +pi/2 horizontal-side observation to the #228 overhead profile and return to neutral; do not add the opposite horizontal side",
+    "diagnostic_tool_change": "capture current same-identity raw map for a matching failed goal when no B-spline was emitted",
+    "criterion": "reduce the positive-Y terminal-hold unknown and obtain a same-run map query; retain all existing N05/localization thresholds and keep XY locked"
+  },
+  "artifacts": {
+    "fixture_result.json": "4544da8632a45a391c58e991b0a1b9743e3d7e9186a5491abbb166366355f971",
+    "fixture_stages.json": "d93184ef96d61f1cae18a1c21ac3609e32a29aa795f4b7984666bd64ca92f6d9",
+    "n05-run-summary.json": "cca1632a72098541b73dd501486ef5ab9cc257d382142ac988f2c3345d640868",
+    "flight.json": "26d5b415b65413d212999c09271ee2cc82d0d7d21762359dd204e05d509360d8",
+    "n08-compute-only-evaluation.json": "7949b6bd7b8e35aad1141368d78c0da87199d7062e0c946c875daf34a79b2e8e",
+    "n08-localization-source-timeline.json": "f215dab4e7fae8d48e184da3890805600526772b97554fbe34191b42914f1baf",
+    "planner-observation.json": "9f7f6d396f04e45921d537151daab2476bbcf194bd24a4689d020cad6d612d1b",
+    "n05-post-release-npz": "6e1a25d29107e5e0a0316b4ba4def7d9960db339a68632cf5d96716cd43f2853"
+  }
+}

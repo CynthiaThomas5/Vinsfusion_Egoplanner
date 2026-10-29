@@ -1,0 +1,234 @@
+{
+  "schema": "n08-cost-group-timeline/v1",
+  "subtask": "N08.2ad #240",
+  "run_id": "n08-20261024-240-cost-group-timeline-01",
+  "result": "PX4_clock_aligned; repeated_normalized_cost_exceedances_during_stage16; first_crossing_marginalization_dominant",
+  "scope": "DISARMED whole-airframe support scan only; no post-release N05 admission, compute-only, goal, control or XY",
+  "change": {
+    "files": [
+      "tools/diagnostics/record_n08_localization_sources.py",
+      "tools/n08_timeline_helpers.py",
+      "tools/test_n08_timeline_helpers.py",
+      "tools/run_n05_preflight_layout.sh"
+    ],
+    "observation": "At existing 100 ms telemetry cadence, retain normalized cost, grouped totals, and compressed prior fields; threshold transitions trigger immediate records.",
+    "health_threshold_changed": false,
+    "control_behavior_changed": false,
+    "cost_group_evaluation_mode": "VINS_DIAGNOSTIC_COST_GROUPS=1 evaluates group details at the first threshold crossing; continuous grouping was not enabled."
+  },
+  "validation": {
+    "targeted_command": "python3 -m unittest tools.test_localization_health tools.test_preflight_scan tools.test_n08_timeline_helpers tools.test_n08_curve_certificate tools.test_n08_compute_only",
+    "targeted_result": "58 passed",
+    "shell_syntax": "PASS",
+    "AST_JSON": "PASS",
+    "git_diff_check": "PASS",
+    "prior_and_cost_group_validator": "tools.debug_truth.evaluate_prior_diagnostics.validate passed on exact lockout metrics"
+  },
+  "run": {
+    "scan_profile": "n08_overhead_rear_down_slow_yaw_return",
+    "planned_stages": 22,
+    "completed_stages": 16,
+    "failure_stage": 16,
+    "failure_reason": "normalized_cost_exceeded",
+    "n05_before": {
+      "accepted": false,
+      "reason": "ground_plane_insufficient_raw_occupied_voxels",
+      "online_offline_result_identical": true
+    },
+    "n05_after_completed": false,
+    "compute_only_started": false,
+    "goal_or_xy": false
+  },
+  "threshold_timeline": {
+    "sampled_telemetry_events": 4046,
+    "samples_above_1_0": 9,
+    "first_above": {
+      "stamp_ns": 483848000000,
+      "normalized_cost": 1.002603487332846
+    },
+    "last_above": {
+      "stamp_ns": 484903999999,
+      "normalized_cost": 1.0103847845931526
+    },
+    "above_sample_span_sim_s": 1.055999999,
+    "maximum_sample": {
+      "stamp_ns": 484771999999,
+      "normalized_cost": 1.0158164694575533
+    },
+    "pre_crossing_samples": [
+      {
+        "stamp_ns": 483651999999,
+        "normalized_cost": 0.9965695462995153
+      },
+      {
+        "stamp_ns": 483783999999,
+        "normalized_cost": 0.9994068131816983
+      }
+    ],
+    "limitation": "The VINS diagnostic mode was one-shot, so only the first over-threshold sample has per-group residual details; later samples have aggregate totals only."
+  },
+  "first_crossing": {
+    "internal_snapshot_count": 1,
+    "reason": "normalized_cost_exceeded",
+    "metrics": {
+      "stamp_ns": 483848000000,
+      "final_cost": 2077.776827062372,
+      "residual_components": 4134,
+      "input_features": 141,
+      "stereo_features": 115,
+      "long_tracks": 101,
+      "solve_seconds": 0.017573118209838867,
+      "iterations": 8
+    },
+    "normalized_cost": 1.002603487332846,
+    "threshold": 1.0,
+    "same_stamp_raw_vins": {
+      "count": 1,
+      "final_cost": 2077.776827062372,
+      "residual_components": 4134,
+      "exact_values_match": true
+    },
+    "cost_groups": {
+      "visual": {
+        "cost": 369.985590468332,
+        "residual_components": 3908
+      },
+      "imu": {
+        "cost": 256.6106751368022,
+        "residual_components": 150
+      },
+      "marginalization": {
+        "cost": 1451.1805614572381,
+        "residual_components": 76
+      }
+    },
+    "group_cost_shares": {
+      "visual": 0.17806801271887782,
+      "imu": 0.12350252047983741,
+      "marginalization": 0.6984294668012849
+    },
+    "group_normalized_costs": {
+      "visual": 0.43514112022175805,
+      "imu": 1.849723132928465,
+      "marginalization": 6.17972185001975
+    },
+    "grouped_cost_error": 4.547473508864641e-13,
+    "evaluation_ok": true,
+    "prior_validation": {
+      "available": true,
+      "evaluation_ok": true,
+      "spectrum_ok": true,
+      "rank": 76,
+      "retained_dimension": 76
+    },
+    "nearest_fixture_trace": {
+      "sim_s": 483.856,
+      "stage": 16,
+      "yaw_joint": [
+        -2.851186291714588,
+        0.01822296535346245
+      ],
+      "localization_status_cost": 0.9961729347597894,
+      "localization_status_valid": true
+    }
+  },
+  "time_alignment": {
+    "timeline_stop_reason": "support_scan_failed_before_prescan",
+    "wall_duration_s": 584.165598837,
+    "clock_regressions": 0,
+    "px4_bridge_samples": 3998,
+    "px4_ros_clock_gap_sim_s": {
+      "minimum": -0.008,
+      "maximum": 0.016
+    },
+    "px4_time_domain_invalid_samples": 0,
+    "px4_timestamp_error_samples": 0,
+    "alignment_pair_gap_max_sim_s": 42.780001,
+    "localization_status_clock_minus_source_max_s": 42.592,
+    "adapter_last_source_stamp_s": {
+      "optimized": 483.716,
+      "propagated": 483.819999999
+    },
+    "raw_last_source_stamp_s": {
+      "optimized": 526.419999999,
+      "propagated": 526.587999999
+    },
+    "px4_vehicle_imu_log_errors": [
+      "ERROR [vehicle_imu] 0 - gyro 1310988 timestamp error timestamp_sample: 220944000, previous timestamp_sample: 220944000",
+      "ERROR [vehicle_imu] 0 - accel 1310988 timestamp error timestamp_sample: 220944000, previous timestamp_sample: 220944000"
+    ]
+  },
+  "safety_cleanup": {
+    "fixture_removed": true,
+    "removal_acknowledged": false,
+    "scene_model_absent": true,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "helper_final_landed": true,
+    "helper_vehicle_states": [
+      1
+    ],
+    "helper_readback_caveat": "fresh DISARMED status is required for every fixture command",
+    "live_readback": {
+      "schema": "n08-run-final-safety-readback/v1",
+      "run_id": "n08-20261024-240-cost-group-timeline-01",
+      "capture_method": "ros2 topic echo --once immediately before project.sh stop",
+      "vehicle_status_topic": {
+        "topic": "/fmu/out/vehicle_status_v1",
+        "timestamp": 538012000,
+        "arming_state": 1,
+        "arming_state_label": "ARMING_STATE_DISARMED",
+        "nav_state": 4,
+        "failsafe": false,
+        "pre_flight_checks_pass": false
+      },
+      "vehicle_land_detected_topic": {
+        "topic": "/fmu/out/vehicle_land_detected",
+        "timestamp": 539908000,
+        "landed": true,
+        "ground_contact": true,
+        "at_rest": true,
+        "horizontal_movement": false,
+        "vertical_movement": false,
+        "has_low_throttle": true
+      },
+      "fixture_state": {
+        "detached": true,
+        "model_absent": true,
+        "remove_service_acknowledged": false,
+        "fixture_may_remain_attached": false
+      },
+      "container_stop": {
+        "command": "bash tools/project.sh stop n08-20261024-240-cost-group-timeline-01",
+        "container_state": "exited",
+        "exit_code": 0,
+        "project_label_running_count": 0
+      }
+    },
+    "container_stopped_exit_code": 0
+  },
+  "sha256": {
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/n08-localization-source-timeline.json": "b8db0240136e2e6a1b234bbd6a98e67f4c90ccaeb9a2221fa8f7612af293d40c",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/n05-run-inputs.json": "21700b1e4b908b9881cdca6c47ebd7d46fd3f9ff5d362a7b3a7a62b6ab081250",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/fixture-vins.jsonl": "c8bdd603bf305b4a1de506b2bb9cf6ee6f7c13ccf6f60022368248471e0a2741",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/fixture-trace.jsonl": "ee6ccd749260e7fa24c90daae53141ab0f5c6a2f47ae6bc77534877ae51d181e",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/fixture-result.json": "7ccc23b7c9aa2fd0cd946ad96931fb9227fe937b01dfa5b138a7cc5696a8cdab",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/health-lockout-snapshot.json": "0c5afa385c8a9669146e70578f1dbe6c224ba9ca68601da73a1d942d127f41b6",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/final-safety-readback.json": "50191c881345c40dd1f267c827f48127411dea382d0c5c391022ff4c759f7f9f",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/monitor-resolved.json": "6514a8da3b38e0ac703a2e85442a371b5f95cf6190b5d2df0f116ab2ceec1d9b",
+    "artifacts/runs/n08-20261024-240-cost-group-timeline-01/vio.log": "2ede129eb70c9cebfabe4736798c69d12a0d5c56b73a21a1b3865e82c6babb36",
+    "tools/diagnostics/record_n08_localization_sources.py": "cbc82cd2f6e1a77599199a80e74aadd346547190571fbc697c58d825405cff98",
+    "tools/n08_timeline_helpers.py": "87eee3a54a8c8d708f7873d0d76bfa5c0fd3e706092a1acb8b76ea2ab4b989cd",
+    "tools/test_n08_timeline_helpers.py": "9aae44e0d51b3602b4f0a4bedd56c677532923aeaf612f85bdcfe76fa69df1e8",
+    "tools/run_n05_preflight_layout.sh": "441fe58190bbcf13c7cca457333ded04f86e7a9b7a76f05aa240784c28fe0023"
+  },
+  "interpretation": {
+    "clock": "PX4 HRT/ROS /clock remained aligned; the source-pair gap grew after the adapter stopped publishing on health lockout.",
+    "quality": "The first exact raw estimator telemetry sample above 1.0 matches the adapter metrics. Nine aggregate over-threshold samples occurred in a 1.056 s sim-time interval.",
+    "cause_limit": "At the first crossing, marginalization contributed about 69.8%, IMU 12.4%, and visual 17.8%; prior rank/spectrum checks passed. This identifies the largest measured term but not which historical measurements caused its residual.",
+    "route": "The nearest physical scan trace places the camera yaw near -2.85 rad; the fixture trace localization status was still valid and showed a lower cost 8 ms later, demonstrating that it lags the estimator telemetry transition.",
+    "next": "Use the previously N05-qualified overhead-free-sector profile for a fresh same-identity map/compute-only pass; preserve all gates and keep XY locked until the stop envelope is proven."
+  }
+}

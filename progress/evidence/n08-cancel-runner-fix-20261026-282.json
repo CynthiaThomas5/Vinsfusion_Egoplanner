@@ -1,0 +1,25 @@
+{
+  "schema": "n08-cancel-runner-result-classification-fix/v1",
+  "task_id": "#282",
+  "result": "PASS",
+  "flight_qualification": false,
+  "change": "Require ROS STATUS_CANCELED, outcome=canceled, reason=caller_cancel; preserve cancel trigger/action result trace in failure records.",
+  "regression_tests": {
+    "command": "bash tools/project.sh test",
+    "unittest_count": 336,
+    "unittest_result": "PASS",
+    "navigation_adapter_integration": "PASS"
+  },
+  "static_checks": {
+    "python_compile": "PASS",
+    "bash_syntax": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "files_sha256": {
+    "tools/run_n08_braking_trial.py": "c35b3adad8121c9548678e19e6402b467c2e303e4893ad2f3ce6cfe18e4bcc66",
+    "tools/test_run_n08_braking_trial.py": "843323cc88e74c6f9166fd6ec78c5eb7a955a8cc525b7b18d17401f9626f7624"
+  },
+  "previous_run": "#281 remains a failed/incomplete trial because the faulty assertion forced landing before stop-spline observation.",
+  "scope": "Runner classification and failure-record trace only; EGO #0046 compiled sources/build evidence unchanged.",
+  "created_at_utc": "2026-10-25T16:56:35.333236+00:00"
+}

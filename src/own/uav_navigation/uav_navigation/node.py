@@ -23,7 +23,7 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from rclpy.signals import SignalHandlerOptions
 from uav_interfaces.action import NavigateToPose
-from uav_interfaces.msg import LocalizationStatus, MapStatus, NavigationCommand, TrajectoryCancel
+from uav_interfaces.msg import LocalizationStatus, MapStatus, NavigationCommand, TrajectoryCancel, Px4BridgeStatus
 
 from uav_interfaces.srv import QueryOccupancySphere
 
@@ -65,18 +65,18 @@ class NavigationNode(Node):
         self.config = json.loads(config_path.read_text())
         if self.config.get('schema') != 1:
             raise RuntimeError(f'unsupported navigation supervisor config schema: {config_path}')
-        self.max_localization_age_s = float(self.config['max_localization_receipt_age_s'])
-        self.max_odometry_age_s = float(self.config['max_odometry_receipt_age_s'])
-        if min(self.max_localization_age_s, self.max_odometry_age_s) <= 0:
-            raise RuntimeError('navigation freshness guards must be positive')
-
         mapping = json.loads((Path(project_root) /
                               'config/components/mapping/ego_planner.json').read_text())
-        self.query_radius_m = float(mapping['obstacles_inflation_m'])
-        self.max_map_source_age_s = float(mapping['odom_depth_timeout_sim_s'])
+        self.collision_policy = self.config.get('collision_policy', 'known_free')
+        if self.collision_policy not in ('known_free', 'official_ego'):
+            raise RuntimeError('unsupported collision_policy')
+        self.official_ego = self.collision_policy == 'official_ego'
+        self.query_radius_m = 0.0 if self.official_ego else float(mapping['obstacles_inflation_m'])
+        self._bridge_status = None
+        self._bridge_received = None
         self.query_timeout_s = float(self.config['map_query_timeout_wall_s'])
-        if (not all(math.isfinite(v) and v > 0 for v in
-                    (self.query_radius_m, self.max_map_source_age_s, self.query_timeout_s))
+        if (not math.isfinite(self.query_timeout_s) or self.query_timeout_s <= 0
+                or not math.isfinite(self.query_radius_m) or self.query_radius_m < 0
                 or self.query_radius_m > 2.0):
             raise RuntimeError('invalid target query policy')
         self._map_status = None
@@ -113,7 +113,11 @@ class NavigationNode(Node):
             MapStatus, '/mapping/status', self._on_map, status_qos,
             callback_group=self._callbacks)
         self._map_query = self.create_client(
-            QueryOccupancySphere, '/mapping/query_occupancy_sphere',
+            QueryOccupancySphere, ('/mapping/query_planning_occupancy' if self.official_ego
+                                   else '/mapping/query_occupancy_sphere'),
+            callback_group=self._callbacks)
+        self._bridge_sub = self.create_subscription(
+            Px4BridgeStatus, '/uav_px4_bridge/status', self._on_bridge, 10,
             callback_group=self._callbacks)
         self._planner_fault_sub = self.create_subscription(
             TrajectoryCancel, '/navigation/planner_fault', self._on_planner_fault, 10,
@@ -142,6 +146,28 @@ class NavigationNode(Node):
             0.05, self._on_timer, callback_group=self._callbacks,
             clock=RclpyClock(clock_type=ClockType.STEADY_TIME))
 
+    def _on_bridge(self, message):
+        with self._lock:
+            self._bridge_status = message
+            self._bridge_received = time.monotonic()
+            # The bridge has already ended Offboard control or selected its
+            # landing path. A succeeded action's final hold is useful only
+            # while ACTIVE; retire its planner identity with normal disable.
+            if (message.epoch == self.core.epoch
+                    and message.phase in ('LANDING', 'LANDED', 'DISABLED', 'LOCKED')
+                    and self._forwarded_goals):
+                reason = 'bridge_control_session_ended'
+                if self.core.active_goal is not None:
+                    self._process_events(self.core.abort(
+                        self.core.active_goal.goal_id, reason))
+                self._clear_forwarded(reason)
+
+    def _airborne_ready(self, now):
+        b = self._bridge_status
+        return bool(b is not None and self._bridge_received is not None
+                    and b.phase == "ACTIVE" and b.armed and not b.landed
+                    and b.control_enabled)
+
     def _goal_request(self, request):
         now = time.monotonic()
 
@@ -159,26 +185,14 @@ class NavigationNode(Node):
                     rejection_reason = 'localization is not ready'
                 elif self._last_status_epoch != self.core.epoch:
                     rejection_reason = 'localization status epoch does not match current epoch'
-                elif not self._last_status_valid:
-                    rejection_reason = f'localization status is invalid: {self._last_status_reason}'
                 elif self._last_localization_received is None:
                     rejection_reason = 'no localization status has been received'
-                elif now - self._last_localization_received > self.max_localization_age_s:
-                    localization_age = now - self._last_localization_received
-                    rejection_reason = (
-                        f'localization status is stale ({localization_age:.3f}s > '
-                        f'{self.max_localization_age_s:.3f}s)')
                 elif self._latest_pose is None:
                     rejection_reason = 'no optimized odometry has been received'
                 elif self._latest_pose_epoch != self.core.epoch:
                     rejection_reason = 'optimized odometry epoch does not match current epoch'
                 elif self._latest_pose_received is None:
                     rejection_reason = 'optimized odometry receipt time is unavailable'
-                elif now - self._latest_pose_received > self.max_odometry_age_s:
-                    odometry_age = now - self._latest_pose_received
-                    rejection_reason = (
-                        f'optimized odometry is stale ({odometry_age:.3f}s > '
-                        f'{self.max_odometry_age_s:.3f}s)')
                 elif not self._map_ready(now):
                     rejection_reason = 'map status is unavailable, stale or invalid'
                 elif not self._map_query.service_is_ready():
@@ -218,7 +232,12 @@ class NavigationNode(Node):
         with self._lock:
             if self._forwarded_goals.get(msg.goal_id) != msg.epoch:
                 return
-            reason = 'planner_' + msg.reason
+            # Bridge faults arrive only after the PX4 supervisor has already
+            # entered its existing LANDING path. Keep their source visible in
+            # the action result while planner abort reasons retain their
+            # historical result prefix.
+            reason = (msg.reason if msg.reason.startswith('bridge_')
+                      else 'planner_' + msg.reason)
             if self.core.active_goal is not None:
                 self._process_events(self.core.abort(self.core.active_goal.goal_id, reason))
             # A completed action may still supply the bridge's final hold point.
@@ -227,9 +246,7 @@ class NavigationNode(Node):
     def _map_ready(self, now):
         status = self._map_status
         return bool(status is not None and status.epoch == self.core.epoch
-                    and status.map_id and status.reset_acknowledged and status.input_ready
-                    and self._map_received is not None
-                    and now - self._map_received <= self.max_localization_age_s)
+                    and status.map_id and status.reset_acknowledged)
 
     def _on_map(self, msg):
         with self._lock:
@@ -300,8 +317,7 @@ class NavigationNode(Node):
                     # Wait for a newly completed fusion within the original wall deadline.
                     time.sleep(0.005)
                     continue
-                reason = query_rejection(response, request, self.get_clock().now().nanoseconds / 1e9,
-                                         self.max_map_source_age_s)
+                reason = query_rejection(response, request, self.collision_policy)
                 return reason, (revision, request.expected_map_id, response)
         except Exception as exc:
             self.get_logger().warning(f'map query failed: {type(exc).__name__}')
@@ -356,23 +372,23 @@ class NavigationNode(Node):
                 elif not query_reason:
                     query_reason = query_rejection(
                         response, self._query_request_for_check(request, epoch, map_id),
-                        self.get_clock().now().nanoseconds / 1e9, self.max_map_source_age_s)
+                        self.collision_policy)
             if goal_handle.is_cancel_requested:
                 query_reason = 'caller_cancel'
             context_valid = bool(
                 not self._stopping and epoch and epoch == self.core.epoch
                 and self.core.localization_ready
-                and self._last_status_epoch == epoch and self._last_status_valid
+                and self._last_status_epoch == epoch
                 and self._last_localization_received is not None
-                and now - self._last_localization_received <= self.max_localization_age_s
                 and self._latest_pose is not None and self._latest_pose_epoch == epoch
                 and self._latest_pose_received is not None
-                and now - self._latest_pose_received <= self.max_odometry_age_s
                 and self._ego_goal_pub.get_subscription_count() > 0
                 and self._trajectory_cancel_pub.get_subscription_count() > 0)
             if query_reason:
                 outcome = Outcome.CANCELED if query_reason == 'caller_cancel' else Outcome.REJECTED
                 events = (TaskEvent(outcome, goal_id, query_reason),)
+            elif self.official_ego and not self._airborne_ready(now):
+                events = (TaskEvent(Outcome.REJECTED, goal_id, "vehicle_not_airborne"),)
             elif not context_valid:
                 events = (TaskEvent(Outcome.REJECTED, goal_id,
                                     'goal_context_changed_or_stale'),)
@@ -492,16 +508,7 @@ class NavigationNode(Node):
 
     def _on_localization(self, msg):
         now = time.monotonic()
-        status_warning = None
         with self._lock:
-            if self._last_localization_received is not None:
-                status_gap = now - self._last_localization_received
-                if status_gap > self.max_localization_age_s:
-                    status_warning = (
-                        f'localization status callback resumed after {status_gap:.3f}s '
-                        f'(guard {self.max_localization_age_s:.3f}s); '
-                        f'new_status_valid={bool(msg.valid and msg.state == LocalizationStatus.TRACKING)} '
-                        f'new_status_reason={msg.reason!r}')
             self._last_localization_received = now
             self._last_status_epoch = msg.epoch
             self._last_status_valid = bool(msg.valid and msg.state == LocalizationStatus.TRACKING)
@@ -510,14 +517,12 @@ class NavigationNode(Node):
                 msg.epoch, msg.state == LocalizationStatus.TRACKING,
                 bool(msg.valid), msg.reason)
             self._process_events(events)
-            if not self._last_status_valid or self._last_status_epoch != self.core.epoch:
-                self._clear_forwarded('localization_invalid')
+            if self._last_status_epoch != self.core.epoch:
+                self._clear_forwarded('localization_epoch_changed')
             for goal_id, epoch in tuple(self._forwarded_goals.items()):
                 if epoch != self.core.epoch:
                     self._clear_forwarded('localization_epoch_changed')
                     break
-        if status_warning is not None:
-            self.get_logger().warning(status_warning)
 
     def _on_odometry(self, msg):
         now = time.monotonic()
@@ -534,22 +539,12 @@ class NavigationNode(Node):
         except ValueError:
             yaw = float('nan')
         position = (pose.position.x, pose.position.y, pose.position.z)
-        odometry_warning = None
         with self._lock:
-            if self._latest_pose_received is not None:
-                odometry_gap = now - self._latest_pose_received
-                if odometry_gap > self.max_odometry_age_s:
-                    odometry_warning = (
-                        f'optimized odometry callback resumed after {odometry_gap:.3f}s '
-                        f'(guard {self.max_odometry_age_s:.3f}s); '
-                        f'new_epoch={epoch!r}')
             self._latest_pose = pose
             self._latest_pose_epoch = epoch
             self._latest_pose_received = now
             events = self.core.update_pose(epoch, position, yaw, now, fresh=True)
             self._process_events(events)
-        if odometry_warning is not None:
-            self.get_logger().warning(odometry_warning)
 
     def _on_clock_jump(self, time_jump):
         if time_jump.delta.nanoseconds >= 0:
@@ -566,58 +561,33 @@ class NavigationNode(Node):
 
     def _on_timer(self):
         now = time.monotonic()
-        warnings = []
         with self._lock:
-            if self._last_timer_callback is not None:
-                timer_gap = now - self._last_timer_callback
-                if timer_gap > self.max_localization_age_s:
-                    warnings.append(
-                        f'navigation timer callback resumed after {timer_gap:.3f}s '
-                        f'(freshness guard {self.max_localization_age_s:.3f}s)')
             self._last_timer_callback = now
-            status_age = (now - self._last_localization_received
-                          if self._last_localization_received is not None else None)
-            if (status_age is not None and status_age > self.max_localization_age_s
-                    and self.core.localization_ready):
-                odometry_age = (now - self._latest_pose_received
-                                if self._latest_pose_received is not None else None)
-                warnings.append(
-                    f'localization status became stale: receipt_age={status_age:.3f}s '
-                    f'(guard {self.max_localization_age_s:.3f}s), '
-                    f'last_status_valid={self._last_status_valid}, '
-                    f'last_status_reason={self._last_status_reason!r}, '
-                    f'epoch={self.core.epoch!r}, '
-                    f'optimized_odometry_receipt_age={odometry_age}')
-                events = self.core.update_localization(
-                    self.core.epoch or '', False, False, 'status_stale')
-                self._process_events(events)
-                self._clear_forwarded('localization_status_stale')
-            if (self.core.active_goal is not None and self._latest_pose_received is not None
-                    and now - self._latest_pose_received > self.max_odometry_age_s):
-                events = self.core.update_pose(
-                    self._latest_pose_epoch, (0.0, 0.0, 0.0), 0.0, now, fresh=False)
-                self._process_events(events)
             if self._forwarded_goals and not self._map_ready(now):
                 if self.core.active_goal is not None:
                     self._process_events(self.core.abort(self.core.active_goal.goal_id, 'map_status_stale'))
                 self._clear_forwarded('map_status_stale')
-            if (self._forwarded_goals and self._latest_pose_received is not None
-                    and now - self._latest_pose_received > self.max_odometry_age_s):
-                self._clear_forwarded('odometry_stale')
             events = self.core.tick(now)
             self._process_events(events)
-        for warning in warnings:
-            self.get_logger().warning(warning)
 
     def _process_events(self, events):
         for event in events:
             if event.outcome in (Outcome.CANCELED, Outcome.ABORTED) and event.clear_trajectory:
-                cancel = TrajectoryCancel()
-                cancel.goal_id = event.goal_id
-                cancel.epoch = self._goal_epochs.get(event.goal_id, self.core.epoch or '')
-                cancel.mode = TrajectoryCancel.MODE_ABORT
-                cancel.reason = event.reason
-                self._trajectory_cancel_pub.publish(cancel)
+                if event.reason != 'goal_replaced':
+                    cancel = TrajectoryCancel()
+                    cancel.goal_id = event.goal_id
+                    cancel.epoch = self._goal_epochs.get(event.goal_id, self.core.epoch or '')
+                    cancel.mode = (TrajectoryCancel.MODE_STOP_HOLD
+                                   if event.outcome == Outcome.CANCELED
+                                   and event.reason == 'caller_cancel'
+                                   else TrajectoryCancel.MODE_ABORT)
+                    cancel.reason = event.reason
+                    self._trajectory_cancel_pub.publish(cancel)
+                # The replacement NavigationCommand below makes EGO replan from
+                # the measured position and velocity. Sending MODE_ABORT here
+                # would poison the bridge's trajectory stream before that new
+                # trajectory arrived; MODE_STOP_HOLD would impose the separate
+                # N08 cancellation envelope on an ordinary goal handoff.
                 self._forwarded_goals.pop(event.goal_id, None)
             if event.outcome in (Outcome.SUCCEEDED, Outcome.CANCELED,
                                  Outcome.ABORTED, Outcome.REJECTED):
@@ -636,8 +606,7 @@ class NavigationNode(Node):
     def _feedback(self, goal_id, goal):
         with self._lock:
             if (self._latest_pose is None or self._latest_pose_epoch != goal.epoch
-                    or self._latest_pose_received is None
-                    or time.monotonic() - self._latest_pose_received > self.max_odometry_age_s):
+                    or self._latest_pose_received is None):
                 return None
             pose = self._latest_pose
             current_yaw = yaw_from_odometry(pose.orientation)

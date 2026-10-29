@@ -61,17 +61,15 @@ class RosClockMapper:
 
     ROS simulation time is PX4 HRT in Gazebo lockstep. Outgoing timestamps are
     inverse-mapped through the latest PX4-to-Agent offset because PX4's XRCE
-    deserializer converts them back into its local clock. Rollbacks, stale
-    clocks, poor fits, and timestamps outside the observed interval fail closed.
+    deserializer converts them back into its local clock. Rollbacks, poor
+    fits, and future timestamps fail closed; receipt age remains observable.
     """
 
-    def __init__(self, min_samples, max_samples, max_clock_age_s, max_age_s,
-                 max_future_s, min_rate, max_rate, lockstep=False):
+    def __init__(self, min_samples, max_samples, max_future_s,
+                 min_rate, max_rate, lockstep=False):
         if min_samples < 3 or max_samples < min_samples:
             raise ValueError('clock sample limits are inconsistent')
         self.min_samples = int(min_samples)
-        self.max_clock_age_s = float(max_clock_age_s)
-        self.max_age_s = float(max_age_s)
         self.max_future_s = float(max_future_s)
         self.min_rate = float(min_rate)
         self.max_rate = float(max_rate)
@@ -110,8 +108,6 @@ class RosClockMapper:
         ros_ns, latest_monotonic_ns = self.samples[-1]
         if monotonic_ns < latest_monotonic_ns:
             raise TimeMappingError('clock_receipt_in_future')
-        if (monotonic_ns - latest_monotonic_ns) / 1e9 > self.max_clock_age_s:
-            raise TimeMappingError('ros_clock_stale')
         return ros_ns // 1000
 
     def _fit(self):
@@ -143,8 +139,6 @@ class RosClockMapper:
         latest_ros_ns, latest_mono_ns = self.samples[-1]
         if monotonic_ns < latest_mono_ns:
             raise TimeMappingError('clock_receipt_in_future')
-        if (monotonic_ns - latest_mono_ns) / 1e9 > self.max_clock_age_s:
-            raise TimeMappingError('ros_clock_stale')
         if self.lockstep:
             # In Gazebo lockstep /clock is PX4 HRT. Do not extrapolate it
             # through wall time: the simulator can pause briefly while the
@@ -173,8 +167,6 @@ class RosClockMapper:
         latest_ros_ns, latest_clock_mono_ns = self.samples[-1]
         if receipt_monotonic_ns < latest_clock_mono_ns:
             raise TimeMappingError('clock_receipt_in_future')
-        if (receipt_monotonic_ns - latest_clock_mono_ns) / 1e9 > self.max_clock_age_s:
-            raise TimeMappingError('ros_clock_stale')
         if type(timestamp_sync_enabled) is not bool:
             raise TimeMappingError('timestamp_sync_enabled must be boolean')
         if timestamp_sync_enabled:
@@ -203,19 +195,20 @@ class RosClockMapper:
         x0, y0, slope, residual_ns = self._fit()
         if not self.lockstep and residual_ns / 1e9 > max_fit_residual_s:
             raise TimeMappingError('clock_mapping_residual_high')
-        if source_ros_ns < self.samples[0][0] or source_ros_ns > latest_ros_ns:
+        if source_ros_ns > latest_ros_ns:
             raise TimeMappingError('source_stamp_outside_clock_history')
-        if self.lockstep:
+        if (self.lockstep and self.samples[0][0] <= source_ros_ns <= latest_ros_ns):
             sample_mono_ns = self._monotonic_at_ros_time(source_ros_ns)
         else:
+            # Older lockstep samples remain mappable after the bounded clock
+            # history rolls over; the timestamp still carries its original
+            # PX4 simulation time and is not rejected for age.
             sample_mono_ns = int(round(y0 + slope * (source_ros_ns - x0)))
         age_ns = receipt_monotonic_ns - sample_mono_ns
         if age_ns < -self.max_future_s * 1e9:
             raise TimeMappingError('source_stamp_in_future')
         if age_ns < 0:
             age_ns = 0
-        if age_ns / 1e9 > self.max_age_s:
-            raise TimeMappingError('source_stamp_stale')
 
         offset_us = int(estimated_offset_us) if timestamp_sync_enabled else 0
         # With UXRCE_DDS_SYNCT enabled, inverse-map the source stamp into the

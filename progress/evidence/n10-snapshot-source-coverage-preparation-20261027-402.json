@@ -1,0 +1,48 @@
+{
+  "schema": "n10-snapshot-source-coverage-preparation/v1",
+  "subtask": "N10.3/#402",
+  "classification": "observer/evaluator preparation and archived replay; no #402 flight",
+  "status": "PREPARED_REPLAY_CONFIRMED",
+  "flight_started": false,
+  "runtime_control_effect": false,
+  "hypothesis": "Freezing the latest recorded positive box-ROI cloud source stamp at the first snapshot attempt and retrying only same-identity read-only snapshots will remove the archived 16 ms temporal ambiguity.",
+  "archive_replay": {
+    "run_id": "n10-20261027-398-speed040-integrated-calibration",
+    "observation_file": "artifacts/runs/n10-20261027-398-speed040-integrated-calibration/n10-live-obstacle-observation.json",
+    "observation_sha256": "3c1b30d68a2afe45908c88160021acd7b5c5145be3af17eca5b756180a9803f7",
+    "snapshot_metadata_file": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n10-20261027-398-speed040-integrated-calibration/n10-map-snapshot/metadata.json",
+    "snapshot_metadata_sha256": "003f58ef1e23fd507a3ce98da69fe77b59f76c41b7e62e04ca95103e2fd4006b",
+    "snapshot_trigger_sim_ns": 128520000000,
+    "positive_roi_rows_before_trigger": 2,
+    "watermark": {
+      "header_stamp_ns": 128388000000,
+      "receipt_sim_ns": 128388000000,
+      "frame_id": "odom_26a9d1edcc27473a8258d967adca08af",
+      "obstacle_roi_point_count": 81
+    },
+    "snapshot_source_stamp_ns": 128372000000,
+    "snapshot_source_minus_watermark_ns": -16000000,
+    "snapshot_frame_id": "odom_26a9d1edcc27473a8258d967adca08af",
+    "snapshot_frame_matches_watermark": true,
+    "helper_classification": "waiting_for_fusion",
+    "should_retry": true,
+    "retry_policy": "up to 5 same-identity read-only attempts, spaced 250 ms simulated time; exhaustion remains insufficient"
+  },
+  "limitations": [
+    "The recorded ROI cloud is sampled from every tenth EGO raw occupied cloud, so it is a watermark for the latest recorded positive observation, not every raw cloud or every fused depth frame.",
+    "The archive proves the helper classifies the known 16 ms lag as waiting/retry; it does not prove a later accepted snapshot will become covered.",
+    "The #398 snapshot and voxel classification remain insufficient/failed; no raw-known-free runtime gate is introduced."
+  ],
+  "validation": {
+    "command": "python3 -m unittest tools.test_n10_snapshot_coverage tools.test_n10_occupancy_snapshot tools.test_n10_acceptance tools.test_n10_sensor_capture",
+    "result": "45 tests passed",
+    "syntax": "bash -n for the prepared #402 runtime driver passed; Python syntax compilation passed with PYTHONPYCACHEPREFIX=/tmp/n10-pycache-20261027",
+    "helper_sha256": "8013115eb7ff1b080426a6366f71277a48dbec847bb58b01125f2ec29c9a9581",
+    "coverage_test_sha256": "3f419272f4b4e0aacd6908b55f85406932013606cd7c57c85bf286126b71f2c3",
+    "snapshot_evaluator_sha256": "eb39d271a5140c6a92ac58fd4727a6c9358f52f371b23609cfe17cf8b88b8cc1",
+    "acceptance_evaluator_sha256": "a4c1a1c591300a81dd9ee481ebedd18d038e4e95dbbf85bee2a4f1b00de7e3f8",
+    "prepared_injector_sha256": "8871c0dc2403805bf45583cca2ee5c356191952fc7a6a58c8c02c898eac55d3f",
+    "prepared_driver_sha256": "e0419de660c2ae4911c74756266b9288f0bcf381337c88c55d289c3235d1e78c",
+    "protocol_sha256": "0f9b200bffbb3f78dec1161ed7c6e74400527e0a1537d30dee180d0ddcecd1ec"
+  }
+}

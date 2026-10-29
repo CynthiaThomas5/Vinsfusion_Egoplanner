@@ -1,0 +1,226 @@
+{
+  "schema": "n06-continuous-yaw-observation/v1",
+  "report_id": "2026-10-23-101",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "parent_status": "in_progress",
+  "subtask": "N06.4",
+  "run_id": "n06-20261023-wall-r26",
+  "hypothesis_result": {
+    "primary_variable": "Removed repeated rest-to-rest steps and holds; one acceleration, continuous-rate cruise and one deceleration. Quarter angular acceleration, peak rate, 2-degree nominal total, location and wall surround stayed fixed against r25.",
+    "localization_status": {
+      "total": 899,
+      "valid": 899,
+      "invalid": 0,
+      "first_status": {
+        "stamp_ns": 4378000000,
+        "epoch": "0cb03673a84f4841aace46c55352dd84",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_0cb03673a84f4841aace46c55352dd84",
+        "wall_elapsed_s": 0.099513
+      },
+      "last_status": {
+        "stamp_ns": 48481000000,
+        "epoch": "0cb03673a84f4841aace46c55352dd84",
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "frame_id": "odom_0cb03673a84f4841aace46c55352dd84",
+        "wall_elapsed_s": 44.998501
+      }
+    },
+    "map_status": {
+      "all_ready": true,
+      "epoch": "0cb03673a84f4841aace46c55352dd84",
+      "map_id": "0cb03673a84f4841aace46c55352dd84-491022296e814dc393737bccaae70d22",
+      "last_status": {
+        "header_stamp_ns": 48279000000,
+        "header_frame_id": "odom_0cb03673a84f4841aace46c55352dd84",
+        "epoch": "0cb03673a84f4841aace46c55352dd84",
+        "map_id": "0cb03673a84f4841aace46c55352dd84-491022296e814dc393737bccaae70d22",
+        "reset_acknowledged": true,
+        "input_ready": true,
+        "reason": "ready",
+        "last_depth_source_stamp_ns": 48181000000,
+        "last_occupancy_stamp_ns": 48203000000,
+        "occupancy_cloud_received": true,
+        "forwarded_depth_count": 1420,
+        "last_depth_forward_monotonic_ns": 1226261274587132,
+        "depth_callback_count": 1462,
+        "pending_depth_count": 1,
+        "pending_depth_high_water_count": 3,
+        "dropped_depth_count": 41,
+        "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+        "wall_elapsed_s": 44.795886
+      }
+    },
+    "snapshots": {
+      "count": 3,
+      "same_epoch_map_frame": true,
+      "epoch": "0cb03673a84f4841aace46c55352dd84",
+      "map_id": "0cb03673a84f4841aace46c55352dd84-491022296e814dc393737bccaae70d22",
+      "frame_id": "odom_0cb03673a84f4841aace46c55352dd84",
+      "source_age_at_response_s": [
+        0.152,
+        0.102,
+        0.138
+      ],
+      "max_source_age_s": 0.152,
+      "before_and_after_ready": true,
+      "before_after_identity_stable": true,
+      "identity_rejection_checks_pass": true,
+      "source_age_limit_s": 0.4,
+      "transient_no_fresh_rejections": [
+        1,
+        1,
+        3
+      ]
+    },
+    "live_ego_probe": {
+      "map_ready": true,
+      "freshness": {
+        "source_age_sim_s": 0.112,
+        "fusion_age_sim_s": 0.017,
+        "limit_sim_s": 0.4
+      },
+      "same_identity_before_after": true,
+      "body_sphere_query": {
+        "accepted": true,
+        "free": false,
+        "reason": "unknown",
+        "epoch": "0cb03673a84f4841aace46c55352dd84",
+        "map_id": "0cb03673a84f4841aace46c55352dd84-491022296e814dc393737bccaae70d22",
+        "frame_id": "odom_0cb03673a84f4841aace46c55352dd84",
+        "body_center_xyz_m": [
+          -0.017887618441150988,
+          -0.012240142713377112,
+          0.0037063232735458558
+        ],
+        "radius_m": 0.7306179170842027,
+        "unknown_count": 1809,
+        "occupied_count": 0,
+        "free_count": 397
+      },
+      "goal_published": true,
+      "new_curves": 0,
+      "faults": [
+        "full_curve_planning_failed"
+      ],
+      "late_curves_after_fault": 0,
+      "control_free": true,
+      "forbidden_nodes": [],
+      "forbidden_control_topics": []
+    },
+    "interpretation": "The continuous low-rate 2-degree pass preserved localization and the fresh map through the recorder window; three snapshots kept the same identity and passed age/identity rejection checks. At the actual VINS pose the body sphere still contained 1,809 unknown cells, so the planner-only goal produced no curve and failed closed with full_curve_planning_failed. This supports removing repeated stop/start as a useful scan form, but the positive entry and N06 exit remain unproven.",
+    "pilot_success_for_health_and_fresh_map": true,
+    "n06_exit_supported": false
+  },
+  "motion_truth": {
+    "truth_samples": 2183,
+    "imu_samples": 5456,
+    "command_count": 4,
+    "clock_s": [
+      5.097,
+      26.921
+    ],
+    "wall_seconds": 22.18426175788045,
+    "commanded_total_yaw_deg": 2.0,
+    "achieved_unwrapped_yaw_delta_deg": 2.011617892023388,
+    "qualification": "Debug-only sensor-fixture truth, not an online map input; continuous pass actual yaw closely matched the 2-degree command."
+  },
+  "input_capture": {
+    "requested_wall_seconds": 45.0,
+    "actual_wall_seconds": 46.95,
+    "raw_depth_header_count": 1337,
+    "forwarded_depth_frame_count": 1339,
+    "camera_pose_count": 1339,
+    "optimized_odometry_count": 670,
+    "fusion_trace_count_by_phase": {
+      "fused": 727,
+      "ego_received": 1323
+    },
+    "last_forwarded_depth_stamp_ns": 48379000000,
+    "depth_health_invalid_count": 0
+  },
+  "snapshot_sources": [
+    {
+      "metadata_path": "artifacts/runs/n06-20261023-wall-r26/snapshots/snapshot-01/metadata.json",
+      "metadata_sha256": "ea750f310fae34d6aeda60e9c44e196aca8e3a63414ecb2f558de79a0fcc2418",
+      "archive_sha256": "f116ff05472e69e0df9d4af21a5972796706ad4bdceb3de532c6d79a5e5697e8",
+      "voxel_counts": {
+        "unknown": 9577355,
+        "free": 18680,
+        "occupied": 3965,
+        "inflated": 86960
+      }
+    },
+    {
+      "metadata_path": "artifacts/runs/n06-20261023-wall-r26/snapshots/snapshot-02/metadata.json",
+      "metadata_sha256": "9ace05a5fb6cee5ac9eee151a058449930c231441e8aa8621764d185e28c3e96",
+      "archive_sha256": "0082f436305da578054845a3c30e2c195785bef74748389cb6e7fae10796509d",
+      "voxel_counts": {
+        "unknown": 9577312,
+        "free": 18717,
+        "occupied": 3971,
+        "inflated": 87013
+      }
+    },
+    {
+      "metadata_path": "artifacts/runs/n06-20261023-wall-r26/snapshots/snapshot-03/metadata.json",
+      "metadata_sha256": "a8098fbfd8213ce989d2f0db8d2b0f2acae06197480e9bd4be4f7eb704c995ae",
+      "archive_sha256": "7da75fdc97b80f7d29da518f1b559588b35a0e00b50179f45f66254f9b9a3e90",
+      "voxel_counts": {
+        "unknown": 9577280,
+        "free": 18745,
+        "occupied": 3975,
+        "inflated": 87042
+      }
+    }
+  ],
+  "live_probe_source": {
+    "path": "artifacts/runs/n06-20261023-wall-r26/n06-live-layout-probe.json",
+    "sha256": "4adcd0d95854ddde45a3c009bc2d767bb11e854563050d849d9cdf6e889969bc"
+  },
+  "source_hashes": {
+    "motion.json": "fcf5df3ec4f9d36a64cd57472b2cf91faf47a344fd01f964906ebc616bde8137",
+    "inputs/mapping-inputs.json": "840451f5cbfb76ecce5bb58931016ebcbefe261f15fb374b4f55bf513a6d6b7a",
+    "inputs/mapping-depth-pixels.npz": "cae301e2163d3592649c8672f5ef31c9644d58705eb71ad6dbb71776dbb2100e",
+    "n06-live-layout-probe.json": "4adcd0d95854ddde45a3c009bc2d767bb11e854563050d849d9cdf6e889969bc",
+    "ros-nodes.txt": "cc5fb0f4eed06da22eb2f8592a267ca1b46f53c8dc3ddefed658f0066a451655",
+    "ros-topics.txt": "e9fe4ab8b5d3c0a666d83dd76a066c138b1196adb64b0920efd67ba95e6e7a23"
+  },
+  "cleanup": {
+    "runner_exit_code": 0,
+    "container_remaining": false,
+    "matching_project_processes_remaining": false
+  },
+  "next_experiment": {
+    "run_id": "n06-20261023-wall-r27",
+    "profile_path": "config/components/simulation/n06_yaw_continuous_15deg_quarter_accel.json",
+    "profile_sha256": "f2953f5903fa1dde29a6b3443a1df4ae166acbd8757bc67db79771b3aa82ce7c",
+    "primary_variable": "Extend the continuous low-rate sweep from 2 to 15 nominal degrees; keep angular acceleration, peak rate, single accelerate/cruise/decelerate profile, fixed position and wall surround unchanged.",
+    "hypothesis": "A longer continuous scan at the health-preserving motion form will expose more of the unknown body/hold neighborhood while preserving valid localization and fresh map identity.",
+    "pilot": {
+      "phase_count": 61,
+      "accelerate_phases": 1,
+      "constant_rate_cruise_phases": 59,
+      "decelerate_phases": 1,
+      "phase_seconds": 1.2909944487358056,
+      "angular_acceleration_rad_s2": 0.002617993877991494,
+      "peak_rate_rad_s": 0.003379815563311343,
+      "commanded_total_yaw_deg": 15.0,
+      "initial_hold_seconds": 5,
+      "final_hold_seconds": 5.1639777949432215,
+      "stop_seconds": 88.91463916782736,
+      "record_wall_seconds": 150
+    },
+    "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r27 wall_box_column 90 motion_n06 config/components/simulation/n06_yaw_continuous_15deg_quarter_accel.json",
+    "success_criterion": "Localization remains valid through at least 15 degrees achieved truth yaw; MapStatus remains ready on one epoch/map identity with fresh depth; three matched snapshots are captured. Then measure the actual VINS body/hold queries and live planner response without changing unknown policy."
+  },
+  "status": "N06 and S4 remain in_progress; next_goal remains N06; original N06 exits unchanged.",
+  "stop_reason": "Continuous 2-degree yaw preserved health and fresh snapshots, but actual VINS body-sphere query remained unknown and EGO generated no curve. Continue N06.4 with a bounded 15-degree scan."
+}

@@ -1,0 +1,169 @@
+{
+  "command": "N05_KEEP_SIM=1 D435I_N08_MODE=compute_only D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_calibration.json bash tools/run_n05_preflight_layout.sh n08-20261024-219-overhead-view-steeper-01 wall_box_column n08_overhead_free_sector_view_steeper",
+  "ego_sphere_offline": {
+    "center_xyz_m": [
+      0.06263292399129641,
+      -0.008334026460516168,
+      1.0248811703783645
+    ],
+    "query": {
+      "accepted": true,
+      "free": 2126,
+      "occupied": 0,
+      "reason": "unknown",
+      "unknown": 50
+    },
+    "radius_m": 0.7306179170842027,
+    "scope": "same-run post-release N05 map; not an action-time planner query or trajectory certificate"
+  },
+  "hypothesis": "Increasing only the support observation pitch from -0.45 to -0.60 rad at yaw +pi/2 would clear the EGO upper +Y unknown sector while preserving the N05 release gate.",
+  "interpretation": [
+    "The support profile completed and lifecycle/identity diagnostics passed, but N05 admission did not: 210 unique unknown cells intersect the TAKEOFF_CONTACT airframe envelope.",
+    "The offline EGO sphere at the predicted hold center also contains unknown cells, so compute-only was withheld.",
+    "The scan helper reported a localization validity change; its error is retained. The final fixture status shows landed, DISARMED, detached and removed. This is not evidence that N05 or N08 passed.",
+    "The steeper observation is not a viable next run condition; the next change should give the depth sensor a real, bounded overhead return surface while preserving all unknown and N05 gates."
+  ],
+  "mission": {
+    "braking_measured": false,
+    "compute_only_started": false,
+    "ego_ready_observed": false,
+    "xy_executed": false
+  },
+  "n05_release_gate": {
+    "accepted": false,
+    "epoch": "99c7c8b14d81407295d18d437d17ef75",
+    "freshness": {
+      "depth_source_age_sim_s": 0.152,
+      "fusion_age_sim_s": 0.028,
+      "limit_sim_s": 0.4,
+      "localization_receipt_age_wall_s": 0.03817323292605579,
+      "map_status_receipt_age_wall_s": 0.052884204080328345,
+      "odometry_receipt_age_wall_s": 0.03718073689378798,
+      "snapshot_age_sim_s": 0.104
+    },
+    "ground_plane_z_m": -0.25000000000000006,
+    "map_id": "99c7c8b14d81407295d18d437d17ef75-2ad7d290909c4bc5968fa09a94520d04",
+    "online_offline_identical": true,
+    "phase_checks": {
+      "ASCENT": {
+        "accepted_samples": 10,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 76,
+        "maximum_unknown_cells": 189,
+        "refusal_counts": {
+          "raw_unknown_in_expanded_vehicle_envelope": 9,
+          "raw_vehicle_envelope_known_free": 10
+        },
+        "samples": 19
+      },
+      "DESCENT": {
+        "accepted_samples": 10,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 76,
+        "maximum_unknown_cells": 189,
+        "refusal_counts": {
+          "raw_unknown_in_expanded_vehicle_envelope": 9,
+          "raw_vehicle_envelope_known_free": 10
+        },
+        "samples": 19
+      },
+      "HOLD": {
+        "accepted_samples": 1,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 0,
+        "maximum_unknown_cells": 0,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 1
+        },
+        "samples": 1
+      },
+      "LANDING_CONTACT": {
+        "accepted_samples": 0,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 87,
+        "maximum_unknown_cells": 210,
+        "refusal_counts": {
+          "raw_unknown_in_expanded_vehicle_envelope": 1
+        },
+        "samples": 1
+      },
+      "TAKEOFF_CONTACT": {
+        "accepted_samples": 0,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 87,
+        "maximum_unknown_cells": 210,
+        "refusal_counts": {
+          "raw_unknown_in_expanded_vehicle_envelope": 1
+        },
+        "samples": 1
+      }
+    },
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "takeoff_contact_unknown_bounds_xyz_m": [
+      [
+        -0.5499999999999972,
+        -0.5499999999999972,
+        -0.25
+      ],
+      [
+        0.3500000000000014,
+        0.45000000000000284,
+        -0.04999999999999993
+      ]
+    ],
+    "takeoff_contact_unknown_unique": 210
+  },
+  "result": "N05_RELEASE_GATE_REJECTED; NO_COMPUTE_ONLY; N08_REMAINS_IN_PROGRESS",
+  "run_id": "n08-20261024-219-overhead-view-steeper-01",
+  "safety": {
+    "all_recorded_vehicle_states_disarmed": true,
+    "control_or_goal_published": false,
+    "debug_truth_subscribed": false,
+    "fixture_removed": true,
+    "project_container_exit": "0",
+    "project_container_stop_command": "bash tools/project.sh stop n08-20261024-219-overhead-view-steeper-01",
+    "support_detached_and_fixture_absent": true,
+    "vehicle_final_landed": true
+  },
+  "scan": {
+    "completed_stages": 15,
+    "last_localization": {
+      "normalized_cost": 0.6398638987002152,
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "planned_stages": 15,
+    "runner_error": "localization changed or became invalid during physical scan",
+    "runner_outcome": "failed",
+    "same_epoch_before_after": true,
+    "same_map_id_before_after": true,
+    "scan_identity_matches_after_snapshot": true
+  },
+  "schema": "n08-steeper-view-diagnostic/v1",
+  "single_changed_variable": "Added the existing overhead support view at pitch -0.60 rad; yaw, support route, all gate thresholds, occupancy semantics and planner radius unchanged.",
+  "source_reports": {
+    "fixture_result_sha256": "53730bb17a6f9822215cc9b6adc650ba275bb2ade007e9866587e26cd9d1b98a",
+    "n05_post_release": "artifacts/runs/n08-20261024-219-overhead-view-steeper-01/n05-post-release/n05-live-entry-check.json",
+    "n05_post_release_sha256": "47b7e711f79c037eef975df3d09ec07a91a6fcd202bf4134d6888da4d331be28",
+    "n05_run_summary_sha256": "0676e5c5b1a8613a2d6a886dbec520e2ab4f356cc09bc8330ff23eac6ee805e2",
+    "raw_map": "artifacts/runs/n08-20261024-219-overhead-view-steeper-01/n05-post-release/n05-live-raw-map.npz",
+    "raw_map_sha256": "cd00fd66aab39f9a0c864a575688e55d59c87ee8baae36084f7e4ad60fbd7fc2",
+    "run_inputs_sha256": "e438f212088a3443fc59bd12cbf429353ac4a3ddc41a6db577844c0053588f31",
+    "unknown_volume_audit": "artifacts/runs/n08-20261024-219-overhead-view-steeper-01/n05-unknown-volume-audit.json",
+    "unknown_volume_audit_sha256": "5eb52c3a6bfc61bbcb0fac1d9aff410efca390d48081f6591fcbeffc76de30bb"
+  },
+  "static_validation": {
+    "Python AST parse and profile/joint bounds validation": "passed",
+    "config_json": "passed",
+    "overhead_view_pitch_rad": -0.6,
+    "profile_stages": 15,
+    "shell_syntax": "passed"
+  },
+  "subtask": "N08.2i"
+}

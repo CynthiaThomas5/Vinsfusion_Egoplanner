@@ -1,0 +1,61 @@
+{
+  "schema": "n11-native-work-full-calibration/v1",
+  "id": "#482",
+  "status": "calibration_metrics_pass",
+  "formal_count_eligible": false,
+  "formal_pass_count": 0,
+  "reason": "run preceded revision9/protocol release; never retrocredited",
+  "run_id": "n11-20261029-482-native-work-calibration",
+  "metrics": {
+    "arrival_position_yaw_dwell": "PASS",
+    "raw_vio_absolute_error": "PASS",
+    "raw_vio_rpe_10s": "PASS",
+    "raw_vio_velocity_error": "PASS",
+    "map_source_and_update_age": "PASS",
+    "ego_tracking_error": "PASS",
+    "ego_tracking_clearance_budget": "PASS",
+    "full_body_clearance_and_contact": "PASS",
+    "raw_map_surface_geometry": "PASS",
+    "raw_map_classification": "PASS",
+    "dynamic_replanning": "INSUFFICIENT",
+    "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+    "resource_and_queue_behavior": "PASS",
+    "observer_identity_binding": "PASS"
+  },
+  "dynamic_replanning": "not_applicable_verified_empty_room_no_injection",
+  "native_pending_work": {
+    "schema": "n11-native-work-result/v1",
+    "status": "PASS",
+    "sample_count": 1808,
+    "maximum_native_lag_s": 0.048,
+    "maximum_pending_source_span_s": 0.0,
+    "maximum_waiting_features": 0,
+    "maximum_telemetry_source_gap_s": 0.068000001,
+    "violations": [],
+    "missing_or_inconsistent": [],
+    "runtime_effect": false,
+    "raw_buffer_ols_is_diagnostic_only": true
+  },
+  "static_map": {
+    "raw_map_surface_geometry": {
+      "status": "PASS",
+      "maximum_observed_error_m": 0.0724035689165533,
+      "threshold_m": 0.1
+    },
+    "raw_map_classification": {
+      "status": "PASS",
+      "fully_solid_known_cells": 0,
+      "fully_solid_free_cells": 0,
+      "fully_occluded_free_cells": 0,
+      "visible_free_controls": 154804,
+      "threshold": 0
+    }
+  },
+  "interval_min_clearance_lower_bound_m": 3.1879255492757266,
+  "safe_terminal": true,
+  "container_exit_code": 0,
+  "raw_files_equal_isolated_original": true,
+  "evaluation_view": "artifacts/reanalysis/n11-20261029-482-full-evaluation-v2/n11-20261029-482-native-work-calibration",
+  "failed_first_evaluation_preserved": "artifacts/reanalysis/n11-20261029-482-full-evaluation",
+  "draft_config_sha256": "34e63eb84269145eeab85004939daf3435791f0d5ce5fdc331d1e3770019767a"
+}

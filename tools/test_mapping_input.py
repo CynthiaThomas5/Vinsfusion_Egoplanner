@@ -7,7 +7,7 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src/own/uav_mapping'))
-from uav_mapping.mapping_input import (depth_camera_pose, pose_at,
+from uav_mapping.mapping_input import (depth_camera_pose, depth_layout_valid, pose_at,
                                        valid_depth_sample_count)
 
 
@@ -60,6 +60,21 @@ class MappingInputTests(unittest.TestCase):
             Message(), 4, 2, 'depth_optical_frame', 1), 4)
         self.assertEqual(valid_depth_sample_count(
             Message(), 4, 2, 'wrong_frame', 1), 0)
+
+    def test_depth_layout_accepts_zero_valid_pixels_without_a_project_health_threshold(self):
+        class Header:
+            frame_id = 'depth_optical_frame'
+
+        class Message:
+            header = Header()
+            encoding = '32FC1'
+            width = 4
+            height = 2
+            step = 16
+            data = bytes(32)
+
+        self.assertTrue(depth_layout_valid(
+            Message(), 4, 2, 'depth_optical_frame'))
 
 
 if __name__ == '__main__':

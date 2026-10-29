@@ -1,0 +1,1 @@
+#376预检补充：实际spawn x=-8和planner参数路径均匹配，但首次driver拒绝时prelaunch JSON缺少顶层planner_config_path。无observer、无flight.json、无目标；独立6秒PX4/bridge读回为DISABLED、landed、disarmed、control disabled、zero control。现补顶层字段并将prelaunch SHA写入tool freeze，在同一未武装栈重跑driver，不改变场景或阈值。

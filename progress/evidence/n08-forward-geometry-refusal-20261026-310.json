@@ -1,0 +1,176 @@
+{
+  "schema": "n08-live-forward-gate-refusal/v1",
+  "date": "2026-10-26",
+  "subtask": "#310",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-310",
+  "result": "N05 support-release gates and preflight passed; live N08 forward geometry refused before goal or control enable",
+  "scan": {
+    "completed_stages": 15,
+    "planned_stages": 15,
+    "helper_outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "trace_max_normalized_cost": 0.9531082016038995,
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.8100125611563994
+    },
+    "fixture_removed": true,
+    "landed_verified": true
+  },
+  "n05": {
+    "after_accepted": true,
+    "post_release_accepted": true,
+    "mission_current_area_accepted": true,
+    "reason": "all_entry_phases_known_and_clear",
+    "online_offline_identical": true,
+    "same_identity": true,
+    "identity": {
+      "epoch": "e9b000e767004950a74dc74097cefedb",
+      "map_id": "e9b000e767004950a74dc74097cefedb-2bf742e022c34623b932e42d47ba45be",
+      "frame_id": "odom_e9b000e767004950a74dc74097cefedb",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    },
+    "phase_unknown_counts": {
+      "TAKEOFF_CONTACT": 0,
+      "ASCENT": 0,
+      "HOLD": 0,
+      "DESCENT": 0,
+      "LANDING_CONTACT": 0
+    }
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00185988098383,
+    "max_optimized_odom_receipt_gap_wall_s": 0.08570045488886535,
+    "optimized_odom_gap_over_guard_count": 0
+  },
+  "n08": {
+    "flight_result": "FAIL",
+    "failure": "trial_corridor_or_home_pad_unknown_or_occupied",
+    "goal_sent": false,
+    "return_goal_sent": false,
+    "service_calls": [],
+    "landed_and_disarmed": true,
+    "forward_geometry_passed": false,
+    "forward_geometry_reason": "vehicle_shape_forward_corridor_or_hold_not_clear",
+    "start_hold": {
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 16,
+      "free_count": 3770,
+      "occupied_count": 0,
+      "components_checked": 7,
+      "component": "rotor_1_collision"
+    },
+    "failed_queries": [
+      {
+        "distance_from_start_m": 0.0,
+        "reason": "unknown",
+        "unknown_count": 27,
+        "occupied_count": 0,
+        "component": "rotor_1_collision"
+      },
+      {
+        "distance_from_start_m": 0.024999999999999998,
+        "reason": "unknown",
+        "unknown_count": 21,
+        "occupied_count": 0,
+        "component": "rotor_1_collision"
+      }
+    ],
+    "terminal_hold": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 9283,
+      "occupied_count": 0,
+      "components_checked": 10
+    },
+    "offline_geometry_audit_passed": false,
+    "offline_goal_case": false,
+    "offline_cancel_case": false,
+    "unknown_slab_diagnostic": {
+      "unique_cells": 27,
+      "bounds_m": {
+        "x": [
+          -1.0500000000000007,
+          -1.0500000000000007
+        ],
+        "y": [
+          -0.25,
+          0.45000000000000284
+        ],
+        "z": [
+          0.8500000000000001,
+          1.15
+        ]
+      },
+      "minimum_nominal_rotor_collision_distance_m": 0.37478825436422114,
+      "combined_spatial_and_tracking_expansion_m": 0.3986820464182027,
+      "cells_only_at_start_and_first_0p025m_query": true
+    }
+  },
+  "safety_readback": {
+    "bridge_phase": "DISABLED",
+    "bridge_reason": "px4_preflight_failed",
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "px4_arming_state": 1,
+    "land_detector_landed": true,
+    "land_detector_at_rest": true,
+    "project_stop_exit_code": 0,
+    "container_status": "exited",
+    "container_exit_code": 0
+  },
+  "comparison_to_309": {
+    "309_return_segment_health_lockout_repeated": false,
+    "same_selected_profile_completed_all_stages": true,
+    "max_trace_cost_on_310": 0.9531082016038995
+  },
+  "source_sha256": {
+    "config/components/navigation/n08_forward_braking_trial_goal.json": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+    "config/components/mapping/n08_low_speed_trial.json": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "progress/evidence/n08-cancel-stop-build-20261026-289.json": "e86eace1317dae0f71a299fe6a45d3a7db9026be5646a8e6b221ab4765a76db5",
+    "dependencies/sources.json": "e825ddef3e85f014cab92094f5fe5fa66e3d6c826d2d96382b09c847528c0918",
+    "dependencies/patches/ego/0045-stationary-yaw-only-return.patch": "5ad328ac6a48226e4b3a4fdab2cc20f81c20a020d7c851e120077bbdf0279b99",
+    "dependencies/patches/ego/0046-cancel-stop-hold.patch": "b1f9aa0d69eb1dc9637bc7de51942666fde9c7aab054124344987d6502629d82",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "eeaa3154310647cc2759d5e4704e922db8f01881d84a637cbd026d9632773a54",
+    "src/own/uav_interfaces/msg/TrajectoryCancel.msg": "617db80e4bb39c27e13f047f9084d10e4232a1c8baa10c42ffa9e78b7afa6b2b",
+    "src/own/uav_navigation/uav_navigation/node.py": "e68f25c0c3e7861fc48715c7966129758c0a684c813385374203d01090f02102",
+    "tools/run_n08_braking_trial.py": "e2be15d47d167bef2fb7b355163598e63dfdb31764745bd70fb74bf1520888d8",
+    "tools/n08_trial_gate.py": "ed59a71fb960e903f7c07c003b71cf4e03c01cba221d34625536c55856ff8f67",
+    "tools/mission_runtime.sh": "0d30be74991539133421a3847cc93383ab0698842015d597fc6f17b2fd7068aa",
+    "tools/n05_entry.py": "6e13627dba11ef0c58a43cabb02fddc0daabdf14a7d5139e5ef83767fe8dac2a",
+    "tools/debug_truth/evaluate_n08_braking.py": "3fd8bdc6cf833d29646c37ea6d79ec5314b2c1b0cbec2d64800477b94f31e0ea"
+  },
+  "artifact_sha256": {
+    "fixture-result.json": "3f1df3a416be2d5125fff49c94b209c7596df6e862869b7c337c94b5b515cd3a",
+    "fixture-trace.jsonl": "5b4f536c709e3ba4049b80a5c1513f49d1ee419fbb0fd702763b8c257bdad624",
+    "fixture-vins.jsonl": "6c5edd45f59b69e5590585dc098b390b363a3d4df3521d447d1d7df41dc00efb",
+    "n05-run-summary.json": "9c5bbcd7ce57caf766c619639f08d64a3aaf04b337a100af610857d511f3fca4",
+    "n05-after/n05-live-entry-check.json": "3ac09e3844d4453c4d21482de16798dbce33ac992113a5527fa2aa723ccaf21d",
+    "n05-post-release/n05-live-entry-check.json": "9c2d0cd9c2dc8629ac68febed664d4ab82f6854edccf72fb2b1df0da0a105932",
+    "n05-current-area/n05-live-entry-check.json": "0a57bf870838f92b6b9d6504daedf94c5a79ff85d9c0212975a0460e0a270a92",
+    "preflight.json": "0585e326bed756e6eeeeda6df1f0ed5d5757448d8434c2777b38d1fee723f73f",
+    "flight.json": "024334e2f164614db2db55a2ca234909b1cb73f80efe5923cba2f16efa0d78e1",
+    "n08-trial-ground-map.json": "4da18a3f710e8c1e64568cf42d071e891a9dcfac9106dc6f845c909e361f2c72",
+    "n08-trial-ground-map.npz": "bc346f771597faf97c3c471c74574470dd69d8a6354735248f86d4cf92784627",
+    "n08-trial-pre-enable-admission.json": "c94085bca491149cdfac82f48c70ddd5758b0b5a9b82181b16618f9c3b8025cf",
+    "bridge-alignment-timeline.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "debug-truth-evaluation.json": "5feb2cd5db528ec3c31372e6fb4df6925ed5990c7af45edad12e0ab15d257c20"
+  },
+  "diagnostic_artifact_sha256": {
+    "progress/evidence/n08-forward-reachable-geometry-replay-20261026-310.json": "ee3f40c4408f50ff68c77424ef6bf4ad2ad7326767c6f7ad1e32befe5c19a48f",
+    "progress/evidence/n08-forward-unknown-slab-20261026-310.json": "922e21a97e8848b4975442015c1cf17e3078f62338b4be3978d06d47f7398587"
+  },
+  "limitations": [
+    "The flight goal was not sent and no control was enabled; this run is not a flight or braking pass.",
+    "The N05 fixture helper returned a generic localization-status warning after completing all 15 stages; its last recorded localization was valid, and same-identity fresh post-release/current-area online-offline checks passed.",
+    "The unchanged conservative geometry gate refuses the rear unknown slab because it intersects the full-body plus existing uncertainty/tracking envelope at the initial hold and first 2.5 cm."
+  ]
+}

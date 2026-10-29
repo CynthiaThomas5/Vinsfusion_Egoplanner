@@ -1,0 +1,81 @@
+{
+  "schema": "n10-sitl-protocol/v1",
+  "run_id": "n10-20261027-361-quality-gates-removed-speed080-16m",
+  "n10_subtask": "N10.3 independent calibration under removed project-added localization quality/freshness thresholds",
+  "status": "amended_before_first_goal_dispatch",
+  "hypothesis": "With the project-added VINS quality and localization/odometry receipt-age lockouts removed from runtime, the same single-D435i 16 m 3D/yaw EGO mission can execute and produce complete raw VIO, map, tracking, contact, PX4, and long-hold measurements without a project health threshold ending the run.",
+  "sole_runtime_factor_changed_from_357": "Project-added localization quality/freshness gate implementation: #357 used a run-local bypass around the old gates; #361 removes the gate policy from the runtime path and keeps raw metrics observational. The planner profile, spawn, route, goal, EGO collision policy, PX4 setup, and observer set are held fixed.",
+  "task": {
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal_profile_sha256": "0e275927089a9d04810d483fc6634717d6f7fcd15472a508601cbd5790600f00",
+    "route": "one +16.0 m ENU / +0.10 m / +0.20 rad single goal; 3 s native dwell; 600 simulated-second ACTIVE post-goal hold; then bridge-owned landing",
+    "planner_profile": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "planner_profile_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "ego_max_velocity_m_s_per_axis": 0.8,
+    "ego_max_acceleration_m_s2_per_axis": 0.25,
+    "ego_planning_horizon_m": 5.0,
+    "collision_policy": "official_ego inflated-occupied policy",
+    "spawn_profile": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "contact_overlay": "read-only observation; no collision geometry change"
+  },
+  "localization_policy": {
+    "runtime_quality_and_freshness_thresholds": "removed",
+    "raw_metrics": "recorded observationally",
+    "historical_normalized_cost_reference": 1.0,
+    "historical_reference_use": "offline description only; no runtime lockout or pass/fail gate",
+    "retained_integrity_constraints": [
+      "same VINS epoch/session identity",
+      "valid message structure and finite coordinates",
+      "per-stream timestamp monotonicity",
+      "ROS clock monotonicity",
+      "single identified VINS publisher"
+    ]
+  },
+  "other_retained_runtime_rules": [
+    "official_ego inflated occupancy collision behavior",
+    "map identity/freshness integrity",
+    "PX4 bridge sole control publisher and its control/watchdog behavior",
+    "landing and disarm terminal readback"
+  ],
+  "acceptance": {
+    "classification": "diagnostic calibration only; not N11-N16 formal qualification and does not freeze N10.3 thresholds",
+    "required_observations": [
+      "read-only preflight and takeoff admission",
+      "one action goal sent and native action completion",
+      "independent truth position/yaw dwell check",
+      "600 simulated-second ACTIVE hold complete",
+      "truth/alignment/planner/bridge/contact/source-timeline observers cover terminal flight record",
+      "zero prohibited contacts",
+      "independent PX4/bridge readback LANDED or DISABLED, landed=true, armed=false, control_enabled=false, vehicle_remained_disarmed=true, control_samples_zero=true"
+    ],
+    "all_error/age/tracking/clearance/cost values": "report measurements only; no new acceptance threshold is applied"
+  },
+  "run_commands": {
+    "start": "D435I_N09_CONTACTS=1 D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json D435I_SPAWN_CONFIG=config/components/simulation/n10_long_range_spawn_minus8.json bash tools/project.sh sim n10-20261027-361-quality-gates-removed-speed080-16m",
+    "driver": "docker exec d435i-n10-20261027-361-quality-gates-removed-speed080-16m bash /workspace/artifacts/n10-prepared/n10-20261027-361-quality-gates-removed-speed080-16m/n10-runtime-driver.sh",
+    "safe_stop": "bash tools/project.sh stop n10-20261027-361-quality-gates-removed-speed080-16m only after the independent PX4/bridge terminal readback in the run driver confirms safe_to_stop_project_container=true"
+  },
+  "runtime_contract": {
+    "sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+    "file_count": 665,
+    "prelaunch_snapshot": "progress/evidence/n10-health-gates-removed-speed080-16m-runtime-contract-prelaunch-20261027-361.json",
+    "driver_sha256": "3bd26a06851ff8d9b62a07cb915779216b50475c69cceb96d70ca382f9a95270",
+    "analyzer_sha256": "8243ec0f569e930e4c59fa420f10c1522def1515f3a872cdfe62e895a18b8773"
+  },
+  "prelaunch_verification": {
+    "project_labeled_container_running": false,
+    "ros_packages_build": "passed for all 17 packages after localization gate removal; this turn changed only a Python runner and inert calibration fields",
+    "project_test": "bash tools/project.sh test: 413 unit tests plus navigation adapter integration and official EGO policy integration passed",
+    "driver_shell_syntax": "passed",
+    "analyzer_python_syntax": "passed"
+  },
+  "result_path": "artifacts/runs/n10-20261027-361-quality-gates-removed-speed080-16m/",
+  "preflight_driver_correction": {
+    "attempt_01": "The initial driver aborted before preflight because it checked n10-runtime-contract-current.json while the runtime snapshot command wrote n09-runtime-contract-current.json.",
+    "flight_or_enable_dispatched": false,
+    "bridge_readback": "setup-preflight-readback.json confirms DISABLED, landed, disarmed, control disabled, and zero control samples.",
+    "correction": "Driver now reads the actual n09-runtime-contract-current.json output; runtime contract and flight settings are unchanged.",
+    "updated_driver_sha256": "3bd26a06851ff8d9b62a07cb915779216b50475c69cceb96d70ca382f9a95270",
+    "status": "Correction and protocol amendment frozen before the first navigation goal."
+  }
+}

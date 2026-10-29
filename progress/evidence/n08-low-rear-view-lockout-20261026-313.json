@@ -1,0 +1,113 @@
+{
+  "schema": "n08-prescan-health-refusal/v1",
+  "date": "2026-10-26",
+  "subtask": "#313 SITL",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-313",
+  "profile": "n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view",
+  "profile_sha256_canonical_json": "833c2e10e9851a36b6191cdc5d79d9dd369cc684e4d7c58491a8432f8a25247d",
+  "static_profile_checks": {
+    "preflight_scan_unit_tests": "44 passed",
+    "project_status": "Structure/design PASS",
+    "json_shell_diff_checks": "PASS"
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "online_offline_result_identical": true
+  },
+  "scan": {
+    "outcome": "failed",
+    "completed_stages": 13,
+    "configured_stages": 17,
+    "last_completed_stage": 12,
+    "failed_stage": 13,
+    "failed_pose": "z≈0.028 m, yaw≈−2.121 rad, pitch≈−0.230 rad while target yaw=−π/pitch=−0.35",
+    "last_trace_cost": 0.9441852610522511,
+    "last_localization": {
+      "state": 3,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.0221291779014439
+    },
+    "fixture_detached": true,
+    "fixture_model_absent": true,
+    "landed": true
+  },
+  "health_lockout": {
+    "sim_s": 439.948,
+    "normalized_cost": 1.0221291779014439,
+    "limit": 1.0,
+    "reason": "normalized_cost_exceeded",
+    "stale_observation": null,
+    "source_age_ms": {
+      "optimized": 120.000001,
+      "telemetry": 56.000001
+    },
+    "prior_evaluation_ok": true,
+    "prior_spectrum_ok": true,
+    "cost_components": {
+      "imu": {
+        "cost": 5.271225934404666,
+        "residual_components": 150
+      },
+      "marginalization": {
+        "cost": 1066.9067495035758,
+        "residual_components": 82
+      },
+      "visual": {
+        "cost": 306.8894589010949,
+        "residual_components": 2408
+      }
+    }
+  },
+  "phase_comparison": {
+    "low_height_descent_stages_10_to_12_completed_without_lockout": true,
+    "last_stage12_cost": 0.7716529448784416,
+    "rear_yaw_pitch_combined_stage13_lockout": true
+  },
+  "post_scan_admission": null,
+  "mission": {
+    "started": false,
+    "goal_sent": false,
+    "enable_requested": false,
+    "flight": false
+  },
+  "independent_readback": {
+    "duration_wall_s": 6.0,
+    "bridge": {
+      "phase": "DISABLED",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true
+    },
+    "px4_arming_state": 1,
+    "landed": true,
+    "control_topic_counts": {
+      "control_mode": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0
+    },
+    "fixture_model_present": false
+  },
+  "shutdown": {
+    "command": "bash tools/project.sh stop n08-cancel-highspeed-prescan-20261026-313",
+    "command_exit_code": 0,
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "unrelated_containers_untouched": true
+  },
+  "health_or_spatial_thresholds_changed": false,
+  "single_goal_flight_direction_changed": false,
+  "artifacts_sha256": {
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/fixture-result.json": "a33a0546faf156a84e54c8666101a863cf450da521ace357c92a1ed8647e9560",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/fixture-stages.json": "a4d8aea996efaeb33968ec44e42d94692d77b81978046e6f6a16414fe9c343a5",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/fixture-trace.jsonl": "6c17fbf839c1596f9d9022d870f2485aea2c6eee4acf0cba0eb9e0e5d400e6c0",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/fixture-vins.jsonl": "50a7aec9de45de7dd0fb73d177e80cea10bb34d03797ac2a6482e1f1cb180d9a",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/fixture-odometry.jsonl": "3f5064e412e6c388d63f9319ecf33d878b60d786a6d3e9c5101d5f685586c096",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/vio.log": "de6239d26714b83957a6e5474cd8b58e9d78160862b068568de5cf7ce6e8297a",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/n05-before/n05-live-entry-check.json": "77b1bd75de60749fce5482f77d8cfd8c0d7dfaf6fde44ce06b60d1e485251f49",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/post-scan-independent-live-readback.json": "7fab305984ea20dadfda7f6f270507743b5f35a562eba9da653df022a577d971",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-313/post-scan-gz-model-list.txt": "48cb6a8ad7acbe03296a9079a056ca76c5dbe69df323387a7037ba430d3170a2"
+  },
+  "next_action": "#314: preserve #313 low-height observation and descent ordering; split pitch-up at yaw=-pi/2 from the yaw turn to -pi, keeping pitch fixed during yaw, then return yaw to zero before resetting pitch. This tests compound pitch+yaw motion as the cause of the stage-13 cost rise."
+}

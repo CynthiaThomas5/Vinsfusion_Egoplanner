@@ -1,0 +1,25 @@
+{
+  "qualification": "PROVISIONAL N08 low-speed planner profile; diagnostic only. The velocity is an upper setpoint bound, not a measured braking lower bound or flight clearance.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.15,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "The 0.15 m/s EGO velocity upper bound defines the N08 provisional low-speed comparison only. The 0.25 m/s2 EGO acceleration limit shapes planner output but is not treated as actual PX4 deceleration. The target profile reuses a 0.6 m lateral wall-layout goal with N06 planner-only evidence; every N08 runtime must independently require current N05 admission, current N06 full-curve checks, and a separately measured stopping boundary before executing motion. The N05-derived body inflation and map freshness settings remain unchanged."
+}

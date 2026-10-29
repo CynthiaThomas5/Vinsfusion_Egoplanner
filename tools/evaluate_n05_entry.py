@@ -3,6 +3,8 @@
 import argparse
 import hashlib
 import json
+import math
+import numbers
 from pathlib import Path
 
 import numpy as np
@@ -12,6 +14,21 @@ from n05_entry import ROOT, check_entry_schedule, collision_primitives, load_pol
 
 def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def n05_results_match(left, right):
+    """Compare replay output while tolerating floating-point fit roundoff."""
+    if isinstance(left, dict) and isinstance(right, dict):
+        return (left.keys() == right.keys()
+                and all(n05_results_match(left[key], right[key]) for key in left))
+    if isinstance(left, list) and isinstance(right, list):
+        return (len(left) == len(right)
+                and all(n05_results_match(a, b) for a, b in zip(left, right)))
+    if isinstance(left, bool) or isinstance(right, bool):
+        return left is right
+    if isinstance(left, numbers.Real) and isinstance(right, numbers.Real):
+        return math.isclose(float(left), float(right), rel_tol=1e-12, abs_tol=1e-12)
+    return left == right
 
 
 def evaluate(report_path, output_path=None):
@@ -67,7 +84,8 @@ def evaluate(report_path, output_path=None):
         'identity': identity,
         'offline_sweep': result,
         'online_admission': report['online_admission'],
-        'matches_online_result': result == report['online_admission'],
+        'matches_online_result': n05_results_match(
+            result, report['online_admission']),
         'debug_truth_used': False,
         'scope': 'archived current-source raw occupancy replay; not flight approval',
     }

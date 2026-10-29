@@ -88,10 +88,11 @@ def evaluate(run):
     if not statuses or not telemetry:
         raise ValueError('event stream must contain health status and estimator telemetry')
 
-    threshold = json.loads(
+    localization_policy = json.loads(
         Path(__file__).resolve().parents[2]
         .joinpath('config/components/localization/health.json').read_text(encoding='utf-8')
-    )['max_normalized_cost']
+    )
+    threshold = localization_policy.get('max_normalized_cost')
     associations = []
     for status in statuses:
         sample, method = associate_telemetry(status, telemetry)
@@ -166,11 +167,11 @@ def evaluate(run):
             'status_telemetry_cost_matches': len(matches),
             'status_telemetry_cost_match_fraction': len(matches) / len(statuses),
         },
-        'health_gate': {
-            'configured_max_normalized_cost': threshold,
+        'health_observation': {
+            'runtime_quality_threshold': threshold,
             'max_reported_normalized_cost': max_status.get('normalized_cost'),
-            'status_threshold_crossing_count': sum(
-                float(event.get('normalized_cost', 0.0)) > threshold for event in statuses),
+            'status_threshold_crossing_count': (None if threshold is None else sum(
+                float(event.get('normalized_cost', 0.0)) > threshold for event in statuses)),
             'status_states': sorted({(
                 event.get('state'), event.get('valid'), event.get('reason')) for event in statuses}),
             'maximum_cost_association': max_association,
@@ -186,7 +187,7 @@ def evaluate(run):
         'timing': timing,
         'input_sha256': hashes,
         'limitations': [
-            'A q threshold crossing identifies the health guard decision, not the upstream cause of increased VINS residuals.',
+            'Quality values are observations; no project runtime threshold is configured.',
             'Status.source_stamp is a propagated-odometry stamp; normalized_cost is computed from estimator telemetry.',
             'Only source-matched telemetry and independent offline truth support the associated measurements.',
         ],

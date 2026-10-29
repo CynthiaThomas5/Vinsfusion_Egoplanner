@@ -1,0 +1,121 @@
+{
+  "schema": "n08-runtime-runner-fingerprint-refusal/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-284",
+  "scope": "N08 cancellation trial admission attempt; no flight qualification",
+  "requested_trial": {
+    "completion_mode": "single_goal",
+    "trial_kind": "motion_cancel",
+    "trigger_horizontal_speed_window_m_s": [
+      0.04,
+      0.06
+    ],
+    "goal": "config/components/navigation/n08_forward_braking_trial_goal.json"
+  },
+  "result": "REFUSED_BEFORE_ACTION",
+  "primary_failure": "yaw_first_return_source_fingerprint_mismatch:tools/run_n08_braking_trial.py",
+  "fingerprints": {
+    "#276_build_record_runner_sha256": "039478bbf28dac2ff40ddaf49ff447d5d5e55eaf910789b7a859841364eca344",
+    "#282_runtime_runner_sha256": "c35b3adad8121c9548678e19e6402b467c2e303e4893ad2f3ce6cfe18e4bcc66",
+    "other_compiled_sources_unchanged": true,
+    "#276_installed_binary_hashes_match": true,
+    "#284_startup_manifest_included_runner": false
+  },
+  "pre_action_evidence": {
+    "readonly_navigation_preflight_passed": true,
+    "preflight_observed_wall_s": 40.00166434398852,
+    "fresh_current_n05_accepted": true,
+    "fresh_current_n05_online_offline_match": true,
+    "planner_messages": [],
+    "pre_enable_admission_exists": false,
+    "flight_record": {
+      "result": "FAIL",
+      "failure": "runner exited without writing a terminal record",
+      "mission_runtime_mode": "fail-closed"
+    }
+  },
+  "independent_final_readback": {
+    "accepted": true,
+    "reason": "all_entry_phases_known_and_clear",
+    "identity": {
+      "epoch": "7a38f229b68e44fba48fb606d2e87681",
+      "map_id": "7a38f229b68e44fba48fb606d2e87681-e5d2eaf0c1894dc484b9d0b51b6dd620",
+      "frame_id": "odom_7a38f229b68e44fba48fb606d2e87681",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    },
+    "state": {
+      "bridge_phase": "DISABLED",
+      "armed": false,
+      "control_enabled": false,
+      "landed": true,
+      "localization_valid": true,
+      "localization_state": 1,
+      "body_pose_imu_m": {
+        "center_xyz_m": [
+          -0.00289933187502228,
+          0.012745385539466275,
+          0.014553972115654457
+        ],
+        "yaw_rad": -0.0019886927508972283,
+        "roll_rad": -0.001872657553650469,
+        "pitch_rad": -0.011157636083192604
+      }
+    },
+    "freshness": {
+      "snapshot_age_sim_s": 0.1,
+      "depth_source_age_sim_s": 0.148,
+      "fusion_age_sim_s": 0.024,
+      "map_status_receipt_age_wall_s": 0.18569448916241527,
+      "localization_receipt_age_wall_s": 0.03691793908365071,
+      "odometry_receipt_age_wall_s": 0.021415093913674355,
+      "limit_sim_s": 0.4
+    },
+    "project_container_stopped": true
+  },
+  "secondary_evaluator_error": "After the fail-closed missing runner record, the odometry evaluator rejected non-strictly-increasing source stamps. This contains no flight data and is secondary to the pre-action fingerprint refusal.",
+  "interpretation": "The N08 movement runner refused before enable, goal, or flight because the historical #276 compiled-build source list included the Python N08 runner hash from before the #282 runtime-only fix. The read-only navigation preflight and fresh N05 admission passed. No action goal or planner command was observed. The bridge remained DISABLED, PX4 disarmed and landed, localization valid, and fresh online/offline N05 admission still accepted before the project container was stopped.",
+  "verification_after_fix": {
+    "runtime_manifest_current_snapshot_includes_runner": true,
+    "runtime_manifest_runner_sha256": "47e0c21697d41c4d9befd2f6dc1ae5e03f70dc71cbdb3bff3144ff0f33b4f996",
+    "expected_current_runner_sha256": "47e0c21697d41c4d9befd2f6dc1ae5e03f70dc71cbdb3bff3144ff0f33b4f996"
+  },
+  "artifacts": {
+    "flight.log": {
+      "sha256": "2ed327184eea67821ebd4a0647521340f1845d1a0f291ea93d4b5fd2d13bbdf3",
+      "bytes": 76
+    },
+    "flight.json": {
+      "sha256": "23acabe534156396a73494054903c61530826f291884f167b4c09c975a29f9fa",
+      "bytes": 128
+    },
+    "preflight.json": {
+      "sha256": "0e65dafddfcd96336d7ff19400ecc58c168de8b0e877cfb8137351d76b63827a",
+      "bytes": 2146721
+    },
+    "n05-current-area/n05-live-entry-check.json": {
+      "sha256": "f7e61a78a0e0fa339e066c5771476533e3a20c09fd6e0c56ad60cc397de6943f",
+      "bytes": 7583
+    },
+    "n05-current-area/n05-offline-entry-replay.json": {
+      "sha256": "ed42ca6b93f4d50f6c5124a957b0d830947a0abe64479057e4762b8288b4ebd6",
+      "bytes": 6127
+    },
+    "planner-observation.json": {
+      "sha256": "f6da6a1c2c7c42b87508ad07266b6ed24ba34a62080ff7ecd623d949569527ad",
+      "bytes": 111
+    },
+    "bridge-alignment-timeline.jsonl": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "n08-runtime-refusal-readback/n05-live-entry-check.json": {
+      "sha256": "9ca05d6989f6432d25795b4d7fe63c0e0f41edf4e4fb22848091b8dfa3027516",
+      "bytes": 7581
+    },
+    "runtime-contract.json": {
+      "sha256": "7a09e8cc869cfad4bae2c0b1115aa7d18cae84f849ca7268e7580877b703b397",
+      "bytes": 74352
+    }
+  }
+}

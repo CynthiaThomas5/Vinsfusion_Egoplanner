@@ -1,0 +1,11 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -404,7 +404,7 @@
+       "/mapping/query_occupancy_sphere",
+       [this](const std::shared_ptr<uav_interfaces::srv::QueryOccupancySphere::Request> request,
+              std::shared_ptr<uav_interfaces::srv::QueryOccupancySphere::Response> response) {
+-        response->reason = queryReadiness(request->expected_epoch, request->expected_map_id);
++        response->reason = queryReadiness(request->expected_epoch, request->expected_map_id, false);
+         if (!response->reason.empty()) return;
+         if (request->frame_id != mp_.frame_id_)
+         {

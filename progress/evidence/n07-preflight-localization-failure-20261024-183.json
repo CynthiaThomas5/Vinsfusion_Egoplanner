@@ -1,0 +1,103 @@
+{
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "run_id": "n07-20261024-183-01",
+  "result": "FAIL",
+  "consecutive_passes_after_reset": "0/3",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout_id": "wall_box_column",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "identity": {
+    "epoch": "d19007b088ff45ed9a6418dd04718064",
+    "map_id": null
+  },
+  "preflight": {
+    "initial_entry_refusal": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "prescan_ready_marker_created": false,
+    "attached_live_gate_run": false,
+    "support_scan_outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "completed_stages": 7,
+    "total_stages": 12,
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.0589551679721994
+    },
+    "vehicle_status_samples": 588,
+    "vehicle_states": [
+      1
+    ],
+    "land_detected_samples": 312,
+    "land_detected_values": [
+      true
+    ]
+  },
+  "flight": {
+    "started": false,
+    "flight_json_created": false,
+    "enable_arm_or_goal_command_sent": false
+  },
+  "cleanup": {
+    "helper_cleanup_attempted": true,
+    "verified_detached": true,
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "final_landed": true,
+    "independent_readback": {
+      "bridge_phase": "DISABLED",
+      "bridge_reason": "localization_not_tracking",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true,
+      "local_position_valid": false,
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "px4_arming_state": 1,
+      "land_detector_landed": true,
+      "fixture_model_absent": true,
+      "source": "postscan-safety-readback.log"
+    }
+  },
+  "container": {
+    "stop_command": "bash tools/project.sh stop n07-20261024-183-01",
+    "final_status": "exited",
+    "exit_code": 0,
+    "active_project_containers": 0
+  },
+  "limitations": [
+    "The support scan lost localization health in stage 7/12 when state became invalid with reason normalized_cost_exceeded and normalized_cost 1.0589551679721994.",
+    "No ready marker, attached N05 gate, takeoff, hover, or N07 flight qualification was produced.",
+    "N07 consecutive cold-start qualification resets to 0/3; no health gate or threshold was changed."
+  ],
+  "artifact_sha256": {
+    "gpu-request.json": "408545c45700f62fbe5065ab06e1e2a072d07d4cff8b3226ab9b269ccb7d6743",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-run-inputs.json": "248347ba65ea57f8d0475febcaf016d1ee660569430d19f8f05ff3feda9f18fd",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "n05-before/n05-live-entry-check.json": "0b375e838e75d2ff63485d4a326459d1bf955eae2ff61ec73fbcfd2883bc205c",
+    "n05-before/n05-offline-entry-replay.json": "05753da7aa622cc9ec31dff319dbbb7ecd1865382bd4f1572bea37e044a3e462",
+    "fixture-result.json": "e9e4e97fce9ffde66b965c79d9d2bfed3737f818104a4194462ebceefa178791",
+    "fixture-stages.json": "26f5f884f02f713513c3842db3ce3ba61cbf21c63bfa943efe9a007a066cf65d",
+    "fixture-trace.jsonl": "1fc0f434bcc30386194616df31ba3c9bf4f285be6667a8983f69a2d26307625a",
+    "fixture-vins.jsonl": "c93a5947594c667ba652e51e2898c8a295348538d678cf8ef5d06a8c280ba33d",
+    "fixture-odometry.jsonl": "ddb43f71366ce72a2618ddf948405ce3a4ea479dcf3455cf0995fada90142fc3",
+    "n05-fixture.log": "0b26ff9b595f0986a7212a4bc33167f514088295a9526d84f48d2f8a649dd539",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "postscan-safety-readback.log": "70a12f631af13eddc4635d34efe2d4020868280964181ac6d6cee347f5363cc0"
+  },
+  "missing_expected_artifacts": [
+    "n05-prescan-ready.json",
+    "flight.json",
+    "n07-hover-evaluation.json",
+    "px4-ulog-analysis.json",
+    "ros-graph-audit.json"
+  ]
+}

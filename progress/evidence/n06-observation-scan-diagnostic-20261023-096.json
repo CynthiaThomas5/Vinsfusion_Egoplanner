@@ -1,0 +1,105 @@
+{
+  "schema": "n06-observation-scan-result/v1",
+  "report_id": "2026-10-23-096",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "run_id": "n06-20261023-wall-r21",
+  "profile": {
+    "path": "config/components/simulation/n06_yaw_360_very_slow.json",
+    "sha256": "079adb5e85ac009c4948f976e8c30af91d90b49d97792c64016584310ff69902"
+  },
+  "profile_peak_rate_rad_s": 0.0523598776,
+  "profile_phase_seconds": 120,
+  "surround": {
+    "included": true,
+    "path": "simulation/models/n06_observation_surround/model.sdf",
+    "sha256": "229598cfa2925f687b6d6c1627ea8517c64bb4902982073375fda34cca6a4808",
+    "model_config_sha256": "cad6eb339fc15c0668ae579ca36323c1e9b1ef2b2fb88c4ac4f3b974ce2d0b95"
+  },
+  "hypothesis": "At fixed translation and unchanged textured surround/360-degree yaw endpoints, reducing angular rate fourfold will delay or prevent the early VINS health lock seen in r20 if angular rate is the dominant cause.",
+  "single_primary_variable": "yaw angular rate (angular acceleration reduced sixteenfold to preserve the same full-turn endpoints over four times the phase duration)",
+  "observed": {
+    "first_zero_feature_count": {
+      "sim_time_s": 17.194,
+      "estimated_yaw_deg": 0.6050462784065785,
+      "feature_counts": [
+        4,
+        0
+      ],
+      "logger_wall_time_s": 1792732587.516869
+    },
+    "first_mapping_health_gate_close": {
+      "logger_wall_time_s": 1792732616.6852555,
+      "reason": "normalized_cost_exceeded",
+      "preceding_vins_pose": {
+        "sim_time_s": 45.574,
+        "estimated_yaw_deg": 16.367942205518453,
+        "feature_counts": [
+          4,
+          3
+        ],
+        "logger_wall_time_s": 1792732616.6347835
+      }
+    },
+    "time_from_first_zero_features_to_health_gate_s": 28.38,
+    "last_logged_vins_pose_at_stop": {
+      "sim_time_s": 136.126,
+      "estimated_yaw_deg": -160.84099881804835,
+      "feature_counts": [
+        8
+      ],
+      "logger_wall_time_s": 1792732709.59657
+    },
+    "map_reset_after_health_gate": true,
+    "full_360_turn_completed": false,
+    "snapshot_count": 0,
+    "input_capture_json_saved": false,
+    "motion_truth_json_saved": false,
+    "stop": "docker stop --timeout 15; outer runner ended with exit code 137. mapping-stack.log remained on the shared volume; recorder/motion finalizers did not complete before the container was killed.",
+    "qualification": "VINS pose quaternion is extracted from mapping-stack.log (wxyz order); it is an estimator output, not independent motion truth."
+  },
+  "interpretation": "The first logged zero feature-count frame occurred at estimated yaw about 0.61 degrees, but the first mapping health-gate closure followed 28.38 simulation seconds later at estimated yaw about 16.37 degrees. The failure was delayed relative to r20 (health closure at sim 13.564 seconds and estimated yaw 2.43 degrees), yet localization did not remain valid to the end of the 360-degree scan. The slow-rate hypothesis is therefore only partially supported: rate affected onset timing, but this scan still failed its positive-entry criterion.",
+  "source_hashes": {
+    "mapping-stack.log": "3816cd8318de1c7dd3df1c9b9beeb678a5415f4b3776e65e6525441cc3f7b4e5",
+    "run-inputs.json": "04b6734e0b3d975124d780d01a7e6c5d2478b4c5832eac750d3c20ce1150e508",
+    "world.sdf": "52dba211c17c7dfc59a9976a935c37d973db760ce125a4b1cec33d74b706e378",
+    "runtime-contract.json": "9756bdca2c6ba68a4cf9bc15a664a3927029ac54280cd96a38df2aeb9a28427e"
+  },
+  "next_hypothesis": {
+    "primary_variable": "insert a stationary reacquisition hold after each rest-to-rest 15-degree yaw segment, keeping the same surround, stationary translation and approximately the same peak angular rate as r21.",
+    "rationale": "r21 had isolated feature-count zero events well before persistent mapping health lock. Short scan-and-hold segments test whether a fixed view lets feature tracks and health recover before the next yaw increment.",
+    "profile_path": "config/components/simulation/n06_yaw_360_segmented_15deg.json",
+    "profile_sha256": "26bf9e01cd1a58ea1dec651744d19293570adfec08a1c6bf10ca76e0a33f550c",
+    "steps": 24,
+    "step_degrees": 15,
+    "hold_seconds_per_step": 5,
+    "peak_rate_rad_s": 0.0523598776,
+    "commanded_total_yaw_deg": 360.0,
+    "stop_seconds": 365,
+    "wall_timeout_seconds": 420,
+    "record_wall_seconds": 428,
+    "stop_method": "On health lock, SIGINT the sensor-motion process group inside the container; let the container cleanup SIGINT the input recorder and mapping stack so both write partial artifacts. The host cleanup now allows 90 seconds before container kill.",
+    "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r22 wall_box_column 85 motion_n06 config/components/simulation/n06_yaw_360_segmented_15deg.json"
+  },
+  "verification": {
+    "mapping_log_analysis": "Parsed /vins_node-4 time/quaternion/n_pts output and first normalized_cost_exceeded gate; the first lock is at sim 45.574 seconds, preceding estimator yaw 16.368 degrees, n_pts [4,3].",
+    "project_status": "python3 tools/project_status.py: PASS",
+    "runner_syntax": "bash -n tools/run_n04_map_layout.sh tools/run_n04_map_layout_container.sh: PASS",
+    "profile_geometry": "24 rest-to-rest increments each command 15 degrees; 72 five-second accel/decel/hold phases, total 360 degrees and peak 0.05236 rad/s.",
+    "runtime_tests": "No tests were run for the stop-timeout/profile preparation change; current evidence is static/profile inspection only."
+  },
+  "status": "N06 and S4 remain in_progress; next_goal remains N06. N06.4 continues with a new paused-segment hypothesis; N06.2 remains not passed.",
+  "unresolved": [
+    "No independent motion truth or partial input recorder archive exists for r21 because the 15-second container stop expired.",
+    "No r21 full turn, map snapshots, or live EGO curve were captured.",
+    "A stationary pause scan has not yet established a valid mapping entry."
+  ],
+  "stop_reason": "Stopped after persistent localization health lock; N06 incomplete; continuing Goal mode with a new evidence-driven pause/reacquisition hypothesis.",
+  "subsequent_update": {
+    "report_id": "2026-10-23-097",
+    "path": "progress/evidence/n06-observation-scan-reacquisition-20261023-097.md",
+    "finding": "The 15-degree first hold occurred after the r22 localization health lock around 2.6 degrees; current next step is an 8-degree, 1-degree-microstep pilot.",
+    "stop_handling": "Explicit SIGINT/SIGTERM handlers were added to motion and input recorder, plus a 90-second host container stop grace."
+  }
+}

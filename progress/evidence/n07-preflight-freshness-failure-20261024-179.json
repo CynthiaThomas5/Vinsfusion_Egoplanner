@@ -1,0 +1,168 @@
+{
+  "artifact_sha256": {
+    "fixture-odometry.jsonl": "0d5851426938ab60446240ed28abf99727f129a9cb6c845079be4655f77f1a06",
+    "fixture-result.json": "91c42f3b6e2633aa7c7244869d04c3dbe0bc56c98bca4aeb0c8578e0929422f0",
+    "fixture-stages.json": "7b6eb98e9e6b55990c0c6668c0e24cc9158c9a0f98af4e59c53d51068e7393d8",
+    "fixture-trace.jsonl": "c7f9242903f25c7a8f464480f809a7472a36343689dc5db99356e86a8990ceef",
+    "fixture-vins.jsonl": "937fcfe6a46bbcfe91641d18e0da095a54b0ca179b6f9a3e5a3ad280252c7d45",
+    "n05-after-check.log": "99361a706611f31326671697f49b0e8c2bdfb86d5fb255979fb9b4d793d37aa6",
+    "n05-after/n05-live-entry-check-error.json": "e6c67748fe5a7493d6816a9d81d8409dc2ba6abba4606451e4096db624b5ebaf",
+    "n05-before/n05-live-entry-check.json": "0b4c195ebf1a6fca5976e57394bc2b17f7d6ffcb47cf245b10e17cf1c4d6b5e9",
+    "n05-before/n05-offline-entry-replay.json": "a58976bfe8894af3b4264e4fc84e98e0bceadef9953ca8af56bb6313fdb24a98",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-fixture.log": "4b1f7801cafb59ff9e8030dbf1e789fe47419f5dad913c4338819554b86822aa",
+    "n05-post-release-check-summary.log": "5c6dcc81c909f6c4ee68498fe7240f6959202c69982f3f53751a23438d33acac",
+    "n05-post-release-check.log": "df1137b370d9ff5dc8b3cd9a6054a902ac50cc796cddb3a8327af591d4d73372",
+    "n05-post-release-replay.log": "bfd0b7322ff24c034180c9c54f411170df1c4ee5f00c55f1ff4244193de8e9bb",
+    "n05-post-release/n05-live-entry-check.json": "449af666ee9f53d25fe3cac1f3df4ae396c45c1ce1b0a000c7b8be59de7d529d",
+    "n05-post-release/n05-offline-entry-replay.json": "beb5682e40e9b5fef116e15f177c0ee348f6046e4431a6a5e1d6970dafd30bf4",
+    "n05-prescan-ready.json": "affcbbeece277adb4715aa72996562f5d80ec123d1bd97df393b9ba6ee7476e6",
+    "n05-run-inputs.json": "a4a927571ddc740c40ef2073a8e67644baef9c4f032fd271bcae6d6853c86d29",
+    "postscan-node-readback.log": "1f1776c49c2567dc753ff634962a77454b8540891276a966fe93d6f830b519ac",
+    "postscan-safety-readback.log": "740966b050fcb9761e508bbbc5f3ec34f6a5f9e2d8bf263e7f8dda72ca36d7fe",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "attached_n05_gate": {
+    "accepted": false,
+    "age_detail_captured": false,
+    "control_or_goal_published": false,
+    "error": "map source, fusion, or snapshot age exceeds the N05 freshness limit",
+    "qualification": "fail-closed read-only diagnostic; no entry authorization",
+    "reason": "online_snapshot_or_prerequisite_check_failed",
+    "threshold_s": 0.4,
+    "truth_subscribed": false
+  },
+  "initial_n05": {
+    "accepted": false,
+    "freshness": {
+      "depth_source_age_sim_s": 0.132,
+      "fusion_age_sim_s": 0.024,
+      "limit_sim_s": 0.4,
+      "localization_receipt_age_wall_s": 0.019368207082152367,
+      "map_status_receipt_age_wall_s": 0.2056306260637939,
+      "odometry_receipt_age_wall_s": 0.05014460487291217,
+      "snapshot_age_sim_s": 0.124
+    },
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope"
+  },
+  "interpretation": {
+    "hypothesis_for_next_run": "The attached check immediately after the final support-scan return can race a transient map refresh; a short disarmed settling interval before the attached gate may let the fresh snapshot catch up. This remains a hypothesis, not a root-cause claim.",
+    "next_single_variable": "Wait 2 wall-clock seconds after n05-prescan-ready while staying DISARMED and attached, before the same attached online/offline N05 check. Keep all thresholds and route unchanged.",
+    "observed": "The attached N05 checker raised because map source, fusion, or snapshot age exceeded the unchanged 0.4 s threshold. After safe release, one post-release check on the same epoch/map was fresh and accepted at snapshot/source/fusion ages 0.108/0.156/0.028 s."
+  },
+  "n07_qualified_hover": false,
+  "post_release_n05_diagnostic": {
+    "accepted": true,
+    "epoch": "94b4bc9fa796466aa712ba8cb541e18d",
+    "freshness": {
+      "depth_source_age_sim_s": 0.156,
+      "fusion_age_sim_s": 0.028,
+      "limit_sim_s": 0.4,
+      "localization_receipt_age_wall_s": 0.010891508078202605,
+      "map_status_receipt_age_wall_s": 0.08583797211758792,
+      "odometry_receipt_age_wall_s": 0.03785653901286423,
+      "snapshot_age_sim_s": 0.108
+    },
+    "map_id": "94b4bc9fa796466aa712ba8cb541e18d-fe38a68aff11471ab864abc46a099ea6",
+    "offline_accepted": true,
+    "offline_matches_online": true,
+    "online_offline_result_identical": true,
+    "qualification_note": "This later post-release acceptance does not replace the failed attached gate.",
+    "reason": "all_entry_phases_known_and_clear",
+    "state": {
+      "armed": false,
+      "body_pose_imu_m": {
+        "center_xyz_m": [
+          0.0061471966647087236,
+          0.013353376775085225,
+          0.01419764141799984
+        ],
+        "pitch_rad": 0.003456613028161305,
+        "roll_rad": 0.004805443966932705,
+        "yaw_rad": 0.00045573966208952674
+      },
+      "bridge_phase": "DISABLED",
+      "control_enabled": false,
+      "landed": true,
+      "localization_state": 1,
+      "localization_valid": true
+    }
+  },
+  "qualification": {
+    "consecutive_passes_after_run": "0/3",
+    "consecutive_passes_before_run": "2/3 (#177, #178)",
+    "next_run": "#180",
+    "reset_reason": "attached N05 online gate failed closed on map/fusion/snapshot age; no flight was allowed"
+  },
+  "result": "FAIL",
+  "run_id": "n07-20261024-179-01",
+  "run_identity": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "epoch": "94b4bc9fa796466aa712ba8cb541e18d",
+    "layout": "wall_box_column",
+    "map_id": "94b4bc9fa796466aa712ba8cb541e18d-fe38a68aff11471ab864abc46a099ea6",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "runtime_contract_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "spawn_pose": "-6.5,0,0.3,0,0,0"
+  },
+  "safety_and_scope": {
+    "container_status": "Exited (0)",
+    "enable_or_arm_attempted": false,
+    "final_landed": true,
+    "fixture_removed": true,
+    "flight_started": false,
+    "land_detector_values": [
+      true
+    ],
+    "navigation_goal_sent": false,
+    "one_shot_bridge_topic_readback": "No publisher observed in the single post-release echo; the live N05 state reported DISABLED/unarmed/landed and ros2 node list showed uav_px4_bridge.",
+    "post_release_bridge_state": {
+      "armed": false,
+      "body_pose_imu_m": {
+        "center_xyz_m": [
+          0.0061471966647087236,
+          0.013353376775085225,
+          0.01419764141799984
+        ],
+        "pitch_rad": 0.003456613028161305,
+        "roll_rad": 0.004805443966932705,
+        "yaw_rad": 0.00045573966208952674
+      },
+      "bridge_phase": "DISABLED",
+      "control_enabled": false,
+      "landed": true,
+      "localization_state": 1,
+      "localization_valid": true
+    },
+    "ros_node_list_has_bridge": true,
+    "scene_model_absent": true,
+    "vehicle_states": [
+      1
+    ]
+  },
+  "schema": "n07-preflight-failure/v1",
+  "support_scan": {
+    "attachment_at_ready": "attached",
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "completed_stages": 12,
+    "fixture_may_remain_attached": false,
+    "fixture_removed": true,
+    "fixture_runner_error": "localization changed or became invalid during physical scan",
+    "fixture_runner_outcome": "failed",
+    "last_localization": {
+      "normalized_cost": 0.42891631291265686,
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "maximum_accel_bias_norm": 0.09250522204714412,
+    "ready_marker_stages": 12,
+    "sampled_vins_nonusable_or_invalid": 0,
+    "sampled_vins_records": 2185
+  },
+  "task_id": "N07.25 #179"
+}

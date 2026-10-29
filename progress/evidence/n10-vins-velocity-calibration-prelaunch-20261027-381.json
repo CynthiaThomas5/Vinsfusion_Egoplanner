@@ -1,0 +1,117 @@
+{
+  "schema": "n10-live-obstacle-age-gates-removed-cylinder0-prelaunch/v1",
+  "subtask_id": "N10.3/#381",
+  "run_id": "n10-20261027-381-vins-velocity-full-route",
+  "classification": "frozen runtime/tool/planner/spawn identity before SITL; not flight evidence",
+  "runtime_contract_path": "artifacts/n10-prepared/n10-20261027-381-vins-velocity-full-route/runtime-contract.json",
+  "sha256": "547082a4538a871dd3c3b9b26c0f6b45369fa18bf1b73a8d93f219ef3e537cce",
+  "runtime_contract_file_count": 666,
+  "protocol_path": "progress/evidence/n10-vins-velocity-full-route-protocol-20261027-381.json",
+  "protocol_sha256": "053e4924c424501af851f32ae136c7cc15de54aab9cfbaf85ae7cbb431cd7ae1",
+  "patch_path": "dependencies/patches/ego/0054-remove-project-map-age-refusals.patch",
+  "patch_sha256": "215747d7aa7c6902dd80ec1aa15d3475df2b41bc89f11ebbf247821071a4350f",
+  "ego_binary_sha256": "25179a8ccdec7489c463f02e662180327bd34f90ef293ab1d0a0a85593d4982b",
+  "bridge_module_sha256": "42195bf70702f02c0196bf61ad473f9587abf9ac302e49305494ea897e0980ba",
+  "parent_run": "n10-20261027-376-gatefree-cylinder0-observation",
+  "tools": {
+    "injector": "e7eb6612a959b8fe48d117db6f6da1b0512afee485b56e567e19e2b40feaec68",
+    "driver": "ae222ebad3e87bbf25ddecafe540973a78b7dddb220addc1fde0470e225b5c23",
+    "analyzer": "8243ec0f569e930e4c59fa420f10c1522def1515f3a872cdfe62e895a18b8773",
+    "dynamic_analyzer": "686e410c49472dc6b5cf66490a776dd879a2bd0a9718eddedd4419ccc74d3453",
+    "clearance_analyzer": "8b2b74b8dc3473ccde413e9d6d85f244600e9d3855fa6644e7a2f7abec946aaf",
+    "alignment_recorder": "eb39df81bd03241e146f12361d0a2113776fd004e934d37c0cce9633e95ac587",
+    "velocity_evaluator": "4a6a3d5c44fbd60a115a46c1657feba69ab2f638d9a44ad11470ddc8b8e6ec1c"
+  },
+  "project_age_gates": {
+    "localization_odometry_map_wall_receipt_age": false,
+    "map_query_source_and_update_age": false,
+    "px4_telemetry_source_and_receipt_age": false,
+    "continuous_stability_window": false,
+    "measurements_retained": true,
+    "localization_quality_state_valid_tracking": false,
+    "custom_depth_health_and_minimum_sample_count": false
+  },
+  "mission_contract": {
+    "planner_settings": "unchanged: max_vel=0.8, max_acc=0.25, planning_horizon=5.0, official_ego",
+    "goal_and_spawn": "unchanged from #369/#371",
+    "dynamic_box_and_trigger": "unchanged from #369/#371",
+    "static_cylinder_observer": "unit_cylinder_0 at [-1.47322, 3.48874, 0.5], command-surface query",
+    "no_replacement_after_1s": "log only; no custom auto-cancel"
+  },
+  "read_only_observer_control_publishers": 0,
+  "preflight_before_goal": [
+    "frozen runtime, run-local tool and protocol hashes match",
+    "exact EGO planner and spawn path/hash/pose match the protocol",
+    "EGO navigation graph has one publisher and one subscriber; legacy goal subscriber absent",
+    "Gazebo create service and hidden ROS action cancel service/type available",
+    "contact sensors ready; PX4 bridge LANDED/disarmed/control-disabled before goal",
+    "raw VINS velocity observer is read-only and has zero control publishers"
+  ],
+  "acceptance_thresholds_changed": false,
+  "safe_stop": "require independent landed/disarmed/control-disabled/zero-control readback before stop",
+  "status": "frozen; SITL preflight not started",
+  "launch_configuration": {
+    "required_environment": {
+      "D435I_PLANNER_CONFIG": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+      "D435I_SPAWN_CONFIG": "config/components/simulation/n10_long_range_spawn_minus8.json"
+    },
+    "expected_launch_manifest": {
+      "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+      "max_vel": 0.8,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "official_ego_collision_policy": true
+    },
+    "expected_spawn_record": {
+      "source": "config/components/simulation/n10_long_range_spawn_minus8.json",
+      "source_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+      "spawn_pose_xyzrpy": [
+        -8.0,
+        0.0,
+        0.3,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "driver_verification": "exact planner path and effective spawn source/hash/pose checked before flight goal submission"
+  },
+  "source_audit": "progress/evidence/n10-project-health-gate-audit-20261027-374.json",
+  "source_changes": {
+    "localization_valid_tracking_state": "removed from N10 refusal/abort path; observed only",
+    "custom_depth_health_and_16_sample_minimum": "removed from standard runtime; layout/frame/epoch checks retained",
+    "stale_age_report_reference": "removed; gap observations retained"
+  },
+  "spawn_config_path": "config/components/simulation/n10_long_range_spawn_minus8.json",
+  "spawn_config_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+  "spawn_pose_xyzrpy": [
+    -8.0,
+    0.0,
+    0.3,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "expected_environment": {
+    "D435I_PLANNER_CONFIG": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "D435I_SPAWN_CONFIG": "config/components/simulation/n10_long_range_spawn_minus8.json"
+  },
+  "planner_config_path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+  "preflight_attempts": [
+    {
+      "attempt": 1,
+      "result": "stopped before any flight observer or goal submission",
+      "driver_message": "Loaded planner-config path does not match frozen N10 profile",
+      "cause": "prelaunch JSON stored the planner path only under launch_configuration.expected_launch_manifest; the run driver reads top-level planner_config_path",
+      "correction": "add the explicit top-level field and bind its report SHA in the local tool freeze",
+      "readback_path": "artifacts/runs/n10-20261027-376-gatefree-cylinder0-observation/preflight-failure-readback.json"
+    }
+  ],
+  "measurement_variable": "read-only raw VINS linear-velocity capture and offline error evaluator",
+  "measurement_tool_hashes": {
+    "alignment_recorder_sha256": "eb39df81bd03241e146f12361d0a2113776fd004e934d37c0cce9633e95ac587",
+    "velocity_evaluator_sha256": "4a6a3d5c44fbd60a115a46c1657feba69ab2f638d9a44ad11470ddc8b8e6ec1c",
+    "vins_velocity_source_sha256": "ae4f21db23c3359f3b173ea7577c50327ec8b2e0f68e76e9558ca0252e978bd7"
+  },
+  "single_scenario_variable": "observer/analysis coverage only; no controller, planner, map, PX4, spawn, world, speed, goal, or collision-policy change"
+}

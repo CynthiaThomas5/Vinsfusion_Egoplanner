@@ -1,0 +1,116 @@
+{
+  "schema": "n09-current-entry-blocker/v1",
+  "report_id": 330,
+  "date": "2026-10-26",
+  "run_id": "n09-20261026-pilot03",
+  "qualification": "partial N09 diagnostic only; no flight approval",
+  "identity": {
+    "epoch": "054f7dca91d14fa9997e9327f36c3fbd",
+    "map_id": "054f7dca91d14fa9997e9327f36c3fbd-ba0001cb5a174785803bf6e9674e9224",
+    "frame_id": "odom_054f7dca91d14fa9997e9327f36c3fbd"
+  },
+  "freshness_s": {
+    "snapshot": 0.108,
+    "depth_source": 0.116,
+    "fusion": 0.06,
+    "limit": 0.4
+  },
+  "n05_gate": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "ground_plane_valid": true,
+    "ground_plane_z_m": -0.3500000000000002,
+    "ground_plane_raw_occupied_voxels": 110,
+    "unknown_cells_max": {
+      "TAKEOFF_CONTACT": 436,
+      "ASCENT": 592,
+      "HOLD": 566,
+      "DESCENT": 592,
+      "LANDING_CONTACT": 436
+    },
+    "occupied_cells_max": 0
+  },
+  "unknown_volume_audit": {
+    "takeoff_contact": {
+      "unique_unknown_cells": 436,
+      "x_negative": 331,
+      "x_nonnegative": 105,
+      "bounds_odom_m": {
+        "min": [
+          -0.65,
+          -0.55,
+          -0.35
+        ],
+        "max": [
+          0.25,
+          0.55,
+          0.25
+        ]
+      }
+    },
+    "hold": {
+      "unique_unknown_cells": 566,
+      "x_negative": 362,
+      "x_nonnegative": 204,
+      "unknown_centers_below_ground_plane": 0,
+      "bounds_odom_m": {
+        "min": [
+          -0.65,
+          -0.55,
+          0.45
+        ],
+        "max": [
+          0.35,
+          0.55,
+          1.25
+        ]
+      }
+    },
+    "source": "tools/debug_truth/audit_n05_unknown_volume.py",
+    "scope": "read-only raw-map diagnostic; no controller input"
+  },
+  "state_before_flight": {
+    "bridge_phase": "DISABLED",
+    "px4_armed": false,
+    "px4_landed": true,
+    "control_enabled": false,
+    "truth_subscribed": false,
+    "flight_goal_or_control_published": false
+  },
+  "live_map_outside_refusal": {
+    "passed": true,
+    "action_status": 6,
+    "reason": "map_query_outside_map",
+    "matching_ego_commands": 0,
+    "epoch_unchanged": true,
+    "map_id_unchanged": true,
+    "bridge_after": {
+      "phase": "DISABLED",
+      "armed": false,
+      "landed": true,
+      "control_enabled": false
+    }
+  },
+  "source_artifacts": {
+    "live_n05_report": {
+      "path": "artifacts/runs/n09-20261026-pilot03/n05-current-area/n05-live-entry-check.json",
+      "sha256": "8641ba02aedafa3c2a12fce4b8ed30b1bcbcd48c543e0610592fa67cecd7b0ca"
+    },
+    "offline_n05_replay": {
+      "path": "artifacts/runs/n09-20261026-pilot03/n05-current-area/n05-offline-entry-replay.json",
+      "sha256": "535f0c6a00372301b51e1ed2fe47c9c18f1137a59ba08e6ddaa17c79558ee003"
+    },
+    "raw_map_snapshot": {
+      "path": "artifacts/runs/n09-20261026-pilot03/n05-current-area/n05-live-raw-map.npz",
+      "sha256": "44e5cc7140a64e5d6d4221801f72936a401232839e923bebdf6a10c7506cac45"
+    },
+    "live_refusal": {
+      "path": "artifacts/runs/n09-20261026-pilot03/n09-live-refusal.json",
+      "sha256": "ffe92727dde41aece306d1080cdefbceea7bf12a95a5f07b2d140b3d5cf9b7e1"
+    }
+  },
+  "n09_status": "in_progress",
+  "successful_flight_repetitions": 0,
+  "n11_n14_counts_credited": 0
+}

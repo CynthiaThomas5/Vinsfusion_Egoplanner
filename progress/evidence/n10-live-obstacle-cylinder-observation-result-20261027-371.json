@@ -1,0 +1,73 @@
+{
+  "schema": "n10-live-obstacle-cylinder-observation-result/v1",
+  "subtask_id": "N10.3/#371",
+  "run_id": "n10-20261027-371-cylinder-observation-live-obstacle",
+  "classification": "failed diagnostic; not N10/N12 qualification",
+  "protocol_sha256": "1b99c39c2f88a9b25c23671a09df48ab7bd024f6c41235218a4b4388a0d187a5",
+  "runtime_contract_sha256": "9c2f704da0904fabe62925d8526f529c13ce9fbc5ed058d5cf91be9479b6ede6",
+  "flight": {
+    "action_goal_sent": true,
+    "takeoff_active_observed": true,
+    "result": "FAIL",
+    "action_success": false,
+    "action_result": {
+      "final_position": [
+        5.859313556722218,
+        0.7499758264971079,
+        0.047257512002153335
+      ],
+      "outcome": "canceled",
+      "reason": "caller_cancel",
+      "status": 5,
+      "success": false
+    },
+    "bridge_fault_observed": "external_odometry_stale"
+  },
+  "dynamic_obstacle": {
+    "gazebo_create_acknowledged": true,
+    "request_sim_ns": 245020000000,
+    "trigger_delay_s": 12.012,
+    "replacement_spline_seen": true,
+    "box_roi_sample_count": 8,
+    "box_roi_max_point_count": 536,
+    "depth_color_frame_count": 12
+  },
+  "static_cylinder": {
+    "contact_model": "unit_cylinder_0::link::collision",
+    "contact_sim_ns": 252832000000,
+    "contact_phase": "ACTIVE",
+    "penetration_depth_max_m": 0.00010694968062133214,
+    "prohibited_contact_event_count": 1,
+    "observer_target_world_xyz_m": [
+      -2.75559,
+      -2.44735,
+      0.5
+    ],
+    "observer_target_odom_xyz_m": [
+      5.24441,
+      -2.44735,
+      0.2
+    ],
+    "camera_frame_count": 0,
+    "occupied_roi_sample_count": 0,
+    "same_identity_query_count": 0,
+    "diagnostic": "observer targeted unit_cylinder_4; actual contact was unit_cylinder_0, so no encounter-level map/perception conclusion is supported"
+  },
+  "stop": {
+    "safe_to_stop_project_container": true,
+    "bridge_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true
+  },
+  "input_sha256": {
+    "flight.json": "ce2c770c9401ebb3ff96e5b40cf58db9802a1feb5e92458fb9100abf0e917e27",
+    "n10-live-obstacle-observation.json": "20e73a78b186c23d8b9d900dd275058f651d09e523224e1e6101c8a513ed32e2",
+    "vehicle-contact-evaluation.json": "20fb78eb236f6b48570596f8dc638c019f3a82a12d287f8452bcce4a8fe6f97a",
+    "safe-to-stop.json": "1491bdeb472c48c238fc0cf6acd11a496dc5b52f83ac8a3413c1b4576fc672dc",
+    "n10-live-obstacle-analysis.json": "a6e3871b38f4c98aa496efc7bce4a4eb7ae6ba497c30416590874ac9515e4dae",
+    "debug-truth-evaluation.json": "eb8a4c6cfbf7660ad9ad090d2dc1a9ecb025101df9b9d22f5a2fd4f5634a9e42"
+  }
+}

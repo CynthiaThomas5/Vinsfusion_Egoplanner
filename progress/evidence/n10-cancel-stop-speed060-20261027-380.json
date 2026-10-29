@@ -1,0 +1,333 @@
+{
+  "schema": "n10-cancel-stop-calibration-result/v1",
+  "run_id": "n10-20261027-380-speed060-repeat03",
+  "n10_subtask": "N10.3 same-runtime caller-cancel repeatability sample 3 of 3",
+  "status": "diagnostic_sample_complete_not_formal_qualification",
+  "measurement_complete": true,
+  "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+  "runtime_epoch": "fc6b052cf32b4d83a3782e685839385d",
+  "goal_id": "b297a1bbd2484fa2b4865718e221e61a",
+  "independent_repeat_identity": {
+    "all_three_epochs_distinct": true,
+    "all_three_goal_ids_distinct": true,
+    "same_runtime_contract": true,
+    "same_planner_config_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "same_spawn_profile_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "same_goal_profile_sha256": "0e275927089a9d04810d483fc6634717d6f7fcd15472a508601cbd5790600f00",
+    "samples": {
+      "n10-20261027-378-speed060-cancel-calibration": {
+        "run_id": "n10-20261027-378-speed060-cancel-calibration",
+        "epoch": "87b37b7ec8e14ccba004a42f40e3185a",
+        "goal_id": "4bf25812a371414091ed79f56a245383"
+      },
+      "n10-20261027-379-speed060-repeat02": {
+        "run_id": "n10-20261027-379-speed060-repeat02",
+        "epoch": "8e422a856c04425082363b4c89b15d52",
+        "goal_id": "6b0e129de5ef468981431ee2e21110b9"
+      },
+      "n10-20261027-380-speed060-repeat03": {
+        "run_id": "n10-20261027-380-speed060-repeat03",
+        "epoch": "fc6b052cf32b4d83a3782e685839385d",
+        "goal_id": "b297a1bbd2484fa2b4865718e221e61a"
+      }
+    }
+  },
+  "planner_profile": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+  "planner_parameters": {
+    "drone_id": 0,
+    "map_size_x_": 40.0,
+    "map_size_y_": 40.0,
+    "map_size_z_": 6.0,
+    "odometry_topic": "/localization/optimized_imu_odom",
+    "camera_pose_topic": "camera_pose",
+    "depth_topic": "depth_image",
+    "cloud_topic": "cloud",
+    "cx": 320.0,
+    "cy": 240.0,
+    "fx": 337.20964008990796,
+    "fy": 337.20964008990796,
+    "max_vel": 0.8,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0,
+    "odom_depth_timeout": 0.4,
+    "obstacles_inflation": 0.7306179170842027,
+    "terminal_hold_neighborhood": 0.0,
+    "official_ego_collision_policy": true,
+    "ground_height": -1.0,
+    "flight_type": 1,
+    "point_num": 1,
+    "point0_x": 0.0,
+    "point0_y": 0.0,
+    "point0_z": 0.0,
+    "obj_num_set": 0,
+    "use_distinctive_trajs": true
+  },
+  "spawn": [
+    -8.0,
+    0.0,
+    0.3,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "measurement_window_px4_horizontal_m_s": [
+    0.6,
+    0.66
+  ],
+  "braking_metrics": {
+    "requested_trigger_px4_speed_window_m_s": [
+      0.6,
+      0.66
+    ],
+    "trigger_px4_horizontal_speed_m_s": 0.6016255257672706,
+    "trigger_px4_vertical_speed_m_s": -0.1350855827331543,
+    "trigger_ego_reference_speed_m_s": 0.44347044210356446,
+    "cancel_ack_wall_delay_s": 0.0010977259371429682,
+    "replacement_trajectory_id": 12,
+    "replacement_trajectory_delay_sim_s": 0.052,
+    "px4_stop_band_entry_delay_sim_s": 5.116,
+    "px4_stop_band_confirmation_delay_sim_s": 6.12,
+    "stop_band_dwell_sim_s": 1.004,
+    "stop_band_px4_sample_count": 51,
+    "stop_band_max_px4_sample_gap_sim_s": 0.028,
+    "truth_cancel_to_stop_distance": {
+      "start_xyz_m": [
+        -7.6219077221300635,
+        -0.24630956133894505,
+        1.0684578820980795
+      ],
+      "stop_band_entry_xyz_m": [
+        -6.700157382117,
+        -0.7570081099359512,
+        1.3108376416734477
+      ],
+      "horizontal_path_length_m": 1.349451606594286,
+      "horizontal_endpoint_displacement_m": 1.0537726020604665,
+      "three_dimensional_path_length_m": 1.3719391984798484,
+      "max_source_gap_sim_s": 0.02,
+      "truth_samples_in_interval": 257
+    },
+    "truth_stop_band_1s_max_horizontal_excursion_m": 0.01449070996064407,
+    "px4_observed_max_horizontal_speed_during_cancel_m_s": 0.6110636751288349,
+    "px4_observed_p10_horizontal_deceleration_m_s2": 0.03667602724411634,
+    "px4_time_to_first_10pct_speed_reduction_sim_s": 1.04,
+    "localization_quality_freshness_gates": "removed",
+    "normalized_cost_max_observed": 0.7112984712063337,
+    "contact_prohibited_event_count": 0,
+    "terminal_bridge_phase": "LANDED"
+  },
+  "braking_checks": {
+    "native_cancel_measurement_completed": true,
+    "trigger_speed_in_requested_px4_window": true,
+    "caller_cancel_acknowledged": true,
+    "action_reports_caller_cancel": true,
+    "replacement_ego_trajectory_observed": true,
+    "px4_stop_band_held_one_sim_second": true,
+    "truth_covers_cancel_to_stop_with_bounded_gaps": true,
+    "contact_observer_complete": true,
+    "zero_prohibited_contacts": true,
+    "independent_terminal_readback_safe": true,
+    "localization_quality_freshness_policy_open": true
+  },
+  "repeatability_summary_three_samples": {
+    "trigger_px4_horizontal_speed_m_s": {
+      "samples": [
+        0.6008665780789427,
+        0.6012586406556754,
+        0.6016255257672706
+      ],
+      "mean": 0.6012502481672962,
+      "min": 0.6008665780789427,
+      "max": 0.6016255257672706,
+      "span": 0.000758947688327849
+    },
+    "trigger_px4_vertical_speed_m_s": {
+      "samples": [
+        0.04764964431524277,
+        0.0411558598279953,
+        -0.1350855827331543
+      ],
+      "mean": -0.01542669286330541,
+      "min": -0.1350855827331543,
+      "max": 0.04764964431524277,
+      "span": 0.18273522704839706
+    },
+    "trigger_ego_reference_speed_m_s": {
+      "samples": [
+        0.6280636107755809,
+        0.6773719917225969,
+        0.44347044210356446
+      ],
+      "mean": 0.582968681533914,
+      "min": 0.44347044210356446,
+      "max": 0.6773719917225969,
+      "span": 0.23390154961903242
+    },
+    "cancel_to_stop_horizontal_path_m": {
+      "samples": [
+        1.3767155623496028,
+        1.3439353277658697,
+        1.349451606594286
+      ],
+      "mean": 1.356700832236586,
+      "min": 1.3439353277658697,
+      "max": 1.3767155623496028,
+      "span": 0.03278023458373314
+    },
+    "stop_band_entry_delay_sim_s": {
+      "samples": [
+        4.844,
+        4.88,
+        5.116
+      ],
+      "mean": 4.946666666666666,
+      "min": 4.844,
+      "max": 5.116,
+      "span": 0.27199999999999935
+    },
+    "px4_p10_horizontal_deceleration_m_s2": {
+      "samples": [
+        0.02680982221996535,
+        0.02631656745620432,
+        0.03667602724411634
+      ],
+      "mean": 0.02993413897342867,
+      "min": 0.02631656745620432,
+      "max": 0.03667602724411634,
+      "span": 0.010359459787912018
+    },
+    "time_to_first_10pct_speed_reduction_sim_s": {
+      "samples": [
+        1.384,
+        1.32,
+        1.04
+      ],
+      "mean": 1.248,
+      "min": 1.04,
+      "max": 1.384,
+      "span": 0.34399999999999986
+    }
+  },
+  "raw_vins_diagnostic": {
+    "method": "single pre-enable SE(3) alignment, fixed scale 1, no flight-path fitting; raw VINS vs independent truth",
+    "duration_sim_s": 35.948,
+    "truth_path_length_m": 4.186152586403016,
+    "position_error_m": {
+      "count": 545,
+      "rmse": 0.01644066350633579,
+      "median": 0.009915040912241732,
+      "p95": 0.030978464666722345,
+      "max": 0.03788912999254354
+    },
+    "absolute_yaw_error_deg": {
+      "count": 545,
+      "rmse": 0.15465839083363794,
+      "median": 0.02068622856891866,
+      "p95": 0.30070465352077946,
+      "max": 0.319116645650436
+    },
+    "coverage": {
+      "raw_samples_in_interval": 545,
+      "paired_samples": 545,
+      "paired_raw_fraction": 1.0,
+      "truth_grid_samples": 1798,
+      "supported_truth_grid_samples": 1795,
+      "truth_grid_support_fraction": 0.9983314794215795,
+      "bounded_time_support_fraction": 0.9987760097641037,
+      "truth_max_gap_sim_s": 0.02,
+      "raw_max_gap_sim_s": 0.068000001,
+      "paired_max_gap_sim_s": 0.068000001,
+      "start_uncovered_sim_s": 0.0,
+      "end_uncovered_sim_s": 0.044000001,
+      "truth_interpolation_limit_sim_s": 0.04,
+      "odometry_support_limit_sim_s": 0.2,
+      "note": "Reporting limits only; no extrapolation, timestamp repair or health gate changes.",
+      "rejected_samples": []
+    },
+    "no_acceptance_threshold_declared": true,
+    "limitations": [
+      "This sample covers only 35.948 simulated seconds and 4.186 m truth path, unlike the ~18.6–18.8 m paired paths in #378/#379.",
+      "Diagnostic only; it does not establish long-range drift bounds or a formal localization threshold."
+    ]
+  },
+  "contact": {
+    "passed": true,
+    "sensor_topics_ready": true,
+    "ground_contact_event_count": 12665,
+    "prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": true,
+    "first_prohibited_contact": null
+  },
+  "terminal_readback": {
+    "phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "safe_to_stop": true,
+    "bridge_reason_at_readback": "px4_preflight_failed"
+  },
+  "evaluator_input_hashes_match": {
+    "flight.json": true,
+    "debug-truth-evaluation.json": true,
+    "planner-observation.json": true,
+    "bridge-observation.json": true,
+    "n09-contact-observation.json": true,
+    "vehicle-contact-evaluation.json": true,
+    "postflight-px4-bridge-readback.json": true,
+    "runtime-contract.json": true,
+    "n10-cancel-run-manifest.json": true
+  },
+  "artifacts": {
+    "flight.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/flight.json",
+      "sha256": "da2ed889d084f5f6749e93daf8a20c97b62229ba16709b8df6ee5425791d5c4a"
+    },
+    "n10-cancel-braking-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/n10-cancel-braking-evaluation.json",
+      "sha256": "746ba42e38dfe6801996d3957a1e77fc0ff2385a3bef5a07389137f11ecfd795"
+    },
+    "debug-truth-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/debug-truth-evaluation.json",
+      "sha256": "b352586f5b4eb9fe17a91291a56978f044ea7bbc871c1dec9cf75919838be3a3"
+    },
+    "odometry-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/odometry-evaluation.json",
+      "sha256": "39fc6c745d33dfbd33cc51c92b74ff0b55d874da7ea6b8c33ea780db45f68cc5"
+    },
+    "vehicle-contact-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/vehicle-contact-evaluation.json",
+      "sha256": "871957178157f7e3787e6f535117645d6045c8263531375577522923d53a1b1b"
+    },
+    "postflight-px4-bridge-readback.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/postflight-px4-bridge-readback.json",
+      "sha256": "c44f297738d8bcb323df720403a30a8edc60e8be43531bce52fd73dd76c0dd5a"
+    },
+    "safe-to-stop.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/safe-to-stop.json",
+      "sha256": "952c048741fe501177bfdd4d70e20d54bf8fbf18236625d9eb63df60371b0c58"
+    },
+    "n10-runtime-identity-readback.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/n10-runtime-identity-readback.json",
+      "sha256": "b467f4ae4b3b8d3449831b683b4473fb23545d089f5a8eb90308a785835896f0"
+    },
+    "n10-cancel-run-manifest.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/n10-cancel-run-manifest.json",
+      "sha256": "6c7555a8eb53ade701189502f9d24bd3a035a6642837f518f00624566b53445b"
+    },
+    "runtime-contract.json": {
+      "path": "artifacts/runs/n10-20261027-380-speed060-repeat03/runtime-contract.json",
+      "sha256": "d423a1924286947bf8d0f16845d3449d9f73f7bd32f254bf3fd27413cdfc5cf9"
+    }
+  },
+  "limitations": [
+    "One SITL cancellation sample; not a lower bound or general stopping guarantee.",
+    "Localization quality and source/receipt freshness are not runtime gates; raw measurements remain reported for N10 calibration.",
+    "The EGO replacement trajectory uses upstream inflated-occupied collision handling; this is not the removed raw-free whole-curve gate.",
+    "This report does not provide minimum obstacle clearance; contact-free is not a clearance measurement.",
+    "Truth is read-only and is not a navigation or control input.",
+    "The post-landing bridge readback reports reason px4_preflight_failed with PX4 disarmed and landed; this is recorded as terminal bridge readiness state, not a preflight pass. The independent safety readback and completed in-flight measurement are separately evidenced.",
+    "Trigger vertical speed and EGO-reference speed vary across these three horizontal-speed-triggered samples; do not treat the three horizontal-only samples as a full operating envelope."
+  ]
+}

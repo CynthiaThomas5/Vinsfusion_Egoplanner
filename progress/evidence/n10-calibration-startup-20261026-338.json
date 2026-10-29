@@ -1,0 +1,51 @@
+{
+  "schema": "n10-calibration-startup-attempt/v1",
+  "report_id": 338,
+  "date": "2026-10-26",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "not_sampled_runtime_graph_discovery_failure",
+  "run_id": "n10-20261026-338-horizon2-16m",
+  "scope": "#338 horizon=2 m calibration launch attempt. The flight runner was never started; no navigation goal, arming or flight occurred. Not a calibration result.",
+  "preflight": {
+    "passed": true,
+    "wall_s": 40.00317781791091,
+    "rtf": 0.9102518123049265
+  },
+  "takeoff_admission": {
+    "passed": true,
+    "armed": false,
+    "landed": true
+  },
+  "startup_gate": {
+    "legacy_topic": "Unknown topic /move_base_simple/goal; tolerated because zero legacy subscriber is the desired state.",
+    "ego_topic_graph_file": "Unknown topic '/navigation/ego_goal'\n",
+    "flight_runner_started": false,
+    "flight_json_exists": false,
+    "truth_contact_planner_observers_started": false,
+    "likely_exit_point": "ros2 topic info /navigation/ego_goal ran before ROS graph discovery completed; it recorded Unknown topic. Under set -e the command had no retry or failure-tolerant wrapper, so the runtime likely exited before observer/flight startup. This is inferred from script order and artifacts; no explicit error text was captured."
+  },
+  "readback_before_stop": {
+    "bridge": {
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true
+    },
+    "px4_arming_state": 1,
+    "px4_failsafe": false,
+    "project_container_stopped": true,
+    "unrelated_containers_touched": false
+  },
+  "artifact_sha256": {
+    "preflight.json": "ac6468ef77252a7a6e12fe69c1ce189d23c90aa734756296a664894b4a82d9f4",
+    "takeoff-admission.json": "cc3910b33fa55734dd3e393b4bb7e0f200a1d3e0096cbb368c24cee200dbc0c9",
+    "legacy-simple-goal-graph.txt": "e2bb87c102190053aaa929492db6a6e2c54459653ca347fb2a1cc65f9db3dfc0",
+    "validated-ego-goal-graph.txt": "d6620beeeb569fdfb75ddf548014ff41191fc2b88c0be2d53dfdb8d6ac53b3aa",
+    "runtime-contract.json": "6905570a117a182f8403588cbd6fa1e8ee6708ad962abbe03519be4b9bc5757f",
+    "n09-run-manifest.json": "749d3781d8417462a07180f7b8bc0d05777725d9c48bf9d07a301fbfe6ea0ab5",
+    "vio.log": "b20f8c13934b92eb5889a63094caf796638e361fd995903c1ce26341a513e3b5"
+  },
+  "disposition": "Keep #338 as an unexecuted attempt; fix the startup graph-discovery race with a bounded readiness retry and exact 1 publisher/1 subscriber assertion. Run the same frozen horizon=2 experiment once its pre-goal graph gate is demonstrably ready."
+}

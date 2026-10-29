@@ -1,0 +1,28 @@
+{
+  "id": "N08.2a-209",
+  "parent_goal": "N08",
+  "scope": "compute_only_bridge_input_launch_plumbing",
+  "launch_flag": "bridge_compute_only",
+  "default_mode": "ego_execution; no topic remapping",
+  "compute_only_mode": {
+    "ego_output_topic": "/position_cmd",
+    "bridge_input_topic": "/n08/compute_only_position_cmd",
+    "remap_applies_to": "uav_px4_bridge node only",
+    "px4_control_owner": "uav_px4_bridge only"
+  },
+  "planner_config_override": "D435I_PLANNER_CONFIG; project-relative file constrained inside root; launch-manifest records source hash",
+  "validation": {
+    "ros_build": "17 packages passed",
+    "unit_suite": "281 passed",
+    "navigation_adapter": "passed",
+    "python_compile": "passed",
+    "shell_syntax": "passed",
+    "launch_show_args": "parent and child args pass; default false",
+    "project_status": "passed",
+    "diff_check": "passed"
+  },
+  "runtime_started": false,
+  "flight_or_translation_executed": false,
+  "n08_exit_satisfied": false,
+  "next_subtask": "N08.2b explicit compute-only goal/cancel/hold/land diagnostic runner; then source-backed movement boundary before any translation."
+}

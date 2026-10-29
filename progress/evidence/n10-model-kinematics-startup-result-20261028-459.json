@@ -1,0 +1,51 @@
+{
+  "schema": "n10-model-kinematics-startup-result/v1",
+  "run_id": "n10-20261028-459-kinematics-startup-diagnostic",
+  "classification": "no-flight observer-only SITL diagnostic",
+  "status": "PASS_FOR_OBSERVER_SOURCE_AND_TRANSPORT",
+  "parent_n10_status": "in_progress",
+  "mission_requested": false,
+  "goal_sent": false,
+  "armed": false,
+  "primary_hypothesis": "PX4 selects the root model via PX4_GZ_MODELS direct file URI; the former runtime path bypassed the run-local instrumented wrapper.",
+  "model_source": {
+    "selection_mechanism": "PX4 px4-rc.gzsim direct file URI from PX4_GZ_MODELS",
+    "px4_gz_models": "/workspace/artifacts/runs/n10-20261028-459-kinematics-startup-diagnostic/n09-contact-models",
+    "selected_model_sdf": "/workspace/artifacts/runs/n10-20261028-459-kinematics-startup-diagnostic/n09-contact-models/x500_d435i/model.sdf",
+    "selected_model_sdf_sha256": "4d1e8f43394b2dc1ab9a5e26016489f04c5744cb491d149d75011c042e931cee",
+    "overlay_manifest_sha_matches": true,
+    "kinematics_plugin_entries": 1
+  },
+  "gazebo_observation": {
+    "topic": "/debug_truth/model_kinematics",
+    "publisher_present": true,
+    "subscribe_ok": true,
+    "duration_wall_s": 5.102823195047677,
+    "record_count": 854,
+    "metadata_error_count": 0,
+    "model_names": ["x500_d435i_0"],
+    "source_stamps_strictly_monotonic": true,
+    "source_gap_max_sim_s": 0.004,
+    "all_numeric_states_validated": true
+  },
+  "safe_stop_readback": {
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "px4_arming_state": 1,
+    "land_detected": true,
+    "control_mode_samples": 0,
+    "trajectory_setpoint_samples": 0,
+    "vehicle_command_samples": 0,
+    "planner_or_goal_events": 0,
+    "px4_preflight_checks_pass": false,
+    "bridge_reason": "px4_preflight_failed",
+    "stop_command_exit_code": 0,
+    "container_exit_code": 0
+  },
+  "formal_qualification_credit": false,
+  "continuous_interval_clearance_proven": false,
+  "fault_calibration_performed": false,
+  "next": "One normal full-route calibration with observer enabled to obtain the missing physics-step ledger; then evidence-based N10.4, clean rebuild, rebuilt-runtime regression, final freeze."
+}

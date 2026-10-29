@@ -1,0 +1,301 @@
+{
+  "schema": "n10-geometry-error-budget/v1",
+  "task_id": "N10.3/#393",
+  "classification": "offline archive comparison; no SITL; diagnostic result is INSUFFICIENT for freezing a tracking/clearance acceptance threshold",
+  "result": "INSUFFICIENT",
+  "ran_sitl": false,
+  "vehicle_geometry": {
+    "source": "config/components/navigation/vehicle_envelope.json",
+    "source_sha256": "58444d13c608c8003874d31bdde21bd52af3f2c0400e1dfaaf8fd77927035a3a",
+    "reference_point": "D435i IMU / d435i_link origin",
+    "geometry": {
+      "airframe_model": "x500_d435i",
+      "d435i_mount_pose_base_link_xyzrpy_m_rad": [
+        0.12,
+        0.0,
+        0.08,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collision_bounds_xyz_m": [
+        [
+          -0.4338715598484476,
+          0.19387155984844762
+        ],
+        [
+          -0.3138715598484476,
+          0.3138715598484476
+        ],
+        [
+          -0.307,
+          0.0125
+        ]
+      ],
+      "level_max_horizontal_radius_m": 0.48150294014012984,
+      "orientation_invariant_rotor_sweep_radius_m": 0.4819358706659999,
+      "rotor_sweep_method": "Sweep each x500 propeller collision rectangle through its complete revolute-Z range; union is a disk at the measured rotor center and collision half-thickness.",
+      "ground_contact_collisions": [
+        "base_link_collision_3",
+        "base_link_collision_4"
+      ],
+      "ground_contact_geometry": "The two 0.25 x 0.015 x 0.015 m skid crossbars at y=+/-0.132 m and z=-0.2195 m in base_link; no other x500 or camera collision may contact ground.",
+      "source_hashes": {
+        "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
+        "simulation/models/x500_d435i/model.sdf": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+        "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "eff6538a654504021f2a4cd62776757cd7c81620d665fad942eaf9b02bbb4868",
+        "config/components/mapping/ego_planner.json": "077f7711b70d04c1c41e191c4518d18fcaf5d962871bb34ce33db02420b14337"
+      }
+    },
+    "clearance_interpretation": "Reported full-body clearance is already measured from the modeled swept envelope to the nearest obstacle; do not subtract body radius a second time."
+  },
+  "method": {
+    "formula": "minimum_command_body_clearance_any_obstacle_m - position_tracking_error_m",
+    "meaning": "Pointwise translation-only lower bound for distance to unchanged obstacle geometry with the same actual attitude-expanded envelope at command and truth positions. A negative value means this bound cannot establish positive clearance; it does not assert collision.",
+    "limitations": [
+      "does not bound attitude/envelope mismatch",
+      "does not bound motion between samples",
+      "does not bound obstacle motion across time",
+      "does not include map/SDF/model uncertainty"
+    ],
+    "offline_only": true,
+    "runtime_gate": false
+  },
+  "runs": {
+    "381": {
+      "run_id": "n10-20261027-381-vins-velocity-full-route",
+      "identity": {
+        "run_directory_matches_selected_run": true,
+        "runtime_contract_identity_sha256": "547082a4538a871dd3c3b9b26c0f6b45369fa18bf1b73a8d93f219ef3e537cce",
+        "goal_id": "e6c6cc019b4b4e3596437c088e8630cb",
+        "epoch": "1bd3ad04c04b4415b9f52f60ff789f00",
+        "map_id": "1bd3ad04c04b4415b9f52f60ff789f00-052f40e1ebe3470f8aa16c8936473724",
+        "goal_map_identity_matches": true
+      },
+      "runtime_contract_file_sha256": "fe8762c6476a2da7fa294b290146a3b7ca684f3fb9976a91462fe1fa4da27f09",
+      "runtime_contract_identity_sha256": "547082a4538a871dd3c3b9b26c0f6b45369fa18bf1b73a8d93f219ef3e537cce",
+      "model_sdf_sha256": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+      "vehicle_envelope_config_sha256": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+      "ego_planner_binary_sha256": "25179a8ccdec7489c463f02e662180327bd34f90ef293ab1d0a0a85593d4982b",
+      "bridge_config_sha256": "7e5803797fae90f0dc1866d43d50517629550111cbb3a962a671b97d88110b15",
+      "truth_bracket_max_sim_s": 0.02,
+      "tracking_error_m": {
+        "count": 6080,
+        "p50": 0.5754238787955674,
+        "p95": 0.6553259485010251,
+        "p99": 0.7244253491384369,
+        "max": 0.7526201567890409
+      },
+      "sampled_minimum_actual_body_clearance": {
+        "clearance_m": 0.2796123224522935,
+        "source_stamp_ns": 60400000000,
+        "nearest_obstacle": "unit_cylinder_4/link/collision",
+        "position_tracking_error_m": 0.589589795548867,
+        "command_clearance_to_any_obstacle_m": 0.41568553264027996,
+        "command_to_actual_clearance_consumption_m": 0.13607321018798646,
+        "envelope_radius_m": 0.48464319240521553
+      },
+      "translation_only_clearance_budget": {
+        "formula": "minimum_command_body_clearance_any_obstacle_m - position_tracking_error_m",
+        "pointwise_lower_bound_m": {
+          "count": 6080,
+          "p50": 0.3983438127611613,
+          "p95": 1.5462668486298705,
+          "p99": 1.76217489233787,
+          "max": 1.8446156324379095
+        },
+        "negative_sample_count": 1117,
+        "negative_sample_fraction": 0.1837171052631579,
+        "classification": "offline pointwise translation-only Lipschitz bound using the same actual attitude-expanded envelope at command and truth positions; not a collision result, interval certificate, acceptance threshold, or runtime gate"
+      },
+      "diagnostic_sha256": "e36cd4cb05373ec723ff9db042b468870181b236bb435925e2218d1e4fb89d04",
+      "tracking_evaluator_sha256": "cfdc3b5477ffd965ead2a2a66190660373e1f9c370a379f1809d4221e54e3ddf",
+      "source_input_sha256": {
+        "flight": "38c4bd2968b839fa3275fee54210d08cd1b55a623f95b22e43cc7b8518902be6",
+        "truth": "a85e198f488993a57e6baf54a8e6fc2e326b23c6fdbf7a94aca6ad996a5ca3ea",
+        "runtime_contract": "fe8762c6476a2da7fa294b290146a3b7ca684f3fb9976a91462fe1fa4da27f09",
+        "envelope": "58444d13c608c8003874d31bdde21bd52af3f2c0400e1dfaaf8fd77927035a3a",
+        "world": "eb22ce222e701372ff0e87066ea9fa63a6ce660904ea759dc3b80bac1c3e0d94",
+        "observation": "5e094e65ddd7e67397170a397999fbbaf5ff11e46aef0b5a97cd94eb1b7cbba1"
+      }
+    },
+    "385": {
+      "run_id": "n10-20261027-385-arrival-dwell4-retry",
+      "identity": {
+        "run_directory_matches_selected_run": true,
+        "runtime_contract_identity_sha256": "1afdc44ee760db82af299b27fc6131bcfea7af8f9908fb0abc34c5811eeb143a",
+        "goal_id": "930cd846735e40de860e4ea0969e9c81",
+        "epoch": "155b2fddd5a1481d96b52db2f93b6a6a",
+        "map_id": "155b2fddd5a1481d96b52db2f93b6a6a-0315b398ca8a456b8339cb8e8318d43f",
+        "goal_map_identity_matches": true
+      },
+      "runtime_contract_file_sha256": "e5364a1f514ec71c2e2f7b23cc7bfd37494534b78988f17e8333a06c4a83022d",
+      "runtime_contract_identity_sha256": "1afdc44ee760db82af299b27fc6131bcfea7af8f9908fb0abc34c5811eeb143a",
+      "model_sdf_sha256": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+      "vehicle_envelope_config_sha256": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+      "ego_planner_binary_sha256": "25179a8ccdec7489c463f02e662180327bd34f90ef293ab1d0a0a85593d4982b",
+      "bridge_config_sha256": "7e5803797fae90f0dc1866d43d50517629550111cbb3a962a671b97d88110b15",
+      "truth_bracket_max_sim_s": 0.02,
+      "tracking_error_m": {
+        "count": 5581,
+        "p50": 0.5578455295264524,
+        "p95": 0.6953006023964283,
+        "p99": 0.7291489187287625,
+        "max": 0.7409313905886071
+      },
+      "sampled_minimum_actual_body_clearance": {
+        "clearance_m": 0.13312383984506493,
+        "source_stamp_ns": 78716000000,
+        "nearest_obstacle": "unit_cylinder_0/link/collision",
+        "position_tracking_error_m": 0.6271277517029704,
+        "command_clearance_to_any_obstacle_m": 0.3656461745211954,
+        "command_to_actual_clearance_consumption_m": 0.23252233467613048,
+        "envelope_radius_m": 0.4892210526166048
+      },
+      "translation_only_clearance_budget": {
+        "formula": "minimum_command_body_clearance_any_obstacle_m - position_tracking_error_m",
+        "pointwise_lower_bound_m": {
+          "count": 5581,
+          "p50": 0.5592143189482036,
+          "p95": 1.6337582124875496,
+          "p99": 1.7831641845087471,
+          "max": 1.8671305733773695
+        },
+        "negative_sample_count": 1004,
+        "negative_sample_fraction": 0.17989607597204801,
+        "classification": "offline pointwise translation-only Lipschitz bound using the same actual attitude-expanded envelope at command and truth positions; not a collision result, interval certificate, acceptance threshold, or runtime gate"
+      },
+      "diagnostic_sha256": "95a5bf881462ccf44b39aa0ca2299b1604206d4366ddc37e1559f8cfbc30b259",
+      "tracking_evaluator_sha256": "cfdc3b5477ffd965ead2a2a66190660373e1f9c370a379f1809d4221e54e3ddf",
+      "source_input_sha256": {
+        "flight": "0854f3954b1652e19edb0694de759cf57c97d993f2d8ae3849e1eace8a50501e",
+        "truth": "3b2c9a262883817609779a092d38ba4351b78c9d623b6846a8df1c5d35422c50",
+        "runtime_contract": "e5364a1f514ec71c2e2f7b23cc7bfd37494534b78988f17e8333a06c4a83022d",
+        "envelope": "58444d13c608c8003874d31bdde21bd52af3f2c0400e1dfaaf8fd77927035a3a",
+        "world": "eb22ce222e701372ff0e87066ea9fa63a6ce660904ea759dc3b80bac1c3e0d94",
+        "observation": "ea1129d5e8eeccd83b107d9868aa79b9bf96d57839611d23cc0bfee1ef0e5f13"
+      }
+    },
+    "391": {
+      "run_id": "n10-20261027-391-integrated-calibration-retry",
+      "identity": {
+        "run_directory_matches_selected_run": true,
+        "runtime_contract_identity_sha256": "86debc3c5817dc311b9d929ec6669812d4d69a9bef069a6fa65a58903aaeee01",
+        "goal_id": "92dcb4d6e2a04245b36066defb02bb95",
+        "epoch": "a9bfed3b4b534de7b2c342fe9df171ed",
+        "map_id": "a9bfed3b4b534de7b2c342fe9df171ed-6deedeb661474e18b3eb1ad90c25dd5f",
+        "goal_map_identity_matches": true
+      },
+      "runtime_contract_file_sha256": "3692a38e784a33f1e6ed11cfc0e08c4a69e75b58d524357d9aa03a8820837895",
+      "runtime_contract_identity_sha256": "86debc3c5817dc311b9d929ec6669812d4d69a9bef069a6fa65a58903aaeee01",
+      "model_sdf_sha256": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+      "vehicle_envelope_config_sha256": "58444d13c608c8003874d31bdde21bd52af3f2c0400e1dfaaf8fd77927035a3a",
+      "ego_planner_binary_sha256": "b1cd64c90e77b89c70dd642c7bc78f012c6e8e9b476e68c394637e7a7ac46841",
+      "bridge_config_sha256": "00cb95252a821d4a63b21312b6b0699b0565aa892feed72e5fef04435df6671a",
+      "truth_bracket_max_sim_s": 0.004,
+      "tracking_error_m": {
+        "count": 5774,
+        "p50": 0.5354837455892023,
+        "p95": 0.6225240383563533,
+        "p99": 0.6411702270587271,
+        "max": 0.6551082103835674
+      },
+      "sampled_minimum_actual_body_clearance": {
+        "clearance_m": 0.10604091266466176,
+        "source_stamp_ns": 194868000000,
+        "nearest_obstacle": "unit_cylinder_4/link/collision",
+        "position_tracking_error_m": 0.49709928440401174,
+        "command_clearance_to_any_obstacle_m": 0.21264125240160547,
+        "command_to_actual_clearance_consumption_m": 0.10660033973694372,
+        "envelope_radius_m": 0.48370258762918006
+      },
+      "translation_only_clearance_budget": {
+        "formula": "minimum_command_body_clearance_any_obstacle_m - position_tracking_error_m",
+        "pointwise_lower_bound_m": {
+          "count": 5774,
+          "p50": 0.3427983996764162,
+          "p95": 1.5427950264173331,
+          "p99": 1.7770471558637913,
+          "max": 1.878097271338258
+        },
+        "negative_sample_count": 1218,
+        "negative_sample_fraction": 0.2109456182888812,
+        "classification": "offline pointwise translation-only Lipschitz bound using the same actual attitude-expanded envelope at command and truth positions; not a collision result, interval certificate, acceptance threshold, or runtime gate"
+      },
+      "diagnostic_sha256": "7f2e76a2856b7f95be875bb4113ca75c5eeb8466e8aeae0be35ea221978dd600",
+      "tracking_evaluator_sha256": "cfdc3b5477ffd965ead2a2a66190660373e1f9c370a379f1809d4221e54e3ddf",
+      "source_input_sha256": {
+        "flight": "d283acdb2a4fb21c774f731d1c559277a0e0416c493be422c6fb76643d6c1613",
+        "truth": "644f0fde688a4fae9b431d0ee9b05b765c7b79fe6fbcde1981a43aa6b0f2a6cb",
+        "runtime_contract": "3692a38e784a33f1e6ed11cfc0e08c4a69e75b58d524357d9aa03a8820837895",
+        "envelope": "58444d13c608c8003874d31bdde21bd52af3f2c0400e1dfaaf8fd77927035a3a",
+        "world": "46e74866bf615cf991007d6a8e49b142ce4b4cfd9ee7bde8a4e82901502c5ecf",
+        "observation": "cc0f075e088b489a63792530726b2bde194c5e48e6229726efd78b0b4dbd4eda"
+      }
+    }
+  },
+  "n391_physics_step_evidence": {
+    "action": {
+      "sha256": "da4cb54c0507360450e274825ebdb1418f16e161cce6cf6da5b09c1c6dc14a24",
+      "received_state_count": 12903,
+      "every_consecutive_physics_state_captured": true,
+      "minimum_clearance_m": 0.10604063595660296,
+      "positive_clearance_at_all_received_states": true
+    },
+    "partial_hold": {
+      "sha256": "65d747270591b3190f17528a24389ab22e6337c23e3c1264cc0bd221836dcc8e",
+      "received_state_count": 12273,
+      "every_consecutive_physics_state_captured": true,
+      "minimum_clearance_m": 0.0,
+      "first_zero_clearance": {
+        "blank/Wall_1/Wall_1_Collision": {
+          "clearance_m": 0.0,
+          "source_stamp_ns": 271072000000,
+          "obstacle": "blank/Wall_1/Wall_1_Collision",
+          "truth_xyz_m": [
+            9.438503796738537,
+            6.034528850308767,
+            1.943639620908235
+          ],
+          "vehicle_envelope_radius_m": 0.48664556795075453,
+          "body_tilt_sin": 0.015341033500829377,
+          "dynamic_box_active": true
+        }
+      },
+      "first_forbidden_contact": {
+        "stamp_ns": 273228000000,
+        "phase": "ACTIVE",
+        "pair": {
+          "collision1": "x500_d435i_0::rotor_0::rotor_0_collision",
+          "collision2": "blank::Wall_1::Wall_1_Collision",
+          "depth_m": [
+            0.0004941671975508266,
+            0.0004928994112027851,
+            0.00022820304522050416,
+            0.00022947083156853176
+          ],
+          "contact_point_count": 4
+        },
+        "vehicle_sensor_topic": "/n09/contact/x500/rotor_0"
+      }
+    }
+  },
+  "decisions": [
+    "Keep the 0.60 m tracking P95 and 1.20 m sample maximum as diagnostic candidates; no acceptance threshold is justified by these archives, and no candidate is deleted.",
+    "Keep 0.10 m minimum full-body clearance provisional. #391 action samples were captured at every configured 4 ms solver update and remained positive, but its later hold reached zero clearance and rotor contact; the run failed.",
+    "Do not pool #381/#385/#391: #381 and #385 share model and EGO/PX4 binary identity; #391 uses a different EGO/bridge build and 250 Hz debug-truth publication. Use #391 only as separately identified failure and physical-step evidence.",
+    "The source of #391 hold drift is not uniquely identified. Next integrated capture must retain continuous left/right image and IMU source/receipt histories alongside VINS outputs, map query geometry and response echoes, resources/queues, 4 ms truth, contacts, and independent terminal readback."
+  ],
+  "inputs": {
+    "diagnostics": [
+      "artifacts/runs/n10-20261027-389-archive-reuse/tracking-error-budget-381.json",
+      "artifacts/runs/n10-20261027-389-archive-reuse/tracking-error-budget-385.json",
+      "artifacts/runs/n10-20261027-389-archive-reuse/tracking-error-budget-391.json"
+    ],
+    "archive_reuse_report": "progress/evidence/n10-archive-reuse-20261027-389.md",
+    "fault_closeout_report": "progress/evidence/n10-integrated-calibration-closeout-and-divergence-20261027-391.md",
+    "physics_step_action": "artifacts/runs/n10-20261027-391-integrated-calibration-retry/n10-action-physics-step-clearance-diagnostic.json",
+    "physics_step_hold": "artifacts/runs/n10-20261027-391-integrated-calibration-retry/n10-partial-hold-physics-step-clearance-diagnostic.json"
+  }
+}

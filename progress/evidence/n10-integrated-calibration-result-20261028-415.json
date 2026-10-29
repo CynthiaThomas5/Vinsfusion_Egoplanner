@@ -1,0 +1,236 @@
+{
+  "schema": "n10-integrated-calibration-result/v1",
+  "subtask_id": "N10.3/#415",
+  "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+  "status": "FAIL",
+  "closeout_status": "UNSAFE_TERMINAL_UNCONFIRMED; SITL container intentionally remains running",
+  "classification": "single-variable compact trace calibration; not N15/N16; not N10 acceptance pass",
+  "protocol_path": "progress/evidence/n10-integrated-calibration-protocol-20261028-415.json",
+  "prelaunch_path": "progress/evidence/n10-integrated-calibration-prelaunch-20261028-415.json",
+  "runtime_contract": {
+    "path": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/runtime-contract.json",
+    "sha256": "dc63d9621a2f93d022ada128f807ff9e25168c46aad7b43cf848940f73191228",
+    "declared_runtime_sha256": "ab08f72b23830c6ab8930d000f13e12686ef45defc3d5eca9581a7d4b04a3b7e",
+    "initially_matched_live": true
+  },
+  "single_variable": "Read-only voxel trace serialization v1 verbose JSON objects -> v2 compact numeric arrays; same [0.6,0.6,1.6] m ROI and #414 flight inputs.",
+  "task": {
+    "goal_submitted": true,
+    "action_success": false,
+    "result": {
+      "final_position": [
+        10.149990583081598,
+        -6.161981547753495,
+        2.015677883459172
+      ],
+      "outcome": "aborted",
+      "reason": "planner_full_curve_depth_odom_timeout",
+      "status": 6,
+      "success": false
+    },
+    "goal": {
+      "frame": "odom_0733195d5bde4515b0c330ba15fc7bf0",
+      "position_tolerance_m": 0.25,
+      "source_ns": 62572000000,
+      "target_enu": [
+        15.96799936530322,
+        0.016880727231767947,
+        1.0197669780939138
+      ],
+      "timeout_s": 360.0,
+      "yaw_enu": 0.1979566328316957,
+      "yaw_offset_rad": 0.2,
+      "yaw_tolerance_rad": 0.2617993877991494
+    },
+    "landed_and_disarmed_recorded": false
+  },
+  "direct_failure": "Navigation action aborted with planner_full_curve_depth_odom_timeout; the action and independent arrival criterion are FAIL/INSUFFICIENT, not completion.",
+  "native_fault_and_closeout": {
+    "postflight_readback_path": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/postflight-px4-bridge-readback.json",
+    "postflight_readback_sha256": "fca8032b9aa1801505b12e6b594afba1b4b967e098850604a0a912e4a86c4672",
+    "bridge": {
+      "alignment_drift_m": 0.3704932311597995,
+      "armed": true,
+      "control_enabled": true,
+      "epoch": "0733195d5bde4515b0c330ba15fc7bf0",
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "frame_offset_ned": [
+        -5.1876746892631147e-05,
+        -1.242299777870601e-05,
+        -4.304183155730626e-05
+      ],
+      "frame_yaw_offset_ned": 4.806439553561859e-05,
+      "gnss_aiding_active": false,
+      "landed": false,
+      "local_position_valid": false,
+      "phase": "LANDING",
+      "ready": false,
+      "reason": "planner_fault:full_curve_depth_odom_timeout"
+    },
+    "px4_status": {
+      "arming_state": 2,
+      "failsafe": true,
+      "nav_state": 12,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": false
+    },
+    "safe_to_stop": false,
+    "safe_to_stop_path": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/safe-to-stop.json",
+    "safe_to_stop_sha256": "f13c9bf01b421b2d00bb9668510daf8fb0e2ae15226e527b906b730786668327",
+    "operator_disarm_in_this_run": false,
+    "user_emergency_disarm_authorization_status": "one-time authorization was consumed at #391; no second emergency action taken",
+    "project_container_stopped": false
+  },
+  "latest_independent_live_probe": {
+    "path": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-live-fault-state-probe-r04.json",
+    "sha256": "127e2db75e80e258b531bc6cc111c66faef5f4568bb2090fcca7574c1ad7ad4b",
+    "bridge": {
+      "alignment_drift_m": 0.3704932311597995,
+      "armed": true,
+      "control_enabled": true,
+      "epoch": "0733195d5bde4515b0c330ba15fc7bf0",
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "frame_offset_ned": [
+        -5.1876746892631147e-05,
+        -1.242299777870601e-05,
+        -4.304183155730626e-05
+      ],
+      "frame_yaw_offset_ned": 4.806439553561859e-05,
+      "gnss_aiding_active": false,
+      "landed": false,
+      "local_position_valid": false,
+      "phase": "LANDING",
+      "ready": false,
+      "reason": "planner_fault:full_curve_depth_odom_timeout"
+    },
+    "px4_status": {
+      "arming_state": 2,
+      "failsafe": true,
+      "nav_state": 12,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": false
+    },
+    "terminal_readback_samples": [],
+    "native_px4_control_events": {
+      "attitude": 335,
+      "bridge_status": 22,
+      "control_mode": 0,
+      "estimator_flags": 17,
+      "land_detected": 3,
+      "local_position": 168,
+      "px4_status": 7,
+      "timesync_status": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0,
+      "visual_odometry_input": 0
+    }
+  },
+  "gazebo_truth_probe": {
+    "path": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-live-gz-pose-probe-r03.json",
+    "sha256": "679fdaa4a0c06454077b0488dca5da7086239e7f765d91c154465a074e3ed95a",
+    "sim_stamp": {
+      "sec": "433",
+      "nsec": 408000000
+    },
+    "vehicle_model_pose": {
+      "name": "x500_d435i_0",
+      "id": 99,
+      "position": {
+        "x": 9.588431760765216,
+        "y": -1.0787866108963637,
+        "z": 0.3236029194372294
+      },
+      "orientation": {
+        "x": 0.9977575746625226,
+        "y": 0.05285330097034343,
+        "z": 0.0407378976128213,
+        "w": 0.005174406070866915
+      }
+    },
+    "interpretation": "Near-ground Gazebo pose does not override PX4 land detector=false and armed/bridge LANDING readback."
+  },
+  "compact_trace_comparison": {
+    "baseline_run": "n10-20261028-414-speed040-yawcap010-map-trace-calibration",
+    "same_roi": true,
+    "baseline": {
+      "path": "artifacts/runs/n10-20261028-414-speed040-yawcap010-map-trace-calibration/n10-voxel-update-trace.jsonl",
+      "bytes": 57357550,
+      "sha256": "9a1786f462eb9fe93af4dae49094bffe9ac780d5d9ecdca06034f026cc955ed6",
+      "frames": 1135,
+      "updates": 179724,
+      "bytes_per_update": 319.1424072466671,
+      "bytes_per_frame": 50535.28634361234,
+      "nonempty_update_frames": 314,
+      "max_updates_in_frame": 1143,
+      "schemas": {
+        "n10-voxel-update-trace/v1": 1135
+      },
+      "parse_errors": 0
+    },
+    "compact_v2": {
+      "path": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-voxel-update-trace.jsonl",
+      "bytes": 12182889,
+      "sha256": "86a0ede4ca2a4a1b52ddb05e85a809fd6aaef94a4b3d67044eea74cb429ca033",
+      "frames": 1340,
+      "updates": 183573,
+      "bytes_per_update": 66.36536418754392,
+      "bytes_per_frame": 9091.708208955224,
+      "nonempty_update_frames": 260,
+      "max_updates_in_frame": 1055,
+      "schemas": {
+        "n10-voxel-update-trace/v2": 1340
+      },
+      "parse_errors": 0
+    },
+    "bytes_per_update_reduction_fraction": 0.7920509381373133,
+    "interpretation": "Serialization volume per observed update fell substantially. The mission still failed; this does not attribute the flight failure or prove the trace overhead caused or cured mapping behavior."
+  },
+  "trace_source_replay": {
+    "path": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-voxel-trace-evaluation.json",
+    "sha256": "ec827546df6b159b7dab73846f0654f3c6e5910b9b8bbb29f247811b629fa300",
+    "status": "PASS",
+    "parse_errors": 0,
+    "source_coverage": {
+      "status": "covered",
+      "covered": true,
+      "should_retry": false,
+      "watermark_stamp_ns": 83172000000,
+      "watermark_frame_id": "odom_0733195d5bde4515b0c330ba15fc7bf0",
+      "snapshot_source_stamp_ns": 83392000000,
+      "source_minus_watermark_ns": 220000000
+    },
+    "matched_fusions": 200,
+    "trace_interval_updates": 5113,
+    "class_comparison": {
+      "status": "PASS",
+      "compared_voxel_count": 341,
+      "class_match_count": 341,
+      "class_mismatch_count": 0,
+      "mismatch_examples": []
+    },
+    "raw_snapshot_classification": "not fully evaluated because independent truth/arrival alias input was not finalized"
+  },
+  "incomplete_or_insufficient": {
+    "debug_truth_evaluation": true,
+    "contact_observation": true,
+    "alignment_observation": true,
+    "planner_observation": true,
+    "resource_observation": true,
+    "sensor_capture_identity_complete": false,
+    "full_body_interval_clearance": "INSUFFICIENT; no finalized debug-truth/contact records",
+    "tracking_clearance_relation": "INSUFFICIENT; no independent truth trajectory",
+    "full_acceptance_evaluation": "not produced; do not infer pass from map trace"
+  },
+  "observer_shutdown_note": "Run driver SIGINT cleanup did not stop read-only truth/contact recorders because their shell-background processes ignored SIGINT. After the flight action had aborted, only those two verified read-only observer PIDs received SIGTERM; the control stack was not signaled. Their final reports are missing and remain INSUFFICIENT.",
+  "thresholds_changed": false,
+  "runtime_admission_gate_added": false,
+  "project_health_or_residual_gate_added": false,
+  "formal_n15_n16_credit": false,
+  "current_external_condition": "A second emergency-disarm authorization would be required to close this specific armed SITL if the PX4 native DESCEND failsafe does not reach LANDED/disarmed; until then leave project container and control stack running."
+}

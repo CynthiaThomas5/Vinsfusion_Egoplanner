@@ -2,6 +2,7 @@
 """Regression tests for explicit ROS simulation to PX4 timestamp mapping."""
 
 from pathlib import Path
+import json
 import sys
 import unittest
 
@@ -17,8 +18,8 @@ from uav_px4_bridge.time_mapping import (  # noqa: E402
 
 class Px4TimeMappingTests(unittest.TestCase):
     def mapper(self, **kwargs):
-        settings = dict(min_samples=4, max_samples=8, max_clock_age_s=0.5,
-                        max_age_s=0.35, max_future_s=0.02,
+        settings = dict(min_samples=4, max_samples=8,
+                        max_future_s=0.02,
                         min_rate=0.1, max_rate=10.0)
         settings.update(kwargs)
         result = RosClockMapper(**settings)
@@ -94,8 +95,8 @@ class Px4TimeMappingTests(unittest.TestCase):
         with self.assertRaisesRegex(TimeMappingError, 'requires_lockstep'):
             self.mapper().current_lockstep_px4_time_us(10_700_000_000)
 
-    def test_lockstep_clock_delivery_burst_keeps_original_age_limits(self):
-        mapper = RosClockMapper(4, 8, .5, .35, .02, .1, 10., lockstep=True)
+    def test_lockstep_source_age_is_reported_without_a_stale_cutoff(self):
+        mapper = RosClockMapper(4, 8, .02, .1, 10., lockstep=True)
         for index, offset in enumerate((0, 150_000_000, 300_000_000,
                                         300_100_000, 600_000_000)):
             mapper.add_clock(1_000_000_000 + index * 100_000_000,
@@ -105,14 +106,14 @@ class Px4TimeMappingTests(unittest.TestCase):
                              px4_ros_clock_offset_us=0)
         self.assertEqual(result.sample_us, 1_300_000)
         self.assertAlmostEqual(result.sample_age_wall_s, .3499)
-        with self.assertRaisesRegex(TimeMappingError, 'source_stamp_stale'):
-            self.to_px4(mapper, receipt_monotonic_ns=10_650_200_000,
-                        timestamp_sync_enabled=False, px4_ros_clock_offset_us=0)
+        delayed = self.to_px4(mapper, receipt_monotonic_ns=10_650_200_000,
+                              timestamp_sync_enabled=False, px4_ros_clock_offset_us=0)
+        self.assertGreater(delayed.sample_age_wall_s, result.sample_age_wall_s)
 
     def test_lockstep_interpolation_rejects_nonincreasing_receipt_times(self):
         for offset in (300_000_000, 290_000_000):
             with self.subTest(offset=offset):
-                mapper = RosClockMapper(4, 8, .5, .35, .02, .1, 10., lockstep=True)
+                mapper = RosClockMapper(4, 8, .02, .1, 10., lockstep=True)
                 for index, ns in enumerate((0, 150_000_000, 300_000_000,
                                             offset, 600_000_000)):
                     mapper.add_clock(1_000_000_000 + index * 100_000_000,
@@ -123,7 +124,7 @@ class Px4TimeMappingTests(unittest.TestCase):
 
 
     def test_current_lockstep_timestamp_uses_clock_without_wall_rate_fit(self):
-        mapper = RosClockMapper(4, 8, 0.5, 0.35, 0.02, 0.1, 10.0, lockstep=True)
+        mapper = RosClockMapper(4, 8, 0.02, 0.1, 10.0, lockstep=True)
         for index in range(5):
             mapper.add_clock(1_000_000_000 + index * 4_000_000,
                              10_000_000_000 + index * 50_000_000)
@@ -137,10 +138,10 @@ class Px4TimeMappingTests(unittest.TestCase):
         self.assertEqual(
             mapper.current_lockstep_px4_time_us(10_210_000_000), 1_016_000)
 
-    def test_current_lockstep_timestamp_still_rejects_stale_or_rolled_back_clock(self):
+    def test_current_lockstep_timestamp_does_not_reject_by_wall_age_but_latches_rollback(self):
         mapper = self.mapper(lockstep=True)
-        with self.assertRaisesRegex(TimeMappingError, 'ros_clock_stale'):
-            mapper.current_lockstep_px4_time_us(11_200_000_000)
+        self.assertEqual(mapper.current_lockstep_px4_time_us(11_200_000_000),
+                         1_400_000)
         with self.assertRaisesRegex(TimeMappingError, 'regression'):
             mapper.add_clock(1_200_000_000, 10_700_000_000)
         with self.assertRaisesRegex(TimeMappingError, 'regression'):
@@ -183,7 +184,7 @@ class Px4TimeMappingTests(unittest.TestCase):
 
     def test_requires_converged_clock_and_fresh_dds_timesync(self):
         with self.assertRaisesRegex(TimeMappingError, 'not_converged'):
-            RosClockMapper(5, 64, 0.5, 0.35, 0.02, 0.1, 10.0).to_px4(
+            RosClockMapper(5, 64, 0.02, 0.1, 10.0).to_px4(
                 1, 1, 1, 0, 0, 1, 0.5, 10_000, 0.03)
         mapper = self.mapper()
         with self.assertRaisesRegex(TimeMappingError, 'timesync_stale'):
@@ -191,19 +192,63 @@ class Px4TimeMappingTests(unittest.TestCase):
         with self.assertRaisesRegex(TimeMappingError, 'rtt_high'):
             self.to_px4(mapper, timesync_rtt_us=10_001)
 
-    def test_rejects_stale_clock_and_source_sample(self):
-        mapper = self.mapper(max_age_s=0.2)
-        with self.assertRaisesRegex(TimeMappingError, 'source_stamp_stale'):
-            self.to_px4(mapper)
-        with self.assertRaisesRegex(TimeMappingError, 'ros_clock_stale'):
-            self.to_px4(self.mapper(), receipt_monotonic_ns=11_200_000_000)
+    def test_maps_old_source_samples_without_receipt_age_cutoff(self):
+        mapper = self.mapper(lockstep=True)
+        self.assertEqual(self.to_px4(
+            mapper, timestamp_sync_enabled=False,
+            px4_ros_clock_offset_us=0).sample_us, 1_300_000)
+        delayed = self.to_px4(
+            mapper, receipt_monotonic_ns=11_200_000_000,
+            timestamp_sync_enabled=False, px4_ros_clock_offset_us=0)
+        self.assertEqual(delayed.sample_us, 1_300_000)
 
     def test_rejects_samples_outside_observed_clock_range(self):
         mapper = self.mapper()
-        with self.assertRaisesRegex(TimeMappingError, 'outside_clock_history'):
-            self.to_px4(mapper, source_ros_ns=900_000_000)
+        old_sample = self.to_px4(mapper, source_ros_ns=900_000_000)
+        self.assertEqual(old_sample.sample_us, 49_500_000)
         with self.assertRaisesRegex(TimeMappingError, 'outside_clock_history'):
             self.to_px4(mapper, source_ros_ns=1_500_000_000)
+
+    def test_debug_profile_history_covers_allowed_late_vio_sample(self):
+        bridge = json.loads((ROOT / 'config/components/px4_bridge/debug_truth.json').read_text())
+        max_samples = bridge['clock_mapping_max_samples']
+        self.assertEqual(max_samples, 128)
+
+        def make_mapper(sample_limit):
+            mapper = RosClockMapper(
+                min_samples=bridge['clock_mapping_min_samples'],
+                max_samples=sample_limit,
+                max_future_s=bridge['clock_mapping_max_future_wall_s'],
+                min_rate=bridge['clock_mapping_min_sim_rate'],
+                max_rate=bridge['clock_mapping_max_sim_rate'],
+                lockstep=True)
+            for index in range(160):
+                mapper.add_clock(
+                    100_000_000_000 + index * 4_000_000,
+                    200_000_000_000 + round(index * 4_000_000 / 0.88))
+            return mapper
+
+        source_stamp_ns = 100_000_000_000 + (159 * 4_000_000) - 296_000_000
+        receipt_monotonic_ns = 200_000_000_000 + round(159 * 4_000_000 / 0.88)
+        short_history = make_mapper(64)
+        late_in_short_history = short_history.to_px4(
+            source_stamp_ns, receipt_monotonic_ns, 300_000_000_000,
+            0, 0, 0, 0.5, 10_000, 0.03,
+            px4_ros_clock_offset_us=0, timestamp_sync_enabled=False)
+        self.assertEqual(late_in_short_history.sample_us, source_stamp_ns // 1000)
+
+        mapper = make_mapper(max_samples)
+        mapped = mapper.to_px4(
+            source_stamp_ns, receipt_monotonic_ns, 300_000_000_000,
+            0, 0, 0, 0.5, 10_000, 0.03,
+            px4_ros_clock_offset_us=0, timestamp_sync_enabled=False)
+        self.assertEqual(mapped.sample_us, source_stamp_ns // 1000)
+        self.assertGreater(mapped.sample_age_wall_s, 0.2)
+        older = mapper.to_px4(
+            source_stamp_ns - 20_000_000, receipt_monotonic_ns,
+            300_000_000_000, 0, 0, 0, 0.5, 10_000, 0.03,
+            px4_ros_clock_offset_us=0, timestamp_sync_enabled=False)
+        self.assertEqual(older.sample_us, (source_stamp_ns - 20_000_000) // 1000)
 
     def test_projects_sim_time_to_current_receipt_instant(self):
         mapper = self.mapper()
@@ -216,16 +261,16 @@ class Px4TimeMappingTests(unittest.TestCase):
         self.assertAlmostEqual(age, 0.02)
         self.assertAlmostEqual(latest_clock_age, -0.08)
 
-    def test_current_sim_time_projection_requires_recent_clock_fit(self):
+    def test_current_sim_time_projection_does_not_reject_by_receipt_age(self):
         mapper = self.mapper()
-        with self.assertRaisesRegex(TimeMappingError, 'ros_clock_stale'):
-            mapper.ros_time_at_monotonic(11_200_000_000, 0.03)
+        self.assertEqual(mapper.ros_time_at_monotonic(11_200_000_000, 0.03),
+                         1_800_000_000)
         with self.assertRaisesRegex(TimeMappingError, 'clock_receipt_in_future'):
             mapper.ros_time_at_monotonic(10_500_000_000, 0.03)
 
     def test_lockstep_uses_observed_clock_when_wall_fit_residual_is_high(self):
-        settings = dict(min_samples=4, max_samples=8, max_clock_age_s=0.5,
-                        max_age_s=0.35, max_future_s=0.02,
+        settings = dict(min_samples=4, max_samples=8,
+                        max_future_s=0.02,
                         min_rate=0.1, max_rate=10.0)
         samples = (
             (1_000_000_000, 10_000_000_000),
@@ -253,8 +298,8 @@ class Px4TimeMappingTests(unittest.TestCase):
         self.assertEqual(
             lockstep_mapper.ros_time_at_monotonic(10_750_000_000, 0.03),
             1_400_000_000)
-        with self.assertRaisesRegex(TimeMappingError, 'ros_clock_stale'):
-            lockstep_mapper.ros_time_at_monotonic(11_200_000_000, 0.03)
+        self.assertEqual(lockstep_mapper.ros_time_at_monotonic(
+            11_200_000_000, 0.03), 1_400_000_000)
 
     def test_clock_rollback_latches_mapper(self):
         mapper = self.mapper()
@@ -265,7 +310,7 @@ class Px4TimeMappingTests(unittest.TestCase):
             self.to_px4(mapper)
 
     def test_rejects_clock_rate_outside_configured_bounds(self):
-        mapper = RosClockMapper(4, 64, 0.5, 0.35, 0.02, 0.8, 1.2)
+        mapper = RosClockMapper(4, 64, 0.02, 0.8, 1.2)
         for index in range(5):
             mapper.add_clock(1_000_000_000 + index * 100_000_000,
                              10_000_000_000 + index * 150_000_000)

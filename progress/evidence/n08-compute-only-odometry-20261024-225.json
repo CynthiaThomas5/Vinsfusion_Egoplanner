@@ -1,0 +1,143 @@
+{
+  "scope": "Offline raw VINS errors with one pre-enable pose alignment, scale fixed to one.\n\nIn the simulation, Gazebo's world -> d435i_link truth origin coincides with the\nD435i IMU. No translation is added to this truth point. The SDF base_link mount\noffset is for base-to-sensor conversion and must not be added twice.\n",
+  "epoch": "024773bb488b4d53b6db8accb47ce6f4",
+  "raw_topic": "/vins_raw/s_024773bb488b4d53b6db8accb47ce6f4/odometry",
+  "alignment": {
+    "method": "latest raw VINS pose strictly before PRESTREAM; never fitted to the flight path",
+    "scale": 1,
+    "target_source_ns": 690496000000,
+    "reference_source_ns": 690460000000,
+    "reference_age_sim_s": 0.036,
+    "maximum_reference_age_sim_s": 0.15,
+    "rotation": [
+      [
+        0.9994583451885205,
+        0.0329062668653432,
+        -0.0004402658413317506
+      ],
+      [
+        -0.03290669318046595,
+        0.9994579289521078,
+        -0.0009988987386618186
+      ],
+      [
+        0.0004071571574999282,
+        0.0010128453733123854,
+        0.9999994041834719
+      ]
+    ],
+    "translation_m": [
+      -6.7212791753438985,
+      0.07489260095542893,
+      -0.052211608868165636
+    ]
+  },
+  "interval": {
+    "start_phase": "PRESTREAM",
+    "end_phase": "LANDED",
+    "start_source_ns": 690496000000,
+    "end_source_ns": 721084000000,
+    "duration_sim_s": 30.588,
+    "paired_truth_path_length_m": 1.9156082960888714
+  },
+  "position_error_m": {
+    "count": 463,
+    "rmse": 0.0038131248452164344,
+    "median": 0.00063883850750105,
+    "p95": 0.007666333075897836,
+    "max": 0.009746709260819681
+  },
+  "absolute_yaw_error_deg": {
+    "count": 463,
+    "rmse": 0.012836835528319648,
+    "median": 0.0014162055440119195,
+    "p95": 0.03797868831509832,
+    "max": 0.048613589395142265
+  },
+  "endpoint": {
+    "source_ns": 721019999999,
+    "age_before_landed_sim_s": 0.064000001,
+    "position_error_m": 0.005595433702246602,
+    "yaw_error_deg": 4.366738570569315e-06
+  },
+  "coverage": {
+    "raw_samples_in_interval": 463,
+    "paired_samples": 463,
+    "paired_raw_fraction": 1.0,
+    "truth_grid_samples": 1530,
+    "supported_truth_grid_samples": 1525,
+    "truth_grid_support_fraction": 0.9967320261437909,
+    "bounded_time_support_fraction": 0.9968615142866484,
+    "truth_max_gap_sim_s": 0.02,
+    "raw_max_gap_sim_s": 0.068000001,
+    "paired_max_gap_sim_s": 0.068000001,
+    "start_uncovered_sim_s": 0.032,
+    "end_uncovered_sim_s": 0.064000001,
+    "truth_interpolation_limit_sim_s": 0.04,
+    "odometry_support_limit_sim_s": 0.2,
+    "note": "Reporting limits only; no extrapolation, timestamp repair or health gate changes.",
+    "rejected_samples": []
+  },
+  "raw_adapter_pose_check": {
+    "same_stamp_pairs": 462,
+    "mismatched_pose_pairs": 0,
+    "adapted_samples_in_interval": 462
+  },
+  "largest_residual_step": {
+    "source_ns": 716991999999,
+    "delta_m": 0.0027950533478712553,
+    "interval_sim_s": 0.064,
+    "note": "Descriptive residual change, not a classified tracking failure."
+  },
+  "localization_quality_history_available": false,
+  "invalid_localization_status_samples": null,
+  "landed_and_disarmed": true,
+  "limitations": [
+    "One simulation route; no loop closure, map reuse or real-device validation.",
+    "Reference pose uncertainty affects all subsequent errors; scale is never fitted.",
+    "RMSE is sample weighted; coverage is reported separately, gaps are not hidden.",
+    "Endpoint is the last paired source sample, with its age explicitly reported.",
+    "Localization health sample count is omitted when the flight runner did not save status history.",
+    "No accuracy acceptance threshold is declared by this diagnostic."
+  ],
+  "run_id": "n08-20261024-225-camera-cone-compute-only-01",
+  "runtime_contract_sha256": "7ae8098f03c8e1ec623497c5805ee6fe865c6dbc2964aecee2ad810a463e606b",
+  "sensor_mount": {
+    "model_sha256": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+    "parent_frame": "base_link",
+    "sensor_frame": "d435i_imu",
+    "translation_frd_m": [
+      0.12,
+      -0.0,
+      -0.08
+    ]
+  },
+  "coordinate_contract": {
+    "truth_point": "d435i_link",
+    "raw_vins_point": "vins_024773bb488b4d53b6db8accb47ce6f4_imu",
+    "imu_sensor_pose_in_d435i_link_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "truth_to_raw_point_translation_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "base_link_mount_translation_not_applied_to_truth": true
+  },
+  "input_sha256": {
+    "alignment-observation.json": "35b9b6b37e650b38e93197a22b6a1a7ae619cd5fd2b9701f556416203a3be8a9",
+    "debug-truth-evaluation.json": "c3bf96bd4750d64c800014189a2beb35672c319e9f6a19379dce08b4b7335806",
+    "bridge-alignment-timeline.jsonl": "3bf35abaa4d5757d0abd42f261c012739b8eb0b19c891d04a24d48a0bc8089cd",
+    "flight.json": "23aae3c6716ed2ae77df05f38ca19f93cd219ad53c9ff4e07d66a34b5445281d",
+    "runtime-contract.json": "4e985f5fb4f809db85dfe52e28268b8ada5378fee3f4c16c595dad9bdd0ecb84"
+  },
+  "evaluator_sha256": {
+    "tools/debug_truth/evaluate_odometry.py": "a54338b6b21f3226c2413878b8c616cdd19b16ce282751041bd1597c4a9d16ba",
+    "tools/evaluate_vins_motion.py": "2fb7aa9fc934fa210ea9c6926af72b8fe69a6d57b11730508aaf456170db43d8",
+    "tools/evaluate_vio_quality_alignment.py": "7e859b134242a75ef76b58ccf4b72d82ace85789401a7dcdfd3e56e07ad515fb",
+    "src/own/uav_sim/uav_sim/geometry.py": "601b4cf9218f3fc7b39f7d6d4e777084d2149a848e73c4fe30486b1e06dba7f2"
+  }
+}

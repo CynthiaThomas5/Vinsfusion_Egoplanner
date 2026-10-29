@@ -1,0 +1,101 @@
+{
+  "schema": "n10-calibration-run/v1",
+  "run_id": "n10-20261026-342-speed031-guarded",
+  "protocol": "progress/evidence/n10-speed031-calibration-protocol-20261026-342.json",
+  "result": "FAIL",
+  "failure_class": "planner_local_target_in_inflated_obstacle",
+  "run_scope": "Single D435i Gazebo/PX4 SITL diagnostic; not an N11-N16 formal run",
+  "planner": {
+    "config": "config/components/mapping/n10_horizon2_speed031_calibration.json",
+    "max_velocity_m_s_per_axis": 0.31,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 2.0,
+    "obstacles_inflation_m": 0.7306179170842027,
+    "official_ego_collision_policy": true,
+    "loaded_values_confirmed_in": "artifacts/runs/n10-20261026-342-speed031-guarded/n09-run-manifest.json"
+  },
+  "mission": {
+    "goal_offset_enu_m": [16.0, 0.0, 0.1],
+    "yaw_offset_rad": 0.2,
+    "dwell_s": 3.0,
+    "diagnostic_post_goal_hold_sim_s": 600.0,
+    "action_goal_sent": true,
+    "action_success": false,
+    "action_reason": "planner_full_curve_planning_failed",
+    "ready_trajectory_count": 0,
+    "observed_position_command_flags": {},
+    "reached_goal_dwell": false,
+    "completed_post_goal_hold": false,
+    "horizontal_goal_motion_observed": false
+  },
+  "planner_refusal": {
+    "log": "artifacts/runs/n10-20261026-342-speed031-guarded/vio.log",
+    "messages": [
+      "terminal point of the current trajectory is in obstacle, skip this planning",
+      "Full-curve safety rejected: planning_failed"
+    ],
+    "terminal_control_point_coordinate_logged": false,
+    "causal_diagnosis": "Inference: runtime starts near world x=-6.5m; 2m horizon gives first forward local target near x=-4.5m. ego.sdf has a radius-0.30m, length-10m cylinder centered at (-4,0,-2.5), extending to z=+2.5m. At flight z≈1m this local target is about 0.5m from the cylinder center, within the combined 0.30+0.7306179m inflated radius. The inferred geometry matches the planner terminal-obstacle refusal; exact rejected point was not instrumented."
+  },
+  "speed_guard": {
+    "limit_m_s": 0.12,
+    "fault": null,
+    "event_count": 0,
+    "sample_counts": {
+      "px4_vehicle_local_position": 1
+    },
+    "maxima_m_s": {
+      "px4_vehicle_local_position": 0.058755774695645135
+    },
+    "ego_reference_sample_count": 0,
+    "interpretation": "No trajectory existed; one PX4 sample is not a route speed measurement. The guard did not determine speed feasibility."
+  },
+  "calibration_evaluation": {
+    "odometry_file": "artifacts/runs/n10-20261026-342-speed031-guarded/odometry-evaluation.json",
+    "prestream_to_landed_sim_duration_s": 28.328,
+    "paired_path_length_m": 1.8702944006131026,
+    "position_error_m": {
+      "count": 429,
+      "rmse": 0.0033504305664640564,
+      "p95": 0.008819900375680001,
+      "max": 0.01169261419551905
+    },
+    "absolute_yaw_error_deg": {
+      "rmse": 0.008771099356818308,
+      "p95": 0.019384326032094248,
+      "max": 0.03889996831034325
+    },
+    "scope_limit": "Takeoff/landing only; no evidence for 16m route or long-duration drift."
+  },
+  "arrival_evaluation": {
+    "file": "artifacts/runs/n10-20261026-342-speed031-guarded/arrival-evaluation.json",
+    "independent_goal_dwell_passed": false,
+    "minimum_true_goal_distance_m": 16.001164877741807,
+    "max_contiguous_goal_dwell_s": 0.0
+  },
+  "safety_and_cleanup": {
+    "preflight_passed": true,
+    "takeoff_admission_passed": true,
+    "contact_evaluation_passed": true,
+    "prohibited_contact_count": 0,
+    "live_refusal_passed": true,
+    "bridge_phase": "LANDED",
+    "px4_armed": false,
+    "px4_landed": true,
+    "container_exit_code": 0,
+    "source_timeline_complete": false,
+    "unrelated_containers_touched": false
+  },
+  "sha256": {
+    "artifacts/runs/n10-20261026-342-speed031-guarded/flight.json": "439a954a498aa8742523e6325da229d9e639daec91c44202d5672f0974424c16",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/vio.log": "8c84c85bd1e699f683eda294b76df04afc42927d27b1f69ba58d7c808f29dcc1",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/planner-observation.json": "2be1be298892c184bc2b54b4a88abe894ab96835485f29b29ef1090fb35f6c2c",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/arrival-evaluation.json": "17b0e74650f6712899ca3b9cf53368dcbdc2ff613b565c43b5dfb54c72156f75",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/odometry-evaluation.json": "4bc21d8066040bc9ef8a9010394e8259fb3c82176c88e124f27740015f4e512a",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/n09-live-refusal.json": "f10734b3e991118f9b15a73b9ee1b6792c57582bda6f9ea4edcb7142613a8030",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/vehicle-contact-evaluation.json": "006f9b0d2753bb082851c3e23dfba59df8aa3b62546103f9d67d441b0deddbf0",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/n09-run-manifest.json": "b06503f3d457fc4cd1816e72661df5ed41ea2081e5368f3be5c9add64e9fe93c",
+    "artifacts/runs/n10-20261026-342-speed031-guarded/runtime-contract.json": "7f4d5158c6bbbc9e4e54a58bb151da2bc4922d12e277a136cd151e403aa12af4"
+  },
+  "next_action": "N10.3 #343: preserve the 16m goal and all planner/acceptance settings from #342; use a run-specific spawn x=-8.0m so the first 2m local target does not overlap the known cylinder near x=-4m. Keep 0.12m/s runtime guard and record the full-curve/collision response."
+}

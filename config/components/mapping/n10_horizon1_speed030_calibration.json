@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 diagnostic only. One-variable contrast against n10_horizon1_speed032_calibration.json; planner feasibility allowance reduced to 0.30m/s/axis based on the #345 B-spline derivative-control-point measurement and retained 0.12m/s runtime guard. Not a physical speed limit or N11-N16 formal profile.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.3,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 1.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "Only max_velocity_m_s changes from #345 (0.32 to 0.30m/s/axis); horizon remains 1.0m. #345 measured first-spline max |vx|=0.328734m/s and EGO reference peak=0.123444m/s; the 0.32m/s setting has a 0.336m/s per-axis feasibility gate. The 0.30 setting has a 0.315m/s gate, 0.013734m/s below the measured control-point derivative. If EGO time reallocation scales inversely with this ratio, duration could increase about 4.36% and reference speed could decrease toward 0.1183m/s. This is a one-run hypothesis, not a guaranteed curve or physical speed. Keep the 0.12m/s reference/PX4 runtime guard and all other safety gates unchanged."
+}

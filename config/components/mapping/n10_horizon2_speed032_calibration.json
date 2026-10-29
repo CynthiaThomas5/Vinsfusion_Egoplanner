@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 diagnostic only. One-variable contrast against n10_horizon2_speed031_calibration.json; the 0.32m/s/axis planner candidate is derived from the #343 final spline control-point derivative and 5% feasibility tolerance. This is not a physical or acceptance speed limit. The runtime goal profile retains the unchanged 0.12m/s vector-speed guard. Not a formal N11-N16 profile.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.32,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 2.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "Only max_velocity_m_s changes from #343's 0.31 to 0.32m/s/axis. #343 measured a final B-spline max |vx|=0.326505m/s while the 0.31m/s configuration's 5%-tolerance gate was 0.3255m/s, causing refusal by 0.001005m/s. At 0.32m/s the same tolerance gate is 0.336m/s, 0.009495m/s above the measured candidate. The value is a planner feasibility allowance derived from one measured curve, not the actual vehicle speed. The existing independent 0.12m/s reference/PX4 vector-speed guard remains active and unchanged; any EGO reference above it cancels the task and enters the existing bridge-owned landing path."
+}

@@ -1,0 +1,63 @@
+{
+  "schema": "n10-high-speed-cancel-stop-evidence/v1",
+  "run_id": "n10-20261026-359-high-speed-cancel-stop",
+  "subtask": "N10.3",
+  "classification": "single diagnostic SITL measurement; not formal qualification",
+  "formal_qualification": false,
+  "checks": {
+    "measurement_complete": true,
+    "cancel_acknowledged": true,
+    "replacement_ego_trajectory_observed": true,
+    "stop_band_held_one_sim_second": true,
+    "truth_coverage_bounded": true,
+    "zero_prohibited_contacts": true,
+    "independent_terminal_readback_safe": true,
+    "localization_health_policy_bypass_observed": true
+  },
+  "metrics": {
+    "trigger_px4_horizontal_speed_m_s": 0.5002411700779351,
+    "trigger_ego_reference_speed_m_s": 0.5301666968166522,
+    "cancel_ack_wall_delay_s": 0.0008232151158154011,
+    "replacement_trajectory_delay_sim_s": 0.032,
+    "stop_band_entry_delay_sim_s": 4.96,
+    "stop_band_confirmation_delay_sim_s": 5.96,
+    "stop_band_dwell_sim_s": 1.0,
+    "truth_cancel_to_stop_horizontal_path_m": 1.3044744046820131,
+    "truth_cancel_to_stop_horizontal_endpoint_displacement_m": 1.0304521335443808,
+    "truth_stop_band_1s_max_horizontal_excursion_m": 0.007557759346516862,
+    "px4_observed_max_horizontal_speed_m_s": 0.5460834872723714,
+    "px4_observed_p10_horizontal_deceleration_m_s2": 0.02653790797575023,
+    "px4_time_to_first_10pct_speed_reduction_sim_s": 1.516,
+    "normalized_cost_max_observed": 1.263779575925776,
+    "original_normalized_cost_observation_limit": 1.0,
+    "prohibited_contact_count": 0,
+    "terminal_bridge_phase": "LANDED",
+    "terminal_px4_armed": false,
+    "terminal_bridge_control_enabled": false,
+    "terminal_control_sample_count": 0
+  },
+  "interpretation": {
+    "one_sample_only": true,
+    "general_stop_distance_guarantee": false,
+    "collision_policy": "official_ego",
+    "extra_raw_free_whole_curve_gate": false,
+    "ground_truth_used_for_control": false,
+    "health_policy_gate_bypassed": true
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261026-359-high-speed-cancel-stop",
+    "braking_evaluation": "artifacts/runs/n10-20261026-359-high-speed-cancel-stop/n10-cancel-braking-evaluation.json",
+    "clearance_evaluation": "artifacts/runs/n10-20261026-359-high-speed-cancel-stop/n10-clearance-evaluation.json"
+  },
+  "input_sha256": {
+    "flight.json": "1699e49e6ece416a551448099c17c983008c1b44303ee9f1b2af63b1885af8cc",
+    "debug-truth-evaluation.json": "38a9d57f145c0c66f51f2a6a0c224737fcda04ec2621642f9f780ad52a387a2a",
+    "planner-observation.json": "faec6cece068f5c4b4ae93a29681670f940940d215ac4a9aa5f09c5801faaf38",
+    "bridge-observation.json": "5f5410699bf943ada51b2df07784da061969bdc09fe1b48f4a7b73607a39aa5d",
+    "n09-contact-observation.json": "cc8f44b1d432e0bde33c9b9ca3ed29a378fc3ace0d027d339d11d3548fce4b2f",
+    "vehicle-contact-evaluation.json": "f47e59874dbb16785258e20e12b67300e8e8b237c6c79e26f021a2201f3b9b7b",
+    "postflight-px4-bridge-readback.json": "d5db398acf295fa4b630db4d17d5dfcd3f2403d02b919cbbae1c9815211159df",
+    "runtime-contract.json": "8e5b13fde67363b5478b0806af84cc5105c81e62f2a243f7afb386fd23891af1",
+    "n10-cancel-speed-curve.csv": "1471d949835b89c398b6d36155e35084316e1ee517907e1543da12a71fa47baa"
+  }
+}

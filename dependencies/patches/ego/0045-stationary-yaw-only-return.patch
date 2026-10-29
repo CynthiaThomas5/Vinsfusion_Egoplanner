@@ -1,0 +1,107 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -201,6 +201,85 @@
+ 
+   void EGOReplanFSM::planNextWaypoint(const Eigen::Vector3d next_wp)
+   {
++    // A navigation goal can require only a yaw change (for example, turning
++    // around before a forward-only return). The position planner rejects
++    // routes shorter than 0.2 m, so route that case through a stationary EGO
++    // B-spline instead of passing a zero-duration polynomial to it.
++    constexpr double yaw_only_position_tolerance = 0.05;
++    constexpr int yaw_only_control_point_count = 16;
++    constexpr double yaw_only_interval = 2.0;
++    const double current_yaw = std::atan2(
++        2.0 * (odom_orient_.w() * odom_orient_.z() + odom_orient_.x() * odom_orient_.y()),
++        1.0 - 2.0 * (odom_orient_.y() * odom_orient_.y() + odom_orient_.z() * odom_orient_.z()));
++    const double yaw_error = std::atan2(std::sin(active_goal_yaw_ - current_yaw),
++                                        std::cos(active_goal_yaw_ - current_yaw));
++    if (have_active_goal_yaw_ && (next_wp - odom_pos_).norm() <= yaw_only_position_tolerance &&
++        std::abs(yaw_error) > 0.1)
++    {
++      if (safety_latched_ || (exec_state_ != WAIT_TARGET && exec_state_ != EXEC_TRAJ))
++      {
++        RCLCPP_ERROR(node_->get_logger(), "Refusing stationary yaw goal in an unsafe FSM state");
++        return;
++      }
++
++      Eigen::MatrixXd hold_control_points(3, yaw_only_control_point_count);
++      for (int i = 0; i < yaw_only_control_point_count; ++i)
++        hold_control_points.col(i) = odom_pos_;
++
++      UniformBspline hold_trajectory(hold_control_points, 3, yaw_only_interval);
++      auto info = &planner_manager_->local_data_;
++      info->start_time_ = node_->get_clock()->now();
++      info->position_traj_ = hold_trajectory;
++      info->velocity_traj_ = info->position_traj_.getDerivative();
++      info->acceleration_traj_ = info->velocity_traj_.getDerivative();
++      info->start_pos_ = info->position_traj_.evaluateDeBoorT(0.0);
++      info->duration_ = info->position_traj_.getTimeSum();
++      info->traj_id_++;
++      end_pt_ = next_wp;
++      end_vel_.setZero();
++      local_target_pt_ = next_wp;
++      local_target_vel_.setZero();
++      have_target_ = true;
++      have_new_target_ = false;
++      init_pt_ = odom_pos_;
++
++      traj_utils::msg::Bspline bspline;
++      bspline.order = 3;
++      bspline.start_time = info->start_time_;
++      bspline.traj_id = info->traj_id_;
++      const Eigen::MatrixXd pos_pts = info->position_traj_.getControlPoint();
++      bspline.pos_pts.reserve(pos_pts.cols());
++      for (int i = 0; i < pos_pts.cols(); ++i)
++      {
++        geometry_msgs::msg::Point point;
++        point.x = pos_pts(0, i);
++        point.y = pos_pts(1, i);
++        point.z = pos_pts(2, i);
++        bspline.pos_pts.push_back(point);
++      }
++      const Eigen::VectorXd knots = info->position_traj_.getKnot();
++      bspline.knots.reserve(knots.rows());
++      for (int i = 0; i < knots.rows(); ++i)
++        bspline.knots.push_back(knots(i));
++      fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
++
++      std::string safety_reason;
++      if (!certifyLocalCurve(0.0, safety_reason))
++      {
++        stopForSafety(safety_reason);
++        return;
++      }
++
++      bspline_pub_->publish(bspline);
++      visualization_->displayOptimalList(info->position_traj_.get_control_points(), 0);
++      if (exec_state_ == WAIT_TARGET)
++        changeFSMExecState(EXEC_TRAJ, "YAW_ONLY_GOAL");
++      RCLCPP_INFO(node_->get_logger(),
++                  "Published stationary EGO yaw trajectory: duration=%.2f s, yaw_rate_bound=%.3f rad/s",
++                  info->duration_, 3.0 * std::abs(yaw_error) / (11.0 * yaw_only_interval));
++      return;
++    }
++
+     bool success = false;
+     success = planner_manager_->planGlobalTraj(odom_pos_, odom_vel_, Eigen::Vector3d::Zero(), next_wp, Eigen::Vector3d::Zero(), Eigen::Vector3d::Zero());
+ 
+@@ -1120,6 +1199,18 @@
+     const int tail_start = std::max(0, int(pos_pts.cols()) - bspline.order);
+     double target_yaw = active_goal_yaw_;
+     target_yaw += TWO_PI * std::round((yaw_points(tail_start) - target_yaw) / TWO_PI);
++    bool stationary_position = true;
++    for (int i = 1; i < pos_pts.cols(); ++i)
++      stationary_position = stationary_position && (pos_pts.col(i) - pos_pts.col(0)).norm() <= 1e-6;
++    if (stationary_position && tail_start > bspline.order)
++    {
++      const double ramp_span = double(tail_start - (bspline.order - 1));
++      for (int i = bspline.order; i < tail_start; ++i)
++      {
++        const double fraction = double(i - (bspline.order - 1)) / ramp_span;
++        yaw_points(i) = initial_yaw + fraction * (target_yaw - initial_yaw);
++      }
++    }
+     for (int i = tail_start; i < yaw_points.rows(); ++i)
+       yaw_points(i) = target_yaw;
+     // A cubic spline starts from its first three controls, not its path heading.

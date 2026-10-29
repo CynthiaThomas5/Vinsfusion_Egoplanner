@@ -1,0 +1,91 @@
+{
+  "schema": "n08-rear-hold-coverage/v1",
+  "subtask": "N08.2x",
+  "run_id": "n08-20261024-234-rear-hold-coverage-01",
+  "profile": "n08_overhead_rear_facing_view",
+  "qualification_scope": "DISARMED support scan and N05 raw-map entry diagnostic; no flight approval",
+  "result": "scan_completed_admission_refused",
+  "scan": {
+    "completed_stages": 19,
+    "planned_stages": 19,
+    "reached_yaw_rad": [
+      -1.5707963267948966,
+      -3.141592653589793
+    ],
+    "fixture_helper_outcome": "failed",
+    "fixture_helper_error": "localization changed or became invalid during physical scan",
+    "final_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.7671132163931573
+    },
+    "fixture_detached": true,
+    "fixture_removed": true
+  },
+  "identity": {
+    "epoch": "ecad083e77aa4d6c9eb59b71c753ca74",
+    "map_id": "ecad083e77aa4d6c9eb59b71c753ca74-89eebcbecf7249769fa443089f8a5aa5",
+    "same_before_after_scan": true
+  },
+  "n05": {
+    "before_admission": false,
+    "before_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "post_release_admission": false,
+    "after_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_consistent": true,
+    "ground_plane_z_m": -0.34999999999999976,
+    "takeoff_contact_unknown_voxel_count": 33,
+    "unknown_center_bounds_enu_m": {
+      "min": [
+        -1.1499999999999986,
+        -0.25,
+        -0.1499999999999999
+      ],
+      "max": [
+        -1.0500000000000007,
+        0.45000000000000284,
+        0.15000000000000013
+      ]
+    },
+    "hold_unknown_voxel_count": 0
+  },
+  "safety": {
+    "xy_executed": false,
+    "compute_only_started": false,
+    "navigation_goal_published": false,
+    "control_published": false,
+    "final_landed": true,
+    "final_disarmed": true,
+    "bridge_disabled": true,
+    "container_stopped_exit_code": 0,
+    "active_run_processes_after_stop": 0
+  },
+  "audit": {
+    "debug_truth_used": false,
+    "interpretation": "33 takeoff-contact unknown voxel centers are above the fitted ground plane; HOLD is fully known. N05 refusal remains valid and is not bypassed."
+  },
+  "source_artifact_sha256": {
+    "n05-run-inputs.json": "40f0255099efa243c096113a47852f95e1ad7b6288935a546d2ab13fc36d6dba",
+    "n05-run-summary.json": "546ce6f4abb73fccf2472d6666ad2bb47f113b4c445ae4434fd28f18231dbff4",
+    "fixture-result.json": "b2d683ea78e4635ed30352a624514dc5877dc507995bbe761e0a5e973e27ad28",
+    "fixture-stages.json": "4b98c283ccc7ce26cde8d937e0bbe431789ea2d3913aaa44aec2e5c5c289ab42",
+    "fixture-trace.jsonl": "ac2f0337d4b21e421bac11897eb00520e2b9901e6f3c1eed2bcfe19f1e1d891e",
+    "n05-after/n05-live-entry-check.json": "c6b4e724598e7eb8f851aa628bd0876b0c574308fd0a729ca406c7b0fe1ad746",
+    "n05-after/n05-offline-entry-replay.json": "ed1b61cb60537f0fd18d019d1e5324f18f5c9b2bd21056c2256bb14625a75039",
+    "n05-post-release/n05-live-entry-check.json": "a0bf4d0f1f414cc68bf471e53778fe456cfc3e86f8b8b14efcf14d6557d261cb",
+    "n05-post-release/n05-offline-entry-replay.json": "e64e803209f393e629f3ca902a707e8e70de89498cf6ded836938bbde2a4cd24",
+    "n05-post-release/n05-live-raw-map.npz": "8863a11487575e0e6721141fcb8ff9a0893806dc4d2d4e15d287db7997f66c9c",
+    "n05-unknown-volume-audit.json": "a124138834a5016d345c31c605d89e99d257cd97e0b8cbadd6d42c9fb6439b18"
+  },
+  "run_summary_hashes": {
+    "run_inputs_sha256": "40f0255099efa243c096113a47852f95e1ad7b6288935a546d2ab13fc36d6dba",
+    "world_layout_sha256": "650293d82e13b8a455bc07e00fa9ac028cdf3b6d92bf84843e653a6382f84500",
+    "n05_map_snapshot_sha256": "eb8a54feca160ce05843cdb8a71160f5fac4a250f9c35cbc2a0360bc41dfae5b"
+  },
+  "limitations": [
+    "Fixture helper reported localization changed/invalid during the physical scan; preserved. The profile nevertheless reached 19/19, and final localization was valid.",
+    "No compute-only curve, XY execution, response delay, minimum deceleration, stop distance, or tracking error was measured.",
+    "N08 remains in progress; no safety threshold or unknown-space policy changed."
+  ]
+}

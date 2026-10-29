@@ -1,0 +1,202 @@
+{
+  "schema": "n08-negative-y-forward-corridor-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-300",
+  "status": "N05_passed_but_trial_pre_enable_corridor_refused_no_flight",
+  "completion_mode": "single_goal",
+  "trial_kind": "motion_cancel",
+  "requested_cancel_speed_window_m_s": [
+    0.07,
+    0.09
+  ],
+  "n05_support_scan": {
+    "profile": "n08_overhead_free_sector_view",
+    "completed_stages": 15,
+    "expected_stages": 15,
+    "fixture_removed": true,
+    "fixture_absent_confirmed": true,
+    "helper_outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.7434262459151542
+    },
+    "summary_diagnostic_pass": true,
+    "summary_checks": {
+      "layout_identity_consistent": true,
+      "same_epoch_before_after": true,
+      "same_map_id_before_after": true,
+      "scan_identity_matches_after_snapshot": true,
+      "vehicle_disarmed_for_all_recorded_states": true,
+      "support_detached_and_fixture_absent": true,
+      "fixture_runner_profile_completed": true,
+      "online_and_offline_checks_identical": true,
+      "post_release_check_recorded": true,
+      "post_release_same_identity": true,
+      "post_release_pose_within_budget": true,
+      "post_release_entry_accepted": true,
+      "control_and_navigation_goal_absent": true,
+      "debug_truth_absent_from_online_inputs": true
+    }
+  },
+  "identity": {
+    "epoch_before": "ab18835cdf5e4cfe8092c27afe176a50",
+    "epoch_after": "ab18835cdf5e4cfe8092c27afe176a50",
+    "map_id_before": "ab18835cdf5e4cfe8092c27afe176a50-8e25ec54567e4cccb989f61ed4b5ec5c",
+    "map_id_after": "ab18835cdf5e4cfe8092c27afe176a50-8e25ec54567e4cccb989f61ed4b5ec5c",
+    "same_epoch": true,
+    "same_map_id": true,
+    "scan_identity_matches_after_snapshot": true
+  },
+  "n05": {
+    "post_release_accepted": true,
+    "post_release_reason": "all_entry_phases_known_and_clear",
+    "mission_current_area_accepted": true,
+    "mission_current_area_reason": "all_entry_phases_known_and_clear",
+    "online_offline_identical": true,
+    "hold_max_unknown_cells": 0,
+    "raw_snapshot_sha256": "aab5e169675176d5c1ee16b0433c3a804e5dd0f43ed8b1e125671941cd617c98"
+  },
+  "read_only_preflight": {
+    "passed": true,
+    "observed_wall_s": 40.001638550078496,
+    "rtf": 0.8950111625315389,
+    "max_optimized_odom_receipt_gap_wall_s": 0.09608879801817238,
+    "optimized_odom_gap_over_guard_count": 0
+  },
+  "n08_pre_enable_gate": {
+    "reason": "trial_corridor_or_home_pad_unknown_or_occupied",
+    "capsule_passed": false,
+    "capsule_first_query": {
+      "distance_from_start_m": 0.012499999999999999,
+      "center_xyz_m": [
+        0.20269366243436637,
+        -0.08983971561598812,
+        1.0375570522053423
+      ],
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 66,
+      "free_count": 5023,
+      "occupied_count": 0
+    },
+    "cancel_stop_envelope_passed": false,
+    "cancel_stop_envelope_reason": "directional_forward_corridor_or_hold_not_clear",
+    "start_hold": {
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 58,
+      "free_count": 4862,
+      "occupied_count": 0
+    },
+    "first_directional_query": {
+      "distance_from_start_m": 0.0,
+      "center_xyz_m": [
+        0.2651936624343664,
+        -0.08983971561598812,
+        1.0375570522053423
+      ],
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 67,
+      "free_count": 5040,
+      "occupied_count": 0
+    },
+    "terminal_hold": {
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 58,
+      "free_count": 4864,
+      "occupied_count": 0
+    },
+    "query_radii_m": {
+      "body_radius": 0.7306179170842027,
+      "tracking_margin": 0.25,
+      "first_directional_sphere_radius": 0.9931179170842026
+    }
+  },
+  "unknown_voxel_audit": {
+    "snapshot": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-300/n08-trial-ground-map.npz",
+    "query_spheres": {
+      "n08_start_hold_unknown": 58,
+      "first_directional_unknown": 67,
+      "terminal_hold_unknown": 58
+    },
+    "raw_unknown_plane_odom_y_m": -1.05,
+    "relative_to_start_body_center_y_m": -0.9601602844,
+    "first_directional_query_center_m": [
+      0.2651936624343664,
+      -0.08983971561598812,
+      1.0375570522053423
+    ],
+    "source": "read-only voxel centers enumerated from the same N08 raw occupancy snapshot; no truth input"
+  },
+  "flight": {
+    "result": "FAIL",
+    "action_goal_sent": false,
+    "service_calls": [],
+    "return_action_sent": false,
+    "position_command_samples": 0,
+    "px4_trajectory_setpoint_samples": 0,
+    "failure": "trial_corridor_or_home_pad_unknown_or_occupied"
+  },
+  "post_failure_safety": {
+    "readback_duration_wall_s": 4.0,
+    "bridge": {
+      "alignment_drift_m": 0.0,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "ab18835cdf5e4cfe8092c27afe176a50",
+      "ev_position_fused": true,
+      "ev_yaw_fused": true,
+      "frame_offset_ned": [
+        5.060434190957974e-05,
+        0.0013933171672855793,
+        -0.00020224439903096525
+      ],
+      "frame_yaw_offset_ned": 0.00012620082745140593,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": true,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "px4_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 4,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": true
+    },
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "control_message_counts": {
+      "control_mode": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0
+    },
+    "container_stopped": "exited 0"
+  },
+  "independent_evaluator": {
+    "passed": false,
+    "native_trial_failure": "trial_corridor_or_home_pad_unknown_or_occupied",
+    "error": "[Errno 2] No such file or directory: '/workspace/artifacts/runs/n08-cancel-highspeed-prescan-20261026-300/odometry-evaluation.json'",
+    "interpretation": "no complete PRESTREAM-to-LANDED evaluation input exists because the gate rejected before goal/enable; this is not a braking measurement"
+  },
+  "source_hashes": {
+    "flight.json": "9dff77956a67b0e1dc8e90629a8297fb4ad6ddcc272825dfc17ce4ad82ee80dc",
+    "n08-trial-pre-enable-admission.json": "5613826d7d81a9690f3bdec0e8d31402a0b99dfb76c4f3b62343dceab59b6d6e",
+    "n08-trial-ground-map.json": "30fc5e050f5fe2170facb6f310a1a4e9ee7156f5ad7711814c46d0d76ecbd205",
+    "n08-trial-ground-map.npz": "61a21924ace514e21d23b2e52d5d5f1d9cc572ae5687745c39407797d39a42e3",
+    "n05-post-release/n05-live-entry-check.json": "a475b613d348bb82e42e2bccde4d3ee4f5d9ce4736f84673e2286a149b2f1867",
+    "n05-current-area/n05-live-entry-check.json": "4d7a137db33347f9bc5823d21d65732592f7781d5b0afb732c3b73420460062f",
+    "post-failure-independent-live-readback.json": "1042d582aec3dc5867b9abcb7232d135d4b10636fe021874057622490c6f9b8e",
+    "n08-braking-evaluation.json": "16276b43f7af5931910750aac444c0d303a53ad9b0a0db50a6571ddb794a30ba"
+  },
+  "debug_truth_used_for_control": false,
+  "no_goal_or_control_published": true
+}

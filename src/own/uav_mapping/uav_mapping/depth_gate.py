@@ -1,4 +1,4 @@
-"""Fail-closed freshness and structural validation for one depth stream."""
+"""Structural validation for one depth stream; age is reported, not gated."""
 import math
 
 
@@ -6,7 +6,7 @@ class DepthFreshnessGate:
     STATES = {'WAITING': 0, 'READY': 1, 'STALE': 2, 'INVALID': 3, 'LOCKED': 4}
 
     def __init__(self, policy, started_wall):
-        for key in ['max_receipt_age_wall_s', 'startup_timeout_wall_s', 'status_period_wall_s']:
+        for key in ['startup_timeout_wall_s', 'status_period_wall_s']:
             if not math.isfinite(policy[key]) or policy[key] <= 0:
                 raise ValueError('Invalid depth gate limit: ' + key)
         for key in ['width', 'height']:
@@ -47,7 +47,7 @@ class DepthFreshnessGate:
             return False
         self.last_stamp_ns = stamp
         self.last_receipt_wall = wall
-        self.state, self.reason = 'READY', 'fresh_structurally_valid_depth'
+        self.state, self.reason = 'READY', 'structurally_valid_depth'
         return True
 
     def tick(self, wall):
@@ -57,6 +57,4 @@ class DepthFreshnessGate:
             if wall - self.started_wall >= self.policy['startup_timeout_wall_s']:
                 self.state, self.reason = 'STALE', 'depth_missing'
             return self.state
-        if wall - self.last_receipt_wall >= self.policy['max_receipt_age_wall_s']:
-            self.state, self.reason = 'STALE', 'depth_stale'
         return self.state

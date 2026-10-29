@@ -1,0 +1,109 @@
+{
+  "schema": "n08-n05-support-scan-health-refusal/v1",
+  "run_id": "n08-cancel-low-prescan-20261026-283",
+  "classification": "n05_scan_incomplete_health_gate",
+  "flight_trial_started": false,
+  "profile": "n08_far_small_pitch_view",
+  "configured_stage_count": 15,
+  "completed_stages": 9,
+  "failed_stage_index": 9,
+  "failed_stage_target": [
+    -1.4447920927204692,
+    1.0,
+    0.0,
+    0.0
+  ],
+  "failed_stage_current_x_m": -1.4471503312069474,
+  "failure": "localization changed or became invalid during physical scan",
+  "last_localization": {
+    "state": 3,
+    "valid": false,
+    "reason": "accel_bias_norm_exceeded",
+    "normalized_cost": 0.5141822620883597
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "identity": {
+      "epoch": "5d0bb72373fb4e008bed3de9db5f6e8e",
+      "map_id": "5d0bb72373fb4e008bed3de9db5f6e8e-e72c147c4a9342d2a9da1a569e2a7fe4",
+      "frame_id": "odom_5d0bb72373fb4e008bed3de9db5f6e8e",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    },
+    "state": {
+      "bridge_phase": "DISABLED",
+      "armed": false,
+      "control_enabled": false,
+      "landed": true,
+      "localization_valid": true,
+      "localization_state": 1,
+      "body_pose_imu_m": {
+        "center_xyz_m": [
+          -0.0007327943130483,
+          -8.848870970075128e-05,
+          0.0006675570300148002
+        ],
+        "yaw_rad": 7.108350226948558e-05,
+        "roll_rad": -4.368791539527196e-06,
+        "pitch_rad": 3.421914500831794e-05
+      }
+    }
+  },
+  "first_accel_bias_gate_cross": {
+    "sim_s": 314.196,
+    "accel_bias_norm": 0.15006874258377445,
+    "normalized_cost": null,
+    "solver_usable": true,
+    "visual_observations": 1269,
+    "long_tracks": 124
+  },
+  "peak_accel_bias": {
+    "sim_s": 319.74,
+    "accel_bias_norm": 0.1792708835377879,
+    "solver_usable": true,
+    "visual_observations": 1049,
+    "long_tracks": 104
+  },
+  "last_valid_trace": {
+    "sim_s": 314.34,
+    "localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.5130171542637939
+    },
+    "target": [
+      -1.4447920927204692,
+      1.0,
+      0.0,
+      0.0
+    ]
+  },
+  "safety_cleanup": {
+    "all_px4_arming_states_disarmed": true,
+    "final_landed": true,
+    "final_land_detector_receipt_age_wall_s": 0.18244173214770854,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "verified_detached": true,
+    "verified_landed": true,
+    "project_container_stopped": true
+  },
+  "control_or_goal_published": false,
+  "interpretation": "The scan crossed the unchanged 0.15 m/s^2 accel-bias health gate during stage 9 on the return translation from x=-2.4 toward -1.2 m, then reached 0.17927 m/s^2. Solver remained usable and recent localization cost was about 0.513; the explicit health gate invalidated localization. No N05 post-release admission or N08 mission was run. The fixture was removed and the vehicle landed/disarmed before project stop.",
+  "artifact_sha256": {
+    "fixture-result.json": "35fcdd8203570ce1bd0b2f651586f5890268da90b3ab9c28e92feaccfbecc96a",
+    "fixture-stages.json": "9e3575c7f9b437af9100be23b2532b8ba9e3d1dd504dbaf24752603c45c78fb6",
+    "fixture-vins.jsonl": "a95d67fab5964ce65ebc223ab9d76b5c2027fe523df5f3ffb0b292696074cfe2",
+    "fixture-trace.jsonl": "167159ce15e532097b5e09dcf49be3ed616e5a79725833af670d926ad2d4d23c",
+    "n05-before/n05-live-entry-check.json": "a08c183a64545fbe0cc2c0cecbb568f08a28062395141ed8155299ea7852be22",
+    "runtime-contract.json": "7a09e8cc869cfad4bae2c0b1115aa7d18cae84f849ca7268e7580877b703b397"
+  },
+  "created_at_utc": "2026-10-25T17:07:17.953792+00:00"
+}

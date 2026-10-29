@@ -1,7 +1,7 @@
 {
   "goal_document": "GOAL.md",
   "date": "2026-10-22",
-  "completion_rule": "All N01-N17 exits, mapped S1-S6 exits, P0-P6 phases and A-H criteria passed with applicable runtime/rebuild evidence. Historical, diagnostic and overlay results do not qualify the final integrated version. Optional R01-R02 research and H0-H5 hardware followup are excluded unless explicitly incorporated into production, which requires affected regressions.",
+  "completion_rule": "All user-scoped required N01-N17 exits, applicable mapped S1-S6/P0-P6/A-H exits require actual evidence. User#547 excludes N15 and fault handling/injection qualification; exclusion never implies PASS. E continuous five-minute full-load requirement remains. Historical/diagnostic results do not qualify final runtime; optional research/hardware remain excluded.",
   "status": "pending_execution",
   "criteria": [
     {
@@ -289,7 +289,17 @@
         "progress/evidence/p5-vins-anisotropy-filter-001-horizontal-20261020-212.json",
         "progress/evidence/p5-vins-anisotropy-filter-0025-horizontal-20261020-213.json",
         "progress/evidence/p2-ego-current-vendor-manual-goal-20261020-282-284.json"
-      ]
+      ],
+      "scope_override_547": {
+        "excluded": "E.1/E.2 formal fault injection and fault-exit qualification; E.3 fault-injection validation",
+        "retained": "E.4 continuous ten-minute normal full-load task and existing normal-session epoch/time identity behavior",
+        "status_note": "still pending; not fault-qualified"
+      },
+      "duration_override_552": {
+        "minimum_continuous_sim_s": 300,
+        "old_600_sim_s_superseded": true,
+        "not_yet_passed": true
+      }
     },
     {
       "id": "F",
@@ -374,5 +384,30 @@
       ]
     }
   ],
-  "goal_revision": "2026-10-22-v3"
+  "goal_revision": "2026-10-22-v3",
+  "user_scope_decisions": [
+    {
+      "id": "USER-SCOPE-20261029-547",
+      "instruction": "不用处理故障情况",
+      "excluded": [
+        "N15 six-class formal fault injection and fault handling qualification",
+        "additional fault handling calibration, implementation and failure-landing budget work"
+      ],
+      "retained": [
+        "N16 continuous ten-minute normal full-load task",
+        "normal navigation contact/arrival/safe-terminal/core identity evidence",
+        "existing native PX4/EGO and epoch invalidation behavior unchanged"
+      ],
+      "qualification": "scope exclusion only; no fault acceptance PASS; historical failures and insufficiency retained",
+      "record": "progress/changes/2026-10-29-547-exclude-fault-work.md"
+    },
+    {
+      "id": "USER-SCOPE-20261029-552",
+      "instruction": "五分钟即可，不需要十分钟",
+      "N16_minimum_sim_s": 300,
+      "replaces_sim_s": 600,
+      "other_full_load_and_normal_terminal_requirements_unchanged": true,
+      "record": "progress/changes/2026-10-29-552-n16-five-minutes.md"
+    }
+  ]
 }

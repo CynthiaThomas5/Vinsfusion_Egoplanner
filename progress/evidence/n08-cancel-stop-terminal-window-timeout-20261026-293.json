@@ -1,0 +1,85 @@
+{
+  "schema": "n08-motion-cancel-run/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-293",
+  "parent_goal": "N08",
+  "status": "fail",
+  "native_trial_failure": "cancel_stop_spline_or_measured_hold_timeout",
+  "identity": {
+    "epoch": "9289a33bfc114c1b9b34e505aa556a7e",
+    "map_id": "9289a33bfc114c1b9b34e505aa556a7e-b2823d59bade4ea3a4a13437a8a66988"
+  },
+  "admission": {
+    "n05_fixture_scan_stages_completed": 6,
+    "n05_fixture_scan_stages_required": 6,
+    "n05_post_release_online_offline": "all_entry_phases_known_and_clear",
+    "n05_diagnostic_pass": true,
+    "fixture_helper_exit_code": 1,
+    "fixture_helper_error": "fresh DISARMED status is required for every fixture command",
+    "independent_postscan_px4_readback": {
+      "bridge_phase": "DISABLED",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true,
+      "control_messages_zero": true
+    },
+    "readonly_preflight_passed": true,
+    "mission_current_area_admission_passed": true,
+    "trial_pre_enable_map_certificate_passed": true
+  },
+  "motion_cancel": {
+    "action_goal_sent": true,
+    "trigger_px4_horizontal_speed_m_s": 0.04031564994912422,
+    "trigger_ego_reference_speed_m_s": 0.05822971901778641,
+    "action_result": {
+      "status": 5,
+      "success": false,
+      "outcome": "canceled",
+      "reason": "caller_cancel"
+    },
+    "old_trajectory_id": 1,
+    "replacement_trajectory_id": 2,
+    "replacement_spline_certified": true,
+    "replacement_vector_speed_bound_m_s": 0.08961057541871668,
+    "replacement_vector_speed_limit_m_s": 0.12,
+    "replacement_reference_tube_passed": true,
+    "old_trajectory_resumed": false,
+    "stop_spline_start_sim_ns": 377252000000,
+    "stop_spline_duration_sim_s": 4.09203149456398,
+    "stop_spline_end_sim_ns": 381344031495,
+    "post_end_terminal_commands": 3578,
+    "post_end_terminal_flags": [1],
+    "terminal_adjacent_source_period_ms": 8.0,
+    "terminal_positions_stable": true,
+    "terminal_velocity_and_acceleration_zero": true,
+    "post_end_px4_samples_inside_existing_stop_gate_sim_s": 21.032,
+    "native_hold_recorded": false,
+    "destination_landing_admission_and_command_recorded": false
+  },
+  "root_cause": "terminal_reference_command inspected only the latest two READY commands and required their source stamps to differ by >=50 ms. Normal EGO publication is every 8 ms, so it repeatedly returned None and reset native stop-hold accumulation despite a stable zero-derivative endpoint.",
+  "final_safety_state": {
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "px4_armed": false,
+    "px4_landed": true,
+    "control_mode_messages": 0,
+    "trajectory_setpoint_messages": 0,
+    "vehicle_command_messages": 0,
+    "project_container_status": "exited",
+    "project_container_exit_code": 0
+  },
+  "artifact_sha256": {
+    "n05-run-summary.json": "deb43e7e753f79f0cf30f235e5fb7dd9e3be7e7ecf60a69b17569ce3468e2745",
+    "preflight.json": "0bacfac67f5eeb0675a6b39c319d2fb8d567ecf64dfe5ef996625a30c5a67ad1",
+    "n05-current-area/n05-live-entry-check.json": "f21225c329edcf2ac752451f5e9e316d18a66f606130a152e522426d22b18400",
+    "n08-trial-pre-enable-admission.json": "4aa74a3797a834436821315b374e0119a37f6072c72449b065188c8185c1d470",
+    "flight.json": "9d0c28eca41b4a21bd5f6699efa43f97235d91458aeccffd3fdfd2fd3001e51d",
+    "n08-braking-evaluation.json": "1afffab3e4ef71f0bd4ebfa2ffd76c6157a3ed00129be34add094681cb750dfd",
+    "n05-postscan-px4-readback.json": "0339205a7f575241f5b1ca1c24346cbc894e5e46b3400dfb2ba94966e9b1d0ea",
+    "post-mission-px4-readback.json": "17ddef8112988ae0608e7678df6ea0009a1784498f7777938e9821c279857610",
+    "runtime-contract.json": "22050fe84fa3e8d9f76a29d772439fc43c0f0c8b80ab277d58bd1f92bede9a3d"
+  },
+  "limitations": [
+    "The PX4 local-position stop-gate interval is diagnostic only; native hold did not complete and this run is not a pass.",
+    "The final landing followed operator-disable, not checked destination landing after the cancel stop hold."
+  ]
+}

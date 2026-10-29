@@ -1,0 +1,1152 @@
+{
+  "schema": "n08-forward-reachable-geometry-audit/v1",
+  "scope": "offline raw-map geometry replay only; no live admission, goal, enable, control, or flight",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-310",
+  "map_identity": {
+    "epoch": "e9b000e767004950a74dc74097cefedb",
+    "map_id": "e9b000e767004950a74dc74097cefedb-2bf742e022c34623b932e42d47ba45be",
+    "frame_id": "odom_e9b000e767004950a74dc74097cefedb"
+  },
+  "map_geometry": {
+    "origin_m": [
+      -20.0,
+      -20.0,
+      -1.0
+    ],
+    "resolution_m": 0.1,
+    "dimensions_xyz": [
+      400,
+      400,
+      60
+    ],
+    "raw_codes": [
+      -1,
+      0,
+      100
+    ]
+  },
+  "start_xyz_m": [
+    -0.23737149304643165,
+    -0.05754075643638277,
+    1.0363985932087505
+  ],
+  "yaw_rad": 0.04546635924412734,
+  "historical_heading_basis": {
+    "source_run_id": "n08-cancel-translation-prescan-20261026-294",
+    "source_evidence": "progress/evidence/n08-cancel-stop-qualified-replay-20261026-294.md",
+    "measurement": "PX4 local NED heading converted to ENU, paired by nearest recorded wall time to the goal PositionCommand; max absolute difference from requested yaw",
+    "goal_id": "743b047d9bf04fe197993995791199fc",
+    "command_samples": 2106,
+    "maximum_absolute_error_rad": 0.015545153883396818,
+    "maximum_pairing_wall_gap_s": 0.0008218858856707811,
+    "selected_trial_geometry_bound_rad": 0.019
+  },
+  "unchanged_limits": {
+    "spatial_uncertainty_margin_m": 0.24868204641820268,
+    "tracking_margin_m": 0.25,
+    "maximum_tracking_error_m": 0.15,
+    "reference_tube_lateral_vertical_m": 0.05,
+    "initial_reverse_allowance_m": 0.005,
+    "maximum_sample_spacing_m": 0.025,
+    "fixed_heading_deviation_bound_rad": 0.019,
+    "fixed_heading_bound_basis": "N08 #294 PX4 local heading versus requested yaw maximum absolute error 0.0155451539 rad; 0.019 rad is the geometry/query and runtime watchdog bound",
+    "unknown_occupied_outside_map_rejected": true
+  },
+  "baseline_spherical_gate": {
+    "sphere_goal_first_query": {
+      "distance_from_start_m": 0.0,
+      "center_xyz_m": [
+        -0.16237149304643167,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "longitudinal_offsets_m": [
+        -0.08,
+        -0.0625
+      ],
+      "reachable_center_bound_m": 0.24433981132056604,
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 27,
+      "free_count": 4851,
+      "occupied_count": 0,
+      "components_checked": 7,
+      "component": "rotor_1_collision"
+    },
+    "sphere_cancel_start_hold": {
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 16,
+      "free_count": 3770,
+      "occupied_count": 0,
+      "components_checked": 7,
+      "component": "rotor_1_collision"
+    },
+    "sphere_cancel_first_query": {
+      "distance_from_start_m": 0.0,
+      "center_xyz_m": [
+        -0.16237149304643167,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "longitudinal_offsets_m": [
+        -0.08,
+        -0.0625
+      ],
+      "reachable_center_bound_m": 0.24433981132056604,
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 27,
+      "free_count": 4851,
+      "occupied_count": 0,
+      "components_checked": 7,
+      "component": "rotor_1_collision"
+    },
+    "sphere_cancel_terminal_hold": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 9283,
+      "occupied_count": 0,
+      "components_checked": 10
+    }
+  },
+  "exact_shape_replay": {
+    "single_goal_forward_0p6m": {
+      "passed": false,
+      "reason": "vehicle_shape_forward_corridor_or_hold_not_clear",
+      "start_xyz_m": [
+        -0.23737149304643165,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "goal_xyz_m": [
+        0.3626285069535683,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "corridor_end_xyz_m": [
+        0.3626285069535683,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "tracking_margin_m": 0.25,
+      "body_radius_m": 0.7306179170842027,
+      "spatial_uncertainty_margin_m": 0.24868204641820268,
+      "vehicle_geometry": "locked_x500_d435i_sdf_collision_primitives",
+      "geometry_query": "primitive_aabb_superset_dilated_by_spatial_and_tracking_balls",
+      "yaw_rad": 0.04546635924412734,
+      "yaw_deviation_bound_rad": 0.019,
+      "maximum_tracking_error_m": 0.15,
+      "forward_lookahead_m": 0.075,
+      "reference_tube_lateral_vertical_m": 0.05,
+      "initial_reverse_allowance_m": 0.005,
+      "reference_tube_forward_bounds_relative_to_start_m": [
+        -0.005,
+        0.65
+      ],
+      "first_station_center_bound_m": 0.24433981132056604,
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "remaining_geometric_slack_m": 0.011721778146268125,
+      "start_hold_center_bound_m": 0.25,
+      "start_hold_available_bound_m": 0.25,
+      "start_hold_geometric_slack_m": 0.0,
+      "query_spacing_m": 0.024999999999999998,
+      "equivalent_spherical_budget_radius_m": 0.9931179170842026,
+      "cover_radius_m": 0.9931179170842026,
+      "start_hold": {
+        "accepted": true,
+        "reason": "unknown",
+        "unknown_count": 16,
+        "free_count": 3770,
+        "occupied_count": 0,
+        "components_checked": 7,
+        "component": "rotor_1_collision"
+      },
+      "required_queries": 25,
+      "queries": [
+        {
+          "distance_from_start_m": 0.0,
+          "center_xyz_m": [
+            -0.16237149304643167,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.08,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.24433981132056604,
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 27,
+          "free_count": 4851,
+          "occupied_count": 0,
+          "components_checked": 7,
+          "component": "rotor_1_collision"
+        },
+        {
+          "distance_from_start_m": 0.024999999999999998,
+          "center_xyz_m": [
+            -0.13737149304643165,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 21,
+          "free_count": 4890,
+          "occupied_count": 0,
+          "components_checked": 7,
+          "component": "rotor_1_collision"
+        },
+        {
+          "distance_from_start_m": 0.049999999999999996,
+          "center_xyz_m": [
+            -0.11237149304643165,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.075,
+          "center_xyz_m": [
+            -0.08737149304643166,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.09999999999999999,
+          "center_xyz_m": [
+            -0.062371493046431664,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.12499999999999999,
+          "center_xyz_m": [
+            -0.03737149304643167,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.15,
+          "center_xyz_m": [
+            -0.012371493046431675,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.175,
+          "center_xyz_m": [
+            0.012628506953568347,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.19999999999999998,
+          "center_xyz_m": [
+            0.037628506953568314,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.22499999999999998,
+          "center_xyz_m": [
+            0.06262850695356834,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.24999999999999997,
+          "center_xyz_m": [
+            0.0876285069535683,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.27499999999999997,
+          "center_xyz_m": [
+            0.11262850695356832,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.3,
+          "center_xyz_m": [
+            0.13762850695356835,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.32499999999999996,
+          "center_xyz_m": [
+            0.1626285069535683,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.35,
+          "center_xyz_m": [
+            0.18762850695356834,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.37499999999999994,
+          "center_xyz_m": [
+            0.2126285069535683,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.39999999999999997,
+          "center_xyz_m": [
+            0.23762850695356832,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.425,
+          "center_xyz_m": [
+            0.2626285069535683,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.44999999999999996,
+          "center_xyz_m": [
+            0.28762850695356823,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.475,
+          "center_xyz_m": [
+            0.31262850695356825,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.49999999999999994,
+          "center_xyz_m": [
+            0.3376285069535683,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.5249999999999999,
+          "center_xyz_m": [
+            0.3626285069535682,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.5499999999999999,
+          "center_xyz_m": [
+            0.3876285069535682,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.575,
+          "center_xyz_m": [
+            0.41262850695356823,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.6,
+          "center_xyz_m": [
+            0.43762850695356825,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        }
+      ],
+      "terminal_hold": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 9283,
+        "occupied_count": 0,
+        "components_checked": 10
+      },
+      "terminal_hold_center_xyz_m": [
+        0.3626285069535683,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "terminal_hold_tracking_allowance_m": 0.25
+    },
+    "motion_cancel_stop_0p5m": {
+      "passed": false,
+      "reason": "vehicle_shape_forward_corridor_or_hold_not_clear",
+      "start_xyz_m": [
+        -0.23737149304643165,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "goal_xyz_m": [
+        0.2626285069535683,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "corridor_end_xyz_m": [
+        0.2626285069535683,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "tracking_margin_m": 0.25,
+      "body_radius_m": 0.7306179170842027,
+      "spatial_uncertainty_margin_m": 0.24868204641820268,
+      "vehicle_geometry": "locked_x500_d435i_sdf_collision_primitives",
+      "geometry_query": "primitive_aabb_superset_dilated_by_spatial_and_tracking_balls",
+      "yaw_rad": 0.04546635924412734,
+      "yaw_deviation_bound_rad": 0.019,
+      "maximum_tracking_error_m": 0.15,
+      "forward_lookahead_m": 0.075,
+      "reference_tube_lateral_vertical_m": 0.05,
+      "initial_reverse_allowance_m": 0.005,
+      "reference_tube_forward_bounds_relative_to_start_m": [
+        -0.005,
+        0.55
+      ],
+      "first_station_center_bound_m": 0.24433981132056604,
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "remaining_geometric_slack_m": 0.011721778146268125,
+      "start_hold_center_bound_m": 0.25,
+      "start_hold_available_bound_m": 0.25,
+      "start_hold_geometric_slack_m": 0.0,
+      "query_spacing_m": 0.025,
+      "equivalent_spherical_budget_radius_m": 0.9931179170842026,
+      "cover_radius_m": 0.9931179170842026,
+      "start_hold": {
+        "accepted": true,
+        "reason": "unknown",
+        "unknown_count": 16,
+        "free_count": 3770,
+        "occupied_count": 0,
+        "components_checked": 7,
+        "component": "rotor_1_collision"
+      },
+      "required_queries": 21,
+      "queries": [
+        {
+          "distance_from_start_m": 0.0,
+          "center_xyz_m": [
+            -0.16237149304643167,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.08,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.24433981132056604,
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 27,
+          "free_count": 4851,
+          "occupied_count": 0,
+          "components_checked": 7,
+          "component": "rotor_1_collision"
+        },
+        {
+          "distance_from_start_m": 0.025,
+          "center_xyz_m": [
+            -0.13737149304643165,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 21,
+          "free_count": 4890,
+          "occupied_count": 0,
+          "components_checked": 7,
+          "component": "rotor_1_collision"
+        },
+        {
+          "distance_from_start_m": 0.05,
+          "center_xyz_m": [
+            -0.11237149304643165,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.07500000000000001,
+          "center_xyz_m": [
+            -0.08737149304643163,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.1,
+          "center_xyz_m": [
+            -0.062371493046431664,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.125,
+          "center_xyz_m": [
+            -0.03737149304643164,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.15000000000000002,
+          "center_xyz_m": [
+            -0.01237149304643162,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.17500000000000002,
+          "center_xyz_m": [
+            0.012628506953568347,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.2,
+          "center_xyz_m": [
+            0.03762850695356837,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.225,
+          "center_xyz_m": [
+            0.06262850695356834,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.25,
+          "center_xyz_m": [
+            0.08762850695356836,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.275,
+          "center_xyz_m": [
+            0.11262850695356838,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.30000000000000004,
+          "center_xyz_m": [
+            0.1376285069535684,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.325,
+          "center_xyz_m": [
+            0.16262850695356837,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.35000000000000003,
+          "center_xyz_m": [
+            0.1876285069535684,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.375,
+          "center_xyz_m": [
+            0.21262850695356836,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.4,
+          "center_xyz_m": [
+            0.23762850695356838,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.42500000000000004,
+          "center_xyz_m": [
+            0.2626285069535683,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6946,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.45,
+          "center_xyz_m": [
+            0.28762850695356834,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6928,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.47500000000000003,
+          "center_xyz_m": [
+            0.31262850695356836,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6929,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.5,
+          "center_xyz_m": [
+            0.3376285069535683,
+            -0.05754075643638277,
+            1.0363985932087505
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6965,
+          "occupied_count": 0,
+          "components_checked": 10
+        }
+      ],
+      "terminal_hold": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 9283,
+        "occupied_count": 0,
+        "components_checked": 10
+      },
+      "terminal_hold_center_xyz_m": [
+        0.2626285069535683,
+        -0.05754075643638277,
+        1.0363985932087505
+      ],
+      "terminal_hold_tracking_allowance_m": 0.25
+    }
+  },
+  "all_exact_queries_reject_unknown_and_occupied": false,
+  "input_sha256": {
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-310/n08-trial-ground-map.json": "4da18a3f710e8c1e64568cf42d071e891a9dcfac9106dc6f845c909e361f2c72",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-310/n08-trial-ground-map.npz": "bc346f771597faf97c3c471c74574470dd69d8a6354735248f86d4cf92784627",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-310/n08-trial-pre-enable-admission.json": "c94085bca491149cdfac82f48c70ddd5758b0b5a9b82181b16618f9c3b8025cf",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-310/n05-current-area/n05-live-entry-check.json": "0a57bf870838f92b6b9d6504daedf94c5a79ff85d9c0212975a0460e0a270a92",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-294/flight.json": "00fb6b05cdc2738735011370a9d9a6fdddafda273ccab08600d66c236bdaf3da",
+    "tools/n08_trial_gate.py": "ed59a71fb960e903f7c07c003b71cf4e03c01cba221d34625536c55856ff8f67",
+    "tools/run_n08_braking_trial.py": "e2be15d47d167bef2fb7b355163598e63dfdb31764745bd70fb74bf1520888d8",
+    "tools/n05_entry.py": "6e13627dba11ef0c58a43cabb02fddc0daabdf14a7d5139e5ef83767fe8dac2a",
+    "config/components/mapping/n08_low_speed_trial.json": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "config/components/navigation/n08_forward_braking_trial_goal.json": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+    "config/components/navigation/vehicle_envelope.json": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+    "simulation/models/x500_d435i/model.sdf": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+    "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+    "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+  },
+  "flight_qualification": false
+}

@@ -1,0 +1,419 @@
+{
+  "schema": "n10-integrated-calibration-protocol/v1",
+  "subtask_id": "N10.3/#390",
+  "status": "SITL identity recorded and frozen before goal; native preflight and action preconditions remain pending in the flight runner",
+  "formal_qualification": false,
+  "hypothesis": "A single current-profile 16 m task can supply map/replanning, physics-step body-clearance, VIO, tracking, source-time, resource and queue observations without changing runtime acceptance or adding observer-driven flight decisions.",
+  "single_scenario_variable": "No planner, controller, PX4, health threshold or native collision behavior changes. Native task dwell remains the previously calibrated 4.0 simulated seconds; only offline observers and a 60 simulated-second calibration hold are added.",
+  "runtime_contract_sha256_baseline": "6885d6b6b0595782839df5ea1d773d8455ee1290a7bcb4688378776bbbe8ed53",
+  "inputs": {
+    "spawn": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "planner": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "goal": "config/components/navigation/n10_long_range_vio_dwell4_integrated_calibration_goal.json",
+    "collision_policy": "official_ego",
+    "control_owner": "uav_px4_bridge only",
+    "project_added_age_gates": {
+      "localization_quality_and_receipt_age": "removed; raw values remain diagnostic",
+      "localization_odometry_map_receipt_age": "removed from N10 admission/action abort path",
+      "map_query_occupancy_update_and_depth_source_age": "removed by EGO patch 0054; timestamps remain in responses",
+      "px4_telemetry_source_and_receipt_age": "removed from N10 preflight/action enable/hold gate",
+      "px4_telemetry_stability_window": "removed; no consecutive 5-second requirement",
+      "localization_valid_tracking_state": "removed from N10 admission/action/bridge path; status remains observational",
+      "depth_health_state_and_minimum_valid_samples": "removed from standard mapping runtime; valid image layout and epoch/frame identity remain"
+    },
+    "px4_bridge_time_mapping": {
+      "clock_mapping_max_samples": 128,
+      "source_and_clock_wall_age_cutoffs": "removed; sample ages remain observable",
+      "monotonic_clock_rollback_and_invalid/future timestamp checks": "retained"
+    },
+    "px4_bridge_alignment": {
+      "translation_and_yaw_discrepancy_cutoffs": "removed earlier by user-authorized N10 change",
+      "alignment_pair_wall_age_cutoff": "removed; identity and EV fusion state retained",
+      "invalid_transform_refusal": "retained"
+    },
+    "retained_native_or_integrity_constraints": [
+      "PX4 native preflight and landed/unarmed/control-disabled state",
+      "PX4 external-vision fusion and no-GNSS requirement",
+      "EGO native inflated-occupied collision handling and upstream depth/odometry watchdog",
+      "VINS epoch, ROS-clock rollback, map identity and message structure",
+      "single PX4 bridge control owner"
+    ],
+    "spawn_pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "observer_velocity_extension": "tools/diagnostics/record_alignment.py (read-only; records raw VINS twist.linear)",
+    "velocity_evaluator": "tools/debug_truth/evaluate_n10_vins_velocity.py (offline diagnostic; no runtime thresholds)",
+    "native_goal_dwell_sim_s": 4.0,
+    "independent_goal_dwell_sim_s": 3.0,
+    "acceptance": "config/acceptance.json",
+    "read_only_observers": [
+      "250 Hz Gazebo D435i IMU truth pose and velocity recorder, checked against the configured 4 ms physics step",
+      "one same-identity raw/inflated occupancy snapshot with its exact archive hash",
+      "13 named box surface/interior/outside points queried against raw occupancy and official EGO planning occupancy, preserving each service source/fusion stamp",
+      "raw VINS position/yaw/velocity/RPE, READY PositionCommand tracking and source/map timing",
+      "CPU, RSS, cgroup throttle/OOM, RTF and exposed queue counters at 1 s wall cadence",
+      "independent contact, bridge and PX4 final-state records"
+    ],
+    "diagnostic_post_goal_hold_sim_s": 60.0,
+    "formal_n16_hold_sim_s": 600.0
+  },
+  "injection": {
+    "model_name": "n10_live_replan_box",
+    "world": "vio_initialization",
+    "static": true,
+    "pose_xyz_m": [
+      0.0,
+      0.0,
+      1.4
+    ],
+    "size_xyz_m": [
+      0.8,
+      0.8,
+      2.8
+    ],
+    "yaw_rad": 0.0,
+    "trigger": "NavigationCommand.target.header.stamp plus 12.0 simulated seconds; same frozen box geometry and trigger boundary used by #381/#385.",
+    "truth_used_for_trigger": false,
+    "historical_position_at_goal_plus_11_7s_xyz_m": [
+      -4.0,
+      -1.27,
+      2.64
+    ],
+    "planning_horizon_m": 5.0
+  },
+  "static_cylinder_observation": {
+    "model_name": "unit_cylinder_0",
+    "world_center_xyz_m": [
+      -1.47322,
+      3.48874,
+      0.5
+    ],
+    "radius_m": 0.5,
+    "length_m": 3.0,
+    "selection_basis": "actual prohibited contact recorded by #371, not an observer/control truth input",
+    "query_point": "at the cylinder surface facing the first matching EGO command inside 1.6 m; z follows that command",
+    "same_identity_query_radius_m": 0.3
+  },
+  "preserved_flight_observations": [
+    "runtime, planner, spawn, goal profile, run-local tool and protocol identity checked before goal submission",
+    "native 4.0 sim s task dwell and the unchanged acceptance-config joint position/yaw window in simulated source time",
+    "one dynamic box create acknowledgement, map response, first replacement spline, READY command path and terminal result",
+    "same map identity raw/inflated full snapshot; exact archive hash and source/fusion/header times; map point queries need not have an equal snapshot timestamp",
+    "six box faces, interior class counts, occupied voxel coordinates, surface/outside/interior raw and official planning-point query responses",
+    "full-body clearance evaluated at each captured 4 ms solver state only if exact grid and consecutive state coverage are confirmed; independent contact events retained",
+    "command-to-truth tracking residual related to the actual SDF/full-body clearance for this route",
+    "resource and exposed queue samples through motion, replanning, 60 sim s hold and terminal transition",
+    "landed/disarmed/control-disabled/zero-control independent bridge/PX4 readback before project processes stop"
+  ],
+  "observer_evidence_criteria": [
+    "all source and runtime identities are recorded; no data is pooled across epochs",
+    "missing, stale, off-grid, incomplete, or hash-mismatched observations remain INSUFFICIENT",
+    "all raw and planning queries preserve separate service semantics and exact response identities",
+    "truth is used only by read-only recorders and offline evaluators; no observer publishes control",
+    "CPU/RSS/queue statistics and recorder status are offline evidence only; they do not refuse takeoff, cancel, or land",
+    "no extra raw-known-free full-trajectory gate is introduced; official EGO inflated-occupied collision behavior remains native",
+    "independent terminal PX4 state is read back before stopping the stack"
+  ],
+  "diagnostic_abort": {
+    "action": "No statistic or observer failure branch is added. Preserve native EGO input timeout, native PX4 behavior and bridge safety handling.",
+    "is_final_acceptance_threshold": false,
+    "is_new_localization_health_gate": false
+  },
+  "not_frozen_by_this_protocol": [
+    "final VIO, map, tracking, clearance, replan, fault and resource thresholds",
+    "formal N10/N11-N16 qualification",
+    "N15 six-class formal repeated matrix and N16 continuous 600 simulated-second run"
+  ],
+  "acceptance_thresholds_changed": false,
+  "parent_run": "n10-20261027-381-vins-velocity-full-route",
+  "next_run_id": "n10-20261027-390-integrated-calibration",
+  "patch_0053_sha256": "529fcade428165d4101cdc660b38f1cfd0094f22f0f77d03530e5808de7bb727",
+  "parent_369_runtime_contract_sha256": "5c3cbe4d4621e7c520d323e80911a2fc0ce09ae040c22adbf313c2fc21e45c01",
+  "source_guard_removal": {
+    "localization_health_state_gates": {
+      "removed_from_N10_admission_active_action_and_bridge_landing": [
+        "LocalizationStatus.valid",
+        "LocalizationStatus.TRACKING"
+      ],
+      "source_paths": [
+        "src/own/uav_navigation/uav_navigation/task_state.py",
+        "src/own/uav_navigation/uav_navigation/node.py",
+        "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+        "tools/check_navigation_ready.py",
+        "tools/run_vio_ego_flight.py"
+      ]
+    },
+    "custom_depth_health_gate": {
+      "removed_from_standard_and_debug_truth_launch": true,
+      "adapter_subscription_and_receipt_requirement_removed": true,
+      "minimum_valid_sample_count_removed": true,
+      "layout_and_frame_checks_retained": true,
+      "invalid_pixels": "forwarded and preserved as unknown by EGO patch 0054"
+    },
+    "retained": [
+      "epoch/map_id/frame identity",
+      "clock rollback and monotonic stamp checks",
+      "PX4 native preflight/EV fusion",
+      "single bridge controller",
+      "official EGO inflated occupied and native depth/odometry watchdog"
+    ]
+  },
+  "preflight_requirements": {
+    "native_navigation_readiness": "existing PX4 preflight, EV fusion, epoch/map identity and control-owner checks remain unchanged",
+    "observer_readiness": "recorded for evidence only; absence does not refuse takeoff",
+    "contact_observer_readiness": "recorded for evidence only; absence makes contact qualification INSUFFICIENT and does not refuse takeoff",
+    "dynamic_injection_service": "attempted at the frozen event time; failure is retained as missing replan evidence and does not trigger a new takeoff refusal",
+    "metric_thresholds": "offline evaluator only; no new CPU, recorder, residual, velocity, health-wait, or raw-known-free gate"
+  },
+  "patch_0054_sha256": "215747d7aa7c6902dd80ec1aa15d3475df2b41bc89f11ebbf247821071a4350f",
+  "build_and_regression": "17 ROS packages built; 451 unit tests passed; 28 targeted bridge/process-watch/official-policy tests passed; navigation action and official_ego ROS integration probes passed.",
+  "launch_configuration": {
+    "required_environment": {
+      "D435I_PLANNER_CONFIG": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+      "D435I_SPAWN_CONFIG": "config/components/simulation/n10_long_range_spawn_minus8.json"
+    },
+    "expected_planner_launch_manifest": {
+      "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+      "max_vel": 0.8,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "official_ego_collision_policy": true
+    },
+    "expected_spawn_record": {
+      "source": "config/components/simulation/n10_long_range_spawn_minus8.json",
+      "source_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+      "spawn_pose_xyzrpy": [
+        -8.0,
+        0.0,
+        0.3,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "reason": "#375 loaded config/runtime.json at x=-6.5 m rather than the protocol spawn x=-8 m; driver identity verification now checks both resolved paths before goal submission."
+  },
+  "runtime_code_change": {
+    "source_audit": "progress/evidence/n10-project-health-gate-audit-20261027-374.json",
+    "source_fingerprint_must_be_recomputed": true,
+    "changed_fault_path": [
+      "EGO depth/odom timeout publishes an active-goal abort",
+      "PX4 bridge watches the exact EGO planner process identity during active goals"
+    ],
+    "regression": "17 ROS packages; 451 tests; targeted bridge/process-watch tests and official_ego ROS probes pass; runtime fault end state not yet calibrated."
+  },
+  "preceding_no_flight_attempts": [
+    "#372: missing D435I_PLANNER_CONFIG; no goal sent.",
+    "#373: stale removed-age-key report raised KeyError; no goal sent.",
+    "#374: source audit/build/test only; no SITL.",
+    "#375: flight ran with default x=-6.5 m spawn instead of the frozen -8 m profile; retained as a launch identity mismatch, not counted for the frozen protocol."
+  ],
+  "source_audit": "progress/evidence/n10-project-health-gate-audit-20261027-374.json",
+  "velocity_measurement": {
+    "raw_field": "nav_msgs/Odometry.twist.twist.linear on the epoch-scoped raw VINS odometry topic",
+    "source_semantics": "VINS visualization.cpp copies estimator.Vs, expressed in WORLD_FRAME_ID, into twist.linear; the recorder copies it without transformation.",
+    "truth_point": "Gazebo d435i_link, coincident with the D435i IMU; do not add base-to-sensor offset twice.",
+    "alignment": "One fixed scale-one rotation from evaluate_odometry before PRESTREAM; no path fit or per-segment re-alignment.",
+    "truth_velocity": "Centered finite difference across a symmetric 0.2 simulated-second window, with existing 0.04 s truth interpolation-gap reporting limit and no extrapolation.",
+    "reported_windows": [
+      "goal start through action-completion source stamp",
+      "post-goal ACTIVE hold through LANDED",
+      "PRESTREAM through LANDED"
+    ],
+    "acceptance_thresholds_changed": false,
+    "acceptance_thresholds_selected": false
+  },
+  "measurement_gaps_addressed": [
+    "same-identity raw/inflated map snapshot and event-local raw sphere plus official EGO planning point queries for box face, interior and outside points",
+    "250 Hz truth samples checked against each 4 ms Gazebo physics step for full-body SDF clearance",
+    "measured command-to-truth tracking residual paired with actual body clearance and obstacles",
+    "source/receipt, map/replan, resource, cgroup and exposed queue observations"
+  ],
+  "measurement_variable": "native goal dwell 4.0 sim seconds; independent truth-referenced arrival remains 3.0 sim seconds",
+  "classification": "single combined calibration run; not formal N11-N16 qualification",
+  "run_id": "n10-20261027-390-integrated-calibration",
+  "diagnostic_post_goal_hold": {
+    "simulated_seconds": 60.0,
+    "reason": "Enough to extend resource/queue samples after the representative 16 m motion and injected-obstacle replan; not a substitute for formal continuous 600 sim s N16."
+  },
+  "fault_calibration_in_this_run": false,
+  "parent_runs": [
+    "n10-20261027-381-vins-velocity-full-route",
+    "n10-20261027-385-arrival-dwell4-retry"
+  ],
+  "runtime_instrumentation_changes": {
+    "gazebo_truth_publisher_hz": 250,
+    "world_physics_max_step_s": 0.004,
+    "fault_termination_behavior_changed": true,
+    "planner_trajectory_generation_law_changed": false,
+    "runtime_acceptance_gate_added": false,
+    "project_added_takeoff_speed_refusal": false,
+    "observers_truth_input": false,
+    "truth_role": "debug_truth read-only record and offline clearance evaluation only"
+  },
+  "fault_path_audit": {
+    "depth_odom_timeout": "Current EGO callback calls stopForSafety(depth_odom_timeout), publishes goal_id/epoch-bound MODE_ABORT, latches EGO safety state, and clears target. Bridge consumes only matching active airborne goal/epoch and transitions to LAND; independent PX4 terminal readback is still required.",
+    "planner_process_exit": "Bridge records exact planner PID plus kernel start ticks for the active goal; wall-clock monitor checks every 0.1 s and publishes an epoch/goal-bound MODE_ABORT if the process exits or becomes ambiguous. Bridge fault causes landing. The code path has static/unit/build evidence but no current-version injected-flight evidence yet.",
+    "calibration_status": "not exercised in #390; depth timeout and planner exit remain separate N10.3 calibration tasks; process restart/epoch and clock rollback classes also require per-class reuse audit."
+  },
+  "fault_constraints": {
+    "no_project_residual_gate": true,
+    "no_project_empirical_speed_refusal": true,
+    "no_consecutive_health_wait": true,
+    "no_raw_known_free_full_envelope_gate": true,
+    "native_px4_preflight_ev_fusion_and_ego_collision_or_input_timeout_retained": true,
+    "statistics_and_observer_status_affect_takeoff_cancel_or_land": false
+  },
+  "model_identity": {
+    "source_path": "simulation/models/x500_d435i/model.sdf",
+    "source_sha256": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+    "truth_odometry_publish_hz": 250,
+    "world_max_step_s": 0.004,
+    "coverage_rule": "Only report physics-step coverage if every consecutive source-time physics index is actually present; otherwise full-body interval clearance is INSUFFICIENT."
+  },
+  "takeoff_policy": {
+    "native_px4_preflight_and_ev_fusion_retained": true,
+    "project_empirical_speed_refusal": false,
+    "speed_measurement": "observation only",
+    "observer_readiness": "report only; missing data cannot refuse flight"
+  },
+  "runtime_contract_file_count": 679,
+  "actual_started_runtime": {
+    "runtime_contract_path": "artifacts/runs/n10-20261027-390-integrated-calibration/runtime-contract.json",
+    "runtime_contract_sha256": "6885d6b6b0595782839df5ea1d773d8455ee1290a7bcb4688378776bbbe8ed53",
+    "runtime_contract_file_count": 679,
+    "launch_manifest_path": "artifacts/runs/n10-20261027-390-integrated-calibration-stack/launch-manifest.json",
+    "launch_manifest_sha256": "9e4d97ec7e88a55f3e9f4bad1e78f08044dfd3ecb67333ca15962a41a7f6e9f2",
+    "profile": "vio_closed_loop",
+    "planner_config_path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "effective_ego_launch_arguments": {
+      "drone_id": 0,
+      "map_size_x_": 40.0,
+      "map_size_y_": 40.0,
+      "map_size_z_": 6.0,
+      "odometry_topic": "/localization/optimized_imu_odom",
+      "camera_pose_topic": "camera_pose",
+      "depth_topic": "depth_image",
+      "cloud_topic": "cloud",
+      "cx": 320.0,
+      "cy": 240.0,
+      "fx": 337.20964008990796,
+      "fy": 337.20964008990796,
+      "max_vel": 0.8,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "odom_depth_timeout": 0.4,
+      "obstacles_inflation": 0.7306179170842027,
+      "terminal_hold_neighborhood": 0.0,
+      "official_ego_collision_policy": true,
+      "ground_height": -1.0,
+      "flight_type": 1,
+      "point_num": 1,
+      "point0_x": 0.0,
+      "point0_y": 0.0,
+      "point0_z": 0.0,
+      "obj_num_set": 0,
+      "use_distinctive_trajs": true
+    },
+    "spawn_source": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "spawn_source_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "spawn_pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "contact_manifest_sha256": "b60a3b6b1289e71f711863435b16d7530bfb665855df2b6967b9df0f158fbe0b",
+    "contact_overlay_changes_collision_geometry": false,
+    "imu_physics_contract": {
+      "imu_hz": 250.0,
+      "physics_step_s": 0.004,
+      "rate_times_step": 1.0
+    },
+    "world_source_and_instance": {
+      "models": [
+        "ground_plane",
+        "blank",
+        "unit_cylinder",
+        "unit_cylinder_0",
+        "unit_cylinder_1",
+        "unit_cylinder_0_0",
+        "unit_cylinder_0_1",
+        "unit_cylinder_0_2",
+        "unit_cylinder_0_3",
+        "unit_cylinder_0_4",
+        "unit_cylinder_0_5",
+        "unit_cylinder_0_6",
+        "unit_cylinder_2",
+        "unit_cylinder_3",
+        "unit_cylinder_4",
+        "unit_cylinder_0_6_clone",
+        "unit_cylinder_0_6_clone_clone",
+        "unit_cylinder_4_clone",
+        "unit_cylinder_0_6_clone_0",
+        "unit_cylinder_0_2_clone",
+        "unit_cylinder_2_clone"
+      ],
+      "output": "/workspace/artifacts/runs/n10-20261027-390-integrated-calibration/vio_initialization.sdf",
+      "output_sha256": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+      "project_geometry_sha256": "b954336dd36f2fdd349ef953e4a6ed69c34caa90820bca3ddbfbe78bcc28213e",
+      "project_geometry_source": "simulation/worlds/ego.sdf",
+      "px4_server_config_sha256": "60871c73e32ecde05e008aaf995e1b9c09906ca3dacb143c595522c68d399172",
+      "px4_server_config_source": "/workspace/external/PX4-Autopilot/src/modules/simulation/gz_bridge/server.config",
+      "px4_world_sha256": "457a363a22c437b788a4aaf1e2335aa149efce4e5b988cdc108065663cd879b2",
+      "px4_world_source": "/workspace/external/PX4-Autopilot/Tools/simulation/gz/worlds/default.sdf",
+      "qualification": "Imported EGO static navigation scene; no truth or prebuilt map input. World loading does not qualify VINS, planning clearance or flight.",
+      "world": "vio_initialization",
+      "world_plugins": [
+        "custom::GstCameraSystem",
+        "custom::OpticalFlowSystem",
+        "gz::sim::systems::AirPressure",
+        "gz::sim::systems::AirSpeed",
+        "gz::sim::systems::ApplyLinkWrench",
+        "gz::sim::systems::Contact",
+        "gz::sim::systems::Imu",
+        "gz::sim::systems::Magnetometer",
+        "gz::sim::systems::NavSat",
+        "gz::sim::systems::Physics",
+        "gz::sim::systems::SceneBroadcaster",
+        "gz::sim::systems::Sensors",
+        "gz::sim::systems::UserCommands"
+      ]
+    },
+    "px4_parameter_snapshot_sha256": "0a2a9862bbf21ed5dfa6d1888d3b74da6fa13a7cf481a72b162f25c6c2d185e3",
+    "px4_boot_parameter_audit_sha256": "bb06d06e13091b1289450709ccfd659fce332606c6b58379fc76cc38da728af8",
+    "px4_boot_parameter_audit_passed": true,
+    "navigation_goal_topic_graph": {
+      "path": "/navigation/ego_goal",
+      "publisher_count": 1,
+      "publisher": "uav_navigation",
+      "subscription_count": 2,
+      "subscribers": [
+        "drone_0_ego_planner_node",
+        "uav_px4_bridge"
+      ],
+      "bridge_subscription_role": "bind active goal_id/epoch to planner-process fault monitoring; no control setpoints are published on this topic"
+    }
+  },
+  "initial_bridge_readback": {
+    "artifact": "artifacts/runs/n10-20261027-390-integrated-calibration/prelaunch-px4-bridge-readback.json",
+    "artifact_sha256": "69daa0a94eb00fe258ad0e912c33846188b85932a3b7f719854961df7d209ac4",
+    "phase": "DISABLED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "ev_position_fused": true,
+    "ev_yaw_fused": true,
+    "gnss_aiding_active": false,
+    "px4_native_preflight_pass_before_offboard_prestream": null,
+    "interpretation": "Ground readback remains DISABLED/landed/disarmed/control-disabled. The PX4 native preflight flag is still false at this initial disarmed snapshot; bridge enters only its configured prestream after the read-only admission report, and requires PX4 preflight approval before Offboard/arming. If native approval remains false, arming is not requested; no local bypass is added."
+  },
+  "observer_graph_contract": "The active NavigationCommand graph has exactly one navigation publisher and two subscribers (EGO planner and PX4 bridge fault monitor); the bridge remains the exclusive PX4 control publisher."
+}

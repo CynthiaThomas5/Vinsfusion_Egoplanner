@@ -1,0 +1,251 @@
+{
+  "schema": "n08-yaw-replan-refusal/v1",
+  "run_id": "n08-20261025-273-observer-pre-enable-repeatability",
+  "overall_result": "FAIL",
+  "parent_goal_status": "in_progress",
+  "hypothesis": {
+    "change": "Destroy the unused /grid_map/occupancy PointCloud2 observer before offboard enable.",
+    "observer_removed": {
+      "topic": "/grid_map/occupancy",
+      "removed_subscription_count": 1,
+      "remaining_subscription_count": 0
+    },
+    "localization_status_samples": 2054,
+    "invalid_samples": 0,
+    "status_gap_observation": "The active-phase maximum receipt gap was about 0.079 s; the 0.344954 s gap from #271 did not recur. This single-run comparison is supportive, not causal proof."
+  },
+  "profile": {
+    "path": "config/components/mapping/n08_low_speed_trial.json",
+    "sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "max_velocity_m_s": 0.1,
+    "max_acceleration_m_s2": 0.25
+  },
+  "n05_and_preflight": {
+    "initial_ground_admission": "refused ground_plane_insufficient_raw_occupied_voxels; same-map scan and post-release checks followed.",
+    "fixture_stages_completed": 15,
+    "fixture_error": "localization changed or became invalid during physical scan",
+    "diagnostic_pass": true,
+    "post_release_admission": true,
+    "current_area_admission": true,
+    "same_epoch_and_map": true,
+    "preflight_passed": true,
+    "preflight_observed_wall_s": 40.00251482799649,
+    "max_optimized_odom_receipt_gap_wall_s": 0.12961174407973886,
+    "optimized_odom_gap_over_guard_count": 0,
+    "takeoff_settle": {
+      "passed": true,
+      "total_speed_limit_m_s": 0.03,
+      "vertical_speed_limit_m_s": 0.01,
+      "required_stable_wall_s": 1.0,
+      "observed_wait_wall_s": 4.098965134005994,
+      "stable_wall_s": 1.003941364120692,
+      "unique_px4_samples": 163,
+      "maximum_total_speed_m_s": 0.05393094914429453,
+      "maximum_absolute_vertical_speed_m_s": 0.05350267142057419,
+      "stable_since_wall_elapsed_s": 40.79728850279935,
+      "latest_px4_local_ned_velocity_m_s": [
+        0.0006200314383022487,
+        -0.0048574223183095455,
+        0.006604795344173908
+      ],
+      "latest_timestamp_sample_us": 537632000
+    }
+  },
+  "forward_braking": {
+    "reference_peak_vector_speed_m_s": 0.08029472564984155,
+    "actual_peak_horizontal_speed_m_s": 0.08105202948296773,
+    "actual_peak_vector_speed_m_s": 0.08106907313455855,
+    "actual_distance_from_reference_braking_start_m": 0.28200790495769124,
+    "response_delay_to_sustained_deceleration_s": 0.1120000000000001,
+    "independent_reference_tracking_error_max_m": 0.07191398131015904,
+    "actual_stop_dwell_position_excursion_m": 0.02004776367994097,
+    "actual_stop_observed": true,
+    "stop_dwell_sim_s": 1.0
+  },
+  "turn_approach": {
+    "action_result": {
+      "success": true,
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held"
+    },
+    "observed": {
+      "position_xyz_m": [
+        0.8307153959769361,
+        0.0101259351335174,
+        0.8987978481984793
+      ],
+      "position_error_m": 0.013167453519636135,
+      "forward_progress_m": 0.23309105283420448,
+      "lateral_progress_m": -0.0010299041723516417,
+      "yaw_enu": -0.004075692528933974,
+      "yaw_error_rad": 4.4142647305313136e-05
+    },
+    "post_positioning_map_turn_sphere_free": true
+  },
+  "yaw_turn": {
+    "requested_start_yaw_rad": -0.004075692528933974,
+    "requested_target_yaw_rad": 3.137516961060859,
+    "trip_reason": "live_yaw_turn_spline_misses_requested_heading",
+    "trip_sim_ns": 578592000000,
+    "trip_wall_elapsed_s": 97.06361578102224,
+    "trajectory_3_yaw_dt_s": 2.0,
+    "trajectory_3_conservative_rate_bound_rad_s": 0.4283512882050088,
+    "trajectory_4_yaw_dt_s": 1.0,
+    "trajectory_4_yaw_delta_rad": 0.8128654651663223,
+    "trajectory_4_conservative_rate_bound_rad_s": 2.438596395498967,
+    "existing_rate_limit_rad_s": 0.5,
+    "watchdog_contract_issue": "The monitor assumes every turn spline starts at the original yaw and contains a full pi turn. A legitimate partial replan from the current yaw violates that assumption.",
+    "partial_replan_also_exceeds_existing_yaw_rate_limit": true,
+    "ego_position_command_stationary_during_traj3": true,
+    "max_truth_horizontal_displacement_m": 0.20949040430377794,
+    "max_truth_3d_displacement_m": 0.20966825528447833,
+    "turn_position_tolerance_m": 0.05,
+    "max_px4_position_setpoint_displacement_from_first_m": 0.23757345834109733,
+    "position_discrepancy_root_cause": "The first measured divergence is between the VIO/PX4-consistent estimated pose and independent Gazebo truth; the physical cause is not isolated. The approximately 0.22376 m PX4 setpoint movement after yaw trajectory activation matches the expected rotation of the 0.12 m forward sensor lever arm.",
+    "ego_estimated_position_change_m": 0.02974736067408103,
+    "bridge_alignment_drift_max_m": 0.010107483013383732,
+    "vins_truth_error_start_m": 0.005068122323987739,
+    "vins_truth_error_max_m": 0.20054306693983642,
+    "vins_truth_error_at_watchdog_m": 0.1873050965614861,
+    "vins_truth_error_yaw_interval_samples": 286,
+    "px4_position_setpoint_delta_after_yaw_trajectory_active_ned_m": [
+      -0.08173493575304747,
+      0.20829761028289795,
+      0.0
+    ],
+    "px4_position_setpoint_delta_norm_after_yaw_trajectory_active_m": 0.22375990295877596,
+    "expected_0_12m_sensor_leverarm_compensation_norm_m": 0.22375986729693878,
+    "px4_setpoint_motion_explained_by_existing_leverarm_mapping": true
+  },
+  "completion_checks": {
+    "nonzero_reference_speed": true,
+    "reference_speed_within_trial_limit": true,
+    "actual_speed_within_abort_limit": true,
+    "meaningful_actual_displacement": true,
+    "actual_stop_and_dwell_observed": true,
+    "reference_terminal_zero_observed": true,
+    "reference_source_gaps_bounded": true,
+    "deceleration_measurement_supported": true,
+    "sustained_deceleration_response_observed": true,
+    "independent_tracking_inside_certified_margin": true,
+    "yaw_turn_observed": false,
+    "turn_position_held": false,
+    "turn_before_return": false,
+    "return_motion_forward": false,
+    "live_stationary_yaw_spline_certified": true,
+    "live_forward_return_spline_certified": false,
+    "native_trial_completed": false,
+    "n05_and_airborne_capsules_passed": true,
+    "returned_to_n05_home_pad": false,
+    "landed_and_disarmed": true,
+    "clock_did_not_regress": true,
+    "no_watchdog_violation": false,
+    "live_spline_certificates_present": true,
+    "sole_expected_publishers": true,
+    "no_truth_control": true,
+    "localization_continuous": true
+  },
+  "safety_readback_path": "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/final-safety-readback.json",
+  "stop": {
+    "project_stop_exit_code": 0,
+    "container_status": "exited",
+    "container_exit_code": 0
+  },
+  "source_sha256": {
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/flight.json": "4de2512b8074cb2c4ee43a06dce10aff168e7dc08a2ba2885038e12ce24d4bf6",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/n08-braking-evaluation.json": "09ebe78039df99ff1b22eec167296fbd98407697927bc96a528e57ccfe524ca6",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/debug-truth-evaluation.json": "0c83153e24b4a78119a7d07a65f030a6b996abc59a7166ca67e28bca4143225f",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/planner-observation.json": "815a8be51975e91dc918ed51ae6eea4355e4bb784e2fc27f734c23886cb4fd6f",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/preflight.json": "d2c9793586ba3a382833be58cb9659d010a042a50f450c34cdf003d56bc1bca8",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/n05-run-summary.json": "a5c6931dd2a17eb04a372ef39b15e7654d9388779bc543e1a9916300684e8c14",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/n08-localization-source-timeline.json": "bb9efed43bdc1612367a6049684a091a6e9e9004778acaa168f4ab350c68f064",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability-stack/launch-manifest.json": "9dc628546bc4b649ecb5f4f31df27d4910262791dc0354b4fa6f83ce7ff750f9",
+    "config/components/mapping/n08_low_speed_trial.json": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "tools/run_n08_braking_trial.py": "656215e8d0b6585ac4025344e4419fb75b6a81979ca7d514cacd22cbaa193a1c",
+    "tools/n08_trial_gate.py": "ed80b095c49d9014faa0dc970c216363c77b082d2bedc17b4db8a57630bb295e",
+    "dependencies/patches/ego/0045-stationary-yaw-only-return.patch": "5ad328ac6a48226e4b3a4fdab2cc20f81c20a020d7c851e120077bbdf0279b99",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/alignment-observation.json": "af2203445f820aa6994c97b71f23caaa388d613b5557776c6f317f5fce78ca9b",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/odometry-errors.csv": "0e505306b4e88d24d44600474428a4e3e22af55c6f374c9621fd5605c0a89354",
+    "artifacts/runs/n08-20261025-273-observer-pre-enable-repeatability/bridge-alignment-timeline.jsonl": "874c23b75d9542a22c6ce0f9c0c77608387bff565e25a64da1d170bf942c2f70",
+    "simulation/models/x500_d435i/model.sdf": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+    "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py": "f92583bfb3a7a70e8fb31962be08a871ebc6991b962bdd63929062d9195c1903",
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py": "ca8b056b2df0b3163e92a13596e7ae5aa1d67288174adddf5cd72aa9919c1f7d",
+    "src/own/uav_sim/uav_sim/geometry.py": "601b4cf9218f3fc7b39f7d6d4e777084d2149a848e73c4fe30486b1e06dba7f2"
+  },
+  "turn_position_diagnostic": {
+    "localization_status_remained_valid": true,
+    "vins_solver_usable": true,
+    "max_normalized_cost_during_yaw": 0.8226718053968873,
+    "interpretation": "Existing health gates remained open while the independently measured VIO-to-truth position error rose to about 0.20 m."
+  },
+  "goal_command_semantics": {
+    "ordinary_goal": "A single EGO NavigateToPose goal ends at its requested destination and holds/stops there; it does not imply a return.",
+    "n08_round_trip_test": "The dedicated N08 test runner explicitly sends separate destination, turn-in-place, and home NavigateToPose actions as a multi-segment test.",
+    "destination_action": "succeeded",
+    "turn_action": "aborted by the yaw-turn watchdog",
+    "home_return_action": "not sent",
+    "user_constraint": "If return is requested, end the outbound goal, stop/hold, turn about 180 degrees and confirm heading, then issue a separate forward-only EGO goal to the origin."
+  },
+  "formal_n08_exit": {
+    "ordinary_goal_requires_return_to_home": false,
+    "criteria_source": "docs/remaining-small-goals.md, N08 Exit",
+    "remaining": [
+      "Finish the controlled hold / compute-only / execute mechanism explanation or a targeted fix.",
+      "Measure braking and hold after cancellation during motion.",
+      "Freeze the full source/config/runtime version and pass at least three independent cold-start single-goal runs; each must keep reference and health continuous, stop/hold at the target, and finish landed/disarmed.",
+      "Close the speed, observation-distance, body-error-margin, latency and braking budget into N05/N06, with affected regressions after implementation/envelope changes."
+    ],
+    "same_version_qualified_run_set_count": 0,
+    "existing_outbound_braking_records": [
+      {
+        "run_id": "n08-20261025-260-terminal-braking-measurement",
+        "outbound_action_succeeded": true,
+        "braking_measurement_supported": true,
+        "actual_stop_and_dwell_observed": true,
+        "landed_and_disarmed": true,
+        "overall_combined_runner_result": "FAIL",
+        "return_failure": "return_to_n05_home_pad_failed:map_query_unknown",
+        "trial_runner_sha256": "89beedb6c403b9e7fa12cb992aeb94a9f30861f4d88c7684189b48a2ee654bcd",
+        "trial_goal_config_sha256": "d93a390b99eef7d0774c16feecdcc0beb345f26e6ffdb2619aa56702e6768892",
+        "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce"
+      },
+      {
+        "run_id": "n08-20261025-267-yaw-first-return",
+        "outbound_action_succeeded": true,
+        "braking_measurement_supported": true,
+        "actual_stop_and_dwell_observed": true,
+        "landed_and_disarmed": true,
+        "overall_combined_runner_result": "FAIL",
+        "return_failure": "yaw_reorientation_hold_volume_not_known_free:unknown",
+        "trial_runner_sha256": "b59d2a68296984c33efa49acd117be59acc88454de5a041f0220e0fae0db0cfe",
+        "trial_goal_config_sha256": "8458797e65c9a5bc7dd7a6393e3dcfa8afe029f27d4c3749a6b4d9f74dae5336",
+        "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce"
+      },
+      {
+        "run_id": "n08-20261025-273-observer-pre-enable-repeatability",
+        "outbound_action_succeeded": true,
+        "braking_measurement_supported": true,
+        "actual_stop_and_dwell_observed": true,
+        "landed_and_disarmed": true,
+        "overall_combined_runner_result": "FAIL",
+        "return_failure": "live_yaw_turn_spline_misses_requested_heading",
+        "trial_runner_sha256": "656215e8d0b6585ac4025344e4419fb75b6a81979ca7d514cacd22cbaa193a1c",
+        "trial_goal_config_sha256": "6e64be89dca0f67da36034ac5f39f9bd939bad22dbce1d077166cdf99b244c33",
+        "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce"
+      }
+    ],
+    "reason_the_three_records_do_not_form_a_qualification_set": "All three contain supported outbound braking measurements, but the trial runner and trial goal configuration fingerprints differ. Their combined trial reports also include a separate return action. Re-evaluate the outbound segments independently; do not merge them as same-version repeats."
+  },
+  "separate_return_workflow": {
+    "part_of_ordinary_goal_completion": false,
+    "user_requested_as_separate_command": true,
+    "status": "not completed; #273 stopped in the separately issued turn action before any home goal was sent.",
+    "remaining": [
+      "end/hold the outbound goal",
+      "turn about 180 degrees and confirm heading",
+      "check a fresh fused map",
+      "send a separate forward-only EGO home goal"
+    ],
+    "does_not_change_n08_single_goal_semantics": true
+  }
+}

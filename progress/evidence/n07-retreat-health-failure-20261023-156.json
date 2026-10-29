@@ -1,0 +1,170 @@
+{
+  "schema": "n07-retreat-health-failure/v1",
+  "task_id": "N07.2 #156",
+  "run_id": "n07-20261023-156-01",
+  "scope": "DISARMED preflight diagnostic; no N05 release admission and no flight",
+  "runtime_spawn_pose": "-6.5,0,0.3,0,0,0",
+  "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+  "profile": "n06_full_airframe_retreat_240_translation_only",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true
+  },
+  "scan": {
+    "completed_stages": 3,
+    "configured_stage_count": 6,
+    "recorded_stage_count": 3,
+    "stages": [
+      {
+        "leg_index": 0,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 30.016,
+        "end_sim_s": 33.068,
+        "target": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "leg_index": 1,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 33.068,
+        "end_sim_s": 45.18,
+        "target": [
+          0,
+          1.0,
+          0,
+          0
+        ]
+      },
+      {
+        "leg_index": 2,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 45.18,
+        "end_sim_s": 145.18,
+        "target": [
+          -2.4,
+          1.0,
+          0,
+          0
+        ]
+      }
+    ],
+    "trace_rows": 8598,
+    "valid_trace_rows": 8598,
+    "epoch_ids": [
+      "f6d4758176914db482409374de8d271b"
+    ],
+    "last_trace": {
+      "sim_s": 230.04,
+      "target": [
+        -0.13319861024476376,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "joints": {
+        "x": [
+          -0.13538885849169632,
+          -0.0030518317869655067
+        ],
+        "z": [
+          0.9999987784564588,
+          -4.654360040531282e-06
+        ],
+        "yaw": [
+          1.5954523025683453e-20,
+          7.341643483456568e-20
+        ],
+        "pitch": [
+          0.0003662960420414465,
+          0.001215529907963239
+        ]
+      },
+      "leg_index": 3,
+      "label": null,
+      "cycle": null,
+      "epoch": "f6d4758176914db482409374de8d271b",
+      "attachment": "attached",
+      "localization": {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.5277750214623967
+      }
+    },
+    "fixture_final_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "accel_bias_norm_exceeded",
+      "normalized_cost": 0.5244435532013018
+    }
+  },
+  "health": {
+    "trigger": "accel_bias_norm_exceeded",
+    "threshold_m_s2": 0.15,
+    "first_telemetry_at_or_above_threshold": {
+      "stamp_ns": 229848000000,
+      "sim_time_s": 229.848,
+      "accel_bias_norm_m_s2": 0.15007146992113937,
+      "gyro_bias_norm_rad_s": 8.865480446717423e-05,
+      "stereo_features": 153,
+      "continued_tracks": 176,
+      "long_tracks": 132
+    },
+    "observed_bias_max_m_s2": 0.15984051992817047,
+    "last_fixture_trace_sim_s": 230.04,
+    "scan_range_world_x_m": [
+      -8.9,
+      -6.5
+    ],
+    "comparison_n07_155_max_accel_bias_m_s2": 0.14127354892644817
+  },
+  "cleanup": {
+    "fixture_removed": true,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "px4_vehicle_states": [
+      1
+    ],
+    "container_exit_code": 0,
+    "bridge_phase_after_lock": "DISABLED",
+    "armed_after_lock": false,
+    "landed_after_lock": true
+  },
+  "post_release_n05": {
+    "accepted": false,
+    "reason": "online_snapshot_or_prerequisite_check_failed",
+    "error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge', 'clock', 'localization', 'map']",
+    "missing_inputs": [
+      "optimized_odom"
+    ],
+    "map_reason_after_lock": "map_reset_acknowledged",
+    "localization_reason_after_lock": "accel_bias_norm_exceeded"
+  },
+  "qualification": {
+    "n07_hover_run_count": 0,
+    "flight_started": false,
+    "flight_allowed": false,
+    "retry_same_2p4m_route": false
+  },
+  "hashes": {
+    "n05-run-inputs.json": "fa0fd966b0358e4f0afbb008d703e212a961640f53e5f8720a0a7e05bfd4b35a",
+    "n05-before/n05-live-entry-check.json": "1cf06d2cbf67dc33443e009c091103eb866cc132a3ec09000e0121facf255af2",
+    "fixture-result.json": "d72b8c87ac8a861ac4993e996c606fbdc43ff6532f932af2d595be181a8c2651",
+    "fixture-stages.json": "dad23c253103bdd78078e6fd7e22521601538cae595de5ce211976d84a6e3f49",
+    "fixture-trace.jsonl": "d77388c78a1321a2021d3309a0c6f923ff2b4522b02135c4763557b16e2fa328",
+    "fixture-vins.jsonl": "3959ed2d5ddc17aab96636ee5559e05e1b7067a5c68415e2cd962842ed8b9578",
+    "n05-fixture.log": "1b457809852e5c85877e44642c1e03e229ee3fd0dc34246585d0cfeb7a922e9a",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-post-release-recovery/n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e",
+    "runtime-contract.json": "f36ce6614e9642f05b921b987a0ed72bca019404f913ddff98f7f19ceb4b7a23"
+  }
+}

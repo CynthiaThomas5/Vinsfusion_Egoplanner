@@ -61,7 +61,7 @@
       "url": "https://github.com/zinuok/VINS-Fusion-ROS2",
       "reference_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
       "target_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
-      "patch_status": "Through0019 read-only per-candidate loop verification diagnostics; #074 build and unarmed fixture observation pending; no drift or flight qualification.",
+      "patch_status": "0022 default-off calibrated ideal-simulator zero gyro bias; actual production build/math and #566 continuous mission qualified; hardware bias not constrained",
       "target": "src/vendor/vins_fusion",
       "imported": true,
       "patches": [
@@ -79,10 +79,13 @@
         "dependencies/patches/vins/0016-loop-readonly-diagnostics.patch",
         "dependencies/patches/vins/0017-continuous-cost-diagnostics.patch",
         "dependencies/patches/vins/0018-prior-readonly-diagnostics.patch",
-        "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch"
+        "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch",
+        "dependencies/patches/vins/0020-readonly-estimator-queue-high-water.patch",
+        "dependencies/patches/vins/0021-readonly-native-work-queue.patch",
+        "dependencies/patches/vins/0022-calibrated-zero-gyro-bias.patch"
       ],
       "license": "GPL-3.0",
-      "evidence": "progress/evidence/p0-source-audit.json",
+      "evidence": "progress/evidence/p0-source-audit.json; progress/evidence/n16-final-completion-20261029-568.md",
       "runtime_diagnostic_evidence": "progress/evidence/p5-vio-cost-components-20261019-180.json",
       "license_file": "LICENCE",
       "license_sha256": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
@@ -93,7 +96,7 @@
         "support_files": "support_files"
       },
       "patched_files_sha256": {
-        "vins/src/estimator/estimator.cpp": "6c5860b4003be5a621b256688df573b1b189987976aeefea038d4fb4523eb535",
+        "vins/src/estimator/estimator.cpp": "afa23e7cef47ecfa1b202aabe27097507c566577e9f7a5bad1c9d2a82aa0bc4e",
         "vins/src/rosNodeTest.cpp": "fbd29ee7af50090f2ed47a52678221736ad8aacd15d424acce1b16f96a4723e8",
         "vins/src/featureTracker/feature_tracker.cpp": "701dfdc0a1f600debbed6b4b8a7d59a2ecdc1aa74070d476959d1422e73c3de5",
         "vins/src/featureTracker/feature_tracker.h": "e0481b7d21ba6b91579a0f41ad5b7fadd0b38e5609f1c0a4754da4d203e1db80",
@@ -108,7 +111,13 @@
         "loop_fusion/src/pose_graph_node.cpp": "62a16d1dce67c5f2a5ad4ef312166ddfc805349ded972b86943dc3e8fe76a7f7",
         "support_files/brief_k10L6.bin": "753e7e126c588906ad16197892bdcd914f3a0971037c8f8aeb3c63418458b035",
         "support_files/brief_pattern.yml": "cb9e20bf47d7557cd22f7820524c3cb13b3a315c451d5665955336100177cafd",
-        "loop_fusion/src/utility/CameraPoseVisualization.cpp": "e40271ea6d3ac1c7f3fe2421fe9d4b6de299bf3948f083217d1751556cbfbb7d"
+        "loop_fusion/src/utility/CameraPoseVisualization.cpp": "e40271ea6d3ac1c7f3fe2421fe9d4b6de299bf3948f083217d1751556cbfbb7d",
+        "vins/src/estimator/estimator.h": "1b4bb3ce512c284de05036321368f45779b839a9aab00641a979763c856eefee",
+        "vins/src/estimator/imu_bias_policy.h": "7a400a49ae3196c2b6ae06fb0199ef261699b969a9e3660be337f433046316dd",
+        "vins/src/estimator/parameters.cpp": "efc5530a822a44da31eef0c27f5cafafc65659a17ea2bc64b4c0e54a9ff049bd",
+        "vins/src/estimator/parameters.h": "1f419cd9217c9a814d1c7ad6852a6b79c20fe0d64b92976da9451533aec325dc",
+        "vins/src/factor/marginalization_factor.cpp": "312895a5fcab3d5cd6e11912560b121e5d2ea121be9425a3e31dc1b81a8c35c6",
+        "vins/src/factor/marginalization_factor.h": "1615606fab498e43a5dac4ff86d380c2de2464081f9f0ed19d075d2acfa72616"
       },
       "patch_sha256": {
         "dependencies/patches/vins/0001-fully-fixed.patch": "99b286a08f2d55d8da5d1bda9b450ec0d1553386e28577c814861489931f8940",
@@ -125,9 +134,12 @@
         "dependencies/patches/vins/0016-loop-readonly-diagnostics.patch": "5e049fa8babe7fc27cba2185f8b929fda49f0b2c3c4dd7cf768e3bae609f92d6",
         "dependencies/patches/vins/0017-continuous-cost-diagnostics.patch": "fdaa70d2f2e1a27477f71a5f9849734acebfba7424926c9b4a07f41990e0a030",
         "dependencies/patches/vins/0018-prior-readonly-diagnostics.patch": "09b88746f6c126b66a5e3410909280c4b1458a284e8121db4c6dd7a3ad2d03b8",
-        "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch": "bcb9af0c3131531decaeabe9c38f7f7d68f4463790dae84ee126b2c4d34d0e71"
+        "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch": "bcb9af0c3131531decaeabe9c38f7f7d68f4463790dae84ee126b2c4d34d0e71",
+        "dependencies/patches/vins/0020-readonly-estimator-queue-high-water.patch": "a3223b52b5216dab648797a23f4f49a648c1792b0791307ca6218c63ec417778",
+        "dependencies/patches/vins/0021-readonly-native-work-queue.patch": "f07f9763fb139d6572a447b9733c823462692b22f5278acce29083f409eee4fd",
+        "dependencies/patches/vins/0022-calibrated-zero-gyro-bias.patch": "0dd98c1185220101dec5ab6b0275a23cee6b6fa941caa4d0bb49b6c78a1a6dfa"
       },
-      "packaging_note": "0014 removes unneeded KITTI test executable targets and upstream config/launch install; project generates its own calibrated session. Estimator/tracker numerical source unchanged. 0015 adds the same pinned upstream loop_fusion and BRIEF assets with bounded single-session observer transport, Jazzy headers and orderly worker shutdown; no estimator/tracker or loop matching/optimization numerical changes."
+      "packaging_note": "0014 removes unneeded KITTI test executable targets and upstream config/launch install; project generates its own calibrated session. Estimator/tracker numerical source unchanged. 0015 adds the same pinned upstream loop_fusion and BRIEF assets with bounded single-session observer transport, Jazzy headers and orderly worker shutdown; no estimator/tracker or loop matching/optimization numerical changes. 0020 adds read-only estimator queue current/high-water fields to existing telemetry, with no runtime cap, drop, admission, or controller behavior."
     },
     {
       "id": "ego_planner",
@@ -144,7 +156,7 @@
         "plan_manage",
         "traj_utils"
       ],
-      "patch_status": "Canonical through0041; N06 uses the N05 body-reference sphere for raw full-curve admission and checks the configured terminal/emergency hold neighborhood; ROS build and no-control integration evidence pending.",
+      "patch_status": "Through0060: rebuild inflation from occupied sources in a source halo around cleared region; reject per-axis out-of-map inflation targets before flat addressing. Current N10.3 normal-navigation calibration excludes fault calibration by user #434.",
       "patches": [
         "dependencies/patches/ego/0001-project-interface-and-license.patch",
         "dependencies/patches/ego/0002-package-descriptions.patch",
@@ -167,7 +179,25 @@
         "dependencies/patches/ego/0038-complete-depth-rays.patch",
         "dependencies/patches/ego/0039-full-curve-admission.patch",
         "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch",
-        "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch"
+        "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch",
+        "dependencies/patches/ego/0042-query-last-completed-fusion.patch",
+        "dependencies/patches/ego/0043-n06-emergency-hold-fallback.patch",
+        "dependencies/patches/ego/0045-stationary-yaw-only-return.patch",
+        "dependencies/patches/ego/0046-cancel-stop-hold.patch",
+        "dependencies/patches/ego/0047-cancel-stop-reference-anchor.patch",
+        "dependencies/patches/ego/0048-validated-simple-waypoint-entry.patch",
+        "dependencies/patches/ego/0049-official-ego-collision-policy.patch",
+        "dependencies/patches/ego/0050-n10-spline-feasibility-diagnostics.patch",
+        "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch",
+        "dependencies/patches/ego/0052-remove-cancel-stop-speed-caps.patch",
+        "dependencies/patches/ego/0053-remove-custom-full-curve-gates.patch",
+        "dependencies/patches/ego/0054-remove-project-map-age-refusals.patch",
+        "dependencies/patches/ego/0055-depth-timeout-publishes-task-abort.patch",
+        "dependencies/patches/ego/0056-track-trajectory-heading-between-replans.patch",
+        "dependencies/patches/ego/0057-n10-yaw-rate-cap-010.patch",
+        "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch",
+        "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch",
+        "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch"
       ],
       "license": "GPL-3.0-only",
       "imported": true,
@@ -205,7 +235,25 @@
         "dependencies/patches/ego/0038-complete-depth-rays.patch": "1260c9aa72bac8f883f6944ee3923707b72a6fa279fcb91389a959645e94b26d",
         "dependencies/patches/ego/0039-full-curve-admission.patch": "1e591c0bf8796964c04813dfb6ea2843faffa625ad6e9ab0eee2bfa582b10ff1",
         "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch": "415bda74f7b180ad7904825c019c2606395361095dcaeeefd584012526856b2f",
-        "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch": "bb18641e1a1f90560d11e0ed197d273dde4918ab7e38d8a9ffb1df3268125e2e"
+        "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch": "bb18641e1a1f90560d11e0ed197d273dde4918ab7e38d8a9ffb1df3268125e2e",
+        "dependencies/patches/ego/0042-query-last-completed-fusion.patch": "52b1485d7fb938550306a76e0efb304b3afe551726e6c1ce913b3d7ed5346dbc",
+        "dependencies/patches/ego/0043-n06-emergency-hold-fallback.patch": "2496219fd45881712b46fa4083f4fc24a52e8353a22f0127b4fa7e4b8b4945d8",
+        "dependencies/patches/ego/0045-stationary-yaw-only-return.patch": "5ad328ac6a48226e4b3a4fdab2cc20f81c20a020d7c851e120077bbdf0279b99",
+        "dependencies/patches/ego/0046-cancel-stop-hold.patch": "b1f9aa0d69eb1dc9637bc7de51942666fde9c7aab054124344987d6502629d82",
+        "dependencies/patches/ego/0047-cancel-stop-reference-anchor.patch": "6ade25982dfde2a023feba218ea2482859331c9cd0cff0de2645a1cb0d6ab83b",
+        "dependencies/patches/ego/0048-validated-simple-waypoint-entry.patch": "6170c99bc3f1b86f8d469d84b69fbc4446a249b4e63d11439fdf41c2b7a30d7a",
+        "dependencies/patches/ego/0049-official-ego-collision-policy.patch": "261062a484f6ceb456a50f9923aed5d252007bb609c91acc4a2cf009dda82ba1",
+        "dependencies/patches/ego/0050-n10-spline-feasibility-diagnostics.patch": "29d48913827c8ec985f86cf0d2576a1ae34b6459c7eaf6a822811a1aeb723032",
+        "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch": "b41440d75badb304fc59684718a4b2fe9a295d1fc13485c43ee0900161f8b4d1",
+        "dependencies/patches/ego/0052-remove-cancel-stop-speed-caps.patch": "2479c81ce35a80a7b3101fe70a8ea65b6831a31d892561e155f8174308a1dd68",
+        "dependencies/patches/ego/0053-remove-custom-full-curve-gates.patch": "529fcade428165d4101cdc660b38f1cfd0094f22f0f77d03530e5808de7bb727",
+        "dependencies/patches/ego/0054-remove-project-map-age-refusals.patch": "215747d7aa7c6902dd80ec1aa15d3475df2b41bc89f11ebbf247821071a4350f",
+        "dependencies/patches/ego/0055-depth-timeout-publishes-task-abort.patch": "3fcf72a90549df588ef2f3e3bbef7e232edf9442e5cb562b6724e73d0faa5553",
+        "dependencies/patches/ego/0056-track-trajectory-heading-between-replans.patch": "37a169266482b43c847d7f388adc72ec558a04d87bd82f3f2c7f9397c1251f09",
+        "dependencies/patches/ego/0057-n10-yaw-rate-cap-010.patch": "10253a99a10573a684adaa2d5d183f76234cfef35727122709181ce7239b66a8",
+        "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch": "9f847bcef6dd2384c936491971480a12e806d0794f80c6409d27ed269649d203",
+        "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch": "88ff95d04db3fa53eb8487b722ad5c6ef1156bd17629bcbdedfb0664d1ad7e06",
+        "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch": "8c09c678c4a7239ad50a1e616857641dd59e4a9c23196c251c6bbf7949cb5344"
       },
       "reconstruction_tool": "tools/fetch_dependencies.py",
       "patch_contexts": {
@@ -302,6 +350,94 @@
           "working_directory": "src",
           "strip": 1,
           "binary": true
+        },
+        "dependencies/patches/ego/0042-query-last-completed-fusion.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0043-n06-emergency-hold-fallback.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0045-stationary-yaw-only-return.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0046-cancel-stop-hold.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0047-cancel-stop-reference-anchor.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0048-validated-simple-waypoint-entry.patch": {
+          "working_directory": ".",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0049-official-ego-collision-policy.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0050-n10-spline-feasibility-diagnostics.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": true
+        },
+        "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0052-remove-cancel-stop-speed-caps.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0053-remove-custom-full-curve-gates.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0054-remove-project-map-age-refusals.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0055-depth-timeout-publishes-task-abort.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0056-track-trajectory-heading-between-replans.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0057-n10-yaw-rate-cap-010.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
+        },
+        "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": false
         }
       },
       "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
@@ -313,14 +449,17 @@
         "src/planner/traj_utils": "planner/traj_utils"
       },
       "patched_files_sha256": {
-        "src/planner/plan_env/src/grid_map.cpp": "116f311aa2e17f716272255aa3a7097a1ddb9102888c387a7b608d647d983ce8",
-        "src/planner/plan_env/include/plan_env/grid_map.h": "0ead4086c5682c298b4945913cd348d96ed3ced32d20eff6ba79f838c723bf16",
+        "src/planner/plan_env/src/grid_map.cpp": "5f3ef8bd72022c822c1b2fe9c22d3133897e789aa02b2530afcbb49998b161b8",
+        "src/planner/plan_env/include/plan_env/grid_map.h": "2d4d457b7ffb3fd22a84d2982576147cae8cada41693c869d7196b1aac33fe8a",
         "src/planner/plan_env/include/plan_env/sphere_query.h": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809",
         "src/planner/plan_env/src/raycast.cpp": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
         "src/planner/plan_env/include/plan_env/swept_curve.h": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
-        "src/planner/plan_manage/src/ego_replan_fsm.cpp": "90836d96b77b59b2418917feb0b8d75f279c0fb3188e9fa976c3cca2610c8223",
-        "src/planner/plan_manage/include/ego_planner/ego_replan_fsm.h": "2dd351771635563f615b285ea0c68dd1b95271292aaea4c8d1a3e0b87937e8e5",
-        "src/planner/plan_manage/launch/advanced_param.launch.py": "2e0cca636f4fed64a15c4089148308155510115169b7d40839f1636cb5dd7089"
+        "src/planner/plan_manage/src/ego_replan_fsm.cpp": "cd850f2388526a729e72c9539666775eab8ae78ab39b0c32fe3459c9c34ee208",
+        "src/planner/plan_manage/include/ego_planner/ego_replan_fsm.h": "e501479ffbec9c134be7f343d006fe6b54662edf326f26c54df8aabb9f9fafb2",
+        "src/planner/plan_manage/launch/advanced_param.launch.py": "29f4b2b1894c366bf5d6d4ea58426abd40f1175f15f11b53908902f8d66a2149",
+        "src/planner/plan_manage/src/planner_manager.cpp": "ba54b725fe410e2e52fe9c0f09eb42adeeb75c7689031c2057ff43901e2b3908",
+        "src/planner/bspline_opt/src/uniform_bspline.cpp": "2dbf2ad5a6526c8b479d6874c89c048a3f028018b99125b3d50dc09db2e77a17",
+        "src/planner/plan_manage/src/traj_server.cpp": "d9b01e71a123d938a7e6d2cdaf139f7cb6a3ef55bcc7147bcb2400da1a4d97de"
       }
     },
     {
@@ -334,8 +473,8 @@
       "license": "BSD-3-Clause",
       "license_sha256": "4f486239f62804b2190ff52b3005f087cf1033342012152e6383bdad6b891cc4",
       "patch_status": "official_v1.17.0_tag_unmodified; 39_recursive_submodules_checked_out_at_gitlinks",
-      "submodules_manifest": "artifacts/runs/p0-px4-source-20261016-01/submodules.json",
-      "submodules_manifest_sha256": "d5a27ad5273a5575457650c1096e65d21850d694e82539d92b2b760278c6f577",
+      "submodules_manifest": "dependencies/manifests/px4-v1.17-recursive-submodules.json",
+      "submodules_manifest_sha256": "0b4fb8ba39b317d84b9df627fc251efa2d85a89aa23e8c4754ca5af137365591",
       "submodules_count_recursive": 39,
       "built": true,
       "build_evidence": "progress/evidence/p0-px4-firmware-build.json",
@@ -418,6 +557,6 @@
       "evidence": "progress/evidence/ego-world-import-20261021-01.json"
     }
   ],
-  "updated": "2026-10-21",
+  "updated": "2026-10-28",
   "runtime_baseline_evidence": "progress/evidence/cpu-navigation-convergence-20261021-051.json"
 }

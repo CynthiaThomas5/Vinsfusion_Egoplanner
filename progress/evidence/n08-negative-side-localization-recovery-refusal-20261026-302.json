@@ -1,0 +1,140 @@
+{
+  "schema": "n08-negative-side-scan-recovery-localization-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-302",
+  "status": "negative_y_view_reached_but_scan_health_refused_before_post_release_gate",
+  "profile": "n08_overhead_free_sector_with_negative_side_view",
+  "layout_id": "n08_overhead_calibration",
+  "profile_stage_count": 18,
+  "completed_stage_count": 15,
+  "last_completed_stage": {
+    "leg_index": 14,
+    "label": null,
+    "cycle": null,
+    "begin_sim_s": 432.796,
+    "end_sim_s": 444.888,
+    "target": [
+      0,
+      1.0,
+      0,
+      0
+    ]
+  },
+  "negative_y_view_stages_reached": [
+    12,
+    13
+  ],
+  "scan_error": "localization changed or became invalid during physical scan",
+  "last_localization": {
+    "state": 3,
+    "valid": false,
+    "reason": "normalized_cost_exceeded",
+    "normalized_cost": 1.0258473752653083
+  },
+  "health_cost_limit": 1.0,
+  "last_trace_before_lockout": {
+    "sim_s": 447.448,
+    "target": [
+      0.0,
+      0.8839566987447489,
+      0.0,
+      0.0
+    ],
+    "leg_index": 15,
+    "attachment": "attached",
+    "localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.9848539653720294
+    }
+  },
+  "last_vins_record": {
+    "schema": 1,
+    "stamp_ns": 452860000000,
+    "initialized": true,
+    "input_features": 180,
+    "stereo_features": 164,
+    "continued_tracks": 179,
+    "long_tracks": 102,
+    "window_feature_ids": 603,
+    "accel_bias_norm": 0.009386999420596183,
+    "gyro_bias_norm": 0.00071501253880314,
+    "state_finite": true,
+    "solve_current": true,
+    "solver_usable": true,
+    "termination_type": 1,
+    "initial_cost": 1746.9500774699202,
+    "final_cost": 1745.5710270920658,
+    "residual_components": 4362,
+    "visual_observations": 1145,
+    "iterations": 9,
+    "solve_seconds": 0.0203249454498291,
+    "cost_components": null
+  },
+  "pre_scan_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "epoch": "de9d4cdbe5fd40e493c1e50cfdba16f1",
+    "map_id": "de9d4cdbe5fd40e493c1e50cfdba16f1-3e6003802e654eeab810e694e50bdb82"
+  },
+  "post_release_n05_created": false,
+  "fixture": {
+    "removed": true,
+    "scene_model_absent": true,
+    "verified_detached": true,
+    "verified_landed": true,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ]
+  },
+  "independent_safety": {
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "control_counts": {
+      "control_mode": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0
+    },
+    "bridge": {
+      "alignment_drift_m": 0.0,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "de9d4cdbe5fd40e493c1e50cfdba16f1",
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "frame_offset_ned": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "frame_yaw_offset_ned": 0.0,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": false,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "localization_not_tracking"
+    },
+    "px4_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 4,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": true
+    },
+    "project_container_exit": "0"
+  },
+  "flight_started": false,
+  "goal_or_control_published": false,
+  "source_hashes": {
+    "fixture-result.json": "7522d95aef26dbba6aeb623d9e7238b97bbedbea9b9213cf610c4b7c7dfd038c",
+    "fixture-stages.json": "b1df5a01acdcb493d9b6fac6fbb068845ad20944d1741d8715f234bff559d539",
+    "n05-before/n05-live-entry-check.json": "0c5435d05fb8b0f4498da2d4737b56e56d4fa77260db3b50d19cbaa50335675c",
+    "post-scan-independent-live-readback.json": "bbdc1b99d15739ded1218843d0d82276edde459aafc5f6c72add57b5caa1d490"
+  },
+  "debug_truth_used": false
+}

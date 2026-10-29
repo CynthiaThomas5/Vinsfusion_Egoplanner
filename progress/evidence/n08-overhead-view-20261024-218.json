@@ -1,0 +1,168 @@
+{
+  "command": "N05_KEEP_SIM=1 D435I_N08_MODE=compute_only D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_calibration.json bash tools/run_n05_preflight_layout.sh n08-20261024-218-overhead-view-01 wall_box_column n08_overhead_free_sector_view",
+  "fixture": {
+    "all_vehicle_states_disarmed": true,
+    "detached": true,
+    "final_landed": true,
+    "fixture_absent_by_model_list": true,
+    "fresh_post_release_readback_accepted": true,
+    "fresh_post_release_readback_landed_disarmed": true,
+    "original_helper_error_preserved": "fresh DISARMED status is required for every fixture command",
+    "profile": "n08_overhead_free_sector_view",
+    "runner_error": "fresh DISARMED status is required for every fixture command",
+    "runner_outcome": "failed",
+    "stages_completed": 15,
+    "total_stages": 15
+  },
+  "hypothesis": "An unarmed +Y/up support observation at fixed x=0 and z=1 may clear unknown cells from the EGO orientation-invariant start/hold sphere.",
+  "interpretation": [
+    "The same-run N05 release/current-area admission passed and online/offline checks matched.",
+    "The original helper cleanup warning remains recorded; a fresh post-release readback confirmed the fixture absent, bridge disabled, landed and disarmed.",
+    "The exact production-radius sphere centered at the N05-derived hold position still contains unknown cells, so compute-only was correctly withheld and no motion experiment ran.",
+    "A -Y 0.2 m candidate sphere is free in this snapshot, but that isolated query does not establish a reachable or stoppable N08 route."
+  ],
+  "mission": {
+    "braking_measured": false,
+    "compute_only_started": false,
+    "ego_ready_observed": false,
+    "withheld_reason": "The same-run N05 snapshot has unknown cells inside the EGO start and hold spheres.",
+    "xy_executed": false
+  },
+  "n05": {
+    "diagnostic_pass": true,
+    "epoch": "500e583a98474cef918378e10e710491",
+    "freshness": {
+      "depth_source_age_sim_s": 0.108,
+      "fusion_age_sim_s": 0.02,
+      "limit_sim_s": 0.4,
+      "localization_receipt_age_wall_s": 0.02403473691083491,
+      "map_status_receipt_age_wall_s": 0.0038754099514335394,
+      "odometry_receipt_age_wall_s": 0.03462108597159386,
+      "snapshot_age_sim_s": 0.116
+    },
+    "map_id": "500e583a98474cef918378e10e710491-cc3f4938c3294b63b079d75db0a039e0",
+    "online_offline_identical": true,
+    "phase_checks": {
+      "ASCENT": {
+        "accepted_samples": 19,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 64,
+        "maximum_unknown_cells": 0,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 19
+        },
+        "samples": 19
+      },
+      "DESCENT": {
+        "accepted_samples": 19,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 64,
+        "maximum_unknown_cells": 0,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 19
+        },
+        "samples": 19
+      },
+      "HOLD": {
+        "accepted_samples": 1,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 0,
+        "maximum_unknown_cells": 0,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 1
+        },
+        "samples": 1
+      },
+      "LANDING_CONTACT": {
+        "accepted_samples": 1,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 88,
+        "maximum_unknown_cells": 0,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 1
+        },
+        "samples": 1
+      },
+      "TAKEOFF_CONTACT": {
+        "accepted_samples": 1,
+        "maximum_ground_contact_cells": 0,
+        "maximum_occupied_cells": 0,
+        "maximum_subground_excluded_cells": 88,
+        "maximum_unknown_cells": 0,
+        "refusal_counts": {
+          "raw_vehicle_envelope_known_free": 1
+        },
+        "samples": 1
+      }
+    },
+    "post_release_accepted": true,
+    "post_release_reason": "all_entry_phases_known_and_clear",
+    "same_epoch_before_after": true,
+    "same_map_before_after": true,
+    "vehicle_state": {
+      "armed": false,
+      "body_pose_imu_m": {
+        "center_xyz_m": [
+          0.20782271644494174,
+          -0.06260997167165923,
+          0.023386669120606385
+        ],
+        "pitch_rad": 0.0003088434914039736,
+        "roll_rad": 0.00018642541299572116,
+        "yaw_rad": 0.02125985712538181
+      },
+      "bridge_phase": "DISABLED",
+      "control_enabled": false,
+      "landed": true,
+      "localization_state": 1,
+      "localization_valid": true
+    }
+  },
+  "result": "DIAGNOSTIC_INCOMPLETE_FOR_N08; N08 remains in_progress",
+  "run_id": "n08-20261024-218-overhead-view-01",
+  "schema": "n08-overhead-view-diagnostic/v1",
+  "single_changed_variable": "Added yaw=+pi/2 rad and pitch=-0.45 rad support observation posture; existing safety/map gates, geometry and planner radius were unchanged.",
+  "sources": {
+    "fixture_result_sha256": "538b4c168d17346635e958edfe12f2bdf341b3149daed08226c0786ac6dc3f3b",
+    "monitor_resolution_sha256": "17aad89f69531be9bbfa53b2f13280331502624fadbabf1fadd0e8747be3b9f2",
+    "n05_post_release_report": "artifacts/runs/n08-20261024-218-overhead-view-01/n05-post-release/n05-live-entry-check.json",
+    "n05_post_release_report_sha256": "cc2333fb08e1c8456d66685743e4913b416a6bd7edb58c73c1118cde23263509",
+    "n05_run_summary_sha256": "f34f853f4dd93589175cf9a3366ca52a96dd1a06772457f415e02bb1d12fdaa5",
+    "planner_sphere_radius_m": 0.7306179170842027,
+    "query_implementation": "tools/analyze_n06_snapshot_sweep.py::query_sphere, matching plan_env::querySphere closed-cell semantics",
+    "raw_map": "artifacts/runs/n08-20261024-218-overhead-view-01/n05-post-release/n05-live-raw-map.npz",
+    "raw_map_sha256": "9657e07a516691014c112eea842f669aa6c7109345eed39050f57766855051f6"
+  },
+  "sphere_queries": {
+    "candidate_scope": "offline point query only; not a same-run N08 planner-start, curve or stopping-corridor certificate",
+    "exploratory_minus_y_0_2_center_xyz_m": [
+      0.20782271644494174,
+      -0.2626099716716592,
+      1.0233866691206064
+    ],
+    "exploratory_minus_y_0_2_query": {
+      "accepted": true,
+      "free": 2182,
+      "occupied": 0,
+      "reason": "free",
+      "unknown": 0
+    },
+    "hold_center_query": {
+      "accepted": true,
+      "free": 2165,
+      "occupied": 0,
+      "reason": "unknown",
+      "unknown": 17
+    },
+    "post_release_hold_center_xyz_m": [
+      0.20782271644494174,
+      -0.06260997167165923,
+      1.0233866691206064
+    ]
+  },
+  "subtask": "N08.2h"
+}

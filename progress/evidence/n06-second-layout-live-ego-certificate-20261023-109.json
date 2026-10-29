@@ -1,0 +1,195 @@
+{
+  "schema": "n06-second-layout-live-ego-certificate/v1",
+  "task_id": "N06.2.1",
+  "parent_goal": "N06",
+  "execution_mode": "goal_completion",
+  "result": "subtask_passed; parent_goal_in_progress",
+  "run_id": "n06-20261023-wall-r34",
+  "layout_id": "wall_box_column",
+  "run_command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r34 wall_box_column 97 motion_n06 config/components/simulation/n06_x_visibility_recorded_slow.json",
+  "basis": "#104/r29 produced an actual wall-layout curve, but live body query failed closed and the recorder ended before snapshot source stamps. r34 repeats that motion and lateral candidate with complete source coverage and the strict snapshot/live gate.",
+  "profile": {
+    "path": "config/components/simulation/n06_x_visibility_recorded_slow.json",
+    "sha256": "3698a077a98924358cd0dfeb192db078558c6849bf2adb99331ead4db0382859",
+    "record_wall_seconds": 160,
+    "motion_parameters_reused_from_r29": true,
+    "goal_offset_xyz_m": [
+      0.0,
+      0.6,
+      0.0
+    ]
+  },
+  "run": {
+    "runner_exit_code": 0,
+    "simulation_clock_s": [
+      4.962,
+      97.967
+    ],
+    "truth_samples": 9300,
+    "truth_x_min_m": -2.407445550000392,
+    "truth_x_max_m": 0.0,
+    "truth_final_xyz_m": [
+      -0.011717676000006175,
+      0.0,
+      1.0
+    ],
+    "depth_frames": 4456,
+    "camera_poses": 4456,
+    "optimized_odometry": 2228,
+    "map_status_count": 699,
+    "map_status_ready_count": 699,
+    "localization_status_count": 3199,
+    "localization_valid_count": 3199,
+    "depth_health_count": 7521,
+    "depth_health_valid_count": 7521,
+    "map_identity": {
+      "epoch": "64b0b0b043af4e9185d749cd800d0546",
+      "map_id": "64b0b0b043af4e9185d749cd800d0546-67cb90edcbb0441a817cc42425158450",
+      "frame_id": "odom_64b0b0b043af4e9185d749cd800d0546",
+      "stable": true
+    },
+    "live_freshness_s": {
+      "source_age_sim_s": 0.099,
+      "fusion_age_sim_s": 0.1,
+      "odometry_age_sim_s": 0.165,
+      "limit_sim_s": 0.4
+    }
+  },
+  "certificate": {
+    "archived_snapshots_passed": true,
+    "snapshot_reason": "all_three_source_matched_snapshots_free",
+    "snapshots": [
+      {
+        "snapshot": "snapshot-01",
+        "source_stamp_ns": 107152000000,
+        "source_pose_unique": true,
+        "source_pose_match_count": 1,
+        "identity_matches": true,
+        "source_age_s": 0.113,
+        "fusion_age_s": 0.042,
+        "body_free_voxels": 2199,
+        "body_unknown_voxels": 0,
+        "body_occupied_voxels": 0,
+        "sweep_free": true,
+        "sweep_queries": 24,
+        "hold_free_voxels": 4882,
+        "hold_unknown_voxels": 0,
+        "hold_occupied_voxels": 0,
+        "archive_sha256": "918e37c471e71a1b4ea634cce9d82d52b4588403280e86e80ca3e5c72622551b"
+      },
+      {
+        "snapshot": "snapshot-02",
+        "source_stamp_ns": 115567000000,
+        "source_pose_unique": true,
+        "source_pose_match_count": 1,
+        "identity_matches": true,
+        "source_age_s": 0.139,
+        "fusion_age_s": 0.042,
+        "body_free_voxels": 2198,
+        "body_unknown_voxels": 0,
+        "body_occupied_voxels": 0,
+        "sweep_free": true,
+        "sweep_queries": 24,
+        "hold_free_voxels": 4886,
+        "hold_unknown_voxels": 0,
+        "hold_occupied_voxels": 0,
+        "archive_sha256": "918e37c471e71a1b4ea634cce9d82d52b4588403280e86e80ca3e5c72622551b"
+      },
+      {
+        "snapshot": "snapshot-03",
+        "source_stamp_ns": 122299000000,
+        "source_pose_unique": true,
+        "source_pose_match_count": 1,
+        "identity_matches": true,
+        "source_age_s": 0.138,
+        "fusion_age_s": 0.039,
+        "body_free_voxels": 2198,
+        "body_unknown_voxels": 0,
+        "body_occupied_voxels": 0,
+        "sweep_free": true,
+        "sweep_queries": 24,
+        "hold_free_voxels": 4888,
+        "hold_unknown_voxels": 0,
+        "hold_occupied_voxels": 0,
+        "archive_sha256": "918e37c471e71a1b4ea634cce9d82d52b4588403280e86e80ca3e5c72622551b"
+      }
+    ],
+    "live_passed": true,
+    "live_body_query": {
+      "accepted": true,
+      "free": true,
+      "reason": "free",
+      "epoch": "64b0b0b043af4e9185d749cd800d0546",
+      "map_id": "64b0b0b043af4e9185d749cd800d0546-67cb90edcbb0441a817cc42425158450",
+      "frame_id": "odom_64b0b0b043af4e9185d749cd800d0546",
+      "identity_matches": true,
+      "unknown_count": 0,
+      "occupied_count": 0,
+      "free_count": 2191,
+      "body_center_xyz_m": [
+        0.02501320720133397,
+        -0.009485737264740076,
+        -0.010790254144424982
+      ],
+      "radius_m": 0.7306179170842027
+    },
+    "live_sweep": {
+      "query_count": 24,
+      "queries_completed": 24,
+      "speed_bound_m_s": 0.5,
+      "body_radius_m": 0.7306179170842027,
+      "terminal_hold_radius_m": 0.9806179170842027,
+      "first_failure": null,
+      "failed_query_count": 0
+    },
+    "live_terminal_hold": {
+      "accepted": true,
+      "free": true,
+      "reason": "free",
+      "epoch": "64b0b0b043af4e9185d749cd800d0546",
+      "map_id": "64b0b0b043af4e9185d749cd800d0546-67cb90edcbb0441a817cc42425158450",
+      "frame_id": "odom_64b0b0b043af4e9185d749cd800d0546",
+      "identity_matches": true,
+      "unknown_count": 0,
+      "occupied_count": 0,
+      "free_count": 4907
+    },
+    "full_curve_certificate": [
+      {
+        "stamp_ns": 1792739899574291701,
+        "name": "drone_0_ego_planner_node",
+        "level": 20,
+        "message": "Full-curve certificate metrics: queries=45 wall_ms=0.396 reason=free map_id=64b0b0b043af4e9185d749cd800d0546-67cb90edcbb0441a817cc42425158450"
+      }
+    ]
+  },
+  "planner_result": {
+    "goal_published": true,
+    "goal_id": "aa67afd5069b46198d107ffa44fbf7de",
+    "target_xyz_m": [
+      0.02501320720133397,
+      0.5905142627352599,
+      -0.010790254144424982
+    ],
+    "goal_event_observed": true,
+    "curve_count": 1,
+    "curve_sha256": "9a9d82c144fea35d4f7857044819fc1c82959f1bb24dd77b099d46a7a2167557",
+    "fault_count": 0,
+    "late_curves_after_fault": 0,
+    "graph_control_free": true,
+    "forbidden_nodes": [],
+    "forbidden_control_topics": [],
+    "execution": "planner-only; generated curve was not executed; no PX4, bridge, traj_server, controller, or flight"
+  },
+  "artifacts": {
+    "run-inputs.json": "e175212d2f9afa0cd3e16ddd296ddd2b3f0c11369267e14700acf51bc0f0aafc",
+    "motion.json": "5563b771be048d7b41fb7d3f6491f39a5a9a5c87c7f6b8857c48b0930b53283c",
+    "inputs/mapping-inputs.json": "cdda293ce8155622f729f38359e26d5c768a47e37a43f2b000fcaaef9988768f",
+    "n06-live-layout-probe.json": "8a76947b0e446be61ff76ea8f907b62587a9ba0461c4a90260cb8b3074ee93ec"
+  },
+  "unresolved": [
+    "Hold and emergency-hold transition, replanning/handoff, and new-obstacle/late-curve/wrong-identity/stale/query-failure/resource rejection matrix remain open.",
+    "Neither planner-only curve was executed; this is not flight, braking, or PX4 evidence."
+  ],
+  "next_subtask": "N06.2.2: verify actual terminal/emergency hold, replanning handoff, and fail-closed identity/freshness/resource/query fault cases with the existing control-free path."
+}

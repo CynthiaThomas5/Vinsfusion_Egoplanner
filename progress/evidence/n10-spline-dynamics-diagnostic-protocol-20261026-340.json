@@ -1,0 +1,47 @@
+{
+  "schema": "n10-independent-calibration-protocol/v1",
+  "report_id": 340,
+  "date": "2026-10-26",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "protocol_frozen_before_build_and_sitl",
+  "run_id": "n10-20261026-340-spline-dynamics-diagnostics",
+  "scope": "Single-D435i official_ego PX4/SITL diagnostic; diagnostic logs only; not N11-N16 acceptance evidence.",
+  "hypothesis": {
+    "one_primary_variable": "Enable EGO patch 0050 diagnostics-only logging at the final spline dynamics gate; do not change trajectory generation, limits, task, or acceptance thresholds.",
+    "basis": "#337 and #339 were safely refused at the same final spline feasibility gate, but current logs lack per-axis velocity/acceleration maxima and individual normalized ratios.",
+    "criterion": "Capture each final spline check and refine index with per-axis absolute velocity and acceleration maxima, limits, tolerance, velocity_ratio, acceleration_ratio, and overall ratio; use these measured values to identify the dominant rejected term.",
+    "termination": "Any established N09 runner health/telemetry, clock, action, contact, or timeout failure preserves existing bridge-owned landing behavior. If the goal unexpectedly succeeds, continue through original 600 sim-second post-goal hold. No retries under this protocol."
+  },
+  "fixed_inputs": {
+    "prior_run": "n10-20261026-339-horizon2-16m",
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "planner_profile": "config/components/mapping/n10_horizon2_calibration.json",
+    "patch": "dependencies/patches/ego/0050-n10-spline-feasibility-diagnostics.patch",
+    "planner_horizon_m": 2.0,
+    "max_velocity_m_s_per_axis": 0.1,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "obstacles_inflation_m": 0.7306179170842027,
+    "odom_depth_timeout_sim_s": 0.4,
+    "collision_policy": "official_ego",
+    "camera": "single D435i",
+    "px4_control_owner": "uav_px4_bridge only",
+    "online_truth_allowed": false,
+    "task": {
+      "target_offset_enu_m": [16.0, 0.0, 0.1],
+      "yaw_offset_rad": 0.2,
+      "dwell_sim_s": 3.0,
+      "action_timeout_sim_s": 360.0,
+      "post_goal_active_hold_sim_s": 600.0,
+      "goal_wall_watchdog_s": 1500.0,
+      "hold_wall_watchdog_s": 2400.0,
+      "clock_stall_wall_s": 15.0
+    }
+  },
+  "change_record": "progress/changes/2026-10-26-340-n10-spline-diagnostics.md",
+  "dialogue": "collaboration/dialogues/2026-10-26-340-n10-spline-diagnostics.md",
+  "evidence_source": [
+    "progress/evidence/n10-long-range-calibration-20261026-337.md",
+    "progress/evidence/n10-horizon2-calibration-20261026-339.md"
+  ]
+}

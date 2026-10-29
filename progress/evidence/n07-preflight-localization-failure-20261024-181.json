@@ -1,0 +1,199 @@
+{
+  "artifact_sha256": {
+    "fixture-odometry.jsonl": "9fb0becb0fb9c57b04a6dbe0f850901f6d68aaec930718f5b149f60adb7d9c09",
+    "fixture-result.json": "b69302a67c45e34f3dbd108d9f3b6e11dfd1be7387d30d8236ad0f13a1745e8d",
+    "fixture-stages.json": "f5ea6c2381e0816a58be152352087b9565b8b1ba0bfd0c8d6d811ed8214db327",
+    "fixture-trace.jsonl": "cc63b32321fd98c9e74fdbdcc77dd9a9fd8ebd7a5d7841a8e38c1cc449d37aa4",
+    "fixture-vins.jsonl": "c0593c9b8e7738970f521d33431a0663df80850c0c770d39b98a3892670e216a",
+    "gpu-request.json": "408545c45700f62fbe5065ab06e1e2a072d07d4cff8b3226ab9b269ccb7d6743",
+    "n05-after-settle/n05-live-entry-check-error.json": "0a74eaa7655a324fab4e03c948d3563d816367f0402034e76f7b85ce8df9402e",
+    "n05-after/n05-live-entry-check.json": "669ce2ded7b973f4cbc7def8808304ab89fd98eb1eda108a3f634d124606c024",
+    "n05-after/n05-offline-entry-replay.json": "cc14099701216622450e955e9c8b09614261626d0c58584d2c8975669bd3eaa8",
+    "n05-attached-settle.json": "38a46e44c8231e0bc4469f2cdd006003d7aa74f8221fc98315d72e5f860eabf1",
+    "n05-before/n05-live-entry-check.json": "2e45eac6affd25b38da01da182f117693f5683718d74c613f42ecb91897fd411",
+    "n05-before/n05-offline-entry-replay.json": "c4d1f2c3998d7df4f9809ad52770ca384f005b93a5bd6a7dc7016c5f1b5b0347",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-fixture.log": "a215f8157415a55abd5b87acae101d5f6faa6c700fe92316494d297abd2a7fd8",
+    "n05-prescan-ready.json": "b29e5873504ed621bea77b2d1bc2c149ce4ede888002597b1541736623bea403",
+    "n05-release-fixture": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "n05-run-inputs.json": "a137aaedcf05a311e520e5e75f58dfea0dab9472799c1d31f1b6728fb42dcd1d",
+    "postscan-safety-readback.log": "18b745d6ba2dddce9219c638dd33e8aaae43cdd31300a2e4af2eae896baf6746",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "consecutive_passes_after_reset": "0/3",
+  "container": {
+    "exit_code": 0,
+    "final_status": "exited",
+    "stopped_by": "bash tools/project.sh stop n07-20261024-181-01"
+  },
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout_id": "wall_box_column",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "flight": {
+    "armed": "false",
+    "bridge_phase": "DISABLED",
+    "bridge_reason": "localization_not_tracking",
+    "control_enabled": "false",
+    "ev_position_fused": "false",
+    "ev_yaw_fused": "false",
+    "flight_json_created": false,
+    "gnss_aiding_active": "false",
+    "land_detector_landed": "true",
+    "landed": "true",
+    "local_position_valid": "false",
+    "px4_arming_state": "1",
+    "reason_not_started": "Post-settle N05 attached prerequisite timed out at localization_not_tracking; fail closed."
+  },
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "limitations": [
+    "No N07 hover run occurred; this attempt contributes no cold-start pass.",
+    "The early attached N05 gate was read-only and accepted, but it does not override the later localization_not_tracking failure.",
+    "Localization telemetry reached state 4/invalid (telemetry_stale) by support-scan cleanup; no recovery threshold or timeout was changed."
+  ],
+  "n05_gate": {
+    "early_attached_gate": {
+      "accepted": true,
+      "freshness": {
+        "depth_source_age_sim_s": 0.132,
+        "fusion_age_sim_s": 0.036,
+        "limit_sim_s": 0.4,
+        "localization_receipt_age_wall_s": 0.036385206039994955,
+        "map_status_receipt_age_wall_s": 0.2481767910066992,
+        "odometry_receipt_age_wall_s": 0.021667083026841283,
+        "snapshot_age_sim_s": 0.108
+      },
+      "identity": {
+        "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+        "epoch": "0c31f662925a48d5bf1a3b4960331703",
+        "frame_id": "odom_0c31f662925a48d5bf1a3b4960331703",
+        "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+        "map_id": "0c31f662925a48d5bf1a3b4960331703-becb9b0d0faf490bb3d84ccbb9b98980"
+      },
+      "offline_accepted": true,
+      "offline_matches_online": true,
+      "reason": "all_entry_phases_known_and_clear"
+    },
+    "freshness_limit_sim_s": 0.4,
+    "initial_refusal": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope"
+    },
+    "measured_attached_settle": {
+      "control_or_goal_published": false,
+      "epoch": "0c31f662925a48d5bf1a3b4960331703",
+      "fixture_attachment": "attached",
+      "initial_attached_gate_read_only_accepted": true,
+      "map_id": "0c31f662925a48d5bf1a3b4960331703-becb9b0d0faf490bb3d84ccbb9b98980",
+      "marker_to_initial_gate_report_wall_s": 22.586034774780273,
+      "measured_wall_s": 2.0000728429295123,
+      "px4_arming_state": 1,
+      "ready_marker": "artifacts/runs/n07-20261024-181-01/n05-prescan-ready.json",
+      "requested_wall_s": 2.0,
+      "scope": "Explicit disarmed fixture-attached settle before a repeated unchanged N05 gate; first read-only attached gate already accepted",
+      "truth_input_used": false
+    },
+    "orchestration_deviation": {
+      "cause": "The first settle script asserted the nonexistent marker key px4_arming_state instead of vehicle_arming_state. The shell lacked set -e, so it continued to the read-only attached gate without the intended explicit sleep.",
+      "marker_to_first_gate_report_wall_s": 22.586034774780273,
+      "no_enable_arm_or_goal": true,
+      "recovery": "After verifying the actual marker fields, a deliberate 2.0000728429 s attached/DISARMED wait was recorded before one unchanged repeated N05 gate."
+    },
+    "post_settle_gate_error": {
+      "accepted": false,
+      "control_or_goal_published": false,
+      "error": "N05 online prerequisites did not become ready: localization_not_tracking",
+      "qualification": "fail-closed read-only diagnostic; no entry authorization",
+      "reason": "online_snapshot_or_prerequisite_check_failed",
+      "schema": "n05-live-entry-check-error/v1",
+      "truth_subscribed": false
+    },
+    "ready_marker": {
+      "attachment": "attached",
+      "completed_stages": 12,
+      "control_or_goal_published": false,
+      "epoch": "0c31f662925a48d5bf1a3b4960331703",
+      "layout_id": "wall_box_column",
+      "map_id": "0c31f662925a48d5bf1a3b4960331703-becb9b0d0faf490bb3d84ccbb9b98980",
+      "profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+      "truth_input_used": false,
+      "vehicle_arming_state": 1
+    }
+  },
+  "n07_status": "in_progress",
+  "result": "FAIL_NO_FLIGHT",
+  "run_id": "n07-20261024-181-01",
+  "schema": "n07-no-goal-hover-run-evidence/v1",
+  "support_scan": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "completed_stages": 12,
+    "final_landed": true,
+    "fixture_may_remain_attached": false,
+    "fixture_removal_confirmation": {
+      "method": "gz model --list after detach/removal request",
+      "remove_service_acknowledged": true,
+      "scene_model_absent": true,
+      "scene_model_names": [
+        "blank",
+        "ground_plane",
+        "n05_wall_box_column_0",
+        "n05_wall_box_column_1",
+        "unit_cylinder",
+        "unit_cylinder_0",
+        "unit_cylinder_0_0",
+        "unit_cylinder_0_1",
+        "unit_cylinder_0_2",
+        "unit_cylinder_0_2_clone",
+        "unit_cylinder_0_3",
+        "unit_cylinder_0_4",
+        "unit_cylinder_0_5",
+        "unit_cylinder_0_6",
+        "unit_cylinder_0_6_clone",
+        "unit_cylinder_0_6_clone_0",
+        "unit_cylinder_0_6_clone_clone",
+        "unit_cylinder_1",
+        "unit_cylinder_2",
+        "unit_cylinder_2_clone",
+        "unit_cylinder_3",
+        "unit_cylinder_4",
+        "unit_cylinder_4_clone",
+        "x500_d435i_0"
+      ]
+    },
+    "fixture_removed": true,
+    "helper_error": "localization changed or became invalid during physical scan",
+    "land_detected_values": [
+      true
+    ],
+    "last_localization": {
+      "normalized_cost": 0.4388615920583165,
+      "reason": "telemetry_stale",
+      "state": 4,
+      "valid": false
+    },
+    "outcome": "failed",
+    "safety_cleanup": {
+      "attempted": true,
+      "error": "",
+      "final_land_detector_landed": true,
+      "final_land_detector_receipt_age_wall_s": 0.48535806010477245,
+      "verified_detached": true,
+      "verified_landed": true
+    },
+    "trace_rows": 13267,
+    "vehicle_states": [
+      1
+    ],
+    "vehicle_status_samples": 887,
+    "vins_samples": 2419,
+    "vins_solver_usable_current_finite": 2419
+  }
+}

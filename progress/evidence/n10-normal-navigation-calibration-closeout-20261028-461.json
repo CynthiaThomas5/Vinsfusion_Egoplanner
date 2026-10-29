@@ -1,0 +1,668 @@
+{
+  "schema": "n10-normal-navigation-calibration-closeout/v1",
+  "record": "#461",
+  "date": "2026-10-28",
+  "parent_goal": "N10",
+  "parent_status": "in_progress",
+  "subtasks_closed": [
+    "N10.3 normal-navigation calibration evidence for current candidate scope",
+    "N10.4 draft acceptance evaluator replay"
+  ],
+  "scope": {
+    "normal_navigation_only": true,
+    "fault_calibration_excluded_by": "#434",
+    "formal_N11_to_N16_credit": false,
+    "N15_N16_after_freeze": true
+  },
+  "run": {
+    "run_id": "n10-20261028-460-maxcnt220-kinematics-integrated",
+    "runtime_contract_sha256": "a956bdb68779306c6786db8e6e7a694eb42cf6217613e757a5452e04b4d82b3d",
+    "goal_id": "163839f854ce40409885632884291319",
+    "epoch": "055de95a11dc4f7bb520f0d9f8f227ba",
+    "map_id": "055de95a11dc4f7bb520f0d9f8f227ba-a4e1e8a76ca04ed086e323a06e8ad39c",
+    "identity_matches": true,
+    "action_success": true,
+    "active_hold_sim_s": 20.0,
+    "terminal": "independent LANDED/disarmed/control-disabled/zero-control readback passed"
+  },
+  "acceptance_replay": {
+    "config": "config/acceptance.json",
+    "revision": 8,
+    "status": "draft",
+    "config_sha256": "9a49da186d970ed9a49eb0fb4fa28b5b23cad9c17198a9563d7d63b0cea3ce63",
+    "overall_status": "INSUFFICIENT",
+    "required_metrics_passed": 13,
+    "required_metric_count": 13,
+    "fault_metric_status": "INSUFFICIENT",
+    "fault_metric_required": false,
+    "truth_reference_status": "PASS",
+    "archived_source_hashes_match": true,
+    "metrics": [
+      {
+        "id": "arrival_position_yaw_dwell",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "direct_goal_contract",
+        "comparisons": [
+          {
+            "metric": "joint_dwell_sim_s",
+            "value": 3.5960000000000036,
+            "threshold": 3.0,
+            "operator": ">=",
+            "unit": "sim_s"
+          },
+          {
+            "metric": "max_truth_source_gap_sim_s",
+            "value": 0.004,
+            "threshold": 0.04,
+            "operator": "<=",
+            "unit": "sim_s"
+          }
+        ]
+      },
+      {
+        "id": "raw_vio_absolute_error",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "provisional_candidate",
+        "comparisons": [
+          {
+            "metric": "goal_motion_position_p95_m",
+            "value": 0.12118136237576438,
+            "threshold": 0.5,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "goal_motion_position_sample_max_m",
+            "value": 0.12951446360148058,
+            "threshold": 0.6,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "goal_motion_absolute_yaw_p95_deg",
+            "value": 1.1065154012921667,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "goal_motion_absolute_yaw_sample_max_deg",
+            "value": 1.168490779110222,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "active_hold_position_p95_m",
+            "value": 0.10095267196597416,
+            "threshold": 0.5,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "active_hold_position_sample_max_m",
+            "value": 0.10136101877009113,
+            "threshold": 0.6,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "active_hold_absolute_yaw_p95_deg",
+            "value": 1.3252614514319663,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "active_hold_absolute_yaw_sample_max_deg",
+            "value": 1.3309450601943231,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "landing_position_p95_m",
+            "value": 0.1004383934537851,
+            "threshold": 0.5,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "landing_position_sample_max_m",
+            "value": 0.10049151353941296,
+            "threshold": 0.6,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "landing_absolute_yaw_p95_deg",
+            "value": 1.3690038742789425,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "landing_absolute_yaw_sample_max_deg",
+            "value": 1.3711141406718548,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "full_task_position_p95_m",
+            "value": 0.11944453164463245,
+            "threshold": 0.5,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "full_task_position_sample_max_m",
+            "value": 0.12951446360148058,
+            "threshold": 0.6,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "full_task_absolute_yaw_p95_deg",
+            "value": 1.3200048197078584,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "full_task_absolute_yaw_sample_max_deg",
+            "value": 1.3711141406718548,
+            "threshold": 15.0,
+            "operator": "<=",
+            "unit": "deg"
+          }
+        ]
+      },
+      {
+        "id": "raw_vio_rpe_10s",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "provisional_candidate",
+        "comparisons": [
+          {
+            "metric": "goal_motion_translation_p95_m",
+            "value": 0.0422132355168094,
+            "threshold": 0.05,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "goal_motion_rotation_p95_deg",
+            "value": 0.16218763908856465,
+            "threshold": 0.5,
+            "operator": "<=",
+            "unit": "deg"
+          },
+          {
+            "metric": "active_hold_translation_p95_m",
+            "value": 0.00446995597733747,
+            "threshold": 0.05,
+            "operator": "<=",
+            "unit": "m"
+          },
+          {
+            "metric": "active_hold_rotation_p95_deg",
+            "value": 0.09348947417887646,
+            "threshold": 0.5,
+            "operator": "<=",
+            "unit": "deg"
+          }
+        ]
+      },
+      {
+        "id": "raw_vio_velocity_error",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "provisional_candidate",
+        "comparisons": [
+          {
+            "metric": "goal_motion_p95_m_s",
+            "value": 0.010329106766221336,
+            "threshold": 0.05,
+            "operator": "<=",
+            "unit": "m/s"
+          },
+          {
+            "metric": "goal_motion_sample_max_m_s",
+            "value": 0.016989326167533396,
+            "threshold": 0.1,
+            "operator": "<=",
+            "unit": "m/s"
+          },
+          {
+            "metric": "active_hold_p95_m_s",
+            "value": 0.0013661094394662784,
+            "threshold": 0.01,
+            "operator": "<=",
+            "unit": "m/s"
+          },
+          {
+            "metric": "active_hold_sample_max_m_s",
+            "value": 0.0025514715445416987,
+            "threshold": 0.03,
+            "operator": "<=",
+            "unit": "m/s"
+          }
+        ]
+      },
+      {
+        "id": "map_source_and_update_age",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "provisional_offline_observation",
+        "comparisons": [
+          {
+            "metric": "offline_source_age_sample_max_sim_s",
+            "value": 0.164,
+            "threshold": 0.2,
+            "operator": "<=",
+            "unit": "sim_s"
+          },
+          {
+            "metric": "offline_occupancy_update_age_sample_max_sim_s",
+            "value": 0.1,
+            "threshold": 0.2,
+            "operator": "<=",
+            "unit": "sim_s"
+          }
+        ]
+      },
+      {
+        "id": "ego_tracking_error",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "scene_geometry_calibrated_by_n10_20261028_460",
+        "reason": "tracking samples meet the scene SDF/body-clearance criterion; scalar translation bound remains diagnostic"
+      },
+      {
+        "id": "ego_tracking_clearance_budget",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "scene_geometry_calibrated_by_n10_20261028_460",
+        "comparisons": [
+          {
+            "metric": "minimum_actual_component_clearance_m",
+            "value": 0.11002095190326192,
+            "threshold": 0.1,
+            "operator": ">=",
+            "unit": "m"
+          },
+          {
+            "metric": "maximum_truth_bracket_gap_sim_s",
+            "value": 0.004,
+            "threshold": 0.004,
+            "operator": "<=",
+            "unit": "sim_s"
+          }
+        ],
+        "reason": "tracking samples meet the scene SDF/body-clearance criterion; scalar translation bound remains diagnostic"
+      },
+      {
+        "id": "full_body_clearance_and_contact",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "identity_bound_solver_step_and_interval_calibration_by_n10_20261028_460",
+        "comparisons": [
+          {
+            "metric": "minimum_full_body_clearance_m",
+            "value": 0.11002095190326192,
+            "threshold": 0.1,
+            "operator": ">=",
+            "unit": "m"
+          },
+          {
+            "metric": "truth_max_source_gap_sim_s",
+            "value": 0.004,
+            "threshold": 0.004,
+            "operator": "<=",
+            "unit": "sim_s"
+          },
+          {
+            "metric": "prohibited_contact_event_count",
+            "value": 0.0,
+            "threshold": 0.0,
+            "operator": "<=",
+            "unit": "events"
+          }
+        ]
+      },
+      {
+        "id": "raw_map_surface_geometry",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "provisional_resolution_candidate",
+        "comparisons": [
+          {
+            "metric": "observed_surface_center_error_max_m",
+            "value": 0.071312467980993,
+            "threshold": 0.1,
+            "operator": "<=",
+            "unit": "m"
+          }
+        ]
+      },
+      {
+        "id": "raw_map_classification",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "partial_semantic_support",
+        "comparisons": [
+          {
+            "metric": "truth_occluded_known_free_voxel_count",
+            "value": 0.0,
+            "threshold": 0.0,
+            "operator": "<=",
+            "unit": "voxels"
+          }
+        ]
+      },
+      {
+        "id": "dynamic_replanning",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "event_geometry_derived_calibration_candidate",
+        "comparisons": [
+          {
+            "metric": "safe_replacement_delay_sim_s",
+            "value": 2.972,
+            "threshold": 14.818,
+            "operator": "<=",
+            "unit": "sim_s"
+          },
+          {
+            "metric": "first_safe_READY_command_source_stamp_ns",
+            "value": 105108000000.0,
+            "threshold": 116954000000.0,
+            "operator": "<",
+            "unit": "sim_ns"
+          },
+          {
+            "metric": "safe_replacement_spline_body_margin_m",
+            "value": 0.3149644102035541,
+            "threshold": 0.1,
+            "operator": ">=",
+            "unit": "m"
+          },
+          {
+            "metric": "minimum_post_replacement_spline_body_margin_m",
+            "value": 0.2520207654753122,
+            "threshold": 0.1,
+            "operator": ">=",
+            "unit": "m"
+          },
+          {
+            "metric": "below_margin_post_replacement_spline_count",
+            "value": 0.0,
+            "threshold": 0.0,
+            "operator": "<=",
+            "unit": "splines"
+          },
+          {
+            "metric": "minimum_full_body_clearance_m",
+            "value": 0.11002095190326192,
+            "threshold": 0.1,
+            "operator": ">=",
+            "unit": "m"
+          },
+          {
+            "metric": "minimum_airborne_interval_clearance_lower_bound_m",
+            "value": 0.10308652753537924,
+            "threshold": 0.1,
+            "operator": ">=",
+            "unit": "m"
+          },
+          {
+            "metric": "prohibited_contact_event_count",
+            "value": 0.0,
+            "threshold": 0.0,
+            "operator": "<=",
+            "unit": "events"
+          },
+          {
+            "metric": "first_positive_cloud_point_count",
+            "value": 12.0,
+            "threshold": 1.0,
+            "operator": ">=",
+            "unit": "points"
+          },
+          {
+            "metric": "identity_bound_surface_raw_occupied_count",
+            "value": 295.0,
+            "threshold": 1.0,
+            "operator": ">=",
+            "unit": "voxels"
+          },
+          {
+            "metric": "identity_bound_surface_inflated_count",
+            "value": 295.0,
+            "threshold": 1.0,
+            "operator": ">=",
+            "unit": "voxels"
+          },
+          {
+            "metric": "post_replacement_ready_command_count",
+            "value": 11188.0,
+            "threshold": 1.0,
+            "operator": ">=",
+            "unit": "commands"
+          },
+          {
+            "metric": "post_replacement_paired_command_count",
+            "value": 11188.0,
+            "threshold": 11188.0,
+            "operator": ">=",
+            "unit": "commands"
+          },
+          {
+            "metric": "post_replacement_actual_component_clearance_m",
+            "value": 0.11002095190326192,
+            "threshold": 0.1,
+            "operator": ">=",
+            "unit": "m"
+          }
+        ],
+        "reason": "margin-qualified replanning occurred before the event-specific predicted clearance boundary; actual command and 4 ms full-body evidence pass"
+      },
+      {
+        "id": "fault_exit_to_terminal_px4_state",
+        "status": "INSUFFICIENT",
+        "required_for_this_scope": false,
+        "evidence_status": "excluded_from_n10_3_by_explicit_user_scope_decision_434",
+        "reason": "calibration inputs or a frozen numeric basis are not yet present"
+      },
+      {
+        "id": "resource_and_queue_behavior",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "platform_capacity_and_queue_observation_calibrated_by_n10_20261028_460",
+        "comparisons": [
+          {
+            "metric": "cgroup_cpu_core_equivalent_max",
+            "value": 15.80989609869106,
+            "threshold": 32.0,
+            "operator": "<=",
+            "unit": "cores"
+          },
+          {
+            "metric": "cgroup_memory_peak_bytes",
+            "value": 3741339648.0,
+            "threshold": 66882437120.0,
+            "operator": "<=",
+            "unit": "bytes"
+          },
+          {
+            "metric": "resource_sample_gap_wall_s",
+            "value": 1.1444985449779779,
+            "threshold": 2.0,
+            "operator": "<=",
+            "unit": "s"
+          },
+          {
+            "metric": "mapping_depth_high_water",
+            "value": 8.0,
+            "threshold": 8.0,
+            "operator": "<=",
+            "unit": "items"
+          },
+          {
+            "metric": "mapping_pending_depth_max",
+            "value": 7.0,
+            "threshold": 8.0,
+            "operator": "<=",
+            "unit": "items"
+          },
+          {
+            "metric": "vins_current_queue_depth_trend_items_per_sim_s",
+            "value": 0.0,
+            "threshold": 0.0,
+            "operator": "<=",
+            "unit": "items/sim_s"
+          }
+        ],
+        "reason": "observed calibration load remained within captured platform/cgroup capacity; bounded mapping queue stayed within its configured capacity; VINS queue capacity remains explicitly unknown"
+      },
+      {
+        "id": "observer_identity_binding",
+        "status": "PASS",
+        "required_for_this_scope": true,
+        "evidence_status": "required_capture_integrity_only"
+      }
+    ]
+  },
+  "measurements": {
+    "joint_arrival_dwell_sim_s": 3.596,
+    "goal_motion_vio_position_p95_max_m": [
+      0.1211813624,
+      0.1295144636
+    ],
+    "goal_motion_vio_yaw_p95_max_deg": [
+      1.1065154,
+      1.1684908
+    ],
+    "goal_motion_rpe10_translation_rotation_p95": [
+      0.04221324,
+      0.16218764
+    ],
+    "hold_rpe10_translation_rotation_p95": [
+      0.00446996,
+      0.09348947
+    ],
+    "goal_vio_velocity_error_p95_max_m_s": [
+      0.01032911,
+      0.01698933
+    ],
+    "map_source_age_max_sim_s": 0.164,
+    "map_update_age_max_sim_s": 0.1,
+    "map_surface_error_max_observed_m": 0.07131247,
+    "map_faces_observed": [
+      "x_negative",
+      "y_negative",
+      "y_positive",
+      "z_negative",
+      "z_positive"
+    ],
+    "map_faces_unobserved": [
+      "x_positive"
+    ],
+    "truth_occluded_known_free_cells": 0,
+    "tracking_ready_command_pairing": [
+      14381,
+      14381
+    ],
+    "tracking_error_p95_max_m": [
+      0.31966787,
+      0.33522418
+    ],
+    "actual_component_clearance_min_m": 0.11002095,
+    "continuous_airborne_interval_lower_bound_min_m": 0.10308653,
+    "physics_states_intervals": [
+      30664,
+      30663
+    ],
+    "max_solver_step_gap_s": 0.004,
+    "prohibited_contacts": 0,
+    "replanning_cloud_after_injection_sim_s": 6.596,
+    "predicted_clearance_deadline_remaining_sim_s": 14.818,
+    "safe_replacement_delay_sim_s": 2.972,
+    "ready_lead_before_boundary_sim_s": 11.846,
+    "qualified_post_replan_splines": 582,
+    "min_post_replan_body_margin_m": 0.25202077,
+    "resource_samples": 295,
+    "resource_wall_duration_s": 298.3115,
+    "cpu_max_core_equivalent_capacity": [
+      15.8099,
+      32.0
+    ],
+    "cgroup_memory_peak_host_total_bytes": [
+      3741339648,
+      66882437120
+    ],
+    "mapping_pending_depth_capacity": [
+      7,
+      8
+    ],
+    "mapping_depth_keyframe_drops": [
+      22,
+      21
+    ],
+    "vins_queue_current_depth_trend_items_per_sim_s": 0.0,
+    "vins_queue_capacity": "unknown"
+  },
+  "cross_run_policy": {
+    "#381_#385_#436_pair_status": "INSUFFICIENT",
+    "samples_stitched_or_pooled": false,
+    "note": "#381/#385/#436 have different runtime/config/model or installation identities; #460 supplies current candidate full-run evidence. #457 is an offline max_cnt=220 replay, not flight qualification."
+  },
+  "runtime_effect": {
+    "thresholds_changed": false,
+    "online_source_changed": false,
+    "new_runtime_gate": false,
+    "raw_run_archive_modified": false
+  },
+  "verification": {
+    "py_compile": "passed",
+    "unittest": "51 passed",
+    "command": "python3 -m unittest tools.test_n10_acceptance tools.test_n10_interval_clearance_bound tools.test_n10_tracking_clearance tools.test_n10_replan_reference -v"
+  },
+  "limitations": [
+    "Single calibration run, not repeated or formal qualification.",
+    "Map surface result is limited to five observed faces; x_positive is unsupported.",
+    "Negative translation-only tracking lower bounds remain diagnostics, not collision findings.",
+    "VINS estimator queue capacity is unknown and not inferred from high-water.",
+    "Host memory limit comparison uses total RAM, not per-sample free RAM.",
+    "Continuous clearance bound covers the captured Gazebo/X500 model only; not real-aircraft certification.",
+    "Fault response remains unqualified per user #434; historical failures are unchanged.",
+    "The 20 sim s diagnostic hold does not replace N16 continuous 600 sim s."
+  ],
+  "sha256": {
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/runtime-contract.json": "87006dbc8578dcdec06a9d0d83e2f4f59b094040c64eb0cc85f261f612156bfb",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/flight.json": "fccb77ebc20892965441b19a6cacd2e7d4d156faae1e4543a6be41ecbf57e89d",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/n10-calibration-evaluation.json": "0c57d128b168f976f831d2c1c1952c0c04cbc92c5404d9128b1eaf6af298d249",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/n10-cross-run-calibration-with-436.json": "40c4b307381f18b1473dc6d0f6538db9ef1f478dc9e85f732ea3f230cfec5f2e",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/n10-resource-observation.json": "2ba7afe0e9af92fa358588d7b601262a428022c2b5265ab8e0113b8de14e6cff",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/n10-run-manifest.json": "4154a5b28b3d4f8759a378c23c78ad0a617a2672e615bc90755beaaf97d8fc40",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/n10-px4-model-source.json": "5d11661ec8dd4a0b88783e0fa6c609c8a3d496285c80449e947e3e3d7c789e9d",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/n10-box-map-snapshot-analysis.json": "6569062837af68caaaac92010c3f64bd44c414b4fdd0fe281293d78e887149d3",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/debug-truth-kinematics.jsonl": "35e270d712a4fcbd759e4015409c4ad2c7fded2a10a044be32fed2cea86ca701",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/contacts.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "artifacts/runs/n10-20261028-460-maxcnt220-kinematics-integrated/postflight-px4-bridge-readback.json": "253e860a4f8f03a0f40aca3f0cd8b13836706d8702b9959cbaffd9e6919d5a65",
+    "artifacts/reanalysis/n10-20261028-460-component-geometry/n10-interval-clearance-bound.json": "6977cd96db3a6f5a7bb13e18e5951b4de37a7ced42c1579edbd3e9545fb04f72",
+    "artifacts/reanalysis/n10-20261028-460-component-geometry/n10-tracking-clearance-relation-v3.json": "582c4e001fdda44e8d88d5182a0faaa7cfb901a505c2ecbba0554ae8046b28b6",
+    "artifacts/reanalysis/n10-20261028-460-component-geometry/n10-obstacle-replan-timing-analysis-v3.json": "7ad8f97871d8bf6384d070b9388333acd708834b36d9abb01fb3cd8104ab5a85",
+    "artifacts/reanalysis/n10-20261028-460-component-geometry/n10-platform-capacity.json": "ec9d20601c05b8f5db670fb2ebfed3e616e776e619cbd1c7f0fc0879004f0b92",
+    "artifacts/reanalysis/n10-20261028-460-component-geometry/n10-acceptance-evaluation.json": "6a45f7e16a7dda6a1b579d408e6455f84534ecb5c3ab00e6dabe86168a8722c9",
+    "config/acceptance.json": "9a49da186d970ed9a49eb0fb4fa28b5b23cad9c17198a9563d7d63b0cea3ce63",
+    "tools/debug_truth/evaluate_n10_acceptance.py": "c381aeedba1ca49f466de47341256c1a12dc54959ff45f58905e0f7b58b0fae5",
+    "tools/debug_truth/evaluate_n10_interval_clearance_bound.py": "7c6d37b9bee2d8b0fce6b8f26d5ac007f312544efb015fcc5866847b20942941",
+    "tools/debug_truth/evaluate_n10_tracking_clearance.py": "1f24e0be426e72880e008b98d0126a93dc2d09f97575d220f9fd0fab85886a16",
+    "tools/debug_truth/evaluate_n10_replan_geometry.py": "054430de08908fb44fc9de8046c73a6df5e54455c217eb2e4ead894601c46a76"
+  },
+  "next_subtask": "N10.5 isolated clean fetch/build with fresh ROS build/install/log and PX4 build output"
+}

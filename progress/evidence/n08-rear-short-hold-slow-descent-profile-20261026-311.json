@@ -1,0 +1,37 @@
+{
+  "schema": "n08-n05-profile-static/v1",
+  "date": "2026-10-26",
+  "subtask": "#311",
+  "profile": "n08_overhead_free_sector_negative_y_rear_short_hold_slow_descent",
+  "baseline_profile": "n08_overhead_free_sector_negative_y_rear_short_hold",
+  "change": {
+    "stage_index": 14,
+    "field": "duration_sim_s",
+    "baseline_s": 8,
+    "candidate_s": 12,
+    "all_other_stage_data_equal": true,
+    "total_duration_delta_sim_s": 4
+  },
+  "scan_stages": 17,
+  "health_or_geometry_thresholds_changed": false,
+  "single_goal_flight_direction_changed": false,
+  "profile_test": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest tools.test_preflight_scan",
+    "result": "PASS",
+    "tests": 42
+  },
+  "static_checks": {
+    "profile_json_parse": "PASS",
+    "host_wrapper_bash_syntax": "PASS",
+    "project_status_structure_design": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "sitl_qualification": false,
+  "sha256": {
+    "config/components/simulation/preflight_scan.json": "78e4001fc13510440c0c2ef65bdb90611e8a5554629ad51ffac116ad26b55f9e",
+    "tools/probe_preflight_scan.py": "f6088e2795a26fe631de41c2dc21c467a66f3dda4dbb5a0ae45e7ee91639cae8",
+    "tools/run_n05_preflight_layout.sh": "563c5e7a4c039b1a48b47cf29e8388d7bf6ba1c45cf781d25a3835aebfbaff7f",
+    "tools/test_preflight_scan.py": "0d9aaf714dab77261c8b5642416d0ac22900173b81e942309f62dbb9aa326ffe"
+  },
+  "next_run_id": "n08-cancel-highspeed-prescan-20261026-311"
+}

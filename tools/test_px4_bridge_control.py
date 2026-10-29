@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / 'src/own/uav_px4_bridge'))
 
 from uav_px4_bridge.control_state import (  # noqa: E402
     OffboardSupervisor,
-    receipt_limits_fresh,
+    matching_planner_abort_reason,
     readiness_failure,
 )
 
@@ -59,17 +59,18 @@ def supervisor(retry_limit=3):
 
 
 class Px4BridgeControlTests(unittest.TestCase):
-    def test_per_topic_receipt_limits_expire_fast_and_slow_telemetry_separately(self):
-        now_ns = 2_000_000_000
-        self.assertTrue(receipt_limits_fresh(now_ns, (
-            (1_500_000_000, 0.5),
-            (1_000_000_000, 1.5),
-        )))
-        self.assertFalse(receipt_limits_fresh(now_ns, (
-            (1_499_000_000, 0.5),
-            (1_000_000_000, 1.5),
-        )))
-        self.assertFalse(receipt_limits_fresh(now_ns, ((None, 1.5),)))
+    def test_planner_abort_matches_only_current_airborne_goal_and_epoch(self):
+        accepted = matching_planner_abort_reason(
+            0, 0, 'goal-a', 'epoch-a', 'goal-a', 'epoch-a',
+            'full_curve_depth_odom_timeout', True)
+        self.assertEqual(accepted, 'planner_fault:full_curve_depth_odom_timeout')
+        for fields in (
+                (1, 0, 'goal-a', 'epoch-a', 'goal-a', 'epoch-a', 'stop', True),
+                (0, 0, 'goal-a', 'epoch-a', 'goal-old', 'epoch-a', 'stale', True),
+                (0, 0, 'goal-a', 'epoch-a', 'goal-a', 'epoch-old', 'stale', True),
+                (0, 0, 'goal-a', 'epoch-a', 'goal-a', 'epoch-a', 'ground', False)):
+            with self.subTest(fields=fields):
+                self.assertEqual(matching_planner_abort_reason(*fields), '')
 
     def test_enable_gate_requires_ev_fusion_and_rejects_each_gnss_aiding(self):
         self.assertEqual(readiness_failure(ready_snapshot(ev_position_fused=False),
@@ -147,13 +148,14 @@ class Px4BridgeControlTests(unittest.TestCase):
         self.assertFalse(expired.publish_offboard)
         self.assertEqual(expired.reason, 'offboard_preflight_timeout')
 
-    def test_prestream_health_loss_returns_to_closed_state_without_arming(self):
+    def test_project_receipt_age_flags_do_not_gate_prestream(self):
         machine = supervisor()
         self.assertTrue(machine.enable(ready_snapshot(), 1.0)[0])
-        result = machine.step(ready_snapshot(odometry_fresh=False), 1.2)
-        self.assertEqual(result.phase, machine.DISABLED)
-        self.assertFalse(result.publish_offboard)
-        self.assertEqual(result.reason, 'external_odometry_stale')
+        result = machine.step(ready_snapshot(
+            localization_tracking=False, odometry_fresh=False,
+            clock_fresh=False, px4_telemetry_fresh=False), 1.2)
+        self.assertEqual(result.phase, machine.PRESTREAM)
+        self.assertTrue(result.publish_offboard)
 
     def test_offboard_command_retry_limit_locks_without_arm(self):
         machine = supervisor(retry_limit=2)
@@ -164,6 +166,14 @@ class Px4BridgeControlTests(unittest.TestCase):
         expired = machine.step(ready_snapshot(), 4.0)
         self.assertEqual(expired.phase, machine.LOCKED)
         self.assertEqual(expired.reason, 'offboard_command_timeout')
+
+    def test_losing_offboard_before_arm_enters_landing_with_command(self):
+        machine = supervisor()
+        machine.phase = machine.REQUEST_ARM
+        lost = machine.step(ready_snapshot(
+            armed=False, landed=False, nav_offboard=False), 2.0)
+        self.assertEqual((lost.phase, lost.command), (machine.LANDING, 'land'))
+        self.assertEqual(lost.reason, 'offboard_mode_lost_before_arm')
 
     def test_takeoff_needs_position_velocity_dwell_then_lands_on_health_loss(self):
         machine = supervisor()
@@ -202,6 +212,35 @@ class Px4BridgeControlTests(unittest.TestCase):
                                             landed=False, trajectory_ready=False), 2.4)
         self.assertEqual((lost.phase, lost.command), (machine.LANDING, 'land'))
         self.assertFalse(lost.publish_offboard)
+
+    def test_landing_command_retries_until_px4_ack_or_native_descent(self):
+        machine = supervisor(retry_limit=3)
+        machine.phase = machine.ACTIVE
+        snapshot = ready_snapshot(armed=True, landed=False)
+        first = machine.disable(snapshot, 1.0)
+        self.assertEqual((first.phase, first.command), (machine.LANDING, 'land'))
+
+        before_retry = machine.step(snapshot, 1.5)
+        self.assertEqual(before_retry.command, '')
+        retry = machine.step(snapshot, 2.0)
+        self.assertEqual(retry.command, 'land')
+
+        snapshot['px4_landing_active'] = True
+        native_descent = machine.step(snapshot, 2.1)
+        self.assertEqual(native_descent.phase, machine.LANDING)
+        self.assertEqual(native_descent.command, '')
+
+    def test_landing_command_retry_limit_does_not_claim_terminal(self):
+        machine = supervisor(retry_limit=2)
+        machine.phase = machine.ACTIVE
+        snapshot = ready_snapshot(armed=True, landed=False)
+        machine.disable(snapshot, 1.0)
+        self.assertEqual(machine.step(snapshot, 2.0).command, 'land')
+        exhausted = machine.step(snapshot, 3.0)
+        self.assertEqual(exhausted.phase, machine.LANDING)
+        self.assertEqual(exhausted.command, '')
+        self.assertIn('land_command_unconfirmed', exhausted.reason)
+        self.assertFalse(exhausted.phase == machine.LANDED)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,78 @@
+{
+  "schema": "n06-observation-pilot/v1",
+  "record_id": 102,
+  "date": "2026-10-23",
+  "goal_mode": "completion",
+  "goal_scope": "N06",
+  "parent_status": {
+    "N06": "in_progress",
+    "S4": "in_progress",
+    "next_goal": "N06"
+  },
+  "run_id": "n06-20261023-wall-r27",
+  "profile": {
+    "path": "config/components/simulation/n06_yaw_continuous_15deg_quarter_accel.json",
+    "sha256": "f2953f5903fa1dde29a6b3443a1df4ae166acbd8757bc67db79771b3aa82ce7c",
+    "nominal_yaw_deg": 15.0,
+    "actual_truth_yaw_deg": 14.730994192060853,
+    "angular_acceleration_rad_s2": 0.002617993877991494,
+    "continuous_motion": true
+  },
+  "initial_readiness": {
+    "ready": true,
+    "epoch": "227afbf2ee324531be882b325745fb62",
+    "map_id": "227afbf2ee324531be882b325745fb62-12b15190ca4542339e7e7e616751e896"
+  },
+  "health_gate": {
+    "sim_time_s": 62.404,
+    "reason": "normalized_cost_exceeded",
+    "vins_n_pts": 2,
+    "vins_estimated_yaw_deg": 10.160522008416368,
+    "latched_normalized_cost": 1.3415509781985364,
+    "normalized_cost_limit": 1.0,
+    "first_invalid_localization_status_sim_s": 62.478,
+    "first_invalid_truth_yaw_deg": 9.85213649204241,
+    "last_valid_localization_status_sim_s": 62.432,
+    "map_reset_sim_s": 62.569,
+    "map_reset_reason": "map_reset_acknowledged",
+    "map_identity_changed": true
+  },
+  "input_recording": {
+    "requested_wall_seconds": 150,
+    "actual_wall_seconds": 152.519,
+    "depth_frame_count": 1762,
+    "camera_pose_count": 1762,
+    "optimized_odometry_count": 881,
+    "last_depth_pose_source_sim_s": 62.338,
+    "map_ready_after_reset": false
+  },
+  "snapshots": {
+    "count": 0,
+    "snapshot_01_result": "timeout",
+    "timeout_seconds": 120,
+    "reason": "MapStatus is not ready: map_reset_acknowledged"
+  },
+  "live_ego_probe": "not_run",
+  "runner_exit_code": 1,
+  "cleanup": {
+    "project_container_stopped": true,
+    "matching_project_processes_stopped": true
+  },
+  "artifacts": {
+    "run_inputs": "artifacts/runs/n06-20261023-wall-r27/run-inputs.json",
+    "motion": "artifacts/runs/n06-20261023-wall-r27/motion.json",
+    "mapping_inputs": "artifacts/runs/n06-20261023-wall-r27/inputs/mapping-inputs.json",
+    "mapping_stack_log": "artifacts/runs/n06-20261023-wall-r27/mapping-stack.log",
+    "mapping_inputs_sha256": "01ea90236e53421b4ccec3b5efe92a2c6d65f3d4b77bcc5063af1a39c37eed31",
+    "motion_sha256": "0b0e4c7ecae856b94ca5b2a1922f0c393dc454bd4d75fb7c9379b545be8040ba",
+    "mapping_stack_log_sha256": "030dd31ed5715829970651f70845f1e91b6515733e9e1359d16729281408e79a"
+  },
+  "interpretation": "The same continuous low-rate yaw motion that passed a 2-degree pilot remained healthy only to approximately 9.85 degrees truth yaw. No fresh map or planner evidence exists after the latched health failure; this pilot does not pass N06.",
+  "next_hypothesis": {
+    "run_id": "n06-20261023-wall-r28",
+    "profile": "config/components/simulation/n06_x_visibility_slow.json",
+    "profile_sha256": "653733f873234da35fb38af4f80771707190bd21df595372c88fa2924234988f",
+    "single_primary_variable": "sensor motion changes from continuous yaw to one-axis X translation while retaining the wall layout and textured surround",
+    "acceptance": "LocalizationStatus stays valid and MapStatus identity/depth remain fresh through the out-and-back motion; after return to origin capture three matching snapshots, recheck body/hold sphere queries and run planner-only EGO with strict identity/freshness gates."
+  }
+}

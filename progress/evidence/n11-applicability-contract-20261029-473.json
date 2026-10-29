@@ -1,0 +1,33 @@
+{
+  "schema": "n11-preparation-evidence/v1",
+  "id": "N11.2a/#473",
+  "status": "preparation_subtask_complete",
+  "parent_status": "in_progress",
+  "formal_pass_count": 0,
+  "formal_required_count": 3,
+  "protocol_status": "preparation",
+  "hashes": {
+    "config/acceptance.json": "7cf226ee4c471d49fec05f25eede1c9c127cd97fc22f0ae371ba13681d599750",
+    "docs/protocols/n11-empty-scene.json": "a15224c8585acc7522cdc12c647f4321d8a5cdafb94aee17db489d4b52af893e",
+    "tools/n11_acceptance_contract.py": "233e3740d931761bed18cc9cb108ec7fd2679f7bb73944438077f31ad77e4997",
+    "tools/test_n11_acceptance_contract.py": "56a22759d0535929340bb0b260b24c4c70b012239b448752211114f4c1b47f1c"
+  },
+  "tests": {
+    "command": "PYTHONPATH=tools python3 -m unittest tools/test_n11_acceptance_contract.py",
+    "count": 13,
+    "result": "PASS"
+  },
+  "archive_replays": {
+    "N11_472_ground_only": "INSUFFICIENT; not eligible",
+    "N10_460_nonempty_scene": "FAIL; not eligible"
+  },
+  "new_flight": false,
+  "new_gui_session": false,
+  "frozen_numeric_thresholds_changed": false,
+  "frozen_candidate_modified": false,
+  "remaining": [
+    "N11.2b read-only static wall snapshot collector and map geometry/classification evaluator integration",
+    "N11.2c complete end-to-end recording and evaluation rehearsal; release protocol only after evidence",
+    "N11.3 first GUI formal cold start"
+  ]
+}

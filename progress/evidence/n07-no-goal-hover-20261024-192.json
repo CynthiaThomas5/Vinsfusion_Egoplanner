@@ -1,0 +1,432 @@
+{
+  "artifact_sha256": {
+    "alignment-observation.json": "c11e82306b0f4fda35c5a59f1f60ff1d7c1955baf7080f1459f96e90bfa8f688",
+    "bridge-alignment-timeline-phase-transitions.jsonl": "fc7917bd8954f45c05d940c2151492bc2c6d4490bcf550d944f6f3afc28df7fa",
+    "bridge-alignment-timeline-phase-transitions.jsonl.manifest.json": "064ce2bddd5bd4d95706c4800e3bed3cb3ca6d92fa6779b4fc65e3b67d03cde1",
+    "bridge-alignment-timeline.jsonl": "7aaa7c77476e5301962ea6a5fb7b5a39fade32fa5d000728799704f751d2dc2c",
+    "debug-truth-evaluation.json": "4400a872890fbf49e5c357bd90c5af07f998f8e4d8096b322fb0e565fb94e75e",
+    "derive_bridge_phase_transitions.py": "62c0ffa4940872f11ecc9b1dab39ddbf208f0a0e7bc6853e6fa009a452770ba5",
+    "fixture-result.json": "7a2cdc29ae34a78682ba6b91d17e12124ce3d70eb44cfec8c6b2dd28e60575a0",
+    "fixture-stages.json": "082e388c42520248604bbdf6f0686d55b69800897840fd076ba17943a5d4925c",
+    "flight.json": "ac9c064b6683dcb2ec422527ccf22801eef7c2436884a4ef3eb9761be95f2d2c",
+    "graph-active-window-launcher.py": "ae6fd60317bba41524f0cb6e8f3a2c3e2efec02af58d22073f091191d88f6000",
+    "graph-active-window-trigger.json": "ada52533389afdb92e260a7889fb062f64aa167beba7226195ad24d84d49f28c",
+    "n05-after/n05-live-entry-check.json": "1c1c985cf0f6e68ffc8bcba122f13d229a152c7d5bfd1ec8812a2f14d1a4b5a8",
+    "n05-after/n05-offline-entry-replay.json": "80b6f3ad086e34cfa7617ab3d1e8a469a37dbd747c3c6b3b7e6d6c0ef32f686f",
+    "n05-before/n05-live-entry-check.json": "5bb88be98d93a16eeceb47c1e738f29250f45611cf07fbc9479f41b32c301b8a",
+    "n05-before/n05-offline-entry-replay.json": "664f4bfc15b176446f63618e2a6b5cd29b918bafa45aff502a2fc6bcd7af99b6",
+    "n05-current-area/n05-live-entry-check.json": "d27e59bb698a7d60e1fc27b02c3f741d7bfcbdc67296de39173b6e53971c30b7",
+    "n05-current-area/n05-offline-entry-replay.json": "ed6957d436b39c33bb487340297f1bd89ee1ef634c02393279c737a0d9f72ece",
+    "n05-post-release/n05-live-entry-check.json": "43e9bf4ccd4074889b36c3a17c7628824e77935119252b99768856fa5e3ffff5",
+    "n05-post-release/n05-offline-entry-replay.json": "afffd3b0c64463971824aeb04a7e26b7e3ab9169af5dc0815aec8a4e92ebff76",
+    "n05-run-inputs.json": "ad74b08486393901890d44616370ce1db4f9403e4e47b4b1ddfa225f6bf3759f",
+    "n05-run-summary.json": "6e9bbc3a684f765973ab102885d4162c2d8353412fd7f910b1c5679f7b192f1f",
+    "n07-192-n05-runner-keep-container.sh": "7bada4be4f3b87da8625e945886a7dcb632e4ab9f17e414700588859ff3f5bad",
+    "n07-hover-evaluation-raw-timeline-error.txt": "8878b40d4f8b354c2a7fefc99cdde539586222d5c6058bf71d08fb9aadd87c1e",
+    "n07-hover-evaluation.json": "bb8255dc144aba54b3194bb2ab1f22e7eaf1140b7664a9777033d9dcc6aefd8f",
+    "n07-hover-evaluation.log": "a99c34d25638e1d1f6a3bd29e72d9169a3b0121d3c0a98644530c01e2ce5581e",
+    "n07-observer-manifest.json": "d657be1caede9e956c5d78685c1137422f5434afa20445450e9bb945659c178e",
+    "no-goal-hover.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "postflight-safety-readback.log": "b1d768d8a221ff22317fc0a125ec9bb9484e62b9988b282fc31bfe1e388f4e1e",
+    "px4-ulog-analysis.json": "926b1236b9744e6038b6f02fe57143f6f3a4a94de7ab7894400b3f3942871f11",
+    "ros-graph-audit-reconciled.json": "e9290f2e044f33625c00ab357f6d90867f50d2dc2bc48ebdf1eebe87376f66fd",
+    "ros-graph-audit.json": "e9290f2e044f33625c00ab357f6d90867f50d2dc2bc48ebdf1eebe87376f66fd",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "consecutive_passes_after_run": 1,
+  "consecutive_required": 3,
+  "fixed_conditions": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "flight_code_health_n05_thresholds_or_configuration_changed": false,
+    "hover_sim_s_requested": 30.0,
+    "layout": "wall_box_column",
+    "optional_full_window_freshness_probe_launched": false,
+    "required_read_only_observers": [
+      "Gazebo truth",
+      "alignment",
+      "bridge",
+      "ACTIVE+armed gated ROS graph"
+    ],
+    "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "goal": "N07",
+  "independent_evaluation": {
+    "bridge_phase_projection": {
+      "landed_count": 1,
+      "method": "collapse only consecutive rows with the same phase; retain the latest exact recorded row for each phase run; no stamps, status values or thresholds are synthesized",
+      "phase_transitions": [
+        {
+          "armed": false,
+          "landed": true,
+          "phase": "DISABLED",
+          "reason": "px4_preflight_failed",
+          "stamp_ns": 433500000000
+        },
+        {
+          "armed": false,
+          "landed": true,
+          "phase": "PRESTREAM",
+          "reason": "px4_preflight_failed",
+          "stamp_ns": 433632000000
+        },
+        {
+          "armed": false,
+          "landed": true,
+          "phase": "REQUEST_OFFBOARD",
+          "reason": "px4_preflight_failed",
+          "stamp_ns": 434496000000
+        },
+        {
+          "armed": false,
+          "landed": true,
+          "phase": "REQUEST_ARM",
+          "reason": "requesting_arm",
+          "stamp_ns": 434628000000
+        },
+        {
+          "armed": true,
+          "landed": false,
+          "phase": "TAKEOFF",
+          "reason": "takeoff_setpoint_active",
+          "stamp_ns": 438012000000
+        },
+        {
+          "armed": true,
+          "landed": false,
+          "phase": "ACTIVE",
+          "reason": "takeoff_complete_waiting_for_trajectory",
+          "stamp_ns": 456292000000
+        },
+        {
+          "armed": true,
+          "landed": true,
+          "phase": "LANDING",
+          "reason": "operator_disable",
+          "stamp_ns": 490132000000
+        },
+        {
+          "armed": false,
+          "landed": true,
+          "phase": "LANDED",
+          "reason": "px4_local_position_invalid",
+          "stamp_ns": 492336000000
+        }
+      ],
+      "prestream_count": 1,
+      "projection": "artifacts/runs/n07-20261024-192-01/bridge-alignment-timeline-phase-transitions.jsonl",
+      "projection_rows": 8,
+      "projection_sha256": "fc7917bd8954f45c05d940c2151492bc2c6d4490bcf550d944f6f3afc28df7fa",
+      "raw_rows": 54,
+      "raw_sha256": "7aaa7c77476e5301962ea6a5fb7b5a39fade32fa5d000728799704f751d2dc2c",
+      "raw_timeline": "artifacts/runs/n07-20261024-192-01/bridge-alignment-timeline.jsonl",
+      "scope": "offline phase-transition projection for the unchanged N07 evaluator"
+    },
+    "check_count": 11,
+    "checks": {
+      "hover_completed_at_requested_sim_duration": true,
+      "independent_localization_and_hold_errors_measured": true,
+      "landed_and_disarmed_by_bridge": true,
+      "n05_current_area_accepted_before_enable": true,
+      "no_navigation_goal_sent": true,
+      "odometry_time_mapping_valid_through_hover": true,
+      "px4_boot_parameters_confirm_vio_no_gnss": true,
+      "read_only_ros_graph_unique_control_owner": true,
+      "same_runtime_contract_recorded": true,
+      "tracking_remained_valid_through_hover": true,
+      "ulog_confirms_ev_fusion_and_no_gnss_truth_aiding": true
+    },
+    "evaluator_source_sha256": "e86299afe0760c1d8dad167b90081099b07861bd0faffe83e44246f3bcc86087",
+    "hover_absolute_yaw_error_deg": {
+      "count": 454,
+      "endpoint": 0.04006518193109319,
+      "maximum": 0.07098647522891978,
+      "mean": 0.048175764412737694,
+      "p95": 0.06706912359515475,
+      "rms": 0.04908173148108777
+    },
+    "hover_position_error_m": {
+      "count": 454,
+      "endpoint": 0.005956078749720424,
+      "maximum": 0.008601484476631267,
+      "mean": 0.006667473285413956,
+      "p95": 0.00793592352377831,
+      "rms": 0.006707610821044655
+    },
+    "px4_hold_displacement_m": {
+      "count": 1500,
+      "endpoint": 0.06794121761182408,
+      "maximum": 0.06816897009586015,
+      "mean": 0.056106914200010634,
+      "p95": 0.06789074068563775,
+      "rms": 0.05780403225225985
+    },
+    "raw_timeline_evaluator_attempt": "original raw input preserved; unchanged evaluator raised a parse error because it emitted multiple same-phase rows; evaluator then passed on the transparent phase-transition projection",
+    "result": "PASS",
+    "truth_hold_displacement_m": {
+      "count": 1500,
+      "endpoint": 0.06942344164616499,
+      "maximum": 0.06942344164616499,
+      "mean": 0.0572314107187846,
+      "p95": 0.06923399222684862,
+      "rms": 0.05884642642770068
+    }
+  },
+  "interpretation": "With the optional freshness probe omitted, this cold start completed the unchanged 30 s no-goal hover, stayed inside the existing telemetry gate, produced EV/no-GNSS ULog and unique bridge graph evidence, and landed/disarmed. This is one N07 cold-start pass. The result is consistent with but does not by itself prove that the omitted probe caused the #191 telemetry excursion.",
+  "n05": {
+    "attached_gate_accepted": true,
+    "current_area_gate_accepted": true,
+    "current_area_reason": "all_entry_phases_known_and_clear",
+    "epoch": "852cdcab0eda41bbb4bfe596ef1406a9",
+    "fixture_helper_error_preserved": "fresh DISARMED status is required for every fixture command",
+    "fixture_helper_outcome": "failed",
+    "fixture_may_remain_attached": false,
+    "fixture_removed": true,
+    "fixture_safety_cleanup": {
+      "attempted": false,
+      "error": "",
+      "final_land_detector_landed": true,
+      "final_land_detector_receipt_age_wall_s": 0.3943102010525763,
+      "verified_detached": false,
+      "verified_landed": true
+    },
+    "initial_online_offline_refusal": {
+      "accepted": false,
+      "identical": true,
+      "reason": "ground_plane_insufficient_raw_occupied_voxels"
+    },
+    "map_id": "852cdcab0eda41bbb4bfe596ef1406a9-64fd0218551e4c83b8a44475f494a703",
+    "post_release_gate_accepted": true,
+    "same_epoch": true,
+    "same_map_id": true,
+    "summary_all_checks_true": true,
+    "summary_check_count": 14,
+    "summary_checks": {
+      "control_and_navigation_goal_absent": true,
+      "debug_truth_absent_from_online_inputs": true,
+      "fixture_runner_profile_completed": true,
+      "layout_identity_consistent": true,
+      "online_and_offline_checks_identical": true,
+      "post_release_check_recorded": true,
+      "post_release_entry_accepted": true,
+      "post_release_pose_within_budget": true,
+      "post_release_same_identity": true,
+      "same_epoch_before_after": true,
+      "same_map_id_before_after": true,
+      "scan_identity_matches_after_snapshot": true,
+      "support_detached_and_fixture_absent": true,
+      "vehicle_disarmed_for_all_recorded_states": true
+    },
+    "support_scan_completed_stages": 12,
+    "support_scan_required_stages": 12
+  },
+  "next_subtask": "N07.39 #193: fresh cold start, repeat the same fixed run including omitted optional probe, required read-only observers, full N05 admission, 30 s hover, transition-projection evaluator, ULog/graph and final landed/disarmed checks.",
+  "no_goal_hover": {
+    "action_goal_sent": false,
+    "hover_duration_sim_s": 30.0,
+    "hover_duration_wall_s": 33.511548310983926,
+    "hover_position_command_count": 0,
+    "landed_and_disarmed": true,
+    "latest_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "latest_localization_status": {
+      "accepted_optimized": 7322,
+      "accepted_propagated": 120797,
+      "epoch": "852cdcab0eda41bbb4bfe596ef1406a9",
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "localization_tracking_stability_passed": true,
+    "preconditions_ready": true,
+    "px4_telemetry_stability_passed": true,
+    "result": "PASS",
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "operator_disable"
+      }
+    ]
+  },
+  "passed": true,
+  "qualification_checks": {
+    "container_stopped_exit_0": true,
+    "current_area_accepted": true,
+    "final_px4_landed_disarmed": true,
+    "graph_airborne_and_landed_unique_bridge_no_truth": true,
+    "hover_30s_no_goal_and_landed": true,
+    "independent_evaluator_11_of_11": true,
+    "n05_summary_14_of_14": true,
+    "ulog_12_of_12": true
+  },
+  "result": "PASS_N07_COLD_START_1_OF_3",
+  "ros_graph": {
+    "airborne_snapshot_captured": true,
+    "control_owner_reconciliation": {
+      "method": "exactly one publisher per control topic in each snapshot; unresolved startup DDS names are resolved only by the same endpoint GID later identified as uav_px4_bridge",
+      "passed": true,
+      "snapshot_results": [
+        {
+          "label": "airborne_active",
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_control_topic": true,
+          "topics": {
+            "/fmu/in/offboard_control_mode": {
+              "endpoint_gid": "010f5f8ac60204900000000000001503",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/trajectory_setpoint": {
+              "endpoint_gid": "010f5f8ac60204900000000000001603",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_command": {
+              "endpoint_gid": "010f5f8ac60204900000000000001703",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_visual_odometry": {
+              "endpoint_gid": "010f5f8ac60204900000000000001403",
+              "passed": true,
+              "resolved_by": "node_name"
+            }
+          }
+        },
+        {
+          "label": "pre_enable_or_early_run",
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_control_topic": true,
+          "topics": {
+            "/fmu/in/offboard_control_mode": {
+              "endpoint_gid": "010f5f8ac60204900000000000001503",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/trajectory_setpoint": {
+              "endpoint_gid": "010f5f8ac60204900000000000001603",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_command": {
+              "endpoint_gid": "010f5f8ac60204900000000000001703",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_visual_odometry": {
+              "endpoint_gid": "010f5f8ac60204900000000000001403",
+              "passed": true,
+              "resolved_by": "node_name"
+            }
+          }
+        },
+        {
+          "label": "flight_result_written",
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_control_topic": true,
+          "topics": {
+            "/fmu/in/offboard_control_mode": {
+              "endpoint_gid": "010f5f8ac60204900000000000001503",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/trajectory_setpoint": {
+              "endpoint_gid": "010f5f8ac60204900000000000001603",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_command": {
+              "endpoint_gid": "010f5f8ac60204900000000000001703",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_visual_odometry": {
+              "endpoint_gid": "010f5f8ac60204900000000000001403",
+              "passed": true,
+              "resolved_by": "node_name"
+            }
+          }
+        }
+      ]
+    },
+    "raw_capture_passed": true,
+    "reconciled_passed": true,
+    "snapshot_checks": [
+      {
+        "no_ros_truth_topic_or_node": true,
+        "one_uav_px4_bridge_publisher_per_px4_control_topic": true
+      },
+      {
+        "no_ros_truth_topic_or_node": true,
+        "one_uav_px4_bridge_publisher_per_px4_control_topic": true
+      },
+      {
+        "no_ros_truth_topic_or_node": true,
+        "one_uav_px4_bridge_publisher_per_px4_control_topic": true
+      }
+    ],
+    "snapshot_labels": [
+      "airborne_active",
+      "pre_enable_or_early_run",
+      "flight_result_written"
+    ],
+    "trigger_exit_code": 0,
+    "trigger_status": {
+      "active": true,
+      "armed": true,
+      "phase": "ACTIVE",
+      "received_monotonic_ns": 1288452009716658,
+      "stamp_ns": 456292000000
+    }
+  },
+  "run_id": "n07-20261024-192-01",
+  "safety_stop": {
+    "active_project_containers_after_stop": 0,
+    "container_exit_code": 0,
+    "container_status": "exited",
+    "flight_final_landed_disarmed": true,
+    "postflight_readback": "artifacts/runs/n07-20261024-192-01/postflight-safety-readback.log",
+    "preflight_fixture_absent_from_model_list": true
+  },
+  "schema": "n07-cold-start-evaluation/v1",
+  "ulog": {
+    "check_count": 12,
+    "checks": {
+      "EKF2_EV_CTRL_is_15": true,
+      "EKF2_GPS_CTRL_is_0": true,
+      "SIM_GZ_EN_ODOM_is_0": true,
+      "UXRCE_DDS_SYNCT_is_0": true,
+      "cs_ev_pos_observed_airborne": true,
+      "cs_ev_yaw_observed_airborne": true,
+      "cs_gnss_pos_never_active": true,
+      "cs_gnss_vel_never_active": true,
+      "cs_gnss_yaw_never_active": true,
+      "cs_gps_hgt_never_active": true,
+      "final_px4_land_detector_landed": true,
+      "final_px4_state_disarmed": true
+    },
+    "parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "SIM_GZ_EN_ODOM": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "passed": true,
+    "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n07-20261024-192-01/px4_sitl_default/log/2026-10-23/23_06_03.ulg",
+    "pyulog_version": "1.2.4",
+    "sha256": "7cee579cce44f71bd7b0323c6c150260b751342a4371db2c2e98d114331ccb65"
+  }
+}

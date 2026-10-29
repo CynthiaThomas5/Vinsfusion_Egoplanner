@@ -1,4 +1,4 @@
-"""Gate and time-align depth inputs before the existing EGO plan_env mapper."""
+"""Time-align structurally valid depth inputs before the EGO plan_env mapper."""
 from collections import deque
 import hashlib
 import json
@@ -17,12 +17,11 @@ from rclpy.qos import (QoSProfile, DurabilityPolicy, ReliabilityPolicy,
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import CameraInfo, Image, PointCloud2
-from uav_interfaces.msg import (DepthHealth, LocalizationStatus, MapStatus,
-                                RGBDKeyframe)
+from uav_interfaces.msg import LocalizationStatus, MapStatus, RGBDKeyframe
 from uav_interfaces.srv import GetMapStatus, ResetMapping
 from uav_sim.geometry import calibration
 
-from .mapping_input import depth_camera_pose, pose_at, valid_depth_sample_count
+from .mapping_input import depth_camera_pose, depth_layout_valid, pose_at
 
 
 def stamp_ns(header):
@@ -36,7 +35,6 @@ class MappingInputAdapter(Node):
         policy_path = root / 'config/components/mapping/ego_input.json'
         self.policy = json.loads(policy_path.read_text())
         self.policy_sha256 = hashlib.sha256(policy_path.read_bytes()).hexdigest()
-        self.gate_policy = json.loads((root / 'config/components/mapping/depth_gate.json').read_text())
         self.rig = calibration(root / 'simulation/models/d435i/model.sdf')
         self.max_bracket_ns = int(self.policy['max_pose_bracket_s'] * 1e9)
         self.odom_history = deque(maxlen=self.policy['odom_history_size'])
@@ -60,12 +58,10 @@ class MappingInputAdapter(Node):
         self.reset_future = None
         self.reset_inflight = None
         self.loc_ok = False
-        self.depth_ok = False
-        self.depth_content_ok = False
+        self.depth_layout_ok = False
         self.latched = False
         self.reason = 'waiting_for_status'
         self.loc_receipt_wall = None
-        self.depth_health_receipt_wall = None
         self.last_odom_stamp = None
         self.last_depth_stamp = None
         self.forwarded = 0
@@ -98,7 +94,6 @@ class MappingInputAdapter(Node):
                 CameraInfo, self.policy['depth_camera_info_topic'],
                 self.on_depth_camera_info, sensor_qos),
             self.create_subscription(Odometry, self.policy['optimized_odometry_topic'], self.on_odom, sensor_qos),
-            self.create_subscription(DepthHealth, self.policy['depth_health_topic'], self.on_depth_health, status_qos),
             self.create_subscription(LocalizationStatus, self.policy['localization_status_topic'], self.on_localization, status_qos),
             self.create_subscription(
                 PointCloud2, self.policy['ego_occupancy_topic'],
@@ -132,7 +127,7 @@ class MappingInputAdapter(Node):
 
     def invalidate(self, reason):
         self.reason = reason
-        self.depth_content_ok = False
+        self.depth_layout_ok = False
         self.clear_pending()
         if self.map_dirty:
             self.map_dirty = False
@@ -143,8 +138,7 @@ class MappingInputAdapter(Node):
         self.clear_pending()
         self.epoch = epoch
         self.loc_ok = False
-        self.depth_ok = False
-        self.depth_content_ok = False
+        self.depth_layout_ok = False
         self.latched = False
         self.reason = 'resetting_new_epoch'
         self.map_dirty = False
@@ -199,26 +193,13 @@ class MappingInputAdapter(Node):
             self.loc_ok = False
             return
         self.loc_receipt_wall = time.monotonic()
-        valid = (msg.valid and msg.state == LocalizationStatus.TRACKING
-                 and msg.header.frame_id == f'odom_{epoch}'
+        valid = (msg.header.frame_id == f'odom_{epoch}'
                  and msg.body_frame == f'd435i_imu_{epoch}')
         was_valid = self.loc_ok
         self.loc_ok = valid and not self.latched
         if not self.loc_ok:
             if was_valid or self.map_dirty:
                 self.invalidate(msg.reason or 'localization_invalid')
-            return
-        self._flush()
-
-    def on_depth_health(self, msg):
-        self.depth_health_receipt_wall = time.monotonic()
-        valid = (msg.valid and msg.state == DepthHealth.STATE_READY
-                 and msg.header.frame_id == self.gate_policy['expected_frame'])
-        was_valid = self.depth_ok
-        self.depth_ok = valid and not self.latched
-        if not self.depth_ok:
-            if was_valid or self.map_dirty:
-                self.invalidate(msg.reason or 'depth_health_invalid')
             return
         self._flush()
 
@@ -258,16 +239,16 @@ class MappingInputAdapter(Node):
             return
         self.last_depth_stamp = stamp
         rig_depth = self.rig['cameras']['depth']
-        valid_samples = valid_depth_sample_count(
-            msg, rig_depth['width'], rig_depth['height'], rig_depth['frame'],
-            self.policy['depth_sample_stride'])
-        if valid_samples < self.policy['minimum_valid_depth_samples']:
-            self.depth_content_ok = False
+        if not depth_layout_valid(msg, rig_depth['width'], rig_depth['height'],
+                                  rig_depth['frame']):
+            self.depth_layout_ok = False
             if self.map_dirty:
-                self.invalidate('depth_has_too_few_valid_samples')
+                self.invalidate('depth_layout_invalid')
             self.dropped += 1
             return
-        self.depth_content_ok = True
+        # Invalid pixels stay invalid/unknown in EGO; do not add a project
+        # minimum-valid-pixel health gate before forwarding a valid image.
+        self.depth_layout_ok = True
         self.pending_keyframe_depth.append((msg, time.monotonic()))
         while len(self.pending_keyframe_depth) > 8:
             self.pending_keyframe_depth.popleft()
@@ -443,12 +424,9 @@ class MappingInputAdapter(Node):
                 self.color_history.popleft()
 
     def _inputs_ready(self, wall):
-        status_age = self.policy['status_max_receipt_age_wall_s']
-        return (self.map_ready and self.loc_ok and self.depth_ok and self.depth_content_ok
+        return (self.map_ready and self.loc_ok and self.depth_layout_ok
                 and not self.latched
-                and self.loc_receipt_wall is not None and wall - self.loc_receipt_wall <= status_age
-                and self.depth_health_receipt_wall is not None
-                and wall - self.depth_health_receipt_wall <= status_age)
+                and self.loc_receipt_wall is not None)
 
     def _flush(self):
         wall = time.monotonic()
@@ -488,13 +466,6 @@ class MappingInputAdapter(Node):
 
     def on_timer(self):
         now = time.monotonic()
-        limit = self.policy['status_max_receipt_age_wall_s']
-        if self.loc_ok and (self.loc_receipt_wall is None or now - self.loc_receipt_wall > limit):
-            self.loc_ok = False
-            self.invalidate('localization_status_stale')
-        if self.depth_ok and (self.depth_health_receipt_wall is None or now - self.depth_health_receipt_wall > limit):
-            self.depth_ok = False
-            self.invalidate('depth_health_status_stale')
         self._pump_reset()
         self._flush()
         if now - self.last_status_publish_wall >= 0.2:

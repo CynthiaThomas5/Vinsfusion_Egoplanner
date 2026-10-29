@@ -19,7 +19,6 @@ def main():
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     bridge = json.loads((root/'config/components/px4_bridge/debug_truth.json').read_text())
-    freshness = json.loads((root/'config/components/navigation/task_supervisor.json').read_text())
     rclpy.init()
     node = rclpy.create_node('readonly_prior_idle', parameter_overrides=[
         rclpy.parameter.Parameter('use_sim_time', value=True)])
@@ -75,8 +74,8 @@ def main():
                         or time.monotonic()-receipt > bridge['px4_status_max_receipt_age_wall_s']):
                     raise RuntimeError('fresh DISARMED status required')
                 if (not loc.valid or loc.epoch != epoch or loc.state != LocalizationStatus.TRACKING
-                        or time.monotonic()-latest['receipt'] > freshness['max_localization_receipt_age_s']):
-                    raise RuntimeError('same-epoch fresh healthy localization required')
+                        ):
+                    raise RuntimeError('same-epoch valid tracking localization required')
                 if end_ns-start_ns >= 200_000_000_000:
                     break
             outcome = 'stationary_observation_completed'

@@ -1,0 +1,42 @@
+{
+  "schema": "uav-n16-acceptance/v1",
+  "status": "frozen",
+  "scope": "User#552 continuous five-minute normal full-load navigation; fault work excluded#547",
+  "runtime_effect": false,
+  "metrics": {
+    "arrival_position_yaw_dwell": {
+      "required": true,
+      "evidence_status": "direct_goal_contract",
+      "thresholds": {
+        "position_error_max_m": 0.3,
+        "absolute_yaw_error_max_deg": 15.0,
+        "continuous_dwell_min_sim_s": 3.0,
+        "maximum_truth_source_gap_sim_s": 0.04
+      },
+      "method": "One fixed scale-one prestream SE(3); compare the same IMU reference point; simultaneously satisfy position and yaw on contiguous simulation source time; no interpolation credit for dwell.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-arrival-dwell-calibration-result-20261027-385.md"
+      ]
+    },
+    "continuous_navigation": {
+      "required": true,
+      "thresholds": {
+        "minimum_sim_s": 300
+      },
+      "method": "same epoch and uninterrupted airborne session, actual movement and replanning; no post-goal static hold credit"
+    }
+  },
+  "required_core_evidence": [
+    "all-goal independent arrival",
+    "actual motion and executed matching trajectories",
+    "continuous localization/map/planning/PX4 control and per-goal map updates",
+    "complete same-run contact and normal landed/disarmed/control-zero terminal",
+    "full resource/queue/latency/process coverage and trend review",
+    "GUI/runtime/source identity binding and standalone curves"
+  ],
+  "diagnostic_numeric_budgets_only": true,
+  "duration_authorization": "#552 五分钟即可，不需要十分钟",
+  "freeze_id": "N16-20261029-554"
+}

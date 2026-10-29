@@ -1,0 +1,143 @@
+{
+  "schema": "n10-fault-terminal-audit/v1",
+  "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+  "classification": "read-only source and live-state audit; no control or runtime changes",
+  "proximal_fault_chain": {
+    "localization_lockout_sim_s": 121.088,
+    "reason": "propagated_invalid_quaternion",
+    "last_ego_occupancy_update_sim_s": 121.08,
+    "ego_timeout_sim_s": 121.516,
+    "ego_native_timeout_s": 0.4,
+    "planner_action_result": "ABORTED planner_full_curve_depth_odom_timeout",
+    "offending_propagated_quaternion_captured": false,
+    "invalid_quaternion_root_cause": "unknown; current logs do not contain raw propagated orientation/norm paired to the offending stamp"
+  },
+  "source_path": [
+    {
+      "file": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+      "lines": "799-803",
+      "finding": "PX4 DESCEND, AUTO_LAND, AUTO_PRECLAND are all classified px4_landing_active"
+    },
+    {
+      "file": "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py",
+      "lines": "157-171",
+      "finding": "_landing_command suppresses another NAV_LAND request if px4_landing_active or ACK accepted"
+    },
+    {
+      "file": "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py",
+      "lines": "313-319",
+      "finding": "LANDING enters LANDED only if landed=true and armed=false; otherwise waits without a timeout/escalation path"
+    }
+  ],
+  "latest_px4_readback": {
+    "artifact": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-live-fault-state-probe-r12.json",
+    "sha256": "7a6281f27d4abd18f61e424d6a63999e05d03df17ef58f26860772882fbecef6",
+    "duration_wall_s": 6.0,
+    "samples": {
+      "attitude": 464,
+      "bridge_status": 45,
+      "control_mode": 0,
+      "estimator_flags": 23,
+      "land_detected": 5,
+      "local_position": 233,
+      "px4_status": 9,
+      "timesync_status": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0,
+      "visual_odometry_input": 0
+    },
+    "bridge": {
+      "alignment_drift_m": 0.3704932311597995,
+      "armed": true,
+      "control_enabled": true,
+      "epoch": "0733195d5bde4515b0c330ba15fc7bf0",
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "frame_offset_ned": [
+        -5.1876746892631147e-05,
+        -1.242299777870601e-05,
+        -4.304183155730626e-05
+      ],
+      "frame_yaw_offset_ned": 4.806439553561859e-05,
+      "gnss_aiding_active": false,
+      "landed": false,
+      "local_position_valid": false,
+      "phase": "LANDING",
+      "ready": false,
+      "reason": "planner_fault:full_curve_depth_odom_timeout"
+    },
+    "px4_status": {
+      "arming_state": 2,
+      "failsafe": true,
+      "nav_state": 12,
+      "pre_flight_checks_pass": false
+    },
+    "local_position": {
+      "heading": -1.5775425434112549,
+      "heading_good_for_control": true,
+      "position_ned": [
+        126228.6171875,
+        -54269.37109375,
+        0.40317657589912415
+      ],
+      "velocity_ned": [
+        99.70146179199219,
+        -59.7525634765625,
+        0.04554642736911774
+      ],
+      "xy_valid": false,
+      "z_valid": true
+    },
+    "estimator": {
+      "cs_aux_gpos": false,
+      "cs_ev_hgt": false,
+      "cs_ev_pos": false,
+      "cs_ev_vel": false,
+      "cs_ev_yaw": false,
+      "cs_gnss_pos": false,
+      "cs_gnss_vel": false,
+      "cs_gnss_yaw": false,
+      "cs_gps_hgt": false
+    },
+    "land_detected": {
+      "landed": false
+    },
+    "terminal_samples": 0,
+    "control_topic_events": 0,
+    "publisher_endpoints": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1
+    },
+    "alignment_pair_validated_age_wall_s": 1799.915319406,
+    "alignment_pair_gap_sim_s": 1628.932
+  },
+  "latest_gazebo_truth": {
+    "artifact": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-live-gz-pose-probe-r11.json",
+    "sha256": "630c34223600499e04dec3c357169c2f34eb2dbfa044231b6ee81f8d099d04df",
+    "duration_wall_s": 2.0,
+    "sample_count": 450,
+    "z_min_m": 0.31868199584839707,
+    "z_max_m": 0.3274992458868754,
+    "xy_endpoint_displacement_m": 0.10661800113179223,
+    "limitation": "pose is near ground but does not prove ground contact, landed detection, disarm, or safe-to-stop"
+  },
+  "supervision": {
+    "valid_same_domain_window_ids": [
+      "r06",
+      "r07",
+      "r08",
+      "r09",
+      "r10",
+      "r11",
+      "r12"
+    ],
+    "cumulative_sampled_wall_s": 86.0,
+    "terminal_seen": false,
+    "safe_to_stop": false,
+    "emergency_disarm_used": false
+  },
+  "conclusion": "fault-to-terminal path remains unqualified; N10 remains in_progress",
+  "next_action": "await native terminal or new explicit emergency-disarm authorization; do not change active runtime or start another flight before closeout"
+}

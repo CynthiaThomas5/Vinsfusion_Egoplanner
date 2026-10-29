@@ -1,0 +1,11 @@
+--- a/planner/bspline_opt/src/uniform_bspline.cpp
++++ b/planner/bspline_opt/src/uniform_bspline.cpp
+@@ -198,7 +198,7 @@
+     }
+ 
+     double velocity_ratio = max_vel / limit_vel_;
+-    double acceleration_ratio = sqrt(fabs(max_acc) / limit_acc_);
++    double acceleration_ratio = max_acc >= 0.0 ? sqrt(fabs(max_acc) / limit_acc_) : 0.0;
+     ratio = max(velocity_ratio, acceleration_ratio);
+ 
+     if (show && !fea)

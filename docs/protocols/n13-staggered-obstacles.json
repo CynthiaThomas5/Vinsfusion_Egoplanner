@@ -1,0 +1,79 @@
+{
+  "schema": "n13-staggered-obstacles-protocol/v1",
+  "status": "ready_for_formal",
+  "goal_scope": "Complete N13 with three qualifying independent cold starts",
+  "acceptance_config": "config/acceptance_n13.json",
+  "acceptance_config_sha256": "75098a870798cd2292c72fe88e7007f45b06dc9606b91e39a5b99e86964f0183",
+  "runtime_basis": "/home/huangxiaocheng/n12-20261029-493-single-obstacle/project",
+  "runtime_changes_allowed": [
+    "scene only; explicit run-local recording/evaluation adaptation"
+  ],
+  "gui_required": true,
+  "formal_passes_required": 3,
+  "formal_pass_count": 0,
+  "scene_design_pending_validation": {
+    "goal_offset_enu_m": [
+      12,
+      0,
+      0.1
+    ],
+    "obstacles": "multiple staggered copies of existing licensed cylinder; retain room walls/floor/textures; validate physical footprint and route before freezing",
+    "centers_world_m": [
+      [
+        -2.5,
+        -0.3,
+        1.5
+      ],
+      [
+        0.5,
+        0.3,
+        1.5
+      ],
+      [
+        3.5,
+        -0.3,
+        1.5
+      ]
+    ]
+  },
+  "required_evidence": [
+    "active world/model hashes and collision geometry",
+    "actual path bypass of staggered obstacles",
+    "same-identity raw/inflated map observations and updates",
+    "replacement trajectory identity and actual command execution",
+    "independent arrival",
+    "complete contact observation and normal PX4 terminal",
+    "unique control publisher and no online truth input"
+  ],
+  "not_prerequisites": [
+    "fault injection",
+    "legacy dynamic box ACK",
+    "4ms interval bound",
+    "independent numeric quality/resource budgets"
+  ],
+  "pending": [
+    "three qualifying independent actual cold starts and full per-run evidence"
+  ],
+  "formal_credit_from_old_archives": false,
+  "scene_artifact": "artifacts/runs/n13-20261029-523-scene-preparation/ego.sdf",
+  "scene_provenance": "artifacts/runs/n13-20261029-523-scene-preparation/ego.provenance.json",
+  "frozen_runtime_contract_sha256": "87eae3f768abe31e898e5402c77b17b54884fa029dc876c0a102792b5aba6d2e",
+  "scene_source_sha256": "008ca6ec82f68d992300714b11f3c0696fc9a25c63447a931e4daacb763b1002",
+  "planner_config": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+  "effective_dynamics": {
+    "max_vel": 0.4,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0
+  },
+  "runtime_match_mode": "exact_released_runtime",
+  "goal_profile_sha256": "2587703131ad8b2e87b8e6999bd076813dd7f6f97cca1796d3b6289dc8019f9a",
+  "release_id": "#533",
+  "authorized_reassessments": {
+    "n13-20261029-531-formal01": {
+      "basis": "evidence_processing_fix_no_runtime_or_numeric_change",
+      "launch_record_sha256": "9a59d114e5c2e6565f1f6eecad22e673f70f996b2fd7a33659e0e7ffd8eafd5a",
+      "original_protocol_sha256": "0d09be529bb21cf62f50c927c2f6b06700253aaf8e6f31ea9b8bd1c5fffbb32e",
+      "evidence": "progress/evidence/n13-formal01-route-reassessment-20261029-532.md"
+    }
+  }
+}

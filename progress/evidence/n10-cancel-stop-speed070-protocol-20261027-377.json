@@ -1,0 +1,79 @@
+{
+  "schema": "n10-cancel-protocol/v1",
+  "run_id": "n10-20261027-377-speed070-cancel-calibration",
+  "n10_subtask": "N10.3 evidence-based high-speed caller-cancel stop measurement",
+  "status": "frozen_before_sitl",
+  "hypothesis": "The current horizon-5/0.8/0.25 official_ego profile can reach the 0.70–0.80 m/s PX4 horizontal window observed in #376; caller cancellation there will produce a usable stop-time and truth-path measurement.",
+  "single_primary_variable": "PX4 horizontal-speed trigger window [0.70,0.80] m/s. Runtime, goal, planner, spawn and stop-band definition remain frozen. Historical #359/#362 use different runtime fingerprints and are descriptive context, not controlled comparisons.",
+  "basis": {
+    "reference_run": "n10-20261027-376-gatefree-cylinder0-observation",
+    "observed_px4_max_horizontal_speed_m_s": 0.741787111267306,
+    "observed_px4_max_vector_speed_m_s": 0.7517246787650508,
+    "observed_qualifying_samples_in_window": 98,
+    "first_window_sample_sim_ns": 408640000000,
+    "last_window_sample_sim_ns": 410588000000,
+    "interpretation": "0.70 m/s is 94.4% of the observed horizontal peak; 0.80 m/s brackets measurement variation. This selects a near-peak sample and is not an operational speed cap or acceptance threshold."
+  },
+  "task": {
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal_profile_sha256": "0e275927089a9d04810d483fc6634717d6f7fcd15472a508601cbd5790600f00",
+    "planner_profile": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "planner_profile_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "spawn_profile": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "spawn_profile_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "spawn_pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "px4_horizontal_cancel_speed_window_m_s": [
+      0.7,
+      0.8
+    ],
+    "route": "one +16.0 m ENU / +0.10 m / +0.20 rad EGO goal; caller cancel at the first matching PX4 horizontal-speed sample in the window; observe replacement EGO trajectory and PX4 stop band; bridge-owned landing",
+    "ego_max_velocity_m_s_per_axis": 0.8,
+    "ego_max_acceleration_m_s2_per_axis": 0.25,
+    "ego_planning_horizon_m": 5.0,
+    "collision_policy": "official_ego inflated-occupied",
+    "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+    "runtime_contract_file_count": 665,
+    "contacts": "read-only observer; no collision geometry changes"
+  },
+  "localization_policy": {
+    "project_added_localization_quality_freshness_gates": "removed",
+    "raw_cost_and_source_age": "observation only",
+    "retained": "VINS epoch/frame/time and map identity; PX4 native preflight and EV fusion; upstream EGO collision/watchdog; unique PX4 bridge"
+  },
+  "measurement_definition": {
+    "trigger": "matching current-goal/current-epoch READY position command plus valid PX4 XY/Z local position, horizontal speed in [0.70,0.80] m/s and nonzero reference speed",
+    "cancel": "caller cancel accepted and action reports caller_cancel",
+    "trajectory": "observe a new EGO trajectory id after cancellation",
+    "stop_band": "PX4 horizontal speed <=0.03 m/s and absolute vertical speed <=0.05 m/s continuously for >=1.0 simulated second",
+    "px4_stop_sample_max_gap_sim_s": 0.2,
+    "truth_max_gap_sim_s": 0.04,
+    "additional_measurements": [
+      "truth cancel-to-stop path length and endpoint displacement",
+      "PX4 deceleration and time to 10% speed reduction",
+      "contact observer coverage and prohibited contacts",
+      "independent landed/disarmed/control-disabled/zero-control readback"
+    ]
+  },
+  "acceptance_criteria": {
+    "measurement_complete": "trigger speed observed in the frozen window; caller cancel acknowledged; different replacement trajectory id observed; stop band fully covered; truth interval bounded; contact observer complete with zero prohibited contacts; independent terminal readback safe",
+    "scope": "validity of this diagnostic sample only; no guarantee or final stopping-distance acceptance threshold"
+  },
+  "run_commands": {
+    "start": "D435I_N09_CONTACTS=1 D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json D435I_SPAWN_CONFIG=config/components/simulation/n10_long_range_spawn_minus8.json bash tools/project.sh sim n10-20261027-377-speed070-cancel-calibration",
+    "driver": "docker exec d435i-n10-20261027-377-speed070-cancel-calibration bash /workspace/artifacts/n10-prepared/n10-20261027-377-speed070-cancel-calibration/n10-runtime-driver.sh",
+    "safe_stop": "bash tools/project.sh stop n10-20261027-377-speed070-cancel-calibration only after safe-to-stop.json is true"
+  },
+  "result_directory": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration",
+  "limitations": [
+    "Single fresh SITL run; cannot establish general braking guarantee or obstacle clearance.",
+    "No project-local health thresholds are reintroduced.",
+    "PX4 native preflight, control-state logic, and official EGO collision behavior remain in force."
+  ]
+}

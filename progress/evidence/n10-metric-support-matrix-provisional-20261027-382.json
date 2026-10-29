@@ -1,0 +1,307 @@
+{
+  "schema": "n10-metric-support-matrix/v1",
+  "subtask": "N10.3/#382",
+  "status": "delivered_provisional_matrix_n10_3_not_closed",
+  "created": "2026-10-27",
+  "runtime_gates_added": false,
+  "candidate_thresholds_are_runtime_gates": false,
+  "overall_freeze_allowed": false,
+  "overall_freeze_blockers": [
+    "arrival evaluator uses wall time while GOAL F requires 3.0 sim s",
+    "continuous full-body clearance margin not certified or budgeted",
+    "no end-to-end N15 fault detection/exit/landing-drift evidence",
+    "no N16 full-load resource/queue time series or numeric resource support",
+    "tracking candidate has no physics-based relation to clearance",
+    "limited-repeat VIO/RPE/velocity/dynamic-response support"
+  ],
+  "policy": {
+    "unknown": "retain raw unknown; no raw-known-free whole-curve gate",
+    "collision": "official_ego inflated-occupied behavior retained",
+    "project_health_age_quality_speed_gates": "removed as authorized",
+    "upstream_watchdogs": "retained; record source and live effective value, do not duplicate as custom project gates",
+    "truth": "offline evaluator only"
+  },
+  "source_evidence": [
+    "GOAL.md §2, §F, §E",
+    "progress/evidence/n04-map-geometry-20261023.json",
+    "progress/evidence/n10-health-gates-removed-speed080-16m-20261027-361.json",
+    "progress/evidence/n10-live-obstacle-cylinder-correct-spawn-20261027-376.json",
+    "progress/evidence/n10-cancel-stop-speed060-20261027-378.json",
+    "progress/evidence/n10-cancel-stop-speed060-20261027-379.json",
+    "progress/evidence/n10-cancel-stop-speed060-20261027-380.json",
+    "progress/evidence/n10-vins-velocity-full-route-result-20261027-381.json",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "config/components/navigation/vehicle_envelope.json",
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp",
+    "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py",
+    "config/components/px4_bridge/ekf2_debug_truth.json",
+    "external/PX4-Autopilot/src/modules/commander/commander_params.c"
+  ],
+  "metrics": [
+    {
+      "id": "arrival_position_yaw_dwell",
+      "metric": "truth-referenced full-body 3-D position and yaw at target, simultaneously and continuously",
+      "candidate": {
+        "position_error_max_m": 0.3,
+        "absolute_yaw_error_max_deg": 15.0,
+        "continuous_dwell_min_sim_s": 3.0
+      },
+      "unit": "m, deg, simulated seconds",
+      "time_domain": "Gazebo truth source stamp / simulation time; wall time is reported separately",
+      "reference": "target transformed into world from one prestream rigid SE(3), scale=1; full-body IMU lever arm from model",
+      "method": "independent read-only truth; require contiguous supported samples and reject gaps >0.04 sim s",
+      "evidence": [
+        "GOAL.md §F.3 (contract)",
+        "N10 #376: reported 3.114 s independent dwell (time domain to be re-evaluated)",
+        "N10 #381: 3.055 wall s, only 2.34 sim s in the same joint-tolerance window"
+      ],
+      "support": "DIRECT_CONTRACT_BUT_CURRENT_EVIDENCE_FAILS_SIM_TIME",
+      "confidence": "high for values; low for implementation compliance",
+      "open": "Existing evaluator measures dwell in wall time. #361/#376/#381 do not yet demonstrate the required 3.0 continuous simulation seconds. Change evaluator and requalify the task runner before PASS."
+    },
+    {
+      "id": "raw_vio_absolute_position_yaw",
+      "metric": "raw VINS IMU pose error over PRESTREAM-to-LANDED, plus goal-motion and hold segments",
+      "candidate": {
+        "position_p95_max_m": 0.5,
+        "position_sample_max_m": 0.6,
+        "yaw_p95_max_deg": 15.0,
+        "yaw_sample_max_deg": 15.0
+      },
+      "unit": "m, deg",
+      "time_domain": "VINS/Gazebo paired simulation stamps; retain wall support diagnostics",
+      "reference": "one fixed prestream SE(3), scale=1; no route fit, segment refit, truth feedback, or timestamp repair",
+      "method": "report RMSE/P50/P95/max globally and by phase; count paired coverage and maximum source gap",
+      "evidence": [
+        "#361 position p95/max 0.314/0.323 m, yaw 5.691/5.854 deg",
+        "#376 position p95/max 0.407/0.423 m, yaw max 12.358 deg",
+        "#381 position p95/max 0.439/0.458 m, yaw 6.585/6.869 deg"
+      ],
+      "support": "PROVISIONAL_CANDIDATE",
+      "confidence": "medium for observed profile only",
+      "open": "Candidate bounds round above these three dissimilar runs; there is no frozen physical error budget or repeated same-profile error distribution. #381 target-relative hold drift exits 0.30 m after 226.096 sim s despite sub-0.50 m fixed-frame pose error. Do not treat the candidate as a runtime lockout."
+    },
+    {
+      "id": "raw_vio_10s_rpe",
+      "metric": "10-second relative pose error; 1 s and 5 s remain diagnostic",
+      "candidate": {
+        "translation_p95_max_m": 0.05,
+        "rotation_p95_max_deg": 0.5
+      },
+      "unit": "m, deg over 10 simulated seconds",
+      "time_domain": "paired VINS/Gazebo simulation source timestamps",
+      "reference": "N01 same fixed-scale alignment and relative-pose calculation",
+      "method": "P95 primary; report RMSE, max, candidate/support/rejected pair counts; insufficient if any unsupported time pairing masks the interval",
+      "evidence": [
+        "#381 10 s translation P95/max 0.041668/0.099758 m; rotation P95/max 0.300459/0.495911 deg",
+        "#381 supported 10,054/10,054 pairs; zero rejected"
+      ],
+      "support": "PROVISIONAL_CANDIDATE_SINGLE_FULL_ROUTE",
+      "confidence": "medium for this profile; low across modes",
+      "open": "Only one current full-route run uses the segmented N01-compatible evaluator; need independent repeats and evidence across obstacle/yaw modes before freezing. Max values remain diagnostic; the P95 candidate is not a safety guarantee."
+    },
+    {
+      "id": "raw_vio_velocity_error",
+      "metric": "raw VINS world-frame twist.linear versus centered truth IMU velocity, split goal motion and exact hold",
+      "candidate": {
+        "goal_motion_p95_max_m_s": 0.05,
+        "goal_motion_sample_max_m_s": 0.1,
+        "hold_p95_max_m_s": 0.01,
+        "hold_sample_max_m_s": 0.03
+      },
+      "unit": "m/s",
+      "time_domain": "simulation time; truth velocity centered over 0.2 sim s, no extrapolation",
+      "reference": "VINS WORLD_FRAME_ID twist.linear rotated by the single prestream rigid alignment; D435i IMU truth reference point",
+      "method": "vector norm error P95/max, sample support fraction and source gaps per mission phase",
+      "evidence": [
+        "#381 10,206/10,206 paired samples; goal p95/max 0.02819/0.06864 m/s; exact 600 s hold p95/max 0.00697/0.02607 m/s"
+      ],
+      "support": "PROVISIONAL_CANDIDATE_SINGLE_FULL_ROUTE",
+      "confidence": "medium for measured motion only",
+      "open": "Only one long-route velocity capture. Bounds are offline measurement candidates, not commanded-speed caps or runtime guards; need an independent route repeat. Landing is excluded from goal/hold statistics and reported separately."
+    },
+    {
+      "id": "raw_map_surface_geometry",
+      "metric": "maximum absolute raw occupancy surface-center error against SDF surface",
+      "candidate": {
+        "sample_max_m": 0.1
+      },
+      "unit": "m",
+      "time_domain": "same-identity map snapshot source stamp; offline truth/SDF comparison",
+      "reference": "raw occupancy centers; no truth input to online mapper, no alignment fitted using map points",
+      "method": "per-layout/per-snapshot P95 and max; retain sample counts, false classes, unknown and identity",
+      "evidence": [
+        "N04 two layouts, three snapshots each; 0.10 m voxel resolution",
+        "N04 cross-layout worst surface-center residual 0.09535 m, below one voxel; corridor snapshot 3 shifted 0.09821 m from snapshot 2"
+      ],
+      "support": "PROVISIONAL_RESOLUTION_BOUND",
+      "confidence": "medium; only two sensor-fixture layouts",
+      "open": "The one-voxel bound follows map resolution, not a physical collision budget. Raw free/occupied classification has retained outliers; no error-rate limit can be claimed from N04. Re-run after final clean build and in task layouts."
+    },
+    {
+      "id": "raw_map_classification_and_unknown",
+      "metric": "raw occupancy classification by visible-free, surface-hit and truth-occluded ROI; raw unknown must remain distinct",
+      "candidate": {
+        "truth_occluded_raw_free_count_max": 0
+      },
+      "unit": "cells/counts and fraction by ROI",
+      "time_domain": "per snapshot/map identity",
+      "reference": "offline SDF line-of-sight and geometry; never feed truth back to mapping or planning",
+      "method": "report confusion counts and ROI denominator; don't collapse unknown into free; official_ego collision still uses inflated occupied",
+      "evidence": [
+        "N04 both layouts: hidden ROI raw unknown 784/784 and 785/785 per snapshot, raw free 0",
+        "N04 visible free-ray false occupied ranged 0.01%-5.17%; surface-hit false occupied up to 100% on conflicting voxel votes"
+      ],
+      "support": "PARTIAL_SEMANTIC_SUPPORT",
+      "confidence": "high that unknown is preserved in tested layouts; low for general classifier accuracy",
+      "open": "No numeric acceptance rate for false occupied or surface classifications is supported. Preserve official_ego behavior; this row is an offline diagnostic, not a raw-free runtime rejection."
+    },
+    {
+      "id": "map_source_and_occupancy_age",
+      "metric": "fused-depth source-to-observation age and occupancy-update age (separate clocks/fields)",
+      "candidate": {
+        "offline_source_age_sample_max_sim_s": 0.2,
+        "offline_occupancy_update_age_sample_max_sim_s": 0.2,
+        "upstream_ego_occ_update_timeout_sim_s": 0.4
+      },
+      "unit": "simulated seconds",
+      "time_domain": "ROS/Gazebo simulation stamps; never mix with steady-clock callback latency or PX4/HRT",
+      "reference": "source header stamp, map update stamp and sample receipt stamp recorded independently",
+      "method": "P95/max per run; additionally report callback-to-fusion steady seconds and exact max callback gap if available",
+      "evidence": [
+        "#361 source/occupancy max 0.160/0.112 s",
+        "#376 0.168/0.132 s",
+        "#381 0.160/0.108 s",
+        "N04 source-to-fusion max 0.149 s, callback-to-complete max 0.0738 steady s",
+        "effective EGO odom_depth_timeout=0.4 sim s; upstream updateOccupancyCallback declares timeout; project-added source/receipt age refusals removed by patch 0054"
+      ],
+      "support": "PROVISIONAL_OFFLINE_OBSERVATION_PLUS_UPSTREAM_TIMEOUT",
+      "confidence": "medium for observed nominal range; native timeout semantics verified in source",
+      "open": "0.20 s is an offline candidate derived by rounding above the observed 0.168 s max; it adds no runtime gate. 0.40 s is the existing upstream occupancy-update timeout parameter, not a new project health threshold. Measure exact source/update ages and failure behavior after rebuild."
+    },
+    {
+      "id": "ego_command_tracking_error",
+      "metric": "READY PositionCommand to truth full-body IMU position at same source-time pairing",
+      "candidate": {
+        "p95_max_m": 0.6,
+        "sample_max_m": 1.2
+      },
+      "unit": "m",
+      "time_domain": "simulation source time, same fixed prestream transform; report pairing/bracket gaps",
+      "reference": "commanded EGO position transformed to world versus interpolated Gazebo IMU truth",
+      "method": "P95/max by active segment; this is controller tracking response, separate from ATE/RPE and obstacle clearance",
+      "evidence": [
+        "#361 p95/max 0.502/1.031 m",
+        "#376 p95/max 0.538/1.110 m",
+        "#381 p95/max 0.560/1.105 m"
+      ],
+      "support": "PROVISIONAL_OBSERVATIONAL_CANDIDATE",
+      "confidence": "medium for the long-route profile",
+      "open": "The 0.60/1.20 values are rounded margins over observed samples, not a collision-safe budget. The existing 0.15 m candidate check was explicitly not formal. Need correlate tracking excursion with measured swept clearance and obstacle/turning profiles; no runtime cap or rejection is added."
+    },
+    {
+      "id": "cancel_stop_at_px4_horizontal_speed_060",
+      "metric": "PX4 horizontal-speed caller-cancel to 1 s confirmed stop-band entry; true horizontal path length",
+      "candidate": {
+        "trigger_window_m_s": [
+          0.6,
+          0.66
+        ],
+        "stop_band_entry_max_sim_s": 6.0,
+        "horizontal_path_length_max_m": 1.5,
+        "stop_band_dwell_min_sim_s": 1.0
+      },
+      "unit": "m/s, sim seconds, m",
+      "time_domain": "PX4 reported trigger-speed sample and PX4/run sim timestamps; truth path uses Gazebo sim samples",
+      "reference": "caller-cancel acknowledgement to truth-referenced full-body interval; stop-band definition preserved in #378 protocol",
+      "method": "all three independent cold starts; report speed, vertical velocity, ego reference speed, delay, path/displacement, dwell and source gaps",
+      "evidence": [
+        "#378/#379/#380 trigger horizontal 0.600867/0.601259/0.601626 m/s",
+        "truth path 1.376716/1.343935/1.349452 m (mean 1.356701, span 0.032780)",
+        "stop-band entry 4.844/4.880/5.116 sim s; 1.004–1.020 sim s dwell; prohibited contact 0 each"
+      ],
+      "support": "THREE_REPEAT_PROFILE_SPECIFIC_CANDIDATE",
+      "confidence": "medium for exact caller-cancel protocol/profile; low outside it",
+      "open": "Not a maximum flight speed or runtime speed guard. This narrow stop measurement does not combine the planner's .7306 m inflated obstacle clearance or certify reaction-to-collision safety; require actual-swept clearance evidence for each scene. Do not extrapolate above 0.66 m/s or to other fault triggers."
+    },
+    {
+      "id": "actual_vehicle_clearance_and_contact",
+      "metric": "minimum full-body swept clearance to every prohibited collision plus contact-event count",
+      "candidate": {
+        "prohibited_contact_count_max": 0,
+        "conservative_clearance_lower_bound_m_gt": 0.0
+      },
+      "unit": "m and events",
+      "time_domain": "Gazebo truth simulation time; full propeller-swept geometry and attitude",
+      "reference": "SDF obstacle collision geometry and full x500+D435i body envelope; evaluate actual trajectory, not planned centerline",
+      "method": "continuous or mathematically conservative interval bound; independently confirm zero prohibited contacts; allowed skid/ground contacts phase-scoped",
+      "evidence": [
+        "#361 static adjusted sampled lower bound 0.33791 m",
+        "#376 static 0.10759 m and dynamic-box 0.81289 m",
+        "#381 whole-scene adjusted sampled 0.26225 m and box 0.83908 m; zero prohibited contacts in #361/#376/#381"
+      ],
+      "support": "CONTACT_SUPPORTED_CLEARANCE_NOT_CERTIFIED",
+      "confidence": "high for zero logged events in these runs; low for continuous clearance bound",
+      "open": "Current evaluator subtracts observed inter-sample motion but does not bound unobserved attitude/trajectory motion. Planner inflation .73062 m is body radius plus map/RPE/voxel/sample terms and explicitly excludes tracking, latency, braking, accessories and vibration. Need close budget without double counting; no positive numeric clearance margin is presently justified."
+    },
+    {
+      "id": "dynamic_replanning",
+      "metric": "obstacle acknowledgement to first replacement trajectory that clears full-body envelope, and whether actual path remains collision-free",
+      "candidate": {
+        "first_clear_replacement_deadline_max_sim_s": 1.0
+      },
+      "unit": "simulated seconds",
+      "time_domain": "Gazebo create acknowledgement/map source/trajectory receipt stamps in one sim epoch",
+      "reference": "dynamic 0.8 x 0.8 x 2.8 m box and actual observed trajectory; distinguish any replacement from first clear replacement",
+      "method": "report first candidate, first clear candidate, occupied observation, source/update age, time-to-obstacle, actual clearance/contact and safe terminal state",
+      "evidence": [
+        "#376 first clear-by-radius spline +0.552 sim s; #381 first recorded clear replacement spline +0.536 sim s; both single current-profile scenarios"
+      ],
+      "support": "PROVISIONAL_SINGLE_SCENARIO_CANDIDATE",
+      "confidence": "low to medium",
+      "open": "1.0 s is a rounded observation candidate, not a sufficient collision-response deadline absent distance-to-obstacle and stopping budget; N13 needs multi-obstacle and actual-clearance evidence. N10.4 evaluator must not treat a merely new but intersecting spline as success."
+    },
+    {
+      "id": "fault_detection_exit_and_px4_terminal",
+      "metric": "six GOAL E fault types: injection -> detection -> goal/trajectory invalidation -> motion/landing -> landed/disarmed final state",
+      "candidate": {
+        "per_fault_detection_deadline_sim_s": null,
+        "fault_to_safe_terminal_deadline_sim_s": null,
+        "reentry_after_epoch_change": false
+      },
+      "unit": "fault-specific sim/wall/PX4-HRT domains; explicit per-event timeline",
+      "time_domain": "separate injected fault source time, ROS sim time, wall monotonic time and PX4/HRT time; never compare raw clocks",
+      "reference": "configuration/source and independent PX4/bridge readbacks; truth contact/pose only in debug_truth",
+      "method": "six fault types x >=2 independent injections each per GOAL; report detection latency, last valid setpoint, invalidation, drift/clearance, land/disarm; keep failure records",
+      "evidence": [
+        "source audit: map update watchdog 0.4 sim s; PX4 COM_OF_LOSS_T=1.0 (effective startup value still needs live readback); bridge clock-stall watchdog 15 wall s",
+        "N10 has no N15 fault-injection qualification evidence"
+      ],
+      "support": "UNSUPPORTED_NUMERIC_EXIT_BOUNDARY",
+      "confidence": "low until N15",
+      "open": "Do not substitute component timer values for end-to-end fault response. Detection/landing drift/clearance and live effective PX4 action have not been measured. N15 supplies the required values; N10.4 must retain nulls and return INSUFFICIENT until then, so N10 cannot be finally frozen yet."
+    },
+    {
+      "id": "continuous_full_load_workload",
+      "metric": "one unbroken >=600 sim s full navigation/load run with goal, obstacle update/replan, resource/latency/queue timeseries, normal land/disarm",
+      "candidate": {
+        "duration_min_sim_s": 600,
+        "resource_limits": "not numerically supported yet",
+        "unbounded_queue_growth_allowed": false,
+        "crash_or_sustained_loss_allowed": false
+      },
+      "unit": "sim seconds, CPU%, bytes, queue entries, per-stream age/latency units",
+      "time_domain": "run sim stamps plus wall monotonic for RTF/host resource sampling",
+      "reference": "actual frozen runtime composition, no stitched sessions; per-stream source, receipt and compute clocks stay distinct",
+      "method": "continuously record CPU/memory/queue depth/end-to-end latency/VIO/map errors; inspect queue capacity and growth slope, terminal PX4 state",
+      "evidence": [
+        "#361/#381 each 600 sim s ACTIVE hold but not a moving full-load obstacle/replan qualification",
+        "RTF 0.761/#361 and 0.764/#381; no CPU/memory series; no N16 run"
+      ],
+      "support": "DURATION_COMPONENT_ONLY",
+      "confidence": "low for full-load capacity",
+      "open": "The 600 s duration is the existing N16 contract. No justified CPU/memory or queue bound has been established for N16's full load; derive queue bounds from exact configured capacities and capture a continuous full-load trace after N10 freeze. Do not invent a host-relative numeric CPU/memory limit."
+    }
+  ]
+}

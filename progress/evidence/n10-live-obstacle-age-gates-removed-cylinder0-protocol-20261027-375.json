@@ -1,0 +1,175 @@
+{
+  "schema": "n10-live-obstacle-replan-protocol/v1",
+  "subtask_id": "N10.3/#375",
+  "status": "protocol_frozen_current_identity; preflight_not_started",
+  "formal_qualification": false,
+  "hypothesis": "#371 recorded one prohibited rotor contact with unit_cylinder_0 and the bridge aborted with external_odometry_stale. Its observer was aimed at unit_cylinder_4 from #369, so no camera, cylinder ROI, or same-identity query data exists at the actual #371 contact. With project-added numeric age gates removed, repeat the same goal/world/box timing while observing unit_cylinder_0 to determine whether its surface entered the D435i/EGO occupied input and what map query returned.",
+  "single_scenario_variable": "Preserve #369/#371 goal, world, spawn, EGO parameters, dynamic box and trigger. Apply the user-authorized removal of project-local numeric source/receipt-age gates, and use read-only cylinder instrumentation aimed at unit_cylinder_0 from #371 contact evidence. No trajectory acceptance threshold, mission target, planner parameter or control publisher changes.",
+  "runtime_contract_sha256_baseline": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+  "inputs": {
+    "spawn": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "planner": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "goal": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "collision_policy": "official_ego",
+    "control_owner": "uav_px4_bridge only",
+    "project_added_age_gates": {
+      "localization_quality_and_receipt_age": "removed; raw values remain diagnostic",
+      "localization_odometry_map_receipt_age": "removed from N10 admission/action abort path",
+      "map_query_occupancy_update_and_depth_source_age": "removed by EGO patch 0054; timestamps remain in responses",
+      "px4_telemetry_source_and_receipt_age": "removed from N10 preflight/action enable/hold gate",
+      "px4_telemetry_stability_window": "removed; no consecutive 5-second requirement",
+      "localization_valid_tracking_state": "removed from N10 admission/action/bridge path; status remains observational",
+      "depth_health_state_and_minimum_valid_samples": "removed from standard mapping runtime; valid image layout and epoch/frame identity remain"
+    },
+    "px4_bridge_time_mapping": {
+      "clock_mapping_max_samples": 128,
+      "source_and_clock_wall_age_cutoffs": "removed; sample ages remain observable",
+      "monotonic_clock_rollback_and_invalid/future timestamp checks": "retained"
+    },
+    "px4_bridge_alignment": {
+      "translation_and_yaw_discrepancy_cutoffs": "removed earlier by user-authorized N10 change",
+      "alignment_pair_wall_age_cutoff": "removed; identity and EV fusion state retained",
+      "invalid_transform_refusal": "retained"
+    },
+    "retained_native_or_integrity_constraints": [
+      "PX4 native preflight and landed/unarmed/control-disabled state",
+      "PX4 external-vision fusion and no-GNSS requirement",
+      "EGO native inflated-occupied collision handling and upstream depth/odometry watchdog",
+      "VINS epoch, ROS-clock rollback, map identity and message structure",
+      "single PX4 bridge control owner"
+    ]
+  },
+  "injection": {
+    "model_name": "n10_live_replan_box",
+    "world": "vio_initialization",
+    "static": true,
+    "pose_xyz_m": [
+      0.0,
+      0.0,
+      1.4
+    ],
+    "size_xyz_m": [
+      0.8,
+      0.8,
+      2.8
+    ],
+    "yaw_rad": 0.0,
+    "trigger": "NavigationCommand.target.header.stamp plus 12.0 simulated seconds; the first same-goal B-spline must already have been observed",
+    "truth_used_for_trigger": false,
+    "historical_position_at_goal_plus_11_7s_xyz_m": [
+      -4.0,
+      -1.27,
+      2.64
+    ],
+    "planning_horizon_m": 5.0
+  },
+  "static_cylinder_observation": {
+    "model_name": "unit_cylinder_0",
+    "world_center_xyz_m": [
+      -1.47322,
+      3.48874,
+      0.5
+    ],
+    "radius_m": 0.5,
+    "length_m": 3.0,
+    "selection_basis": "actual prohibited contact recorded by #371, not an observer/control truth input",
+    "query_point": "at the cylinder surface facing the first matching EGO command inside 1.6 m; z follows that command",
+    "same_identity_query_radius_m": 0.3
+  },
+  "preserved_flight_observations": [
+    "run identity matches the frozen runtime and initial goal/spline are observed",
+    "Gazebo acknowledges box creation at the frozen trigger",
+    "single D435i/EGO occupancy observations show the injected box surface",
+    "same goal_id and epoch publish a replacement trajectory whose geometry avoids the box; traj_id change alone is insufficient",
+    "PX4/bridge execute the replacement path and the original position/yaw dwell completes",
+    "offline truth and the configured body envelope show positive sampled clearance from the dynamic box; prohibited contacts are zero",
+    "planner, bridge, truth and contact observers cover the terminal flight record; final readback is landed, disarmed, control disabled and zero control before container stop"
+  ],
+  "observer_evidence_criteria": [
+    "the run-local observer and runtime identities match their freeze before the goal is sent",
+    "the read-only observer records the camera pose associated with the depth/color frames near the static cylinder approach",
+    "the observer reports occupied-cloud ROI/shell point counts and same epoch/map_id query responses near the static-cylinder SDF location, or explicitly records that those observations were unavailable",
+    "position-command stamps and independent truth allow the command-to-truth offset at a reproduced contact or close pass to be evaluated",
+    "observers cover the terminal flight record; independent PX4/bridge readback confirms landed, disarmed, control disabled and zero control before container stop"
+  ],
+  "diagnostic_abort": {
+    "no_replacement_after_sim_s": null,
+    "action": "log only; do not auto-cancel after 1 simulated second. Let native EGO/PX4 behavior proceed; retain the run result.",
+    "outer_goal_wall_timeout_s": 360,
+    "is_final_acceptance_threshold": false,
+    "is_new_localization_health_gate": false
+  },
+  "not_frozen_by_this_protocol": [
+    "whether the #369 contact was caused by missing/late cylinder map evidence or tracking deviation",
+    "final tracking-error or clearance threshold",
+    "final map-age or perception deadline",
+    "formal N10/N12 qualification"
+  ],
+  "acceptance_thresholds_changed": false,
+  "parent_run": "n10-20261027-371-cylinder-observation-live-obstacle",
+  "next_run_id": "n10-20261027-375-gatefree-cylinder0-observation",
+  "patch_0053_sha256": "529fcade428165d4101cdc660b38f1cfd0094f22f0f77d03530e5808de7bb727",
+  "parent_369_runtime_contract_sha256": "5c3cbe4d4621e7c520d323e80911a2fc0ce09ae040c22adbf313c2fc21e45c01",
+  "source_guard_removal": {
+    "localization_health_state_gates": {
+      "removed_from_N10_admission_active_action_and_bridge_landing": [
+        "LocalizationStatus.valid",
+        "LocalizationStatus.TRACKING"
+      ],
+      "source_paths": [
+        "src/own/uav_navigation/uav_navigation/task_state.py",
+        "src/own/uav_navigation/uav_navigation/node.py",
+        "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+        "tools/check_navigation_ready.py",
+        "tools/run_vio_ego_flight.py"
+      ]
+    },
+    "custom_depth_health_gate": {
+      "removed_from_standard_and_debug_truth_launch": true,
+      "adapter_subscription_and_receipt_requirement_removed": true,
+      "minimum_valid_sample_count_removed": true,
+      "layout_and_frame_checks_retained": true,
+      "invalid_pixels": "forwarded and preserved as unknown by EGO patch 0054"
+    },
+    "retained": [
+      "epoch/map_id/frame identity",
+      "clock rollback and monotonic stamp checks",
+      "PX4 native preflight/EV fusion",
+      "single bridge controller",
+      "official EGO inflated occupied and native depth/odometry watchdog"
+    ]
+  },
+  "preflight_requirements": {
+    "navigation_cancel_service": "/navigation/navigate_to_pose/_action/cancel_goal",
+    "expected_service_type": "action_msgs/srv/CancelGoal",
+    "check": "driver waits up to 20 wall seconds, lists hidden services with types, and records action_msgs/srv/CancelGoal before allowing goal submission",
+    "gazebo_create_service": "/world/vio_initialization/create",
+    "all_contact_sensors": "ready before mission starts",
+    "observed_preflight_issue": "initial check used ros2 service type, which omits hidden action services; service was present and verified with ros2 service list --include-hidden-services -t; no goal was sent",
+    "runtime_contract": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7"
+  },
+  "patch_0054_sha256": "215747d7aa7c6902dd80ec1aa15d3475df2b41bc89f11ebbf247821071a4350f",
+  "build_and_regression": "17 ROS packages; 415 unit tests; navigation-adapter ROS integration accepts degraded/invalid same-epoch status; official_ego ROS probe passes",
+  "launch_configuration": {
+    "required_environment": "D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "expected_launch_manifest": {
+      "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+      "max_vel": 0.8,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "official_ego_collision_policy": true
+    },
+    "reason": "#372 aborted before goal because the environment override was omitted and the default EGO parameters were loaded; this is a launch invocation correction only."
+  },
+  "runtime_code_change": {
+    "source_audit": "progress/evidence/n10-project-health-gate-audit-20261027-374.json",
+    "source_fingerprint_must_be_recomputed": true,
+    "regression": "17 ROS packages; 415 tests; navigation-adapter integration accepts degraded/invalid same-epoch localization status; official_ego ROS probe passes"
+  },
+  "preceding_no_flight_attempts": [
+    "#372: missing D435I_PLANNER_CONFIG; frozen profile check aborted before goal.",
+    "#373: stale removed-age-key report reference raised KeyError before goal.",
+    "#374: superseded before SITL after source audit found remaining project-added health-state gates; no run directory was created."
+  ],
+  "source_audit": "progress/evidence/n10-project-health-gate-audit-20261027-374.json"
+}

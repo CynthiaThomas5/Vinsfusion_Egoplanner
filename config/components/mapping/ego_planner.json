@@ -1,13 +1,13 @@
 {
-  "qualification": "PROVISIONAL diagnostic map, timeout, and obstacle-inflation settings; none are frozen for acceptance or flight",
+  "qualification": "N17 delivery candidate: use N10-N16 qualified low-speed dynamics; default-room clean-build GUI regression pending",
   "drone_id": 0,
   "map_size_m": [
     40.0,
     40.0,
     6.0
   ],
-  "max_velocity_m_s": 0.5,
-  "max_acceleration_m_s2": 0.8,
+  "max_velocity_m_s": 0.4,
+  "max_acceleration_m_s2": 0.25,
   "obstacles_inflation_m": 0.7306179170842027,
   "planning_horizon_m": 5.0,
   "startup_waypoint_enu_m": [
@@ -20,6 +20,6 @@
   "object_count": 0,
   "use_distinctive_trajectories": true,
   "odom_depth_timeout_sim_s": 0.4,
-  "ground_height_m": -0.8,
-  "rationale": "The 40 m horizontal map covers the 20 m room from a VINS origin near x=-8 m, including a +16 m relative opposite-end goal. The single raw occupancy sphere used for goal admission and the complete active-curve sweep is set to the N05-derived PROVISIONAL body reference clearance radius (0.7306179170842026 m): the orientation-invariant X500+D435i collision sweep plus the current linear localization, map-surface, voxel and continuous-sampling margins. This sphere also supplies conservative planner inflation; it is not a calibrated flight clearance and excludes measured braking, tracking, latency, mount accessories and vibration. N05 lowers the map bottom from -0.15 m to -0.8 m so the N06 orientation-invariant body sphere (0.7306 m about the camera IMU origin), X500+D435i collision envelope, and ground-contact volume lie inside the queryable map. Unknown and occupied cells remain blocked; this expands query coverage without making cells free. The 0.4 simulation-second odom/depth timeout remains provisional. Unknown-space and dynamic stop/hold behavior still require N06 evidence. #051 current-room CPU candidate reduces motion from0.7m/s,1.5m/s2 to0.5m/s,0.8m/s2 after run42 visual-cost transient near goal; health thresholds unchanged. Pending repeated SITL, not formal acceptance."
+  "ground_height_m": -1.0,
+  "rationale": "Keep current inflated-occupied official_ego policy, map bounds and inflation. Match verified 0.4m/s and 0.25m/s^2 dynamics. This is a planner parameter choice, not an empirical runtime speed gate."
 }

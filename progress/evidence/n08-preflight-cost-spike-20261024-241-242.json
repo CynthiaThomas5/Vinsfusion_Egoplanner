@@ -1,0 +1,187 @@
+{
+  "schema": "n08-preflight-cost-spike/v1",
+  "subtasks": [
+    "N08.2ae #241",
+    "N08.2af #242"
+  ],
+  "parent": "N08",
+  "status": "incomplete_diagnostic",
+  "startup_attempt_241": {
+    "run_id": "n08-20261024-241-overhead-free-sector-admission",
+    "wrapper_exit_code": 10,
+    "container_final_state": "exited",
+    "launch_error": "EGO planner and mapping drone ids differ",
+    "cause": "navigation goal configuration was passed to the planner_config launch argument",
+    "fixture_or_goal_started": false,
+    "correct_planner_config_from_225": "config/components/mapping/n08_low_speed_calibration.json",
+    "goal_config_for_mission": "config/components/navigation/n08_compute_only_fresh_map_goal.json"
+  },
+  "scan_attempt_242": {
+    "run_id": "n08-20261024-242-overhead-free-sector-admission",
+    "scene": "n08_overhead_calibration",
+    "profile": "n08_overhead_free_sector_view",
+    "planner_config": "config/components/mapping/n08_low_speed_calibration.json",
+    "mode": "compute_only",
+    "n05_initial_online_offline_identical": true,
+    "n05_initial_accepted": false,
+    "n05_initial_reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "completed_stages": 11,
+    "planned_stages": 15,
+    "scan_error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 2.487234736341529
+    },
+    "trigger_metric": {
+      "stamp_ns": 385672000000,
+      "sim_s": 385.672,
+      "final_cost": 12187.083168317915,
+      "residual_components": 3940,
+      "normalized_cost": 2.487234736341529,
+      "threshold": 1.0,
+      "input_features": 180,
+      "stereo_features": 126,
+      "continued_tracks": 133,
+      "long_tracks": 96,
+      "solve_seconds": 0.015792131423950195,
+      "nearest_fixture_sample": {
+        "sim_s": 385.664,
+        "leg_index": 11,
+        "target_or_interpolated_target": [
+          0.0,
+          1.0,
+          1.2516889048668356,
+          -0.35858245756110846
+        ],
+        "joints": {
+          "x": [
+            -0.0001220788867750785,
+            -0.0012555677501284463
+          ],
+          "z": [
+            1.0000000000000009,
+            -3.5744790374131474e-15
+          ],
+          "yaw": [
+            1.2989379661818605,
+            -0.07273839740051012
+          ],
+          "pitch": [
+            -0.3700451315785983,
+            0.00954785586471869
+          ]
+        }
+      }
+    },
+    "cost_groups": {
+      "visual_cost": 10833.615815425703,
+      "visual_residual_components": 3708,
+      "visual_share": 0.8889424701383226,
+      "imu_cost": 729.4350923885078,
+      "imu_residual_components": 150,
+      "imu_share": 0.05985313157497602,
+      "marginalization_cost": 624.0322605036994,
+      "marginalization_residual_components": 82,
+      "marginalization_share": 0.05120439828670091,
+      "grouped_cost_sum": 12187.08316831791,
+      "grouped_cost_error": -5.4569682106375694e-12,
+      "evaluation_ok": true,
+      "prior_evaluation_ok": true,
+      "prior_spectrum_ok": true,
+      "prior_information_rank": 82,
+      "prior_retained_dimension": 82
+    },
+    "raw_cost_recovered_after_trigger": true,
+    "n05_post_release_reached": false,
+    "compute_only_mission_started": false,
+    "goal_sent": false,
+    "xy_or_braking_measurement": false,
+    "fixture_removed": true,
+    "fixture_final_landed": true,
+    "fixture_final_disarmed": true,
+    "fresh_readback": {
+      "schema": "n08-final-safety-readback/v1",
+      "run_id": "n08-20261024-242-overhead-free-sector-admission",
+      "observed_utc": "2026-10-24T13:13:53.367095+00:00",
+      "source": "fresh ROS 2 topic echoes after fixture removal and before project container stop",
+      "vehicle_status": {
+        "topic": "/fmu/out/vehicle_status_v1",
+        "timestamp_us": 410992000,
+        "arming_state": 1,
+        "arming_state_name": "DISARMED",
+        "failsafe": false,
+        "pre_flight_checks_pass": false
+      },
+      "land_detected": {
+        "topic": "/fmu/out/vehicle_land_detected",
+        "timestamp_us": 419124000,
+        "landed": true,
+        "ground_contact": true,
+        "at_rest": true,
+        "horizontal_movement": false,
+        "vertical_movement": false,
+        "rotational_movement": false
+      },
+      "bridge_status": {
+        "topic": "/uav_px4_bridge/status",
+        "phase": "DISABLED",
+        "reason": "localization_not_tracking",
+        "control_enabled": false,
+        "armed": false,
+        "landed": true,
+        "local_position_valid": false,
+        "ev_position_fused": false,
+        "ev_yaw_fused": false,
+        "gnss_aiding_active": false
+      },
+      "bridge_status_detail": {
+        "topic": "/uav_px4_bridge/status/detail",
+        "alignment_pair_gap_sim_s": 44.06,
+        "alignment_pair_validated_age_wall_s": 48.834319235
+      },
+      "fixture": {
+        "fixture_removed": true,
+        "fixture_may_remain_attached": false,
+        "remove_service_acknowledged": true,
+        "scene_model_absent": true,
+        "final_land_detector_landed": true
+      },
+      "container_stop_exit_code": 0,
+      "mission_or_goal_started": false,
+      "notes": [
+        "Support scan ended at 11/15 stages after normalized_cost_exceeded.",
+        "No N05 post-release/current-area admission was obtained.",
+        "No compute-only mission or horizontal position command ran."
+      ]
+    },
+    "project_container_exit_code": 0
+  },
+  "comparison_225": {
+    "run_id": "n08-20261024-225-camera-cone-compute-only-01",
+    "same_scene_and_profile": true,
+    "completed_stages": 15,
+    "max_raw_normalized_cost": 0.860666
+  },
+  "limits": [
+    "The 242 run did not enable the PX4 HRT/ROS clock observer; it cannot supply a run-specific clock-offset verdict.",
+    "The one-shot residual-group snapshot localizes most trigger cost to visual residuals but does not identify individual offending observations.",
+    "The same profile passed once in 225 and failed once in 242; the result shows run-to-run sensitivity, not a deterministic profile root cause."
+  ],
+  "artifact_sha256": {
+    "artifacts/runs/n08-20261024-241-overhead-free-sector-admission/container-startup.log": "a08a20a322f819a55fa5e692d27b60ca3a33814a56afc35a0acd55e38030dce2",
+    "artifacts/runs/n08-20261024-241-overhead-free-sector-admission/vio.log": "f9b4be44f3dac5f0c7e9efeee54a958e4e5c7046667bce5b34621fa20b9dfda6",
+    "artifacts/runs/n08-20261024-241-overhead-free-sector-admission/runtime-contract.json": "445935dea6eef714828131935b8e9b78094bee59470846240c16887dea5da0de",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/n05-run-inputs.json": "ab389420f0c358b0bd8138c048149b8e1b6a7848e64ebc9c04f35496d7cf87b8",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/n05-before/n05-live-entry-check.json": "2df3435307002fa6959a354b8b4f36a07640a89337d64ed083ea6dd5a642a4d6",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/fixture-result.json": "d3c9fd2ad9203b9b390ca2e99cd994048530eb9c4c17ead0bf306105b68dd0d7",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/fixture-stages.json": "8759358bd07341a2ea28bb4e895eae4f9372d386a59da2245b8564e6649a124a",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/fixture-trace.jsonl": "9d1d3342930ecccc7d29c5b05e932817321edfbeee1a405d387bdb513a24136f",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/fixture-vins.jsonl": "0ba85a093bfaf82770b445c9abf863536fb166c71a44c0871770ae0f273ca538",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/fixture-odometry.jsonl": "f371a0ae3939eef942579024cef57ea83dd1e022a61bf766ae814491829c9ac7",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/final-safety-readback.json": "85d70be45e8279fcd2b48289fcd291525a3922d30d4b5c73530639178a3de271",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/px4.log": "4ac17c3a887d725c0eaa009b8d693f8fbb39ece4343269fabadf9c728209619e",
+    "artifacts/runs/n08-20261024-242-overhead-free-sector-admission/vio.log": "34efef6114d1776eb7facb1fb4a78abcdedc4a80f191476cf632e43259fcffcc"
+  }
+}

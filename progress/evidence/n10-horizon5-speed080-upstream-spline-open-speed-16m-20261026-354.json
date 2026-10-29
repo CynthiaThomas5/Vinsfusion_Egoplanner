@@ -1,0 +1,194 @@
+{
+  "schema": "n10-calibration-result/v1",
+  "report_id": 354,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "run_id": "n10-20261026-354-upstream-spline-speed080-open-speed-16m",
+  "classification": "failed_calibration_sample; not formal qualification",
+  "protocol": "progress/evidence/n10-horizon5-speed080-upstream-spline-open-speed-16m-protocol-20261026-354.json",
+  "runtime_contract_sha256": "304c2f8551172d95813fbdeb62f2c7aa68f57cfbf467c90bce71dee18db58591",
+  "effective_planner_parameters": {
+    "max_vel": 0.8,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0,
+    "obstacles_inflation": 0.7306179170842027,
+    "odom_depth_timeout": 0.4
+  },
+  "preflight": {
+    "passed": true,
+    "takeoff_admission_passed": true,
+    "contact_observer_ready": true
+  },
+  "task": {
+    "target_world_imu_xyz_m": [
+      8.086237367533883,
+      -4.860515888185072e-05,
+      1.0650105493685234
+    ],
+    "goal_minimum_true_position_error_m": 0.060994038783207354,
+    "max_true_contiguous_dwell_wall_s": 2.0845410679467022,
+    "independent_arrival_passed": false,
+    "native_action_success": false,
+    "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+    "goal_elapsed_sim_s": 36.784,
+    "goal_elapsed_wall_s": 41.17801746283658,
+    "goal_clock_regressions": 0,
+    "max_forward_world_x_progress_from_goal_start_m": 15.972177900912408,
+    "observed_goal_motion_path_length_m": 18.70560604763094,
+    "post_goal_active_hold": null
+  },
+  "speed_observation_only": {
+    "guard_enabled": false,
+    "sources": [
+      "ego_position_command_reference",
+      "px4_vehicle_local_position"
+    ],
+    "max_vector_speed_m_s": {
+      "ego_position_command_reference": 0.677674531001938,
+      "px4_vehicle_local_position": 0.6103458339521363
+    },
+    "sample_counts": {
+      "ego_position_command_reference": 4110,
+      "px4_vehicle_local_position": 1839
+    },
+    "candidate_planner_max_velocity_per_axis_m_s": 0.8,
+    "candidate_planner_max_acceleration_per_axis_m_s2": 0.25
+  },
+  "speed_components_derived_from_full_histories": {
+    "ego_reference_enu": {
+      "sample_count": 4110,
+      "max_abs_component": 0.6776520775259968,
+      "max_abs_per_axis": [
+        0.6776520775259968,
+        0.41468743551892606,
+        0.2537893095935493
+      ],
+      "max_vector_norm": 0.677674531001938
+    },
+    "px4_local_position_velocity_frame_components": null
+  },
+  "raw_vio_pre_enable_aligned_to_truth": {
+    "duration_sim_s": 64.508,
+    "paired_truth_path_length_m_including_takeoff_and_landing": 19.612898127938315,
+    "position_error_m": {
+      "count": 978,
+      "rmse": 0.021245114103669163,
+      "median": 0.014807312711516493,
+      "p95": 0.04089702557334266,
+      "max": 0.045713454998003146
+    },
+    "absolute_yaw_error_deg": {
+      "count": 978,
+      "rmse": 0.267558578580014,
+      "median": 0.18612582269706573,
+      "p95": 0.4919386694607358,
+      "max": 0.5264695300419009
+    },
+    "bounded_time_support_fraction": 0.9995659453091089,
+    "raw_max_gap_sim_s": 0.068000001,
+    "truth_max_gap_sim_s": 0.02,
+    "invalid_localization_status_samples": 115
+  },
+  "ego_reference_to_truth_tracking": {
+    "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+    "candidate_max_error_m_not_enforced_by_runner": 0.15,
+    "matching_ready_commands": 4110,
+    "paired_commands": 4110,
+    "error_m": {
+      "median": 0.5683383982416782,
+      "p95": 0.626902787318887,
+      "max": 0.7093560770104932,
+      "mean": 0.5333840622609831
+    },
+    "max_truth_interpolation_gap_s": 0.02
+  },
+  "health_lockout": {
+    "source": "Project-owned localization health policy; same gate mechanism as #353.",
+    "event": {
+      "source_stamp_s": 152.088,
+      "normalized_cost": 1.0852965318738348,
+      "configured_max": 1.0,
+      "solver_usable": true,
+      "input_features": 78,
+      "stereo_features": 71,
+      "long_tracks": 31,
+      "continued_tracks": 57,
+      "visual_cost": 443.34857524908927,
+      "marginalization_cost": 584.7278060091713,
+      "grouped_cost_error": 9.094947017729282e-13
+    },
+    "policy_threshold_unchanged": true,
+    "interpretation": "It blocked the task before the required 3 s true-position dwell. This report preserves the gate; the user subsequently requested that health limits be disabled for the next diagnostic SITL."
+  },
+  "arrival": {
+    "minimum_true_3d_error_m": 0.060994038783207354,
+    "max_contiguous_true_dwell_wall_s": 2.0845410679467022,
+    "required_dwell_wall_s": 3.0,
+    "independent_arrival_passed": false,
+    "native_action_success": false
+  },
+  "planner_observation": {
+    "message_count": 87,
+    "bspline_count": 85,
+    "position_command_ready_samples": 4110
+  },
+  "contact": {
+    "passed": true,
+    "prohibited_contact_event_count": 0,
+    "ground_contact_event_count": 14977
+  },
+  "terminal_state": {
+    "bridge_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "control_samples_zero": true,
+    "safe_to_stop": true,
+    "project_container_stop_exit_code": 0
+  },
+  "comparison_to_353": {
+    "runtime_contract_identical": true,
+    "px4_vector_speed_peak_m_s": {
+      "353": 0.8586204970813536,
+      "354": 0.6103458339521363
+    },
+    "ego_reference_vector_speed_peak_m_s": {
+      "353": 0.8346470178484902,
+      "354": 0.677674531001938
+    },
+    "tracking_error_p95_m": {
+      "353": 0.941691633407552,
+      "354": 0.626902787318887
+    },
+    "tracking_error_max_m": {
+      "353": 0.946248331707412,
+      "354": 0.7093560770104932
+    },
+    "goal_forward_progress_m": {
+      "353": 5.190782102744723,
+      "354": 15.972177900912408
+    },
+    "interpretation": "Under this one-run pair, lower planner max_velocity coincided with lower observed vector speeds and smaller fixed-alignment tracking error. It did not reach the required dwell, and one pair is not final calibration."
+  },
+  "input_sha256": {
+    "n10_calibration_evaluation.json": "eae3488341e5f4f78416ac424ac00ef2d31d3760edb98acc0404e451297b3709",
+    "arrival_evaluation.json": "f021c97feb191b2ad59c75e25286626efb2ec0e4ddeea397f5efc92a497fb6cd",
+    "flight.json": "5ff210d2550b769b264b62f6b3adb092678cf3db88624434e919e96afbd5cbc0",
+    "runtime_contract.json": "8cc40443aeb1d1f471d5a116e45c307efc11a1021ce1ae017d9d577e44a6eb7e",
+    "planner_config": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "driver": "9a3df0c409d1dc4ac90c9c627722513f1ffaaa012fff307d943a9417ae541bb5",
+    "analyzer": "0134ee262f1bb627944f34fb47a0323567ef644a1e54ceb7d0fbbf6ca7fc427b"
+  },
+  "limitations": [
+    "True target error entered 0.061 m but continuous dwell was only 2.085 s, below 3 s.",
+    "No 600 s ACTIVE hold or controlled braking measurement.",
+    "The next run will use a user-authorized diagnostic bypass for localization health limits; such a run is not formal qualification."
+  ],
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261026-354-upstream-spline-speed080-open-speed-16m",
+    "flight": "artifacts/runs/n10-20261026-354-upstream-spline-speed080-open-speed-16m/flight.json",
+    "calibration_evaluation": "artifacts/runs/n10-20261026-354-upstream-spline-speed080-open-speed-16m/n10-calibration-evaluation.json",
+    "arrival_evaluation": "artifacts/runs/n10-20261026-354-upstream-spline-speed080-open-speed-16m/arrival-evaluation.json",
+    "postflight_readback": "artifacts/runs/n10-20261026-354-upstream-spline-speed080-open-speed-16m/postflight-px4-bridge-readback.json"
+  }
+}

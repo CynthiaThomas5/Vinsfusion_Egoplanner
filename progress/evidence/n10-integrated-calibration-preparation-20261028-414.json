@@ -1,0 +1,50 @@
+{
+  "schema": "n10-integrated-calibration-preparation/v1",
+  "subtask_id": "N10.3/#414",
+  "run_id": "n10-20261028-414-speed040-yawcap010-map-trace-calibration",
+  "status": "prepared_static_checks_pass_build_and_sitl_pending",
+  "classification": "single-variable calibration preparation; not formal qualification",
+  "sole_behavior_variable": {
+    "name": "EGO regular trajectory yaw-rate cap",
+    "baseline_rad_s": 3.1415926,
+    "candidate_rad_s": 0.1
+  },
+  "read_only_trace": {
+    "patch": "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch",
+    "enabled_only_in_selected_calibration_profile": true,
+    "runtime_control_effect": false,
+    "persisted_as": "run-local JSONL",
+    "acceptance_effect": false
+  },
+  "acceptance_thresholds_changed": false,
+  "project_added_runtime_acceptance_gates": false,
+  "retained_failures": true,
+  "patch_0058_sha256": "9f847bcef6dd2384c936491971480a12e806d0794f80c6409d27ed269649d203",
+  "patch_0057_sha256": "10253a99a10573a684adaa2d5d183f76234cfef35727122709181ce7239b66a8",
+  "source_lock_patch_0058_sha256": "9f847bcef6dd2384c936491971480a12e806d0794f80c6409d27ed269649d203",
+  "static_validation": {
+    "python_syntax": "PASS",
+    "json_parse": "PASS",
+    "driver_bash_syntax": "PASS",
+    "bringup_config_tests": "11/11 PASS",
+    "sequential_0057_0058_patch_replay": "PASS"
+  },
+  "pending": [
+    "calibration ROS build",
+    "prelaunch identity/readback",
+    "#414 SITL calibration",
+    "offline map trace and N10 acceptance replay"
+  ],
+  "flight_goal_submitted": false,
+  "flight_armed": false,
+  "inputs_sha256": {
+    "dependencies/patches/ego/0057-n10-yaw-rate-cap-010.patch": "10253a99a10573a684adaa2d5d183f76234cfef35727122709181ce7239b66a8",
+    "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch": "9f847bcef6dd2384c936491971480a12e806d0794f80c6409d27ed269649d203",
+    "config/components/mapping/n10_horizon5_speed040_yawcap010_calibration.json": "2b8aad87dd333dbafc71f7b8581af574669b22f1e2ac71ff0ea8c49e61b3561c",
+    "progress/evidence/n10-integrated-calibration-protocol-20261028-414.json": "ba086e406d4b44783914a9bc0d69480f29e5b64b7dfb57b53a6e1620b1624f61",
+    "artifacts/n10-prepared/n10-20261028-414-speed040-yawcap010-map-trace-calibration/prepare_prelaunch.py": "2fd03bd5c45e26378390b5a9f7aeaf3eb46228b734c6e4fc9ae2d2f97c35d2bd",
+    "artifacts/n10-prepared/n10-20261028-414-speed040-yawcap010-map-trace-calibration/n10-runtime-driver.sh": "128771b4176fc272c478b8f8528135a4b5992074d09bdc407ea4c7d7b3fbbe2f",
+    "artifacts/n10-prepared/n10-20261028-414-speed040-yawcap010-map-trace-calibration/n10_live_obstacle_injector.py": "5d29c747757c344257f027937da892ea45c9882303fd9dc75815457e81539e4e",
+    "tools/debug_truth/evaluate_n10_voxel_trace.py": "5cb0d8234c5f97f50d8223183c71b8ebcb430aac42596c34996778e7a3b8069d"
+  }
+}

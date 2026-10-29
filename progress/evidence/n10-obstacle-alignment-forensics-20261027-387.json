@@ -1,0 +1,103 @@
+{
+  "schema": "n10-obstacle-alignment-forensics-summary/v1",
+  "subtask": "N10.3/#387",
+  "run_id": "n10-20261027-385-arrival-dwell4-retry",
+  "classification": "offline forensic reconciliation; diagnostic only, not formal N10/N12 qualification",
+  "hypothesis": "The zero centerline distance in the previous whole-spline analysis may be an obstacle/frame coordinate mismatch.",
+  "single_variable": "Use the independent fixed prestream truth-to-odometry SE(3) to transform the actual SDF box and compare full spline geometry with timestamped READY PositionCommand samples.",
+  "criteria": {
+    "coordinate_check": "Transform the protocol expected odom box center to Gazebo world and compare with the SDF world center; independently solve the SDF center back into odom.",
+    "path_check": "Recompute full-spline centerline distance and time-stamped command centerline distance against the same SDF box in world coordinates.",
+    "map_check": "Report same-identity raw map query responses after injection at the recorded box volume; do not treat other ROI counts as box occupancy."
+  },
+  "results": {
+    "expected_box_center_offset_norm_m": 0.26410178688288444,
+    "protocol_odom_box_center_m": [
+      8.0,
+      0.0,
+      1.0999999999999999
+    ],
+    "fixed_alignment_exact_odom_box_center_m": [
+      7.878444772791995,
+      0.0005208151273459905,
+      1.3344649426348119
+    ],
+    "pre_injection_whole_spline_min_centerline_distance_m": 0.0,
+    "first_post_injection_whole_spline_min_centerline_distance_m": 0.0,
+    "post_injection_position_command_min_centerline_distance_m": 1.4628258266204743,
+    "post_injection_position_command_closest": {
+      "traj_id": 74,
+      "source_stamp_ns": 73348000000,
+      "world_xyz_m": [
+        -1.8489815620544627,
+        0.6007780661678028,
+        1.5118894201311883
+      ]
+    },
+    "truth_body_clearance_sampled_minus_observed_motion_m": 1.1305423893366051,
+    "truth_body_clearance_is_continuous_certificate": false,
+    "raw_map_box_volume_queries": [
+      {
+        "label": "after_0.5",
+        "request_sim_ns": 69640000000,
+        "response_sim_ns": 69660000000,
+        "request_center_odom_xyz_m": [
+          8.0,
+          0.0,
+          1.0999999999999999
+        ],
+        "request_center_world_xyz_m": [
+          0.12153958519588848,
+          -0.0005597450536556303,
+          1.1655270383378526
+        ],
+        "request_center_inside_spawned_box": true,
+        "radius_m": 0.25,
+        "accepted": true,
+        "free": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 160,
+        "occupied_count": 0,
+        "map_id": "155b2fddd5a1481d96b52db2f93b6a6a-0315b398ca8a456b8339cb8e8318d43f"
+      },
+      {
+        "label": "after_1.25",
+        "request_sim_ns": 70400000000,
+        "response_sim_ns": 70420000000,
+        "request_center_odom_xyz_m": [
+          8.0,
+          0.0,
+          1.0999999999999999
+        ],
+        "request_center_world_xyz_m": [
+          0.12153958519588848,
+          -0.0005597450536556303,
+          1.1655270383378526
+        ],
+        "request_center_inside_spawned_box": true,
+        "radius_m": 0.25,
+        "accepted": true,
+        "free": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 160,
+        "occupied_count": 0,
+        "map_id": "155b2fddd5a1481d96b52db2f93b6a6a-0315b398ca8a456b8339cb8e8318d43f"
+      }
+    ],
+    "occupied_cloud_roi_is_box_specific": false,
+    "occupied_cloud_roi_association": "separate static-cylinder approach observer; archived points do not include coordinates tied to the injected box",
+    "prohibited_contact_event_count": 0
+  },
+  "conclusion": "The fixed transform changes the expected box center by 0.264 m, but the first two whole-spline geometric samples still intersect the box. Timestamped active position commands remain at least 1.463 m from the box and the truth-based sampled body clearance lower bound is 1.131 m. Thus whole-curve geometry was not the executed path in this time window. However, post-injection map queries at a center inside the SDF box still report free with zero occupied samples, and the recorded ROI points are not tied to this box. The coordinate mismatch alone does not establish why the vehicle detoured or prove map-driven replanning.",
+  "next_subtask": "N10.3/#388: inspect the raw occupancy query implementation and mapping update semantics; prepare a read-only observer that separately samples the box front surface and interior with exact frame/time provenance. Preserve the same runtime behavior and do not add a runtime refusal gate.",
+  "input_sha256": {
+    "forensic_replay_json": "95eff4e501dd6ca8f33c6e7a8fb6fa7ad9e4c578ff723d9c50cf25d7cf629a8e",
+    "forensic_replay_script": "475498ec6e25b61b89fe55d045762b1f1d7d4d24de04bdc171f7f74eaf851c50",
+    "fixed_arrival_report": "aec27d1c3f261115ee19d6a60ac57769f6def9eb2d5c92db59445dccdc99d3d4",
+    "live_observation": "ea1129d5e8eeccd83b107d9868aa79b9bf96d57839611d23cc0bfee1ef0e5f13",
+    "flight": "0854f3954b1652e19edb0694de759cf57c97d993f2d8ae3849e1eace8a50501e",
+    "box_clearance": "2c7a50c72f5932360c937a09d0aba8a64928d2a3b4a7db23591a6a7e15fa4c15"
+  }
+}

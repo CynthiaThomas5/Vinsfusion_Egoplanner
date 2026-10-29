@@ -1,0 +1,64 @@
+{
+  "schema": "n08-localization-lock/v1",
+  "task": "N08.2f #216",
+  "run_id": "n08-20261024-216-vio-timeline-01",
+  "hypothesis": "localization stale could occur after the N05 support scan, during the release-to-bridge-ready handoff",
+  "diagnostic_variable": "low-load, read-only recorder of /clock, raw VINS telemetry/odometry, optimized odometry, and LocalizationStatus; stopped after fixture completion, with a separate post-failure readback",
+  "result": "N05_PASSED_COMPUTE_ONLY_BLOCKED_BY_LOCKED_LOCALIZATION_STATUS",
+  "support_scan": {
+    "completed_stages": 12,
+    "required_stages": 12,
+    "helper_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_removed": true,
+    "final_landed": true,
+    "all_vehicle_states_disarmed": true,
+    "independent_n05_summary_diagnostic_pass": true
+  },
+  "n05": {
+    "post_release_accepted": true,
+    "current_area_accepted": true,
+    "online_offline_identical": true,
+    "same_epoch_and_map": true
+  },
+  "scan_window_timeline": {
+    "telemetry_count": 5157,
+    "telemetry_max_source_gap_s": 0.068000001,
+    "telemetry_max_clock_age_s": 0.096,
+    "raw_odometry_max_source_gap_s": 0.068000001,
+    "optimized_odometry_max_source_gap_s": 0.068000001,
+    "optimized_odometry_max_receipt_gap_s": 0.408023318,
+    "localization_status_transitions": 0
+  },
+  "navigation_preflight": {
+    "passed": true,
+    "observed_wall_s": 40.01069398713298,
+    "max_optimized_odom_receipt_gap_wall_s": 0.3412167748901993,
+    "optimized_odom_gap_over_guard_count": 1,
+    "failure_sample_counts": {
+      "optimized_odometry_receipt_stale": 1
+    }
+  },
+  "bridge_and_mission": {
+    "bridge_phase": "DISABLED",
+    "bridge_reason": "localization_not_tracking",
+    "prior_bridge_reason": "external_odometry_stale",
+    "localization_reason": "telemetry_stale",
+    "localization_status_source_stamp_s": 465.364,
+    "localization_status_header_stamp_s": 527.42,
+    "localization_status_source_age_at_followup_s": 62.064000001,
+    "latest_raw_telemetry_source_stamp_s": 527.344,
+    "latest_raw_telemetry_clock_age_s": 0.056,
+    "followup_max_source_gap_s": 0.068000001,
+    "flight_result": "FAIL",
+    "flight_failure": "vio_bridge_map_preconditions_not_ready",
+    "action_goal_sent": false,
+    "trajectory_ready_seen": false,
+    "armed_or_airborne": false,
+    "landed_and_disarmed": true
+  },
+  "first_stale_transition_captured": false,
+  "px4_time_reference_regression_supported": false,
+  "n07_passes_retested": false,
+  "container_stopped": true,
+  "next": "N08.2g #217: capture continuously from before support scan through N05 and compute-only preconditions; stop probe before bridge PRESTREAM"
+}

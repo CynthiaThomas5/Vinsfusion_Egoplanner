@@ -3,10 +3,22 @@ set -Eeuo pipefail
 
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$ROOT"
-RUN_ID=${1:?Usage: run_n05_preflight_layout.sh RUN_ID wall_box_column|corridor_box_column}
+RUN_ID=${1:?Usage: run_n05_preflight_layout.sh RUN_ID wall_box_column|corridor_box_column|n08_overhead_calibration [PROFILE]}
 LAYOUT=${2:?Specify wall_box_column or corridor_box_column}
+PROFILE=${3:-coverage}
+KEEP_SIM=${N05_KEEP_SIM:-0}
+N08_SOURCE_TIMELINE=${N05_N08_SOURCE_TIMELINE:-0}
+N08_SOURCE_TIMELINE_DURATION_WALL_S=${N05_N08_SOURCE_TIMELINE_DURATION_WALL_S:-1200}
 [[ "$RUN_ID" =~ ^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$ ]] || { echo 'Invalid run id' >&2; exit 2; }
-[[ "$LAYOUT" == wall_box_column || "$LAYOUT" == corridor_box_column ]] || { echo 'Invalid N05 layout' >&2; exit 2; }
+[[ "$LAYOUT" == wall_box_column || "$LAYOUT" == corridor_box_column || "$LAYOUT" == n08_overhead_calibration ]] || { echo 'Invalid N05 layout' >&2; exit 2; }
+[[ "$KEEP_SIM" == 0 || "$KEEP_SIM" == 1 ]] || { echo 'N05_KEEP_SIM must be 0 or 1' >&2; exit 2; }
+[[ "$N08_SOURCE_TIMELINE" == 0 || "$N08_SOURCE_TIMELINE" == 1 ]] || { echo 'N05_N08_SOURCE_TIMELINE must be 0 or 1' >&2; exit 2; }
+[[ "$N08_SOURCE_TIMELINE_DURATION_WALL_S" =~ ^[0-9]+$ ]] && (( N08_SOURCE_TIMELINE_DURATION_WALL_S >= 1 && N08_SOURCE_TIMELINE_DURATION_WALL_S <= 1800 )) || { echo 'N05_N08_SOURCE_TIMELINE_DURATION_WALL_S must be an integer from 1 to 1800' >&2; exit 2; }
+[[ "$PROFILE" == n08_far_small_pitch_view || "$PROFILE" == n08_far_overhead_neutral_view || "$PROFILE" == coverage || "$PROFILE" == n06_extended_reach || "$PROFILE" == n06_extended_reach_slow_x || "$PROFILE" == n06_extended_reach_slow_x_pitch60 || "$PROFILE" == n06_extended_reach_slow_x_pitch60_single_yaw || "$PROFILE" == n06_extended_reach_slow_x_pitch45_yaw0 || "$PROFILE" == n06_full_airframe_retreat_240 || "$PROFILE" == n06_full_airframe_retreat_240_translation_only || "$PROFILE" == n06_full_airframe_retreat_240_segmented_actual_return || "$PROFILE" == n06_full_airframe_retreat_240_oblique_site_view || "$PROFILE" == n06_full_airframe_retreat_240_oblique_separated_return || "$PROFILE" == n06_full_airframe_retreat_240_oblique_early_view || "$PROFILE" == n08_overhead_free_sector_view || "$PROFILE" == n08_overhead_free_sector_with_negative_side_view || "$PROFILE" == n08_overhead_free_sector_with_negative_side_recovery || "$PROFILE" == n08_overhead_free_sector_negative_side_short_dwell || "$PROFILE" == n08_overhead_free_sector_negative_y_side_view || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_view || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_slow_descent || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_slow_descent || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_pitch_down_descent || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_segmented_neutral_descent || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view_separated_pitch || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view_neutral_yaw_pitch_only_rear || "$PROFILE" == n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view_midheight_yaw_pitch_only_rear || "$PROFILE" == n08_overhead_free_sector_view_decoupled_return || "$PROFILE" == n08_overhead_free_sector_view_decoupled_slow_vertical_return || "$PROFILE" == n08_overhead_free_sector_view_decoupled_slow_vertical_return_negative_side || "$PROFILE" == n08_overhead_free_sector_negative_side_slow_descent || "$PROFILE" == n08_overhead_free_sector_view_steeper || "$PROFILE" == n08_overhead_negative_side_view || "$PROFILE" == n08_overhead_rear_facing_view || "$PROFILE" == n08_overhead_rear_down_view || "$PROFILE" == n08_overhead_rear_down_slow_yaw_return || "$PROFILE" == n08_terminal_horizontal_views || "$PROFILE" == n08_terminal_horizontal_views_via_neutral || "$PROFILE" == n08_overhead_rear_one_side_view || "$PROFILE" == n08_overhead_positive_side_view || "$PROFILE" == n07_default_spawn_translation_only || "$PROFILE" == n07_default_spawn_bidirectional_translation_only || "$PROFILE" == n07_spawn_minus65_retreat_150_translation_only || "$PROFILE" == n07_spawn_minus65_retreat_180_translation_only || "$PROFILE" == n07_spawn_minus65_retreat_180_yaw015rad_view || "$PROFILE" == n07_spawn_minus65_retreat_180_yaw015rad_return_view || "$PROFILE" == n07_spawn_minus65_retreat_180_pitch045_view || "$PROFILE" == n07_spawn_minus65_retreat_180_pitch045_return_view ]] || { echo 'Invalid N05 scan profile' >&2; exit 2; }
+if [[ "$N08_SOURCE_TIMELINE" == 1 && "$PROFILE" != n08_* ]]; then
+  echo 'N05 N08 source timeline capture requires an n08_* scan profile' >&2
+  exit 2
+fi
 RUN_DIR="$ROOT/artifacts/runs/$RUN_ID"
 CONTAINER="d435i-$RUN_ID"
 [[ ! -e "$RUN_DIR" ]] || { echo "Refusing to overwrite $RUN_DIR" >&2; exit 9; }
@@ -36,15 +48,28 @@ cleanup() {
 import json,sys
 d=json.load(open(sys.argv[1]))
 print(bool(d.get('fixture_may_remain_attached')
-           or (d.get('fixture_spawned') and not d.get('fixture_removed'))))
+           or (d.get('fixture_spawned') and (
+               not d.get('fixture_removed')
+               or d.get('safety_cleanup', {}).get('verified_landed') is not True))))
 PY
         )
         if [[ "$unsafe" == True ]]; then
-          echo "Fixture state was not confirmed detached; keeping $CONTAINER running for monitoring" >&2
+          echo "Fixture removal or final landed state was not confirmed; keeping $CONTAINER running for monitoring" >&2
           echo 'Do not stop this project container until the N05 fixture state is resolved.' \
             > "$RUN_DIR/n05-monitor-required.txt"
           exit "$code"
         fi
+      fi
+      if [[ "$KEEP_SIM" == 1 ]]; then
+        if [[ ! -f "$RUN_DIR/fixture-result.json" ]]; then
+          echo 'Fixture result is missing; preserving the simulation for safety review.' >&2
+          echo 'Do not continue to mission until fixture state and landed/disarmed status are resolved.' \
+            > "$RUN_DIR/n05-monitor-required.txt"
+          exit "$code"
+        fi
+        echo "Keeping $CONTAINER running after verified fixture removal and landed cleanup." \
+          > "$RUN_DIR/n05-kept-sim.txt"
+        exit "$code"
       fi
       docker stop -t 15 "$CONTAINER" >/dev/null 2>&1 || true
     fi
@@ -66,7 +91,7 @@ for ((i=0; i<240; ++i)); do
 done
 [[ -f "$RUN_DIR/stack-started" ]] || { echo 'Timed out waiting for current VINS/EGO stack' >&2; exit 11; }
 
-python3 - "$RUN_DIR/n05-run-inputs.json" "$RUN_ID" "$LAYOUT" <<'PY'
+python3 - "$RUN_DIR/n05-run-inputs.json" "$RUN_ID" "$LAYOUT" "$PROFILE" "$N08_SOURCE_TIMELINE" "$N08_SOURCE_TIMELINE_DURATION_WALL_S" <<'PY'
 import hashlib,json,sys
 from pathlib import Path
 root=Path.cwd()
@@ -76,20 +101,52 @@ files=[
  'config/components/navigation/vehicle_envelope.json',
  'config/components/mapping/ego_planner.json',
  'config/components/simulation/n04_geometry_layouts.json',
+ 'config/components/simulation/n08_overhead_calibration.json',
  'config/components/simulation/preflight_scan.json',
+ 'config/runtime.json',
  'simulation/models/preflight_scan_fixture/model.sdf',
  'simulation/models/x500_d435i/model.sdf','simulation/models/d435i/model.sdf',
  'external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf',
 ]
 hashes={p:hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files}
-run_id,layout=sys.argv[2:]
+if sys.argv[5] == '1':
+ for p in ('tools/diagnostics/record_n08_localization_sources.py',
+           'tools/n08_timeline_helpers.py',
+           'config/components/localization/health.json'):
+  hashes[p]=hashlib.sha256((root/p).read_bytes()).hexdigest()
+run_id,layout,profile=sys.argv[2:5]
+runtime=json.load(open('config/runtime.json'))
 Path(sys.argv[1]).write_text(json.dumps({
- 'schema':'n05-run-inputs/v1','run_id':run_id,'layout_id':layout,
- 'container_image':json.load(open('config/runtime.json'))['image_id'],
- 'world_scene':'current PX4 SITL scene plus selected N04 geometry, shifted +1.5 m along spawn yaw',
+ 'schema':'n05-run-inputs/v1','run_id':run_id,'layout_id':layout,'scan_profile':profile,
+ 'source_timeline_capture':sys.argv[5]=='1',
+ 'source_timeline_duration_wall_s':int(sys.argv[6]) if sys.argv[5]=='1' else None,
+ 'source_timeline_periods_wall_s':({'clock':0.1,'streams':0.1} if sys.argv[5]=='1' else None),
+ 'container_image':runtime['image_id'],'px4_spawn_pose':runtime['spawn_pose'],
+  'world_scene':'current PX4 SITL scene plus selected diagnostic geometry, shifted +1.5 m along spawn yaw',
  'control_scope':'DISARMED whole-airframe support scan and read-only occupancy check',
  'file_sha256':hashes},indent=2)+'\n')
 PY
+
+if [[ "$N08_SOURCE_TIMELINE" == 1 ]]; then
+  docker exec -d "$CONTAINER" bash -c '
+    set +u
+    source /opt/ros/jazzy/setup.bash
+    source /workspace/install/local_setup.bash
+    set -u
+    run_id=$1; duration=$2; run="/workspace/artifacts/runs/$1"
+    if python3 /workspace/tools/diagnostics/record_n08_localization_sources.py "$run" \
+         --output-stem n08-prescan-localization-source-timeline \
+         --duration-wall-s "$duration" --clock-period-wall-s 0.1 \
+         --stream-period-wall-s 0.1 \
+         > "$run/n08-localization-source-timeline.log" 2>&1; then
+      code=0
+    else
+      code=$?
+    fi
+    printf "%s\n" "$code" > "$run/n08-localization-source-timeline.exitcode"
+    exit "$code"
+  ' n08-timeline "$RUN_ID" "$N08_SOURCE_TIMELINE_DURATION_WALL_S"
+fi
 
 echo "Capturing initial online map view for $RUN_ID ($LAYOUT)"
 run_in_container python3 tools/check_n05_entry_live.py \
@@ -102,8 +159,8 @@ docker exec -d "$CONTAINER" bash -c '
   source /opt/ros/jazzy/setup.bash
   source /workspace/install/local_setup.bash
   set -u
-  run_id=$1; layout=$2; run="/workspace/artifacts/runs/$1"
-  if python3 /workspace/tools/probe_preflight_scan.py --run "$run" --profile coverage \
+  run_id=$1; layout=$2; profile=$3; run="/workspace/artifacts/runs/$1"
+  if python3 /workspace/tools/probe_preflight_scan.py --run "$run" --profile "$profile" \
        --n05-layout "$layout" --hold-for-live-check > "$run/n05-fixture.log" 2>&1; then
     code=0
   else
@@ -111,7 +168,7 @@ docker exec -d "$CONTAINER" bash -c '
   fi
   printf "%s\n" "$code" > "$run/n05-fixture.exitcode"
   exit "$code"
-' n05-probe "$RUN_ID" "$LAYOUT"
+' n05-probe "$RUN_ID" "$LAYOUT" "$PROFILE"
 
 ready=0
 for ((i=0; i<1800; ++i)); do
@@ -152,13 +209,14 @@ done
 [[ -f "$RUN_DIR/n05-fixture.exitcode" ]] || { echo 'Support scan did not detach/close within 180 s' >&2; exit 15; }
 SCAN_EXIT_CODE=$(cat "$RUN_DIR/n05-fixture.exitcode")
 if [[ "$SCAN_EXIT_CODE" != 0 ]]; then
-  python3 - "$RUN_DIR/fixture-result.json" <<'PY'
+  python3 - "$RUN_DIR/fixture-result.json" "$ROOT/config/components/simulation/preflight_scan.json" "$PROFILE" <<'PY'
 import json,sys
 d=json.load(open(sys.argv[1]))
-if (d.get('completed_stages') != 12 or not d.get('n05_live_check_completed')
+profile=json.load(open(sys.argv[2]))[sys.argv[3]+'_profile']
+if (d.get('completed_stages') != len(profile) or not d.get('n05_live_check_completed')
         or 'detached' not in d.get('attachment_states', [])
         or not d.get('fixture_removed') or d.get('fixture_may_remain_attached')):
- raise SystemExit('scan process failed before a complete, detached observation; refusing post-release continuation')
+ raise SystemExit('scan process failed before a complete, detached profile; refusing post-release continuation')
 print('scan completed and fixture absent; preserving post-release status:',d.get('error',''))
 PY
   echo "Support scan reported a post-release health/status error (exit $SCAN_EXIT_CODE); running explicit post-release admission check."

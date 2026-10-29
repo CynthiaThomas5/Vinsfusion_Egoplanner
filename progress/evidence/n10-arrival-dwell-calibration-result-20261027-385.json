@@ -1,0 +1,198 @@
+{
+  "schema": "n10-arrival-dwell-calibration-result/v1",
+  "subtask": "N10.3/#385",
+  "run_id": "n10-20261027-385-arrival-dwell4-retry",
+  "classification": "single PX4 SITL diagnostic; not formal N10/N12 qualification",
+  "runtime_contract_sha256": "1afdc44ee760db82af299b27fc6131bcfea7af8f9908fb0abc34c5811eeb143a",
+  "single_variable": "native goal dwell configured to 4.0 simulated seconds; independent acceptance remains 3.0 simulated seconds",
+  "flight": {
+    "native_action_success": true,
+    "action_result": {
+      "final_position": [
+        15.955259089897233,
+        -0.011190010608997821,
+        1.0041746711780535
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "post_goal_hold": {
+      "abort_reason": null,
+      "bridge_status_at_end": {
+        "armed": true,
+        "landed": false,
+        "phase": "ACTIVE",
+        "reason": "takeoff_complete_waiting_for_trajectory"
+      },
+      "clock_stall_watchdog_s": 15.0,
+      "completed": true,
+      "end_odometry_position_enu_m": [
+        15.97429912223223,
+        -0.009409777466757498,
+        1.0064332951595876
+      ],
+      "observed_sim_s": 600.0,
+      "realtime_factor_sim_over_wall": 0.8758648601503823,
+      "requested_sim_s": 600.0,
+      "start_odometry_position_enu_m": [
+        15.955259089897233,
+        -0.011190010608997821,
+        1.0041746711780535
+      ],
+      "wall_elapsed_s": 685.0371870119125,
+      "wall_watchdog_s": 2400.0
+    },
+    "landed_and_disarmed": true,
+    "vehicle_contact_passed": true,
+    "prohibited_contact_event_count": 0,
+    "safe_to_stop_project_container": true,
+    "safe_to_stop_readback": {
+      "bridge_phase": "LANDED",
+      "armed": false,
+      "landed": true,
+      "control_enabled": false,
+      "vehicle_remained_disarmed": true,
+      "control_samples_zero": true
+    }
+  },
+  "independent_arrival": {
+    "classification": "PASS",
+    "status": "PASS",
+    "required_sim_s": 3.0,
+    "longest_joint_window": {
+      "start_sim_s": 97.78,
+      "end_sim_s": 101.1,
+      "duration_sim_s": 3.319999999999993,
+      "start_wall_s": 83.96311704115942,
+      "end_wall_s": 88.35665477020666,
+      "duration_wall_s": 4.393537729047239,
+      "sample_count": 167,
+      "max_position_error_m": 0.29788176912421954,
+      "max_yaw_error_rad": 0.05532555187991883
+    },
+    "position_tolerance_m": 0.3,
+    "yaw_tolerance_deg": 14.999999999999998,
+    "ground_rotation": [
+      [
+        0.9999999929579544,
+        9.830031679021081e-05,
+        6.649164541333439e-05
+      ],
+      [
+        -9.830796760816419e-05,
+        0.9999999885471191,
+        0.00011507087000860657
+      ],
+      [
+        -6.648033314883834e-05,
+        -0.00011507740585679577,
+        0.9999999911687779
+      ]
+    ],
+    "ground_translation": [
+      -7.878533499277701,
+      0.00010014073020021591,
+      0.06605889071738777
+    ]
+  },
+  "vio_and_motion_observations": {
+    "raw_velocity_truth_pair_fraction": 1.0,
+    "raw_velocity_truth_pairs": 10180,
+    "raw_velocity_samples": 10180,
+    "calibration_position_error_p95_m": 0.46252732582007744,
+    "calibration_yaw_error_p95_deg": 10.110174170481011,
+    "reference_tracking_error_p95_m": 0.5377191391550866,
+    "reference_tracking_error_max_m": 1.1144839071695571
+  },
+  "dynamic_obstacle_diagnostic": {
+    "gazebo_create_acknowledged": true,
+    "max_occupied_cloud_roi_point_count": 201,
+    "depth_color_frame_count": 12,
+    "last_pre_injection_trajectory_id": 21,
+    "first_different_trajectory_id_after_injection": 22,
+    "analysis_classification": "single diagnostic measurement; no formal N10/N12 threshold or PASS claim",
+    "coordinate_assumption": "odom origin and yaw coincide with the configured initial body spawn; verify against independent truth/alignment before interpreting distances",
+    "sampled_centerline_box_distance_min_m": 0.0,
+    "box_clearance_sampled_lower_bound_m": 1.1305423893366051,
+    "box_clearance_classification": "offline sampled simulated geometry measurement; not a continuous dynamics certificate or formal threshold",
+    "interpretation": "Injection ACK and trajectory ID change are recorded, but the raw-map query remains free at the geometrically box-interior query center; ROI counts do not identify the injected box, and a changed trajectory ID alone does not prove obstacle-triggered replan.",
+    "occupied_roi_is_box_specific": false,
+    "occupied_roi_association": "The occupied-cloud ROI samples are part of the separate static-cylinder approach observation; they are not point-correlated with the injected box.",
+    "raw_map_box_center_queries_after_injection": [
+      {
+        "label": "after_0.5",
+        "free": true,
+        "unknown_count": 0,
+        "free_count": 160,
+        "occupied_count": 0
+      },
+      {
+        "label": "after_1.25",
+        "free": true,
+        "unknown_count": 0,
+        "free_count": 160,
+        "occupied_count": 0
+      }
+    ]
+  },
+  "overall_clearance_diagnostic": {
+    "sampled_clearance_minus_observed_inter_sample_motion_m": 0.11799484612236297,
+    "positive_sampled_lower_bound_supported": true,
+    "classification": "offline simulated geometry measurement; not a formal clearance qualification",
+    "limitation": "The inter-sample motion value uses observed endpoint motion, not a continuous dynamics certificate. A nonpositive adjusted value means this record does not establish positive between-sample clearance."
+  },
+  "original_driver_failure": {
+    "exit_code": 1,
+    "stage": "offline calibration analysis only",
+    "error": "KeyError: ground_rotation",
+    "postrun_recovery": "A separate v2 arrival report and adapter produced n10-calibration-evaluation-simtime-v2.json; the original frozen report/log were preserved."
+  },
+  "evidence_inputs": {
+    "flight.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/flight.json",
+      "sha256": "0854f3954b1652e19edb0694de759cf57c97d993f2d8ae3849e1eace8a50501e"
+    },
+    "arrival-evaluation-simtime-v2.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/arrival-evaluation-simtime-v2.json",
+      "sha256": "aec27d1c3f261115ee19d6a60ac57769f6def9eb2d5c92db59445dccdc99d3d4"
+    },
+    "vehicle-contact-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/vehicle-contact-evaluation.json",
+      "sha256": "ccd83290fbe28b5ea42aeb1e2aca60ec58ee22c6dddf2d2f054f011d7e5c971c"
+    },
+    "n10-live-obstacle-observation.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-live-obstacle-observation.json",
+      "sha256": "ea1129d5e8eeccd83b107d9868aa79b9bf96d57839611d23cc0bfee1ef0e5f13"
+    },
+    "n10-live-obstacle-analysis.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-live-obstacle-analysis.json",
+      "sha256": "52ddc86d7b31e0ebdf12a19cc888c60c637f58c20f02a4fac693c7ea782331c7"
+    },
+    "n10-live-obstacle-box-clearance.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-live-obstacle-box-clearance.json",
+      "sha256": "2c7a50c72f5932360c937a09d0aba8a64928d2a3b4a7db23591a6a7e15fa4c15"
+    },
+    "n10-clearance-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-clearance-evaluation.json",
+      "sha256": "4da61317530af990cda91823816401b695a4be7ec4bdf3f525bbb2a55f2d8d9c"
+    },
+    "n10-vins-velocity-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-vins-velocity-evaluation.json",
+      "sha256": "04c697e5fce5058db975842783618af65f699e191f26ac33f06ab1ffba87539c"
+    },
+    "n10-calibration-evaluation-simtime-v2.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-calibration-evaluation-simtime-v2.json",
+      "sha256": "eb4ec4a8dbaaecbf5a13fa1fe42ea8538a13dfc4930e0159912bd4ba441de5ea"
+    },
+    "safe-to-stop.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/safe-to-stop.json",
+      "sha256": "1b3cad5aed9a4b163a3fc6916b0ae6e66ee49f906cc1b6054089a554226b2c74"
+    },
+    "runtime-contract.json": {
+      "path": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/runtime-contract.json",
+      "sha256": "e5364a1f514ec71c2e2f7b23cc7bfd37494534b78988f17e8333a06c4a83022d"
+    }
+  }
+}

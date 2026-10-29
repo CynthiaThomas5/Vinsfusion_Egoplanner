@@ -1,0 +1,156 @@
+{
+  "schema": "n08-stop-boundary-audit/v1",
+  "subtask": "N08.2p #226",
+  "date": "2026-10-24",
+  "result": "NO_GO_BOUNDARY_NOT_PROVEN",
+  "scope": "offline audit of the #225 compute-only B-spline, pinned EGO/PX4 source and same-run raw map; no XY executed",
+  "run_id": "n08-20261024-225-camera-cone-compute-only-01",
+  "identity": {
+    "epoch": "024773bb488b4d53b6db8accb47ce6f4",
+    "map_id": "024773bb488b4d53b6db8accb47ce6f4-018c28519743459f81cfeb18107eb189",
+    "frame_id": "odom_024773bb488b4d53b6db8accb47ce6f4",
+    "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+    "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+  },
+  "raw_map_sha256": "2d7fec586fa7d3873b36f2d2fa5611178b73b963ba7663c2f2b95183c1b29de1",
+  "raw_map_file_sha256": "2d7fec586fa7d3873b36f2d2fa5611178b73b963ba7663c2f2b95183c1b29de1",
+  "trajectory": {
+    "source": "planner-observation.json / one live traj_utils/Bspline message matching flight.json goal and epoch",
+    "goal_id": "1946729f3dbf4bb599b0088e47368997",
+    "epoch": "024773bb488b4d53b6db8accb47ce6f4",
+    "start_time_sim_s": 713.124,
+    "order": 3,
+    "control_points": 10,
+    "duration_s": 5.267489711934156,
+    "approx_path_length_m": 0.5644537197458992,
+    "start_xyz_m": [
+      0.21842861262971794,
+      -0.0781261875398622,
+      0.9349117973171199
+    ],
+    "end_xyz_m": [
+      0.7170003494479726,
+      0.12267669749107227,
+      0.9716349156668234
+    ],
+    "peak_axis_speed_m_s": [
+      0.17869232270674182,
+      0.07184902616181313,
+      0.04793947772131682
+    ],
+    "peak_vector_speed_m_s_dense": 0.19369504189321698,
+    "max_velocity_control_point_m_s": [
+      0.18601076692323193,
+      0.0748935793301483,
+      0.047967644095577036
+    ],
+    "velocity_control_hull_norm_bound_m_s": 0.20179689071070378,
+    "peak_vector_acceleration_m_s2_dense": 0.11952339543377574,
+    "yaw_control_points_rad": [
+      0.029378618431520793,
+      0.029378618431520793,
+      0.029378618431520793,
+      0.3674546808255999,
+      0.38277185752500853,
+      0.39107619451214864,
+      0.3950208343688743,
+      0.029378618431520793,
+      0.029378618431520793,
+      0.029378618431520793
+    ],
+    "yaw_dt_s": 0.752498530276308
+  },
+  "planner_velocity_bound_audit": {
+    "launch_manifest_planner_config": "config/components/mapping/n08_low_speed_calibration.json",
+    "launch_arguments": {
+      "max_vel_m_s": 0.15,
+      "max_acc_m_s2": 0.25
+    },
+    "feasibility_tolerance": 0.05,
+    "source_check_is_componentwise": true,
+    "component_threshold_m_s": 0.1576,
+    "implied_vector_norm_upper_bound_m_s": 0.272971207272855,
+    "observed_peak_x_m_s": 0.17869232270674182,
+    "observed_derivative_control_x_m_s": 0.18601076692323193,
+    "observed_curve_exceeds_component_threshold": true,
+    "interpretation": "The emitted curve cannot be treated as a 0.15 m/s vector-speed bound. The actual spline is still only a compute-only planned command; no PX4 XY execution occurred."
+  },
+  "same_map_geometry": {
+    "post_release_and_current_area_raw_maps_byte_identical": true,
+    "curve_start_body_sphere": {
+      "reason": "free",
+      "unknown": 0,
+      "occupied": 0
+    },
+    "curve_start_terminal_hold_sphere": {
+      "reason": "unknown",
+      "unknown": 49,
+      "occupied": 0
+    },
+    "curve_end_body_sphere": {
+      "reason": "free",
+      "unknown": 0,
+      "occupied": 0
+    },
+    "curve_end_terminal_hold_sphere": {
+      "reason": "free",
+      "unknown": 0,
+      "occupied": 0
+    },
+    "continuous_curve_query": {
+      "method": "B-spline derivative control-point hull bounds speed; 43 temporal midpoint sphere queries use body radius plus speed*dt/2",
+      "body_radius_m": 0.7306179170842027,
+      "speed_upper_bound_m_s": 0.20179689071070378,
+      "sample_count": 43,
+      "cover_radius_m": 0.7429779524995391,
+      "all_queries_free": true
+    },
+    "forward_boundary_along_curve_chord": {
+      "curve_end_distance_from_start_m": 0.5376,
+      "maximum_checked_distance_with_free_terminal_hold_m": 0.8,
+      "available_center_travel_after_goal_m": 0.2624000000000001,
+      "terminal_hold_at_0p8_m": "free",
+      "terminal_hold_at_0p9_m": "unknown (2 cells)",
+      "note": "Offline raw map geometric allowance only; no physical stopping model is established."
+    }
+  },
+  "braking_bound": {
+    "response_delay_upper_bound_measured_s": null,
+    "minimum_deceleration_measured_or_guaranteed_m_s2": null,
+    "formula": "d_stop = v * response_delay + v^2 / (2 * minimum_deceleration)",
+    "available_center_travel_m": 0.2624000000000001,
+    "required_minimum_deceleration_m_s2_for_available_travel": {
+      "observed_curve_peak": {
+        "0.2": 0.08387195501111387,
+        "0.5": 0.11331080473254465
+      },
+      "component_limit_upper_bound": {
+        "0.2": 0.17928588822939281,
+        "0.5": 0.2958886439992373
+      }
+    },
+    "status": "not computable as a certified boundary because no defensible response-delay ceiling or minimum deceleration is in the run record",
+    "px4_run_parameter_capture": "px4-params.json omits horizontal MPC_ACC_HOR, MPC_ACC_HOR_MAX, MPC_JERK_AUTO and MPC_XY_VEL_MAX; it only records vertical MPC speed plus other setup parameters.",
+    "pinned_px4_source_values": {
+      "MPC_ACC_HOR": 3.0,
+      "MPC_ACC_HOR_MAX": 5.0,
+      "MPC_JERK_AUTO": 4.0,
+      "MPC_XY_VEL_MAX": 12.0
+    },
+    "px4_value_semantics": "Source values are maximum acceleration/jerk/velocity limits, not minimum deceleration or a measured response-time guarantee."
+  },
+  "safe_decision": "Keep execute mode fail-closed. Do not execute XY with the present profile or claim a conservative stopping certificate.",
+  "next_action": "Add a live same-run full-curve identity/geometry/speed certificate in compute-only, reject curves exceeding a declared vector-speed cap, and capture PX4 horizontal parameters. Then establish a sourced conservative stop bound before XY.",
+  "n08_exit_satisfied": false,
+  "source_hashes": {
+    "planner_config": "b7b17e79f785bd4ea9bf03366ed648cc89e33e70adac4a31d5b62a33bafde2fa",
+    "launch_manifest": "95fbe6f65fa1fc699e159c0cf871ab0f6133998922cdc2cfde4a964c74f5c631",
+    "uniform_bspline_source": "f03094a2fd3e36525ebe8ba0a1f4fd251502492464565f668b412cf7e3233398",
+    "planner_manager_source": "5949da0cd3f1bb844108107760f63a44931bcd009e4a5ffb55fbebcab4b598a7",
+    "px4_autonomous_params_source": "a3ef2f0d3d29fe85a4d8270bc5a4410f29ed6451f78e165ddf3bab291804adb7",
+    "px4_position_mode_params_source": "4a2623f3db17d86190048b1f0a38e049d060c9ea4ad42e4b3f7ad7c41294f172",
+    "px4_velocity_limits_source": "3ecd59b4ce56187d82e7cb742ed9c6762bf30a5ba32a1a9e0efc4a62aacfd042",
+    "planner_observation": "30dae84d47a327c6ad25c9ac4cac8387b9ad383b7f09419aa242ca547934c2b7"
+  }
+}

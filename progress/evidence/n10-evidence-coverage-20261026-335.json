@@ -1,0 +1,275 @@
+{
+  "schema": "n10-evidence-coverage-and-risk-decisions/v1",
+  "report_id": 335,
+  "date": "2026-10-26",
+  "parent_goal": "N10",
+  "subtask": "N10.2",
+  "status": "passed_review_and_action_plan",
+  "scope": "Evidence reuse decisions, open-risk handling and pre-freeze evidence/implementation assigned to N10.3-N10.7. No new experiment or flight was run.",
+  "matrix": [
+    {
+      "goal": "N01",
+      "evidence": [
+        "progress/evidence/vio-full-state-baseline-20261022-083.md",
+        "progress/evidence/vio-full-state-baseline-20261022-083.json"
+      ],
+      "status": "reusable_with_scope",
+      "observed": {
+        "epochs": 3,
+        "max_path_length_m": 8.395050594439143,
+        "max_duration_sim_s": 344.784,
+        "max_10s_translation_rpe_rmse_m": 0.013738925444348989,
+        "max_position_ate_m": 0.06723340301423283,
+        "max_yaw_rmse_deg": 0.4295092783713467
+      },
+      "limit": "Unarmed low-speed support motion, no roll excitation; 8.4 m/344.8 sim s below 16 m/600 s. RMSE is not a hard pointwise bound.",
+      "decision": "Reuse as diagnostics; N10.3 measures full-length live low-speed task and raw-VIO error; N16 remains the formal 10-minute complete-load task."
+    },
+    {
+      "goal": "N02",
+      "evidence": [
+        "progress/evidence/n02-health-timing-20261022-089.md",
+        "progress/evidence/n02-health-timing-20261022-089.json",
+        "progress/evidence/n09-official-policy-qualification-20261026-332.md",
+        "progress/evidence/n09-official-policy-qualification-20261026-332.json"
+      ],
+      "status": "unresolved_cause_bounded_by_fail_closed_response",
+      "observed": {
+        "normal_repeat_max_costs": [
+          0.6398982841078671,
+          0.9730176419481031
+        ],
+        "historical_cost": 1.205982,
+        "n09_repeat03_cost": 1.1006559707840762,
+        "failure_landed_disarmed": true
+      },
+      "limit": "#02 and #04/#05 causes remain unknown; N09 repeat03 high-cost frame is unexplained.",
+      "decision": "Keep all health/freshness limits. Never call these false alarms or repaired; a cost/freshness trip must cancel/exit, land safely, and count FAIL."
+    },
+    {
+      "goal": "N03",
+      "evidence": [
+        "progress/evidence/n03-depth-fusion-continuity-20261022-090.md",
+        "progress/evidence/n03-depth-fusion-continuity-20261022-090.json"
+      ],
+      "status": "reusable_with_flight_scope_gap",
+      "observed": {
+        "idle_epochs_150s": 3,
+        "map_source_age_limit_sim_s": 0.4,
+        "max_successful_query_age_s": 0.168,
+        "max_fusion_completion_source_interval_s": 0.1,
+        "bounded_depth_reset_and_new_identity": true
+      },
+      "limit": "Idle map/fusion, not flight or terminal error.",
+      "decision": "Reuse 3 idle epochs and retain <=0.4 sim s map-age guard; N10.6 verifies live parameters/identity/freshness."
+    },
+    {
+      "goal": "N04",
+      "evidence": [
+        "progress/evidence/n04-map-geometry-20261023.md",
+        "progress/evidence/n04-map-geometry-20261023.json"
+      ],
+      "status": "reusable_for_geometry_not_safety",
+      "observed": {
+        "map_resolution_m": 0.1,
+        "max_surface_residual_m": 0.09535082682450007,
+        "max_source_to_fusion_s": 0.149,
+        "layouts": 2,
+        "anomalies": [
+          "Sampled expected-free ray-reference cells classified raw occupied: wall layout 13, 5, 3 across its three snapshots; corridor layout 276, 4, 2. These are retained as false-occupied/voxel-vote conflicts, not hidden by inflation.",
+          "Corridor snapshot 3 occupied-set Jaccard to snapshot 2 was 0.349 and its measured central-wall median shift was 0.0982 m, close to one 0.1 m voxel; surface error remained below one voxel.",
+          "Ray-reference sampling is a deterministic lower-bound subset of fused depth frames and pixels; it does not claim exhaustive whole-map visibility coverage.",
+          "The exact evaluator cannot overwrite the original root-owned capture files as the unprivileged workspace user; validation used temporary copies containing the paired stack/session evidence."
+        ]
+      },
+      "limit": "No original metric threshold; one corridor snapshot moved about a 0.1 m voxel; sampled geometry is not whole-map flight clearance.",
+      "decision": "Derive/test a one-voxel candidate map-error bound in N10.3; preserve raw unknown/anomalies; evaluate physical body clearance independently by truth/contact."
+    },
+    {
+      "goal": "N05/N06",
+      "evidence": [
+        "progress/evidence/n06-ground-boundary-release-admission-20261023-121.md",
+        "progress/evidence/n06-dynamic-obstacle-response-20261023-118.md",
+        "progress/evidence/n09-official-policy-qualification-20261026-332.md"
+      ],
+      "status": "historical_entry_policy_and_planner_only",
+      "observed": {
+        "current_policy": "official_ego",
+        "official_live_semantics_probe": "unknown retained, inflated occupied/out-of-map/old-epoch refused",
+        "N09_successes": 3,
+        "N06_curves_executed": false
+      },
+      "limit": "N05 known-free scan is old rule; N06 did not execute curves and does not qualify obstacle flight under official_ego.",
+      "decision": "Do not reset old N05/N06 status or reinstate raw-free prerequisite. N10.6 checks current policy; N12-N14 cover formal obstacle flights."
+    },
+    {
+      "goal": "N07",
+      "evidence": [
+        "progress/evidence/n07-px4-clock-reference-20261024-206.md",
+        "progress/evidence/n07-px4-clock-live-ground-20261024-207.md"
+      ],
+      "status": "reusable_no_clock_code_change",
+      "observed": {
+        "successful_cold_starts": 3,
+        "passed_items_retest": false
+      },
+      "limit": "Old runtime identity; N10 does not change HRT mapping.",
+      "decision": "Do not rerun N07; capture clock/telemetry in N10.6 and investigate only on regression."
+    },
+    {
+      "goal": "N08",
+      "evidence": [
+        "progress/evidence/n08-final-completion-20261026-327.md",
+        "progress/evidence/n08-final-completion-20261026-327.json"
+      ],
+      "status": "reusable_only_at_measured_low_speed",
+      "observed": {
+        "ordinary_runs": 3,
+        "axis_cap_m_s": 0.1,
+        "accel_cap_m_s2": 0.25,
+        "peak_vector_m_s": [
+          0.07549980051847902,
+          0.08281865187124801
+        ],
+        "braking_path_m": [
+          0.2810582209169662,
+          0.295683800431448
+        ],
+        "tracking_error_m": [
+          0.08008148038875275,
+          0.08671337614205485
+        ],
+        "cancel_stop_m": 0.30406729982773556,
+        "cancel_envelope_m": 0.5
+      },
+      "limit": "Short low-speed forward paths; no general vector cap, obstacle/return, or long route. Stop distance is along-track, not radial clearance.",
+      "decision": "Final candidate retains <=0.1 m/s per-axis, <=0.25 m/s2 and enforces actual vector <=0.12 m/s; keep cancel envelope limited to tested trigger window. Do not use 0.5 m/s default."
+    },
+    {
+      "goal": "N09",
+      "evidence": [
+        "progress/evidence/n09-official-policy-qualification-20261026-332.md",
+        "progress/evidence/n09-official-policy-qualification-20261026-332.json"
+      ],
+      "status": "limited_exit_passed_but_not_formal_F_dwell",
+      "observed": {
+        "successes": 3,
+        "attempts": 4,
+        "target_offset_m": [
+          0.4,
+          0,
+          0.1
+        ],
+        "yaw_offset_rad": 0.2,
+        "arrival_dwell_wall_s": [
+          {
+            "run_id": "n09-official-331-repeat01",
+            "required_dwell_wall_s": 1.0,
+            "observed_contiguous_dwell_wall_s": 1.085388899082318
+          },
+          {
+            "run_id": "n09-official-331-repeat02",
+            "required_dwell_wall_s": 1.0,
+            "observed_contiguous_dwell_wall_s": 1.0270374801475555
+          },
+          {
+            "run_id": "n09-official-331-repeat04",
+            "required_dwell_wall_s": 1.0,
+            "observed_contiguous_dwell_wall_s": 1.096455232007429
+          }
+        ],
+        "repeat03": "1.10066 cost; safe landing; retained failure"
+      },
+      "limit": "Short 3D/yaw only; native dwell is 1 sim s and evaluator reports wall seconds, not the GOAL F continuous 3 sim seconds.",
+      "decision": "Reuse 3 old passes and failure; no repeat of old profile. N10.4 aligns native dwell and independent fixed-SE3 truth check to >=3 continuous simulation seconds."
+    }
+  ],
+  "risk_decisions": [
+    {
+      "id": "N10.2-R1",
+      "state": "bounded_open",
+      "issue": "N02/#332 cost and #04/#05 receipt-age causes unresolved.",
+      "action": "Keep gates; fail closed; never count failure as pass."
+    },
+    {
+      "id": "N10.2-R2",
+      "state": "accepted_scope",
+      "issue": "official_ego permits raw unknown not marked inflated occupied.",
+      "action": "Preserve raw label and inflated-occupied predicate; no unseen-space claim; independent truth/contact and formal obstacle runs."
+    },
+    {
+      "id": "N10.2-R3",
+      "state": "must_measure",
+      "issue": "16 m/600 sim s exceeds existing N01 8.4 m/344.8 s and N09 0.4 m support.",
+      "action": "N10.3 long one-way low-speed task plus extended active observation; N16 remains formal."
+    },
+    {
+      "id": "N10.2-R4",
+      "state": "must_fix",
+      "issue": "Default 16 m route uses unqualified 0.5 m/s; evidence uses 0.1 m/s axis cap.",
+      "action": "Use measured low-speed planner, enforce vector <=0.12 m/s; faster speed needs new calibration."
+    },
+    {
+      "id": "N10.2-R5",
+      "state": "must_fix",
+      "issue": "1 s native dwell and wall-time independent arrival metric do not establish GOAL F.",
+      "action": "Use <=0.30 m, <=15 deg and >=3.0 continuous simulation seconds in the shared configuration/evaluator."
+    },
+    {
+      "id": "N10.2-R6",
+      "state": "must_fix",
+      "issue": "Goal sim-time timeout vs client timeout_s+4 wall can cancel early if RTF<1.",
+      "action": "N10.3 measures RTF; N10.4 uses wall watchdog conversion/margin without changing sim action timeout."
+    },
+    {
+      "id": "N10.2-R7",
+      "state": "must_measure",
+      "issue": "Current-policy end-to-end in-flight replan deadline not measured; N06 is planner-only.",
+      "action": "Capture map-update to replacement-trajectory on N10.6 route or bounded diagnostic, then freeze from the event chain."
+    },
+    {
+      "id": "N10.2-R8",
+      "state": "candidate_basis",
+      "issue": "N04 maximum surface residual 0.09535 m, map voxel 0.10 m; no prior threshold.",
+      "action": "Test <=0.10 m candidate; exact definition/evaluator and independent check remain before freeze."
+    },
+    {
+      "id": "N10.2-R9",
+      "state": "candidate_basis",
+      "issue": "N08 tracking max 0.08672 m vs current 0.15 m gate; body radius 0.48194 m; provisional uncertainty 0.24868 m.",
+      "action": "Test tracking <=0.15 m and actual clearance >=0.10 m using full body; avoid double counting, measure stop path separately."
+    },
+    {
+      "id": "N10.2-R10",
+      "state": "must_fix",
+      "issue": "minimum_occupancy_points has no current code consumer under official_ego.",
+      "action": "Remove from active goal profiles/tooling; preserve policy as only official unknown/occupied rule."
+    },
+    {
+      "id": "N10.2-R11",
+      "state": "must_fix",
+      "issue": "runtime manifest omits actual vendor patch sources and some installed share/config/evaluator/PX4 source inputs.",
+      "action": "Extend final manifest and fail closed on mismatch."
+    },
+    {
+      "id": "N10.2-R12",
+      "state": "must_fix",
+      "issue": "Portable image archive missing from locked path.",
+      "action": "Create/checksum exact final image bundle after clean build and update lock."
+    }
+  ],
+  "freeze_preconditions": [
+    "N10.3 calibrates distance/time support, map/error terms, vector speed/time domains, and replan event deadline.",
+    "N10.4 implements one acceptance config and fail-closed evaluators with boundary/missing-data/identity/time-domain checks.",
+    "N10.5 clean fetch/build from actual final candidate and locked dependencies.",
+    "N10.6 verifies installed parameters/graph, official_ego, PX4 mission, final metrics and affected regressions.",
+    "N10.7 freezes source/binary/config/evaluator/environment/image identity."
+  ],
+  "reused_passes_not_retested": [
+    "N01-N09 limited historical exits retain original identity/scope.",
+    "N07 cumulative 3 successful starts are not repeated because no PX4 clock code changes.",
+    "N08 3 terminal stops reused only at measured low speed.",
+    "N09 3 old-profile successes retained; repeat03 fail preserved."
+  ],
+  "next_subtask": "N10.3 independent calibration and quantitative acceptance rationale"
+}

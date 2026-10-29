@@ -1,0 +1,65 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "protocol_id": 354,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "frozen_before_SITL",
+  "run_id": "n10-20261026-354-upstream-spline-speed080-open-speed-16m",
+  "hypothesis": "With the additional 0044 final-curve rejection removed, lowering the EGO per-axis planning max_velocity from 1.2 to 0.8 may reduce the measured reference/PX4 speed and tracking lag and may change the visual residual cost around the same route segment. This is a measured comparison, not an assumption that 0.8 is a total-speed cap.",
+  "sole_changed_factor": {
+    "parameter": "config/components/mapping/n10_horizon5_speed080_calibration.json:max_velocity_m_s",
+    "from_previous_run": 1.2,
+    "to": 0.8,
+    "units": "m/s per EGO planner axis"
+  },
+  "held_fixed": {
+    "source_flow": "EGO upstream single feasibility check plus one time-reallocation/refinement attempt; active patch 0044 remains absent",
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 5.0,
+    "collision_policy": "official_ego",
+    "spawn_config": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "goal_config": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal": "same +16.0 m ENU, +0.10 m, +0.20 rad single goal; 3 s arrival dwell; 600 simulated-second active hold",
+    "health_policy": "unchanged; max_normalized_cost=1.0 remains provisional; no health/freshness threshold change",
+    "runtime_speed_guard": "disabled; EGO/PX4 speed remains observation-only",
+    "px4_control_owner": "uav_px4_bridge only",
+    "ground_truth": "read-only offline evaluation; no online truth in control",
+    "contact_overlay": "read-only observation; no collision geometry changes"
+  },
+  "measurements": [
+    "effective loaded EGO parameters and launch/runtime identity",
+    "planner B-spline acceptance and native action result",
+    "EGO command and PX4 local-position vector-speed maxima from their full stored histories; report per-axis command components separately from vector norm",
+    "fixed preflight SE(3) READY-command to truth-IMU tracking error using the same analyzer as #353",
+    "normalized-cost and VINS residual/feature telemetry at the first quality event, with the unchanged configured threshold",
+    "independent true goal error, continuous 3 s dwell, 600 s ACTIVE hold if reached, map/source freshness, contact events, and landed/disarmed/control-disabled terminal readback",
+    "controlled braking only if the task reaches its required brake-measurement point; otherwise mark not measured"
+  ],
+  "decision_rules": {
+    "sample_validity": "A sample may still be diagnostically useful if the action aborts, provided its cause and safety terminal state are independently read back.",
+    "formal_qualification": "Not granted by planner spline emission or speed observation. Requires all applicable N10.3 calibration evidence and the original acceptance contract.",
+    "health_lockout": "Preserve fail-closed behavior and record it; do not change the normalized-cost threshold based on this trial.",
+    "speed_interpretation": "The 0.8 m/s/axis planner value is not an external vehicle speed guard and does not imply total vector speed <=0.8 m/s."
+  },
+  "input_identity": {
+    "source_head": "fd90f3b73e48101ad35c5a0ed9372865392eca7c",
+    "container_image": "d435i-vins:dev",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_file_count": 658,
+    "runtime_contract_sha256": "304c2f8551172d95813fbdeb62f2c7aa68f57cfbf467c90bce71dee18db58591",
+    "runtime_contract_path": "progress/evidence/n10-horizon5-speed080-upstream-spline-16m-runtime-contract-prelaunch-20261026-354.json",
+    "planner_config_path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "planner_config_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "calibration_analyzer_sha256": "0134ee262f1bb627944f34fb47a0323567ef644a1e54ceb7d0fbbf6ca7fc427b",
+    "runtime_driver_sha256": "9a3df0c409d1dc4ac90c9c627722513f1ffaaa012fff307d943a9417ae541bb5",
+    "previous_run": "n10-20261026-353-upstream-spline-speed120-open-speed-16m",
+    "previous_runtime_contract_sha256": "304c2f8551172d95813fbdeb62f2c7aa68f57cfbf467c90bce71dee18db58591"
+  },
+  "procedure": {
+    "start_command": "D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json D435I_SPAWN_CONFIG=config/components/simulation/n10_long_range_spawn_minus8.json bash tools/project.sh sim n10-20261026-354-upstream-spline-speed080-open-speed-16m",
+    "driver_inside_container": "bash /workspace/artifacts/runs/n10-20261026-354-upstream-spline-speed080-open-speed-16m/n10-runtime-driver.sh",
+    "safety_stop": "Stop only this project container after 6 s independent readback confirms bridge LANDED or DISABLED, landed=true, armed=false, control_enabled=false, and zero control samples.",
+    "raw_artifacts": "artifacts/runs/n10-20261026-354-upstream-spline-speed080-open-speed-16m"
+  },
+  "outcome": "pending"
+}

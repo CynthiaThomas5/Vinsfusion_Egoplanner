@@ -1,0 +1,116 @@
+{
+  "schema": "n10-diagnostic-run-result/v1",
+  "run_id": "n10-20261026-355-upstream-spline-speed080-health-bypass-16m",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "classification": "flight_and_goal_hold_passed_but_evidence_incomplete",
+  "formal_qualification": false,
+  "flight_runner_result": "PASS",
+  "action_goal_sent": true,
+  "native_action_result": {
+    "final_position": [
+      15.951701231700092,
+      0.007662005767851303,
+      0.9867005339793288
+    ],
+    "outcome": "succeeded",
+    "reason": "position_yaw_tolerance_held",
+    "status": 4,
+    "success": true
+  },
+  "localization_health_bypass": {
+    "requested": true,
+    "observed": true,
+    "bypassed_reasons": [
+      "normalized_cost_exceeded",
+      "vins_initializing",
+      "waiting_for_clock",
+      "waiting_for_left",
+      "waiting_for_optimized",
+      "waiting_for_propagated",
+      "waiting_for_right",
+      "waiting_for_telemetry"
+    ],
+    "max_normalized_cost_observed": 4.397682859925223,
+    "configured_threshold_unchanged": 1.0
+  },
+  "arrival": {
+    "independent_pass": true,
+    "minimum_true_3d_position_error_m": 0.030214412819440734,
+    "continuous_goal_dwell_wall_s": 3.2500030011869967,
+    "required_dwell_wall_s": 3.0
+  },
+  "hold": {
+    "abort_reason": null,
+    "bridge_status_at_end": {
+      "armed": true,
+      "landed": false,
+      "phase": "ACTIVE",
+      "reason": "takeoff_complete_waiting_for_trajectory"
+    },
+    "clock_stall_watchdog_s": 15.0,
+    "completed": true,
+    "end_odometry_position_enu_m": [
+      15.960041301128035,
+      -0.00042873846074447655,
+      0.9913694361825887
+    ],
+    "observed_sim_s": 600.0,
+    "realtime_factor_sim_over_wall": 0.763626793910893,
+    "requested_sim_s": 600.0,
+    "start_odometry_position_enu_m": [
+      15.951701231700092,
+      0.007662005767851303,
+      0.9867005339793288
+    ],
+    "wall_elapsed_s": 785.7241322388873,
+    "wall_watchdog_s": 2400.0
+  },
+  "speed_observation_maxima_m_s": {
+    "ego_position_command_reference": 0.6787800216420528,
+    "px4_vehicle_local_position": 0.6131385611827612
+  },
+  "safe_terminal_readback": {
+    "safe_to_stop_project_container": true,
+    "phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true
+  },
+  "contact_evaluation": {
+    "passed": false,
+    "sensor_topics_ready": true,
+    "ground_contact_event_count": 12657,
+    "prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": false,
+    "first_prohibited_contact": null
+  },
+  "observer_completeness": {
+    "fixed_wall_cap_s": 380,
+    "truth_last_wall_s": 380.0674601478968,
+    "alignment_last_wall_s": 380.0118991730269,
+    "contact_terminal_flight_record_observed": false,
+    "contact_ground_events": 12657,
+    "contact_prohibited_events": 0,
+    "raw_odometry_evaluation": "failed: observer did not capture a complete PRESTREAM-to-LANDED interval",
+    "calibration_evaluation": "not produced because raw odometry evaluation was absent"
+  },
+  "limitations": [
+    "The run demonstrates the bypass allowed the same route to continue through target dwell and the full ACTIVE hold.",
+    "Contact and raw-VIO observations stopped at about 380 wall seconds, before the terminal landing; the contact report is incomplete and cannot establish zero-contact completion.",
+    "Localization health-policy qualification remains untested because the policy was bypassed.",
+    "No controlled braking measurement was performed."
+  ],
+  "artifacts_dir": "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m",
+  "evidence_inputs": [
+    "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/flight.json",
+    "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/arrival-evaluation.json",
+    "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/vehicle-contact-evaluation.json",
+    "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/postflight-px4-bridge-readback.json",
+    "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/safe-to-stop.json",
+    "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/alignment-observation.json",
+    "artifacts/runs/n10-20261026-355-upstream-spline-speed080-health-bypass-16m/debug-truth-evaluation.json"
+  ]
+}

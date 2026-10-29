@@ -1,0 +1,83 @@
+{
+  "schema": "n08-support-scan-health-refusal/v1",
+  "run_id": "n08-20261025-264-yaw-first-return",
+  "result": "support_scan_failed_before_release_admission_no_flight",
+  "qualification": "unarmed support scan and health-gate refusal only",
+  "hypothesis": "The additional localization source timeline observer may contribute load that affects telemetry source age.",
+  "hypothesis_status": "unproven; #265 disables only this observer to measure the difference",
+  "planner_profile": {
+    "path": "config/components/mapping/n08_low_speed_trial.json",
+    "sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "max_vel_m_s": 0.1,
+    "max_acc_m_s2": 0.25,
+    "launch_manifest_sha256": "5e78e60e0daaf1a429ca751179ad0cb1e34499f8e1276018d39ba2bc0d818c48"
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "ground_plane_candidate_voxel_count": 0,
+    "scope": "fresh, disarmed read-only check"
+  },
+  "support_scan": {
+    "profile": "n08_far_small_pitch_view",
+    "layout": "n08_overhead_calibration",
+    "completed_stages": 6,
+    "total_stages": 15,
+    "failure_reason": "telemetry_stale",
+    "lock_clock_s": 231.92,
+    "telemetry_source_stamp_s": 231.596,
+    "telemetry_source_age_ms": 324,
+    "source_age_limit_ms": 300,
+    "telemetry_receipt_age_ms": 264,
+    "receipt_age_limit_ms": 500,
+    "normalized_cost": 0.46155134812689663,
+    "solver_usable": true,
+    "stereo_features": 145,
+    "long_tracks": 113,
+    "solve_seconds": 0.01972794532775879
+  },
+  "cleanup": {
+    "fixture_detached": true,
+    "fixture_removed": true,
+    "px4_disarmed": true,
+    "landed": true,
+    "container_stopped": true
+  },
+  "not_reached": [
+    "n05-prescan-ready",
+    "post-release N05 admission",
+    "mission current-area admission",
+    "flight.json",
+    "navigation goal",
+    "takeoff",
+    "yaw-first return trial"
+  ],
+  "artifacts": {
+    "initial_n05_report": {
+      "path": "artifacts/runs/n08-20261025-264-yaw-first-return/n05-before/n05-live-entry-check.json",
+      "sha256": "84ffba65c132210475054bb1921253d0b33aa89bf99776733bc757212886bda2"
+    },
+    "fixture_result": {
+      "path": "artifacts/runs/n08-20261025-264-yaw-first-return/fixture-result.json",
+      "sha256": "2cb592ce21aac694993a5abc96caa7bc4a0845665e8840cb968abd5b7f618290"
+    },
+    "source_timeline": {
+      "path": "artifacts/runs/n08-20261025-264-yaw-first-return/n08-prescan-localization-source-timeline.json",
+      "sha256": "1894a6279b7221cb93ce4361c0ff6439fee8c9b9103345acfab99229d017ba33"
+    },
+    "vio_log": {
+      "path": "artifacts/runs/n08-20261025-264-yaw-first-return/vio.log",
+      "sha256": "cba8c0a72c8402a5f0b38f5dd074294b88d0facb5cd70c6bea0faed14957caeb"
+    },
+    "run_inputs": {
+      "path": "artifacts/runs/n08-20261025-264-yaw-first-return/n05-run-inputs.json",
+      "sha256": "6be94157907a283f4e8509c25eecf44b290b57519027827dcc6281614e6962c7"
+    },
+    "launch_manifest": {
+      "path": "artifacts/runs/n08-20261025-264-yaw-first-return-stack/launch-manifest.json",
+      "sha256": "5e78e60e0daaf1a429ca751179ad0cb1e34499f8e1276018d39ba2bc0d818c48"
+    }
+  },
+  "parent_n08_status": "in_progress",
+  "next_subtask": "#265: repeat the same fresh unarmed whole-airframe support scan with N05_N08_SOURCE_TIMELINE=0; hold planner profile, layout, scan profile, and health gates constant."
+}

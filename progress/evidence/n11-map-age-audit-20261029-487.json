@@ -1,0 +1,16 @@
+{
+  "schema": "n11-map-age-audit/v1",
+  "id": "#487",
+  "status": "diagnostic_complete",
+  "map_samples_in_task": 678,
+  "failure_count": 1,
+  "max_source_age_at_observer_s": 0.204,
+  "maximum_header_minus_depth_source_s": 0.164,
+  "failed_sample_header_minus_source_s": 0.128,
+  "failed_sample_observer_clock_minus_header_s": 0.076,
+  "interpretation": "Single PRESTREAM sample; header-to-observer-clock difference can include transport, executor scheduling and publisher clock-cache delay; exact cause NOT proven. No persistent map input backlog observed; no waiver or retrospective PASS.",
+  "next_hypothesis": "Transient early observation delivery/clock-cache delay rather than persistent mapping backlog; one unchanged-version independent cold start tests recurrence. A repeated same failure requires implementation investigation, not blind retries.",
+  "single_main_variable": "new independent cold-start epoch only; same frozen source/config/image/protocol/GUI/goal",
+  "criterion": "all frozen metrics unchanged; report all attempts including failure; formal protocol requires three qualifying independent runs and retains failed attempts",
+  "control_or_health_wait_added": false
+}

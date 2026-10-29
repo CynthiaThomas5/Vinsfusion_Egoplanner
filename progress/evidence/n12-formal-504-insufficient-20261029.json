@@ -1,0 +1,30 @@
+{
+  "id": "#504",
+  "schema": "n12-formal-run-evidence/v1",
+  "run_id": "n12-20261029-504-formal05",
+  "status": "INSUFFICIENT",
+  "formal_count_eligible": false,
+  "scene_acceptance_report": "artifacts/reanalysis/n12-20261029-504-formal05-evaluation/n12-20261029-504-formal05/n12-scene-acceptance.json",
+  "scene_acceptance_sha256": "b24ed673119494ef53de44f8219e9a42b1c99cf2b2fb4cc45c9516322b2947e2",
+  "insufficient": [
+    "resource_and_queue_behavior:not_pass"
+  ],
+  "native_work": {
+    "schema": "n11-native-work-result/v1",
+    "status": "INSUFFICIENT",
+    "sample_count": 2352,
+    "maximum_native_lag_s": 0.108,
+    "maximum_pending_source_span_s": 0.0,
+    "maximum_waiting_features": 0,
+    "maximum_telemetry_source_gap_s": 0.332,
+    "violations": [],
+    "missing_or_inconsistent": [
+      "native_source_coverage_gap"
+    ],
+    "runtime_effect": false,
+    "raw_buffer_ols_is_diagnostic_only": true
+  },
+  "review": "Native sequence681→682 is consecutive while source timestamps52.636→52.968s have0.332s gap; preceding gap0.228s also exceeds frozen0.2s coverage limit. No missing native sequence demonstrated; source/processing coverage is insufficient. No fabricated samples or gate change. Root cause not uniquely established.",
+  "safe_terminal": true,
+  "container_stopped_normally": true
+}

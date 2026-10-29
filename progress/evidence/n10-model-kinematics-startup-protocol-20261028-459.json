@@ -1,0 +1,33 @@
+{
+  "schema": "n10-model-kinematics-startup-protocol/v1",
+  "run_id": "n10-20261028-459-kinematics-startup-diagnostic",
+  "parent": "N10.3",
+  "classification": "no-flight SITL diagnostic; observer-only; no formal qualification",
+  "hypothesis": "PX4 loads the root x500_d435i model through PX4_GZ_MODELS direct file URI, bypassing the run-local instrumented wrapper that was only added to GZ_SIM_RESOURCE_PATH.",
+  "single_primary_variable": "When D435I_N10_KINEMATICS=1 and N09_CONTACTS=1, set PX4_GZ_MODELS to the run-local contact/observer overlay root.",
+  "runtime_effects": {
+    "control_or_force_publishing": false,
+    "mission_or_goal": false,
+    "arming": false,
+    "collision_geometry_change": false,
+    "flight_gate_change": false,
+    "acceptance_threshold_change": false
+  },
+  "inputs": {
+    "D435I_N08_MODE": "hold",
+    "D435I_N09_CONTACTS": 1,
+    "D435I_N10_KINEMATICS": 1,
+    "D435I_N10_CAPTURE": 0,
+    "D435I_N10_DEPTH_FAULT": 0
+  },
+  "pass_criteria": [
+    "PX4 direct model source path and SHA point to run-local observer wrapper SDF.",
+    "Gazebo topic has a publisher and a short read-only capture has valid model metadata and strictly monotonic simulation timestamps.",
+    "Independent same-domain readback confirms bridge DISABLED, PX4 disarmed/landed, and zero control samples before stop."
+  ],
+  "failure_classification": "diagnostic insufficient; no new runtime refusal behavior",
+  "artifacts": {
+    "preparation_directory": "artifacts/n10-prepared/n10-20261028-459-kinematics-startup-diagnostic",
+    "run_directory": "artifacts/runs/n10-20261028-459-kinematics-startup-diagnostic"
+  }
+}

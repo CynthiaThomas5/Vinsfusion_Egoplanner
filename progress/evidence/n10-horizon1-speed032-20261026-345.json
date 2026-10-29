@@ -1,0 +1,189 @@
+{
+  "schema": "n10-calibration-run/v1",
+  "experiment_id": "#345",
+  "run_id": "n10-20261026-345-horizon1-speed032",
+  "protocol": "progress/evidence/n10-horizon1-speed032-protocol-20261026-345.json",
+  "result": "FAIL",
+  "failure_class": "ego_reference_vector_speed_guard_tripped_despite_shorter_planning_horizon",
+  "run_scope": "Single-D435i Gazebo/PX4 SITL N10.3 diagnostic; not an N11-N16 formal run.",
+  "hypothesis": "Reducing local planning horizon from 2m to 1m with 0.32m/s/axis feasibility allowance fixed may lower reference speed below the unchanged 0.12m/s vector guard while progressing toward the same 16m global goal.",
+  "planner": {
+    "config": "config/components/mapping/n10_horizon1_speed032_calibration.json",
+    "config_sha256": "2ba9faafffd3af5d42ebb46ae358850ec4ad7ade18c2fbd9e24975e33383e397",
+    "only_operational_change_from_n10_horizon2_speed032": "planning_horizon_m 2.0 -> 1.0",
+    "max_velocity_m_s_per_axis": 0.32,
+    "per_axis_feasibility_gate_m_s": 0.336,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 1.0,
+    "ready_command_samples": 761,
+    "bspline_updates": [
+      {
+        "trajectory_id": 1,
+        "wall_s": 34.550273950910196,
+        "control_point_derivative_max_abs_xyz_m_s": [
+          0.3287344725811303,
+          0.010673060625213471,
+          0.0952780214204431
+        ],
+        "control_point_derivative_max_vector_m_s": 0.3376192141167953,
+        "stationary_control_points": false
+      },
+      {
+        "trajectory_id": 2,
+        "wall_s": 35.45831068884581,
+        "control_point_derivative_max_abs_xyz_m_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "control_point_derivative_max_vector_m_s": 0.0,
+        "stationary_control_points": true
+      }
+    ],
+    "interpretation": "The first B-spline derivative control-point x maximum was 0.328734m/s (below the per-axis 0.336 gate), but the runtime EGO reference later crossed 0.12m/s. Control-point bounds are planner quantities, not measured PX4 speed."
+  },
+  "speed_guard": {
+    "limit_m_s": 0.12,
+    "trip": {
+      "limit_m_s": 0.12,
+      "reason": "vector_speed_exceeded",
+      "sim_time_ns": 86496000000,
+      "source": "ego_position_command_reference",
+      "timestamp": 86496000000,
+      "tolerance_m_s": 1e-06,
+      "vector_speed_m_s": 0.12010065002373906,
+      "velocity_m_s": [
+        0.09038563848456707,
+        0.008866061595284731,
+        0.0785875018285377
+      ],
+      "wall_elapsed_s": 33.16314979293384
+    },
+    "cancel": {
+      "accepted": true,
+      "action_outcome": "canceled",
+      "action_reason": "caller_cancel",
+      "action_result_received": true,
+      "action_status": 5,
+      "request_sent": true,
+      "response_received": true
+    },
+    "max_reference_vector_speed_m_s": 0.12344376994185309,
+    "max_px4_measured_vector_speed_m_s": 0.047867565669049435,
+    "sample_counts": {
+      "ego_position_command_reference": 89,
+      "px4_vehicle_local_position": 41
+    },
+    "interpretation": "The reference guard crossed at 0.120101m/s while PX4 actual vector speed peaked at 0.047868m/s. Shortening horizon did not keep EGO reference within the guard; measured actual speed is only a sub-second partial-motion observation, not a speed or braking qualification."
+  },
+  "mission": {
+    "failure": "runtime_vector_speed_guard_tripped:vector_speed_exceeded",
+    "goal_elapsed_sim_s": 0.792,
+    "minimum_independent_true_goal_error_m": 15.999380474375796,
+    "independent_goal_dwell_wall_s": 0.0,
+    "native_action_success": false,
+    "goal_reached": false,
+    "post_goal_active_hold_sim_s": 0,
+    "post_cancel_stationary_bspline_observed": true,
+    "stop_distance_measured": false
+  },
+  "localization_and_timing": {
+    "preflight_passed": true,
+    "preflight_wall_s": 40.000435310881585,
+    "preflight_rtf": 0.8279997113389513,
+    "preflight_max_optimized_odom_receipt_gap_wall_s": 0.10898510203696787,
+    "takeoff_admission_passed": true,
+    "takeoff_odom_speed_m_s": 0.00013898711886516609,
+    "raw_vio_interval_sim_s": 29.356,
+    "paired_truth_path_m_including_takeoff_and_landing": 1.913781543956389,
+    "position_error_m": {
+      "count": 445,
+      "rmse": 0.010009644034012463,
+      "median": 0.0009228940775546452,
+      "p95": 0.020651623464321846,
+      "max": 0.022563685617619983
+    },
+    "absolute_yaw_error_deg": {
+      "count": 445,
+      "rmse": 0.07409157899432355,
+      "median": 0.0022412123652189343,
+      "p95": 0.1408322063663926,
+      "max": 0.15682942339535413
+    },
+    "truth_grid_support_fraction": 0.9979564032697548,
+    "invalid_localization_samples": 0,
+    "source_timeline_requested_wall_s": 1500.0,
+    "source_timeline_observed_wall_s": 42.252657773,
+    "source_timeline_stop_reason": "flight_report_written",
+    "clock_regression_count": 0,
+    "clock_max_source_gap_sim_s": 0.1,
+    "raw_optimized_max_source_gap_sim_s": 0.132000001,
+    "adapter_optimized_max_receipt_gap_wall_s": 0.20063444100000005,
+    "map_status_max_source_age_sim_s": 0.168,
+    "scope": "Short PRESTREAM-to-LANDED interval only; requested 1500 wall-s observer stopped when flight report was written."
+  },
+  "safety_and_cleanup": {
+    "contact_passed": true,
+    "prohibited_contact_count": 0,
+    "landing_ground_contact_observed": true,
+    "live_refusal_passed": true,
+    "live_refusal_reason": "map_query_outside_map",
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "bridge_phase": "LANDED",
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "bridge_control_enabled": false,
+    "postflight_control_counts": {
+      "control_mode": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0
+    },
+    "postflight_control_samples_zero": true,
+    "project_container_stop_exit_code": 0,
+    "unrelated_containers_touched": false
+  },
+  "execution_notes": {
+    "first_pre_readiness_invocation_exit_code": 10,
+    "reason": "runtime runner was invoked before the stack-started marker existed; it exited before creating flight/preflight evidence and before any mission/enable command.",
+    "mission_runs_after_stack_ready": 1,
+    "project_test_rerun": false,
+    "test_reuse": "#344 405 unit tests plus navigation-adapter integration and official-policy ROS probe; source/runtime code unchanged."
+  },
+  "input_sha256": {
+    "config/components/mapping/n10_horizon1_speed032_calibration.json": "2ba9faafffd3af5d42ebb46ae358850ec4ad7ade18c2fbd9e24975e33383e397",
+    "config/components/mapping/n10_horizon2_speed032_calibration.json": "b11efc421a54a5566444d81c0d1a01bbfef1435cae8392c5d803a7b813892a37",
+    "config/components/simulation/n10_long_range_spawn_minus8.json": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json": "d1e73365f0cc12d4f30a5445fa25ed54e35267eb2ff80a788c5f3d7162212821",
+    "config/runtime.json": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "config/components/navigation/vehicle_envelope.json": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+    "config/components/navigation/task_supervisor.json": "2ebcc06d25a6f550725161d3542915c29989a912ef1d6c8d48e596873980bb56",
+    "config/components/mapping/ego_planner.json": "077f7711b70d04c1c41e191c4518d18fcaf5d962871bb34ce33db02420b14337",
+    "tools/project.sh": "2be7f68c2b0cb2f5c8ac0736f8a95f757235b867844dc576ff00cf7de1c13f7b",
+    "tools/sim_runtime.sh": "6aea8608e696c6a5baf818a90dfeecb6c5e9049da84eb4fb8d1050fd5ae616c2",
+    "tools/n09_runtime.sh": "7db94d809ca887b5f829169efaa473d2b1cdd0c059189ca48f240183b4db45a3",
+    "tools/run_vio_ego_flight.py": "a5d0794130dcff8a44405db6bde94a0d378fde43a7b407fbe7a766b9cbcbea6d",
+    "tools/speed_guard.py": "d3e3227407da9c391dad0d564bddd4b621decf56586aa416da0265b396f72da2",
+    "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch": "b41440d75badb304fc59684718a4b2fe9a295d1fc13485c43ee0900161f8b4d1"
+  },
+  "artifact_sha256": {
+    "flight.json": "7c20a0295efe5184fb0f4caadeb9012013a7c0e31947df64672d47e69c69882f",
+    "arrival-evaluation.json": "1a8b198bc625e899dd603e5462cb9594604830607a5d278d5977a2011a1d269f",
+    "vehicle-contact-evaluation.json": "c98d0b34aa9ff47a5d3814367cdd8651fada74a5c7402b1c89e5c0ab4cb1c7fb",
+    "n09-live-refusal.json": "c50e2c5f71d1fd2611b00d5d4533a48d3538164baa707bc208795a088824d187",
+    "planner-observation.json": "3340ee40e1b43b4a07b76eabaff96dbd23357145160c7cd79dbdfe0eecef1e84",
+    "n09-run-manifest.json": "e67eba78f731c3a26b40c23b907abac378e9dee45b0cc3203077be7586eb89f0",
+    "spawn-pose.json": "686b58ccf16cf3595ea975a8ea751cb23be9cd4f60efb5425ebb056e32da7fdd",
+    "preflight.json": "0705d96aba83ca15daefc62b56447e744465a96409e722c915649bf4e97516e5",
+    "takeoff-admission.json": "80869f998677d3df46e5435f669ae0aa2eb2360ff9a0721640c254b46f42fad1",
+    "n08-localization-source-timeline.json": "3ac40df2723dbd0390712a05716885bacbcea5bc27866a241152b6a84f030e41",
+    "odometry-evaluation.json": "26e3434d3fcf18f8732d82da49bfb24a379715786d5d41549982deb3c9b5d76e",
+    "postflight-px4-bridge-readback.json": "63852a4d26099d4490909e81308600a00c3921d788ba6a1dfa87f64bc3b7d0d7",
+    "bridge-alignment-timeline.jsonl": "b608ffcacbcc12225c639f9b314f7248f4e1292ea24e8a724c4d6d17c0cde592"
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261026-345-horizon1-speed032",
+    "container": "d435i-n10-20261026-345-horizon1-speed032",
+    "container_final_state": "exited 0"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "n10-integrated-calibration-preparation/v1",
+  "subtask_id": "N10.3/#415",
+  "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+  "status": "prepared_no_run_started",
+  "flight_goal_submitted": false,
+  "flight_armed": false,
+  "single_variable": "verbose v1 voxel update JSON object rows changed to compact v2 arrays; ROI and all flight inputs held fixed from #414",
+  "run_local_tools": "artifacts/n10-prepared/n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+  "protocol_json": "progress/evidence/n10-integrated-calibration-protocol-20261028-415.json",
+  "protocol_markdown": "progress/evidence/n10-integrated-calibration-protocol-20261028-415.md",
+  "build_evidence": "progress/evidence/n10-integrated-calibration-build-20261028-415.json",
+  "planner_config": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+  "planner_config_sha256": "2efea04354b3a06629c308173f64b42e56958e4fb6565325350d84cfee980c23",
+  "patch_0059_sha256": "88ff95d04db3fa53eb8487b722ad5c6ef1156bd17629bcbdedfb0664d1ad7e06",
+  "dependencies_sources_sha256": "ee7bfaa96a40be16996ce735191f96c12fc477d73f2a73e210fed6dc117aa7c9",
+  "trace_schema": "n10-voxel-update-trace/v2",
+  "trace_roi_center_odom_m": [
+    8.0,
+    0.0,
+    1.1
+  ],
+  "trace_roi_half_extents_m": [
+    0.6,
+    0.6,
+    1.6
+  ],
+  "runtime_inputs_fixed": {
+    "route": "same as #414",
+    "max_velocity_m_s": 0.4,
+    "max_acceleration_m_s2": 0.25,
+    "planning_horizon_m": 5.0,
+    "ego_regular_yaw_rate_cap_rad_s": 0.1,
+    "spawn": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "goal": "config/components/navigation/n10_long_range_vio_dwell4_capture_calibration_goal.json",
+    "acceptance": "config/acceptance.json (unchanged)",
+    "fault_injection": false
+  },
+  "next_gate": "Start project SITL with locked config, independently verify grounded/disarmed/control-disabled/zero-control state, then run prepare_prelaunch.py and submit only after identity checks pass."
+}

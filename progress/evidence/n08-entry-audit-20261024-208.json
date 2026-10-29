@@ -1,0 +1,38 @@
+{
+  "id": "N08.1-208",
+  "parent_goal": "N08",
+  "scope": "static_preflight_safety_and_measurement_chain_audit",
+  "execution_mode": "Goal completion mode",
+  "user_goal_scope": "Complete N08",
+  "conclusion": "incomplete_no_motion_boundary_yet",
+  "dependencies": {
+    "N06": "passed",
+    "N07": "passed"
+  },
+  "n08_exit_satisfied": false,
+  "motion_executed": false,
+  "project_simulation_active_at_audit": false,
+  "known_gaps": [
+    "No N08 braking, mode-comparison, or repeated-goal evidence exists.",
+    "N05 current-area entry admission does not certify a forward motion or stopping corridor.",
+    "The provisional vehicle envelope excludes measured braking, tracking, and latency.",
+    "The planner max_acceleration value is not a measured or guaranteed PX4 deceleration lower bound.",
+    "After a trajectory has been observed, trajectory loss leads the bridge state machine to LANDING; cancellation behavior needs controlled runtime evidence.",
+    "Existing mission wrapper has no N08 explicit cancel/hold phase or braking-curve evaluator."
+  ],
+  "next_subtask": "N08.2 implement reproducible run-local mode comparison and measurement preparation; derive a sourced conservative motion/stopping boundary before any translation.",
+  "files_reviewed": [
+    "docs/remaining-small-goals.md",
+    "progress/CURRENT.md",
+    "progress/milestones.json",
+    "config/components/navigation/vehicle_envelope.json",
+    "config/components/mapping/ego_planner.json",
+    "tools/check_navigation_ready.py",
+    "tools/mission_runtime.sh",
+    "tools/run_vio_ego_flight.py",
+    "tools/run_vio_no_goal_hover.py",
+    "src/own/uav_px4_bridge/uav_px4_bridge/control_state.py",
+    "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py"
+  ],
+  "no_thresholds_changed": true
+}

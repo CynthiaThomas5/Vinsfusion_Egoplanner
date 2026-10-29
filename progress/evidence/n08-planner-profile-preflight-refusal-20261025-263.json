@@ -1,0 +1,83 @@
+{
+  "schema": "n08-planner-profile-preflight-refusal/v1",
+  "run_id": "n08-20261025-263-yaw-first-return",
+  "result": "planner_profile_refused_before_flight",
+  "scope": "fresh N05 support scan and N08 runtime launch-gate diagnostic; no flight action",
+  "support_scan": {
+    "profile": "n08_far_small_pitch_view",
+    "layout_id": "n08_overhead_calibration",
+    "completed_stages": 15,
+    "fixture_outcome": "failed",
+    "fixture_error": "localization changed or became invalid during physical scan",
+    "trace_localization_samples": 15895,
+    "trace_all_tracking_valid_same_epoch": true,
+    "trace_max_normalized_cost": 0.6517678183666142,
+    "last_localization_valid": true,
+    "final_landed": true,
+    "all_px4_status_samples_disarmed": true,
+    "all_landed_samples_true": true,
+    "fixture_removed_and_scene_absent": true
+  },
+  "n05": {
+    "before_accepted": false,
+    "after_accepted": true,
+    "post_release_accepted": true,
+    "mission_current_area_accepted": true,
+    "online_offline_identical": true,
+    "same_epoch_and_map_id_across_scan_and_release": true,
+    "post_release_identity": {
+      "epoch": "9c00efc1b7f94eae9d83ba2c9f8f044b",
+      "map_id": "9c00efc1b7f94eae9d83ba2c9f8f044b-b62411a70f0a4c739a598809405d6a1e"
+    },
+    "post_release_freshness_s": {
+      "snapshot_age": 0.104,
+      "depth_source_age": 0.124,
+      "fusion_age": 0.056,
+      "limit": 0.4
+    }
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.001489999936894,
+    "rtf": 0.890330953245744,
+    "max_optimized_odom_receipt_gap_wall_s": 0.08504949510097504,
+    "optimized_odom_gap_over_guard_count": 0
+  },
+  "planner_profile_gate": {
+    "accepted": false,
+    "exception": "invalid_n08_planner_profile",
+    "actual_launch_planner_config": "config/components/mapping/ego_planner.json",
+    "actual_max_velocity_m_s_per_axis": 0.5,
+    "actual_max_acceleration_m_s2": 0.8,
+    "required_trial_planner_config": "config/components/mapping/n08_low_speed_trial.json",
+    "required_max_velocity_m_s_per_axis": 0.1,
+    "required_max_acceleration_m_s2": 0.25,
+    "required_vector_speed_cap_m_s": 0.12,
+    "cause": "D435I_PLANNER_CONFIG was omitted from the #263 startup command"
+  },
+  "state_at_stop": {
+    "arming_state": "DISARMED",
+    "landed": true,
+    "bridge_phase": "DISABLED",
+    "control_enabled": false,
+    "flight_json_present": false,
+    "goal_or_control_published": false,
+    "truth_observer_started": false,
+    "stop_command_exit_code": 0,
+    "container_stopped": true
+  },
+  "artifacts": {
+    "n05_summary": "artifacts/runs/n08-20261025-263-yaw-first-return/n05-run-summary.json",
+    "n05_summary_sha256": "8ecc5bf5e766cf7bb7ee0cb3382f2834656d7c92e6689187bb62ed01430a0b7c",
+    "fixture_result": "artifacts/runs/n08-20261025-263-yaw-first-return/fixture-result.json",
+    "fixture_result_sha256": "949e174c8288b125e6105758e91732b5e7db7c258fd150f3de8b6f6d37a4bf3e",
+    "mission_current_area": "artifacts/runs/n08-20261025-263-yaw-first-return/n05-current-area/n05-live-entry-check.json",
+    "mission_current_area_sha256": "fa1db2b5b70bc22457bb782aff9b8308cd5b2f263872fe290e76719ba4796f68",
+    "preflight": "artifacts/runs/n08-20261025-263-yaw-first-return/preflight.json",
+    "preflight_sha256": "440fe9f704dddb39298a084d46c905a923f7f5625ca613cfa47f5570f0008dc8",
+    "launch_manifest": "artifacts/runs/n08-20261025-263-yaw-first-return-stack/launch-manifest.json",
+    "launch_manifest_sha256": "5304436e2eb399740d3788c1dcaee1a4564d39077be0709396494f1845c55d57"
+  },
+  "next_subtask": "#264: new SITL with explicit D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_trial.json; repeat N05 scan to obtain fresh identity/map, audit launch manifest before mission.",
+  "parent_n08_status": "in_progress"
+}

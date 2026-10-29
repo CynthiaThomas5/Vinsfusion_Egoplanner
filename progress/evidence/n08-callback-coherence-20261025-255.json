@@ -1,0 +1,66 @@
+{
+  "scope": "N08 input callback coherence fix and unarmed runtime regression; no goals or flight",
+  "passed": true,
+  "trigger_run": "n08-20261025-254-speed-output-validation",
+  "fix_artifacts": "artifacts/runs/n08-20261025-255-localization-callback-coherence",
+  "runtime_artifacts": "artifacts/runs/n08-20261025-256-coherence-fault-regression",
+  "runtime_regression": {
+    "scope": "unarmed consumer-delay versus producer-outage regression; no flight or goal",
+    "consumer_pid": 720,
+    "producer_pid": 719,
+    "consumer_pause_begin": {
+      "wall_monotonic_s": 1391192.602480448,
+      "wall_time_ns": 1792900004674293746
+    },
+    "consumer_resume": {
+      "wall_monotonic_s": 1391192.950082266,
+      "wall_time_ns": 1792900005021895674
+    },
+    "after_consumer_resume": {
+      "wall_monotonic_s": 1391193.932103845,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "source_stamp_ns": 20788000000
+    },
+    "consumer_recovered": true,
+    "producer_pause_begin": {
+      "wall_monotonic_s": 1391193.950535487,
+      "wall_time_ns": 1792900006022348295
+    },
+    "during_producer_outage": {
+      "wall_monotonic_s": 1391194.781975385,
+      "valid": false,
+      "reason": "propagated_stale",
+      "source_stamp_ns": 20844000000
+    },
+    "producer_resume": {
+      "wall_monotonic_s": 1391194.842640935,
+      "wall_time_ns": 1792900006914453992
+    },
+    "after_producer_resume": {
+      "wall_monotonic_s": 1391195.83199839,
+      "valid": false,
+      "reason": "propagated_stale",
+      "source_stamp_ns": 20844000000
+    },
+    "true_outage_latched": true,
+    "passed": true,
+    "probe_finalized": true,
+    "safe_to_stop": true,
+    "stop_exit_code": 0,
+    "container": "exited 0"
+  },
+  "unchanged_limits": "All original source/receipt/future/quality/clock thresholds; Health state machine unchanged",
+  "bounded_coherence_wall_s": 0.02,
+  "pending_behavior": "No odometry output and no valid status refresh; stale/future persists or deadline exceeded -> latched fault",
+  "verification": {
+    "callback_harness": 6,
+    "unit_regressions": 71,
+    "colcon_packages": 17
+  },
+  "files_sha256": {
+    "src/own/uav_localization/uav_localization/node.py": "d51919e0019bb1a9e54c36ce4594a155fd399bbc16d5154cc7192a2376ddd111",
+    "config/components/localization/health.json": "54c5a7b83d858f44ca6a8957a1aa96b8b3f25168f11b2fcff016c538d4e348c6",
+    "tools/diagnostics/probe_n08_callback_coherence.py": "1b46630ad1b6984f1c2b4f057c5e91d76bd3547e0021ecedab7a61b2c5acdb02"
+  }
+}

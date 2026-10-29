@@ -1,0 +1,60 @@
+{
+  "schema": "n10-arrival-sim-time-reclassification/v1",
+  "subtask": "N10.3/#383",
+  "status": "completed_for_three_archived_runs; representative_requalification_required",
+  "time_domain": "Gazebo simulation source timestamp; wall dwell diagnostic only",
+  "required_contract": {
+    "position_error_max_m": 0.3,
+    "absolute_yaw_error_max_deg": 15.0,
+    "continuous_dwell_min_sim_s": 3.0,
+    "maximum_truth_gap_inside_evidence_sim_s": 0.04
+  },
+  "evaluator_sha256": "f15e952ca8d5b4f606b142317317d4cddb5d41249b259d86e5ceaf6538ad8d19",
+  "test_sha256": "3b7ce675d59e4f25b6dc8d9277a0dad969a02fdcd8f238bc8a1368ec236db34d",
+  "unit_tests": "6/6 pass: wall/sim separation, 3 sim s, gap break, tolerance interruption, yaw wrap, duplicate/backwards stamps",
+  "archived_reclassification": {
+    "361": {
+      "original_wall_dwell_s": 3.0187069959938526,
+      "recomputed_sim_dwell_s": 2.259999999999991,
+      "required_sim_dwell_s": 3.0,
+      "max_truth_gap_sim_s": 0.02,
+      "joint_window_max_position_error_m": 0.2958077478657191,
+      "joint_window_max_yaw_error_deg": 8.898419163333731,
+      "native_action_success": true,
+      "independent_status": "FAIL",
+      "input_file": "artifacts/runs/n10-20261027-361-quality-gates-removed-speed080-16m/n10-arrival-evaluation-simtime.json",
+      "input_sha256": "912803e67142167d4c9b64c645c207e818e762568de34681dcf1ba0e89a37db1"
+    },
+    "376": {
+      "original_wall_dwell_s": 3.113614629022777,
+      "recomputed_sim_dwell_s": 2.7799999999999727,
+      "required_sim_dwell_s": 3.0,
+      "max_truth_gap_sim_s": 0.02,
+      "joint_window_max_position_error_m": 0.2968593996739886,
+      "joint_window_max_yaw_error_deg": 3.1613906285890523,
+      "native_action_success": true,
+      "independent_status": "FAIL",
+      "input_file": "artifacts/runs/n10-20261027-376-gatefree-cylinder0-observation/n10-arrival-evaluation-simtime.json",
+      "input_sha256": "496d0b968a29899a70d7d3275f728dc4b0592f02157c59553c4ffbe20d69a3a9"
+    },
+    "381": {
+      "original_wall_dwell_s": 3.0551289659924805,
+      "recomputed_sim_dwell_s": 2.3400000000000034,
+      "required_sim_dwell_s": 3.0,
+      "max_truth_gap_sim_s": 0.02,
+      "joint_window_max_position_error_m": 0.29841847002229394,
+      "joint_window_max_yaw_error_deg": 11.892150631782503,
+      "native_action_success": true,
+      "independent_status": "FAIL",
+      "input_file": "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-arrival-evaluation-simtime.json",
+      "input_sha256": "3421b9a1bf37117c7bd4a88b6020117c1584b6f312332103e6829d2d2276a14b"
+    }
+  },
+  "limitations": [
+    "These independent diagnostics are not N11-N16 formal runs.",
+    "All three archives have independently confirmed joint truth-tolerance windows shorter than 3 sim seconds despite wall-time reports exceeding 3 seconds.",
+    "A new representative run with longer native dwell and exact acceptance config is required; do not alter the GOAL 3.0 sim second criterion.",
+    "No runtime health, age, speed, raw-free or planner protection was added."
+  ],
+  "outcome": "The old wall-time PASS is invalid for GOAL F. These runs are retained; the independent arrival result is FAIL under simulation-time contract."
+}

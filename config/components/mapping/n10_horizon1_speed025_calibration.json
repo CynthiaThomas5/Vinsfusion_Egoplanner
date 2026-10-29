@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 active candidate after #348 user-authorized removal of extra speed guards. Planner max_velocity_m_s=0.25 is a per-axis feasibility parameter, not a qualified physical speed. Not an N11-N16 formal profile.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.25,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 1.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "Retain #347 planner velocity, horizon and acceleration to isolate removal of the custom 0.12m/s runtime guard and N08 cancel-stop speed admission caps. Observe EGO reference and measured PX4 speed independently; broader braking and N10.3 qualification remain pending."
+}

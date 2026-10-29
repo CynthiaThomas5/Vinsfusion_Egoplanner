@@ -1,0 +1,31 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -1178,10 +1178,14 @@
+         md_.occupancy_buffer_inflate_[toAddress(x, y, z)] = 0;
+       }
+ 
+-  // inflate obstacles
+-  for (int x = md_.local_bound_min_(0); x <= md_.local_bound_max_(0); ++x)
+-    for (int y = md_.local_bound_min_(1); y <= md_.local_bound_max_(1); ++y)
+-      for (int z = md_.local_bound_min_(2); z <= md_.local_bound_max_(2); ++z)
++  // Include occupied source voxels whose inflation overlaps the cleared box.
++  Eigen::Vector3i source_min = md_.local_bound_min_ - Eigen::Vector3i::Constant(inf_step);
++  Eigen::Vector3i source_max = md_.local_bound_max_ + Eigen::Vector3i::Constant(inf_step);
++  boundIndex(source_min);
++  boundIndex(source_max);
++  for (int x = source_min(0); x <= source_max(0); ++x)
++    for (int y = source_min(1); y <= source_max(1); ++y)
++      for (int z = source_min(2); z <= source_max(2); ++z)
+       {
+ 
+         if (md_.occupancy_buffer_[toAddress(x, y, z)] > mp_.min_occupancy_log_)
+@@ -1191,6 +1195,9 @@
+           for (int k = 0; k < (int)inf_pts.size(); ++k)
+           {
+             inf_pt = inf_pts[k];
++            if ((inf_pt.array() < 0).any() ||
++                (inf_pt.array() >= mp_.map_voxel_num_.array()).any())
++              continue;
+             int idx_inf = toAddress(inf_pt);
+             if (idx_inf < 0 ||
+                 idx_inf >= mp_.map_voxel_num_(0) * mp_.map_voxel_num_(1) * mp_.map_voxel_num_(2))

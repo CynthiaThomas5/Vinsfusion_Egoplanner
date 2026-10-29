@@ -1,0 +1,154 @@
+{
+  "schema": "n08-slow-return-compute-only/v1",
+  "subtask": "N08.2ag #244",
+  "parent": "N08",
+  "status": "compute_only_pass_stop_certificate_rejected",
+  "run_id": "n08-20261024-244-overhead-free-slow-vertical-return",
+  "scene": "n08_overhead_calibration",
+  "scan_profile": "n08_overhead_free_sector_view_decoupled_slow_vertical_return",
+  "single_profile_change": "last vertical return duration 7s -> 20s",
+  "profile_test_command": "python3 -m unittest tools.test_preflight_scan",
+  "profile_test_result": "33 passed",
+  "scan": {
+    "completed_stages": 16,
+    "planned_stages": 16,
+    "fixture_helper_outcome": "failed",
+    "fixture_helper_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_removed": true,
+    "fixture_model_absent": true,
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.8118134574803242
+    }
+  },
+  "n05": {
+    "before_accepted": false,
+    "before_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "after_accepted": true,
+    "post_release_accepted": true,
+    "current_area_accepted": true,
+    "post_release_reason": "all_entry_phases_known_and_clear",
+    "same_identity_before_after": true,
+    "online_offline_identical": true,
+    "diagnostic_pass": true,
+    "helper_error_resolved_by_fresh_external_readback": true
+  },
+  "mission": {
+    "mode": "compute_only",
+    "preflight_passed": true,
+    "runner_result": "PASS",
+    "dedicated_evaluation_passed": true,
+    "checks": {
+      "runner_completed_successfully": true,
+      "compute_only_launch_mode": true,
+      "bridge_remapped_from_ego_output": true,
+      "one_ready_curve_for_goal_epoch": true,
+      "cancel_acknowledged": true,
+      "action_cancel_confirmed": true,
+      "bridge_remained_in_hold_after_cancel": true,
+      "no_clock_regressions": true,
+      "landed_and_disarmed": true,
+      "n05_online_offline_admission": true,
+      "unique_px4_bridge_control_publishers": true,
+      "truth_not_used_for_control": true
+    },
+    "bridge_final_phase": "LANDED",
+    "xy_or_braking": false
+  },
+  "stop_corridor_certificate": {
+    "schema": "n08-live-curve-certificate/v2",
+    "run_id": "n08-20261024-244-overhead-free-slow-vertical-return",
+    "passed": false,
+    "n08_execute_authorized": false,
+    "stopping_envelope_proven": false,
+    "reason": "lowered_speed_profile_not_used",
+    "details": {
+      "planner_config": "config/components/mapping/n08_low_speed_calibration.json",
+      "ego_max_vel": 0.15
+    },
+    "scope": "compute-only spline speed and same-identity raw-map geometry; no XY or braking measurement"
+  },
+  "certificate_interpretation": {
+    "expected_planner_config": "config/components/mapping/n08_low_speed_vector_cap.json",
+    "expected_ego_max_velocity_m_s": 0.075,
+    "actual_planner_config": "config/components/mapping/n08_low_speed_calibration.json",
+    "actual_ego_max_velocity_m_s": 0.15,
+    "reason": "the compute-only mission launched n08_low_speed_calibration (0.15 m/s); the certificate requires n08_low_speed_vector_cap (0.075 m/s), so geometry and speed checks were not authorized by the evaluator."
+  },
+  "safety_readback": {
+    "schema": "n08-final-safety-readback/v1",
+    "run_id": "n08-20261024-244-overhead-free-slow-vertical-return",
+    "observed_utc": "2026-10-24T13:42:31.003013+00:00",
+    "source": "fresh ROS 2 topic echoes after compute-only mission and before project container stop",
+    "vehicle_status": {
+      "topic": "/fmu/out/vehicle_status_v1",
+      "timestamp_us": 637684000,
+      "arming_state": 1,
+      "arming_state_name": "DISARMED",
+      "failsafe": false,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "topic": "/fmu/out/vehicle_land_detected",
+      "timestamp_us": 639384000,
+      "qos": "BEST_EFFORT + TRANSIENT_LOCAL",
+      "landed": true,
+      "ground_contact": true,
+      "at_rest": true,
+      "horizontal_movement": false,
+      "vertical_movement": false,
+      "rotational_movement": false
+    },
+    "bridge_status": {
+      "topic": "/uav_px4_bridge/status",
+      "timestamp_us": 640488000,
+      "phase": "LANDED",
+      "reason": "px4_preflight_failed",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true,
+      "local_position_valid": true,
+      "ev_position_fused": true,
+      "ev_yaw_fused": true,
+      "gnss_aiding_active": false
+    },
+    "gazebo_fixture_model": "preflight_scan_fixture",
+    "gazebo_fixture_model_present": false,
+    "fixture_removed": true,
+    "project_container_stop_exit_code": 0,
+    "mission_mode": "compute_only",
+    "mission_goal_or_xy_control_to_px4": false,
+    "note": "The compute-only action goal was sent to EGO; bridge remapping kept it isolated from PX4."
+  },
+  "artifact_sha256": {
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n05-run-inputs.json": "80599c55b00c78b4ecd3a79e9fa405849d0b45096b93f4299a72a6e906aa66e4",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n05-before/n05-live-entry-check.json": "16f38c26c464be36a7b41f11f6ce3653a42c6d9b7b50382f19e66a7a6ffd2c90",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n05-after/n05-live-entry-check.json": "e895a966a8a1e19cb08ed4eb304796e6449492be40be5651d1038a353af73013",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n05-post-release/n05-live-entry-check.json": "2262b8a0d951572f9a70f3ffc7cb02cefcc2f1740b99165f0e472e426595b902",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n05-current-area/n05-live-entry-check.json": "a896fb9874ab3e9c0f0bd565a1fd50be8b794e3d7596c2720569350a95e880e3",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n05-run-summary.json": "aa506b960d549c598511ed725bd20a8e38cc7256454a7c61ffc36106a1e80501",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/fixture-result.json": "41b1834156589f381c3decb02b4207fca8351fbd106d8e2381aee5d6893447f5",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/fixture-stages.json": "f3e126861a99c725ca2e129fc5056282e32acda2f4ac7fb8512b458e6cca984a",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/fixture-trace.jsonl": "a5d9672fa8c984702ccde9e1d242e87c128893d999b5e429cb65f4fa209f496b",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/fixture-vins.jsonl": "3971b22bc56ac749f7d8d22c4a4ad94fc390a08cbc712f99ccf41ebbb8bbdabc",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/fixture-odometry.jsonl": "5a5da07ae629341b52933cb0be2509416706687d595def9c3cb763e2ea1795c0",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/fixture-monitor-readback.json": "553e8ac6a26c6d03c277ddb8edc6239e6ab819869aaaa7ca54dab88ccc1b1066",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n05-monitor-resolved.json": "9161acf81b1664dd1d7eb8ead1b118f65a50cfe9d65ecf4463dbac241e5b2b52",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/preflight.json": "cbaa314e3677f9662827331b7af568637cedea582e82154934e9cfa4ec977d97",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/flight.json": "797598fe6849e9f96a1ee670efefdf3127026ddf45dd4cd59d97268701bb3a4e",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n08-compute-only-evaluation.json": "64ec69a27a369d34d291520f966c70de3622188d0c0d7ae2953b346f2fe4e85d",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n08-curve-certificate.json": "a1b14d756b5f81b94b9bc4a2b4d8d76bc37898691e32db4445a7ca58e95f798a",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n08-live-curve-map.json": "269ad720d23b3fb1dd817dad42a84f18aa6ef40908fdfae9ed42a452321f3abc",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/bridge-alignment-timeline.jsonl": "a8ec9f9510bf60cb84f74486f64fbc1ab6ab6a18eaeed8a1e0bd2d16f522052f",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/n08-localization-source-timeline.json": "0b9ff2cff27a2dccaa628ade99189477ce278dc8b43105d2d14a5d2adbc313fc",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/final-safety-readback.json": "193665316579bf39eb729fce9f8e8cb18c2c67b3de7501a4cab24c69c2acbed1",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/px4.log": "81e3fcb0da05b188ea9953f8036256abee76f3beed9caab69aae3ef3cb0d1f27",
+    "artifacts/runs/n08-20261024-244-overhead-free-slow-vertical-return/vio.log": "33d56e6dd1e2fe2bfceb3ab506b06759fa721c7fea7283b39443347937c7dd43"
+  },
+  "limits": [
+    "No XY movement, response delay, deceleration, stopping distance or tracking-error measurement.",
+    "The PX4 HRT-vs-ROS clock observer was not used in this run."
+  ]
+}

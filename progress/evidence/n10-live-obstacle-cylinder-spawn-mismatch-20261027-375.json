@@ -1,0 +1,139 @@
+{
+  "schema": "n10-launch-identity-mismatch/v1",
+  "subtask_id": "N10.3/#375",
+  "run_id": "n10-20261027-375-gatefree-cylinder0-observation",
+  "classification": "executed SITL diagnostic with spawn-profile mismatch; not a valid execution of frozen #375 protocol and not formal qualification",
+  "intended": {
+    "spawn_config_path": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "spawn_pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "planner_config_path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+    "protocol_sha256": "18f2d530d5c5cb04f95216f342a3809eb69c8c73c6e18fe44c3eb028e7b3b59b"
+  },
+  "actual": {
+    "spawn_source": "config/runtime.json",
+    "spawn_source_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "spawn_pose_xyzrpy": [
+      -6.5,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "planner_config_path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "d435i_spawn_config_was_explicitly_set": false
+  },
+  "identity_effect": "The run-local observer derives static-cylinder and dynamic-box odom centers from the frozen x=-8 m spawn. The actual x=-6.5 m spawn shifts those centers by 1.5 m; cylinder ROI was never triggered, and the box-center raw-map queries/cloud ROI cannot be attributed at the intended coordinates. Do not count #375 as completing its frozen cylinder-observation protocol.",
+  "diagnostic_observations": {
+    "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+    "gazebo_box_creation_acknowledged": true,
+    "replacement_spline_seen": true,
+    "pre_injection_spline_count": 14,
+    "post_injection_spline_count": 222,
+    "same_identity_box_center_queries": 3,
+    "observer_static_cylinder_frames": 0,
+    "prohibited_contact_event_count": 0,
+    "box_sampled_clearance_m": 0.784958551234237,
+    "box_sampled_clearance_minus_max_observed_motion_m": 0.7570900222353567,
+    "clearance_scope": "Run-world sampled geometry using the actual inserted box; not a continuous guarantee."
+  },
+  "mission": {
+    "action_goal_sent": true,
+    "action_result": {
+      "final_position": [
+        14.31926212517691,
+        0.054278407547771294,
+        1.0602763189345374
+      ],
+      "outcome": "aborted",
+      "reason": "goal_timeout",
+      "status": 6,
+      "success": false
+    },
+    "goal_target_odom_m": [
+      15.981141036585642,
+      -0.0005930108445922075,
+      1.026343465108219
+    ],
+    "true_minimum_goal_error_m": 1.3919810933587684,
+    "native_goal_dwell_passed": false,
+    "nav_log_terminal_collision_warning_count": 191128,
+    "native_eGo_log": "vio.log reports repeated upstream EGO \"terminal point of the current trajectory is in obstacle, skip this planning\" before goal_timeout; no project-added health gate caused this abort.",
+    "goal_world_xyz_m_from_fixed_alignment": [
+      9.601849752853276,
+      -0.0017198410414940735,
+      1.0930023152848656
+    ],
+    "room_positive_x_inner_wall_face_m": 9.925,
+    "target_to_positive_x_inner_wall_m": 0.32315024714672447,
+    "planner_obstacle_inflation_m": 0.7306179170842027,
+    "wall_block_inference": "The measured target is about 0.323 m from the room inner wall, inside the 0.731 m EGO obstacle inflation. This geometry is consistent with the upstream EGO terminal-point collision warnings and is an inference; #375 did not issue a raw-map query at the goal.",
+    "goal_timing": {
+      "clock_regressions": 0,
+      "realtime_factor_sim_over_wall": 0.8703286479215574,
+      "sim_elapsed_s": 313.356,
+      "timeout_sim_s": 360.0,
+      "wall_elapsed_s": 360.0433017439209,
+      "wall_watchdog_s": 1500.0
+    }
+  },
+  "safe_stop": {
+    "driver_readback": {
+      "safe_to_stop_project_container": true,
+      "bridge": {
+        "alignment_drift_m": 0.0021524733350412224,
+        "armed": false,
+        "control_enabled": false,
+        "epoch": "80013406589d4ae6b972ccab21e0695d",
+        "ev_position_fused": true,
+        "ev_yaw_fused": true,
+        "frame_offset_ned": [
+          -0.00012139541100670968,
+          0.0001915509917143883,
+          0.00031557044334496256
+        ],
+        "frame_yaw_offset_ned": 0.00013566613620241696,
+        "gnss_aiding_active": false,
+        "landed": true,
+        "local_position_valid": true,
+        "phase": "LANDED",
+        "ready": false,
+        "reason": "trajectory_4"
+      },
+      "vehicle_remained_disarmed": true,
+      "control_samples_zero": true
+    },
+    "independent_postflight_readback": {
+      "phase": "LANDED",
+      "landed": true,
+      "armed": false,
+      "control_enabled": false,
+      "vehicle_remained_disarmed": true,
+      "control_samples_zero": true
+    },
+    "container_after_project_stop": "exited, code 0"
+  },
+  "input_sha256": {
+    "spawn-pose.json": "5d8b02e4afe58cb9e9ebf28b176353cfedb7d5348ca919ea4b96372e15fa424a",
+    "flight.json": "e6dfbee3e375a566c250f4af33b05dbecd89d6a5ed1fd43027a94bfc096a4a88",
+    "n10-live-obstacle-observation.json": "dfcbacef6e192fd8dfa20766bbc21f17fa091ac8c1961f297c4b5a82f8254b2e",
+    "n10-live-obstacle-analysis.json": "5c3e8a852d7075db3e9a2815048c3aaec1f48d3a3b41ca7bdece3dfc328efd71",
+    "vehicle-contact-evaluation.json": "b80720f67b5c492543537e0f35368e5b8f618514e990ab878d406b76fa346046",
+    "n10-live-obstacle-box-clearance.json": "fe4a9ca0082e1b6e0c4cf3145871512f4cf74629a6a90ffa40e4788a9ab0b9fe",
+    "arrival-evaluation.json": "106c841285ba524a3c6c9f0be09904686153cde4e93292ab2fb0d432e7114df6",
+    "independent-postflight-readback.json": "74a2a55ca80da391e494cebd8024c124f44cb0bd183f98ac5534734d69e963f5",
+    "safe-to-stop.json": "47aa995f1b5647dadb7bf1d5ff3311eb37d1838a70ca2a23407f74e60a250b7a",
+    "runtime-contract.json": "d423a1924286947bf8d0f16845d3449d9f73f7bd32f254bf3fd27413cdfc5cf9"
+  },
+  "acceptance_thresholds_changed": false,
+  "formal_qualification": false,
+  "next": "Rerun unchanged protocol under #376 with both planner and spawn profile passed explicitly. Add run-driver checks for planner-config path and effective spawn source/hash/pose before goal submission."
+}

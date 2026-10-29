@@ -1,0 +1,85 @@
+{
+  "schema": "n08-terminal-stop-precondition-refusal/v1",
+  "run_id": "n08-terminal-stop-20261026-323",
+  "status": "precondition_refusal",
+  "ordinary_terminal_stop_counted": false,
+  "trial_not_started": true,
+  "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+  "n05_initial_check": {
+    "schema": "n05-live-entry-check-error/v1",
+    "accepted": false,
+    "reason": "online_snapshot_or_prerequisite_check_failed",
+    "error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge', 'clock', 'localization', 'map']",
+    "qualification": "fail-closed read-only diagnostic; no entry authorization",
+    "truth_subscribed": false,
+    "control_or_goal_published": false
+  },
+  "localization_lockout": {
+    "reason": "telemetry_stale",
+    "state": "LOST",
+    "epoch": "6ee0365fd3f74f4391f849a1eb17b13d",
+    "clock_ns_at_lockout": 9780000000,
+    "last_pair_ns": 9439999999,
+    "normalized_cost": 0.08980162306102049,
+    "max_normalized_cost": 1.0,
+    "telemetry_stale_observation": {
+      "clock_stamp_ns": 9780000000,
+      "evaluated_wall_s": 1473045.637197357,
+      "receipt_age_in_clock_ns": 308000000,
+      "receipt_clock_ns": 9472000000,
+      "receipt_limit_ns": 500000000,
+      "source_age_ns": 340000001,
+      "source_limit_ns": 300000000,
+      "source_stamp_ns": 9439999999,
+      "stream": "telemetry"
+    },
+    "attribution": "telemetry source age exceeded its unchanged 0.300 s limit by 0.040 s; telemetry receipt age 0.308 s remained within its 0.500 s limit. Optimized source age 0.340 s was below its separate 0.400 s limit. Health lockout is latched, so subsequent source recovery does not restore odometry.",
+    "later_stream_observation": "Raw VINS odometry approximately 12 Hz, IMU propagate 120–159 Hz, telemetry approximately 10.5 Hz; localization adapter optimized odometry had no emitted samples while locked."
+  },
+  "later_status": {
+    "valid": false,
+    "state": "LOST",
+    "reason": "telemetry_stale",
+    "good_pairs": 16,
+    "accepted_optimized": 7,
+    "accepted_propagated": 109,
+    "source_stamp_ns": 9535999999
+  },
+  "safety": {
+    "fixture_spawned": false,
+    "fixture_result_exists": false,
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "px4_armed": false,
+    "px4_landed": true,
+    "px4_arming_state": 1,
+    "land_detected": true,
+    "control_samples_zero": true,
+    "control_mode_samples": 0,
+    "trajectory_setpoint_samples": 0,
+    "vehicle_command_samples": 0,
+    "scene_has_fixture": false,
+    "container_exit_code": 0
+  },
+  "artifacts": {
+    "initial_gate_error": "artifacts/runs/n08-terminal-stop-20261026-323/n05-before/n05-live-entry-check-error.json",
+    "health_lockout_source": "artifacts/runs/n08-terminal-stop-20261026-323/vio.log",
+    "independent_readback": "artifacts/runs/n08-terminal-stop-20261026-323/prescan-independent-live-readback.json",
+    "topic_diagnostics": [
+      "artifacts/runs/n08-terminal-stop-20261026-323/startup-odom-diagnostic.log",
+      "artifacts/runs/n08-terminal-stop-20261026-323/startup-odom-diagnostic-spin.log",
+      "artifacts/runs/n08-terminal-stop-20261026-323/startup-odom-recovery-check.log",
+      "artifacts/runs/n08-terminal-stop-20261026-323/startup-odom-source-rates.log",
+      "artifacts/runs/n08-terminal-stop-20261026-323/startup-telemetry-clock-samples.log"
+    ]
+  },
+  "artifact_sha256": {
+    "n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e",
+    "runtime-contract.json": "fbdcbbd589d9275ae7328a17aa90307dc8acbb29da2b6d34010c4a467d5b31cf",
+    "prescan-independent-live-readback.json": "cc9a29897856ba22cce2df9b35bb86cb4977d391dbbdf2331ebd8e7e96860797",
+    "vio.log": "acc8472bdfb78e5409a51f13dea690e94418c5dcd64590fff2c1da0d2323a3db",
+    "startup-odom-source-rates.log": "53aa7433b70224ea08520e9c314e492016e6903f61e5d421d84939501c3fc153",
+    "startup-telemetry-clock-samples.log": "e54c642ca453a505b0042bc0714f3a26b696c46c6b2fae59a7d2e8b1e1f16790"
+  },
+  "next_action": "Preserve the refusal and make one new independent full cold start with the exact same runtime/configuration; do not alter freshness limits. Count only a later ordinary terminal_stop that passes all gates."
+}

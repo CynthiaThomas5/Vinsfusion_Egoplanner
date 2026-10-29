@@ -1,0 +1,104 @@
+{
+  "schema": "n08-ordinary-terminal-stop-run/v1",
+  "run_id": "n08-terminal-stop-20261026-322",
+  "status": "passed",
+  "qualification": "first of three same-runtime-contract independent cold-start ordinary terminal_stop single-goal trials",
+  "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+  "target_profile_sha256": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+  "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+  "trial_kind": "terminal_stop",
+  "completion_mode": "single_goal",
+  "native_flight_result": "PASS",
+  "action_goal_sent": true,
+  "action_result": {
+    "status": 4,
+    "success": true,
+    "outcome": "succeeded",
+    "reason": "position_yaw_tolerance_held"
+  },
+  "return_action_sent": false,
+  "landed_and_disarmed": true,
+  "metrics": {
+    "actual_net_horizontal_displacement_m": 0.5972569925014072,
+    "reference_peak_vector_speed_m_s": 0.07914561675849555,
+    "actual_peak_vector_speed_m_s": 0.07549980051847902,
+    "actual_distance_from_reference_braking_start_m": 0.2810582209169662,
+    "response_delay_to_sustained_deceleration_s": 1.5039999999999996,
+    "actual_residual_distance_after_reference_zero_m": 0.0,
+    "actual_stop_dwell_position_excursion_m": 0.022085577032618656,
+    "independent_reference_tracking_error_max_m": 0.08008148038875275,
+    "observed_deceleration_p10_m_s2": 0.012860187777655394,
+    "observed_deceleration_mean_m_s2": 0.017299352860407638,
+    "deceleration_samples": 109
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00249018310569,
+    "max_optimized_odom_receipt_gap_wall_s": 0.11423717299476266,
+    "overguard_count": 0
+  },
+  "n05": {
+    "scan_profile": "n06_full_airframe_retreat_240_translation_only",
+    "diagnostic_pass": true,
+    "post_release_online_offline_admission": true,
+    "same_epoch": true,
+    "same_map_id": true,
+    "fixture_removed": true,
+    "runtime_scan_warning": "fixture scan recorded a brief stale localization receipt at its final cleanup sample; fixture was removed/landed and explicit fresh same-identity post-release online/offline entry checks passed"
+  },
+  "mission_gates": {
+    "mission_current_area_accepted": true,
+    "forward_full_body_corridor": true,
+    "corridor_query_count": 25,
+    "corridor_unknown_occupied": 0,
+    "reachable_center_bound_m": 0.2507782218537319,
+    "available_center_bound_m": 0.2625,
+    "destination_pre_goal_landing_candidate": true,
+    "destination_final_landing_candidate": true
+  },
+  "independent_evaluator": {
+    "passed": true,
+    "checks_failed": [],
+    "sha256": "34a8d472f3786430b20dc25da481a44c02eebd95f1f78d284afc172851b5f668"
+  },
+  "post_mission_readback": {
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "px4_armed": false,
+    "px4_landed": true,
+    "px4_arming_state": 1,
+    "land_detected": true,
+    "control_mode_samples": 0,
+    "trajectory_setpoint_samples": 0,
+    "vehicle_command_samples": 0,
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "sole_bridge_publishers": {
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1,
+      "/fmu/in/vehicle_visual_odometry": 1
+    }
+  },
+  "artifacts": {
+    "flight": "artifacts/runs/n08-terminal-stop-20261026-322/flight.json",
+    "evaluation": "artifacts/runs/n08-terminal-stop-20261026-322/n08-braking-evaluation.json",
+    "runtime_contract": "artifacts/runs/n08-terminal-stop-20261026-322/runtime-contract.json",
+    "n05_summary": "artifacts/runs/n08-terminal-stop-20261026-322/n05-run-summary.json",
+    "preflight": "artifacts/runs/n08-terminal-stop-20261026-322/preflight.json",
+    "independent_readback": "artifacts/runs/n08-terminal-stop-20261026-322/post-mission-independent-live-readback.json"
+  },
+  "artifact_sha256": {
+    "flight.json": "d6754b57716ec9c4ecfbadedaaabfc428f60c8aee9cc5a0ca941c77f68df066f",
+    "n08-braking-evaluation.json": "34a8d472f3786430b20dc25da481a44c02eebd95f1f78d284afc172851b5f668",
+    "runtime-contract.json": "fbdcbbd589d9275ae7328a17aa90307dc8acbb29da2b6d34010c4a467d5b31cf",
+    "n05-run-summary.json": "453761a88f940eb292b652b5eb3d9e8ff97fb0fbf798fe93be065a8529b2ca9d",
+    "preflight.json": "ddbd3683d67c92c4316c969d53a0aafada7c4706b8fb1396cf282c95efb5a542",
+    "post-mission-independent-live-readback.json": "9cab5f7b2e62889d7bfefe5b84ded92a730c2604e93763358183ce06409830c7"
+  },
+  "limitations": [
+    "This is one independent run, not the three-run parent exit.",
+    "Finite-sample deceleration p10/mean are descriptive and not guaranteed lower bounds.",
+    "mission wrapper returned 1 after native PASS because optional matplotlib is unavailable for its unconditional plotting call; independent evaluator without plotting passed."
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "experiment_id": "#346",
+  "run_id": "n10-20261026-346-horizon1-speed030",
+  "status": "FROZEN_BEFORE_RUN",
+  "purpose": "N10.3 one-variable planner feasibility/time-reallocation diagnostic; not a formal N11-N16 run.",
+  "hypothesis": "With horizon fixed at 1.0m, reducing only planner max_velocity_m_s from 0.32 to 0.30m/s/axis should time-stretch the #345-like local spline enough to pass the stricter per-axis feasibility gate and may lower EGO reference peak below the unchanged 0.12m/s runtime guard.",
+  "single_primary_variable": {
+    "field": "max_velocity_m_s",
+    "baseline": 0.32,
+    "candidate": 0.3,
+    "unit": "m/s per axis",
+    "all_other_operational_candidate_fields_equal": true
+  },
+  "measured_basis": {
+    "n345_max_abs_x_control_point_derivative_m_s": 0.3287344725811303,
+    "n345_reference_vector_peak_m_s": 0.12344376994185309,
+    "baseline_032_gate_m_s": 0.336,
+    "candidate_030_gate_m_s": 0.315,
+    "candidate_gate_below_measured_x_derivative_m_s": 0.0137344725811303,
+    "estimated_time_stretch_ratio": 1.0436015002575565,
+    "estimated_reference_peak_if_inverse_scaling_m_s": 0.11828630939241433,
+    "note": "Inverse scaling is an explicit test hypothesis from EGO time reallocation, not an acceptance value or guaranteed measured outcome."
+  },
+  "fixed": {
+    "planner_config": "config/components/mapping/n10_horizon1_speed030_calibration.json",
+    "base_config": "config/components/mapping/n10_horizon1_speed032_calibration.json",
+    "planning_horizon_m": 1.0,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "inflation_m": 0.7306179170842027,
+    "spawn_pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "global_goal_offset_enu_m": [
+      16.0,
+      0.0,
+      0.1
+    ],
+    "yaw_offset_rad": 0.2,
+    "position_tolerance_m": 0.25,
+    "yaw_tolerance_rad": 0.2617993877991494,
+    "dwell_sim_s": 3.0,
+    "goal_timeout_sim_s": 360.0,
+    "post_goal_active_hold_sim_s": 600.0,
+    "runtime_vector_speed_guard_m_s": 0.12,
+    "speed_guard_sources": [
+      "ego_position_command_reference",
+      "px4_vehicle_local_position"
+    ],
+    "collision_policy": "official_ego",
+    "sensor": "single D435i",
+    "ground_truth_online_control_or_guard": false,
+    "health_map_contact_takeoff_landing_gates": "unchanged"
+  },
+  "decision_criteria": {
+    "keep_all_limits_fixed": true,
+    "guard_trip_or_invalid_sample": "cancel and perform current bridge-owned safe landing; retain failed result",
+    "planner_full_curve_rejection": "retain exact cause; do not raise max velocity or retry same profile",
+    "no_guard_trip": "still requires a full 16m route, native completion, independent 3 sim-s goal dwell, 600 sim-s active hold, adequate VIO/map/clearance/tracking/freshness/replan evidence and safe terminal readback",
+    "goal_must_not_be_shortened": true
+  },
+  "pre_run": {
+    "json_valid": true,
+    "operational_field_diff_vs_n345": [
+      "max_velocity_m_s 0.32 -> 0.30"
+    ],
+    "code_or_installed_binary_changed": false,
+    "test_evidence_reused": "#344 405 unit tests, navigation-adapter integration, official-policy ROS probe; unchanged source/runtime code",
+    "ros_cpp_rebuild_required": false
+  },
+  "input_sha256": {
+    "config/components/mapping/n10_horizon1_speed030_calibration.json": "1207ba93d01bb44b146acdff0f833485769ebbd3e17ca626a71957c3a4e1f8cb",
+    "config/components/mapping/n10_horizon1_speed032_calibration.json": "2ba9faafffd3af5d42ebb46ae358850ec4ad7ade18c2fbd9e24975e33383e397",
+    "config/components/simulation/n10_long_range_spawn_minus8.json": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json": "d1e73365f0cc12d4f30a5445fa25ed54e35267eb2ff80a788c5f3d7162212821",
+    "config/runtime.json": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "config/components/navigation/vehicle_envelope.json": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+    "config/components/navigation/task_supervisor.json": "2ebcc06d25a6f550725161d3542915c29989a912ef1d6c8d48e596873980bb56",
+    "config/components/mapping/ego_planner.json": "077f7711b70d04c1c41e191c4518d18fcaf5d962871bb34ce33db02420b14337",
+    "tools/project.sh": "2be7f68c2b0cb2f5c8ac0736f8a95f757235b867844dc576ff00cf7de1c13f7b",
+    "tools/sim_runtime.sh": "6aea8608e696c6a5baf818a90dfeecb6c5e9049da84eb4fb8d1050fd5ae616c2",
+    "tools/n09_runtime.sh": "7db94d809ca887b5f829169efaa473d2b1cdd0c059189ca48f240183b4db45a3",
+    "tools/run_vio_ego_flight.py": "a5d0794130dcff8a44405db6bde94a0d378fde43a7b407fbe7a766b9cbcbea6d",
+    "tools/speed_guard.py": "d3e3227407da9c391dad0d564bddd4b621decf56586aa416da0265b396f72da2",
+    "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch": "b41440d75badb304fc59684718a4b2fe9a295d1fc13485c43ee0900161f8b4d1"
+  },
+  "run_count": 1,
+  "retry_after_run": 0
+}

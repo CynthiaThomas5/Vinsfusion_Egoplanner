@@ -1,0 +1,240 @@
+{
+  "schema": "n10-health-gates-removed-16m-result/v1",
+  "run_id": "n10-20261027-361-quality-gates-removed-speed080-16m",
+  "classification": "diagnostic calibration complete; does not pass N10.3 or qualify N11-N16",
+  "task_result": {
+    "flight_runner_result": "PASS",
+    "native_action_success": true,
+    "action_goal_sent": true,
+    "independent_position_and_yaw_dwell_passed": true,
+    "minimum_true_3d_goal_position_error_m": 0.05306405893165938,
+    "simultaneous_position_yaw_dwell_wall_s": 3.0187069959938526,
+    "required_dwell_wall_s": 3.0,
+    "goal_elapsed_sim_s": 38.544,
+    "observed_forward_progress_m": 15.955046224712348,
+    "post_goal_active_hold": {
+      "abort_reason": null,
+      "bridge_status_at_end": {
+        "armed": true,
+        "landed": false,
+        "phase": "ACTIVE",
+        "reason": "takeoff_complete_waiting_for_trajectory"
+      },
+      "clock_stall_watchdog_s": 15.0,
+      "completed": true,
+      "end_odometry_position_enu_m": [
+        15.950308339246448,
+        -0.0006103505600292781,
+        0.9765248976691989
+      ],
+      "observed_sim_s": 600.0,
+      "realtime_factor_sim_over_wall": 0.7611377519271104,
+      "requested_sim_s": 600.0,
+      "start_odometry_position_enu_m": [
+        15.960441283725151,
+        -0.01625663937094471,
+        0.9755582860853543
+      ],
+      "wall_elapsed_s": 788.2935756121296,
+      "wall_watchdog_s": 2400.0
+    },
+    "odometry_hold_displacement_m": 0.018665938372262245
+  },
+  "localization_gate_audit": {
+    "project_added_quality_and_localization_odometry_receipt_age_gates": "removed from runtime",
+    "raw_cost_and_source_age": "observation only",
+    "normalized_cost_sample_count": 10152,
+    "normalized_cost_p95": 1.2547359976650905,
+    "normalized_cost_max": 3.27118887303116,
+    "first_sample_above_historical_1p0_reference": {
+      "wall_elapsed_s": 84.03791279089637,
+      "stamp_ns": 194800000000,
+      "normalized_cost": 1.0166330559688894,
+      "final_cost": 1010.8048295378926,
+      "residual_components": 1956,
+      "input_features": 84,
+      "stereo_features": 75,
+      "long_tracks": 43,
+      "solve_seconds": 0.009716033935546875
+    },
+    "historical_1p0_value": "offline reference only; not a runtime or report pass/fail gate",
+    "localization_status_samples": 17593,
+    "invalid_localization_status_samples_after_enable": 0
+  },
+  "measurements": {
+    "raw_vio_single_fixed_alignment_pre_enable_to_landed": {
+      "duration_sim_s": 666.008,
+      "paired_truth_path_length_m_including_takeoff_and_landing": 22.969910152159017,
+      "position_error_m": {
+        "count": 10091,
+        "rmse": 0.18241655196634646,
+        "median": 0.13761168721671785,
+        "p95": 0.31424525392039027,
+        "max": 0.323385486310445
+      },
+      "absolute_yaw_error_deg": {
+        "count": 10091,
+        "rmse": 3.051675653221471,
+        "median": 2.012826500862204,
+        "p95": 5.6909625211667265,
+        "max": 5.8544322527975385
+      },
+      "bounded_time_support_fraction": 0.9998978991243348,
+      "raw_max_gap_sim_s": 0.068000001,
+      "truth_max_gap_sim_s": 0.02,
+      "invalid_localization_status_samples": 0
+    },
+    "ego_ready_command_to_truth_tracking": {
+      "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+      "candidate_max_error_m_not_enforced_by_runner": 0.15,
+      "matching_ready_commands": 84555,
+      "paired_commands": 84555,
+      "error_m": {
+        "median": 0.16863200228039885,
+        "p95": 0.5016351682203999,
+        "max": 1.0311340952364123,
+        "mean": 0.20815471700334717
+      },
+      "max_truth_interpolation_gap_s": 0.02
+    },
+    "map_and_source_timing": {
+      "source_timeline_requested_wall_s": 1500.0,
+      "source_timeline_stop_reason": "flight_report_written",
+      "source_timeline_clock_regression_events": 0,
+      "map_samples_goal_to_landed": 3701,
+      "map_source_age_max_sim_s_goal_to_landed": 0.16,
+      "occupancy_age_max_sim_s_goal_to_landed": 0.112,
+      "candidate_map_age_limit_sim_s_not_a_final_standard": 0.4,
+      "decimated_stream_max_receipt_gaps_wall_s": {
+        "localization_status": 0.16104516299998295,
+        "adapter_optimized": 0.22427747999999958,
+        "map_status": 0.25306121299999873,
+        "clock": 0.13092990699999518
+      },
+      "decimation_note": "The source recorder samples streams at 0.1 wall-second cadence; its gap summary is not used as an exact callback receipt-age measurement."
+    },
+    "speed_observation_only": {
+      "guard_enabled": false,
+      "sources": [
+        "ego_position_command_reference",
+        "px4_vehicle_local_position"
+      ],
+      "max_vector_speed_m_s": {
+        "ego_position_command_reference": 0.6914735772440903,
+        "px4_vehicle_local_position": 0.626067725793201
+      },
+      "sample_counts": {
+        "ego_position_command_reference": 83873,
+        "px4_vehicle_local_position": 31927
+      },
+      "candidate_planner_max_velocity_per_axis_m_s": 0.8,
+      "candidate_planner_max_acceleration_per_axis_m_s2": 0.25
+    },
+    "source_timeline": {
+      "stop_reason": "flight_report_written",
+      "clock_regression_event_count": 0,
+      "duration_wall_s": 1500.0,
+      "max_receipt_gaps_wall_s": {
+        "px4_bridge_detail": 0.25113443300000426,
+        "clock": 0.13092990699999518,
+        "adapter_propagated": 0.17326421099994604,
+        "localization_status": 0.16104516299998295,
+        "raw_propagated": 0.13094747700000653,
+        "vins_telemetry": 0.21285588599994298,
+        "raw_optimized": 0.22469989500000054,
+        "adapter_optimized": 0.22427747999999958,
+        "map_status": 0.25306121299999873
+      }
+    }
+  },
+  "contacts_and_terminal_state": {
+    "contact_evaluation_passed": true,
+    "prohibited_contact_event_count": 0,
+    "ground_contact_event_count": 14725,
+    "postflight_bridge_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "safe_to_stop_project_container": true
+  },
+  "observer_terminal_coverage": {
+    "debug-truth-evaluation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record"
+    },
+    "alignment-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record"
+    },
+    "planner-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record"
+    },
+    "bridge-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record"
+    },
+    "n09-contact-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record"
+    }
+  },
+  "runtime": {
+    "runtime_contract_sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+    "prelaunch_runtime_contract_sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+    "prelaunch_match": true,
+    "runtime_contract_file_count": 665,
+    "planner_parameters": {
+      "max_vel": 0.8,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "obstacles_inflation": 0.7306179170842027,
+      "odom_depth_timeout": 0.4
+    },
+    "collision_policy": true,
+    "control_owner": "uav_px4_bridge only"
+  },
+  "attempts": {
+    "driver_attempt_01": "aborted before preflight due current runtime contract filename typo; no goal/enable; safe 3-second bridge readback saved",
+    "corrected_driver": "hash-bound in amended protocol; completed run and safe terminal readback"
+  },
+  "not_measured_or_not_closed": [
+    "The actual #361 scene contains static obstacles; its initial report did not evaluate minimum body clearance. Offline SDF/truth clearance was subsequently calculated and recorded in N10.3/#363. The sample-adjusted value is not a continuous-dynamics or final clearance qualification.",
+    "No controlled obstacle-triggered replan or injected-fault response was executed in #361.",
+    "One current-runtime cold start is insufficient to freeze repeatable error/drift/age limits.",
+    "The goal dwell evaluator verifies simultaneous position/yaw dwell but does not export the minimum yaw-error distribution.",
+    "Source timeline is sampled at 0.1 wall-second cadence; its interarrival summaries are not exact callback receipt-age maxima.",
+    "Raw VIO error interval includes takeoff/landing; it is not a dedicated steady-state drift-only estimate.",
+    "This measurement does not replace #359 high-speed braking repeatability or a continuous clearance certificate."
+  ],
+  "artifacts_sha256": {
+    "runtime-contract.json": "62f755d1530c2339635d44b495c212151dfe0506377e41e52f8bc695adfb9deb",
+    "n09-runtime-contract-current.json": "62f755d1530c2339635d44b495c212151dfe0506377e41e52f8bc695adfb9deb",
+    "n10-run-manifest.json": "f3ed97357cb525293e5bfb3a4af2342e62790121dd0d0765834284d53c957a8e",
+    "flight.json": "b81e53d8be931ed75e40b3d6702d6d74cae7966806b23b869f62143da9de1428",
+    "arrival-evaluation.json": "3c19686c9f5787c8bb4d9113a749ee5448e9e10fb6bca3e064a01a8bf92dbf76",
+    "n10-calibration-evaluation.json": "2bd6579887468fbbc96a39537527aeebb2f96649c003cfbed40a2e086edace8f",
+    "odometry-evaluation.json": "05bd065eaf1dca32ac3fc5b6945cb4d571414f5652c3b883de58fcfe1bdbf630",
+    "debug-truth-evaluation.json": "006f1b9c413f7c3b23be381a70fedce089e66a0ea3618fe18bcb588c9dc4f420",
+    "alignment-observation.json": "ebe9576f252f65c4fe246935ece174d56c7870a11574e5ee454368fa68ea49b4",
+    "planner-observation.json": "28e342a3803d6ee29bf925002b9b6e2f8a65bffed286824b02feb487017d3fa3",
+    "bridge-observation.json": "5e703232383444e2e6dd15a73759be55b7366e4a63de7f6e09e5c176ec0f4aab",
+    "n09-contact-observation.json": "e7bc9fbc05f2e3ba61d304716dc4be15d63fbac587d16b62fdf98b893dc5b6f6",
+    "n08-localization-source-timeline.json": "322459c1d45a037c4d6ddc87f33c70666da7b641e0f7c75419e171fef0491bcf",
+    "vehicle-contact-evaluation.json": "29cbbafcff8833104c2f766526c85d91939b77b0c1ea3058567fe11db648eae9",
+    "postflight-px4-bridge-readback.json": "5528df4b86a72e2c1f8615588ccc95c1edd6cd9b0ea90f503375c7926090ce51",
+    "safe-to-stop.json": "0499f5289738233afb19760bb6381c27d28150e725cc68d42f3339ec5d0f0bc4",
+    "setup-preflight-readback.json": "3077f0b7edc9847c1b5945214dd92b6daeb38feb1b055b0218a4d70426b79795",
+    "driver-preflight-attempt-01.log": "3cc2add9946fa83904fcadab31af11ec23b03b5f176bbf94fcd2abb0511d0825",
+    "bridge-alignment-timeline.jsonl": "a684cf491bbba35dd117c0cdeab98893b2fc5c47a8ab450d82abeccaa7c8cd78",
+    "../n10-20261027-361-quality-gates-removed-speed080-16m-stack/launch-manifest.json": "4fa04eaa8314548ad53eafaae2b872fb0895624116697afb259c95aae1d7a6ab"
+  },
+  "run_directory": "artifacts/runs/n10-20261027-361-quality-gates-removed-speed080-16m",
+  "input_evaluator": "artifacts/runs/n10-20261027-361-quality-gates-removed-speed080-16m/analyze_n10_calibration.py",
+  "follow_up_evidence": [
+    "progress/evidence/n10-clearance-static-world-replay-20261027-363.md",
+    "progress/evidence/n10-clearance-static-world-replay-20261027-363.json"
+  ]
+}

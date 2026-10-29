@@ -1,0 +1,137 @@
+{
+  "schema": "n10-raw-vs-inflated-occupancy-audit/v1",
+  "id": "N10.3/#388",
+  "classification": "read-only source audit plus archived #385 replay; diagnostic only; no runtime or flight change",
+  "run_id": "n10-20261027-385-arrival-dwell4-retry",
+  "finding": {
+    "summary": "The archived +0.5 s and +1.25 s raw sphere queries sampled a sphere fully inside the injected box interior, not its visible front face. A raw free result there does not establish whether the front surface was marked occupied or inflated.",
+    "world_box_center_m": [
+      0.0,
+      0.0,
+      1.4
+    ],
+    "box_size_m": [
+      0.8,
+      0.8,
+      2.8
+    ],
+    "visible_front_face_x_world_m": -0.4,
+    "query_center_world_m": [
+      0.12153958519588848,
+      -0.0005597450536556303,
+      1.1655270383378526
+    ],
+    "query_radius_m": 0.25,
+    "query_sphere_min_x_world_m": -0.12846041480411152,
+    "gap_from_query_sphere_to_front_face_m": 0.2715395851958885,
+    "query_sphere_inside_box_interior": true,
+    "archived_queries": [
+      {
+        "label": "after_0.5",
+        "request_sim_s": 69.64,
+        "response_sim_s": 69.66,
+        "frame": "ego_odom (per query request contract)",
+        "map_id": "155b2fddd5a1481d96b52db2f93b6a6a-0315b398ca8a456b8339cb8e8318d43f",
+        "accepted": true,
+        "reason": "free",
+        "raw_counts": {
+          "free": 160,
+          "unknown": 0,
+          "occupied": 0
+        }
+      },
+      {
+        "label": "after_1.25",
+        "request_sim_s": 70.4,
+        "response_sim_s": 70.42,
+        "frame": "ego_odom (per query request contract)",
+        "map_id": "155b2fddd5a1481d96b52db2f93b6a6a-0315b398ca8a456b8339cb8e8318d43f",
+        "accepted": true,
+        "reason": "free",
+        "raw_counts": {
+          "free": 160,
+          "unknown": 0,
+          "occupied": 0
+        }
+      }
+    ]
+  },
+  "source_semantics": [
+    {
+      "fact": "/mapping/query_occupancy_sphere classifies raw occupancy_buffer_ cells intersecting the requested sphere; it does not inspect inflation."
+    },
+    {
+      "fact": "SphereQuery.h documents closed-sphere raw-cell intersection and no inflation."
+    },
+    {
+      "fact": "raycastProcess marks traversed camera-to-return cells free and the in-range depth return endpoint occupied; it does not fill the physical volume behind the return surface."
+    },
+    {
+      "fact": "clearAndInflateLocalMap rebuilds occupancy_buffer_inflate_ from raw occupied cells; raw occupancy and inflated occupancy are separate layers."
+    },
+    {
+      "fact": "With official_ego_collision_policy enabled, getInflateOccupancy uses the inflated mask alone; the native optimizer and checkCollisionCallback use that predicate. The read-only /mapping/query_planning_occupancy endpoint exposes a point query to that predicate, radius must be zero, and does not publish control."
+    },
+    {
+      "fact": "queryReadiness checks active epoch/map identity, fused depth and pose state; project-local source-age cutoffs were removed by patch 0054. Native EGO odom/depth timeout remains."
+    }
+  ],
+  "limits_and_conclusion": [
+    "Because the archived query sphere sits entirely inside the spawned box and is about 0.272 m behind its x-negative face, its free=160 result can coexist with a correctly occupied front return surface and says nothing direct about the inflated value at that surface.",
+    "The #385 archive has no box-face raw occupied point coordinates or same-time /mapping/query_planning_occupancy point result. Existing occupied-cloud ROI points are from a separate static-cylinder observation.",
+    "Thus #388 explains why the interior raw query is not by itself proof of a map/collision failure, but cannot determine from archived data whether the injected box surface was actually observed and inflated in #385. Dynamic-obstacle causality remains unqualified.",
+    "No runtime rejection gate was added, no flight was run, and no previous flight evidence was modified."
+  ],
+  "source_files": {
+    "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": {
+      "sha256": "12bf1b9c17b8ac40064721a19ac4d69ac537d76e95435661a43d0c14e1ff6681",
+      "relevant_lines": [
+        18,
+        42,
+        47,
+        59,
+        407,
+        435,
+        759,
+        800,
+        952,
+        1091,
+        1112
+      ]
+    },
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/sphere_query.h": {
+      "sha256": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809",
+      "relevant_lines": [
+        1,
+        15
+      ]
+    },
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": {
+      "sha256": "17fff0b99b30a5da717ba11df9f3e6e4b7fff00f96e9bab31c9cf0c3104aa9a2",
+      "relevant_lines": [
+        392,
+        407
+      ]
+    },
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": {
+      "sha256": "e8b8a8a5d7bef7d0c6ec7d9e410c244ea355235f275353cf0427638ca9f380bd",
+      "relevant_lines": [
+        1013,
+        1044
+      ]
+    },
+    "dependencies/patches/ego/0049-official-ego-collision-policy.patch": {
+      "sha256": "261062a484f6ceb456a50f9923aed5d252007bb609c91acc4a2cf009dda82ba1",
+      "relevant_lines": [
+        1
+      ]
+    },
+    "dependencies/patches/ego/0054-remove-project-map-age-refusals.patch": {
+      "sha256": "215747d7aa7c6902dd80ec1aa15d3475df2b41bc89f11ebbf247821071a4350f",
+      "relevant_lines": [
+        1
+      ]
+    }
+  },
+  "primary_archive": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-obstacle-alignment-forensics.json"
+}

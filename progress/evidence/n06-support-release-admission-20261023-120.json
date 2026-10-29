@@ -1,0 +1,159 @@
+{
+  "schema": "n06-support-release-admission/v1",
+  "round_id": "#120",
+  "date": "2026-10-23",
+  "goal": "N06",
+  "subtask": "N06.4 full-airframe support-release fresh admission",
+  "execution_mode": "Goal completion mode",
+  "status": "in_progress",
+  "passed": false,
+  "run_id": "n06-20261023-wall-145",
+  "scope": {
+    "px4": "SITL status only; DISARMED throughout",
+    "bridge": "DISABLED",
+    "control_or_goal_published": false,
+    "planner_curve_executed": false,
+    "debug_truth_used_for_admission": false,
+    "hardware_connected": false
+  },
+  "hypothesis": "Moving the +0.45 rad oblique view to x=-1.2 m before the retreat would expose the low takeoff envelope after correcting the D435i mount reference frame, while preserving localization health.",
+  "profile": "n06_full_airframe_retreat_240_oblique_early_view",
+  "layout_id": "wall_box_column",
+  "scan": {
+    "completed_stages": 12,
+    "stage_count": 12,
+    "trace_rows": 15226,
+    "sim_time_s": [16.348, 377.392],
+    "primary_x_joint_min_m": -2.4004065189246275,
+    "localization_valid_tracking_rows": 15226,
+    "localization_rows": 15226,
+    "epoch": "d0cee37249c1472d80e3490a47892359",
+    "map_id_before": "d0cee37249c1472d80e3490a47892359-24ad64b9f32d434e8f162cbb4c8047c5",
+    "map_id_after": "d0cee37249c1472d80e3490a47892359-24ad64b9f32d434e8f162cbb4c8047c5"
+  },
+  "fresh_entry_checks": {
+    "before": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "takeoff_max_unknown_cells": 480,
+      "raw_ground_plane_z_m": -0.3500000000000002,
+      "raw_ground_plane_voxels": 110
+    },
+    "after_scan": {
+      "online_accepted": false,
+      "offline_accepted": false,
+      "online_offline_identical": true,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "takeoff_max_unknown_cells": 36,
+      "ascent_accepted_samples": 18,
+      "ascent_samples": 19,
+      "descent_accepted_samples": 18,
+      "descent_samples": 19,
+      "hold_accepted_samples": 1,
+      "hold_samples": 1,
+      "raw_ground_plane_z_m": -0.35000000000000014,
+      "raw_ground_plane_voxels": 126
+    },
+    "post_release": {
+      "online_accepted": false,
+      "offline_accepted": false,
+      "online_offline_identical": true,
+      "transfer_gate_passed": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "takeoff_max_unknown_cells": 38,
+      "ascent_accepted_samples": 17,
+      "ascent_samples": 19,
+      "descent_accepted_samples": 17,
+      "descent_samples": 19,
+      "hold_accepted_samples": 1,
+      "hold_samples": 1,
+      "maximum_ascent_unknown_cells": 32,
+      "maximum_descent_unknown_cells": 32,
+      "maximum_hold_unknown_cells": 0,
+      "raw_ground_plane_z_m": -0.35000000000000014,
+      "raw_ground_plane_voxels": 126,
+      "xy_span_m": [1.3999999999999986, 1.9000000000000021],
+      "identity": {
+        "epoch": "d0cee37249c1472d80e3490a47892359",
+        "map_id": "d0cee37249c1472d80e3490a47892359-24ad64b9f32d434e8f162cbb4c8047c5",
+        "frame_id": "odom_d0cee37249c1472d80e3490a47892359"
+      },
+      "body_pose_shift_from_attached_snapshot_m": 0.0010144866542623518
+    }
+  },
+  "offline_voxel_analysis": {
+    "unknown_voxel_centers_in_takeoff_envelope": 38,
+    "all_below_fitted_plane": true,
+    "ground_plane_z_m": -0.35000000000000014,
+    "voxel_resolution_m": 0.1,
+    "center_z_counts_m": {
+      "-0.455": 36,
+      "-0.555": 2
+    },
+    "closest_cell_top_to_plane_gap_m": 0.055,
+    "ground_contact_cells": 0,
+    "interpretation": "These cells are wholly below the visible opaque ground surface; optical depth observations cannot classify them as free. This diagnoses current-policy feasibility and does not authorize changing unknown semantics."
+  },
+  "runtime_safety": {
+    "px4_state_samples": 730,
+    "px4_states": ["DISARMED"],
+    "bridge_phase": "DISABLED",
+    "fixture_states": ["attached", "detached"],
+    "fixture_removed": true,
+    "scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "control_or_goal_published": false,
+    "truth_subscribed": false,
+    "current_runtime_json_sha256": "a862e521dd738dba71d960cda95458509336f1e2cd845228b46311fd57928221",
+    "active_project_containers_after_run": 0
+  },
+  "fixture_helper_result": {
+    "outcome": "failed",
+    "reported_error": "localization changed or became invalid during physical scan",
+    "context": "The exception occurred in the post-removal health hold. All saved physical-scan trace rows remained valid/tracking with the same epoch; the runner recorded and evaluated the independent post-release admission. The original helper result is retained.",
+    "diagnostic_summary_pass": true,
+    "diagnostic_summary_pass_meaning": "Scan/identity/safety/removal records were complete; admission accepted=false remains a failure to establish the positive entrance."
+  },
+  "relevant_implementation_changes": [
+    "simulation/models/x500_d435i/model.sdf: D435i include pose explicitly relative_to=base_link",
+    "src/own/uav_sim/uav_sim/geometry.py and tools/n05_entry.py: enforce matching camera include and fixed-joint reference frames",
+    "tools/audit_vehicle_envelope.py and tools/test_sim_geometry.py / tools/test_vehicle_envelope.py: frame consistency audit and regression assertions",
+    "config/components/simulation/preflight_scan.json: early-oblique full-airframe scan profile",
+    "tools/probe_preflight_scan.py and tools/test_preflight_scan.py: shared profile choices and CLI regression check",
+    "config/components/navigation/vehicle_envelope.json: updated x500_d435i model source hash"
+  ],
+  "validation": [
+    {"command": "python3 tools/test_sim_geometry.py", "result": "PASS: 5 tests"},
+    {"command": "python3 tools/test_vehicle_envelope.py", "result": "PASS: 3 tests"},
+    {"command": "python3 tools/test_preflight_scan.py", "result": "PASS: 19 tests"},
+    {"command": "python3 tools/audit_vehicle_envelope.py", "result": "PASS"},
+    {"command": "gz sdf -k simulation/models/x500_d435i/model.sdf", "result": "PASS: Valid"},
+    {"command": "colcon build --base-paths src --packages-select uav_sim --parallel-workers 1 --cmake-args -DCMAKE_BUILD_TYPE=Release", "result": "PASS: 1 package finished"},
+    {"command": "bash -n tools/run_n05_preflight_layout.sh", "result": "PASS"},
+    {"command": "python3 -m json.tool config/components/simulation/preflight_scan.json", "result": "PASS"},
+    {"command": "python3 tools/project_status.py", "result": "PASS: structure/design; 80 historical optional artifact links missing; not runtime evidence"},
+    {"command": "git diff --check", "result": "PASS"}
+  ],
+  "key_artifacts": {
+    "run_inputs_sha256": "51f6e6ac5e90b1325a2e844a2ba5e112df93d52c98e8bbcb790a097580ef2164",
+    "fixture_result_sha256": "c90f71ee5c5ae68c811220429e550d047a5cebad8658d3253661ed038fb81361",
+    "fixture_trace_sha256": "cdbb7c42ec38854b00baabdc0e88b6fc5f92768100ddd2fb0e5174786aa64305",
+    "run_summary_sha256": "e8dedd5fe3dfc57b6e7176edebb55bb114fb17f418a660e0ff085d7abbf0a462",
+    "prescan_ready_sha256": "e0cdc14ea9f49312895eee814d3c6d238759447139e350e7b446f273656ee440",
+    "after_live_report_sha256": "df530c6b40d682e1c808696809d23be6e326f77ca036700add6835a19473c0a8",
+    "post_release_live_report_sha256": "aad11e38b637cabe3faa1178e1a73b9d37ce6a1f1435bddfa54c293dd0377cda",
+    "post_release_offline_report_sha256": "d9f92d3f1eaf5e8b9e1ccbca2c01a7ce3915312ce052b67a659b2d8155db21d8",
+    "post_release_raw_map_sha256": "16584e77c15ef01a43218652b77f0e988f95c7f955118fbaf4583e3da7f394ce"
+  },
+  "remaining_exit": [
+    "Obtain a positive full-airframe post-release fresh N05 admission under the approved policy.",
+    "After a positive admission, reverify the affected N05 and current-patch N06 planner exits in two layouts.",
+    "Audit all original N06 exits and update status only when each has evidence."
+  ],
+  "decision_pending": {
+    "proposal": "Treat only voxel cells wholly below a valid fresh raw-ground plane as physically occluded ground during contact/ascent/descent; retain rejection for cells intersecting or above the plane, outside the support region, stale or out of bounds.",
+    "implemented": false,
+    "requires_user_decision": true
+  },
+  "stop_reason": "No further camera-view sweep can reveal cells wholly below an opaque ground surface. Preserve the existing unknown rejection and N06 in_progress until the policy boundary is explicitly decided or a compliant observation geometry is identified."
+}

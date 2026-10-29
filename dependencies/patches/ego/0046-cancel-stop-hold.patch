@@ -1,0 +1,147 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -1,5 +1,6 @@
+ 
+ #include <ego_planner/ego_replan_fsm.h>
++#include <algorithm>
+ #include <cmath>
+ 
+ namespace ego_planner
+@@ -370,7 +371,8 @@
+   void EGOReplanFSM::trajectoryCancelCallback(
+       const std::shared_ptr<const uav_interfaces::msg::TrajectoryCancel> &msg)
+   {
+-    if (msg->mode != uav_interfaces::msg::TrajectoryCancel::MODE_ABORT ||
++    if ((msg->mode != uav_interfaces::msg::TrajectoryCancel::MODE_ABORT &&
++         msg->mode != uav_interfaces::msg::TrajectoryCancel::MODE_STOP_HOLD) ||
+         msg->goal_id.empty() || msg->epoch.empty())
+       return;
+     pending_cancel_ = *msg;
+@@ -608,24 +610,113 @@
+     {
+       const auto cancel = pending_cancel_;
+       cancel_pending_ = false;
+-      if (cancel.goal_id == active_goal_id_ && cancel.epoch == active_goal_epoch_)
+-      {
+-        have_target_ = false;
+-        have_trigger_ = false;
+-        have_active_goal_yaw_ = false;
+-        active_goal_id_.clear();
+-        active_goal_epoch_.clear();
+-        if (exec_state_ != WAIT_TARGET)
+-          changeFSMExecState(WAIT_TARGET, "TASK_CANCEL");
+-        RCLCPP_WARN(node_->get_logger(), "Canceled goal and trajectory (%s)", cancel.reason.c_str());
+-      }
+-      if (cancel.goal_id == pending_navigation_goal_id_ &&
+-          cancel.epoch == pending_navigation_epoch_)
++      const bool active_match = cancel.goal_id == active_goal_id_ &&
++                                cancel.epoch == active_goal_epoch_;
++      const bool pending_match = cancel.goal_id == pending_navigation_goal_id_ &&
++                                 cancel.epoch == pending_navigation_epoch_;
++      if (cancel.mode == uav_interfaces::msg::TrajectoryCancel::MODE_STOP_HOLD &&
++          active_match)
++      {
++        if (!have_odom_ || safety_latched_ || exec_state_ != EXEC_TRAJ ||
++            active_goal_map_id_.empty())
++        {
++          stopForSafety("cancel_stop_unavailable_state");
++        }
++        else
++        {
++          const double speed = odom_vel_.norm();
++          if (!odom_vel_.allFinite() || !std::isfinite(speed) || speed > 0.100001 ||
++              std::abs(odom_vel_(2)) > 0.010001)
++          {
++            stopForSafety("cancel_stop_speed_outside_n08_calibration");
++          }
++          else if (speed <= 0.03)
++          {
++            const double yaw = std::atan2(
++                2.0 * (odom_orient_.w() * odom_orient_.z() +
++                       odom_orient_.x() * odom_orient_.y()),
++                1.0 - 2.0 * (odom_orient_.y() * odom_orient_.y() +
++                             odom_orient_.z() * odom_orient_.z()));
++            active_goal_yaw_ = yaw;
++            have_active_goal_yaw_ = true;
++            end_pt_ = odom_pos_;
++            end_vel_.setZero();
++            local_target_pt_ = odom_pos_;
++            local_target_vel_.setZero();
++            have_target_ = true;
++            have_new_target_ = false;
++            enable_fail_safe_ = false;
++            if (!callEmergencyStop(odom_pos_) && !safety_latched_)
++              stopForSafety("cancel_stationary_hold_certificate_failed");
++          }
++          else
++          {
++            // Candidate N08 handoff distance: the largest retained planned-stop
++            // distance at 0.08105 m/s plus 0.10 m for handoff/model uncertainty.
++            // This is not a general braking guarantee. The generated EGO curve and
++            // terminal hold still require the live raw-map certificate.
++            const double distance = std::min(
++                0.45, std::max(0.20, 0.30234 * speed / 0.08105 + 0.10));
++            const Eigen::Vector3d stop_target = odom_pos_ + odom_vel_ * (distance / speed);
++            const bool planned = planner_manager_->planGlobalTraj(
++                odom_pos_, odom_vel_, Eigen::Vector3d::Zero(), stop_target,
++                Eigen::Vector3d::Zero(), Eigen::Vector3d::Zero());
++            if (!planned)
++            {
++              stopForSafety("cancel_stop_plan_failed");
++            }
++            else
++            {
++              active_goal_yaw_ = std::atan2(
++                  2.0 * (odom_orient_.w() * odom_orient_.z() +
++                         odom_orient_.x() * odom_orient_.y()),
++                  1.0 - 2.0 * (odom_orient_.y() * odom_orient_.y() +
++                               odom_orient_.z() * odom_orient_.z()));
++              have_active_goal_yaw_ = true;
++              end_pt_ = stop_target;
++              end_vel_.setZero();
++              local_target_pt_ = stop_target;
++              local_target_vel_.setZero();
++              have_target_ = true;
++              have_trigger_ = true;
++              have_new_target_ = true;
++              changeFSMExecState(REPLAN_TRAJ, "CANCEL_STOP_HOLD");
++              RCLCPP_WARN(node_->get_logger(),
++                          "Canceled action; planning EGO stop/hold %.3f m along measured velocity",
++                          distance);
++            }
++          }
++        }
++      }
++      else if (cancel.mode == uav_interfaces::msg::TrajectoryCancel::MODE_STOP_HOLD &&
++               pending_match)
+       {
+         have_pending_navigation_goal_ = false;
+         pending_navigation_goal_id_.clear();
+         pending_navigation_epoch_.clear();
+-        RCLCPP_WARN(node_->get_logger(), "Discarded pending navigation goal after cancellation");
++        RCLCPP_WARN(node_->get_logger(), "Canceled navigation before its trajectory started");
++      }
++      else if (cancel.mode == uav_interfaces::msg::TrajectoryCancel::MODE_ABORT &&
++               (active_match || pending_match))
++      {
++        if (active_match)
++        {
++          have_target_ = false;
++          have_trigger_ = false;
++          have_active_goal_yaw_ = false;
++          active_goal_id_.clear();
++          active_goal_epoch_.clear();
++          if (exec_state_ != WAIT_TARGET)
++            changeFSMExecState(WAIT_TARGET, "TASK_CANCEL");
++          RCLCPP_WARN(node_->get_logger(), "Aborted goal and trajectory (%s)", cancel.reason.c_str());
++        }
++        if (pending_match)
++        {
++          have_pending_navigation_goal_ = false;
++          pending_navigation_goal_id_.clear();
++          pending_navigation_epoch_.clear();
++          RCLCPP_WARN(node_->get_logger(), "Discarded pending navigation goal after abort");
++        }
+       }
+     }
+ 

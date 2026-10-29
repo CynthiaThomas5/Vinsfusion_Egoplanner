@@ -1,0 +1,127 @@
+{
+  "schema": "n08-cancel-speed-window-refusal/v1",
+  "run_id": "n08-cancel-peak-prescan-20261026-326",
+  "status": "precondition_refused",
+  "counts_as_motion_cancel_measurement": false,
+  "counts_as_ordinary_terminal_stop": false,
+  "intended_trial": {
+    "completion_mode": "single_goal",
+    "trial_kind": "motion_cancel",
+    "cancel_trigger_speed_window_m_s": [
+      0.08,
+      0.09
+    ],
+    "plan_reference": "docs/n08-completion-test-plan.md §6.3 step 5"
+  },
+  "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+  "cold_start": {
+    "epoch": "82a2fe7a2970445bb8ba9365512996f4",
+    "map_id": "82a2fe7a2970445bb8ba9365512996f4-286f1990bd5646b3bc6932d41bff0882",
+    "profile": "n06_full_airframe_retreat_240_translation_only",
+    "layout_id": "n08_overhead_calibration"
+  },
+  "support_scan": {
+    "completed_stages": 6,
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "scene_model_absent": true,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "helper_error": "fresh DISARMED status is required for every fixture command",
+    "helper_cleanup": {
+      "attempted": false,
+      "verified_detached": false,
+      "error": "",
+      "final_land_detector_landed": true,
+      "final_land_detector_receipt_age_wall_s": 0.6377248691860586,
+      "verified_landed": true
+    }
+  },
+  "n05_gates": {
+    "attached_after_scan": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "offline_matches_online": true,
+      "offline_accepted": false,
+      "same_scan_identity": true
+    },
+    "post_release": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "offline_matches_online": true,
+      "offline_accepted": false,
+      "same_scan_identity": true
+    },
+    "mission_current_area_after_stability_preflight": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "offline_matches_online": true,
+      "offline_accepted": false,
+      "same_map_id": true
+    }
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00144230481237,
+    "max_optimized_odom_receipt_gap_wall_s": 0.11136892321519554,
+    "overguard_count": 0
+  },
+  "unknown_volume_diagnostic": {
+    "report": "progress/evidence/n08-cancel-peak-n05-unknown-volume-20261026-326.json",
+    "report_sha256": "5b232702c1099a655c027f2a663da875e5e0d28fd5ce3b0a887e6fbc11bef67f",
+    "ground_plane_z_m": -0.34999999999999976,
+    "takeoff_contact_unknown_unique_cells": 51,
+    "takeoff_contact_unknown_x_negative_count": 37,
+    "takeoff_contact_unknown_x_nonnegative_count": 14,
+    "takeoff_contact_unknown_min_xyz_m": [
+      -0.4499999999999993,
+      -0.34999999999999787,
+      -0.35
+    ],
+    "takeoff_contact_unknown_max_xyz_m": [
+      0.15000000000000213,
+      0.3500000000000014,
+      -0.35
+    ],
+    "takeoff_contact_z_center_histogram_m": {
+      "-0.3": 51
+    },
+    "takeoff_contact_unknown_count_below_ground_plane": 0,
+    "meaning": "A large part of the raw-unknown cells intersect the ground-plane contact volume, and 37/51 are at negative odom X. This locates the admission failure; it does not prove a camera-blind-spot cause."
+  },
+  "safety": {
+    "post_scan_readback_duration_wall_s": 6.0,
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "px4_arming_state": 1,
+    "landed": true,
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "current_gate_state_disarmed": true,
+    "current_gate_control_disabled": true,
+    "flight_json_exists": false,
+    "goal_or_enable_sent": false,
+    "container": {
+      "state": "exited",
+      "exit_code": 0,
+      "oom_killed": false
+    }
+  },
+  "artifact_sha256": {
+    "runtime-contract.json": "fbdcbbd589d9275ae7328a17aa90307dc8acbb29da2b6d34010c4a467d5b31cf",
+    "n05-prescan-ready.json": "0ab08b557d1c24739182facf29949582b858d8e5a18b8b1fdfbe85084b03ab98",
+    "fixture-result.json": "76032ff4f29b141d7d086a7e409c645c8095d5fa34d70e929f315b2fe9540b7e",
+    "fixture-stages.json": "2461875b29eb7c994d4a55711b7c64797e1c6a2080f5ea7134b66484b12d8a2d",
+    "n05-after/n05-live-entry-check.json": "2f73391574fb6bcbb1001d7ac96ebb7adee2e2beea4d411d1ccb62d78a9d7fa7",
+    "n05-after/n05-offline-entry-replay.json": "c47bc3b036be1d3c24c3ec483685fac7eb7f051d793e5f79eff2708a265cca61",
+    "post-scan-independent-live-readback.json": "5f9734a94fefda16f9e067f32bc8c26cbeb296644d50296ebb7ae72aff0dce93",
+    "post-scan-gz-model-list.txt": "48cb6a8ad7acbe03296a9079a056ca76c5dbe69df323387a7037ba430d3170a2",
+    "n05-post-release/n05-live-entry-check.json": "87d3f3bf8ce7179e328aa12fc347836e222f3fed0d4ef154fb0714f612639bec",
+    "n05-post-release/n05-offline-entry-replay.json": "a51bfe4b67aa5ae9724176e3bf308abdf20afb5a2bb7fac4c9221ad50f4a65a3",
+    "preflight.json": "e501dc08b97f365da303a2d2ded334d652e56adf51b6d851e0ca980bad1f6b52",
+    "n05-current-area/n05-live-entry-check.json": "790480bf791fac5d7eeff9c6907da7ff697dbfe6b7e9b9af826865be0c8486ff",
+    "n05-current-area/n05-offline-entry-replay.json": "b85aae33fb061041b2f9fe12eedd7385723365f2a1ea071f627c5ddbd7c78eb9"
+  }
+}

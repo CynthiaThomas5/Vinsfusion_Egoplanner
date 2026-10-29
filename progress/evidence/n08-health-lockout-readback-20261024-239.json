@@ -1,0 +1,257 @@
+{
+  "schema": "n08-health-lockout-readback/v1",
+  "subtask": "N08.2ac #239",
+  "run_id": "n08-20261024-239-health-lockout-readback-01",
+  "result": "PX4_HRT_clock_aligned; normalized_cost_lockout_matches_same_stamp_raw_telemetry",
+  "qualification_scope": "DISARMED support scan only; no N05 post-release gate, compute-only, goal, control or XY",
+  "implementation": {
+    "files": [
+      "src/own/uav_localization/uav_localization/health.py",
+      "src/own/uav_localization/uav_localization/node.py",
+      "tools/test_localization_health.py"
+    ],
+    "behavior": "One health_lockout_snapshot JSON event on first locked state per localization epoch; includes accepted internal metrics, stream source/receipt stamps and recomputed cost.",
+    "threshold_or_control_behavior_changed": false
+  },
+  "profile": {
+    "id": "n08_overhead_rear_down_slow_yaw_return",
+    "planned_stages": 22,
+    "completed_stages": 16,
+    "changed_stage_index": 16,
+    "stage_duration_sim_s": 48,
+    "down_view_reached": true,
+    "failure_reason": "normalized_cost_exceeded",
+    "normalized_cost": 1.004589641314733,
+    "wall_duration_s": 579.5914425600786
+  },
+  "n05_before": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_result_identical": true,
+    "identity": {
+      "epoch": "12cb5aa85ea14414883c11376ec46a8d",
+      "map_id": "12cb5aa85ea14414883c11376ec46a8d-205b8e2424d141a390b8c2ef46478288",
+      "frame_id": "odom_12cb5aa85ea14414883c11376ec46a8d",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    }
+  },
+  "lockout": {
+    "snapshot_event_count": 1,
+    "state": "LOCKED",
+    "reason": "normalized_cost_exceeded",
+    "clock_ns": 506420000000,
+    "last_pair_ns": 506288000000,
+    "metrics": {
+      "schema": 1,
+      "stamp_ns": 506355999999,
+      "final_cost": 2366.574814739446,
+      "residual_components": 4690,
+      "input_features": 180,
+      "stereo_features": 165,
+      "long_tracks": 118,
+      "initialized": true,
+      "state_finite": true,
+      "solve_current": true,
+      "solver_usable": true,
+      "solve_seconds": 0.0149688720703125,
+      "initial_cost": 2709.6475204361127,
+      "iterations": 9,
+      "termination_type": 1
+    },
+    "normalized_cost": 1.004589641314733,
+    "recomputed_normalized_cost": 1.004589641314733,
+    "threshold": 1.0,
+    "same_stamp_raw_vins": {
+      "record_count": 1,
+      "stamp_ns": 506355999999,
+      "final_cost": 2366.574814739446,
+      "residual_components": 4690,
+      "recomputed_normalized_cost": 1.004589641314733,
+      "cost_fields_exact_match": true
+    },
+    "all_run_telemetry_samples_above_threshold": 1,
+    "next_raw_telemetry_sample": {
+      "stamp_ns": 506487999999,
+      "normalized_cost": 0.8162581718474274
+    },
+    "cost_breakdown": {
+      "visual": {
+        "cost": 1236.3726243998383,
+        "residual_components": 4458
+      },
+      "marginalization": {
+        "cost": 1107.8214658046852,
+        "residual_components": 82
+      },
+      "imu": {
+        "cost": 22.38072453492497,
+        "residual_components": 150
+      },
+      "grouped_cost_sum": 2366.5748147394484,
+      "grouped_residual_components": 4690,
+      "grouped_cost_error": 2.2737367544323206e-12,
+      "evaluation_ok": true,
+      "prior_summary": {
+        "available": true,
+        "evaluation_ok": true,
+        "information_rank": 82,
+        "retained_dimension": 82,
+        "information_min_positive": 0.0010112556537217505,
+        "information_max": 142175504574.0398,
+        "spectrum_ok": true,
+        "current_squared_norm": 2215.6429316093704,
+        "r0_squared_norm": 2214.826146346607,
+        "Jdx_squared_norm": 6.398333830614431,
+        "twice_r0_dot_Jdx": -5.581548567851046
+      }
+    },
+    "metric_samples": {
+      "imu": {
+        "clock_at_receipt_ns": 506416000000,
+        "receipt_wall_s": 1336431.428982217,
+        "source_stamp_ns": 506416000000
+      },
+      "left": {
+        "clock_at_receipt_ns": 506404000000,
+        "receipt_wall_s": 1336431.421184165,
+        "source_stamp_ns": 506388000000
+      },
+      "optimized": {
+        "clock_at_receipt_ns": 506352000000,
+        "receipt_wall_s": 1336431.363067923,
+        "source_stamp_ns": 506288000000
+      },
+      "propagated": {
+        "clock_at_receipt_ns": 506416000000,
+        "receipt_wall_s": 1336431.429287395,
+        "source_stamp_ns": 506415999999
+      },
+      "right": {
+        "clock_at_receipt_ns": 506388000000,
+        "receipt_wall_s": 1336431.399134744,
+        "source_stamp_ns": 506356000000
+      },
+      "telemetry": {
+        "clock_at_receipt_ns": 506416000000,
+        "receipt_wall_s": 1336431.43124484,
+        "source_stamp_ns": 506355999999
+      }
+    }
+  },
+  "time_alignment": {
+    "observer_wall_duration_s": 588.279664464,
+    "observer_stop_reason": "support_scan_failed_before_prescan",
+    "clock_regression_event_count": 0,
+    "px4_bridge_detail_samples": 4056,
+    "px4_ros_clock_gap_sim_s": {
+      "minimum": -0.008,
+      "maximum": 0.016
+    },
+    "px4_time_domain_invalid_samples": 0,
+    "px4_bridge_timestamp_error_samples": 0,
+    "alignment_pair_gap_sim_s": {
+      "minimum": 0.028,
+      "maximum": 28.136
+    },
+    "alignment_pair_validated_gap_max_sim_s": 0.12,
+    "alignment_pair_validated_age_max_wall_s": 31.283792123,
+    "localization_status_clock_minus_source_max_s": 28.064000001,
+    "adapter_last_stamps_s": {
+      "optimized": 506.223999999,
+      "propagated": 506.355999999
+    },
+    "raw_last_stamps_s": {
+      "optimized": 534.34,
+      "propagated": 534.436,
+      "telemetry": 534.34
+    },
+    "bridge_sample_nearest_lockout": {
+      "px4_ros_clock_gap_sim_s": 0.004,
+      "px4_time_domain_valid": true,
+      "px4_timestamp_error": "",
+      "alignment_pair_gap_sim_s": 0.136,
+      "reason": "px4_preflight_failed",
+      "phase": "DISABLED"
+    },
+    "px4_vehicle_imu_timestamp_error_lines": [
+      "ERROR [vehicle_imu] 0 - gyro 1310988 timestamp error timestamp_sample: 487132000, previous timestamp_sample: 487132000",
+      "ERROR [vehicle_imu] 0 - accel 1310988 timestamp error timestamp_sample: 487132000, previous timestamp_sample: 487132000"
+    ]
+  },
+  "safety_cleanup": {
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "final_landed": true,
+    "vehicle_states": [
+      1
+    ],
+    "live_readback": {
+      "capture_method": "ros2 topic echo --once immediately before project.sh stop",
+      "container_stop": {
+        "command": "bash tools/project.sh stop n08-20261024-239-health-lockout-readback-01",
+        "container_state": "exited",
+        "exit_code": 0,
+        "project_label_running_container_count": 0
+      },
+      "fixture_result": {
+        "attachment_states": [
+          "attached",
+          "detached"
+        ],
+        "final_landed": true,
+        "fixture_may_remain_attached": false,
+        "fixture_removed": true
+      },
+      "run_id": "n08-20261024-239-health-lockout-readback-01",
+      "schema": "n08-run-final-safety-readback/v1",
+      "vehicle_land_detected_topic": {
+        "at_rest": true,
+        "ground_contact": true,
+        "has_low_throttle": true,
+        "horizontal_movement": false,
+        "landed": true,
+        "timestamp": 600880000,
+        "topic": "/fmu/out/vehicle_land_detected",
+        "vertical_movement": false
+      },
+      "vehicle_status_topic": {
+        "arming_state": 1,
+        "arming_state_label": "ARMING_STATE_DISARMED",
+        "failsafe": false,
+        "nav_state": 4,
+        "pre_flight_checks_pass": false,
+        "timestamp": 604544000,
+        "topic": "/fmu/out/vehicle_status_v1"
+      }
+    },
+    "project_container_exit_code": 0,
+    "project_label_running_count": 0
+  },
+  "validation": {
+    "targeted_tests": "56 passed",
+    "build": "bash tools/project.sh build ros; 17 packages finished",
+    "project_status": "PASS; 80 optional historical artifact links absent",
+    "diff_check": "PASS"
+  },
+  "sha256": {
+    "artifacts/runs/n08-20261024-239-health-lockout-readback-01/vio.log": "d871fea229873f666df80a93c34b458d04f9ace430006aaa161e71f160dc81d6",
+    "artifacts/runs/n08-20261024-239-health-lockout-readback-01/fixture-vins.jsonl": "ba992511e8bf1cc965f10fe084c455d4f9c6d049bbb5fddaf88b41ca6d92be44",
+    "artifacts/runs/n08-20261024-239-health-lockout-readback-01/fixture-result.json": "b46e5bea141516fc3a132601b0feec48bdf6369a9e386e51bed5eed1c5386c02",
+    "artifacts/runs/n08-20261024-239-health-lockout-readback-01/n08-localization-source-timeline.json": "4cb2667c2aef16b63f78600569b01f7efff4046f85ababceb262da6515cd111f",
+    "artifacts/runs/n08-20261024-239-health-lockout-readback-01/n05-run-inputs.json": "912b84feee93a431fbaa7a7ece917a3ee57a8cd4b125ca47c3468e5582588567",
+    "artifacts/runs/n08-20261024-239-health-lockout-readback-01/health-lockout-snapshot.json": "be75031881b8eeb01c5c35c76daed754a9a76a2791406bc1f7be7b1990cbe6c0",
+    "artifacts/runs/n08-20261024-239-health-lockout-readback-01/final-safety-readback.json": "df4db08c9a1d8e07ec8829564b39db4d529d68a2926338a9126a6f0de4eb5e42",
+    "src/own/uav_localization/uav_localization/health.py": "18d95e91ef3a2f8ac5c2f1b40885f2d9a714dd03501bfbe80b18f03aeae3bcb9",
+    "src/own/uav_localization/uav_localization/node.py": "4f590af24935101846b839fbb009e86e68e53d95475fc625d131c47f078f2f37",
+    "tools/test_localization_health.py": "7a5eda4e47747c81b53693344e9cd6edbfb872fdc95112de9b2a009716374d40"
+  },
+  "interpretation": {
+    "clock": "PX4 HRT/ROS /clock misalignment was not reproduced. Pair gap grew after fail-closed localization stopped adapter output.",
+    "cost": "Same-stamp raw telemetry confirms real over-threshold normalized cost. The first following raw sample at +0.132 sim s is below threshold; lockout latches by existing design.",
+    "n238": "The earlier status-source-stamp comparison used propagated odometry time instead of Health.metrics.stamp_ns and was not like-for-like.",
+    "px4_caveat": "Two vehicle_imu duplicate-timestamp errors were logged at 487.132 sim s; they are not bridge HRT/clock gap errors and were not causally linked to the localization cost lockout.",
+    "next": "Use the measured one-message spike and visual/marginalization breakdown to select the next single-variable action; preserve max_normalized_cost=1.0."
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "n07-retreat-observation-result/v1",
+  "task_id": "N07.10 #164",
+  "run_id": "n07-20261024-164-01",
+  "scope": "DISARMED whole-airframe support scan and initial N05 check; no flight",
+  "profile": "n07_spawn_minus65_retreat_180_pitch045_return_view",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "offline_replay_matches": true,
+    "epoch": "418846c2b95a42b6a0331d5b02518d3a",
+    "map_id": "418846c2b95a42b6a0331d5b02518d3a-3b9c07d2b5694cd48d9e3ab641a588e0"
+  },
+  "ground_boundary_audit": {
+    "path": "progress/evidence/n07-n05-unknown-volume-audit-20261024-164.json",
+    "ground_plane_z_m": -0.3500000000000002,
+    "whole_cell_subground_excluded_takeoff_max": 44,
+    "takeoff_unknown_centers": 436,
+    "takeoff_unknown_centers_below_plane": 0,
+    "takeoff_unknown_centers_on_plane": 52,
+    "takeoff_unknown_centers_above_plane": 384,
+    "hold_unknown_centers": 566,
+    "hold_unknown_centers_below_plane": 0,
+    "hold_unknown_z_extent_m": [0.45, 1.25]
+  },
+  "scan": {
+    "configured_stages": 9,
+    "completed_stages": 5,
+    "last_completed_stage_end_sim_s": 179.872,
+    "failure_stage": 5,
+    "failure_sim_s": 202.456,
+    "first_health_failure": "accel_bias_norm_exceeded",
+    "accel_bias_norm_first_over_limit_m_s2": 0.15086620654133048,
+    "accel_bias_norm_max_m_s2": 0.19035151849314969,
+    "accel_bias_norm_limit_m_s2": 0.15,
+    "long_tracks_at_first_crossing": 111,
+    "stereo_features_at_first_crossing": 154,
+    "minimum_long_tracks": 67,
+    "minimum_stereo_features": 117,
+    "n05_prescan_ready": false,
+    "attached_n05_check_started": false,
+    "released_n05_gate_passed": false
+  },
+  "safety": {
+    "fixture_detached_and_removed": true,
+    "fixture_absent_from_scene": true,
+    "final_land_detected": true,
+    "final_land_detector_receipt_age_wall_s": 0.637214123038575,
+    "px4_arming_state_values": [1],
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "container_exit_code": 0,
+    "flight_started": false,
+    "n07_hover_count": "0/3"
+  },
+  "debug_truth_used": false,
+  "control_or_goal_published": false,
+  "artifact_sha256": {
+    "n05-before/n05-live-entry-check.json": "eef58075b8602117e9745535d4242247ab7db64300fcb76ad143b566af4fc485",
+    "n05-before/n05-offline-entry-replay.json": "8ac978c65302d52b6c1431aacf6611273aecdcaa1208a6ffe9f5096c858182dc",
+    "fixture-result.json": "09bdc490b072cf5275dd9e077ab81535ce19de36413949dcfb50d8f8f3d58bf2",
+    "fixture-stages.json": "7890c7f70c2e6f907cf5b656a3f0c0f15a1b2eaf60b824e0f0c028d7f54041d8",
+    "fixture-trace.jsonl": "3dd408c05429e5fa49c06e2d684b6bb75359c8d4744368eea76981442b74e45c",
+    "fixture-vins.jsonl": "3ff91ef9e04578e9b9ee403a3d312b75d5dc5910192da0509194b66fb456fd98",
+    "n05-run-inputs.json": "ad5884162639e244e967cd1a520f313ac8b5725413cdcda8c545ec010b714433"
+  },
+  "decision": "The route failed in stage 5 when the existing acceleration-bias health limit was crossed. The fixture returned and was safely removed, but the scan did not reach its prescan marker; no attached or released check ran and no flight occurred. Reuse the exact previously successful wall-layout n06_full_airframe_retreat_240_oblique_early_view route in a fresh N07 run without changing thresholds."
+}

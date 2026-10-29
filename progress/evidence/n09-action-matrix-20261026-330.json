@@ -1,0 +1,53 @@
+{
+  "schema": "n09-action-matrix-partial/v1",
+  "report_id": 330,
+  "date": "2026-10-26",
+  "status": "partial; N09 remains in_progress",
+  "project_test": {
+    "command": "bash tools/project.sh test",
+    "python_tests_passed": 389,
+    "ros_action_integration_passed": true,
+    "coverage": [
+      "unknown/occupied/outside/stale-identity/query-timeout refusal",
+      "caller cancellation",
+      "active-goal replacement and stale old-goal fault isolation",
+      "bounded timeout",
+      "3D position and yaw arrival",
+      "stale epoch and ROS clock regression",
+      "localization/odometry freshness and shutdown abort",
+      "N09 contact-overlay model coverage"
+    ]
+  },
+  "live_refusal": {
+    "passed": true,
+    "run_id": "n09-20261026-pilot03",
+    "action_status": 6,
+    "reason": "map_query_outside_map",
+    "matching_ego_commands": 0,
+    "epoch_map_unchanged": true,
+    "bridge_disabled_unarmed_landed": true
+  },
+  "contact_observer": {
+    "sensor_count": 6,
+    "links": [
+      "base_link",
+      "rotor_0",
+      "rotor_1",
+      "rotor_2",
+      "rotor_3",
+      "d435i_link"
+    ],
+    "read_only": true,
+    "collision_geometry_changed": false,
+    "pilot02_topics_observed": true,
+    "flight_contact_result_obtained": false
+  },
+  "successful_n09_flights": 0,
+  "remaining_exit_evidence": [
+    "one accepted PX4 SITL 3D/yaw mission with independent truth arrival and fresh map/localization",
+    "no prohibited ground or obstacle contact, plus observed landing ground contact",
+    "three independent cold-start successful missions with frozen runtime/profile/build/evaluator identity"
+  ],
+  "n11_n14_counts_credited": 0,
+  "not_passed_because": "fresh N05 entry-volume gate refused raw unknown cells before flight goal or control enable"
+}

@@ -1,0 +1,124 @@
+{
+  "run_id": "n08-20261025-260-terminal-braking-measurement",
+  "scope": "single0.6m EGO planned terminal-stop measurement; full native trial failed on return",
+  "passed": false,
+  "measurement_delivered": true,
+  "parent_N08": "in_progress",
+  "forward_action": {
+    "status": 4,
+    "success": true,
+    "outcome": "succeeded",
+    "reason": "position_yaw_tolerance_held"
+  },
+  "return_action": {
+    "success": false,
+    "outcome": "rejected",
+    "reason": "map_query_unknown"
+  },
+  "independent_evaluation": {
+    "schema": "n08-independent-terminal-braking/v1",
+    "run_id": "n08-20261025-260-terminal-braking-measurement",
+    "scope": "one planned EGO terminal stop and return to the N05 home pad; no moving-cancel stop or hardware claim",
+    "passed": false,
+    "native_trial_failure": "return_to_n05_home_pad_failed:map_query_unknown",
+    "metrics": {
+      "reference_identical_source_repeats": 123,
+      "reference_unique_source_samples": 1780,
+      "reference_peak_vector_speed_m_s": 0.08067674640861688,
+      "reference_braking_start_elapsed_sim_s": 8.008,
+      "reference_zero_speed_elapsed_sim_s": 13.268,
+      "actual_peak_horizontal_speed_m_s": 0.08144608544489863,
+      "actual_peak_vector_speed_m_s": 0.08182327150477994,
+      "actual_stop_elapsed_sim_s": 12.72,
+      "actual_stop_observed": true,
+      "stop_speed_threshold_m_s": 0.03,
+      "stop_dwell_sim_s": 1.0,
+      "response_delay_to_sustained_deceleration_s": 1.4120000000000008,
+      "actual_net_horizontal_displacement_m": 0.6032156915850534,
+      "truth_max_source_gap_sim_s": 0.02,
+      "truth_derivative_smoothing_window_sim_s": 0.22,
+      "reference_max_source_gap_sim_s": 0.02,
+      "actual_distance_from_reference_braking_start_m": 0.3023390830776923,
+      "time_from_reference_braking_start_to_actual_stop_s": 4.7120000000000015,
+      "actual_residual_distance_after_reference_zero_m": 0.0,
+      "actual_stop_dwell_position_excursion_m": 0.0197273986295044,
+      "deceleration_speed_band_m_s": [
+        0.03,
+        0.07330147690040877
+      ],
+      "deceleration_samples": 133,
+      "observed_deceleration_p10_m_s2": 0.013137365795079237,
+      "observed_deceleration_mean_m_s2": 0.016243470172498147,
+      "independent_reference_tracking_error_max_m": 0.08362936130138654
+    },
+    "checks": {
+      "nonzero_reference_speed": true,
+      "reference_speed_within_trial_limit": true,
+      "actual_speed_within_abort_limit": true,
+      "meaningful_actual_displacement": true,
+      "actual_stop_and_dwell_observed": true,
+      "reference_terminal_zero_observed": true,
+      "reference_source_gaps_bounded": true,
+      "deceleration_measurement_supported": true,
+      "sustained_deceleration_response_observed": true,
+      "independent_tracking_inside_certified_margin": true,
+      "native_trial_completed": false,
+      "n05_and_airborne_capsules_passed": true,
+      "returned_to_n05_home_pad": false,
+      "landed_and_disarmed": true,
+      "clock_did_not_regress": true,
+      "no_watchdog_violation": true,
+      "live_spline_certificates_present": true,
+      "sole_expected_publishers": true,
+      "no_truth_control": true,
+      "localization_continuous": true
+    },
+    "limitations": [
+      "Finite simulation sample; observed deceleration quantiles are not guaranteed lower bounds.",
+      "Symmetric0.22s smoothing limits response-delay precision; raw position records remain available.",
+      "One fixed pre-enable SE(3) alignment, scale1; no truth or full map fed to control.",
+      "Exact equal-stamp reference repeats are counted once; no sorting, stamp rewriting or conflicting-state deduplication.",
+      "Moving-cancel braking and three-run N08 qualification remain separate exits."
+    ],
+    "evaluator_sha256": "b2d2d9650ee621102474379ae0bea5f21bb2bcc314d1814d8981bbf5103e22bc",
+    "runtime_evaluator_sha256": "0011dd4e650d686b338fb7f7055eeb7eb2ca75a3da5328eddd2d2db0bb8b03cf",
+    "measurement_definitions": {
+      "stop": "speed<=0.03m/s horizontal and<=0.05m/s vertical for1s; not exact zero motion",
+      "braking_distance": "independent horizontal path length from reference acceleration along goal direction<-0.005m/s^2 after reference peak to the threshold stop",
+      "response_delay": "time until actual horizontal deceleration>=0.005m/s^2 persists0.15s; includes control dynamics and0.22s symmetric filtering, not a pure transport latency",
+      "identical_reference_repeats": "count identical source-time/motion states once; timestamps/order and all distinct samples are preserved; conflicting values or regressions fail"
+    },
+    "input_sha256": {
+      "flight.json": "88c3258c3d920f0a12fd2788c5f6933d682b91659ab794145482ee014a7be227",
+      "debug-truth-evaluation.json": "9e1eb7ee54b3d726e507070e72d71479eb2d672269b61453d95c832b101135f7",
+      "odometry-evaluation.json": "ff27db9036c1a0fc3177c0ca6b21983a6fba92f4f2626e9700f807a107e96046"
+    }
+  },
+  "localization": {
+    "position_error_m": {
+      "count": 707,
+      "rmse": 0.0051840951433495455,
+      "median": 0.002529151043041838,
+      "p95": 0.01005399698073791,
+      "max": 0.011935384552320683
+    },
+    "invalid_status_samples": 0
+  },
+  "safe_stop": {
+    "scan_exit": 0,
+    "mission_exit": 1,
+    "safe_to_stop": true,
+    "fixture_absent": true,
+    "stop_exit": 0
+  },
+  "artifact_path": "artifacts/runs/n08-20261025-260-terminal-braking-measurement",
+  "sha256": {
+    "flight.json": "88c3258c3d920f0a12fd2788c5f6933d682b91659ab794145482ee014a7be227",
+    "debug-truth-evaluation.json": "9e1eb7ee54b3d726e507070e72d71479eb2d672269b61453d95c832b101135f7",
+    "odometry-evaluation.json": "ff27db9036c1a0fc3177c0ca6b21983a6fba92f4f2626e9700f807a107e96046",
+    "n08-braking-evaluation.json": "f004bd9f75ece0b006f099835b1a98117fcef0763bea78acd20000c3bcadaeca",
+    "final-safety-live.json": "1ff1c0cfe08c4ae917573c2e0fc4064539ffa2e305e45f6c8891c5562ceb4cc9",
+    "n08-braking-speed.png": "fa9b14a630f9dd900f4f22d948ae1edf4b54d8f7f947d9d0c06354af73ba481a",
+    "runtime-contract.json": "661ea2154b9190c981e82eb9b12e8d238aef3b9527d630cb5261821e33128844"
+  }
+}

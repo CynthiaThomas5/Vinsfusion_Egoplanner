@@ -1,0 +1,1 @@
+#375结果：复核发现协议要求的spawn x=-8m，但命令漏传D435I_SPAWN_CONFIG，实际加载默认x=-6.5m；因此不计协议飞行。goal_timeout由上游EGO反复报告terminal point occupied，目标映射到墙内约0.323m而膨胀半径0.731m，与几何拒绝相符。零违规接触，独立PX4/bridge确认LANDED、disarmed、桥control disabled、zero control后已停止容器。#376已准备显式spawn和planner配置及身份校验。

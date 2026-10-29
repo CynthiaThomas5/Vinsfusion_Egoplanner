@@ -1,0 +1,191 @@
+{
+  "schema": "n08-negative-y-support-and-forward-corridor-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-305",
+  "outcome": "post_release_N05_pass_forward_corridor_refused",
+  "support_scan": {
+    "profile": "n08_overhead_free_sector_negative_y_side_view",
+    "configured_stages": 15,
+    "completed_stages": 15,
+    "helper_outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.8110511698996952
+    },
+    "negative_y_view_reached": true,
+    "yaw_return_reached": true,
+    "fixture_removed": true,
+    "scene_model_absent": true,
+    "landed": true
+  },
+  "n05": {
+    "before": {
+      "accepted": false,
+      "reason": "ground_plane_insufficient_raw_occupied_voxels"
+    },
+    "after_while_attached": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear"
+    },
+    "post_release": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear"
+    },
+    "mission_current_area": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear"
+    },
+    "same_epoch_map": true,
+    "ground_plane": {
+      "valid": true,
+      "reason": "raw_occupied_plane_fit",
+      "z_at_center_m": -0.35000000000000003,
+      "coefficients_ax_by_c_m": [
+        4.583952929570979e-16,
+        5.551115123125783e-17,
+        -0.3499999999999999
+      ],
+      "residual_p95_m": 3.885780586188048e-16,
+      "slope": 4.617442284601327e-16,
+      "raw_occupied_voxel_count": 252,
+      "xy_span_m": [
+        1.9000000000000021,
+        2.1000000000000014
+      ],
+      "source": "raw occupancy only",
+      "debug_truth_used": false
+    }
+  },
+  "mission_preflight_passed": true,
+  "forward_admission": {
+    "action_goal_sent": false,
+    "failure": "trial_corridor_or_home_pad_unknown_or_occupied",
+    "service_calls": 0,
+    "home_pad_entry": true,
+    "directional_corridor_passed": false,
+    "directional_corridor_reason": "directional_forward_corridor_or_hold_not_clear",
+    "start_hold_unknown_count": 105,
+    "first_query_unknown_count": 136,
+    "first_query_distance_m": 0.0,
+    "terminal_hold_unknown_count": 14,
+    "first_query_unknown_voxels": {
+      "count": 136,
+      "center_range_m": [
+        [
+          -1.1499999999999986,
+          -0.5499999999999972,
+          0.55
+        ],
+        [
+          0.05000000000000071,
+          0.9500000000000028,
+          1.4500000000000002
+        ]
+      ],
+      "mean_m": [
+        -0.9058823529411745,
+        0.11102941176470754,
+        1.025
+      ],
+      "fraction_x_below_minus_0_3": 0.8529411764705882,
+      "nearest_voxel_centers_m": [
+        [
+          -1.05,
+          -0.05,
+          1.05
+        ],
+        [
+          -1.05,
+          -0.05,
+          0.95
+        ],
+        [
+          -1.05,
+          -0.15,
+          1.05
+        ],
+        [
+          -1.05,
+          -0.15,
+          0.95
+        ],
+        [
+          -1.05,
+          0.05,
+          1.05
+        ],
+        [
+          -1.05,
+          -0.05,
+          1.15
+        ],
+        [
+          -1.05,
+          0.05,
+          0.95
+        ],
+        [
+          -1.05,
+          -0.15,
+          1.15
+        ]
+      ]
+    }
+  },
+  "flight": {
+    "result": "FAIL",
+    "action_goal_sent": false,
+    "position_command_samples": 0,
+    "px4_setpoint_samples": 0,
+    "motion_cancel_measurement": false
+  },
+  "secondary_evaluator_issue": {
+    "odometry_evaluation_created": false,
+    "odometry_evaluator_error": "strictly increasing source stamps required",
+    "braking_evaluator_failure": "[Errno 2] No such file or directory: '/workspace/artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/odometry-evaluation.json'"
+  },
+  "independent_px4_readback": {
+    "duration_wall_s": 4.0,
+    "bridge_phase": "DISABLED",
+    "armed": false,
+    "landed": true,
+    "control_enabled": false,
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "counts": {
+      "attitude": 345,
+      "bridge_status": 30,
+      "control_mode": 0,
+      "estimator_flags": 4,
+      "land_detected": 4,
+      "local_position": 172,
+      "px4_status": 7,
+      "timesync_status": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0,
+      "visual_odometry_input": 0
+    }
+  },
+  "container": {
+    "name": "d435i-n08-cancel-highspeed-prescan-20261026-305",
+    "state": "exited",
+    "exit_code": 0
+  },
+  "artifacts_sha256": {
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/fixture-result.json": "e99aef2bc44fc23c9181ec9989bd98af6465b7735afcb9401c8b64a74b826d3a",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/fixture-stages.json": "d9845a852ba78d35e70a6c67eeca9dfead29944f7faa402fd5bf3fce9a7b3073",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/fixture-trace.jsonl": "e474a1f6ee767a9d63aaf539d7c0ce7c66ea4333874c942f2e0929cbf51f9592",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n05-run-summary.json": "717ecbf54f831fc36bf5d8a0bc97cbc4610bdaf0f765e3084cf50b9ead2c83ad",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n05-post-release/n05-live-entry-check.json": "7b5419caa629cefbf2ffe5aca42c97b9dd72c178993c67310f11f92e09b12c35",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n05-post-release/n05-live-raw-map.npz": "1ae33d88f696710fe9e70f6ece3d011417fda62016849e3c545ea39bcdd68dcd",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n05-current-area/n05-live-entry-check.json": "c082d2c5da3e0173b4a31a9879b05345d9fe90c96446eadbe8b0286d426b362f",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n08-trial-pre-enable-admission.json": "2e14366b15a7d10c41b9c4a678961f503514a7ec632dba34a1e76163833162b8",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n08-trial-ground-map.npz": "0640665acdf1cda4850a81cf5d19bfeda46d8b18169bba88c7a658e064ec3629",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/flight.json": "d97f2f51d8cd4c7e28cc510837e1181ca2de9da768b9c9e4391114535e63cba0",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n08-braking-evaluation.json": "8f2b22a9e9dfdd1292379bb4ec0648257d858d84fb37b61787d3548cf8650bf6",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/post-mission-independent-live-readback.json": "f0e56c100375f9a827e130d92ee48060a7f90dcc5d6cbf5c6e5b779321d7ddc8",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-305/n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+  }
+}

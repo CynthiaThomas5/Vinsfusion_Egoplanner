@@ -1,0 +1,280 @@
+{
+  "schema": "n10-calibration-synthesis/v1",
+  "record_id": "#360",
+  "date": "2026-10-27",
+  "parent_goal": "N10",
+  "active_subtask": "N10.3",
+  "parent_status": "in_progress",
+  "subtask_status": "in_progress",
+  "formal_qualification": false,
+  "health_policy": {
+    "project_sim_default_bypass": true,
+    "environment_variable": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES",
+    "explicit_override": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES=0",
+    "original_health_json_limits_changed": false,
+    "cost_policy_value_observed_only": 1.0,
+    "n10_359_bypass_observed": true,
+    "n10_359_cost_max": 1.263779575925776,
+    "bypassed_policy_reasons": [
+      "normalized_cost_exceeded",
+      "optimized_stale",
+      "telemetry_stale",
+      "vins_initializing",
+      "waiting_for_clock",
+      "waiting_for_left",
+      "waiting_for_optimized",
+      "waiting_for_propagated",
+      "waiting_for_right",
+      "waiting_for_telemetry"
+    ],
+    "retained_invariants": [
+      "VINS session/epoch identity",
+      "message structural validity",
+      "source stamp monotonicity",
+      "PX4 bridge telemetry/time/control state checks",
+      "map identity",
+      "official_ego inflated-occupied collision policy",
+      "no truth-to-control input"
+    ]
+  },
+  "goal_f_arrival": {
+    "source_report": "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/n10-arrival-evaluation.json",
+    "limits_m_deg_s": {
+      "position_error_max_m": 0.3,
+      "yaw_error_max_deg": 15.0,
+      "simultaneous_dwell_min_s": 3.0
+    },
+    "longest_joint_window": {
+      "sample_count": 12165,
+      "sim_duration_s": 243.27999999999997,
+      "wall_duration_s": 319.05583213083446,
+      "start_sim_s": 129.692,
+      "end_sim_s": 372.972,
+      "max_position_error_m": 0.29994107156775796,
+      "max_yaw_error_deg": 9.128412828272033
+    },
+    "sim_and_wall_dwell_both_exceed_3s": true,
+    "qualification_clock_frozen": false
+  },
+  "speed_and_braking": {
+    "profile_relationship": [
+      {
+        "run_id": "n10-20261026-354-upstream-spline-speed080-open-speed-16m",
+        "max_vel_per_axis_m_s": 0.8,
+        "max_acc_per_axis_m_s2": 0.25,
+        "ego_reference_peak_m_s": 0.677674531001938,
+        "px4_peak_m_s": 0.6103458339521363
+      },
+      {
+        "run_id": "n10-20261026-357-upstream-spline-speed080-health-bypass-16m",
+        "max_vel_per_axis_m_s": 0.8,
+        "max_acc_per_axis_m_s2": 0.25,
+        "ego_reference_peak_m_s": 0.7113762294227639,
+        "px4_peak_m_s": 0.6358213753331258
+      }
+    ],
+    "n10_359_cancel": {
+      "requested_trigger_px4_speed_window_m_s": [
+        0.5,
+        0.56
+      ],
+      "trigger_px4_horizontal_speed_m_s": 0.5002411700779351,
+      "trigger_px4_vertical_speed_m_s": -0.005702140275388956,
+      "trigger_ego_reference_speed_m_s": 0.5301666968166522,
+      "cancel_ack_wall_delay_s": 0.0008232151158154011,
+      "replacement_trajectory_id": 10,
+      "replacement_trajectory_delay_sim_s": 0.032,
+      "px4_stop_band_entry_delay_sim_s": 4.96,
+      "px4_stop_band_confirmation_delay_sim_s": 5.96,
+      "stop_band_dwell_sim_s": 1.0,
+      "stop_band_px4_sample_count": 51,
+      "stop_band_max_px4_sample_gap_sim_s": 0.024,
+      "truth_cancel_to_stop_distance": {
+        "start_xyz_m": [
+          -7.284991288658655,
+          -0.5660579821047989,
+          1.09804340419643
+        ],
+        "stop_band_entry_xyz_m": [
+          -6.436456814631211,
+          -1.1507124492160454,
+          1.0980021686338073
+        ],
+        "horizontal_path_length_m": 1.3044744046820131,
+        "horizontal_endpoint_displacement_m": 1.0304521335443808,
+        "three_dimensional_path_length_m": 1.3058411363781852,
+        "max_source_gap_sim_s": 0.02,
+        "truth_samples_in_interval": 250
+      },
+      "truth_stop_band_1s_max_horizontal_excursion_m": 0.007557759346516862,
+      "px4_observed_max_horizontal_speed_during_cancel_m_s": 0.5460834872723714,
+      "px4_observed_p10_horizontal_deceleration_m_s2": 0.02653790797575023,
+      "px4_time_to_first_10pct_speed_reduction_sim_s": 1.516,
+      "health_gate_bypass_observed": true,
+      "normalized_cost_max_observed": 1.263779575925776,
+      "original_normalized_cost_limit": 1.0,
+      "contact_prohibited_event_count": 0,
+      "terminal_bridge_phase": "LANDED"
+    },
+    "n08_321_low_speed_cancel": {
+      "cancel_request_elapsed_sim_s": 4.464,
+      "cancel_to_stop_distance_m": 0.30406729982773556,
+      "cancel_to_stop_elapsed_sim_s": 4.5760000000000005,
+      "cancel_to_sustained_deceleration_response_s": 2.8759999999999994,
+      "trigger_px4_horizontal_speed_m_s": 0.04014436484996344,
+      "trigger_ego_reference_speed_m_s": 0.05848395921967986,
+      "trigger_ego_longitudinal_acceleration_m_s2": 0.014512512134515267,
+      "candidate_stop_distance_envelope_m": 0.5,
+      "remaining_forward_corridor_m_at_cancel": 0.5547730431324607
+    },
+    "high_speed_repeatability_sufficient": false,
+    "general_braking_guarantee": false
+  },
+  "raw_vio_tracking_and_timing": {
+    "raw_vio": {
+      "duration_sim_s": 667.888,
+      "paired_truth_path_length_m_including_takeoff_and_landing": 24.544196576840182,
+      "position_error_m": {
+        "count": 10120,
+        "rmse": 0.34616435036224846,
+        "median": 0.3110623271780868,
+        "p95": 0.49712036160662004,
+        "max": 0.5135393196491119
+      },
+      "absolute_yaw_error_deg": {
+        "count": 10120,
+        "rmse": 5.67098686846249,
+        "median": 4.755896618789777,
+        "p95": 8.692140204143332,
+        "max": 8.763171350728499
+      },
+      "bounded_time_support_fraction": 0.999946098745598,
+      "raw_max_gap_sim_s": 0.068000001,
+      "truth_max_gap_sim_s": 0.02,
+      "invalid_localization_status_samples": 0
+    },
+    "tracking": {
+      "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+      "candidate_max_error_m_not_enforced_by_runner": 0.15,
+      "matching_ready_commands": 84567,
+      "paired_commands": 84567,
+      "error_m": {
+        "median": 0.3771230154891632,
+        "p95": 0.5205761026931662,
+        "max": 1.0992451351776957,
+        "mean": 0.36039641083162016
+      },
+      "max_truth_interpolation_gap_s": 0.02
+    },
+    "map_and_source_timing": {
+      "source_timeline_requested_wall_s": 1500.0,
+      "source_timeline_stop_reason": "flight_report_written",
+      "source_timeline_clock_regression_events": 0,
+      "map_samples_goal_to_landed": 3693,
+      "map_source_age_max_sim_s_goal_to_landed": 0.164,
+      "occupancy_age_max_sim_s_goal_to_landed": 0.1,
+      "candidate_map_age_limit_sim_s_not_a_final_standard": 0.4,
+      "decimated_stream_max_receipt_gaps_wall_s": {
+        "localization_status": 0.172753704999991,
+        "adapter_optimized": 0.24002447800000004,
+        "map_status": 0.25913185000001704,
+        "clock": 0.332151913
+      },
+      "decimation_note": "The source recorder samples streams at 0.1 wall-second cadence; its gap summary is not used as an exact callback receipt-age measurement."
+    },
+    "tracking_0_15m_candidate_supported": false,
+    "map_age_0_4s_candidate_frozen": false
+  },
+  "sampled_clearance": {
+    "vehicle_geometry_is_provisional": true,
+    "run357_sampled_min_m": 0.4458578675693115,
+    "run357_observed_inter_sample_motion_m": 0.017269930928320316,
+    "run357_adjusted_sampled_min_m": 0.4285879366409912,
+    "run359_sampled_min_m": 1.4041020592565427,
+    "run359_observed_inter_sample_motion_m": 0.015744235485328672,
+    "run359_adjusted_sampled_min_m": 1.388357823771214,
+    "continuous_dynamics_certificate": false
+  },
+  "unresolved_acceptance_values": [
+    {
+      "metric": "raw VIO position/yaw/velocity drift budget",
+      "reason": "only bounded route samples; no defensible mission-level accuracy budget frozen"
+    },
+    {
+      "metric": "map obstacle geometry/classification error",
+      "reason": "N04 evidence exists but not converted into final map error allowance"
+    },
+    {
+      "metric": "EGO tracking error",
+      "reason": "0.15 m candidate is contradicted by #357 measurements; replacement value not derived"
+    },
+    {
+      "metric": "minimum vehicle clearance",
+      "reason": "sampled positive values exist but continuous motion/model uncertainty allowance is not closed"
+    },
+    {
+      "metric": "localization/map age and fusion delay",
+      "reason": "observed maxima exist; no error-to-motion budget establishes final limits"
+    },
+    {
+      "metric": "replan response and fault detection/exit deadlines",
+      "reason": "event points are instrumented, but final supported deadlines have not been derived"
+    }
+  ],
+  "next_action": "Continue N10.3: quantify repeatability of the frozen 0.50–0.56 m/s cancellation measurement and close evidence-based support/threshold decisions; then start N10.4 acceptance configuration and evaluator.",
+  "validation": [
+    {
+      "command": "PYTHONPATH=tools python3 -m unittest tools.test_n10_arrival_metrics tools.test_localization_health tools.test_n10_motion_cancel",
+      "result": "25 tests passed"
+    },
+    {
+      "command": "bash -n tools/project.sh",
+      "result": "passed"
+    },
+    {
+      "command": "bash -n tools/run_n10_cancel_calibration.sh",
+      "result": "passed"
+    },
+    {
+      "command": "python3 ast.parse on three new Python files",
+      "result": "passed"
+    },
+    {
+      "command": "Mock Docker invocation of tools/project.sh sim",
+      "result": "default=1 and explicit override=0 verified; no container started"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m py_compile ...",
+      "result": "write denied by pre-existing tools/__pycache__ permissions; AST parse and unit tests used instead"
+    }
+  ],
+  "evidence_paths": [
+    "progress/evidence/n10-high-speed-cancel-stop-20261026-359.md",
+    "progress/evidence/n10-high-speed-cancel-stop-20261026-359.json",
+    "progress/evidence/n10-calibration-synthesis-20261027-360.md",
+    "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/n10-arrival-evaluation.json",
+    "artifacts/runs/n10-20261026-359-high-speed-cancel-stop/n10-cancel-braking-evaluation.json",
+    "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/n10-clearance-evaluation.json",
+    "artifacts/runs/n10-20261026-359-high-speed-cancel-stop/n10-clearance-evaluation.json",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-321/n08-braking-evaluation.json"
+  ],
+  "input_sha256": {
+    "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/n10-calibration-evaluation.json": "5b0f4a29a659ddb6700ab4937cbacc35cac99f72a6b84870b0222ce659ef6c56",
+    "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/n10-arrival-evaluation.json": "7085c26619f8b36eaac3f82f79e7455677edd96566a4923570b702cc4e3f5b2b",
+    "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/n10-clearance-evaluation.json": "fd5c30a042fc2a137c61583ed177c24f9b1c2a14a6e0be5715c5017e38fb44a6",
+    "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/flight.json": "c987e82ad26bfb21ec6d48faae9a2687b54577059e992cfb544b841fc7108336",
+    "artifacts/runs/n10-20261026-359-high-speed-cancel-stop/n10-cancel-braking-evaluation.json": "edd0c131849a2439b5bda0124757b658a1385ce9330bd5a04db70698b7b86a6b",
+    "artifacts/runs/n10-20261026-359-high-speed-cancel-stop/n10-clearance-evaluation.json": "5a89f303fc0129b7bf397787b118a6bacf68daac960555b9c190233643a0474e",
+    "artifacts/runs/n10-20261026-359-high-speed-cancel-stop/flight.json": "1699e49e6ece416a551448099c17c983008c1b44303ee9f1b2af63b1885af8cc",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-321/n08-braking-evaluation.json": "c45a47ad2c5b70c2df3ead595274eaa956ccd6b32d5b49f0bd91c185477cb87b",
+    "tools/project.sh": "e0b6913a97da2cd03cccea1564e57ae23a26eaa8ca9b88540f772a3e7ffcd895",
+    "docs/running.md": "308e6313a4ee3934189baf908eb785c2611dba44f5fc5fb5edf5478466223f4a",
+    "tools/n10_arrival_metrics.py": "3bf8256c70d7afefc77326ed7ce2367e3dd51ccf94ba82ea0a0733f967900e19",
+    "tools/debug_truth/evaluate_n10_arrival.py": "701e77eee1f5a93b2dff2d55df4817957fa5d962c4cdb7b08603c58084d99fb8",
+    "tools/test_n10_arrival_metrics.py": "9dd78356a0db322395bfc3348341e6b74b535a327891ca0e4fc7dc3f3c068788"
+  }
+}

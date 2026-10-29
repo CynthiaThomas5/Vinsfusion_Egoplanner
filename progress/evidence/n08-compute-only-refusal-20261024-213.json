@@ -1,0 +1,289 @@
+{
+  "flight": {
+    "action_goal_sent": true,
+    "bridge_phases": [
+      [
+        "DISABLED",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "PRESTREAM",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_ARM",
+        "requesting_arm",
+        false,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        false
+      ],
+      [
+        "ACTIVE",
+        "takeoff_complete_waiting_for_trajectory",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "operator_disable",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "operator_disable",
+        true,
+        true
+      ],
+      [
+        "LANDED",
+        "px4_preflight_failed",
+        false,
+        true
+      ]
+    ],
+    "clock_regressions": 0,
+    "container_stopped": true,
+    "disable_accepted": true,
+    "failure": "ego_ready_trajectory_not_observed",
+    "failure_landed_and_disarmed": true,
+    "goal": {
+      "frame": "odom_1b4833ca029140949a41c17f5ca66027",
+      "position_tolerance_m": 0.05,
+      "target_enu": [
+        0.0018837845074743328,
+        0.5840475268349747,
+        0.9442628840416438
+      ],
+      "timeout_s": 35.0,
+      "yaw_enu": 0.0026633555738298244,
+      "yaw_tolerance_rad": 0.35
+    },
+    "mission_runtime_exit_code": 2,
+    "position_command_samples": 0,
+    "runner_result": "FAIL",
+    "trajectory_ready_seen": false
+  },
+  "limitations": [
+    "No EGO READY trajectory, cancel/hold phase, translation or braking evidence.",
+    "The offline target sphere replay is not the action-time service response.",
+    "The -Y candidate is planner-input selection only; live admission, path clearance, and stopping corridor remain unproven.",
+    "No thresholds were lowered."
+  ],
+  "mode": "compute_only",
+  "n05_support_scan": {
+    "all_recorded_px4_states_disarmed": true,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "current_gate_accepted": true,
+    "current_gate_reason": "all_entry_phases_known_and_clear",
+    "epoch": "1b4833ca029140949a41c17f5ca66027",
+    "final_landed": true,
+    "final_landed_receipt_age_wall_s": 4.070019617909566,
+    "fixture_removed": true,
+    "fixture_runner_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_runner_outcome": "failed",
+    "inner_cleanup_attempted": false,
+    "inner_cleanup_error": "fresh DISARMED status is required for every fixture command",
+    "map_id": "1b4833ca029140949a41c17f5ca66027-674c85bc711944c7832e684c953361b6",
+    "online_offline_identical": true,
+    "post_release_gate_accepted": true,
+    "scene_model_absent": true,
+    "stages_completed": 12,
+    "wrapper_diagnostic_pass": true
+  },
+  "offline_candidate_centers_same_z_m": [
+    {
+      "free": 2200,
+      "occupied": 0,
+      "offset_enu_m": [
+        0.0,
+        -0.4,
+        0.0
+      ],
+      "unknown": 0
+    },
+    {
+      "free": 2200,
+      "occupied": 0,
+      "offset_enu_m": [
+        0.4,
+        -0.4,
+        0.0
+      ],
+      "unknown": 0
+    },
+    {
+      "free": 2200,
+      "occupied": 0,
+      "offset_enu_m": [
+        0.4,
+        -0.8,
+        0.0
+      ],
+      "unknown": 0
+    },
+    {
+      "free": 2200,
+      "occupied": 0,
+      "offset_enu_m": [
+        0.8,
+        -0.4,
+        0.0
+      ],
+      "unknown": 0
+    },
+    {
+      "free": 2200,
+      "occupied": 0,
+      "offset_enu_m": [
+        0.8,
+        -0.8,
+        0.0
+      ],
+      "unknown": 0
+    },
+    {
+      "free": 2200,
+      "occupied": 0,
+      "offset_enu_m": [
+        0.8,
+        -1.2,
+        0.0
+      ],
+      "unknown": 0
+    }
+  ],
+  "offline_goal_query_inference": {
+    "center_enu_m": [
+      0.0018837845074743328,
+      0.5840475268349747,
+      0.9442628840416438
+    ],
+    "free": 1848,
+    "inference": "Likely target-query unknown rejection before NavigationCommand publication; raw snapshot predates flight and does not prove the exact runtime service response.",
+    "intersecting_voxels": 2181,
+    "occupied": 0,
+    "query_semantics": "raw voxel cells intersecting a closed sphere; unknown and occupied both reject; no inflation mask used as free evidence",
+    "query_source_patch": "dependencies/patches/ego/0037-readonly-sphere-query.patch",
+    "radius_m": 0.7306179170842027,
+    "same_map_id_as_current_gate": true,
+    "service_response_captured_during_action": false,
+    "sphere_min_z_m": 0.2136449669574421,
+    "subground_cells_in_sphere": 0,
+    "unknown": 333,
+    "unknown_voxel_z_extent_m": [
+      0.8,
+      1.7
+    ]
+  },
+  "parent_goal": "N08",
+  "parent_status": "in_progress",
+  "run_id": "n08-20261024-213-compute-01",
+  "runtime_graph": {
+    "bridge_subscribed_to_isolated_input": true,
+    "bridge_subscribed_to_position_cmd": false,
+    "isolated_input_subscriber": "uav_px4_bridge",
+    "navigation_goal_topic_graph_connected": true,
+    "planner_observer_messages": 0,
+    "position_cmd_publisher": "drone_0_traj_server",
+    "position_cmd_subscriber_count": 0
+  },
+  "same_xz_y_offset_sweep": [
+    {
+      "free": 2141,
+      "occupied": 0,
+      "unknown": 53,
+      "y_m": 0.0
+    },
+    {
+      "free": 2100,
+      "occupied": 0,
+      "unknown": 94,
+      "y_m": 0.1
+    },
+    {
+      "free": 2053,
+      "occupied": 0,
+      "unknown": 141,
+      "y_m": 0.2
+    },
+    {
+      "free": 2006,
+      "occupied": 0,
+      "unknown": 188,
+      "y_m": 0.3
+    },
+    {
+      "free": 1957,
+      "occupied": 0,
+      "unknown": 237,
+      "y_m": 0.4
+    },
+    {
+      "free": 1909,
+      "occupied": 0,
+      "unknown": 285,
+      "y_m": 0.5
+    },
+    {
+      "free": 1845,
+      "occupied": 0,
+      "unknown": 349,
+      "y_m": 0.6
+    },
+    {
+      "free": 1777,
+      "occupied": 0,
+      "unknown": 417,
+      "y_m": 0.7
+    },
+    {
+      "free": 1725,
+      "occupied": 0,
+      "unknown": 469,
+      "y_m": 0.8
+    },
+    {
+      "free": 1684,
+      "occupied": 0,
+      "unknown": 510,
+      "y_m": 0.9
+    }
+  ],
+  "schema": "n08-compute-only-refusal-evidence/v1",
+  "sha256": {
+    "bridge-alignment-timeline.jsonl": "5a86cc97f5f96450249cad350ecfcea677e25ca090977162929efc9c7d0eabd8",
+    "config/components/mapping/ego_planner.json": "ca9a3e53d70512936866a314ce830d008268de8abc07c1e05269f7696b921d45",
+    "dependencies/patches/ego/0037-readonly-sphere-query.patch": "ec9252cc79def0f9b75bc7c64b3bf1b1b0e1079f5e2e306fa973d4d905902388",
+    "fixture-result.json": "e4cbebedc0bfc73653577e544777b11fec2d8a3c44f3367d88d1f2d7763005b3",
+    "flight.json": "b88bba204fa5c7fea6a8b2801d5cd7b3cc1da3475947a7ebc6f4579839439aed",
+    "n05-current-area/n05-live-entry-check.json": "26f54e0c84c563909ddc0d6c06aacdb6cc9e0de8031b0fecf253da58f8fd14a0",
+    "n05-current-area/n05-live-raw-map.npz": "87f78066ef98cff021e9270643538f049ee2f4c6dce4876d7a9730987466a196",
+    "n05-current-area/n05-offline-entry-replay.json": "0284f00795a005fbf196266de9e60bd23b6e3aaef305ea199cffc4cd85e58fec",
+    "n05-post-release-check.log": "8a71ad5bb7752e8af2c0a5939dbf606dc68a68232921daa207cec3009c394cfe",
+    "n05-run-summary.json": "908779f06df6f4f41f3be26b9510f9f24a643ebf76b31112d2591aafee8d734a",
+    "n08-runtime-mode.json": "5d726b54b531276ed7b7400ce00447d412a65b710f2d8ac11d2fbc9e3355f902",
+    "planner-observation.json": "f6da6a1c2c7c42b87508ad07266b6ed24ba34a62080ff7ecd623d949569527ad",
+    "runtime-contract.json": "cd5eada29ed16efc9f7223629afedcde0ade53715f4b2b33c27a71987fd9300a"
+  },
+  "submode_result": "failed_closed_no_ready_curve",
+  "task_id": "#213"
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "n11-queue-review-evidence/v1",
+  "id": "#478",
+  "status": "decision_pending",
+  "formal_count_credited": false,
+  "audit": {
+    "schema": "n11-queue-diagnostic/v1",
+    "classification": "diagnostic only; does not replace frozen zero-positive-slope criterion",
+    "runs": [
+      {
+        "slope": 0.005007062369222477,
+        "hac_lag_samples": 15,
+        "hac_time_basis_sim_s": 1,
+        "diagnostic_95pct_interval": [
+          -0.001312826072349585,
+          0.011326950810794538
+        ],
+        "sample_count": 1463,
+        "min": 13.0,
+        "max": 74.0,
+        "median": 26.0,
+        "first_quartile_median": 26.0,
+        "last_quartile_median": 26.0,
+        "run_id": "n11-20261029-476-empty-rehearsal",
+        "feature_queue_unique_values": [
+          1
+        ],
+        "receipt_lag_p50_p95_s": [
+          0.052,
+          0.060000001
+        ],
+        "queue_receipt_lag_correlation": 0.08337548110879199,
+        "quarter_slopes": [
+          -0.033677669836978154,
+          0.0019195350685478375,
+          0.00712625006241626,
+          0.003948366756588363
+        ]
+      },
+      {
+        "slope": 0.002431692451044544,
+        "hac_lag_samples": 15,
+        "hac_time_basis_sim_s": 1,
+        "diagnostic_95pct_interval": [
+          -0.001796049029244299,
+          0.0066594339313333865
+        ],
+        "sample_count": 1764,
+        "min": 19.0,
+        "max": 58.0,
+        "median": 26.0,
+        "first_quartile_median": 26.0,
+        "last_quartile_median": 26.0,
+        "run_id": "n11-20261029-477-calibrated-profile",
+        "feature_queue_unique_values": [
+          1
+        ],
+        "receipt_lag_p50_p95_s": [
+          0.048000001,
+          0.06
+        ],
+        "queue_receipt_lag_correlation": 0.09552667220499796,
+        "quarter_slopes": [
+          -0.023124594014104168,
+          0.0029072488577476466,
+          -0.0038285172576196756,
+          0.00600790602095385
+        ]
+      }
+    ],
+    "counterexamples": {
+      "bounded_oscillation": {
+        "slope": 0.0012882299958192713,
+        "hac_lag_samples": 15,
+        "hac_time_basis_sim_s": 1,
+        "diagnostic_95pct_interval": [
+          -0.009651791303376251,
+          0.012228251295014793
+        ],
+        "sample_count": 1800,
+        "min": 22.00000190862048,
+        "max": 27.999997692092496,
+        "median": 24.916289651019483,
+        "first_quartile_median": 24.78302284116144,
+        "last_quartile_median": 25.216977187717326
+      },
+      "sustained_growth": {
+        "slope": 0.3030307638233905,
+        "hac_lag_samples": 15,
+        "hac_time_basis_sim_s": 1,
+        "diagnostic_95pct_interval": [
+          0.2987511579893413,
+          0.3073103696574397
+        ],
+        "sample_count": 1800,
+        "min": 12.96972086753846,
+        "max": 61.998714782060176,
+        "median": 37.9634857365035,
+        "first_quartile_median": 24.19113198691622,
+        "last_quartile_median": 51.52252042912325
+      }
+    },
+    "original_threshold_items_per_sim_s": 0,
+    "original_failures_retained": true
+  },
+  "proposal": "docs/protocols/n11-queue-review-proposal.json",
+  "frozen_config_sha256": "7cf226ee4c471d49fec05f25eede1c9c127cd97fc22f0ae371ba13681d599750",
+  "standard_changed": false,
+  "new_flight": false
+}

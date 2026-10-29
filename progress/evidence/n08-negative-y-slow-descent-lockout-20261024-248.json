@@ -1,0 +1,70 @@
+{
+  "schema": "n08-negative-y-slow-descent-lockout/v1",
+  "run_id": "n08-20261024-248-negative-y-slow-descent",
+  "goal": "N08",
+  "child": "N08.2ak",
+  "profile": "n08_overhead_free_sector_negative_side_slow_descent",
+  "hypothesis": "Slowing the first descent after the negative-Y view will prevent the VINS cost gate from tripping.",
+  "variable": "First z=1.0m to 0.5m descent changed from 8s to 20s; other profile stages and all thresholds unchanged.",
+  "result": "hypothesis_not_supported",
+  "profile_stages": 19,
+  "completed_stages": 16,
+  "negative_y_view_and_return_completed": true,
+  "n05_prescan": {
+    "online_offline_agree": true,
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels"
+  },
+  "lockout": {
+    "stage": "first z=1.0m to 0.5m descent, stage 17",
+    "clock_stamp_s": 464.288,
+    "source_stamp_s": 464.212,
+    "normalized_cost": 1.037157867212567,
+    "limit": 1.0,
+    "reason": "normalized_cost_exceeded",
+    "stale_observation": null,
+    "optimized_source_age_s": 0.064,
+    "telemetry_source_age_s": 0.068,
+    "prior_evaluation_ok": true,
+    "prior_spectrum_ok": true,
+    "cost_components": {
+      "marginalization": 1778.1237383886923,
+      "imu": 93.43477337140462,
+      "visual": 1103.8178454867684
+    }
+  },
+  "same_identity_post_scan_map_available": false,
+  "post_release_n05_gate_run": false,
+  "compute_only_run": false,
+  "xy_executed": false,
+  "braking_measured": false,
+  "px4_clock_readback": {
+    "bridge_detail_samples": 38,
+    "all_time_domain_valid": true,
+    "px4_ros_clock_gap_s": [-0.004, 0.008]
+  },
+  "final_safety": {
+    "vehicle": "DISARMED",
+    "landed": true,
+    "fixture_detached": true,
+    "fixture_absent": true,
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "control_topic_samples_zero": true,
+    "stop_exit_code": 0,
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "container_finished_at": "2026-10-24T14:49:46.48747435Z"
+  },
+  "artifacts": {
+    "run_dir": "artifacts/runs/n08-20261024-248-negative-y-slow-descent",
+    "fixture_result_sha256": "0c3a605cfc1781f103bd378c450b7d7f71e53ffb00cbfd7fb3d14ccb59c0b9ee",
+    "fixture_stages_sha256": "09be2dbc89e1e9b96c4b59aaf7d01583d443e3ccc35baab81e496ec93e399cbc",
+    "fixture_trace_sha256": "8f5d9e04e03dd09627eb1c504f59d4cf379e0ee6ed69765c0ee28e978568bfa9",
+    "fixture_vins_sha256": "b6a236fa9a151c39081c639e4eabd6c0c6c86bea0e509ed496502040f489db7d",
+    "n05_prescan_sha256": "afd75dc97d6272db46ac4c52537f2aa4cb7f5f56088bc430bbc45c0f5f183186",
+    "final_safety_live_sha256": "2daa6d0d9c35b9840f8fc068af564f289ca13026c77f18401aedaa42333c54ee",
+    "final_safety_readback_sha256": "7b2b3c2cacbe9d774bbcb700d543975b31fef477855a5d9592693dc3f1c12b6c"
+  },
+  "next_step": "N08.2al #249: run the existing negative-only N05 profile to acquire a fresh same-identity map; test whether it covers the current negative-Y hold gap without stacking positive and negative side views."
+}

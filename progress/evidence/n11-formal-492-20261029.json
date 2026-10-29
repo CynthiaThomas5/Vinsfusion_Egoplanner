@@ -1,0 +1,156 @@
+{
+  "schema": "n11-formal-run-evidence/v1",
+  "id": "#492",
+  "run_id": "n11-20261029-492-formal07",
+  "status": "PASS",
+  "formal_count_eligible": true,
+  "formal_attempt_number": 7,
+  "formal_pass_count_after_run": 3,
+  "formal_attempt_count_after_run": 7,
+  "qualifying_runs": [
+    "n11-20261029-484-formal01",
+    "n11-20261029-485-formal02",
+    "n11-20261029-492-formal07"
+  ],
+  "failed_formal_attempts_retained": [
+    "n11-20261029-486-formal03",
+    "n11-20261029-488-formal04",
+    "n11-20261029-490-formal05",
+    "n11-20261029-491-formal06"
+  ],
+  "runtime_contract_sha256": "3a0111a1814c8f6ccb3f7155450fad044026201e8c94b844ce02210fffea5820",
+  "runtime_contract_file_sha256": "330fa1f6513fb371cec5522333af4836b6ded38cffd617c100a4c80b9da30141",
+  "config_sha256": "eebdb7306e7513b97ce26d5ec983d9df7bf62dbb07da4bd0d0e6d7aa1cdb3c3f",
+  "protocol_sha256": "8fa87d9bf50e107116ca6014fefdacbbee54bcafa843fc61db301ab2b088c442",
+  "evaluator_sha256": "6de3cce73f88639d67afc69e591a75b7eb771416b98fdcbbd0d5d2c12c4ca36b",
+  "identity": {
+    "epoch": "fceccdeddd4a4778ab02222a411b06e0",
+    "goal_id": "8ddc2c9aaafe46f7a97dbdb230799794",
+    "map_id": "fceccdeddd4a4778ab02222a411b06e0-0f5be71459484ea392c08676d4b3b2a6"
+  },
+  "gui": {
+    "gazebo_visible": true,
+    "rviz_visible": true,
+    "run_id_in_title": true,
+    "captured_before_goal": true,
+    "window_tree_sha256": "1f7065ed896c227ba6aaf82a14f8d88d202c55fd5feb0930405316181dcf8d03"
+  },
+  "mission": {
+    "action_result": {
+      "final_position": [
+        12.027444503615097,
+        -0.010141325323177769,
+        1.0235335423603584
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "joint_dwell_sim_s": 4.02000000000001,
+    "post_goal_hold_sim_s": 20.0,
+    "landed_and_disarmed": true,
+    "safe_to_stop": true,
+    "terminal_checks": {
+      "bridge_landed_phase": true,
+      "bridge_landed": true,
+      "bridge_disarmed": true,
+      "bridge_control_disabled": true,
+      "px4_disarmed": true,
+      "px4_land_detected": true,
+      "zero_control_after_terminal": true,
+      "goal_identity_present": true,
+      "epoch_identity_present": true,
+      "no_old_epoch_goal_or_trajectory": true,
+      "stable_terminal_window": true,
+      "no_terminal_state_violation": true
+    },
+    "emergency_disarm_used": false
+  },
+  "metric_statuses": {
+    "arrival_position_yaw_dwell": "PASS",
+    "raw_vio_absolute_error": "PASS",
+    "raw_vio_rpe_10s": "PASS",
+    "raw_vio_velocity_error": "PASS",
+    "map_source_and_update_age": "PASS",
+    "ego_tracking_error": "PASS",
+    "ego_tracking_clearance_budget": "PASS",
+    "full_body_clearance_and_contact": "PASS",
+    "raw_map_surface_geometry": "PASS",
+    "raw_map_classification": "PASS",
+    "dynamic_replanning": "NOT_APPLICABLE",
+    "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+    "resource_and_queue_behavior": "PASS",
+    "observer_identity_binding": "PASS"
+  },
+  "key_metrics": {
+    "goal_motion_translation_rpe10_p95_m": 0.03589454111617756,
+    "goal_motion_rotation_rpe10_p95_deg": 0.48783519962926913,
+    "active_hold_translation_rpe10_p95_m": 0.00988159411217416,
+    "active_hold_rotation_rpe10_p95_deg": 0.1045626240721779,
+    "map_surface_error_max_m": 0.08111608109201487,
+    "fully_occluded_free_cells": 0,
+    "map_source_age_max_sim_s": 0.164,
+    "map_update_age_max_sim_s": 0.124,
+    "tracking_actual_component_clearance_min_m": 3.236791720414519,
+    "full_body_no_contact_interval_clearance_min_m": 3.2223586574960166,
+    "prohibited_contact_events": 0.0,
+    "native_work": {
+      "schema": "n11-native-work-result/v1",
+      "status": "PASS",
+      "sample_count": 1913,
+      "maximum_native_lag_s": 0.048,
+      "maximum_pending_source_span_s": 0.0,
+      "maximum_waiting_features": 0,
+      "maximum_telemetry_source_gap_s": 0.068000001,
+      "violations": [],
+      "missing_or_inconsistent": [],
+      "runtime_effect": false,
+      "raw_buffer_ols_is_diagnostic_only": true
+    },
+    "cpu_core_equivalent_max": 15.058833512164204,
+    "memory_peak_max_bytes": 4035031040.0,
+    "mapping_queue": {
+      "identity_matches": true,
+      "configured_pending_depth_capacity": 8.0,
+      "pending_depth_high_water": 8.0,
+      "maximum_pending_depth": 7.0,
+      "depth_drop_count": 21.0,
+      "keyframe_drop_count": 21.0,
+      "drops_are_reported_not_independently_failed": true
+    },
+    "vins_queue_capacity_status": "UNKNOWN_BY_SOURCE"
+  },
+  "failures": [],
+  "insufficient": [],
+  "applicability_limits": [
+    "Dynamic replanning is NOT_APPLICABLE in the empty-room protocol.",
+    "Fault-exit calibration is excluded by user scope decision #434; this run is not N15 qualification.",
+    "VINS queue capacity remains UNKNOWN_BY_SOURCE; N16 continuous 600 sim-second qualification remains separate."
+  ],
+  "artifacts": {
+    "raw_run": "artifacts/runs/n11-20261029-492-formal07",
+    "raw_file_count": 305,
+    "raw_files_equal_isolated_original": true,
+    "flight_sha256": "1e280037b0fa86540e054b1d197e4e12ec0c9b92c9d5c04561aee26c9c193cea",
+    "launch_record_sha256": "7df537f58d673393e5503830359262d8e87dc730c0d332a1956039a5e5621c77",
+    "scene_acceptance": "artifacts/reanalysis/n11-20261029-492-formal07-evaluation/n11-20261029-492-formal07/n11-scene-acceptance.json",
+    "scene_acceptance_sha256": "31877d201047a8592447559fee73db7c8822b0bd77e3efd8b1f8e86409aa9e39",
+    "gui_window_listing": "artifacts/runs/n11-20261029-492-formal07/gui-windows.txt",
+    "gui_window_listing_sha256": "1f7065ed896c227ba6aaf82a14f8d88d202c55fd5feb0930405316181dcf8d03"
+  },
+  "sensor_capture_integrity": {
+    "status": "PASS",
+    "classification": "offline recorder integrity only; not system acceptance",
+    "active_receipt_count": 25654,
+    "receipt_count": 39921,
+    "bag_message_count": 39873,
+    "payload_without_receipt_count": 0,
+    "receipt_bag_key_mismatch_count": 0,
+    "receipt_without_payload_boundary_count": 48,
+    "errors": [],
+    "runtime_control_effect": false,
+    "receipt_sha256": "8e91a490be87fe87b1f619e65e1cd52d172a4e89fa3f4a39ae3bbed04fac6339",
+    "capture_report_sha256": "a948aba14f9ec938ab7e03b38328ee6327db00db297e50552c0e42f21376c614"
+  }
+}

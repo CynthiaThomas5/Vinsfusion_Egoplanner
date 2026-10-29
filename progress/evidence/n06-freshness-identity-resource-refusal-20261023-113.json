@@ -1,0 +1,368 @@
+{
+  "schema": "n06-freshness-identity-resource-refusal/v1",
+  "task_id": "N06.2.4",
+  "evidence_id": "#113",
+  "parent_goal": "N06",
+  "execution_mode": "goal_completion",
+  "result": "component_refusal_matrix_passed; emergency_hold_open; parent_goal_in_progress",
+  "scope": "Isolated actual EGO/plan_env component with synthetic depth, ROS domain 102; no Gazebo, VINS, PX4, bridge, controller, traj_server, world truth or flight.",
+  "matrix": {
+    "wrong_epoch": {
+      "passed": true,
+      "planner_log_lines": [
+        "[ego_planner_node-1] [WARN] [1792741323.645398437] [drone_0_ego_planner_node]: Reject navigation goal with invalid id, epoch, frame, or pose"
+      ],
+      "curve_count_delta": 0,
+      "fault_count_delta": 0
+    },
+    "wrong_map": {
+      "reason": "full_curve_map_id_mismatch",
+      "occupancy_queries": 0,
+      "no_matching_curve": true
+    },
+    "raw_query_classes": [
+      "free",
+      "occupied",
+      "unknown",
+      "outside_map",
+      "invalid_query"
+    ],
+    "active_map_change": {
+      "current_fault": "full_curve_unknown",
+      "prior_direct_occupied_evidence": "#093",
+      "late_curves_after_fault": 0
+    },
+    "terminal_hold_change": {
+      "fault": "full_curve_terminal_hold_occupied",
+      "late_curves_after_fault": 0
+    },
+    "stale_depth": {
+      "faults": [
+        "full_curve_occupancy_update_stale",
+        "full_curve_depth_pose_gate_closed"
+      ],
+      "depth_stopped_clock_and_odometry_continued": true,
+      "late_curves_after_fault": 0
+    },
+    "resource_bounds": {
+      "sphere_query": "test_goal_admission compiles production probe_sphere_query.cpp; asserts query_too_large for a bounded-cell scan exceeding 100000 candidate cells.",
+      "curve_sweep": "test_goal_admission compiles production probe_swept_curve.cpp; oversize valid sweep is not certified and returns bounded-work rejection.",
+      "runtime_query_timeout_and_busy": "navigation-adapter integration: no_fresh_fused_depth timeout, unavailable service, concurrent map_query_busy, late response and pending cancellation all fail closed."
+    },
+    "emergency_hold": {
+      "emergency_stop_transition_observed": false,
+      "emergency_hold_bspline_observed": false,
+      "stale_curve_response": "full_curve_occupancy_update_stale",
+      "interpretation": "Safety gate cancelled/refused; no emergency hold trajectory was emitted. Physical hold is not proven.",
+      "source_order": "checkCollisionCallback certifies the active curve before testing getOdomDepthTimeout; queryReadiness rejects the same timeout flag."
+    }
+  },
+  "scenarios": {
+    "active-obstacle": {
+      "passed": true,
+      "faults": [
+        {
+          "goal_id": "bae1738ab2004a47adcdbb7c8bf50c24",
+          "epoch": "b08a11017379476fbe61a91309f894b5",
+          "reason": "full_curve_map_id_mismatch"
+        },
+        {
+          "goal_id": "82a8163645e74962ad815ff4a52f2186",
+          "epoch": "b08a11017379476fbe61a91309f894b5",
+          "reason": "full_curve_unknown"
+        },
+        {
+          "goal_id": "cc835ace0f8447afbcd14327b33363d1",
+          "epoch": "b08a11017379476fbe61a91309f894b5",
+          "reason": "full_curve_planning_failed"
+        }
+      ],
+      "raw_queries": [
+        {
+          "label": "free_body",
+          "accepted": true,
+          "reason": "free",
+          "counts": [
+            792,
+            0,
+            0
+          ]
+        },
+        {
+          "label": "occupied_return",
+          "accepted": true,
+          "reason": "occupied",
+          "counts": [
+            0,
+            0,
+            4
+          ]
+        },
+        {
+          "label": "unknown_behind",
+          "accepted": true,
+          "reason": "unknown",
+          "counts": [
+            0,
+            792,
+            0
+          ]
+        },
+        {
+          "label": "outside",
+          "accepted": false,
+          "reason": "outside_map",
+          "counts": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "label": "invalid_radius",
+          "accepted": false,
+          "reason": "invalid_query",
+          "counts": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "certified_curve_count": 1,
+      "first_goal_curve_count": 1,
+      "late_curves_after_fault": 0,
+      "emergency_stop_observed": false,
+      "fsm_transitions": [
+        "[ego_planner_node-1] [FSM]: from INIT to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from GEN_NEW_TRAJ to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FSM]: from GEN_NEW_TRAJ to EXEC_TRAJ",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from EXEC_TRAJ to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from GEN_NEW_TRAJ to WAIT_TARGET"
+      ],
+      "certificate_metrics": [
+        "[ego_planner_node-1] [INFO] [1792741313.590022580] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.001 reason=map_id_mismatch map_id=wrong-map-id",
+        "[ego_planner_node-1] [INFO] [1792741313.610917115] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.536 reason=free map_id=b08a11017379476fbe61a91309f894b5-synthetic-wall"
+      ],
+      "result_path": "artifacts/runs/n06-20261023-safety-112/active-obstacle/result.json",
+      "result_sha256": "03211ae1bae6c443c61d36a15cc13078546ed9a67d7d4ebca231d072e7d04492",
+      "planner_log_path": "artifacts/runs/n06-20261023-safety-112/active-obstacle/planner.log",
+      "planner_log_sha256": "47d71b6d8f758d8be22e0758126e865ee10e6b7399b10a4ac0745e55498488b0"
+    },
+    "completed-hold": {
+      "passed": true,
+      "faults": [
+        {
+          "goal_id": "2bc69184edf841b69459556aed2b34d1",
+          "epoch": "869542bd8fde427db293bc02cfcb7532",
+          "reason": "full_curve_map_id_mismatch"
+        },
+        {
+          "goal_id": "932e23868185468f83ca1d0e980c62c8",
+          "epoch": "869542bd8fde427db293bc02cfcb7532",
+          "reason": "full_curve_terminal_hold_occupied"
+        },
+        {
+          "goal_id": "750324e4c7654231bd5b4d6c2a157df2",
+          "epoch": "869542bd8fde427db293bc02cfcb7532",
+          "reason": "full_curve_terminal_hold_occupied"
+        }
+      ],
+      "raw_queries": [
+        {
+          "label": "free_body",
+          "accepted": true,
+          "reason": "free",
+          "counts": [
+            792,
+            0,
+            0
+          ]
+        },
+        {
+          "label": "occupied_return",
+          "accepted": true,
+          "reason": "occupied",
+          "counts": [
+            0,
+            0,
+            4
+          ]
+        },
+        {
+          "label": "unknown_behind",
+          "accepted": true,
+          "reason": "unknown",
+          "counts": [
+            0,
+            792,
+            0
+          ]
+        },
+        {
+          "label": "outside",
+          "accepted": false,
+          "reason": "outside_map",
+          "counts": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "label": "invalid_radius",
+          "accepted": false,
+          "reason": "invalid_query",
+          "counts": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "certified_curve_count": 1,
+      "first_goal_curve_count": 1,
+      "late_curves_after_fault": 0,
+      "emergency_stop_observed": false,
+      "fsm_transitions": [
+        "[ego_planner_node-1] [FSM]: from INIT to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from GEN_NEW_TRAJ to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FSM]: from GEN_NEW_TRAJ to EXEC_TRAJ",
+        "[ego_planner_node-1] [FSM]: from EXEC_TRAJ to WAIT_TARGET",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from WAIT_TARGET to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from GEN_NEW_TRAJ to WAIT_TARGET"
+      ],
+      "certificate_metrics": [
+        "[ego_planner_node-1] [INFO] [1792741317.189798868] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.001 reason=map_id_mismatch map_id=wrong-map-id",
+        "[ego_planner_node-1] [INFO] [1792741317.219386240] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.454 reason=free map_id=869542bd8fde427db293bc02cfcb7532-synthetic-wall",
+        "[ego_planner_node-1] [INFO] [1792741320.624003638] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.478 reason=terminal_hold_occupied map_id=869542bd8fde427db293bc02cfcb7532-synthetic-wall"
+      ],
+      "result_path": "artifacts/runs/n06-20261023-safety-112/completed-hold/result.json",
+      "result_sha256": "8d2611526473e2be6f508e543e66114d61a99f9fc508a2360b0f5ecdb9a5abc3",
+      "planner_log_path": "artifacts/runs/n06-20261023-safety-112/completed-hold/planner.log",
+      "planner_log_sha256": "7ab0f5e122337bd5683a929c6d94ab14abe61ba10ab0badaf668e50c686d48d6"
+    },
+    "stale-map": {
+      "passed": true,
+      "faults": [
+        {
+          "goal_id": "7159de1ce4964bec80633a3299146650",
+          "epoch": "9a490d0b8205409c8bff667af80962cf",
+          "reason": "full_curve_map_id_mismatch"
+        },
+        {
+          "goal_id": "4a1d8198b70245ec951c5c6e63f9e3f7",
+          "epoch": "9a490d0b8205409c8bff667af80962cf",
+          "reason": "full_curve_occupancy_update_stale"
+        },
+        {
+          "goal_id": "7244d9962e3f4f1b88e9ea48b183ab9e",
+          "epoch": "9a490d0b8205409c8bff667af80962cf",
+          "reason": "full_curve_depth_pose_gate_closed"
+        }
+      ],
+      "raw_queries": [
+        {
+          "label": "free_body",
+          "accepted": true,
+          "reason": "free",
+          "counts": [
+            792,
+            0,
+            0
+          ]
+        },
+        {
+          "label": "occupied_return",
+          "accepted": true,
+          "reason": "occupied",
+          "counts": [
+            0,
+            0,
+            4
+          ]
+        },
+        {
+          "label": "unknown_behind",
+          "accepted": true,
+          "reason": "unknown",
+          "counts": [
+            0,
+            792,
+            0
+          ]
+        },
+        {
+          "label": "outside",
+          "accepted": false,
+          "reason": "outside_map",
+          "counts": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "label": "invalid_radius",
+          "accepted": false,
+          "reason": "invalid_query",
+          "counts": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "certified_curve_count": 1,
+      "first_goal_curve_count": 1,
+      "late_curves_after_fault": 0,
+      "emergency_stop_observed": false,
+      "fsm_transitions": [
+        "[ego_planner_node-1] [FSM]: from INIT to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from GEN_NEW_TRAJ to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ",
+        "[ego_planner_node-1] [FSM]: from GEN_NEW_TRAJ to EXEC_TRAJ",
+        "[ego_planner_node-1] [FULL_CURVE_SAFETY]: from EXEC_TRAJ to WAIT_TARGET",
+        "[ego_planner_node-1] [TRIG]: from WAIT_TARGET to GEN_NEW_TRAJ"
+      ],
+      "certificate_metrics": [
+        "[ego_planner_node-1] [INFO] [1792741323.914780505] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.001 reason=map_id_mismatch map_id=wrong-map-id",
+        "[ego_planner_node-1] [INFO] [1792741323.935697574] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.478 reason=free map_id=9a490d0b8205409c8bff667af80962cf-synthetic-wall",
+        "[ego_planner_node-1] [INFO] [1792741324.680407329] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.001 reason=depth_pose_gate_closed map_id=9a490d0b8205409c8bff667af80962cf-synthetic-wall"
+      ],
+      "result_path": "artifacts/runs/n06-20261023-safety-112/stale-map/result.json",
+      "result_sha256": "05b25dfb1be3cdb7b5b63bf6a759ec795daf7168cf9287baa6e2b08c2a0d01bf",
+      "planner_log_path": "artifacts/runs/n06-20261023-safety-112/stale-map/planner.log",
+      "planner_log_sha256": "63791069cc1abf89ce51750a17474110a29a807a3ac66a73dfe71a46d36c5375"
+    }
+  },
+  "verification": {
+    "command": "bash tools/project.sh test",
+    "result": "PASS: 251 unit tests plus navigation-adapter integration; includes production sphere/sweep bounded-work probes and target identity/stale/timeout/late/busy/cancel cases.",
+    "runtime_command": "docker run --rm --init --name d435i-n06-safety-112 ... python3 tools/probe_ego_safety.py [active, --after-completion, --stale-after-curve]",
+    "runtime_exit_code": 0,
+    "container_cleanup": "confirmed; unrelated containers preserved"
+  },
+  "artifacts": {
+    "runner_log": "artifacts/runs/n06-20261023-safety-112/runner.log",
+    "runner_log_sha256": "a2dc6df814d8f405561614b40b50ba95f99fa018dbf05fae87d3fe5b40af2161",
+    "probe_source": "tools/probe_ego_safety.py",
+    "probe_source_sha256": "ec894bc85dc5daa6524d17439a0739fd7359a490c4dfff76580b6dceefd46d17",
+    "test_goal_admission_sha256": "f8d1b47af0ff20dd8fc02a082a71d9975af2f7be8055b34d0e2c2002f40a0c3d",
+    "sphere_probe_source_sha256": "55184f883a9a213188dd756ea6f8ec8f3958d6541f59e324e5ae84a7f47774cd",
+    "sweep_probe_source_sha256": "e9c716d1e26df9b77bdb4b5bffc89eaf204924c323c956044c90bbf908fc412c",
+    "navigation_adapter_test_sha256": "245cfebbb9342c5903be394716e914b6714a3b10bcca690803c6789a60820fda"
+  },
+  "unresolved": [
+    "Current stale-input safety path did not produce an EMERGENCY_STOP transition or hold B-spline.",
+    "Actual trajectory/vehicle stopping is not part of this component evidence."
+  ],
+  "next_subtask": "N06.2.5: isolate current emergency-stop/hold planner path or establish why its trigger is unreachable under the active full-curve gate, without weakening map/freshness policy."
+}

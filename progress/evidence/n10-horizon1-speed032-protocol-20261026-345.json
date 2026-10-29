@@ -1,0 +1,78 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "experiment_id": "#345",
+  "run_id": "n10-20261026-345-horizon1-speed032",
+  "status": "FROZEN_BEFORE_RUN",
+  "purpose": "N10.3 independent diagnostic of reference-speed response to a shorter local planning horizon; not a formal N11-N16 run.",
+  "hypothesis": "Holding the 0.32m/s/axis feasibility allowance and 0.12m/s dual-source speed guard fixed, a 1.0m EGO planning horizon may produce a shorter initial local spline whose position-reference vector speed remains at or below 0.12m/s, allowing repeated local replanning toward the unchanged 16m global goal.",
+  "single_primary_variable": {
+    "field": "planning_horizon_m",
+    "baseline": 2.0,
+    "candidate": 1.0,
+    "unit": "m",
+    "all_other_candidate_fields_equal": true
+  },
+  "fixed": {
+    "spawn_profile": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "spawn_pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "global_goal_offset_enu_m": [
+      16.0,
+      0.0,
+      0.1
+    ],
+    "yaw_offset_rad": 0.2,
+    "position_tolerance_m": 0.25,
+    "yaw_tolerance_rad": 0.2617993877991494,
+    "dwell_sim_s": 3.0,
+    "timeout_sim_s": 360.0,
+    "post_goal_active_hold_sim_s": 600.0,
+    "planner_max_velocity_m_s_per_axis": 0.32,
+    "planner_max_acceleration_m_s2_per_axis": 0.25,
+    "inflation_m": 0.7306179170842027,
+    "collision_policy": "official_ego",
+    "runtime_vector_speed_guard_m_s": 0.12,
+    "sensor": "single D435i",
+    "ground_truth_online_control_or_guard": false,
+    "health_map_contact_takeoff_landing_gates": "unchanged"
+  },
+  "decision_criteria": {
+    "retain_existing_guard": true,
+    "any_invalid_or_over_limit_reference_or_px4_speed": "cancel and bridge-owned landing; preserve as a failed run",
+    "no_guard_trip": "still requires native action success, independent 3s position/yaw dwell, 600 sim-s active hold, long-range VIO/map/clearance/tracking/freshness/replan evidence, zero prohibited contact and landed/disarmed readback",
+    "full_route_failure": "do not shorten the global goal, relax thresholds or repeat identical profile"
+  },
+  "pre_run": {
+    "configuration_json_valid": true,
+    "field_comparison_vs_n10_horizon2_speed032": "only planning_horizon_m differs",
+    "project_test_evidence_reused_from": "progress/evidence/n10-speed032-ready-guard-20261026-344.json",
+    "source_and_installed_binary_changed": false,
+    "ros_cpp_rebuild_required": false,
+    "basis": "Only a planner JSON parameter changes; #344 project tests and integration checks remain applicable to unchanged source/runtime code."
+  },
+  "input_sha256": {
+    "config/components/mapping/n10_horizon1_speed032_calibration.json": "2ba9faafffd3af5d42ebb46ae358850ec4ad7ade18c2fbd9e24975e33383e397",
+    "config/components/mapping/n10_horizon2_speed032_calibration.json": "b11efc421a54a5566444d81c0d1a01bbfef1435cae8392c5d803a7b813892a37",
+    "config/components/simulation/n10_long_range_spawn_minus8.json": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json": "d1e73365f0cc12d4f30a5445fa25ed54e35267eb2ff80a788c5f3d7162212821",
+    "config/runtime.json": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "config/components/navigation/vehicle_envelope.json": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+    "config/components/navigation/task_supervisor.json": "2ebcc06d25a6f550725161d3542915c29989a912ef1d6c8d48e596873980bb56",
+    "config/components/mapping/ego_planner.json": "077f7711b70d04c1c41e191c4518d18fcaf5d962871bb34ce33db02420b14337",
+    "tools/project.sh": "2be7f68c2b0cb2f5c8ac0736f8a95f757235b867844dc576ff00cf7de1c13f7b",
+    "tools/sim_runtime.sh": "6aea8608e696c6a5baf818a90dfeecb6c5e9049da84eb4fb8d1050fd5ae616c2",
+    "tools/n09_runtime.sh": "7db94d809ca887b5f829169efaa473d2b1cdd0c059189ca48f240183b4db45a3",
+    "tools/run_vio_ego_flight.py": "a5d0794130dcff8a44405db6bde94a0d378fde43a7b407fbe7a766b9cbcbea6d",
+    "tools/speed_guard.py": "d3e3227407da9c391dad0d564bddd4b621decf56586aa416da0265b396f72da2",
+    "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch": "b41440d75badb304fc59684718a4b2fe9a295d1fc13485c43ee0900161f8b4d1"
+  },
+  "run_count": 1,
+  "retries_after_run": 0
+}

@@ -1,0 +1,471 @@
+{
+  "schema": "n08-isolated-negative-side-view/v1",
+  "task": "N08.2w #233",
+  "run_id": "n08-20261024-233-isolated-negative-side-compute-01",
+  "status": "N05 support profile completed and same-identity admission passed; compute-only rejected before B-spline at planner_full_curve_unknown; no XY or braking proof",
+  "scope": "new isolated negative-side N05 observation profile, fresh N05 gates, bridge-isolated compute-only attempt, same-identity post-failure raw-map geometry",
+  "profile": {
+    "name": "n08_overhead_negative_side_view",
+    "stage_count": 16,
+    "completed_stages": 16,
+    "negative_yaw_stage_targets": [
+      [
+        0,
+        1.0,
+        -1.5707963267948966,
+        0
+      ],
+      [
+        0,
+        1.0,
+        -1.5707963267948966,
+        0
+      ]
+    ],
+    "pitch_at_negative_yaw_rad": 0.0,
+    "max_recorded_normalized_cost": 0.9628138729040868,
+    "localization_status_at_helper_end": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.788768156438984
+    }
+  },
+  "static_validation": {
+    "profile_unittest": "28 tests passed",
+    "json_parse": "passed",
+    "bash_n": "passed",
+    "project_status": "PASS Structure/design; ROS build/SITL not implied",
+    "git_diff_check": "passed"
+  },
+  "support_scan": {
+    "before_gate": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope"
+    },
+    "after_gate": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "ground_plane": {
+        "valid": true,
+        "reason": "raw_occupied_plane_fit",
+        "z_at_center_m": -0.35000000000000014,
+        "coefficients_ax_by_c_m": [
+          3.643903546743092e-17,
+          2.7755575615628914e-16,
+          -0.3500000000000001
+        ],
+        "residual_p95_m": 4.440892098500626e-16,
+        "slope": 2.7993749495429535e-16,
+        "raw_occupied_voxel_count": 355,
+        "xy_span_m": [
+          1.9000000000000021,
+          2.1999999999999993
+        ],
+        "source": "raw occupancy only",
+        "debug_truth_used": false
+      },
+      "hold_height_m": 1.0,
+      "sample_step_m": 0.05,
+      "sample_count": 41,
+      "ground_confirmed": true,
+      "disarmed": true,
+      "control_disabled": true,
+      "phases": {
+        "TAKEOFF_CONTACT": {
+          "samples": 1,
+          "accepted_samples": 1,
+          "refusal_counts": {
+            "raw_vehicle_envelope_known_free": 1
+          },
+          "maximum_unknown_cells": 0,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 44,
+          "maximum_subground_excluded_cells": 37
+        },
+        "ASCENT": {
+          "samples": 19,
+          "accepted_samples": 19,
+          "refusal_counts": {
+            "raw_vehicle_envelope_known_free": 19
+          },
+          "maximum_unknown_cells": 0,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 40,
+          "maximum_subground_excluded_cells": 28
+        },
+        "HOLD": {
+          "samples": 1,
+          "accepted_samples": 1,
+          "refusal_counts": {
+            "raw_vehicle_envelope_known_free": 1
+          },
+          "maximum_unknown_cells": 0,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 0
+        },
+        "DESCENT": {
+          "samples": 19,
+          "accepted_samples": 19,
+          "refusal_counts": {
+            "raw_vehicle_envelope_known_free": 19
+          },
+          "maximum_unknown_cells": 0,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 40,
+          "maximum_subground_excluded_cells": 28
+        },
+        "LANDING_CONTACT": {
+          "samples": 1,
+          "accepted_samples": 1,
+          "refusal_counts": {
+            "raw_vehicle_envelope_known_free": 1
+          },
+          "maximum_unknown_cells": 0,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 44,
+          "maximum_subground_excluded_cells": 37
+        }
+      },
+      "scope": "raw occupancy entry-volume diagnostic; no flight authorization"
+    },
+    "post_release_gate": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "identity": {
+        "epoch": "609f5fa6f7b348e29093738c60b822b5",
+        "map_id": "609f5fa6f7b348e29093738c60b822b5-4c9ed6561c214ec4b5c050dfae1bf6ac",
+        "frame_id": "odom_609f5fa6f7b348e29093738c60b822b5",
+        "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+        "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+      },
+      "online_offline_identical": true
+    },
+    "diagnostic_pass": true,
+    "helper_exit_code": 1,
+    "helper_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "scene_model_absent": true,
+    "fixture_safety_cleanup": {
+      "attempted": false,
+      "verified_detached": false,
+      "error": "",
+      "land_detector_error": "fresh DISARMED status is required for every fixture command"
+    }
+  },
+  "identity": {
+    "epoch": "609f5fa6f7b348e29093738c60b822b5",
+    "map_id": "609f5fa6f7b348e29093738c60b822b5-4c9ed6561c214ec4b5c050dfae1bf6ac",
+    "frame_id": "odom_609f5fa6f7b348e29093738c60b822b5",
+    "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+    "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+    "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00784028787166,
+    "max_optimized_odom_receipt_gap_wall_s": 0.08378103794530034,
+    "guard_overrun_count": 0
+  },
+  "mission": {
+    "exit_code": 2,
+    "flight_result": "FAIL",
+    "failure": "navigation_action_terminal_before_ready:aborted:planner_full_curve_unknown",
+    "n05_current_area": {
+      "accepted": true,
+      "epoch": "609f5fa6f7b348e29093738c60b822b5",
+      "map_id": "609f5fa6f7b348e29093738c60b822b5-4c9ed6561c214ec4b5c050dfae1bf6ac",
+      "online_offline_identical": true
+    },
+    "compute_only_evaluation_passed": false,
+    "compute_only_n08_exit_satisfied": false,
+    "action_goal_sent": true,
+    "trajectory_ready_seen": false,
+    "ready_position_command_samples": 0,
+    "all_position_command_samples": 0,
+    "landed_and_disarmed": true,
+    "clock_regressions": 0,
+    "truth_used_for_control": false
+  },
+  "map_capture": {
+    "capture_mode": "goal_only_after_runner_failure",
+    "status": "captured",
+    "bspline_observed": false,
+    "goal_stamp_ns": {
+      "sec": 562,
+      "nanosec": 160000000
+    },
+    "snapshot_stamp_ns": 568208000000,
+    "snapshot_minus_goal_s": 6.048000000000002,
+    "identity_matches_n05": true,
+    "map_freshness": {
+      "fusion_age_s": 0.036,
+      "source_age_s": 0.112
+    },
+    "postrelease_capture_occupancy_diff_voxels": 750,
+    "raw_snapshot_sha256": "4c4c5fd0bbf9366bc56da3eacb862303354180aae985b34355797eba762927fa"
+  },
+  "geometry": {
+    "qualification": "start derived from configured target offset; no B-spline, so straight line is a production-mirror diagnostic only",
+    "goal_enu_m": [
+      -0.21876983730063984,
+      0.1418410030161119,
+      0.939230976112526
+    ],
+    "inferred_start_enu_m": [
+      -0.31876983730063985,
+      -0.10815899698388809,
+      0.939230976112526
+    ],
+    "body_radius_m": 0.7306179170842027,
+    "hold_radius_m": 0.9806179170842027,
+    "same_map_queries": {
+      "post_release": {
+        "start_body": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 36,
+          "free_count": 2148,
+          "occupied_count": 0
+        },
+        "start_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 394,
+          "free_count": 4513,
+          "occupied_count": 0
+        },
+        "goal_body": {
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 2174,
+          "occupied_count": 0
+        },
+        "goal_terminal_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 472,
+          "free_count": 4444,
+          "occupied_count": 0
+        }
+      },
+      "failure_capture": {
+        "start_body": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 36,
+          "free_count": 2148,
+          "occupied_count": 0
+        },
+        "start_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 394,
+          "free_count": 4513,
+          "occupied_count": 0
+        },
+        "goal_body": {
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 2174,
+          "occupied_count": 0
+        },
+        "goal_terminal_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 472,
+          "free_count": 4444,
+          "occupied_count": 0
+        }
+      }
+    },
+    "straight_line_sweep": {
+      "free": false,
+      "reason": "unknown",
+      "queries": 1,
+      "continuous_cover_radius_m": 0.7428569280095083,
+      "first_failure": {
+        "sample_index": 0,
+        "time_s": 0.08159340616870463,
+        "center_xyz_m": [
+          -0.3142243827551853,
+          -0.09679536062025172,
+          0.939230976112526
+        ],
+        "accepted": true,
+        "reason": "unknown",
+        "unknown_count": 38,
+        "free_count": 2248,
+        "occupied_count": 0
+      }
+    },
+    "start_hold_unknown_distribution": {
+      "count": 394,
+      "bbox_min_relative_enu_m": [
+        -0.9312,
+        -0.7418,
+        -0.6892
+      ],
+      "bbox_max_relative_enu_m": [
+        -0.7312,
+        0.6582,
+        0.7108
+      ],
+      "centroid_relative_enu_m": [
+        -0.8036,
+        -0.0058,
+        0.0052
+      ],
+      "x_below_minus_0p5_count": 394,
+      "x_above_plus_0p5_count": 0,
+      "y_below_minus_0p5_count": 31,
+      "y_above_plus_0p5_count": 26
+    },
+    "ground_plane_z_m": -0.35000000000000014
+  },
+  "safety": {
+    "xy_executed": false,
+    "response_delay_measured": false,
+    "minimum_usable_deceleration_measured": false,
+    "actual_stop_distance_measured": false,
+    "tracking_error_measured": false,
+    "stopping_envelope_proven": false,
+    "execute_authorized": false,
+    "mission_final_landed_disarmed": true
+  },
+  "monitor_resolution": {
+    "schema": "n05-monitor-resolution/v1",
+    "status": "resolved by independent post-release/current-area and completed-mission readback",
+    "original_monitor_marker": "Do not stop this project container until the N05 fixture state is resolved.\n",
+    "fixture_helper_warning": "fresh DISARMED status is required for every fixture command",
+    "fixture_helper_safety_cleanup": {
+      "attempted": false,
+      "verified_detached": false,
+      "error": "",
+      "land_detector_error": "fresh DISARMED status is required for every fixture command"
+    },
+    "independent_fixture_absent": {
+      "remove_service_acknowledged": false,
+      "scene_model_absent": true,
+      "method": "gz model --list after detach/removal request",
+      "scene_model_names": [
+        "blank",
+        "ground_plane",
+        "n05_n08_overhead_calibration_0",
+        "n05_n08_overhead_calibration_1",
+        "n05_n08_overhead_calibration_2",
+        "unit_cylinder",
+        "unit_cylinder_0",
+        "unit_cylinder_0_0",
+        "unit_cylinder_0_1",
+        "unit_cylinder_0_2",
+        "unit_cylinder_0_2_clone",
+        "unit_cylinder_0_3",
+        "unit_cylinder_0_4",
+        "unit_cylinder_0_5",
+        "unit_cylinder_0_6",
+        "unit_cylinder_0_6_clone",
+        "unit_cylinder_0_6_clone_0",
+        "unit_cylinder_0_6_clone_clone",
+        "unit_cylinder_1",
+        "unit_cylinder_2",
+        "unit_cylinder_2_clone",
+        "unit_cylinder_3",
+        "unit_cylinder_4",
+        "unit_cylinder_4_clone",
+        "x500_d435i_0"
+      ]
+    },
+    "n05_summary_diagnostic_pass": true,
+    "post_release_gate": {
+      "accepted": true,
+      "identity": {
+        "epoch": "609f5fa6f7b348e29093738c60b822b5",
+        "map_id": "609f5fa6f7b348e29093738c60b822b5-4c9ed6561c214ec4b5c050dfae1bf6ac",
+        "frame_id": "odom_609f5fa6f7b348e29093738c60b822b5",
+        "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+        "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+      },
+      "online_offline_identical": true
+    },
+    "mission_current_area_gate": {
+      "accepted": true,
+      "identity": {
+        "epoch": "609f5fa6f7b348e29093738c60b822b5",
+        "map_id": "609f5fa6f7b348e29093738c60b822b5-4c9ed6561c214ec4b5c050dfae1bf6ac",
+        "frame_id": "odom_609f5fa6f7b348e29093738c60b822b5",
+        "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+        "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+      },
+      "online_offline_identical": true,
+      "offline_matches_online": true
+    },
+    "mission_final_state": {
+      "result": "FAIL",
+      "landed_and_disarmed": true
+    },
+    "container_final_state": "Exited (0) 2 minutes ago",
+    "monitor_cleared_after_checks": true,
+    "limitation": "fixture helper fresh-DISARMED-status error remains recorded; independent readbacks establish current safe state only, not that the helper completed cleanly"
+  },
+  "cleanup": {
+    "project_stop_exit_code": 0,
+    "container_final_state": "Exited (0)",
+    "run_processes_remaining": false
+  },
+  "commands": [
+    "python3 -m unittest tools.test_preflight_scan",
+    "python3 -m json.tool config/components/simulation/preflight_scan.json",
+    "bash -n tools/run_n05_preflight_layout.sh",
+    "python3 tools/project_status.py",
+    "git diff --check",
+    "N05_KEEP_SIM=1 D435I_N08_MODE=compute_only D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_vector_cap.json bash tools/run_n05_preflight_layout.sh n08-20261024-233-isolated-negative-side-compute-01 n08_overhead_calibration n08_overhead_negative_side_view",
+    "bash tools/project.sh mission n08-20261024-233-isolated-negative-side-compute-01 config/components/navigation/n08_compute_only_short_corridor_goal.json",
+    "bash tools/project.sh stop n08-20261024-233-isolated-negative-side-compute-01"
+  ],
+  "artifact_sha256": {
+    "flight.json": "81ae388865c1d490d258ac10f6099ae41971ebb7e4f017e7feac1a95e4628d2c",
+    "preflight.json": "ef8bf8376677a1cd3142a8af41391dda84417e40af076388e456458ae48cb10b",
+    "fixture-result.json": "af2b4bff6c1f3559c3fdf7d510ae6a97a67d4feda6a84330a634dc58e4c57513",
+    "fixture-stages.json": "0206c832f87351fcd41029f285e5c7ebf2001970259326ac4b724965f8f8f6b5",
+    "fixture-trace.jsonl": "f8f2b3548bc2ad1103ab34e7b768502f5e6bba3e5837ffb83d9894117c9f552d",
+    "fixture-vins.jsonl": "154dd3aa769a6d87efb3cd87034bd483286bf6662d8570e0c19589546ec130fd",
+    "fixture-odometry.jsonl": "6bf7a17ec60206072b1d21b75e35872bb2f4488fcee41001a66966741b812fde",
+    "n05-prescan-ready.json": "389df476a98f71daf8b633fc78c42c2afe207ef00680e85658887e96dde07d98",
+    "n05-run-summary.json": "4195cad4b0777256b9f4c56dc120d4b06d7aeb917b082e523fd19f7dde8606ea",
+    "n05-after/n05-live-entry-check.json": "eceaa9d9c311d3be9b3f23aaaa90eef0de0c3f15fe444bacf096775e9bc6725e",
+    "n05-post-release/n05-live-entry-check.json": "f285f54218d3f25137e235ded7b4e8221ffdfb8dc0cd34ad56e6b55938f7bbdb",
+    "n05-post-release/n05-live-raw-map.npz": "43247c5996e17231a6e5c5f54129ebbe908070d5f6fa157083bd476c4d07832b",
+    "n05-current-area/n05-live-entry-check.json": "c29f4b56b111b72de175e6d8ff38cd68c91680470fa7f80827c5f6114b4b2d7a",
+    "n05-current-area/n05-offline-entry-replay.json": "8fa73aa6bdee78f8c9a63e82d917579c8294efdfc2ef5f2ae9715659febf535b",
+    "n08-compute-only-evaluation.json": "de97aec07e95ba7274ebda006c19bbd4432240c7d7171d58bc39b72fa162c850",
+    "n08-curve-certificate.json": "360d4dbec5bc2d664e10d0f85a1acd6a1f04647683a0de656a33313fe7b95738",
+    "n08-live-curve-map.json": "9555e7dedbd8d7159859733245641b6150d361b06e1e5238b2d642ecf7016907",
+    "n08-live-curve-map.npz": "4c4c5fd0bbf9366bc56da3eacb862303354180aae985b34355797eba762927fa",
+    "n05-monitor-resolution.json": "b3af1d9d98ffb47c0ea77ec98a4b50e301fa4bed0dc8c2f30aca0db70a2341ed",
+    "px4-boot-parameters.json": "bb06d06e13091b1289450709ccfd659fce332606c6b58379fc76cc38da728af8"
+  },
+  "source_sha256": {
+    "config/components/simulation/preflight_scan.json": "d97516e22657b09ff8d60b88833253fe658492b98bafc59c2e496d3ce930bc5e",
+    "config/components/navigation/n08_compute_only_short_corridor_goal.json": "661f944386b069db3db8181f851f958bf073dea867b46365841963f69d9ff66f",
+    "config/components/mapping/n08_low_speed_vector_cap.json": "7ceedc425bd0317abacddfb00eaa4f954a392b42a1521cc75d9779323c9271aa",
+    "tools/probe_preflight_scan.py": "b4a20b6ee03826da5f51bc1bb39039b044a72339162a5a24c3e41c4e20a4b2d7",
+    "tools/run_n05_preflight_layout.sh": "b12983948d9c14cd39036213256dac8d43d43b92fb96d001eb59e4a1c30ab291",
+    "tools/test_preflight_scan.py": "c8fd070d88faa0667fc60fe7cefcc4a04ed6dc5c215945d8281de9c7a2289703",
+    "tools/mission_runtime.sh": "2b3a1d4e8a33219e134041641a65e8489aecbb14ae84b32da14d3d5736da1639",
+    "tools/run_n08_compute_only.py": "7abef2ca41e77c24bdaf92fb344fe7ed0ecb8191cb2665f62d7cbda818df6032",
+    "tools/evaluate_n08_compute_only.py": "6accf3c978d71754e71b4faa83ea278005b60b1c33602c9d081656e21869db63",
+    "tools/evaluate_n08_curve_certificate.py": "a85c16a7eed1e59095909394362a0368ec7a41f0a1a1c1d0735f0c954d988598",
+    "tools/diagnostics/capture_n08_curve_map.py": "9464510ca16f3ea5d289fde4d58fd043660dfd68fa2620802089bce28b997d26",
+    "tools/project.sh": "43c6d0a24e0c94811334fa819a87addf9e53f2068108c44f7a9ac4d04115ef5c",
+    "src/vendor/ego_planner/planner/plan_env/include/plan_env/sphere_query.h": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809"
+  },
+  "next": "N08.2x #234: use the #233 same-map result (start body has 36 unknown, start hold 394 unknown concentrated at relative -X, goal hold 472 unknown) to test one rear-facing yaw observation with an isolated DISARMED profile. Keep scene, scan base, target, geometry and health thresholds fixed; run compute-only only after fresh N05 admission. No XY."
+}

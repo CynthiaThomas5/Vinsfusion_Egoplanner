@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 single-variable calibration after #350: set EGO max_velocity_m_s to 0.8 m/s per axis because the #350 rejected obstacle-avoidance candidate required up to 0.748 m/s on one axis. This is an EGO trajectory-planning parameter, not an external runtime speed guard; EGO/PX4 speeds remain observation-only.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.8,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "#350 used horizon=5.0 m and generated obstacle-around rebound candidates, but its 0.25 m/s-per-axis final spline feasibility check rejected them: the first candidate reached max_abs_vel_xyz=(0.354, 0.748, 0.066) m/s while max_abs_acc_xyz=(0.044, 0.120, 0.013) m/s^2. Test only the evidence-based next planner velocity value 0.8 m/s/axis (rounding the observed 0.748 m/s peak upward); preserve horizon, acceleration, inflation, spawn, target, observation-only runtime speed policy and every other gate. The rejected candidate was not executed; record actual EGO/PX4 speed independently."
+}

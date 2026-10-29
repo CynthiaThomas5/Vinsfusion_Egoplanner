@@ -1,0 +1,246 @@
+{
+  "schema": "n08-short-corridor-compute/v1",
+  "task": "N08.2u #231",
+  "run_id": "n08-20261024-231-short-corridor-compute-01",
+  "status": "compute-only and cancel/hold/land passed; same-run geometry certificate failed at start hold unknown; no XY; stop envelope unproven",
+  "scope": "fresh N05 support scan and admission, compute-only READY trajectory, cancel and bridge hold, same-identity curve/map geometry; no braking or horizontal execution",
+  "goal": {
+    "target_offset_configured_enu_m": [
+      0.1,
+      0.25,
+      0.0
+    ],
+    "target_enu_m": [
+      0.601724944288433,
+      0.03123270684511406,
+      0.974891904840865
+    ],
+    "yaw_enu_rad": 0.09525258801877348
+  },
+  "support_scan": {
+    "profile": "n08_overhead_positive_side_view",
+    "completed_stages": 19,
+    "helper_exit_code": 1,
+    "helper_error": "localization changed or became invalid during physical scan",
+    "fixture_removed": true,
+    "final_landed": true,
+    "independent_n05_diagnostic_pass": true,
+    "checks": {
+      "layout_identity_consistent": true,
+      "same_epoch_before_after": true,
+      "same_map_id_before_after": true,
+      "scan_identity_matches_after_snapshot": true,
+      "vehicle_disarmed_for_all_recorded_states": true,
+      "support_detached_and_fixture_absent": true,
+      "fixture_runner_profile_completed": true,
+      "online_and_offline_checks_identical": true,
+      "post_release_check_recorded": true,
+      "post_release_same_identity": true,
+      "post_release_pose_within_budget": true,
+      "post_release_entry_accepted": true,
+      "control_and_navigation_goal_absent": true,
+      "debug_truth_absent_from_online_inputs": true
+    },
+    "identity": {
+      "epoch_before": "c7b5560671bf4956ba382da424588479",
+      "epoch_after": "c7b5560671bf4956ba382da424588479",
+      "map_id_before": "c7b5560671bf4956ba382da424588479-74f5b337d6494269a36e6e375f9650e5",
+      "map_id_after": "c7b5560671bf4956ba382da424588479-74f5b337d6494269a36e6e375f9650e5",
+      "same_epoch": true,
+      "same_map_id": true,
+      "scan_identity_matches_after_snapshot": true
+    }
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.003967258147895,
+    "max_optimized_odom_receipt_gap_wall_s": 0.08731337799690664,
+    "guard_overrun_count": 0
+  },
+  "compute_only": {
+    "runner_result": "PASS",
+    "evaluator_passed": true,
+    "n08_exit_satisfied": false,
+    "checks": {
+      "runner_completed_successfully": true,
+      "compute_only_launch_mode": true,
+      "bridge_remapped_from_ego_output": true,
+      "one_ready_curve_for_goal_epoch": true,
+      "cancel_acknowledged": true,
+      "action_cancel_confirmed": true,
+      "bridge_remained_in_hold_after_cancel": true,
+      "no_clock_regressions": true,
+      "landed_and_disarmed": true,
+      "n05_online_offline_admission": true,
+      "unique_px4_bridge_control_publishers": true,
+      "truth_not_used_for_control": true
+    },
+    "cancel_accepted": true,
+    "bridge_hold_confirmed_after_cancel": true,
+    "landed_and_disarmed": true,
+    "clock_regressions": 0,
+    "EGO_ready_samples": 1,
+    "EGO_xy_delivered_to_px4": false,
+    "truth_used_for_control": false
+  },
+  "identity": {
+    "goal_id": "6bb27e3ccd5747e7b3182b8cded7c4fd",
+    "epoch": "c7b5560671bf4956ba382da424588479",
+    "map_id": "c7b5560671bf4956ba382da424588479-74f5b337d6494269a36e6e375f9650e5",
+    "frame_id": "odom_c7b5560671bf4956ba382da424588479",
+    "goal_map_id_matches_fresh_n05_map": true
+  },
+  "map_freshness": {
+    "snapshot_response_stamp_ns": 584676000000,
+    "last_fusion_stamp_ns": 584632000000,
+    "last_source_stamp_ns": 584532000000,
+    "fusion_age_s": 0.044,
+    "source_age_s": 0.144,
+    "limit_s": 0.4
+  },
+  "curve_certificate": {
+    "passed": false,
+    "speed_pass": true,
+    "geometry_pass": false,
+    "map_freshness_pass": true,
+    "n08_execute_authorized": false,
+    "stopping_envelope_proven": false,
+    "profile": {
+      "path": "config/components/mapping/n08_low_speed_vector_cap.json",
+      "configured_max_velocity_m_s_per_axis": 0.075,
+      "configured_max_acceleration_m_s2": 0.25,
+      "body_radius_m": 0.7306179170842027,
+      "terminal_hold_neighborhood_m": 0.25,
+      "hold_radius_m": 0.9806179170842027
+    },
+    "bspline": {
+      "order": 3,
+      "control_point_count": 11,
+      "duration_s": 5.618655692729766,
+      "start_xyz_m": [
+        0.5021187943838408,
+        -0.2174380637381599,
+        0.978008147721531
+      ],
+      "end_xyz_m": [
+        0.601724944288433,
+        0.03123270684511406,
+        0.9748919048408649
+      ],
+      "speed_bound_from_derivative_control_hull_m_s": 0.09070148801776359,
+      "dense_peak_vector_speed_m_s": 0.0903433599160455,
+      "per_axis_derivative_control_bound_m_s": [
+        0.03245507672097355,
+        0.08156664175938302,
+        0.049168640709069754
+      ],
+      "explicit_vector_speed_cap_m_s": 0.15
+    },
+    "raw_geometry": {
+      "start_body_sphere": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 2189,
+        "occupied_count": 0
+      },
+      "start_hold_sphere": {
+        "accepted": true,
+        "reason": "unknown",
+        "unknown_count": 209,
+        "free_count": 4696,
+        "occupied_count": 0
+      },
+      "end_body_sphere": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 2167,
+        "occupied_count": 0
+      },
+      "end_terminal_hold_sphere": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 4919,
+        "occupied_count": 0
+      },
+      "continuous_sweep": {
+        "queries": 21,
+        "required_queries": 21,
+        "cover_radius_m": 0.7427517368934899,
+        "first_failure": null
+      },
+      "post_goal_axis_body_spheres": [],
+      "raw_snapshot_sha256": "bcdf4250ebe8ece543101a7f2496261808fe7010fbb1185429133a141513ab37"
+    },
+    "speed_criterion_note": "evaluator currently passes only derivative-hull vector bound <=0.15 m/s; it does not assert configured per-axis 0.075 m/s. Captured y component derivative-hull bound is 0.0815666 m/s."
+  },
+  "start_hold_unknown_sector": {
+    "unknown_voxel_count": 209,
+    "relative_center_bbox_m": {
+      "min": [
+        -0.5521,
+        -0.9326,
+        -0.628
+      ],
+      "max": [
+        0.5479,
+        -0.8326,
+        0.572
+      ]
+    },
+    "relative_center_centroid_m": [
+      -0.0009,
+      -0.8694,
+      -0.0089
+    ],
+    "negative_y_count": 209,
+    "query": "same run raw snapshot and start hold query; cell-center coordinates relative to B-spline start"
+  },
+  "safety": {
+    "horizontal_xy_executed": false,
+    "response_delay_measured": false,
+    "minimum_usable_deceleration_measured": false,
+    "actual_stop_distance_measured": false,
+    "tracking_error_measured": false,
+    "execute_authorized": false,
+    "stopping_envelope_proven": false
+  },
+  "cleanup": {
+    "project_stop_exit_code": 0,
+    "container_final_state": "Exited (0)",
+    "run_processes_remaining": false
+  },
+  "commands": [
+    "N05_KEEP_SIM=1 D435I_N08_MODE=compute_only D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_vector_cap.json bash tools/run_n05_preflight_layout.sh n08-20261024-231-short-corridor-compute-01 n08_overhead_calibration n08_overhead_positive_side_view",
+    "bash tools/project.sh mission n08-20261024-231-short-corridor-compute-01 config/components/navigation/n08_compute_only_short_corridor_goal.json",
+    "bash tools/project.sh stop n08-20261024-231-short-corridor-compute-01"
+  ],
+  "artifact_sha256": {
+    "flight.json": "b9835677d81c6246d0e16ad784743f80d6ba7facb2eb126415393c94883cf004",
+    "n05-run-summary.json": "9522464ee3c0cf4b51b2eca3a7b30c5aaba38362311f926899d4505f7a04718d",
+    "preflight.json": "db708d6c625964a9d49c712c759fe0d6b108941d533144826d27e790ebf8cdf7",
+    "fixture-result.json": "11984220a1873a4866e26ea9d93978d4836ab19876905ab1550f4e7c2de37585",
+    "fixture-stages.json": "b5bc8a47699825c79dfb0c1bc7c6d3923832dddb8aeda8fdc697fd2ef8e84611",
+    "n08-compute-only-evaluation.json": "e4d9c0bfc6b312ad3bd1fac4874e57b755e1cf2389b695d931cfbc55259aefad",
+    "n08-curve-certificate.json": "f515fb8090e6a306f8849c917ef5298c1d7bd65b1082d10a556d1fab37f85217",
+    "n08-live-curve-map.json": "c86ede4f795d78c4de1b831c9124c2eef09225d6e6206cd66c24c34ed90b116e",
+    "n08-live-curve-map.npz": "bcdf4250ebe8ece543101a7f2496261808fe7010fbb1185429133a141513ab37",
+    "px4-boot-parameters.json": "bb06d06e13091b1289450709ccfd659fce332606c6b58379fc76cc38da728af8",
+    "bridge-alignment-timeline.jsonl": "2c8e89cc0ba33de2bb2b2093ffaa4721a5d1eb09219b44c1dfe20f570412656a"
+  },
+  "source_sha256": {
+    "config/components/navigation/n08_compute_only_short_corridor_goal.json": "661f944386b069db3db8181f851f958bf073dea867b46365841963f69d9ff66f",
+    "config/components/mapping/n08_low_speed_vector_cap.json": "7ceedc425bd0317abacddfb00eaa4f954a392b42a1521cc75d9779323c9271aa",
+    "config/components/simulation/preflight_scan.json": "06881dac81432115b34224d3ae89148c071aa7e7381507e7cdd305c61e64f872",
+    "config/components/simulation/n08_overhead_calibration.json": "991e16d96c1a45bb2aa56767cf519ac8d137f23b352ffaca3329c824850e54f9",
+    "tools/evaluate_n08_curve_certificate.py": "a85c16a7eed1e59095909394362a0368ec7a41f0a1a1c1d0735f0c954d988598",
+    "tools/evaluate_n08_compute_only.py": "6accf3c978d71754e71b4faa83ea278005b60b1c33602c9d081656e21869db63",
+    "tools/diagnostics/capture_n08_curve_map.py": "9464510ca16f3ea5d289fde4d58fd043660dfd68fa2620802089bce28b997d26",
+    "tools/run_n05_preflight_layout.sh": "c825f8f63bcfbb14dd49c66bfed168e8a67de64cf792945065e7fc49e17b95cf",
+    "tools/run_n08_compute_only.py": "7abef2ca41e77c24bdaf92fb344fe7ed0ecb8191cb2665f62d7cbda818df6032",
+    "tools/probe_preflight_scan.py": "fe54c6f6891f5357582392a4966099095d933664328c28d9a16caf3292c1cbf5"
+  },
+  "next": "N08.2v #232: keep scene, goal, release pose, low-speed config, and gate radii fixed; switch only N05 observation profile to n08_overhead_rear_one_side_view (yaw -pi/2 side view), then repeat the same compute-only validation. Do not execute XY; review strict per-axis velocity criterion."
+}

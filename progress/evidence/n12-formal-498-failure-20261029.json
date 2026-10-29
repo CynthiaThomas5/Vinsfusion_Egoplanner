@@ -1,0 +1,57 @@
+{
+  "schema": "n12-formal-run-evidence/v1",
+  "id": "#498",
+  "run_id": "n12-20261029-498-formal02",
+  "status": "FAIL",
+  "formal_count_eligible": false,
+  "formal_attempt_number": 2,
+  "formal_pass_count_after_run": 0,
+  "runtime_contract_sha256": "90fd8dae10da4240527998d0b513eb5ed1ace917a490bc21531732b64b63be25",
+  "protocol_sha256": "12071600445ef58fa5816fe68f3928dfeae925ac8ea4c3c7a5ffcae69da8b828",
+  "acceptance_config_sha256": "eebdb7306e7513b97ce26d5ec983d9df7bf62dbb07da4bd0d0e6d7aa1cdb3c3f",
+  "failures": [
+    "common_evaluation_failed",
+    "observed_failure:raw_vio_rpe_10s"
+  ],
+  "insufficient": [
+    "raw_vio_rpe_10s:not_pass"
+  ],
+  "metric_statuses": {
+    "arrival_position_yaw_dwell": "PASS",
+    "raw_vio_absolute_error": "PASS",
+    "raw_vio_rpe_10s": "FAIL",
+    "raw_vio_velocity_error": "PASS",
+    "map_source_and_update_age": "PASS",
+    "ego_tracking_error": "PASS",
+    "ego_tracking_clearance_budget": "PASS",
+    "full_body_clearance_and_contact": "PASS",
+    "raw_map_surface_geometry": "PASS",
+    "raw_map_classification": "PASS",
+    "dynamic_replanning": "NOT_APPLICABLE",
+    "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+    "resource_and_queue_behavior": "PASS",
+    "observer_identity_binding": "PASS",
+    "single_obstacle_route": "PASS"
+  },
+  "joint_arrival_dwell_sim_s": 4.248000000000005,
+  "goal_motion_rpe10_translation_p95_m": 0.059407373607072045,
+  "minimum_no_contact_interval_clearance_m": 0.5519960378620008,
+  "prohibited_contact_count": 0,
+  "obstacle_proof_status": "PASS",
+  "actual_crossing_world_xyz_m": [
+    0.0,
+    -1.7901614625209668,
+    1.2663694645658587
+  ],
+  "reference_crossing_world_xyz_m": [
+    0.0,
+    -1.848812613793454,
+    1.263644808194211
+  ],
+  "pre_crossing_supported_snapshots": 3,
+  "safe_terminal": true,
+  "raw_run": "artifacts/runs/n12-20261029-498-formal02",
+  "contract_report": "artifacts/reanalysis/n12-20261029-498-formal02-evaluation/n12-20261029-498-formal02/n12-scene-acceptance.json",
+  "contract_report_sha256": "ff8fc63b13afafa122adbea7f8e2fdf31c4c2cb3a410226f002b671630d6d830",
+  "next": "#499 fixed-input diagnosis; no further same-class flight before estimator/input evidence"
+}

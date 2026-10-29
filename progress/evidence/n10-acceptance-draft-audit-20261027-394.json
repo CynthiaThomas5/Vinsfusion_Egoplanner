@@ -1,0 +1,112 @@
+{
+  "schema": "n10-acceptance-draft-audit/v1",
+  "task_id": "N10.4/#394",
+  "classification": "offline draft/configuration and evaluator audit; no SITL and no formal counts",
+  "result": "DRAFT_VALIDATED_NOT_FROZEN",
+  "ran_sitl": false,
+  "acceptance_config": {
+    "path": "config/acceptance.json",
+    "sha256": "eec909ef9c97b4e390d5ec7a880fdf26a6669d9b28ae82328e52b8c7ff175d4d",
+    "schema": "uav-n10-acceptance/v1",
+    "revision": 3,
+    "status": "draft",
+    "runtime_effect": {
+      "offline_evaluator_only": true,
+      "adds_admission_cancel_or_landing_gate": false,
+      "thresholds_may_change_control_flow": false,
+      "truth_used_online": false
+    },
+    "tracking_error_candidate": {
+      "position_p95_max_m": 0.6,
+      "position_sample_max_m": 1.2
+    },
+    "tracking_error_acceptance_thresholds": null,
+    "tracking_clearance_budget": {
+      "required": true,
+      "acceptance_thresholds": null,
+      "evidence_status": "diagnostic_linked_acceptance_threshold_unresolved",
+      "formula": "minimum_command_body_clearance_any_obstacle_m - position_tracking_error_m"
+    },
+    "capture_contract": {
+      "read_only": true,
+      "may_publish_vehicle_control": false,
+      "required_sensor_streams": [
+        "stereo_left_image",
+        "stereo_right_image",
+        "camera_imu"
+      ],
+      "truth_rate_hz": 250,
+      "truth_physics_step_s": 0.004
+    }
+  },
+  "evaluator_sha256": {
+    "acceptance": "tools/debug_truth/evaluate_n10_acceptance.py",
+    "acceptance_sha256": "ff673d8543b002437b19ab2a5e9c63b67bd1ca631debbdfd02f626527bdc5b3f",
+    "tracking_clearance": "tools/debug_truth/evaluate_n10_tracking_clearance.py",
+    "tracking_clearance_sha256": "cfdc3b5477ffd965ead2a2a66190660373e1f9c370a379f1809d4221e54e3ddf"
+  },
+  "archive_replays": {
+    "381": {
+      "report_path": "artifacts/runs/n10-20261027-389-archive-reuse/acceptance-replay-381-v2.json",
+      "report_sha256": "0e96b9cefa776bebafa8dc7ee3e9ab63d7f2d6e7d17085375e2d12e424b53f04",
+      "overall_status": "FAIL",
+      "runtime_identity_matches": true,
+      "archived_source_hashes_match": true,
+      "arrival_status": "FAIL",
+      "tracking_status": "INSUFFICIENT",
+      "tracking_candidate_breaches": [
+        "tracking_p95_m"
+      ],
+      "tracking_clearance_budget_status": "INSUFFICIENT",
+      "budget_identity_matches": true,
+      "budget_inputs_match": true,
+      "negative_bound_fraction": 0.1837171052631579
+    },
+    "385": {
+      "report_path": "artifacts/runs/n10-20261027-389-archive-reuse/acceptance-replay-385-v2.json",
+      "report_sha256": "d8f0277c4ce6f0b0fbb61961337d4103c434cea1b3e6fec31ad7799417968add",
+      "overall_status": "INSUFFICIENT",
+      "runtime_identity_matches": true,
+      "archived_source_hashes_match": true,
+      "arrival_status": "PASS",
+      "tracking_status": "INSUFFICIENT",
+      "tracking_candidate_breaches": [
+        "tracking_p95_m"
+      ],
+      "tracking_clearance_budget_status": "INSUFFICIENT",
+      "budget_identity_matches": true,
+      "budget_inputs_match": true,
+      "negative_bound_fraction": 0.17989607597204801
+    }
+  },
+  "run_391_partial_replay": {
+    "report_path": "artifacts/runs/n10-20261027-389-archive-reuse/acceptance-diagnostic-row-391-v3.json",
+    "report_sha256": "c26917a16f3a710b28857d01fa6a4ccaa561b223924de77e0ce23b6e16846848",
+    "classification": "partial offline replay of #391 tracking budget, clearance/contact and fault-terminal rows; missing aggregate calibration segments are not imputed and this is not a full acceptance report",
+    "overall_status": "FAIL",
+    "tracking_budget_status": "INSUFFICIENT",
+    "tracking_budget_identity_matches": true,
+    "tracking_budget_inputs_match": true,
+    "negative_bound_fraction": 0.2109456182888812,
+    "clearance_contact_status": "FAIL",
+    "observed_prohibited_contacts": 86.0,
+    "fault_terminal_status": "FAIL",
+    "fault_reason": "planner_fault:full_curve_depth_odom_timeout",
+    "emergency_closeout_used": true
+  },
+  "tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tools.test_n10_acceptance tools.test_n10_clearance",
+    "result": "26 tests passed",
+    "syntax_command": "PYTHONPYCACHEPREFIX=/tmp/codex-pycache-n10 python3 -m py_compile tools/debug_truth/evaluate_n10_acceptance.py tools/debug_truth/evaluate_n10_tracking_clearance.py tools/test_n10_acceptance.py tools/test_n10_clearance.py",
+    "syntax_result": "passed",
+    "config_json_result": "passed"
+  },
+  "decisions": [
+    "Acceptance remains draft revision 3. The 0.60 m tracking P95 and 1.20 m sample maximum remain diagnostic candidates; tracking and pointwise clearance-budget statuses are INSUFFICIENT because no geometry-backed acceptance threshold is justified.",
+    "Every acceptance item remains offline-only. Recorder, CPU, queue, or candidate values cannot alter takeoff, cancellation, pause, landing or disarm.",
+    "Identity-bound v2 tracking reports are accepted as diagnostics only; the evaluator verifies runtime contract, goal/epoch/map identity, and source hashes. Missing/old schema/wrong identity is INSUFFICIENT.",
+    "Identity mismatch no longer downgrades an independently observed direct goal or safety FAIL. The runtime_identity metric still reports INSUFFICIENT.",
+    "N10.4 draft validation does not freeze N10.3 thresholds or qualify #381/#385/#391. The next work is integrated capture implementation/protocol and runtime identity preparation."
+  ],
+  "no_runtime_gate_added": true
+}

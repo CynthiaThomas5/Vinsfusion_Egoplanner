@@ -1,0 +1,291 @@
+{
+  "schema": "n10-diagnostic-run-result/v1",
+  "run_id": "n10-20261026-357-upstream-spline-speed080-health-bypass-16m",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "classification": "complete_diagnostic_flight_and_observation; formal_health_qualification_not_granted",
+  "formal_qualification": false,
+  "flight_result": "PASS",
+  "action_goal_sent": true,
+  "action_result": {
+    "final_position": [
+      15.965367720007766,
+      -0.010042176781623918,
+      0.9777588445179187
+    ],
+    "outcome": "succeeded",
+    "reason": "position_yaw_tolerance_held",
+    "status": 4,
+    "success": true
+  },
+  "arrival": {
+    "minimum_true_3d_position_error_m": 0.04400797733485224,
+    "max_contiguous_true_goal_dwell_wall_s": 3.1603294359520078,
+    "required_dwell_wall_s": 3.0,
+    "independent_goal_dwell_passed": true,
+    "native_action_success": true,
+    "landed_and_disarmed": true
+  },
+  "hold": {
+    "abort_reason": null,
+    "bridge_status_at_end": {
+      "armed": true,
+      "landed": false,
+      "phase": "ACTIVE",
+      "reason": "takeoff_complete_waiting_for_trajectory"
+    },
+    "clock_stall_watchdog_s": 15.0,
+    "completed": true,
+    "end_odometry_position_enu_m": [
+      15.960683309167266,
+      -0.004039337326601033,
+      0.9794208830751172
+    ],
+    "observed_sim_s": 600.0,
+    "realtime_factor_sim_over_wall": 0.7633346485631398,
+    "requested_sim_s": 600.0,
+    "start_odometry_position_enu_m": [
+      15.965367720007766,
+      -0.010042176781623918,
+      0.9777588445179187
+    ],
+    "wall_elapsed_s": 786.0248465458862,
+    "wall_watchdog_s": 2400.0
+  },
+  "localization_health_diagnostic": {
+    "bypass_requested": true,
+    "bypass_observed_in_status": true,
+    "status_samples_with_bypass": 17596,
+    "localization_status_samples": 17596,
+    "bypassed_policy_reasons": [
+      "normalized_cost_exceeded",
+      "vins_initializing",
+      "waiting_for_clock",
+      "waiting_for_left",
+      "waiting_for_optimized",
+      "waiting_for_propagated",
+      "waiting_for_right",
+      "waiting_for_telemetry"
+    ],
+    "normalized_cost_limit_original_provisional": 1.0,
+    "normalized_cost_sample_count": 10181,
+    "normalized_cost_max_observed": 2.615208729373379,
+    "normalized_cost_p95_observed": 1.8582271258792495,
+    "first_sample_above_original_limit": {
+      "wall_elapsed_s": 53.61942994501442,
+      "stamp_ns": 104152000000,
+      "normalized_cost": 1.0038785359627482,
+      "final_cost": 1641.660775280772,
+      "residual_components": 3258,
+      "input_features": 180,
+      "stereo_features": 130,
+      "long_tracks": 74,
+      "solve_seconds": 0.013592004776000977
+    }
+  },
+  "speed_observation": {
+    "configured_max_velocity_per_axis_m_s": 0.8,
+    "configured_max_acceleration_per_axis_m_s2": 0.25,
+    "ego_position_command_reference": 0.7113762294227639,
+    "px4_vehicle_local_position": 0.6358213753331258
+  },
+  "raw_vio": {
+    "duration_sim_s": 667.888,
+    "paired_truth_path_length_m_including_takeoff_and_landing": 24.544196576840182,
+    "position_error_m": {
+      "count": 10120,
+      "rmse": 0.34616435036224846,
+      "median": 0.3110623271780868,
+      "p95": 0.49712036160662004,
+      "max": 0.5135393196491119
+    },
+    "absolute_yaw_error_deg": {
+      "count": 10120,
+      "rmse": 5.67098686846249,
+      "median": 4.755896618789777,
+      "p95": 8.692140204143332,
+      "max": 8.763171350728499
+    },
+    "bounded_time_support_fraction": 0.999946098745598,
+    "raw_max_gap_sim_s": 0.068000001,
+    "truth_max_gap_sim_s": 0.02,
+    "invalid_localization_status_samples": 0
+  },
+  "tracking": {
+    "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+    "candidate_max_error_m_not_enforced_by_runner": 0.15,
+    "matching_ready_commands": 84567,
+    "paired_commands": 84567,
+    "error_m": {
+      "median": 0.3771230154891632,
+      "p95": 0.5205761026931662,
+      "max": 1.0992451351776957,
+      "mean": 0.36039641083162016
+    },
+    "max_truth_interpolation_gap_s": 0.02
+  },
+  "map_source_timing": {
+    "source_timeline_requested_wall_s": 1500.0,
+    "source_timeline_stop_reason": "flight_report_written",
+    "source_timeline_clock_regression_events": 0,
+    "map_samples_goal_to_landed": 3693,
+    "map_source_age_max_sim_s_goal_to_landed": 0.164,
+    "occupancy_age_max_sim_s_goal_to_landed": 0.1,
+    "candidate_map_age_limit_sim_s_not_a_final_standard": 0.4,
+    "decimated_stream_max_receipt_gaps_wall_s": {
+      "localization_status": 0.172753704999991,
+      "adapter_optimized": 0.24002447800000004,
+      "map_status": 0.25913185000001704,
+      "clock": 0.332151913
+    },
+    "decimation_note": "The source recorder samples streams at 0.1 wall-second cadence; its gap summary is not used as an exact callback receipt-age measurement."
+  },
+  "task_metrics": {
+    "target_world_imu_xyz_m": [
+      8.080460398090192,
+      -0.006230668181913443,
+      1.0448004285794243
+    ],
+    "goal_minimum_true_position_error_m": 0.04400797733485224,
+    "max_true_contiguous_dwell_wall_s": 3.1603294359520078,
+    "independent_arrival_passed": true,
+    "native_action_success": true,
+    "failure": null,
+    "goal_elapsed_sim_s": 40.444,
+    "goal_elapsed_wall_s": 53.36133325309493,
+    "goal_clock_regressions": 0,
+    "max_forward_world_x_progress_from_goal_start_m": 15.98491802427342,
+    "observed_goal_motion_path_length_m": 23.6128168396992,
+    "post_goal_active_hold": {
+      "abort_reason": null,
+      "bridge_status_at_end": {
+        "armed": true,
+        "landed": false,
+        "phase": "ACTIVE",
+        "reason": "takeoff_complete_waiting_for_trajectory"
+      },
+      "clock_stall_watchdog_s": 15.0,
+      "completed": true,
+      "end_odometry_position_enu_m": [
+        15.960683309167266,
+        -0.004039337326601033,
+        0.9794208830751172
+      ],
+      "observed_sim_s": 600.0,
+      "realtime_factor_sim_over_wall": 0.7633346485631398,
+      "requested_sim_s": 600.0,
+      "start_odometry_position_enu_m": [
+        15.965367720007766,
+        -0.010042176781623918,
+        0.9777588445179187
+      ],
+      "wall_elapsed_s": 786.0248465458862,
+      "wall_watchdog_s": 2400.0
+    }
+  },
+  "contact_evaluation": {
+    "passed": true,
+    "sensor_topics_ready": true,
+    "ground_contact_event_count": 15402,
+    "prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": true,
+    "first_prohibited_contact": null
+  },
+  "observer_completion": {
+    "debug-truth-evaluation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 889.4667225580197
+    },
+    "alignment-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 889.1925836119335
+    },
+    "planner-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 889.3138367719948
+    },
+    "bridge-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 889.2571431649849
+    },
+    "n09-contact-observation.json": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 889.392764098011
+    }
+  },
+  "raw_odometry_summary": {
+    "position_error_m": {
+      "count": 10120,
+      "rmse": 0.34616435036224846,
+      "median": 0.3110623271780868,
+      "p95": 0.49712036160662004,
+      "max": 0.5135393196491119
+    },
+    "absolute_yaw_error_deg": {
+      "count": 10120,
+      "rmse": 5.67098686846249,
+      "median": 4.755896618789777,
+      "p95": 8.692140204143332,
+      "max": 8.763171350728499
+    },
+    "coverage": {
+      "raw_samples_in_interval": 10120,
+      "paired_samples": 10120,
+      "paired_raw_fraction": 1.0,
+      "truth_grid_samples": 33395,
+      "supported_truth_grid_samples": 33393,
+      "truth_grid_support_fraction": 0.9999401107950292,
+      "bounded_time_support_fraction": 0.999946098745598,
+      "truth_max_gap_sim_s": 0.02,
+      "raw_max_gap_sim_s": 0.068000001,
+      "paired_max_gap_sim_s": 0.068000001,
+      "start_uncovered_sim_s": 0.036,
+      "end_uncovered_sim_s": 1e-09,
+      "truth_interpolation_limit_sim_s": 0.04,
+      "odometry_support_limit_sim_s": 0.2,
+      "note": "Reporting limits only; no extrapolation, timestamp repair or health gate changes.",
+      "rejected_samples": []
+    },
+    "invalid_localization_status_samples": 0,
+    "landed_and_disarmed": true
+  },
+  "safe_terminal_readback": {
+    "safe_to_stop_project_container": true,
+    "phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "container_status": "exited 0"
+  },
+  "analyzer_staging": "Copied before preflight and SHA-256 checked against frozen #357 protocol.",
+  "braking_measurement": "No caller-cancel braking in this run; use N08 only as a lower-speed comparison, not as a 0.636 m/s calibration.",
+  "conclusions": [
+    "A fresh independent run completed the same 16 m route and 600 simulated-second ACTIVE hold; #356 planner collision failure did not repeat.",
+    "The 1.0 normalized-cost policy was exceeded (max 2.615) while the run-scoped bypass was observed and the action continued. This is not formal health qualification.",
+    "Observed EGO-to-truth tracking p95 is 0.521 m and max is 1.099 m; the existing 0.15 m candidate is unsupported for this speed/profile and cannot be frozen.",
+    "Raw VIO position p95 is 0.497 m and yaw p95 is 8.692 degrees over the full PRESTREAM-to-LANDED window; absolute limits and RPE/velocity budget need interpretation against the mission contract.",
+    "Contact evaluation had zero prohibited events with landing contact observed; this does not quantify minimum clearance.",
+    "Map source and occupancy ages peaked at 0.164 s and 0.100 s; the 0.4 s value remains only a candidate pending rationale.",
+    "No braking measurement was made at the observed 0.636 m/s PX4 peak speed."
+  ],
+  "artifacts_dir": "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m",
+  "evidence_files": [
+    "flight.json",
+    "arrival-evaluation.json",
+    "n10-calibration-evaluation.json",
+    "odometry-evaluation.json",
+    "vehicle-contact-evaluation.json",
+    "postflight-px4-bridge-readback.json",
+    "safe-to-stop.json",
+    "planner-observation.json",
+    "alignment-observation.json",
+    "debug-truth-evaluation.json"
+  ]
+}

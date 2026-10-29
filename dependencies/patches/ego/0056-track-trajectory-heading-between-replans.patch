@@ -1,0 +1,74 @@
+--- a/planner/plan_manage/src/traj_server.cpp
++++ b/planner/plan_manage/src/traj_server.cpp
+@@ -124,7 +124,8 @@
+               active_goal_id_.c_str(), active_epoch_.c_str(), msg->reason.c_str());
+ }
+ 
+-std::pair<double, double> calculate_yaw(double t_cur, Eigen::Vector3d &pos, rclcpp::Time &time_now, rclcpp::Time &time_last)
++std::pair<double, double> calculate_yaw(double t_cur, Eigen::Vector3d &pos,
++                                        rclcpp::Time &time_now, rclcpp::Time &time_last)
+ {
+   constexpr double PI = 3.1415926;
+   constexpr double YAW_DOT_MAX_PER_SEC = PI;
+@@ -133,9 +134,20 @@
+   double yaw = 0;
+   double yawdot = 0;
+ 
++  const double dt = (time_now - time_last).seconds();
++  if (!std::isfinite(dt) || dt <= 0.0)
++  {
++    // A wall-timer callback can observe the same simulation timestamp twice.
++    // A finite difference is undefined until the source clock advances again.
++    last_yaw_dot_ = 0.0;
++    yaw_yawdot.first = last_yaw_;
++    yaw_yawdot.second = last_yaw_dot_;
++    return yaw_yawdot;
++  }
++
+   Eigen::Vector3d dir = t_cur + time_forward_ <= traj_duration_ ? traj_[0].evaluateDeBoorT(t_cur + time_forward_) - pos : traj_[0].evaluateDeBoorT(traj_duration_) - pos;
+   double yaw_temp = dir.norm() > 0.1 ? atan2(dir(1), dir(0)) : last_yaw_;
+-  double max_yaw_change = YAW_DOT_MAX_PER_SEC * (time_now - time_last).seconds();
++  double max_yaw_change = YAW_DOT_MAX_PER_SEC * dt;
+   if (yaw_temp - last_yaw_ > PI)
+   {
+     if (yaw_temp - last_yaw_ - 2 * PI < -max_yaw_change)
+@@ -152,7 +164,7 @@
+       if (yaw - last_yaw_ > PI)
+         yawdot = -YAW_DOT_MAX_PER_SEC;
+       else
+-        yawdot = (yaw_temp - last_yaw_) / (time_now - time_last).seconds();
++      yawdot = (yaw_temp - last_yaw_) / dt;
+     }
+   }
+   else if (yaw_temp - last_yaw_ < -PI)
+@@ -171,7 +183,7 @@
+       if (yaw - last_yaw_ < -PI)
+         yawdot = YAW_DOT_MAX_PER_SEC;
+       else
+-        yawdot = (yaw_temp - last_yaw_) / (time_now - time_last).seconds();
++      yawdot = (yaw_temp - last_yaw_) / dt;
+     }
+   }
+   else
+@@ -200,7 +212,7 @@
+       else if (yaw - last_yaw_ < -PI)
+         yawdot = YAW_DOT_MAX_PER_SEC;
+       else
+-        yawdot = (yaw_temp - last_yaw_) / (time_now - time_last).seconds();
++        yawdot = (yaw_temp - last_yaw_) / dt;
+     }
+   }
+ 
+@@ -238,7 +250,11 @@
+ 
+     /*** calculate yaw ***/
+     yaw_yawdot = calculate_yaw(t_cur, pos, time_now, time_last);
+-    if (has_task_yaw_)
++    const double terminal_yaw_window = has_task_yaw_
++                                           ? 3.0 * task_yaw_traj_.getInterval()
++                                           : 0.0;
++    if (has_task_yaw_ &&
++        traj_duration_ - t_cur <= terminal_yaw_window)
+     {
+       yaw_yawdot.first = task_yaw_traj_.evaluateDeBoorT(t_cur)(0);
+       yaw_yawdot.second = task_yaw_rate_traj_.evaluateDeBoorT(t_cur)(0);

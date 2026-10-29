@@ -37,9 +37,6 @@ class FreshnessProbe(Node):
         self.started = time.monotonic()
         self.started_wall_epoch_s = time.time()
         self.session = session
-        policy = json.loads((Path(project_root) / 'config/components/localization/health.json').read_text())
-        self.max_source_age_s = policy['max_source_age_s']['propagated']
-        self.max_receipt_age_s = policy['max_receipt_age_s']['propagated']
         self.clock_count = 0
         self.clock_first = None
         self.clock_latest = None
@@ -186,15 +183,12 @@ class FreshnessProbe(Node):
                 round(receipt_age_s * rate, 6)
                 if receipt_age_s is not None and rate is not None else None),
             'estimated_clock_rate': round(rate, 4) if rate is not None else None,
-            'source_age_limit_s': self.max_source_age_s,
-            'receipt_age_limit_clock_s': self.max_receipt_age_s,
+            'source_age_runtime_limit_s': None,
+            'receipt_age_runtime_limit_clock_s': None,
         }
         if msg.reason == 'propagated_stale':
             row['probe_guard_estimate'] = {
-                'source_age_exceeded': (raw_source_age_s is not None
-                                        and raw_source_age_s > self.max_source_age_s),
-                'receipt_age_exceeded': (receipt_age_s is not None and rate is not None
-                                         and receipt_age_s * rate > self.max_receipt_age_s),
+                'runtime_policy': 'legacy status observed; no current adapter age gate',
                 'note': 'Probe subscriber timing is an estimate; the adapter may receive DDS samples at a different instant.'
             }
         self.status_history.append(row)
@@ -245,10 +239,7 @@ class FreshnessProbe(Node):
                 'last_stamp_ns': self.clock_latest[0] if self.clock_latest else None,
                 'estimated_rate': round(self.clock_rate(), 4) if self.clock_rate() is not None else None,
             },
-            'propagated_freshness_guard': {
-                'max_source_age_s': self.max_source_age_s,
-                'max_receipt_age_clock_s': self.max_receipt_age_s,
-            },
+            'propagated_freshness_policy': 'observation_only; adapter source/receipt-age gate removed',
             'raw_streams': stream_summary,
             'adapter_output': self.adapter_output,
             'optimized_adapter_output': self.optimized_adapter_output,

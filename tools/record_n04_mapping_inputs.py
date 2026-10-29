@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+import signal
 import struct
 import time
 
@@ -255,11 +256,17 @@ def main():
     if args.output_dir.exists():
         raise FileExistsError(args.output_dir)
     rclpy.init()
+    stop_requested = False
+    def request_stop(_signum, _frame):
+        nonlocal stop_requested
+        stop_requested = True
+    signal.signal(signal.SIGINT, request_stop)
+    signal.signal(signal.SIGTERM, request_stop)
     node = InputRecorder(args.depth_topic, args.pose_topic, args.seconds,
                          args.pixel_stride, args.margin_px)
     deadline = time.monotonic()+args.seconds
     try:
-        while rclpy.ok() and time.monotonic() < deadline:
+        while rclpy.ok() and not stop_requested and time.monotonic() < deadline:
             rclpy.spin_once(node, timeout_sec=min(0.1, max(0.0, deadline-time.monotonic())))
     finally:
         report = node.save(args.output_dir)

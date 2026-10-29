@@ -1,0 +1,79 @@
+{
+  "schema": "n08-support-profile-static-evidence/v1",
+  "subtask": "N08.319",
+  "profile": "n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_segmented_neutral_descent",
+  "hypothesis": "Two-second pauses after 0.1 m neutral-pitch descent increments allow localization cost to settle; movement time per increment preserves the corresponding #312 descent rate.",
+  "changed_variable": "insert a 2 s stationary dwell after each 0.1 m vertical step",
+  "thresholds_changed": false,
+  "stages": 35,
+  "duration_sim_s": 482.0,
+  "max_wall_s": 750,
+  "first_14_stages_identical_to": "n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_slow_descent",
+  "descent_steps": [
+    {
+      "z_m": 0.9,
+      "duration_sim_s": 2.4
+    },
+    {
+      "z_m": 0.8,
+      "duration_sim_s": 2.4
+    },
+    {
+      "z_m": 0.7,
+      "duration_sim_s": 2.4
+    },
+    {
+      "z_m": 0.6,
+      "duration_sim_s": 2.4
+    },
+    {
+      "z_m": 0.5,
+      "duration_sim_s": 2.4
+    },
+    {
+      "z_m": 0.4,
+      "duration_sim_s": 1.4
+    },
+    {
+      "z_m": 0.3,
+      "duration_sim_s": 1.4
+    },
+    {
+      "z_m": 0.2,
+      "duration_sim_s": 1.4
+    },
+    {
+      "z_m": 0.1,
+      "duration_sim_s": 1.4
+    },
+    {
+      "z_m": 0.0,
+      "duration_sim_s": 1.4
+    }
+  ],
+  "dwell_s": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "checks": {
+    "preflight_scan_unit_tests": "50 passed",
+    "project_status": "Structure/design PASS",
+    "shell_syntax": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "runtime": "pending",
+  "sha256": {
+    "config/components/simulation/preflight_scan.json": "42d8b1acd47746a327e7fb05d19674c4c5fcc6c90b7e1a7816cd97c06f18744b",
+    "tools/probe_preflight_scan.py": "c7badaedbc991505da82a00ec43449657da22546e70043a9d9ecadc263322321",
+    "tools/run_n05_preflight_layout.sh": "aa5568ccde62494d9aa77d7d6c7fb61e974fce10b5601c86528c72e2ebc5c76a",
+    "tools/test_preflight_scan.py": "7918d4d0dc7a06ffa7068c01a7e9f0f28132d9311cc9789aec3097973de4f63c"
+  }
+}

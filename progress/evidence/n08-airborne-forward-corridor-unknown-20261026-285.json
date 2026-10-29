@@ -1,0 +1,60 @@
+{
+  "schema": "n08-airborne-forward-corridor-diagnostic/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-285",
+  "run_result": "FAIL",
+  "action_goal_sent": false,
+  "motion_or_braking_measurement": false,
+  "n05_prescan_and_current_area_admission": "PASS",
+  "pre_enable_full_symmetric_corridor": "PASS",
+  "airborne_map": {
+    "epoch": "6bb42462b375466cba4f99201ff547c9",
+    "map_id": "6bb42462b375466cba4f99201ff547c9-f775122458d94714a8a067eecd60d129",
+    "source_age_s": 0.168,
+    "fusion_age_s": 0.068,
+    "sha256": "c908c3dcbaf35be19b4b762b3117f48728b1fea7ec2415004616af09860f2b8d"
+  },
+  "original_airborne_gate": {
+    "passed": false,
+    "reason": "unknown",
+    "unknown_count": 32,
+    "occupied_count": 0,
+    "body_radius_m": 0.7306179170842027,
+    "tracking_margin_m": 0.25,
+    "cover_radius_m": 0.9931179170842026,
+    "rear_unknown_voxel_bounds_xyz_m": [
+      [-1.1, -0.3, 0.6],
+      [-1.0, 0.3, 1.2]
+    ],
+    "nearest_unknown_distance_from_first_query_m": 0.9567647653507538
+  },
+  "offline_directional_replay": {
+    "artifact": "artifacts/runs/n08-cancel-translation-prescan-20261026-285/n08-airborne-forward-corridor-offline-replay.json",
+    "passed": true,
+    "query_count": 25,
+    "unknown_count": 0,
+    "occupied_count": 0,
+    "body_radius_m": 0.7306179170842027,
+    "tracking_margin_m": 0.25,
+    "maximum_tracking_error_m": 0.15,
+    "reference_tube_m": 0.05,
+    "forward_lookahead_m": 0.075,
+    "reachable_center_bound_m": 0.2401387818865997,
+    "available_center_bound_m": 0.2625,
+    "geometric_slack_m": 0.022361218113400305,
+    "start_hold_slack_m": 0.025,
+    "terminal_symmetric_hold": "PASS",
+    "offline_destination_landing_candidate": "PASS_NOT_RUNTIME_EVIDENCE"
+  },
+  "final_safety_readback": {
+    "bridge_phase": "LANDED",
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "px4_arming_state": 1,
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "project_trial_container_stopped": true
+  },
+  "qualification": "Diagnostic and offline geometry replay only; does not satisfy any N08 flight or braking exit.",
+  "scope": "Ordinary one-way forward single-goal only. Explicit return remains a separate command and is not part of this trial."
+}

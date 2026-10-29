@@ -1,0 +1,87 @@
+{
+  "schema": "n08-negative-side-scan-localization-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-301",
+  "status": "support_scan_stopped_by_localization_health_gate_no_post_release_gate_no_flight",
+  "layout_id": "n08_overhead_calibration",
+  "profile": "n08_overhead_negative_side_view",
+  "scan": {
+    "completed_stages": 7,
+    "expected_stages": 16,
+    "wall_duration_s": 345.91681619314477,
+    "outcome": "failed",
+    "error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 3,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.0587384957912054
+    },
+    "threshold_normalized_cost": 1.0
+  },
+  "fixture": {
+    "removed": true,
+    "absent_confirmed": true,
+    "verified_detached": true,
+    "verified_landed": true,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ]
+  },
+  "pre_scan_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "epoch": "8b90b7bbdb9749cd9cc8c351a2eb8914",
+    "map_id": "8b90b7bbdb9749cd9cc8c351a2eb8914-29232a2adbe94748b2afef3ca6d9c3d8"
+  },
+  "post_scan_gate_run": false,
+  "side_view_reached": false,
+  "flight_started": false,
+  "post_scan_safety": {
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "control_counts": {
+      "control_mode": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0
+    },
+    "bridge": {
+      "alignment_drift_m": 0.0,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "8b90b7bbdb9749cd9cc8c351a2eb8914",
+      "ev_position_fused": false,
+      "ev_yaw_fused": false,
+      "frame_offset_ned": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "frame_yaw_offset_ned": 0.0,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": false,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "localization_not_tracking"
+    },
+    "px4_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 4,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": true
+    },
+    "project_container_exit": "0"
+  },
+  "source_hashes": {
+    "fixture-result.json": "fed6f44e2811968b94594439194a4304f04d4613b6ca40ccc4f45ff732d21591",
+    "n05-before/n05-live-entry-check.json": "9c2506cc72c82b7efb5a5f988d1c32d46040172d67236f902f6745615b1a4c80",
+    "post-scan-independent-live-readback.json": "4c823b238bfa8a1f537eb3e458cffb6f725c33de9bbac72ba34ed8422fe0f307"
+  },
+  "debug_truth_used": false,
+  "goal_or_control_published": false
+}

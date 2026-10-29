@@ -1,0 +1,184 @@
+{
+  "schema": "n06-active-obstacle-and-hold-refusal/v1",
+  "task_id": "N06.2.2",
+  "parent_goal": "N06",
+  "execution_mode": "goal_completion",
+  "result": "subtask_passed_with_unknown_active_sweep; parent_goal_in_progress",
+  "scope": "Isolated actual EGO/plan_env component using synthetic depth; no Gazebo, VINS, world truth, PX4, bridge, controller, traj_server, or flight.",
+  "runtime": {
+    "container": "d435i-n06-safety-111",
+    "ros_domain_id": 98,
+    "container_cleanup": "--rm; no matching container or planner process remained",
+    "initial_bootstrap_attempt": "Exited before probe because ROS setup used an unset AMENT_TRACE_SETUP_FILES under set -u; reran with set -e (no nounset) and both probes passed."
+  },
+  "probe_source_sha256": "874428376965ca0df31c6df593c0048901a59710b72a599a8bd9f821ca01ab91",
+  "active_obstacle_case": {
+    "passed": true,
+    "raw_query_results": [
+      {
+        "label": "free_body",
+        "reason": "free",
+        "accepted": true,
+        "free": true,
+        "counts": [
+          792,
+          0,
+          0
+        ]
+      },
+      {
+        "label": "occupied_return",
+        "reason": "occupied",
+        "accepted": true,
+        "free": false,
+        "counts": [
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "label": "unknown_behind",
+        "reason": "unknown",
+        "accepted": true,
+        "free": false,
+        "counts": [
+          0,
+          792,
+          0
+        ]
+      },
+      {
+        "label": "outside",
+        "reason": "outside_map",
+        "accepted": false,
+        "free": false,
+        "counts": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "faults": [
+      {
+        "goal_id": "d46c05586f604bbfadfc251aefdaa396",
+        "epoch": "d4927e2909ea45839396f618aa07a298",
+        "reason": "full_curve_map_id_mismatch"
+      },
+      {
+        "goal_id": "7891eb10fb2944229b9b15088b0da97f",
+        "epoch": "d4927e2909ea45839396f618aa07a298",
+        "reason": "full_curve_unknown"
+      },
+      {
+        "goal_id": "eab95734bdac44f0af44169dfb9fdf36",
+        "epoch": "d4927e2909ea45839396f618aa07a298",
+        "reason": "full_curve_planning_failed"
+      }
+    ],
+    "certified_curves": 1,
+    "late_curves_after_fault": 0,
+    "certificate_metrics": [
+      "[ego_planner_node-1] [INFO] [1792740124.642573963] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.000 reason=map_id_mismatch map_id=wrong-map-id",
+      "[ego_planner_node-1] [INFO] [1792740124.672695454] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.513 reason=free map_id=d4927e2909ea45839396f618aa07a298-synthetic-wall"
+    ],
+    "interpretation": "After the depth surface changed during the active curve, EGO failed closed with full_curve_unknown before a known occupied curve sample was certified; a subsequent goal failed planning. This is an active map-loss refusal, not a claim that this particular injection was classified occupied."
+  },
+  "completed_curve_hold_case": {
+    "passed": true,
+    "raw_query_results": [
+      {
+        "label": "free_body",
+        "reason": "free",
+        "accepted": true,
+        "free": true,
+        "counts": [
+          792,
+          0,
+          0
+        ]
+      },
+      {
+        "label": "occupied_return",
+        "reason": "occupied",
+        "accepted": true,
+        "free": false,
+        "counts": [
+          0,
+          0,
+          4
+        ]
+      },
+      {
+        "label": "unknown_behind",
+        "reason": "unknown",
+        "accepted": true,
+        "free": false,
+        "counts": [
+          0,
+          792,
+          0
+        ]
+      },
+      {
+        "label": "outside",
+        "reason": "outside_map",
+        "accepted": false,
+        "free": false,
+        "counts": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "faults": [
+      {
+        "goal_id": "e58ffb6e271b4ffdbd57b865502e8596",
+        "epoch": "eeaa36dc47f548149f69b6f125cc4ac7",
+        "reason": "full_curve_map_id_mismatch"
+      },
+      {
+        "goal_id": "574ab3eb037e4955aace0a8c4ff88924",
+        "epoch": "eeaa36dc47f548149f69b6f125cc4ac7",
+        "reason": "full_curve_terminal_hold_occupied"
+      },
+      {
+        "goal_id": "b0baf54aee524d8b84db7b6f06fa6cde",
+        "epoch": "eeaa36dc47f548149f69b6f125cc4ac7",
+        "reason": "full_curve_terminal_hold_occupied"
+      }
+    ],
+    "certified_curves": 1,
+    "late_curves_after_fault": 0,
+    "certificate_metrics": [
+      "[ego_planner_node-1] [INFO] [1792740127.983895638] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.000 reason=map_id_mismatch map_id=wrong-map-id",
+      "[ego_planner_node-1] [INFO] [1792740128.016206540] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.463 reason=free map_id=eeaa36dc47f548149f69b6f125cc4ac7-synthetic-wall",
+      "[ego_planner_node-1] [INFO] [1792740131.357705932] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.450 reason=terminal_hold_occupied map_id=eeaa36dc47f548149f69b6f125cc4ac7-synthetic-wall"
+    ],
+    "expected_terminal_hold_reason": "full_curve_terminal_hold_occupied"
+  },
+  "cross_checks": {
+    "wrong_map_rejected_in_both_runs": "full_curve_map_id_mismatch; metrics queries=0",
+    "raw_free_occupied_unknown_outside_query_classification": "PASS",
+    "bounded_raw_sphere_and_sweep_unit_tests": "PASS in #108 project.sh test",
+    "navigation_adapter_identity_stale_timeout_late_reply_and_pending_cancel": "PASS in #108 navigation-adapter integration",
+    "prior_known_occupied_active_curve_injection": "PASS in progress/evidence/n06-full-curve-layout-review-20261023.json and progress/changes/2026-10-23-093-n06-full-envelope-sweep.md; retained as prior evidence because current run stopped on unknown first"
+  },
+  "artifacts": {
+    "active_result": "artifacts/runs/n06-20261023-safety-111/active-obstacle/result.json",
+    "active_result_sha256": "d68777590cc0e3ecce9b992e6de1ed98f49c5c309564c9e7a7b57dc49c36234e",
+    "active_planner_log": "artifacts/runs/n06-20261023-safety-111/active-obstacle/planner.log",
+    "active_planner_log_sha256": "a9989e7c9e26930a44bcb136ce0b88776c8634e1d8d6fb7f65fde6fa2691156a",
+    "completed_hold_result": "artifacts/runs/n06-20261023-safety-111/completed-hold/result.json",
+    "completed_hold_result_sha256": "35b02a35b3c5e870f3877430d5e2dd7ebdc96ffefdf42235b7169e2c063f351e",
+    "completed_hold_planner_log": "artifacts/runs/n06-20261023-safety-111/completed-hold/planner.log",
+    "completed_hold_planner_log_sha256": "e89f1ad122951a1467b0e17255acb1149575a1bf5791867a7f1b3f08c9381b15"
+  },
+  "unresolved": [
+    "Active injected surface caused full_curve_unknown in this run rather than full_curve_occupied; the previous #093 known-occupied injection remains the direct occupied-path evidence.",
+    "Actual-layout replanning/handoff, remaining wrong-identity/stale/query/resource cases across the combined runtime, and N06 emergency-stop behavior remain open."
+  ],
+  "next_subtask": "N06.2.3: exercise a second goal/replanning handoff on the current actual-layout mapping path, then finish the remaining identity, freshness, query-failure and resource refusal checks."
+}

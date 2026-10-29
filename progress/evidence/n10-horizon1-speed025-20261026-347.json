@@ -1,0 +1,73 @@
+{
+  "experiment_id": "#347",
+  "result": "FAIL",
+  "failure": "runtime_vector_speed_guard_tripped:vector_speed_exceeded",
+  "goal_elapsed_sim_s": 1.284,
+  "speed_guard_trip": {
+    "limit_m_s": 0.12,
+    "reason": "vector_speed_exceeded",
+    "sim_time_ns": 84492000000,
+    "source": "ego_position_command_reference",
+    "timestamp": 84492000000,
+    "tolerance_m_s": 1e-06,
+    "vector_speed_m_s": 0.12035341458637605,
+    "velocity_m_s": [
+      0.09157859631156468,
+      0.011791342439918405,
+      0.07719630395082504
+    ],
+    "wall_elapsed_s": 32.545315260998905
+  },
+  "speed_guard_maxima_m_s": {
+    "ego_position_command_reference": 0.12035341458637605,
+    "px4_vehicle_local_position": 0.05908120333800103
+  },
+  "minimum_true_3d_position_error_m": 16.000522284870577,
+  "goal_dwell_s": 0,
+  "post_goal_hold_sim_s": 0,
+  "independent_postflight": {
+    "duration_wall_s": 6.0,
+    "bridge": {
+      "alignment_drift_m": 0.003651273613927049,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "f8f38ec522424b5fb2facfada4127860",
+      "ev_position_fused": true,
+      "ev_yaw_fused": true,
+      "frame_offset_ned": [
+        -8.441083547071625e-05,
+        0.0002893917822299442,
+        -4.260325873116605e-05
+      ],
+      "frame_yaw_offset_ned": -0.00010730428215399712,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "px4_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": true
+    },
+    "control_samples_zero": true
+  },
+  "cleanup": {
+    "container_exit_code": 137,
+    "stop_command": "docker stop -t 15 after independent landed/disarmed/control-off readback",
+    "unrelated_containers_touched": false
+  },
+  "artifact_sha256": {
+    "flight.json": "b691219d13b7a90cfff1deb694ec8f59cfce5b5ede441793e8e8533d6b5e87a4",
+    "arrival-evaluation.json": "84bc8f03f9d00ab5498699b930b73a845bc7892c254bf2fb7d03acd7bd94e3ac",
+    "postflight-px4-bridge-readback.json": "0d7c66853529f3e0c7a31e504f39ef310eb74bc078fe23e624733d2c59fcf919",
+    "vehicle-contact-evaluation.json": "e433f071d2a1ce6df37d63066d2fde2ecf2c1964a5aa77b5ed916cbfc58ee167",
+    "planner-observation.json": "dbbcc718274bdc8257463e6444c6c97b48cc88dcbf8abe8ff3ee0367241dd1c7"
+  }
+}

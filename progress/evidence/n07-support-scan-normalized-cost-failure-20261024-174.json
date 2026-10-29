@@ -1,0 +1,102 @@
+{
+  "schema": "n07-support-scan-normalized-cost-failure/v1",
+  "task_id": "N07.20 #174",
+  "run_id": "n07-20261024-174-01",
+  "qualification": "failed_during_support_scan_before_n05_attached_or_release_gate",
+  "consecutive_qualified_hover_count": "0/3",
+  "runtime": {
+    "epoch": "4b8cfabbafa54ad8a7bed0652662de89",
+    "container_image": "sha256:099ab9afecd28b7354f6d6494944b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "health_threshold_changed": false
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "control_or_goal_published": false,
+    "truth_subscribed": false
+  },
+  "support_scan": {
+    "completed_stages": 4,
+    "expected_stages": 12,
+    "failed_stage": 4,
+    "failed_stage_target": [-2.4, 1.0, 0.0, 0.45],
+    "failure_sim_time_s": 220.508,
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.162527639627907
+    },
+    "crossing_telemetry": {
+      "source_stamp_s": 220.408,
+      "final_cost": 2958.368952735545,
+      "residual_components": 4378,
+      "accel_bias_norm_m_s2": 0.008221753957539891,
+      "long_tracks": 102,
+      "stereo_features": 131,
+      "solve_seconds": 0.018866777420043945,
+      "solver_usable": true,
+      "previous_normalized_cost": 0.355701,
+      "next_normalized_cost": 0.33042
+    },
+    "fixture_removed": true,
+    "verified_detached": true,
+    "final_landed": true,
+    "px4_vehicle_states": [1]
+  },
+  "source_timing_probe": {
+    "read_only": true,
+    "publishes": [],
+    "event_count": 19529,
+    "observed_duration_wall_s": 378.4059586459771,
+    "stop_reason": "end_marker_tail_complete",
+    "raw_vins_telemetry_max_source_gap_s": 0.096,
+    "raw_vins_odometry_max_source_gap_s": 0.096,
+    "stereo_image_max_source_gap_s": 0.068,
+    "raw_vins_continued_after_health_latch": true,
+    "adapted_odometry_stopped_after_health_latch": true,
+    "attached_gate_started": false,
+    "release_gate_started": false,
+    "hover_started": false
+  },
+  "safety_cleanup": {
+    "bridge_disabled_at_initial_gate": true,
+    "verified_detached": true,
+    "fixture_removed": true,
+    "landed": true,
+    "disarmed": true,
+    "container_status": "exited",
+    "container_exit_code": 0,
+    "active_project_containers": 0
+  },
+  "comparison": {
+    "profile_same": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "prior_same_profile_peak_normalized_cost": {
+      "n06-20261023-wall-138": 0.7727618889965446,
+      "n06-20261023-corridor-148": 0.8230732096302127,
+      "n07-20261024-173-01_pitch": 0.665,
+      "n07-20261024-173-01_pitch_return": 0.708
+    },
+    "n07_20261024_174_peak_isolated_sample": true,
+    "cause_identified": false
+  },
+  "artifacts_sha256": {
+    "artifacts/runs/n07-20261024-174-01/n05-run-inputs.json": "806be51c74512b053dd79d9e4e397fd603f82a64ad49df29d651e5f3347663ee",
+    "artifacts/runs/n07-20261024-174-01/runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "artifacts/runs/n07-20261024-174-01/fixture-result.json": "7e24848311c55340e85c79c052fca3fc523c8290fd72cc16e480d3f1c137b1dd",
+    "artifacts/runs/n07-20261024-174-01/fixture-stages.json": "1ef416273950e29eb4979f6fe4ff99158a48a0e66317362b7cce75d7dbdd2ce2",
+    "artifacts/runs/n07-20261024-174-01/fixture-trace.jsonl": "01bcb0870dd772313f7b7ceb3599e7ba41aed7971e31ac223e77fd7d9690dc21",
+    "artifacts/runs/n07-20261024-174-01/fixture-vins.jsonl": "b2a654f9a126d475ecb1e258fc65a58aa8005c448b580635c0f7ec1166bb9ecf",
+    "artifacts/runs/n07-20261024-174-01/fixture-odometry.jsonl": "37d49ed96abaa5f0faf126b6bf70e7848d10e43c4e4f9a3f5d253882743d3a47",
+    "artifacts/runs/n07-20261024-174-01/n07-vio-stream-diagnostic.json": "32177bdcdfd3cc7ba07a6e1de862deeb25ea602fa5e9f85f75db8b488df46f4a",
+    "artifacts/runs/n07-20261024-174-01/n07-vio-stream-events.jsonl": "df8e8b87ced0bc44c25efb0c5ea6c22764eef4a3fce12c295bc48d5703d6bf45",
+    "artifacts/runs/n07-20261024-174-01/n07-vio-stream-probe.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "artifacts/runs/n07-20261024-174-01/n05-before/n05-live-entry-check.json": "1a906532c811f085def716c3cbe3134acce98aa8a01973912579ed058574150c"
+  },
+  "next_step": "#175 repeats the same separated-return profile with the read-only high-rate VIO stream probe omitted; native fixture telemetry remains. This isolates whether the added observer changes the transient cost behavior. Existing N05 and localization gates remain unchanged; no flight unless both fresh attached and released N05 gates pass."
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "n10-px4-feedforward-lag-audit/v1",
+  "task_id": "N10.3/#424",
+  "classification": "offline matched-support archive replay and read-only source audit; diagnostic hypothesis only",
+  "ran_sitl": false,
+  "control_published": false,
+  "fixed_lookback_candidate_s": 1.06,
+  "candidate_selection": "Selected by preliminary varying-support scan on #381/#385; matched-support replay uses the same archives and is not independent or blinded.",
+  "pairing": {
+    "reference": "PX4 TrajectorySetpoint.position versus VehicleLocalPosition x/y/z in local NED",
+    "state_stamp": "timestamp_sample_us, fallback timestamp_us",
+    "setpoint_stamp": "timestamp_us",
+    "max_interpolation_bracket_s": 0.04,
+    "extrapolation": false,
+    "same_local_samples_for_zero_and_fixed_lag": true,
+    "candidate_epochs_pooled": false
+  },
+  "matched_support_results": {
+    "381": {
+      "run_id": "n10-20261027-381-vins-velocity-full-route",
+      "sample_count": 1645,
+      "source_interval_us": [
+        41424000,
+        87248000
+      ],
+      "zero_lookback_rms_m": 0.5335394142228606,
+      "zero_lookback_p95_m": 0.6206164501106151,
+      "fixed_1_06s_lookback_rms_m": 0.03730876281099918,
+      "fixed_1_06s_lookback_p95_m": 0.05395561924776822,
+      "input_report": "artifacts/runs/n10-20261027-381-vins-velocity-full-route/n10-px4-position-tracking-lag-n10audit-v3.json",
+      "input_report_sha256": "4329a807b46264bd226c2030ce6f455fd2b2de58a2c676df730cf0879fa2f6b2",
+      "full_grid_0_to_3s_common_support_count": 0
+    },
+    "385": {
+      "run_id": "n10-20261027-385-arrival-dwell4-retry",
+      "sample_count": 1025,
+      "source_interval_us": [
+        57172000,
+        101172000
+      ],
+      "zero_lookback_rms_m": 0.5114929355075521,
+      "zero_lookback_p95_m": 0.629303136432145,
+      "fixed_1_06s_lookback_rms_m": 0.033837809717041326,
+      "fixed_1_06s_lookback_p95_m": 0.06607048167774514,
+      "input_report": "artifacts/runs/n10-20261027-385-arrival-dwell4-retry/n10-px4-position-tracking-lag-n10audit-v3.json",
+      "input_report_sha256": "2ad4186044484e7f99d150af89b506b95d59ba78611acdc41143989b6c125810",
+      "full_grid_0_to_3s_common_support_count": 0
+    },
+    "412": {
+      "run_id": "n10-20261028-412-speed040-yaw-lookahead-calibration",
+      "sample_count": 444,
+      "source_interval_us": [
+        54548000,
+        141444000
+      ],
+      "zero_lookback_rms_m": 0.2746186371701202,
+      "zero_lookback_p95_m": 0.3244776393281486,
+      "fixed_1_06s_lookback_rms_m": 0.028133416346977937,
+      "fixed_1_06s_lookback_p95_m": 0.06990785687984252,
+      "full_grid_0_to_3s_common_support_count": 0,
+      "input_report": "artifacts/runs/n10-20261028-412-speed040-yaw-lookahead-calibration/n10-px4-position-tracking-lag-n10audit-v3.json",
+      "input_report_sha256": "b008bd6e3b5dbf09cbcc86042396ca35aec5febc5e16a79f912fdd89bd44c5ad"
+    }
+  },
+  "evaluator": {
+    "path": "tools/debug_truth/evaluate_n10_px4_tracking_lag.py",
+    "sha256": "79eba61e566188fbe9020043b87dfb706fa1095850491663854d20455459ae76",
+    "test_path": "tools/test_n10_px4_tracking_lag.py",
+    "test_sha256": "81e182a3fa1cc8a3df01fd58fedac90bc0f3cd9af7e39716aa0465c7619c4390",
+    "tests_passed": 2
+  },
+  "source_audit": {
+    "bridge_file": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+    "bridge_sha256": "539ba5879af724ffe6513eec389ffd7436d44d0e9d250e0fcefaf175937bc626",
+    "conversion_file": "src/own/uav_px4_bridge/uav_px4_bridge/trajectory.py",
+    "conversion_sha256": "f92583bfb3a7a70e8fb31962be08a871ebc6991b962bdd63929062d9195c1903",
+    "ego_traj_server": "src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp",
+    "ego_traj_server_sha256": "d9b01e71a123d938a7e6d2cdaf139f7cb6a3ef55bcc7147bcb2400da1a4d97de",
+    "px4_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_position_control_sha256": "6c2eb1132c41b9cb8c87a1def69278327d45117553e88b2ece6944f3d5e96f08",
+    "px4_position_control_header_sha256": "87307a8715361b34aa0d54800645ac6edbe726ae92dbe292030543daaa1d8fe3",
+    "px4_offboard_doc_sha256": "42c1bddd291b9b1b5ae3a22484871087ffe786357c528d51bb24aa46dfecbab7",
+    "bridge_forwards_velocity_feedforward": false,
+    "bridge_forwards_acceleration_feedforward": false,
+    "px4_supports_finite_velocity_with_position_setpoint": true
+  },
+  "interpretation": {
+    "observed": "On identical local-state samples, actual PX4 local position is substantially closer to a 1.06 s earlier PX4 position setpoint in all three runs.",
+    "not_proven": [
+      "A physical/controller delay of exactly 1.06 s",
+      "That omitted velocity feed-forward is the sole cause",
+      "That feed-forward will improve actual full-body clearance"
+    ],
+    "plausible_implementation_hypothesis": "The bridge discards the EGO trajectory's already converted NED velocity and publishes position-only PX4 setpoints, which may make PX4 chase a moving reference.",
+    "repair_candidate": "After #415 safe closeout, perform a one-variable test forwarding finite NED velocity feed-forward while keeping position, acceleration NaN, and all other source/configuration and evaluation criteria fixed.",
+    "acceptance_threshold_changed": false
+  },
+  "active_runtime": {
+    "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+    "modified": false,
+    "control_command_sent": false,
+    "safe_closeout_still_required": true
+  },
+  "artifacts": {
+    "report": "progress/evidence/n10-px4-feedforward-lag-audit-20261028-424.md",
+    "change_record": "progress/changes/2026-10-28-424-n10-px4-feedforward-lag-audit.md",
+    "dialogue": "collaboration/dialogues/2026-10-28-424-n10-px4-feedforward-lag-audit.md"
+  }
+}

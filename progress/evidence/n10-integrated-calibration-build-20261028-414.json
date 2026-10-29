@@ -1,0 +1,48 @@
+{
+  "schema": "n10-integrated-calibration-build/v1",
+  "subtask_id": "N10.3/#414",
+  "run_id": "n10-20261028-414-speed040-yawcap010-map-trace-calibration",
+  "command": "bash tools/project.sh build ros",
+  "exit_code": 0,
+  "status": "PASS",
+  "package_count": 17,
+  "packages": [
+    "uav_interfaces",
+    "traj_utils",
+    "plan_env",
+    "camera_models",
+    "uav_sim",
+    "path_searching",
+    "bspline_opt",
+    "px4_msgs",
+    "spdlog",
+    "uav_navigation",
+    "vins",
+    "uav_localization",
+    "uav_mapping",
+    "ego_planner",
+    "loop_fusion",
+    "microxrcedds_agent",
+    "uav_px4_bridge"
+  ],
+  "source_lock_sha256": "e224cec5223f4393f6e1d5e846ed0a3ce9ce97300f2cfb935794e56e632a0010",
+  "container_image": "d435i-vins:dev",
+  "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+  "installed_ego_binaries": {
+    "install/ego_planner/lib/ego_planner/ego_planner_node": {
+      "sha256": "dfd38311871e43699c653dc489d47b744153d2ca0f281b340ff8e93a642285d0",
+      "bytes": 76319248
+    },
+    "install/ego_planner/lib/ego_planner/traj_server": {
+      "sha256": "dcc464b268976260ba05475bdf4577884ca8a6e422e43d14f9c91c52f13a3007",
+      "bytes": 28462520
+    }
+  },
+  "warnings": [
+    "Existing ROS deprecated ConstPtr APIs",
+    "existing unused parameters",
+    "existing variable length arrays"
+  ],
+  "flight_goal_submitted": false,
+  "flight_armed": false
+}

@@ -1,0 +1,378 @@
+{
+  "artifact_sha256": {
+    "alignment-observation.json": "00674b38afe6ee5e44f5947f9f2f257654c6e6929a7f8a0451e2452bcd19a228",
+    "bridge-alignment-timeline.jsonl": "be7e150a9e438301188c39dcadc633adbfa270434828d5a9a8cdb47c4985d914",
+    "debug-truth-evaluation.json": "6b3f7aca5f72d8910931a9bc0feadcc89c3959fbbc38b117580204ec74a6b504",
+    "fixture-odometry.jsonl": "bfa3ba7cc0072dfde33b3b2d9376465ba9fa708cb347c4fd8b854054355fc1c3",
+    "fixture-result.json": "1d91ac4bf9574a75e8f6c1273aec823f2dc9dafc163618dc7ab1c357d35818cf",
+    "fixture-stages.json": "16093c64dae18d04acf7faa7c6b600885835c025aedd2a1d6551dd086e3ec394",
+    "fixture-trace.jsonl": "473f8249c82c8bf70436931234857430ff06999d9419ce3cb0a86dc5da3f7a49",
+    "fixture-vins.jsonl": "c62aa416152cba5b59847fe3b8dc913285788918ccfa3ca79887923beb13b1c8",
+    "flight.json": "9ddac5d9453f6272aeb06c36890487d4ebae033a685a69688919c0dea644bf34",
+    "n05-after/n05-live-entry-check.json": "3de49c24e9c1a3249787ccb7c840166ffaf2a8c6d62f8b1bf893fbedd7d9f529",
+    "n05-after/n05-offline-entry-replay.json": "233fef53be29b95f5c554e4f595e1f466ff2a2a563c4df44d7c4d9fea35be776",
+    "n05-before/n05-live-entry-check.json": "3ae17a75f1bd834ea5a4435f90a36ad808e183aa0f2899d8b6f59b0602a58c21",
+    "n05-current-area/n05-live-entry-check.json": "1796a9578b9325ba171b8d95bc63bcb62528a981b4541de23fd36082d63a7ad3",
+    "n05-current-area/n05-offline-entry-replay.json": "695bfb3982c74cdbadf726f2309c437dd439a70acd7661df9412b6bc3bc3f8db",
+    "n05-post-release/n05-live-entry-check.json": "94a732408f2b996896284eea6063524a0c43529acf71f6213205364709b6ea8b",
+    "n05-post-release/n05-offline-entry-replay.json": "06a7beac3093a8d88692539c3a0473ed2a941139c8f5360fbaf81fccb6c4b3e6",
+    "n05-run-inputs.json": "93ffbf8ed668ad7b07e402dbc2c963a892a0f9e2eeb57596fa8153288191339b",
+    "n07-hover-evaluation.json": "8e68f3263381d3f80bfac00f82f360be0b4036e0f8460461a5720e29c5bd0466",
+    "n07-vio-stream-diagnostic.json": "98803818691aa7f290c3968a0611ff6a424a09f59c8f3e24cd1348d59a4b22f4",
+    "n07-vio-stream-events.jsonl": "f50a6ed30a8022390d1c6e8d650442178fffc21a8a4f77a91d70e1ed1b839429",
+    "no-goal-hover.log": "22f8d3aed7dc3a80e7269111f579d6afaa083bdde6d031c8fa4a8889471d2d7e",
+    "postscan-safety-readback.log": "efd433be939fab9b78400296c32d139199e771b060bb62c64a64afc81685056c",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "px4-ulog-analysis.json": "155238f0b012434bb643e58447b1708c03256e59c091853b3ee30581840b70de",
+    "px4_sitl_default/log/2026-10-23/19_56_57.ulg": "cec966c684d43ecc3616201b5ec48a492c1f8ad2e4e0773f768e56744a29159f",
+    "ros-graph-audit.json": "46735b7e872b1b870478adbc31f85a7a79139cc91a105d8d042dc6bd52fed110",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "hover": {
+    "action_goal_sent": false,
+    "active_bridge_detail_samples": 301,
+    "clock_regressions": 0,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "hover_position_command_count": 0,
+    "landed_and_disarmed": true,
+    "localization_status_samples": 786,
+    "localization_tracking_stability_passed": true,
+    "measured_sim_s": 30.0,
+    "px4_telemetry_stability_passed": true,
+    "px4_time_domain_valid_samples": 301,
+    "requested_sim_s": 30.0,
+    "result": "PASS",
+    "valid_localization_status_samples": 786,
+    "wall_s": 39.29020791617222
+  },
+  "independent_evaluation": {
+    "checks": {
+      "hover_completed_at_requested_sim_duration": true,
+      "independent_localization_and_hold_errors_measured": true,
+      "landed_and_disarmed_by_bridge": true,
+      "n05_current_area_accepted_before_enable": true,
+      "no_navigation_goal_sent": true,
+      "odometry_time_mapping_valid_through_hover": true,
+      "px4_boot_parameters_confirm_vio_no_gnss": true,
+      "read_only_ros_graph_unique_control_owner": true,
+      "same_runtime_contract_recorded": true,
+      "tracking_remained_valid_through_hover": true,
+      "ulog_confirms_ev_fusion_and_no_gnss_truth_aiding": true
+    },
+    "gazebo_truth_hold_displacement_m": {
+      "count": 1500,
+      "endpoint": 0.07191660018261979,
+      "maximum": 0.07191660018261979,
+      "mean": 0.06018433178085405,
+      "p95": 0.07062685083112145,
+      "rms": 0.06186182200837153
+    },
+    "hover_absolute_yaw_error_deg": {
+      "count": 455,
+      "endpoint": 0.001380247807349511,
+      "maximum": 0.026371222775253656,
+      "mean": 0.00972091549006413,
+      "p95": 0.02498724458692524,
+      "rms": 0.013031766995032196
+    },
+    "hover_position_error_m": {
+      "count": 455,
+      "endpoint": 0.008524333144668531,
+      "maximum": 0.008991534369816631,
+      "mean": 0.007310856656015767,
+      "p95": 0.008768029551605506,
+      "rms": 0.007462535747709375
+    },
+    "px4_local_hold_displacement_m": {
+      "count": 1500,
+      "endpoint": 0.07087069502358226,
+      "maximum": 0.07087069502358226,
+      "mean": 0.058117569475825775,
+      "p95": 0.06957248105679607,
+      "rms": 0.05982928294582691
+    },
+    "qualification_note": "N07 defines evidence coverage but no numeric hover/localization error threshold; metrics below are reported without inventing one.",
+    "result": "PASS"
+  },
+  "n05_gate": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "before_refused_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "final_landed": true,
+    "fixture_may_remain_attached": false,
+    "fixture_removed": true,
+    "fixture_runner_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_runner_outcome": "failed",
+    "gates": {
+      "attached": {
+        "epoch": "076698df1f9b4f529881ae02296177d5",
+        "map_id": "076698df1f9b4f529881ae02296177d5-1a8b9aaef6cf4a7988fdfd3adfd5a6fb",
+        "offline_accepted": true,
+        "offline_matches_online": true,
+        "offline_reason": "all_entry_phases_known_and_clear",
+        "online_accepted": true,
+        "online_offline_result_identical": true,
+        "online_reason": "all_entry_phases_known_and_clear",
+        "snapshot_sha256": "f8d93ae9480d816d7ef2b3a6cac74c107aa8915d15bf3c0e575323e5a8ef9c4b"
+      },
+      "current_area": {
+        "epoch": "076698df1f9b4f529881ae02296177d5",
+        "map_id": "076698df1f9b4f529881ae02296177d5-1a8b9aaef6cf4a7988fdfd3adfd5a6fb",
+        "offline_accepted": true,
+        "offline_matches_online": true,
+        "offline_reason": "all_entry_phases_known_and_clear",
+        "online_accepted": true,
+        "online_offline_result_identical": true,
+        "online_reason": "all_entry_phases_known_and_clear",
+        "snapshot_sha256": "f8d93ae9480d816d7ef2b3a6cac74c107aa8915d15bf3c0e575323e5a8ef9c4b"
+      },
+      "post_release": {
+        "epoch": "076698df1f9b4f529881ae02296177d5",
+        "map_id": "076698df1f9b4f529881ae02296177d5-1a8b9aaef6cf4a7988fdfd3adfd5a6fb",
+        "offline_accepted": true,
+        "offline_matches_online": true,
+        "offline_reason": "all_entry_phases_known_and_clear",
+        "online_accepted": true,
+        "online_offline_result_identical": true,
+        "online_reason": "all_entry_phases_known_and_clear",
+        "snapshot_sha256": "f8d93ae9480d816d7ef2b3a6cac74c107aa8915d15bf3c0e575323e5a8ef9c4b"
+      }
+    },
+    "online_offline_gates_accepted_and_matched": true,
+    "postscan_independent_readback": {
+      "bridge_disabled_unarmed_landed": true,
+      "fixture_model_absent": true,
+      "land_detector_landed": true,
+      "source": "postscan-safety-readback.log; final PX4 state also checked by flight.json and PX4 log"
+    },
+    "profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "same_epoch_and_map_across_accepted_gates": true,
+    "support_scan_completed_stages": 12
+  },
+  "postscan_stream_diagnostic": {
+    "end_marker_seen": true,
+    "localization_transitions": [
+      {
+        "good_pairs": 6010,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 405076000000,
+        "state": 1,
+        "valid": true,
+        "wall_elapsed_s": 2.763192028971389
+      }
+    ],
+    "observed_wall_s": 166.5083643819671,
+    "qualification_note": "Diagnostic timing only; does not override localization freshness gates or prove estimator accuracy.",
+    "read_only": true,
+    "stop_reason": "end_marker_tail_complete",
+    "topics": {
+      "/clock": {
+        "count": 31716,
+        "gap_events": 1,
+        "max_clock_age_s": 0.0,
+        "max_receipt_gap_s": 0.32779154810123146,
+        "max_source_gap_s": 0.188
+      },
+      "/localization/imu_odom": {
+        "count": 31287,
+        "gap_events": 0,
+        "max_clock_age_s": 0.016000001,
+        "max_receipt_gap_s": 0.11912690987810493,
+        "max_source_gap_s": 0.004000001
+      },
+      "/localization/optimized_imu_odom": {
+        "count": 1896,
+        "gap_events": 0,
+        "max_clock_age_s": 0.07200000100000001,
+        "max_receipt_gap_s": 0.1970359580591321,
+        "max_source_gap_s": 0.068000001
+      },
+      "/localization/status": {
+        "count": 3276,
+        "gap_events": 0,
+        "max_clock_age_s": 0.012,
+        "max_receipt_gap_s": 0.05590653792023659,
+        "max_source_gap_s": 0.056
+      },
+      "/sensors/d435i/imu": {
+        "count": 31716,
+        "gap_events": 0,
+        "max_clock_age_s": 0.004,
+        "max_receipt_gap_s": 0.11860103090293705,
+        "max_source_gap_s": 0.132
+      },
+      "/sensors/d435i/infra1/image_rect": {
+        "count": 3850,
+        "gap_events": 0,
+        "max_clock_age_s": 0.14,
+        "max_receipt_gap_s": 0.14611844811588526,
+        "max_source_gap_s": 0.064
+      },
+      "/sensors/d435i/infra2/image_rect": {
+        "count": 3850,
+        "gap_events": 0,
+        "max_clock_age_s": 0.17200000000000001,
+        "max_receipt_gap_s": 0.14567814813926816,
+        "max_source_gap_s": 0.064
+      },
+      "/vins_raw/s_076698df1f9b4f529881ae02296177d5/estimator_telemetry": {
+        "count": 1897,
+        "gap_events": 0,
+        "max_clock_age_s": 0.07200000100000001,
+        "max_receipt_gap_s": 0.19801846984773874,
+        "max_source_gap_s": 0.068000001
+      },
+      "/vins_raw/s_076698df1f9b4f529881ae02296177d5/imu_propagate": {
+        "count": 31301,
+        "gap_events": 0,
+        "max_clock_age_s": 0.012000001000000001,
+        "max_receipt_gap_s": 0.1186804820317775,
+        "max_source_gap_s": 0.004000001
+      },
+      "/vins_raw/s_076698df1f9b4f529881ae02296177d5/odometry": {
+        "count": 1897,
+        "gap_events": 0,
+        "max_clock_age_s": 0.07200000100000001,
+        "max_receipt_gap_s": 0.19830370298586786,
+        "max_source_gap_s": 0.068000001
+      }
+    }
+  },
+  "px4_fusion": {
+    "airborne_samples": 54,
+    "boot_parameters_passed": true,
+    "checks": {
+      "EKF2_EV_CTRL_is_15": true,
+      "EKF2_GPS_CTRL_is_0": true,
+      "SIM_GZ_EN_ODOM_is_0": true,
+      "UXRCE_DDS_SYNCT_is_0": true,
+      "cs_ev_pos_observed_airborne": true,
+      "cs_ev_yaw_observed_airborne": true,
+      "cs_gnss_pos_never_active": true,
+      "cs_gnss_vel_never_active": true,
+      "cs_gnss_yaw_never_active": true,
+      "cs_gps_hgt_never_active": true,
+      "final_px4_land_detector_landed": true,
+      "final_px4_state_disarmed": true
+    },
+    "estimator_flags": {
+      "cs_ev_hgt": {
+        "airborne_all_true": true,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 1.0,
+        "true_samples_airborne": 54
+      },
+      "cs_ev_pos": {
+        "airborne_all_true": true,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 1.0,
+        "true_samples_airborne": 54
+      },
+      "cs_ev_vel": {
+        "airborne_all_true": true,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 1.0,
+        "true_samples_airborne": 54
+      },
+      "cs_ev_yaw": {
+        "airborne_all_true": true,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 1.0,
+        "true_samples_airborne": 54
+      },
+      "cs_gnss_pos": {
+        "airborne_all_true": false,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 0.0,
+        "true_samples_airborne": 0
+      },
+      "cs_gnss_vel": {
+        "airborne_all_true": false,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 0.0,
+        "true_samples_airborne": 0
+      },
+      "cs_gnss_yaw": {
+        "airborne_all_true": false,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 0.0,
+        "true_samples_airborne": 0
+      },
+      "cs_gps_hgt": {
+        "airborne_all_true": false,
+        "airborne_samples": 54,
+        "airborne_true_fraction": 0.0,
+        "true_samples_airborne": 0
+      }
+    },
+    "final_arming_state": 1,
+    "final_landed": true,
+    "log_sha256": "cec966c684d43ecc3616201b5ec48a492c1f8ad2e4e0773f768e56744a29159f",
+    "parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "SIM_GZ_EN_ODOM": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "passed": true
+  },
+  "qualification": {
+    "current_consecutive_sequence": "1/3",
+    "next_run": "#178",
+    "previous_qualified_run": "none after #176 reset; #177 (1/3)",
+    "previous_sequence_reset_after": "#176 propagated_stale before enable; no flight"
+  },
+  "result": "PASS",
+  "ros_graph": {
+    "airborne_snapshot_captured": true,
+    "checks_passed": true,
+    "control_topics": [
+      "/fmu/in/vehicle_visual_odometry",
+      "/fmu/in/offboard_control_mode",
+      "/fmu/in/trajectory_setpoint",
+      "/fmu/in/vehicle_command"
+    ],
+    "no_truth_topic_or_node_each_snapshot": true,
+    "read_only": true,
+    "snapshot_labels": [
+      "pre_enable_or_early_run",
+      "airborne_active",
+      "flight_result_written"
+    ],
+    "unique_control_owner_each_snapshot": true
+  },
+  "run_id": "n07-20261024-177-01",
+  "run_identity": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "epoch": "076698df1f9b4f529881ae02296177d5",
+    "layout": "wall_box_column",
+    "map_id": "076698df1f9b4f529881ae02296177d5-1a8b9aaef6cf4a7988fdfd3adfd5a6fb",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "runtime_contract_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "spawn_pose": "-6.5,0,0.3,0,0,0"
+  },
+  "safety_shutdown": {
+    "armed": false,
+    "bridge_phase": "LANDED",
+    "container_name": "d435i-n07-20261024-177-01",
+    "container_status": "Exited (0)",
+    "landed": true,
+    "px4_log_final_disarmed_and_landed": true
+  },
+  "schema": "n07-no-goal-hover/v1",
+  "scope_limitations": [
+    "N07 baseline only: no navigation goal was submitted; this run does not qualify trajectory execution, braking, other scenes, or hardware.",
+    "N07 defines no numeric localization or hold-error threshold; measured values are descriptive.",
+    "The support-scan helper reported a fresh DISARMED-status requirement error after 12/12 stages; detachment, fixture absence, N05 online/offline gates, postscan readback, and final flight/PX4-log landed-disarmed checks are recorded separately."
+  ],
+  "task_id": "N07.23 #177"
+}

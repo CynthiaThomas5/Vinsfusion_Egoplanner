@@ -1,0 +1,104 @@
+{
+  "schema": "n10-normal-navigation-calibration-evidence/v1",
+  "task_id": "N10.3/#436",
+  "classification": "normal navigation only; partial calibration; not final N10 or formal qualification",
+  "runtime_contract_sha256": "94c852e3bdeeaaab6cfe823300155c20f27f9f9ccfe3c750f579a48464d8a3ef",
+  "action_success": true,
+  "prohibited_contact_events": 0,
+  "normal_landed_disarmed_control_disabled_confirmed": true,
+  "strict_terminal_cleanup_passed": false,
+  "strict_cleanup_failure": "same-goal READY references persisted after landing",
+  "simulation_container_stopped": true,
+  "container_exit_code": 0,
+  "emergency_disarm_used": false,
+  "fault_injection": false,
+  "corrected_reference_audit": {
+    "truth_reference": "Gazebo model origin",
+    "envelope_reference": "D435i IMU",
+    "model_origin_to_imu_m": [
+      0.12,
+      0.0,
+      0.32
+    ],
+    "sampled_minimum_clearance_m": 0.4380141302178606,
+    "corrected_position_error_m": {
+      "count": 2012,
+      "rmse": 0.07718174865437846,
+      "median": 0.0815391765811124,
+      "p95": 0.1160389800655512,
+      "max": 0.13779611799072253
+    },
+    "segmented_metrics": {
+      "goal_motion": {
+        "rpe_10s_translation_m": {
+          "count": 1135,
+          "rmse": 0.030479998496160024,
+          "median": 0.021950020937272115,
+          "p95": 0.06049472114627775,
+          "max": 0.06508720514628157
+        },
+        "rpe_10s_rotation_deg": {
+          "count": 1135,
+          "rmse": 0.11351755052824576,
+          "median": 0.10602499974358141,
+          "p95": 0.16867796478106925,
+          "max": 0.21733127451198833
+        },
+        "velocity_error_m_s": {
+          "count": 1287,
+          "rmse": 0.005550145496143487,
+          "median": 0.004538236471247755,
+          "p95": 0.009556294535542803,
+          "max": 0.013263258794401593
+        }
+      },
+      "active_hold": {
+        "rpe_10s_translation_m": {
+          "count": 154,
+          "rmse": 0.017486644089975467,
+          "median": 0.011069420144401994,
+          "p95": 0.03913888283640151,
+          "max": 0.043220578147835954
+        },
+        "rpe_10s_rotation_deg": {
+          "count": 154,
+          "rmse": 0.05021106558666688,
+          "median": 0.05154998496650093,
+          "p95": 0.05811404860817265,
+          "max": 0.0587409634381784
+        },
+        "velocity_error_m_s": {
+          "count": 306,
+          "rmse": 0.0057972648952133886,
+          "median": 0.001829252260665481,
+          "p95": 0.015137092205598175,
+          "max": 0.018084846374512065
+        }
+      }
+    }
+  },
+  "legacy_evaluation_numbers_not_final": true,
+  "unresolved": [
+    "unify truth reference in all production metric readers and historical evidence re-evaluation",
+    "continuous interval bound geometry/reference and filtered body-frame twist treatment need audit; do not accept prior positive status as final",
+    "motion RPE10 p95=0.060495m remains above draft0.05m; hold velocity p95=0.015137m/s above draft0.01m/s after point correction",
+    "map/replan/resource/queue numerical basis and executable acceptance integration remain incomplete",
+    "normal planner-cleanup implementation changed after flight; live regression pending"
+  ],
+  "resource_observer_samples": 180,
+  "map_before_after_status": "SUPPORTED",
+  "artifact_root": "artifacts/runs/n10-20261028-436-normal-map-halo-calibration",
+  "input_sha256": {
+    "flight.json": "9d52db6875658eaaa638e8e4c4b2258c0b9b3e1a80bc048714fb1f7e9bd408d1",
+    "vehicle-contact-evaluation.json": "a8af55a15db3f0f2b0932c00171941383a7fb1109b37da7dbc44713f28b95105",
+    "postflight-px4-bridge-readback.json": "01a4cb0a1d73f5414c3f7cf16aaff43924c9995a5227c9536f84d18f395b919f",
+    "safe-to-stop.json": "f261d4cf7469ecfaa1024146fd7b52ba9fc5b1f44372c5d0a6a86ceb26b016c5",
+    "normal-controlled-stop.json": "c953272daae9bea51235e0edf3325a268051fe522313e4aca9440c035d371df3",
+    "n10-truth-reference-audit.json": "22abdf2671d23e9246018f73728e9d9d36900873df5d3ade5b9033dd34a24d33",
+    "n10-map-snapshot-pair-analysis.json": "87731318a5a8666ebb010143050a67a994dbf63814cea25e99b098e5493ebece",
+    "n10-resource-observation.json": "1e1d8ac13e38f42d824587d6f78ce91518cadb887751c70dd47dc029c623582e",
+    "n10-obstacle-replan-timing-analysis.json": "f9c9e751fcb29d752adb3bc0e4f61c1783aecc99b01c700c61924c6d540e452e",
+    "n10-acceptance-evaluation.json": "f11ee9c92ac8a55d9ac90f42564af3c58f9e61a5ffaf5292aecbb42f1d309862",
+    "n10-tool-freeze-used.json": "4fc92bb403e71ebc2779de53dd64c97d7ced6b25663826d7918d9f9c16930d8d"
+  }
+}

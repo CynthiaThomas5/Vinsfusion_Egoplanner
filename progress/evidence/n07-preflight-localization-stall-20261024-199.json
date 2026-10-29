@@ -1,0 +1,202 @@
+{
+  "schema": "n07-preflight-localization-stall/v1",
+  "run_id": "n07-20261024-199-01",
+  "goal": "N07 no-goal hover qualification, independent cold start #199",
+  "result": "FAIL_PRECONDITION",
+  "streak_before": "1/3",
+  "streak_after": "0/3",
+  "next_subtask": "N07.46 #200",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "layout": "wall_box_column",
+    "support_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "thresholds_changed": false,
+    "optional_freshness_probe_launched": false
+  },
+  "n05": {
+    "epoch": "3670f97437f548c289dffd105c6fb746",
+    "map_id": "3670f97437f548c289dffd105c6fb746-03d8576ce3a04a01ab149224ecb5466a",
+    "initial_gate": {
+      "online_accepted": false,
+      "online_reason": "ground_plane_insufficient_raw_occupied_voxels",
+      "offline_accepted": false,
+      "online_offline_identical": true
+    },
+    "support_scan": {
+      "helper_outcome": "failed",
+      "helper_error": "localization changed or became invalid during physical scan",
+      "completed_stages": 12,
+      "total_stages": 12,
+      "trace_rows": 13247,
+      "trace_invalid_localization_rows": 0,
+      "trace_epoch_count": 1,
+      "attachment_states": [
+        "attached",
+        "detached"
+      ],
+      "fixture_removed": true,
+      "fixture_may_remain_attached": false,
+      "final_landed": true,
+      "remove_service_acknowledged": true,
+      "scene_model_absent": true
+    },
+    "after_scan_gate": {
+      "online_accepted": true,
+      "offline_accepted": true,
+      "online_offline_identical": true,
+      "reason": "all_entry_phases_known_and_clear"
+    },
+    "post_release_gate": {
+      "online_accepted": true,
+      "offline_accepted": true,
+      "online_offline_identical": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "freshness": {
+        "snapshot_age_sim_s": 0.104,
+        "depth_source_age_sim_s": 0.156,
+        "fusion_age_sim_s": 0.056,
+        "map_status_receipt_age_wall_s": 0.14871611795388162,
+        "localization_receipt_age_wall_s": 0.0480473421048373,
+        "odometry_receipt_age_wall_s": 0.037941996939480305,
+        "limit_sim_s": 0.4
+      }
+    },
+    "current_area_gate": {
+      "online_accepted": true,
+      "offline_accepted": true,
+      "online_offline_identical": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "freshness": {
+        "snapshot_age_sim_s": 0.108,
+        "depth_source_age_sim_s": 0.148,
+        "fusion_age_sim_s": 0.032,
+        "map_status_receipt_age_wall_s": 0.13084144704043865,
+        "localization_receipt_age_wall_s": 0.030469842022284865,
+        "odometry_receipt_age_wall_s": 0.029918865067884326,
+        "limit_sim_s": 0.4
+      }
+    },
+    "summary_diagnostic_pass": true,
+    "summary_checks_passed": 14,
+    "summary_checks_total": 14,
+    "release_safety_readback_pass": true,
+    "release_safety_checks_passed": 9,
+    "release_safety_checks_total": 9
+  },
+  "flight_precondition": {
+    "command": "python3 /workspace/tools/run_vio_no_goal_hover.py --project-root /workspace --goal-config /workspace/config/components/navigation/room_crossing_goal.json --output /workspace/artifacts/runs/n07-20261024-199-01/flight.json --hover-seconds 30 --precondition-timeout-s 60 --flight-timeout-s 60 --landing-timeout-s 35 --px4-fresh-stability-s 2 --hover-wall-timeout-s 300",
+    "runner_result": "FAIL",
+    "runner_failure": "vio_bridge_map_preconditions_not_ready",
+    "preconditions_ready": false,
+    "action_goal_sent": false,
+    "position_command_count": 0,
+    "service_call_count": 0,
+    "px4_trajectory_setpoint_observation_count": 0,
+    "simulation_clock_regressions": 0,
+    "wall_wait_s": 61.730234833899885,
+    "latest_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "localization_not_tracking"
+    },
+    "latest_localization_status": {
+      "accepted_optimized": 8602,
+      "accepted_propagated": 141927,
+      "epoch": "3670f97437f548c289dffd105c6fb746",
+      "reason": "clock_stalled",
+      "state": 4,
+      "valid": false
+    },
+    "localization_status_samples": 1200,
+    "localization_first_status": {
+      "wall_elapsed_s": 1.7905180829111487,
+      "stamp_ns": 590340000000,
+      "source_stamp_ns": 576748000000,
+      "state": 4,
+      "valid": false,
+      "reason": "clock_stalled",
+      "accepted_optimized": 8602,
+      "accepted_propagated": 141927
+    },
+    "localization_last_status": {
+      "wall_elapsed_s": 61.730234833899885,
+      "stamp_ns": 644216000000,
+      "source_stamp_ns": 576748000000,
+      "state": 4,
+      "valid": false,
+      "reason": "clock_stalled",
+      "accepted_optimized": 8602,
+      "accepted_propagated": 141927
+    },
+    "localization_source_stamp_unique_count": 1,
+    "alignment_observer_sample_counts": {
+      "attitude": 6822,
+      "local": 3415,
+      "raw_odom": 1024
+    },
+    "raw_odom_last_source_ns": 644296000000,
+    "raw_odom_last_wall_s": 78.16902440204285,
+    "vins_last": {
+      "stamp_ns": 644163999999,
+      "normalized_cost": 0.431603291015788,
+      "solver_usable": true,
+      "state_finite": true,
+      "solve_current": true
+    },
+    "root_cause": "not established; localization status became/remained clock_stalled while accepted optimized odometry stopped advancing; read-only alignment evidence shows raw VINS odometry and PX4 local state continued."
+  },
+  "graph": {
+    "active_waiter_capture_started": false,
+    "reason": "flight_result_before_active",
+    "active": false,
+    "phase": "DISABLED",
+    "armed": false,
+    "graph_capture_available": false
+  },
+  "safety_and_stop": {
+    "postflight_safety_readback_pass": true,
+    "postflight_checks_passed": 9,
+    "postflight_checks_total": 9,
+    "container_inspect": {
+      "container_inspect_returncode": 0,
+      "container_status_exit": "exited 0"
+    },
+    "project_stop_command": "bash tools/project.sh stop n07-20261024-199-01",
+    "project_stop_exit_code": 0,
+    "active_project_container_count": 0
+  },
+  "ground_scope": "The N05 gate evaluates takeoff/contact and above-ground entry phases. The runner failed before arming; there was no underground flight or underground target.",
+  "artifacts": {
+    "n05-run-inputs.json": "518c8edc7a4f7ad5b412a3cfd8713f7304194efbb5bb6836c97e23e8569a1d01",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-before/n05-live-entry-check.json": "f95aac8c536737820770c033327f8eac41b7a7f1d0a08e098fc1c1a01858d975",
+    "n05-before/n05-offline-entry-replay.json": "465af223f595cf13f17c10837129278340430b98cacfba3f55150d1144771ce6",
+    "fixture-result.json": "19aa1bc0f9f579275a07043131821f5e8e6c629bc8a50a99432b0c46b6fb1ca6",
+    "fixture-stages.json": "32545a68c1661f83a3e0b817c18fe906a10e03c550be20b1df8c69ae21598d3d",
+    "fixture-trace.jsonl": "f0d9d0549ee60a1302abdd58f687aef571ad60dea9025d3a616004ad291186f5",
+    "n05-after/n05-live-entry-check.json": "e1e32dc74dc384da8f1569d13d548155cd88ecb05d00a75059443713808e3ccf",
+    "n05-after/n05-offline-entry-replay.json": "89e2c9fe28a60bf74fb6a2016331a08cfbf1a238b63de5d30111ab58f159d97d",
+    "n05-run-summary.json": "3b25111c447b2dd358cc40ecf50038c21274de29e05b66d5766dfde4bd8c59aa",
+    "n05-post-release/n05-live-entry-check.json": "9bcaee97e453309ae1837a7f18ca2bfa11cb324faa7f0835db8e31b0a9fa56d0",
+    "n05-post-release/n05-offline-entry-replay.json": "0ac7479dac37f547ee143e0bdc16344de6e737d597bb46b9c21247798012394b",
+    "n05-current-area/n05-live-entry-check.json": "625c59768a0b28c80ef9f0d39196f41fe20e608705ee75dc51fadc0f63a0c313",
+    "n05-current-area/n05-offline-entry-replay.json": "556fd3572ef560c7125ea03dd6ed7fad10bab5f88de84fb18808e2fd9db0003e",
+    "n05-release-safety-readback.json": "96aa393ac0f5048e3079940a94da633b7ab560139d98af9d2d49d39db9514158",
+    "flight.json": "3dc753a1dda9acc0dca3f90bb46c6c8c534c2fc6630be47c4c7ce8073168c09f",
+    "graph-active-window-trigger.json": "b61c85f639c00aed848ae32d4f4c134e632a4b8757239ba698a623ed0efb574f",
+    "n07-observer-manifest.json": "0f98aeb36734c4c70ffd4050dcea29adc5ca26639c0d8ed06bd7cfb0d93d94de",
+    "capture_n07_ros_graph_discovery_gate.py": "398c7699ad72ee4f9e55d6bc0453474e76970d792d8710cea9dad1ebee3acf50",
+    "graph-active-window-launcher.py": "cde3532aaa8f3da5665dae527b17f4ca0090d34514716ef0f6a13511ebdbb77a",
+    "debug-truth-evaluation.json": "770f47a51904381ebf4abcf9faa7dd5f0889e81db9413d17a32f004b3ea971cc",
+    "alignment-observation.json": "20406ac14cb81b418fb395103da81b7555149c7eca32967dfea49db3984031ac",
+    "bridge-alignment-timeline.jsonl": "52e125d7fc600f87fdac01de3217cd805c5d4eb75e6e59d4a170f602befdd8f2",
+    "postflight-safety-readback.json": "8a8e7abe0567fef684b9ff044a904b45f11e4ffc86e040d6dc5050f77eaf1842",
+    "postflight-safety-readback.log": "e6798f3c47127d22f54f380463736cc182c26bdaf65bfbcd3c9a875240afa89f"
+  }
+}

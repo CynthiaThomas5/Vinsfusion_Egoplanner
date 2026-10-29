@@ -1,0 +1,226 @@
+{
+  "schema": "n07-support-scan-health-failure/v1",
+  "task_id": "N07.18 #172",
+  "run_id": "n07-20261024-172-01",
+  "qualification": "failed_before_released_n05_gate_and_no_goal_hover",
+  "consecutive_qualified_hover_count": "0/3",
+  "prior_sequence": "#171 had reset the count to 0/3; #172 reproduces the scan failure; #170 remains a standalone pass, not part of the current consecutive series",
+  "runtime": {
+    "epoch": "3af1963433c34902a4365c6b1fd5468f",
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_early_view",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "health_config_sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "max_accel_bias_m_s2": 0.15
+  },
+  "initial_n05_check": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_result_identical": true,
+    "offline_sweep": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "ground_plane": {
+        "valid": true,
+        "reason": "raw_occupied_plane_fit",
+        "z_at_center_m": -0.3500000000000002,
+        "coefficients_ax_by_c_m": [
+          -2.911169518686981e-17,
+          5.551115123125783e-17,
+          -0.3500000000000002
+        ],
+        "residual_p95_m": 2.7755575615628914e-16,
+        "slope": 6.268156593188142e-17,
+        "raw_occupied_voxel_count": 110,
+        "xy_span_m": [
+          0.6999999999999993,
+          1.6999999999999993
+        ],
+        "source": "raw occupancy only",
+        "debug_truth_used": false
+      },
+      "hold_height_m": 1.0,
+      "sample_step_m": 0.05,
+      "sample_count": 41,
+      "ground_confirmed": true,
+      "disarmed": true,
+      "control_disabled": true,
+      "phases": {
+        "TAKEOFF_CONTACT": {
+          "samples": 1,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 1
+          },
+          "maximum_unknown_cells": 436,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 44
+        },
+        "ASCENT": {
+          "samples": 19,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 19
+          },
+          "maximum_unknown_cells": 592,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 32
+        },
+        "HOLD": {
+          "samples": 1,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 1
+          },
+          "maximum_unknown_cells": 566,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 0
+        },
+        "DESCENT": {
+          "samples": 19,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 19
+          },
+          "maximum_unknown_cells": 592,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 32
+        },
+        "LANDING_CONTACT": {
+          "samples": 1,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 1
+          },
+          "maximum_unknown_cells": 436,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 44
+        }
+      },
+      "scope": "raw occupancy entry-volume diagnostic; no flight authorization"
+    },
+    "truth_subscribed": false,
+    "control_or_goal_published": false,
+    "interpretation": "raw unknown in expanded takeoff envelope; fail-closed, no bypass"
+  },
+  "support_scan": {
+    "outcome": "failed",
+    "completed_stages": 7,
+    "expected_stages": 12,
+    "wall_duration_s": 365.9465263749007,
+    "error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "accel_bias_norm_exceeded",
+      "normalized_cost": 0.592346283286477
+    },
+    "pitch_return_stage": {
+      "leg_index": 6,
+      "begin_sim_s": 259.384,
+      "end_sim_s": 274.504,
+      "bias_at_stage_start": 0.057167039067781235,
+      "bias_at_stage_end_max": 0.11780301217756464
+    },
+    "return_translation_stage": {
+      "leg_index": 7,
+      "begin_sim_s": 274.504,
+      "first_bias_crossing_sim_s": 282.68,
+      "seconds_into_stage": 8.175999999999988,
+      "first_crossing_norm": 0.15047223711938457
+    },
+    "max_bias": {
+      "stamp_s": 293.043999999,
+      "accel_bias_norm": 0.179246502949294
+    },
+    "fixture_trace_last": {
+      "sim_s": 282.84,
+      "leg_index": 7,
+      "localization": {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.5918662883470832
+      }
+    },
+    "released_n05_gate_started": false,
+    "no_goal_hover_started": false,
+    "flight_started": false
+  },
+  "comparative_evidence": {
+    "same_profile_failures": [
+      "n07-20261024-166-01",
+      "n07-20261024-171-01",
+      "n07-20261024-172-01"
+    ],
+    "same_profile_completed_runs": [
+      "n07-20261024-165-01",
+      "n07-20261024-167-01",
+      "n07-20261024-168-01",
+      "n07-20261024-170-01"
+    ],
+    "separated_return_profiles": {
+      "n06-20261023-wall-138": {
+        "completed_stages": 12,
+        "max_bias": 0.08548,
+        "n05_post_release": "ground_plane_insufficient_raw_occupied_voxels",
+        "model_mount": "pre-#142 camera mount fix"
+      },
+      "n06-20261023-corridor-148": {
+        "completed_stages": 12,
+        "max_bias": 0.07617,
+        "n05_post_release": "all_entry_phases_known_and_clear"
+      }
+    },
+    "interpretation": "Early-view route failures and successes vary by epoch; stage6 pitch-return raises bias before stage7 failures. Shorter separated-return profile is a candidate discriminator, not proven root cause."
+  },
+  "safety_shutdown": {
+    "fixture_detached": true,
+    "fixture_removed": true,
+    "fixture_model_absent": true,
+    "final_landed": true,
+    "final_land_detector_landed": true,
+    "vehicle_states": [
+      1
+    ],
+    "direct_bridge_readback": {
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking",
+      "armed": false,
+      "landed": true
+    },
+    "direct_px4_readback": {
+      "arming_state": 1,
+      "landed": true
+    },
+    "stop_command": "bash tools/project.sh stop n07-20261024-172-01",
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "remaining_matching_project_container": false
+  },
+  "threshold_or_control_changes": false,
+  "diagnosis": {
+    "confirmed": "VINS accel_bias_norm crossed the existing 0.15 m/s² health bound after the pitch-return stage during the return-translation stage; adapter failed closed.",
+    "not_confirmed": "Whether long oblique viewing or pitch-return motion causes the bias increase. Historical separated-return runs make route duration/order a testable candidate."
+  },
+  "artifact_sha256": {
+    "n05-run-inputs.json": "6de26db944125ca0af5c46cb854c65281560dac1100933ed9656f08ed601ccee",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-before/n05-live-entry-check.json": "1394723fc21e22cd19b89a44b05fde4e3dd1c471c15ae4d9a83457321260d659",
+    "n05-before/n05-offline-entry-replay.json": "0f9b7d632260f501a7d21a0dc127d9285085639d2a376900d2bb8b00908e4921",
+    "fixture-result.json": "f430ab70a751d383083b41bdb45fefd96e88aaf5e18cdd9c4cf12d9918df1f9c",
+    "fixture-stages.json": "67784419d236457276dd24596f950e974f9fb21fc9a56cd0e5d2f98d7ca23924",
+    "fixture-trace.jsonl": "f216764a04eb72be408ab42fdf8dc942b2e0e3a11727b366d79007de9d07d662",
+    "fixture-vins.jsonl": "acfba0aaef96575856a82d258a610138fb4bc88627090130221fbcf5a57fcfdf",
+    "n05-fixture.log": "bc18849e220ba79111be4ea5617687494e1f6740fc0913e404fa5eaf7446d4ea",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+  },
+  "next_step": "#173 changes only to the existing oblique_separated_return support-scan profile in the fixed wall layout; preserve N05 and health gates. Continue to no-goal hover only if the fresh released admission gate passes."
+}

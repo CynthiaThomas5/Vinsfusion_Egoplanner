@@ -1,0 +1,45 @@
+{
+  "schema": "n08-speed-final-feasibility-audit/v1",
+  "child": "N08.2an #251",
+  "result": "source_gap_confirmed_and_fixed; live_validation_pending",
+  "root_cause": {
+    "configuration_semantics": "max_vel is per-axis feasibility/soft-cost limit, not a guaranteed vector-speed bound",
+    "optimizer": "velocity constraints are soft costs",
+    "gap": "reboundReplan checked the pre-refine curve, then rebuilt and optimized its control polygon without rechecking final velocity/acceleration",
+    "historical_run": "n08-20261024-246-localization-freshness-diagnostic",
+    "historical_logs": "Need to reallocate time followed by refine_success=1",
+    "actual_cpp_archive_replay": "0.075 per-axis fails; same unchanged archive passes at0.10 and0.15",
+    "dense_peak_vector_m_s": 0.0977618228101,
+    "dense_x_peak_m_s": 0.0888601909244,
+    "configured_original_m_s": 0.075,
+    "original_tolerated_axis_limit_m_s": 0.07885
+  },
+  "fix": {
+    "patch": "dependencies/patches/ego/0044-final-spline-dynamics-check.patch",
+    "final_guard": "reset physical limits and recheck final spline after every refinement",
+    "maximum_refinement_attempts": 3,
+    "failure": "reject candidate before updateTrajInfo when final dynamics remain infeasible",
+    "preserves": "boundary derivatives and downstream raw-map certificate; no source stamp/health/unknown changes"
+  },
+  "validation": {
+    "ros_build": "17 packages PASS",
+    "dependency_reconstruction": "all pinned patches replayed to fresh reconstructed-ego target and hashes verified",
+    "targeted_unit_tests": "53 PASS",
+    "actual_cpp_replay": "PASS; actual UniformBspline evaluator on archived control points/knots",
+    "signal_context": "actual ROS NO-default-handler cancellation test PASS; cleanup context remains usable"
+  },
+  "next": "#252 fresh compute-only with0.10m/s per-axis and0.12m/s explicit vector cap; surveyed stopping corridor before actual braking trial",
+  "sha256": {
+    "artifacts/runs/n08-20261024-251-speed-final-feasibility/build.log": "c1d6e6c918fe38c5dfb5cb83de4e28e4fc717c9a98deee18a6da22b6d2571bc6",
+    "artifacts/runs/n08-20261024-251-speed-final-feasibility/patch-replay.log": "86972cbf0bd0bdfb0d1ab0098e6efb7f4726a2a89315c04e1191466677c7e01d",
+    "artifacts/runs/n08-20261024-251-speed-final-feasibility/replay_speed.log": "df15ea4a67be1dbed3841bad003cac2b3bf1026c7818a29ece58561f11d8ac22",
+    "artifacts/runs/n08-20261024-251-speed-final-feasibility/tests.log": "80f57f58c2482de1faf7abf424bd4c6e09d7069d59410a3f79d2148c3c38f834",
+    "artifacts/runs/n08-20261024-251-speed-final-feasibility/signal-context.log": "499c409ddf6790024287d54c3a3dddb31e6c6c19cdf54d2c57dc39ce8dbe6c73",
+    "dependencies/patches/ego/0044-final-spline-dynamics-check.patch": "9f6ceb41bc8477d919f94d4ad257dc5f162286170181e1abe2edca796dabd916"
+  },
+  "runtime_files_sha256": {
+    "install/ego_planner/lib/ego_planner/ego_planner_node": "31b4edbed30520a0e3d95e293cb003591f9fdcf143fcdf9d907b015ebbe1df92",
+    "src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp": "5e8bf691b81e083e324afa9e42ce51eff9251827e964a5f422c0fd5eddc205ca",
+    "dependencies/patches/ego/0044-final-spline-dynamics-check.patch": "9f6ceb41bc8477d919f94d4ad257dc5f162286170181e1abe2edca796dabd916"
+  }
+}

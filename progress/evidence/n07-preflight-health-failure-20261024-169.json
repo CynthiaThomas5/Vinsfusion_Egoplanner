@@ -1,0 +1,90 @@
+{
+  "schema": "n07-preflight-health-failure/v1",
+  "task_id": "N07.15 #169",
+  "run_id": "n07-20261024-169-01",
+  "qualification": "failed_before_support_scan_and_hover",
+  "consecutive_qualified_hover_count": "0/3",
+  "prior_sequence": "#167 and #168 were 2/3; #169 failed and resets the consecutive sequence under the N07 exit rule",
+  "runtime": {
+    "epoch": "909adf46d6044c4d9d4b709e094ef04e",
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_early_view",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "health_gate_unchanged": true,
+    "health_policy": {
+      "telemetry_max_source_age_s": 0.3,
+      "telemetry_max_receipt_age_s": 0.5
+    }
+  },
+  "initial_n05_check": {
+    "accepted": false,
+    "reason": "online_snapshot_or_prerequisite_check_failed",
+    "wait_s": 150,
+    "error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge','clock','localization','map']",
+    "qualification": "fail-closed read-only diagnostic; no entry authorization",
+    "truth_subscribed": false,
+    "control_or_goal_published": false
+  },
+  "localization_status_direct_readback": {
+    "header_sim_s": 214.24,
+    "epoch": "909adf46d6044c4d9d4b709e094ef04e",
+    "state": 4,
+    "valid": false,
+    "reason": "telemetry_stale",
+    "source_stamp_sim_s": 13.98,
+    "good_pairs": 84,
+    "accepted_optimized": 75,
+    "accepted_propagated": 1227,
+    "normalized_cost": 0.08772399061811682
+  },
+  "bridge_status_direct_readback": {
+    "phase": "DISABLED",
+    "reason": "localization_not_tracking",
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "local_position_valid": false,
+    "ev_position_fused": false,
+    "ev_yaw_fused": false,
+    "gnss_aiding_active": false
+  },
+  "later_raw_topic_spot_samples": {
+    "estimator_telemetry_stamp_sim_s": 222.72,
+    "optimized_odometry_stamp_sim_s": 225.36,
+    "synchronous_age_measurement": false,
+    "interpretation": "raw topics were readable after the adapter health failure; later raw messages do not restore the failed adapter epoch and these unsynchronized samples do not identify the upstream cause"
+  },
+  "n05_scan_and_flight": {
+    "n05_prescan_ready_created": false,
+    "fixture_result_created": false,
+    "support_scan_started": false,
+    "attached_or_released_gate_started": false,
+    "goal_sent": false,
+    "flight_started": false,
+    "debug_truth_used": false
+  },
+  "safety_shutdown": {
+    "stop_command": "bash tools/project.sh stop n07-20261024-169-01",
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "remaining_matching_project_container": false,
+    "last_bridge_state": "DISABLED/unarmed/landed"
+  },
+  "diagnosis": {
+    "confirmed": "The localization adapter failed closed on telemetry_stale and did not provide current optimized odometry to the N05 read-only gate. Health lock has no in-epoch online unlock path.",
+    "not_confirmed": "The upstream scheduling or timing cause of telemetry freshness loss in this epoch.",
+    "threshold_or_control_changes": false,
+    "related_prior_evidence": "progress/evidence/n03-depth-fusion-continuity-20261022-090.md records one cold-start telemetry_stale failure and later successful idle epochs; that does not prove a shared root cause."
+  },
+  "artifact_sha256": {
+    "n05-before/n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e",
+    "n05-before-check.log": "b2e9213eddad4273584f5397d05204d0037441c21c6a2f99db6658686c3f33d5",
+    "n05-run-inputs.json": "41c729342b6d37b98a06f1492fa3b0bc28d92e30adea35150d6a17ab358d6b8d",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "config/components/localization/health.json": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "src/own/uav_localization/uav_localization/health.py": "2716ab8f3892ce43e0b4cb59f531860997f020a4efd8f973097ea10ce7dcdd71"
+  },
+  "next_step": "N07.16 #170 repeats the same configuration in a fresh cold-start epoch. If initial health fails again, preserve simultaneous /clock, telemetry, raw and adapted odometry, localization and bridge observations before evaluating a repair path."
+}

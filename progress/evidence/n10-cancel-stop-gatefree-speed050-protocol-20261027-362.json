@@ -1,0 +1,70 @@
+{
+  "schema": "n10-cancel-protocol/v1",
+  "run_id": "n10-20261027-362-current-gate-free-speed050-cancel-repeat",
+  "n10_subtask": "N10.3 repeat #359 high-speed caller-cancel stop measurement under current gate-free runtime",
+  "status": "frozen_before_sitl",
+  "hypothesis": "With project-added localization quality and localization/optimized-odometry receipt-age lockouts removed, a new independent cold start using the same 0.50–0.56 m/s PX4 horizontal speed cancellation window can complete a valid stop measurement; compare its distance and response time with #359.",
+  "single_changed_factor_from_359": "Current runtime removes project-added localization quality/freshness lockout rather than using the run-local health-gate bypass in #359. Keep route, speed window, planner, spawn, collision behavior, PX4 bridge settings, and observers fixed.",
+  "task": {
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal_profile_sha256": "0e275927089a9d04810d483fc6634717d6f7fcd15472a508601cbd5790600f00",
+    "planner_profile": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "planner_profile_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "spawn_profile": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "px4_horizontal_cancel_speed_window_m_s": [
+      0.5,
+      0.56
+    ],
+    "route": "one +16.0m ENU / +0.10m / +0.20rad EGO goal; caller cancel at first measured PX4 horizontal speed in window; wait for replacement EGO trajectory, 1s stop band, bridge-owned landing",
+    "ego_max_velocity_m_s_per_axis": 0.8,
+    "ego_max_acceleration_m_s2_per_axis": 0.25,
+    "ego_planning_horizon_m": 5.0,
+    "collision_policy": "official_ego inflated occupied",
+    "contacts": "read-only observer only"
+  },
+  "localization_policy": {
+    "project_added_quality_and_localization_odometry_receipt_age_gates": "removed",
+    "raw_cost_and_source_age": "observation only",
+    "historical_normalized_cost_1p0": "offline reference only; not an active guard",
+    "retained_integrity": [
+      "VINS epoch/session and publisher identity",
+      "message/coordinate validity",
+      "per-stream timestamp monotonicity",
+      "ROS clock monotonicity"
+    ],
+    "retained_mapping_and_control_rules": [
+      "map identity and EGO fusion freshness",
+      "PX4 bridge control/watchdog and telemetry requirements",
+      "official_ego collision behavior"
+    ]
+  },
+  "interpretation": "One repeat is a second diagnostic sample; two samples still do not establish a general guaranteed stopping distance or final safety margin.",
+  "run_commands": {
+    "start": "D435I_N09_CONTACTS=1 D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json D435I_SPAWN_CONFIG=config/components/simulation/n10_long_range_spawn_minus8.json bash tools/project.sh sim n10-20261027-362-current-gate-free-speed050-cancel-repeat",
+    "driver": "docker exec d435i-n10-20261027-362-current-gate-free-speed050-cancel-repeat bash /workspace/tools/run_n10_cancel_calibration.sh n10-20261027-362-current-gate-free-speed050-cancel-repeat config/components/navigation/n10_long_range_vio_calibration_goal.json 0.50 0.56",
+    "safe_stop": "bash tools/project.sh stop n10-20261027-362-current-gate-free-speed050-cancel-repeat only after safe-to-stop.json is true"
+  },
+  "runtime_contract": {
+    "sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+    "file_count": 665,
+    "prelaunch_snapshot": "progress/evidence/n10-cancel-stop-gatefree-speed050-runtime-prelaunch-20261027-362.json",
+    "run_driver_sha256": "9c56b728c90f55c97500c76f36b18913e867b5367fad1fc08a95ad68deecd26b"
+  },
+  "prelaunch_checks": {
+    "project_labeled_container_running": false,
+    "previous_current_runtime_build": "all 17 ROS packages passed after localization gate removal",
+    "current_test_suite": "413 unittest cases and navigation/official EGO integration passed on same code/config fingerprint",
+    "runtime_matches_361": true
+  },
+  "result_directory": "artifacts/runs/n10-20261027-362-current-gate-free-speed050-cancel-repeat",
+  "acceptance_criteria": {
+    "actual_trigger_speed_in_window": "PX4 horizontal speed measured within 0.50–0.56 m/s",
+    "caller_cancel": "acknowledged",
+    "replacement_trajectory": "new EGO trajectory id observed",
+    "stop_band": "PX4 horizontal speed <=0.03 m/s and |vertical speed|<=0.05 m/s, continuously held for 1 simulated second",
+    "px4_sample_max_gap_s": 0.2,
+    "truth_sample_max_gap_s": 0.04,
+    "contact_observer": "terminal coverage complete and zero prohibited contacts",
+    "independent_terminal_readback": "LANDED, landed=true, armed=false, control_enabled=false, vehicle_remained_disarmed=true, control_samples_zero=true"
+  }
+}

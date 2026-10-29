@@ -1,0 +1,670 @@
+{
+  "schema": "n07-no-goal-hover/v1",
+  "task_id": "N07.13 #167",
+  "run_id": "n07-20261024-167-01",
+  "result": "PASS",
+  "qualification": {
+    "current_consecutive_sequence": "1/3",
+    "previous_sequence_reset_after": "#166",
+    "previous_standalone_positive_run": "#165 (retained, not counted in current sequence)",
+    "next_run": "#168"
+  },
+  "run_identity": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_early_view",
+    "epoch": "f7b84afbd35143ba86f5169f42f781f8"
+  },
+  "n05_gate": {
+    "before_refused_reason": null,
+    "support_scan_completed_stages": 12,
+    "profile": "n06_full_airframe_retreat_240_oblique_early_view",
+    "fixture_runner_outcome": "failed",
+    "fixture_runner_error": "fresh DISARMED status is required for every fixture command",
+    "attached_accepted": true,
+    "attached_online_offline_identical": true,
+    "attached_offline_matches_online": true,
+    "released_accepted": true,
+    "released_reason": "all_entry_phases_known_and_clear",
+    "released_online_offline_identical": true,
+    "released_offline_matches_online": true,
+    "same_epoch": true,
+    "same_map": true,
+    "released_gate_for_hover": true,
+    "summary_diagnostic_pass": true,
+    "summary_checks": {
+      "layout_identity_consistent": true,
+      "same_epoch_before_after": true,
+      "same_map_id_before_after": true,
+      "scan_identity_matches_after_snapshot": true,
+      "vehicle_disarmed_for_all_recorded_states": true,
+      "support_detached_and_fixture_absent": true,
+      "fixture_runner_profile_completed": true,
+      "online_and_offline_checks_identical": true,
+      "post_release_check_recorded": true,
+      "post_release_same_identity": true,
+      "post_release_pose_within_budget": true,
+      "post_release_entry_accepted": true,
+      "control_and_navigation_goal_absent": true,
+      "debug_truth_absent_from_online_inputs": true
+    },
+    "fixture_safety_gate": {
+      "safe_for_read_only_post_release_check": true,
+      "runner_safety_predicate": true,
+      "independent_scene_query": {
+        "model": "preflight_scan_fixture",
+        "model_absent": true,
+        "output_file": "fixture-model-list-after-removal.txt"
+      },
+      "completed_stages": 12,
+      "fixture_removed": true,
+      "fixture_may_remain_attached": false,
+      "attachment_states": [
+        "attached",
+        "detached"
+      ],
+      "final_landed": true,
+      "land_detector_landed": true,
+      "land_detector_receipt_age_wall_s": 0.42501599504612386,
+      "verified_landed": true,
+      "vehicle_states": [
+        1
+      ],
+      "runner_outcome": "failed",
+      "runner_error": "fresh DISARMED status is required for every fixture command"
+    }
+  },
+  "hover": {
+    "result": "PASS",
+    "requested_sim_s": 30.0,
+    "measured_sim_s": 30.0,
+    "wall_s": 38.89402958494611,
+    "action_goal_sent": false,
+    "hover_position_command_count": 0,
+    "clock_stalled": false,
+    "clock_regressions": 0,
+    "localization_tracking_stability_passed": true,
+    "px4_telemetry_stability_passed": true,
+    "landed_and_disarmed": true,
+    "final_bridge_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    }
+  },
+  "independent_evaluation": {
+    "result": "PASS",
+    "checks": {
+      "hover_completed_at_requested_sim_duration": true,
+      "independent_localization_and_hold_errors_measured": true,
+      "landed_and_disarmed_by_bridge": true,
+      "n05_current_area_accepted_before_enable": true,
+      "no_navigation_goal_sent": true,
+      "odometry_time_mapping_valid_through_hover": true,
+      "px4_boot_parameters_confirm_vio_no_gnss": true,
+      "read_only_ros_graph_unique_control_owner": true,
+      "same_runtime_contract_recorded": true,
+      "tracking_remained_valid_through_hover": true,
+      "ulog_confirms_ev_fusion_and_no_gnss_truth_aiding": true
+    },
+    "hover_interval": {
+      "active_bridge_detail_samples": 299,
+      "local_position_samples": 1500,
+      "localization_status_samples": 778,
+      "measured_sim_s": 30.0,
+      "odometry_time_error_values": [
+        ""
+      ],
+      "px4_time_domain_valid_samples": 299,
+      "requested_sim_s": 30.0,
+      "sim_end_ns": 611384000000,
+      "sim_start_ns": 581384000000,
+      "truth_max_wall_gap_s": 0.12886083708144724,
+      "valid_localization_status_samples": 778,
+      "wall_end_monotonic_s": 1268504.037247419,
+      "wall_s": 38.89402958494611,
+      "wall_start_monotonic_s": 1268465.143217834
+    },
+    "hover_position_error_m": {
+      "count": 454,
+      "endpoint": 0.0072672061731235945,
+      "maximum": 0.008508167725358345,
+      "mean": 0.006893121281920886,
+      "p95": 0.007467997538804028,
+      "rms": 0.006901628728451044
+    },
+    "hover_absolute_yaw_error_deg": {
+      "count": 454,
+      "endpoint": 0.022990145731880768,
+      "maximum": 0.04488308110185435,
+      "mean": 0.02959822902011956,
+      "p95": 0.041991295497262146,
+      "rms": 0.03047672541496464
+    },
+    "px4_local_hold_displacement_m": {
+      "count": 1500,
+      "endpoint": 0.07383982719191877,
+      "maximum": 0.07447706086363222,
+      "mean": 0.05790634180804873,
+      "p95": 0.07416205987050795,
+      "rms": 0.059786331801674454
+    },
+    "gazebo_truth_hold_displacement_m": {
+      "count": 1500,
+      "endpoint": 0.07320587831773692,
+      "maximum": 0.07387661256793393,
+      "mean": 0.0572097419444376,
+      "p95": 0.07361027818827774,
+      "rms": 0.05914331753215625
+    }
+  },
+  "px4_ulog": {
+    "passed": true,
+    "sha256": "68b51c62482e024f2340d65d977a56d7e07c3c2cc60230ac9a30b8cfc3a6dd51",
+    "pyulog_version": "1.2.4",
+    "initial_parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "SIM_GZ_EN_ODOM": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "airborne_samples_by_flag": {
+      "cs_ev_hgt": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 54,
+        "airborne_all_true": true
+      },
+      "cs_ev_pos": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 54,
+        "airborne_all_true": true
+      },
+      "cs_ev_vel": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 54,
+        "airborne_all_true": true
+      },
+      "cs_ev_yaw": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 54,
+        "airborne_all_true": true
+      },
+      "cs_gnss_pos": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 0,
+        "airborne_all_true": false
+      },
+      "cs_gnss_vel": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 0,
+        "airborne_all_true": false
+      },
+      "cs_gnss_yaw": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 0,
+        "airborne_all_true": false
+      },
+      "cs_gps_hgt": {
+        "airborne_samples": 54,
+        "true_samples_airborne": 0,
+        "airborne_all_true": false
+      }
+    },
+    "vehicle_status": {
+      "arming_state_counts": {
+        "1": 1105,
+        "2": 116
+      },
+      "final_arming_state": 1,
+      "final_arming_timestamp_us": 617692000,
+      "sample_count": 1221
+    },
+    "vehicle_land_detected": {
+      "final_landed": true,
+      "sample_count": 665
+    }
+  },
+  "ros_graph": {
+    "read_only": true,
+    "passed": true,
+    "raw_capture_checks_passed": true,
+    "airborne_snapshot_captured": true,
+    "control_owner_reconciliation": {
+      "method": "exactly one publisher per control topic in each snapshot; unresolved startup DDS names are resolved only by the same endpoint GID later identified as uav_px4_bridge",
+      "passed": true,
+      "snapshot_results": [
+        {
+          "label": "pre_enable_or_early_run",
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_control_topic": true,
+          "topics": {
+            "/fmu/in/offboard_control_mode": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001503",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/trajectory_setpoint": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001603",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_command": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001703",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_visual_odometry": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001403",
+              "passed": true,
+              "resolved_by": "node_name"
+            }
+          }
+        },
+        {
+          "label": "airborne_active",
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_control_topic": true,
+          "topics": {
+            "/fmu/in/offboard_control_mode": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001503",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/trajectory_setpoint": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001603",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_command": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001703",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_visual_odometry": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001403",
+              "passed": true,
+              "resolved_by": "node_name"
+            }
+          }
+        },
+        {
+          "label": "flight_result_written",
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_control_topic": true,
+          "topics": {
+            "/fmu/in/offboard_control_mode": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001503",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/trajectory_setpoint": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001603",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_command": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001703",
+              "passed": true,
+              "resolved_by": "node_name"
+            },
+            "/fmu/in/vehicle_visual_odometry": {
+              "endpoint_gid": "010f5f8ac602a7640000000000001403",
+              "passed": true,
+              "resolved_by": "node_name"
+            }
+          }
+        }
+      ]
+    },
+    "snapshots": [
+      {
+        "label": "pre_enable_or_early_run",
+        "bridge_status": {
+          "armed": false,
+          "control_enabled": false,
+          "landed": true,
+          "phase": "DISABLED"
+        },
+        "checks": {
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_px4_control_topic": true
+        },
+        "control_topic_publishers": {
+          "/fmu/in/vehicle_visual_odometry": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/offboard_control_mode": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/trajectory_setpoint": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/vehicle_command": [
+            "uav_px4_bridge"
+          ]
+        },
+        "truth_named_ros_topics": [],
+        "truth_named_ros_nodes": []
+      },
+      {
+        "label": "airborne_active",
+        "bridge_status": {
+          "armed": true,
+          "control_enabled": true,
+          "landed": false,
+          "phase": "ACTIVE"
+        },
+        "checks": {
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_px4_control_topic": true
+        },
+        "control_topic_publishers": {
+          "/fmu/in/vehicle_visual_odometry": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/offboard_control_mode": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/trajectory_setpoint": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/vehicle_command": [
+            "uav_px4_bridge"
+          ]
+        },
+        "truth_named_ros_topics": [],
+        "truth_named_ros_nodes": []
+      },
+      {
+        "label": "flight_result_written",
+        "bridge_status": {
+          "armed": false,
+          "control_enabled": false,
+          "landed": true,
+          "phase": "LANDED"
+        },
+        "checks": {
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_px4_control_topic": true
+        },
+        "control_topic_publishers": {
+          "/fmu/in/vehicle_visual_odometry": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/offboard_control_mode": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/trajectory_setpoint": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/vehicle_command": [
+            "uav_px4_bridge"
+          ]
+        },
+        "truth_named_ros_topics": [],
+        "truth_named_ros_nodes": []
+      }
+    ]
+  },
+  "safety_shutdown": {
+    "container_exit_code": 0,
+    "container_status": "exited",
+    "active_project_simulations_after_stop": 0,
+    "final_landed_and_disarmed": true
+  },
+  "scope_limitations": [
+    "No numeric accuracy or hold-error acceptance threshold is defined by N07; values are descriptive measurements.",
+    "Gazebo truth and PX4 local states are paired by same-container monotonic receipt time for hold drift; VINS localization error uses source-time truth interpolation.",
+    "This is a no-navigation-goal hover baseline; it does not qualify EGO trajectory execution, braking, other scenes or real hardware."
+  ],
+  "artifact_sha256": {
+    "agent.log": "1848fd8beccaeef65d90d7b8a2081af0e343dd8d899adb074eaac208aaaaf7fc",
+    "alignment-observation.json": "8be25f2305bb7e31a875610c3f5bc39a4012cee3ece52c7ae2dfd4bcabf90748",
+    "alignment-recorder.log": "da78f42fb61174e2061b158af32d66ed2b47776ff9182b015793ad5de1049c16",
+    "bridge-alignment-timeline.jsonl": "e6a23a74a6f12efb767b87e2c18ae03a0cd14ee484e4f085800560815ef6d247",
+    "bridge-recorder.log": "c639dbf77346fb3c9acc92c2bce50bf0f71ca1801abb73c2ffeb7852b53bdcc3",
+    "debug-truth-evaluation.json": "dfcb439e58d98bc2e4263787f6049ea58d69a5fac3c3a31390d4c8a3ffb12422",
+    "fixture-model-list-after-removal.txt": "7ee4b0aa6e9f1a31f8b310a4051db64fc7ff884a12d5ddcef3f88d962180dbe0",
+    "fixture-odometry.jsonl": "2e747ab24fd1371ac5d5f4267c86cdc82e7390f8bd83389b1541259019616e91",
+    "fixture-result.json": "3c3596d43ef281426308f32e31a651be08fe6adfb1185d9996e5d883c2bba592",
+    "fixture-safety-gate.json": "b82e703bac3eed7fa39dffdfa0aa04139debf650025728ba4cad7deeada7e959",
+    "fixture-stages.json": "65cf55ce9cc5c4896c1addc753646a938cbea5188d486a2ca5a31d8d9cc0555e",
+    "fixture-trace.jsonl": "d897a102d7f741930a200b21b322441169ee10f85c20ca7aaaff527381310dd6",
+    "fixture-vins.jsonl": "dee42a63ba9eeeb7af192873d48be29b765f1ab349674bdb8b770a1f381d3461",
+    "flight.json": "2aa1e6d305a69bcd262934fd734e953e9d93bf122c84e187957791c1ff19e91f",
+    "gazebo-server.log": "0d8ba2a917184cfa27167598dae0dad8fa7f72ec19a7228983cb5e318e253a7b",
+    "gpu-request.json": "408545c45700f62fbe5065ab06e1e2a072d07d4cff8b3226ab9b269ccb7d6743",
+    "gpu.txt": "d47d1a7d5060266ea424b2356ec5055875f2cff45a7882ead8e381345055a86c",
+    "imu-physics-contract.json": "2229cb3b7038592006b398d18ddce0f25b5c53f6284177daefb4beef61c79523",
+    "n05-after/n05-live-entry-check.json": "c98f231b754019ce53a02a5c381b12f717da8cf4748dccd926c41934003fd84f",
+    "n05-after/n05-live-raw-map.npz": "b0ecfbfeb4695999a476a2e23a520042bba3e9e26cc4fcab97defdb2207bdd13",
+    "n05-after/n05-offline-entry-replay.json": "3b4afffad3e3ba417dadd016c1cafbb1294892520da8b79a7f8aaddb6602d7e4",
+    "n05-after-check-evaluator.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-after-check.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-after-check.log": "f170b431831b1f4e5018c21cba10e85c9be4fb0691a65f01bf6a5412634cf61c",
+    "n05-automated-gate-sequence.host.log": "8b2dd3efdd1e25902d8593cb3796512d95a74e90e49b3ac0d3a0a244874c1e6d",
+    "n05-automated-gate-sequence.log": "8b2dd3efdd1e25902d8593cb3796512d95a74e90e49b3ac0d3a0a244874c1e6d",
+    "n05-automated-gate-sequence.pid": "89928c992f7cdd0536e5132503e0b9d1c6881fed74e73fae804a91e15ea8ee2f",
+    "n05-automated-gate-sequence.sh": "b1e2e479f609a4cf588f869635fa39fce6f57a3175073360961633943cf7e4b3",
+    "n05-before/n05-live-entry-check.json": "6797b9d05090452297f921ecec3c9e4f5f927848108b0a03ff204bd3b912f207",
+    "n05-before/n05-live-raw-map.npz": "17dfe8a999585c9a574da4fd7f828f9e995dda6a92513273a25595e98b8b35fd",
+    "n05-before/n05-offline-entry-replay.json": "dcd7fec48ffb8693312817fb5627526643e857dd8ee2e4b446e55e7e204fd07f",
+    "n05-current-area/n05-live-entry-check.json": "477b50e85f5f3a78f70c9e1f33960bdef0d3dd39412ac20036d303553584234b",
+    "n05-current-area/n05-offline-entry-replay.json": "9de9b78b3359a3779a053d63d5097726b86cea050f02de8d1c09f95b6c1ba0d9",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-fixture.log": "d5d95e71cc513fda1ce5e7de83b2f4b4e14312856975758ed68358c45ccd2f15",
+    "n05-gate-sequence-decision.json": "9e4ae872c37a719c15bfaa02064ed6bf79ca033d67292396207173286f25d5f6",
+    "n05-generated-layout/n05_wall_box_column_0.sdf": "f39d524e6114d66b2b76cd65151b84c771aed52a3ba29a200bc5e4076d305da2",
+    "n05-generated-layout/n05_wall_box_column_1.sdf": "e93c75895b425887e9d4a433c17a6d5e7b97d726ec3ca0b2f194819e9574667e",
+    "n05-layout-scene.json": "6693dc9871d252e8f1b396ba28175fb71f439a475d370cb4f464b2b43c8396eb",
+    "n05-post-release/n05-live-entry-check.json": "477b50e85f5f3a78f70c9e1f33960bdef0d3dd39412ac20036d303553584234b",
+    "n05-post-release/n05-live-raw-map.npz": "b0ecfbfeb4695999a476a2e23a520042bba3e9e26cc4fcab97defdb2207bdd13",
+    "n05-post-release/n05-offline-entry-replay.json": "9de9b78b3359a3779a053d63d5097726b86cea050f02de8d1c09f95b6c1ba0d9",
+    "n05-post-release-check-evaluator.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-post-release-check.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-post-release-check.log": "f360164dbe283aefd0c983b0bc927709b6667b49d94d21cb7c127991e2665660",
+    "n05-prescan-ready.json": "377be362ea463e1420be82322e03906d3b7382becbdb467f0ce2db895261e50b",
+    "n05-release-fixture": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "n05-run-inputs.json": "3c290a868a3dff1d6df7c9e5cf4c9be54a17caa985abcdaf44df7547681b949f",
+    "n05-run-summary.json": "ac6c090dca0712ef188f9259cbbb9a519f0ae0eae1fb5aad2c146e01790e47a1",
+    "n05-run-summary.log": "9a763f1a40c09763c279fd0fcfe1df05aa023e5fe7c6f1ed238b0dec67a8b182",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "px4-params.json": "02a20bce84ce304894ba91db54853945321b99f87327b7a783efeca589169680",
+    "px4-run-isolation.json": "aa2bafed98c5712bb23db858ebecb8f4f340da1d3b9338bf8cbdbe2b861b3801",
+    "px4-ulog-analysis.json": "bf18024a44bd77d477f83038c3a4f1087b36cdb40a8cd0ff0b34954a6c19d3ab",
+    "px4.log": "43bf47248f9fdadf03d1e809e0169229a641ebf1d7ce9f372760c9bf1177e522",
+    "px4_sitl_default/dataman": "b35ba4dd70cb30f36e77cd435dadde55ab8ba2a64aea81bf169144a376a968f4",
+    "px4_sitl_default/etc/extras/actuators.json.xz": "989f22defbfa6d59fdad77a5587a10e9dfc77ed81f4bb6b6f6d341d44c65b0d4",
+    "px4_sitl_default/etc/extras/all_events.json.xz": "3e07d215b9591c01d9014acff13d780e310b058438b0d7f0423b23bc9fc1f59d",
+    "px4_sitl_default/etc/extras/component_general.json.xz": "33228eda0b61b019bbc64576b3ae3e85f6dbc9733366bbbab402c3a9768f26bc",
+    "px4_sitl_default/etc/extras/parameters.json.xz": "61415a8803b7983ee5a489e3905fc7fa453b6c68910a132c711be7d8fc008371",
+    "px4_sitl_default/etc/init.d/airframes/1001_rc_quad_x.hil": "30ce0b63c4e820aef11da6a85614c2eb68baf3a8ee27012135db2d238a483a2b",
+    "px4_sitl_default/etc/init.d/airframes/1002_standard_vtol.hil": "59fd2a582fc0df8714f1632add4a1d8848bb44b898956c898125fb37393a4a8f",
+    "px4_sitl_default/etc/init.d/airframes/11001_hexa_cox": "2cd422066d0caf128cab7c28335b0a235abe5c04e503716e64e2435574f2c30f",
+    "px4_sitl_default/etc/init.d/airframes/1100_rc_quad_x_sih.hil": "23fccc56d453a6584b9dd73c75b10fa8a349b576c4efc554748c95d218f357ae",
+    "px4_sitl_default/etc/init.d/airframes/1101_rc_plane_sih.hil": "46f80f4fb51224d2fcfe325bd27f79b45f7dec4dbb6c83b99a6990902ea6ff05",
+    "px4_sitl_default/etc/init.d/airframes/1102_tailsitter_duo_sih.hil": "e9c98e40fbdd2b2715c1b021bdfa4d64d77ac7cdc1271187fe4153ef2b51038e",
+    "px4_sitl_default/etc/init.d/airframes/1103_standard_vtol_sih.hil": "dfd150c19fbd9725bb68686d4b94198919abb2d8c4bc2a55fd6ef56b77c5c887",
+    "px4_sitl_default/etc/init.d/airframes/1104_standard_ackermann_sih.hil": "9ee830f59906790f80c49ae4105faa82f4bc2d1deedda8d08a7e41e899ed6854",
+    "px4_sitl_default/etc/init.d/airframes/12001_octo_cox": "0c4e4d57888881879d6dd9bee2333061eb22fd2e207bfe3ec9cc52a219792086",
+    "px4_sitl_default/etc/init.d/airframes/13000_generic_vtol_standard": "287cfc7ad98bf46a5ecc24cfe9e869e53dc75dadccda445366f6001ebacd24a3",
+    "px4_sitl_default/etc/init.d/airframes/13030_generic_vtol_quad_tiltrotor": "cf13e5d80e71109d64ea74391182a6a8a4eaf7df2b61d4d7f3c304a9386dd058",
+    "px4_sitl_default/etc/init.d/airframes/13100_generic_vtol_tiltrotor": "7070c5615fa683867693e39e0be4da94128dee75772631cef8f522647eb3c9ec",
+    "px4_sitl_default/etc/init.d/airframes/13200_generic_vtol_tailsitter": "6bba2d210f16d9a0486392c14fb463fb831f488d3efb4b058b55ec8786b5451e",
+    "px4_sitl_default/etc/init.d/airframes/14001_generic_mc_with_tilt": "5ea24961f641a70e6ebc542d31a5fbb966a0c70672fa91af625a174a87329b51",
+    "px4_sitl_default/etc/init.d/airframes/16001_helicopter": "c2aed7ad39ba14f8c008214261dd709588697180b9505b1874879723c176a149",
+    "px4_sitl_default/etc/init.d/airframes/17002_TF-AutoG2": "9baa34b40538bddd0bb3c2744417d433206d7ed69f1954e9207e27b4536578bb",
+    "px4_sitl_default/etc/init.d/airframes/17003_TF-G2": "502e4b3abac3f8ee6bca4135a9520364f7f78ba25f8fb542729a86f8fff63fc7",
+    "px4_sitl_default/etc/init.d/airframes/18001_TF-B1": "dba9fbf65444f34e274942c11d9611ed600650459b5fb226d1bed8a1548923f7",
+    "px4_sitl_default/etc/init.d/airframes/2100_standard_plane": "c8e9c0158ee9afef3144cde8072c5b673adb912ac56a5dbcdf22a6590ce0f245",
+    "px4_sitl_default/etc/init.d/airframes/2106_albatross": "40337a16958a962526e84280a8f25167ec46a08bef1aa37639af4b9d5d74f303",
+    "px4_sitl_default/etc/init.d/airframes/24001_dodeca_cox": "a043d2118bfecfbc45dc97ed6b1eb6556a0e93aae1b155dfaa3e2bd049c6b283",
+    "px4_sitl_default/etc/init.d/airframes/2507_cloudship": "dcd6bcf6a23c48750f52ee53aa960be7ddfebd717564a994abd15d04d152e7a5",
+    "px4_sitl_default/etc/init.d/airframes/3000_generic_wing": "c6a4c18e99de04a18cf0779d55a61d2c20c2e1aede89250d17eb8f1b5eff3c2e",
+    "px4_sitl_default/etc/init.d/airframes/4001_quad_x": "7abe62d67261afeab738d907dd54083d1d659c48a9d00e6356e611546e94b3d2",
+    "px4_sitl_default/etc/init.d/airframes/4014_s500": "5095235886f85160e165bb76744062134e7499fb302ae750aa2d8f2457e65c24",
+    "px4_sitl_default/etc/init.d/airframes/4015_holybro_s500": "a92daf63c9f966cc6458a9cc36985eb231492021e82022a9db517dcf959a6a63",
+    "px4_sitl_default/etc/init.d/airframes/4016_holybro_px4vision": "2d73dd9acf9080aacbe2bb1899ee4c6225999fd79d873da2ed36a15024eb1cf5",
+    "px4_sitl_default/etc/init.d/airframes/4017_nxp_hovergames": "bc60e5ea95fe440bd12800e3db8ec7f69b7f08c49948b1fbfb7fd159545df0ed",
+    "px4_sitl_default/etc/init.d/airframes/4019_x500_v2": "c0b865ec322134cf79f2c8718b567e5cfbdbb409784fd2af54a5a6c4b173b505",
+    "px4_sitl_default/etc/init.d/airframes/4020_holybro_px4vision_v1_5": "18ca37219bc355a91ae5394836e4f9c4eeacb4c3eebf69f4453922506d1d73e2",
+    "px4_sitl_default/etc/init.d/airframes/4041_beta75x": "42de9a1488ca1608d1ad868b6ec0c9ac40601c744c84107382132755703ab6e6",
+    "px4_sitl_default/etc/init.d/airframes/4050_generic_250": "43a620dab0769bf9769a2e5ca99be86b86f16b017683264d9509d4f094f96318",
+    "px4_sitl_default/etc/init.d/airframes/4052_holybro_qav250": "3fd28313ec18f6c9f959428ff17de98f9c580e4f4958c273fb13dac1a2ad4020",
+    "px4_sitl_default/etc/init.d/airframes/4053_holybro_kopis2": "572abb8efdb81b17315692e6f0dc27f149303d6f1afb7be976ba6fef2ff3a571",
+    "px4_sitl_default/etc/init.d/airframes/4061_atl_mantis_edu": "2632a94680b7067feefebd9490c5b43280556225fad78b22e256de2c8e0ab377",
+    "px4_sitl_default/etc/init.d/airframes/4071_ifo": "2d3f4154c3f5cf131c08bbcbed1c64ba7d67a0022071de18f6ee9dc9335d24bd",
+    "px4_sitl_default/etc/init.d/airframes/4073_ifo-s": "97815d02f335dc38a91c808b93d5d8da6afcf73a53d3ee93f278e245a3ad3038",
+    "px4_sitl_default/etc/init.d/airframes/4500_clover4": "46e07f01ff359ce1b90c31bc89eeba018e2ee1b0aaa31e1482ac9126b6a635d5",
+    "px4_sitl_default/etc/init.d/airframes/4601_droneblocks_dexi_5": "aabd2aec41d50ef49960afb3a83da305bb633782f3a46b01b758d32ac129525c",
+    "px4_sitl_default/etc/init.d/airframes/4901_crazyflie21": "3f733f22aa91cc2bd0b380b97ca76c1a8fe2d1626473f991a14cce5ffacd07b0",
+    "px4_sitl_default/etc/init.d/airframes/50000_generic_rover_differential": "659423ec4e3844e9c5ad3c588a50a682d2b418d763b5c1ced844afd1971fdb48",
+    "px4_sitl_default/etc/init.d/airframes/50001_aion_robotics_r1_rover": "0bc14b47ed4b98954197a260b0b15152660462120d756f83cddbc7d8d51a7709",
+    "px4_sitl_default/etc/init.d/airframes/5001_quad_+": "16a43f147f9f91207a9aac3852be3df7ed647b6d9981cb30dad2159083fdac80",
+    "px4_sitl_default/etc/init.d/airframes/51000_generic_rover_ackermann": "0633927089b5174616149b0a31c7c972a89b6d77130ebd7f0a325fed617d00d6",
+    "px4_sitl_default/etc/init.d/airframes/51001_axial_scx10_2_trail_honcho": "2cef0e9185da8e2d302ab872dc00de1cfbb313f77aa5d6553c70553056841264",
+    "px4_sitl_default/etc/init.d/airframes/51002_nxp_b3rb": "8fdd0cfe349d7e45c8eefb562205acc6e3be0b7a91939c8f6a87ff6364da527a",
+    "px4_sitl_default/etc/init.d/airframes/52000_generic_rover_mecanum": "088f3ba2ab98f53ea306bb784704befd005744e33f564f0e1278cb6d7e09f25b",
+    "px4_sitl_default/etc/init.d/airframes/60000_uuv_generic": "641d5fca277d798f9d2cd663f3e74dae787e4e8739ddec3213543cd87f7fa025",
+    "px4_sitl_default/etc/init.d/airframes/60001_uuv_hippocampus": "06884ebf8a3be790eafac8058035b1da0790b38f74546356b8169351f7650d8a",
+    "px4_sitl_default/etc/init.d/airframes/60002_uuv_bluerov2_heavy": "fc46c6ad02b0140bbe152039d545ab00465c4a31997eb3375ceac33b140051f5",
+    "px4_sitl_default/etc/init.d/airframes/6001_hexa_x": "8669a764fbf763ace09780368748398c0e69bc72b1f211e4e39a47f8748da0ba",
+    "px4_sitl_default/etc/init.d/airframes/6002_draco_r": "2b3fcb8ed444e8072a1535750b5f7c6940d13ce9f0429d98ed9271974afc26b0",
+    "px4_sitl_default/etc/init.d/airframes/7001_hexa_+": "db09cd25113f81b37dc8f7e0dcf7b4d5cdc8e0f6765d63bc02b60b8f60d76b83",
+    "px4_sitl_default/etc/init.d/airframes/8001_octo_x": "d4fd87759c8c960c95a67de346fb799be1a5f54d6a09237e045291b91dd6cf70",
+    "px4_sitl_default/etc/init.d/airframes/9001_octo_+": "98d214a020157a60113a577c18000f4f70fa3e5dfec1744f3eddc88b24c1f0a6",
+    "px4_sitl_default/etc/init.d/rc.airship_apps": "32a083ca058c23ed35b50a43bf68c9e4914071e9d9dab480ac00718065047694",
+    "px4_sitl_default/etc/init.d/rc.airship_defaults": "1a5d727d6894cf21210250e177d3a0509e8238621e3b47b21a4c66796141d248",
+    "px4_sitl_default/etc/init.d/rc.autostart": "01b2e5b9920ad07fa6d76e461de9eddc8854ac5449091c9a58c1df88ac9ad057",
+    "px4_sitl_default/etc/init.d/rc.autostart.post": "a7b3e808fb36bf8971bf01e5b1e46d1372597c902337d042205e5744a8e45c9b",
+    "px4_sitl_default/etc/init.d/rc.autostart_ext": "38cb91c7921f91bd22639bfc676f6b5caf5a4786b7fbf426bf47d059650ad4c6",
+    "px4_sitl_default/etc/init.d/rc.balloon_apps": "9980f1c36efaaf6452265a714e8a741eb5e0c9c22f72faa487981da8961dfed6",
+    "px4_sitl_default/etc/init.d/rc.balloon_defaults": "dc2f409ece49bb73123444c2f321893b1094c809c9d0fe93ebc69cb43c3f6fd2",
+    "px4_sitl_default/etc/init.d/rc.filepaths": "aca52056bd94298d35857078d2f91efe1f104b102e2b03c059e2657ca96370cd",
+    "px4_sitl_default/etc/init.d/rc.fw_apps": "af0411f7cdfa8989ae6518e0687c58328701f46a149b99ae6054171a6bc7f9e7",
+    "px4_sitl_default/etc/init.d/rc.fw_defaults": "10abe3578afc68023af339b586ae40a5ea7dde9172009c5f27fbc5c83ef7146f",
+    "px4_sitl_default/etc/init.d/rc.heli_defaults": "70840ad486ae93df6fba23996045fda160b48459442794410f557b7429ea0f7b",
+    "px4_sitl_default/etc/init.d/rc.logging": "53aea58c2e64c28bf62fc22a56b3e5e260a526e69db47be7e6490dcc395c3e78",
+    "px4_sitl_default/etc/init.d/rc.mc_apps": "eafb14086405fa15d60d371d027e7a83e3b5fe0b04868b4dc24f48754762a9d1",
+    "px4_sitl_default/etc/init.d/rc.mc_defaults": "7b2cd6724104c10ffd048b53656e36e61aaeccfbb9e9c1ab09ad0261f478f711",
+    "px4_sitl_default/etc/init.d/rc.rover_ackermann_apps": "f77559bfae6a59cdbc4e0c5cee364b5830a85b391a0734d2079ba4aac94b3360",
+    "px4_sitl_default/etc/init.d/rc.rover_ackermann_defaults": "eabb275785f46ed48118f92883735e4472132ed39b8f104f36080bd3b93c5ee2",
+    "px4_sitl_default/etc/init.d/rc.rover_differential_apps": "3abeab278d80f4e65e4b2f3e1dce7c6b064d364545c24718730390f428e15f8f",
+    "px4_sitl_default/etc/init.d/rc.rover_differential_defaults": "6919f023bfa86cfb0d1212b2152755db92313c9a1cf26ae6ebc857726ed44b37",
+    "px4_sitl_default/etc/init.d/rc.rover_mecanum_apps": "39a86e4c312f4bfdaaaf18497b883c4e44ecc89614ea419629901d60c1c29d0a",
+    "px4_sitl_default/etc/init.d/rc.rover_mecanum_defaults": "466b2a4da5063f12ed33d87c304aaf587f79c79b2c86bf6ad0707f32ea0febb7",
+    "px4_sitl_default/etc/init.d/rc.sensors": "bf0c463aab50d990ac39c488708f4e302b1fbf03c556d899c9319db9b86505f5",
+    "px4_sitl_default/etc/init.d/rc.serial": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "px4_sitl_default/etc/init.d/rc.sysinit": "408e8bd8e3e4fbf7aee0ecc649c2335a666f1166bf2e1a076c7019cdadb3ee49",
+    "px4_sitl_default/etc/init.d/rc.thermal_cal": "c86f979c67de973c27c49fac57aa7ec9f1b284e61936dd0a36d923e428a1db10",
+    "px4_sitl_default/etc/init.d/rc.uuv_apps": "f464eeaa2ba54a8c30eb4b4e643421b66d699b8ca74559138dc2a6510be26671",
+    "px4_sitl_default/etc/init.d/rc.uuv_defaults": "d75720864ea6c966f13cc11c4d22befca12518507a1c7074e2ac8d6deb233530",
+    "px4_sitl_default/etc/init.d/rc.vehicle_setup": "f257b860906f7758c2d286a1bf8f706478ab045369bea084148e6a8f02bbb1ee",
+    "px4_sitl_default/etc/init.d/rc.vtol_apps": "5c5f95bfac70e53df948849a2123f1507e06c0d3108053a9f955d1fb0986d3ab",
+    "px4_sitl_default/etc/init.d/rc.vtol_defaults": "3f02908764d25387b9d44f3e4b2602b6744d847d0a59197ffda8d430939d1dec",
+    "px4_sitl_default/etc/init.d/rcS": "dcb98ee77f8c459a3046c16343dbaad77f4992ad11c48c5422d9532bcaed74f4",
+    "px4_sitl_default/etc/init.d-posix/airframes/10015_gazebo-classic_iris": "9d2d8fc2d47fa2df4f6c5f2919cde9bc8fcd513efe4ee6362cf5874bc1c0ae1e",
+    "px4_sitl_default/etc/init.d-posix/airframes/10016_none_iris": "593880f1b72c76195bc0d8d8c487bfd402e2fb0da24f42ec2298d7c3040baf29",
+    "px4_sitl_default/etc/init.d-posix/airframes/10017_jmavsim_iris": "9d1de9fcc2bdf98ae6a784a94a2bcbb4d91058f74561abb061fd3662934c3ff9",
+    "px4_sitl_default/etc/init.d-posix/airframes/10018_gazebo-classic_iris_foggy_lidar": "ebf0445fe56d0e57ed25959c1fd98459f6b5daf9a91bff9b5c41877571af1f47",
+    "px4_sitl_default/etc/init.d-posix/airframes/10019_gazebo-classic_omnicopter": "99b6207a8353ace57f43ebcbe1a05c39d91586d5f3c8d3a839c4ef5c9b89e27b",
+    "px4_sitl_default/etc/init.d-posix/airframes/10030_gazebo-classic_px4vision": "86ad560c6cd481691b9782cc89cbf8e90f5c61a7f664c8f1fb1ac550340d1754",
+    "px4_sitl_default/etc/init.d-posix/airframes/10040_sihsim_quadx": "812ba7678498c18b05390233ca9bfb042a63e215bd70271085962131fc16008b",
+    "px4_sitl_default/etc/init.d-posix/airframes/10041_sihsim_airplane": "1541503171a0c8d9ecb70a4afafe430966d804b3988264073f4cdeaa4e26f54f",
+    "px4_sitl_default/etc/init.d-posix/airframes/10042_sihsim_xvert": "5a4eb9c6d1f919fcc8c80e527ca024b6bc7abe35e9e9a35775bcc765fc5efd7c",
+    "px4_sitl_default/etc/init.d-posix/airframes/10043_sihsim_standard_vtol": "e61788a035dc74155ca234f9fa77d33b494ad62135af36482fa6ba5761ebed37",
+    "px4_sitl_default/etc/init.d-posix/airframes/10044_sihsim_hex": "08343bdb708eb057d97d3ec74e27a036fc365b64b23e5715abb03ab993b676e0",
+    "px4_sitl_default/etc/init.d-posix/airframes/10045_sihsim_rover_ackermann": "1bf2823c3d13fafaa026a5d6fef18667469d2c27277e5420af669d5ad418cd62",
+    "px4_sitl_default/etc/init.d-posix/airframes/1010_gazebo-classic_iris_opt_flow": "cf34856c3b463a9f2ddbcff2ff683b241b06301110e9844ff3005a5820859b44",
+    "px4_sitl_default/etc/init.d-posix/airframes/1010_gazebo-classic_iris_opt_flow.post": "8b622367299a6ed48a92937f0ea4e3087e5783fa7121b8833006791fb09ba1e5",
+    "px4_sitl_default/etc/init.d-posix/airframes/1011_gazebo-classic_iris_irlock": "84aa9ac234786b3344fc01c38e02d3cc8dcdb50a20af7009a0c15b9c70b202c7",
+    "px4_sitl_default/etc/init.d-posix/airframes/1012_gazebo-classic_iris_rplidar": "e40998dc9a359afd3977769b436ded4a1b0427664cbd89a5f0b67f75496bdc8f",
+    "px4_sitl_default/etc/init.d-posix/airframes/1013_gazebo-classic_iris_vision": "d2157f6cc34f2bb2ef83dd7d7cf0eae1bab1af1c38e335f0b82df8655ac57ae5",
+    "px4_sitl_default/etc/init.d-posix/airframes/1013_gazebo-classic_iris_vision.post": "2a2cb498f49b74b72c4b67b657088f2e886202823db818b081f1895950920600",
+    "px4_sitl_default/etc/init.d-posix/airframes/1015_gazebo-classic_iris_depth_camera": "fde8407e95b4cbf3838dd9656671f356640ec379c980d27e23caab870722bded",
+    "px4_sitl_default/etc/init.d-posix/airframes/1016_gazebo-classic_iris_downward_depth_camera": "429b19949105e8a23033abc55579c9a050d9d01251675470df11883184b3d6cc",
+    "px4_sitl_default/etc/init.d-posix/airframes/1017_gazebo-classic_iris_opt_flow_mockup": "4f1cd2593862043cffafa723810875308bc18cf116225bb46672d20fe99f35b6",
+    "px4_sitl_default/etc/init.d-posix/airframes/1019_gazebo-classic_iris_dual_gps": "988fe53eda969f534d5a476c05a85009a23fa0f2dd5a093c451ae4152c5c37b2",
+    "px4_sitl_default/etc/init.d-posix/airframes/1021_gazebo-classic_uuv_hippocampus": "f0eca440f39fc87b52172dab32ed1618543aa20a1850eb3f52d3408dd77b7d52",
+    "px4_sitl_default/etc/init.d-posix/airframes/1022_gazebo-classic_uuv_bluerov2_heavy": "0f8320f2645eb2d309e809b8833437d5a8fffe5d04977b3b2d4299c1574eb149",
+    "px4_sitl_default/etc/init.d-posix/airframes/1030_gazebo-classic_plane": "40887cade79612ac963b93a3f1de7d08c65fdc015af4a509a7b5463bbb29212f",
+    "px4_sitl_default/etc/init.d-posix/airframes/1031_gazebo-classic_plane_cam": "c99030fbc9dd70018fc2ba0fd1439bbfd145789446215e9ce4997271c388e195",
+    "px4_sitl_default/etc/init.d-posix/airframes/1031_gazebo-classic_plane_cam.post": "b424a3f68a2e7c9a0dc9a6f5caa973811ea7bb1c81ca09a11b37b0209b714748",
+    "px4_sitl_default/etc/init.d-posix/airframes/1032_gazebo-classic_plane_catapult": "1147503ad674a37f596f8ba86b4af2d9f158dc501e44ca435e990f4b86ae5ec3",
+    "px4_sitl_default/etc/init.d-posix/airframes/1033_jsbsim_rascal": "a54118917699c735471a6ce85b46304b47faae4e503d5b57ba2a9dbe6b4a5ad1",
+    "px4_sitl_default/etc/init.d-posix/airframes/1034_flightgear_rascal-electric": "a54118917699c735471a6ce85b46304b47faae4e503d5b57ba2a9dbe6b4a5ad1",
+    "px4_sitl_default/etc/init.d-posix/airframes/1035_gazebo-classic_techpod": "394c124e1a70abaaa1ff382281516c4e6e33fda0754698c8ab17afccff30fe1a",
+    "px4_sitl_default/etc/init.d-posix/airframes/1036_jsbsim_malolo": "a54118917699c735471a6ce85b46304b47faae4e503d5b57ba2a9dbe6b4a5ad1",
+    "px4_sitl_default/etc/init.d-posix/airframes/1037_gazebo-classic_believer": "5c8d7c49b78a3131fcfc6cfa7e16d9e38d44cd741c4a6fa4d82f2ff4f448d5a5",
+    "px4_sitl_default/etc/init.d-posix/airframes/1038_gazebo-classic_glider": "848c29f5aeaf2387909f6755a52fa78ab881b2ec6c1a51a96d13c0df5d9679ca",
+    "px4_sitl_default/etc/init.d-posix/airframes/1039_gazebo-classic_advanced_plane": "6c085df2e1e4ef2c86b10392b74609aa231afae20ffac150f82da5540c356ab9",
+    "px4_sitl_default/etc/init.d-posix/airframes/1040_gazebo-classic_standard_vtol": "46e125172d2ce84b512f809e24409cf035f57a2219d9834887a8052b81e85a93",
+    "px4_sitl_default/etc/init.d-posix/airframes/1041_gazebo-classic_tailsitter": "c30a4eab3c78878e7ecb03c22ae05cffaa322209c71b6a039f2c5992bdb7f695",
+    "px4_sitl_default/etc/init.d-posix/airframes/1042_gazebo-classic_tiltrotor": "026f72173a786b9762b1246e4945617503dedbd2fcd442a3723313465886d7fc",
+    "px4_sitl_default/etc/init.d-posix/airframes/1043_gazebo-classic_standard_vtol_drop": "13d3a497bd18441ce09dfe551442e4a0d9213bd2e7d9655d78c491f8332ecd5e",
+    "px4_sitl_default/etc/init.d-posix/airframes/1044_gazebo-classic_plane_lidar": "855b3bd9ba3fe5ffb014d53b47cacce5cdef35015c2f0926b67395c15919a7c9",
+    "px4_sitl_default/etc/init.d-posix/airframes/1045_gazebo-classic_quadtailsitter": "292fbefaa882ad9b947729ea6e59ba838ebd88bc979ef8e9cdd05abd62cdd866",
+    "px4_sitl_default/etc/init.d-posix/airframes/1062_flightgear_tf-r1": "296ca0a57ca2587212695031e59c9a5f35d2f3a779b31f5c1e7dc509f08aef41",
+    "px4_sitl_default/etc/init.d-posix/airframes/1070_gazebo-classic_boat": "921a79a112da36bc138c03e235b2e515d2994d7b0d5244ccbc25a2bab28fe974",
+    "px4_sitl_default/etc/init.d-posix/airframes/17001_flightgear_tf-g1": "77eaa089c3e9df71d2f928f87c7bcab09581bc13f7852b3d2213c2dfee82bf0c",
+    "px4_sitl_default/etc/init.d-posix/airframes/17002_flightgear_tf-g2": "f6ef0af968d7774ca1a33813710df6856f061175e200b4859128fa82214a78c0",
+    "px4_sitl_default/etc/init.d-posix/airframes/2507_gazebo-classic_cloudship": "66e63c6cc85105d2ca6ba41c692471a9b0139a83e9daf4b7278ee097111b1aa3",
+    "px4_sitl_default/etc/init.d-posix/airframes/3010_jsbsim_quadrotor_x": "39a3f18832a04f216f8add47e05775cef6a62e263c1820c7b87869b300de7ce9",
+    "px4_sitl_default/etc/init.d-posix/airframes/3011_jsbsim_hexarotor_x": "4333f09f2702a8113b6b89fd2fea1029681c1e89f4966e0210aade92e12a6fbe",
+    "px4_sitl_default/etc/init.d-posix/airframes/4001_gz_x500": "20ff202101deda060f73b66e08ad047c28f13edbe0d99c389ec663c977e3a4be",
+    "px4_sitl_default/etc/init.d-posix/airframes/4002_gz_x500_depth": "1311a755121cf4145c67435cbea53e8394441a4560e072ec414cee2c842b7b33",
+    "px4_sitl_default/etc/init.d-posix/airframes/4003_gz_rc_cessna": "6b746721c8d73bb4bee03301ace7c8b37093b7e8de5173fec71dc6567b5e7619",
+    "px4_sitl_default/etc/init.d-posix/airframes/4004_gz_standard_vtol": "1ee1bc9ed6290ecf1aab4572191c22039981d02de9491dcb3e9c954e35a5bffe",
+    "px4_sitl_default/etc/init.d-posix/airframes/4005_gz_x500_vision": "d1e54a76b38af04d2ddd8b3228a3928ab86de46411588fe454a9fc267221edf2",
+    "px4_sitl_default/etc/init.d-posix/airframes/4006_gz_px4vision": "df418fa58a6b9adfd6a628410ff5975974b5beec03cab3961c4da1e2acfc727b",
+    "px4_sitl_default/etc/init.d-posix/airframes/4008_gz_advanced_plane": "93bfdcbd0c8f8f61e99240bcf7a4b28173d2992c3f0dca2107aec553de8c6ab8",
+    "px4_sitl_default/etc/init.d-posix/airframes/4009_gz_r1_rover": "d41974584a553eae80acda93c9d41c46f2fe66773c84f8a0e8cfa15f0b5f0143",
+    "px4_sitl_default/etc/init.d-posix/airframes/4010_gz_x500_mono_cam": "25c6208075d24f64300b357594bccb77826f00aa07b02e2ccec492e575772d0d",
+    "px4_sitl_default/etc/init.d-posix/airframes/4011_gz_lawnmower": "4af157d87163e82140d2e45d9c47b4d2aefdfa5bc40f8cc432b9154a16a270bd",
+    "px4_sitl_default/etc/init.d-posix/airframes/4013_gz_x500_lidar_2d": "4f263c9d56e83dc400d63fa5eb1b87fe4295c7e7fde4aa77db0237950ef07abe",
+    "px4_sitl_default/etc/init.d-posix/airframes/4014_gz_x500_mono_cam_down": "8bb8c14c642674c51d09d594bfd5728b3bdaabd4b64eb0fb0b38a13782839158",
+    "px4_sitl_default/etc/init.d-posix/airframes/4016_gz_x500_lidar_down": "be2ad8355f401275db619927bc403c736059aa5a2db8d51d9da892c90fab9cf3",
+    "px4_sitl_default/etc/init.d-posix/airframes/4017_gz_x500_lidar_front": "489315d772d58a6a54cb40e03b53f7e3f25c14ee9a69bfdad539e251136b03e7",
+    "px4_sitl_default/etc/init.d-posix/airframes/4018_gz_quadtailsitter": "bc8b892945a16e52149d191cf867c727aa7d974098dc23dae18d64a49b6304f3",
+    "px4_sitl_default/etc/init.d-posix/airframes/4019_gz_x500_gimbal": "a3504ec83b581429fbbe47c8dcb1a9814f0f6343b7821c4933cc3dff37cc84a0",
+    "px4_sitl_default/etc/init.d-posix/airframes/4020_gz_tiltrotor": "64e973a5919fe56144f0f4dbacb29f7142fed28f9d24dd1b884b42dedb76e6f2",
+    "px4_sitl_default/etc/init.d-posix/airframes/4021_gz_x500_flow": "dd4b19accb3594ab3ef197966e88f6e88621d1b21cb1009345444affcc3363a3",
+    "px4_sitl_default/etc/init.d-posix/airframes/50000_gz_rover_differential": "a589a639285ab595ee9d929acdf338f1727a9c1eb34186c2ecf97cb76744632e",
+    "px4_sitl_default/etc/init.d-posix/airframes/5011_gz_x500_d435i_vio_closed_loop": "9afd82f5cffdc67e8ebb3f9c61cff70b63e36007a17e37dad5da6e5ddb2d9fca",
+    "px4_sitl_default/etc/init.d-posix/airframes/51000_gz_rover_ackermann": "5a5fb8748b3589fcb771e1868fd1eb5d22298fb4cb26c1bb246fcb3e64fba4b0",
+    "px4_sitl_default/etc/init.d-posix/airframes/52000_gz_rover_mecanum": "e8fdcefe4b277f639075e7f2e92e8c2e825703f40e50c89259c512c78764fd52",
+    "px4_sitl_default/etc/init.d-posix/airframes/60002_gz_uuv_bluerov2_heavy": "769ee670c00d700561c9cb93afc45d81103dc75caa14b72c47e25f10d0e23170",
+    "px4_sitl_default/etc/init.d-posix/airframes/6011_gazebo-classic_typhoon_h480": "ac0238c5a80ecedc558eb79b955b9b6fb0f1a692d6ff16995842077c940a0352",
+    "px4_sitl_default/etc/init.d-posix/airframes/6011_gazebo-classic_typhoon_h480.post": "08c7b16bce89ddd862128f25ec0bb1cc9d0cc27883d2e196d11ec8978146e87d",
+    "px4_sitl_default/etc/init.d-posix/airframes/70000_gz_atmos": "0121bffbd58ef307be9af2ae1dcde19d232d49a3427d7594025fc730d8fdfeb3",
+    "px4_sitl_default/etc/init.d-posix/airframes/8011_gz_omnicopter": "8ba807ee84b8b03c300eaae0a2e75786bb6926d0fc37a32fd8c3bc065112f768",
+    "px4_sitl_default/etc/init.d-posix/px4-rc.gzsim": "dba9b8e3bfd4a5e7fef6cdb6ba7d6a23d593884886b6b91d132568f0ea4038eb",
+    "px4_sitl_default/etc/init.d-posix/px4-rc.jmavsim": "305f7c28a2d41b80092a49742523c68b6b13e8c1d1e6c0ee7e8d15c05c49b7de",
+    "px4_sitl_default/etc/init.d-posix/px4-rc.mavlink": "ae7ddfc7f0a8428aa33b53e909862c9f499ca065013c05dbdabf9ef2172899c9",
+    "px4_sitl_default/etc/init.d-posix/px4-rc.mavlinksim": "c73f2b7fb9e34cecb5f91ee2c235d83104770828709d357b1e796f74040d80d1",
+    "px4_sitl_default/etc/init.d-posix/px4-rc.sihsim": "d502a359413443cbc631aea20f685518fddd2a644d2ed063f59ec383a26808c4",
+    "px4_sitl_default/etc/init.d-posix/px4-rc.simulator": "6a1c29d1d5ab59e726914072ac2bdaadc23bc15750104fa62a761e4f577445b2",
+    "px4_sitl_default/etc/init.d-posix/rc.replay": "91dc8fa3717a3fc0e6a8889a0c33fe2d36583d3f78010b97e15d12455c5d471f",
+    "px4_sitl_default/etc/init.d-posix/rcS": "8f7c3edd7ab4622f42f30b281584464b325c947e21152c4fcac0cb4acba17705",
+    "px4_sitl_default/log/2026-10-23/17_28_50.ulg": "68b51c62482e024f2340d65d977a56d7e07c3c2cc60230ac9a30b8cfc3a6dd51",
+    "px4_sitl_default/parameters.bson": "5fb167932b6bdcb52930fb55c2d151e1c22c1ae797742b4f315835a578703720",
+    "px4_sitl_default/parameters_backup.bson": "5fb167932b6bdcb52930fb55c2d151e1c22c1ae797742b4f315835a578703720",
+    "px4_sitl_default/rootfs/.gdbinit": "4b424fd08bad11b6578eaf6f47e0a49685e9bc55f532d94d9a2e36f62d379bd7",
+    "px4_sitl_default/rootfs/.lldbinit": "2ea3d6ec57072e28b90874ee105a1ec52c3ff040a1d813987addd769e403dc43",
+    "px4_sitl_default/rootfs/gz_env.sh": "8e1424c8812603e566fe220a8da310aad3a5da5a2fa1ac6f4b7899f141f9a356",
+    "ros-graph-audit.json": "0a77276bc0ec379d15ee5ec170ba9c52ef74018edf9cc82e24252139d29de634",
+    "ros-graph-recorder.log": "e80e020425c577051eab23f98f874adccf24d5e4b0edff1203b4efc9936b016e",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "settled-imu.json": "adf1d7ec7a97eb08b16eeab86cb105f05ded8764464e9be5e2ecb942beda8a7a",
+    "stack-started": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "truth-recorder.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "vins-diagnostics.json": "2b18d9f8db26eddf9cec4883abfb65b8182db06512fe3383afe2fcd7cd572a9f",
+    "vio.log": "52d55533ca5381c7264868ca4b99515dd29a3d99603dc790bf66cf11fe704bfe",
+    "vio_initialization.sdf": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+    "world.json": "ef7f5f002f9754a4bdc02beae2c0d82af44361e85ce70dd819e271198831f0be"
+  }
+}

@@ -1,0 +1,16 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -1022,10 +1022,9 @@
+     /* ---------- check lost of depth ---------- */
+     if (map->getOdomDepthTimeout())
+     {
+-      RCLCPP_ERROR(node_->get_logger(), "Depth Lost! EMERGENCY_STOP");
+-
+-      enable_fail_safe_ = false;
+-      changeFSMExecState(EMERGENCY_STOP, "SAFETY");
++      RCLCPP_ERROR(node_->get_logger(), "Depth Lost! aborting active navigation task");
++      stopForSafety("depth_odom_timeout");
++      return;
+     }
+ 
+     /* ---------- check trajectory ---------- */

@@ -1,0 +1,38 @@
+{
+  "schema": "n08-support-scan-profile/v1",
+  "date": "2026-10-26",
+  "subtask": "#313 static profile",
+  "profile": "n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view",
+  "profile_sha256_canonical_json": "833c2e10e9851a36b6191cdc5d79d9dd369cc684e4d7c58491a8432f8a25247d",
+  "derived_from": "n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_slow_descent",
+  "profile_stage_count": 17,
+  "total_duration_sim_s": 462,
+  "max_wall_s": 750,
+  "single_profile_change": {
+    "kind": "reorder return/descent before final rear-facing observation and move that rear view to z=0 with pitch=-0.35 rad",
+    "stages_0_to_9_unchanged": true,
+    "moved_descent_stages_equal_prior_tail": true,
+    "health_or_spatial_thresholds_changed": false
+  },
+  "camera_geometry": {
+    "horizontal_fov_deg": 87.0,
+    "vertical_fov_deg": 70.88069798464743,
+    "vertical_half_fov_deg": 35.44034899232371,
+    "rear_slab_approx_camera_angles_after_pitchup_deg": {
+      "min": 16.92803360799894,
+      "max": 27.758530002860617,
+      "max_abs_azimuth_deg": 163.52710828526338,
+      "inside_fov_estimate": false
+    },
+    "basis": "D435i SDF: 87-degree HFOV, 640x480 image; approximate mount +0.12 m forward and +0.08 m above base_link; low fixture pose yaw=-pi, pitch=-0.35 rad."
+  },
+  "static_checks": {
+    "preflight_scan_unit_tests": "44 passed",
+    "project_status": "Structure/design PASS",
+    "json_parse": true,
+    "shell_syntax": true,
+    "git_diff_check": true
+  },
+  "sitl_qualification": "not run at this evidence point; planned run n08-cancel-highspeed-prescan-20261026-313",
+  "next": "cold-start support scan, then same-identity post-release/current-area N05 online/offline, 40 s read-only preflight, and live forward-geometry check. Goal only if every gate passes."
+}

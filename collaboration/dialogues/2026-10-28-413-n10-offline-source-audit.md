@@ -1,0 +1,7 @@
+# N10 #413 offline source audit
+
+The user directed completion of N10. The #413 audit reused #404/#411/#412 archives and made no flight or runtime change. It corrected the #412 voxel-face attribution, found that #404/#411 runtime contracts do not bind the current source-lock hash, and confirmed #412's interval replay is identity-qualified. Same-run yaw-rate/RPE bins motivate one controlled yaw-rate-cap experiment but remain descriptive. Per-voxel update source and a cloud watermark are still missing; resource data do not justify a VINS queue limit or 600 s growth threshold.
+
+Decision: preserve all acceptance values and `FAIL`/`INSUFFICIENT` outcomes. Next, run #414 with route, speed040, one-second heading lookahead, obstacle timing and model fixed; change only the EGO yaw-rate cap, while adding read-only map source/vote evidence. Retain the independent 3 s joint position/yaw dwell. N10 remains `in_progress`; the four uncalibrated current-version fault classes and N10.4–N10.7 remain open. The one emergency disarm authorization was consumed in #391 and is not available again.
+
+Follow-up correction: the #412 cloud observer skipped nine of every ten occupancy clouds and stopped ROI capture at injection +5 s; no-ROI fallback snapshot occurred at +8 s. Its negative observation does not prove that no source cloud/update existed. #414 will collect all cloud callbacks to watermark freeze and include targeted per-voxel updates.

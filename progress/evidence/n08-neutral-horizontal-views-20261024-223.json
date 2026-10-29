@@ -1,0 +1,53 @@
+{
+  "schema": "n08-horizontal-observation/v1",
+  "task": "N08.2m",
+  "attempt": "#223",
+  "run_id": "n08-20261024-223-horizontal-views-via-neutral-01",
+  "profile": "n08_terminal_horizontal_views_via_neutral",
+  "outcome": "failed_diagnostic",
+  "diagnostic_pass": false,
+  "completed_stages": 16,
+  "profile_stages": 23,
+  "planned_sim_seconds": 526,
+  "wall_duration_s": 514.3758399328217,
+  "initial_n05": {
+    "online_result": "ground_plane_insufficient_raw_occupied_voxels",
+    "offline_result": "ground_plane_insufficient_raw_occupied_voxels",
+    "results_identical": true
+  },
+  "scan_failure": {
+    "reason": "normalized_cost_exceeded",
+    "final_normalized_cost": 1.0029204125145128,
+    "threshold": 1.0,
+    "transition_stage_index": 16,
+    "last_valid_trace_stage_index": 15,
+    "last_valid_trace_sim_s": 452.028,
+    "last_valid_trace_yaw_rad": 0.0,
+    "last_valid_trace_normalized_cost": 0.9790395544102026,
+    "left_view_and_return_to_neutral_completed": true,
+    "right_horizontal_view_completed": false,
+    "causal_attribution": "neutral waypoint did not prevent cost threshold crossing; broader yaw/cumulative visual effect remains unproven"
+  },
+  "post_release_gate": "not_run",
+  "same_map_body_hold_path_queries": "not_run",
+  "compute_only": "not_run",
+  "xy_execution": "not_run",
+  "safety": {
+    "vehicle_arming_state_values": [1],
+    "vehicle_state_1_is_disarmed": true,
+    "final_landed": true,
+    "landed_receipt_age_wall_s": 0.3337527038529515,
+    "fixture_detached": true,
+    "fixture_model_removed": true,
+    "control_or_goal_publisher": false,
+    "container_exit_code": 0
+  },
+  "artifacts": {
+    "run_inputs": "artifacts/runs/n08-20261024-223-horizontal-views-via-neutral-01/n05-run-inputs.json",
+    "fixture_result": "artifacts/runs/n08-20261024-223-horizontal-views-via-neutral-01/fixture-result.json",
+    "fixture_trace": "artifacts/runs/n08-20261024-223-horizontal-views-via-neutral-01/fixture-trace.jsonl",
+    "fixture_vins": "artifacts/runs/n08-20261024-223-horizontal-views-via-neutral-01/fixture-vins.jsonl",
+    "n05_before_online": "artifacts/runs/n08-20261024-223-horizontal-views-via-neutral-01/n05-before/n05-live-entry-check.json",
+    "n05_before_offline": "artifacts/runs/n08-20261024-223-horizontal-views-via-neutral-01/n05-before/n05-offline-entry-replay.json"
+  }
+}

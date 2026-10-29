@@ -1,0 +1,69 @@
+{
+  "schema": "n11-formal-run-result/v1",
+  "record": "#488",
+  "date": "2026-10-29",
+  "run_id": "n11-20261029-488-formal04",
+  "status": "FAIL",
+  "formal_count_eligible": false,
+  "runtime_contract_sha256": "3a0111a1814c8f6ccb3f7155450fad044026201e8c94b844ce02210fffea5820",
+  "acceptance_config_sha256": "eebdb7306e7513b97ce26d5ec983d9df7bf62dbb07da4bd0d0e6d7aa1cdb3c3f",
+  "protocol_sha256": "8fa87d9bf50e107116ca6014fefdacbbee54bcafa843fc61db301ab2b088c442",
+  "scene_acceptance_sha256": "ce032b6a763bb6a7e7f78853af04d49026a8b17f139028ad729d5bd9e382a9a9",
+  "failure_reasons": [
+    "common_evaluation_failed",
+    "observed_failure:raw_vio_rpe_10s"
+  ],
+  "insufficient": [
+    "raw_map_surface_geometry:not_pass",
+    "raw_vio_rpe_10s:not_pass"
+  ],
+  "failed_metrics": {
+    "raw_vio_rpe_10s": {
+      "status": "FAIL",
+      "segment": "goal_motion_and_arrival_dwell",
+      "translation_p95_m": 0.0630002002199303,
+      "threshold_m": 0.05,
+      "rotation_p95_deg": 0.28949554735847727,
+      "threshold_rotation_deg": 0.5
+    },
+    "raw_map_surface_geometry": {
+      "status": "INSUFFICIENT",
+      "snapshot_count": 15,
+      "occupied_cell_surface_center_error_support_radius_m": 0.15,
+      "supporting_cells_within_radius": 0,
+      "nearest_occupied_cell_center_error_m": 0.1528571563071166,
+      "classification_status": "PASS"
+    }
+  },
+  "other_applicable_metrics": "PASS; dynamic_replanning NOT_APPLICABLE; fault exit excluded from this scope.",
+  "selected_metrics": {
+    "arrival_joint_dwell_sim_s": 4.292,
+    "raw_vio_absolute_position_p95_m": 0.19656930616952467,
+    "raw_vio_absolute_yaw_p95_deg": 0.7960966177348643,
+    "raw_vio_velocity_p95_m_s": 0.007157012851836207,
+    "map_source_age_max_sim_s": 0.16,
+    "map_update_age_max_sim_s": 0.1,
+    "native_work_lag_max_sim_s": 0.044,
+    "native_pending_source_span_max_sim_s": 0.0,
+    "native_waiting_features_max": 0,
+    "full_body_clearance_min_m": 3.2430110731891366,
+    "prohibited_contact_count": 0
+  },
+  "terminal": {
+    "safe_to_stop": true,
+    "landed": true,
+    "disarmed": true,
+    "control_disabled": true,
+    "zero_control_after_terminal": true,
+    "emergency_disarm_used": false
+  },
+  "gui_visible": {
+    "display": ":11",
+    "gazebo": true,
+    "rviz": true
+  },
+  "raw_run_path": "artifacts/runs/n11-20261029-488-formal04",
+  "reanalysis_path": "artifacts/reanalysis/n11-20261029-488-formal04-evaluation/n11-20261029-488-formal04",
+  "diagnostic_report": "progress/evidence/n11-vio-map-correlation-review-20261029-489.md",
+  "cause_assessment": "Motion-onset or low-frequency translational VIO/map drift could explain the RPE and wall-support observations, but the available evidence does not prove causation or identify a code defect. No threshold or runtime gate was changed."
+}

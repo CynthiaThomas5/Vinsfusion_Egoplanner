@@ -1,0 +1,51 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "id": "N10.3-342",
+  "status": "frozen_before_run",
+  "hypothesis": "Raising only EGO per-axis max_velocity to 0.31 m/s, derived from measured #340/#341 B-spline control-point derivative maxima, may let the 16 m task generate a feasible route. This is not a physical speed limit or evidence that the vehicle should fly at 0.31 m/s.",
+  "independent_variable": {
+    "path": "config/components/mapping/n10_horizon2_speed031_calibration.json",
+    "parameter": "max_velocity_m_s",
+    "baseline": 0.1,
+    "candidate": 0.31
+  },
+  "fixed_conditions": {
+    "planner_horizon_m": 2.0,
+    "planner_axis_acceleration_limit_m_s2": 0.25,
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal_offset_enu_m": [16.0, 0.0, 0.1],
+    "yaw_offset_rad": 0.2,
+    "dwell_s": 3.0,
+    "post_goal_hold_sim_s": 600.0,
+    "collision_policy": "official_ego",
+    "sensor": "single D435i",
+    "control_owner": "uav_px4_bridge only"
+  },
+  "runtime_guard": {
+    "limit_source": "acceptance_calibration_limits.max_actual_vector_speed_m_s",
+    "limit_m_s": 0.12,
+    "sources": ["ego_position_command_reference", "px4_vehicle_local_position"],
+    "invalid_sample": "fail closed",
+    "on_violation": "cancel current EGO action, require caller STOP_HOLD handling, bridge-owned landing, independently confirm landed/disarmed",
+    "debug_truth_used_for_control": false,
+    "reference_speed_is_actual_speed": false
+  },
+  "termination": {
+    "maximum_fresh_runs": 1,
+    "if_planner_rejects": "preserve failure and confirm landed/disarmed",
+    "if_speed_guard_trips": "cancel, STOP_HOLD, bridge-owned landing; do not raise 0.12 m/s limit",
+    "if_task_succeeds": "independent fixed-SE3 truth evaluation and full 600 sim-second active hold, then normal bridge landing"
+  },
+  "input_sha256": {
+    "config/components/mapping/n10_horizon2_calibration.json": "e9f780d95c028af7e2809bf4d77a0a994fc86a3fe1cf05bee06324768edcf758",
+    "config/components/mapping/n10_horizon2_speed031_calibration.json": "33864323ae310e47d2d268b6ad091037c438a5aeb66bf4b8adcd4b7e3cbf64e0",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json": "d1e73365f0cc12d4f30a5445fa25ed54e35267eb2ff80a788c5f3d7162212821",
+    "config/components/navigation/vehicle_envelope.json": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+    "config/components/navigation/task_supervisor.json": "2ebcc06d25a6f550725161d3542915c29989a912ef1d6c8d48e596873980bb56",
+    "tools/run_vio_ego_flight.py": "a5d0794130dcff8a44405db6bde94a0d378fde43a7b407fbe7a766b9cbcbea6d",
+    "tools/speed_guard.py": "d3e3227407da9c391dad0d564bddd4b621decf56586aa416da0265b396f72da2",
+    "tools/test_speed_guard.py": "c88980e12a832a6649c38cb561ac6ceb19dc5d489f55b7c5cdb14d47241d19ed",
+    "dependencies/patches/ego/0051-n10-spline-reallocation-ratio-sentinel.patch": "b41440d75badb304fc59684718a4b2fe9a295d1fc13485c43ee0900161f8b4d1"
+  },
+  "run_id": "n10-20261026-342-speed031-guarded"
+}

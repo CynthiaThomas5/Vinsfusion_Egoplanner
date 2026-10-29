@@ -1,0 +1,99 @@
+{
+  "schema": "n10-depth-fault-terminal-calibration/v1",
+  "subtask": "N10.3/#405",
+  "status": "PASS",
+  "classification": "single current-version diagnostic calibration; not N15 qualification",
+  "run_id": "n10-20261028-405-depth-timeout-terminal-r02",
+  "first_attempt": {
+    "run_id": "n10-20261028-405-depth-timeout-terminal",
+    "classification": "evidence-incomplete",
+    "observed": "matching depth-timeout action abort, native bridge landing and landed/disarmed readback",
+    "limitation": "SIGINT raised ExternalShutdownException before relay drop/forward counters were written; not counted as PASS"
+  },
+  "fault_window": {
+    "goal_id": "926e71df66b7456a8e1044be4ae3e4bb",
+    "epoch": "85a4693a5327481cb35333b17a96b0a5",
+    "goal_source_stamp_ns": 43332000000,
+    "drop_start_source_stamp_ns": 45332000000,
+    "drop_end_source_stamp_ns": 48332000000,
+    "duration_sim_s": 3.0,
+    "depth_forwarded_before": 1138,
+    "depth_dropped": 91,
+    "depth_forwarded_after": 536,
+    "direct_stream_receipts_during_window": {
+      "stereo_left_image": 90,
+      "stereo_right_image": 91,
+      "camera_imu": 749
+    }
+  },
+  "native_terminal": {
+    "ego_reason": "depth_odom_timeout",
+    "action_outcome": "aborted",
+    "action_reason": "planner_full_curve_depth_odom_timeout",
+    "bridge_landing_reason": "planner_fault:full_curve_depth_odom_timeout",
+    "fault_window_start_to_landing_sim_s": 0.608,
+    "bridge_phase": "LANDED",
+    "bridge_armed": false,
+    "bridge_control_enabled": false,
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "zero_control_after_terminal": true,
+    "no_old_goal_epoch_trajectory": true,
+    "operator_disable_after_fault": false,
+    "emergency_disarm_used": false,
+    "terminal_violation_count": 0
+  },
+  "acceptance_checks": {
+    "relay_report_finalized": true,
+    "depth_route_isolated": true,
+    "fault_bound_to_active_goal_epoch": true,
+    "stereo_and_imu_remained_live": true,
+    "native_ego_depth_timeout_observed": true,
+    "navigation_action_aborted_for_depth_timeout": true,
+    "bridge_entered_fault_landing": true,
+    "bridge_reached_landed_disarmed": true,
+    "independent_native_terminal_readback_complete": true,
+    "no_emergency_disarm": true
+  },
+  "capture": {
+    "bag_exit_code": 0,
+    "errors": [],
+    "source_stamp_regressions": {
+      "camera_imu": 0,
+      "stereo_left_image": 0,
+      "stereo_right_image": 0
+    },
+    "resource_samples": 53
+  },
+  "scope_limits": [
+    "One diagnostic calibration for the depth-loss fault category; does not count toward N15.",
+    "The measured landing interval is descriptive only and creates no runtime threshold.",
+    "Does not close other fault classes, raw-map classification, tracking/clearance budget, resource capacity rationale, N10.4 thresholds, N10.5 rebuild, N10.6 regression, N10.7 freeze, N15, or N16."
+  ],
+  "artifact_sha256": {
+    "runtime_contract.json": "773dd222f637fc79b3686ea488f3cac5af4b7b9ec6dfee93f4098bcce25c8981",
+    "n10-depth-fault-terminal-evaluation.json": "a934c1809e7572a91990d7d4b1a5daac9cf58c2265e6540ae2747fb26354b780",
+    "n10-depth-fault-relay.json": "3a52dde1bb14b8e3dbd8431d7ab9d31ff0ee6465f42bc9eb14083cf43734d1f1",
+    "flight.json": "f6457f7a3f7da26b7855dafc67d510af4ab95f780398d99686865b768b291b68",
+    "postflight-px4-bridge-readback.json": "f45f3641e795a15519cd651caa12698df488ce6cad734bde5f6f199841ea2373",
+    "safe-to-stop.json": "c4277dc7f73b5049aee6c3be0119a9a165ae4e860f7c9cf05c915ee443d777c9",
+    "n10-sensor-capture.json": "48947542608880915630ce9afe09f5b26b49d6b0024f6d846b33a800f5af60c8",
+    "n10-sensor-receipts.jsonl": "dd9598f86a250a8ea2d2d3d73dcb6267c9b059267b308606979b153e964e8fdf",
+    "vio.log": "65511528ad3a958aafb64a72ed9aa1ef460ae3c87964433b3ef5ceb2ebea064e",
+    "bridge-alignment-timeline.jsonl": "534b3dc565bd60c285e4b89747b13edfcbfea20e52a6b55958de52ed2d15e500",
+    "n10-depth-fault-injection-config.json": "b0dd9cdbca7cb614ea0f3e87fbd23471169065d761c4fe9c3826d9e7cc0e7e78",
+    "n10-capture-launch-manifest.json": "a0c7099b9f6268b8d9d7b517383adf65575038731a9106c7f2ce919a986d8ade"
+  },
+  "tool_sha256": {
+    "tools/fault_relay.py": "5dcfd0591972f78c47a5929e9555577e25c8da8d351331d035304dddf309d0b8",
+    "tools/run_vio_ego_flight.py": "5ac96f92eb8db63d64629f274ff36877b7e550d65d01d9890242e855e15a39a5",
+    "tools/debug_truth/evaluate_n10_depth_fault_terminal.py": "6bc7ee0ae9f1ead536124bb3379a18a4cd5d6c090e72227857eea0b8e905e422",
+    "tools/test_n10_depth_fault_terminal.py": "46b320e40c391c626ea11aafe0871be5804ceb1f216a216300db40f2fb72057d",
+    "tools/test_n10_fault_abort_runner.py": "b8be292475a3188f629da95d2bb025e947af5f5846ae9a20a3b087fef99a2155",
+    "run-local prepare_prelaunch.py": "32113759ef5f128215c42f5f5b64c5b943519f0dae16440b7e37db71ae9ed465",
+    "run-local n10-runtime-driver.sh": "4338c10d133c83af4610bdee149cce0f8f0e25c567b082cf857b0d8b18c7cd52"
+  },
+  "formal_n15_n16_qualification": false,
+  "emergency_disarm_used": false,
+  "runtime_threshold_changed": false
+}

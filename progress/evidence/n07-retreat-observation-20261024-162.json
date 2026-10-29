@@ -1,0 +1,106 @@
+{
+  "schema": "n07-retreat-observation-result/v1",
+  "task_id": "N07.8 #162",
+  "run_id": "n07-20261024-162-01",
+  "scope": "DISARMED whole-airframe support scan and read-only N05 raw-map gate; no flight",
+  "profile": "n07_spawn_minus65_retreat_180_pitch045_return_view",
+  "hypothesis": "Keeping pitch +0.45 rad through return to home might sustain useful ground-boundary observations; only reset timing differed from #161.",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "ground_plane_z_m": -0.3500000000000002,
+    "phase_max_unknown_cells": {
+      "TAKEOFF_CONTACT": 436,
+      "ASCENT": 592,
+      "HOLD": 566,
+      "DESCENT": 592,
+      "LANDING_CONTACT": 436
+    },
+    "phase_max_subground_excluded_cells": {
+      "TAKEOFF_CONTACT": 44,
+      "ASCENT": 32,
+      "HOLD": 0,
+      "DESCENT": 32,
+      "LANDING_CONTACT": 44
+    },
+    "offline_replay_matches": true
+  },
+  "unknown_volume_audit": {
+    "path": "progress/evidence/n07-n05-unknown-volume-audit-20261024-162.json",
+    "hold_unknown_centers": 566,
+    "hold_unknown_centers_below_plane": 0,
+    "hold_unknown_z_extent_m": [
+      0.4500000000000002,
+      1.25
+    ],
+    "takeoff_contact_unknown_centers": 436,
+    "takeoff_contact_unknown_centers_below_plane": 0,
+    "takeoff_contact_unknown_centers_on_plane": 52,
+    "takeoff_contact_unknown_centers_above_plane": 436
+  },
+  "scan": {
+    "configured_stages": 9,
+    "completed_stages": 3,
+    "last_completed_stage_index": 2,
+    "last_trace_sim_s": 148.744,
+    "last_trace_pitch_target_rad": 0.20129364107912195,
+    "last_trace_pitch_actual_rad": 0.19281340565364744,
+    "outcome": "failed",
+    "error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.138230387404859
+    },
+    "vins_telemetry_rows_captured": 883,
+    "captured_derived_normalized_cost_max": 0.6941961958151706,
+    "captured_long_tracks_min": 56,
+    "captured_stereo_features_min": 126,
+    "captured_accel_bias_norm_max_m_s2": 0.10081951705735359,
+    "health_limits": {
+      "max_normalized_cost": 1.0,
+      "max_accel_bias_norm_m_s2": 0.15
+    },
+    "health_event_gap": "latched status reports normalized_cost 1.138230, while captured telemetry maximum is 0.694196; per-event LocalizationStatus history was not recorded, so the triggering sample is unresolved."
+  },
+  "safety": {
+    "fixture_removed": true,
+    "fixture_remove_acknowledged": true,
+    "scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "fresh_final_landed": true,
+    "land_detected_values": [
+      true
+    ],
+    "px4_arming_state_values": [
+      1
+    ],
+    "live_bridge_after_cleanup": {
+      "phase": "DISABLED",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true,
+      "local_position_valid": false
+    },
+    "container_status": "Exited (0)",
+    "flight_started": false,
+    "postscan_n05_gate": false,
+    "n07_hover_count": "0/3"
+  },
+  "debug_truth_used": false,
+  "control_or_goal_published": false,
+  "artifact_sha256": {
+    "n05-live-entry-check.json": "fb95aeb40a76a3322d9470c69abc90ba3c9f60f906a57aff19d94f2600b58602",
+    "n05-offline-entry-replay.json": "14fe404004ab44867617a0101b15905b43373bc13cb0018a476d620826a2e08d",
+    "n05-live-raw-map.npz": "c321a7b77e66856e83a2618cdff14d70b057f7edba11fa4261f31363398ff077",
+    "n05-run-inputs.json": "2266feb0713ae59dbaf407f6722f3a069f7817006228d30ecafa1c8fecf93c77",
+    "fixture-result.json": "e5bd34f7538cb4d698f0381cdf9a7f76c8c62d4c93779ee766a820a7e5e2f071",
+    "fixture-stages.json": "3073b48b1afbde80515f34c75c49076742363290f19d49ebc5937da5a7f6373b",
+    "fixture-trace.jsonl": "461eaf1c8601b052b0d24e6d24b8ed477ab2ee6bb548df83ca4a70393120117c",
+    "fixture-vins.jsonl": "4e4b19fcf8ed3d943f13d385ae0dcafd8af09035324106d9036ab77cb1c0487e",
+    "unknown-volume-audit.json": "2d98acee8206e23cb62e66dee083d94729b366f3ee97df58f482e9fdca06f96b"
+  },
+  "decision": "No gate/hover result: initial N05 refused, and pitch transition failed before scan completion. Preserve the refusal. Next diagnose the health-event gap and reduce pitch rate in a bounded repeat; do not change N05 or localization thresholds."
+}

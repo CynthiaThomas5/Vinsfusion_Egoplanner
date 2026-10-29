@@ -1,0 +1,48 @@
+{
+  "schema": "n10-live-obstacle-age-gates-removed-cylinder0-prelaunch/v1",
+  "subtask_id": "N10.3/#372",
+  "run_id": "n10-20261027-372-gatefree-cylinder0-observation",
+  "classification": "frozen identity before SITL; not flight evidence",
+  "runtime_contract_path": "artifacts/n10-prepared/n10-20261027-372-gatefree-cylinder0-observation/runtime-contract.json",
+  "sha256": "ff7ccf032737fd31b77ccbc2015590ef846b159a5b320ef87b720a51ed86075c",
+  "runtime_contract_file_count": 665,
+  "protocol_path": "progress/evidence/n10-live-obstacle-age-gates-removed-cylinder0-protocol-20261027-372.json",
+  "protocol_sha256": "aff9113b25cc313b53bd00cc7ea3cb71483e69d90fa20cf6175ba9caa1a7a94e",
+  "patch_path": "dependencies/patches/ego/0054-remove-project-map-age-refusals.patch",
+  "patch_sha256": "215747d7aa7c6902dd80ec1aa15d3475df2b41bc89f11ebbf247821071a4350f",
+  "ego_binary_sha256": "25179a8ccdec7489c463f02e662180327bd34f90ef293ab1d0a0a85593d4982b",
+  "bridge_module_sha256": "0ad381d8cd2e9c021450558374e94df14ae5a53e08b1b9b296f5a42c882dd637",
+  "parent_run": "n10-20261027-371-cylinder-observation-live-obstacle",
+  "tools": {
+    "injector": "402e7ebd0970b91aa3fece000471c0c003de9d889748c6f15466a5058052b773",
+    "driver": "665158dd709b193537601b38aa498f6b248c9c86b40b76413bf61856c5f7a20c",
+    "analyzer": "8243ec0f569e930e4c59fa420f10c1522def1515f3a872cdfe62e895a18b8773",
+    "dynamic_analyzer": "686e410c49472dc6b5cf66490a776dd879a2bd0a9718eddedd4419ccc74d3453",
+    "clearance_analyzer": "8b2b74b8dc3473ccde413e9d6d85f244600e9d3855fa6644e7a2f7abec946aaf"
+  },
+  "project_age_gates": {
+    "localization_odometry_map_wall_receipt_age": false,
+    "map_query_source_and_update_age": false,
+    "px4_telemetry_source_and_receipt_age": false,
+    "continuous_stability_window": false,
+    "measurements_retained": true
+  },
+  "mission_contract": {
+    "planner_settings": "unchanged: max_vel=0.8, max_acc=0.25, planning_horizon=5.0, official_ego",
+    "goal_and_spawn": "unchanged from #369/#371",
+    "dynamic_box_and_trigger": "unchanged from #369/#371",
+    "static_cylinder_observer": "unit_cylinder_0 at [-1.47322, 3.48874, 0.5], command-surface query",
+    "no_replacement_after_1s": "log only; no custom auto-cancel"
+  },
+  "read_only_observer_control_publishers": 0,
+  "preflight_before_goal": [
+    "frozen runtime and tool hashes match",
+    "EGO navigation graph has one publisher and one subscriber; legacy goal subscriber absent",
+    "Gazebo create service and hidden ROS action cancel service/type available",
+    "all contact sensors report ready",
+    "PX4 bridge reports landed, disarmed, control disabled before goal"
+  ],
+  "acceptance_thresholds_changed": false,
+  "safe_stop": "require independent landed/disarmed/control-disabled/zero-control readback before stop",
+  "status": "ready_for_runtime_and_service_preflight; no goal sent"
+}

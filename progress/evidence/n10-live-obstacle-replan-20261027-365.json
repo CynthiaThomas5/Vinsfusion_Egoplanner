@@ -1,0 +1,156 @@
+{
+  "schema": "n10-live-obstacle-replan-result/v1",
+  "subtask_id": "N10.3/#365",
+  "run_id": "n10-20261027-365-live-obstacle-replan-current",
+  "classification": "diagnostic failure sample; not N10/N12 pass",
+  "protocol_path": "progress/evidence/n10-live-obstacle-replan-protocol-20261027-364.json",
+  "protocol_sha256": "c003ed51246e9d423b5a40ccabb098f7e1d42db9ed53d50c00326670e05fcdd8",
+  "runtime_contract_sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+  "runtime_contract_file_count": 665,
+  "injection": {
+    "goal_start_sim_ns": 83164000000,
+    "first_spline_sim_ns": 83180000000,
+    "request_sim_ns": 95180000000,
+    "delay_from_goal_sim_s": 12.016,
+    "gazebo_create_acknowledged": true,
+    "world_box_center_xyz_m": [
+      0.0,
+      0.0,
+      1.4
+    ],
+    "vehicle_truth_nearest_sample": {
+      "wall_s": 49.65620150184259,
+      "wall_monotonic_s": 1557775.256939184,
+      "stamp_ns": 95184000000,
+      "xyz": [
+        -3.274664763280432,
+        1.4403439291221283,
+        0.9094299799022623
+      ],
+      "q_xyzw": [
+        0.005987645714306995,
+        -0.0015323698233726422,
+        -0.008650866212244203,
+        0.999943479630375
+      ]
+    },
+    "center_to_center_distance_at_injection_m": 3.6109110887209828,
+    "inside_planning_horizon_m": 5.0
+  },
+  "sensor_map_observation": {
+    "EGO_occupancy_samples": 6,
+    "max_ROI_point_count": 497,
+    "nearest_surface_cloud_point_to_box_center_m": 0.45552168549971533,
+    "raw_center_queries": [
+      {
+        "label": "before_injection",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 96,
+        "free_count": 64,
+        "occupied_count": 0,
+        "request_sim_ns": 94916000000,
+        "response_sim_ns": 94960000000
+      },
+      {
+        "label": "after_0.5",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 96,
+        "free_count": 64,
+        "occupied_count": 0,
+        "request_sim_ns": 95680000000,
+        "response_sim_ns": 95700000000
+      },
+      {
+        "label": "after_1.25",
+        "accepted": true,
+        "reason": "unknown",
+        "free": false,
+        "unknown_count": 96,
+        "free_count": 64,
+        "occupied_count": 0,
+        "request_sim_ns": 96440000000,
+        "response_sim_ns": 96460000000
+      }
+    ],
+    "interpretation": "Sphere queries centered inside the solid box remained unknown and cannot establish sensor non-detection; EGO occupied surface cloud points and changing depth frames show the surface entered the map."
+  },
+  "trajectory_response": {
+    "pre_injection_spline_count": 44,
+    "post_injection_spline_count": 28,
+    "first_new_traj_id": 45,
+    "first_new_spline_centerline_distance_to_box_m": 0.0,
+    "first_post_injection_spline_centerline_distance_to_box_m": 0.0,
+    "later_route_observed_centerline_distance_range_after_initial_crossing_m": [
+      0.997,
+      1.539
+    ],
+    "interpretation": "traj_id 45 remained on the collision path; later rolling splines geometrically shifted around the box, but this did not result in successful mission completion."
+  },
+  "planner_failure": {
+    "first_native_collision_failure_sim_s": 100.652,
+    "elapsed_from_injection_sim_s": 5.472,
+    "log_evidence": "vio.log: refined trajectory hits obstacles; refine_success=0; current traj in collision, replan; Full-curve safety rejected: planning_failed; traj_server result planner_full_curve_planning_failed.",
+    "action_outcome": "aborted",
+    "action_reason": "planner_full_curve_planning_failed",
+    "goal_elapsed_sim_s": 17.564,
+    "independent_goal_error_min_m": 9.821981622146652,
+    "goal_success": false
+  },
+  "dynamic_box_clearance": {
+    "sampled_minimum_m": 0.9667153994071063,
+    "maximum_observed_inter_sample_envelope_motion_m": 0.017329371307156647,
+    "sampled_clearance_minus_motion_m": 0.9493860280999497,
+    "note": "Offline simulated geometry only; not a continuous dynamics proof or formal threshold."
+  },
+  "other_measurements": {
+    "raw_VIO_duration_sim_s": 45.404,
+    "raw_VIO_path_length_m": 10.497411857861225,
+    "raw_VIO_position_error_p95_m": 0.052470681554709506,
+    "raw_VIO_yaw_error_p95_deg": 0.13224083535006484,
+    "raw_VIO_max_gap_sim_s": 0.068000001,
+    "map_source_age_max_sim_s": 0.164,
+    "occupancy_age_max_sim_s": 0.116,
+    "EGO_tracking_error_p95_m": 0.6173624524595654,
+    "EGO_tracking_error_max_m": 1.3421250701640357,
+    "normalized_cost_p95": 1.1926039216068458,
+    "normalized_cost_max": 1.2276005735694284,
+    "invalid_localization_samples_after_enable": 0
+  },
+  "terminal": {
+    "prohibited_contacts": 0,
+    "ground_contacts": 14789,
+    "contact_evaluation_passed": true,
+    "landed_and_disarmed": true,
+    "bridge_phase": "LANDED",
+    "bridge_armed": false,
+    "control_enabled": false,
+    "control_samples_zero": true,
+    "safe_to_stop": true,
+    "observer_terminal_coverage": true
+  },
+  "input_sha256": {
+    "runtime-contract.json": "62f755d1530c2339635d44b495c212151dfe0506377e41e52f8bc695adfb9deb",
+    "flight.json": "15597359696a849659e101f3a4b265a97aac356948350e56c2d43f6d387ec5c3",
+    "n10-live-obstacle-observation.json": "de58798e4a279950aa1c7c2466d1038092a96322c1f5b515cf05e7e42833765b",
+    "n10-live-obstacle-analysis.json": "7f8f97ae79b12da0b303ad52af47220edb8ad2eb8392c10560fba9f33164a1e0",
+    "planner-observation.json": "f0d55711d1157ada41c3cc08328c8d5e8785937743736fe9f468b61e65c52669",
+    "debug-truth-evaluation.json": "dd9a23685c526d7acb6b7e4b5f80ed60e605c149597bad41281b7c1a03b5cb2c",
+    "odometry-evaluation.json": "665189956f736141d5dcb41b823ad1f23731db7d5ba74b73cb5a9f9c62ad1e6b",
+    "n10-calibration-evaluation.json": "f5a2dcccabe6b77dc9725ab595ae4178bd580d51d97c3cfa08e85a3335d85fc6",
+    "vehicle-contact-evaluation.json": "793ac74dfb0dfce0ae6c8802bb2c4ca182038e666fa2cfd181510008782755b1",
+    "arrival-evaluation.json": "157d89667eca6faa818814bf8238ba2f82176d8f6dd3af25794ebe6b6872f098",
+    "postflight-px4-bridge-readback.json": "7cd6eefc8ee11d5fd429efa57db57e4ca6d0a6e667b8f95f3b1860e2c4551a0a",
+    "safe-to-stop.json": "21f2da0bbab9a104b05a52a4f5a175ffb59c4098598b5dd59d54a60fd765e881",
+    "n10-live-obstacle-box-clearance.json": "f415229c543b63108ebfa04acc898653380eaa1b6506badd613b1fb74c716e2d"
+  },
+  "limitations": [
+    "The active obstacle creation and mapping were observed, but an alternative spline ID alone is not causal proof; geometry is included.",
+    "The planner had not completed the requested target; this run cannot freeze final N10 thresholds.",
+    "The map query at the obstacle center is not a surface-occupancy query; do not interpret unknown as non-detection.",
+    "Clearance adjustment uses maximum observed inter-sample envelope motion, not a continuous bound."
+  ]
+}

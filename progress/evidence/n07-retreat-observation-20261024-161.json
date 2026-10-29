@@ -1,0 +1,98 @@
+{
+  "schema": "n07-retreat-observation-result/v1",
+  "task_id": "N07.7 #161",
+  "run_id": "n07-20261024-161-01",
+  "scope": "DISARMED whole-airframe support scan only; localization health failure; no post-scan N05 gate or flight",
+  "runtime_spawn_pose_m_rad": [-6.5, 0, 0.3, 0, 0, 0],
+  "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+  "scan_profile": "n07_spawn_minus65_retreat_180_pitch045_view",
+  "preflight_scan_sha256": "696baf0792ffd2d953116098ee70e6bc5691413861f18134e458f2c422dbc7a9",
+  "static_route": {
+    "path": "progress/evidence/n07-retreat-180-pitch045-route-geometry-20261024-161.json",
+    "minimum_continuous_clearance_lower_bound_m": 0.8894097072137204,
+    "all_segments_clear": true
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "raw_ground_candidate_voxel_count": 0,
+    "online_offline_identical": true,
+    "independent_replay_matches": true,
+    "debug_truth_used": false
+  },
+  "scan": {
+    "completed_stages": 6,
+    "configured_stages": 9,
+    "trace_rows": 7391,
+    "vins_telemetry_rows": 1271,
+    "epoch": "c948b2e32f6945fab7093e6bbd5b864c",
+    "completed_stage_interval_sim_s": [11.784, 162.02],
+    "pitch_observation_rad": 0.45,
+    "actual_pitch_max_rad": 0.46298719403396055,
+    "pitch_rotation_hold_and_reset_stages_valid": true,
+    "return_stage_start_sim_s": 162.02,
+    "return_stage_first_mapping_gate_lock_sim_s": 184.108,
+    "return_stage_last_trace_sim_s": 184.232,
+    "return_stage_last_trace_x_m": -1.5915412557431414,
+    "return_stage_target_x_m": 0.0,
+    "latched_health_lock_reason": "normalized_cost_exceeded",
+    "latched_status_normalized_cost": 1.0851014953743265,
+    "last_trace_status_after_gate_is_stale": true,
+    "return_vins_rows_through_gate_lock": 157,
+    "return_long_tracks_min": 97,
+    "return_stereo_features_min": 147,
+    "return_accel_bias_max_m_s2": 0.07136608007881477,
+    "all_run_accel_bias_max_m_s2": 0.13677102386246184,
+    "post_lock_vins_normalized_cost_max": 1.2110893263757696,
+    "return_stage_completed": false,
+    "epoch_changed": false
+  },
+  "safety": {
+    "fixture_removed": true,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "fixture_helper_safety_cleanup_attempted": true,
+    "fixture_helper_safety_cleanup_verified_detached": true,
+    "px4_arming_state_samples": [1],
+    "bridge_phase_before_scan": "DISABLED",
+    "control_enabled_before_scan": false,
+    "armed": false,
+    "pre_scan_land_detector_landed": true,
+    "final_land_detector_sample_recorded": false,
+    "project_container_status": "Exited (0)"
+  },
+  "qualification": {
+    "prescan_ready_marker_created": false,
+    "attached_n05_post_scan_gate_captured": false,
+    "released_n05_post_scan_gate_captured": false,
+    "flight_started": false,
+    "n07_hover_count": "0/3"
+  },
+  "artifact_sha256": {
+    "n05-before/n05-live-entry-check.json": "b63ee6c21cb4ce288794052053754bf0717d4e721d5c51a05af1e1cd9c7fb4ef",
+    "n05-before/n05-offline-entry-replay.json": "f7265a27101fd16fb59f72a3df0150fa7011a60a911e8a0dbadfa3e7417e76a6",
+    "n05-run-inputs.json": "22539d5c9d2894f8eb0d781ce502c6560d2d0bf002365a983bb12ab8ad9d957a",
+    "fixture-result.json": "a6e1b78a451502a147374f0db96214457c27030f795aea45c0b7d48855969f43",
+    "fixture-stages.json": "4b5807e6ff344d035ff731f1015bfb7e98f4c59321bb219323f2729a0f125615",
+    "fixture-trace.jsonl": "eef0a2ac585a83545401cbdc3522f905794d411852ec67085b44bade9ca7c7e9",
+    "fixture-vins.jsonl": "47cd62460914bdf8ff1d400ba1a7c62eb2f4138f85431cd08dd9a83dc9961df8",
+    "fixture-odometry.jsonl": "aa28901ae295801fda6a7651fc470e5b8116e488b118de532c8660afe849b26e",
+    "vio.log": "31deb743899dfdeb152a008ad9c251882df8d1ca125fa23799d9695efb323ddc",
+    "agent.log": "eba397f00487e82eed9c3d0ed180b745d3f5c58699a69b0ada09891c2a08488f",
+    "runtime-contract.json": "7b63d2ba178b533ac333b42c9ff6ae2a1b28061c2093818276117e722acfa775",
+    "px4-run-isolation.json": "c3f920199f97b490a0d1eaa0f75d0e3dcd6c2e87b33c5e03cecc1ebb0cef23ae",
+    "px4-boot-parameters.json": "a81bed39d34d571e1adec05651840e06f786b0bdb3d2b491c866417883810f04",
+    "px4_sitl_default/log/2026-10-23/16_09_53.ulg": "2c2eeb23c0172b63725c630f1b8cb47e70718ce7bb9185c90ba6e6a9e59cee8a"
+  },
+  "independent_replay": {
+    "path": "progress/evidence/n07-n05-before-offline-replay-20261024-161.json",
+    "matches_online_result": true
+  },
+  "limitations": [
+    "No post-scan snapshot exists because localization locked during return; the effect of pitch on the unknown voxel set is unmeasured.",
+    "The trace retained an older valid LocalizationStatus after the mapping adapter closed; the lock time and final invalid status come from the adapter log and fixture result.",
+    "The run records DISARMED throughout and confirms fixture return/detachment/removal. It does not record a final PX4 LandDetected sample after recovery; the initial gate reported landed=true.",
+    "The 0.889m static clearance report excludes the support fixture and is not a localization, braking, or flight certificate."
+  ]
+}

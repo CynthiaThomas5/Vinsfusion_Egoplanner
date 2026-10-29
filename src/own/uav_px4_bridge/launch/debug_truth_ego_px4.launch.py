@@ -40,10 +40,6 @@ def start(context):
             (map_cfg['localization_status_topic'], bridge_cfg['debug_truth_status_topic']),
             (map_cfg['optimized_odometry_topic'], bridge_cfg['debug_truth_odometry_topic']),
         ])
-    depth_health = Node(
-        package='uav_mapping', executable='depth_health_monitor',
-        name='depth_health_monitor', output='screen',
-        parameters=[{'project_root': str(root), 'use_sim_time': True}])
     navigation = Node(
         package='uav_navigation', executable='navigation_supervisor',
         name='uav_navigation', output='screen',
@@ -91,7 +87,7 @@ def start(context):
             str(Path(get_package_share_directory('uav_px4_bridge')) /
                 'launch/debug_truth_px4.launch.py')),
         launch_arguments={'project_root': str(root)}.items())
-    return [map_adapter, depth_health, ego_parameters, trajectory_server,
+    return [map_adapter, ego_parameters, trajectory_server,
             navigation, px4_bridge]
 
 

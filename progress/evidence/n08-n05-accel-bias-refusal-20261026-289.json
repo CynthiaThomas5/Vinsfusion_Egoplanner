@@ -1,0 +1,57 @@
+{
+  "schema": "n08-n05-accel-bias-refusal/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-289",
+  "result": "FAIL_PREREQUISITE",
+  "profile": "n06_full_airframe_retreat_240_translation_only",
+  "completed_stages": 3,
+  "total_stages": 6,
+  "failed_stage_index": 3,
+  "failed_stage_target": [
+    0,
+    1.0,
+    0,
+    0
+  ],
+  "failure_reason": "accel_bias_norm_exceeded",
+  "threshold_m_s2": 0.15,
+  "first_over_limit": {
+    "source_stamp_ns": 170776000000,
+    "accel_bias_norm_m_s2": 0.15001905761820475,
+    "stereo_features": 172,
+    "long_tracks": 129,
+    "solver_usable": true,
+    "solve_seconds": 0.019701004028320312,
+    "final_cost": 584.1542822704389,
+    "approx_fixture_x_m": -1.39,
+    "normalized_cost": 0.5033629186120409
+  },
+  "max_accel_bias_norm_m_s2": 0.15461781958022017,
+  "comparison_run": "n08-cancel-translation-prescan-20261026-288",
+  "comparison_same_scan_profile": true,
+  "comparison_max_accel_bias_norm_m_s2": 0.09059227250614085,
+  "comparison_conclusion": "supports different estimator bias drift across independent cold starts; root cause is not isolated",
+  "fixture_removed": true,
+  "fixture_may_remain_attached": false,
+  "final_landed": true,
+  "independent_readback": {
+    "bridge_phase": "DISABLED",
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "vehicle_remained_disarmed": true,
+    "control_mode_count": 0,
+    "trajectory_setpoint_count": 0,
+    "vehicle_command_count": 0,
+    "project_stop_exit_code": 0
+  },
+  "n05_post_release_admission": null,
+  "mission_preflight": null,
+  "goal_or_flight": false,
+  "trial_cancel_or_braking_data": false,
+  "next_experiment": {
+    "id": "#290",
+    "single_variable": "fresh cold-start VINS epoch",
+    "profile_unchanged": true,
+    "health_threshold_unchanged": true
+  }
+}

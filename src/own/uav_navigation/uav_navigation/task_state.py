@@ -57,7 +57,7 @@ class TaskEvent:
 
 
 class TaskSupervisor:
-    """Track one active goal and fail closed on epoch or localization faults.
+    """Track one active goal and fail closed on epoch and clock faults.
 
     `now_s` values are caller-provided monotonic wall time. ROS clock stamps are
     tracked separately so a backwards jump can invalidate the current session.
@@ -99,7 +99,9 @@ class TaskSupervisor:
         if epoch:
             self.epoch = epoch
         self.localization_reason = reason or 'localization_unavailable'
-        self.localization_ready = bool(epoch and tracking and valid and not self.clock_locked)
+        # TRACKING/valid are diagnostics; they do not gate goals. Keep the
+        # VINS epoch and clock lock as session-integrity checks.
+        self.localization_ready = bool(epoch and not self.clock_locked)
         if not self.localization_ready:
             event = self._finish(Outcome.ABORTED,
                                  'localization_' + self.localization_reason,
@@ -131,7 +133,9 @@ class TaskSupervisor:
                               'goal_epoch_mismatch', clear_trajectory=False),)
         events = []
         if self.active_goal is not None:
-            replaced = self._finish(Outcome.CANCELED, 'goal_replaced', clear=True)
+            # This is a server-initiated terminal result, not an action cancel
+            # request from the client. ROS actions require it to use ABORTED.
+            replaced = self._finish(Outcome.ABORTED, 'goal_replaced', clear=True)
             if replaced:
                 events.append(replaced)
         self.active_goal = goal
@@ -172,7 +176,7 @@ class TaskSupervisor:
         if self.active_goal is None:
             return ()
         if not self.localization_ready or epoch != self.active_goal.epoch:
-            event = self._finish(Outcome.ABORTED, 'pose_epoch_or_localization_invalid', clear=True)
+            event = self._finish(Outcome.ABORTED, 'pose_epoch_mismatch', clear=True)
             return (event,) if event else ()
         if not fresh:
             event = self._finish(Outcome.ABORTED, 'pose_stale', clear=True)

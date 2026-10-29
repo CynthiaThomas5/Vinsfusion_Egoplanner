@@ -1,0 +1,26 @@
+{
+  "schema": "n06-emergency-hold-reachability/v1",
+  "task_id": "N06.2.5-diagnostic",
+  "evidence_id": "#115",
+  "parent_goal": "N06",
+  "execution_mode": "goal_completion",
+  "result": "diagnostic_not_passed; trigger fixture was non-discriminating",
+  "scope": "Isolated EGO/plan_env component with synthetic depth and peer trajectory; no Gazebo, VINS, PX4, bridge, world truth, controller, or flight.",
+  "scenario": "same-path synthetic peer; raw occupancy on the active curve remained free",
+  "observations": {
+    "acceptance_passed": false,
+    "emergency_stop_observed": false,
+    "emergency_hold_bspline_observed": false,
+    "same_state_replan_transition_count": 32,
+    "curve_count_after_observation": 33,
+    "post_emergency_log": []
+  },
+  "interpretation": "The fixture did not produce a map-blocked active curve and cannot establish emergency-path reachability. It was not counted as a pass.",
+  "artifacts": {
+    "result": "artifacts/runs/n06-20261023-emergency-115/probe/result.json",
+    "result_sha256": "725b3822e099d55d9b43e85c386a66da0aa9aa41d77f6cf624fc98118dd496d9",
+    "planner_log": "artifacts/runs/n06-20261023-emergency-115/probe/planner.log",
+    "planner_log_sha256": "a90490c1919d676bfa5f96a5b3200d70b8103909f14aef5f6b749670e54736a6"
+  },
+  "next_subtask": "N06.2.5 active-path occupancy injection and fail-closed emergency-hold certification"
+}

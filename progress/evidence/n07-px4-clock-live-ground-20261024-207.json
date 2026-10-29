@@ -1,0 +1,47 @@
+{
+  "run_id": "n07-20261024-207-clock-ground",
+  "goal": "N07 PX4 time-reference live ground integration readback",
+  "status": "pass_for_time_reference_integration_only",
+  "scope": {
+    "ground_sitl": true,
+    "bridge_control_phase": "DISABLED",
+    "flight_started": false,
+    "hover_qualification": false,
+    "passed_hover_runs_retested": false
+  },
+  "runtime": {
+    "runtime_contract_sha256": "888c3ab531eda7439e6105518aeb0849384763299edca0fa5e6c25f93e1e31c6",
+    "px4_bridge_node_sha256": "ca8b056b2df0b3163e92a13596e7ae5aa1d67288174adddf5cd72aa9919c1f7d"
+  },
+  "readback": {
+    "px4_time_domain_valid": true,
+    "px4_time_reference_us": 31420000,
+    "px4_ros_clock_gap_sim_s": 0.0,
+    "clock_receipt_age_wall_s": 0.003063876,
+    "clock_progress_age_wall_s": 0.003063876,
+    "telemetry_source_age_sim_s": {
+      "attitude": 0.0,
+      "estimator_flags": 0.268,
+      "land_detected": 0.164,
+      "local_position": 0.012,
+      "vehicle_status": 0.472
+    },
+    "all_reported_px4_source_ages_within_original_limits": true,
+    "bridge_reason": "px4_preflight_failed",
+    "bridge_reason_note": "The bridge remained disabled; this diagnostic does not certify flight preflight or flight readiness."
+  },
+  "stop": {
+    "command": "bash tools/project.sh stop n07-20261024-207-clock-ground",
+    "exit_code": 0,
+    "container_status": "exited",
+    "container_exit_code": 0,
+    "oom_killed": false,
+    "active_project_containers_after_stop": 0
+  },
+  "raw_artifacts": [
+    "artifacts/runs/n07-20261024-207-clock-ground/px4-clock-ground-readback.json",
+    "artifacts/runs/n07-20261024-207-clock-ground/runtime-contract.json",
+    "artifacts/runs/n07-20261024-207-clock-ground/vio.log",
+    "artifacts/runs/n07-20261024-207-clock-ground/px4.log"
+  ]
+}

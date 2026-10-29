@@ -112,3 +112,13 @@ def valid_depth_sample_count(msg, expected_width, expected_height, expected_fram
             if math.isfinite(value) and value > 0:
                 count += 1
     return count
+
+
+def depth_layout_valid(msg, expected_width, expected_height, expected_frame):
+    """Check the ROS image layout without requiring a minimum valid-pixel count."""
+    return (msg.header.frame_id == expected_frame
+            and msg.encoding == '32FC1'
+            and msg.width == expected_width
+            and msg.height == expected_height
+            and msg.step >= msg.width * 4
+            and len(msg.data) >= msg.step * msg.height)

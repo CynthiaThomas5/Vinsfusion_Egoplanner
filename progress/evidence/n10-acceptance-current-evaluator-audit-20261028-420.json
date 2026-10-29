@@ -1,0 +1,50 @@
+{
+  "schema": "n10-acceptance-current-evaluator-audit/v1",
+  "classification": "offline N10.4 evaluator regression; no SITL or runtime gate",
+  "acceptance_config": {
+    "path": "config/acceptance.json",
+    "sha256": "3df771d50ed3db499e4e7f3967f89e7e0d6484835081b90a176415b26b73f678",
+    "revision": 3,
+    "status": "draft"
+  },
+  "evaluator": {
+    "path": "tools/debug_truth/evaluate_n10_acceptance.py",
+    "sha256": "a055e5a119b3d126ada93bdb67efc78feb92361e847b44da9e7a31e1081fdd59"
+  },
+  "test_command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest tools.test_n10_acceptance tools.test_n10_clearance",
+  "test_result": "30 passed",
+  "archive_replays": [
+    {
+      "run_id": "n10-20261027-381-vins-velocity-full-route",
+      "output": "artifacts/runs/n10-20261027-389-archive-reuse/acceptance-replay-381-current.json",
+      "output_sha256": "9c11bda2b3d60a50c9fec92fa7069525b01e0d4e34abab77c8a985199e97d2bd",
+      "runtime_identity_matches": true,
+      "archived_source_hashes_match": true,
+      "overall_status": "FAIL",
+      "arrival_status": "FAIL",
+      "goal_motion_translation_rpe_10s_p95_m": 0.09585657845184598,
+      "draft_candidate_max_m": 0.05,
+      "tracking_clearance_acceptance": "INSUFFICIENT",
+      "observer_identity_binding": "INSUFFICIENT"
+    },
+    {
+      "run_id": "n10-20261027-385-arrival-dwell4-retry",
+      "output": "artifacts/runs/n10-20261027-389-archive-reuse/acceptance-replay-385-current.json",
+      "output_sha256": "f31192980535722d18776d417aade551f59457186a14bc57694dc78d0ceb5113",
+      "runtime_identity_matches": true,
+      "archived_source_hashes_match": true,
+      "overall_status": "INSUFFICIENT",
+      "arrival_status": "PASS",
+      "goal_motion_translation_rpe_10s_p95_m": 0.09132862582235807,
+      "active_hold_translation_rpe_10s_p95_m": 0.022722899723370063,
+      "draft_candidate_max_m": 0.05,
+      "goal_motion_rpe_candidate_status": "FAIL",
+      "tracking_clearance_acceptance": "INSUFFICIENT",
+      "observer_identity_binding": "INSUFFICIENT"
+    }
+  ],
+  "runtime_gate_added": false,
+  "threshold_changed": false,
+  "n10_acceptance_freeze": false,
+  "interpretation": "The current evaluator exposes draft-candidate RPE exceedances in the motion segment. It retains #381's direct arrival failure, keeps #385 overall INSUFFICIENT under the draft, and does not turn candidate values into runtime or formal acceptance gates. N10.3 quantitative support and the final frozen configuration remain incomplete."
+}

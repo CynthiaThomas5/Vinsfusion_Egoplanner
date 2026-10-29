@@ -1,0 +1,115 @@
+{
+  "schema": "n08-support-scan-admission/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-285",
+  "scope": "N05 prerequisite scan and admission only; not an N08 flight pass",
+  "profile": "n06_full_airframe_retreat_240_translation_only",
+  "completed_stages": 6,
+  "configured_stages": 6,
+  "trace_samples": 10080,
+  "invalid_localization_samples": 0,
+  "peak_accel_bias_norm_m_s2": 0.09439816550388952,
+  "existing_accel_bias_gate_m_s2": 0.15,
+  "epoch": "6bb42462b375466cba4f99201ff547c9",
+  "map_id": "6bb42462b375466cba4f99201ff547c9-f775122458d94714a8a067eecd60d129",
+  "post_release": {
+    "online_accepted": true,
+    "offline_matches": true,
+    "independent_live_accepted": true,
+    "independent_offline_matches": true,
+    "reason": "all_entry_phases_known_and_clear",
+    "state": {
+      "bridge_phase": "DISABLED",
+      "armed": false,
+      "control_enabled": false,
+      "landed": true,
+      "localization_valid": true,
+      "localization_state": 1,
+      "body_pose_imu_m": {
+        "center_xyz_m": [
+          -0.02028155135876828,
+          0.012372052321987863,
+          0.016530684379287508
+        ],
+        "yaw_rad": -0.0027418858175271943,
+        "roll_rad": 0.006077376489070222,
+        "pitch_rad": 0.006470644764933869
+      }
+    },
+    "freshness": {
+      "snapshot_age_sim_s": 0.104,
+      "depth_source_age_sim_s": 0.132,
+      "fusion_age_sim_s": 0.028,
+      "map_status_receipt_age_wall_s": 0.09431067598052323,
+      "localization_receipt_age_wall_s": 0.012932376936078072,
+      "odometry_receipt_age_wall_s": 0.019279215019196272,
+      "limit_sim_s": 0.4
+    }
+  },
+  "fixture": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "removed": true,
+    "runner_model_list_absent": true,
+    "independent_model_list_absent": true
+  },
+  "runtime_identity": {
+    "runner_manifest_sha256": "47e0c21697d41c4d9befd2f6dc1ae5e03f70dc71cbdb3bff3144ff0f33b4f996",
+    "runner_current_sha256": "47e0c21697d41c4d9befd2f6dc1ae5e03f70dc71cbdb3bff3144ff0f33b4f996",
+    "runner_matches": true,
+    "build_276_binaries_match": true
+  },
+  "cleanup_warning": {
+    "runner_exit_code": 1,
+    "message": "localization changed or became invalid during physical scan",
+    "all_profile_stages_completed": true,
+    "all_motion_trace_localization_valid": true,
+    "post_release_n05_accepted": true,
+    "diagnostic_pass": true,
+    "interpretation": "Generic localization error occurred in the final settling step after all scan stages and fixture removal; the saved scan trace contains no invalid localization sample. Preserve the warning; independent fresh post-release N05 checks passed."
+  },
+  "no_goal_or_control_published": true,
+  "artifacts": {
+    "n05-run-summary.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/n05-run-summary.json",
+      "sha256": "3d425c548f9455fc3d49b917582ad1826fee3e9d6a2122aea1754df28f4217d9"
+    },
+    "fixture-result.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/fixture-result.json",
+      "sha256": "fd15935a47bebf63aea54d6e0087bb9de8e6c9434b02da29ac6af4e5a04046e5"
+    },
+    "fixture-stages.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/fixture-stages.json",
+      "sha256": "3783552f5ab7713afd5425c019c89e2b4a4c7e7b4088022068bf9299872c2185"
+    },
+    "n05-post-release/n05-live-entry-check.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/n05-post-release/n05-live-entry-check.json",
+      "sha256": "bc9295b50ba2d9efe66d39576fe03aae692be817616826dc822b2b7beadfec4f"
+    },
+    "n05-post-release/n05-offline-entry-replay.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/n05-post-release/n05-offline-entry-replay.json",
+      "sha256": "14882f21fe3df8ba034f08fed6716a1c9c114de88ed1a1841f8f9c8372888625"
+    },
+    "n05-independent-readback/n05-live-entry-check.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/n05-independent-readback/n05-live-entry-check.json",
+      "sha256": "2cb0e3fc58184fc3d78dafe92608b1c5beb540454e749cbf41abb81c1922b3f3"
+    },
+    "n05-independent-readback/n05-offline-entry-replay.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/n05-independent-readback/n05-offline-entry-replay.json",
+      "sha256": "09d07040fb8fdd00032ff37a72df8512ea1c1ad8f403c77488f80d85bb4607bc"
+    },
+    "n05-independent-readback/gazebo-model-list.txt": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/n05-independent-readback/gazebo-model-list.txt",
+      "sha256": "48cb6a8ad7acbe03296a9079a056ca76c5dbe69df323387a7037ba430d3170a2"
+    },
+    "runtime-contract.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/runtime-contract.json",
+      "sha256": "fea76e45036909ef9b25b4257fe95125160ffcbdb8fe8f756699b3e7d2b1935e"
+    },
+    "n05-run-inputs.json": {
+      "path": "/home/huangxiaocheng/D435i-VINS-EGO-ROS2/artifacts/runs/n08-cancel-translation-prescan-20261026-285/n05-run-inputs.json",
+      "sha256": "774ab97880b31d238673ca896b55ac272288caa2a0e9f7e5dc755b95849438ec"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema": "n10-horizon-calibration-run/v1",
+  "report_id": 339,
+  "date": "2026-10-26",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "failed_safely_before_horizontal_goal_motion",
+  "run_id": "n10-20261026-339-horizon2-16m",
+  "scope": "Single-D435i official_ego PX4/SITL diagnostic; not N11-N16 evidence.",
+  "hypothesis": "Reducing only EGO planning_horizon_m from 5.0 m to 2.0 m allows the same 16 m task and low-speed limits to pass the final spline dynamics feasibility gate.",
+  "inputs": {
+    "protocol": "progress/evidence/n10-independent-calibration-protocol-20261026-339.json",
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "planner_profile": "config/components/mapping/n10_horizon2_calibration.json",
+    "planner_profile_sha256": "e9f780d95c028af7e2809bf4d77a0a994fc86a3fe1cf05bee06324768edcf758",
+    "loaded_horizon_m": 2.0,
+    "loaded_max_velocity_m_s_per_axis": 0.1,
+    "loaded_max_acceleration_m_s2_per_axis": 0.25,
+    "collision_policy": "official_ego",
+    "px4_control_owner": "uav_px4_bridge only",
+    "online_truth_allowed": false,
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "b01894b21b147a2fb81a5200e8f8de622e8ae0fc80d95ea87a851c2fef60aed2",
+    "epoch": "0f4ea88490b341f39edf3034a96032c7",
+    "map_id": "0f4ea88490b341f39edf3034a96032c7-30e86072d7144abfad2ef5589bfb0b15"
+  },
+  "task": {
+    "target_offset_enu_m": [16.0, 0.0, 0.1],
+    "yaw_offset_rad": 0.2,
+    "native_dwell_sim_s": 3.0,
+    "action_timeout_sim_s": 360.0,
+    "requested_post_goal_hold_sim_s": 600.0,
+    "hold_started": false
+  },
+  "result": {
+    "preflight_passed": true,
+    "takeoff_admission_passed": true,
+    "ego_graph_unique_publisher_subscriber_passed": true,
+    "goal_sent": true,
+    "action_success": false,
+    "action_outcome": "aborted",
+    "action_reason": "planner_full_curve_planning_failed",
+    "goal_sim_elapsed_s": 0.056,
+    "goal_wall_elapsed_s": 0.077514573,
+    "realtime_factor_sim_over_wall": 0.722444798,
+    "clock_regressions": 0,
+    "ready_trajectory_commands": 0,
+    "horizontal_goal_travel_m": 0.0,
+    "minimum_true_3d_goal_error_m": 16.00199358913383,
+    "independent_dwell_passed": false,
+    "post_goal_hold_completed": false,
+    "localization_invalid_samples": 0,
+    "no_prohibited_contact": true,
+    "landing_contact_observed": true,
+    "live_terminal_refusal_passed": true,
+    "landed_disarmed": true,
+    "final_bridge": {
+      "phase": "LANDED",
+      "armed": false,
+      "landed": true,
+      "control_enabled": false
+    },
+    "final_px4_arming_state": 1,
+    "project_container_stopped": true,
+    "unrelated_containers_touched": false
+  },
+  "raw_vio_observation": {
+    "scope_limit": "One fixed SE(3) alignment, scale 1; vertical takeoff/landing only, not long-range drift evidence.",
+    "duration_sim_s": 28.344,
+    "paired_truth_path_m": 1.8981865615594455,
+    "position_error_rmse_m": 0.0034548732072153337,
+    "position_error_max_m": 0.007890375724411102,
+    "yaw_error_rmse_deg": 0.021406606651791015,
+    "yaw_error_max_deg": 0.05263494574453862,
+    "paired_samples": 430,
+    "truth_grid_support_fraction": 0.9978843441466855,
+    "invalid_localization_samples": 0
+  },
+  "freshness": {
+    "clock_max_positive_source_gap_sim_s": 0.096,
+    "clock_max_receipt_gap_wall_s": 0.121912199,
+    "localization_status_max_source_gap_sim_s": 0.132,
+    "localization_status_max_receipt_gap_wall_s": 0.150712978,
+    "negative_source_gap_count": 0,
+    "existing_gates_changed": false
+  },
+  "diagnosis": {
+    "conclusion": "The horizon contrast did not change the outcome; the final spline dynamics gate remains the failure boundary. Existing logs do not quantify which velocity/acceleration axis dominates or its normalized excess.",
+    "not_established": [
+      "Whether velocity or acceleration is the dominant rejected term",
+      "Whether one axis or multiple axes dominate",
+      "Long-range VIO error, tracking, map behavior, clearance, or 600 sim-second hold"
+    ],
+    "next_action": "Add diagnostic-only logging for per-axis spline velocity/acceleration maxima, configured limits, tolerance, and normalized feasibility ratio, then make one same-profile PX4/SITL measurement. Do not change dynamics thresholds or planner behavior in that run."
+  },
+  "artifacts_sha256": {
+    "flight.json": "bfc35768987e61632beb53b1380d5109c6b21960da6d77d68c03cc7b87a59f11",
+    "arrival-evaluation.json": "e25da32de220fefb7ed81ca378ff145a565ef6b8e44ee0eb99575fb6aef40842",
+    "odometry-evaluation.json": "22572b80f23177ce1c3a7867b4d31d84cc51520e4affcf2253aaf7fc88f4aeaf",
+    "odometry-errors.csv": "2fd806c6c76c19b189332d312e9159e6be5a8b0ad750b26aaa6e3967234dc821",
+    "n08-localization-source-timeline.json": "c0547e6605c4061c6670f3c361618e6a4b7ef02059273b96b1376fed1b3048c0",
+    "vehicle-contact-evaluation.json": "a8defd715f695db00e33583f90a2513a10f4b09906a656e821fdf333d28e4de3",
+    "n09-live-refusal.json": "3f39c9a08a61419fcc839a2cd02f236c7e75fd094144af3637d49cfa2fb6d880",
+    "planner-observation.json": "361831193e8c75eef6fe12df52562ea58fba2f537b98933da1c6634c40110c14",
+    "runtime-contract.json": "b01894b21b147a2fb81a5200e8f8de622e8ae0fc80d95ea87a851c2fef60aed2",
+    "n09-run-manifest.json": "d0187c0b1ea812f0b32aa24aaab5c231d11010e288f1e04826d5a64104bc6ada"
+  }
+}

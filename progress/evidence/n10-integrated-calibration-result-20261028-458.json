@@ -1,0 +1,73 @@
+{
+  "schema": "n10-integrated-calibration-result/v1",
+  "run_id": "n10-20261028-458-maxcnt220-integrated",
+  "classification": "normal-navigation calibration; not formal N15/N16 evidence",
+  "overall_status": "INSUFFICIENT",
+  "fault_calibration_in_scope": false,
+  "flight": {
+    "action_success": true,
+    "arrival_joint_position_yaw_dwell_sim_s": 3.528,
+    "requested_active_hold_sim_s": 20.0,
+    "normal_landing": true,
+    "prohibited_contact_event_count": 0
+  },
+  "passed_scoped_metrics": {
+    "raw_vio_goal_position_p95_m": 0.08998085355572916,
+    "raw_vio_goal_rpe10_translation_p95_m": 0.040722890420358815,
+    "raw_vio_goal_velocity_error_p95_m_s": 0.008397830188667183,
+    "raw_vio_active_hold_velocity_error_p95_m_s": 0.002746300887558599,
+    "map_source_age_max_sim_s": 0.168,
+    "occupancy_update_age_max_sim_s": 0.096,
+    "truth_physics_state_max_gap_sim_s": 0.004,
+    "raw_map_snapshot_pair_status": "SUPPORTED",
+    "voxel_trace_status": "PASS",
+    "sensor_capture_status": "PASS",
+    "contact_status": "PASS"
+  },
+  "insufficient_metrics": {
+    "kinematics_observer_record_count": 0,
+    "continuous_interval_clearance_status": "INSUFFICIENT_INSTANTANEOUS_VELOCITY_EVIDENCE",
+    "sampled_full_body_clearance_min_m": 0.5610369800739599,
+    "tracking_error_p95_m": 0.31494191571919244,
+    "tracking_error_max_m": 0.3277621214409301,
+    "tracking_acceptance_threshold": null,
+    "mapper_pending_depth_high_water": 8,
+    "mapper_pending_depth_capacity": 8,
+    "mapper_dropped_depth_count": 22,
+    "mapper_dropped_keyframe_count": 21,
+    "resource_capacity_standard": null,
+    "dynamic_replanning_quantitative_standard": null
+  },
+  "terminal": {
+    "safe_to_stop": true,
+    "bridge_phase": "LANDED",
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "bridge_control_enabled": false,
+    "px4_arming_state": 1,
+    "land_detected": true,
+    "zero_control_after_terminal": true,
+    "emergency_disarm_used": false,
+    "project_container_stopped": true
+  },
+  "observer_root_cause": {
+    "status": "CONFIRMED_BY_SOURCE_PATH_AUDIT",
+    "px4_spawn_source": "external/PX4-Autopilot/ROMFS/px4fmu_common/init.d-posix/px4-rc.gzsim",
+    "px4_spawn_mechanism": "file://${PX4_GZ_MODELS}/${MODEL_NAME}/model.sdf",
+    "configured_px4_gz_models": "/workspace/simulation/models",
+    "instrumented_model_root": "<run>/n09-contact-models",
+    "instrumented_root_model_selected": false
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261028-458-maxcnt220-integrated",
+    "preparation": "artifacts/n10-prepared/n10-20261028-458-maxcnt220-integrated",
+    "interval_report": "artifacts/runs/n10-20261028-458-maxcnt220-integrated/n10-interval-clearance-bound.json",
+    "acceptance_report": "artifacts/runs/n10-20261028-458-maxcnt220-integrated/n10-acceptance-evaluation-458.json"
+  },
+  "limitations": [
+    "The candidate completed one normal integrated run but did not qualify the N10 standard.",
+    "The zero-record observer makes continuous interval clearance insufficient; sampled clearance is not substituted.",
+    "N10.4 threshold bases, N10.5 clean build, N10.6 affected regression, and N10.7 freeze remain open.",
+    "The run is not formal N15/N16 credit and no fault calibration is inferred."
+  ]
+}

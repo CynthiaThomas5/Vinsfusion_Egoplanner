@@ -1,0 +1,68 @@
+--- a/planner/bspline_opt/src/uniform_bspline.cpp
++++ b/planner/bspline_opt/src/uniform_bspline.cpp
+@@ -138,6 +138,8 @@
+ 
+     Eigen::MatrixXd P = control_points_;
+     int dimension = control_points_.rows();
++    Eigen::VectorXd max_abs_vel = Eigen::VectorXd::Zero(dimension);
++    Eigen::VectorXd max_abs_acc = Eigen::VectorXd::Zero(dimension);
+ 
+     /* check vel feasibility and insert points */
+     double max_vel = -1.0;
+@@ -145,6 +147,10 @@
+     for (int i = 0; i < P.cols() - 1; ++i)
+     {
+       Eigen::VectorXd vel = p_ * (P.col(i + 1) - P.col(i)) / (u_(i + p_ + 1) - u_(i + 1));
++      for (int j = 0; j < dimension; ++j)
++      {
++        max_abs_vel(j) = max(max_abs_vel(j), fabs(vel(j)));
++      }
+ 
+       if (fabs(vel(0)) > enlarged_vel_lim || fabs(vel(1)) > enlarged_vel_lim ||
+           fabs(vel(2)) > enlarged_vel_lim)
+@@ -171,6 +177,10 @@
+                             ((P.col(i + 2) - P.col(i + 1)) / (u_(i + p_ + 2) - u_(i + 2)) -
+                              (P.col(i + 1) - P.col(i)) / (u_(i + p_ + 1) - u_(i + 1))) /
+                             (u_(i + p_ + 1) - u_(i + 2));
++      for (int j = 0; j < dimension; ++j)
++      {
++        max_abs_acc(j) = max(max_abs_acc(j), fabs(acc(j)));
++      }
+ 
+       if (fabs(acc(0)) > enlarged_acc_lim || fabs(acc(1)) > enlarged_acc_lim ||
+           fabs(acc(2)) > enlarged_acc_lim)
+@@ -187,7 +197,22 @@
+       }
+     }
+ 
+-    ratio = max(max_vel / limit_vel_, sqrt(fabs(max_acc) / limit_acc_));
++    double velocity_ratio = max_vel / limit_vel_;
++    double acceleration_ratio = sqrt(fabs(max_acc) / limit_acc_);
++    ratio = max(velocity_ratio, acceleration_ratio);
++
++    if (show && !fea)
++    {
++      cout << "[Check]: max_abs_vel_xyz " << max_abs_vel.transpose()
++           << " m/s; limit " << limit_vel_
++           << " m/s; tolerance " << feasibility_tolerance_
++           << "; max_abs_acc_xyz " << max_abs_acc.transpose()
++           << " m/s^2; limit " << limit_acc_
++           << " m/s^2; tolerance " << feasibility_tolerance_
++           << "; velocity_ratio " << velocity_ratio
++           << "; acceleration_ratio " << acceleration_ratio
++           << "; normalized_ratio " << ratio << endl;
++    }
+ 
+     return fea;
+   }
+--- a/planner/plan_manage/src/planner_manager.cpp
++++ b/planner/plan_manage/src/planner_manager.cpp
+@@ -307,7 +307,7 @@
+       double ratio;
+       bool flag_step_2_success = true;
+-      if (!pos.checkFeasibility(ratio, false))
++      if (!pos.checkFeasibility(ratio, true))
+       {
+         cout << "Need to reallocate time." << endl;
+         Eigen::MatrixXd optimal_control_points;
+         flag_step_2_success = refineTrajAlgo(pos, start_end_derivatives, ratio, ts, optimal_control_points);

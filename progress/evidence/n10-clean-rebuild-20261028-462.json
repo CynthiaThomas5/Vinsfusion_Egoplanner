@@ -1,0 +1,54 @@
+{
+  "schema": "n10-clean-rebuild-evidence/v1",
+  "id": "N10.5/#462",
+  "date": "2026-10-28",
+  "status": "passed",
+  "scope": "isolated export, locked dependency fetch and patch replay, clean ROS/PX4 SITL build",
+  "candidate_path": "/home/huangxiaocheng/n10-20261028-462-clean-rebuild/candidate/project",
+  "source_export": {
+    "path": "artifacts/runs/n10-20261028-462-clean-rebuild/source-export/project-source.tar.gz",
+    "sha256": "80072761e73a7711debcc862e168de0278e8c01ebd1070a3f03818742d08fe3f",
+    "manifest_sha256": "45d13b518ce310d360bf58e35f0bb8bd8d5bb1cd058fa66c450ca5d1d66d49d5",
+    "file_count": 2915,
+    "manifest_match_count": 2915
+  },
+  "dependencies": {
+    "locked_dependencies": 6,
+    "fetch_and_patch_replay": "passed",
+    "px4_recursive_submodules": 39,
+    "px4_submodule_gitlink_audit": "39/39 match"
+  },
+  "environment": {
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "ros_distro": "jazzy",
+    "cmake": "3.28.3",
+    "gcc": "13.3.0"
+  },
+  "build": {
+    "fresh_build_install_log_paths": true,
+    "ros_packages_expected": 18,
+    "ros_packages_built": 18,
+    "px4_sitl_ninja_steps": "1141/1141",
+    "exit_code": 0,
+    "px4_binary_path": "external/PX4-Autopilot/build/px4_sitl_default/bin/px4",
+    "px4_binary_sha256": "4de2196cb066c5c80a25f06e17d79522d117595b6d45ecea9a2950fd7beab3b0",
+    "ros_install_tree_manifest_sha256": "68ce9cbcaa018e3901df3368a3d2e8487e61d22927d5794e9dcc265b2d206d5d"
+  },
+  "verification": {
+    "command": "python3 tools/project_status.py",
+    "result": "PASS (structure only)",
+    "runtime_tests_run": false,
+    "git_diff_check": "pending closeout"
+  },
+  "artifacts": {
+    "run_dir": "artifacts/runs/n10-20261028-462-clean-rebuild",
+    "fetch_log": "artifacts/runs/n10-20261028-462-clean-rebuild/fetch.log",
+    "build_log": "artifacts/runs/n10-20261028-462-clean-rebuild/ros-px4-build.log",
+    "package_list": "artifacts/runs/n10-20261028-462-clean-rebuild/ros-package-list.txt",
+    "toolchain": "artifacts/runs/n10-20261028-462-clean-rebuild/build-toolchain.txt",
+    "summary": "artifacts/runs/n10-20261028-462-clean-rebuild/build-summary.json",
+    "checksums": "artifacts/runs/n10-20261028-462-clean-rebuild/verification-files.sha256"
+  },
+  "fault_injection_and_post_fault_calibration": false,
+  "formal_n11_n16_credit": false
+}

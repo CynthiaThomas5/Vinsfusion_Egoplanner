@@ -6,11 +6,7 @@ from .trajectory import validate_px4_runtime_profile
 
 
 READINESS_REQUIREMENTS = (
-    ('localization_tracking', 'localization_not_tracking'),
-    ('odometry_fresh', 'external_odometry_stale'),
-    ('clock_fresh', 'simulation_clock_stale'),
     ('px4_time_domain_valid', 'px4_time_domain_invalid'),
-    ('px4_telemetry_fresh', 'px4_telemetry_stale'),
     ('local_position_valid', 'px4_local_position_invalid'),
     ('ev_position_fused', 'ev_position_not_fused'),
     ('ev_yaw_fused', 'ev_yaw_not_fused'),
@@ -19,23 +15,8 @@ READINESS_REQUIREMENTS = (
 )
 
 
-def receipt_limits_fresh(now_ns, receipt_limits):
-    """Fail closed when any required source exceeds its own wall-age limit."""
-    if type(now_ns) is not int or now_ns <= 0 or not receipt_limits:
-        return False
-    for receipt_ns, max_age_s in receipt_limits:
-        if type(receipt_ns) is not int or receipt_ns <= 0:
-            return False
-        if not math.isfinite(float(max_age_s)) or float(max_age_s) < 0.0:
-            return False
-        age_s = (now_ns - receipt_ns) / 1e9
-        if age_s < 0.0 or age_s > float(max_age_s):
-            return False
-    return True
-
-
 def readiness_failure(snapshot, profile, frame_contract, require_preflight=True):
-    """Return the first unmet flight gate; never infer missing telemetry."""
+    """Check PX4-native state and input identity; receipt ages are observational."""
     validate_px4_runtime_profile(profile, frame_contract)
     for name, reason in READINESS_REQUIREMENTS:
         if name == 'preflight_passed' and not require_preflight:
@@ -51,6 +32,18 @@ def readiness_failure(snapshot, profile, frame_contract, require_preflight=True)
         if snapshot[name]:
             return 'gnss_aiding_active'
     return ''
+
+
+def matching_planner_abort_reason(mode, abort_mode, active_goal_id, active_epoch,
+                                  fault_goal_id, fault_epoch, reason, airborne):
+    """Return a planner abort reason only for the current airborne task."""
+    if not airborne or mode != abort_mode:
+        return ''
+    if (not active_goal_id or not active_epoch
+            or fault_goal_id != active_goal_id or fault_epoch != active_epoch):
+        return ''
+    detail = str(reason).strip()
+    return 'planner_fault:' + (detail or 'unspecified')
 
 
 @dataclass(frozen=True)
@@ -106,6 +99,9 @@ class OffboardSupervisor:
         self.last_command_wall = None
         self.command_attempts = 0
         self.active_trajectory_seen = False
+        self.landing_reason = ''
+        self.land_command_attempts = 0
+        self.last_land_command_wall = None
 
     def enable(self, snapshot, wall_now):
         if self.phase != self.DISABLED:
@@ -140,19 +136,44 @@ class OffboardSupervisor:
         self.last_command_wall = None
         return True, self.reason
 
-    def disable(self, snapshot):
+    def disable(self, snapshot, wall_now=0.0):
         if self.phase in (self.PRESTREAM, self.REQUEST_OFFBOARD, self.REQUEST_ARM):
             self.phase = self.DISABLED
             self.reason = 'operator_disabled_before_takeoff'
             return ControlOutput(self.phase, reason=self.reason)
         if self.phase in (self.TAKEOFF, self.ACTIVE):
-            return self._begin_landing('operator_disable')
+            return self._begin_landing('operator_disable', snapshot, wall_now)
         return ControlOutput(self.phase, reason=self.reason)
 
-    def _begin_landing(self, reason):
+    def _begin_landing(self, reason, snapshot, wall_now):
         self.phase = self.LANDING
+        self.landing_reason = reason
         self.reason = reason
-        return ControlOutput(self.phase, command='land', reason=reason)
+        self.land_command_attempts = 0
+        self.last_land_command_wall = None
+        command = self._landing_command(snapshot, wall_now)
+        return ControlOutput(self.phase, command=command, reason=self.reason)
+
+    def _landing_command(self, snapshot, wall_now):
+        """Retry an unconfirmed PX4 LAND request, then keep monitoring native state."""
+        # DESCEND is a native failsafe mode, not confirmation of NAV_LAND.
+        # A previously accepted command does not confirm the current mode.
+        descend = snapshot.get('px4_descend_active') is True
+        if (not descend and (snapshot.get('px4_landing_active') is True
+                or snapshot.get('land_command_accepted') is True)):
+            self.reason = self.landing_reason
+            return ''
+        if self.land_command_attempts >= self.command_retry_limit:
+            self.reason = self.landing_reason + (
+                '_native_descend_requires_operator' if descend
+                else '_land_command_unconfirmed')
+            return ''
+        if (self.last_land_command_wall is not None
+                and wall_now - self.last_land_command_wall < self.command_retry_wall_s):
+            return ''
+        self.land_command_attempts += 1
+        self.last_land_command_wall = wall_now
+        return 'land'
 
     def _control_output(self, setpoint_kind='hold', command=''):
         return ControlOutput(self.phase, publish_offboard=True,
@@ -191,7 +212,7 @@ class OffboardSupervisor:
                                        require_preflight=require_preflight)
             if reason:
                 if snapshot.get('armed') or self.phase in (self.TAKEOFF, self.ACTIVE):
-                    return self._begin_landing(reason)
+                    return self._begin_landing(reason, snapshot, wall_now)
                 self.phase = self.DISABLED
                 self.reason = reason
                 return ControlOutput(self.phase, reason=reason)
@@ -231,7 +252,8 @@ class OffboardSupervisor:
 
         if self.phase == self.REQUEST_ARM:
             if snapshot.get('nav_offboard') is not True:
-                return self._begin_landing('offboard_mode_lost_before_arm')
+                return self._begin_landing(
+                    'offboard_mode_lost_before_arm', snapshot, wall_now)
             if snapshot.get('armed') is True:
                 self.phase = self.TAKEOFF
                 self.reason = 'takeoff_setpoint_active'
@@ -245,14 +267,17 @@ class OffboardSupervisor:
         if self.phase == self.TAKEOFF:
             if snapshot.get('trajectory_fault') is True:
                 return self._begin_landing(
-                    snapshot.get('trajectory_reason') or 'trajectory_invalid')
+                    snapshot.get('trajectory_reason') or 'trajectory_invalid',
+                    snapshot, wall_now)
             if snapshot.get('nav_offboard') is not True or snapshot.get('armed') is not True:
-                return self._begin_landing('offboard_or_armed_state_lost')
+                return self._begin_landing(
+                    'offboard_or_armed_state_lost', snapshot, wall_now)
             position = tuple(float(v) for v in snapshot.get('position_ned', ()))
             velocity = tuple(float(v) for v in snapshot.get('velocity_ned', ()))
             if len(position) != 3 or len(velocity) != 3 or not all(
                     math.isfinite(v) for v in (*position, *velocity)):
-                return self._begin_landing('invalid_takeoff_feedback')
+                return self._begin_landing(
+                    'invalid_takeoff_feedback', snapshot, wall_now)
             distance = math.sqrt(sum((a - b) ** 2
                                      for a, b in zip(position, self.takeoff_target)))
             speed = math.sqrt(sum(v * v for v in velocity))
@@ -265,7 +290,8 @@ class OffboardSupervisor:
                     self.reason = 'takeoff_complete_waiting_for_trajectory'
                     if snapshot.get('trajectory_fault') is True:
                         return self._begin_landing(
-                            snapshot.get('trajectory_reason') or 'trajectory_invalid')
+                            snapshot.get('trajectory_reason') or 'trajectory_invalid',
+                            snapshot, wall_now)
                     if snapshot.get('trajectory_ready') is True:
                         self.active_trajectory_seen = True
                         return self._control_output('trajectory')
@@ -276,14 +302,17 @@ class OffboardSupervisor:
 
         if self.phase == self.ACTIVE:
             if snapshot.get('nav_offboard') is not True or snapshot.get('armed') is not True:
-                return self._begin_landing('offboard_or_armed_state_lost')
+                return self._begin_landing(
+                    'offboard_or_armed_state_lost', snapshot, wall_now)
             if snapshot.get('trajectory_fault') is True:
-                return self._begin_landing(snapshot.get('trajectory_reason') or 'trajectory_invalid')
+                return self._begin_landing(
+                    snapshot.get('trajectory_reason') or 'trajectory_invalid',
+                    snapshot, wall_now)
             if snapshot.get('trajectory_ready') is True:
                 self.active_trajectory_seen = True
                 return self._control_output('trajectory')
             if self.active_trajectory_seen:
-                return self._begin_landing('active_trajectory_lost')
+                return self._begin_landing('active_trajectory_lost', snapshot, wall_now)
             return self._control_output('hold')
 
         if self.phase == self.LANDING:
@@ -291,6 +320,7 @@ class OffboardSupervisor:
                 self.phase = self.LANDED
                 self.reason = 'landed_and_disarmed'
                 return ControlOutput(self.phase, reason=self.reason)
-            return ControlOutput(self.phase, reason=self.reason)
+            command = self._landing_command(snapshot, wall_now)
+            return ControlOutput(self.phase, command=command, reason=self.reason)
 
         return ControlOutput(self.phase, reason=self.reason)

@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 single-variable diagnostic after #349: restore the repository default 5 m EGO local target horizon while holding speed, acceleration, spawn and task fixed. Speed remains observation-only; not a formal N11-N16 profile.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.25,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "#349 failed because the 1 m local target/trajectory terminated inside the inflated occupied region around the central cylinder. Test only whether the default 5 m local horizon moves the target beyond that obstacle and permits official EGO obstacle-around planning. Keep max_velocity_m_s=0.25 and max_acceleration_m_s2=0.25 as the same per-axis planner dynamics parameters; record EGO-reference/PX4 speed without a project speed guard. No other task or safety rule changes."
+}

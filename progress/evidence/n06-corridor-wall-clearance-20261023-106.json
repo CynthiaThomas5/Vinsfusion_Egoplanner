@@ -1,0 +1,106 @@
+{
+  "schema": "n06-corridor-wall-clearance/v1",
+  "task_id": "N06.8",
+  "record_id": "106",
+  "run_id": "n06-20261023-corridor-r31",
+  "layout_id": "corridor_box_column",
+  "ros_domain_id": 94,
+  "status": "failed_closed_before_snapshot",
+  "goal_published": false,
+  "motion": {
+    "profile": "config/components/simulation/n06_x_holdpoint_slow.json",
+    "profile_sha256": "b780cd83f9c4ae4e4a00494b82fe3b99dc50e249bc1a659bd8889ad37817de8d",
+    "run_inputs_sha256": "d57e4dd8ab662be66d9d69aceb074b66934ed108a83621ed382fa7cbd8f87e47",
+    "motion_truth_path": "artifacts/runs/n06-20261023-corridor-r31/motion.json",
+    "motion_truth_sha256": "295131d8a088d658e0c1d96b5de9cbf6a9b87b27b15a71a3c18cdf2c980f38cc",
+    "clock_start_s": 5.018,
+    "clock_end_s": 117.032,
+    "truth_sample_count": 11202,
+    "x_min_m": -2.9875227915893214,
+    "x_min_stamp_s": 53.59,
+    "x_max_m": 2.011171472641991,
+    "x_final_m": 2.011171472641991,
+    "estimated_final_speed_m_s": 0.0444,
+    "commands": [
+      {"stamp_s": 10.019, "acceleration_x_m_s2": -0.0045},
+      {"stamp_s": 36.701, "acceleration_x_m_s2": 0.0045},
+      {"stamp_s": 86.479, "acceleration_x_m_s2": -0.0045},
+      {"stamp_s": 109.566, "acceleration_x_m_s2": 0.0}
+    ]
+  },
+  "collision": {
+    "confirmed": true,
+    "back_wall_center_x_m": -3.05,
+    "back_wall_size_x_m": 0.1,
+    "near_face_x_m": -3.0,
+    "d435i_housing_half_extent_x_m": 0.0125,
+    "predicted_sensor_fixture_center_at_contact_x_m": -2.9875,
+    "measured_sensor_fixture_min_x_m": -2.9875227915893214,
+    "generated_scene": "simulation/models/n06_observation_surround/model.sdf"
+  },
+  "mapping_inputs": {
+    "path": "artifacts/runs/n06-20261023-corridor-r31/inputs/mapping-inputs.json",
+    "sha256": "cd593385bdd7614294aba6da2c2d762c21ce2f4514b09597e5dc02ca51e86deb",
+    "depth_frame_count": 2956,
+    "camera_pose_count": 2956,
+    "optimized_odometry_count": 1478,
+    "last_camera_pose_stamp_s": 101.674,
+    "last_optimized_odometry_stamp_s": 101.674,
+    "fusion_trace_count_by_phase": {
+      "fused": 1581,
+      "ego_received": 2869,
+      "reset": 1
+    },
+    "localization_last": {
+      "stamp_s": 149.755,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "epoch": "0ebc9f0e1f4740cb914344ab7381e682"
+    },
+    "map_status_last": {
+      "stamp_s": 149.646,
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "last_depth_source_stamp_ns": 0,
+      "last_occupancy_stamp_s": 149.623,
+      "epoch": "0ebc9f0e1f4740cb914344ab7381e682",
+      "map_id": "0ebc9f0e1f4740cb914344ab7381e682-8dc477ce9abb45fb8a6162ad8bd10556"
+    }
+  },
+  "snapshot_capture": {
+    "attempted": true,
+    "snapshot_01_ready": false,
+    "error": "MapStatus did not become ready within 120.0s: MapStatus is not ready: map_reset_acknowledged",
+    "snapshot_count": 0,
+    "probe_launched": false,
+    "reason_no_goal": "snapshot/readiness precondition failed before guarded probe"
+  },
+  "verification": {
+    "command": "bash tools/project.sh test",
+    "unit_tests": 251,
+    "unit_tests_passed": true,
+    "navigation_adapter_integration_passed": true,
+    "python_syntax": "passed in-memory compilation",
+    "shell_syntax": "bash -n tools/run_n04_map_layout.sh tools/run_n04_map_layout_container.sh passed",
+    "profile_json": "valid",
+    "ideal_profile_endpoint_x_m": -0.8000000000048881,
+    "ideal_profile_terminal_speed_m_s": 0.0,
+    "ideal_profile_peak_speed_m_s": 0.12000000000015
+  },
+  "next_iteration": {
+    "task_id": "N06.9",
+    "run_id": "n06-20261023-corridor-r32",
+    "single_primary_variable": "maximum observation retreat endpoint",
+    "retreat_endpoint_x_m": -2.6,
+    "hold_endpoint_x_m": -0.8,
+    "goal_offset_xyz_m": [0.0, 0.25, 0.0],
+    "hypothesis": "stopping before the confirmed back wall preserves localization and still observes the complete hold neighborhood inside the existing local-map window"
+  },
+  "remaining_n06_exits": [
+    "two-layout live full-curve and complete swept-envelope evidence",
+    "terminal and emergency hold",
+    "replanning handoff",
+    "explicit rejection of new obstacle, late curve, wrong identity, stale map, query failure, and resource limits"
+  ],
+  "qualification": "This run is a confirmed wall-collision and fail-closed readiness result; it is not a snapshot, map-coverage, EGO-curve, or N06 pass."
+}

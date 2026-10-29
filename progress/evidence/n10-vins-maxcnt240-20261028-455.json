@@ -1,0 +1,56 @@
+{
+  "id": "N10.3/#455",
+  "classification": "isolated offline VINS configuration replay; not flight qualification",
+  "single_variable": "max_cnt 180 to 240",
+  "binary_reused_from": "#449 verified native trace build",
+  "source": "same archived #436 sensor MCAP",
+  "native_inputs_complete_and_equal": true,
+  "processed_stereo_pairs": 4749,
+  "catchup_dropped_pairs": 0,
+  "same_common_source_time_grid": true,
+  "common_samples": 2013,
+  "feature_telemetry": {
+    "estimator_updates": 2364,
+    "updates_above_previous_180_cap": 1437,
+    "updates_at_240_cap": 152,
+    "input_features_p50": 195,
+    "visual_observations_p50_baseline_candidate": [938, 1082],
+    "image_queue_high_water": 1
+  },
+  "metrics": {
+    "goal_motion_rpe10_translation_p95_m": {
+      "baseline": 0.06049470605110036,
+      "candidate": 0.04691207163072659,
+      "maximum": 0.05,
+      "candidate_status": "PASS"
+    },
+    "goal_motion_position_error_p95_m": {
+      "baseline": 0.10670903163479045,
+      "candidate": 0.16516753406753898,
+      "maximum": 0.5
+    },
+    "goal_motion_yaw_error_p95_deg": {
+      "baseline": 0.7488692106573465,
+      "candidate": 1.3403875555571385,
+      "maximum": 15.0
+    },
+    "active_hold_velocity_error_p95_m_s": {
+      "baseline": 0.015166345744630215,
+      "candidate": 0.01090856630266685,
+      "maximum": 0.01,
+      "candidate_status": "FAIL"
+    },
+    "solve_latency_ms_p50_p95_max": {
+      "baseline": [15.0479, 24.9579, 33.9780],
+      "candidate": [15.7535, 27.2648, 40.34495],
+      "configured_budget_max_ms": 40.0
+    }
+  },
+  "full_original_vio_gate_status": "FAIL",
+  "candidate_deployed": false,
+  "live_parameters_changed": false,
+  "acceptance_sha256": "ad6b8b92cdbefb8df0c04aded668fec6c8b76a16cc37001ce0b16d6e7c54d99a",
+  "result_sha256": "2eb425168485b4a961f75113db5c89cdc8493435fd72aa9bf7c7672fc2ea880c",
+  "gate_report_sha256": "b2de20dbd972e570f752e21cf37007420385e89a2c010bd1e380cbc37dbd963e",
+  "candidate_yaml_sha256": "c4b581d56b17a71669074ed02bb0a4c44d4a0eff515e933d227fd3a62609bb6d"
+}

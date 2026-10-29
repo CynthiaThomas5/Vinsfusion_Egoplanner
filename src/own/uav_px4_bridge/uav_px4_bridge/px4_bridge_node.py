@@ -20,12 +20,16 @@ from rclpy.qos import (QoSProfile, ReliabilityPolicy, DurabilityPolicy,
                        HistoryPolicy)
 from rosgraph_msgs.msg import Clock as ClockMessage
 from std_msgs.msg import String
-from uav_interfaces.msg import LocalizationStatus, PositionCommand, Px4BridgeStatus
+from uav_interfaces.msg import (LocalizationStatus, NavigationCommand,
+                                PositionCommand, Px4BridgeStatus,
+                                TrajectoryCancel)
 from uav_interfaces.srv import EnableOffboard
 from uav_sim.geometry import px4_sensor_mount
 
-from .control_state import (OffboardSupervisor, readiness_failure,
-                            receipt_limits_fresh)
+from .control_state import (OffboardSupervisor, matching_planner_abort_reason,
+                            readiness_failure)
+from .process_watch import (find_process_identities,
+                            process_identity_is_running)
 from .time_mapping import (RosClockMapper, TimeMappingError,
                            fallback_agent_timestamp_us,
                            px4_clock_age_sim_s,
@@ -135,8 +139,6 @@ class Px4BridgeNode(Node):
         self.clock_mapper = RosClockMapper(
             self.config['clock_mapping_min_samples'],
             self.config['clock_mapping_max_samples'],
-            self.config['clock_mapping_max_clock_age_wall_s'],
-            self.config['clock_mapping_max_source_age_wall_s'],
             self.config['clock_mapping_max_future_wall_s'],
             self.config['clock_mapping_min_sim_rate'],
             self.config['clock_mapping_max_sim_rate'],
@@ -195,8 +197,16 @@ class Px4BridgeNode(Node):
         self.trajectory_completed = False
         self.cached_trajectory_body = None
         self.last_trajectory_goal_id = ''
+        self.active_navigation_goal_id = ''
+        self.active_navigation_epoch = ''
+        self.last_navigation_fault_identity = None
+        self.planner_process_identity = None
+        self.last_planner_process_check_ns = 0
         self.last_command = 0
         self.last_command_result = 255
+        self.last_command_timestamp_us = 0
+        self.last_command_receipt_ns = 0
+        self.land_command_ack_result = None
         self.pending_command = ''
         self.last_reported_reason = ''
         self.last_status_publish_ns = 0
@@ -220,6 +230,8 @@ class Px4BridgeNode(Node):
         self.detail_pub = self.create_publisher(String,
                                                 self.config['status_topic'] + '/detail',
                                                 reliable_qos)
+        self.planner_fault_pub = self.create_publisher(
+            TrajectoryCancel, '/navigation/planner_fault', reliable_qos)
 
         self.create_subscription(
             ClockMessage, self.clock_topic, self._on_clock, sensor_qos)
@@ -230,6 +242,10 @@ class Px4BridgeNode(Node):
             transient_qos)
         self.create_subscription(PositionCommand, self.config['position_command_topic'],
                                  self._on_position_command, reliable_qos)
+        self.create_subscription(NavigationCommand, '/navigation/ego_goal',
+                                 self._on_navigation_goal, reliable_qos)
+        self.create_subscription(TrajectoryCancel, '/navigation/planner_fault',
+                                 self._on_planner_fault, reliable_qos)
         if self.uxrce_dds_time_sync_enabled:
             self.create_subscription(TimesyncStatus, self.config['timesync_status_topic'],
                                      self._on_timesync, sensor_qos)
@@ -285,11 +301,6 @@ class Px4BridgeNode(Node):
             self.epoch = msg.epoch
         self.localization = msg
         self.localization_receipt_ns = now
-        if msg.state != LocalizationStatus.TRACKING or not msg.valid:
-            if self.supervisor.phase not in (OffboardSupervisor.DISABLED,
-                                             OffboardSupervisor.LANDED,
-                                             OffboardSupervisor.LOCKED):
-                self.trajectory_fault = msg.reason or 'localization_not_tracking'
 
     def _on_odometry(self, msg):
         now_mono = self._now_ns()
@@ -417,8 +428,17 @@ class Px4BridgeNode(Node):
 
     def _on_command_ack(self, msg):
         self.ack = msg
-        self.ack_receipt_ns = self._now_ns()
+        receipt_ns = self._now_ns()
+        self.ack_receipt_ns = receipt_ns
         self.last_command_result = int(msg.result)
+        same_timestamp_domain = not self.uxrce_dds_time_sync_enabled
+        timestamp_matches = (int(msg.timestamp) >= self.last_command_timestamp_us
+                             if same_timestamp_domain else
+                             receipt_ns >= self.last_command_receipt_ns)
+        if (self.last_command == VehicleCommand.VEHICLE_CMD_NAV_LAND
+                and int(msg.command) == VehicleCommand.VEHICLE_CMD_NAV_LAND
+                and timestamp_matches):
+            self.land_command_ack_result = int(msg.result)
 
     def _on_position_command(self, msg):
         now = self._now_ns()
@@ -443,25 +463,93 @@ class Px4BridgeNode(Node):
         else:
             self.trajectory_fault = 'trajectory_' + str(msg.trajectory_flag)
 
-    def _fresh(self, receipt_ns, limit_s, now_ns):
-        return _receipt_age(receipt_ns, now_ns) <= float(limit_s)
+    def _on_navigation_goal(self, msg):
+        if not msg.goal_id or not msg.epoch:
+            return
+        if self.epoch and msg.epoch != self.epoch:
+            return
+        if (msg.goal_id, msg.epoch) != (
+                self.active_navigation_goal_id, self.active_navigation_epoch):
+            self.active_navigation_goal_id = msg.goal_id
+            self.active_navigation_epoch = msg.epoch
+            self.planner_process_identity = None
+            self.last_planner_process_check_ns = 0
+            if self.profile.get('name') == 'vio_closed_loop':
+                identities = find_process_identities(
+                    self.config['planner_process_executable'])
+                if len(identities) == 1:
+                    self.planner_process_identity = identities[0]
 
-    def _local_state_fresh(self, now_ns):
+    def _on_planner_fault(self, msg):
+        airborne = self.supervisor.phase in (
+            OffboardSupervisor.TAKEOFF, OffboardSupervisor.ACTIVE)
+        reason = matching_planner_abort_reason(
+            msg.mode, TrajectoryCancel.MODE_ABORT,
+            self.active_navigation_goal_id, self.active_navigation_epoch,
+            msg.goal_id, msg.epoch, msg.reason, airborne)
+        if reason and not self.bridge_fault:
+            self.bridge_fault = reason
+            self.last_navigation_fault_identity = (msg.goal_id, msg.epoch)
+
+    def _check_planner_process(self, now_ns):
+        if self.profile.get('name') != 'vio_closed_loop':
+            return
+        if self.supervisor.phase not in (
+                OffboardSupervisor.TAKEOFF, OffboardSupervisor.ACTIVE):
+            return
+        if not self.active_navigation_goal_id:
+            return
+        period_ns = int(float(self.config['planner_process_check_period_wall_s']) * 1e9)
+        if (self.last_planner_process_check_ns
+                and now_ns - self.last_planner_process_check_ns < period_ns):
+            return
+        self.last_planner_process_check_ns = now_ns
+        if self.planner_process_identity is None:
+            identities = find_process_identities(
+                self.config['planner_process_executable'])
+            if len(identities) == 1:
+                self.planner_process_identity = identities[0]
+            elif not identities:
+                self._latch_planner_process_fault(
+                    'ego_planner_process_exited_during_active_goal')
+            else:
+                self._latch_planner_process_fault(
+                    'multiple_ego_planner_processes_during_active_goal')
+            return
+        if not process_identity_is_running(self.planner_process_identity):
+            self._latch_planner_process_fault(
+                'ego_planner_process_exited_during_active_goal')
+
+    def _latch_planner_process_fault(self, reason):
+        if self.bridge_fault:
+            return
+        self.bridge_fault = reason
+        self._publish_navigation_fault(reason, source='planner')
+
+    def _publish_navigation_fault(self, reason, source):
+        """End the exact navigation task after an existing abort/landing decision."""
+        goal_id = self.active_navigation_goal_id
+        epoch = self.active_navigation_epoch
+        if not goal_id or not epoch:
+            return False
+        identity = (goal_id, epoch)
+        if getattr(self, 'last_navigation_fault_identity', None) == identity:
+            return False
+        fault = TrajectoryCancel()
+        fault.goal_id = goal_id
+        fault.epoch = epoch
+        fault.mode = TrajectoryCancel.MODE_ABORT
+        fault.reason = (f'bridge_{reason}' if source == 'bridge' else reason)
+        self.last_navigation_fault_identity = identity
+        self.planner_fault_pub.publish(fault)
+        return True
+
+    def _local_state_available(self, now_ns):
         messages = (
-            ('vehicle_status', self.vehicle_status, self.vehicle_status_receipt_ns,
-             self.config['px4_status_max_receipt_age_wall_s']),
-            ('local_position', self.local_position, self.local_position_receipt_ns,
-             self.config['px4_max_receipt_age_wall_s']),
-            ('attitude', self.attitude, self.attitude_receipt_ns,
-             self.config['px4_max_receipt_age_wall_s']),
-            ('estimator_flags', self.estimator_flags, self.estimator_flags_receipt_ns,
-             self.config['px4_estimator_flags_max_receipt_age_wall_s']),
-            ('land_detected', self.land_detected, self.land_detected_receipt_ns,
-             self.config['px4_land_detected_max_receipt_age_wall_s']),
+            self.vehicle_status, self.local_position, self.attitude,
+            self.estimator_flags, self.land_detected,
         )
-        if not receipt_limits_fresh(now_ns, tuple(
-                (receipt_ns, max_age_s)
-                for _, _, receipt_ns, max_age_s in messages)):
+        if any(message is None for message in messages):
             return False
         if self.latest_clock_ns <= 0:
             return False
@@ -469,42 +557,76 @@ class Px4BridgeNode(Node):
                 and (self.timesync is None or self.timesync_receipt_ns is None
                      or not self._timesync_fresh())):
             return False
-        max_age_s = self.config['px4_source_timestamp_max_age_sim_s']
         max_future_s = self.config['px4_source_timestamp_max_future_sim_s']
-        for source, message, _, _ in messages:
-            if message is None:
-                return False
+        for source, message in zip(
+                ('vehicle_status', 'local_position', 'attitude',
+                 'estimator_flags', 'land_detected'), messages):
             age_s = self._px4_source_age_sim_s(source, message, now_ns)
-            if age_s is None:
-                return False
-            if age_s < -max_future_s or age_s > max_age_s:
+            if age_s is not None and age_s < -max_future_s:
                 return False
         return True
+
+    def _px4_time_reference_us(self):
+        """Recover PX4 HRT from the latest high-rate telemetry timestamps."""
+        references = []
+        for source, message in (
+                ('local_position', self.local_position),
+                ('attitude', self.attitude)):
+            offset_us = self.px4_source_offsets_us.get(source)
+            if message is None or offset_us is None:
+                continue
+            timestamp_us = int(message.timestamp) + int(offset_us)
+            if timestamp_us > 0:
+                references.append(timestamp_us)
+        if not references:
+            raise TimeMappingError('px4_time_reference_unavailable')
+        return max(references)
+
+    def _px4_current_time_us(self):
+        """Use the newest value from PX4 HRT or Gazebo's shared sim clock."""
+        candidates = []
+        if self.latest_clock_ns > 0:
+            clock_px4_us = (self.latest_clock_ns // 1000
+                            + int(self.config['px4_ros_clock_offset_us']))
+            if clock_px4_us > 0:
+                candidates.append(clock_px4_us)
+        try:
+            candidates.append(self._px4_time_reference_us())
+        except TimeMappingError:
+            pass
+        if not candidates:
+            raise TimeMappingError('px4_time_reference_unavailable')
+        return max(candidates)
+
+    def _px4_ros_clock_gap_sim_s(self):
+        if self.latest_clock_ns <= 0:
+            return None
+        try:
+            px4_time_us = self._px4_time_reference_us()
+        except TimeMappingError:
+            return None
+        ros_clock_px4_us = (self.latest_clock_ns // 1000
+                            + int(self.config['px4_ros_clock_offset_us']))
+        return (ros_clock_px4_us - px4_time_us) / 1e6
 
     def _px4_source_age_sim_s(self, source, message, now_ns):
         offset_us = self.px4_source_offsets_us.get(source)
         if message is None or offset_us is None:
             return None
         try:
-            current_ros_ns = self.clock_mapper.ros_time_at_monotonic(
-                now_ns, self.config['clock_mapping_max_fit_residual_wall_s'])
+            current_px4_ns = self._px4_current_time_us() * 1000
             return px4_clock_age_sim_s(
-                current_ros_ns, message.timestamp, offset_us)
+                current_px4_ns, message.timestamp, offset_us)
         except TimeMappingError:
             return None
 
     def _px4_telemetry_freshness_detail(self, now_ns):
         sources = (
-            ('vehicle_status', self.vehicle_status, self.vehicle_status_receipt_ns,
-             self.config['px4_status_max_receipt_age_wall_s']),
-            ('local_position', self.local_position, self.local_position_receipt_ns,
-             self.config['px4_max_receipt_age_wall_s']),
-            ('attitude', self.attitude, self.attitude_receipt_ns,
-             self.config['px4_max_receipt_age_wall_s']),
-            ('estimator_flags', self.estimator_flags, self.estimator_flags_receipt_ns,
-             self.config['px4_estimator_flags_max_receipt_age_wall_s']),
-            ('land_detected', self.land_detected, self.land_detected_receipt_ns,
-             self.config['px4_land_detected_max_receipt_age_wall_s']),
+            ('vehicle_status', self.vehicle_status, self.vehicle_status_receipt_ns),
+            ('local_position', self.local_position, self.local_position_receipt_ns),
+            ('attitude', self.attitude, self.attitude_receipt_ns),
+            ('estimator_flags', self.estimator_flags, self.estimator_flags_receipt_ns),
+            ('land_detected', self.land_detected, self.land_detected_receipt_ns),
         )
         return {
             name: {
@@ -512,11 +634,9 @@ class Px4BridgeNode(Node):
                 'source_stamp_us': (int(message.timestamp) if message is not None else None),
                 'source_timestamp_offset_us': self.px4_source_offsets_us[name],
                 'receipt_age_wall_s': _receipt_age(receipt_ns, now_ns),
-                'max_source_age_sim_s': self.config['px4_source_timestamp_max_age_sim_s'],
                 'max_source_future_sim_s': self.config['px4_source_timestamp_max_future_sim_s'],
-                'max_receipt_age_wall_s': max_wall_age_s,
             }
-            for name, message, receipt_ns, max_wall_age_s in sources
+            for name, message, receipt_ns in sources
         }
 
     def _source_position_enu(self, odometry=None):
@@ -533,17 +653,13 @@ class Px4BridgeNode(Node):
         if (self.odom is None or self.local_position is None
                 or self.attitude is None
                 or self.latest_clock_ns <= 0
-                or not self._fresh(self.odom_receipt_ns,
-                                   self.config['odometry_max_receipt_age_wall_s'], now_ns)
-                or not self._local_state_fresh(now_ns)):
+                or not self._local_state_available(now_ns)):
             return False
         gap_s = self._alignment_pair_gap_sim_s()
         if (gap_s is None
                 or gap_s > self.config['alignment_pair_max_source_gap_sim_s']):
             return False
-        # Keep the last source-time-matched pair when only one input has
-        # advanced; freshness below still expires it using the original
-        # receipt times and each stream's existing limits.
+        # Keep the last source-time-matched pair when only one input has advanced.
         self.alignment_pair = {
             'odometry': self.odom,
             'odometry_receipt_ns': self.odom_receipt_ns,
@@ -556,18 +672,10 @@ class Px4BridgeNode(Node):
         }
         return True
 
-    def _alignment_pair_fresh(self, now_ns):
+    def _alignment_pair_available(self, now_ns):
         self._capture_alignment_pair(now_ns)
         pair = self.alignment_pair
-        if pair is None or not self._local_state_fresh(now_ns):
-            return False
-        return (
-            self._fresh(pair['odometry_receipt_ns'],
-                        self.config['odometry_max_receipt_age_wall_s'], now_ns)
-            and self._fresh(pair['local_position_receipt_ns'],
-                            self.config['px4_max_receipt_age_wall_s'], now_ns)
-            and self._fresh(pair['attitude_receipt_ns'],
-                            self.config['px4_max_receipt_age_wall_s'], now_ns))
+        return pair is not None and self._local_state_available(now_ns)
 
     def _alignment_pair_gap_sim_s(self):
         offset_us = self.px4_source_offsets_us['local_position']
@@ -589,7 +697,7 @@ class Px4BridgeNode(Node):
                 or self.local_position is None or self.attitude is None
                 or self.estimator_flags is None or self.localization is None):
             return
-        if not self._alignment_pair_fresh(now_ns):
+        if not self._alignment_pair_available(now_ns):
             return
         pair = self.alignment_pair
         flags = pair['estimator_flags']
@@ -620,7 +728,7 @@ class Px4BridgeNode(Node):
         self._update_alignment(now_ns)
         if self.alignment is None or self.alignment_pair is None:
             return False
-        if not self._alignment_pair_fresh(now_ns):
+        if not self._alignment_pair_available(now_ns):
             return False
         pair = self.alignment_pair
         local = pair['local_position']
@@ -643,10 +751,8 @@ class Px4BridgeNode(Node):
         except (TypeError, ValueError):
             return False
         self.alignment_yaw_error_rad = yaw_error
-        if (self.alignment_drift_m > self.config['alignment_max_drift_m']
-                or yaw_error > self.config['alignment_max_yaw_error_rad']):
-            self.alignment_fault = 'px4_frame_alignment_drift'
-            return False
+        # Keep translation and yaw disagreement observable, but do not turn
+        # project-local numeric cutoffs into a latched PX4 landing fault.
         return True
 
     def _trajectory_is_ready(self, now_ns):
@@ -655,28 +761,21 @@ class Px4BridgeNode(Node):
         if self.trajectory_completed:
             return self.cached_trajectory_body is not None
         return (self.position_command is not None
-                and self.position_command.trajectory_flag == PositionCommand.TRAJECTORY_STATUS_READY
-                and self._fresh(self.position_command_receipt_ns,
-                                self.config['command_max_receipt_age_wall_s'], now_ns))
+                and self.position_command.trajectory_flag == PositionCommand.TRAJECTORY_STATUS_READY)
 
     def _snapshot(self, now_ns):
         alignment_valid = self._alignment_health(now_ns)
         loc_fresh = (self.localization is not None
-                     and self._fresh(self.localization_receipt_ns,
-                                     self.config['localization_max_receipt_age_wall_s'], now_ns)
                      and self.localization.valid
                      and self.localization.state == LocalizationStatus.TRACKING
                      and not self.epoch_fault)
         odom_fresh = (self.odom is not None and self.odom_mapped_receipt_ns is not None
-                      and self._fresh(self.odom_mapped_receipt_ns,
-                                      self.config['odometry_max_receipt_age_wall_s'], now_ns))
+                      )
         clock_fresh = (self.latest_clock_ns > 0
-                       and self.clock_mapper.reason != 'ros_clock_regression'
-                       and self._fresh(self.clock_progress_receipt_ns,
-                                       self.config['clock_stall_wall_s'], now_ns))
+                       and self.clock_mapper.reason != 'ros_clock_regression')
         clock_domain_valid = (not self.uxrce_dds_time_sync_enabled
                               or (self.timesync is not None and self._timesync_fresh()))
-        px4_fresh = self._local_state_fresh(now_ns)
+        px4_fresh = self._local_state_available(now_ns)
         local = self.local_position
         flags = self.estimator_flags
         status = self.vehicle_status
@@ -697,6 +796,12 @@ class Px4BridgeNode(Node):
                  status.arming_state == VehicleStatus.ARMING_STATE_ARMED)
         offboard = (status is not None and
                     status.nav_state == VehicleStatus.NAVIGATION_STATE_OFFBOARD)
+        px4_landing_active = (status is not None and status.nav_state in (
+            VehicleStatus.NAVIGATION_STATE_AUTO_LAND,
+            VehicleStatus.NAVIGATION_STATE_AUTO_PRECLAND,
+        ))
+        land_command_accepted = (
+            self.land_command_ack_result == VehicleCommandAck.VEHICLE_CMD_RESULT_ACCEPTED)
         return {
             'localization_tracking': loc_fresh and not self.bridge_fault,
             'odometry_fresh': odom_fresh,
@@ -715,6 +820,10 @@ class Px4BridgeNode(Node):
             'landed': (land is not None and bool(land.landed)),
             'armed': bool(armed),
             'nav_offboard': bool(offboard),
+            'px4_landing_active': bool(px4_landing_active),
+            'px4_descend_active': (status is not None and status.nav_state
+                                   == VehicleStatus.NAVIGATION_STATE_DESCEND),
+            'land_command_accepted': bool(land_command_accepted),
             'position_ned': ((local.x, local.y, local.z) if local is not None else ()),
             'velocity_ned': ((local.vx, local.vy, local.vz) if local is not None else ()),
             'heading_ned': (local.heading if local is not None else math.nan),
@@ -730,7 +839,7 @@ class Px4BridgeNode(Node):
             return 0
         if not self.uxrce_dds_time_sync_enabled:
             try:
-                timestamp = self.clock_mapper.current_lockstep_px4_time_us(now_ns)
+                timestamp = self._px4_current_time_us()
                 self.px4_timestamp_error = ''
                 return timestamp
             except TimeMappingError as exc:
@@ -797,6 +906,10 @@ class Px4BridgeNode(Node):
         self.command_pub.publish(message)
         self.last_command = int(message.command)
         self.last_command_result = 255
+        self.last_command_timestamp_us = int(message.timestamp)
+        self.last_command_receipt_ns = int(now_ns)
+        if name == 'land':
+            self.land_command_ack_result = None
         return True
 
     def _position_for_output(self, output, snapshot, now_ns):
@@ -872,13 +985,13 @@ class Px4BridgeNode(Node):
                 self.alignment = None
                 self._update_alignment(now)
                 if not self._alignment_health(now):
-                    self.supervisor.disable(snapshot)
+                    self.supervisor.disable(snapshot, now / 1e9)
                     accepted = False
                     reason = self.alignment_fault or 'alignment_not_ready_at_enable'
             response.accepted = accepted
             response.reason = reason
         else:
-            output = self.supervisor.disable(snapshot)
+            output = self.supervisor.disable(snapshot, now / 1e9)
             response.accepted = True
             response.reason = output.reason
             if output.command:
@@ -916,11 +1029,20 @@ class Px4BridgeNode(Node):
         status.last_command_result = self.last_command_result
         self.status_pub.publish(status)
         detail = String()
+        try:
+            px4_time_reference_us = self._px4_time_reference_us()
+        except TimeMappingError:
+            px4_time_reference_us = None
         detail.data = json.dumps({
             'phase': status.phase, 'reason': status.reason,
             'uxrce_dds_time_sync_enabled': self.uxrce_dds_time_sync_enabled,
             'px4_time_domain_valid': snapshot['px4_time_domain_valid'],
             'px4_timestamp_error': self.px4_timestamp_error,
+            'px4_time_reference_us': px4_time_reference_us,
+            'px4_ros_clock_gap_sim_s': self._px4_ros_clock_gap_sim_s(),
+            'clock_receipt_age_wall_s': _receipt_age(self.clock_receipt_ns, now_ns),
+            'clock_progress_age_wall_s': _receipt_age(
+                self.clock_progress_receipt_ns, now_ns),
             'odometry_time_error': self.odom_time_error,
             'timesync_age_sim_s': self._timesync_age_sim_s(),
             'px4_telemetry_freshness': self._px4_telemetry_freshness_detail(now_ns),
@@ -941,15 +1063,22 @@ class Px4BridgeNode(Node):
 
     def _on_control_tick(self):
         now = self._now_ns()
+        self._check_planner_process(now)
         snapshot = self._snapshot(now)
+        previous_phase = self.supervisor.phase
         # A latched fault must not block observing completion of the landing.
         if ((self.bridge_fault or self.alignment_fault)
                 and self.supervisor.phase != OffboardSupervisor.LANDING):
-            output = self.supervisor.disable(snapshot)
+            output = self.supervisor.disable(snapshot, now / 1e9)
             if self.supervisor.phase == OffboardSupervisor.DISABLED:
                 self.supervisor.reason = self.bridge_fault or self.alignment_fault
         else:
             output = self.supervisor.step(snapshot, now / 1e9)
+        if (previous_phase in (OffboardSupervisor.TAKEOFF, OffboardSupervisor.ACTIVE)
+                and self.supervisor.phase == OffboardSupervisor.LANDING):
+            reason = (getattr(self.supervisor, 'landing_reason', '')
+                      or output.reason or self.supervisor.reason or 'safety_landing')
+            self._publish_navigation_fault(reason, source='bridge')
         if self.pending_command:
             self._publish_command(self.pending_command, now)
             self.pending_command = ''

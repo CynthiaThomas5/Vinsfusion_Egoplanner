@@ -1,0 +1,58 @@
+{
+  "schema": "n08-yaw-first-return-build/v1",
+  "task_id": "N08.261",
+  "result": "PASS",
+  "scope": "Compile and fingerprint the EGO stationary-yaw trajectory required before a yaw-first, forward-only N08 return",
+  "flight_or_sitl_executed": false,
+  "build_command": "bash tools/project.sh build ros",
+  "build_exit_code": 0,
+  "built_packages": [
+    "uav_interfaces",
+    "traj_utils",
+    "plan_env",
+    "camera_models",
+    "uav_sim",
+    "path_searching",
+    "bspline_opt",
+    "px4_msgs",
+    "spdlog",
+    "uav_navigation",
+    "vins",
+    "uav_localization",
+    "uav_mapping",
+    "ego_planner",
+    "loop_fusion",
+    "microxrcedds_agent",
+    "uav_px4_bridge"
+  ],
+  "yaw_trajectory": {
+    "position_control_points": 16,
+    "order": 3,
+    "knot_interval_s": 2.0,
+    "stationary_position_duration_s": 26.0,
+    "180_degree_yaw_rate_control_bound_rad_s": 0.428398998
+  },
+  "runtime_files_sha256": {
+    "install/ego_planner/lib/ego_planner/ego_planner_node": "06e715d9670616f4be9b570573724fdb73f1f2e897280e817406e07f4a6e3a23"
+  },
+  "source_files_sha256": {
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "1f180b678df70b0f4a414371558cd8729a2a92ddd3e96394b44656669a3347da",
+    "src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp": "5e8bf691b81e083e324afa9e42ce51eff9251827e964a5f422c0fd5eddc205ca",
+    "dependencies/patches/ego/0044-final-spline-dynamics-check.patch": "9f6ceb41bc8477d919f94d4ad257dc5f162286170181e1abe2edca796dabd916",
+    "dependencies/patches/ego/0045-stationary-yaw-only-return.patch": "5ad328ac6a48226e4b3a4fdab2cc20f81c20a020d7c851e120077bbdf0279b99"
+  },
+  "validation": {
+    "patch_0045_replay_matches_source_hash": true,
+    "project_status": "PASS",
+    "n08_braking_evaluation_tests": "9 passed",
+    "python_syntax": "PASS",
+    "ros_build": "17 packages finished; ego_planner built successfully"
+  },
+  "limitations": [
+    "Compile and static admission do not prove that the stationary yaw trajectory is accepted by a live EGO/map instance.",
+    "No flight or PX4 actuation occurred in this task; fresh same-run N05 and raw-map gates remain required before the next trial.",
+    "The existing #251 moving-trajectory dynamics source remains unchanged; the EGO executable hash changed intentionally for patch 0045 and is locked by this record."
+  ],
+  "change_record": "progress/changes/2026-10-25-261-n08-yaw-first-return.md",
+  "dialogue_summary": "collaboration/dialogues/2026-10-25-261-n08-yaw-first-return.md"
+}

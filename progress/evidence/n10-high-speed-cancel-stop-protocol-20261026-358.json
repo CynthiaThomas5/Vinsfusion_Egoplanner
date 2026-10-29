@@ -1,0 +1,46 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "run_id": "n10-20261026-358-high-speed-cancel-stop",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "protocol_frozen_before_measurement",
+  "primary_variable": {
+    "name": "PX4 horizontal speed window at caller cancel",
+    "lower_m_s": 0.5,
+    "upper_m_s": 0.56
+  },
+  "fixed_inputs": {
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "spawn_config": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "max_velocity_per_axis_m_s": 0.8,
+    "max_acceleration_per_axis_m_s2": 0.25,
+    "planning_horizon_m": 5.0,
+    "collision_policy": "official_ego",
+    "localization_health_policy": "run-scoped diagnostic bypass; threshold unchanged"
+  },
+  "stop_definition": {
+    "px4_horizontal_speed_max_m_s": 0.03,
+    "px4_absolute_vertical_speed_max_m_s": 0.05,
+    "continuous_duration_sim_s": 1.0,
+    "max_px4_sample_gap_sim_s": 0.2,
+    "max_truth_sample_gap_sim_s": 0.04
+  },
+  "success_evidence": [
+    "trigger within requested PX4 speed window",
+    "caller cancel acknowledged",
+    "replacement EGO trajectory id observed",
+    "PX4 stop band observed for 1.0 simulation seconds with bounded source gaps",
+    "truth covers cancel-to-stop interval with bounded gaps",
+    "contact observation complete with zero prohibited contacts",
+    "independent terminal readback confirms landed, disarmed, control disabled, and zero control samples"
+  ],
+  "forbidden_policy_changes": [
+    "No collision-policy or inflated occupancy change",
+    "No normalized-cost threshold change",
+    "No raw-free full-curve/capsule gate is added to this official EGO diagnostic",
+    "No truth input to navigation or control"
+  ],
+  "measurement_is_formal_qualification": false,
+  "expected_artifacts_dir": "artifacts/runs/n10-20261026-358-high-speed-cancel-stop"
+}

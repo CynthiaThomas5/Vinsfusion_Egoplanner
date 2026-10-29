@@ -29,6 +29,11 @@ def start(context):
     run_id = LaunchConfiguration('run_id').perform(context).strip()
     planner_config = LaunchConfiguration('planner_config').perform(context).strip()
     sensor_bridge_config = LaunchConfiguration('sensor_bridge_config').perform(context).strip()
+    n08_mode = LaunchConfiguration('n08_mode').perform(context).lower()
+    if n08_mode not in ('hold', 'compute_only', 'execute'):
+        raise ValueError('n08_mode must be hold, compute_only, or execute')
+    bridge_compute_only = n08_mode == 'compute_only'
+    show_navigation = LaunchConfiguration('enable_visualization').perform(context).lower() in ('true', '1')
     run = prepare_vio_ego_run(root, run_id, planner_config)
     planner = run['planner']
     ego_args = {key: _launch_arg(value)
@@ -40,7 +45,8 @@ def start(context):
         PythonLaunchDescriptionSource(
             str(bridge_share / 'launch/vio_closed_loop_px4.launch.py')),
         launch_arguments={'project_root': str(root),
-                          'sensor_bridge_config': sensor_bridge_config}.items())
+                          'sensor_bridge_config': sensor_bridge_config,
+                          'n08_mode': n08_mode}.items())
     vins = Node(
         package='vins', executable='vins_node', name='vins_estimator',
         namespace=run['session_namespace'], output='screen',
@@ -53,10 +59,6 @@ def start(context):
         parameters=[{'project_root': str(root),
                      'session_manifest': str(run['session_manifest']),
                      'use_sim_time': True}])
-    depth_health = Node(
-        package='uav_mapping', executable='depth_health_monitor',
-        name='depth_health_monitor', output='screen',
-        parameters=[{'project_root': str(root), 'use_sim_time': True}])
     mapping = Node(
         package='uav_mapping', executable='mapping_input_adapter',
         name='mapping_input_adapter', output='screen',
@@ -76,9 +78,28 @@ def start(context):
         name='uav_navigation', output='screen',
         parameters=[{'project_root': str(root), 'use_sim_time': True}])
 
+    mode_record = {
+        'scope': 'N08 controlled comparison launch mode; this file is configuration evidence, not a flight or safety pass',
+        'mode': n08_mode,
+        'bridge_trajectory_input_topic': (
+            '/n08/compute_only_position_cmd' if bridge_compute_only else '/position_cmd'),
+        'ego_position_command_topic': '/position_cmd',
+        'control_owner': 'uav_px4_bridge only',
+        'ground_truth_online_allowed': False,
+    }
+    (run['run_directory'] / 'n08-runtime-mode.json').write_text(
+        json.dumps(mode_record, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(f"VIO/EGO run artifacts: {run['run_directory']}")
-    return [px4_stack, vins, localization, depth_health, mapping,
-            ego, trajectory_server, navigation]
+    nodes = [px4_stack, vins, localization, mapping,
+             ego, trajectory_server, navigation]
+    if show_navigation:
+        nodes.append(Node(
+            package='uav_navigation', executable='navigation_visualization',
+            name='navigation_visualization', output='screen',
+            parameters=[{'project_root': str(root),
+                         'session_manifest': str(run['session_manifest']),
+                         'use_sim_time': True}]))
+    return nodes
 
 
 def generate_launch_description():
@@ -92,5 +113,11 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'sensor_bridge_config', default_value='',
             description='Optional run-local Gazebo sensor bridge YAML for controlled sensor tests'),
+        DeclareLaunchArgument(
+            'n08_mode', default_value='execute',
+            description='N08 comparison mode: hold, compute_only, or execute'),
+        DeclareLaunchArgument(
+            'enable_visualization', default_value='false',
+            description='Read-only EGO curve, VINS path and session-bound RViz markers'),
         OpaqueFunction(function=start),
     ])

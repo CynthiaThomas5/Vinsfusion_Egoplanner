@@ -1,0 +1,153 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -260,12 +260,6 @@
+         bspline.knots.push_back(knots(i));
+       fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
+ 
+-      std::string safety_reason;
+-      if (!certifyLocalCurve(0.0, safety_reason))
+-      {
+-        stopForSafety(safety_reason);
+-        return;
+-      }
+ 
+       bspline_pub_->publish(bspline);
+       visualization_->displayOptimalList(info->position_traj_.get_control_points(), 0);
+@@ -818,7 +812,7 @@
+           else
+           {
+             RCLCPP_ERROR(node_->get_logger(), "Failed to generate the first trajectory!!!");
+-            if (!safety_latched_) stopForSafety("planning_failed");
++            changeFSMExecState(SEQUENTIAL_START, "FSM");
+           }
+         }
+         else
+@@ -842,7 +836,7 @@
+       }
+       else
+       {
+-        if (!safety_latched_) stopForSafety("planning_failed");
++        changeFSMExecState(GEN_NEW_TRAJ, "FSM");
+       }
+       break;
+     }
+@@ -857,7 +851,7 @@
+       }
+       else
+       {
+-        if (!safety_latched_) stopForSafety("planning_failed");
++        changeFSMExecState(REPLAN_TRAJ, "FSM");
+       }
+ 
+       break;
+@@ -999,37 +993,9 @@
+     return true;
+   }
+ 
+-  bool EGOReplanFSM::certifyLocalCurve(double begin, std::string &reason)
+-  {
+-    auto info = &planner_manager_->local_data_;
+-    auto velocity_points = info->velocity_traj_.getControlPoint();
+-    if (velocity_points.cols() == 0 || !velocity_points.allFinite())
+-    {
+-      reason = "invalid_velocity_bound";
+-      return false;
+-    }
+-    // B-spline derivative is a convex combination of its derivative control points.
+-    const double speed_bound = velocity_points.colwise().norm().maxCoeff();
+-    const auto result = planner_manager_->grid_map_->certifyCurve(
+-        active_goal_epoch_, active_goal_map_id_, begin, info->duration_, speed_bound,
+-        [info](double t) {
+-          const auto point = info->position_traj_.evaluateDeBoorT(t);
+-          return std::array<double, 3>{point(0), point(1), point(2)};
+-        });
+-    if (begin <= 1e-9)
+-    {
+-      RCLCPP_INFO(node_->get_logger(),
+-                  "Full-curve certificate metrics: queries=%d wall_ms=%.3f reason=%s map_id=%s",
+-                  result.checked, result.wall_seconds * 1000.0, result.reason.c_str(),
+-                  active_goal_map_id_.c_str());
+-    }
+-    reason = result.reason;
+-    return result.free;
+-  }
+-
+   void EGOReplanFSM::stopForSafety(const std::string &reason)
+   {
+-    RCLCPP_ERROR(node_->get_logger(), "Full-curve safety rejected: %s", reason.c_str());
++    RCLCPP_ERROR(node_->get_logger(), "Planner task aborted: %s", reason.c_str());
+     uav_interfaces::msg::TrajectoryCancel fault;
+     fault.goal_id = active_goal_id_;
+     fault.epoch = active_goal_epoch_;
+@@ -1053,35 +1019,6 @@
+     if (safety_latched_ || active_goal_id_.empty() || info->start_time_.seconds() < 1e-5)
+       return;
+ 
+-    std::string safety_reason;
+-    const double elapsed = (node_->now() - info->start_time_).seconds();
+-    if (!certifyLocalCurve(std::min(elapsed, info->duration_), safety_reason))
+-    {
+-      const bool map_blocked = safety_reason == "occupied" ||
+-                               safety_reason == "unknown" ||
+-                               safety_reason == "outside_map" ||
+-                               safety_reason == "terminal_hold_occupied" ||
+-                               safety_reason == "terminal_hold_unknown" ||
+-                               safety_reason == "terminal_hold_outside_map";
+-      if (map_blocked)
+-      {
+-        RCLCPP_WARN(node_->get_logger(),
+-                    "Active curve blocked by map (%s); checking a stationary emergency hold",
+-                    safety_reason.c_str());
+-        // A stationary hold must pass the same fresh-map, identity, raw-body,
+-        // and terminal-hold certificate in callEmergencyStop before publish.
+-        // Keep fail-safe re-planning disabled after the hold is emitted.
+-        enable_fail_safe_ = false;
+-        flag_escape_emergency_ = true;
+-        changeFSMExecState(EMERGENCY_STOP, "FULL_CURVE_BLOCKED");
+-      }
+-      else
+-      {
+-        stopForSafety(safety_reason);
+-      }
+-      return;
+-    }
+-
+     /* ---------- check lost of depth ---------- */
+     if (map->getOdomDepthTimeout())
+     {
+@@ -1195,12 +1132,6 @@
+       }
+       fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
+ 
+-      std::string safety_reason;
+-      if (!certifyLocalCurve(0.0, safety_reason))
+-      {
+-        stopForSafety(safety_reason);
+-        return false;
+-      }
+ 
+       /* 1. publish traj to traj_server */
+       bspline_pub_->publish(bspline);
+@@ -1360,12 +1291,6 @@
+     }
+     fillTaskMetadata(bspline, pos_pts, info->position_traj_.getInterval());
+ 
+-    std::string safety_reason;
+-    if (!certifyLocalCurve(0.0, safety_reason))
+-    {
+-      stopForSafety(safety_reason);
+-      return false;
+-    }
+     bspline_pub_->publish(bspline);
+ 
+     return true;
+--- a/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
++++ b/planner/plan_manage/include/ego_planner/ego_replan_fsm.h
+@@ -121,7 +121,6 @@
+     rclcpp::Publisher<traj_utils::msg::Bspline>::SharedPtr broadcast_bspline_pub_;
+ 
+     /* helper functions */
+-    bool certifyLocalCurve(double begin, std::string &reason);
+     void stopForSafety(const std::string &reason);
+     bool callReboundReplan(bool flag_use_poly_init, bool flag_randomPolyTraj); // front-end and back-end method
+     bool callEmergencyStop(Eigen::Vector3d stop_pos);                          // front-end and back-end method

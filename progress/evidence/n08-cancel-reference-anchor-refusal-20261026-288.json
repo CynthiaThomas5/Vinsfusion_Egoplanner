@@ -1,0 +1,48 @@
+{
+  "schema": "n08-cancel-reference-anchor-refusal/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-288",
+  "result": "FAIL",
+  "preconditions": {
+    "n05_scan_stages": "6/6",
+    "fixture_removed": true,
+    "post_release_online_offline_admission": true,
+    "mission_current_area_admission": true,
+    "read_only_preflight_s": 40.0019,
+    "forward_ground_and_airborne_corridor": true,
+    "destination_landing_pre_goal": true
+  },
+  "cancel": {
+    "px4_horizontal_speed_m_s": 0.040204497567644416,
+    "ego_reference_speed_m_s": 0.05744505841172163,
+    "actual_position_enu_m": [0.001171036872512042, 0.017094128445608703, 0.8757358973691125],
+    "action_result": {
+      "status": 5,
+      "success": false,
+      "outcome": "canceled",
+      "reason": "caller_cancel"
+    },
+    "calculated_stop_distance_m": 0.246,
+    "ego_reference_position_enu_m": [0.0600800345896052, 0.01338073672555137, 0.8762389088899403],
+    "position_reference_offset_m": 0.059,
+    "stop_target_distance_from_ego_reference_m": 0.187,
+    "planner_minimum_local_target_distance_m": 0.2,
+    "close_to_goal_rejections": 3,
+    "replacement_spline_observed": false,
+    "braking_measurement_valid": false
+  },
+  "final_safety": {
+    "bridge_phase": "LANDED",
+    "control_enabled": false,
+    "px4_armed": false,
+    "landed": true,
+    "control_messages_during_readback": 0,
+    "project_container_stopped": true
+  },
+  "primary_artifacts": [
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-288/flight.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-288/vio.log",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-288/safety-readback/final-px4-bridge-live.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-288/n08-braking-evaluation.json"
+  ],
+  "diagnosis": "EGO's original <0.2m local goal guard rejected all three replanning attempts because the target was based on PX4 odometry position while the planner start was the active EGO spline reference. Planner optimization and raw-map certificate were never reached."
+}

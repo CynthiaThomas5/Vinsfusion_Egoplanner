@@ -1,0 +1,171 @@
+{
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "run_id": "n07-20261024-187-01",
+  "result": "FAIL_NO_FLIGHT",
+  "consecutive_passes_after_reset": "0/3",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout_id": "wall_box_column",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_early_view"
+  },
+  "identity": {
+    "epoch": "f58b25c520d545e09a4fb3575d148bb6",
+    "initial_map_id": "f58b25c520d545e09a4fb3575d148bb6-a946ce6b702d4f1f840a3cdf59f7165b"
+  },
+  "initial_gate": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "offline_matches_online": true,
+    "localization_valid": true,
+    "bridge_phase": "DISABLED",
+    "armed": false,
+    "landed": true
+  },
+  "support_scan": {
+    "completed_stages": 7,
+    "total_stages": 12,
+    "ready_marker_created": false,
+    "helper_exit_code": 1,
+    "helper_error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "accel_bias_norm_exceeded",
+      "normalized_cost": 0.5316170445095941
+    },
+    "attached_gate_run": false
+  },
+  "health_diagnostic": {
+    "health_policy_sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "configured_max_accel_bias_m_s2": 0.15,
+    "first_over_limit_source_stamp_ns": 250276000000,
+    "first_over_limit_source_s": 250.276,
+    "first_over_limit_accel_bias_norm": 0.15016058919745756,
+    "first_over_limit_vins_metrics": {
+      "initial_cost": 583.1659528949137,
+      "final_cost": 581.6251315829923,
+      "residual_components": 4116,
+      "visual_observations": 1045,
+      "stereo_features": 146,
+      "continued_tracks": 175,
+      "long_tracks": 108,
+      "state_finite": true,
+      "solve_current": true,
+      "solver_usable": true,
+      "termination_type": 1
+    },
+    "nearest_support_trace": {
+      "sim_s": 250.18,
+      "leg_index": 7,
+      "target": [
+        -2.3597717890390766,
+        1.0,
+        -3.285145281219359e-21,
+        -0.01065232903736764
+      ],
+      "joints": {
+        "x": [
+          -2.360648356327824,
+          0.0017468991195157433
+        ],
+        "z": [
+          1.0,
+          1.4377386474829883e-14
+        ],
+        "yaw": [
+          -2.0402717768535693e-21,
+          3.656253406943257e-20
+        ],
+        "pitch": [
+          -0.017527249469019665,
+          0.002938778651580259
+        ]
+      }
+    },
+    "maximum_observed_accel_bias_norm": 0.1927688004626595,
+    "last_fixture_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "accel_bias_norm_exceeded",
+      "normalized_cost": 0.5316170445095941
+    },
+    "normalized_cost_at_failure": 0.5316170445095941
+  },
+  "flight": {
+    "started": false,
+    "flight_json_created": false,
+    "arm_or_goal_command_sent": false
+  },
+  "cleanup": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "helper_cleanup_attempted": true,
+    "verified_detached": true,
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "PX4_all_recorded_states_disarmed": true,
+    "PX4_status_samples": 557,
+    "LandDetected_all_landed": true,
+    "LandDetected_samples": 303,
+    "independent_bridge_phase": "DISABLED",
+    "independent_bridge_reason": "localization_not_tracking",
+    "independent_bridge_armed": false,
+    "independent_bridge_landed": true,
+    "independent_px4_arming_state": 1,
+    "independent_land_detected_landed": true
+  },
+  "container": {
+    "stop_command": "bash tools/project.sh stop n07-20261024-187-01",
+    "final_status": "exited",
+    "exit_code": 0,
+    "active_project_containers": 0
+  },
+  "interpretation": {
+    "health_gate": "The early_view support route crossed the existing 0.15 m/s^2 accel-bias health limit at source 250.276s during leg 7; the bias later reached 0.187644. Health rejected with accel_bias_norm_exceeded while normalized cost was 0.531617.",
+    "root_cause": "Why the estimated accel bias rose on this support route is not established; no threshold or parameter was changed."
+  },
+  "limitations": [
+    "No N05 ready marker, attached N05 gate, post-release/current-area gate, 14/14 summary, hover, ULog, or airborne graph evidence.",
+    "N07 streak remains 0/3; flight qualification did not begin."
+  ],
+  "artifact_sha256": {
+    "gpu-request.json": "408545c45700f62fbe5065ab06e1e2a072d07d4cff8b3226ab9b269ccb7d6743",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-run-inputs.json": "85073ece895fb3e90d64ae8ca66a3c48ab8e6b4520552302458b178c070162fb",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "n05-before-check.log": "a22d2b6bb06b2f9cfc9da4ef85f83f6734280909fb59a619d5104e8412cc7755",
+    "n05-before-check.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-before-replay.log": "6d4e2610bdca391326a9c952f1d7ae793147012edd1184cd4b882b230ff86f52",
+    "n05-before/n05-live-entry-check.json": "371e98cce49f53566748fa0f8eefdae6a425b202ce1dc33fb67f4cb9a13c6175",
+    "n05-before/n05-offline-entry-replay.json": "8dbda0d93d93490d2acac3769a257af84d41cf0194950b4ac486435af5662bc5",
+    "fixture-result.json": "bb392594db63b6c9d35f5ffb34c7606e9e047fcc23152633c9cc487bec9df48b",
+    "fixture-stages.json": "44531cc49851de7aed2a515cccb3db11849bc6396b9d2bc8cf094a1bede6e794",
+    "fixture-trace.jsonl": "5bc105165ef685cf4c6783af85a91611116fba1c91171a8cfa2c0203066b2042",
+    "fixture-vins.jsonl": "b9a953be032b3fea2cc55e8f8c60b80ee72ad9843a46b9efa5a2a50bba6be398",
+    "fixture-odometry.jsonl": "89133f543c106d4645ddf13a7d2c876a62bed786659c642952e827b65054a8db",
+    "n05-fixture.log": "f32d83d40b85020274aa5e6367e9be7f7123c76bb6aacb9df5fa7ee65338580e",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "postscan-safety-readback.log": "4ecbcf80a8dc7d8b65a2d776151abaa8971c05171a3c1658e447d629d2bab28f",
+    "n07-20261024-187-01-stack/session/session.json": "267afbf5e42688e5304151a0bc62fb19b6db6ef9cd975793bc545acde77dac2a",
+    "n07-20261024-187-01-stack/launch-manifest.json": "81208f4cb11123e40e74653f11c933b872c3bec1fea671113b31c951dc616fce"
+  },
+  "missing_expected_artifacts": [
+    "n05-prescan-ready.json",
+    "n05-after/n05-live-entry-check.json",
+    "n05-post-release/n05-live-entry-check.json",
+    "n05-current-area/n05-live-entry-check.json",
+    "n05-run-summary.json",
+    "flight.json",
+    "n07-hover-evaluation.json",
+    "px4-ulog-analysis.json",
+    "ros-graph-audit.json"
+  ]
+}

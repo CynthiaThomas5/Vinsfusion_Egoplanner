@@ -23,7 +23,7 @@ class AdmissionTests(unittest.TestCase):
                            unknown_count=0, occupied_count=0, free_count=10)
 
     def check(self):
-        return query_rejection(self.response, self.request, 10.1, .4)
+        return query_rejection(self.response, self.request)
 
     def test_free(self):
         self.assertEqual(self.check(), '')
@@ -60,15 +60,15 @@ class AdmissionTests(unittest.TestCase):
             self.assertEqual(self.check(), 'map_query_inconsistent_counts')
             setattr(self.response, key, 10 if key == 'free_count' else 0)
 
-    def test_each_stamp_stale_future_zero(self):
+    def test_source_stamp_age_is_not_a_navigation_gate(self):
         for field in ('last_depth_source_stamp', 'last_fusion_stamp'):
             for sec in (0, 9, 11):
                 original = getattr(self.response, field)
                 setattr(self.response, field, NS(sec=sec, nanosec=0))
-                self.assertEqual(self.check(), 'map_query_stale')
+                self.assertEqual(self.check(), '')
                 setattr(self.response, field, original)
         self.response.header.stamp = NS(sec=9, nanosec=0)
-        self.assertEqual(self.check(), 'map_query_stale')
+        self.assertEqual(self.check(), '')
 
     def test_production_cpp_sphere_query(self):
         root = Path(__file__).resolve().parents[1]

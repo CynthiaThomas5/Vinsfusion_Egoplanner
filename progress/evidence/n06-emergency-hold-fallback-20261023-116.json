@@ -1,0 +1,219 @@
+{
+  "schema": "n06-emergency-hold-fallback/v1",
+  "task_id": [
+    "N06.2.5",
+    "N06.2.6"
+  ],
+  "evidence_id": "#116",
+  "parent_goal": "N06",
+  "execution_mode": "goal_completion",
+  "result": "subtasks_passed; parent_goal_passed_at_planner_integration_scope",
+  "scope": "Current EGO/plan_env source and isolated synthetic-depth fault probes, plus actual Gazebo+D435i+VINS+plan_env/EGO map and planner certificates; no PX4, bridge, controller, traj_server, navigation supervisor, control publisher, or trajectory execution.",
+  "implementation": {
+    "upstream": "ZJU-FAST-Lab/ego-planner-swarm ros2_version 23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "patch": "dependencies/patches/ego/0043-n06-emergency-hold-fallback.patch",
+    "patch_sha256": "2496219fd45881712b46fa4083f4fc24a52e8353a22f0127b4fa7e4b8b4945d8",
+    "workspace_fsm_sha256": "370761479809050ae6cc594e9ea11f2246e7bd71854f79f9b385f0b5fdc73bf6",
+    "sources_lock_sha256": "c24765712acd80a112414435862963bbc73b54c489c93d9e0c0d1d362db73f46",
+    "probe_source_sha256": "94fe8ffd15b8fbc6a46b7e175cf2d9f06622f8c513abbcd0ba15acfb3eb1bb63",
+    "layout_runner_sha256": "e4fa6299d7622f028caeb8438bc871e653e78f89bb2fbb468e1b1225689241b3",
+    "behavior": "Map-blocked active curves enter EMERGENCY_STOP and attempt a stationary spline. The spline is emitted only after current freshness, identity, raw body and terminal-hold certificates pass. Stale, identity, invalid-query and bounded-resource failures stay fail-closed."
+  },
+  "verification": {
+    "build_command": "colcon build --base-paths src/vendor/ego_planner/planner --packages-select ego_planner --cmake-clean-cache --cmake-args -DCMAKE_BUILD_TYPE=Release",
+    "build_exit_code": 0,
+    "build_log": "artifacts/runs/n06-20261023-emergency-116/build.log",
+    "build_log_sha256": "79c4c7d52965d3754ab174f0c446bcf61e6886f20f148f352d09d0bf6b1de339",
+    "patch_replay_command": "python3 tools/fetch_dependencies.py --source ego_planner --target /tmp/ego-planner-n06-0043-replay",
+    "patch_replay_exit_code": 0,
+    "test_command": "bash tools/project.sh test",
+    "test_result": "PASS: 251 tests plus navigation-adapter integration, including bounded query/sweep, identity, stale, timeout, late reply, cancellation and busy cases."
+  },
+  "component_runs": {
+    "n06-20261023-emergency-116": {
+      "scenario": "Active obstacle at x=3.4 m; hold center x=2.0 m remains raw-free.",
+      "acceptance_passed": true,
+      "emergency_stop_observed": true,
+      "hold_spline": {
+        "published": true,
+        "trajectory_ids": [
+          3
+        ],
+        "certificate_queries": 2,
+        "certificate_reason": "free"
+      },
+      "late_curves": 0,
+      "result_sha256": "90f3b7f803857415bfc0fc03a3a457bac44b9d0ec2d9140334ae1a4d61d74ddc",
+      "planner_log_sha256": "115e74fbd22c55767e23877123f9397b784e16c0bc27d7a0d5f94225f19663f2"
+    },
+    "n06-20261023-emergency-118": {
+      "scenario": "Active obstacle at x=1.5 m blocks/occludes stationary hold body volume.",
+      "acceptance_passed": true,
+      "emergency_stop_observed": true,
+      "hold_spline": {
+        "published": false,
+        "rejection": "full_curve_unknown"
+      },
+      "late_curves": 0,
+      "result_sha256": "b3c5a28c16853779dd37eb9bb311b2232e2d510e3c1e410f3ba635fff0c19e17",
+      "planner_log_sha256": "0023b4f9d4cc42d12b69586049ef5f2315938ef9833b0eb753b5d1e41b369c97"
+    },
+    "n06-20261023-emergency-119": {
+      "scenario": "Stale depth/map after a certified curve.",
+      "expected_behavior_passed": true,
+      "emergency_stop_observed": false,
+      "faults": [
+        "full_curve_occupancy_update_stale",
+        "full_curve_depth_pose_gate_closed"
+      ],
+      "late_curves": 0,
+      "result_sha256": "d81c467b700616670c303b4d41cd2351b650af5957e5256a7975850e4385b160",
+      "planner_log_sha256": "6d1d2ddcec932e5fb23fdd554b1d98ff14f4c5b772f53abad2d64afa1c919159"
+    },
+    "n06-20261023-emergency-120": {
+      "scenario": "New obstacle enters terminal-hold neighborhood after a completed planner curve.",
+      "acceptance_passed": true,
+      "emergency_stop_observed": true,
+      "hold_spline": {
+        "published": true,
+        "trajectory_ids": [
+          3
+        ],
+        "certificate_reason": "free"
+      },
+      "late_curves": 0,
+      "result_sha256": "180a7b6c61caecdebdf7df84aeafcffada4654c2c1ff86170239c3669e54d2fa",
+      "planner_log_sha256": "6a270a6cc74f2cbc02d84b2b0d448215edc92ae28d67c95e3b3453b86daad3f5"
+    }
+  },
+  "actual_layout_runs": {
+    "n06-20261023-corridor-123": {
+      "command": "bash tools/run_n04_map_layout.sh n06-20261023-corridor-123 corridor_box_column 113 motion_n06 config/components/simulation/n06_x_holdpoint_recorded_slow.json",
+      "exit_code": 0,
+      "epoch": "903d628563444004aa80a580447fcd64",
+      "map_id": "903d628563444004aa80a580447fcd64-8ed237b4ac5748e681dc2655895b7857",
+      "freshness_s_source_fusion_odom": [
+        0.066,
+        0.003,
+        0.132
+      ],
+      "snapshot_certificates": {
+        "count": 3,
+        "all_source_pose_matched": true,
+        "all_body_sweep_terminal_hold_raw_free": true,
+        "archive_sha256": [
+          "f7404fa9e78efb46e303ec55c01853f3ec5dcc9743c32b760191ec611a48627d",
+          "a7dde445a3fddacdbd19f3fee6df162926b926b2f1d97f7fda68fc3fe18466d2",
+          "7d3c47f2e4dd8120a06753abf33cb0e1e1c4b94b9aca2a4ce90454c93f5dbb18"
+        ]
+      },
+      "live_certificate": {
+        "body_sphere_raw_free": true,
+        "continuous_sweep_queries": 10,
+        "continuous_sweep_passed": true,
+        "terminal_hold_raw_free": true
+      },
+      "planner": {
+        "goal_published": true,
+        "curve_count": 1,
+        "full_curve_queries": 22,
+        "full_curve_wall_ms": 0.219,
+        "reason": "free"
+      },
+      "control_free_graph": true,
+      "probe_json_sha256": "7232cc74a28cece8cf2c35df4b6c1205a425aa992a2ca7299a7095a92ee04fec",
+      "probe_log_sha256": "fd8589aaecf028d1591a41cc40c3ee83dcad3df92cb806e40f8e620b91ece2f2",
+      "mapping_stack_log_sha256": "310db88745482d23aa3dee8d0220eab9e357bbd8f2665a63f5dba1b5f7b1cb14",
+      "run_inputs_sha256": "137f069b68cf86d916254fb3faf26dbb239eb017ad6ea15c5886c2d03f935b5a"
+    },
+    "n06-20261023-wall-122": {
+      "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-122 wall_box_column 112 motion_n06 config/components/simulation/n06_x_visibility_handoff_recorded_slow.json",
+      "exit_code": 0,
+      "epoch": "550da97275484ec6baddcef3f9708ffa",
+      "map_id": "550da97275484ec6baddcef3f9708ffa-2cd002ec94c349728e2feccad02edd0b",
+      "freshness_s_source_fusion_odom": [
+        0.097,
+        0.103,
+        0.13
+      ],
+      "snapshot_certificates": {
+        "count": 3,
+        "all_source_pose_matched": true,
+        "initial_and_replacement_goals_passed": true,
+        "all_body_sweep_terminal_hold_raw_free": true,
+        "archive_sha256": [
+          "af0cc60e18fbd62707a72a3d7b3009b50cd88b3a05a0482026c59d0bd2a9abcf",
+          "9804a01867931dfc7da0b2fbd1e0979db9fec5f9fc9c1db19dff7f30224bec00",
+          "9804a01867931dfc7da0b2fbd1e0979db9fec5f9fc9c1db19dff7f30224bec00"
+        ]
+      },
+      "live_certificate": {
+        "body_sphere_raw_free": true,
+        "continuous_sweep_queries": 24,
+        "continuous_sweep_passed": true,
+        "terminal_hold_raw_free": true
+      },
+      "planner_handoff": {
+        "fsm_transition": "EXEC_TRAJ -> REPLAN_TRAJ -> EXEC_TRAJ",
+        "trajectory_ids": [
+          1,
+          2
+        ],
+        "full_curve_queries": [
+          45,
+          61
+        ],
+        "full_curve_wall_ms": [
+          0.544,
+          0.624
+        ],
+        "reason": "free"
+      },
+      "control_free_graph": true,
+      "probe_json_sha256": "834f3a0e72f392fe53456ea9817f14866beded93f01ae164c250e7d6a1216639",
+      "probe_log_sha256": "69b8a9327006221971a80d41782a3459293714c140efa1c61e94196f5e335568",
+      "mapping_stack_log_sha256": "bd148474f75df69eaed656a10395f987024ae31f2787ab47452d7d518d8cfc54",
+      "run_inputs_sha256": "7bb50d1ef603b65bbee779722e985bc94a24c7c9e6c6fc144203d4120ec0ec96"
+    },
+    "n06-20261023-corridor-121": {
+      "command": "bash tools/run_n04_map_layout.sh n06-20261023-corridor-121 corridor_box_column 111 motion_n06 config/components/simulation/n06_x_visibility_recorded_slow.json",
+      "exit_code": 0,
+      "goal_published": false,
+      "rejection": "source_matched_snapshot_certificate_failed",
+      "first_sweep_failure_time_s": 0.175,
+      "first_sweep_occupied_count": 4,
+      "terminal_hold_occupied_count": 66,
+      "terminal_hold_unknown_count": 90,
+      "control_free_graph": true,
+      "probe_json_sha256": "cbc9f5b027424d981132a077a1eea8dceec9aaca76febee615cc0ac72f578de9",
+      "probe_log_sha256": "278888cac83c374f77d95a90cb954f7e3d22d975c43258d71bad2d2967dcb5f5",
+      "run_inputs_sha256": "169be83460c4b53df1e7ffec9663c3260364e61e277eb20f691acfe7a0bac43d"
+    }
+  },
+  "reused_matrix_evidence": [
+    "progress/evidence/n06-freshness-identity-resource-refusal-20261023-113.json",
+    "progress/evidence/n06-active-obstacle-hold-refusal-20261023-111.json",
+    "progress/evidence/n06-live-replan-handoff-20261023-112.json"
+  ],
+  "entry_conditions": {
+    "map": "ready and reset-acknowledged",
+    "identity": "VINS pose, epoch, map_id and frame agree for goal, current body, every curve sample and terminal hold",
+    "freshness_limit_s": 0.4,
+    "raw_occupancy": "body sphere, complete configured-speed swept volume and terminal hold must be known free",
+    "resource_policy": "bounded queries only; query failure/timeout/resource exhaustion rejects publication",
+    "emergency_hold": "publish only when the current-map stationary body and terminal-hold certificate passes",
+    "qualification_limit": "planner admission only; no actual takeoff, trajectory execution, braking or PX4 behavior certified"
+  },
+  "artifacts": {
+    "evidence_report": "progress/evidence/n06-emergency-hold-fallback-20261023-116.md",
+    "change_record": "progress/changes/2026-10-23-116-n06-emergency-hold-fallback.md",
+    "dialogue_summary": "collaboration/dialogues/2026-10-23-116-n06-emergency-hold-fallback.md",
+    "patch_sha256": "2496219fd45881712b46fa4083f4fc24a52e8353a22f0127b4fa7e4b8b4945d8"
+  },
+  "open_items_outside_n06": [
+    "Dynamic braking and physical stop distance remain N08 work.",
+    "N05 no-go diagnosis is not authorization for takeoff or flight.",
+    "P6/S4 and final A-H acceptance remain in progress."
+  ],
+  "next_goal": "N07"
+}

@@ -1,0 +1,162 @@
+{
+  "id": "#521",
+  "scope": "offline N13 settings; no flight",
+  "status": "settings_completed",
+  "parent_N13_status": "not_started",
+  "formal_attempt_count": 0,
+  "formal_pass_count": 0,
+  "configuration": "config/acceptance_n13.json",
+  "revision": 13,
+  "validation": {
+    "unit_tests": 84,
+    "unit_tests_passed": 84,
+    "compile": "PASS",
+    "structural_check": "see project-status.txt",
+    "diff_check": "see diff-check.txt"
+  },
+  "replays": {
+    "n12-20261029-518-formal09": {
+      "overall_status": "INSUFFICIENT",
+      "runtime_identity_matches": true,
+      "source_hashes_match": true,
+      "truth_reference_status": "PASS",
+      "metric_status": {
+        "arrival_position_yaw_dwell": {
+          "status": "PASS",
+          "diagnostic_status": null
+        },
+        "raw_vio_absolute_error": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "raw_vio_rpe_10s": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "raw_vio_velocity_error": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "map_source_and_update_age": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "ego_tracking_error": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "ego_tracking_clearance_budget": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "full_body_clearance_and_contact": {
+          "status": "PASS",
+          "diagnostic_status": null
+        },
+        "raw_map_surface_geometry": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "INSUFFICIENT"
+        },
+        "raw_map_classification": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "INSUFFICIENT"
+        },
+        "dynamic_replanning": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "INSUFFICIENT"
+        },
+        "fault_exit_to_terminal_px4_state": {
+          "status": "INSUFFICIENT",
+          "diagnostic_status": null
+        },
+        "resource_and_queue_behavior": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "observer_identity_binding": {
+          "status": "PASS",
+          "diagnostic_status": null
+        }
+      },
+      "report_sha256": "43af964e5e32c1b3cdc23e76776b833c2d79e3761f380f7d8c0e4fa7dfb22b8b"
+    },
+    "n12-20261029-512-formal08": {
+      "overall_status": "INSUFFICIENT",
+      "runtime_identity_matches": true,
+      "source_hashes_match": true,
+      "truth_reference_status": "PASS",
+      "metric_status": {
+        "arrival_position_yaw_dwell": {
+          "status": "PASS",
+          "diagnostic_status": null
+        },
+        "raw_vio_absolute_error": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "raw_vio_rpe_10s": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "raw_vio_velocity_error": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "FAIL"
+        },
+        "map_source_and_update_age": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "ego_tracking_error": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "ego_tracking_clearance_budget": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "full_body_clearance_and_contact": {
+          "status": "PASS",
+          "diagnostic_status": null
+        },
+        "raw_map_surface_geometry": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "INSUFFICIENT"
+        },
+        "raw_map_classification": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "INSUFFICIENT"
+        },
+        "dynamic_replanning": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "INSUFFICIENT"
+        },
+        "fault_exit_to_terminal_px4_state": {
+          "status": "INSUFFICIENT",
+          "diagnostic_status": null
+        },
+        "resource_and_queue_behavior": {
+          "status": "DIAGNOSTIC",
+          "diagnostic_status": "PASS"
+        },
+        "observer_identity_binding": {
+          "status": "PASS",
+          "diagnostic_status": null
+        }
+      },
+      "report_sha256": "7d40d42ab63a58633f8d7b720811a7e6f40d757d30c2c0e0bdb5abbb1fb8d692"
+    }
+  },
+  "file_sha256": {
+    "config/acceptance_n13.json": "8e453c7263394e80fb9eb7384145510373cdb28087af10d4c2f59559b76aab1d",
+    "config/history/acceptance_n13_revision12.json": "d77ec997d3467fd6bd07b5697a48c41794f07fbcbbd53f24b1bd7b62804d28b1",
+    "tools/n13_navigation_policy.py": "291c277f2ad4cd2e4ea39df37dc08cc191beb42c9ad6259d6b711b1ff434bac1",
+    "tools/debug_truth/evaluate_n10_acceptance.py": "a395cb3ba35d16e9817313b62b985343fb78ff11d7e320f7cd880765d030ed23",
+    "tools/test_n13_navigation_policy.py": "45ff03772d7e6bc1985e1ee8ac73591da80463f14d3d892c033c3b549cd2c606",
+    "tools/test_n13_clearance_policy.py": "3a1c4e668bb4209601574289881c639a17c23965cea813302d01c25472e4bafb",
+    "config/acceptance_n12.json": "9f34f1ca1dcd05d4207c30a11e77e5ded405d3c56594c1e7af33ced8312a6c6d",
+    "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json": "2efea04354b3a06629c308173f64b42e56958e4fb6565325350d84cfee980c23"
+  },
+  "remaining": "N13.1 actual scene/protocol implementation and binding; no formal credit",
+  "runtime_effect": false,
+  "stop_reason": "completed authorized settings"
+}

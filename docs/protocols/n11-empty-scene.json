@@ -1,0 +1,89 @@
+{
+  "schema": "n11-empty-scene-protocol/v1",
+  "status": "ready_for_formal",
+  "parent_freeze": "N10.7/#471 plus approved readonly native-work telemetry N11/#483",
+  "acceptance_config_sha256": "eebdb7306e7513b97ce26d5ec983d9df7bf62dbb07da4bd0d0e6d7aa1cdb3c3f",
+  "scenario": "empty_room",
+  "scene_models": [
+    "ground_plane",
+    "blank"
+  ],
+  "scene_change": "remove the 19 cylinders only; retain the four static walls, floor, lights, textures, sensors and vehicle",
+  "runtime_change_allowlist": [],
+  "formal_runs_required": 3,
+  "independent_cold_start_required": true,
+  "gui_required": true,
+  "world_mutation_commands": [],
+  "metric_applicability": {
+    "arrival_position_yaw_dwell": "required",
+    "raw_vio_absolute_error": "required",
+    "raw_vio_rpe_10s": "required",
+    "raw_vio_velocity_error": "required",
+    "raw_map_surface_geometry": "required",
+    "raw_map_classification": "required",
+    "map_source_and_update_age": "required",
+    "ego_tracking_error": "required",
+    "ego_tracking_clearance_budget": "required",
+    "full_body_clearance_and_contact": "required",
+    "dynamic_replanning": "no_dynamic_obstacle_event_in_N11",
+    "fault_exit_to_terminal_px4_state": "excluded_by_user_434",
+    "resource_and_queue_behavior": "required",
+    "observer_identity_binding": "required"
+  },
+  "numeric_thresholds": "All revision8 non-queue metrics unchanged; user-approved native-work queue definition calibrated#481/#482 and frozen revision9",
+  "map_measurement": {
+    "reference": "observed static wall collision boxes from the active SDF; fixed PRESTREAM model-to-IMU alignment",
+    "surface_error_max_m": 0.1,
+    "classification_limit": {
+      "truth_occluded_raw_free_count_max": 0
+    },
+    "coverage": "report supported faces explicitly; absent faces never imply PASS; full-cell occlusion and visible-free controls both required"
+  },
+  "recording": {
+    "motion_min_source_support_sim_s": 10,
+    "hold_requested_sim_s": 20,
+    "truth": "each 4ms physics update; pose and instantaneous kinematics",
+    "vins": "raw position/quaternion/world velocity, source stamps, queue telemetry",
+    "map": "same-snapshot raw/inflated arrays, epoch/map/frame/source/fusion stamps, hashes, wall ROI provenance",
+    "common": "alignment/planner/bridge/contacts/resources/sensor payload and receipt/source timeline/full flight/direct final PX4 readback",
+    "missing_data": "INSUFFICIENT, never change flight control"
+  },
+  "flight_profile": {
+    "target_offset_enu_m": [
+      12.0,
+      0.0,
+      0.1
+    ],
+    "yaw_offset_rad": 0.2,
+    "position_tolerance_m": 0.25,
+    "yaw_tolerance_rad": 0.2617993877991494,
+    "dwell_s": 4.0,
+    "timeout_s": 360.0,
+    "diagnostic_post_goal_hold_sim_s": 20.0
+  },
+  "release_requirements": [
+    "static wall snapshot collector and evaluator integration verified",
+    "complete recording/analysis pipeline replay verified",
+    "read-only evaluator identity bound independently from frozen flight source",
+    "freeze launch record before goal with runtime/protocol/collector hashes",
+    "all first-run reports assessed; no calibration credited"
+  ],
+  "frozen_runtime_contract_sha256": "3a0111a1814c8f6ccb3f7155450fad044026201e8c94b844ce02210fffea5820",
+  "scene_source_sha256": "0395ebb911a7bc97bed7c6957205b2c946082bb2fb9aa9793490c4d7f1684b13",
+  "flight_profile_basis": "From the frozen -6.5m spawn, a 12m forward target ends near x=5.5m, providing a front-wall observation opportunity within the nominal sensor range and more than 10s motion support. Actual source-duration/visibility remains evaluated; no extrapolation or automatic pass.",
+  "planner_config": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+  "effective_dynamics": {
+    "max_vel": 0.4,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0
+  },
+  "planner_config_sha256": "2efea04354b3a06629c308173f64b42e56958e4fb6565325350d84cfee980c23",
+  "goal_profile_sha256": "74176cbf6a37aad917d1dd2111701abd4ef386a6e642862a18bd3663cc7d9f6f",
+  "formal_success_rule": "three independent qualifying cold starts under one released protocol; retain every failed or interrupted attempt",
+  "runtime_match_mode": "exact_released_runtime",
+  "acceptance_config_path": "config/acceptance_n11.json",
+  "release_evidence": [
+    "progress/evidence/n11-approved-native-work-20261029-481.json",
+    "progress/evidence/n11-native-work-full-calibration-20261029-482.json"
+  ]
+}

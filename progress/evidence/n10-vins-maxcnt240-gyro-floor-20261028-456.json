@@ -1,0 +1,43 @@
+{
+  "id": "N10.3/#456",
+  "classification": "isolated offline replay; native synchronization dropped a pair; candidate comparison INSUFFICIENT",
+  "single_variable_relative_to_455": "gyr_n 0.001 to 0.00001 at fixed max_cnt240",
+  "binary_reused_from": "#449 verified native trace build",
+  "native_source_inputs_complete": true,
+  "imu_callbacks": 39181,
+  "left_image_callbacks": 4749,
+  "right_image_callbacks": 4749,
+  "processed_stereo_pairs": 4748,
+  "catchup_dropped_stereo_pairs": 1,
+  "dropped_pair_source_ns": 80588000000,
+  "input_queue_high_water": {
+    "image0": 3,
+    "image1": 3,
+    "imu_baseline_high_water": 30,
+    "imu_candidate_high_water": 74,
+    "feature_baseline_high_water": 1,
+    "feature_candidate_high_water": 2
+  },
+  "solve_latency_ms": {
+    "p95": 31.8768,
+    "max": 43.9830,
+    "configured_budget": 40.0
+  },
+  "exploratory_unpaired_values_not_gate_evidence": {
+    "goal_motion_rpe10_translation_p95_m": 0.047383332760560906,
+    "active_hold_velocity_error_p95_m_s": 0.008425271395828887
+  },
+  "strict_candidate_status": "INSUFFICIENT",
+  "reason": "one native synchronized stereo pair was dropped by the estimator catch-up path; max solve time exceeded 40 ms",
+  "candidate_deployed": false,
+  "live_parameters_changed": false,
+  "velocity_semantics_audit": {
+    "vins_velocity_source": "estimator.Vs copied by visualization.cpp into Odometry.twist in WORLD_FRAME_ID",
+    "truth_velocity_source": "centered finite difference of converted Gazebo truth IMU positions",
+    "evaluator_bug_found": false,
+    "gazebo_raw_twist_used_as_velocity": false
+  },
+  "result_sha256": "7602c2ec66f82ab2400ebbfff3eafbec82973f21a500a52f943ee5bdedfc700d",
+  "native_trace_sha256": "e254ab63a2c1563b06c750d3751c2930d138100e65a0f064ba11bf35ab54af21",
+  "gate_report_sha256": "4f1ad1a0576d21ffe5d1eed0ac1646f75af3cfe6a4d35ecf01cf2aa79b7cc909"
+}

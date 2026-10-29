@@ -1,0 +1,87 @@
+{
+  "schema": "n10-live-obstacle-replan-protocol/v1",
+  "subtask_id": "N10.3/#368",
+  "status": "protocol_frozen; run_not_started",
+  "formal_qualification": false,
+  "hypothesis": "Increasing only the PX4 bridge clock history from 64 to 128 samples will allow a valid VIO sample delayed by 0.296 simulated seconds to be mapped while remaining under the existing 0.35 wall-second source-age limit; the bridge should then avoid the false external_odometry_stale landing and EGO can finish the same visible-box mission.",
+  "single_scenario_variable": "Relative to #367, change only config/components/px4_bridge/debug_truth.json clock_mapping_max_samples from 64 to 128. Keep clock mapping source-age limits, odometry receipt-age limit, goal, planner, spawn, obstacle, timing, patch 0053, PX4 settings and observers unchanged.",
+  "runtime_contract_sha256_baseline": "68aba197b9db4e6a405baaaafccdcec91ba91434e3525f56b701f9c5a6772734",
+  "inputs": {
+    "spawn": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "planner": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "goal": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "collision_policy": "official_ego",
+    "control_owner": "uav_px4_bridge only",
+    "localization_quality_and_localization_receipt_age_gates": "removed; raw measurements are observational",
+    "px4_bridge_time_mapping": {
+      "config": "config/components/px4_bridge/debug_truth.json",
+      "clock_mapping_max_samples": 128,
+      "clock_mapping_max_source_age_wall_s": 0.35,
+      "odometry_max_receipt_age_wall_s": 0.3,
+      "reason": "Measured delayed source sample must fit inside the timestamp interpolation history without relaxing source-age acceptance."
+    }
+  },
+  "injection": {
+    "model_name": "n10_live_replan_box",
+    "world": "vio_initialization",
+    "static": true,
+    "pose_xyz_m": [
+      0.0,
+      0.0,
+      1.4
+    ],
+    "size_xyz_m": [
+      0.8,
+      0.8,
+      2.8
+    ],
+    "yaw_rad": 0.0,
+    "trigger": "NavigationCommand.target.header.stamp plus 12.0 simulated seconds; the first same-goal B-spline must already have been observed",
+    "truth_used_for_trigger": false,
+    "historical_position_at_goal_plus_11_7s_xyz_m": [
+      -4.0,
+      -1.27,
+      2.64
+    ],
+    "planning_horizon_m": 5.0
+  },
+  "success_observations": [
+    "run identity matches the frozen runtime and initial goal/spline are observed",
+    "Gazebo acknowledges box creation at the frozen trigger",
+    "single D435i/EGO occupancy observations show the injected box surface",
+    "same goal_id and epoch publish a replacement trajectory whose geometry avoids the box; traj_id change alone is insufficient",
+    "PX4/bridge execute the replacement path and the original position/yaw dwell completes",
+    "offline truth and the configured body envelope show positive sampled clearance from the dynamic box; prohibited contacts are zero",
+    "planner, bridge, truth and contact observers cover the terminal flight record; final readback is landed, disarmed, control disabled and zero control before container stop"
+  ],
+  "diagnostic_abort": {
+    "if_no_replacement_after_sim_s": 1.0,
+    "action": "caller-cancel through the existing mission path; bridge-owned landing; preserve the run as failed/partial",
+    "is_final_acceptance_threshold": false,
+    "is_new_localization_health_gate": false
+  },
+  "not_frozen_by_this_protocol": [
+    "final replan deadline",
+    "final minimum-clearance threshold",
+    "raw VIO error/drift limit",
+    "localization/map age limit"
+  ],
+  "next_run_id": "n10-20261027-368-clock-history-live-obstacle",
+  "parent_diagnostic_run": "n10-20261027-367-ego-retry-live-obstacle",
+  "patch_0053_sha256": "529fcade428165d4101cdc660b38f1cfd0094f22f0f77d03530e5808de7bb727",
+  "previous_run_observation": {
+    "run_id": "n10-20261027-367-ego-retry-live-obstacle",
+    "navigation_outcome": "aborted: goal_timeout",
+    "clock_mapping_max_samples": 64,
+    "source_stamp_at_trigger_sim_ns": 128968000000,
+    "current_sim_ns": 129264000000,
+    "source_delay_sim_s": 0.296,
+    "bridge_mapped_receipt_age_wall_s": 0.344802963,
+    "configured_max_source_age_wall_s": 0.35,
+    "mapper_error": "source_stamp_outside_clock_history",
+    "box_create_acknowledged": true,
+    "replacement_spline_observed": true,
+    "bridge_landing_reason": "external_odometry_stale",
+    "interpretation": "The delayed sample was inside the configured source-age allowance but older than the 64-sample clock history; it was rejected before PX4 odometry publication."
+  }
+}

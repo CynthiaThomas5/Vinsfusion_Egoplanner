@@ -1,0 +1,115 @@
+{
+  "schema": "n07-support-scan-attached-pass-release-stale/v1",
+  "task_id": "N07.21 #175",
+  "run_id": "n07-20261024-175-01",
+  "qualification": "attached_n05_passed_but_release_gate_and_hover_not_qualified",
+  "consecutive_qualified_hover_count": "0/3",
+  "runtime": {
+    "epoch": "20dbae9ad0404377bb577bda2e776ed5",
+    "container_image": "sha256:099ab9afecd28b7354f6d6494944b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "extra_vio_stream_probe_during_scan": false,
+    "health_threshold_changed": false
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "truth_subscribed": false,
+    "control_or_goal_published": false
+  },
+  "support_scan": {
+    "completed_stages": 12,
+    "expected_stages": 12,
+    "ready_marker_attachment": "attached",
+    "ready_marker_truth_input_used": false,
+    "ready_marker_control_or_goal_published": false,
+    "accel_bias_max_m_s2": 0.09580296752168939,
+    "normalized_cost_max": 0.8355791273260307,
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.4342920536648836
+    },
+    "runner_outcome": "failed",
+    "runner_error": "fresh DISARMED status is required for every fixture command",
+    "attachment_states": ["attached", "detached"],
+    "fixture_removed": true,
+    "fixture_scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "runner_verified_detached": false
+  },
+  "n05_attached_gate": {
+    "accepted": true,
+    "reason": "all_entry_phases_known_and_clear",
+    "online_offline_identical": true,
+    "offline_matches_online": true,
+    "same_epoch_before_after": true,
+    "same_map_id_before_after": true
+  },
+  "n05_post_release_gate": {
+    "accepted": false,
+    "error_schema": "n05-live-entry-check-error/v1",
+    "error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge', 'clock', 'localization', 'map']",
+    "localization_state_at_readback": 4,
+    "localization_valid_at_readback": false,
+    "localization_reason_at_readback": "telemetry_stale",
+    "adapter_status_source_stamp_s": 435.304,
+    "adapter_status_clock_stamp_s": 606.676,
+    "raw_vins_telemetry_stamp_s_at_later_readback": 620.272,
+    "raw_vins_odometry_stamp_s_at_later_readback": 620.932,
+    "adapted_optimized_odom_available_at_later_readback": false
+  },
+  "safety_cleanup": {
+    "independent_scene_fixture_absent": true,
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "bridge_phase": "DISABLED",
+    "bridge_armed": false,
+    "bridge_control_enabled": false,
+    "bridge_landed": true,
+    "container_status": "exited",
+    "container_exit_code": 0,
+    "active_project_containers": 0
+  },
+  "native_recorder_timing": {
+    "telemetry_first_source_stamp_s": 22.18,
+    "telemetry_last_source_stamp_s": 402.736,
+    "telemetry_max_source_gap_s": 2.772,
+    "largest_observed_gap_s": 2.772,
+    "largest_gap_interval_s": [399.104, 401.876],
+    "limitation": "The fixture recorder gap does not establish that the adapter received a matching source gap."
+  },
+  "diagnostic_summary": {
+    "n05_run_summary_diagnostic_pass": true,
+    "n05_post_release_entry_accepted": false,
+    "n07_hover_started": false,
+    "n07_hover_passed": false
+  },
+  "artifacts_sha256": {
+    "artifacts/runs/n07-20261024-175-01/n05-run-inputs.json": "63fadb2b5954fa9e3f09d7cc943b97f62497ab996774ae71c0f688ed5f0d22d6",
+    "artifacts/runs/n07-20261024-175-01/runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "artifacts/runs/n07-20261024-175-01/n05-prescan-ready.json": "b5afb493921dbd0cdbcd2317bcfd852e022a0fc125cfc0077bf58e1911625af9",
+    "artifacts/runs/n07-20261024-175-01/fixture-result.json": "fa3287ea032e14c77f9d30f0a2aa6ef6107a2dfe170e8172cc74b2a727314b21",
+    "artifacts/runs/n07-20261024-175-01/fixture-stages.json": "f824ef171ec7562200f94ca75477d0427262dd4c95426bd8b5a8d43686ebada9",
+    "artifacts/runs/n07-20261024-175-01/fixture-trace.jsonl": "cbb391f660106ed178ee1fe8c4cef95156d8772c4e0a71bbc52a187cc7ce1e91",
+    "artifacts/runs/n07-20261024-175-01/fixture-vins.jsonl": "05096893473e3f6a2528aaad021f76be61ebf324eed9469f9b807780ad6eb95b",
+    "artifacts/runs/n07-20261024-175-01/fixture-odometry.jsonl": "12a97cb6f4d6b422b1f3a1cade4025957f1e7136300917148ccf5ab2d0428bed",
+    "artifacts/runs/n07-20261024-175-01/n05-before/n05-live-entry-check.json": "8c4b7a64c001ab79fb70d7d00d77bbe340e45f9ad9a009556dff44c6af13bcfb",
+    "artifacts/runs/n07-20261024-175-01/n05-before/n05-offline-entry-replay.json": "4099558c4a5dbac74c65b0ff8e32cbad38c727d0b69df8ef6259ecb22d8fdc55",
+    "artifacts/runs/n07-20261024-175-01/n05-after/n05-live-entry-check.json": "fdf9ec8c30e8fb6613996bd07b4a7273f1f6cc4eb7505bf10f49c728da51e29d",
+    "artifacts/runs/n07-20261024-175-01/n05-after/n05-offline-entry-replay.json": "70b1d3d1bf25a4f6428405a3e683c358af276adc1db45252e6c5d57d47402f2e",
+    "artifacts/runs/n07-20261024-175-01/n05-post-release/n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e",
+    "artifacts/runs/n07-20261024-175-01/postscan-safety-readback.log": "71a3b3f35cfb12c3ae55b06e2d8c2ff5cfb9a5b84b8f530b5a240730c4e8d167",
+    "artifacts/runs/n07-20261024-175-01/postscan-localization-readback.log": "6307f25fa8863b3789bd8fc79b98b7754068b265e4c88dde59ea248f189b78ab",
+    "artifacts/runs/n07-20261024-175-01/postscan-source-readback.log": "5ef3a179f6e7e098b0fa5531e2de5b46b189012b3d771fb94ee98a5cf2fb1878",
+    "artifacts/runs/n07-20261024-175-01/n05-fixture-removal-verification.json": "f5b98a9d1706dd1c07a04e5db2e5c0dd872bee1f5ce34467a7f5ce7e45f6e97e",
+    "artifacts/runs/n07-20261024-175-01/fixture-safety-gate.json": "d8dfb2a326f0b0108c0f178f171d65928fb387b0028061c9567bbf8361f00c90",
+    "artifacts/runs/n07-20261024-175-01/n05-run-summary.json": "3663aa9cc59071db50b41da7b84f7f1c4e960d9d0ad7bf3c2b67e9606e81d374"
+  },
+  "next_step": "#176 uses the same profile and gates without the extra probe during the support route. Start the read-only VIO source/adapted-output probe only after attached N05 passes and before releasing the fixture, then run the normal post-release gate. If it passes, stop the probe and proceed in the same epoch to no-goal hover; if not, preserve the first raw-source versus adapter-output gap and stop safely."
+}

@@ -1,0 +1,404 @@
+{
+  "schema": "n08-final-completion-audit/v1",
+  "date": "2026-10-26",
+  "parent_goal": "N08",
+  "status": "passed",
+  "scope": "N08 formal exit for current single-D435i simulation candidate; no real-hardware claim.",
+  "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+  "target_profile_sha256": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+  "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+  "formal_exit_checks": {
+    "controlled_hold_compute_execute_comparison_explained": true,
+    "same_contract_compute_only_vs_execute": true,
+    "fixed_hold_baseline_caveat_recorded": true,
+    "caller_cancel_stop_hold_measured_separately": true,
+    "three_independent_cold_start_ordinary_terminal_stops_passed": true,
+    "same_runtime_and_config_for_three_runs": true,
+    "each_run_reference_health_stop_hold_landing_passed": true,
+    "n05_n06_budget_is_consumed_by_runtime_gates": true,
+    "thresholds_changed_during_three_run_freeze": false,
+    "n07_rerun": false
+  },
+  "controlled_mechanism_comparison": {
+    "fixed_hold_run": "n08-20261024-211-hold-01 (#212 descriptive hold baseline)",
+    "fixed_hold_contract_sha256": "cd5eada29ed16efc9f7223629afedcde0ade53715f4b2b33c27a71987fd9300a",
+    "fixed_hold_result": "30s no-goal hold; PX4 local max drift 0.07528m, Gazebo truth max drift 0.07307m; no EGO goal or motion evidence",
+    "compute_only_run": "n08-20261025-257-coherent-speed-validation",
+    "native_execute_run": "n08-20261025-260-terminal-braking-measurement",
+    "compute_only_execute_contract_sha256": "661ea2154b9190c981e82eb9b12e8d238aef3b9527d630cb5261821e33128844",
+    "mode_difference": "bridge remapped away from EGO output in compute-only; native /position_cmd→bridge input in execute",
+    "comparison_validity": "same frozen runtime/config/binary contract for #257 and #260. #212 remains only a no-goal hold-drift baseline because its EGO idle binary and localization health config differ."
+  },
+  "caller_cancel_run": {
+    "run_id": "n08-cancel-highspeed-prescan-20261026-321",
+    "evidence": "progress/evidence/n08-cancel-stop-measurement-20261026-321.md",
+    "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+    "trigger_px4_horizontal_speed_m_s": 0.04014436484996344,
+    "trigger_ego_reference_speed_m_s": 0.05848395921967986,
+    "cancel_to_stop_distance_m": 0.30406729982773556,
+    "candidate_envelope_m": 0.5,
+    "stop_hold_s": 3.0,
+    "independent_evaluator_passed": true,
+    "old_trajectory_not_resumed": true,
+    "return_action_sent": false
+  },
+  "ordinary_terminal_stop_runs": [
+    {
+      "run_id": "n08-terminal-stop-20261026-322",
+      "evidence": "progress/evidence/n08-terminal-stop-20261026-322.md",
+      "evidence_json": "progress/evidence/n08-terminal-stop-20261026-322.json",
+      "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+      "target_profile_sha256": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+      "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+      "localization_epoch": "1330bad8a13447c6a82f45b34d4932c2",
+      "map_id": "1330bad8a13447c6a82f45b34d4932c2-9934922eefd94750ab286b141fbaf5da",
+      "frame_id": "odom_1330bad8a13447c6a82f45b34d4932c2",
+      "native_result": "PASS",
+      "action_success": true,
+      "action_result": {
+        "status": 4,
+        "success": true,
+        "outcome": "succeeded",
+        "reason": "position_yaw_tolerance_held"
+      },
+      "return_action_sent": false,
+      "landed_and_disarmed": true,
+      "independent_evaluator_passed": true,
+      "all_independent_checks_true": true,
+      "failed_checks": [],
+      "n05_post_release_online_offline_passed": true,
+      "n05_current_area_online_offline_passed": true,
+      "preflight_passed": true,
+      "preflight_observed_wall_s": 40.00249018310569,
+      "preflight_max_odom_gap_wall_s": 0.11423717299476266,
+      "preflight_overguard_count": 0,
+      "pre_enable_full_body_capsule_passed": true,
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "corridor_query_count": 25,
+      "destination_landing_candidates_passed": true,
+      "metrics": {
+        "reference_identical_source_repeats": 433,
+        "reference_unique_source_samples": 1786,
+        "reference_trajectory_handoffs": [],
+        "actual_vector_speed_limit_m_s": 0.12,
+        "reference_peak_vector_speed_m_s": 0.07914561675849555,
+        "reference_braking_start_elapsed_sim_s": 7.936,
+        "reference_zero_speed_elapsed_sim_s": 13.192,
+        "actual_peak_horizontal_speed_m_s": 0.07547105459241599,
+        "actual_peak_vector_speed_m_s": 0.07549980051847902,
+        "actual_stop_elapsed_sim_s": 12.46,
+        "actual_stop_observed": true,
+        "stop_speed_threshold_m_s": 0.03,
+        "stop_dwell_sim_s": 1.0,
+        "response_delay_to_sustained_deceleration_s": 1.5039999999999996,
+        "actual_net_horizontal_displacement_m": 0.5972569925014072,
+        "truth_max_source_gap_sim_s": 0.02,
+        "truth_derivative_smoothing_window_sim_s": 0.22,
+        "reference_max_source_gap_sim_s": 0.02,
+        "actual_distance_from_reference_braking_start_m": 0.2810582209169662,
+        "time_from_reference_braking_start_to_actual_stop_s": 4.524000000000001,
+        "actual_residual_distance_after_reference_zero_m": 0.0,
+        "actual_stop_dwell_position_excursion_m": 0.022085577032618656,
+        "deceleration_speed_band_m_s": [
+          0.03,
+          0.06792394913317439
+        ],
+        "deceleration_samples": 109,
+        "observed_deceleration_p10_m_s2": 0.012860187777655394,
+        "observed_deceleration_mean_m_s2": 0.017299352860407638,
+        "independent_reference_tracking_error_max_m": 0.08008148038875275
+      },
+      "post_mission_readback": {
+        "bridge_phase": "LANDED",
+        "bridge_control_enabled": false,
+        "px4_armed": false,
+        "px4_landed": true,
+        "px4_arming_state": 1,
+        "land_detected": true,
+        "control_mode_samples": 0,
+        "trajectory_setpoint_samples": 0,
+        "vehicle_command_samples": 0,
+        "control_samples_zero": true,
+        "vehicle_remained_disarmed": true,
+        "sole_bridge_publishers": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1
+        }
+      }
+    },
+    {
+      "run_id": "n08-terminal-stop-20261026-324",
+      "evidence": "progress/evidence/n08-terminal-stop-20261026-324.md",
+      "evidence_json": "progress/evidence/n08-terminal-stop-20261026-324.json",
+      "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+      "target_profile_sha256": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+      "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+      "localization_epoch": "14aa6b84db6d4bdba4e279a229f82d54",
+      "map_id": "14aa6b84db6d4bdba4e279a229f82d54-42ebdcf7329a4e6c9e2844e7c80443cd",
+      "frame_id": "odom_14aa6b84db6d4bdba4e279a229f82d54",
+      "native_result": "PASS",
+      "action_success": true,
+      "action_result": {
+        "status": 4,
+        "success": true,
+        "outcome": "succeeded",
+        "reason": "position_yaw_tolerance_held"
+      },
+      "return_action_sent": false,
+      "landed_and_disarmed": true,
+      "independent_evaluator_passed": true,
+      "all_independent_checks_true": true,
+      "failed_checks": [],
+      "n05_post_release_online_offline_passed": true,
+      "n05_current_area_online_offline_passed": true,
+      "preflight_passed": true,
+      "preflight_observed_wall_s": 40.00917727686465,
+      "preflight_max_odom_gap_wall_s": 0.11268161307089031,
+      "preflight_overguard_count": 0,
+      "pre_enable_full_body_capsule_passed": true,
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "corridor_query_count": 25,
+      "destination_landing_candidates_passed": true,
+      "metrics": {
+        "reference_identical_source_repeats": 408,
+        "reference_unique_source_samples": 1841,
+        "reference_trajectory_handoffs": [],
+        "actual_vector_speed_limit_m_s": 0.12,
+        "reference_peak_vector_speed_m_s": 0.07947916865074194,
+        "reference_braking_start_elapsed_sim_s": 8.004,
+        "reference_zero_speed_elapsed_sim_s": 13.264,
+        "actual_peak_horizontal_speed_m_s": 0.08274972587625327,
+        "actual_peak_vector_speed_m_s": 0.08281865187124801,
+        "actual_stop_elapsed_sim_s": 13.02,
+        "actual_stop_observed": true,
+        "stop_speed_threshold_m_s": 0.03,
+        "stop_dwell_sim_s": 1.0,
+        "response_delay_to_sustained_deceleration_s": 0.8160000000000007,
+        "actual_net_horizontal_displacement_m": 0.5990175348767326,
+        "truth_max_source_gap_sim_s": 0.02,
+        "truth_derivative_smoothing_window_sim_s": 0.22,
+        "reference_max_source_gap_sim_s": 0.02,
+        "actual_distance_from_reference_braking_start_m": 0.2886777161368541,
+        "time_from_reference_braking_start_to_actual_stop_s": 5.016,
+        "actual_residual_distance_after_reference_zero_m": 0.0,
+        "actual_stop_dwell_position_excursion_m": 0.02151868491204675,
+        "deceleration_speed_band_m_s": [
+          0.03,
+          0.07447475328862795
+        ],
+        "deceleration_samples": 135,
+        "observed_deceleration_p10_m_s2": 0.006958492600477734,
+        "observed_deceleration_mean_m_s2": 0.015468399073313923,
+        "independent_reference_tracking_error_max_m": 0.0837938720369043
+      },
+      "post_mission_readback": {
+        "bridge_phase": "LANDED",
+        "bridge_control_enabled": false,
+        "px4_armed": false,
+        "px4_landed": true,
+        "px4_arming_state": 1,
+        "land_detected": true,
+        "control_mode_samples": 0,
+        "trajectory_setpoint_samples": 0,
+        "vehicle_command_samples": 0,
+        "control_samples_zero": true,
+        "vehicle_remained_disarmed": true,
+        "sole_bridge_publishers": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1
+        }
+      }
+    },
+    {
+      "run_id": "n08-terminal-stop-20261026-325",
+      "evidence": "progress/evidence/n08-terminal-stop-20261026-325.md",
+      "evidence_json": "progress/evidence/n08-terminal-stop-20261026-325.json",
+      "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+      "target_profile_sha256": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+      "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+      "localization_epoch": "581eddb93ce942bfbbd1a3deeb59f539",
+      "map_id": "581eddb93ce942bfbbd1a3deeb59f539-522274dd07b2450ca1588246ad8141d6",
+      "frame_id": "odom_581eddb93ce942bfbbd1a3deeb59f539",
+      "native_result": "PASS",
+      "action_success": true,
+      "action_result": {
+        "status": 4,
+        "success": true,
+        "outcome": "succeeded",
+        "reason": "position_yaw_tolerance_held"
+      },
+      "return_action_sent": false,
+      "landed_and_disarmed": true,
+      "independent_evaluator_passed": true,
+      "all_independent_checks_true": true,
+      "failed_checks": [],
+      "n05_post_release_online_offline_passed": true,
+      "n05_current_area_online_offline_passed": true,
+      "preflight_passed": true,
+      "preflight_observed_wall_s": 40.00099664204754,
+      "preflight_max_odom_gap_wall_s": 0.11063227686099708,
+      "preflight_overguard_count": 0,
+      "pre_enable_full_body_capsule_passed": true,
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "corridor_query_count": 25,
+      "destination_landing_candidates_passed": true,
+      "metrics": {
+        "reference_identical_source_repeats": 397,
+        "reference_unique_source_samples": 1814,
+        "reference_trajectory_handoffs": [],
+        "actual_vector_speed_limit_m_s": 0.12,
+        "reference_peak_vector_speed_m_s": 0.0805467760653544,
+        "reference_braking_start_elapsed_sim_s": 7.988,
+        "reference_zero_speed_elapsed_sim_s": 13.24,
+        "actual_peak_horizontal_speed_m_s": 0.076312299151824,
+        "actual_peak_vector_speed_m_s": 0.0763870428801301,
+        "actual_stop_elapsed_sim_s": 12.700000000000001,
+        "actual_stop_observed": true,
+        "stop_speed_threshold_m_s": 0.03,
+        "stop_dwell_sim_s": 1.0,
+        "response_delay_to_sustained_deceleration_s": 1.5319999999999991,
+        "actual_net_horizontal_displacement_m": 0.6027087780489143,
+        "truth_max_source_gap_sim_s": 0.02,
+        "truth_derivative_smoothing_window_sim_s": 0.22,
+        "reference_max_source_gap_sim_s": 0.016,
+        "actual_distance_from_reference_braking_start_m": 0.295683800431448,
+        "time_from_reference_braking_start_to_actual_stop_s": 4.712000000000001,
+        "actual_residual_distance_after_reference_zero_m": 0.0,
+        "actual_stop_dwell_position_excursion_m": 0.01920494029393113,
+        "deceleration_speed_band_m_s": [
+          0.03,
+          0.0686810692366416
+        ],
+        "deceleration_samples": 131,
+        "observed_deceleration_p10_m_s2": 0.007503366210383222,
+        "observed_deceleration_mean_m_s2": 0.014893383070773272,
+        "independent_reference_tracking_error_max_m": 0.08671337614205485
+      },
+      "post_mission_readback": {
+        "duration_wall_s": 6.0,
+        "bridge_phase": "LANDED",
+        "bridge_control_enabled": false,
+        "px4_arming_state": 1,
+        "px4_landed": true,
+        "control_samples_zero": true,
+        "control_mode_samples": 0,
+        "trajectory_setpoint_samples": 0,
+        "vehicle_command_samples": 0,
+        "vehicle_remained_disarmed": true
+      }
+    }
+  ],
+  "ordinary_terminal_stop_summary": {
+    "count_passed": 3,
+    "unique_epochs": 3,
+    "unique_map_ids": 3,
+    "actual_peak_vector_speed_m_s_range": [
+      0.07549980051847902,
+      0.08281865187124801
+    ],
+    "braking_path_from_reference_braking_start_to_stop_m_range": [
+      0.2810582209169662,
+      0.295683800431448
+    ],
+    "sustained_deceleration_response_s_range": [
+      0.8160000000000007,
+      1.5319999999999991
+    ],
+    "max_independent_tracking_error_m_range": [
+      0.08008148038875275,
+      0.08671337614205485
+    ],
+    "three_second_hold_excursion_m_range": [
+      0.01920494029393113,
+      0.022085577032618656
+    ],
+    "observed_deceleration_p10_m_s2_range": [
+      0.006958492600477734,
+      0.012860187777655394
+    ],
+    "deceleration_p10_interpretation": "Finite-sample descriptor only; not a guaranteed lower bound."
+  },
+  "budget_feedback": {
+    "source_review": "progress/evidence/n08-cancel-stop-budget-admission-20261026-296.md",
+    "cancel_stop_distance_envelope_m": 0.5,
+    "cancel_envelope_scope": "finite-sample simulation candidate for the measured forward low-speed cancel protocol, not a proven upper bound or universal guarantee",
+    "runtime_consumers": [
+      "motion-cancel pre-enable N08 raw-map forward corridor",
+      "motion-cancel fresh airborne N08 raw-map forward corridor",
+      "independent evaluator of measured cancel-to-stop path length"
+    ],
+    "normal_terminal_stop_geometry": "The planned-terminal-stop profile uses zero additional forward extension because EGO decelerates to terminal zero inside the certified planned curve; the current full-body curve and terminal-hold certificates remain required. This is not zero measured stopping distance.",
+    "unchanged_margins": {
+      "n05_body_reference_clearance_radius_m": 0.7306179170842027,
+      "n05_combined_uncertainty_margin_m": 0.24868204641820268,
+      "n08_tracking_margin_m": 0.25,
+      "n08_maximum_tracking_error_m": 0.15
+    },
+    "current_full_body_geometry": {
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "remaining_slack_m": 0.011721778146268125,
+      "queries_per_corridor": 25
+    },
+    "non_additive_semantics": "Stop distance is along-route travel, not radial body clearance. Do not add it to the existing body, uncertainty, or tracking radius."
+  },
+  "non_qualifying_attempts": [
+    {
+      "run_id": "n08-terminal-stop-20261026-323",
+      "status": "precondition_refused_before_fixture_or_flight",
+      "counted": false,
+      "reason": "Existing telemetry source-age freshness lockout; no goal or enable. Does not reset successful ordinary runs.",
+      "evidence": "progress/evidence/n08-terminal-stop-20261026-323-telemetry-lockout.md"
+    },
+    {
+      "run_id": "n08-cancel-peak-prescan-20261026-326",
+      "status": "precondition_refused_before_goal_or_enable",
+      "counted": false,
+      "intended_cancel_window_m_s": [
+        0.08,
+        0.09
+      ],
+      "reason": "N05 full-body takeoff contact volume contained 51 raw-unknown cells despite fresh same-identity online/offline snapshots; exact check and unknown-volume report retained.",
+      "evidence": "progress/evidence/n08-cancel-peak-refusal-20261026-326.md",
+      "unknown_volume_audit": "progress/evidence/n08-cancel-peak-n05-unknown-volume-20261026-326.json"
+    }
+  ],
+  "recommended_plan_follow_up": {
+    "plan_reference": "docs/n08-completion-test-plan.md §6.3 step 5",
+    "status": "not_qualified_due_to_safe_precondition_refusal",
+    "description": "The additional near-0.08 m/s cancellation trigger sample was attempted but not flown because N05 refused the contact volume. It is not a separate repetition threshold in the formal N08 exit; the required separate caller-cancel stop/hold chain is supported by #321. Do not reinterpret this as a successful high-speed trigger test."
+  },
+  "n08_325_px4_ulog_final_state": {
+    "sha256": "4818303a2e6996f8a2b6c573f32df66c2dd235b0623788fd7c6cffead4719989",
+    "final_arming_state": 1,
+    "final_landed": true,
+    "samples": {
+      "vehicle_status": 752,
+      "vehicle_land_detected": 418
+    }
+  },
+  "evidence_index": [
+    "progress/evidence/n08-cancel-stop-budget-admission-20261026-296.md",
+    "progress/evidence/n08-cancel-stop-measurement-20261026-321.md",
+    "progress/evidence/n08-terminal-stop-20261026-322.md",
+    "progress/evidence/n08-terminal-stop-20261026-324.md",
+    "progress/evidence/n08-terminal-stop-20261026-325.md",
+    "progress/evidence/n08-cancel-peak-refusal-20261026-326.md",
+    "progress/evidence/n08-cancel-peak-n05-unknown-volume-20261026-326.json"
+  ],
+  "limitations": [
+    "Simulation only.",
+    "Observed p10 deceleration is not a guaranteed braking lower bound; delay includes dynamics and symmetric 0.22s smoothing.",
+    "The 0.50m caller-cancel envelope is a finite-sample candidate for this forward low-speed protocol, not a universal stopping guarantee.",
+    "The optional near-peak trigger window lacks a qualifying flight because its fresh N05 entry gate correctly refused unknown ground-contact cells.",
+    "Wrapper plotting dependency remains unavailable; no-plot independent evaluators passed all qualifying native runs."
+  ],
+  "next_goal": "N09"
+}

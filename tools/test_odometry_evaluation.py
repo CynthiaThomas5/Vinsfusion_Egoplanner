@@ -31,7 +31,7 @@ def fixture(drift=False):
     observation = {'epoch': epoch, 'raw_topic': f'/vins_raw/s_{epoch}/odometry', 'samples': rows}
     phases = [{'phase': 'PRESTREAM', 'stamp_ns': 2_000_000_000},
               {'phase': 'LANDED', 'stamp_ns': 4_000_000_000}]
-    return [observation, truth, phases, {'clock_samples': [{'sim_ns': 2_000_000_000}]},
+    return [observation, truth, phases,
             {'localization_quality_history': [], 'landed_and_disarmed': True}, [0, 0, 0]]
 
 
@@ -41,7 +41,10 @@ class OdometryEvaluationTest(unittest.TestCase):
         self.assertAlmostEqual(report['endpoint']['position_error_m'], .4)
         self.assertAlmostEqual(report['endpoint']['yaw_error_deg'], math.degrees(.2))
         self.assertAlmostEqual(report['position_error_m']['rmse'], np.sqrt(np.mean(np.linspace(0, .4, 21)**2)))
-        self.assertEqual(report['alignment']['reference_source_ns'], 1_000_000_000)
+        self.assertEqual(report['alignment']['reference_source_ns'], 1_900_000_000)
+        self.assertLess(report['alignment']['reference_source_ns'],
+                        report['interval']['start_source_ns'])
+        self.assertLessEqual(report['alignment']['reference_age_sim_s'], 0.15)
         self.assertEqual(report['alignment']['scale'], 1)
         self.assertEqual(report['coverage']['truth_grid_support_fraction'], 1)
         self.assertEqual(report['coverage']['bounded_time_support_fraction'], 1)
@@ -104,8 +107,9 @@ class OdometryEvaluationTest(unittest.TestCase):
 
     def test_bad_reference_or_invalid_quaternion_fails(self):
         args = fixture()
-        args[3]['clock_samples'][-1]['sim_ns'] = 4_000_000_000
-        with self.assertRaisesRegex(ValueError, 'pre-enable'):
+        args[2][0]['stamp_ns'] = 5_200_000_000
+        args[2][1]['stamp_ns'] = 5_300_000_000
+        with self.assertRaisesRegex(ValueError, '150ms before PRESTREAM'):
             evaluate(*args)
         args = fixture()
         args[1][100]['q_xyzw'] = [0, 0, 0, 0]

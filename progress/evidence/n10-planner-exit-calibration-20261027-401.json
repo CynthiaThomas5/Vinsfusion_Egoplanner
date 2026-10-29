@@ -1,0 +1,109 @@
+{
+  "schema": "n10-planner-exit-calibration-evidence/v1",
+  "subtask": "N10.3/#401",
+  "run_id": "n10-20261027-401-planner-process-exit-calibration",
+  "classification": "one current-version planner process-exit fault-to-terminal calibration; not formal N15 count and not overall acceptance",
+  "status": "PASS_LIMITED",
+  "runtime_contract_sha256": "1a9ceea19f771f149cb87045e5195c430345351d3128a162d8b83c5fc25292a9",
+  "prelaunch_identity_sha256": "f4bf8270d683d24e5861e44b2bfb05d15ecf672863c2d374d84b78d973783b04",
+  "protocol_sha256": "3acc7fc8a0391f39f7bf0399cf93f7e137e0c59eca35dfbf3155f59d5f80a020",
+  "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+  "fault": {
+    "class": "planner_process_exit",
+    "signal": "SIGTERM",
+    "signal_count": 1,
+    "delay_from_active_goal_sim_s": 5.0,
+    "process": {
+      "pid": 895,
+      "kernel_start_time_ticks": 160567409
+    },
+    "goal_id": "fe83b3e28e7643b1a0021ed3061de667",
+    "epoch": "a96cc8f3c6874a93a4dcb653f367d13f",
+    "bridge_phase_before_signal": "ACTIVE",
+    "armed_before_signal": true,
+    "process_exit_observed": true,
+    "signal_to_process_exit_wall_s": 0.175076553
+  },
+  "task_result": {
+    "outcome": "ABORTED",
+    "status": 6,
+    "reason": "planner_ego_planner_process_exited_during_active_goal",
+    "identity_matched": true
+  },
+  "terminal_readback": {
+    "independent_readback_duration_wall_s": 15.0,
+    "bridge_phase": "LANDED",
+    "bridge_landed": true,
+    "bridge_armed": false,
+    "bridge_control_enabled": false,
+    "px4_arming_state": 1,
+    "px4_land_detected": true,
+    "zero_control_samples": true,
+    "control_samples_after_terminal": 0,
+    "old_goal_or_trajectory_after_terminal": 0,
+    "terminal_state_violation_count": 0,
+    "emergency_disarm_used": false,
+    "safe_to_stop": true
+  },
+  "contact": {
+    "evaluation_passed": true,
+    "prohibited_contacts": 0,
+    "landing_ground_contact_observed": true
+  },
+  "sensor_capture": {
+    "status": "PASS",
+    "classification": "offline recorder integrity only; not system acceptance",
+    "active_receipts": 4315,
+    "bag_messages": 25314,
+    "identity_source": "capture_end_live_snapshot_cross_checked_with_run_files"
+  },
+  "limitations": [
+    "This calibrates only planner-process exit in the current runtime; other fault classes remain open.",
+    "The expected action outcome is ABORTED; this is a fault-closure calibration, not a successful navigation mission.",
+    "Sensor capture PASS establishes receipt-to-bag linkage only, not localization quality or acceptance.",
+    "Calibration does not count toward formal N15 tests."
+  ],
+  "artifacts": {
+    "run_dir": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration",
+    "planner_exit_injection": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/n10-planner-process-exit-injection.json",
+      "sha256": "1143612690cf4495ff5472a3c8657f2b8dfdd863b1a37560a70e37b27debb783"
+    },
+    "flight": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/flight.json",
+      "sha256": "e698715b1ab253a92f716531cddf49de098bc19b43d549a796dcceef128bf0fb"
+    },
+    "terminal_readback": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/postflight-px4-bridge-readback.json",
+      "sha256": "12e97e05d8ff3bb507aaa5efdc8780f7c901138c5abc700d65fb428af3c15110"
+    },
+    "safe_to_stop": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/safe-to-stop.json",
+      "sha256": "7aa0d3350ab8739d40a29447bf16dcd6fc90f964e4c49eb22d6a30938fb5d06d"
+    },
+    "contact_evaluation": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/vehicle-contact-evaluation.json",
+      "sha256": "ae6f672cb76ec0977283f5e14cd1376a0fafa47810c6b93730fac574b650a15d"
+    },
+    "sensor_capture_evaluation": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/n10-sensor-capture-evaluation.json",
+      "sha256": "f6972ca687c9bbdbc6e9cc02979c757a342ee86f958cf4b41270de833511781e"
+    },
+    "sensor_receipts": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/n10-sensor-receipts.jsonl",
+      "sha256": "a032c2a228fd5f285c1ff262498ce46c729194ecd58b51383351f624ba32d512"
+    },
+    "sensor_mcap": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/n10-sensor-payload/n10-sensor-payload_0.mcap",
+      "sha256": "278bf32110c4c6ffd0806ef5fcc1c28e0c81b1006b8dd0d5510e431d5f081494"
+    },
+    "runtime_contract": {
+      "path": "artifacts/runs/n10-20261027-401-planner-process-exit-calibration/runtime-contract.json",
+      "sha256": "0a2f78c1811ebd1906bd65fed9a65c1ca78cbf196f4253bc6486dbc1d05be732"
+    }
+  },
+  "implementation_regression_reference": {
+    "evidence": "progress/evidence/n10-fault-path-audit-and-observer-window-20261027-392.md",
+    "result": "17-package ROS build and 471-test suite passed before this frozen-runtime calibration"
+  }
+}

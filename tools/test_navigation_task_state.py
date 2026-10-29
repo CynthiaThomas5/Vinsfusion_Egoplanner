@@ -21,12 +21,15 @@ class TaskStateTests(unittest.TestCase):
         self.assertEqual(supervisor.state, TaskState.READY)
         return supervisor
 
-    def test_rejects_goal_until_localization_tracks_same_epoch(self):
+    def test_rejects_goal_until_epoch_exists_but_ignores_localization_health_state(self):
         supervisor = TaskSupervisor()
         rejected = supervisor.submit(goal(), 1.0)[0]
         self.assertEqual((rejected.outcome, rejected.reason),
                          (Outcome.REJECTED, 'localization_not_ready'))
-        supervisor.update_localization('epoch-a', True, True, 'tracking')
+        supervisor.update_localization('epoch-a', False, False, 'degraded')
+        self.assertEqual(supervisor.state, TaskState.READY)
+        accepted = supervisor.submit(goal(), 2.0)[0]
+        self.assertEqual(accepted.outcome, Outcome.ACCEPTED)
         rejected = supervisor.submit(goal(epoch='epoch-b'), 2.0)[0]
         self.assertEqual(rejected.reason, 'goal_epoch_mismatch')
 
@@ -38,16 +41,15 @@ class TaskStateTests(unittest.TestCase):
         self.assertEqual([(e.outcome, e.reason, e.clear_trajectory) for e in events],
                          [(Outcome.ABORTED, 'epoch_changed', True)])
         self.assertIsNone(supervisor.active_goal)
-        self.assertEqual(supervisor.state, TaskState.WAIT_LOCALIZATION)
+        self.assertEqual(supervisor.state, TaskState.READY)
 
-    def test_invalid_localization_aborts_without_same_goal_resume(self):
+    def test_invalid_localization_state_is_observational_for_active_goal(self):
         supervisor = self.ready()
         supervisor.submit(goal(), 1.0)
         events = supervisor.update_localization('epoch-a', False, False, 'clock_regression')
-        self.assertEqual(events[0].reason, 'localization_clock_regression')
-        supervisor.update_localization('epoch-a', True, True, 'tracking')
-        self.assertIsNone(supervisor.active_goal)
-        self.assertEqual(supervisor.state, TaskState.READY)
+        self.assertEqual(events, ())
+        self.assertEqual(supervisor.active_goal.goal_id, 'g1')
+        self.assertEqual(supervisor.state, TaskState.ACTIVE)
 
     def test_clock_backstep_locks_goal_admission_until_new_epoch(self):
         supervisor = self.ready()
@@ -68,7 +70,7 @@ class TaskStateTests(unittest.TestCase):
         supervisor.attach_trajectory('g1', 'epoch-a', 4)
         events = supervisor.submit(goal('g2'), 2.0)
         self.assertEqual([(e.outcome, e.goal_id, e.reason, e.clear_trajectory) for e in events], [
-            (Outcome.CANCELED, 'g1', 'goal_replaced', True),
+            (Outcome.ABORTED, 'g1', 'goal_replaced', True),
             (Outcome.ACCEPTED, 'g2', 'accepted', False),
         ])
         canceled = supervisor.cancel('g2', 'caller_cancel')

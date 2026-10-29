@@ -51,7 +51,8 @@ def _object_model(obj):
 
 
 def prepare(layout_id, output_world, output_truth, output_manifest,
-            config_path=ROOT/'config/components/simulation/n04_geometry_layouts.json'):
+            config_path=ROOT/'config/components/simulation/n04_geometry_layouts.json',
+            n06_observation_surround=False):
     for path in (output_world, output_truth, output_manifest):
         if path.exists():
             raise FileExistsError(path)
@@ -79,6 +80,15 @@ def prepare(layout_id, output_world, output_truth, output_manifest,
         collision.set('name', 'calibration_wall_collision')
     for obj in layout['objects']:
         world.append(_object_model(obj))
+    surround_path = ROOT/'simulation/models/n06_observation_surround/model.sdf'
+    if n06_observation_surround:
+        surround_tree = ET.parse(surround_path)
+        surround = surround_tree.find('model')
+        if surround is None or surround.get('name') != 'n06_observation_surround':
+            raise ValueError('N06 observation surround model is invalid')
+        if world.find("model[@name='n06_observation_surround']") is not None:
+            raise ValueError('N06 observation surround model name is already present')
+        world.append(deepcopy(surround))
     ET.indent(tree)
     tree.write(output_world, encoding='utf-8', xml_declaration=True)
 
@@ -106,7 +116,12 @@ def prepare(layout_id, output_world, output_truth, output_manifest,
             'base_world_sha256': sha256(base_world),
             'sensor_model': config['sensor_model'],
             'sensor_model_sha256': sha256(ROOT/config['sensor_model']),
+            'n06_observation_surround_model': ({
+                'path': str(surround_path.relative_to(ROOT)),
+                'sha256': sha256(surround_path),
+            } if n06_observation_surround else None),
         },
+        'n06_observation_surround_included': bool(n06_observation_surround),
         'generated': {
             'moving_world': output_world.name,
             'moving_world_sha256': sha256(output_world),
@@ -128,9 +143,12 @@ def main():
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--config', type=Path,
                         default=ROOT/'config/components/simulation/n04_geometry_layouts.json')
+    parser.add_argument('--n06-observation-surround', action='store_true',
+                        help='add the visual/depth shell used by N06 sensor-only sweeps')
     args = parser.parse_args()
     print(json.dumps(prepare(args.layout, args.world, args.truth_sdf,
-                             args.manifest, args.config.resolve()),
+                             args.manifest, args.config.resolve(),
+                             args.n06_observation_surround),
                      ensure_ascii=False, indent=2))
 
 

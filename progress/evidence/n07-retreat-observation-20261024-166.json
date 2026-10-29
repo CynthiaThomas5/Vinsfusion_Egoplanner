@@ -1,0 +1,97 @@
+{
+  "schema": "n07-preflight-attempt-result/v1",
+  "task_id": "N07.12 #166",
+  "run_id": "n07-20261024-166-01",
+  "qualification": "not_counted_as_hover_run",
+  "n07_qualified_hover_count": "0/3",
+  "scope": "fresh DISARMED whole-airframe support scan and initial read-only N05 check; no attached/released post-scan gate; no flight",
+  "profile": "n06_full_airframe_retreat_240_oblique_early_view",
+  "layout": "wall_box_column",
+  "epoch": "220f943b97ce43b59081665e174bf92c",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "online_offline_identical": true,
+    "offline_replay_matches": true,
+    "epoch": "220f943b97ce43b59081665e174bf92c",
+    "map_id": "220f943b97ce43b59081665e174bf92c-86c017031533479d9b6bbb4c3c229deb",
+    "ground_plane_reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "raw_occupied_voxel_count": null
+  },
+  "scan": {
+    "configured_stages": 12,
+    "completed_stages": 7,
+    "last_trace_stage": 7,
+    "last_trace_sim_s": 292.448,
+    "last_trace_x_m": -1.3083271914729346,
+    "n05_prescan_ready": false,
+    "attached_check_started": false,
+    "released_check_started": false,
+    "health_failure": "accel_bias_norm_exceeded",
+    "failure_normalized_cost": 0.5940987990253064,
+    "accel_bias_limit_m_s2": 0.15,
+    "first_bias_crossing": {
+      "stamp_sim_s": 292.348,
+      "accel_bias_norm_m_s2": 0.15065467878658645,
+      "stereo_features": 157,
+      "long_tracks": 117
+    },
+    "max_accel_bias_norm_m_s2": 0.16806968814834464,
+    "minimum_stereo_features": 124,
+    "minimum_long_tracks": 77
+  },
+  "safety": {
+    "fixture_removed": true,
+    "scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "final_landed": true,
+    "land_detector_receipt_age_wall_s": null,
+    "land_detector_samples": 292,
+    "land_detector_values": [
+      true
+    ],
+    "px4_arming_state_samples": [
+      1
+    ],
+    "safety_cleanup_verified": true,
+    "bridge_readback": {
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true
+    },
+    "container_exit_code": 0
+  },
+  "flight": {
+    "started": false,
+    "navigation_goal_sent": false,
+    "released_n05_gate_passed": false,
+    "hover_count_remains": "0/3; #166 did not produce a hover, and its failed N07 attempt resets the consecutive sequence under the exit rule"
+  },
+  "artifact_sha256": {
+    "n05-before/n05-live-entry-check.json": "1c24d050f2e2e408716f4974615d09c3af17882d1ceb79b2af332c5cd0604fe6",
+    "n05-before/n05-offline-entry-replay.json": "892a1a1ee48eb5a8dbdc1cdf5427bf5b864963f0573ca4555738deed65af5964",
+    "n05-run-inputs.json": "e49d4295aa8a82f65c7217d64c5dcb24736685d960190b0ccb4c389c04cd809f",
+    "fixture-result.json": "217ab2ff769b289c4d9118690891c1f8e164dc4882570838b0afa304bc9609ee",
+    "fixture-trace.jsonl": "68208b42258895ab2393035018fca6df1f47b44773020baff748c535aeb52404",
+    "fixture-vins.jsonl": "09b97821975dd8c65b6360af4e21870638bb014fdc69b71e1666b00705b57abb",
+    "fixture-odometry.jsonl": "3ef2946a8db9b62165dda9844035dbc2468ad4a8cbf0db67c2edcf011eadc096",
+    "fixture-stages.json": "3ce865ae3bab2af31232cecd651e2a94bd89f6bf58d1a24c52439a93d981ae7f",
+    "n05-fixture.log": "000ffd7a17745efd40459abb5e629215e9d4c2c02768de1067250a2d43f72a86",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "debug_truth_used": false,
+  "control_or_goal_published": false,
+  "decision": "The fresh initial N05 check failed closed because the raw ground plane lacked enough occupied cells. The unchanged accel-bias health limit then stopped the 12-stage unarmed support scan at stage 7; no prescan marker, attached/released gate, or flight occurred. Fixture removal, landed, DISARMED, bridge-disabled and container-stop checks passed. Since the N07 exit requires recomputing the consecutive sequence after a failed attempt, the qualified consecutive count is 0/3; #165 is retained as a standalone positive result but is not part of the new sequence. Repeat the already successful profile in a fresh epoch without changing thresholds.",
+  "consecutive_sequence": {
+    "count_after_attempt": "0/3",
+    "reset_reason": "N07 requires three consecutive independent cold starts and explicitly says to recompute the sequence after a failure; #166 failed the preflight support scan before attached/released gates or flight.",
+    "prior_positive_run": "#165 remains a valid standalone hover result but is outside the new consecutive sequence."
+  }
+}

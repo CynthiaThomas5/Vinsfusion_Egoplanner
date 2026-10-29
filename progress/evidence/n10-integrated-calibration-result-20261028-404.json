@@ -1,0 +1,254 @@
+{
+  "schema": "n10-integrated-calibration-result/v1",
+  "task_id": "N10.3/#404",
+  "run_id": "n10-20261028-404-speed040-integrated-calibration",
+  "classification": "single diagnostic calibration; not N10 freeze qualification",
+  "runtime_identity": {
+    "runtime_contract_sha256": "743b0091476969ae8e25e7bdd710adc8b15475ddd296f89462ae60bd987ceb79",
+    "goal_id": "11393d9065594ccbb6d23561911c9e02",
+    "epoch": "c7a519e4fb364007807b5f9daacbbbc2",
+    "map_id": "c7a519e4fb364007807b5f9daacbbbc2-ec622022d93941bfb15023860234f303",
+    "run_identity_complete": true,
+    "frame_id": "odom_c7a519e4fb364007807b5f9daacbbbc2",
+    "run_identity_missing_fields": []
+  },
+  "flight": {
+    "preflight_passed": true,
+    "action_success": true,
+    "action_outcome": "succeeded",
+    "action_reason": "position_yaw_tolerance_held",
+    "post_goal_diagnostic_hold_sim_s": 15.0,
+    "formal_n16_qualification": false,
+    "independent_arrival": {
+      "truth_target_position_world_m": [
+        7.96480952349563,
+        -0.00937044942624239,
+        0.9983297671082598
+      ],
+      "truth_target_yaw_world_deg": 11.316034756127701,
+      "position_tolerance_m": 0.25,
+      "yaw_tolerance_deg": 14.999999999999998,
+      "required_contiguous_dwell_wall_s": 4.0,
+      "truth_pose_sample_count_during_goal_action": 20922,
+      "truth_max_source_gap_sim_s": 0.004,
+      "action_success": true,
+      "longest_joint_tolerance_dwell": {
+        "start_source_ns": 147184000000,
+        "end_source_ns": 151536000000,
+        "duration_wall_s": 4.847269739024341,
+        "duration_sim_s": 4.352,
+        "position_error_m": {
+          "count": 1089,
+          "rmse": 0.17552691270987691,
+          "median": 0.17689141006039166,
+          "p95": 0.2208605481147882,
+          "max": 0.24959642381387587
+        },
+        "absolute_yaw_error_deg": {
+          "count": 1089,
+          "rmse": 3.8508668091095988,
+          "median": 1.2423094808341202,
+          "p95": 7.352172467505805,
+          "max": 7.498758954786954
+        },
+        "window_endpoint_source_ns": 151539999999,
+        "goal_completion_gap_after_last_truth_sample_sim_s": 0.003999999,
+        "goal_completion_covered_within_truth_support": true
+      },
+      "independent_joint_arrival_passed": true,
+      "truth_is_offline_only": true
+    },
+    "terminal_readback": {
+      "safe_to_stop_project_container": true,
+      "phase": "LANDED",
+      "landed": true,
+      "armed": false,
+      "control_enabled": false,
+      "zero_control_samples": true,
+      "reason_field": "px4_preflight_failed",
+      "reason_interpretation": "The final LANDED record carries the initial DISABLED reason px4_preflight_failed; the flight record shows preflight passed, the goal succeeded, and the later landing transition reason was operator_disable. Do not attribute the final landing to a preflight failure."
+    },
+    "emergency_disarm_used": false
+  },
+  "calibration": {
+    "vio_goal_segment": {
+      "duration_sim_s": 83.687999999,
+      "position_p95_m": 0.0720914169529919,
+      "position_max_m": 0.08112809534188734,
+      "yaw_p95_deg": 0.2581367487909657,
+      "yaw_max_deg": 0.2683614997577125,
+      "velocity_error_p95_m_s": 0.008207570436298148,
+      "rpe_p95": {
+        "1s": {
+          "translation_m": 0.00907535995946831,
+          "rotation_deg": 0.0708751341766398
+        },
+        "5s": {
+          "translation_m": 0.02429902687205026,
+          "rotation_deg": 0.30641252643710015
+        },
+        "10s": {
+          "translation_m": 0.038564335964068656,
+          "rotation_deg": 0.4203221665400538
+        }
+      }
+    },
+    "map_snapshot": {
+      "source_coverage": {
+        "status": "covered",
+        "covered": true,
+        "should_retry": false,
+        "watermark_stamp_ns": 83028000000,
+        "watermark_frame_id": "odom_c7a519e4fb364007807b5f9daacbbbc2",
+        "snapshot_source_stamp_ns": 83988000000,
+        "source_minus_watermark_ns": 960000000
+      },
+      "source_stamp_ns": 83988000000,
+      "fusion_stamp_ns": 84088000000,
+      "header_stamp_ns": 84140000000,
+      "raw_classes_inside_box": {
+        "unknown": 1731,
+        "known_free": 54,
+        "raw_occupied": 7
+      },
+      "raw_classes_all_corners_inside_solid": {
+        "unknown": 1305,
+        "known_free": 18,
+        "raw_occupied": 0
+      },
+      "surface_face_occupied_counts": {
+        "x_negative": 20,
+        "x_positive": 0,
+        "y_negative": 20,
+        "y_positive": 0,
+        "z_negative": 0,
+        "z_positive": 0
+      },
+      "map_point_query_count": 0,
+      "map_point_query_error": "TimeoutError: service unavailable: /mapping/get_map_status",
+      "classification_metric_status": "FAIL"
+    },
+    "replanning": {
+      "obstacle_create_acknowledged": true,
+      "first_post_injection_spline_delay_sim_s": 0.188,
+      "classification": "one-run diagnostic; spline change may be ordinary receding-horizon replanning and does not establish an obstacle-response deadline",
+      "map_point_query_capture_complete": false
+    },
+    "tracking_clearance": {
+      "tracking_error_p95_m": 0.333775705213321,
+      "tracking_error_max_m": 0.34220809659717566,
+      "minimum_sampled_actual_body_clearance_m": 0.17424597762363225,
+      "translation_only_budget_negative_count": 434,
+      "translation_only_budget_sample_count": 9381,
+      "translation_only_budget_negative_fraction": 0.04626372454962158,
+      "interpretation": "Negative pointwise bound means this scalar bound does not guarantee positive remaining margin for those samples; it is not evidence of collision."
+    },
+    "physical_step_clearance": {
+      "status": "AIRBORNE_MODEL_BOUND_POSITIVE_CONTACT_PHASE_SEPARATE",
+      "solver_states": 26005,
+      "step_s": 0.004,
+      "every_solver_step_present": true,
+      "airborne_no_contact_interval_count": 25187,
+      "airborne_duration_s": 100.748,
+      "minimum_model_bounded_airborne_clearance_m": 0.1627606473870742,
+      "separate_allowed_skid_contact_intervals": 817,
+      "prohibited_contact_intervals": 0,
+      "independent_contact_event_count": 14399,
+      "independent_prohibited_contact_event_count": 0,
+      "formal_qualification": false
+    },
+    "sensor_capture": {
+      "stream_counts": {
+        "stereo_left_image": 5067,
+        "stereo_right_image": 5066,
+        "camera_imu": 41800
+      },
+      "source_stamp_regressions": {
+        "stereo_left_image": 0,
+        "stereo_right_image": 0,
+        "camera_imu": 0
+      },
+      "errors": [],
+      "bag_exit_code": 0,
+      "metadata_write_ok": true
+    },
+    "resources": {
+      "wall_duration_s": 189.0280742519535,
+      "sample_count": 188,
+      "rtf_sample_count": 186,
+      "rtf_p50": 0.8936616691017468,
+      "rtf_p95": 0.9159101281666979,
+      "cgroup_memory_peak_max_bytes": 3381465088,
+      "max_nr_throttled": 0,
+      "mapping_pending_depth_limit": 8,
+      "mapping_pending_depth_high_water": 8,
+      "mapping_dropped_depth_delta": 21,
+      "mapping_forwarded_depth_delta": 5003,
+      "mapping_keyframe_dropped_delta": 21,
+      "vins_internal_queue_capacity_exposed": null,
+      "capacity_basis_status": "INSUFFICIENT; platform limits and representative-load basis not established"
+    },
+    "fault_injection": {
+      "injected": false,
+      "reason": "The current ros_gz_bridge parameter_bridge process carries multiple camera streams and camera IMU; stopping it is not an isolated depth-only interruption.",
+      "next": "Create or verify a depth-only interruption path before fault-to-natural-PX4-terminal calibration."
+    }
+  },
+  "acceptance": {
+    "overall_status": "INSUFFICIENT",
+    "no_runtime_gate_added": true,
+    "metric_statuses": {
+      "arrival_position_yaw_dwell": "PASS",
+      "raw_vio_absolute_error": "PASS",
+      "raw_vio_rpe_10s": "PASS",
+      "raw_vio_velocity_error": "PASS",
+      "map_source_and_update_age": "PASS",
+      "ego_tracking_error": "INSUFFICIENT",
+      "ego_tracking_clearance_budget": "INSUFFICIENT",
+      "full_body_clearance_and_contact": "PASS",
+      "raw_map_surface_geometry": "INSUFFICIENT",
+      "raw_map_classification": "FAIL",
+      "dynamic_replanning": "INSUFFICIENT",
+      "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+      "resource_and_queue_behavior": "INSUFFICIENT",
+      "observer_identity_binding": "INSUFFICIENT"
+    },
+    "formal_thresholds_changed": false
+  },
+  "limitations": [
+    "The raw-map snapshot is covered by the ROI cloud watermark, but classification still FAILS and only two of six obstacle faces have occupied-voxel support.",
+    "Point-query service was unavailable, leaving 0/26 point queries; the live snapshot and raw/inflated arrays remain archived.",
+    "Tracking-clearance scalar bound is negative at 434/9,381 paired READY commands; geometry-linked acceptance remains insufficient.",
+    "The continuous-time SITL model bound applies only to no-contact intervals and the verified simulator model; it excludes localization/map uncertainty, unmodelled vehicle geometry and real-aircraft behavior.",
+    "Resource observations do not establish host capacity or expose the VINS internal queue capacity.",
+    "No depth-only fault was injected; this run does not add fault calibration evidence.",
+    "The 15 s active hold is diagnostic and is not the formal N16 600 s acceptance."
+  ],
+  "run_artifact_sha256": {
+    "flight.json": "a840e385db19e3fde762ffe6556436dc4b3e7a49a3ed3f85f9135cd3af77ac8b",
+    "runtime-contract.json": "077424fd8f9224ab59e75f829a323ec443d76e2c5d1bb82c3720dd3bb06b1883",
+    "n10-run-manifest.json": "6a16612768a282181da2c826b7c22d3d62243eeba43b871728678efc4e08bf25",
+    "preflight.json": "bdf127aca45f1d8717bb09657668b075d889bd899a67a89c92cbf871efb4d5cf",
+    "arrival-evaluation-simtime-v2.json": "86b35e3aa9106ae5f434111377527ca7e061cf167636f173fb8f11ba0fdfaf62",
+    "n10-acceptance-evaluation.json": "13fdd5ba9bcaee21d6d571571048e72796ddb30d204c9858cd976ddb9c3bcbcf",
+    "n10-full-route-vio-segmented-metrics.json": "61e19a6d689dc300f6f1b8a39b2dec052458f7ad09595ac5daae1e605ffb55d2",
+    "n10-box-map-snapshot-analysis.json": "fe1cf85d1e21ab6a5877c86b6ff00524392c13138d5bdf3c7ade13b2973e5970",
+    "n10-tracking-clearance-relation.json": "7186e85455332ee225c40b2faa081752c406f59d9a493452132c3db7da18062e",
+    "n10-interval-clearance-bound.json": "9932c634584c8ae0a00abe0e5dc06791d7a0ce0b38111070d2ceff0190f76597",
+    "n10-resource-observation.json": "4739454ec24bb5ede9e66555a493afccfb47275bfeb5bf7bfda0e7f12a134152",
+    "n10-sensor-capture.json": "b1794c4291c6f2106d8b97010614a10a0a3e411c5abcfa8e16c1e6586e4b4d13",
+    "n10-obstacle-replan-timing-analysis.json": "e4b075320329c143b60173ef08c18ec8d4b5a0f6242d69587a4671c4221ede13",
+    "n10-map-point-queries.json": "06df92378ca8bbfd68353f3cb1826798099131909803e45ddb9b8cdb1888926b",
+    "vehicle-contact-evaluation.json": "2192698f74d235b259909ff93136e2248c935af8d21b3327e13408c9f02ac6a2",
+    "safe-to-stop.json": "03060e1979541d49e5298c70201cf3079db172a96776dc1132b773bd7b86ac30",
+    "n10-map-snapshot/metadata.json": "055a50218c92386bf7a06276512b57de5f01afec88cc3d13e1949c9d8767d3d4",
+    "n10-map-snapshot/occupancy_snapshot.npz": "0cd952b0535eed48117d5ab8742a5ee2c8c29d7126398d9b70e3e63b04e8dd81",
+    "n10-source-x500-model.sdf": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893"
+  },
+  "runtime_changes": false,
+  "stop_record": {
+    "driver_exit_code": 1,
+    "driver_exit_interpretation": "Offline draft acceptance returned INSUFFICIENT; the flight action itself succeeded and the independent safe terminal readback passed.",
+    "project_container_stopped_after_readback": true
+  }
+}

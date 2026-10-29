@@ -1,0 +1,112 @@
+{
+  "artifact_sha256": {
+    "fixture-odometry.jsonl": "ecbdddb819c04ba1e252a20f3d82262bbfb6f060d063263600acbc171a7edcf7",
+    "fixture-result.json": "46f96aeee218edfa5c7573d9cdc31c34e314b26ed36d9b30aa056b3b024fe035",
+    "fixture-stages.json": "f035e590846c84802758dd1fba0790e67136c8b300f1e1c9a09893a55ba04fe9",
+    "fixture-trace.jsonl": "6e0a19b8a19cf26b34b2eea140c20aa67b735484ae76116a001ccf28ba749194",
+    "fixture-vins.jsonl": "3b8b547c59ad0ffa26645a142cae6c29e5836b97f8444daa8433bd8f5c131d0c",
+    "n05-before/n05-live-entry-check.json": "b4ce3b4a07369073214e83e2010f118baa9159a1d82d9307a19b2aebdbefb103",
+    "n05-before/n05-offline-entry-replay.json": "449663203f66f279ca62022c11974e9148aa14df56e571e1be576fe3d6ba67f5",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-fixture.log": "ded4cf8c5dc828cb58067cc702cc2fa18d59d034444954505cfc56f07827281b",
+    "n05-run-inputs.json": "2920fd0ffd11a7610b1e7e4dac496abff82efa9f110c829ae0a69196073c2302",
+    "preflight-failure-safety-readback.json": "ecad354578fc7a01147072e64d63dbc25fa7c11c69116e598cf47b3dc9121215",
+    "preflight-failure-safety-readback.log": "74cf549fc783e961fb5039df1d5ea48624b7811bb8dd337150c0827cf3de2c7b",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "cleanup": {
+    "active_project_containers": 0,
+    "bridge_discovery_retry": {
+      "armed": false,
+      "control_enabled": false,
+      "landed": true,
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking"
+    },
+    "container_exit_code": 0,
+    "container_final_status": "exited",
+    "container_stop_command": "bash tools/project.sh stop n07-20261024-196-01",
+    "container_stop_exit_code": 0,
+    "first_bridge_readback": {
+      "returncode": 1,
+      "stderr": "[WARN] [1792800484.751839660] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1792800484.751851378] [rcl]: 'localhost_only' is disabled, 'automatic_discovery_range' and 'static_peers' will be used.\nCould not determine the type for the passed topic\n",
+      "stdout": "WARNING: topic [/uav_px4_bridge/status] does not appear to be published yet\n"
+    },
+    "fixture_detached_removed_and_landed": true,
+    "no_task_or_observer_processes_active": true,
+    "px4_land_detector_landed": true,
+    "px4_vehicle_disarmed": true
+  },
+  "consecutive_passes_after_reset": "0/3",
+  "consecutive_passes_before_run": "2/3",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "health_and_control_thresholds_changed": false,
+    "layout_id": "wall_box_column",
+    "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "flight": {
+    "arm_or_goal_command_sent": false,
+    "flight_json_created": false,
+    "hover_evaluator_created": false,
+    "ros_graph_audit_created": false,
+    "started": false,
+    "ulog_analysis_created": false
+  },
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "initial_n05_gate": {
+    "accepted": false,
+    "flight_started_after_refusal": false,
+    "online_offline_identical": true,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope"
+  },
+  "interpretation": {
+    "below_ground_flight": "No below-ground space was used or admitted as flyable volume.",
+    "failure": "VINS health became invalid with normalized_cost_exceeded during the unarmed N05 support scan at stage 7/12.",
+    "next_action": "Start a new independent cold start #197 with the same fixed conditions and fail-closed gates."
+  },
+  "limitations": [
+    "N05 support route and post-release/current-area admission did not complete; no 14/14 N05 run summary exists.",
+    "No airborne, EV/no-GNSS ULog, independent evaluation, or flight graph evidence was produced.",
+    "The N07 consecutive qualification streak reset from 2/3 to 0/3."
+  ],
+  "missing_expected_artifacts": [
+    "n05-prescan-ready.json",
+    "n05-after/n05-live-entry-check.json",
+    "n05-post-release/n05-live-entry-check.json",
+    "n05-current-area/n05-live-entry-check.json",
+    "n05-run-summary.json",
+    "flight.json",
+    "n07-hover-evaluation.json",
+    "px4-ulog-analysis.json",
+    "ros-graph-audit.json"
+  ],
+  "result": "FAIL_NO_FLIGHT",
+  "run_id": "n07-20261024-196-01",
+  "support_scan": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "completed_stages": 7,
+    "fixture_may_remain_attached": false,
+    "fixture_removed": true,
+    "helper_error": "localization changed or became invalid during physical scan",
+    "helper_exit_code": 1,
+    "last_localization": {
+      "normalized_cost": 1.0601070975543245,
+      "reason": "normalized_cost_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "n05_live_check_completed": false,
+    "ready_marker_created": false,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "total_stages": 12
+  }
+}

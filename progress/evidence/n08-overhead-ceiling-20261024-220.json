@@ -1,0 +1,129 @@
+{
+  "artifacts": {
+    "generated_sdf": "artifacts/runs/n08-20261024-220-overhead-ceiling-01/n05-generated-layout/n05_n08_overhead_calibration_0.sdf",
+    "generated_sdf_sha256": "275a2eae7428c881780e0d5390c7b741333811c1f0a00a34ad23d7977d2bb0e7",
+    "initial_n05_report": "artifacts/runs/n08-20261024-220-overhead-ceiling-01/n05-before/n05-live-entry-check.json",
+    "initial_n05_report_sha256": "2e75d23d4215f67a355e1b77227c283d1c029c08b4cfc00d0c77d18e5d169f27",
+    "layout_scene_sha256": "1d4bd821b9ca9f016211d96f1b5c05b01bcf941fc642201a8f37368002ad8e19",
+    "run_inputs_sha256": "a0e2361d2d0aaacf76104334490fb9e955812cbe296f1685b4efabdac9be7e8c",
+    "selected_config": "config/components/simulation/n08_overhead_calibration.json",
+    "selected_config_sha256": "e796991bff9a38b59be016589e9020938c17e9bade593f8f1df35a0ea49a51ec"
+  },
+  "changed_environment": "The new N08 layout used an 8x8x0.1 m overhead box only; unlike the #218 wall_box_column baseline, it omitted the existing n04_box and n04_column. This means the initial comparison changed more than the ceiling surface and cannot isolate ceiling effects.",
+  "command": "N05_KEEP_SIM=1 D435I_N08_MODE=compute_only D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_calibration.json bash tools/run_n05_preflight_layout.sh n08-20261024-220-overhead-ceiling-01 n08_overhead_calibration n08_overhead_free_sector_view",
+  "hypothesis": "A real overhead return surface at a safe clearance can make the formerly unknown upper-sector volume observable in raw depth occupancy.",
+  "initial_gate": {
+    "accepted": false,
+    "armed": false,
+    "bridge_phase": "DISABLED",
+    "landed": true,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope"
+  },
+  "interpretation": [
+    "The fixture completed six of fifteen planned stages; localization then latched normalized_cost_exceeded at cost 1.029, so the N05 after/release gate was never reached.",
+    "Safety cleanup reported landed, DISARMED, detached and fixture absent; the N08 project container was then stopped with exit 0.",
+    "There is no same-run post-scan raw map, so this run gives no evidence that the ceiling cleared unknown space.",
+    "The first overhead-layout configuration also omitted wall_box_column objects. The next run will retain the exact #218 wall_box_column geometry and add only the overhead panel, so the ceiling is the sole scene change."
+  ],
+  "mission": {
+    "EGO_ready": false,
+    "N05_release_admission_obtained": false,
+    "XY_executed": false,
+    "braking_measured": false,
+    "compute_only_started": false
+  },
+  "result": "SUPPORT_SCAN_ABORTED_BEFORE_N05_AFTER_GATE; N08 REMAINS IN_PROGRESS",
+  "run_id": "n08-20261024-220-overhead-ceiling-01",
+  "safety": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "cleanup": {
+      "attempted": true,
+      "error": "",
+      "final_land_detector_landed": true,
+      "final_land_detector_receipt_age_wall_s": 0.3632939690724015,
+      "verified_detached": true,
+      "verified_landed": true
+    },
+    "container_exit": "0",
+    "control_or_goal_published": false,
+    "debug_truth_subscribed": false,
+    "final_landed": true,
+    "fixture_joint_states_at_cleanup": {
+      "pitch": [
+        -0.0012636686053390015,
+        -0.40000000085305076
+      ],
+      "x": [
+        0.018546346897717107,
+        -0.02462607094639824
+      ],
+      "yaw": [
+        4.7984499056348646e-11,
+        -5.769891369801728e-10
+      ],
+      "z": [
+        0.004123076308241817,
+        0.1420106638854854
+      ]
+    },
+    "fixture_removed": true,
+    "fixture_scene_model_absent": true,
+    "landed_receipt_age_wall_s": 0.36358918412588537,
+    "project_stop_command": "bash tools/project.sh stop n08-20261024-220-overhead-ceiling-01",
+    "vehicle_states": [
+      1
+    ]
+  },
+  "schema": "n08-overhead-ceiling-diagnostic/v1",
+  "static_checks": {
+    "Python_AST_and_profile_joint_limits": "PASS",
+    "bash_syntax": "PASS",
+    "ceiling_bottom_z_m": 2.65,
+    "generated_model_box_size_m": [
+      8.0,
+      8.0,
+      0.1
+    ],
+    "generated_model_pose_xyz_rpy_m_rad": [
+      -6.5,
+      0.0,
+      2.7,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "generated_model_sdf": "Valid",
+    "json_parse": "PASS",
+    "project_status": "PASS (structure only; no SITL claim)"
+  },
+  "subtask": "N08.2j",
+  "support_scan": {
+    "completed_stages": 6,
+    "last_completed_stage": {
+      "begin_sim_s": 208.168,
+      "cycle": null,
+      "end_sim_s": 223.264,
+      "label": null,
+      "leg_index": 5,
+      "target": [
+        -2.4,
+        1.0,
+        0,
+        0
+      ]
+    },
+    "last_localization": {
+      "normalized_cost": 1.0290477019134994,
+      "reason": "normalized_cost_exceeded",
+      "state": 4,
+      "valid": false
+    },
+    "n05_after_snapshot_created": false,
+    "planned_stages": 15,
+    "post_release_snapshot_created": false,
+    "run_error": "localization changed or became invalid during physical scan"
+  }
+}

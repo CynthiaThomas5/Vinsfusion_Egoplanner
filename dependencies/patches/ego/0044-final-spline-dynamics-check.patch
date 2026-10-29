@@ -1,0 +1,60 @@
+--- a/planner/plan_manage/src/planner_manager.cpp
++++ b/planner/plan_manage/src/planner_manager.cpp
+@@ -1,6 +1,7 @@
+ // #include <fstream>
+ #include <ego_planner/planner_manager.h>
+ #include <thread>
++#include <cmath>
+ #include "visualization_msgs/msg/marker.hpp" // zx-todo
+ 
+ namespace ego_planner
+@@ -303,21 +304,35 @@
+     if (pp_.drone_id <= 0)
+     {
+ 
+-      double ratio;
+-      bool flag_step_2_success = true;
+-      if (!pos.checkFeasibility(ratio, false))
+-      {
+-        cout << "Need to reallocate time." << endl;
+-
++      // Refinement changes the control polygon after time reallocation. Its
++      // optimizer success is not a final dynamics certificate. Recheck the
++      // actual returned spline and refine only a bounded number of times.
++      constexpr int max_refine_attempts = 3;
++      bool final_feasible = false;
++      for (int attempt = 0; attempt <= max_refine_attempts; ++attempt)
++      {
++        pos.setPhysicalLimits(pp_.max_vel_, pp_.max_acc_, pp_.feasibility_tolerance_);
++        double ratio = 1.0;
++        if (pos.checkFeasibility(ratio, false))
++        {
++          final_feasible = true;
++          RCLCPP_INFO(node_->get_logger(),
++                      "Final spline dynamics feasible after %d refinements (max_vel=%.6f, max_acc=%.6f)",
++                      attempt, pp_.max_vel_, pp_.max_acc_);
++          break;
++        }
++        if (attempt == max_refine_attempts || !std::isfinite(ratio) || ratio <= 1.0)
++          break;
+         Eigen::MatrixXd optimal_control_points;
+-        flag_step_2_success = refineTrajAlgo(pos, start_end_derivatives, ratio, ts, optimal_control_points);
+-        if (flag_step_2_success)
+-          pos = UniformBspline(optimal_control_points, 3, ts);
+-      }
+-
+-      if (!flag_step_2_success)
+-      {
+-        printf("\033[34mThis refined trajectory hits obstacles. It doesn't matter if appeares occasionally. But if continously appearing, Increase parameter \"lambda_fitness\".\n\033[0m");
++        if (!refineTrajAlgo(pos, start_end_derivatives, ratio, ts, optimal_control_points))
++          break;
++        pos = UniformBspline(optimal_control_points, 3, ts);
++      }
++      if (!final_feasible)
++      {
++        RCLCPP_WARN(node_->get_logger(),
++                    "Rejecting final spline: velocity/acceleration feasibility was not established within %d refinements",
++                    max_refine_attempts);
+         continous_failures_count_++;
+         return false;
+       }

@@ -64,6 +64,9 @@ def px4_sensor_mount(model_path):
     pose_text = joint.findtext('pose')
     if not pose_text:
         raise ValueError('d435i_mount must define its pose relative to base_link')
+    joint_pose = joint.find('pose')
+    if joint_pose.get('relative_to') != 'base_link':
+        raise ValueError('d435i_mount pose must be expressed relative to base_link')
     pose = tuple(float(value) for value in pose_text.split())
     if len(pose) != 6 or not all(math.isfinite(value) for value in pose):
         raise ValueError('d435i_mount pose must contain six finite values')
@@ -75,6 +78,9 @@ def px4_sensor_mount(model_path):
                     if item.findtext('uri') == 'model://d435i'), None)
     if include is None or not include.findtext('pose'):
         raise ValueError('Expected a posed model://d435i include')
+    include_pose_element = include.find('pose')
+    if include_pose_element.get('relative_to') != 'base_link':
+        raise ValueError('D435i include pose must be expressed relative to base_link')
     include_pose = tuple(float(value) for value in include.findtext('pose').split())
     if len(include_pose) != 6 or any(
             abs(actual - expected) > 1e-9

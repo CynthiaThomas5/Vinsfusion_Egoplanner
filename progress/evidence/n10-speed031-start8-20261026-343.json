@@ -1,0 +1,114 @@
+{
+  "schema": "n10-calibration-run/v1",
+  "experiment_id": "#343",
+  "run_id": "n10-20261026-343-speed031-start8-r01",
+  "protocol": "progress/evidence/n10-speed031-start8-protocol-20261026-343.json",
+  "result": "FAIL",
+  "failure_class": "final_spline_velocity_feasibility_exceeded_after_spawn_geometry_change",
+  "run_scope": "Single-D435i Gazebo/PX4 SITL N10.3 calibration diagnostic; not an N11-N16 formal run",
+  "spawn": {
+    "source": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "source_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "effective_pose_xyzrpy": [-8.0, 0.0, 0.3, 0.0, 0.0, 0.0],
+    "global_runtime_pose_changed": false
+  },
+  "planner": {
+    "config": "config/components/mapping/n10_horizon2_speed031_calibration.json",
+    "max_velocity_m_s_per_axis": 0.31,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 2.0,
+    "obstacles_inflation_m": 0.7306179170842027,
+    "official_ego_collision_policy": true,
+    "replan_attempt_count": 10,
+    "feasibility_summary_count": 40,
+    "terminal_local_target_obstacle_error_count": 0,
+    "refinements": [
+      {"index": 0, "max_abs_velocity_xyz_m_s": [0.605177, 0.0108692, 0.0774155], "max_abs_acceleration_xyz_m_s2": [0.0950771, 0.00316768, 0.0224837], "velocity_ratio": 1.952185},
+      {"index": 1, "max_abs_velocity_xyz_m_s": [0.411495, 0.0106646, 0.076514], "max_abs_acceleration_xyz_m_s2": [0.0704667, 0.00220818, 0.0159959], "velocity_ratio": 1.327402},
+      {"index": 2, "max_abs_velocity_xyz_m_s": [0.354871, 0.0106865, 0.0766765], "max_abs_acceleration_xyz_m_s2": [0.0540363, 0.0020585, 0.0150453], "velocity_ratio": 1.144745},
+      {"index": 3, "max_abs_velocity_xyz_m_s": [0.326505, 0.0107037, 0.0768027], "max_abs_acceleration_xyz_m_s2": [0.047025, 0.00208897, 0.0153123], "velocity_ratio": 1.053241}
+    ],
+    "velocity_tolerance": 0.05,
+    "velocity_gate_m_s": 0.3255,
+    "final_x_velocity_excess_m_s": 0.001005,
+    "acceleration_gate_m_s2": 0.2626,
+    "acceleration_passed": true,
+    "ready_trajectory_count": 0,
+    "action_goal_sent": true,
+    "action_success": false,
+    "action_reason": "planner_full_curve_planning_failed",
+    "goal_elapsed_sim_s": 0.068,
+    "horizontal_goal_travel_m": 0.0
+  },
+  "speed_guard": {
+    "limit_m_s": 0.12,
+    "fault": null,
+    "sample_counts": {"px4_vehicle_local_position": 3},
+    "ego_reference_samples": 0,
+    "px4_max_vector_speed_m_s": 0.07470215074210436,
+    "interpretation": "Takeoff/landing-only samples; no route speed or braking measurement."
+  },
+  "independent_arrival": {
+    "passed": false,
+    "minimum_true_goal_distance_m": 16.001001413635457,
+    "contiguous_dwell_s": 0.0,
+    "post_goal_hold_completed": false
+  },
+  "raw_vio_takeoff_landing_only": {
+    "duration_sim_s": 28.332,
+    "paired_truth_path_m": 1.8306027851432052,
+    "paired_samples": 430,
+    "position_error_m": {"rmse": 0.009886413268431015, "p95": 0.02592648146095312, "max": 0.038194870080745166},
+    "absolute_yaw_error_deg": {"rmse": 0.04091261540630209, "p95": 0.08769180768248376, "max": 0.10078387544911349},
+    "truth_grid_support_fraction": 0.9992942836979535,
+    "invalid_localization_samples": 0
+  },
+  "source_timeline": {
+    "requested_wall_s": 1500.0,
+    "observed_wall_s": 43.911916549,
+    "stop_reason": "flight_report_written",
+    "clock_max_positive_gap_sim_s": 0.132,
+    "clock_regressions": 0,
+    "localization_status_max_source_clock_age_s": 0.008,
+    "localization_status_max_source_gap_sim_s": 0.132000001,
+    "map_status_max_source_clock_age_s": 0.164,
+    "map_status_max_source_gap_sim_s": 0.264
+  },
+  "safety_and_cleanup": {
+    "preflight_passed": true,
+    "official_takeoff_admission_passed": true,
+    "contact_evaluation_passed": true,
+    "prohibited_contact_count": 0,
+    "landing_ground_contact_observed": true,
+    "live_terminal_refusal_passed": true,
+    "final_px4_arming_state": 1,
+    "px4_land_detected": true,
+    "bridge_phase": "LANDED",
+    "bridge_armed": false,
+    "bridge_control_enabled": false,
+    "postflight_control_mode_samples": 0,
+    "postflight_trajectory_setpoint_samples": 0,
+    "postflight_vehicle_command_samples": 0,
+    "project_container_stopped": true,
+    "project_stop_exit_code": 0,
+    "unrelated_containers_touched": false
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261026-343-speed031-start8-r01",
+    "flight_json_sha256": "c9f0e41111955efbb743409388a8fef5fd309743d568050c07683cc39a4c6a1b",
+    "vio_log_sha256": "8cddad933bfa20dd66757826094cee7e4269a95e9d210c3c18b72f1e124de2e9",
+    "planner_observation_sha256": "ab4c87e24370f6bfa1bc6d17fe176cd24d7707aea2ee4c0dfb82a40d06471a4a",
+    "arrival_evaluation_sha256": "41f78ee500dc84dc1999054296fb0c6b4dd21857dda35e6768887aaea9b019ec",
+    "odometry_evaluation_sha256": "6bff95386752a5d9c89f53f285194a00d7f0d3d1ee1ea9f2b556169f4c16d50d",
+    "contact_evaluation_sha256": "2f108805fa0c50b2c31fb4134b14facc0f79c332c1256c83c618226e000f6975",
+    "live_refusal_sha256": "238d4aa86b73153f475b6724b36dfb6f55ea274372c2bec69cd71ffc9f5d75bc",
+    "postflight_readback_sha256": "47ed398c42bad9bf057026172472bc69541c1f8845e47c51e512d93ea1d248bf",
+    "source_timeline_sha256": "68c951dde1006544af5849f08c9795858e579351e5b0be4c9c268875e5009daf"
+  },
+  "evidence_sha256": {
+    "config/components/simulation/n10_long_range_spawn_minus8.json": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "config/components/mapping/n10_horizon2_speed031_calibration.json": "33864323ae310e47d2d268b6ad091037c438a5aeb66bf4b8adcd4b7e3cbf64e0",
+    "config/components/navigation/n10_long_range_vio_calibration_goal.json": "d1e73365f0cc12d4f30a5445fa25ed54e35267eb2ff80a788c5f3d7162212821"
+  },
+  "next_evidence_action": "N10.3 #344: change only planner max_velocity_m_s from 0.31 to 0.32 m/s based on the measured 0.326505 m/s final spline control-point derivative and unchanged 5% feasibility tolerance; hold spawn=-8.0m and runtime vector guard=0.12m/s to test READY/reference behavior, without increasing flight-speed acceptance."
+}

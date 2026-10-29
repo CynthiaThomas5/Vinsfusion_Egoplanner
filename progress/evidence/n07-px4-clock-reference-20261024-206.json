@@ -1,0 +1,98 @@
+{
+  "run_id": "n07-20261024-206-01",
+  "goal": "N07 PX4 HRT and ROS /clock time-reference handling",
+  "status": "fix_build_offline_replay_and_followup_ground_live_readback_pass",
+  "acceptance_rule_update": {
+    "cold_start_passes_required": 3,
+    "consecutive": false,
+    "failed_runs_reset_passes": false,
+    "retest_passed_runs": false,
+    "per_run_thresholds_changed": false
+  },
+  "cumulative_qualifying_runs": [
+    "n07-20261024-198-01",
+    "n07-20261024-200-01",
+    "n07-20261024-204-01"
+  ],
+  "cumulative_qualifying_count": "3/3",
+  "root_event": {
+    "source_run": "n07-20261024-203-01",
+    "bridge_history_sequence": 215,
+    "wall_elapsed_s": 27.918126639910042,
+    "last_ros_clock_sim_s": 481.668,
+    "last_ros_clock_receipt_wall_elapsed_s": 27.695683229947463,
+    "ros_clock_receipt_age_wall_s": 0.2224434099625796,
+    "px4_hrt_reference_sim_s": 481.864,
+    "px4_hrt_ahead_of_last_ros_clock_s": 0.196,
+    "old_future_threshold_s": 0.065,
+    "old_source_ages_sim_s": {
+      "attitude": -0.196,
+      "local_position": -0.196,
+      "land_detected": -0.18,
+      "vehicle_status": -0.128,
+      "estimator_flags": 0.668
+    },
+    "recomputed_source_ages_sim_s": {
+      "attitude": 0.0,
+      "local_position": 0.0,
+      "land_detected": 0.016,
+      "vehicle_status": 0.068,
+      "estimator_flags": 0.864
+    }
+  },
+  "implementation": {
+    "file": "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py",
+    "sha256": "ca8b056b2df0b3163e92a13596e7ae5aa1d67288174adddf5cd72aa9919c1f7d",
+    "behavior": "Use the newer valid PX4 HRT or mapped ROS /clock value as current PX4 time; apply it to telemetry source-age checks and outgoing control timestamps when uXRCE DDS time sync is disabled.",
+    "health_gates_or_thresholds_changed": false
+  },
+  "verification": {
+    "command": "bash tools/project.sh build ros",
+    "result": "pass",
+    "packages_finished": 17,
+    "elapsed_s": 7.55,
+    "offline_replay": {
+      "method": "Recompute source age from max(attitude timestamp plus source offset, local_position timestamp plus source offset) for each persisted bridge snapshot.",
+      "active_takeoff_samples": {
+        "198": 442,
+        "200": 445,
+        "203": 185,
+        "204": 446
+      },
+      "samples_with_source_age_or_future_limit_violation": 0,
+      "n203_first_stale_event_cleared_by_recomputed_reference": true
+    },
+    "source_syntax_compile": "pass",
+    "project_status": "pass; structural check only",
+    "git_diff_check": "pass",
+    "milestones_json_and_evidence_links": "pass; all 1242 N07 evidence links exist"
+  },
+  "live_integration_attempt": {
+    "bridge_started": true,
+    "bridge_detail_stream_recorded": false,
+    "reached_flight": false,
+    "n05_scan_completed_stages": 7,
+    "n05_scan_total_stages": 12,
+    "n05_live_gate_completed": false,
+    "failure_reason": "normalized_cost_exceeded",
+    "normalized_cost": 1.3045146353620178,
+    "flight_or_hover_started": false,
+    "fixture_detached": true,
+    "fixture_removed_from_scene": true,
+    "final_landed": true,
+    "vehicle_state_values": [1],
+    "container_status": "exited",
+    "container_exit_code": 0,
+    "container_oom_killed": false,
+    "artifacts": [
+      "artifacts/runs/n07-20261024-206-01/fixture-result.json",
+      "artifacts/runs/n07-20261024-206-01/fixture-stages.json",
+      "artifacts/runs/n07-20261024-206-01/fixture-trace.jsonl",
+      "artifacts/runs/n07-20261024-206-01/fixture-vins.jsonl",
+      "artifacts/runs/n07-20261024-206-01/fixture-odometry.jsonl",
+      "artifacts/runs/n07-20261024-206-01/n05-fixture.log"
+    ]
+  },
+  "follow_up_live_readback": "n07-20261024-207-clock-ground; bridge HRT and mapped ROS /clock detail captured live while DISABLED, with no arming or flight.",
+  "remaining": "N07 limited exit passed at cumulative 3/3 plus build, offline replay, and ground live time-reference readback. Next mainline pointer is N08. Do not rerun the three qualifying hover runs."
+}

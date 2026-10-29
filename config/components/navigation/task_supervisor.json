@@ -5,8 +5,7 @@
   "trajectory_cancel_topic": "/navigation/trajectory_cancel",
   "localization_status_topic": "/localization/status",
   "odometry_topic": "/localization/optimized_imu_odom",
-  "max_localization_receipt_age_s": 0.5,
-  "max_odometry_receipt_age_s": 0.3,
-  "qualification": "PROVISIONAL runtime freshness guards; target admission and EGO full-curve checks share the N05-derived body-reference sphere through the canonical mapping config; terminal/emergency holds require the configured 0.25 m neighborhood; raw occupancy only, no unknown-to-free conversion; calibration and braking qualification remain open",
-  "map_query_timeout_wall_s": 0.25
+  "qualification": "User-authorized FAST Lab official EGO collision semantics: independent vertical takeoff then navigation, unknown preserved in raw map and not blocked solely for being unknown; EGO uses the inflated occupied layer. Project-local localization, odometry, and map receipt-age thresholds do not block admission or abort actions. ROS2 epoch/session identity, action routing, PX4 native preflight, and bridge control ownership remain active. Old known-free N05/N06 evidence describes a different policy.",
+  "map_query_timeout_wall_s": 0.25,
+  "collision_policy": "official_ego"
 }

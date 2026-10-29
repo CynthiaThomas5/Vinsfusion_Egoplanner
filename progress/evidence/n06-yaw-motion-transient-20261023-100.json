@@ -1,0 +1,149 @@
+{
+  "schema": "n06-yaw-motion-transient-diagnostic/v1",
+  "report_id": "2026-10-23-100",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "parent_status": "in_progress",
+  "subtask": "N06.4",
+  "run_id": "n06-20261023-wall-r25",
+  "profile": {
+    "path": "config/components/simulation/n06_yaw_microstep_025deg_quarter_accel.json",
+    "sha256": "d531d6cbe689d2fb77354d27694c0c227de53934a7289c428713c79482854b20"
+  },
+  "hypothesis_result": {
+    "primary_variable": "Angular acceleration reduced fourfold to 0.0026179939 rad/s^2; 0.25-degree step, 2-degree nominal total, 5.16398-second stationary hold, location and surround stayed fixed.",
+    "first_normalized_cost_mapping_gate_closure": {
+      "sim_time_s": 33.958,
+      "vins_estimated_yaw_deg": 1.6321883775717585,
+      "debug_truth_yaw_deg": 0.9271895920225833,
+      "imu_integrated_yaw_deg": 0.9270465,
+      "logger_wall_time_s": 1792734690.0695894
+    },
+    "first_invalid_localization_status": {
+      "stamp_ns": 34060000000,
+      "sim_time_s": 34.06,
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "truth_yaw_deg": 0.9375235420225663,
+      "wall_elapsed_s": 30.55053
+    },
+    "first_invalid_map_status": {
+      "header_stamp_ns": 34115000000,
+      "sim_time_s": 34.115,
+      "input_ready": false,
+      "reason": "map_reset_acknowledged"
+    },
+    "localization_status_counts": {
+      "valid": 606,
+      "invalid": 1490,
+      "total": 2096
+    },
+    "map_status_last": {
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "forwarded_depth_count": 987,
+      "dropped_depth_count": 2249
+    },
+    "normalized_cost_at_lock": {
+      "value": 1.042363322346138,
+      "policy_limit": 1.0,
+      "source_stamp_ns": 34012000000,
+      "good_pairs": 504,
+      "accepted_optimized": 495,
+      "accepted_propagated": 8170,
+      "method": "Read transient-local LocalizationStatus while the runner remained alive; health is locked, so the cost remains latched at first failure."
+    },
+    "post_lock_estimator_telemetry": {
+      "stamp_ns": 188991999999,
+      "normalized_cost": 1.7146050569878926,
+      "input_features": 62,
+      "stereo_features": 56,
+      "long_tracks": 47,
+      "residual_components": 2087,
+      "final_cost": 3067.754868261462,
+      "state_finite": true,
+      "solve_current": true,
+      "solver_usable": true,
+      "solve_seconds": 0.009603023529052734,
+      "qualification": "Read from estimator_telemetry after the health lock while the pilot continued; not the first-failure sample."
+    },
+    "interpretation": "Quarter angular acceleration did not delay the health gate: it closed during the fourth 0.25-degree segment at about 0.927 degrees truth yaw, earlier than r24 at about 1.199 degrees. IMU integration agreed with truth, while the VINS pose differed by about 0.705 degrees. The exact latched normalized cost was 1.04236, slightly above the unchanged 1.0 limit. This weakens the hypothesis that the repeated step acceleration magnitude alone explains the lock; repeated stop/restart versus continuous low-rate motion is the next discriminating variable.",
+    "pilot_success": false
+  },
+  "motion_truth": {
+    "truth_samples": 6701,
+    "imu_samples": 16752,
+    "command_count": 24,
+    "clock_s": [
+      5.105,
+      72.113
+    ],
+    "wall_seconds": 68.60732786916196,
+    "commanded_total_yaw_deg": 2.0,
+    "achieved_unwrapped_yaw_delta_deg": 2.887066792012999,
+    "truth_yaw_at_gate_deg": 0.9271895920225833,
+    "imu_integrated_yaw_at_gate_deg": 0.9270465,
+    "qualification": "Debug-only truth and IMU were used offline; no truth topic was consumed by mapping."
+  },
+  "input_capture": {
+    "requested_wall_seconds": 105.0,
+    "actual_wall_seconds": 106.329,
+    "raw_depth_header_count": 3108,
+    "forwarded_depth_frame_count": 900,
+    "camera_pose_count": 900,
+    "optimized_odometry_count": 450,
+    "fusion_trace_count_by_phase": {
+      "fused": 458,
+      "ego_received": 898,
+      "reset": 1
+    },
+    "last_forwarded_depth_stamp_ns": 33892000000,
+    "qualification": "Recorder completed the 105-second wall window; forwarded depth and camera pose ended at sim 33.892 seconds, before health lock."
+  },
+  "snapshot": {
+    "attempted": true,
+    "captured": 0,
+    "failure": "MapStatus did not become ready within 120 seconds: map_reset_acknowledged",
+    "runner_exit_code": "not captured after host session handle was lost"
+  },
+  "cleanup": {
+    "container_remaining": false,
+    "matching_project_processes_remaining": false,
+    "runner_exit_code": "not captured"
+  },
+  "source_hashes": {
+    "motion.json": "2101eb4f779dd3947ace7b824fd666552d45f7e35cd938f50ec7bf72fbe13e7c",
+    "mapping-stack.log": "e8388409fb29b781990d8dd5a97a092839565204d6af2604638ed961a3733189",
+    "inputs/mapping-inputs.json": "f1fa3f51d2fbec34c617f71075945f301ca465140ab1cad3131e81ab5ce88220",
+    "inputs/mapping-depth-pixels.npz": "261195234e8bd21c470b55b396107e05959978bf46eafde94b41ae5f29b03785",
+    "run-inputs.json": "4202ba867085f76a3844e23997d3c1fb6bce45b875b4b67edf45f1aac4c59fed",
+    "snapshot-01-capture.log": "119c0d6d911078b3d2d78c1c025fe72c8e1eca8c3274325ffc1511b3faa1390d",
+    "input-recorder.log": "0c9e4a5154a67e6154c01a611e8790510bc6d4bf5c92a66c239aa719395f4f75"
+  },
+  "next_experiment": {
+    "run_id": "n06-20261023-wall-r26",
+    "profile_path": "config/components/simulation/n06_yaw_continuous_2deg_quarter_accel_pilot.json",
+    "profile_sha256": "88b7b258ce98cb130dec845b26141e9d66543175b15a14bbb2df4877cbfdb77a",
+    "primary_variable": "Remove seven internal rest/deceleration/reacceleration cycles: one acceleration, constant-rate cruise and one deceleration; keep quarter acceleration, peak rate, nominal 2-degree total, initial/final hold, location and surround.",
+    "hypothesis": "If repeated stop/start transitions destabilize the estimator, one continuous low-rate 2-degree yaw pass at the same angular acceleration and peak rate will preserve health beyond the prior 0.94-1.21 degree failure range.",
+    "pilot": {
+      "phases": 9,
+      "acceleration_phases": 2,
+      "constant_rate_cruise_phases": 7,
+      "phase_seconds": 1.2909944487358056,
+      "initial_hold_seconds": 5,
+      "final_hold_seconds": 5.163977794943223,
+      "angular_acceleration_rad_s2": 0.002617993877991494,
+      "peak_rate_rad_s": 0.003379815563311343,
+      "commanded_total_yaw_deg": 2.0,
+      "stop_seconds": 21.782927833565473,
+      "record_wall_seconds": 45
+    },
+    "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r26 wall_box_column 89 motion_n06 config/components/simulation/n06_yaw_continuous_2deg_quarter_accel_pilot.json",
+    "success_criterion": "Localization remains valid through at least 1.5 degrees achieved truth yaw; MapStatus stays input_ready on the same epoch/map identity with fresh depth; and a matched snapshot is captured. Success is a pilot result, not full-turn coverage or N06 pass."
+  },
+  "status": "N06 and S4 remain in_progress; next_goal remains N06; original exits unchanged.",
+  "stop_reason": "Reducing angular acceleration fourfold did not prevent normalized-cost lock; the next bounded experiment removes repeated restarts while keeping acceleration, peak rate and nominal total angle fixed."
+}

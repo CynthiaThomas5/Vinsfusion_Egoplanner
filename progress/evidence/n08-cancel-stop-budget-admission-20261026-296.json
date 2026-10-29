@@ -1,0 +1,85 @@
+{
+  "schema": "n08-cancel-stop-budget-admission/v1",
+  "run_id": "n08-cancel-stop-budget-admission-20261026-296",
+  "parent_goal": "N08",
+  "status": "PASS",
+  "scope": "controlled comparison audit and wiring the measured candidate cancel-stop envelope into the N08 raw-map corridor and trigger admission",
+  "controlled_comparison": {
+    "fixed_hold_run": "n08-20261024-211-hold-01",
+    "fixed_hold_runtime_contract_sha256": "cd5eada29ed16efc9f7223629afedcde0ade53715f4b2b33c27a71987fd9300a",
+    "fixed_hold_result": "30s no-goal hold; PX4 local max drift 0.07528m, Gazebo truth max drift 0.07307m; no EGO goal or motion evidence",
+    "compute_only_run": "n08-20261025-257-coherent-speed-validation",
+    "execute_run": "n08-20261025-260-terminal-braking-measurement",
+    "compute_only_execute_runtime_contract_sha256": "661ea2154b9190c981e82eb9b12e8d238aef3b9527d630cb5261821e33128844",
+    "mode_difference": "bridge remapped away from EGO output in compute-only; native /position_cmd→bridge input in execute",
+    "comparison_validity": "same frozen runtime/config/binary contract for #257 and #260. #212 remains only a no-goal hold-drift baseline because its EGO idle binary and localization health config differ."
+  },
+  "observed_budget": {
+    "planned_terminal_stop_distance_m": [
+      0.3023391,
+      0.2879399,
+      0.2820079
+    ],
+    "planned_terminal_stop_max_observed_m": 0.3023391,
+    "planned_terminal_stop_actual_peak_speed_m_s": [
+      0.0818233,
+      0.0814141,
+      0.081069
+    ],
+    "planned_terminal_stop_response_delay_s": [
+      1.412,
+      0.844,
+      0.112
+    ],
+    "planned_terminal_stop_response_definition": "time to sustained measured deceleration; includes dynamics and 0.22s symmetric smoothing, not pure transport latency",
+    "planned_terminal_stop_observed_deceleration_p10_m_s2": [
+      0.0131374,
+      0.008216,
+      0.0066389
+    ],
+    "cancel_run_292_distance_m": 0.2985,
+    "cancel_run_292_qualification": "partial only; measured movement and replacement spline but native 3s stop hold and destination landing not accepted by runner; excluded from qualifying completed cancel-stop outcomes",
+    "cancel_run_294_distance_m": 0.30992396,
+    "cancel_run_294_actual_peak_vector_speed_m_s": 0.087914,
+    "cancel_run_294_response_to_sustained_deceleration_s": 2.852,
+    "cancel_run_294_max_independent_tracking_error_m": 0.0902007,
+    "cancel_run_294_native_stop_hold_s": 3.0,
+    "cancel_stop_candidate_envelope_m": 0.5,
+    "cancel_stop_envelope_status": "finite-sample simulation candidate for the measured forward low-speed cancel protocol, not a proven upper bound or universal guarantee"
+  },
+  "admission_feedback": {
+    "n05_body_reference_clearance_radius_m": 0.7306179170842027,
+    "n05_combined_uncertainty_margin_m": 0.24868204641820268,
+    "n08_tracking_margin_m": 0.25,
+    "n08_maximum_tracking_error_m": 0.15,
+    "unchanged_existing_margins": "No radial body/uncertainty/tracking margin was enlarged by braking distance. The vehicle clearance radius, N05 uncertainty and N08 tracking limits retain their existing meanings and thresholds.",
+    "new_unique_parameter_source": "config/components/navigation/n08_forward_braking_trial_goal.json",
+    "parameter_consumers": [
+      "motion-cancel pre-enable N08 raw-map forward corridor",
+      "motion-cancel fresh airborne N08 raw-map forward corridor",
+      "independent evaluator of measured cancel-to-stop path length"
+    ],
+    "path_vs_radius": "The braking distance is traveled along a fully queried forward route. N05/N06 admission queries the body+existing spatial margin along that route; the .50m cancel reserve is an along-route stopping envelope, not extra radial clearance. The EGO reference-anchor offset is not mathematically bounded by the .50m candidate, so exact stop-curve map certification and independent measured-distance acceptance remain required.",
+    "trigger_distance_semantics": "Distance remaining to the original goal is diagnostic only; it is not compared to the post-cancel stopping envelope. #298 showed that such a comparison rejects the planned high-speed cancel before the action. The exact newly generated stop spline retains the fresh same-identity raw-map and terminal-hold certificate."
+  },
+  "verification": {
+    "command": "bash tools/project.sh test",
+    "result": "PASS: 361 unit tests and navigation-adapter integration; the high-rate terminal-hold tests remain included",
+    "config_gate": "cancel-stop envelope loaded through trial_limits; values above 0.60m rejected",
+    "flight_validation": "not yet performed for the newly parameterized admission; next subtask is a fresh 0.07–0.09m/s cancel measurement"
+  },
+  "source_sha256": {
+    "config/components/navigation/n08_forward_braking_trial_goal.json": "38f2a449e4a41520ff094c99543b13cd6df0f06e637a57f2a466093d298a9f11",
+    "tools/n08_trial_gate.py": "d6876276f3b5870a10301e3e365b9bf227ba596e976c88a9ba7b5651999aab1d",
+    "tools/run_n08_braking_trial.py": "7f80b249b9bb993abe1510c12ca47d56954dd2ff12fcf56a58bad00e2fb0ef55",
+    "tools/debug_truth/evaluate_n08_braking.py": "2ad90efa0a8e6947c1d59265484bd20184fcb60e2a0dbd0baff31c33f7100841",
+    "tools/test_n08_trial_gate.py": "d02110248eb7bfc12de755ac6161bcbb3e4dd0486149a351a0dbbe78d793a26a",
+    "tools/test_n08_braking_evaluation.py": "f2d4d7fcd466a25b544385c33cdeb644405d81bf279529cb4859725a6b669d1a"
+  },
+  "limitations": [
+    "Finite sample, simulation only; deceleration p10 is not a guaranteed lower bound.",
+    "Historical response-delay values include closed-loop dynamics and symmetric derivative smoothing.",
+    "No universal speed guarantee or hardware claim.",
+    "The additional near-0.08m/s caller-cancel run and three frozen-version ordinary terminal_stop runs remain outstanding."
+  ]
+}

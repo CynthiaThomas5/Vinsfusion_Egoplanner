@@ -1,0 +1,72 @@
+{
+  "schema": "n10-localization-startup-binding/v1",
+  "subtask_id": "N10.3/#397–#398",
+  "classification": "#397 preflight failure; #398 startup identity repair and calibration retry pending",
+  "run_id_397": "n10-20261027-397-speed040-integrated-calibration",
+  "run_id_398": "n10-20261027-398-speed040-integrated-calibration",
+  "flight_goal_submitted_397": false,
+  "armed_397": false,
+  "preflight": {
+    "passed": false,
+    "observed_wall_s": 40.00048732291907,
+    "reason": "px4_local_position_invalid",
+    "missing_odom": 379,
+    "bridge_not_ready_px4_local_position_invalid": 377,
+    "px4_external_vision_not_fused": 377,
+    "ev_position_fused_samples": 0,
+    "ev_yaw_fused_samples": 0
+  },
+  "adapter_fault": {
+    "reason": "propagated_publisher_missing_or_changed",
+    "clock_ns": 8616000000,
+    "last_optimized_telemetry_pair_ns": 8548000000,
+    "normalized_cost": 0.09714460809545086,
+    "sampled_streams": [
+      "imu",
+      "left",
+      "optimized",
+      "right",
+      "telemetry"
+    ],
+    "missing_stream": "propagated",
+    "interpretation": "timer observed the advertised endpoint before the first propagated-message callback bound its GID; startup identity race, not a quality threshold or evidence of a sensor stream gap"
+  },
+  "capture_during_preflight": {
+    "imu_receipts": 21357,
+    "left_image_receipts": 2588,
+    "right_image_receipts": 2588,
+    "imu_source_range_s": [
+      7.856,
+      93.28
+    ],
+    "stereo_source_range_s": [
+      7.856,
+      93.228
+    ]
+  },
+  "terminal_readback": {
+    "landed": true,
+    "armed": false,
+    "bridge_phase": "DISABLED",
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "zero_control_samples": true,
+    "project_stack_stop": "bash tools/project.sh stop n10-20261027-397-speed040-integrated-calibration (exit 0)",
+    "emergency_disarm_used": false
+  },
+  "fix": {
+    "behavior": "skip the timer identity query until the stream has bound on its first message; preserve callback uniqueness/node checks and all subsequent identity-change checks",
+    "test_command": "python3 tools/test_localization_health.py",
+    "test_passed": 8,
+    "build_command": "bash tools/project.sh build ros",
+    "ros_packages_built": 17
+  },
+  "artifacts": {
+    "artifacts/runs/n10-20261027-397-speed040-integrated-calibration/preflight.json": "2169e7f432530ffee0d8120b13173d98da75ea0dfea41be8ec36bf14e757367a",
+    "artifacts/runs/n10-20261027-397-speed040-integrated-calibration/terminal-preflight-abort-readback.json": "938e99e9053c3e2950ac1a3128756f01f33034bacd1c21bfb633fc4a473010e0",
+    "artifacts/runs/n10-20261027-397-speed040-integrated-calibration/vio.log": "e6616a6859794fa01042e0824328378cf8667308373ce49f53744c19a18d6135",
+    "artifacts/runs/n10-20261027-397-speed040-integrated-calibration/n10-sensor-capture.json": "22e94662f7c34714c6c33d64ed7b4a8787c1630a366beff1e37b88ab7583b4b9",
+    "artifacts/runs/n10-20261027-397-speed040-integrated-calibration/n10-resource-observation.json": "619298200a4785740cab12e66060dc68495f2cab78e3c464449936a36b92ad99"
+  },
+  "status": "N10 remains in_progress; #397 is not a calibration flight; #398 is prepared but outcome pending"
+}

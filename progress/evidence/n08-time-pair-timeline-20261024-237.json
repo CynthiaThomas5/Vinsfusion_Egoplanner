@@ -1,0 +1,296 @@
+{
+  "schema": "n08-px4-localization-time-pair-timeline/v1",
+  "subtask": "N08.2aa #237",
+  "run_id": "n08-20261024-237-time-pair-timeline-01",
+  "result": "PX4_HRT_ROS_clock_aligned; source_pair_gap_followed_localization_lockout",
+  "qualification_scope": "DISARMED whole-airframe fixture observation; no goal, control, compute-only mission or XY flight",
+  "profile": {
+    "id": "n08_overhead_rear_down_view",
+    "planned_stages": 22,
+    "completed_stages": 16,
+    "down_view_reached": true,
+    "failure_stage_index": 16,
+    "last_trace_sim_s": 474.312,
+    "last_valid_trace_normalized_cost": 0.9534308621832274,
+    "fixture_final_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.013814152869326
+    },
+    "wall_duration_s": 564.1199368650559
+  },
+  "n05_before": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "online_offline_result_identical": true,
+    "identity": {
+      "epoch": "5e0aa176020448788d8826a93b5dd92d",
+      "map_id": "5e0aa176020448788d8826a93b5dd92d-2d807db028754588b1a8eb9fb7a847b8",
+      "frame_id": "odom_5e0aa176020448788d8826a93b5dd92d",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    }
+  },
+  "timeline": {
+    "segments": [
+      {
+        "file": "n08-localization-source-timeline-segment-01.json",
+        "duration_wall_s": 50.423,
+        "sim_source_range_s": [
+          9.708,
+          52.74
+        ],
+        "event_count": 25487,
+        "stop_reason": "stop_marker",
+        "sampling": "initial full-rate pilot; stopped to limit overhead and retained event volume"
+      },
+      {
+        "file": "n08-localization-source-timeline-segment-02.json",
+        "duration_wall_s": 297.445,
+        "sim_source_range_s": [
+          251.428,
+          515.432
+        ],
+        "event_count": 19306,
+        "stop_reason": "support_scan_failed_before_prescan",
+        "sampling_period_wall_s": 0.1,
+        "clock_regression_event_count": 0
+      }
+    ],
+    "gap_between_segments_sim_s": [
+      52.74,
+      251.428
+    ],
+    "critical_localization_to_bridge_transition_was_captured": true,
+    "stream_counts_segment_02": {
+      "clock": 2833,
+      "adapter_propagated": 2385,
+      "localization_status": 2247,
+      "raw_propagated": 2833,
+      "vins_telemetry": 2001,
+      "raw_optimized": 2000,
+      "adapter_optimized": 1687,
+      "map_status": 1285,
+      "px4_bridge_detail": 2035
+    },
+    "critical_transition": {
+      "last_valid_localization": {
+        "wall_elapsed_s": 251.230371032,
+        "source_stamp_ns": 474180000000,
+        "clock_ns_at_receipt": 474180000000,
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.9534308621832274
+      },
+      "first_invalid_localization": {
+        "wall_elapsed_s": 251.279870607,
+        "source_stamp_ns": 474180000000,
+        "clock_ns_at_receipt": 474224000000,
+        "state": 4,
+        "valid": false,
+        "reason": "normalized_cost_exceeded",
+        "normalized_cost": 1.013814152869326
+      },
+      "bridge_before": {
+        "wall_elapsed_s": 251.239666623,
+        "phase": "DISABLED",
+        "reason": "px4_preflight_failed",
+        "px4_time_domain_valid": true,
+        "px4_ros_clock_gap_sim_s": 0.008,
+        "alignment_pair_gap_sim_s": 0.12,
+        "alignment_pair_validated_age_wall_s": 0.082484292
+      },
+      "bridge_after": {
+        "wall_elapsed_s": 251.389416757,
+        "phase": "DISABLED",
+        "reason": "localization_not_tracking",
+        "px4_time_domain_valid": true,
+        "px4_ros_clock_gap_sim_s": 0.008,
+        "alignment_pair_gap_sim_s": 0.256,
+        "alignment_pair_validated_age_wall_s": 0.232400527
+      }
+    },
+    "last_source_records": {
+      "vins_telemetry": {
+        "source_stamp_ns": 515364000000,
+        "receipt_wall_time_ns": 1792843119982708411,
+        "clock_ns_at_receipt": 515428000000
+      },
+      "raw_optimized": {
+        "source_stamp_ns": 515364000000,
+        "receipt_wall_time_ns": 1792843119983065176,
+        "clock_ns_at_receipt": 515428000000
+      },
+      "raw_propagated": {
+        "source_stamp_ns": 515432000000,
+        "receipt_wall_time_ns": 1792843119994017138,
+        "clock_ns_at_receipt": 515432000000
+      },
+      "adapter_optimized": {
+        "source_stamp_ns": 474048000000,
+        "receipt_wall_time_ns": 1792843073750423614,
+        "clock_ns_at_receipt": 474112000000
+      },
+      "adapter_propagated": {
+        "source_stamp_ns": 474148000000,
+        "receipt_wall_time_ns": 1792843073791839453,
+        "clock_ns_at_receipt": 474148000000
+      }
+    }
+  },
+  "timing_diagnostics": {
+    "px4_ros_clock_gap_sim_s": {
+      "minimum": -0.008,
+      "maximum": 0.016
+    },
+    "px4_time_domain_valid_false_sample_count": 0,
+    "px4_timestamp_error_nonempty_sample_count": 0,
+    "alignment_pair_gap_sim_s": {
+      "minimum": 0.04,
+      "maximum": 41.376
+    },
+    "alignment_pair_validated_gap_sim_s": {
+      "minimum": 0.04,
+      "maximum": 0.12
+    },
+    "alignment_pair_validated_age_wall_s": {
+      "minimum": 0.0003765,
+      "maximum": 46.232365136
+    },
+    "last_event_values": {
+      "px4_time_domain_valid": true,
+      "px4_timestamp_error": "",
+      "px4_time_reference_us": 515424000,
+      "px4_ros_clock_gap_sim_s": 0.004,
+      "alignment_pair_gap_sim_s": 41.376,
+      "alignment_pair_validated_gap_sim_s": 0.12,
+      "alignment_pair_validated_age_wall_s": 46.232365136,
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking"
+    }
+  },
+  "interpretation": [
+    "PX4 time-domain validation remained true and px4_ros_clock_gap_sim_s stayed between -0.008 and +0.016 sim seconds in segment 02; no /clock regression was recorded.",
+    "Localization first latched normalized_cost_exceeded at source stamp 474.180 s (last valid normalized cost 0.95343; first invalid state cost 1.013814).",
+    "Adapter optimized and propagated odometry stopped near source 474.048/474.148 s while raw VINS optimized/propagated streams continued to 515.364/515.432 s.",
+    "The PX4 local-position versus adapter optimized-odometry source-pair gap then rose from 0.12 s before lockout to 41.376 s; bridge reason changed to localization_not_tracking. This observed gap is downstream of the localization health lockout, not evidence of HRT/ROS-clock misalignment or a regression from #206.",
+    "A large source-pair gap still blocks the bridge fail-closed on that run. The N07 cumulative-pass rule is unrelated and does not waive N08 health or N05 admission."
+  ],
+  "unresolved": [
+    "The cause of the normalized-cost increase during return yaw motion is not established.",
+    "The initial N05 ground-plane check refused ground_plane_insufficient_raw_occupied_voxels; no prescan-ready marker or post-release/current-area admission was obtained.",
+    "No compute-only mission, horizontal trajectory, brake response/deceleration/stopping-distance measurement, or repeated-goal qualification was run.",
+    "The two timeline segments are not continuous; sim-time interval 52.740 to 251.428 s was not captured, though the health transition and resulting pair-gap growth were captured in segment 02.",
+    "No airborne timing or control gate was exercised; the evidence is a DISARMED support-fixture run."
+  ],
+  "safety_and_stop": {
+    "fixture_detached_verified": true,
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "final_landed": true,
+    "px4_arming_state_samples": [
+      1
+    ],
+    "px4_arming_state_1_means_disarmed": true,
+    "bridge_final_phase": "DISABLED",
+    "bridge_final_reason": "localization_not_tracking",
+    "goal_or_control_published": false,
+    "compute_only_started": false,
+    "xy_executed": false,
+    "outer_n05_wrapper_exit_code": 12,
+    "project_stop_command": "bash tools/project.sh stop n08-20261024-237-time-pair-timeline-01",
+    "project_container_final_status": "Exited (0)",
+    "matching_project_processes_after_stop": 0
+  },
+  "validation": {
+    "unit_tests": "python3 -m unittest tools.test_n08_timeline_helpers tools.test_n08_curve_certificate tools.test_n08_compute_only — 12 passed",
+    "runner_shell": "bash -n tools/run_n05_preflight_layout.sh — PASS",
+    "python_ast": "observer/helper/test AST parse — PASS",
+    "project_structure": "python3 tools/project_status.py — PASS (optional historical-link notice 80)",
+    "json": "report/run input/milestones JSON — pending final check",
+    "git_diff_check": "pending final check"
+  },
+  "artifacts": {
+    "n05-run-inputs.json": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n05-run-inputs.json",
+      "sha256": "00599188414762f08a30016549a30cf067bb484f913ad4924a53c1a35809d693",
+      "bytes": 3809
+    },
+    "fixture-result.json": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/fixture-result.json",
+      "sha256": "61ebac503192db690b8c8432d5b5395191d4d2e89f3c2aceb243d783c0ca5aa9",
+      "bytes": 4619
+    },
+    "fixture-trace.jsonl": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/fixture-trace.jsonl",
+      "sha256": "8b393179c6495c3a937357697f3fa1bd0d0d296deafd3936ae846f7f99a950e0",
+      "bytes": 9193569
+    },
+    "fixture-vins.jsonl": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/fixture-vins.jsonl",
+      "sha256": "e571d4f486f1ee0d353d55ee6f63e5c60403e3d6b17af2fec4851bcc28422987",
+      "bytes": 1569727
+    },
+    "fixture-odometry.jsonl": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/fixture-odometry.jsonl",
+      "sha256": "b70d18b300e8d3ddac397f3859de3146fbfe8f0a39e828dff901ef56638d4cf7",
+      "bytes": 3216304
+    },
+    "n05-before/n05-live-entry-check.json": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n05-before/n05-live-entry-check.json",
+      "sha256": "66ab0fb627c9a840b16100b69d820d2dbd3560694358b3b0d129847ee536769d",
+      "bytes": 3129
+    },
+    "n05-before/n05-offline-entry-replay.json": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n05-before/n05-offline-entry-replay.json",
+      "sha256": "e6d45d9cedb1d3356f59f78c1b270b8a0c799c21ea58cd35934b493a3d450940",
+      "bytes": 1652
+    },
+    "n05-before/n05-live-raw-map.npz": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n05-before/n05-live-raw-map.npz",
+      "sha256": "442cdc3acc61a2d915dab4dc81b5251b7a4591258784c97580cc2cf3a107355a",
+      "bytes": 21701
+    },
+    "n08-localization-source-timeline-segment-01.json": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n08-localization-source-timeline-segment-01.json",
+      "sha256": "d3409aa36ca1a0c1393e97d5ccb24e3d9992f23e63ee39e875cb7ac643a4527b",
+      "bytes": 17507163
+    },
+    "n08-localization-source-timeline-segment-02.json": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n08-localization-source-timeline-segment-02.json",
+      "sha256": "64b966f512c1e2c68adfed91fddf00d6dd5f5101666d132b87da25f3178c90f1",
+      "bytes": 16008762
+    },
+    "n08-localization-source-timeline-segment-01.log": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n08-localization-source-timeline-segment-01.log",
+      "sha256": "8de6b23432df9e6fc8caa42da7357749bd9bf7bf1d6a1670743af566574d1c59",
+      "bytes": 430
+    },
+    "n08-localization-source-timeline-segment-02.log": {
+      "path": "artifacts/runs/n08-20261024-237-time-pair-timeline-01/n08-localization-source-timeline-segment-02.log",
+      "sha256": "68f9f6c50fa53b80d37198925c88f01a75116f59c62c740ddcce587384df4ac2",
+      "bytes": 430
+    }
+  },
+  "source_hashes": {
+    "n08_timeline_observer_segment_01": "600e1928c6948450c311325323ffd2acf6fff823049d4e8f5dd70d1f141d3711",
+    "n08_timeline_helper_segment_01": "2856e41009687a1ad4e10dc549db0bd4418a03bf84a1b8fe62b4e0b483c186e7",
+    "n08_timeline_observer_segment_02": "0bd92b08834b29707c14dea6cffeda22702109fb8bf466265b1710490d6d38c1",
+    "n08_timeline_helper_segment_02": "c64da4308b071cfcfcc9af621c89c1522a95826b7954fc68f99fd8d3edd39859",
+    "run_inputs_manifest_sha256": "00599188414762f08a30016549a30cf067bb484f913ad4924a53c1a35809d693"
+  },
+  "environment_observation": {
+    "container_cpu_percent_sampled_during_run": [
+      631.61,
+      686.4,
+      692.18,
+      695.16
+    ],
+    "host_global_saturation_established": false,
+    "causality_established": false,
+    "note": "These are sparse concurrent readings; they do not attribute the health failure to the observer or host load."
+  }
+}

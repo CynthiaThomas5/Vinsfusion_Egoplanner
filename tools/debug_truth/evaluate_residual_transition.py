@@ -58,7 +58,7 @@ def transition(previous, current):
             'total_squared_cost_change': current['normalized_cost']**2-previous['normalized_cost']**2}
 
 
-def evaluate(run):
+def evaluate(run, reference_limit=None):
     load=lambda n:json.loads((run/n).read_text())
     flight=load('flight.json'); metrics=flight['vins_quality_history']
     stamps=[p['stamp_ns'] for p in metrics]
@@ -69,10 +69,14 @@ def evaluate(run):
         raise ValueError('No actual group diagnostics recorded')
     root=Path(__file__).resolve().parents[2]
     policy=json.loads((root/'config/components/localization/health.json').read_text())
-    limit=policy['max_normalized_cost']
+    limit=policy.get('max_normalized_cost')
+    if reference_limit is not None:
+        if not math.isfinite(reference_limit) or reference_limit <= 0:
+            raise ValueError('reference_limit must be finite and positive')
+        limit=reference_limit
     failures=[p for p in flight['localization_quality_history'] if p['reason']=='normalized_cost_exceeded']
     trigger=None
-    if failures:
+    if failures and limit is not None:
         # Status may follow the solver source stamp; identify the first recorded crossing at/before that status.
         eligible=[p for p in rows if p['source_ns']<=failures[0]['stamp_ns'] and p['normalized_cost']>limit]
         if not eligible: raise ValueError('Health crossing lacks corresponding diagnostic source frame')
@@ -94,7 +98,8 @@ def evaluate(run):
             'mission_result':flight['result'],'mission_failure':flight.get('failure'),
             'landed_and_disarmed':flight.get('landed_and_disarmed',False),
             'diagnostic_mode':load('vins-diagnostics.json'),'diagnostic_frames':len(rows),
-            'health_limit_unchanged':limit,'quality_crossing_observed':trigger is not None,
+            'runtime_quality_limit':policy.get('max_normalized_cost'),
+            'offline_reference_limit':limit,'quality_crossing_observed':trigger is not None,
             'trigger':trigger,'previous':previous,'trigger_squared_contribution_change':delta,
             'previous_solver_total':{k:previous_metric[k] for k in ['stamp_ns','final_cost','residual_components']} if previous_metric else None,
             'trigger_total_transition':total_transition(previous_metric['final_cost'],previous_metric['residual_components'],trigger_metric['final_cost'],trigger_metric['residual_components']) if previous_metric else None,
@@ -109,7 +114,7 @@ def evaluate(run):
             'limitations':['Cost groups are whitened/robust objective terms; magnitudes are not pixel or metre errors.',
                            'Dominant marginalization cost does not identify which historical measurements caused the prior.',
                            'Continuous diagnostic evaluation can perturb scheduling; evaluate overhead and retain failures.',
-                           'Attribution is not evidence to loosen a threshold or clear a locked session.']}
+                           'This tool does not impose a runtime quality limit.']}
     if trigger and (run/'odometry-errors.csv').exists():
         errors=list(csv.DictReader((run/'odometry-errors.csv').open()))
         match=next((p for p in errors if abs(int(p['source_ns'])-trigger['source_ns'])<=2),None)
@@ -136,7 +141,10 @@ def plot(run, report, rows):
     metrics=json.loads((run/'flight.json').read_text())['vins_quality_history']
     context=[p for p in metrics if p.get('solve_current') and p['residual_components']>0 and -5<=(p['stamp_ns']-center)/1e9<=8]
     ct=[(p['stamp_ns']-center)/1e9 for p in context]
-    axes[1].plot(ct,[math.sqrt(2*p['final_cost']/p['residual_components']) for p in context]);axes[1].axhline(report['health_limit_unchanged'],c='red',ls='--');axes[1].set_ylabel('Normalized total cost')
+    axes[1].plot(ct,[math.sqrt(2*p['final_cost']/p['residual_components']) for p in context])
+    if report['offline_reference_limit'] is not None:
+        axes[1].axhline(report['offline_reference_limit'],c='red',ls='--')
+    axes[1].set_ylabel('Normalized total cost')
     for key in ['input_features','stereo_features','continued_tracks','long_tracks']:
         axes[2].plot(ct,[p[key] for p in context],label=key)
     axes[2].set(ylabel='Feature count',xlabel='Simulation seconds from health crossing (or diagnostic reference)');axes[2].legend()
@@ -148,8 +156,8 @@ def plot(run, report, rows):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('run',type=Path);p.add_argument('--plot',action='store_true');a=p.parse_args()
-    report,rows=evaluate(a.run)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('run',type=Path);p.add_argument('--plot',action='store_true');p.add_argument('--reference-limit',type=float);a=p.parse_args()
+    report,rows=evaluate(a.run,a.reference_limit)
     (a.run/'residual-transition.json').write_text(json.dumps(report,indent=2)+'\n')
     if a.plot:plot(a.run,report,rows)
     print(json.dumps(report,indent=2))

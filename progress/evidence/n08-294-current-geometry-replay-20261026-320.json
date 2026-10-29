@@ -1,0 +1,1105 @@
+{
+  "schema": "n08-forward-reachable-geometry-audit/v1",
+  "scope": "offline raw-map geometry replay only; no live admission, goal, enable, control, or flight",
+  "run_id": "n08-cancel-translation-prescan-20261026-294",
+  "map_identity": {
+    "epoch": "f60a90bdb90940a3b4a2d08bf5c59b36",
+    "map_id": "f60a90bdb90940a3b4a2d08bf5c59b36-6298872e60ce49e7874aa4ca2e1df6d8",
+    "frame_id": "odom_f60a90bdb90940a3b4a2d08bf5c59b36"
+  },
+  "map_geometry": {
+    "origin_m": [
+      -20.0,
+      -20.0,
+      -1.0
+    ],
+    "resolution_m": 0.1,
+    "dimensions_xyz": [
+      400,
+      400,
+      60
+    ],
+    "raw_codes": [
+      -1,
+      0,
+      100
+    ]
+  },
+  "start_xyz_m": [
+    -0.015404564973380781,
+    0.013039552220401414,
+    1.0118822238425471
+  ],
+  "yaw_rad": -0.0008940498124718562,
+  "historical_heading_basis": {
+    "source_run_id": "n08-cancel-translation-prescan-20261026-294",
+    "source_evidence": "progress/evidence/n08-cancel-stop-qualified-replay-20261026-294.md",
+    "measurement": "PX4 local NED heading converted to ENU, paired by nearest recorded wall time to the goal PositionCommand; max absolute difference from requested yaw",
+    "goal_id": "743b047d9bf04fe197993995791199fc",
+    "command_samples": 2106,
+    "maximum_absolute_error_rad": 0.015545153883396818,
+    "maximum_pairing_wall_gap_s": 0.0008218858856707811,
+    "selected_trial_geometry_bound_rad": 0.019
+  },
+  "unchanged_limits": {
+    "spatial_uncertainty_margin_m": 0.24868204641820268,
+    "tracking_margin_m": 0.25,
+    "maximum_tracking_error_m": 0.15,
+    "reference_tube_lateral_vertical_m": 0.05,
+    "initial_reverse_allowance_m": 0.005,
+    "maximum_sample_spacing_m": 0.025,
+    "fixed_heading_deviation_bound_rad": 0.019,
+    "fixed_heading_bound_basis": "N08 #294 PX4 local heading versus requested yaw maximum absolute error 0.0155451539 rad; 0.019 rad is the geometry/query and runtime watchdog bound",
+    "unknown_occupied_outside_map_rejected": true
+  },
+  "baseline_spherical_gate": {
+    "sphere_goal_first_query": {
+      "distance_from_start_m": 0.012499999999999999,
+      "center_xyz_m": [
+        -0.0029045649733807823,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 5054,
+      "occupied_count": 0
+    },
+    "sphere_cancel_start_hold": null,
+    "sphere_cancel_first_query": {},
+    "sphere_cancel_terminal_hold": null
+  },
+  "exact_shape_replay": {
+    "single_goal_forward_0p6m": {
+      "passed": true,
+      "reason": "vehicle_shape_forward_corridor_and_holds_known_free",
+      "start_xyz_m": [
+        -0.015404564973380781,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "goal_xyz_m": [
+        0.5845954350266191,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "corridor_end_xyz_m": [
+        0.5845954350266191,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "tracking_margin_m": 0.25,
+      "body_radius_m": 0.7306179170842027,
+      "spatial_uncertainty_margin_m": 0.24868204641820268,
+      "vehicle_geometry": "locked_x500_d435i_sdf_collision_primitives",
+      "geometry_query": "primitive_aabb_superset_dilated_by_spatial_and_tracking_balls",
+      "yaw_rad": -0.0008940498124718562,
+      "yaw_deviation_bound_rad": 0.019,
+      "maximum_tracking_error_m": 0.15,
+      "forward_lookahead_m": 0.075,
+      "reference_tube_lateral_vertical_m": 0.05,
+      "initial_reverse_allowance_m": 0.005,
+      "reference_tube_forward_bounds_relative_to_start_m": [
+        -0.005,
+        0.65
+      ],
+      "first_station_center_bound_m": 0.24433981132056604,
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "remaining_geometric_slack_m": 0.011721778146268125,
+      "start_hold_center_bound_m": 0.25,
+      "start_hold_available_bound_m": 0.25,
+      "start_hold_geometric_slack_m": 0.0,
+      "query_spacing_m": 0.024999999999999998,
+      "equivalent_spherical_budget_radius_m": 0.9931179170842026,
+      "cover_radius_m": 0.9931179170842026,
+      "start_hold": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 5373,
+        "occupied_count": 0,
+        "components_checked": 10
+      },
+      "required_queries": 25,
+      "queries": [
+        {
+          "distance_from_start_m": 0.0,
+          "center_xyz_m": [
+            0.059595435026619216,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.08,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.24433981132056604,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6763,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.024999999999999998,
+          "center_xyz_m": [
+            0.0845954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.049999999999999996,
+          "center_xyz_m": [
+            0.10959543502661923,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.075,
+          "center_xyz_m": [
+            0.13459543502661922,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.09999999999999999,
+          "center_xyz_m": [
+            0.15959543502661921,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.12499999999999999,
+          "center_xyz_m": [
+            0.1845954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.15,
+          "center_xyz_m": [
+            0.2095954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.175,
+          "center_xyz_m": [
+            0.23459543502661923,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.19999999999999998,
+          "center_xyz_m": [
+            0.2595954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.22499999999999998,
+          "center_xyz_m": [
+            0.2845954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.24999999999999997,
+          "center_xyz_m": [
+            0.3095954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.27499999999999997,
+          "center_xyz_m": [
+            0.3345954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.3,
+          "center_xyz_m": [
+            0.3595954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.32499999999999996,
+          "center_xyz_m": [
+            0.3845954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.35,
+          "center_xyz_m": [
+            0.4095954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.37499999999999994,
+          "center_xyz_m": [
+            0.4345954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.39999999999999997,
+          "center_xyz_m": [
+            0.4595954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.425,
+          "center_xyz_m": [
+            0.4845954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.44999999999999996,
+          "center_xyz_m": [
+            0.5095954350266191,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.475,
+          "center_xyz_m": [
+            0.5345954350266191,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.49999999999999994,
+          "center_xyz_m": [
+            0.5595954350266191,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.5249999999999999,
+          "center_xyz_m": [
+            0.584595435026619,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.5499999999999999,
+          "center_xyz_m": [
+            0.6095954350266191,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.575,
+          "center_xyz_m": [
+            0.6345954350266191,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.6,
+          "center_xyz_m": [
+            0.6595954350266191,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        }
+      ],
+      "terminal_hold": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 9291,
+        "occupied_count": 0,
+        "components_checked": 10
+      },
+      "terminal_hold_center_xyz_m": [
+        0.5845954350266191,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "terminal_hold_tracking_allowance_m": 0.25
+    },
+    "motion_cancel_stop_0p5m": {
+      "passed": true,
+      "reason": "vehicle_shape_forward_corridor_and_holds_known_free",
+      "start_xyz_m": [
+        -0.015404564973380781,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "goal_xyz_m": [
+        0.4845954350266192,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "corridor_end_xyz_m": [
+        0.4845954350266192,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "tracking_margin_m": 0.25,
+      "body_radius_m": 0.7306179170842027,
+      "spatial_uncertainty_margin_m": 0.24868204641820268,
+      "vehicle_geometry": "locked_x500_d435i_sdf_collision_primitives",
+      "geometry_query": "primitive_aabb_superset_dilated_by_spatial_and_tracking_balls",
+      "yaw_rad": -0.0008940498124718562,
+      "yaw_deviation_bound_rad": 0.019,
+      "maximum_tracking_error_m": 0.15,
+      "forward_lookahead_m": 0.075,
+      "reference_tube_lateral_vertical_m": 0.05,
+      "initial_reverse_allowance_m": 0.005,
+      "reference_tube_forward_bounds_relative_to_start_m": [
+        -0.005,
+        0.55
+      ],
+      "first_station_center_bound_m": 0.24433981132056604,
+      "reachable_center_bound_m": 0.2507782218537319,
+      "available_center_bound_m": 0.2625,
+      "remaining_geometric_slack_m": 0.011721778146268125,
+      "start_hold_center_bound_m": 0.25,
+      "start_hold_available_bound_m": 0.25,
+      "start_hold_geometric_slack_m": 0.0,
+      "query_spacing_m": 0.025,
+      "equivalent_spherical_budget_radius_m": 0.9931179170842026,
+      "cover_radius_m": 0.9931179170842026,
+      "start_hold": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 5373,
+        "occupied_count": 0,
+        "components_checked": 10
+      },
+      "required_queries": 21,
+      "queries": [
+        {
+          "distance_from_start_m": 0.0,
+          "center_xyz_m": [
+            0.059595435026619216,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.08,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.24433981132056604,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6763,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.025,
+          "center_xyz_m": [
+            0.08459543502661923,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.05,
+          "center_xyz_m": [
+            0.10959543502661923,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.07500000000000001,
+          "center_xyz_m": [
+            0.13459543502661925,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.1,
+          "center_xyz_m": [
+            0.15959543502661921,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.125,
+          "center_xyz_m": [
+            0.18459543502661924,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.15000000000000002,
+          "center_xyz_m": [
+            0.20959543502661926,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.17500000000000002,
+          "center_xyz_m": [
+            0.23459543502661923,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.2,
+          "center_xyz_m": [
+            0.25959543502661925,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.225,
+          "center_xyz_m": [
+            0.2845954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.25,
+          "center_xyz_m": [
+            0.30959543502661924,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.275,
+          "center_xyz_m": [
+            0.33459543502661926,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.30000000000000004,
+          "center_xyz_m": [
+            0.3595954350266193,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.325,
+          "center_xyz_m": [
+            0.38459543502661925,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.35000000000000003,
+          "center_xyz_m": [
+            0.40959543502661927,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.375,
+          "center_xyz_m": [
+            0.43459543502661924,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.4,
+          "center_xyz_m": [
+            0.45959543502661926,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.42500000000000004,
+          "center_xyz_m": [
+            0.4845954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6838,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.45,
+          "center_xyz_m": [
+            0.5095954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6849,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.47500000000000003,
+          "center_xyz_m": [
+            0.5345954350266192,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6879,
+          "occupied_count": 0,
+          "components_checked": 10
+        },
+        {
+          "distance_from_start_m": 0.5,
+          "center_xyz_m": [
+            0.5595954350266191,
+            0.013039552220401414,
+            1.0118822238425471
+          ],
+          "longitudinal_offsets_m": [
+            -0.0875,
+            -0.0625
+          ],
+          "reachable_center_bound_m": 0.2507782218537319,
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 6848,
+          "occupied_count": 0,
+          "components_checked": 10
+        }
+      ],
+      "terminal_hold": {
+        "accepted": true,
+        "reason": "free",
+        "unknown_count": 0,
+        "free_count": 9291,
+        "occupied_count": 0,
+        "components_checked": 10
+      },
+      "terminal_hold_center_xyz_m": [
+        0.4845954350266192,
+        0.013039552220401414,
+        1.0118822238425471
+      ],
+      "terminal_hold_tracking_allowance_m": 0.25
+    }
+  },
+  "all_exact_queries_reject_unknown_and_occupied": true,
+  "input_sha256": {
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-294/n08-trial-ground-map.json": "d9c221df51194c8014a5b4c1ea80cbe0167b6de254488ec9731ffb19d54f9d34",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-294/n08-trial-ground-map.npz": "7ee2e481ae61cba0820623b5ccb8093099cacc3d5502d7250a6cafe462c36973",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-294/n08-trial-pre-enable-admission.json": "5261cc7f25502aa3a36c2d512bdd4307b071e3fce88c8312049d9401b53cfefa",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-294/n05-current-area/n05-live-entry-check.json": "5c506d01abf4720eb977d44dc11e529a4cb1d73d0db89b730d0fb129d9496763",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-294/flight.json": "00fb6b05cdc2738735011370a9d9a6fdddafda273ccab08600d66c236bdaf3da",
+    "tools/n08_trial_gate.py": "ed59a71fb960e903f7c07c003b71cf4e03c01cba221d34625536c55856ff8f67",
+    "tools/run_n08_braking_trial.py": "e2be15d47d167bef2fb7b355163598e63dfdb31764745bd70fb74bf1520888d8",
+    "tools/n05_entry.py": "6e13627dba11ef0c58a43cabb02fddc0daabdf14a7d5139e5ef83767fe8dac2a",
+    "config/components/mapping/n08_low_speed_trial.json": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "config/components/navigation/n08_forward_braking_trial_goal.json": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+    "config/components/navigation/vehicle_envelope.json": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+    "simulation/models/x500_d435i/model.sdf": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+    "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+    "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+  },
+  "flight_qualification": false
+}

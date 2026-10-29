@@ -1,0 +1,247 @@
+{
+  "schema": "n10-cancel-stop-calibration-result/v1",
+  "run_id": "n10-20261027-379-speed060-repeat02",
+  "n10_subtask": "N10.3 same-runtime caller-cancel repeatability sample 2 of 3",
+  "status": "diagnostic_sample_complete_not_formal_qualification",
+  "measurement_complete": true,
+  "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+  "runtime_epoch": "8e422a856c04425082363b4c89b15d52",
+  "measurement_window_px4_horizontal_m_s": [
+    0.6,
+    0.66
+  ],
+  "braking_metrics": {
+    "requested_trigger_px4_speed_window_m_s": [
+      0.6,
+      0.66
+    ],
+    "trigger_px4_horizontal_speed_m_s": 0.6012586406556754,
+    "trigger_px4_vertical_speed_m_s": 0.0411558598279953,
+    "trigger_ego_reference_speed_m_s": 0.6773719917225969,
+    "cancel_ack_wall_delay_s": 0.000796634005382657,
+    "replacement_trajectory_id": 67,
+    "replacement_trajectory_delay_sim_s": 0.036,
+    "px4_stop_band_entry_delay_sim_s": 4.88,
+    "px4_stop_band_confirmation_delay_sim_s": 5.896,
+    "stop_band_dwell_sim_s": 1.016,
+    "stop_band_px4_sample_count": 52,
+    "stop_band_max_px4_sample_gap_sim_s": 0.028,
+    "truth_cancel_to_stop_distance": {
+      "start_xyz_m": [
+        5.66455946826731,
+        -0.021495543174745994,
+        0.8929572623297697
+      ],
+      "stop_band_entry_xyz_m": [
+        6.781866250781246,
+        -0.024240299668210598,
+        0.8287898785285005
+      ],
+      "horizontal_path_length_m": 1.3439353277658697,
+      "horizontal_endpoint_displacement_m": 1.1173101538694854,
+      "three_dimensional_path_length_m": 1.346726344821656,
+      "max_source_gap_sim_s": 0.02,
+      "truth_samples_in_interval": 246
+    },
+    "truth_stop_band_1s_max_horizontal_excursion_m": 0.00933483053064683,
+    "px4_observed_max_horizontal_speed_during_cancel_m_s": 0.6269005406892673,
+    "px4_observed_p10_horizontal_deceleration_m_s2": 0.02631656745620432,
+    "px4_time_to_first_10pct_speed_reduction_sim_s": 1.32,
+    "localization_quality_freshness_gates": "removed",
+    "normalized_cost_max_observed": 0.8203829267084101,
+    "contact_prohibited_event_count": 0,
+    "terminal_bridge_phase": "LANDED"
+  },
+  "braking_checks": {
+    "native_cancel_measurement_completed": true,
+    "trigger_speed_in_requested_px4_window": true,
+    "caller_cancel_acknowledged": true,
+    "action_reports_caller_cancel": true,
+    "replacement_ego_trajectory_observed": true,
+    "px4_stop_band_held_one_sim_second": true,
+    "truth_covers_cancel_to_stop_with_bounded_gaps": true,
+    "contact_observer_complete": true,
+    "zero_prohibited_contacts": true,
+    "independent_terminal_readback_safe": true,
+    "localization_quality_freshness_policy_open": true
+  },
+  "repeatability_summary_two_samples": {
+    "trigger_speed": {
+      "samples": [
+        0.6008665780789427,
+        0.6012586406556754
+      ],
+      "mean": 0.601062609367309,
+      "min": 0.6008665780789427,
+      "max": 0.6012586406556754,
+      "absolute_difference": 0.00039206257673263245
+    },
+    "stop_entry_delay": {
+      "samples": [
+        4.844,
+        4.88
+      ],
+      "mean": 4.862,
+      "min": 4.844,
+      "max": 4.88,
+      "absolute_difference": 0.03599999999999959
+    },
+    "stop_path": {
+      "samples": [
+        1.3767155623496028,
+        1.3439353277658697
+      ],
+      "mean": 1.3603254450577362,
+      "min": 1.3439353277658697,
+      "max": 1.3767155623496028,
+      "absolute_difference": 0.03278023458373314
+    },
+    "endpoint_displacement": {
+      "samples": [
+        1.1527459492079029,
+        1.1173101538694854
+      ],
+      "mean": 1.1350280515386941,
+      "min": 1.1173101538694854,
+      "max": 1.1527459492079029,
+      "absolute_difference": 0.03543579533841745
+    },
+    "p10_deceleration": {
+      "samples": [
+        0.02680982221996535,
+        0.02631656745620432
+      ],
+      "mean": 0.026563194838084836,
+      "min": 0.02631656745620432,
+      "max": 0.02680982221996535,
+      "absolute_difference": 0.0004932547637610286
+    },
+    "time_to_10pct": {
+      "samples": [
+        1.384,
+        1.32
+      ],
+      "mean": 1.3519999999999999,
+      "min": 1.32,
+      "max": 1.384,
+      "absolute_difference": 0.06399999999999983
+    }
+  },
+  "raw_vins_diagnostic": {
+    "method": "single pre-enable SE(3) alignment, fixed scale 1, no flight-path fitting",
+    "duration_sim_s": 65.252,
+    "truth_path_length_m": 18.638512744209137,
+    "position_error_m": {
+      "count": 989,
+      "rmse": 0.05701030988275579,
+      "median": 0.050144466834466724,
+      "p95": 0.09244025249089946,
+      "max": 0.09761487483990344
+    },
+    "absolute_yaw_error_deg": {
+      "count": 989,
+      "rmse": 0.04402244230769684,
+      "median": 0.01987479421753392,
+      "p95": 0.08080212027713372,
+      "max": 0.10619841571331232
+    },
+    "coverage": {
+      "raw_samples_in_interval": 989,
+      "paired_samples": 989,
+      "paired_raw_fraction": 1.0,
+      "truth_grid_samples": 3263,
+      "supported_truth_grid_samples": 3260,
+      "truth_grid_support_fraction": 0.9990806006742262,
+      "bounded_time_support_fraction": 0.9993256911665542,
+      "truth_max_gap_sim_s": 0.02,
+      "raw_max_gap_sim_s": 0.068000001,
+      "paired_max_gap_sim_s": 0.068000001,
+      "start_uncovered_sim_s": 0.0,
+      "end_uncovered_sim_s": 0.044,
+      "truth_interpolation_limit_sim_s": 0.04,
+      "odometry_support_limit_sim_s": 0.2,
+      "note": "Reporting limits only; no extrapolation, timestamp repair or health gate changes.",
+      "rejected_samples": []
+    },
+    "no_acceptance_threshold_declared": true
+  },
+  "contact": {
+    "passed": true,
+    "sensor_topics_ready": true,
+    "ground_contact_event_count": 12251,
+    "prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": true,
+    "first_prohibited_contact": null
+  },
+  "terminal_readback": {
+    "phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "safe_to_stop": true
+  },
+  "evaluator_input_hashes_match": {
+    "flight.json": true,
+    "debug-truth-evaluation.json": true,
+    "planner-observation.json": true,
+    "bridge-observation.json": true,
+    "n09-contact-observation.json": true,
+    "vehicle-contact-evaluation.json": true,
+    "postflight-px4-bridge-readback.json": true,
+    "runtime-contract.json": true,
+    "n10-cancel-run-manifest.json": true
+  },
+  "artifacts": {
+    "flight.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/flight.json",
+      "sha256": "055b2ac4a834528a08067cf590c4c166c614d2cbee15c0afa1003bdcf4708cf1"
+    },
+    "n10-cancel-braking-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/n10-cancel-braking-evaluation.json",
+      "sha256": "05ce99e0805e1f1e0d5734c76db5a2850fdff6d1f6b650949aaaca4fdb4891b1"
+    },
+    "debug-truth-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/debug-truth-evaluation.json",
+      "sha256": "b345e57f24802ff29b93ff7af39c1fa71838eaed218fa7af0c4f47b08811325a"
+    },
+    "odometry-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/odometry-evaluation.json",
+      "sha256": "641ab8f5c26cdb0131598f99e6a7288ab39b3548c98ce78b9a0738581a9cf1a4"
+    },
+    "vehicle-contact-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/vehicle-contact-evaluation.json",
+      "sha256": "0d9bd1baec92c243402046be7d0543d0955e5dfa917abf145636375abd8ce3cb"
+    },
+    "postflight-px4-bridge-readback.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/postflight-px4-bridge-readback.json",
+      "sha256": "e17b1ce68202d1f403e23c5975d47e2e7b2c69bcfda71cda11380cfd2e4bb723"
+    },
+    "safe-to-stop.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/safe-to-stop.json",
+      "sha256": "a2f661fbc63d86c0a7fc7edae7a48ddbcc0376367fdddfbc012d1d3ed1ab2ac1"
+    },
+    "n10-runtime-identity-readback.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/n10-runtime-identity-readback.json",
+      "sha256": "d6c5ee099017837c8cf3fca7e876e5807a5df9e3a92b4ad322c12f984a3a9b44"
+    },
+    "n10-cancel-run-manifest.json": {
+      "path": "artifacts/runs/n10-20261027-379-speed060-repeat02/n10-cancel-run-manifest.json",
+      "sha256": "de40773a9806d3fe34df2fc022971f3d679c426c9d0bc0cedb57d92a5afe35df"
+    }
+  },
+  "limitations": [
+    "This is one of three planned same-protocol cold-start samples.",
+    "Two similar samples do not establish a general stopping bound or formal acceptance threshold.",
+    "N10.3 still requires the third repeat and evidence synthesis for localization/map error, clearance, replanning, fault boundaries, and supported scope."
+  ],
+  "independent_identity": {
+    "repeat02_vins_epoch": "8e422a856c04425082363b4c89b15d52",
+    "repeat02_goal_id": "6b0e129de5ef468981431ee2e21110b9",
+    "repeat01_vins_epoch": "87b37b7ec8e14ccba004a42f40e3185a",
+    "repeat01_goal_id": "4bf25812a371414091ed79f56a245383",
+    "epochs_distinct": true,
+    "goal_ids_distinct": true
+  }
+}

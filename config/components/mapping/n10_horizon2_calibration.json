@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 controlled planner-horizon calibration only. Identical to the N08 low-speed trial except planning_horizon_m=2.0; actual PX4 vector speed, tracking and all health/map checks remain independently evaluated. Not a formal N11-N16 profile.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.1,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 2.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "One-variable contrast against config/components/mapping/n08_low_speed_trial.json: planning_horizon_m changes from 5.0 to 2.0. Keep max_velocity_m_s=0.10, max_acceleration_m_s2=0.25, inflation, map freshness, sensor inputs and official_ego policy fixed. Test whether a shorter local B-spline clears the existing final velocity/acceleration feasibility gate while the same 16 m global EGO goal advances through replanning. A parameter value alone is not qualification; actual speed, truth error, map age and the bridge end state decide."
+}

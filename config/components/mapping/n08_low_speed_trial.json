@@ -1,0 +1,26 @@
+{
+  "qualification": "PROVISIONAL N08 forward calibration trial: planning 0.10m/s per axis, actual vector speed at most0.12m/s. Requires same-run raw map, finalized dynamics and separately recorded trial stopping boundary; no automatic XY authorization.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.1,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "Select a 0.6m forward trial with no commanded yaw or height change. The configured per-axis feasibility limit is0.1051m/s; actual spline vector norm must independently stay below0.12m/s. This is a calibration speed selected for a bounded surveyed area, not a measured aircraft maximum or guaranteed PX4 deceleration. Keep0.25m terminal-hold neighborhood; actual braking evidence must be recorded before generalization.",
+  "n08_vector_speed_cap_m_s": 0.12
+}

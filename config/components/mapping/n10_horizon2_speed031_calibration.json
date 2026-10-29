@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 diagnostic only. One-variable planner-velocity candidate derived from #340/#341 B-spline control-point derivative maxima; this is not a physical or acceptance speed limit. The runtime goal profile retains and monitors the existing 0.12 m/s vector-speed limit. Not a formal N11-N16 profile.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.31,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 2.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "One-variable contrast against config/components/mapping/n10_horizon2_calibration.json: only per-axis planner max_velocity_m_s changes from 0.10 to 0.31. The candidate is derived from #340/#341 measured initial/final B-spline control-point derivative maxima (0.190426-0.305505 m/s), not from measured vehicle speed. Acceleration, horizon, map/inflation, sensors, freshness, official_ego policy, goal and acceptance criteria remain fixed. The N10 goal runner monitors both READY EGO reference vector speed and PX4 local-position vector speed against the original 0.12 m/s calibration limit; a violation cancels the action and enters caller STOP_HOLD plus bridge-owned landing. A generated reference over 0.12 m/s is a failed diagnostic even if the PX4 speed has not yet crossed the limit."
+}

@@ -1,0 +1,25 @@
+{
+  "qualification": "PROVISIONAL N08 compute-only speed diagnostic; the measured curve must pass EGO's per-axis feasibility bound and a 0.15 m/s derivative-control-point norm bound. This is not braking qualification or XY authorization.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.075,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "Only max_velocity_m_s changes from the #225 N08 profile. EGO feasibility is checked per axis with a 5% tolerance; 0.075 m/s yields a nominal component threshold of 0.07875 m/s, whose three-axis Euclidean norm is below 0.15 m/s if the observed spline satisfies feasibility. The live spline derivative certificate remains authoritative. The 0.25 m/s2 planner acceleration parameter is not treated as PX4 deceleration. N05/N06 body radius, map freshness and terminal-hold rules are unchanged. Compute-only bridge isolation is mandatory."
+}

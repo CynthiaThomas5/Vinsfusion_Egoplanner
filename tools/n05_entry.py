@@ -59,9 +59,15 @@ def collision_primitives(root=ROOT):
     x500 = ET.parse(root / X500_PATH.relative_to(ROOT)).getroot().find('model')
     wrapper = ET.parse(root / WRAPPER_PATH.relative_to(ROOT)).getroot().find('model')
     d435i = ET.parse(root / D435I_PATH.relative_to(ROOT)).getroot().find('model')
-    mount = _pose(wrapper.find("joint[@name='d435i_mount']/pose").text)
+    joint_pose = wrapper.find("joint[@name='d435i_mount']/pose")
+    if joint_pose is None or joint_pose.get('relative_to') != 'base_link':
+        raise ValueError('D435i mount joint pose must be expressed relative to base_link')
+    mount = _pose(joint_pose.text)
     include = wrapper.find("include[uri='model://d435i']")
-    if include is None or any(abs(a-b) > 1e-12 for a, b in zip(mount, _pose(include.findtext('pose')))):
+    include_pose = include.find('pose') if include is not None else None
+    if (include_pose is None or include_pose.get('relative_to') != 'base_link'
+            or any(abs(a-b) > 1e-12 for a, b in
+                   zip(mount, _pose(include_pose.text)))):
         raise ValueError('D435i include and fixed mount poses disagree')
     origin = np.asarray(mount[:3], dtype=float)
     result = []
@@ -120,6 +126,12 @@ def load_policy(root=ROOT):
     geometry_radius = policy['geometry']['orientation_invariant_rotor_sweep_radius_m']
     if abs(expected - margin) > 1e-9 or abs(geometry_radius + margin - radius) > 1e-9:
         raise ValueError('vehicle envelope uncertainty sum is inconsistent')
+    subground = policy['ground_contact']['subground_voxel_exclusion']
+    required_ground_phases = {'TAKEOFF_CONTACT', 'ASCENT', 'DESCENT', 'LANDING_CONTACT'}
+    if (not isinstance(subground.get('enabled'), bool)
+            or set(subground.get('phases', ())) != required_ground_phases
+            or not 0 <= float(subground.get('surface_voxel_boundary_allowance_fraction', -1)) <= 1):
+        raise ValueError('subground exclusion must be enabled only for the four ground-interaction phases with a bounded surface margin')
     for relpath, expected_hash in policy['geometry']['source_hashes'].items():
         if sha256(root / relpath) != expected_hash:
             raise ValueError(f'vehicle SDF source hash changed: {relpath}')
@@ -231,9 +243,35 @@ def _ground_voxel_allowed(point, pose, ground_plane, phase, ground_confirmed,
     return distance_xy <= footprint_radius
 
 
+def _voxel_is_below_ground(point, resolution, ground_plane, phase,
+                           ground_confirmed, policy):
+    """Return true only when a whole voxel lies below the conservative floor boundary."""
+    rule = policy['ground_contact']['subground_voxel_exclusion']
+    if (not rule['enabled'] or not ground_confirmed or not ground_plane
+            or not ground_plane.get('valid') or phase not in rule['phases']):
+        return False
+    coefficients = ground_plane.get('coefficients_ax_by_c_m', ())
+    residual = float(ground_plane.get('residual_p95_m', math.inf))
+    if len(coefficients) != 3 or not math.isfinite(residual) or residual < 0:
+        return False
+    a, b, c = (float(value) for value in coefficients)
+    if not all(math.isfinite(value) for value in (a, b, c)):
+        return False
+
+    half_cell = resolution / 2.0
+    plane_center = a * point[0] + b * point[1] + c
+    plane_min_xy = plane_center - (abs(a) + abs(b)) * half_cell
+    surface_lower_bound = (
+        plane_min_xy - residual
+        - resolution * rule['surface_voxel_boundary_allowance_fraction'])
+    voxel_upper_z = point[2] + half_cell
+    return voxel_upper_z <= surface_lower_bound + 1e-9
+
+
 def check_pose(snapshot, pose, phase, policy=None, primitives=None,
-               ground_plane=None, ground_confirmed=False):
-    """Check one body pose against all raw cells in the uncertainty-expanded SDF."""
+               ground_plane=None, ground_confirmed=False,
+               ground_plane_predicted=False, candidate_ground_contact=False):
+    """Check the flight-volume envelope against fresh raw occupancy."""
     policy = policy or load_policy()
     primitives = primitives or collision_primitives()
     occupancy = np.asarray(snapshot['occupancy'])
@@ -258,7 +296,11 @@ def check_pose(snapshot, pose, phase, policy=None, primitives=None,
     body_r = np.asarray([[math.cos(yaw), -math.sin(yaw), 0.0],
                          [math.sin(yaw), math.cos(yaw), 0.0],
                          [0.0, 0.0, 1.0]], dtype=float)
-    counts = {'free': 0, 'unknown': 0, 'occupied': 0, 'ground_contact': 0}
+    counts = {
+        'free': 0, 'unknown': 0, 'occupied': 0, 'ground_contact': 0,
+        'unknown_cells': 0, 'occupied_cells': 0, 'ground_contact_cells': 0,
+        'subground_excluded_cells': 0,
+    }
     found = set()
     for primitive in primitives:
         local_center = np.asarray(primitive['center_imu_m'], dtype=float)
@@ -318,6 +360,12 @@ def check_pose(snapshot, pose, phase, policy=None, primitives=None,
         centers = origin + (intersect_indices + starts + 0.5) * resolution
         for value, point in zip(classes.tolist(), centers):
             key = tuple(int(v) for v in np.rint((point - origin) / resolution - 0.5))
+            predicted_plane_phase = (ground_plane_predicted
+                                     and phase in ('DESCENT', 'LANDING_CONTACT'))
+            if _voxel_is_below_ground(point, resolution, ground_plane, phase,
+                                      ground_confirmed or predicted_plane_phase, policy):
+                found.add(('subground_excluded', key))
+                continue
             if value == 0:
                 counts['free'] += 1
                 continue
@@ -325,8 +373,12 @@ def check_pose(snapshot, pose, phase, policy=None, primitives=None,
                 counts['unknown'] += 1
                 found.add(('unknown', key))
                 continue
+            candidate_contact_phase = (candidate_ground_contact
+                                       and phase in ('DESCENT', 'LANDING_CONTACT'))
             if value == 100 and _ground_voxel_allowed(
-                    point, pose, ground_plane, phase, ground_confirmed, policy, footprint + margin):
+                    point, pose, ground_plane, phase,
+                    ground_confirmed or candidate_contact_phase,
+                    policy, footprint + margin):
                 counts['ground_contact'] += 1
                 found.add(('ground_contact', key))
                 continue
@@ -336,7 +388,11 @@ def check_pose(snapshot, pose, phase, policy=None, primitives=None,
     counts['unknown_cells'] = len({key for kind, key in found if kind == 'unknown'})
     counts['occupied_cells'] = len({key for kind, key in found if kind == 'occupied'})
     counts['ground_contact_cells'] = len({key for kind, key in found if kind == 'ground_contact'})
-    if not ground_confirmed and phase in ('TAKEOFF_CONTACT', 'LANDING_CONTACT'):
+    counts['subground_excluded_cells'] = len(
+        {key for kind, key in found if kind == 'subground_excluded'})
+    candidate_landing_contact = candidate_ground_contact and phase == 'LANDING_CONTACT'
+    if (not ground_confirmed and not candidate_landing_contact
+            and phase in ('TAKEOFF_CONTACT', 'LANDING_CONTACT')):
         return {'accepted': False, 'reason': 'ground_contact_not_confirmed', 'counts': counts}
     if counts['occupied_cells']:
         return {'accepted': False, 'reason': 'raw_occupied_in_expanded_vehicle_envelope', 'counts': counts}
@@ -369,6 +425,96 @@ def make_entry_schedule(start_pose, hold_height_m=1.0, sample_step_m=0.05):
     return points
 
 
+def make_candidate_landing_schedule(landing_pose, hold_height_m=1.0,
+                                   sample_step_m=0.05):
+    """Sample a future descent and touchdown geometry without claiming landed."""
+    if not math.isfinite(hold_height_m) or hold_height_m <= 0:
+        raise ValueError('hold height must be positive and finite')
+    if not math.isfinite(sample_step_m) or sample_step_m <= 0 or sample_step_m > 0.05:
+        raise ValueError('entry sweep sample step must be in (0, 0.05] m')
+    center = np.asarray(landing_pose.get('center_xyz_m', ()), dtype=float)
+    yaw = float(landing_pose.get('yaw_rad', math.nan))
+    if center.shape != (3,) or not np.isfinite(center).all() or not math.isfinite(yaw):
+        raise ValueError('candidate landing pose is invalid')
+    hold = center.copy()
+    hold[2] += hold_height_m
+    count = int(math.ceil(hold_height_m / sample_step_m))
+    points = [('HOLD', {**landing_pose, 'center_xyz_m': hold.tolist()})]
+    for index in range(count - 1, 0, -1):
+        point = center + np.asarray([0.0, 0.0, hold_height_m * index / count])
+        points.append(('DESCENT', {**landing_pose, 'center_xyz_m': point.tolist()}))
+    points.append(('LANDING_CONTACT', {**landing_pose, 'center_xyz_m': center.tolist()}))
+    return points
+
+
+def check_candidate_landing_schedule(snapshot, landing_pose, hold_height_m=1.0,
+                                     sample_step_m=0.05, policy=None,
+                                     ground_plane=None, primitives=None):
+    """Certify predicted hold/descent/contact using a raw plane, not landed state.
+
+    Raw occupancy at the fitted candidate plane may support the predicted
+    contact region, and whole voxels strictly below its conservative bound may
+    be omitted from the flight volume. Neither result asserts the aircraft is
+    physically grounded; PX4 landing feedback remains a separate check.
+    """
+    policy = policy or load_policy()
+    if ground_plane is None:
+        ground_plane = fit_ground_plane(
+            snapshot['occupancy'], snapshot['origin_m'], snapshot['resolution_m'],
+            landing_pose.get('center_xyz_m', ()), policy)
+    if not ground_plane.get('valid'):
+        return {'accepted': False,
+                'reason': ground_plane.get('reason', 'ground_plane_invalid'),
+                'ground_plane': ground_plane, 'phases': {},
+                'hold_height_m': hold_height_m, 'sample_step_m': sample_step_m,
+                'ground_confirmed': False,
+                'scope': 'prospective landing geometry only; not physical touchdown'}
+    phase_results = {}
+    first_rejection = ''
+    for phase, pose in make_candidate_landing_schedule(
+            landing_pose, hold_height_m, sample_step_m):
+        result = check_pose(
+            snapshot, pose, phase, policy, primitives, ground_plane,
+            ground_confirmed=False, ground_plane_predicted=True,
+            candidate_ground_contact=True)
+        summary = phase_results.setdefault(phase, {
+            'samples': 0, 'accepted_samples': 0, 'refusal_counts': {},
+            'maximum_unknown_cells': 0, 'maximum_occupied_cells': 0,
+            'maximum_ground_contact_cells': 0,
+            'maximum_subground_excluded_cells': 0,
+        })
+        summary['samples'] += 1
+        summary['accepted_samples'] += int(result['accepted'])
+        summary['refusal_counts'][result['reason']] = (
+            summary['refusal_counts'].get(result['reason'], 0) + 1)
+        counts = result.get('counts', {})
+        summary['maximum_unknown_cells'] = max(
+            summary['maximum_unknown_cells'], counts.get('unknown_cells', 0))
+        summary['maximum_occupied_cells'] = max(
+            summary['maximum_occupied_cells'], counts.get('occupied_cells', 0))
+        summary['maximum_ground_contact_cells'] = max(
+            summary['maximum_ground_contact_cells'],
+            counts.get('ground_contact_cells', 0))
+        summary['maximum_subground_excluded_cells'] = max(
+            summary['maximum_subground_excluded_cells'],
+            counts.get('subground_excluded_cells', 0))
+        if not result['accepted'] and not first_rejection:
+            first_rejection = f'{phase}:{result["reason"]}'
+    return {
+        'accepted': not first_rejection,
+        'reason': first_rejection or 'candidate_landing_volume_known_and_clear',
+        'ground_plane': ground_plane,
+        'ground_confirmed': False,
+        'candidate_ground_contact_authorized': True,
+        'hold_height_m': hold_height_m,
+        'sample_step_m': sample_step_m,
+        'sample_count': len(make_candidate_landing_schedule(
+            landing_pose, hold_height_m, sample_step_m)),
+        'phases': phase_results,
+        'scope': 'prospective landing geometry only; actual PX4 landed/disarmed readback is required after descent',
+    }
+
+
 def check_entry_schedule(snapshot, start_pose, hold_height_m=1.0,
                          sample_step_m=0.05, ground_confirmed=False,
                          disarmed=True, control_disabled=True, policy=None,
@@ -399,7 +545,7 @@ def check_entry_schedule(snapshot, start_pose, hold_height_m=1.0,
         summary = phase_results.setdefault(phase, {
             'samples': 0, 'accepted_samples': 0, 'refusal_counts': {},
             'maximum_unknown_cells': 0, 'maximum_occupied_cells': 0,
-            'maximum_ground_contact_cells': 0,
+            'maximum_ground_contact_cells': 0, 'maximum_subground_excluded_cells': 0,
         })
         summary['samples'] += 1
         summary['accepted_samples'] += int(result['accepted'])
@@ -408,6 +554,9 @@ def check_entry_schedule(snapshot, start_pose, hold_height_m=1.0,
         summary['maximum_unknown_cells'] = max(summary['maximum_unknown_cells'], counts.get('unknown_cells', 0))
         summary['maximum_occupied_cells'] = max(summary['maximum_occupied_cells'], counts.get('occupied_cells', 0))
         summary['maximum_ground_contact_cells'] = max(summary['maximum_ground_contact_cells'], counts.get('ground_contact_cells', 0))
+        summary['maximum_subground_excluded_cells'] = max(
+            summary['maximum_subground_excluded_cells'],
+            counts.get('subground_excluded_cells', 0))
         if not result['accepted'] and not first_rejection:
             first_rejection = f'{phase}:{result["reason"]}'
     return {

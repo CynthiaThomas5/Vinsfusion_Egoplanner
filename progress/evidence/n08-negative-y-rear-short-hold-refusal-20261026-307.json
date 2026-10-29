@@ -1,0 +1,90 @@
+{
+  "schema": "n08-negative-y-rear-short-hold-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-307",
+  "outcome": "failed_before_post_release_n05_and_mission",
+  "support_scan": {
+    "profile": "n08_overhead_free_sector_negative_y_rear_short_hold",
+    "configured_stages": 17,
+    "completed_stages": 14,
+    "wall_duration_s": 459.0458776659798,
+    "last_completed_stage": 13,
+    "failure_stage": 14,
+    "failure": "localization changed or became invalid during physical scan",
+    "last_trace": {
+      "sim_s": 419.452,
+      "leg_index": 14,
+      "fixture_z_m": 0.8993266772069795,
+      "yaw_rad": 0.0173726336412722,
+      "valid": true,
+      "normalized_cost": 0.9696089954294542
+    },
+    "final_localization": {
+      "state": 3,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.0098607118809362
+    },
+    "fixture_removed": true,
+    "scene_model_absent": true,
+    "detached": true,
+    "landed": true
+  },
+  "n05": {
+    "initial_accepted": false,
+    "initial_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "post_release_completed": false,
+    "independent_snapshot_helper": {
+      "accepted": false,
+      "reason": "online_snapshot_or_prerequisite_check_failed",
+      "error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge', 'clock', 'localization', 'map']",
+      "control_or_goal_published": false,
+      "truth_subscribed": false
+    }
+  },
+  "mission": {
+    "started": false,
+    "goal_sent": false,
+    "enable_requested": false,
+    "control_samples": 0,
+    "flight": false
+  },
+  "independent_readback": {
+    "scope": "read-only ROS topic echo; three live status samples, not an entry or flight qualification",
+    "bridge": {
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true,
+      "local_position_valid": false
+    },
+    "px4_vehicle_status": {
+      "arming_state": 1,
+      "nav_state": 4,
+      "pre_flight_checks_pass": false
+    },
+    "px4_land_detected": {
+      "landed": true,
+      "ground_contact": true,
+      "at_rest": true
+    },
+    "control_output": "disabled; no goal or enable was sent"
+  },
+  "shutdown": {
+    "command": "bash tools/project.sh stop n08-cancel-highspeed-prescan-20261026-307",
+    "command_exit_code": 0,
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "oom_killed": false
+  },
+  "artifact_sha256": {
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/fixture-result.json": "ad0640f375849c5222e3321815744d673eee787781bd935b7720d73f5eb813e3",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/fixture-stages.json": "2774b57973026074af72080ab4e4fce04df6a025beca5057ee0e7a2372529c15",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/fixture-trace.jsonl": "d60eb037c131429f99b86f10e18375190cbb94adfea5d84b3ec74fb4999d6af7",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/fixture-vins.jsonl": "541e67e20fd17227e3903ab573623fff51a6edb37597a2f12b8d8d6a98c3a8b6",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/fixture-odometry.jsonl": "613cd86cb8d81022f2bac54a5bbb44833c1f06dbc49df2fc3ab61a71f7ac515d",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/n05-before/n05-live-entry-check.json": "82eb5480f059ae0ebfc33a4a73efb0e6219d16440bf480d5551d4c93fa3382a2",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/n05-before/n05-live-raw-map.npz": "4bef37eb65e5bde719c51cc6297670662d7e5a4698a011a3e1d53b983f01e300",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-307/n08-safe-readback/n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e"
+  }
+}

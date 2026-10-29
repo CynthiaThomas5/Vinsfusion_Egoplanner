@@ -1,0 +1,751 @@
+{
+  "paired_metrics": {
+    "classification": "offline stride comparison on common baseline source-time queries with bounded interpolation; raw outputs unchanged; no flight or formal qualification",
+    "only_major_variable": "g_norm9.80665 versus9.8 only; native input, binary, other estimator params shared",
+    "truth_reference_contract": {
+      "schema": "gazebo-model-to-imu-reference/v1",
+      "conversion_tool_sha256": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+      "raw_pose_reference": "gazebo_model_origin",
+      "output_pose_reference": "d435i_imu",
+      "model_origin_to_imu_m": [
+        0.12,
+        0.0,
+        0.32
+      ],
+      "source_sha256": {
+        "simulation/models/x500_d435i/model.sdf": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+        "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+      },
+      "raw_twist_semantics": "body-frame rolling-mean velocities; not instantaneous endpoint state",
+      "velocity_comparison": "differentiate converted IMU positions at source time; do not use raw twist as world velocity"
+    },
+    "same_input_monitor_count_stamp_hashes": true,
+    "complete_input_matches_original_bag": true,
+    "same_common_evaluation_stamp_hashes": true,
+    "source_pose_rate_differs_by_intended_treatment": false,
+    "cases": [
+      {
+        "case": "baseline_reused",
+        "g_norm": 9.80665,
+        "status": "MEASURED",
+        "segments": {
+          "goal_motion": {
+            "source_window_ns": [
+              51119999999,
+              135996000000
+            ],
+            "pose_samples": 1287,
+            "position_error_m": {
+              "count": 1287,
+              "rmse": 0.07369645316269822,
+              "median": 0.07974423729736782,
+              "p95": 0.10670903163479031,
+              "max": 0.10816323307278942
+            },
+            "absolute_yaw_error_deg": {
+              "count": 1287,
+              "rmse": 0.44228396471955356,
+              "median": 0.34938054126328244,
+              "p95": 0.7488692106573465,
+              "max": 0.789516173170474
+            },
+            "velocity_error_m_s": {
+              "count": 1287,
+              "rmse": 0.00555014373503244,
+              "median": 0.004538237134915227,
+              "p95": 0.00955629297610093,
+              "max": 0.013263261150273015
+            },
+            "rpe10_translation_error_m": {
+              "count": 1135,
+              "rmse": 0.03047998876022609,
+              "median": 0.02195002964633,
+              "p95": 0.06049470605110017,
+              "max": 0.06508718457119489
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 1135,
+              "rmse": 0.11351690120872686,
+              "median": 0.10602471447483938,
+              "p95": 0.1686776193861997,
+              "max": 0.21732535649457585
+            }
+          },
+          "active_hold": {
+            "source_window_ns": [
+              135996000000,
+              155996000000
+            ],
+            "pose_samples": 304,
+            "position_error_m": {
+              "count": 304,
+              "rmse": 0.11284899172250316,
+              "median": 0.10892651369405995,
+              "p95": 0.12980037454970347,
+              "max": 0.13779605164174696
+            },
+            "absolute_yaw_error_deg": {
+              "count": 304,
+              "rmse": 0.8477032484259562,
+              "median": 0.8485178471355297,
+              "p95": 0.8910089818030903,
+              "max": 0.8952870880395783
+            },
+            "velocity_error_m_s": {
+              "count": 304,
+              "rmse": 0.005810570014683299,
+              "median": 0.001810840959945007,
+              "p95": 0.015166345744630215,
+              "max": 0.018084846247497576
+            },
+            "rpe10_translation_error_m": {
+              "count": 152,
+              "rmse": 0.01754828725225579,
+              "median": 0.011056834499833145,
+              "p95": 0.039275574733173356,
+              "max": 0.0432205798461209
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 152,
+              "rmse": 0.05024111895076579,
+              "median": 0.0516023325373202,
+              "p95": 0.058117970238164195,
+              "max": 0.05874086238718291
+            }
+          },
+          "landing": {
+            "source_window_ns": [
+              155996000000,
+              161372000000
+            ],
+            "pose_samples": 81,
+            "position_error_m": {
+              "count": 81,
+              "rmse": 0.11564782460221987,
+              "median": 0.11604822431231727,
+              "p95": 0.11695928686158939,
+              "max": 0.11750856662998177
+            },
+            "absolute_yaw_error_deg": {
+              "count": 81,
+              "rmse": 0.9109390360352004,
+              "median": 0.9119580909068647,
+              "p95": 0.924185076073958,
+              "max": 0.9256047283538167
+            },
+            "velocity_error_m_s": {
+              "count": 81,
+              "rmse": 0.018995199566014264,
+              "median": 0.000775204102258274,
+              "p95": 0.01313500197865395,
+              "max": 0.13682047368154934
+            },
+            "rpe10_translation_error_m": {
+              "count": 0,
+              "rmse": null,
+              "median": null,
+              "p95": null,
+              "max": null
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 0,
+              "rmse": null,
+              "median": null,
+              "p95": null,
+              "max": null
+            }
+          },
+          "full_task": {
+            "source_window_ns": [
+              28564000000,
+              161372000000
+            ],
+            "pose_samples": 2012,
+            "position_error_m": {
+              "count": 2012,
+              "rmse": 0.07718172147966988,
+              "median": 0.08153918437818244,
+              "p95": 0.11603891385839762,
+              "max": 0.13779605164174696
+            },
+            "absolute_yaw_error_deg": {
+              "count": 2012,
+              "rmse": 0.5167910823826914,
+              "median": 0.35444313833903646,
+              "p95": 0.8889960461349512,
+              "max": 0.9256047283538167
+            },
+            "velocity_error_m_s": {
+              "count": 2012,
+              "rmse": 0.0075792702186954376,
+              "median": 0.003716136281658678,
+              "p95": 0.01208346895306179,
+              "max": 0.13682047368154934
+            },
+            "rpe10_translation_error_m": {
+              "count": 1860,
+              "rmse": 0.0258654810727854,
+              "median": 0.0171770124336511,
+              "p95": 0.054808753450154256,
+              "max": 0.06508718457119489
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 1860,
+              "rmse": 0.1359555315497315,
+              "median": 0.09586799462585727,
+              "p95": 0.2394079729797696,
+              "max": 0.5637828375652266
+            }
+          }
+        },
+        "raw_pose_count": 2364,
+        "common_evaluation_sample_count": 2013,
+        "source_raw_max_gap_sim_s": 0.068000001,
+        "raw_first_last_source_ns": [
+          28548000000,
+          161340000000
+        ],
+        "raw_max_gap_sim_s": 0.068000001,
+        "pose_stamp_sha256": "abee04961be1982ac01e3c202b6ada122beeddc6055d6b220139e98d3e1527e6",
+        "inputs": {
+          "/sensors/d435i/imu": {
+            "count": 39181,
+            "first_source_ns": 7876000000,
+            "last_source_ns": 164596000000,
+            "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+            "strictly_monotonic": true
+          },
+          "/sensors/d435i/infra1/image_rect": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          },
+          "/sensors/d435i/infra2/image_rect": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          }
+        },
+        "alignment": {
+          "scale": 1,
+          "reference_source_ns": 28548000000,
+          "rotation": [
+            [
+              0.9999999919984812,
+              0.0001188132195622113,
+              4.3433354979122325e-05
+            ],
+            [
+              -0.00011881978556232029,
+              0.999999981509781,
+              0.00015120283146114033
+            ],
+            [
+              -4.3415389280817254e-05,
+              -0.0001512079909932129,
+              0.9999999876256237
+            ]
+          ],
+          "translation": [
+            -7.878557298807368,
+            0.000164149458503886,
+            0.3061135043339947
+          ]
+        },
+        "player_exit_code": 0,
+        "stop_reason": "bag_finished_plus_drain",
+        "failure": null
+      },
+      {
+        "case": "gravity980",
+        "g_norm": 9.8,
+        "status": "MEASURED",
+        "segments": {
+          "goal_motion": {
+            "source_window_ns": [
+              51119999999,
+              135996000000
+            ],
+            "pose_samples": 1287,
+            "position_error_m": {
+              "count": 1287,
+              "rmse": 0.07369993553444436,
+              "median": 0.0798176585220249,
+              "p95": 0.1066242681052846,
+              "max": 0.10806775285095477
+            },
+            "absolute_yaw_error_deg": {
+              "count": 1287,
+              "rmse": 0.4417523587891557,
+              "median": 0.34886931529662046,
+              "p95": 0.7481058917883914,
+              "max": 0.7887465855898023
+            },
+            "velocity_error_m_s": {
+              "count": 1287,
+              "rmse": 0.005552867790931696,
+              "median": 0.0045392126493037435,
+              "p95": 0.00955627729928864,
+              "max": 0.01326401304943227
+            },
+            "rpe10_translation_error_m": {
+              "count": 1135,
+              "rmse": 0.03049700250283601,
+              "median": 0.021983702177075303,
+              "p95": 0.060501068842503745,
+              "max": 0.06506985406901765
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 1135,
+              "rmse": 0.11354748936150806,
+              "median": 0.10589585042914004,
+              "p95": 0.168554473245396,
+              "max": 0.21868694286428658
+            }
+          },
+          "active_hold": {
+            "source_window_ns": [
+              135996000000,
+              155996000000
+            ],
+            "pose_samples": 304,
+            "position_error_m": {
+              "count": 304,
+              "rmse": 0.11272630313416937,
+              "median": 0.10882234282672495,
+              "p95": 0.12962048036423024,
+              "max": 0.1375971574373542
+            },
+            "absolute_yaw_error_deg": {
+              "count": 304,
+              "rmse": 0.8468911492463814,
+              "median": 0.8477019001844252,
+              "p95": 0.8901685417773274,
+              "max": 0.8944501337812567
+            },
+            "velocity_error_m_s": {
+              "count": 304,
+              "rmse": 0.005812000029107363,
+              "median": 0.0018008440384071512,
+              "p95": 0.015168653299889184,
+              "max": 0.01808900675836214
+            },
+            "rpe10_translation_error_m": {
+              "count": 152,
+              "rmse": 0.017548061180686882,
+              "median": 0.011053946291163755,
+              "p95": 0.039277540912488605,
+              "max": 0.043225918345551825
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 152,
+              "rmse": 0.050215379689421774,
+              "median": 0.05157389072233643,
+              "p95": 0.05807142641508301,
+              "max": 0.05869091282990257
+            }
+          },
+          "landing": {
+            "source_window_ns": [
+              155996000000,
+              161372000000
+            ],
+            "pose_samples": 81,
+            "position_error_m": {
+              "count": 81,
+              "rmse": 0.1155087842265192,
+              "median": 0.11591177975133139,
+              "p95": 0.11682107049821355,
+              "max": 0.1173712934361835
+            },
+            "absolute_yaw_error_deg": {
+              "count": 81,
+              "rmse": 0.9101100712219526,
+              "median": 0.9111337751172972,
+              "p95": 0.923366194815388,
+              "max": 0.9247721476492489
+            },
+            "velocity_error_m_s": {
+              "count": 81,
+              "rmse": 0.018994693125656322,
+              "median": 0.0007752447177189137,
+              "p95": 0.013128515257658267,
+              "max": 0.13682005254879764
+            },
+            "rpe10_translation_error_m": {
+              "count": 0,
+              "rmse": null,
+              "median": null,
+              "p95": null,
+              "max": null
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 0,
+              "rmse": null,
+              "median": null,
+              "p95": null,
+              "max": null
+            }
+          },
+          "full_task": {
+            "source_window_ns": [
+              28564000000,
+              161372000000
+            ],
+            "pose_samples": 2012,
+            "position_error_m": {
+              "count": 2012,
+              "rmse": 0.0771485236726164,
+              "median": 0.08151854817239303,
+              "p95": 0.11590073519148276,
+              "max": 0.1375971574373542
+            },
+            "absolute_yaw_error_deg": {
+              "count": 2012,
+              "rmse": 0.5162405609363233,
+              "median": 0.35388603428928544,
+              "p95": 0.8881574040350859,
+              "max": 0.9247721476492489
+            },
+            "velocity_error_m_s": {
+              "count": 2012,
+              "rmse": 0.007580402607203249,
+              "median": 0.0037067172968142594,
+              "p95": 0.012083000813916236,
+              "max": 0.13682005254879764
+            },
+            "rpe10_translation_error_m": {
+              "count": 1860,
+              "rmse": 0.025878913233601475,
+              "median": 0.017256858339935833,
+              "p95": 0.05482208196481209,
+              "max": 0.06506985406901765
+            },
+            "rpe10_rotation_error_deg": {
+              "count": 1860,
+              "rmse": 0.13606175590082992,
+              "median": 0.09581818297281047,
+              "p95": 0.23960554170979464,
+              "max": 0.5638755752864915
+            }
+          }
+        },
+        "raw_pose_count": 2364,
+        "common_evaluation_sample_count": 2013,
+        "source_raw_max_gap_sim_s": 0.068000001,
+        "raw_first_last_source_ns": [
+          28548000000,
+          161340000000
+        ],
+        "raw_max_gap_sim_s": 0.068000001,
+        "pose_stamp_sha256": "abee04961be1982ac01e3c202b6ada122beeddc6055d6b220139e98d3e1527e6",
+        "inputs": {
+          "/sensors/d435i/imu": {
+            "count": 39181,
+            "first_source_ns": 7876000000,
+            "last_source_ns": 164596000000,
+            "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+            "strictly_monotonic": true
+          },
+          "/sensors/d435i/infra1/image_rect": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          },
+          "/sensors/d435i/infra2/image_rect": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          }
+        },
+        "alignment": {
+          "scale": 1,
+          "reference_source_ns": 28548000000,
+          "rotation": [
+            [
+              0.9999999919854373,
+              0.00011881307359635106,
+              4.373303972598457e-05
+            ],
+            [
+              -0.00011881969054514846,
+              0.9999999814902971,
+              0.00015133171043473347
+            ],
+            [
+              -4.371505873084966e-05,
+              -0.0001513369055681228,
+              0.9999999875930673
+            ]
+          ],
+          "translation": [
+            -7.878557299224255,
+            0.0001641487900818535,
+            0.30611350429590367
+          ]
+        },
+        "player_exit_code": 0,
+        "stop_reason": "bag_finished_plus_drain",
+        "failure": null
+      }
+    ],
+    "paired_comparison_supported": true,
+    "live_parameters_changed": false,
+    "native_input_equivalence": {
+      "classification": "actual native callback/consumption completeness, not just external monitor",
+      "cases": [
+        {
+          "case": "baseline_reused",
+          "native_callback_fingerprints": {
+            "imu": {
+              "count": 39181,
+              "first_source_ns": 7876000000,
+              "last_source_ns": 164596000000,
+              "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+              "strictly_monotonic": true
+            },
+            "image0": {
+              "count": 4749,
+              "first_source_ns": 7868000000,
+              "last_source_ns": 164540000000,
+              "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+              "strictly_monotonic": true
+            },
+            "image1": {
+              "count": 4749,
+              "first_source_ns": 7868000000,
+              "last_source_ns": 164540000000,
+              "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+              "strictly_monotonic": true
+            }
+          },
+          "native_callbacks_match_original_bag": true,
+          "processed_stereo": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          },
+          "paired_catchup_dropped_stereo": {
+            "count": 0,
+            "first_source_ns": null,
+            "last_source_ns": null,
+            "source_stamp_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "strictly_monotonic": true
+          },
+          "unexplained_received_pair_stamps": [],
+          "all_received_pairs_accounted_for": true,
+          "every_original_stereo_pair_processed": true,
+          "image_queue_conservative_prefix_high_water": {
+            "image0": 1,
+            "image1": 1
+          },
+          "prefix_minimum": {
+            "image0": 0,
+            "image1": 0
+          },
+          "prefix_final": {
+            "image0": 0,
+            "image1": 0
+          },
+          "queue_measurement_scope": "upper bound from receipt-before-enqueue and trace-after-dequeue event order; unmatched sync pops are not subtracted; not a queue capacity or new runtime gate",
+          "trace_sha256": "9d5367277d0c1d74c22f131cf343a46df47fb8cb7649294fd6aa6928ac1b69fd"
+        },
+        {
+          "case": "gravity980",
+          "native_callback_fingerprints": {
+            "imu": {
+              "count": 39181,
+              "first_source_ns": 7876000000,
+              "last_source_ns": 164596000000,
+              "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+              "strictly_monotonic": true
+            },
+            "image0": {
+              "count": 4749,
+              "first_source_ns": 7868000000,
+              "last_source_ns": 164540000000,
+              "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+              "strictly_monotonic": true
+            },
+            "image1": {
+              "count": 4749,
+              "first_source_ns": 7868000000,
+              "last_source_ns": 164540000000,
+              "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+              "strictly_monotonic": true
+            }
+          },
+          "native_callbacks_match_original_bag": true,
+          "processed_stereo": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          },
+          "paired_catchup_dropped_stereo": {
+            "count": 0,
+            "first_source_ns": null,
+            "last_source_ns": null,
+            "source_stamp_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "strictly_monotonic": true
+          },
+          "unexplained_received_pair_stamps": [],
+          "all_received_pairs_accounted_for": true,
+          "every_original_stereo_pair_processed": true,
+          "image_queue_conservative_prefix_high_water": {
+            "image0": 1,
+            "image1": 1
+          },
+          "prefix_minimum": {
+            "image0": 0,
+            "image1": 0
+          },
+          "prefix_final": {
+            "image0": 0,
+            "image1": 0
+          },
+          "queue_measurement_scope": "upper bound from receipt-before-enqueue and trace-after-dequeue event order; unmatched sync pops are not subtracted; not a queue capacity or new runtime gate",
+          "trace_sha256": "a8029e185e931ff3f587a00903a22da91236592dc25fe410322da94a1e4abdf0"
+        }
+      ],
+      "same_native_callback_source_fingerprints": true,
+      "same_processed_stereo_source_fingerprints": true
+    }
+  },
+  "native_input_comparison": {
+    "classification": "actual native callback/consumption completeness, not just external monitor",
+    "cases": [
+      {
+        "case": "baseline_reused",
+        "native_callback_fingerprints": {
+          "imu": {
+            "count": 39181,
+            "first_source_ns": 7876000000,
+            "last_source_ns": 164596000000,
+            "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+            "strictly_monotonic": true
+          },
+          "image0": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          },
+          "image1": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          }
+        },
+        "native_callbacks_match_original_bag": true,
+        "processed_stereo": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        },
+        "paired_catchup_dropped_stereo": {
+          "count": 0,
+          "first_source_ns": null,
+          "last_source_ns": null,
+          "source_stamp_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "strictly_monotonic": true
+        },
+        "unexplained_received_pair_stamps": [],
+        "all_received_pairs_accounted_for": true,
+        "every_original_stereo_pair_processed": true,
+        "image_queue_conservative_prefix_high_water": {
+          "image0": 1,
+          "image1": 1
+        },
+        "prefix_minimum": {
+          "image0": 0,
+          "image1": 0
+        },
+        "prefix_final": {
+          "image0": 0,
+          "image1": 0
+        },
+        "queue_measurement_scope": "upper bound from receipt-before-enqueue and trace-after-dequeue event order; unmatched sync pops are not subtracted; not a queue capacity or new runtime gate",
+        "trace_sha256": "9d5367277d0c1d74c22f131cf343a46df47fb8cb7649294fd6aa6928ac1b69fd"
+      },
+      {
+        "case": "gravity980",
+        "native_callback_fingerprints": {
+          "imu": {
+            "count": 39181,
+            "first_source_ns": 7876000000,
+            "last_source_ns": 164596000000,
+            "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+            "strictly_monotonic": true
+          },
+          "image0": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          },
+          "image1": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          }
+        },
+        "native_callbacks_match_original_bag": true,
+        "processed_stereo": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        },
+        "paired_catchup_dropped_stereo": {
+          "count": 0,
+          "first_source_ns": null,
+          "last_source_ns": null,
+          "source_stamp_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "strictly_monotonic": true
+        },
+        "unexplained_received_pair_stamps": [],
+        "all_received_pairs_accounted_for": true,
+        "every_original_stereo_pair_processed": true,
+        "image_queue_conservative_prefix_high_water": {
+          "image0": 1,
+          "image1": 1
+        },
+        "prefix_minimum": {
+          "image0": 0,
+          "image1": 0
+        },
+        "prefix_final": {
+          "image0": 0,
+          "image1": 0
+        },
+        "queue_measurement_scope": "upper bound from receipt-before-enqueue and trace-after-dequeue event order; unmatched sync pops are not subtracted; not a queue capacity or new runtime gate",
+        "trace_sha256": "a8029e185e931ff3f587a00903a22da91236592dc25fe410322da94a1e4abdf0"
+      }
+    ],
+    "same_native_callback_source_fingerprints": true,
+    "same_processed_stereo_source_fingerprints": true
+  },
+  "old439_conclusion": "g_norm9.8 caused only6e-6m RPE change under previous protocol; now strict native comparison reproduces no material effect"
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "n10-live-obstacle-cylinder-observation-prelaunch/v1",
+  "subtask_id": "N10.3/#371",
+  "run_id": "n10-20261027-371-cylinder-observation-live-obstacle",
+  "classification": "frozen identity before SITL; not flight evidence",
+  "runtime_contract_path": "artifacts/n10-prepared/n10-20261027-371-cylinder-observation-live-obstacle/runtime-contract.json",
+  "sha256": "9c2f704da0904fabe62925d8526f529c13ce9fbc5ed058d5cf91be9479b6ede6",
+  "runtime_contract_file_count": 665,
+  "protocol_path": "progress/evidence/n10-live-obstacle-cylinder-observation-protocol-20261027-371.json",
+  "protocol_sha256": "1b99c39c2f88a9b25c23671a09df48ab7bd024f6c41235218a4b4388a0d187a5",
+  "patch_path": "dependencies/patches/ego/0053-remove-custom-full-curve-gates.patch",
+  "patch_sha256": "529fcade428165d4101cdc660b38f1cfd0094f22f0f77d03530e5808de7bb727",
+  "ego_binary_sha256": "25179a8ccdec7489c463f02e662180327bd34f90ef293ab1d0a0a85593d4982b",
+  "bridge_binary_sha256": "6b12e131f2776fbfe4a52a27eb3f194b7b77030d914e323e1e1f0362e0fc7606",
+  "bridge_module_sha256": "cf9f0056c9a8f7f0b9b0f224613591d77249d1647707b5d1ac0e5165a1d870ab",
+  "parent_run": "n10-20261027-369-alignment-gates-removed-live-obstacle",
+  "tools": {
+    "injector": "88190fc40c681e9b606bb06a93bfb51d4c208f4de603679bcdc0a106035e4ed4",
+    "driver": "8841ee76250b2adeebfea4f08dec602478b97b39330a804bec870de2bf4c7be8",
+    "analyzer": "8243ec0f569e930e4c59fa420f10c1522def1515f3a872cdfe62e895a18b8773",
+    "dynamic_analyzer": "686e410c49472dc6b5cf66490a776dd879a2bd0a9718eddedd4419ccc74d3453",
+    "clearance_analyzer": "8b2b74b8dc3473ccde413e9d6d85f244600e9d3855fa6644e7a2f7abec946aaf"
+  },
+  "preflight_before_goal": {
+    "runtime_contract_expected_to_match_369": false,
+    "planner_settings": "unchanged: max_vel=0.8, max_acc=0.25, planning_horizon=5.0, official_ego",
+    "goal_and_spawn": "unchanged from #369",
+    "box_geometry_and_trigger": "unchanged from #369",
+    "read_only_observer_control_publishers": 0,
+    "gazebo_create_service": "must be available before goal",
+    "navigation_cancel_service": "hidden action service must appear with type action_msgs/srv/CancelGoal using ros2 service list --include-hidden-services -t",
+    "all contact sensors ready": "required before mission starts",
+    "acceptance_thresholds_changed": false,
+    "safe_stop": "require independent landed/disarmed/control-disabled/zero-control readback before stop",
+    "source_config_and_launch_values": "matches #369; project-added launch refusals removed but inactive for these fixed values",
+    "first_check_attempt": "wrong introspection command found no visible service; no goal sent; service subsequently verified present with correct type"
+  },
+  "status": "ready_for_runtime_and_service_preflight; no goal sent yet",
+  "parent_runtime_contract_sha256": "5c3cbe4d4621e7c520d323e80911a2fc0ce09ae040c22adbf313c2fc21e45c01",
+  "authorized_project_guard_removal": {
+    "path": "src/own/uav_px4_bridge/uav_px4_bridge/vio_ego_bringup.py",
+    "removed_project_added_refusals": [
+      "envelope radius + uncertainty margin must equal body clearance radius",
+      "terminal hold neighborhood must not exceed 1.0 m",
+      "configured map bottom must cover the body reference sphere plus terminal hold neighborhood",
+      "planner obstacles inflation must equal body reference clearance radius"
+    ],
+    "retained": [
+      "configuration schema and finite/non-negative numeric validation",
+      "official EGO inflated-occupied collision behavior",
+      "map/epoch/time identity handling",
+      "single PX4 control publisher"
+    ],
+    "active_config_values_changed": false,
+    "build_and_tests": "10 focused config tests, 415 project tests, and 17 ROS packages passed"
+  }
+}

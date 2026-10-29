@@ -1,0 +1,172 @@
+{
+  "schema": "n08-rear-down-observation/v1",
+  "subtask": "N08.2y #235",
+  "run_id": "n08-20261024-235-rear-down-observation-01",
+  "profile": "n08_overhead_rear_down_view",
+  "result": "aborted_before_target_view_on_localization_health_failure",
+  "qualification_scope": "DISARMED support scan only; no compute-only or flight",
+  "static_validation": {
+    "preflight_scan_unittest": "PASS (30 tests)",
+    "preflight_scan_json": "PASS",
+    "runner_shell_syntax": "PASS",
+    "project_structure": "PASS (optional historical-link notice only)",
+    "git_diff_check": "PASS before run"
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "offline_matches_online": true,
+    "offline_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "identity": {
+      "epoch": "40bae5aef51b4e9ea5833bf9e13d5e50",
+      "map_id": "40bae5aef51b4e9ea5833bf9e13d5e50-5a3ac158de7d412cb7715594bdda8569",
+      "frame_id": "odom_40bae5aef51b4e9ea5833bf9e13d5e50",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    }
+  },
+  "scan": {
+    "planned_stages": 22,
+    "completed_stages": 4,
+    "completed_stage_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "last_completed_sim_interval_s": [
+      90.708,
+      190.808
+    ],
+    "rear_yaw_down_view_reached": false,
+    "attempted_pose_at_failure": [
+      -2.4,
+      1.0,
+      0.0,
+      0.052357617025834455
+    ],
+    "last_trace_sim_s": 194.132,
+    "last_trace_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.5764933815877697
+    },
+    "reported_final_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.4016983189835692
+    },
+    "error": "localization changed or became invalid during physical scan",
+    "wall_duration_s": 254.71037715300918,
+    "n05_live_check_completed": false
+  },
+  "localization_stream": {
+    "vins_telemetry_stamp_summary": {
+      "samples": 1399,
+      "max_gap_s": 0.66,
+      "median_gap_s": 0.132000001
+    },
+    "vins_telemetry_last_source_s": 241.3,
+    "vins_telemetry_max_solver_s": 0.03216910362243652,
+    "raw_odom_source_summary": {
+      "samples": 1399,
+      "max_gap_s": 0.724000001,
+      "median_gap_s": 0.132000001
+    },
+    "raw_odom_receipt_sim_summary": {
+      "samples": 1399,
+      "max_gap_s": 0.704,
+      "median_gap_s": 0.164
+    },
+    "raw_odom_max_abs_source_receipt_delta_s": 0.34,
+    "raw_odom_last_source_s": 241.695999999,
+    "adapter_optimized_source_summary": {
+      "samples": 1061,
+      "max_gap_s": 0.264000001,
+      "median_gap_s": 0.196
+    },
+    "adapter_optimized_last_source_s": 193.912,
+    "interpretation": "Raw VINS continues beyond the final observed adapter optimized odometry. This may follow the fail-closed localization transition; event ordering is not captured, so it is not identified as the trigger."
+  },
+  "live_bridge_readback": {
+    "phase": "DISABLED",
+    "reason": "localization_not_tracking",
+    "ready": false,
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "local_position_valid": false,
+    "ev_position_fused": false,
+    "ev_yaw_fused": false,
+    "gnss_aiding_active": false,
+    "last_command": 0
+  },
+  "environment_snapshot": {
+    "project_container_cpu_percent": 582.05,
+    "gazebo_process_cpu_percent": 321,
+    "vins_process_cpu_percent": 92.5,
+    "other_nonproject_simulator_processes_seen": 2,
+    "host_logical_cpu_count": 64,
+    "host_load_average_after_run": [8.86, 9.95, 11.5],
+    "global_saturation_established": false,
+    "causality_established": false,
+    "note": "These are simultaneous process observations, not evidence of host-wide saturation or causal contribution. External processes were left untouched."
+  },
+  "px4_timing_diagnostics": {
+    "alignment_pair_gap_sim_s": 100.392,
+    "alignment_pair_validated_age_wall_s": 111.949384471,
+    "px4_ros_clock_gap_sim_s": null,
+    "px4_ros_clock_gap_capture_status": "not captured in the saved readback",
+    "alignment_pair_gap_semantics": "PX4 local-position source timestamp versus adapter optimized-odometry source timestamp; distinct from the PX4 HRT versus ROS /clock gap",
+    "duplicate_vehicle_imu_sample_timestamp_errors_seen": true,
+    "px4_time_skew_root_cause_established": false,
+    "relation_to_n07_hrt_reference_fix_established": false,
+    "note": "The source-pair gap can make bridge alignment fail-closed. This run failed on localization health while DISABLED; it did not exercise an airborne PX4 timing gate, and the causal order of the gap versus localization failure is unknown."
+  },
+  "n05_after_gate": {
+    "executed": false,
+    "reason": "scan ended before n05-prescan-ready marker; no post-release map/gate exists"
+  },
+  "safety_and_stop": {
+    "goal_or_control_published": false,
+    "xy_executed": false,
+    "compute_only_started": false,
+    "fixture_cleanup_attempted": true,
+    "fixture_detached_verified": true,
+    "fixture_removed": true,
+    "landed": true,
+    "bridge_disarmed_readback": true,
+    "project_stop_exit_code": 0,
+    "container_final_status": "Exited (0)",
+    "fixture_runner_exit_code": 1,
+    "outer_n05_wrapper_exit_code": 12,
+    "matching_live_project_processes_after_stop": 0
+  },
+  "source_artifact_sha256": {
+    "n05-run-inputs.json": "fa751481057be2f91fd6e706f9a01acb11c2957c584367c65cdf857b58e645b9",
+    "fixture-result.json": "b920e2b95e049b8a801572b3ad2a1ea44cd6252bf8bae4768b2973ab6fe7b477",
+    "fixture-stages.json": "380d185fd5099f919da46c0fb562e33c90a9baaeea0aad16d76c845aeb346dad",
+    "fixture-trace.jsonl": "7560fbb557cc7491597e893e7d49278e859c624513bb56c3943387610f75600d",
+    "fixture-vins.jsonl": "371f592e504da2fd8a23c0b1784f5f289d6ec476902fd20c95113ac20a263af3",
+    "fixture-odometry.jsonl": "0de28cc7ef76bf490d73421bb74202d175721364bbb43840917faa8ca665f9b8",
+    "n05-fixture.log": "56b9858a244f0648bab0500bd76836c4b1842a0535fab56275c5864c543ce818",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-before/n05-live-entry-check.json": "13684b4126e03bac30485ca5e82acdc2e751dd05a6d9224b3e9c8037b67fcb9a",
+    "n05-before/n05-offline-entry-replay.json": "9557bb2b3c822671f6346c2389d81435dbb67d8d7045a12dde3b856996551dd6",
+    "n05-before/n05-live-raw-map.npz": "74a1b865a8a39e3624298695c2119633065cc0888153b3f1c4ddad3268fbbdb0",
+    "px4.log": "e7fcaa6ac03b25ba0da9e37d0f85fb83fc7c50d3a1f468a66faf661fa201fe19",
+    "agent.log": "4b96ac603e1db50103dd1764cc9ef1c3bc4bb1399ac16927b3b39c12a82ec81d",
+    "vio.log": "065789c1e24c02c7d85e999ebeaebaf8c5c7cbf20d1c20f14dce211802ec604e"
+  },
+  "conclusions": [
+    "The added yaw=-pi/pitch=+0.45 view was not reached; this run does not test the #235 coverage hypothesis.",
+    "The N05 before-scan unknown refusal remains valid and was not bypassed. No after-scan or post-release admission was obtained.",
+    "The observed trigger is LocalizationStatus normalized_cost_exceeded=1.401698; the transition timestamp is missing.",
+    "A large PX4 local-position/adapter odometry source-pair gap was observed, but the saved readback did not capture the separate PX4 HRT versus ROS /clock gap or the event ordering; cause is unresolved. This can fail the bridge closed and is distinct from the specific delayed-/clock future-age issue repaired in N07.",
+    "Concurrent CPU readings do not establish global host saturation or causality. This failure is not evidence that the cumulative N07 pass rule or PX4 HRT fix caused a regression.",
+    "N08 remains in_progress. No threshold, health gate, or unknown policy was changed."
+  ]
+}

@@ -21,7 +21,8 @@ from rosgraph_msgs.msg import Clock
 from uav_interfaces.msg import LocalizationStatus
 from uav_sim.geometry import calibration
 from .health import (Health, PublisherEndpointNotReady, body_velocity,
-                     publisher_endpoint_identity)
+                     publisher_endpoint_identity,
+                     publisher_endpoint_identity_changed, quaternion_diagnostic)
 
 
 def stamp_ns(header):
@@ -62,6 +63,8 @@ class Localization(Node):
         self.published = {'optimized':None,'propagated':None}
         self.counts = {'optimized':0,'propagated':0}
         self.future_observation_logged = False
+        self.health_lockout_logged = False
+        self.post_lock_telemetry_logged = False
         self.gids = {}
         self.vins_node = None
         self.imu = deque(maxlen=1000)
@@ -85,7 +88,7 @@ class Localization(Node):
         def propagated(msg):self.on_raw('propagated',msg)
         self.subscriptions_owned.extend([self.create_subscription(Odometry,self.topics['optimized'],optimized,qos_profile_sensor_data),
                                          self.create_subscription(Odometry,self.topics['propagated'],propagated,qos_profile_sensor_data)])
-        self.timer = self.create_timer(policy['status_period_wall_s'],self.on_timer,clock=ROSClock(clock_type=ClockType.STEADY_TIME))
+        self.timer = self.create_timer(self.health.status_period_wall_s,self.on_timer,clock=ROSClock(clock_type=ClockType.STEADY_TIME))
         self.status()
 
     def fault(self,reason):
@@ -142,6 +145,26 @@ class Localization(Node):
         self.drain()
 
     def on_telemetry(self,msg):
+        if self.health.locked:
+            if not self.post_lock_telemetry_logged:
+                self.post_lock_telemetry_logged = True
+                try:
+                    data = json.loads(msg.data)
+                    source_stamp = data.get('stamp_ns') if isinstance(data,dict) else None
+                except (ValueError,TypeError):
+                    source_stamp = None
+                wall = time.monotonic()
+                clock_ns = self.health.clock_ns
+                self.get_logger().warning('telemetry_after_health_lockout '+json.dumps({
+                    'reason': self.health.reason,
+                    'source_stamp_ns': source_stamp,
+                    'clock_stamp_ns': clock_ns,
+                    'source_age_ns': (clock_ns-source_stamp
+                                      if type(clock_ns) is int and type(source_stamp) is int
+                                      else None),
+                    'receipt_monotonic_s': wall,
+                },sort_keys=True))
+            return
         if not self.bind('telemetry'):return
         try:
             metrics = json.loads(msg.data)
@@ -161,6 +184,20 @@ class Localization(Node):
         try:
             body_velocity([q.x,q.y,q.z,q.w],[v.x,v.y,v.z])
         except ValueError:
+            record = quaternion_diagnostic([q.x,q.y,q.z,q.w])
+            record.update({
+                'kind': kind, 'epoch': self.epoch,
+                'source_stamp_ns': stamp_ns(msg.header),
+                'clock_stamp_ns': self.health.clock_ns,
+                'frame_id': msg.header.frame_id,
+                'child_frame_id': msg.child_frame_id,
+                'position': [p.x,p.y,p.z],
+                'velocity': [v.x,v.y,v.z],
+                'last_published_source_ns': dict(self.published),
+                'last_imu_sample': self.imu[-1] if self.imu else None,
+            })
+            self.get_logger().error('odometry_integrity_fault '+json.dumps(
+                record, sort_keys=True, allow_nan=False))
             return self.fault(kind+'_invalid_quaternion')
         if self.health.sample(kind,stamp_ns(msg.header),time.monotonic()):
             self.pending[kind] = msg
@@ -179,8 +216,14 @@ class Localization(Node):
 
     def drain(self):
         wall = time.monotonic()
+        if self.health.locked:
+            self.pending.clear()
+            return
         self.health.paired(wall)
-        if not self.health.tick(wall):return
+        if not self.health.tick(wall):
+            if self.health.locked:
+                self.pending.clear()
+            return
         for kind,msg in list(self.pending.items()):
             stamp = stamp_ns(msg.header)
             if self.published[kind] is not None and stamp<=self.published[kind]:continue
@@ -200,6 +243,11 @@ class Localization(Node):
     def on_timer(self):
         if self.health.state=='TRACKING':
             for kind,topic in self.topics.items():
+                # Each stream binds its DDS identity when its first message
+                # arrives. VINS may advertise a publisher after another
+                # stream has already moved the adapter into TRACKING.
+                if kind not in self.gids:
+                    continue
                 publishers = self.get_publishers_info_by_topic(topic)
                 try:
                     gid,node_name,node_namespace = publisher_endpoint_identity(publishers)
@@ -208,20 +256,21 @@ class Localization(Node):
                 except ValueError:
                     self.fault(kind+'_publisher_missing_or_ambiguous')
                     break
-                if (gid!=self.gids.get(kind) or (node_name,node_namespace)!=self.vins_node):
+                if publisher_endpoint_identity_changed(
+                        self.gids.get(kind),self.vins_node,gid,node_name,node_namespace):
                     self.fault(kind+'_publisher_missing_or_changed')
                     break
-        self.health.tick(time.monotonic())
+        self.drain()
         if self.health.locked:self.pending.clear()
         self.status()
 
     def status(self):
-        if (not self.future_observation_logged and self.health.reason.endswith('_from_future')
-                and self.health.future_observation is not None):
-            observation = dict(self.health.future_observation)
-            observation['epoch'] = self.epoch
-            self.get_logger().error('health_future_observation '+json.dumps(observation,sort_keys=True))
-            self.future_observation_logged = True
+        if self.health.locked and not self.health_lockout_logged:
+            snapshot = self.health.diagnostic_snapshot()
+            snapshot['epoch'] = self.epoch
+            snapshot['captured_wall_s'] = time.monotonic()
+            self.health_lockout_logged = True
+            self.get_logger().error('localization_integrity_fault_snapshot '+json.dumps(snapshot,sort_keys=True))
         msg = LocalizationStatus()
         now = self.health.clock_ns or 0
         msg.header.stamp.sec,msg.header.stamp.nanosec = divmod(now,1000000000)

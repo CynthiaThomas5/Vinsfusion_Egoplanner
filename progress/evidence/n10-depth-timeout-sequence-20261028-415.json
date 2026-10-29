@@ -1,0 +1,42 @@
+{
+  "schema": "n10-depth-timeout-sequence/v1",
+  "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+  "classification": "offline log correlation; proximate sequence only, no unique root cause",
+  "proximate_sequence": [
+    {
+      "sim_time_s": 121.088,
+      "component": "localization_adapter",
+      "event": "integrity lockout",
+      "reason": "propagated_invalid_quaternion",
+      "last_optimized_pair_stamp_s": 120.980
+    },
+    {
+      "sim_time_s": 121.032,
+      "component": "ego_planner grid map",
+      "event": "last observed depth-pose synchronization",
+      "sync_count": 3408,
+      "sync_source_stamp_s": 120.980,
+      "last_occupancy_update_s": 121.080
+    },
+    {
+      "sim_time_s": 121.516,
+      "component": "ego_planner",
+      "event": "native depth/odometry timeout and goal abort",
+      "last_occupancy_update_s": 121.080,
+      "observed_age_s": 0.436,
+      "configured_timeout_s": 0.4,
+      "abort_reason": "planner_full_curve_depth_odom_timeout"
+    }
+  ],
+  "inference": "Observed ordering supports the proximate chain propagated_invalid_quaternion lockout -> no new valid depth/pose fusion -> native EGO timeout -> task abort. The origin of the invalid quaternion remains unknown.",
+  "flight_result": "FAIL",
+  "runtime_threshold_changed": false,
+  "safe_closeout": "UNSAFE_AT_LAST_READBACK",
+  "source_reports": {
+    "vio_log_excerpt": "artifacts/runs/n10-20261028-415-speed040-yawcap010-compacttrace-calibration/n10-depth-timeout-sequence-source-extract.txt",
+    "vio_log_excerpt_sha256": "9d713c3eee4c4950c2df6b3454b79fdf580a754f9f1f685198739fe487f201d3",
+    "vio_log_excerpt_source_lines_1based": [17860, 17861, 17894, 17898, 17899, 17900, 17901, 17902, 17903, 17904],
+    "flight.json": "f2cce6efd01fe8d0e9dff6c7fd24c9e001890c05805163339a58ddafffd02df3",
+    "n10-depth-fusion-trace.jsonl": "b8b790d618742c829ae184df0ab6c2f4f8d3cdd8f8282ca0af725f809e74d32e"
+  }
+}

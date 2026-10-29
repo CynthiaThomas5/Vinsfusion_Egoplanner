@@ -1,0 +1,64 @@
+{
+  "schema": "n08-candidate-corridor-sweep/v1",
+  "task": "N08.2n",
+  "attempt": "#224",
+  "scope": "offline same-map raw occupancy candidate selection only; no N08 runtime qualification",
+  "map_identity": {
+    "epoch": "a3940a23e72b445ba0f951c04f6fa0b9",
+    "map_id": "a3940a23e72b445ba0f951c04f6fa0b9-f5272e80e3f440c1a0f28f26d5b00f94",
+    "raw_map_path": "artifacts/runs/n08-20261024-221-overhead-ceiling-isolated-01/n05-post-release/n05-live-raw-map.npz",
+    "raw_map_sha256": "eb6aa6644ae21b82712f82e96ea0bbbccdd3e99b8edeefa6ef23952d1b5ea14d",
+    "post_release_gate_path": "artifacts/runs/n08-20261024-221-overhead-ceiling-isolated-01/n05-post-release/n05-live-entry-check.json"
+  },
+  "query_method": {
+    "source": "tools/probe_n06_live_layout.py",
+    "source_sha256": "8c90741621fcac95680891d7c22526810b9c84a588d7c4ab38beb1993a67a11a",
+    "functions": ["raw_sphere_query", "raw_line_sweep"],
+    "candidate_grid_m": {"dx": [-1.0, 1.0], "dy": [-1.0, 1.0], "step": 0.1, "dz": 0.0},
+    "body_radius_m": 0.7306179170842027,
+    "terminal_hold_extra_radius_m": 0.25,
+    "speed_bound_m_s": 0.15,
+    "horizontal_fov_rad": 1.5184364492350666,
+    "horizontal_fov_deg": 87.0,
+    "camera_model_path": "simulation/models/d435i/model.sdf",
+    "camera_model_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707"
+  },
+  "start": {
+    "center_xyz_m": [0.18570774577146995, -0.0651673280247127, 1.0522347013896192],
+    "yaw_rad": 0.02696322893474023,
+    "body_sphere": {"reason": "free", "free": 2175, "unknown": 0, "occupied": 0},
+    "terminal_hold_sphere": {"reason": "unknown", "free": 4878, "unknown": 41, "occupied": 0}
+  },
+  "grid_summary": {
+    "raw_certified_candidates": 40,
+    "raw_certified_candidates_inside_horizontal_fov": 27
+  },
+  "selected_candidate": {
+    "offset_enu_m": [0.8, 0.3, 0.0],
+    "length_m": 0.8544003745317532,
+    "target_xyz_m": [0.98570774577147, 0.2348326719752873, 1.0522347013896192],
+    "relative_camera_bearing_deg": 19.01116599957782,
+    "fov_edge_margin_deg": 24.48883400042218,
+    "target_body_sphere": {"reason": "free", "free": 2175, "unknown": 0, "occupied": 0},
+    "target_terminal_hold_sphere": {"reason": "free", "free": 4919, "unknown": 0, "occupied": 0},
+    "continuous_line": {
+      "free": true,
+      "reason": "free",
+      "queries": 35,
+      "continuous_cover_radius_m": 0.7428236367203706,
+      "unknown": 0,
+      "occupied": 0
+    }
+  },
+  "rejected_alternative": {
+    "offset_enu_m": [0.0, 0.4, 0.0],
+    "reason": "outside_horizontal_fov",
+    "relative_camera_bearing_deg": 88.45512077999437,
+    "target_body_sphere": "free",
+    "target_terminal_hold_sphere": "free",
+    "continuous_line_free": true
+  },
+  "n08_pass": false,
+  "xy_execution_authorized": false,
+  "next": "fresh same-run N05 map and current-area gate, repeat exact candidate queries, then isolated compute-only"
+}

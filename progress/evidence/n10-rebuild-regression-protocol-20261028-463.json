@@ -1,0 +1,67 @@
+{
+  "schema": "n10-rebuild-regression-protocol/v1",
+  "id": "N10.6/#463",
+  "status": "frozen before simulation start; no goal submitted",
+  "run_id": "n10-20261028-463-clean-build-regression",
+  "hypothesis": "The cleanly rebuilt install, locked runtime parameters and bridge-owned PX4 path can complete a representative 3D/yaw waypoint and return to a natively landed/disarmed state.",
+  "single_primary_change": "runtime build/install provenance is the clean N10.5 candidate; no source/configuration or runtime safety changes are introduced for this regression.",
+  "candidate_path": "/home/huangxiaocheng/n10-20261028-462-clean-rebuild/candidate/project",
+  "source_export_tar_sha256": "80072761e73a7711debcc862e168de0278e8c01ebd1070a3f03818742d08fe3f",
+  "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+  "px4_binary_sha256": "4de2196cb066c5c80a25f06e17d79522d117595b6d45ecea9a2950fd7beab3b0",
+  "ros_install_tree_manifest_sha256": "68ce9cbcaa018e3901df3368a3d2e8487e61d22927d5794e9dcc265b2d206d5d",
+  "inputs": {
+    "goal": {
+      "path": "config/components/navigation/n09_3d_waypoint_goal.json",
+      "sha256": "04d2287d22481257ab59cd983fa439b68e130f210d111f938a2f2fa89bd92012"
+    },
+    "planner": {
+      "path": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+      "sha256": "2efea04354b3a06629c308173f64b42e56958e4fb6565325350d84cfee980c23"
+    },
+    "spawn": {
+      "path": "config/components/simulation/n10_long_range_spawn_minus8.json",
+      "sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2"
+    },
+    "acceptance": {
+      "path": "config/acceptance.json",
+      "sha256": "9a49da186d970ed9a49eb0fb4fa28b5b23cad9c17198a9563d7d63b0cea3ce63"
+    }
+  },
+  "mission": {
+    "profile": "3D/yaw waypoint regression; existing N09 profile reused, no formal N09/N11-N16 credit",
+    "target_offset_enu_m": [
+      0.4,
+      0.0,
+      0.1
+    ],
+    "yaw_offset_rad": 0.2,
+    "position_tolerance_m": 0.05,
+    "yaw_tolerance_rad": 0.1,
+    "native_dwell_s": 1.0,
+    "collision_policy": "official_ego",
+    "planner_velocity_m_s": 0.4,
+    "planner_acceleration_m_s2": 0.25,
+    "planning_horizon_m": 5.0,
+    "n10_diagnostic_observers": {
+      "physics_step_kinematics": true,
+      "sensor_payload_capture": false
+    }
+  },
+  "runtime_boundary": {
+    "acceptance_revision": 8,
+    "acceptance_config_sha256": "9a49da186d970ed9a49eb0fb4fa28b5b23cad9c17198a9563d7d63b0cea3ce63",
+    "acceptance_runtime_effect": {
+      "offline_evaluator_only": true,
+      "adds_admission_cancel_or_landing_gate": false,
+      "thresholds_may_change_control_flow": false,
+      "truth_used_online": false
+    },
+    "fault_injection": false,
+    "dynamic_obstacle_injection": false,
+    "ground_truth_online_allowed": false,
+    "sole_px4_control_owner": "uav_px4_bridge",
+    "formal_qualification_credit": false
+  },
+  "recovery": "If the native goal fails, retain the full failure record and let the existing bridge/PX4 behavior complete; no emergency disarm is authorized in this subtask. Independently read back the terminal state before stopping the candidate stack."
+}

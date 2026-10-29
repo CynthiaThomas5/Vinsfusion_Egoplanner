@@ -1,0 +1,106 @@
+{
+  "schema": "n08-support-scan-admission/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-284",
+  "scope": "N05 prerequisite for a planned N08 SITL trial; support scan and map admission only; no flight qualification",
+  "profile": "n06_full_airframe_retreat_240_translation_only",
+  "completed_stages": 6,
+  "configured_stages": 6,
+  "localization": {
+    "trace_samples": 10131,
+    "invalid_trace_samples": 0,
+    "peak_accel_bias_norm_m_s2": 0.11483010188226073,
+    "unchanged_accel_bias_gate_m_s2": 0.15,
+    "map_epoch": "7a38f229b68e44fba48fb606d2e87681",
+    "map_id": "7a38f229b68e44fba48fb606d2e87681-e5d2eaf0c1894dc484b9d0b51b6dd620"
+  },
+  "admission": {
+    "initial_expected_refusal": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "post_scan": "all_entry_phases_known_and_clear",
+    "post_release_online_accepted": true,
+    "post_release_offline_matches": true,
+    "independent_live_accepted": true,
+    "independent_offline_matches": true,
+    "fresh_state": {
+      "bridge_phase": "DISABLED",
+      "armed": false,
+      "control_enabled": false,
+      "landed": true,
+      "localization_valid": true,
+      "localization_state": 1,
+      "body_pose_imu_m": {
+        "center_xyz_m": [
+          -0.0028988274299241844,
+          0.012744132564490234,
+          0.014553912378489353
+        ],
+        "yaw_rad": -0.001988668772283837,
+        "roll_rad": -0.0018741371865089085,
+        "pitch_rad": -0.011158273763465926
+      }
+    },
+    "freshness": {
+      "snapshot_age_sim_s": 0.088,
+      "depth_source_age_sim_s": 0.16,
+      "fusion_age_sim_s": 0.032,
+      "map_status_receipt_age_wall_s": 0.19381093489937484,
+      "localization_receipt_age_wall_s": 0.044883463997393847,
+      "odometry_receipt_age_wall_s": 0.04274141904897988,
+      "limit_sim_s": 0.4
+    }
+  },
+  "fixture": {
+    "states": [
+      "attached",
+      "detached"
+    ],
+    "removed": true,
+    "scene_model_absent": true,
+    "independent_model_list_absent": true
+  },
+  "cleanup_warning_reconciliation": {
+    "fixture_runner_exit_code": 1,
+    "reported_error": "localization changed or became invalid during physical scan",
+    "all_six_stages_completed": true,
+    "all_scan_trace_localization_valid": true,
+    "fixture_removed_and_model_absent": true,
+    "last_localization_valid": true,
+    "n05_diagnostic_pass": true,
+    "interpretation": "The generic localization error was raised in the final settle step after all six scan stages and fixture removal. No invalid localization sample appears in the scan motion trace; post-release and an additional independent fresh live/offline N05 check accepted the unchanged identity."
+  },
+  "runtime_fingerprint": {
+    "navigation_supervisor_sha256": "c9ddb17931ef244d150caffe9f04164c3fd2ba76160cd02b03c7455267c11923",
+    "expected_build_276_sha256": "c9ddb17931ef244d150caffe9f04164c3fd2ba76160cd02b03c7455267c11923",
+    "matches_expected_build": true
+  },
+  "control_or_goal_published": false,
+  "artifacts": {
+    "prescan_summary": {
+      "path": "artifacts/runs/n08-cancel-translation-prescan-20261026-284/n05-run-summary.json",
+      "sha256": "28b3a50f3911cdd06c687072d27875b11c0605b93fca9d125c560270e65480f3"
+    },
+    "scan_result": {
+      "path": "artifacts/runs/n08-cancel-translation-prescan-20261026-284/fixture-result.json",
+      "sha256": "2d180b7769a1802b3caaad37835305ccbbb192a44f7ad4fa9fb34282017a1a6b"
+    },
+    "scan_stages": {
+      "path": "artifacts/runs/n08-cancel-translation-prescan-20261026-284/fixture-stages.json",
+      "sha256": "c62d53aa6820c878df16b47bd8b4198cbd8f2979b490e4cb5f51bdfd45affc00"
+    },
+    "independent_live_admission": {
+      "path": "artifacts/runs/n08-cancel-translation-prescan-20261026-284/n05-independent-readback/n05-live-entry-check.json",
+      "sha256": "f3708f9ba14b796a926bc0f92a7a056eaff8c69d65d912ac29945fefb36cc7b5"
+    },
+    "independent_offline_replay": {
+      "path": "artifacts/runs/n08-cancel-translation-prescan-20261026-284/n05-independent-readback/n05-offline-entry-replay.json",
+      "sha256": "9edf5b366849fab22e5cb318706b4df51b9f78c68bb7e7b1b311b47848620df8"
+    },
+    "independent_gazebo_model_list": {
+      "path": "artifacts/runs/n08-cancel-translation-prescan-20261026-284/n05-independent-readback/gazebo-model-list.txt",
+      "sha256": "48cb6a8ad7acbe03296a9079a056ca76c5dbe69df323387a7037ba430d3170a2"
+    },
+    "runtime_contract": {
+      "path": "artifacts/runs/n08-cancel-translation-prescan-20261026-284/runtime-contract.json",
+      "sha256": "7a09e8cc869cfad4bae2c0b1115aa7d18cae84f849ca7268e7580877b703b397"
+    }
+  }
+}

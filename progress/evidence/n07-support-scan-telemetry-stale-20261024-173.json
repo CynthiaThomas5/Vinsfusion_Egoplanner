@@ -1,0 +1,226 @@
+{
+  "schema": "n07-support-scan-telemetry-stale/v1",
+  "task_id": "N07.19 #173",
+  "run_id": "n07-20261024-173-01",
+  "qualification": "failed_before_fresh_n05_release_admission_and_no_goal_hover",
+  "consecutive_qualified_hover_count": "0/3",
+  "runtime": {
+    "epoch": "483200e387ae430d99626cf9c8e27a37",
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "max_accel_bias_m_s2": 0.15,
+    "health_threshold_changed": false
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "offline_sweep": {
+      "accepted": false,
+      "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "ground_plane": {
+        "valid": true,
+        "reason": "raw_occupied_plane_fit",
+        "z_at_center_m": -0.3500000000000002,
+        "coefficients_ax_by_c_m": [
+          -2.911169518686981e-17,
+          5.551115123125783e-17,
+          -0.3500000000000002
+        ],
+        "residual_p95_m": 2.7755575615628914e-16,
+        "slope": 6.268156593188142e-17,
+        "raw_occupied_voxel_count": 110,
+        "xy_span_m": [
+          0.6999999999999993,
+          1.6999999999999993
+        ],
+        "source": "raw occupancy only",
+        "debug_truth_used": false
+      },
+      "hold_height_m": 1.0,
+      "sample_step_m": 0.05,
+      "sample_count": 41,
+      "ground_confirmed": true,
+      "disarmed": true,
+      "control_disabled": true,
+      "phases": {
+        "TAKEOFF_CONTACT": {
+          "samples": 1,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 1
+          },
+          "maximum_unknown_cells": 436,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 44
+        },
+        "ASCENT": {
+          "samples": 19,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 19
+          },
+          "maximum_unknown_cells": 592,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 32
+        },
+        "HOLD": {
+          "samples": 1,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 1
+          },
+          "maximum_unknown_cells": 566,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 0
+        },
+        "DESCENT": {
+          "samples": 19,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 19
+          },
+          "maximum_unknown_cells": 592,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 32
+        },
+        "LANDING_CONTACT": {
+          "samples": 1,
+          "accepted_samples": 0,
+          "refusal_counts": {
+            "raw_unknown_in_expanded_vehicle_envelope": 1
+          },
+          "maximum_unknown_cells": 436,
+          "maximum_occupied_cells": 0,
+          "maximum_ground_contact_cells": 0,
+          "maximum_subground_excluded_cells": 44
+        }
+      },
+      "scope": "raw occupancy entry-volume diagnostic; no flight authorization"
+    },
+    "control_or_goal_published": false,
+    "truth_subscribed": false
+  },
+  "support_scan": {
+    "completed_stages": 12,
+    "expected_stages": 12,
+    "ready_marker": {
+      "schema": "n05-prescan-ready/v1",
+      "layout_id": "wall_box_column",
+      "epoch": "483200e387ae430d99626cf9c8e27a37",
+      "map_id": "483200e387ae430d99626cf9c8e27a37-6aab1b9233874e2392984cfb63f7dcd7",
+      "profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+      "completed_stages": 12,
+      "attachment": "attached",
+      "vehicle_arming_state": 1,
+      "pose_check_window": "fixture returned to initial physical pose; yaw equivalent modulo 2*pi",
+      "truth_input_used": false,
+      "control_or_goal_published": false
+    },
+    "fixture_vins_sample_count": 2535,
+    "accel_bias_max_m_s2": 0.08383940105716418,
+    "accel_bias_last_m_s2": 0.0740336787266284,
+    "crossed_0_15_m_s2": false,
+    "solver_usable_last": true,
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "telemetry_stale",
+      "normalized_cost": 0.45696578653207054
+    },
+    "runner_error": "localization changed or became invalid during physical scan"
+  },
+  "n05_attached_gate": {
+    "schema": "n05-live-entry-check-error/v1",
+    "accepted": false,
+    "reason": "online_snapshot_or_prerequisite_check_failed",
+    "error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge', 'clock', 'localization', 'map']",
+    "qualification": "fail-closed read-only diagnostic; no entry authorization",
+    "truth_subscribed": false,
+    "control_or_goal_published": false
+  },
+  "n05_released_gate": {
+    "schema": "n05-live-entry-check-error/v1",
+    "accepted": false,
+    "reason": "online_snapshot_or_prerequisite_check_failed",
+    "error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge', 'clock', 'localization', 'map']",
+    "qualification": "fail-closed read-only diagnostic; no entry authorization",
+    "truth_subscribed": false,
+    "control_or_goal_published": false
+  },
+  "freshness_observations": {
+    "attached_timeout_status": {
+      "header_clock_s": 487.572,
+      "source_stamp_s": 386.136,
+      "reason": "telemetry_stale",
+      "state": 4
+    },
+    "post_timeout_raw_readback": {
+      "clock_stamp_s": 554.572,
+      "raw_estimator_telemetry_stamp_s": 555.292,
+      "raw_odometry_stamp_s": 556.744,
+      "adapter_source_stamp_s": 386.136,
+      "adapter_reason": "telemetry_stale",
+      "adapter_optimized_odom_available": false
+    },
+    "interpretation": "Raw outputs had current stamps in a later readback, but adapter remained latched and did not publish adapted optimized odometry. The first missing interval/topic is not captured; raw recovery does not authorize flight."
+  },
+  "flight": {
+    "released_gate_passed": false,
+    "hover_started": false,
+    "goal_published": false,
+    "armed": false
+  },
+  "safety_shutdown": {
+    "fixture_detached": true,
+    "fixture_removed": true,
+    "scene_model_absent": true,
+    "final_landed": true,
+    "final_land_detector_landed": true,
+    "vehicle_states": [
+      1
+    ],
+    "bridge_readback": {
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking",
+      "armed": false,
+      "landed": true
+    },
+    "px4_arming_state": 1,
+    "stop_command": "bash tools/project.sh stop n07-20261024-173-01",
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "remaining_matching_project_container": false
+  },
+  "diagnosis": {
+    "supported": "The shorter oblique-separated route completed 12/12 and kept VINS accel bias below 0.15 m/s² in this epoch.",
+    "confirmed": "Both attached and post-release N05 checks timed out with adapted odom missing; localization latched telemetry_stale. Raw VINS telemetry and odometry later had current stamps while the adapter remained stale.",
+    "unresolved": "The first raw/adapted message gap or scheduling event that caused telemetry_stale; the readback does not establish a root cause."
+  },
+  "artifact_sha256": {
+    "n05-run-inputs.json": "c77e42fbcfbf2d5b93deb43d36553b483afbd7d118ac8982c0456ccc870ed4bd",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-before/n05-live-entry-check.json": "b51b71549f984b7aae78a23f244aba1961028798e8d7937fddd90f504549ae4c",
+    "n05-before/n05-offline-entry-replay.json": "5c03237e6f40fe598c23a8bd44b4675be633ee4b65c03b4d29ea071a3d11f78d",
+    "n05-prescan-ready.json": "5b5cdd042b2def15033eaada378dbeb9de50910390596da2510953e714693b4c",
+    "n05-after/n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e",
+    "n05-post-release/n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e",
+    "fixture-result.json": "5c13e4c61a1977b64122663f8fe41ed3f720ece7cd58abf2d4b626e54068dc17",
+    "fixture-stages.json": "c796df6385ca3b2da371dda6af2e6868320dead6aa3cda732c55e8b5d5ffb513",
+    "fixture-trace.jsonl": "259cba9dee2f4d70a1f2df196a034509c485d768d5e6048b008ae826e38a35b6",
+    "fixture-vins.jsonl": "d748123e2dcaeb0b4a7fee7e65ba618a467417e11e75a13a9c74c3f663287dff",
+    "n05-fixture.log": "575c8be91cbf548306989b7a7f2a7e82758b806b982d83bceae4cbb581fcb4c1",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "failure-safety-readback.log": "0722b3d5a7c509ba691431541caeb31314e75b2b4403254b99d3045e1c4e9326",
+    "post-timeout-source-readback.log": "90c794b267557c63915c75800c2f3d1f5b4ef913103587ff8117536de79c3da2",
+    "vio.log": "40c62e1cdd4ca63f16812f9d16be9137c0cf5da4362de3857128c98348d0292f"
+  },
+  "next_step": "#174 repeats the now-bias-qualified separated-return route in a new cold-start epoch while a read-only source-freshness recorder observes raw VINS and adapted outputs through the N05 attached gate. Do not fly unless both gates pass."
+}

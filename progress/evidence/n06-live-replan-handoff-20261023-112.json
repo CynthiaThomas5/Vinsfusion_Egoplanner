@@ -1,0 +1,209 @@
+{
+  "schema": "n06-live-replan-handoff/v1",
+  "task_id": "N06.2.3",
+  "evidence_id": "#112",
+  "parent_goal": "N06",
+  "execution_mode": "goal_completion",
+  "result": "handoff_passed; parent_goal_in_progress",
+  "scope": "Actual wall_box_column Gazebo+D435i+VINS+plan_env/EGO planner-only; no PX4, bridge, controller, traj_server, navigation supervisor, setpoint, trajectory execution or flight.",
+  "r35_initial_refusal": {
+    "run_id": "n06-20261023-wall-r35",
+    "exit_code": 16,
+    "goal_published": false,
+    "reason": "live_map_or_odometry_not_ready",
+    "freshness": {
+      "source_age_sim_s": 0.137,
+      "fusion_age_sim_s": 0.005,
+      "odometry_age_sim_s": 0.566,
+      "limit_sim_s": 0.4
+    },
+    "snapshot_gate_passed": true,
+    "live_raw_gate_passed": true,
+    "epoch": "772b2c5abe08442a99eba140f7e9ba94",
+    "interpretation": "Fail-closed because the sampled odometry was older than 0.4 s. Mapping-stack logs later show continued VINS output; exact sample timing cause is unconfirmed.",
+    "probe_report_sha256": "0f31bff83c6552a52949bd4c49ab78d80adf63b2fb19e7e11ca668d263edeaee",
+    "mapping_stack_log_sha256": "8b3305542ef73971a6137cb2295639233b1f03616c34e9030d49990dcab8963d"
+  },
+  "successful_run": {
+    "run_id": "n06-20261023-wall-r36",
+    "epoch": "b4f88bb204f14667bb2fc3f06eef2899",
+    "map_id": "b4f88bb204f14667bb2fc3f06eef2899-aee2fc96c0ef40d499072c8f43f63a5d",
+    "frame_id": "odom_b4f88bb204f14667bb2fc3f06eef2899",
+    "start_readiness": {
+      "source_age_sim_s": 0.132,
+      "fusion_age_sim_s": 0.019,
+      "odometry_age_sim_s": 0.099000001,
+      "limit_sim_s": 0.4
+    },
+    "fresh_odometry_wait": {
+      "fresh_identity_matched_sample_observed": true,
+      "wall_wait_s": 6.509805098176003e-05,
+      "limit_sim_s": 0.4
+    },
+    "map_identity_stable": true,
+    "control_free_graph": true,
+    "first_goal": {
+      "goal_id": "f241102f4f384c49869540924fea4cdb",
+      "epoch": "b4f88bb204f14667bb2fc3f06eef2899",
+      "trajectory_id": 1,
+      "planned_start_xyz_m": [
+        0.01589495202252081,
+        -0.0029364062385817823,
+        -0.0017611526408534593
+      ],
+      "planned_end_xyz_m": [
+        0.015854817003302754,
+        0.5960530112112321,
+        -0.0017429555237172436
+      ],
+      "curve_record_sha256": "30be4b71268af160318465eea47b2c3fb39d9cdd80d22ae9eeb1eb042911a813",
+      "faults": [],
+      "archive_snapshots": [
+        {
+          "name": "snapshot-01",
+          "source_age_s": 0.132,
+          "fusion_age_s": 0.045,
+          "source_pose_unique": true,
+          "body": "free",
+          "sweep": "free",
+          "sweep_queries": 24,
+          "hold": "free",
+          "passed": true,
+          "occupancy_archive_sha256": "e6e268319cf726f193d618fc2c450e0dc88f615587cea8fd898833009e0db088"
+        },
+        {
+          "name": "snapshot-02",
+          "source_age_s": 0.097,
+          "fusion_age_s": 0.039,
+          "source_pose_unique": true,
+          "body": "free",
+          "sweep": "free",
+          "sweep_queries": 24,
+          "hold": "free",
+          "passed": true,
+          "occupancy_archive_sha256": "6fb8d1ae7e2f95027d5daf66f721957282b35ab841e4f5c11597d59744f64c01"
+        },
+        {
+          "name": "snapshot-03",
+          "source_age_s": 0.111,
+          "fusion_age_s": 0.045,
+          "source_pose_unique": true,
+          "body": "free",
+          "sweep": "free",
+          "sweep_queries": 24,
+          "hold": "free",
+          "passed": true,
+          "occupancy_archive_sha256": "8847b892cfb57d415692244b00d526b2c6fbb711bec71e0b7addb67d12a65c15"
+        }
+      ],
+      "live_body_sweep_hold_passed": true,
+      "full_curve_certificate": "queries=45 wall_ms=0.572 reason=free"
+    },
+    "handoff_goal": {
+      "goal_id": "60b1691690d84e8c9b34f20c42193dec",
+      "epoch": "b4f88bb204f14667bb2fc3f06eef2899",
+      "trajectory_id": 2,
+      "planned_start_xyz_m": [
+        0.01586642047172999,
+        0.0011566323928215243,
+        -0.0017531669237681963
+      ],
+      "planned_end_xyz_m": [
+        0.01583673072887544,
+        0.8960422653414131,
+        -0.001762817553156564
+      ],
+      "curve_record_sha256": "37d0d4b45e934acd4e3744312d2ffba91a69e3d66a0baf27472f2a698a81b3d1",
+      "faults": [],
+      "offset_xyz_m": [
+        0.0,
+        0.9,
+        0.0
+      ],
+      "archive_snapshots": [
+        {
+          "name": "snapshot-01",
+          "source_age_s": 0.132,
+          "fusion_age_s": 0.045,
+          "source_pose_unique": true,
+          "body": "free",
+          "sweep": "free",
+          "sweep_queries": 36,
+          "hold": "free",
+          "passed": true,
+          "occupancy_archive_sha256": "e6e268319cf726f193d618fc2c450e0dc88f615587cea8fd898833009e0db088"
+        },
+        {
+          "name": "snapshot-02",
+          "source_age_s": 0.097,
+          "fusion_age_s": 0.039,
+          "source_pose_unique": true,
+          "body": "free",
+          "sweep": "free",
+          "sweep_queries": 36,
+          "hold": "free",
+          "passed": true,
+          "occupancy_archive_sha256": "6fb8d1ae7e2f95027d5daf66f721957282b35ab841e4f5c11597d59744f64c01"
+        },
+        {
+          "name": "snapshot-03",
+          "source_age_s": 0.111,
+          "fusion_age_s": 0.045,
+          "source_pose_unique": true,
+          "body": "free",
+          "sweep": "free",
+          "sweep_queries": 36,
+          "hold": "free",
+          "passed": true,
+          "occupancy_archive_sha256": "8847b892cfb57d415692244b00d526b2c6fbb711bec71e0b7addb67d12a65c15"
+        }
+      ],
+      "live_body_sweep_hold_passed": true,
+      "prepublish_freshness": {
+        "source_age_sim_s": 0.091,
+        "fusion_age_sim_s": 0.002,
+        "limit_sim_s": 0.4,
+        "ready": true
+      },
+      "source_curve_goal_id": "f241102f4f384c49869540924fea4cdb",
+      "source_trajectory_id": 1,
+      "trajectory_id_changed": true,
+      "fsm_transition_lines": [
+        "[ego_planner_node-8] [TRIG]: from EXEC_TRAJ to REPLAN_TRAJ",
+        "[ego_planner_node-8] [FSM]: from REPLAN_TRAJ to EXEC_TRAJ"
+      ],
+      "replan_transition_observed": true,
+      "full_curve_certificate": "queries=57 wall_ms=0.506 reason=free",
+      "late_curves_after_fault": 0
+    },
+    "fault_count": 0,
+    "passed": true
+  },
+  "verification": {
+    "command": "bash tools/project.sh test",
+    "result": "PASS: 251 unittest cases plus navigation-adapter integration; identity/stale/timeout, late response, cancellation and resource checks included.",
+    "runtime_command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r36 wall_box_column 100 motion_n06 config/components/simulation/n06_x_visibility_handoff_recorded_slow.json",
+    "runtime_exit_code": 0
+  },
+  "artifacts": {
+    "probe_report": "artifacts/runs/n06-20261023-wall-r36/n06-live-layout-probe.json",
+    "probe_report_sha256": "6fc66f34b78c3dd273611492a96325bea6d90170f03d7baef8efed491020113e",
+    "mapping_stack_log": "artifacts/runs/n06-20261023-wall-r36/mapping-stack.log",
+    "mapping_stack_log_sha256": "6524412f6dd86b1037124140f11d40cc48e6e7f53f6ae6e1a525e0cb02a4f578",
+    "motion_json": "artifacts/runs/n06-20261023-wall-r36/motion.json",
+    "motion_json_sha256": "19b2049f45f49da8d0ffeb53108fa93758ce4c413d52dac598ac49131499eeda",
+    "mapping_inputs": "artifacts/runs/n06-20261023-wall-r36/inputs/mapping-inputs.json",
+    "mapping_inputs_sha256": "8df85853eb1b47c93c9bd2d96186d9d07b83b6bf2710e8c937acec312db97393",
+    "run_inputs": "artifacts/runs/n06-20261023-wall-r36/run-inputs.json",
+    "run_inputs_sha256": "6b4207c617d1b5d4745c48985e94648250c1614e0a849ca745aee4015cf8accd",
+    "profile": "config/components/simulation/n06_x_visibility_handoff_recorded_slow.json",
+    "profile_sha256": "6a4feee4c41dcc7cfcc798e3b9440fad8317d11cdc238fb433e3dbba514383fd",
+    "probe_source_sha256": "33e1d51e8fb32af695c8bbb705fc5fc066d14f8d8289621f8b80e0a8af6edef9"
+  },
+  "unresolved": [
+    "The r35 sampled odometry freshness refusal cause is not fully isolated.",
+    "Planner curves were not executed, so this is not braking/trajectory execution evidence.",
+    "N06.2.4 combined wrong-identity/staleness/query/resource and emergency-hold matrix remains open."
+  ],
+  "next_subtask": "N06.2.4: finish combined identity/freshness/query/resource refusal and emergency-hold evidence; then re-audit original N06 exits."
+}

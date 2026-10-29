@@ -71,7 +71,7 @@ class ResidualDecompositionTests(unittest.TestCase):
             run=Path(tmp)
             (run/'flight.json').write_text(json.dumps(flight))
             (run/'vins-diagnostics.json').write_text(json.dumps({'cost_groups_mode':'1'}))
-            report,rows=evaluate(run)
+            report,rows=evaluate(run, reference_limit=1.0)
             self.assertEqual(len(rows),1)
             self.assertIsNone(report['previous'])
             self.assertEqual(report['previous_solver_total']['stamp_ns'],9)

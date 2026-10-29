@@ -1,51 +1,65 @@
-# D435i-VINS-EGO-ROS2：单 D435i 视觉导航仿真
+# D435i-VINS-EGO-ROS2
 
-啊城对于 EGO 和 VINS 的探索。
+单 D435i 等效相机的室内视觉导航仿真：双目与相机 IMU → VINS → 在线深度占据建图 → EGO → 唯一 PX4 桥接器 → PX4 SITL。
 
-ROS 2 Jazzy · Gazebo Harmonic · PX4 v1.17.0。
+定位和规划使用 CPU；Gazebo 相机与 RViz 使用 NVIDIA GPU。默认视觉链路从初始化开始不使用 GNSS、真值定位或完整世界地图；真值记录仅作独立离线评估。
 
-单 D435i 双目与 IMU → VINS → 深度占据建图 → EGO → `uav_px4_bridge` → PX4。定位、规划使用CPU；Gazebo传感器和RViz使用NVIDIA GPU渲染。在线定位／规划不使用GNSS、真值位姿或完整世界地图；真值评估独立且只读。
+**交付状态：N17 最终版本回归与发布审计进行中。** 干净依赖重建、18 个 ROS 包及 PX4 构建、729 项单元测试和 ROS 集成、默认 16 m GUI 飞行及地图／关键帧接口回读已验证。最终进度以 [CURRENT](progress/CURRENT.md) 为准；[最终验收报告](progress/evidence/FINAL_ACCEPTANCE.md) 在全部出口完成后定稿。
 
-当前默认参数来自[当前房间三连导航基线](progress/evidence/cpu-navigation-convergence-20261021-051.md)：20×20m房间、19柱、相对16m目标。源码／入口整理后的构建与复测状态见[当前进度](progress/CURRENT.md)，不能把旧构建结果自动算到新构建。
+## 环境
 
-## 快速开始
+当前验证环境为 Ubuntu 24.04 x86_64、NVIDIA RTX 4090、Docker 与 NVIDIA Container Toolkit、可访问的 X11 桌面。固定容器内含 ROS 2 Jazzy、Gazebo Harmonic、OpenCV 和 Ceres；不需要在宿主机另装 ROS、Gazebo 或 CUDA 定位库。其他硬件组合须先验证同一入口；本项目不包含 ARM 或实机资格。
 
-需要Linux、Docker、NVIDIA Container Toolkit；固定镜像随[分享包](docs/running.md)交付。初次在干净项目内执行：
+## 新设备部署
+
+先准备 Docker、NVIDIA 驱动／Container Toolkit、Git、Git LFS 和 zstd，并配置你自己的仓库访问权限。源码与固定环境分开存放，源码分支不携带大镜像或历史飞行日志。
 
 ```bash
-bash tools/project.sh fetch             # 固定上游、补丁哈希与许可；拒绝覆盖已有依赖
-bash tools/project.sh build             # 单一 install/，构建ROS与PX4
-bash tools/project.sh test              # 回归测试
-./start.sh                             # 自动识别桌面，打开Gazebo与RViz，不起飞
-./start.sh fly                         # 前检→起飞→16m目标→降落→独立评估
-./start.sh status                      # 当前会话和最近任务结果
-./start.sh stop                        # 关闭已落地的会话
+git clone git@github.com:CynthiaThomas5/D435i-VINS-EGO-ROS2.git
+# 在另外一个目录取得固定运行环境
+git clone --single-branch --branch runtime-environment-v1 \
+  git@github.com:CynthiaThomas5/D435i-VINS-EGO-ROS2.git d435i-runtime
+git -C d435i-runtime lfs install --local
+git -C d435i-runtime lfs pull
+(cd d435i-runtime && sha256sum -c SHA256SUMS)
+zstd -dc d435i-runtime/container-images.tar.zst | docker load
+
+cd D435i-VINS-EGO-ROS2
+bash tools/project.sh fetch
+bash tools/project.sh build
+bash tools/project.sh test
+./start.sh fly
 ```
 
-`start.sh`自动生成新run id；任务完成后再次`fly`会从新会话开始。已有部署直接使用这四条命令，无需重复fetch/build。须先登录服务器桌面；脚本支持当前DISPLAY或自动识别自己的XRDP桌面，底层仍调用`tools/project.sh`。
+固定环境的不可变 commit、归档 SHA256 和内容指纹见 [docker/environment.json](docker/environment.json)。镜像跨 Docker 存储后端可能显示不同 ID，入口会核对固定文件层、完整运行配置和架构。已有部署更新时，使用新源码目录重新构建，避免把旧 vendor／install 混入新版本。
 
-任务报告在 `artifacts/runs/<run_id>/qualification.json`；新会话不复用PX4参数状态或VINS epoch。每次只启动一套项目仿真，所有PX4控制消息由桥独占。
+## 日常使用
 
-## 工程入口
+```bash
+./start.sh          # 打开 Gazebo 与 RViz，保持未武装
+./start.sh fly      # 起飞、执行默认 16 m 目标、正常降落并独立评估
+./start.sh status   # 当前会话和最近结果
+./start.sh stop     # 任务结束、确认落地上锁后停止本项目会话
+```
 
-| 目录 | 职责 |
+默认场景为 20×20 m 房间及 19 个圆柱，默认起点 x=-8 m，目标为起飞后相对 ENU +16 m；规划速度 0.4 m/s、加速度 0.25 m/s²。独立到达标准为位置 ≤0.30 m、yaw ≤15°、连续 ≥3 仿真秒。相机 IMU 的已知零陀螺偏置约束只适用于当前无注入噪声／偏置的仿真模型。
+
+结果位于 `artifacts/runs/<run_id>/qualification.json`，同时保存运行指纹、原始状态、接触和终态记录。缺失证据不会被当作通过。默认演示使用新 PX4 状态和新 VINS epoch。
+
+## 代码与接口
+
+| 位置 | 内容 |
 | --- | --- |
-| `src/own/` | 6个自维护ROS包：接口、传感器、定位、建图、导航、PX4桥 |
-| `src/vendor/` | 从锁定清单重建的唯一第三方源码，下载内容不入Git |
-| `config/` | 运行、标定、规划与控制参数的单一来源 |
-| `simulation/` | 机体／D435i模型、房间和纹理 |
-| `dependencies/` | 上游revision、补丁顺序、哈希和许可 |
-| `tools/project.sh` | 获取、构建、测试、仿真、任务、停止与分享入口 |
-| `tools/diagnostics/`、`tools/debug_truth/` | 独立只读记录与离线评估；真值不回馈控制 |
-| `tools/test_*.py`、其余`probe_*` | 开发回归与故障注入工具，不随默认启动运行 |
-| `progress/` | 当前状态、阶段条款、轻量证据；原始运行数据在`artifacts/` |
+| `src/own/` | 7 个自维护 ROS 包：接口、仿真、定位、建图、导航、PX4 桥和独立真值调试 |
+| `src/vendor/`、`external/` | 按固定上游和补丁获取的第三方源码，不入 Git |
+| `config/`、`simulation/` | 运行参数、标定、模型、默认房间与固定资格场景 |
+| `dependencies/`、`docker/` | 来源、补丁顺序、许可、环境身份和分发说明 |
+| `tools/project.sh` | 获取、构建、测试、仿真、任务、停止与导出入口 |
+| `tools/diagnostics/`、`tools/debug_truth/` | 只读记录及离线评估；其余探针和测试用于开发回归 |
+| `progress/` | 轻量证据、状态与变更；大数据保留于本地 `artifacts/` |
 
-[运行与分享](docs/running.md) · [架构](docs/architecture.md) · [坐标与控制契约](docs/contracts.md) · [目标及范围](GOAL.md) · [依赖](dependencies/README.md)
+提供 `NavigateToPose` action、取消／反馈、地图查询、RGB-D 关键帧、定位与 epoch 接口。独立样例及真实回读方式见 [运行手册](docs/running.md) 和 [接口契约](docs/contracts.md)。语义、信念、自主探索与真实设备仍在当前交付范围之外；故障专项按用户要求排除，现有 PX4／EGO 原生行为保持。
 
-## 验证范围
+[运行与迁移](docs/running.md) · [架构](docs/architecture.md) · [固定环境](docker/README.md) · [来源与许可](dependencies/README.md) · [目标与范围](GOAL.md)
 
-#062已增加目标原始体素球准入：未知、占据、越界或查询失败会阻止向EGO转发。已完成构建、隔离测试和不解锁查询；历史16m演示通过不能继承到新版本，完整轨迹及失效降落净空仍待验证。见[当前进度](progress/CURRENT.md)。
-
-当前房间候选曾完成三次独立冷启动；不是任意目标／场景或实机验收。未知空间、完整机体扫掠、制动预算、长时负载和正式A–H仍按GOAL推进。虚拟IMU250Hz对齐4ms物理步，不声明真实D435i标定已经完成。
-
-工程未指定自维护代码的对外授权许可证；第三方GPL／BSD／Apache／MIT各自保留。房间上游未声明许可，来源与现状如实记录在依赖清单。分享包在本地生成，不自动上传、提交或推送。
+`src/own` 各 ROS 包沿用已有 Apache-2.0 声明；第三方分别保留其许可。其他文件及上游未声明许可的场景来源按依赖说明如实列明，未添加一份覆盖全仓库的授权。

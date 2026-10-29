@@ -1,0 +1,67 @@
+{
+  "schema": "n08-forward-positioning-return-attempt/v1",
+  "run_id": "n08-20261025-268-forward-positioning-return",
+  "outcome": "safe_refusal_before_turn_and_return",
+  "epoch": "49a861d432c7466691ea853e0066dc78",
+  "map_id": "49a861d432c7466691ea853e0066dc78-5b13a6b13a494f459fc0f0690800fc96",
+  "n05": {
+    "support_scan_completed_stages": 15,
+    "support_scan_reported_warning": "localization changed or became invalid during physical scan",
+    "post_release_online_accepted": true,
+    "mission_current_area_online_accepted": true,
+    "mission_current_area_offline_matches": true,
+    "diagnostic_pass": true,
+    "same_epoch_and_map_id": true
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00495536788367,
+    "max_optimized_odom_receipt_gap_wall_s": 0.39636090607382357,
+    "optimized_odom_gap_over_guard_count": 1
+  },
+  "first_goal": {
+    "kind": "forward",
+    "distance_m": 0.6,
+    "sent": true,
+    "action_success": null,
+    "goal_start_sim_ns": 552952000000,
+    "px4_local_ned_velocity_m_s_near_start": [
+      0.0001657612738199532,
+      -0.004069914110004902,
+      0.023038329556584358
+    ],
+    "total_speed_m_s": 0.023395647168234175
+  },
+  "curve_certificate": {
+    "passed": false,
+    "reason": "sampled_curve_outside_continuous_tube_bound",
+    "max_lateral_vertical_deviation_m": 0.052646834481765874,
+    "fixed_limit_m": 0.05,
+    "excess_m": 0.002646834481765874,
+    "sample_count": 1148,
+    "maximum_sample_spacing_m": 0.0009992062110035641,
+    "between_sample_displacement_bound_m": 0.0004996031055017821
+  },
+  "not_executed": [
+    "0.22m forward positioning goal",
+    "stationary 180-degree yaw turn",
+    "post-turn fresh-map admission",
+    "forward-only EGO return"
+  ],
+  "terminal_state": {
+    "bridge_phase": "LANDED",
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "project_run_container_running_after_stop": false
+  },
+  "artifact_sha256": {
+    "flight.json": "ce8e61d32e3322ff197685f0b8c743fb966cad6776817b91407265cc419d5bef",
+    "n08-braking-evaluation.json": "328a4110a5dde6e5bbbffc966d4cbe97877a8b57545cfa85babc4b064db180e1",
+    "debug-truth-evaluation.json": "e190753b22a264e13c7f5f3f0faf6bdcef40739bb9f4aab4339cc59ee4e918be",
+    "n08-trial-ground-map.npz": "eb2f461a722be100423c3dcdd3c3230acf0ee746a85b76f22d1732102806826e",
+    "n08-trial-airborne-map.npz": "60823cc6d71d35d8b4fb3f05fa689f95dd51b453fd35b6a3887e547df287822d",
+    "launch-manifest.json": "ced8e9c11591c70ff814a728f37d9150e904ae8cac8e64026a721413ae71c287"
+  }
+}

@@ -1,0 +1,17 @@
+--- a/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -621,10 +621,11 @@
+         else
+         {
+           const double speed = odom_vel_.norm();
+-          if (!odom_vel_.allFinite() || !std::isfinite(speed) || speed > 0.100001 ||
+-              std::abs(odom_vel_(2)) > 0.010001)
++          // User-authorized removal of the N08 numeric speed admission caps.
++          // Finite state remains required to compute a stop trajectory.
++          if (!odom_vel_.allFinite() || !std::isfinite(speed))
+           {
+-            stopForSafety("cancel_stop_speed_outside_n08_calibration");
++            stopForSafety("cancel_stop_invalid_velocity");
+           }
+           else if (speed <= 0.03)
+           {

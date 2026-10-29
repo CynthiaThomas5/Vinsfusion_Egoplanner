@@ -1,0 +1,70 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "protocol_id": 356,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "frozen_before_SITL",
+  "run_id": "n10-20261026-356-upstream-spline-speed080-health-bypass-16m",
+  "hypothesis": "With the same run-scoped localization quality/freshness policy bypass and same planner/route as #355, extending read-only observers through the terminal flight record will produce complete landing/contact/raw-VIO/alignment records for calibration analysis.",
+  "sole_changed_factor": {
+    "parameter": "observer lifecycle",
+    "from_previous_run": "Five read-only observers stopped after a fixed 380 wall-second cap, before the 600 simulation-second post-goal hold and landing completed.",
+    "to": "Observers stop after the terminal flight.json record, with a 1500 wall-second safety timeout and explicit completion metadata; the driver requires terminal observation metadata before accepting complete evidence.",
+    "flight_dynamics_changed": false
+  },
+  "held_fixed": {
+    "source_flow": "Upstream EGO single feasibility check plus one time-reallocation/refinement attempt; project-added patch 0044 final-curve rejection absent.",
+    "max_velocity_m_s_per_axis": 0.8,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 5.0,
+    "collision_policy": "official_ego",
+    "spawn_config": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "goal_config": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal": "Same +16.0 m ENU, +0.10 m, +0.20 rad single goal; 3 s arrival dwell; 600 simulated-second ACTIVE hold.",
+    "health_policy_file": "unchanged",
+    "max_normalized_cost": 1.0,
+    "diagnostic_bypass": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES=1, run-scoped",
+    "px4_control_owner": "uav_px4_bridge only",
+    "ground_truth": "Read-only offline evaluation; no online truth in control.",
+    "contact_overlay": "Read-only observation; no collision geometry changes."
+  },
+  "observer_contract": {
+    "max_wall_s": 1500,
+    "stop_condition": "terminal flight.json exists",
+    "required_complete_records": [
+      "debug-truth-evaluation.json",
+      "alignment-observation.json",
+      "planner-observation.json",
+      "bridge-observation.json",
+      "n09-contact-observation.json"
+    ],
+    "timeout_behavior": "Explicit wall_timeout metadata; runtime driver fails complete-evidence check."
+  },
+  "decision_rules": {
+    "sample_validity": "Diagnostic motion data may be measured when the localization quality/freshness policy is bypassed; structural, identity, and timestamp faults remain hard failures.",
+    "formal_qualification": "Not granted because this diagnostic run bypasses localization policy gates.",
+    "thresholds": "Original provisional max_normalized_cost=1.0 and all health.json bytes remain unchanged.",
+    "speed_interpretation": "0.8 m/s is an EGO per-axis planning setting, not a total-speed cap."
+  },
+  "runtime_contract": {
+    "file_count": 659,
+    "sha256": "c8a1ee4f5d91d3db7454a9d4608e6ad7e8e09fced7c4c4e2782547760c702e23",
+    "path": "progress/evidence/n10-upstream-spline-speed080-health-bypass-16m-runtime-contract-prelaunch-20261026-356.json",
+    "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "planner_config_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "goal_config": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal_config_sha256": "23617388b441e093bbf45f83d19c64fdf69bd77a6ed6c82b2f6d0e6cc1a30aa0",
+    "health_policy_sha256": "54c5a7b83d858f44ca6a8957a1aa96b8b3f25168f11b2fcff016c538d4e348c6",
+    "runtime_driver_sha256": "487b2c92a638bd0d32d5c290943c3b2456c9c94a70a2dbbcb58f1c5b4448e28d",
+    "analyzer_sha256": "f94812ecdc16006513f987952398f8240fb1beab36d452cbee54628864017ba8",
+    "source_head": "fd90f3b73e48101ad35c5a0ed9372865392eca7c"
+  },
+  "previous_run": "n10-20261026-355-upstream-spline-speed080-health-bypass-16m",
+  "previous_result": "Flight action, 3.25 s goal dwell, 600 s ACTIVE hold, independent arrival and safe terminal readback passed; observer outputs ended at 380 wall seconds, so contact landing observation and complete raw-VIO assessment were unavailable.",
+  "procedure": {
+    "start_command": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES=1 D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json D435I_SPAWN_CONFIG=config/components/simulation/n10_long_range_spawn_minus8.json bash tools/project.sh sim n10-20261026-356-upstream-spline-speed080-health-bypass-16m",
+    "driver_inside_container": "bash /workspace/artifacts/n10-prepared/n10-20261026-356-upstream-spline-speed080-health-bypass-16m/n10-runtime-driver.sh",
+    "safe_stop": "Stop only this project container after independent 6 s readback confirms bridge LANDED or DISABLED, landed=true, armed=false, control_enabled=false, vehicle remained disarmed and zero control samples.",
+    "raw_artifacts": "artifacts/runs/n10-20261026-356-upstream-spline-speed080-health-bypass-16m"
+  }
+}

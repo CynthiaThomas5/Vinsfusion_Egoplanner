@@ -1,0 +1,110 @@
+{
+  "schema": "n10-integrated-capture-result/v1",
+  "run_id": "n10-20261027-396-integrated-capture-calibration",
+  "date": "2026-10-27",
+  "classification": "calibration run; successful mission with incomplete acceptance evidence; not a formal N11-N16 run",
+  "runtime_contract_sha256": "658080ae4ed11f6d58540166573cdd3142818e69c9991ce279e71e6972364ebd",
+  "task": {
+    "action_success": true,
+    "flight_result": "PASS",
+    "arrival_joint_position_yaw_dwell_sim_s": 3.436000000000007,
+    "diagnostic_active_hold_sim_s": 15.0,
+    "landed_and_disarmed": true,
+    "fault_injected": false,
+    "emergency_disarm_used": false,
+    "acceptance_overall": "INSUFFICIENT",
+    "driver_exit_code": 1
+  },
+  "clearance": {
+    "truth_samples": 19067,
+    "max_source_gap_sim_s": 0.004,
+    "static_scene_sampled_minimum_m": 0.22826303848120233,
+    "maximum_observed_inter_sample_envelope_motion_m": 0.005077437935780645,
+    "dynamic_box_sampled_minimum_m": 1.213409013425738,
+    "qualification": "discrete sampled simulated geometry only; no continuous-time bound"
+  },
+  "tracking": {
+    "ego_position_error_m": {
+      "count": 7999,
+      "p50": 0.5591122660704783,
+      "p95": 0.7065878942491198,
+      "p99": 1.3790851510260593,
+      "max": 1.5020828839485592
+    },
+    "same_px4_domain_setpoint_to_local_position_error_m": {
+      "count": 1597,
+      "p50": 0.5381694863165281,
+      "p95": 0.6649043471094749,
+      "p99": 1.4207479730198056,
+      "max": 1.521033708616627
+    },
+    "diagnostic_setpoint_lookback_s": 1.08,
+    "lookback_error_p95_m": 0.2560570560577653,
+    "pointwise_translation_clearance_bound_negative_fraction": 0.2527815976997125,
+    "qualification": "lookback is correlation only; not a measured latency or bound"
+  },
+  "dynamic_obstacle": {
+    "gazebo_create_acknowledged": true,
+    "first_raw_cloud_points_after_injection_sim_s": 3.588,
+    "first_positive_centerline_box_distance_after_injection_sim_s": 3.944,
+    "first_centerline_distance_beyond_body_radius_after_injection_sim_s": 4.348,
+    "body_horizontal_swept_radius_m": 0.4819358706659999,
+    "identity_bound_snapshot_relative_to_injection_sim_s": 1.016,
+    "snapshot_raw_classes_inside_box": {
+      "unknown": 1792,
+      "known_free": 0,
+      "raw_occupied": 0
+    },
+    "point_query_service": "/mapping/get_map_status",
+    "point_query_status": "unavailable; zero service queries",
+    "map_surface_and_replanning_qualification": "INSUFFICIENT"
+  },
+  "sensor_and_resource": {
+    "sensor_capture_status": "PASS",
+    "bag_messages": 83012,
+    "receipts": 83065,
+    "active_identity_tuple_count": 1,
+    "interior_payload_missing_receipts": 0,
+    "resource_observation_wall_s": 378.1748855509795,
+    "safe_terminal_observed": true,
+    "vins_internal_queue_capacity": null
+  },
+  "acceptance_evaluation": {
+    "sha256": "a8464e13aa34d1760f6d0a8ddb4007efb1ee4798c667e7625bbc7680619fbf16",
+    "overall_status": "INSUFFICIENT",
+    "metric_statuses": {
+      "arrival_position_yaw_dwell": "PASS",
+      "raw_vio_absolute_error": "PASS",
+      "raw_vio_rpe_10s": "FAIL provisional candidate",
+      "raw_vio_velocity_error": "FAIL provisional candidate",
+      "map_source_and_update_age": "FAIL provisional candidate",
+      "ego_tracking_error": "INSUFFICIENT",
+      "ego_tracking_clearance_budget": "INSUFFICIENT",
+      "full_body_clearance_and_contact": "INSUFFICIENT",
+      "raw_map_surface_geometry": "INSUFFICIENT",
+      "raw_map_classification": "INSUFFICIENT",
+      "dynamic_replanning": "INSUFFICIENT",
+      "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+      "resource_and_queue_behavior": "INSUFFICIENT",
+      "observer_identity_binding": "INSUFFICIENT"
+    }
+  },
+  "input_hashes": {
+    "flight.json": "2797cb190c5ed18381e33e1cfb79255cd20f32a9252ee57878c991217f7efa64",
+    "n10-sensor-capture-evaluation.json": "0bb693f70f703752f9cd21863c7a8c9686feefe9a8f1d6f02ac349aa79c52a01",
+    "n10-tracking-clearance-relation.json": "6b2ce690e6f5a05b21552e82a13fa83d6488f14079ca8414cf147a873c976294",
+    "n10-box-map-snapshot-analysis.json": "156e7ecc9617da2f16812ef9ebe4086090059ea47daa9ff36a63fcee1312a118",
+    "n10-obstacle-replan-timing-analysis.json": "5f59f431a10587deaa97b0bb46de5d761f6fa0cd5ea3bda9b68cabe83e995df9",
+    "n10-resource-observation.json": "befa9fd9717e39a2b72b221da4979f64a750be63670b0ac39159e426392d5c89",
+    "independent-terminal-readback.json": "5094f9ccd975176650e2dc6aad8a04168bb59d41d7e816b2d39812310b8814ea",
+    "postflight-px4-bridge-readback.json": "a78a0ce1d81cc709e7fd739a1f8317e75944b5a27064efe389394721ad4dc80c"
+  },
+  "limitations": [
+    "No fault injection occurred, so this run does not qualify fault-to-land/disarm handling.",
+    "A sampled adjacent-state envelope movement is not a continuous inter-sample motion bound.",
+    "The map snapshot preceded observed raw obstacle points; point-query service was unavailable.",
+    "Tracking lookback correlation does not establish a physical or software latency.",
+    "The 15 simulated-second hold is not the N16 formal ten-minute load test."
+  ],
+  "next_subtask": "N10.3/#397: change planner max_velocity only from 0.8 to 0.4 m/s, and schedule an observer-only same-identity map snapshot after raw obstacle points begin appearing."
+}

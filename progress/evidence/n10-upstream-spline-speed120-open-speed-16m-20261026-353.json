@@ -1,0 +1,199 @@
+{
+  "schema": "n10-calibration-result/v1",
+  "report_id": 353,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "run_id": "n10-20261026-353-upstream-spline-speed120-open-speed-16m",
+  "classification": "failed_calibration_sample; not formal qualification",
+  "protocol": "progress/evidence/n10-upstream-spline-speed120-open-speed-16m-protocol-20261026-353.json",
+  "runtime_contract_sha256": "304c2f8551172d95813fbdeb62f2c7aa68f57cfbf467c90bce71dee18db58591",
+  "code_change": {
+    "removed_active_patch": "dependencies/patches/ego/0044-final-spline-dynamics-check.patch",
+    "effective_behavior": "Restored upstream single feasibility check and one time-reallocation/refinement attempt; no added multi-pass final whole-curve hard rejection.",
+    "diagnostics": "Patch 0050 remains diagnostic-only."
+  },
+  "verification": {
+    "fresh_ego_source_replay": {
+      "passed": true,
+      "active_ego_patches": 32,
+      "evidence": "progress/changes/2026-10-26-353-n10-upstream-spline-protocol.md"
+    },
+    "ros_build": {
+      "passed": true,
+      "packages_finished": 17
+    },
+    "project_test": {
+      "passed": true,
+      "unit_tests": 407,
+      "navigation_ros_integrations": 2
+    },
+    "installed_ego_binary_sha256": "70e93e28920885164c30859588e60a4bd9859ecdfd9e0940f0d4f657ace29c6d"
+  },
+  "effective_planner_parameters": {
+    "max_vel": 1.2,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0,
+    "obstacles_inflation": 0.7306179170842027,
+    "odom_depth_timeout": 0.4
+  },
+  "preflight": {
+    "passed": true,
+    "takeoff_admission_passed": true,
+    "takeoff_static_speed_m_s": 0.00012919391331808964,
+    "official_ego_policy": "official_ego"
+  },
+  "planner_observation": {
+    "bspline_messages": 26,
+    "goal_messages": 1,
+    "cancel_messages": 1,
+    "custom_final_spline_rejection_lines": 0,
+    "notes": "The planner emitted and PX4 executed a trajectory; this proves the removed check no longer rejected this run. It does not by itself qualify arrival or safety limits."
+  },
+  "task": {
+    "target_world_imu_xyz_m": [
+      8.084707470345128,
+      0.002858481142339589,
+      1.0683213260301123
+    ],
+    "goal_minimum_true_position_error_m": 11.246698505984332,
+    "max_true_contiguous_dwell_wall_s": 0.0,
+    "independent_arrival_passed": false,
+    "native_action_success": false,
+    "failure": "navigation_action_not_successful:localization_normalized_cost_exceeded",
+    "goal_elapsed_sim_s": 9.4,
+    "goal_elapsed_wall_s": 10.73696528794244,
+    "goal_clock_regressions": 0,
+    "max_forward_world_x_progress_from_goal_start_m": 5.190782102744723,
+    "observed_goal_motion_path_length_m": 7.195550655086015,
+    "post_goal_active_hold": null
+  },
+  "speed_observation_only": {
+    "guard_enabled": false,
+    "sources": [
+      "ego_position_command_reference",
+      "px4_vehicle_local_position"
+    ],
+    "max_vector_speed_m_s": {
+      "ego_position_command_reference": 0.8346470178484902,
+      "px4_vehicle_local_position": 0.8586204970813536
+    },
+    "sample_counts": {
+      "ego_position_command_reference": 1071,
+      "px4_vehicle_local_position": 470
+    },
+    "candidate_planner_max_velocity_per_axis_m_s": 1.2,
+    "candidate_planner_max_acceleration_per_axis_m_s2": 0.25
+  },
+  "raw_vio_pre_enable_aligned_to_truth": {
+    "duration_sim_s": 37.212,
+    "paired_truth_path_length_m_including_takeoff_and_landing": 8.102534417745657,
+    "position_error_m": {
+      "count": 564,
+      "rmse": 0.02404911856891026,
+      "median": 0.0118709822020629,
+      "p95": 0.05098759340258781,
+      "max": 0.05970742895837832
+    },
+    "absolute_yaw_error_deg": {
+      "count": 564,
+      "rmse": 0.0738165749369094,
+      "median": 0.0377163998750098,
+      "p95": 0.1372837986869506,
+      "max": 0.15950435674642208
+    },
+    "bounded_time_support_fraction": 0.9986026013382779,
+    "raw_max_gap_sim_s": 0.068000001,
+    "truth_max_gap_sim_s": 0.02,
+    "invalid_localization_status_samples": 118
+  },
+  "ego_reference_to_truth_tracking": {
+    "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+    "candidate_max_error_m_not_enforced_by_runner": 0.15,
+    "matching_ready_commands": 1071,
+    "paired_commands": 1071,
+    "error_m": {
+      "median": 0.7714179173249263,
+      "p95": 0.941691633407552,
+      "max": 0.946248331707412,
+      "mean": 0.7291596691530946
+    },
+    "max_truth_interpolation_gap_s": 0.02
+  },
+  "health_lockout": {
+    "source": "Project-owned uav_localization health policy, not an upstream EGO rejection.",
+    "reason": "normalized_cost_exceeded",
+    "source_stamp_ns": 299543999999,
+    "normalized_cost": 1.0077079621719387,
+    "configured_max_normalized_cost": 1.0,
+    "solver_usable": true,
+    "input_features": 180,
+    "stereo_features": 136,
+    "long_tracks": 65,
+    "continued_tracks": 112,
+    "accel_bias_norm_m_s2": 0.019315067955732113,
+    "visual_cost": 304.79859659816736,
+    "visual_residual_components": 2730,
+    "marginalization_cost": 1194.1839506478807,
+    "grouped_cost_error": -4.547473508864641e-13,
+    "interpretation": "Threshold remains unchanged and provisional. This run identifies the immediate lockout trigger, not the underlying VINS residual cause."
+  },
+  "arrival": {
+    "minimum_true_3d_error_m": 11.246698505984332,
+    "maximum_contiguous_true_dwell_wall_s": 0.0,
+    "required_dwell_wall_s": 3.0,
+    "arrival_passed": false,
+    "active_hold_600_sim_s": false,
+    "braking_measurement": false
+  },
+  "contact": {
+    "passed": true,
+    "prohibited_contact_event_count": 0,
+    "ground_contact_event_count": 14752
+  },
+  "terminal_state": {
+    "bridge_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "control_samples_zero": true,
+    "safe_to_stop": true,
+    "project_container_stopped_exit_zero": true
+  },
+  "input_sha256": {
+    "n10_calibration_evaluation.json": "da2817ec653308fa92f49bfdecce6013e481a5394f8b790a8bd91e7b378e879f",
+    "arrival_evaluation.json": "17500961d8239bf0e3c67a8838954270cc717ac0a63536609240450c917cd387",
+    "flight.json": "ecfc8c3d078b8f311bffcaf77a2d2b2ba6e3ad87b46b3e42062df68a8d7c3a42",
+    "runtime_contract.json": "8cc40443aeb1d1f471d5a116e45c307efc11a1021ce1ae017d9d577e44a6eb7e",
+    "ego_manager_source": "ba54b725fe410e2e52fe9c0f09eb42adeeb75c7689031c2057ff43901e2b3908",
+    "ego_diagnostics_patch_0050": "29d48913827c8ec985f86cf0d2576a1ae34b6459c7eaf6a822811a1aeb723032",
+    "source_manifest": "b92e3d5fecc89d9a9d11b56575de22e39ef2265874f78b878e8d637b8dd559ea"
+  },
+  "next_trial": {
+    "run_id": "n10-20261026-354-upstream-spline-speed080-open-speed-16m",
+    "single_changed_factor": "EGO planner max_velocity_m_s 1.2 to 0.8 per axis",
+    "held_fixed": [
+      "max_acceleration_m_s2=0.25 per axis",
+      "planning_horizon_m=5.0",
+      "goal/spawn/collision policy",
+      "all localization health and freshness thresholds",
+      "speed guards remain disabled; speed is observation-only"
+    ],
+    "reason": "Same 16 m route after #353 proved upstream curve execution; compare measured speed, command tracking and VINS cost response under the prior 0.8 m/s/axis planner value.",
+    "status": "protocol to freeze before SITL"
+  },
+  "limitations": [
+    "No target arrival, 3 s dwell, 600 s active hold or controlled braking measurement.",
+    "The 0.15 m candidate tracking figure is not an enforced runner limit or a final calibrated acceptance threshold.",
+    "The post-lockout source age becomes stale; that is downstream of the health lockout and not the initiating trigger.",
+    "N09 repeat03 also had a low configured planner velocity and a normalized-cost lockout; its route differs and cannot isolate the speed relationship."
+  ],
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261026-353-upstream-spline-speed120-open-speed-16m",
+    "calibration_evaluation": "artifacts/runs/n10-20261026-353-upstream-spline-speed120-open-speed-16m/n10-calibration-evaluation.json",
+    "flight": "artifacts/runs/n10-20261026-353-upstream-spline-speed120-open-speed-16m/flight.json",
+    "raw_vio_evaluation": "artifacts/runs/n10-20261026-353-upstream-spline-speed120-open-speed-16m/odometry-evaluation.json",
+    "arrival_evaluation": "artifacts/runs/n10-20261026-353-upstream-spline-speed120-open-speed-16m/arrival-evaluation.json",
+    "contact_evaluation": "artifacts/runs/n10-20261026-353-upstream-spline-speed120-open-speed-16m/vehicle-contact-evaluation.json",
+    "px4_bridge_readback": "artifacts/runs/n10-20261026-353-upstream-spline-speed120-open-speed-16m/postflight-px4-bridge-readback.json"
+  }
+}

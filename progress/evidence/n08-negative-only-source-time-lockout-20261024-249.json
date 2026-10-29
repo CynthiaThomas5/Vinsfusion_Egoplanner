@@ -1,0 +1,108 @@
+{
+  "schema": "n08-negative-only-propagated-future-diagnostic/v1",
+  "run_id": "n08-20261024-249-negative-only-current-map",
+  "goal": "N08",
+  "child": "N08.2al",
+  "profile": "n08_overhead_negative_side_view",
+  "hypothesis": "Using the existing negative-only view profile in a fresh run can acquire a same-identity map for the negative-Y hold unknown without stacking both side views.",
+  "variable": "Reused the existing negative-only profile and thresholds; no source/config/planner changes.",
+  "result": "map_acquired_but_current_area_gate_blocked_by_localization_future_timestamp",
+  "scan": {
+    "recorded_stages": 16,
+    "fixture_runner_outcome": "failed",
+    "fixture_runner_error": "fresh DISARMED status is required for every fixture command",
+    "prescan_reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "after_scan_accepted": true,
+    "post_release_accepted": true,
+    "same_epoch": true,
+    "same_map_id": true,
+    "epoch": "cfc82cce86f84283a2ff3fcab51e0fc6",
+    "map_id": "cfc82cce86f84283a2ff3fcab51e0fc6-035d85eb1bd34698b706567cf9fead63"
+  },
+  "readiness": {
+    "read_only_preflight_passed": true,
+    "preflight_observed_wall_s": 40.01063788798638,
+    "max_optimized_odom_receipt_gap_wall_s": 0.08647182793356478,
+    "optimized_odom_gap_over_guard_count": 0,
+    "current_area_accepted": false,
+    "current_area_reason": "N05 online prerequisites did not become ready: localization_not_tracking",
+    "control_or_goal_published": false,
+    "debug_truth_subscribed": false
+  },
+  "localization_lockout": {
+    "reason": "propagated_from_future",
+    "state": "LOCKED",
+    "clock_stamp_ns": 536356000000,
+    "propagated_source_stamp_ns": 536303999999,
+    "propagated_clock_at_receipt_ns": 536152000000,
+    "future_observation": {
+      "clock_stamp_ns": 536152000000,
+      "epoch": "cfc82cce86f84283a2ff3fcab51e0fc6",
+      "evaluated_wall_s": 1345410.598918849,
+      "future_tolerance_ns": 20000000,
+      "receipt_clock_ns": 536152000000,
+      "source_age_ns": -151999999,
+      "source_stamp_ns": 536303999999,
+      "stream": "propagated"
+    },
+    "future_delta_ms": 152.0,
+    "allowed_future_tolerance_ms": 20.0,
+    "normalized_cost": 0.8359573338358667,
+    "normalized_cost_limit": 1.0,
+    "stale_observation": null
+  },
+  "n08_outcome": {
+    "same_run_unknown_audit_completed": false,
+    "compute_only_completed": false,
+    "curve_certificate_completed": false,
+    "xy_executed": false,
+    "braking_measured": false,
+    "n07_retested": false
+  },
+  "safety": {
+    "schema": "n08-final-safety-readback/v1",
+    "run_id": "n08-20261024-249-negative-only-current-map",
+    "probe": {
+      "artifact": "artifacts/runs/n08-20261024-249-negative-only-current-map/final-safety-live.json",
+      "sha256": "70d46ae05367fd2960a50dedee88756ba32b6ac1161301691d7f23d314264c5c",
+      "duration_wall_s": 5.0,
+      "control_samples_zero": true,
+      "vehicle_remained_disarmed": true,
+      "latest_landed": true,
+      "bridge_phase": "DISABLED",
+      "bridge_reason": "localization_not_tracking",
+      "bridge_control_enabled": false,
+      "trajectory_setpoint_samples": 0,
+      "vehicle_command_samples": 0,
+      "offboard_control_mode_samples": 0
+    },
+    "fixture": {
+      "runner_outcome": "failed",
+      "runner_error": "fresh DISARMED status is required for every fixture command",
+      "completed_stages": 16,
+      "support_detached_and_fixture_absent": true
+    },
+    "stop": {
+      "command": "bash tools/project.sh stop n08-20261024-249-negative-only-current-map",
+      "exit_code": 0,
+      "container_state": "exited",
+      "container_exit_code": 0,
+      "container_finished_at": "2026-10-24T15:06:33.57474484Z"
+    }
+  },
+  "artifacts_sha256": {
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/fixture-result.json": "36cb2f401a64bdc259068ce1b0809a3994b4e2136e2a11fb5b800eda995705f1",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/fixture-stages.json": "f62794b0ffb4f79e6a69e2883513103cc99b89d20e1de626990e0262a21bc1b1",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/fixture-trace.jsonl": "7c4edf9db5dfb345751ad904a4cffff9ea8b204c9a7e529e5a005dd558d8cd89",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/fixture-vins.jsonl": "4a337d3ccb289ab89fcbf1557fb38b19063d326e030dfb1ef10479d18b425b43",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/n05-run-summary.json": "5bdc37bc89386bcfab2c8532cf0208c5e4455302a242317f80abc34c3933e731",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/n05-after/n05-live-entry-check.json": "49de369da6531ec26ecb1950e33832d05bfcc5ec9548b0d2491a467e875058e6",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/n05-post-release/n05-live-entry-check.json": "a05f19578bb0fc10b0f6ca1d936d9416afdc9bea50427f2519c64553c34a4df6",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/n05-current-area/n05-live-entry-check-error.json": "0a74eaa7655a324fab4e03c948d3563d816367f0402034e76f7b85ce8df9402e",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/preflight.json": "0ba365f6772ce9ba407f3bd312e30450f0cba1a952b0f9131089756aad168cf2",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/vio.log": "ed81723f6709b9a8f3484d095ddb25d7ef6aacb07facacca38860c26672c9aeb",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/final-safety-live.json": "70d46ae05367fd2960a50dedee88756ba32b6ac1161301691d7f23d314264c5c",
+    "artifacts/runs/n08-20261024-249-negative-only-current-map/final-safety-readback.json": "77f3bf00f223718b2f836c1b33ab9a8f930c8e90335297e549f849f8faa2f00d"
+  },
+  "next_step": "N08.2am #250: repeat the diagnostic profile with the existing read-only N08 localization source timeline enabled to determine whether the future stamp is already present on raw VINS output or appears because the adapter /clock callback lags; preserve the 20ms guard and all admission thresholds."
+}

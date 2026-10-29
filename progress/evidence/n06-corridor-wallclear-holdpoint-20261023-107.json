@@ -1,0 +1,119 @@
+{
+  "schema": "n06-corridor-wallclear-holdpoint/v1",
+  "task_id": "N06.9",
+  "record_id": "107",
+  "run_id": "n06-20261023-corridor-r32",
+  "layout_id": "corridor_box_column",
+  "ros_domain_id": 95,
+  "status": "motion_and_first_two_snapshot_predicates_passed_goal_gate_rejected",
+  "goal_published": false,
+  "motion": {
+    "profile": "config/components/simulation/n06_x_holdpoint_wallclear_slow.json",
+    "profile_sha256": "67017a34b14e0ca0875adab1921720c88aca17498a17eb6886a69b3c531b09b4",
+    "run_inputs_sha256": "4df9230bd461b72d2b068a5f042d4125242e3cbabc6215e1742b42d67ade7b6",
+    "truth_path": "artifacts/runs/n06-20261023-corridor-r32/motion.json",
+    "truth_sha256": "7cd5995dbeeab5921344162a54791cdcce652d76644a676d800171b7cfa63df4",
+    "clock_start_s": 4.956,
+    "clock_end_s": 116.966,
+    "truth_sample_count": 11201,
+    "x_min_m": -2.6004307185000934,
+    "x_min_stamp_s": 58.04,
+    "x_max_m": 0.0,
+    "x_final_m": -0.8039386755003599,
+    "ideal_endpoint_x_m": -0.8000000000014578,
+    "ideal_peak_speed_m_s": 0.10816653826395
+  },
+  "localization_and_mapping": {
+    "mapping_inputs_path": "artifacts/runs/n06-20261023-corridor-r32/inputs/mapping-inputs.json",
+    "mapping_inputs_sha256": "c9edbbcd91f34b1ee107177021576701d8b846861c6f34f52622c55abfd58cd4",
+    "depth_frames": 4428,
+    "camera_poses": 4428,
+    "optimized_odometry": 2214,
+    "localization_status_valid_count": 2998,
+    "localization_status_total": 2998,
+    "depth_health_valid_count": 7336,
+    "depth_health_total": 7336,
+    "last_camera_pose_stamp_s": 150.151,
+    "last_map_status": {
+      "ready": true,
+      "pending_depth_count": 2,
+      "epoch": "9b1c4a40f92f4fccbba5757e09be3cd6",
+      "map_id": "9b1c4a40f92f4fccbba5757e09be3cd6-0c5e340bd7754751896c887356a917cb",
+      "last_depth_source_stamp_s": 149.953,
+      "last_occupancy_stamp_s": 150.078
+    }
+  },
+  "snapshots": [
+    {
+      "name": "snapshot-01",
+      "source_stamp_s": 134.245,
+      "source_pose_match_count": 1,
+      "source_age_s": 0.201,
+      "fusion_age_s": 0.047,
+      "identity_matches_all_three": true,
+      "body_raw": {"reason": "free", "free": 2202, "unknown": 0, "occupied": 0},
+      "continuous_sweep": {"reason": "free", "queries": 10},
+      "terminal_hold_raw": {"reason": "free", "free": 4917, "unknown": 0, "occupied": 0},
+      "passed": true
+    },
+    {
+      "name": "snapshot-02",
+      "source_stamp_s": 147.115,
+      "source_pose_match_count": 1,
+      "source_age_s": 0.153,
+      "fusion_age_s": 0.047,
+      "identity_matches_all_three": true,
+      "body_raw": {"reason": "free", "free": 2200, "unknown": 0, "occupied": 0},
+      "continuous_sweep": {"reason": "free", "queries": 10},
+      "terminal_hold_raw": {"reason": "free", "free": 4921, "unknown": 0, "occupied": 0},
+      "passed": true
+    },
+    {
+      "name": "snapshot-03",
+      "source_stamp_s": 154.342,
+      "source_pose_match_count": 0,
+      "last_recorded_camera_pose_stamp_s": 150.151,
+      "pose_coverage_gap_s": 4.191,
+      "source_age_s": 0.118,
+      "fusion_age_s": 0.048,
+      "identity_matches_all_three": true,
+      "raw_predicates_evaluated": false,
+      "passed": false,
+      "reason": "source_pose_not_uniquely_matched"
+    }
+  ],
+  "live_probe": {
+    "path": "artifacts/runs/n06-20261023-corridor-r32/n06-live-layout-probe.json",
+    "sha256": "fdbbe42af8b862846a43548e20446cb4d0105c6dc1bcd9414762bf37e3b608c5",
+    "map_ready": true,
+    "source_age_s": 0.11,
+    "fusion_age_s": 0.017,
+    "odometry_age_s": 0.11,
+    "body_query_reason": "no_fresh_fused_depth",
+    "first_sweep_query_reason": "no_fresh_fused_depth",
+    "terminal_hold_query_reason": "no_fresh_fused_depth",
+    "status_identity_stable": true,
+    "control_free": true,
+    "goal_published": false,
+    "goal_reason": "source_matched_snapshot_certificate_failed",
+    "new_curves": 0,
+    "new_faults": 0
+  },
+  "readiness_interpretation": {
+    "confirmed": false,
+    "source_code_facts": [
+      "QueryOccupancySphere calls queryReadiness with the default require_no_pending=true.",
+      "The EGO full-curve certifier calls queryReadiness with require_no_pending=false and reads the last completed occupancy map.",
+      "The captured MapStatus showed two pending depth pairs while its source and occupancy stamps were fresh."
+    ],
+    "inference": "A pending pair likely caused the live sphere service's no_fresh_fused_depth refusal; request-time occ_need_update was not recorded."
+  },
+  "next_iteration": {
+    "task_id": "N06.10",
+    "run_id": "n06-20261023-corridor-r33",
+    "primary_change": "use last-completed-fusion readiness for the read-only sphere endpoint, matching the existing curve certifier while retaining all age, identity, pose, and raw-occupancy checks",
+    "record_wall_seconds": 160,
+    "goal_offset_xyz_m": [0.0, 0.25, 0.0]
+  },
+  "qualification": "r32 confirms the wall-clear motion and two exact snapshot certificates; it does not qualify a goal, curve, N06 exit, or flight."
+}

@@ -1,0 +1,85 @@
+{
+  "bridge": {
+    "armed": false,
+    "bridge_odometry_time_errors": [],
+    "control_enabled": false,
+    "final_phase": "LANDED",
+    "first_landing_reason": "px4_frame_alignment_drift",
+    "landed": true,
+    "landing_sim_s": 109.364,
+    "max_paired_translation_drift_m": 0.18153945780479383,
+    "max_paired_yaw_error_rad": 0.04764688888240176,
+    "vehicle_remained_disarmed": true,
+    "zero_control_topic_samples_during_readback": true
+  },
+  "classification": "diagnostic SITL failure; not a formal qualification or PASS",
+  "clearance": {
+    "classification": "offline sampled simulated geometry measurement; not a continuous dynamics certificate or formal threshold",
+    "inter_sample_motion_m": 0.04025742836171334,
+    "sampled_min_m": 0.9604308549507766,
+    "sampled_minus_motion_m": 0.9201734265890633
+  },
+  "contact": {
+    "ground_contact_observed": true,
+    "passed": true,
+    "prohibited_events": 0
+  },
+  "dynamic_obstacle": {
+    "d435i_observed_roi_samples": 7,
+    "delay_from_goal_sim_s": 12.016,
+    "first_new_trajectory_id": 32,
+    "gazebo_acknowledged": true,
+    "injected_sim_s": 96.72,
+    "max_roi_points": 491,
+    "model": "n10_live_replan_box",
+    "new_spline_seen": true,
+    "post_injection_splines": 156,
+    "pre_injection_splines": 31
+  },
+  "goal": {
+    "action_result": {
+      "final_position": [
+        5.919729428904547,
+        0.363682634263209,
+        -0.016321694249196467
+      ],
+      "outcome": "aborted",
+      "reason": "goal_timeout",
+      "status": 6,
+      "success": false
+    },
+    "epoch": "85a061404a7d462e9ade39c05f041d48",
+    "final_odom_position_m": [
+      5.919729428904547,
+      0.363682634263209,
+      -0.016321694249196467
+    ],
+    "goal_id": "741de3de7e27408c84ab56e32fd51c5c",
+    "start_sim_s": 84.704,
+    "success": false
+  },
+  "input_sha256": {
+    "bridge-alignment-timeline.jsonl": "2898cf1adb2999d410e8efc1eb196e65221f0c0b79cee094d3609463fcc3d3ef",
+    "flight.json": "b32172553bd70dca06d3c4bfe694484e07ecfb683dc892021ee1e2680e214899",
+    "n10-live-obstacle-analysis.json": "fa48963b37df7387edc50a252b843c3632e5d865a4cc37d4375a5b3ba9673c21",
+    "n10-live-obstacle-box-clearance.json": "2aadab7e15e9053aab61c3f0abeb0cf81994e7e1c2b9f3cd298db09c0fbcf0a9",
+    "n10-live-obstacle-observation.json": "1cebed24be304efc2d32004e413c3a6e5db1518a16e5ec6e30c4118a84a0e8b7",
+    "runtime-contract.json": "514604e6614bb867588db8ac017ded081f6b72fa6777f02d2afca84dfecc8b26",
+    "safe-to-stop.json": "9263a38e02867f698c5120aaf87f4073189f60b6ad094b0708fb072a65310ba6",
+    "vehicle-contact-evaluation.json": "cb8d2cff38685c13d082d0bdb9a302d80641a999063d09abc045172a627ba3e6"
+  },
+  "interpretation": [
+    "The 128-sample clock history run did not record an odometry mapping error; the previous source_stamp_outside_clock_history failure did not recur. The unit test separately verifies the 0.296 s sample interpolation.",
+    "The PX4 bridge latched the project-local 0.15 m translation alignment cutoff at 0.181539 m; the next paired samples were below the cutoff. Maximum observed yaw error was below the configured 0.15 rad limit.",
+    "The mission timed out before the 16 m goal. Obstacle ACK, camera/cloud evidence, subsequent EGO trajectories, sampled clearance, zero prohibited contacts and safe landed/disarmed readback are diagnostic evidence only."
+  ],
+  "observers": {
+    "live_obstacle": true,
+    "planner": true,
+    "truth": true
+  },
+  "protocol": "progress/evidence/n10-live-obstacle-clock-history-replan-protocol-20261027-368.md",
+  "run_id": "n10-20261027-368-clock-history-live-obstacle",
+  "runtime_contract_sha256": "68aba197b9db4e6a405baaaafccdcec91ba91434e3525f56b701f9c5a6772734",
+  "schema": "n10-live-obstacle-clock-history-result/v1"
+}

@@ -1,0 +1,195 @@
+{
+  "schema": "n08-vector-cap-precondition/v1",
+  "subtask": "N08.2q #227",
+  "date": "2026-10-24",
+  "status": "incomplete_precondition_failure",
+  "parent_n08_passed": false,
+  "experiment": {
+    "hypothesis": "Reducing EGO max_velocity_m_s from 0.15 to 0.075 m/s per axis will make the actual derivative-control-point vector speed bound no greater than 0.15 m/s.",
+    "single_behavioral_variable": "EGO max_velocity_m_s=0.075; all other EGO planner and N05/N06 gates unchanged",
+    "goal_offset_enu_m": [0.5, 0.2, 0.0],
+    "mode": "compute_only",
+    "explicit_vector_speed_cap_m_s": 0.15,
+    "xy_executed": false,
+    "no_curve_result": true
+  },
+  "attempts": [
+    {
+      "run_id": "n08-20261024-227-vector-cap-01",
+      "status": "blocked_at_fresh_n05_gate",
+      "support_scan_performed": false,
+      "preflight_passed": true,
+      "n05_online_accepted": false,
+      "n05_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+      "n05_offline_matches_online": true,
+      "takeoff_contact_unknown_cells": 436,
+      "hold_maximum_unknown_cells": 566,
+      "goal_sent": false,
+      "xy_executed": false,
+      "evidence": {
+        "preflight": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-01/preflight.json",
+          "sha256": "c7fc915ae64564e8e09f2d2363eb529d6fbc2cfba9b9d16bff5f94d222e1f5c5"
+        },
+        "n05_online": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-01/n05-current-area/n05-live-entry-check.json",
+          "sha256": "dfef8353ed1b00820a7d82c39bbe0f3fd13c09797c457d3e63e1a2b2d10f62e1"
+        },
+        "n05_offline": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-01/n05-current-area/n05-offline-entry-replay.json",
+          "sha256": "df7a6503acaa716f523c1492667cf7e5085068a3cb9ea9c8e0d9330c054609ad"
+        },
+        "raw_map": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-01/n05-current-area/n05-live-raw-map.npz",
+          "sha256": "8b29eff4f7b2f2f3ce7a8d74d684272e132cef16a80e1d06e74fcf33a3d83701"
+        }
+      }
+    },
+    {
+      "run_id": "n08-20261024-227-vector-cap-02",
+      "status": "blocked_by_localization_telemetry_stale_before_goal",
+      "planner_profile": "config/components/mapping/n08_low_speed_vector_cap.json",
+      "launch_max_velocity_m_s_per_axis": 0.075,
+      "launch_max_acceleration_m_s2": 0.25,
+      "support_scan": {
+        "layout": "n08_overhead_calibration",
+        "profile": "n08_overhead_free_sector_view",
+        "completed_stages": 15,
+        "diagnostic_pass": true,
+        "helper_outcome": "failed",
+        "helper_error": "fresh DISARMED status is required for every fixture command",
+        "fixture_detached": true,
+        "fixture_removed": true,
+        "fixture_absent_from_followup_gz_model_list": true
+      },
+      "n05_post_release": {
+        "accepted": true,
+        "reason": "all_entry_phases_known_and_clear",
+        "online_offline_identical": true,
+        "epoch": "f6e7587696cf43fd8c8400b37514e391",
+        "map_id": "f6e7587696cf43fd8c8400b37514e391-3e2048befa8049c3b54911d0f27cd1e4"
+      },
+      "n05_current_area": {
+        "accepted": true,
+        "reason": "all_entry_phases_known_and_clear",
+        "online_offline_identical": true,
+        "epoch": "f6e7587696cf43fd8c8400b37514e391",
+        "map_id": "f6e7587696cf43fd8c8400b37514e391-3e2048befa8049c3b54911d0f27cd1e4"
+      },
+      "preflight_passed": true,
+      "runner": {
+        "result": "FAIL",
+        "failure": "vio_bridge_map_preconditions_not_ready",
+        "action_goal_sent": false,
+        "trajectory_ready_seen": false,
+        "bridge_phase_at_failure": "DISABLED",
+        "bridge_reason_at_failure": "localization_not_tracking",
+        "landed_and_disarmed": true
+      },
+      "localization_observation": {
+        "first_status_header_stamp_s": 513.292,
+        "first_status_source_stamp_s": 513.288,
+        "last_source_stamp_s": 513.38,
+        "last_status_header_stamp_s": 567.8,
+        "source_stamp_advance_after_513_38": false,
+        "source_age_at_last_status_s": 54.42,
+        "last_accepted_optimized_count": 7638,
+        "last_status_reason": "telemetry_stale",
+        "map_reset_at_s": 513.384,
+        "old_map_id": "f6e7587696cf43fd8c8400b37514e391-3e2048befa8049c3b54911d0f27cd1e4",
+      "new_map_id": "f6e7587696cf43fd8c8400b37514e391-4e1f9ca5158c4ed2838d879af8bc6fbb",
+        "vins_log_solver_output_last_time_s": 641.092,
+        "interpretation": "VINS process did not exit; logger output continued. These logs do not prove ROS odometry or telemetry messages continued, so the publisher-versus-adapter boundary remains unresolved."
+      },
+      "px4_boot_readback_maximum_limits_only": {
+        "MPC_ACC_HOR_m_s2": 3.0,
+        "MPC_ACC_HOR_MAX_m_s2": 5.0,
+        "MPC_JERK_AUTO_m_s3": 4.0,
+        "MPC_XY_VEL_MAX_m_s": 12.0,
+        "minimum_deceleration_or_response_delay_measured": false
+      },
+      "curve_certificate": {
+        "passed": false,
+        "reason": "compute_only_runner_not_passed",
+        "matching_bspline_captured": false,
+        "same_run_live_map_capture_failure": "matching_goal_epoch_bspline_not_observed"
+      },
+      "shutdown": {
+        "command": "bash tools/project.sh stop n08-20261024-227-vector-cap-02",
+        "exit_code": 0,
+        "pre_stop_landed": true,
+        "pre_stop_disarmed": true,
+        "fixture_absent": true
+      },
+      "evidence": {
+        "launch_manifest": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02-stack/launch-manifest.json",
+          "sha256": "381f81fe544721fe26d17c434fe54c638172ab4cf3883d9814a3321e4a035681"
+        },
+        "n05_run_summary": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/n05-run-summary.json",
+          "sha256": "52e96b736195426d4ea657c7d93118db115307ac5487bd4be6d11e82f48d81b4"
+        },
+        "fixture_result": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/fixture-result.json",
+          "sha256": "9f055ab3eaabd1b08f98d5d15eacb6ce207b1ff04894c03c244f2e89db1fa28b"
+        },
+        "n05_post_release_online": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/n05-post-release/n05-live-entry-check.json",
+          "sha256": "e08d51a18ab41c53786a5fe3df548df45b6f81708bdb71eee713e018f097648e"
+        },
+        "n05_post_release_offline": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/n05-post-release/n05-offline-entry-replay.json",
+          "sha256": "f9da70b033796b646a06584de2862390d39ba61afb8888b66cbda7458f52cea9"
+        },
+        "n05_current_online": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/n05-current-area/n05-live-entry-check.json",
+          "sha256": "4e13c0b48ba8719596000d4c64594ef43517b4a8945bdc2ff57b18b916e4e5c6"
+        },
+        "preflight": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/preflight.json",
+          "sha256": "737bd835b850085291edd32d8c8232d6a9d19357a31a88825e87fa9ba73784cf"
+        },
+        "flight": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/flight.json",
+          "sha256": "bbad533de9d76e03058bef55cf84ced419ff5395120c2979f3f4b44d56d93768"
+        },
+        "px4_boot_parameters": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/px4-boot-parameters.json",
+          "sha256": "bb06d06e13091b1289450709ccfd659fce332606c6b58379fc76cc38da728af8"
+        },
+        "map_capture": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/n08-live-curve-map.json",
+          "sha256": "7760a84f9984fa9540f9cba17ce7857943777eb96fd7b5e615b4b775585c1483"
+        },
+        "curve_certificate": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/n08-curve-certificate.json",
+          "sha256": "a0e61a3d80cddf496a42c87689ce0b2d8f7d9b7ca8709d854ceaf00cf409b3a7"
+        },
+        "vio_log": {
+          "path": "artifacts/runs/n08-20261024-227-vector-cap-02/vio.log",
+          "sha256": "42252b17189700c2548a00f3736c3dfeb65fd2cb07d4716bfab8b0997efec141"
+        }
+      }
+    }
+  ],
+  "math_replay_check": {
+    "source_run": "n08-20261024-225-camera-cone-compute-only-01",
+    "method": "NumPy-only de Boor evaluation and derivative control polygon",
+    "duration_s": 5.267489711934156,
+    "derivative_control_polygon_vector_bound_m_s": 0.20179689071070378,
+    "dense_peak_vector_speed_m_s": 0.19369504189321696,
+    "dense_peak_per_axis_m_s": [0.1786923191324301, 0.07184902616181313, 0.04793947772131682],
+    "matches_n08_226_audit": true,
+    "scope": "offline evaluator math validation only; not #227 live curve evidence"
+  },
+  "px4_boundary": {
+    "readback_is_boot_time": true,
+    "limits_are_maxima_only": true,
+    "measured_minimum_deceleration_m_s2": null,
+    "measured_response_delay_s": null,
+    "stopping_envelope_proven": false
+  },
+  "n08_execute_remains_locked": true,
+  "next_subtask": "N08.2r #228: read-only raw VINS/adapter source and receipt timeline, no health threshold changes or XY"
+}

@@ -104,6 +104,22 @@ def main():
                                    for c in commands[before_stale_check:]),
                  'active trajectory after stale cancellation')
 
+        stop_hold = TrajectoryCancel()
+        stop_hold.goal_id = goal_id
+        stop_hold.epoch = epoch
+        stop_hold.mode = TrajectoryCancel.MODE_STOP_HOLD
+        stop_hold.reason = 'caller_cancel'
+        before_stop_hold_check = len(commands)
+        cancel_pub.publish(stop_hold)
+        wait_for(node, lambda: any(c.goal_id == goal_id and
+                                   c.trajectory_flag == PositionCommand.TRAJECTORY_STATUS_READY
+                                   for c in commands[before_stop_hold_check:]),
+                 'traj_server preserving setpoints until EGO stop spline arrives')
+        if any(c.goal_id == goal_id and
+               c.trajectory_flag == PositionCommand.TRAJECTORY_STATUS_ABORT
+               for c in commands[before_stop_hold_check:]):
+            raise RuntimeError('traj_server aborted a stop/hold handoff before EGO replanning')
+
         matching = TrajectoryCancel()
         matching.goal_id = goal_id
         matching.epoch = epoch
@@ -133,7 +149,7 @@ def main():
                           c.trajectory_flag == PositionCommand.TRAJECTORY_STATUS_READY]
         if max(target_samples) < 0.7:
             raise RuntimeError(f'provided yaw spline was not sampled: max yaw={max(target_samples)}')
-        print('PASS: trajectory frame, yaw spline, stale-cancel rejection, and matched abort')
+        print('PASS: trajectory frame, yaw spline, stale-cancel rejection, stop/hold handoff, and matched abort')
     finally:
         process.send_signal(signal.SIGINT)
         try:

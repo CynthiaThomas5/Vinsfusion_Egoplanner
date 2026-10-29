@@ -1,0 +1,56 @@
+{
+  "schema": "n08-axis-speed-certificate/v1",
+  "subtask": "N08.2z #236",
+  "status": "passed",
+  "scope": "offline certificate evaluator and unit tests only; no PX4 control or simulation",
+  "reason": {
+    "prior_evidence": "#231 derivative-control-hull Y component bound = 0.08157 m/s",
+    "configured_max_velocity_m_s_per_axis": 0.075,
+    "ego_feasibility_tolerance": 0.05,
+    "ego_velocity_epsilon_m_s": 0.0001,
+    "derived_per_axis_limit_m_s": 0.07885,
+    "existing_vector_speed_cap_m_s": 0.15,
+    "old_gap": "speed_pass checked only the vector norm and did not include per-axis EGO feasibility."
+  },
+  "implementation": {
+    "evaluator": "tools/evaluate_n08_curve_certificate.py",
+    "new_schema": "n08-live-curve-certificate/v2",
+    "checks": [
+      "per-axis derivative-control-hull bound",
+      "3-D derivative-control-hull norm bound"
+    ],
+    "combined_speed_pass": "per_axis_pass AND vector_pass",
+    "other_geometry_identity_freshness_gates_unchanged": true,
+    "execute_authorized_remains_false": true,
+    "planner_px4_health_thresholds_changed": false,
+    "historical_evidence_rewritten": false
+  },
+  "test_results": {
+    "command": "python3 -m unittest tools.test_n08_curve_certificate tools.test_n08_compute_only",
+    "result": "PASS; 7 tests",
+    "axis_over_limit_vector_pass_case": "0.08157 m/s fails per-axis check while vector cap alone passes",
+    "both_limits_pass_case": "PASS",
+    "vector_cap_independent_case": "PASS",
+    "invalid_shape_fails_closed": "PASS",
+    "python_ast_parse": "PASS",
+    "project_status": "PASS; optional historical-link notice only",
+    "git_diff_check": "PASS",
+    "python_py_compile": "could not write protected tools/__pycache__; Python import via tests and AST parse passed"
+  },
+  "source_references": {
+    "ego_feasibility_check": "src/vendor/ego_planner/planner/bspline_opt/src/uniform_bspline.cpp",
+    "ego_feasibility_launch_tolerance": "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py"
+  },
+  "file_sha256": {
+    "tools/evaluate_n08_curve_certificate.py": "eb1e3b046ebfad010858610b7e40d85fbc2a9d7fe0daa7bac4ced44c849b3a95",
+    "tools/test_n08_curve_certificate.py": "47c2edbf4a13e4ee4426314cc408aa2d82fadd9c6eceb44c60c107a3c086056a",
+    "config/components/mapping/n08_low_speed_vector_cap.json": "01ccb7831e3f2b013dd12e62cc6d16d6ba39404624170bb19a9df88b61e1eb9f",
+    "src/vendor/ego_planner/planner/bspline_opt/src/uniform_bspline.cpp": "f03094a2fd3e36525ebe8ba0a1f4fd251502492464565f668b412cf7e3233398",
+    "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "2e0cca636f4fed64a15c4089148308155510115169b7d40839f1636cb5dd7089"
+  },
+  "limitations": [
+    "#235 support scan did not reach its rear-down view and remains unresolved.",
+    "No compute-only rerun, SITL, XY, braking, response-delay, or deceleration measurement was performed.",
+    "N08 remains in_progress; this certificate fix does not authorize motion."
+  ]
+}

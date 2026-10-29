@@ -1,0 +1,81 @@
+{
+  "schema": "n08-localization-freshness-pre-enable-failure/v1",
+  "run_id": "n08-20261024-245-low-speed-vector-cap",
+  "scope": "N05 support admission followed by isolated compute-only pre-enable attempt; no PX4 enable, goal, XY motion, or braking measurement",
+  "result": "safe_pre_enable_rejection",
+  "planner_config": {
+    "path": "config/components/mapping/n08_low_speed_vector_cap.json",
+    "sha256": "01ccb7831e3f2b013dd12e62cc6d16d6ba39404624170bb19a9df88b61e1eb9f",
+    "max_velocity_m_s": 0.075
+  },
+  "n05": {
+    "completed_stages": 16,
+    "diagnostic_pass": true,
+    "before_rejected_unknown": true,
+    "after_accepted": true,
+    "post_release_accepted": true,
+    "current_area_accepted": true,
+    "same_epoch_and_map": true
+  },
+  "px4_time_alignment": {
+    "observer_sample_count": 423,
+    "time_domain_valid_count": 423,
+    "px4_ros_clock_gap_sim_s_min": -0.128,
+    "px4_ros_clock_gap_sim_s_max": 0.012,
+    "clock_regressions": 0,
+    "conclusion": "PX4 HRT/ROS clock alignment remained valid; this was not the pre-enable failure cause"
+  },
+  "localization_lockout": {
+    "reason": "telemetry_stale",
+    "normalized_cost": 0.8594398055407766,
+    "clock_ns_in_snapshot": 554476000000,
+    "last_pair_ns": 554104000000,
+    "telemetry_source_stamp_ns": 554104000000,
+    "telemetry_clock_at_receipt_ns": 554324000000,
+    "telemetry_source_age_at_snapshot_s": 0.372,
+    "optimized_source_stamp_ns": 554104000000,
+    "optimized_source_age_at_snapshot_s": 0.372,
+    "configured_max_source_age_telemetry_s": 0.3,
+    "configured_max_source_age_optimized_s": 0.3,
+    "localization_status_first_stale_wall_elapsed_s": 1.506569381,
+    "adapter_optimized_last": {
+      "wall_elapsed_s": 1.390163765,
+      "source_stamp_ns": 554039999999
+    },
+    "adapter_propagated_last": {
+      "wall_elapsed_s": 1.39535988,
+      "source_stamp_ns": 554087999999
+    },
+    "raw_vins_telemetry_final_observed": {
+      "wall_elapsed_s": 60.599456744,
+      "source_stamp_ns": 607600000000
+    },
+    "raw_optimized_final_observed": {
+      "wall_elapsed_s": 60.599838402,
+      "source_stamp_ns": 607600000000
+    },
+    "interpretation": "The health snapshot was stale by source age even though the raw observer later saw advancing VINS telemetry. Why the adapter did not accept/process the advancing sample before its one-shot lockout remains unproven."
+  },
+  "compute_only": {
+    "result": "FAIL",
+    "failure": "localization_or_px4_freshness_not_stable_before_enable",
+    "action_goal_sent": false,
+    "trajectory_ready_seen": false,
+    "position_command_sample_count": 0,
+    "evaluator_passed": false,
+    "evaluator_source_failure": "localization_or_px4_freshness_not_stable_before_enable",
+    "curve_certificate_passed": false,
+    "curve_map_failure": "matching_goal_epoch_bspline_not_observed"
+  },
+  "final_safety_readback": "artifacts/runs/n08-20261024-245-low-speed-vector-cap/final-safety-readback.json",
+  "source_sha256": {
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/vio.log": "2cd8d62818645e85447eae53f177761782e0a6521031bca9f37a65dc57da82b4",
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/n08-localization-source-timeline.json": "17fa06bd7c05e23b714cd925cb368b34a85209dded705a223520eadcaf43e109",
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/flight.json": "85f0d0c79965928ffa74b4a231efa1584c1d3d19ae0edd106efe31f90b211d13",
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/n08-compute-only-evaluation.json": "8c6cc0b52f61d2177eb6892217d70d59d68d2a842678920c4ce2e2affa602b7c",
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/n08-curve-certificate.json": "03af26ae01b277d926aa477bf7c1c48f4d1049d98af547d4ea6da49da8f63e69",
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/n05-run-summary.json": "d27fab12b8a779dc799be4c2a3b81588023a77d753db6b353441e6607b38a742",
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/fixture-monitor-readback.json": "3886ddbe3760fb242f59c3e3f4b2a47772b28c891eed2f24db2c850ba765e8c5",
+    "artifacts/runs/n08-20261024-245-low-speed-vector-cap/final-safety-readback.json": "c02de050b0973efe78858dd9f056e54427a40d2fe1a3a6bdbb514448e0dff20d"
+  }
+}

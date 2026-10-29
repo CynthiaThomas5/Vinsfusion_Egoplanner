@@ -1,0 +1,50 @@
+{
+  "scope": "N06 wall actual-layout planner-only dynamic obstacle response; no PX4, bridge, controller, trajectory consumer, or curve execution",
+  "initial_hold_seconds": 5,
+  "phase_seconds": 20,
+  "world_acceleration_and_angular_acceleration": [
+    0.006,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "phase_signs": [
+    [-1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0]
+  ],
+  "stop_seconds": 93,
+  "wall_timeout_seconds": 120,
+  "record_wall_seconds": 160,
+  "command_period_seconds": 0.05,
+  "planner_goal_offset_xyz_m": [
+    0.4,
+    0.3,
+    0.0
+  ],
+  "require_snapshot_goal_certificate": true,
+  "dynamic_obstacle_after_curve": {
+    "model_name": "n06_dynamic_terminal_hold_obstacle",
+    "world_pose_xyz_m": [
+      1.4,
+      0.25,
+      1.0
+    ],
+    "size_xyz_m": [
+      0.15,
+      0.15,
+      0.15
+    ],
+    "verification_query_center_xyz_m": [
+      1.25,
+      0.1,
+      0.0
+    ],
+    "verification_query_radius_m": 0.12,
+    "map_wait_timeout_wall_s": 8.0,
+    "safety_event_timeout_wall_s": 5.0
+  }
+}

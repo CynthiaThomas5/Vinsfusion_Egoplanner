@@ -1,0 +1,171 @@
+{
+  "schema": "n08-terminal-stop-run/v1",
+  "run_id": "n08-terminal-stop-20261026-325",
+  "status": "passed",
+  "completion_mode": "single_goal",
+  "trial_kind": "terminal_stop",
+  "scope": "One ordinary forward EGO goal, planned terminal stop/hold, separate destination landing; no return required.",
+  "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+  "target_profile_sha256": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+  "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+  "cold_start": {
+    "localization_epoch": "581eddb93ce942bfbbd1a3deeb59f539",
+    "map_id": "581eddb93ce942bfbbd1a3deeb59f539-522274dd07b2450ca1588246ad8141d6",
+    "frame_id": "odom_581eddb93ce942bfbbd1a3deeb59f539"
+  },
+  "native": {
+    "result": "PASS",
+    "action_goal_sent": true,
+    "action_result": {
+      "status": 4,
+      "success": true,
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held"
+    },
+    "return_action_sent": false,
+    "landed_and_disarmed": true
+  },
+  "gates": {
+    "unarmed_support_scan": {
+      "completed_stages": 6,
+      "configured_stage_count": 6,
+      "fixture_removed": true,
+      "fixture_may_remain_attached": false,
+      "scene_model_absent": true,
+      "helper_warning": "fresh DISARMED status is required for every fixture command",
+      "independent_postscan_readback_path": "artifacts/runs/n08-terminal-stop-20261026-325/post-scan-independent-live-readback.json",
+      "independent_postscan_gz_model_list_path": "artifacts/runs/n08-terminal-stop-20261026-325/post-scan-gz-model-list.txt"
+    },
+    "post_release_n05_online": true,
+    "post_release_n05_offline": true,
+    "post_release_same_identity_online_offline": true,
+    "mission_current_area_n05_online": true,
+    "mission_current_area_n05_offline": true,
+    "mission_current_area_same_identity_online_offline": true,
+    "preflight_passed": true,
+    "preflight_observed_wall_s": 40.00099664204754,
+    "preflight_max_odom_receipt_gap_wall_s": 0.11063227686099708,
+    "preflight_overguard_count": 0,
+    "pre_enable_full_body_capsule_passed": true,
+    "full_body_corridor_query_count": 25,
+    "reachable_center_bound_m": 0.2507782218537319,
+    "available_center_bound_m": 0.2625,
+    "remaining_geometric_slack_m": 0.011721778146268125,
+    "independent_evaluator_passed": true,
+    "independent_evaluator_checks": {
+      "nonzero_reference_speed": true,
+      "reference_speed_within_trial_limit": true,
+      "actual_speed_within_abort_limit": true,
+      "actual_vector_speed_within_trial_limit": true,
+      "meaningful_actual_displacement": true,
+      "actual_stop_and_dwell_observed": true,
+      "reference_terminal_zero_observed": true,
+      "reference_source_gaps_bounded": true,
+      "deceleration_measurement_supported": true,
+      "sustained_deceleration_response_observed": true,
+      "independent_tracking_inside_certified_margin": true,
+      "native_trial_completed": true,
+      "n05_and_airborne_capsules_passed": true,
+      "cancel_stop_corridor_admitted": true,
+      "landed_and_disarmed": true,
+      "clock_did_not_regress": true,
+      "no_watchdog_violation": true,
+      "live_spline_certificates_present": true,
+      "sole_expected_publishers": true,
+      "no_truth_control": true,
+      "localization_continuous": true,
+      "destination_pre_goal_landing_candidate_passed": true,
+      "destination_final_landing_candidate_passed": true,
+      "no_return_action_or_goal": true,
+      "ordinary_goal_action_succeeded": true
+    },
+    "post_mission_live_readback": {
+      "duration_wall_s": 6.0,
+      "bridge_phase": "LANDED",
+      "bridge_control_enabled": false,
+      "px4_arming_state": 1,
+      "px4_landed": true,
+      "control_samples_zero": true,
+      "control_mode_samples": 0,
+      "trajectory_setpoint_samples": 0,
+      "vehicle_command_samples": 0,
+      "vehicle_remained_disarmed": true
+    }
+  },
+  "metrics": {
+    "reference_identical_source_repeats": 397,
+    "reference_unique_source_samples": 1814,
+    "reference_trajectory_handoffs": [],
+    "actual_vector_speed_limit_m_s": 0.12,
+    "reference_peak_vector_speed_m_s": 0.0805467760653544,
+    "reference_braking_start_elapsed_sim_s": 7.988,
+    "reference_zero_speed_elapsed_sim_s": 13.24,
+    "actual_peak_horizontal_speed_m_s": 0.076312299151824,
+    "actual_peak_vector_speed_m_s": 0.0763870428801301,
+    "actual_stop_elapsed_sim_s": 12.700000000000001,
+    "actual_stop_observed": true,
+    "stop_speed_threshold_m_s": 0.03,
+    "stop_dwell_sim_s": 1.0,
+    "response_delay_to_sustained_deceleration_s": 1.5319999999999991,
+    "actual_net_horizontal_displacement_m": 0.6027087780489143,
+    "truth_max_source_gap_sim_s": 0.02,
+    "truth_derivative_smoothing_window_sim_s": 0.22,
+    "reference_max_source_gap_sim_s": 0.016,
+    "actual_distance_from_reference_braking_start_m": 0.295683800431448,
+    "time_from_reference_braking_start_to_actual_stop_s": 4.712000000000001,
+    "actual_residual_distance_after_reference_zero_m": 0.0,
+    "actual_stop_dwell_position_excursion_m": 0.01920494029393113,
+    "deceleration_speed_band_m_s": [
+      0.03,
+      0.0686810692366416
+    ],
+    "deceleration_samples": 131,
+    "observed_deceleration_p10_m_s2": 0.007503366210383222,
+    "observed_deceleration_mean_m_s2": 0.014893383070773272,
+    "independent_reference_tracking_error_max_m": 0.08671337614205485
+  },
+  "px4_ulog_final_state": {
+    "path": "artifacts/runs/n08-terminal-stop-20261026-325/px4_sitl_default/log/2026-10-26/02_49_19.ulg",
+    "sha256": "4818303a2e6996f8a2b6c573f32df66c2dd235b0623788fd7c6cffead4719989",
+    "size_bytes": 100937645,
+    "pyulog_version": "1.3.0",
+    "duration_s": 375.54,
+    "vehicle_status_sample_count": 752,
+    "arming_state_counts": {
+      "1": 653,
+      "2": 99
+    },
+    "final_arming_state": 1,
+    "final_status_timestamp_us": 381368000,
+    "vehicle_land_detected_sample_count": 418,
+    "final_landed": true
+  },
+  "mission_wrapper": {
+    "exit_code": 1,
+    "reason": "The project mission wrapper requested optional matplotlib plotting; matplotlib is absent. Native flight result and saved independent no-plot evaluator both pass."
+  },
+  "container": {
+    "state": "exited",
+    "exit_code": 0,
+    "oom_killed": false
+  },
+  "artifact_sha256": {
+    "flight.json": "9ef97193f3d70757a3bb8171e46270d1538a990b7de821139604c3a06a597a5d",
+    "n08-braking-evaluation.json": "6633131353d878de83f4f8187c418c22f29039ec8fd23dc7e588a57b9a68e52f",
+    "preflight.json": "fd295af54185ef9a034c3ebd8480ec557159ea5e41a2f16d37b98979d3961f96",
+    "runtime-contract.json": "fbdcbbd589d9275ae7328a17aa90307dc8acbb29da2b6d34010c4a467d5b31cf",
+    "n05-run-summary.json": "95722cf5248a3b6af6faf159fb214fcc97a87095167eaa9a72547e5fb9dd41b2",
+    "n05-post-release/n05-live-entry-check.json": "44e667e35bf4abf86bb4e51e14b7e745e40a27d96975ff96c2c9859d43a1d441",
+    "n05-post-release/n05-offline-entry-replay.json": "a5ae24b5eec08db9c24bd6562adbb45811c73283da9d86c2237da13fe62efce9",
+    "n05-current-area/n05-live-entry-check.json": "dce0fe3dcacc9f04f9b83a6f4ccdb97599a971a014d48448061929d6c6bb6b80",
+    "n05-current-area/n05-offline-entry-replay.json": "d1651fb3266cd73706da2a51f11d392ba1e08e044153cd90f3e837a07a512f80",
+    "n08-trial-pre-enable-admission.json": "d7335055f825bf3194885047892ea47268671ccc34c88a3a783366c17ea2e803",
+    "post-mission-independent-live-readback.json": "91f999e2e4c11285df26acadb105053957d43f09b5affcf641fb8ff00536c26f",
+    "px4_sitl_default/log/2026-10-26/02_49_19.ulg": "4818303a2e6996f8a2b6c573f32df66c2dd235b0623788fd7c6cffead4719989"
+  },
+  "limitations": [
+    "The support-scan helper recorded a stale final DISARMED receipt and did not confirm cleanup itself; its structured result records all six configured stages, detached attachment state, fixture_removed=true and scene-model absence. Independent 6 s readbacks plus same-identity online/offline post-release gates confirmed the safe state and admission.",
+    "The mission wrapper returned 1 only after native success because optional plotting dependency matplotlib is missing; independent no-plot evaluation passed.",
+    "Finite-sample simulation measurement; observed deceleration quantiles are not guaranteed lower bounds and this is not a hardware guarantee."
+  ]
+}

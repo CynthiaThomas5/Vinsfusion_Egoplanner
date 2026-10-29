@@ -6,7 +6,7 @@
     </include>
     <include merge="true">
       <uri>model://d435i</uri>
-      <pose>0.12 0 0.08 0 0 0</pose>
+      <pose relative_to="base_link">0.12 0 0.08 0 0 0</pose>
     </include>
     <joint name="d435i_mount" type="fixed">
       <parent>base_link</parent>
@@ -19,7 +19,8 @@
       <robot_base_frame>d435i_link</robot_base_frame>
       <dimensions>3</dimensions>
       <odom_topic>/debug_truth/base_odometry</odom_topic>
-      <odom_publish_frequency>50</odom_publish_frequency>
+      <!-- Match the 4 ms physics step for offline-only interval clearance analysis. -->
+      <odom_publish_frequency>250</odom_publish_frequency>
     </plugin>
   </model>
 </sdf>

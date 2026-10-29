@@ -6,12 +6,101 @@ import json
 import math
 from pathlib import Path
 import re
+import signal
 import subprocess
 import time
 
 import xml.etree.ElementTree as ET
 
 AXES = ('x', 'z', 'yaw', 'pitch')
+PROFILE_CHOICES = (
+    'smoke', 'coverage', 'n06_extended_reach', 'n06_extended_reach_slow_x',
+    'n06_extended_reach_slow_x_pitch60',
+    'n06_extended_reach_slow_x_pitch60_single_yaw',
+    'n06_extended_reach_slow_x_pitch45_yaw0',
+    'n06_full_airframe_retreat_240',
+    'n06_full_airframe_retreat_240_translation_only',
+    'n06_full_airframe_retreat_240_segmented_actual_return',
+    'n06_full_airframe_retreat_240_oblique_site_view',
+    'n06_full_airframe_retreat_240_oblique_separated_return',
+    'n06_full_airframe_retreat_240_oblique_early_view',
+    'n08_far_small_pitch_view',
+    'n08_far_overhead_neutral_view',
+    'n08_overhead_free_sector_view',
+    'n08_overhead_free_sector_with_negative_side_view',
+    'n08_overhead_free_sector_with_negative_side_recovery',
+    'n08_overhead_free_sector_negative_side_short_dwell',
+    'n08_overhead_free_sector_negative_y_side_view',
+    'n08_overhead_free_sector_negative_y_rear_view',
+    'n08_overhead_free_sector_negative_y_rear_short_hold',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_slow_descent',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_slow_descent',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_pitch_down_descent',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_segmented_neutral_descent',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view_separated_pitch',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view_neutral_yaw_pitch_only_rear',
+    'n08_overhead_free_sector_negative_y_rear_short_hold_low_rear_view_midheight_yaw_pitch_only_rear',
+    'n08_overhead_free_sector_view_decoupled_return',
+    'n08_overhead_free_sector_view_decoupled_slow_vertical_return',
+    'n08_overhead_free_sector_view_decoupled_slow_vertical_return_negative_side',
+    'n08_overhead_free_sector_negative_side_slow_descent',
+    'n08_overhead_free_sector_view_steeper',
+    'n08_overhead_negative_side_view',
+    'n08_overhead_rear_facing_view',
+    'n08_overhead_rear_down_view',
+    'n08_overhead_rear_down_slow_yaw_return',
+    'n08_terminal_horizontal_views',
+    'n08_terminal_horizontal_views_via_neutral',
+    'n08_overhead_rear_one_side_view',
+    'n08_overhead_positive_side_view',
+    'n07_default_spawn_translation_only',
+    'n07_default_spawn_bidirectional_translation_only',
+    'n07_spawn_minus65_retreat_150_translation_only',
+    'n07_spawn_minus65_retreat_180_translation_only',
+    'n07_spawn_minus65_retreat_180_yaw015rad_view',
+    'n07_spawn_minus65_retreat_180_yaw015rad_return_view',
+    'n07_spawn_minus65_retreat_180_pitch045_view',
+    'n07_spawn_minus65_retreat_180_pitch045_return_view',
+    'drift', 'loop_revisit',
+)
+
+
+def _localization_gate_diagnostic(loc, expected_epoch, receipt_wall_s,
+                                  now_wall_s, tracking_state, sim_time_ns):
+    """Describe localization presence/state/epoch without a receipt-age gate."""
+    age = now_wall_s-receipt_wall_s if loc is not None else None
+    source_stamp = getattr(loc, 'source_stamp', None) if loc is not None else None
+    source_stamp_ns = None
+    if source_stamp is not None:
+        source_stamp_ns = int(source_stamp.sec)*1_000_000_000+int(source_stamp.nanosec)
+    observed_state = int(loc.state) if loc is not None else None
+    valid = bool(loc.valid) if loc is not None else None
+    observed_epoch = str(loc.epoch) if loc is not None else None
+    failures = []
+    if loc is None:
+        failures.append('missing')
+    else:
+        if not valid:
+            failures.append('invalid')
+        if observed_state != int(tracking_state):
+            failures.append('not_tracking')
+        if observed_epoch != expected_epoch:
+            failures.append('epoch_mismatch')
+    return {
+        'failed': bool(failures),
+        'failures': failures,
+        'valid': valid,
+        'state': observed_state,
+        'tracking_state': int(tracking_state),
+        'reason': str(loc.reason) if loc is not None else None,
+        'observed_epoch': observed_epoch,
+        'expected_epoch': expected_epoch,
+        'receipt_age_wall_s': age,
+        'receipt_age_gate_enforced': False,
+        'source_stamp_ns': source_stamp_ns,
+        'sim_time_ns': int(sim_time_ns),
+    }
 
 
 def _gz_model_names(timeout_s=10.0):
@@ -45,6 +134,16 @@ def _confirm_fixture_removed(model_name, remove_acknowledged, timeout_s=8.0):
         time.sleep(.25)
 
 
+def fixture_pose_returned(joint_states, position_tolerance=.015,
+                          velocity_tolerance=.03):
+    """Check the fixture's initial physical pose, treating yaw modulo 2*pi."""
+    for axis, (position, velocity) in joint_states.items():
+        error = math.remainder(position, 2.0*math.pi) if axis == 'yaw' else position
+        if abs(error) > position_tolerance or abs(velocity) > velocity_tolerance:
+            return False
+    return True
+
+
 def validate_profile(policy, model_path, profile="smoke"):
     model = ET.parse(model_path).getroot().find('model')
     limits = [tuple(float(model.findtext(f"joint[@name='{axis}']/axis/limit/{bound}"))
@@ -53,6 +152,9 @@ def validate_profile(policy, model_path, profile="smoke"):
     if not isinstance(legs, list) or not legs:
         raise ValueError('a bounded scan profile is required')
     for leg in legs:
+        if ('start_from_actual' in leg
+                and not isinstance(leg['start_from_actual'], bool)):
+            raise ValueError('start_from_actual must be boolean')
         duration = leg['duration_sim_s']
         target = leg['target']
         if (isinstance(duration, bool) or not isinstance(duration, (int, float))
@@ -124,16 +226,18 @@ def main():
     from gz.msgs10.model_pb2 import Model
     from gz.msgs10.stringmsg_pb2 import StringMsg
     import rclpy
+    from rclpy.signals import SignalHandlerOptions
     from rclpy.node import Node
     from rclpy.qos import qos_profile_sensor_data, QoSProfile, ReliabilityPolicy, DurabilityPolicy
-    from px4_msgs.msg import VehicleStatus
+    from px4_msgs.msg import VehicleStatus, VehicleLandDetected
     from uav_interfaces.msg import LocalizationStatus, MapStatus
     from std_msgs.msg import String
     from nav_msgs.msg import Odometry
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run', type=Path, required=True)
-    parser.add_argument('--profile', choices=('smoke','coverage','drift','loop_revisit'), default='smoke')
-    parser.add_argument('--n05-layout', choices=('wall_box_column','corridor_box_column'))
+    parser.add_argument('--profile', choices=PROFILE_CHOICES, default='smoke')
+    parser.add_argument('--n05-layout', choices=(
+        'wall_box_column', 'corridor_box_column', 'n08_overhead_calibration'))
     parser.add_argument('--hold-for-live-check', action='store_true')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
@@ -150,10 +254,17 @@ def main():
     policy = json.loads((root/'config/components/simulation/preflight_scan.json').read_text())
     validate_profile(policy, root/'simulation/models/preflight_scan_fixture/model.sdf', args.profile)
     bridge = json.loads((root/'config/components/px4_bridge/debug_truth.json').read_text())
-    freshness = json.loads((root/'config/components/navigation/task_supervisor.json').read_text())
     runtime = json.loads((root/'config/runtime.json').read_text())
     spawn = [float(v) for v in runtime['spawn_pose'].split(',')]
-    rclpy.init()
+    # Keep the ROS context alive until the fixture has returned and detached.
+    # rclpy's default SIGINT handler shuts it down before our finally block.
+    cancel_requested = False
+    def request_cancel(_signum, _frame):
+        nonlocal cancel_requested
+        cancel_requested = True
+    signal.signal(signal.SIGINT, request_cancel)
+    signal.signal(signal.SIGTERM, request_cancel)
+    rclpy.init(signal_handler_options=SignalHandlerOptions.NO)
     ros = Node('unarmed_physical_scan_probe', parameter_overrides=[
         rclpy.parameter.Parameter('use_sim_time', value=True)])
     gz = transport.Node()
@@ -162,6 +273,7 @@ def main():
     joint_states = {}
     attachment = []
     vehicle_states = []
+    landed_states = []
     qos = QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE,
                      durability=DurabilityPolicy.TRANSIENT_LOCAL)
 
@@ -169,12 +281,18 @@ def main():
         latest['vehicle'] = (msg.arming_state,time.monotonic())
         vehicle_states.append(msg.arming_state)
 
+    def land_detected(msg):
+        latest['landed'] = (bool(msg.landed),time.monotonic())
+        landed_states.append(bool(msg.landed))
+
     def joints(msg):
         for joint in msg.joint:
             if joint.name in ('x','z','yaw','pitch'):
                 joint_states[joint.name] = (joint.axis1.position, joint.axis1.velocity)
 
     ros.create_subscription(VehicleStatus, bridge['vehicle_status_topic'],vehicle,qos_profile_sensor_data)
+    ros.create_subscription(VehicleLandDetected, bridge['vehicle_land_detected_topic'],
+                            land_detected,qos_profile_sensor_data)
     ros.create_subscription(LocalizationStatus, '/localization/status',lambda m:latest.update(loc=m,loc_received=time.monotonic()),qos)
     ros.create_subscription(MapStatus, '/mapping/status',lambda m:latest.update(map=m),qos)
     gz.subscribe(Model, policy['joint_state_topic'], joints)
@@ -201,6 +319,8 @@ def main():
 
     def step(require_health=True):
         nonlocal previous_ns
+        if require_health and (cancel_requested or (args.run/'n05-cancel-scan').exists()):
+            raise RuntimeError('operator_cancelled_support_scan')
         rclpy.spin_once(ros,timeout_sec=.02)
         if time.monotonic()>deadline:
             raise TimeoutError('fixture diagnostic wall deadline')
@@ -213,10 +333,12 @@ def main():
                 or time.monotonic()-received > bridge['px4_status_max_receipt_age_wall_s']):
             raise RuntimeError('fresh DISARMED status is required for every fixture command')
         loc = latest.get('loc')
-        if require_health and (loc is None or not loc.valid or loc.state!=LocalizationStatus.TRACKING
-                               or loc.epoch!=initial_epoch
-                               or time.monotonic()-latest.get('loc_received',0)>freshness['max_localization_receipt_age_s']):
-            raise RuntimeError('localization changed or became invalid during physical scan')
+        loc_diagnostic = _localization_gate_diagnostic(
+            loc, initial_epoch, latest.get('loc_received',0), time.monotonic(),
+            LocalizationStatus.TRACKING, stamp)
+        if require_health and loc_diagnostic['failed']:
+            raise RuntimeError('localization changed or became invalid during physical scan: '
+                               +json.dumps(loc_diagnostic,sort_keys=True))
         if require_health and (latest.get('map') is None
                                or not latest['map'].input_ready
                                or latest['map'].epoch != initial_epoch
@@ -261,10 +383,28 @@ def main():
             raise RuntimeError('no healthy/disarmed initial state')
         spawned_layout_models=[]
         if args.n05_layout:
-            layout_config_path=root/'config/components/simulation/n04_geometry_layouts.json'
+            if args.n05_layout == 'n08_overhead_calibration':
+                layout_config_path=root/'config/components/simulation/n08_overhead_calibration.json'
+            else:
+                layout_config_path=root/'config/components/simulation/n04_geometry_layouts.json'
             layout_cfg=json.loads(layout_config_path.read_text())
-            layouts={layout['id']:layout for layout in layout_cfg['layouts']}
-            selected=layouts[args.n05_layout]
+            layout_sources=[layout_config_path]
+            if 'layouts' in layout_cfg:
+                layouts={layout['id']:layout for layout in layout_cfg['layouts']}
+                selected=layouts[args.n05_layout]
+            else:
+                if layout_cfg.get('layout_id') != args.n05_layout:
+                    raise ValueError('N08 layout config id does not match selected layout')
+                selected=dict(layout_cfg)
+                base_layout_id=selected.get('base_layout_id')
+                if base_layout_id:
+                    base_config_path=root/'config/components/simulation/n04_geometry_layouts.json'
+                    base_cfg=json.loads(base_config_path.read_text())
+                    base_layouts={layout['id']:layout for layout in base_cfg['layouts']}
+                    if base_layout_id not in base_layouts:
+                        raise ValueError(f'unknown N08 base layout: {base_layout_id}')
+                    selected['objects']=base_layouts[base_layout_id]['objects']+selected['objects']
+                    layout_sources.append(base_config_path)
             if len({obj['name'] for obj in selected['objects']})!=len(selected['objects']):
                 raise ValueError('N05 scene has duplicate layout object names')
             layout_dir=args.run/'n05-generated-layout'
@@ -287,7 +427,13 @@ def main():
                 spawned_layout_models.append(model_name)
             layout_manifest={
                 'layout_id':args.n05_layout,
+                'source_config':str(layout_config_path.relative_to(root)),
                 'source_config_sha256':hashlib.sha256(layout_config_path.read_bytes()).hexdigest(),
+                'source_configs':[{
+                    'path':str(path.relative_to(root)),
+                    'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                } for path in layout_sources],
+                'base_layout_id':selected.get('base_layout_id'),
                 'world_offset_xy_m':list(offset),'spawn_yaw_rad':spawn[5],
                 'spawned_models':spawned_layout_models,
                 'objects':selected['objects'],'online_truth_input':False,
@@ -311,7 +457,8 @@ def main():
             raise RuntimeError('fixture is not attached: '+str(attachment))
         for leg_index, leg in enumerate(policy[args.profile+'_profile']):
             begin=step()
-            start=list(targets)
+            start=([joint_states[axis][0] for axis in AXES]
+                   if leg.get('start_from_actual') else list(targets))
             duration=leg['duration_sim_s']
             while True:
                 now=step()
@@ -338,7 +485,7 @@ def main():
                 'epoch':initial_epoch,'map_id':initial_map_id,
                 'profile':args.profile,'completed_stages':len(stages),
                 'attachment':'attached','vehicle_arming_state':latest['vehicle'][0],
-                'pose_check_window':'fixture returned to its initial x/z/yaw/pitch target',
+                'pose_check_window':'fixture returned to initial physical pose; yaw equivalent modulo 2*pi',
                 'truth_input_used':False,'control_or_goal_published':False,
             },indent=2)+'\n')
             while not release_marker.exists():
@@ -346,7 +493,7 @@ def main():
                 if attachment[-1] != 'attached':
                     raise RuntimeError('support attachment changed during the online check')
                 time.sleep(.05)
-        if any(abs(p)>.015 or abs(v)>.03 for p,v in joint_states.values()):
+        if not fixture_pose_returned(joint_states):
             raise RuntimeError('fixture not returned to the floor before detach')
         detach.publish(Empty())
         while attachment[-1]!='detached':
@@ -407,6 +554,26 @@ def main():
                 safety_cleanup['verified_detached']=True
             except Exception as cleanup_exc:  # preserve the still-running project for monitoring
                 safety_cleanup['error']=str(cleanup_exc)
+        if fixture_removed and attachment and attachment[-1]=='detached':
+            try:
+                # Let PX4's land detector observe the returned, detached vehicle
+                # before the project runner decides whether it may stop SITL.
+                finish=ros.get_clock().now().nanoseconds/1e9+1.0
+                while ros.get_clock().now().nanoseconds/1e9<finish:
+                    step(require_health=False)
+                    time.sleep(.03)
+                landed,received=latest.get('landed',(None,0.))
+                safety_cleanup['final_land_detector_landed']=landed
+                safety_cleanup['final_land_detector_receipt_age_wall_s']=(
+                    None if not received else time.monotonic()-received)
+                safety_cleanup['verified_landed']=bool(
+                    landed is True and time.monotonic()-received
+                    <= bridge['px4_status_max_receipt_age_wall_s'])
+                if not safety_cleanup['verified_landed']:
+                    safety_cleanup['land_detector_error']=(
+                        'final PX4 land detector did not confirm a fresh landed state')
+            except Exception as land_exc:
+                safety_cleanup['land_detector_error']=str(land_exc)
         trace.close()
         telemetry.close()
         odometry.close()
@@ -420,6 +587,11 @@ def main():
                 'safety_cleanup':safety_cleanup,
                 'last_localization':None if 'loc' not in latest else {'state':latest['loc'].state, 'valid':latest['loc'].valid,'reason':latest['loc'].reason,'normalized_cost':latest['loc'].normalized_cost},
                 'vehicle_states':sorted(set(vehicle_states)),'vehicle_status_samples':len(vehicle_states),
+                'vehicle_land_detected_samples':len(landed_states),
+                'vehicle_land_detected_values':sorted(set(landed_states)),
+                'final_landed':(None if 'landed' not in latest else latest['landed'][0]),
+                'final_landed_receipt_age_wall_s':(
+                    None if 'landed' not in latest else time.monotonic()-latest['landed'][1]),
                 'attachment_states':attachment,'final_joint_states':dict(joint_states),
                 'fixture_spawned':fixture_spawned,
                 'fixture_removed':fixture_removed,

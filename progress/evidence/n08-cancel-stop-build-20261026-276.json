@@ -1,0 +1,105 @@
+{
+  "schema": "n08-cancel-stop-build/v1",
+  "task_id": "#276",
+  "result": "PASS",
+  "scope": "full ROS workspace build and static regression for N08 caller-cancel EGO stop/hold candidate; no flight/SITL qualification",
+  "flight_or_sitl_executed": false,
+  "build_command": "bash tools/project.sh build ros",
+  "build_exit_code": 0,
+  "built_packages": [
+    "uav_interfaces",
+    "traj_utils",
+    "plan_env",
+    "camera_models",
+    "uav_sim",
+    "path_searching",
+    "bspline_opt",
+    "px4_msgs",
+    "spdlog",
+    "uav_navigation",
+    "vins",
+    "uav_localization",
+    "uav_mapping",
+    "ego_planner",
+    "loop_fusion",
+    "microxrcedds_agent",
+    "uav_px4_bridge"
+  ],
+  "source_revision": {
+    "ego_planner": "23a8d5a191711dd65633df689bd00f55d4dea8f9",
+    "latest_patch": "0046-cancel-stop-hold.patch",
+    "latest_patch_sha256": "b1f9aa0d69eb1dc9637bc7de51942666fde9c7aab054124344987d6502629d82"
+  },
+  "source_files_sha256": {
+    "dependencies/sources.json": "8f097a21ad041097bc611171b54a86eff5981b5914c16b7d4c7aa0cf845bbfb3",
+    "dependencies/patches/ego/0044-final-spline-dynamics-check.patch": "9f6ceb41bc8477d919f94d4ad257dc5f162286170181e1abe2edca796dabd916",
+    "dependencies/patches/ego/0045-stationary-yaw-only-return.patch": "5ad328ac6a48226e4b3a4fdab2cc20f81c20a020d7c851e120077bbdf0279b99",
+    "dependencies/patches/ego/0046-cancel-stop-hold.patch": "b1f9aa0d69eb1dc9637bc7de51942666fde9c7aab054124344987d6502629d82",
+    "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": "69ac8db5799984b7d557699a7fd1640807b30eb91cd66cba50d928e90e1a0ecf",
+    "src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp": "5e8bf691b81e083e324afa9e42ce51eff9251827e964a5f422c0fd5eddc205ca",
+    "src/vendor/ego_planner/planner/plan_manage/src/traj_server.cpp": "69fed9dc78c37ad5d60b1826c10de2e888b6fc29279bfea843646ce920154c3e",
+    "src/own/uav_interfaces/msg/TrajectoryCancel.msg": "617db80e4bb39c27e13f047f9084d10e4232a1c8baa10c42ffa9e78b7afa6b2b",
+    "src/own/uav_navigation/uav_navigation/node.py": "e68f25c0c3e7861fc48715c7966129758c0a684c813385374203d01090f02102",
+    "tools/run_n08_braking_trial.py": "039478bbf28dac2ff40ddaf49ff447d5d5e55eaf910789b7a859841364eca344",
+    "tools/debug_truth/evaluate_n08_braking.py": "67f14fe55bddc3cc8f64bd44a6abd1e47e99917e182a5cb65f20cc4aa4b2c9ad",
+    "tools/n08_trial_gate.py": "ee06a917c7bd3ff60cdcebdd4448f734f41f0afd55c40e0dcaa55ad8e37751ca",
+    "tools/n05_entry.py": "6e13627dba11ef0c58a43cabb02fddc0daabdf14a7d5139e5ef83767fe8dac2a",
+    "tools/mission_runtime.sh": "0d30be74991539133421a3847cc93383ab0698842015d597fc6f17b2fd7068aa",
+    "tools/project.sh": "cff4793024992dbd50feab5b4c150c351fa0a92abf819a3359e92fd3c34cca13",
+    "tools/diagnostics/audit_n08_candidate_landing_archives.py": "9719ce7b39ae0ac0079b9b20b56c2ef1cfea3266a8bcf14f44b12d9776c424d9",
+    "config/components/mapping/n08_low_speed_trial.json": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "config/components/navigation/n08_forward_braking_trial_goal.json": "6e64be89dca0f67da36034ac5f39f9bd939bad22dbce1d077166cdf99b244c33"
+  },
+  "runtime_files_sha256": {
+    "install/ego_planner/lib/ego_planner/ego_planner_node": "59048427e2b7adf6102d325d2778b1c10dab3d9e53dbcf8e01e004c18c9d9129",
+    "install/ego_planner/lib/ego_planner/traj_server": "9c306a0cb584ebf53141e716768dfc5869ba740000e70d701688309432edd540",
+    "install/uav_navigation/lib/uav_navigation/navigation_supervisor": "c9ddb17931ef244d150caffe9f04164c3fd2ba76160cd02b03c7455267c11923",
+    "install/uav_navigation/lib/python3.12/site-packages/uav_navigation/node.py": "e68f25c0c3e7861fc48715c7966129758c0a684c813385374203d01090f02102",
+    "install/uav_interfaces/lib/python3.12/site-packages/uav_interfaces/msg/_trajectory_cancel.py": "70428db9db237fea29b03a6f185a545366177e0d965f5e77b243e0c09d8f6a68",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_generator_c.so": "5eee458c4a414979c215e9138895bc48e517cb11380b9c1d9e849797471755be",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_generator_py.so": "272c6aae29ce79d2ba94f510ac959996cbbfb72f8a62bc769e91a411bd1ef976",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_typesupport_fastrtps_c.so": "26cd79db773c3075c3ea3e0e131a5a20671ec3aa6b7453925ea7c4e46fcb874b",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_typesupport_fastrtps_cpp.so": "5aba3f7e80182c095b78ca74d85e3e9bc1421834e5a635b081c7c90be6740365",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_typesupport_c.so": "670b4cbdea4d0ad9bc523822535bcfe911906f1aac5e96ed26b9b6d7da053bd3",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_typesupport_cpp.so": "cf623e6aaf516bc0b1c7ab12be15e4da45a4a591abaf1bb4cc7491b3e10c352c",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_typesupport_introspection_c.so": "edc001786af1ad7f90de3a3f0fcd9691ef95ccc146f65609f9743a0c8f3a4465",
+    "install/uav_interfaces/lib/libuav_interfaces__rosidl_typesupport_introspection_cpp.so": "89cfa99aa39d3bf74b68a65f19cd8a72fb06ce551db34e0004a97ffe4524fab7"
+  },
+  "validation": [
+    {
+      "command": "bash tools/project.sh build ros",
+      "result": "PASS",
+      "details": "17 ROS packages built; EGO FSM, generated TrajectoryCancel interface and navigation adapter rebuilt."
+    },
+    {
+      "command": "bash tools/project.sh test",
+      "result": "PASS",
+      "details": "334 unittest cases plus navigation adapter ROS integration."
+    },
+    {
+      "command": "PYTHONPYCACHEPREFIX=/tmp/n08-pycache python3 -m py_compile ...; bash -n tools/mission_runtime.sh tools/project.sh",
+      "result": "PASS",
+      "details": "N08 runner/evaluator/N05 candidate audit Python syntax and mission shell syntax."
+    },
+    {
+      "command": "python3 tools/fetch_dependencies.py --source ego_planner --target /tmp/n08-ego-canonical-0046-20261026",
+      "result": "PASS",
+      "details": "Pinned EGO source and canonical patch chain replayed; patched source SHA matched dependencies/sources.json."
+    },
+    {
+      "command": "PYTHONPATH=tools python3 tools/diagnostics/audit_n08_candidate_landing_archives.py --output progress/evidence/n08-candidate-landing-archive-audit-20261026-277.json",
+      "result": "PASS",
+      "details": "3/3 historical raw-map candidate landing geometry replays; ground_confirmed false."
+    }
+  ],
+  "build_log_sha256": {
+    "artifacts/runs/n08-cancel-stop-build-20261026-276/colcon-events.log": "4fe9cd36ac7b735adc2dc034ac060703b427beea71f64de9050d278808d85ce7",
+    "artifacts/runs/n08-cancel-stop-build-20261026-276/colcon-logger-all.log": "e0dd804fadb85b3e40c9f5a38f8a909b4ecdf1725301b23e36d57971f23c8e9f"
+  },
+  "limitations": [
+    "Incremental colcon workspace build, not a clean-room rebuild.",
+    "Build and structural/integration tests do not validate the in-flight stop spline, physical stop distance, or N08 flight criteria.",
+    "No N08 PX4 execute/SITL run has used this build yet."
+  ],
+  "next": "Run a fresh bounded N08 caller-cancel SITL after manifest/runtime fingerprint checks; keep N08 in progress until all remaining exits pass."
+}

@@ -1,0 +1,67 @@
+{
+  "schema": "n08-takeoff-settle-prerequisite-attempt/v1",
+  "run_id": "n08-20261025-269-vertical-settle",
+  "outcome": "blocked_before_mission_by_n05_localization_health",
+  "settle_gate_tested_in_flight": false,
+  "code_change": {
+    "existing_total_speed_limit_m_s": 0.03,
+    "new_vertical_speed_limit_m_s": 0.01,
+    "required_stable_wall_s": 1.0,
+    "curve_tube_limit_m": 0.05,
+    "n05_health_threshold_changed": false
+  },
+  "n05_scan": {
+    "epoch": "6f9536ea2ba84060af79fcf49d383e85",
+    "profile": "n08_far_small_pitch_view",
+    "completed_stages": 10,
+    "required_stages": 15,
+    "interrupted_stage_index_1based": 11,
+    "interrupted_stage_target": [
+      0,
+      1.0,
+      0,
+      0
+    ],
+    "localization_reason": "normalized_cost_exceeded",
+    "reported_normalized_cost": 1.0688124899906102,
+    "existing_max_normalized_cost": 1.0,
+    "fixture_removed": true,
+    "verified_detached": true
+  },
+  "not_reached": [
+    "N05 post-release admission",
+    "mission current-area admission",
+    "offboard enable or takeoff",
+    "first EGO goal",
+    "vertical settle gate",
+    "turn and forward-only return"
+  ],
+  "recorded_metric_gap": {
+    "fixture_vins_recomputed_normalized_cost_max": 0.6734569181877003,
+    "status_reported_cost_has_matching_archived_raw_sample": false,
+    "interpretation": "trigger sample or its paired raw metrics are absent from the current archive; cause remains unresolved"
+  },
+  "final_safety_readback": {
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "fixture_detached": true,
+    "project_stop_exit_code": 0,
+    "container_state_after_stop": "exited",
+    "container_exit_code": 0
+  },
+  "evidence_sha256": {
+    "fixture-result.json": "a7784ebbb8891059d1a2eaa78326d17d92f6d6f349c24a38efd59fec9cdba9a3",
+    "fixture-stages.json": "16b09489dd73a5b4f515f1f1afb1488f42dbe7545742488a5605439e3c6f93be",
+    "fixture-vins.jsonl": "8b18ae82e2556decf686945206c5b80302856610d46af335af1c0126ee63d19a",
+    "fixture-trace.jsonl": "86387fec6351062d52c5029edb21f3ec84680938716a2613d08c11e2c960d852",
+    "final-safety-readback.json": "73cb47a780b4b9d61716871d332cb53d0c30bb2b84d7b0b69999336f1f4cda1e",
+    "n05-before/n05-live-entry-check.json": "a4b85aba7bcea6365dae97b20d3791cda92bbdd509c86d1bb0dfaa3e9e8623b2",
+    "tools/n08_trial_gate.py": "ed80b095c49d9014faa0dc970c216363c77b082d2bedc17b4db8a57630bb295e",
+    "tools/run_n08_braking_trial.py": "688e1226ae233d3e78efd41754765fe9744a37bd73753a598766d74675b1c141",
+    "tools/test_n08_trial_gate.py": "cdf6df4434b975f66d762f879927d2ea2887b3e53a98ec858a6141ed1962677e"
+  }
+}

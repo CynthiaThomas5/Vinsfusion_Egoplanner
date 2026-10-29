@@ -88,9 +88,16 @@ def audit():
     if any(abs(v) > 1e-12 for v in imu_pose):
         raise ValueError("This audit expects the IMU at the D435i link origin")
 
-    mount = values(wrapper.find("joint[@name='d435i_mount']/pose" ).text)
+    joint_pose = wrapper.find("joint[@name='d435i_mount']/pose")
+    if joint_pose is None or joint_pose.get("relative_to") != "base_link":
+        raise ValueError("D435i mount joint pose must be expressed relative to base_link")
+    mount = values(joint_pose.text)
     include = wrapper.find("include[uri='model://d435i']")
-    include_pose = values(include.findtext("pose"))
+    include_pose_element = include.find("pose") if include is not None else None
+    if (include_pose_element is None
+            or include_pose_element.get("relative_to") != "base_link"):
+        raise ValueError("D435i include pose must be expressed relative to base_link")
+    include_pose = values(include_pose_element.text)
     if any(abs(a - b) > 1e-12 for a, b in zip(mount, include_pose)):
         raise ValueError("D435i include pose and fixed mount joint disagree")
     if any(abs(v) > 1e-12 for v in mount[3:]):

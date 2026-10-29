@@ -1,0 +1,93 @@
+{
+  "schema": "n08-yaw-first-trial-tube-refusal/v1",
+  "run_id": "n08-20261025-265-yaw-first-return",
+  "result": "FAIL_closed_after_takeoff_before_forward_motion",
+  "qualification": "one bounded N08 execute attempt; no terminal braking, yaw turn, or return result",
+  "planner_profile": {
+    "path": "config/components/mapping/n08_low_speed_trial.json",
+    "sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "max_vel_m_s": 0.1,
+    "max_acc_m_s2": 0.25,
+    "launch_manifest_sha256": "7679e9b0b3f498dbb90fdc2a8b34211853a26c6bd3f57bbfd7f433ffd2c7753c"
+  },
+  "support_scan": {
+    "profile": "n08_far_small_pitch_view",
+    "layout": "n08_overhead_calibration",
+    "completed_stages": 15,
+    "total_stages": 15,
+    "trace_samples": 15911,
+    "invalid_localization_rows": 0,
+    "maximum_normalized_cost": 0.6157503371602808,
+    "fixture_runner_warning": "localization changed or became invalid during physical scan",
+    "fixture_warning_attribution": "unresolved; post-release same-identity online/offline admission accepted",
+    "fixture_removed": true,
+    "disarmed_and_landed": true
+  },
+  "admission": {
+    "initial_n05": {
+      "accepted": false,
+      "reason": "ground_plane_insufficient_raw_occupied_voxels",
+      "ground_plane_raw_occupied_voxels": 0
+    },
+    "post_release_n05_accepted": true,
+    "mission_current_area_n05_accepted": true,
+    "same_epoch_and_map_id": true,
+    "mission_snapshot_age_s": 0.108,
+    "mission_depth_source_age_s": 0.124,
+    "mission_fusion_age_s": 0.036,
+    "freshness_limit_s": 0.4,
+    "read_only_preflight_passed": true,
+    "preflight_observed_wall_s": 40.000484477961436,
+    "preflight_max_optimized_odometry_receipt_gap_s": 0.3074954808689654,
+    "preflight_optimized_odometry_gap_over_guard_count": 1,
+    "forward_corridor_raw_map_queries": 24,
+    "forward_corridor_passed": true,
+    "home_pad_n05_accepted": true
+  },
+  "spline_guard": {
+    "failure": "reference_control_hull_left_certified_trial_tube",
+    "goal_start_sim_s": 562.46,
+    "watchdog_sim_s": 562.62,
+    "goal_to_watchdog_sim_s": 0.16,
+    "control_point_hull_max_lateral_vertical_deviation_m": 0.0507214764942035,
+    "lateral_vertical_tube_limit_m": 0.05,
+    "control_point_hull_excess_m": 0.0007214764942035,
+    "minimum_control_point_z_delta_m": -0.050717782862268024,
+    "diagnostic_dense_curve_samples": 100001,
+    "diagnostic_dense_curve_max_lateral_vertical_deviation_m": 0.04758016839754576,
+    "diagnostic_dense_curve_x_delta_min_m": 0.0014847144588216524,
+    "diagnostic_dense_curve_x_delta_max_m": 0.6000000000000001,
+    "dense_curve_diagnostic_is_not_continuous_proof": true
+  },
+  "mission": {
+    "action_goal_sent": true,
+    "action_success": null,
+    "position_command_count": 2,
+    "first_position_command_enu_m": [
+      0.02872995296511919,
+      0.009309034959686237,
+      0.9258398938324173
+    ],
+    "airborne_origin_enu_m": [
+      0.02621424007890691,
+      0.009617637180525093,
+      0.9292792406835814
+    ],
+    "actual_forward_translation_before_cancel_m": 0.00251571288631228,
+    "yaw_turn_reached": false,
+    "return_reached": false,
+    "terminal_stop_measurement_available": false,
+    "independent_evaluator_failure": "post_goal_hold_end_sim_ns"
+  },
+  "final_safety_readback": {
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "bridge_phase": "LANDED",
+    "bridge_reason": "trajectory_4",
+    "bridge_control_enabled": false,
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "project_container_stopped": true
+  },
+  "next_subtask": "#266: replace the control-polygon-as-path check with a continuous-curve tube check whose sample gap is bounded by the derivative control polygon's maximum speed; retain the existing 0.05 m tolerance. Add focused regression coverage and retry with a fresh run."
+}

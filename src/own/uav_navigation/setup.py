@@ -15,6 +15,7 @@ setup(
     entry_points={
         'console_scripts': [
             'navigation_supervisor=uav_navigation.node:main',
+            'navigation_visualization=uav_navigation.visualization:main',
         ],
     },
 )

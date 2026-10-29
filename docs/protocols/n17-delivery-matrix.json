@@ -1,0 +1,56 @@
+{
+  "schema": "n17-delivery-matrix-release/v1",
+  "status": "ready_for_regression",
+  "release_id": "#574",
+  "scope": "version-affected normal current-delivery regressions; original historical formal reports retained; no fault work",
+  "core_runtime_sha256": "e426e17290873ae1cab3870c9539c8343eee34afcc311268f973cf2591362c16",
+  "only_per_case_runtime_variation": "simulation/worlds/ego.sdf, predeclared static scene; common goal/spawn/profile and binaries unchanged",
+  "cases": {
+    "empty": {
+      "scene_source": "simulation/worlds/qualification/empty.sdf",
+      "scene_source_sha256": "53026105a7e27ac767b1c96092c15cac302915ead6b66c39f8a9e2d23cef7778",
+      "required_independent_passes": 3
+    },
+    "single": {
+      "scene_source": "simulation/worlds/qualification/single.sdf",
+      "scene_source_sha256": "e8ceac9a53ce69e644917c38f4d07ee3f80231c686c720bd07f658c50db3a888",
+      "required_independent_passes": 3
+    },
+    "staggered": {
+      "scene_source": "simulation/worlds/qualification/staggered.sdf",
+      "scene_source_sha256": "008ca6ec82f68d992300714b11f3c0696fc9a25c63447a931e4daacb763b1002",
+      "required_independent_passes": 3
+    },
+    "corridor": {
+      "scene_source": "simulation/worlds/qualification/corridor.sdf",
+      "scene_source_sha256": "8e63f82c5182784841f2f674639db4061a181262fc20c288498f985ab5e29157",
+      "required_independent_passes": 3
+    }
+  },
+  "acceptance_config": "config/acceptance_n17.json",
+  "acceptance_config_sha256": "a0bc400130630a2ea64819c9ad6751451c02c2d249a50560981e610c5a1939b0",
+  "goal_profile": "artifacts/n17-prepared/delivery-matrix/goal.json",
+  "goal_profile_sha256": "8e1e4d9d85572a4f9f8da689d3b617204810baf60a9ffb8374c1c4caabe66ca2",
+  "spawn_profile": "artifacts/n17-prepared/delivery-matrix/spawn.json",
+  "spawn_profile_sha256": "934f6047263034f6082a8f8b9671079414b43cb9a607e0006aa6ea4a7a7ffe9e",
+  "planner_config": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+  "evaluator_sha256": {
+    "tools/debug_truth/evaluate_n17_delivery.py": "54cc21086daed387c2e65fefd5f9f7d887f813546ee04d2ee3b19779f565a834",
+    "tools/debug_truth/evaluate_n13_route.py": "8c98cdb366c0d240c2690de0b775b90fa6a507ef0ad9bcb63272b705bfd85da2",
+    "tools/debug_truth/evaluate_n14_route.py": "f4e2c86aacadee61cc3f8a05b610402a972d439c05f8f0bcec2f13bd4343cdbc",
+    "tools/debug_truth/evaluate_arrival.py": "736ff2dd07e77b89b28750a53194ff8533ec3268f0c3de3288219d430982e99b",
+    "tools/truth_reference.py": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+    "tools/n13_navigation_policy.py": "c06b097a968c92a01063ffcce569b9c2f8e79c14a6d8a1bd10ae1a4efe3180a9",
+    "tools/n09_contact_evaluation.py": "258a9da4dc89390a74defa437cec57204e1ca5694d2a6a8a67e881a7f090f31e",
+    "tools/n16_resource_evidence.py": "0ff5feebfce49b5139981505a8d3aa4749a0e2558abfe0b4f82b45860d236e62"
+  },
+  "external_context_recorder_sha256": "f6ee973a467964106c2fff625a8c8553c757d2dffa2b6b36a73fe120fd03e8d7",
+  "do_not_relax": [
+    "independent0.3m/15deg/3sec",
+    "zero prohibited contact",
+    "normal landed/disarmed/control-zero",
+    "same epoch and actual matching replan/map evidence",
+    "three independent cold starts per case"
+  ],
+  "numerical_quality_policy": "reuse user#521 normal functional policy; VIO/map/tracking/clearance/resource numerical measurements retained as diagnostics, no new health gate"
+}

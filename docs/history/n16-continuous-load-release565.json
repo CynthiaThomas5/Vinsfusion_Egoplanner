@@ -1,0 +1,62 @@
+{
+  "schema": "n16-continuous-load-protocol/v1",
+  "status": "ready_for_formal",
+  "scope": "continuous normal-operation load, fault work excluded by user#547",
+  "minimum_sim_s": 300,
+  "interval": "first goal dispatch to last completed goal, same airborne control session and epoch; no post-goal hold credit",
+  "mission": "bounded maximum24 alternating 12m corridor transits; finish at completed goal after >=300sim seconds",
+  "goal_profile": "config/components/navigation/n16_continuous_goal.json",
+  "base_runtime": "N14 corridor with #561 model-calibrated zero-gyro-bias VINS; acceleration bias remains free",
+  "motion_parameters_changed": false,
+  "gui_required": true,
+  "recording_wall_limit_s": 2400,
+  "required": [
+    "continuous localization/map/planner/PX4 control activity",
+    "actual motion and executed replanning throughout same mission",
+    "per-leg goal/source-time/epoch identity and arrival results",
+    "no process crash, sustained loss of control or unbounded backlog",
+    "zero prohibited contacts and independent normal safe terminal",
+    "resource, queue, latency, RTF, VIO/map diagnostics and curves"
+  ],
+  "diagnostic_numeric_budgets_only": true,
+  "fault_injection_required": false,
+  "pending": [
+    "actual >=300sim-second GUI mission and complete evidence",
+    "final audit"
+  ],
+  "duration_amendment": {
+    "id": "#552",
+    "instruction": "五分钟即可，不需要十分钟",
+    "minimum_sim_seconds": 300,
+    "continuous_normal_full_load_requirements_retained": true
+  },
+  "acceptance_config": "config/acceptance_n16.json",
+  "formal_evaluator": "tools/debug_truth/evaluate_n16_formal.py",
+  "evaluation_pipeline": "tools/debug_truth/prepare_n16_evaluation.py",
+  "resource_plots": "tools/debug_truth/plot_n16_run.py",
+  "release_id": "#565",
+  "acceptance_config_sha256": "eba44c75d20da6370bdf7032a5ed92ddc8107f1e7a6f695248d764373894786a",
+  "frozen_runtime_contract_sha256": "1c300ba6d00ff7deb7c515081ece6437971dafae91efc796dcc685252da7bb9b",
+  "scene_source_sha256": "8e63f82c5182784841f2f674639db4061a181262fc20c288498f985ab5e29157",
+  "goal_profile_sha256": "5d4842768bfd2f55207805fd9dc098ea8c2054de8cd48a83bb8eb33523bd447a",
+  "planner_config": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+  "effective_dynamics": {
+    "max_vel": 0.4,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0
+  },
+  "evaluator_sha256": {
+    "tools/debug_truth/evaluate_n16_run.py": "edfc6e250303c59ccbee06e88c027a5076dbc5ca578b744bf60e10cd0e029353",
+    "tools/debug_truth/evaluate_n16_formal.py": "80996523db8428356358994ad113aa53732eb5aa503a54a1b3b5b5fd75a458e9",
+    "tools/debug_truth/plot_n16_run.py": "f2d13762a3bb111b82d1ca79b5a796c0e6b3ecdc6f22bfcec331f42321f8bc7b",
+    "tools/debug_truth/prepare_n16_evaluation.py": "407f6b8238ee0b343e67788dd5604cd82a8d7c5ef4da3ee7815e073f401a7767",
+    "tools/n16_continuity.py": "88978557d3dcbe02ceff0dd47fe2c805795686229255283db18f8078e112bd7f",
+    "tools/n16_resource_evidence.py": "0ff5feebfce49b5139981505a8d3aa4749a0e2558abfe0b4f82b45860d236e62",
+    "tools/diagnostics/record_n16_processes.py": "60ed5e2d4b8490c045f72bc41c75111e24e93046e3d8d51cd664a2d978a088e1",
+    "tools/debug_truth/evaluate_arrival.py": "736ff2dd07e77b89b28750a53194ff8533ec3268f0c3de3288219d430982e99b",
+    "tools/truth_reference.py": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+    "tools/n09_contact_evaluation.py": "258a9da4dc89390a74defa437cec57204e1ca5694d2a6a8a67e881a7f090f31e",
+    "tools/n13_navigation_policy.py": "c06b097a968c92a01063ffcce569b9c2f8e79c14a6d8a1bd10ae1a4efe3180a9",
+    "tools/n16_process_lifecycle.py": "cc2a1314ee4bd9cdb06b1250cb018dc5481513573c81b435341d2cc53c0ff563"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "n08-runtime-profile-manifest-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-297",
+  "parent_goal": "N08",
+  "status": "SAFE_REFUSAL",
+  "scope": "new cold-start high-window motion-cancel qualification; no flight was started",
+  "n05": {
+    "diagnostic_pass": true,
+    "stages_completed": 6,
+    "before_admission": "ground_plane_insufficient_raw_occupied_voxels",
+    "post_release_online_offline": "all_entry_phases_known_and_clear",
+    "same_epoch_map": true,
+    "fixture_removed_and_detached": true,
+    "wrapper_warning": "fixture probe reported stale DISARMED status for a cleanup service; scene model absent, attachment detached, explicit post-release N05 accepted; independent readback resolved vehicle state"
+  },
+  "mission_preflight_passed": true,
+  "mission_failure": "trial_source_fingerprint_mismatch:config/components/navigation/n08_forward_braking_trial_goal.json",
+  "fingerprint": {
+    "build_manifest_profile_sha256": "6e64be89dca0f67da36034ac5f39f9bd939bad22dbce1d077166cdf99b244c33",
+    "runtime_manifest_profile_sha256": "38f2a449e4a41520ff094c99543b13cd6df0f06e637a57f2a466093d298a9f11",
+    "current_profile_sha256": "38f2a449e4a41520ff094c99543b13cd6df0f06e637a57f2a466093d298a9f11",
+    "root_cause": "validator compared an uncompiled runtime goal profile against a stale build-source hash rather than the current cold-start manifest"
+  },
+  "flight_state": {
+    "goal_sent": false,
+    "enable_called": false,
+    "flight_record_written": false,
+    "planner_messages": 0,
+    "control_samples_zero": true,
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "px4_arming_state": 1,
+    "landed": true,
+    "project_container_status": "exited",
+    "project_container_exit_code": 0
+  },
+  "secondary_offline_errors": [
+    "placeholder flight record lacks position_command_history; caused by native runner exit before recording a flight",
+    "odometry evaluator requires strictly increasing source timestamps on incomplete artifact; not a flight or control-chain result"
+  ],
+  "artifact_root": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-297",
+  "post_mission_readback": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-297/post-mission-live-readback.json",
+  "next_action": "runtime goal config is now authenticated by the launch manifest; repeat with a new independent cold-start run after static tests"
+}

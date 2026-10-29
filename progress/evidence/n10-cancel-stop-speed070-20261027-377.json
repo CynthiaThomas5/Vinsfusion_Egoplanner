@@ -1,0 +1,117 @@
+{
+  "schema": "n10-cancel-stop-calibration-result/v1",
+  "run_id": "n10-20261027-377-speed070-cancel-calibration",
+  "n10_subtask": "N10.3 high-speed caller-cancel calibration",
+  "status": "measurement_not_obtained_window_missed",
+  "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+  "trigger_speed_window_px4_horizontal_m_s": [
+    0.7,
+    0.8
+  ],
+  "single_sample_result": {
+    "flight_runner_result": "FAIL",
+    "failure": "navigation_goal_finished_before_cancel_speed_window",
+    "cancel_stop_record_present": false,
+    "goal_id": "f5b66a87f88f48cc8aa6da7d13e65319",
+    "goal_target_enu": [
+      15.964520049316667,
+      0.0002703961740299438,
+      0.9911479057540635
+    ],
+    "goal_point_final_position_enu": [
+      15.964520049316668,
+      0.0002703961740299438,
+      0.9911479057540635
+    ],
+    "px4_max_horizontal_speed_m_s": 0.647895597472241,
+    "px4_max_vector_speed_m_s": 0.6487105489172869,
+    "ego_reference_max_vector_speed_m_s": 0.715212703783344,
+    "matched_ready_samples_in_original_window": 0,
+    "why_no_trigger": "The valid PX4 horizontal speed never reached 0.70 m/s; the navigation action finished before the frozen window was observed.",
+    "replacement_trajectory_observed_for_cancel": false,
+    "cancel_acknowledged": false,
+    "stop_band_measurement_available": false
+  },
+  "followup_window_basis": {
+    "candidate_window_px4_horizontal_m_s": [
+      0.6,
+      0.66
+    ],
+    "matched_current_goal_epoch_ready_samples_from_this_run": 110,
+    "first_candidate_sample": {
+      "sim_ns": 349528000000,
+      "px4_sample_us": 349528000,
+      "px4_horizontal_m_s": 0.6012957063499471,
+      "ego_reference_vector_m_s": [
+        0.6753062642897142,
+        -4.6241088257988286e-05,
+        0.03497181049830642
+      ],
+      "trajectory_id": 89
+    },
+    "ratio_lower_bound_to_observed_peak": 0.9260751305316701,
+    "interpretation": "Near-peak measurement selector based on same-runtime PX4 telemetry; not a flight-speed cap or acceptance threshold."
+  },
+  "flight_and_safety_observations": {
+    "runtime_identity_preflight_passed": true,
+    "px4_preflight_takeoff_and_landing_completed": true,
+    "contact_evaluation_passed": true,
+    "prohibited_contact_event_count": 0,
+    "terminal_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "project_container_stopped": true
+  },
+  "startup_tooling": {
+    "two_initial_attempts_failed_before_preflight_or_goal": true,
+    "independent_6s_readback_safe": true,
+    "run_local_ros_setup_nounset_fix_applied": true,
+    "source_or_install_runtime_changed": false
+  },
+  "artifacts": {
+    "flight.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/flight.json",
+      "sha256": "db560c1077440b76d9c2a8e352f3ce8d415c0534898090185422956dc50bdfc2"
+    },
+    "vehicle-contact-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/vehicle-contact-evaluation.json",
+      "sha256": "f3147ecf86c16947a3b26cec2d9b36b21dc892237e31d8b2d3060d2ef3fcb812"
+    },
+    "postflight-px4-bridge-readback.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/postflight-px4-bridge-readback.json",
+      "sha256": "957fd967d0d54000f6b6cd751176a64b7340efa480a4bf34e766d144a889940d"
+    },
+    "safe-to-stop.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/safe-to-stop.json",
+      "sha256": "db0d2317c59f4b6569b948a2d96de69f0e3c32648d09bf4e4948288414772307"
+    },
+    "preflight.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/preflight.json",
+      "sha256": "978d6a784f754e0e0ef5c474f2a442bf9bdac142d30a53503cf74255ffd80bf5"
+    },
+    "takeoff-admission.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/takeoff-admission.json",
+      "sha256": "ed2643cfd04e8c8cd0b99c7e333de7a0f2c07719873cbb4a4c0e9e96f0362b1d"
+    },
+    "n10-runtime-identity-readback.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/n10-runtime-identity-readback.json",
+      "sha256": "a96fe12e5e04b871b91445d14a9ed9579453aceeae4f02b1a7db3d5a16c683c1"
+    },
+    "n10-cancel-run-manifest.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/n10-cancel-run-manifest.json",
+      "sha256": "6e363d9851f8746514e08862832be57728136a30f3eaf2ce60f008f98c1e1b9d"
+    },
+    "pre-driver-failure-readback.json": {
+      "path": "artifacts/runs/n10-20261027-377-speed070-cancel-calibration/pre-driver-failure-readback.json",
+      "sha256": "4e221da3754ceff586637128c00a376e084d127df82b917a57515a3c753d1a55"
+    }
+  },
+  "limitations": [
+    "This run does not provide a caller-cancel braking measurement.",
+    "Do not treat speed as a guaranteed stopping envelope.",
+    "N10.3 remains incomplete until trigger, cancel, replacement trajectory, stop band, contacts, and final readback are all captured."
+  ]
+}

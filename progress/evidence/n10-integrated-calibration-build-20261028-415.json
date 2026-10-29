@@ -1,0 +1,48 @@
+{
+  "schema": "n10-integrated-calibration-build/v1",
+  "subtask_id": "N10.3/#415",
+  "run_id": "n10-20261028-415-speed040-yawcap010-compacttrace-calibration",
+  "status": "PASS",
+  "classification": "incremental ROS build and offline tool verification before SITL; not clean N10.5 rebuild",
+  "commands": [
+    {
+      "command": "bash tools/project.sh build ros",
+      "result": "PASS",
+      "packages_finished": 17
+    },
+    {
+      "command": "python3 -m unittest tools.test_n10_interval_clearance_bound tools.test_n10_cross_run_calibration tools.test_n10_tracking_clearance tools.test_n10_voxel_trace tools.test_vio_ego_bringup_config",
+      "result": "PASS",
+      "tests": 24
+    },
+    {
+      "command": "python3 ast.parse for run-local prelaunch script and voxel evaluator; bash -n run-local runtime driver; json.tool config and protocol",
+      "result": "PASS"
+    },
+    {
+      "command": "python3 tools/project_status.py",
+      "result": "PASS",
+      "note": "Structure/design only; not a substitute for ROS build or SITL"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "inputs": {
+    "planner_config": "config/components/mapping/n10_horizon5_speed040_yawcap010_compacttrace_calibration.json",
+    "planner_config_sha256": "2efea04354b3a06629c308173f64b42e56958e4fb6565325350d84cfee980c23",
+    "patch_0059": "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch",
+    "patch_0059_sha256": "88ff95d04db3fa53eb8487b722ad5c6ef1156bd17629bcbdedfb0664d1ad7e06",
+    "dependencies_sources_sha256": "ee7bfaa96a40be16996ce735191f96c12fc477d73f2a73e210fed6dc117aa7c9",
+    "trace_schema": "n10-voxel-update-trace/v2",
+    "trace_roi_half_extents_m": [
+      0.6,
+      0.6,
+      1.6
+    ]
+  },
+  "build_scope": "17-package ROS incremental build; source lock includes patch 0059. PX4 clean fetch/build and isolated rebuild remain N10.5 and are not claimed here.",
+  "flight_goal_submitted": false,
+  "sitl_started": false
+}

@@ -1,0 +1,79 @@
+{
+  "schema": "n10-interval-clearance-bound-evidence/v1",
+  "task_id": "N10.3/#403",
+  "run_id": "n10-20261027-398-speed040-integrated-calibration",
+  "evaluation_mode": "offline archive replay; no SITL",
+  "formal_qualification": false,
+  "status": "AIRBORNE_MODEL_BOUND_POSITIVE_CONTACT_PHASE_SEPARATE",
+  "flight_interval": {
+    "start_source_ns": 112104000000,
+    "end_source_ns": 213876000000,
+    "duration_s": 101.772,
+    "solver_state_count": 25444,
+    "physics_step_s": 0.004,
+    "every_solver_step_present": true
+  },
+  "reference_frames": {
+    "truth_pose_and_velocity": "Gazebo OdometryPublisher x500_d435i model origin",
+    "vehicle_collision_envelope": "base_link",
+    "model_origin_to_base_link_translation_m": [0.0, 0.0, 0.24],
+    "maximum_body_point_radius_from_truth_origin_m": 0.5440757607489929
+  },
+  "airborne_interval_bound": {
+    "interval_count": 24627,
+    "duration_s": 98.508,
+    "minimum_clearance_lower_bound_m": 0.17435532471094667,
+    "limiting_interval_source_ns": [151596000000, 151600000000],
+    "limiting_endpoint_clearance_m": 0.18666134509544463,
+    "limiting_motion_allowance_m": 0.012306020384497959,
+    "positive_interval_count": 24627,
+    "nonpositive_interval_count": 0,
+    "maximum_body_point_motion_allowance_m": 0.013293380829983947,
+    "maximum_angular_acceleration_bound_rad_s2": 1817.788624529869
+  },
+  "contact_intervals": {
+    "interval_count": 816,
+    "allowed_ground_contact_names": [
+      "base_link_collision_3",
+      "base_link_collision_4"
+    ],
+    "prohibited_contact_interval_count": 0,
+    "independent_contact_evaluation_passed": true,
+    "independent_prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": true,
+    "dynamics_bound_through_contact": false
+  },
+  "source_identity": {
+    "runtime_dependency_lock_sha256": "4ec4713f04817abd4b6aa0740387c5a5fdbda907bd18b4e53ea34cbb91fb6c4d",
+    "px4_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "px4_gz_submodule_revision": "b6127f4ec20de867e215fb5f78ae88b80f371909",
+    "x500_model_sdf_sha256": "cfe92f98360967faa895b77aa8a6fff3fc9b290286e94e45297c4bdd7b62fbf9",
+    "direct_per_run_x500_model_sha256_recorded": false,
+    "lock_derived_source_identity_checks_passed": true
+  },
+  "artifacts": {
+    "raw_run": "artifacts/runs/n10-20261027-398-speed040-integrated-calibration/",
+    "machine_report": "artifacts/runs/n10-20261027-398-speed040-integrated-calibration/n10-interval-clearance-bound.json",
+    "machine_report_sha256": "d17bf86e376124e88c6166aeed1e44889d8ae09bcfdadff4319fd51d4f7d775c",
+    "dynamic_clearance_world_sdf": "artifacts/runs/n10-20261027-398-speed040-integrated-calibration/n10-dynamic-clearance-world.sdf",
+    "dynamic_clearance_world_sdf_sha256": "eb22ce222e701372ff0e87066ea9fa63a6ce660904ea759dc3b80bac1c3e0d94",
+    "evaluator": "tools/debug_truth/evaluate_n10_interval_clearance_bound.py",
+    "evaluator_sha256": "46d4907d734592c002f2b31688acbbd322da27696bbcb1e380ecde7c991c87bc",
+    "tests": "tools/test_n10_interval_clearance_bound.py",
+    "tests_sha256": "afc7c4d80886063682a06d0d4677222c10a3307095661f0c106a1996f84810df"
+  },
+  "validation": {
+    "targeted_unittest_count": 20,
+    "targeted_unittests_passed": true,
+    "python_syntax_passed": true,
+    "offline_archive_replay_exit_code": 0,
+    "git_diff_check_passed": true
+  },
+  "limitations": [
+    "The positive lower bound covers no-contact airborne intervals in the recorded Gazebo model only.",
+    "Landing skid-contact intervals are classified and independently checked, not covered by the free-flight dynamics bound.",
+    "The run has no direct per-run SHA for x500/model.sdf; its identity is derived from the frozen runtime lock and locked PX4/Gazebo submodule chain.",
+    "No localization, map, tracking, control, manufacturing, or real-aircraft uncertainty is included; this is not a final clearance threshold."
+  ],
+  "next_subtask": "N10.3/#404: source-covered integrated calibration using the #402 read-only snapshot observer and the #403 model-origin-corrected interval-clearance method, with one missing fault class measured at the end of the combined task if the run reaches the specified native control path."
+}

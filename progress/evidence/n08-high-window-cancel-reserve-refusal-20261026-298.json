@@ -1,0 +1,67 @@
+{
+  "schema": "n08-high-window-cancel-reserve-refusal/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-298",
+  "parent_goal": "N08",
+  "status": "SAFE_REFUSAL_NO_CANCEL",
+  "scope": "0.07–0.09m/s fresh-cold-start motion-cancel protocol; retain this failed attempt",
+  "n05": {
+    "completed_stages": 6,
+    "release_admission": "all_entry_phases_known_and_clear",
+    "post_release_online_offline_identical": true,
+    "same_epoch_map": true,
+    "support_detached_fixture_absent": true,
+    "wrapper_cleanup_warning": "fresh DISARMED status required; independent postscan readback confirms DISABLED/disarmed/landed"
+  },
+  "preflight_passed": true,
+  "map_admission": {
+    "pre_enable_forward_capsule": true,
+    "pre_enable_cancel_candidate_corridor": true,
+    "airborne_forward_capsule": true,
+    "airborne_cancel_candidate_corridor": true,
+    "destination_landing_pre_goal": true
+  },
+  "mission": {
+    "goal_sent": true,
+    "trial_kind": "motion_cancel",
+    "failure": "motion_cancel_stopping_envelope_not_available",
+    "caller_cancel_issued": false,
+    "action_result": null,
+    "landed_and_disarmed_native": true
+  },
+  "failed_gate_analysis": {
+    "gate": "motion_cancel_stopping_envelope_not_available",
+    "prior_logic": "required projected remaining distance to the goal endpoint >= 0.50m before sending caller cancel",
+    "why_it_was_wrong": "the 0.50m field is a candidate measured stop-path envelope, not a required distance to the original goal endpoint. The live cancellation creates a new EGO stop spline, which is separately checked against fresh raw occupancy and a terminal hold before publication. The point-to-goal guard rejected the requested near-0.08m/s trigger after movement had progressed and prevented any cancellation measurement.",
+    "decision": "remove only the point-to-goal reserve rejection; keep 0.50m raw-map forward-corridor admission before enable and in-air, require live exact stop-spline map certificate, and keep independent actual cancel-to-stop distance <=0.50m evaluator check. Report remaining-to-goal distance descriptively."
+  },
+  "independent_postmission_readback": {
+    "bridge_phase": "LANDED",
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "px4_arming_state": 1,
+    "control_samples_zero": true,
+    "project_container_exit_code": 0
+  },
+  "verification_after_gate_change": {
+    "command": "bash tools/project.sh test",
+    "result": "PASS: 362 unit tests and navigation-adapter integration",
+    "key_regression": "offline cancel evaluation does not reject when remaining-to-goal is below 0.50m but measured cancel stop distance fits its candidate envelope"
+  },
+  "runtime_map_certificate_source": "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp::certifyLocalCurve and src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp::GridMap::certifyCurve check fresh same-identity raw-map readiness before and after the complete spline plus terminal-hold sweep before publishing the B-spline.",
+  "artifact_root": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-298",
+  "source_sha256": {
+    "config/components/navigation/n08_forward_braking_trial_goal.json": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+    "tools/n08_trial_gate.py": "d6876276f3b5870a10301e3e365b9bf227ba596e976c88a9ba7b5651999aab1d",
+    "tools/run_n08_braking_trial.py": "36dc8f7f13c0546a8270220ecc7e30050e2b30ed41066ee5fda493ef860ee2a5",
+    "tools/debug_truth/evaluate_n08_braking.py": "3fd8bdc6cf833d29646c37ea6d79ec5314b2c1b0cbec2d64800477b94f31e0ea",
+    "tools/test_n08_trial_gate.py": "d02110248eb7bfc12de755ac6161bcbb3e4dd0486149a351a0dbbe78d793a26a",
+    "tools/test_run_n08_braking_trial.py": "c593f6d9dfce04c542863c56cfd6d73a1aa7506307e24d9200a60e34f0337ea4",
+    "tools/test_n08_braking_evaluation.py": "76e375e4777709f8033fa8e63d81cc5b33d943e32a960c9b062019fac65bc338"
+  },
+  "limitations": [
+    "No caller cancel was issued; this is not high-speed cancellation evidence.",
+    "EGO live map certification and independent post-run measurement are required in the next new cold-start trial.",
+    "N08 still requires three independent frozen-version ordinary terminal_stop passes."
+  ]
+}

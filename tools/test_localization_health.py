@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Pure-Python checks for the fail-closed localization health state machine."""
-import copy
+"""Checks for localization stream integrity without project quality gates."""
 import json
+import math
 from pathlib import Path
 import sys
 import unittest
@@ -9,178 +9,76 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src/own/uav_localization'))
 from uav_localization.health import (Health, PublisherEndpointNotReady, body_velocity,
-                                     publisher_endpoint_identity)
+                                     publisher_endpoint_identity,
+                                     publisher_endpoint_identity_changed)
 
 
 POLICY = json.loads((ROOT / 'config/components/localization/health.json').read_text())
-STREAMS = ('left', 'right', 'imu', 'telemetry', 'optimized', 'propagated')
 
 
 def metrics(stamp):
-    return {'schema': 1, 'stamp_ns': stamp, 'initialized': True,
-            'input_features': 36, 'stereo_features': 36, 'long_tracks': 36,
-            'residual_components': 1000, 'final_cost': 0.01,
-            'accel_bias_norm': 0.001, 'gyro_bias_norm': 0.001,
-            'solve_seconds': 0.01, 'state_finite': True,
-            'solve_current': True, 'solver_usable': True}
+    return {'schema': 1, 'stamp_ns': stamp, 'initialized': False,
+            'input_features': 0, 'stereo_features': 0, 'long_tracks': 0,
+            'residual_components': 1000, 'final_cost': 5000.0,
+            'accel_bias_norm': 10.0, 'gyro_bias_norm': 10.0,
+            'solve_seconds': 10.0, 'state_finite': False,
+            'solve_current': False, 'solver_usable': False}
 
 
-def feed_pair(health, stamp, wall):
-    health.clock(stamp, wall)
-    for name, offset in [('left', 10_000_000), ('right', 9_000_000), ('imu', 1_000_000),
-                         ('propagated', 500_000), ('optimized', 0)]:
-        health.sample(name, stamp-offset, wall)
-    health.telemetry(metrics(stamp), wall)
-    return health.paired(wall)
+class LocalizationIntegrityTests(unittest.TestCase):
+    def test_quality_and_age_values_are_observations_not_gates(self):
+        health = Health(POLICY, 0.0)
+        health.clock(1_000_000_000, 1.0)
+        health.sample('left', 1, 1.0)
+        health.sample('optimized', 1_000_000_000, 1.0)
+        self.assertTrue(health.telemetry(metrics(1_000_000_000), 1.0))
+        self.assertTrue(health.paired(1.0))
+        self.assertTrue(health.tick(1000.0))
+        self.assertEqual(health.state, 'TRACKING')
+        self.assertFalse(health.locked)
+        self.assertAlmostEqual(health.normalized_cost, math.sqrt(10.0))
 
+    def test_telemetry_and_optimized_odometry_are_correlated(self):
+        health = Health(POLICY, 0.0)
+        self.assertFalse(health.paired(1.0))
+        health.telemetry(metrics(1_000_000_000), 1.0)
+        health.sample('optimized', 1_000_002_000, 1.0)
+        self.assertFalse(health.paired(1.0))
+        health.telemetry(metrics(1_000_002_000), 1.1)
+        self.assertTrue(health.paired(1.1))
+        self.assertEqual(health.good_pairs, 1)
+        self.assertFalse(health.paired(1.2))
 
-class HealthTests(unittest.TestCase):
-    def tracked(self, policy=None):
-        h = Health(copy.deepcopy(policy or POLICY), 0.0)
-        for i in range(10):
-            feed_pair(h, 1_000_000_000+i*50_000_000, 1.0+i*0.05)
-        self.assertEqual(h.state, 'TRACKING')
-        self.assertTrue(h.tick(1.5))
-        return h
+    def test_clock_regression_and_nonincreasing_stream_stamp_lock(self):
+        health = Health(POLICY, 0.0)
+        self.assertTrue(health.clock(100, 0.1))
+        self.assertFalse(health.clock(99, 0.2))
+        self.assertEqual(health.reason, 'clock_regression')
+        self.assertFalse(health.tick(0.3))
+        self.assertEqual(health.state, 'LOCKED')
 
-    def test_requires_ten_distinct_fresh_optimized_telemetry_pairs(self):
-        h = Health(copy.deepcopy(POLICY), 0.0)
-        for i in range(9):
-            self.assertFalse(feed_pair(h, 1_000_000_000+i*50_000_000, 1.0+i*0.05))
-        self.assertEqual(h.good_pairs, 9)
-        self.assertTrue(feed_pair(h, 1_450_000_000, 1.45))
-        self.assertEqual(h.good_pairs, 10)
+        sample = Health(POLICY, 0.0)
+        self.assertTrue(sample.sample('left', 100, 0.1))
+        self.assertFalse(sample.sample('left', 100, 0.2))
+        self.assertEqual(sample.reason, 'left_stamp_not_increasing')
 
-    def test_each_stale_stream_latches_loss(self):
-        for stale in STREAMS:
-            with self.subTest(stale=stale):
-                h = self.tracked()
-                now = h.clock_ns + int((POLICY['max_source_age_s'][stale]+0.01)*1e9)
-                wall = 1.51
-                h.clock(now, wall)
-                for name in STREAMS:
-                    if name == stale:
-                        continue
-                    if name == 'telemetry':
-                        h.telemetry(metrics(now), wall)
-                    else:
-                        h.sample(name, now, wall)
-                self.assertFalse(h.tick(wall))
-                self.assertEqual(h.state, 'LOST')
-                self.assertEqual(h.reason, stale+'_stale')
+    def test_malformed_telemetry_remains_an_integrity_fault(self):
+        health = Health(POLICY, 0.0)
+        self.assertFalse(health.telemetry([], 0.1))
+        self.assertEqual(health.reason, 'malformed_telemetry')
+        self.assertTrue(health.locked)
 
-    def test_bad_telemetry_and_clock_regression_lock_without_recovery(self):
-        h = Health(copy.deepcopy(POLICY), 0.0)
-        self.assertFalse(h.telemetry([], 0.1))
-        self.assertEqual(h.reason, 'malformed_telemetry')
-        self.assertFalse(h.clock(1, 0.2))
-        self.assertFalse(h.tick(0.3))
-        self.assertEqual(h.state, 'LOCKED')
-
-        h = self.tracked()
-        self.assertFalse(h.clock(h.clock_ns-1, 1.6))
-        self.assertEqual(h.reason, 'clock_regression')
-        self.assertFalse(h.sample('left', h.clock_ns+1, 1.7))
-        self.assertFalse(h.tick(1.8))
-        self.assertEqual(h.state, 'LOCKED')
-
-    def test_initialization_timeout_fails_closed(self):
-        h = Health(copy.deepcopy(POLICY), 2.0)
-        self.assertFalse(h.tick(22.01))
-        self.assertFalse(h.locked)
-        h.clock(0, 30.0)
-        self.assertFalse(h.tick(50.01))
-        self.assertEqual(h.reason, 'initialization_timeout')
-        self.assertEqual(h.state, 'LOST')
-
-    def test_paused_clock_is_detected_by_steady_timer(self):
-        h = self.tracked()
-        self.assertFalse(h.tick(2.0))
-        self.assertEqual(h.reason, 'clock_stalled')
-
-    def test_short_lockstep_pause_does_not_extrapolate_receipt_age(self):
-        h = Health(copy.deepcopy(POLICY), 0.0)
-        for i in range(10):
-            feed_pair(h, 1_000_000_000+i*39_000_000, 1.0+i*0.05)
-        self.assertEqual(h.state, 'TRACKING')
-        self.assertAlmostEqual(h.clock_rate, 0.78, places=12)
-        paused_clock = h.clock_ns
-        # A 0.34 s wall pause projects to 0.265 s at this RTF, above the 0.2 s
-        # IMU receipt limit, but remains below the 0.5 s clock-stall watchdog.
-        # With lockstep stopped, the last sensor samples remain fresh in sim time.
-        self.assertTrue(h.tick(1.79))
-        self.assertEqual(h.state, 'TRACKING')
-        self.assertEqual(h.clock_ns, paused_clock)
-
-        # Resume with advancing simulation time and fresh samples; tracking continues.
-        self.assertTrue(feed_pair(h, paused_clock + 39_000_000, 1.80))
-        self.assertTrue(h.tick(1.81))
-        self.assertEqual(h.state, 'TRACKING')
-
-    def test_receipt_age_tracks_simulation_rate_during_slow_replay(self):
-        h = Health(copy.deepcopy(POLICY), 0.0)
-        for i in range(10):
-            stamp = 1_000_000_000+i*50_000_000
-            wall = 5.0+i*0.5
-            feed_pair(h, stamp, wall)
-        self.assertEqual(h.state, 'TRACKING')
-        self.assertAlmostEqual(h.clock_rate, 0.1, places=12)
-        h.clock(1_480_000_000, 10.0)
-        self.assertTrue(h.tick(10.1))
-        self.assertEqual(h.state, 'TRACKING')
-
-    def test_source_age_limit_uses_exact_integer_nanoseconds(self):
-        for age_ns, expected in ((300_000_000, ''),
-                                 (300_000_001, 'optimized_stale')):
-            with self.subTest(age_ns=age_ns):
-                h = self.tracked()
-                now_ns = h.clock_ns + 1_000_000_000
-                wall = 1.6
-                h.clock(now_ns, wall)
-                for name in STREAMS:
-                    stamp_ns = now_ns - age_ns if name == 'optimized' else now_ns
-                    if name == 'telemetry':
-                        h.telemetry(metrics(stamp_ns), wall)
-                    else:
-                        h.sample(name, stamp_ns, wall)
-                self.assertEqual(h.freshness(wall), expected)
-
-    def test_future_stamp_context_uses_adapter_clock_at_health_evaluation(self):
-        h = self.tracked()
-        now_ns = h.clock_ns + 50_000_000
-        wall = 1.6
-        h.clock(now_ns, wall)
-        for name in STREAMS:
-            stamp_ns = now_ns
-            if name == 'telemetry':
-                h.telemetry(metrics(stamp_ns), wall)
-            else:
-                h.sample(name, stamp_ns, wall)
-
-        future_tolerance_ns = round(POLICY['future_tolerance_s'] * 1e9)
-        future_stamp_ns = now_ns + future_tolerance_ns + 1
-        h.sample('propagated', future_stamp_ns, wall + 0.01)
-        self.assertEqual(h.freshness(wall + 0.02), 'propagated_from_future')
-        self.assertEqual(h.future_observation, {
-            'stream': 'propagated',
-            'source_stamp_ns': future_stamp_ns,
-            'clock_stamp_ns': now_ns,
-            'source_age_ns': -future_tolerance_ns - 1,
-            'future_tolerance_ns': future_tolerance_ns,
-            'receipt_clock_ns': now_ns,
-            'evaluated_wall_s': wall + 0.02,
-        })
-
-    def test_quality_guards_reject_unusable_solve_and_weak_tracks(self):
-        h = Health(copy.deepcopy(POLICY), 0.0)
-        bad = metrics(1_000_000_000)
-        bad['solver_usable'] = False
-        h.telemetry(bad, 1.0)
-        self.assertEqual(h.quality(), 'solver_invalid')
-        bad = metrics(1_000_000_001)
-        bad['input_features'] = 1
-        h.telemetry(bad, 1.1)
-        self.assertEqual(h.quality(), 'input_features_insufficient')
+    def test_integrity_snapshot_retains_cost_and_source_stamps(self):
+        health = Health(POLICY, 0.0)
+        sample = metrics(1_234_000_000)
+        self.assertTrue(health.telemetry(sample, 1.25))
+        self.assertTrue(health.sample('optimized', 1_234_000_000, 1.26))
+        health.paired(1.26)
+        snapshot = health.diagnostic_snapshot()
+        self.assertEqual(snapshot['metrics']['stamp_ns'], 1_234_000_000)
+        self.assertEqual(snapshot['samples']['telemetry']['source_stamp_ns'], 1_234_000_000)
+        self.assertAlmostEqual(snapshot['normalized_cost'], math.sqrt(10.0))
+        json.dumps(snapshot)
 
     def test_world_velocity_is_rotated_into_child_body_frame(self):
         root_half = 2**-0.5
@@ -206,6 +104,21 @@ class HealthTests(unittest.TestCase):
                                           'node_namespace': '_NODE_NAMESPACE_UNKNOWN_'})()
         with self.assertRaises(PublisherEndpointNotReady):
             publisher_endpoint_identity([unresolved])
+
+    def test_publisher_identity_is_checked_after_stream_first_message(self):
+        # An unbound stream can be advertised after another stream has put the
+        # adapter into TRACKING; its first message binds the identity in bind().
+        self.assertFalse(publisher_endpoint_identity_changed(
+            None, ('vins_estimator', '/vins'), bytes(range(24)).hex(),
+            'vins_estimator', '/vins'))
+        gid = bytes(range(24)).hex()
+        node = ('vins_estimator', '/vins')
+        self.assertFalse(publisher_endpoint_identity_changed(
+            gid, node, gid, *node))
+        self.assertTrue(publisher_endpoint_identity_changed(
+            gid, node, bytes(range(1, 25)).hex(), *node))
+        self.assertTrue(publisher_endpoint_identity_changed(
+            gid, node, gid, 'other_estimator', '/vins'))
 
 
 if __name__ == '__main__':

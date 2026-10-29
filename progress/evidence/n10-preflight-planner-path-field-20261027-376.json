@@ -1,0 +1,54 @@
+{
+  "schema": "n10-preflight-identity-error/v1",
+  "subtask_id": "N10.3/#376",
+  "run_id": "n10-20261027-376-gatefree-cylinder0-observation",
+  "classification": "no-flight driver preflight failure; retry within the same untouched SITL startup",
+  "stage": "run-local runtime/configuration identity verification before navigation readiness observers and before goal submission",
+  "failure": "Loaded planner-config path does not match frozen N10 profile",
+  "cause": "The driver correctly required the planner path at the prelaunch record top level, but #376 initially stored it only in a nested launch_configuration field.",
+  "actual_loaded_planner": {
+    "path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "max_vel": 0.8,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0,
+    "official_ego_collision_policy": true
+  },
+  "actual_loaded_spawn": {
+    "schema": "sim-spawn-pose/v1",
+    "source": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "source_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+    "qualification": "N10.3 geometry-diagnostic spawn only; single D435i Gazebo/PX4 SITL, not an N11-N16 run.",
+    "spawn_pose_xyzrpy": [
+      -8.0,
+      0.0,
+      0.3,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "prelaunch_sha256_after_correction": "735ab5b20731a35dd9dc1820ee2d9a4c90a32450d25e864e6053c9061e89ae91",
+  "no_flight_evidence": {
+    "flight_json_exists": false,
+    "flight_probe_ready_exists": false,
+    "driver_stopped_before_goal": true
+  },
+  "independent_readback": {
+    "phase": "DISABLED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "safe_to_resume_preflight": true
+  },
+  "container_status": "still running only to retry the corrected same-run preflight; no control enabled",
+  "input_sha256": {
+    "preflight_failure_readback": "0cf451500a015b164e7c93b091bb35fc4f26391fbcbae72213ba0874e09bbab1",
+    "spawn_pose": "686b58ccf16cf3595ea975a8ea751cb23be9cd4f60efb5425ebb056e32da7fdd",
+    "launch_manifest": "47237f73de055b830fbfa0d5d3b8f8805585d10e2d5d6ee60b58f08f00308680",
+    "runtime_contract": "d423a1924286947bf8d0f16845d3449d9f73f7bd32f254bf3fd27413cdfc5cf9"
+  },
+  "acceptance_thresholds_changed": false,
+  "next": "Retry the run-local driver after adding top-level planner_config_path and binding the prelaunch report SHA in the freeze. This does not alter the flight scenario or health policy."
+}

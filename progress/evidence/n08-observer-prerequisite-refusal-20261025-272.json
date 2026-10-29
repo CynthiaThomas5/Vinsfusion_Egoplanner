@@ -1,0 +1,68 @@
+{
+  "schema": "n08-observer-test-prerequisite-refusal/v1",
+  "run_id": "n08-20261025-272-observer-pre-enable",
+  "result": "N05_PREREQUISITE_FAILED_OBSERVER_HYPOTHESIS_UNTESTED",
+  "hypothesis_under_test": "Destroy the unused /grid_map/occupancy PointCloud2 observer before offboard enable to reduce localization status callback gaps during takeoff.",
+  "hypothesis_status": "not tested; N08 runner did not start.",
+  "planner": {
+    "config": "config/components/mapping/n08_low_speed_trial.json",
+    "config_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "max_velocity_m_s": 0.1,
+    "max_acceleration_m_s2": 0.25
+  },
+  "initial_n05_admission": {
+    "accepted": false,
+    "online_reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "offline_matches_online": true,
+    "fixture_scan_started": true
+  },
+  "fixture_scan": {
+    "profile": "n08_far_small_pitch_view",
+    "completed_stages": 10,
+    "total_stages": 15,
+    "outcome": "failed",
+    "error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 3,
+      "valid": false,
+      "reason": "accel_bias_norm_exceeded",
+      "normalized_cost": 0.57199997659598
+    },
+    "configured_accel_bias_limit_m_s2": 0.15,
+    "fixture_vins_max_accel_bias_m_s2": 0.15522008574006602,
+    "first_sample_over_limit": {
+      "stamp_ns": 373300000000,
+      "accel_bias_norm_m_s2": 0.15012240461028956,
+      "input_features": 180,
+      "stereo_features": 161,
+      "continued_tracks": 178,
+      "long_tracks": 134,
+      "solver_usable": true
+    },
+    "normalized_cost_at_lock": 0.57199997659598,
+    "fixture_removed": true,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "landed_at_scan_end": true
+  },
+  "admission_after_scan": "not reached; fixture ended at stage 10/15 and no n05-prescan-ready marker was produced.",
+  "flight": "not started; no post-release/current-area admission, preflight, Offboard enable, arm, takeoff or EGO goal in this run.",
+  "safety_readback": "artifacts/runs/n08-20261025-272-observer-pre-enable/final-safety-readback.json",
+  "stop": {
+    "exit_code": 0,
+    "container_status": "exited",
+    "container_running": false
+  },
+  "source_sha256": {
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/fixture-result.json": "f551614026b1b56fd0b55837eb0c93202ffc9b6b77da5b61412fca3e4ded0dbd",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/fixture-stages.json": "03652fcb836ce18f6b43747a9012f99a300ac1ac755baa24230ee5464ae646ae",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/fixture-vins.jsonl": "ff6b1f79dfd6fdf8b97574cc029e726784a9ab81147d84f48e552fd4afd1654c",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/fixture-trace.jsonl": "352f7c14f4c170e9cccbff66a3449c9e2cc0611f0fa11e57fc7f9053ffb14ff0",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/n05-before/n05-live-entry-check.json": "9ea61cbdc3a7dde42fc2c1e1db682e3909681f981c32f983a6f30ceea26feb6c",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/n05-before/n05-offline-entry-replay.json": "c5da641d4b812af666ef30104813260e9c5c28585c5e511449279a3ebd2a3696",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/n05-fixture.log": "bf242887d88671a2cc6a21dfebd6aab6aebfedf6da63581c036d7d15fb7f883e",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable/n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "artifacts/runs/n08-20261025-272-observer-pre-enable-stack/launch-manifest.json": "836516cb2233b6d1ca4361dc771dd04befc234581ea439d60305b7cd12b85f4f",
+    "config/components/mapping/n08_low_speed_trial.json": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce"
+  }
+}

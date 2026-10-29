@@ -1,0 +1,38 @@
+{
+  "schema": "n10-runtime-preflight-result/v1",
+  "subtask_id": "N10.3/#373",
+  "run_id": "n10-20261027-373-gatefree-cylinder0-observation",
+  "classification": "failed preflight; no flight and not qualification evidence",
+  "status": "aborted_before_goal_due_to_stale_age-report-reference",
+  "runtime_contract_sha256_before_fix": "ff7ccf032737fd31b77ccbc2015590ef846b159a5b320ef87b720a51ed86075c",
+  "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+  "planner_parameters": {
+    "max_vel": 0.8,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0,
+    "official_ego_collision_policy": true
+  },
+  "failure": "tools/check_navigation_ready.py raised KeyError: max_odometry_receipt_age_s after the user-authorized age thresholds had been removed from config; the preflight result/report attempted to use the removed historical threshold for a count/reference field.",
+  "goal_sent": false,
+  "flight_json_present": false,
+  "preflight_json_present": false,
+  "driver_exit_code": 1,
+  "no_action_or_obstacle_observation_started": true,
+  "safe_readback_path": "artifacts/runs/n10-20261027-373-gatefree-cylinder0-observation/preflight-failure-safe-to-stop.json",
+  "safe_readback": {
+    "safe_to_stop_project_container": true,
+    "phase": "DISABLED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true
+  },
+  "container_status": "exited after safe readback",
+  "traceback_tail": "lity are observational; no enable service, navigation goal, or truth input.','required_stable_wall_s':0,'max_stable_wall_s':None,'source_age_thresholds_enabled':False,'passed':passed,'observed_wall_s':time.monotonic()-started,'rtf':rtf,'max_optimized_odom_receipt_gap_wall_s':max(gaps,default=None),'optimized_odom_gap_over_historical_reference_count':sum(g>nav['max_odometry_receipt_age_s'] for g in gaps),'historical_receipt_age_reference_s':{'localization':nav['max_localization_receipt_age_s'],'optimized_odometry':nav['max_odometry_receipt_age_s']},'failure_sample_counts':dict(Counter(f for h in history for f in h['failures'])),'history':history,'optimized_odom_receipts':odoms,'clock_samples':clocks,'last':{k:asdict(v) for k,v in latest.items() if k!='detail'},'last_detail':json.loads(latest['detail'].data) if 'detail' in latest else None}\n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nKeyError: 'max_odometry_receipt_age_s'\n",
+  "verification_after_fix": {
+    "change": "Removed old-threshold comparison/reference from preflight summary; retained receipt gaps as observations.",
+    "py_compile": "passed",
+    "project_test": "413 unit tests + navigation-adapter ROS integration + official_ego ROS probe passed."
+  }
+}

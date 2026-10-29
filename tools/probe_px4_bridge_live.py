@@ -7,21 +7,26 @@ import math
 import time
 
 import rclpy
+from observer_window import install_observer_stop_handlers, restore_observer_stop_handlers
 from px4_msgs.msg import (EstimatorStatusFlags, OffboardControlMode,
                           TimesyncStatus, TrajectorySetpoint, VehicleCommand,
+                          VehicleCommandAck,
                           VehicleAttitude, VehicleLandDetected,
                           VehicleLocalPosition, VehicleOdometry, VehicleStatus)
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy
 from rosgraph_msgs.msg import Clock as ClockMessage
 from std_msgs.msg import String
-from uav_interfaces.msg import Px4BridgeStatus
+from uav_interfaces.msg import (NavigationCommand, PositionCommand,
+                                Px4BridgeStatus, TrajectoryCancel)
 
 
 class Probe(Node):
-    def __init__(self, direct_sim_time=False):
+    def __init__(self, direct_sim_time=False, expected_goal_id='', expected_epoch=''):
         super().__init__('px4_bridge_live_probe')
         self.direct_sim_time = bool(direct_sim_time)
+        self.expected_goal_id = str(expected_goal_id or '')
+        self.expected_epoch = str(expected_epoch or '')
         qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)
         reliable = QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE)
         self.counts = {'bridge_status': 0, 'visual_odometry_input': 0,
@@ -41,6 +46,15 @@ class Probe(Node):
         self.px4_timestamp_samples = []
         self.bridge_status_samples = []
         self.bridge_detail_samples = []
+        self.px4_status_samples = []
+        self.land_detected_samples = []
+        self.command_ack_samples = []
+        self.control_topic_events = []
+        self.planner_state_samples = []
+        self.terminal_readback_samples = []
+        self.terminal_state_first_wall_s = None
+        self.terminal_state_violation_count = 0
+        self._terminal_state_active = False
         self.receipt_last = {}
         self.receipt_gaps = {}
         self.bridge_reason_counts = {}
@@ -69,14 +83,99 @@ class Probe(Node):
         self.create_subscription(VehicleLandDetected, '/fmu/out/vehicle_land_detected',
                                  self._land_detected, qos)
         self.create_subscription(OffboardControlMode, '/fmu/in/offboard_control_mode',
-                                 lambda _: self._count('control_mode'), qos)
+                                 lambda _: self._control_event('control_mode'), qos)
         self.create_subscription(TrajectorySetpoint, '/fmu/in/trajectory_setpoint',
-                                 lambda _: self._count('trajectory_setpoint'), qos)
+                                 lambda _: self._control_event('trajectory_setpoint'), qos)
         self.create_subscription(VehicleCommand, '/fmu/in/vehicle_command',
-                                 lambda _: self._count('vehicle_command'), qos)
+                                 lambda _: self._control_event('vehicle_command'), qos)
+        self.create_subscription(VehicleCommandAck, '/fmu/out/vehicle_command_ack',
+                                 self._command_ack, qos)
+        self.create_subscription(NavigationCommand, '/navigation/ego_goal',
+                                 self._navigation_goal, reliable)
+        self.create_subscription(PositionCommand, '/position_cmd',
+                                 self._position_command, qos)
+        self.create_subscription(TrajectoryCancel, '/navigation/trajectory_cancel',
+                                 self._trajectory_cancel, reliable)
+
+    def _elapsed_wall_s(self):
+        return time.monotonic() - self.started_mono
 
     def _count(self, key):
         self.counts[key] += 1
+
+    def _control_event(self, key):
+        self._count(key)
+        self.control_topic_events.append({
+            'elapsed_wall_s': self._elapsed_wall_s(), 'topic': key,
+        })
+
+    def _maybe_terminal_readback(self):
+        bridge = self.latest.get('bridge') or {}
+        px4 = self.latest.get('px4_status') or {}
+        land = self.latest.get('land_detected') or {}
+        available = bool(bridge and px4 and land)
+        safe = (available and bridge.get('phase') == 'LANDED'
+                and bridge.get('landed') is True
+                and bridge.get('armed') is False
+                and bridge.get('control_enabled') is False
+                and px4.get('arming_state') == 1
+                and land.get('landed') is True)
+        elapsed = self._elapsed_wall_s()
+        if safe and not self._terminal_state_active:
+            self._terminal_state_active = True
+            self.terminal_state_first_wall_s = elapsed
+            self.terminal_readback_samples.append({
+                'elapsed_wall_s': elapsed,
+                'state': 'native_terminal_observed',
+            })
+        elif not safe and self._terminal_state_active:
+            self._terminal_state_active = False
+            self.terminal_state_violation_count += 1
+            self.terminal_readback_samples.append({
+                'elapsed_wall_s': elapsed,
+                'state': 'terminal_state_left',
+            })
+
+    def _navigation_goal(self, msg):
+        self.planner_state_samples.append({
+            'kind': 'navigation_goal',
+            'elapsed_wall_s': self._elapsed_wall_s(),
+            'goal_id': str(msg.goal_id), 'epoch': str(msg.epoch),
+            'map_id': str(msg.map_id),
+            'source_stamp_ns': (int(msg.target.header.stamp.sec) * 1_000_000_000
+                                + int(msg.target.header.stamp.nanosec)),
+        })
+
+    def _position_command(self, msg):
+        self.planner_state_samples.append({
+            'kind': 'position_command',
+            'elapsed_wall_s': self._elapsed_wall_s(),
+            'goal_id': str(msg.goal_id), 'epoch': str(msg.epoch),
+            'trajectory_id': int(msg.trajectory_id),
+            'trajectory_flag': int(msg.trajectory_flag),
+            'source_stamp_ns': (int(msg.header.stamp.sec) * 1_000_000_000
+                                + int(msg.header.stamp.nanosec)),
+        })
+
+    def _trajectory_cancel(self, msg):
+        self.planner_state_samples.append({
+            'kind': 'trajectory_cancel',
+            'elapsed_wall_s': self._elapsed_wall_s(),
+            'goal_id': str(msg.goal_id), 'epoch': str(msg.epoch),
+            'mode': int(msg.mode), 'reason': str(msg.reason),
+        })
+
+    def _command_ack(self, msg):
+        self.command_ack_samples.append({
+            'elapsed_wall_s': self._elapsed_wall_s(),
+            'timestamp_us': int(msg.timestamp),
+            'ros_clock_ns_at_receipt': self.latest_clock_ns,
+            'command': int(msg.command), 'result': int(msg.result),
+            'result_param1': float(msg.result_param1),
+            'result_param2': float(msg.result_param2),
+            'target_system': int(msg.target_system),
+            'target_component': int(msg.target_component),
+        })
 
     def _record_receipt(self, key):
         now = time.monotonic()
@@ -144,6 +243,7 @@ class Probe(Node):
             'frame_yaw_offset_ned': msg.frame_yaw_offset_ned,
             'alignment_drift_m': msg.alignment_drift_m,
         }
+        self._maybe_terminal_readback()
 
     def _bridge_detail(self, msg):
         try:
@@ -195,6 +295,11 @@ class Probe(Node):
             'pre_flight_checks_pass': msg.pre_flight_checks_pass,
             'failsafe': msg.failsafe,
         }
+        self.px4_status_samples.append({
+            'elapsed_wall_s': self._elapsed_wall_s(),
+            **self.latest['px4_status'],
+        })
+        self._maybe_terminal_readback()
 
     def _local_position(self, msg):
         self._count('local_position')
@@ -252,6 +357,11 @@ class Probe(Node):
         self._record_receipt('land_detected')
         self._record_px4_timestamp('land_detected', msg)
         self.latest['land_detected'] = {'landed': bool(msg.landed)}
+        self.land_detected_samples.append({
+            'elapsed_wall_s': self._elapsed_wall_s(),
+            'landed': bool(msg.landed),
+        })
+        self._maybe_terminal_readback()
 
     def publisher_counts(self):
         return {topic: len(self.get_publishers_info_by_topic(topic)) for topic in (
@@ -263,16 +373,59 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--seconds', type=float, default=20.0)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--stop-after-terminal-wall-s', type=float, default=None,
+                        help='End read-only observation after this stable native terminal window')
     parser.add_argument('--direct-sim-time', action='store_true')
+    parser.add_argument('--expected-goal-id', default='')
+    parser.add_argument('--expected-epoch', default='')
     args = parser.parse_args()
+    if not math.isfinite(args.seconds) or args.seconds <= 0:
+        parser.error('--seconds must be finite and positive')
+    if args.stop_after_terminal_wall_s is not None and (
+            not math.isfinite(args.stop_after_terminal_wall_s)
+            or args.stop_after_terminal_wall_s <= 0):
+        parser.error('--stop-after-terminal-wall-s must be finite and positive')
     rclpy.init()
-    node = Probe(direct_sim_time=args.direct_sim_time)
+    stop_request, previous_handlers = install_observer_stop_handlers()
+    node = Probe(direct_sim_time=args.direct_sim_time,
+                 expected_goal_id=args.expected_goal_id,
+                 expected_epoch=args.expected_epoch)
     deadline = time.monotonic() + args.seconds
     try:
+        stop_reason = 'observation_timeout'
         while rclpy.ok() and time.monotonic() < deadline:
+            if stop_request.requested:
+                stop_reason = 'signal_requested'
+                break
+            if (args.stop_after_terminal_wall_s is not None
+                    and node._terminal_state_active
+                    and node.terminal_state_first_wall_s is not None
+                    and node._elapsed_wall_s() - node.terminal_state_first_wall_s
+                    >= args.stop_after_terminal_wall_s):
+                stop_reason = 'stable_native_terminal'
+                break
             rclpy.spin_once(node, timeout_sec=0.05)
+        terminal_start = node.terminal_state_first_wall_s
+        controls_after_terminal = (
+            [event for event in node.control_topic_events
+             if terminal_start is not None
+             and event['elapsed_wall_s'] >= terminal_start]
+            if terminal_start is not None else None)
+        old_active_planner_events = None
+        if terminal_start is not None and node.expected_goal_id and node.expected_epoch:
+            old_active_planner_events = [
+                event for event in node.planner_state_samples
+                if event['elapsed_wall_s'] >= terminal_start
+                and event.get('goal_id') == node.expected_goal_id
+                and event.get('epoch') == node.expected_epoch
+                and (event['kind'] == 'navigation_goal'
+                     or (event['kind'] == 'position_command'
+                         and event.get('trajectory_flag') == PositionCommand.TRAJECTORY_STATUS_READY))]
         result = {
             'duration_wall_s': args.seconds,
+            'observed_wall_s': node._elapsed_wall_s(),
+            'observation_stop_reason': stop_reason,
+            'observer_stop_signal': stop_request.signal_name,
             'px4_timestamp_domain': ('gazebo_sim_time' if args.direct_sim_time
                                      else 'agent_clock_with_estimated_offset'),
             'counts': node.counts,
@@ -284,6 +437,26 @@ def main():
             'px4_timestamp_samples': node.px4_timestamp_samples,
             'bridge_status_samples': node.bridge_status_samples,
             'bridge_detail_samples': node.bridge_detail_samples,
+            'px4_status_samples': node.px4_status_samples,
+            'land_detected_samples': node.land_detected_samples,
+            'vehicle_command_ack_samples': node.command_ack_samples,
+            'control_topic_events': node.control_topic_events,
+            'planner_state_samples': node.planner_state_samples,
+            'expected_goal_id': node.expected_goal_id or None,
+            'expected_epoch': node.expected_epoch or None,
+            'terminal_state_first_wall_s': terminal_start,
+            'terminal_state_duration_wall_s': (
+                max(0.0, time.monotonic() - node.started_mono - terminal_start)
+                if terminal_start is not None and node._terminal_state_active else 0.0),
+            'terminal_state_violation_count': node.terminal_state_violation_count,
+            'terminal_readback_samples': node.terminal_readback_samples,
+            'zero_control_after_terminal': (
+                bool(terminal_start is not None and not controls_after_terminal)),
+            'control_samples_after_terminal': controls_after_terminal,
+            'no_old_epoch_goal_or_trajectory': (
+                bool(old_active_planner_events == [])
+                if old_active_planner_events is not None else None),
+            'old_epoch_goal_or_trajectory_after_terminal': old_active_planner_events,
             'publisher_counts': node.publisher_counts(),
             'latest': node.latest,
             'control_samples_zero': all(node.counts[key] == 0 for key in (
@@ -297,6 +470,7 @@ def main():
         print(json.dumps(result, indent=2, sort_keys=True))
     finally:
         node.destroy_node()
+        restore_observer_stop_handlers(previous_handlers)
         rclpy.shutdown()
 
 

@@ -1,0 +1,50 @@
+{
+  "schema": "n08-vins-telemetry-gap/v1",
+  "task": "N08.2e #215",
+  "run_id": "n08-20261024-215-compute-known-free-01",
+  "result": "BLOCKED_BEFORE_COMPUTE_ONLY",
+  "completed_support_scan_stages": 5,
+  "support_scan_stages_required": 12,
+  "final_localization": {
+    "state": 4,
+    "valid": false,
+    "reason": "telemetry_stale"
+  },
+  "localization_health_policy": {
+    "telemetry_max_source_age_s": 0.3,
+    "telemetry_max_receipt_age_s": 0.5
+  },
+  "observed_source_stamp_gaps_s": {
+    "vins_telemetry_max": 0.728,
+    "vins_telemetry_other_over_limit": [0.46, 0.332],
+    "raw_odometry_max": 0.792,
+    "raw_odometry_other_over_limit": [0.596]
+  },
+  "historical_comparison": {
+    "n08-20261024-211-hold-01": {
+      "telemetry_max_gap_s": 0.66,
+      "trace_nontracking_samples": 0,
+      "helper_reported_localization_change": true,
+      "final_localization_tracking": true
+    },
+    "n08-20261024-213-compute-01": {
+      "telemetry_max_gap_s": 0.396,
+      "trace_nontracking_samples": 0,
+      "helper_reported_localization_change": false,
+      "final_localization_tracking": true
+    }
+  },
+  "source_gap_causality": "NOT_ESTABLISHED: comparable over-limit gaps appeared in prior runs without the same latched final status",
+  "first_fault_location": "UNRESOLVED: publisher, DDS/receiver, observer, and clock contributions are not separated",
+  "px4_clock_alignment_attribution": "NOT_SUPPORTED_BY_THIS_RUN",
+  "entered_n05_release_gate": false,
+  "entered_compute_only": false,
+  "flight_or_xy_control": false,
+  "safety_cleanup": {
+    "fixture_detached_and_removed": true,
+    "px4_disarmed": true,
+    "landed": true,
+    "project_container_stopped": true
+  },
+  "next": "N08.2f #216: use a low-load read-only recorder to correlate telemetry source stamps, receive times, /clock, and the first localization stale transition"
+}

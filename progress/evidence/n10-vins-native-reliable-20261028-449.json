@@ -1,0 +1,332 @@
+{
+  "classification": "offline native transport qualification only, not navigation flight",
+  "native_input": {
+    "classification": "actual native callback/consumption completeness, not just external monitor",
+    "cases": [
+      {
+        "case": "baseline",
+        "native_callback_fingerprints": {
+          "imu": {
+            "count": 39181,
+            "first_source_ns": 7876000000,
+            "last_source_ns": 164596000000,
+            "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+            "strictly_monotonic": true
+          },
+          "image0": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          },
+          "image1": {
+            "count": 4749,
+            "first_source_ns": 7868000000,
+            "last_source_ns": 164540000000,
+            "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+            "strictly_monotonic": true
+          }
+        },
+        "native_callbacks_match_original_bag": true,
+        "processed_stereo": {
+          "count": 4749,
+          "first_source_ns": 7868000000,
+          "last_source_ns": 164540000000,
+          "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+          "strictly_monotonic": true
+        },
+        "paired_catchup_dropped_stereo": {
+          "count": 0,
+          "first_source_ns": null,
+          "last_source_ns": null,
+          "source_stamp_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "strictly_monotonic": true
+        },
+        "unexplained_received_pair_stamps": [],
+        "all_received_pairs_accounted_for": true,
+        "every_original_stereo_pair_processed": true,
+        "image_queue_conservative_prefix_high_water": {
+          "image0": 1,
+          "image1": 1
+        },
+        "prefix_minimum": {
+          "image0": 0,
+          "image1": 0
+        },
+        "prefix_final": {
+          "image0": 0,
+          "image1": 0
+        },
+        "queue_measurement_scope": "upper bound from receipt-before-enqueue and trace-after-dequeue event order; unmatched sync pops are not subtracted; not a queue capacity or new runtime gate",
+        "trace_sha256": "9d5367277d0c1d74c22f131cf343a46df47fb8cb7649294fd6aa6928ac1b69fd"
+      }
+    ],
+    "same_native_callback_source_fingerprints": false,
+    "same_processed_stereo_source_fingerprints": false
+  },
+  "evaluation": {
+    "case": "baseline",
+    "g_norm": 9.80665,
+    "status": "MEASURED",
+    "segments": {
+      "goal_motion": {
+        "source_window_ns": [
+          51119999999,
+          135996000000
+        ],
+        "pose_samples": 1287,
+        "position_error_m": {
+          "count": 1287,
+          "rmse": 0.07369645316269822,
+          "median": 0.07974423729736782,
+          "p95": 0.10670903163479031,
+          "max": 0.10816323307278942
+        },
+        "absolute_yaw_error_deg": {
+          "count": 1287,
+          "rmse": 0.44228396471955356,
+          "median": 0.34938054126328244,
+          "p95": 0.7488692106573465,
+          "max": 0.789516173170474
+        },
+        "velocity_error_m_s": {
+          "count": 1287,
+          "rmse": 0.00555014373503244,
+          "median": 0.004538237134915227,
+          "p95": 0.00955629297610093,
+          "max": 0.013263261150273015
+        },
+        "rpe10_translation_error_m": {
+          "count": 1135,
+          "rmse": 0.03047998876022609,
+          "median": 0.02195002964633,
+          "p95": 0.06049470605110017,
+          "max": 0.06508718457119489
+        },
+        "rpe10_rotation_error_deg": {
+          "count": 1135,
+          "rmse": 0.11351690120872686,
+          "median": 0.10602471447483938,
+          "p95": 0.1686776193861997,
+          "max": 0.21732535649457585
+        }
+      },
+      "active_hold": {
+        "source_window_ns": [
+          135996000000,
+          155996000000
+        ],
+        "pose_samples": 304,
+        "position_error_m": {
+          "count": 304,
+          "rmse": 0.11284899172250316,
+          "median": 0.10892651369405995,
+          "p95": 0.12980037454970347,
+          "max": 0.13779605164174696
+        },
+        "absolute_yaw_error_deg": {
+          "count": 304,
+          "rmse": 0.8477032484259562,
+          "median": 0.8485178471355297,
+          "p95": 0.8910089818030903,
+          "max": 0.8952870880395783
+        },
+        "velocity_error_m_s": {
+          "count": 304,
+          "rmse": 0.005810570014683299,
+          "median": 0.001810840959945007,
+          "p95": 0.015166345744630215,
+          "max": 0.018084846247497576
+        },
+        "rpe10_translation_error_m": {
+          "count": 152,
+          "rmse": 0.01754828725225579,
+          "median": 0.011056834499833145,
+          "p95": 0.039275574733173356,
+          "max": 0.0432205798461209
+        },
+        "rpe10_rotation_error_deg": {
+          "count": 152,
+          "rmse": 0.05024111895076579,
+          "median": 0.0516023325373202,
+          "p95": 0.058117970238164195,
+          "max": 0.05874086238718291
+        }
+      },
+      "landing": {
+        "source_window_ns": [
+          155996000000,
+          161372000000
+        ],
+        "pose_samples": 81,
+        "position_error_m": {
+          "count": 81,
+          "rmse": 0.11564782460221987,
+          "median": 0.11604822431231727,
+          "p95": 0.11695928686158939,
+          "max": 0.11750856662998177
+        },
+        "absolute_yaw_error_deg": {
+          "count": 81,
+          "rmse": 0.9109390360352004,
+          "median": 0.9119580909068647,
+          "p95": 0.924185076073958,
+          "max": 0.9256047283538167
+        },
+        "velocity_error_m_s": {
+          "count": 81,
+          "rmse": 0.018995199566014264,
+          "median": 0.000775204102258274,
+          "p95": 0.01313500197865395,
+          "max": 0.13682047368154934
+        },
+        "rpe10_translation_error_m": {
+          "count": 0,
+          "rmse": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "rpe10_rotation_error_deg": {
+          "count": 0,
+          "rmse": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        }
+      },
+      "full_task": {
+        "source_window_ns": [
+          28564000000,
+          161372000000
+        ],
+        "pose_samples": 2012,
+        "position_error_m": {
+          "count": 2012,
+          "rmse": 0.07718172147966988,
+          "median": 0.08153918437818244,
+          "p95": 0.11603891385839762,
+          "max": 0.13779605164174696
+        },
+        "absolute_yaw_error_deg": {
+          "count": 2012,
+          "rmse": 0.5167910823826914,
+          "median": 0.35444313833903646,
+          "p95": 0.8889960461349512,
+          "max": 0.9256047283538167
+        },
+        "velocity_error_m_s": {
+          "count": 2012,
+          "rmse": 0.0075792702186954376,
+          "median": 0.003716136281658678,
+          "p95": 0.01208346895306179,
+          "max": 0.13682047368154934
+        },
+        "rpe10_translation_error_m": {
+          "count": 1860,
+          "rmse": 0.0258654810727854,
+          "median": 0.0171770124336511,
+          "p95": 0.054808753450154256,
+          "max": 0.06508718457119489
+        },
+        "rpe10_rotation_error_deg": {
+          "count": 1860,
+          "rmse": 0.1359555315497315,
+          "median": 0.09586799462585727,
+          "p95": 0.2394079729797696,
+          "max": 0.5637828375652266
+        }
+      }
+    },
+    "raw_pose_count": 2364,
+    "common_evaluation_sample_count": 2013,
+    "source_raw_max_gap_sim_s": 0.068000001,
+    "raw_first_last_source_ns": [
+      28548000000,
+      161340000000
+    ],
+    "raw_max_gap_sim_s": 0.068000001,
+    "pose_stamp_sha256": "abee04961be1982ac01e3c202b6ada122beeddc6055d6b220139e98d3e1527e6",
+    "inputs": {
+      "/sensors/d435i/imu": {
+        "count": 39181,
+        "first_source_ns": 7876000000,
+        "last_source_ns": 164596000000,
+        "source_stamp_sha256": "645dab57ed5c6a6915a5eb89d10942c894a0028f4f40c7cfb0c6bcabbc06c541",
+        "strictly_monotonic": true
+      },
+      "/sensors/d435i/infra1/image_rect": {
+        "count": 4749,
+        "first_source_ns": 7868000000,
+        "last_source_ns": 164540000000,
+        "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+        "strictly_monotonic": true
+      },
+      "/sensors/d435i/infra2/image_rect": {
+        "count": 4749,
+        "first_source_ns": 7868000000,
+        "last_source_ns": 164540000000,
+        "source_stamp_sha256": "830e9d50c145016a8acad05daf0705e4c4ff73ef48004b7db28c2aeeaf8ea965",
+        "strictly_monotonic": true
+      }
+    },
+    "alignment": {
+      "scale": 1,
+      "reference_source_ns": 28548000000,
+      "rotation": [
+        [
+          0.9999999919984812,
+          0.0001188132195622113,
+          4.3433354979122325e-05
+        ],
+        [
+          -0.00011881978556232029,
+          0.999999981509781,
+          0.00015120283146114033
+        ],
+        [
+          -4.3415389280817254e-05,
+          -0.0001512079909932129,
+          0.9999999876256237
+        ]
+      ],
+      "translation": [
+        -7.878557298807368,
+        0.000164149458503886,
+        0.3061135043339947
+      ]
+    },
+    "player_exit_code": 0,
+    "stop_reason": "bag_finished_plus_drain",
+    "failure": null
+  },
+  "static_gyro_calibration": {
+    "classification": "offline prestream static gyro calibration, not truth-derived bias or real-device noise characterization",
+    "window_source_ns": [
+      24564000000,
+      28564000000
+    ],
+    "samples": 1001,
+    "gyro_mean_rad_s": [
+      -6.460761179055172e-18,
+      -2.5445967810598713e-16,
+      4.7082101654174395e-18
+    ],
+    "gyro_std_rad_s": [
+      5.233090358773996e-17,
+      1.7271654706042667e-12,
+      1.4898058796717462e-17
+    ],
+    "gyro_absolute_max_rad_s": [
+      2.1979293526525616e-16,
+      3.752780905695873e-12,
+      4.784909640411792e-17
+    ],
+    "model_support": "frozen D435i SDF imu has no added noise/bias random walk",
+    "limitation": "known-ideal-SITL bias hypothesis only; cannot impose zero bias on real D435i"
+  },
+  "rpe_decomposition": "artifacts/replays/n10-20261028-449-vins-native-reliable/rpe-component-diagnostic-442.json",
+  "live_deployment": false,
+  "parent_passed": false
+}

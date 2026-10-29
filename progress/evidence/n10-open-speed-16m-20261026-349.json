@@ -1,0 +1,166 @@
+{
+  "schema": "n10-open-speed-calibration-result/v1",
+  "report_id": 349,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "run_id": "n10-20261026-349-open-speed-16m",
+  "classification": "failed_calibration_sample; not formal qualification",
+  "protocol": "progress/evidence/n10-open-speed-16m-protocol-20261026-349.json",
+  "runtime_contract_sha256": "9fc811d5b318e392d62d0254ab55c7524a13494ca9c78a23f13c9853ce99d7ac",
+  "task": {
+    "target_world_imu_xyz_m": [
+      8.072585802927563,
+      0.003942371618215591,
+      1.0492694995488607
+    ],
+    "goal_minimum_true_position_error_m": 13.910174306964478,
+    "max_true_contiguous_dwell_wall_s": 0.0,
+    "independent_arrival_passed": false,
+    "native_action_success": false,
+    "failure": "navigation_action_not_successful:planner_full_curve_planning_failed",
+    "goal_elapsed_sim_s": 15.224,
+    "goal_elapsed_wall_s": 17.229065352119505,
+    "goal_clock_regressions": 0,
+    "max_forward_world_x_progress_from_goal_start_m": 2.1590964752013084,
+    "observed_goal_motion_path_length_m": 3.371416972622792,
+    "post_goal_active_hold": null
+  },
+  "speed_observation_only": {
+    "guard_enabled": false,
+    "sources": [
+      "ego_position_command_reference",
+      "px4_vehicle_local_position"
+    ],
+    "max_vector_speed_m_s": {
+      "ego_position_command_reference": 0.24114559912990627,
+      "px4_vehicle_local_position": 0.2551295796473528
+    },
+    "sample_counts": {
+      "ego_position_command_reference": 1715,
+      "px4_vehicle_local_position": 761
+    },
+    "candidate_planner_max_velocity_per_axis_m_s": 0.25,
+    "candidate_planner_max_acceleration_per_axis_m_s2": 0.25
+  },
+  "raw_vio_pre_enable_aligned_to_truth": {
+    "duration_sim_s": 42.916,
+    "paired_truth_path_length_m_including_takeoff_and_landing": 4.276334279652829,
+    "position_error_m": {
+      "count": 651,
+      "rmse": 0.018601286767484713,
+      "median": 0.015443619658694339,
+      "p95": 0.03416527960902766,
+      "max": 0.04077853581964986
+    },
+    "absolute_yaw_error_deg": {
+      "count": 651,
+      "rmse": 0.06386759852967842,
+      "median": 0.04619337478882458,
+      "p95": 0.1359037622236937,
+      "max": 0.14021397158145507
+    },
+    "bounded_time_support_fraction": 0.9996271786979215,
+    "raw_max_gap_sim_s": 0.068000001,
+    "truth_max_gap_sim_s": 0.02,
+    "invalid_localization_status_samples": 0
+  },
+  "ego_reference_to_truth_tracking": {
+    "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+    "candidate_max_error_m_not_enforced_by_runner": 0.15,
+    "matching_ready_commands": 1715,
+    "paired_commands": 1715,
+    "error_m": {
+      "median": 0.17566588148532694,
+      "p95": 0.2785399665844021,
+      "max": 0.2835008507391831,
+      "mean": 0.15601705686987655
+    },
+    "max_truth_interpolation_gap_s": 0.02
+  },
+  "map_and_source_timing": {
+    "source_timeline_requested_wall_s": 1500.0,
+    "source_timeline_stop_reason": "flight_report_written",
+    "source_timeline_clock_regression_events": 0,
+    "map_samples_goal_to_landed": 101,
+    "map_source_age_max_sim_s_goal_to_landed": 0.156,
+    "occupancy_age_max_sim_s_goal_to_landed": 0.104,
+    "candidate_map_age_limit_sim_s_not_a_final_standard": 0.4,
+    "decimated_stream_max_receipt_gaps_wall_s": {
+      "localization_status": 0.19962322700000001,
+      "adapter_optimized": 0.4147876970000004,
+      "map_status": 0.2861568779999999,
+      "clock": 0.3457470149999997
+    },
+    "decimation_note": "The source recorder samples streams at 0.1 wall-second cadence; its gap summary is not used as an exact callback receipt-age measurement."
+  },
+  "contact_and_px4_terminal_state": {
+    "contact_evaluation_passed": true,
+    "prohibited_contact_event_count": 0,
+    "ground_contact_event_count": 14892,
+    "postflight_readback_wall_s": 6.0,
+    "postflight_control_samples_zero": true,
+    "postflight_vehicle_remained_disarmed": true,
+    "postflight_bridge_phase": "LANDED",
+    "postflight_bridge_armed": false,
+    "postflight_bridge_landed": true,
+    "postflight_bridge_control_enabled": false
+  },
+  "failure_diagnosis": {
+    "planner_error": "planner_full_curve_planning_failed",
+    "vio_log_occurrences": "52 terminal-point-in-obstacle warnings before Full-curve safety rejected: planning_failed",
+    "scene_obstacle": {
+      "model": "unit_cylinder_0_6_clone",
+      "world_center_xyz_m": [
+        -3.99996,
+        0.001786,
+        -2.50001
+      ],
+      "radius_m": 0.3,
+      "length_m": 10.0
+    },
+    "last_bspline": {
+      "trajectory_id": 121,
+      "terminal_point_odom_m": [
+        3.315,
+        0.0046,
+        0.89428
+      ],
+      "fixed_se3_terminal_point_world_m": [
+        -4.56327,
+        0.00447,
+        0.96008
+      ],
+      "horizontal_distance_to_cylinder_axis_m": 0.5633
+    },
+    "interpretation": "The last local EGO trajectory endpoint lies inside the inflated occupied region around the tall cylinder on the straight +X route. This is a local-horizon/obstacle-planning failure, not a speed guard cancellation."
+  },
+  "cleanup": {
+    "postflight_independent_readback_s": 6.0,
+    "px4_disarmed_and_landed": true,
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "control_samples_zero": true,
+    "project_stop_exit_code": 0,
+    "project_container_exit_code": 0,
+    "unrelated_containers_preserved": true
+  },
+  "next_experiment": "#350 changes only EGO planning_horizon_m from 1.0 m to the repository default 5.0 m; preserve planner axis velocity/acceleration, spawn, +16 m task, speed observation-only policy, and all remaining gates.",
+  "artifacts": {
+    "measurement_report": "artifacts/runs/n10-20261026-349-open-speed-16m/n10-calibration-evaluation.json",
+    "measurement_report_sha256": "bf81c739c1fe9c8cfa8ae75be350fd7b91537f3e54f685f7e487cb7b21004e69",
+    "analyzer": "artifacts/runs/n10-20261026-349-open-speed-16m/analyze_n10_calibration.py",
+    "analyzer_sha256": "ea806dcc29414b630665df4a9ffbb2350f059c1154c0017977d432ac335044fd",
+    "flight": "artifacts/runs/n10-20261026-349-open-speed-16m/flight.json",
+    "flight_sha256": "455c0301d8b1a9262853fb40a51f92a685876dd7775fc0cdacf1cf2efefd8a1c",
+    "arrival": "artifacts/runs/n10-20261026-349-open-speed-16m/arrival-evaluation.json",
+    "arrival_sha256": "8ccd2bb3b92f18ca53aff311647e980805aed34454f84e11decd4f570599d47f",
+    "truth_evaluation": "artifacts/runs/n10-20261026-349-open-speed-16m/debug-truth-evaluation.json",
+    "truth_evaluation_sha256": "f4c01297c4155f890e3e1ceb7b9e80cdd59deb14780ead0f7ae1a9baabd43ed0",
+    "planner_observation": "artifacts/runs/n10-20261026-349-open-speed-16m/planner-observation.json",
+    "planner_observation_sha256": "4b07676b47851e336e3f2dc3f7a45e5647d03010f6366050ec71871be03444c9",
+    "vio_log": "artifacts/runs/n10-20261026-349-open-speed-16m/vio.log",
+    "vio_log_sha256": "bd1662f7e5166cf629704b812c6c154588dbb67d490e74abf3cfcad0d8c3bcd1",
+    "runtime_contract": "artifacts/runs/n10-20261026-349-open-speed-16m/runtime-contract.json",
+    "runtime_contract_file_sha256": "53ab0caa3c0b256b159b25488214c5aaf641b0803bd79dd44b8de759ebdc6495"
+  }
+}

@@ -57,6 +57,12 @@ class GeometryTest(unittest.TestCase):
                 calibration(path)
 
     def test_px4_leverarm_is_derived_from_x500_d435i_sdf(self):
+        wrapper = ET.parse(ROOT / 'simulation/models/x500_d435i/model.sdf').getroot().find('model')
+        include = wrapper.find("include[uri='model://d435i']")
+        joint = wrapper.find("joint[@name='d435i_mount']")
+        self.assertEqual(include.find('pose').get('relative_to'), 'base_link')
+        self.assertEqual(joint.find('pose').get('relative_to'), 'base_link')
+        self.assertEqual(include.findtext('pose'), joint.findtext('pose'))
         mount = px4_sensor_mount(ROOT / 'simulation/models/x500_d435i/model.sdf')
         self.assertEqual(mount['parent_frame'], 'base_link')
         self.assertEqual(mount['sensor_frame'], 'd435i_imu')

@@ -1,0 +1,180 @@
+{
+  "schema": "n10-planner-exit-calibration-attempt/v1",
+  "subtask": "N10.3/#400",
+  "run_id": "n10-20261027-400-planner-process-exit-calibration",
+  "classification": "non-qualifying diagnostic attempt; planner process-exit fault was not injected",
+  "formal_n15_n16_qualification": false,
+  "runtime_identity": {
+    "runtime_contract_sha256": "4bd013db9195cb7b424a00259872d5dd678450b200fb577df4cf423213b0973b",
+    "runtime_contract_file_sha256": "71de6615c25a07fe7fe613adcd617fba05e1ca019ce2fa27769cbc94bb409d83",
+    "prelaunch_sha256": "1bd4098db1834df453ff7704547ee8a8ae2bda3157c36a61a27004096e38b963",
+    "protocol_sha256": "4000f2c28822755151494ca229e5690ef5e5e14db095fe1a130c78804c4f870c",
+    "tool_freeze_sha256": "36fb2bffb73d4f0a1d3a0a9df4ec2f0e6b78bb2de0c8df96615dcfb255323d44",
+    "planner_config_sha256": "16fdcc7ab0f73fb402f3dd6012dca631498c9e3ea4b6f5815df17c0c84f1aea7",
+    "goal_config_sha256": "8119904da159511aef44ef665f109f23d8cd4f6954e6898ae0186c61f8e6f492",
+    "container_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "gpu_request": {
+      "requested_host_index": "1",
+      "requested_host_uuids": [
+        "GPU-69166ee5-0898-2e26-c11f-1279c1e90e16"
+      ]
+    }
+  },
+  "flight": {
+    "action_goal_sent": true,
+    "goal_id": "b893b44e86244a739fcedad6d3a7b74f",
+    "epoch": "43b696c43df04fb795ac4dd4e136f5ce",
+    "goal_source_stamp_ns": 84615999999,
+    "goal_start_sim_ns": 84688000000,
+    "runner_result": "FAIL",
+    "runner_failure_after_controlled_closeout": "navigation_action_not_successful:caller_cancel",
+    "action_result_after_closeout": {
+      "final_position": [
+        7.190563296462417,
+        -0.05980992171824777,
+        -0.014189658516771897
+      ],
+      "outcome": "canceled",
+      "reason": "caller_cancel",
+      "status": 5,
+      "success": false
+    }
+  },
+  "injection": {
+    "requested_fault_class": "planner_process_exit",
+    "injector_status": "refused_before_signal",
+    "fault_signal_count": 0,
+    "signal_sent": false,
+    "process_exit_observed": null,
+    "refusal_reasons": [
+      "bridge_not_active_and_armed",
+      "action_status_stale_or_missing"
+    ],
+    "calibration_valid": false
+  },
+  "incidental_bridge_path_observation": {
+    "bridge_active_observation": {
+      "wall_s": 29.217099752975628,
+      "stamp_ns": 84688000000,
+      "phase": "ACTIVE",
+      "reason": "takeoff_complete_waiting_for_trajectory",
+      "armed": true,
+      "landed": false,
+      "offset_ned": [
+        -7.726302080250452e-05,
+        -5.584894041763748e-05,
+        5.665391730967043e-05
+      ],
+      "yaw_offset_ned": -0.00010502163743630888,
+      "alignment_drift_m": 0.0179830114307143
+    },
+    "bridge_landing_on_local_position_invalid": {
+      "wall_s": 68.71677544503473,
+      "stamp_ns": 119316000000,
+      "phase": "LANDING",
+      "reason": "px4_local_position_invalid",
+      "armed": true,
+      "landed": false,
+      "offset_ned": [
+        -7.726302080250452e-05,
+        -5.584894041763748e-05,
+        5.665391730967043e-05
+      ],
+      "yaw_offset_ned": -0.00010502163743630888,
+      "alignment_drift_m": 0.016903771268946207
+    },
+    "bridge_landed": {
+      "wall_s": 74.61681166593917,
+      "stamp_ns": 124536000000,
+      "phase": "LANDED",
+      "reason": "px4_preflight_failed",
+      "armed": false,
+      "landed": true,
+      "offset_ned": [
+        -7.726302080250452e-05,
+        -5.584894041763748e-05,
+        5.665391730967043e-05
+      ],
+      "yaw_offset_ned": -0.00010502163743630888,
+      "alignment_drift_m": 0.001484506532715236
+    },
+    "action_status_remained_executing_after_landing_until_exact_cancel": true,
+    "exact_goal_cancel_accepted_after_landed_disarmed_readback": true,
+    "emergency_disarm_used": false
+  },
+  "terminal_readback": {
+    "native_terminal_evidence_complete": false,
+    "checks": {
+      "bridge_control_disabled": true,
+      "bridge_disarmed": true,
+      "bridge_landed": true,
+      "bridge_phase_landed": true,
+      "no_old_epoch_goal_or_trajectory": false,
+      "px4_disarmed": true,
+      "px4_land_detected": true,
+      "zero_control_after_terminal": true
+    },
+    "zero_control_after_terminal": true,
+    "no_old_goal_epoch_or_trajectory": false,
+    "matching_ready_position_command_count_during_15s_probe": 1099,
+    "matching_ready_position_command_ids": [
+      157
+    ],
+    "later_5s_probe_matching_ready_count": 328,
+    "classification_note": "The readback classifies these matching READY commands as post-terminal old-goal trajectory events; available log does not establish whether all are stale movement or a cancellation stop-hold trajectory. Therefore the field remains false/insufficient."
+  },
+  "controlled_shutdown": {
+    "physical_terminal_checks": {
+      "bridge_landed": true,
+      "bridge_disarmed": true,
+      "bridge_control_disabled": true,
+      "px4_disarmed": true,
+      "px4_land_detected": true,
+      "zero_control_after_terminal": true
+    },
+    "physical_terminal_confirmed_for_shutdown": true,
+    "container_stop_command": "bash tools/project.sh stop n10-20261027-400-planner-process-exit-calibration",
+    "container_exit_code": 0,
+    "project_processes_remaining_after_stop": false
+  },
+  "observer_coverage": {
+    "sensor_capture_status": "INSUFFICIENT",
+    "sensor_capture_errors": [
+      "capture_report_has_errors",
+      "safe_session_terminal_not_observed",
+      "capture_did_not_reach_terminal_closeout_window",
+      "run_identity_incomplete",
+      "active_receipt_identity_differs_from_run_identity"
+    ],
+    "sensor_bag_message_count": 107785,
+    "sensor_receipt_count": 107787,
+    "sensor_active_identity_tuple_count": 1,
+    "sensor_run_identity_complete": false,
+    "resource_report_present": false,
+    "truth_evaluation_present": false,
+    "contact_evaluation_present": false,
+    "clearance_not_evaluated": true
+  },
+  "artifact_paths": {
+    "runtime_contract": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/runtime-contract.json",
+    "flight": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/flight.json",
+    "injection": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/n10-planner-process-exit-injection.json",
+    "bridge_timeline": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/bridge-alignment-timeline.jsonl",
+    "terminal_readback": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/postflight-px4-bridge-readback.json",
+    "terminal_summary": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/n10-native-terminal-evidence-summary.json",
+    "action_cancel_normalized": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/n10-exact-action-cancel-normalized.json",
+    "controlled_stop_assessment": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/n10-controlled-stop-assessment.json",
+    "sensor_capture_evaluation": "artifacts/runs/n10-20261027-400-planner-process-exit-calibration/n10-sensor-capture-evaluation.json"
+  },
+  "artifact_sha256": {
+    "flight": "89b262bc3a69473602a20e2a35a4d229083df633e3e4712e3e2239ecf40a8546",
+    "injection": "7da1a4290a741e6c7f8f8880529f485222aa7100f978446e99e04d3e2cf43547",
+    "bridge_timeline": "99da16e079f6c08dfb97f5da1748adcfbbfb1517f2635fa5b8b43673d1197952",
+    "postflight_terminal_readback": "038a70bd95d6e7ac75ceac58cb74f5df6cde869a00e943a0b47a71b0e8c4935d",
+    "terminal_summary": "a969625265b92c93d13ace8cedec545656d4a61ea4a11b57023203fe17824d32",
+    "normalized_action_cancel": "1753da5d41bf29d0c24eaa6fdc254194baac78d008721d6d9d70e4ef15c56c15",
+    "controlled_stop_assessment": "aa1210ecfab5dd705b32408c0b57fa7bd85b5a40e27dc3121ba44afe70d58df5",
+    "sensor_capture_evaluation": "c9748be32a5092b7832fec67efe3a36485066144439ce0718ea464c4d360fafd"
+  },
+  "conclusion": "This attempt does not calibrate planner-process-exit. It exposes a lifecycle gap: bridge safety landing on PX4 local-position invalid did not terminate the matching navigation action; the goal remained active until explicitly canceled after safe landing. During the post-terminal probe, matching READY commands continued and the native terminal evaluator remained INSUFFICIENT. Next: have a bridge-controlled landing fault abort the matching action by goal_id+epoch, fix injector action-status QoS, then rerun one current-code calibration. Do not reuse emergency disarm."
+}

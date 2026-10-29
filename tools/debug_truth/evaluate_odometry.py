@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Offline raw VINS errors with one pre-enable pose alignment, scale fixed to one.
 
-In the simulation, Gazebo's world -> d435i_link truth origin coincides with the
-D435i IMU. No translation is added to this truth point. The SDF base_link mount
-offset is for base-to-sensor conversion and must not be added twice.
+Gazebo raw truth is the model origin. The common offline reader converts each
+pose to the D435i IMU using the frozen model geometry before alignment.
 """
 import argparse
 import csv
@@ -13,6 +12,9 @@ from pathlib import Path
 import sys
 
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from truth_reference import imu_truth_samples, require_same_truth_reference
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
@@ -34,7 +36,7 @@ def pose_arrays(rows, stamp_key):
     return stamps, xyz, quaternions
 
 
-def evaluate(observation, truth, phases, preflight, flight, lever,
+def evaluate(observation, truth, phases, flight, lever,
              truth_gap_s=0.04, support_gap_s=0.2):
     if not (np.isfinite(truth_gap_s) and np.isfinite(support_gap_s)
             and truth_gap_s > 0 and support_gap_s > 0):
@@ -59,13 +61,17 @@ def evaluate(observation, truth, phases, preflight, flight, lever,
     if len(starts) != 1 or len(ends) != 1 or ends[0] <= starts[0]:
         raise ValueError('Need one complete PRESTREAM-to-LANDED flight')
     start, end = starts[0], ends[0]
-    target = preflight['clock_samples'][-1]['sim_ns'] - 1_000_000_000
-    before = np.flatnonzero(et <= target)
-    if not len(before) or target >= start:
+    # Anchor to the latest raw VINS pose strictly before bridge PRESTREAM.
+    # The external preflight snapshot may be several seconds old after fresh
+    # N05 admission checks, so it is not a reliable clock for this reference.
+    target = start
+    before = np.flatnonzero(et < target)
+    if not len(before):
         raise ValueError('No pre-enable initialization reference')
     anchor = int(before[-1])
-    if target - et[anchor] > 150_000_000:
-        raise ValueError('Initialization reference is more than 150ms old')
+    reference_age_ns = target - int(et[anchor])
+    if reference_age_ns > 150_000_000:
+        raise ValueError('Initialization reference is more than 150ms before PRESTREAM')
 
     def reference(stamp):
         p, gap = _interpolate_position(tt, tp, stamp)
@@ -134,13 +140,17 @@ def evaluate(observation, truth, phases, preflight, flight, lever,
     steps = np.linalg.norm(np.diff(residuals, axis=0), axis=1)
     jump = int(np.argmax(steps))
     segment = np.asarray([[p[k] for k in ('truth_x_m', 'truth_y_m', 'truth_z_m')] for p in curve])
-    invalid = [p for p in flight['localization_quality_history']
-               if start <= p['stamp_ns'] <= end and not p['valid']]
+    quality_history = flight.get('localization_quality_history')
+    invalid = (None if quality_history is None else
+               [p for p in quality_history
+                if start <= p['stamp_ns'] <= end and not p['valid']])
     report = {
         'scope': __doc__, 'epoch': epoch, 'raw_topic': observation['raw_topic'],
-        'alignment': {'method': 'one pre-enable pose pair; never fitted to the flight path',
+        'alignment': {'method': 'latest raw VINS pose strictly before PRESTREAM; never fitted to the flight path',
                       'scale': 1, 'target_source_ns': target,
                       'reference_source_ns': int(et[anchor]),
+                      'reference_age_sim_s': reference_age_ns / 1e9,
+                      'maximum_reference_age_sim_s': 0.15,
                       'rotation': align_r.tolist(), 'translation_m': align_t.tolist()},
         'interval': {'start_phase': 'PRESTREAM', 'end_phase': 'LANDED',
                      'start_source_ns': start, 'end_source_ns': end,
@@ -168,12 +178,14 @@ def evaluate(observation, truth, phases, preflight, flight, lever,
         'largest_residual_step': {'source_ns': curve[jump+1]['source_ns'],
                                   'delta_m': float(steps[jump]), 'interval_sim_s': float(gaps[jump]),
                                   'note': 'Descriptive residual change, not a classified tracking failure.'},
-        'invalid_localization_status_samples': len(invalid),
+        'localization_quality_history_available': quality_history is not None,
+        'invalid_localization_status_samples': len(invalid) if invalid is not None else None,
         'landed_and_disarmed': flight['landed_and_disarmed'],
         'limitations': ['One simulation route; no loop closure, map reuse or real-device validation.',
                         'Reference pose uncertainty affects all subsequent errors; scale is never fitted.',
                         'RMSE is sample weighted; coverage is reported separately, gaps are not hidden.',
                         'Endpoint is the last paired source sample, with its age explicitly reported.',
+                        'Localization health sample count is omitted when the flight runner did not save status history.',
                         'No accuracy acceptance threshold is declared by this diagnostic.']}
     return report, curve
 
@@ -209,20 +221,23 @@ def main():
     run = args.run.resolve()
     load = lambda name: json.loads((run / name).read_text())
     mount = px4_sensor_mount(ROOT/'simulation/models/x500_d435i/model.sdf')
+    truth, truth_contract = imu_truth_samples(run, load('debug-truth-evaluation.json'))
     lever = np.zeros(3, dtype=float)
     phases = [json.loads(line) for line in (run/'bridge-alignment-timeline.jsonl').read_text().splitlines()]
-    report, curve = evaluate(load('alignment-observation.json'), load('debug-truth-evaluation.json')['samples'],
-                             phases, load('preflight.json'), load('flight.json'), lever)
+    report, curve = evaluate(load('alignment-observation.json'), truth,
+                             phases, load('flight.json'), lever)
+    report['truth_reference_contract'] = truth_contract
     report['run_id'] = run.name
     report['runtime_contract_sha256'] = load('runtime-contract.json')['sha256']
     report['sensor_mount'] = mount
     report['coordinate_contract'] = {
-        'truth_point': 'd435i_link', 'raw_vins_point': f"vins_{report['epoch']}_imu",
+        'truth_point': 'd435i_imu (converted from Gazebo model origin)', 'raw_vins_point': f"vins_{report['epoch']}_imu",
         'imu_sensor_pose_in_d435i_link_m': [0.0, 0.0, 0.0],
         'truth_to_raw_point_translation_m': [0.0, 0.0, 0.0],
-        'base_link_mount_translation_not_applied_to_truth': True}
+        'model_origin_to_imu_translation_m': truth_contract['model_origin_to_imu_m'],
+        'raw_archive_unchanged': True}
     inputs = ['alignment-observation.json', 'debug-truth-evaluation.json',
-              'bridge-alignment-timeline.jsonl', 'preflight.json', 'flight.json', 'runtime-contract.json']
+              'bridge-alignment-timeline.jsonl', 'flight.json', 'runtime-contract.json']
     report['input_sha256'] = {name: hashlib.sha256((run/name).read_bytes()).hexdigest() for name in inputs}
     report['evaluator_sha256'] = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                                 for p in [Path(__file__), ROOT/'tools/evaluate_vins_motion.py',

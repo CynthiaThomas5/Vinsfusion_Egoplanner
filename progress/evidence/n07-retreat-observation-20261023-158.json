@@ -1,0 +1,102 @@
+{
+  "schema": "n07-retreat-observation-result/v1",
+  "task_id": "N07.4 #158",
+  "run_id": "n07-20261023-158-01",
+  "scope": "DISARMED whole-airframe support scan and fresh N05 admission only; no flight",
+  "runtime_spawn_pose_m_rad": [-6.5, 0, 0.3, 0, 0, 0],
+  "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+  "scan_profile": "n07_spawn_minus65_retreat_180_translation_only",
+  "preflight_scan_sha256": "8a6bd1960b4ce9279d36db6acee5c472235dbba64101470586c3cfea1ef0df00",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true
+  },
+  "scan": {
+    "completed_stages": 6,
+    "configured_stages": 6,
+    "trace_rows": 10122,
+    "all_localization_samples_valid": true,
+    "single_epoch": true,
+    "epoch": "dbc75d42412e4999911a1d4a6649edae",
+    "target_x_min_max_m": [-1.8, 0],
+    "normalized_cost_max": 0.6613388855778699,
+    "max_accel_bias_m_s2": 0.1485242094225373,
+    "accel_bias_health_threshold_m_s2": 0.15,
+    "max_bias_margin_to_threshold_m_s2": 0.001475790577462699,
+    "fixture_removed": true,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "fixture_helper_error_after_six_stages": "localization changed or became invalid during physical scan",
+    "last_localization_valid": true,
+    "px4_vehicle_states": [1],
+    "container_status": "Exited (0)"
+  },
+  "attached_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "phase_maximum_unknown_cells": {
+      "TAKEOFF_CONTACT": 122,
+      "ASCENT": 110,
+      "HOLD": 3,
+      "DESCENT": 110,
+      "LANDING_CONTACT": 122
+    },
+    "online_offline_identical": true,
+    "independent_replay_matches_with_float_tolerance": true
+  },
+  "released_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "phase_maximum_unknown_cells": {
+      "TAKEOFF_CONTACT": 122,
+      "ASCENT": 110,
+      "HOLD": 3,
+      "DESCENT": 110,
+      "LANDING_CONTACT": 122
+    },
+    "phase_maximum_subground_excluded_cells": {
+      "TAKEOFF_CONTACT": 44,
+      "ASCENT": 32,
+      "HOLD": 0,
+      "DESCENT": 32,
+      "LANDING_CONTACT": 44
+    },
+    "online_offline_identical": true,
+    "independent_replay_matches_with_float_tolerance": true,
+    "epoch": "dbc75d42412e4999911a1d4a6649edae",
+    "map_id": "dbc75d42412e4999911a1d4a6649edae-a196dafdb90d43d9b1bf943a48c39168",
+    "ground_plane_z_m": -0.35000000000000003,
+    "hold_unknown_center_count": 3,
+    "hold_unknown_below_ground_plane": 0,
+    "hold_unknown_centers_odom_m": [
+      [-0.5499999999999972, 0.3500000000000014, 1.15],
+      [-0.4499999999999993, 0.3500000000000014, 1.15],
+      [-0.34999999999999787, 0.3500000000000014, 1.15]
+    ],
+    "bridge_phase": "DISABLED",
+    "armed": false,
+    "landed": true,
+    "localization_valid": true
+  },
+  "qualification": {
+    "released_n05_gate_passed": false,
+    "flight_started": false,
+    "n07_hover_count": 0
+  },
+  "artifact_sha256": {
+    "n05-before/n05-live-entry-check.json": "88170618cb91a226a11fc6666b45ac0c6bde432de3c192017f035b6fe8bf9f41",
+    "n05-before/n05-offline-entry-replay.json": "ac3d36e671f6f2cc02f6f764f3fbdbb79953c11bbf2ab2aa766664e276b67394",
+    "n05-attached/n05-live-entry-check.json": "7025521f6f4d4eca009118ccc6f8a93af120e6ec931704b6717741bedc656116",
+    "n05-post-release/n05-live-entry-check.json": "112071f63e24fea06e5ec59d5dffb070effefbadcf49c52f45b4765f80b4203c",
+    "n05-post-release/n05-offline-entry-replay.json": "832bfedd24981f786309b3d2a641debecaccce9bb6a36a3a19d3f550c4fab48e",
+    "fixture-result.json": "aa8b2e1d38313c6f1cec1e2fc0381ca74839134c75e6bc022e92a23d8a5ebad3",
+    "fixture-stages.json": "838ec275641fe0e703cb640eb50f74d2f921e507cd76027fd4258b0f8fd1f3e0",
+    "fixture-trace.jsonl": "435f1e998721b77ffc5f38c48c80f288a82298bde7f2ab707e3de927089b4a8d",
+    "fixture-vins.jsonl": "0766d579e6c5f75c8545aec2c147862d319a1637398ea87a7427caf2deb12bd9",
+    "fixture-odometry.jsonl": "23bb96baf4d11e6c8773c3b5e17beabf5986e557b9a787ffec30bd336c1922d2",
+    "n05-release-offline-replay-host-report.json": "b1060b2d4e5dd21619fdb50627688aea0a6ddb2c1c213c53ba058077192ebf36"
+  },
+  "qualification_note": "The independent replay initially used exact dictionary equality and falsely flagged float-fit differences below 1e-15. The evaluator now compares numeric leaves at 1e-12 tolerance; integer phase counts, boolean states, and decision strings remain exact. No N05 admission rule changed."
+}

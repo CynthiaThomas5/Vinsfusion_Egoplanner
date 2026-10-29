@@ -1,0 +1,25 @@
+{
+  "schema": "n11-queue-standard-review/v1",
+  "status": "approved_recalibrated_and_released",
+  "frozen_config_sha256": "7cf226ee4c471d49fec05f25eede1c9c127cd97fc22f0ae371ba13681d599750",
+  "current_rule": "OLS current_before_feature_dequeue slope <=0 for each acc/gyr/feature queue",
+  "current_results": "#476 slope0.005007 and #477 slope0.002432 both FAIL; no result rewritten",
+  "problem": "The IMU counter includes the integration interval for the pending image plus asynchronously arrived newer IMU samples. A positive finite-window point estimate is not by itself evidence of sustained unbounded work backlog.",
+  "evidence": "artifacts/reanalysis/n11-20261029-478-queue-audit/diagnostic.json",
+  "proposed_action": "Recalibrate the offline queue criterion against actual pending work and source-time lag, retain raw buffer sizes/high-water/slope as reported diagnostics, preserve capacity/overflow/OOM/throttle checks, and freeze a new evaluator/config identity before any formal N11 count.",
+  "required_calibration": [
+    "Read-only per-queue pending-work/oldest-source-time semantics verified against actual estimator source and telemetry",
+    "Existing #476/#477 full traces reanalysed without discarding rows or changing timestamps",
+    "Synthetic bounded phase/jitter and sustained backlog counterexamples distinguishable",
+    "Any numerical bound derived before new formal runs; no online flight admission/cancel/landing branch",
+    "New formal 3/3 cold starts after revised standard is independently reviewed and frozen; old calibrations not credited"
+  ],
+  "not_approved_actions": [
+    "Do not raise a slope threshold merely to pass the two recorded runs",
+    "Do not delete the resource or queue requirement",
+    "Do not clamp or reset telemetry counters",
+    "Do not count #476/#477 as formal passes"
+  ],
+  "approval": "User explicitly said 批准 after #480; no repeated confirmation required.",
+  "release": "progress/evidence/n11-native-work-release-20261029-483.json"
+}

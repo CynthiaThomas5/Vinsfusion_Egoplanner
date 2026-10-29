@@ -1,0 +1,45 @@
+{
+  "task_id": "N10.3/#432",
+  "classification": "isolated real-package compile and real-GridMap class fixture; not ROS callback/SITL qualification",
+  "test_results": {
+    "baseline": {
+      "build_exit": 0,
+      "test_exit": 1,
+      "library": "libplan_env.so => /candidate/baseline/install/plan_env/lib/libplan_env.so (0x0000744ce4400000)",
+      "test_output": "case=0 raw_preserved=1 expected=1 inflated=0\ncase=1 raw_preserved=1 expected=1 inflated=0\ncase=2 raw_preserved=1 expected=1 inflated=0\ncase=3 raw_preserved=1 expected=1 inflated=0\ncase=4 raw_preserved=1 expected=1 inflated=0\ncase=5 raw_preserved=1 expected=1 inflated=0\ncase=6 raw_preserved=1 expected=1 inflated=1\ncase=7 raw_preserved=1 expected=0 inflated=0\nboundary_axis=1 false_wrapped_cell=1\nboundary_axis=2 false_wrapped_cell=1\ninvariant_failures=8\n"
+    },
+    "candidate": {
+      "build_exit": 0,
+      "test_exit": 0,
+      "library": "libplan_env.so => /candidate/candidate/install/plan_env/lib/libplan_env.so (0x00007b60fca00000)",
+      "test_output": "case=0 raw_preserved=1 expected=1 inflated=1\ncase=1 raw_preserved=1 expected=1 inflated=1\ncase=2 raw_preserved=1 expected=1 inflated=1\ncase=3 raw_preserved=1 expected=1 inflated=1\ncase=4 raw_preserved=1 expected=1 inflated=1\ncase=5 raw_preserved=1 expected=1 inflated=1\ncase=6 raw_preserved=1 expected=1 inflated=1\ncase=7 raw_preserved=1 expected=0 inflated=0\nboundary_axis=1 false_wrapped_cell=0\nboundary_axis=2 false_wrapped_cell=0\ninvariant_failures=0\n"
+    }
+  },
+  "source_and_artifacts": {
+    "scope": "isolated full plan_env package baseline/candidate; active source/install unchanged",
+    "patch": "artifacts/n10-prepared/n10-20261028-431-inflation-halo-candidate/repair.patch",
+    "patch_sha256": "d8c7209da00ce45e8f4fd82fbe67564f7abd11838a1a2965afaef4159bd11066",
+    "test_only_changes": "friend declaration in copied header, executable fixture and CMake target; no node or PX4 control publishers",
+    "source_hashes": {
+      "baseline": "e2ae701a6d272d370bdf81041c764dc941fb1f35ae9252056c33cf959e954ce2",
+      "candidate": "e2ae701a6d272d370bdf81041c764dc941fb1f35ae9252056c33cf959e954ce2"
+    },
+    "copied_source_hashes": {
+      "baseline": "e2ae701a6d272d370bdf81041c764dc941fb1f35ae9252056c33cf959e954ce2",
+      "candidate": "5f3ef8bd72022c822c1b2fe9c22d3133897e789aa02b2530afcbb49998b161b8"
+    },
+    "active_vendor_sha256_after": "e2ae701a6d272d370bdf81041c764dc941fb1f35ae9252056c33cf959e954ce2",
+    "built_artifact_sha256": {
+      "baseline/install/plan_env/lib/libplan_env.so": "954b5b6434e51f13ffcf2da679ede79ed8b8b9d6cd9fa720cc2cf6b5b39b17f6",
+      "baseline/build/plan_env/n10_inflation_candidate_test": "a750fb2a0c8a66d7a721843a2258836fde21c48ad501cb9a7a37bf7b81fa4e2d",
+      "candidate/install/plan_env/lib/libplan_env.so": "47e89080f4b8ab3de5400004744a240c862f68bcaaeecf22f1d0765c0aa38642",
+      "candidate/build/plan_env/n10_inflation_candidate_test": "40d26f018c902da656e65437ee585765a00bfe45c1b28975ca71d5095988efe9"
+    },
+    "active_library_sha256_after": "aa44099fd88e0123f4eafecd5e24bf54f34a8c819c6e5d2c2aa801c2095696f8"
+  },
+  "active_runtime_modified": false,
+  "build_session": 47069,
+  "build_session_exit": 0,
+  "runtime_supervision_session": 41790,
+  "runtime_safe_terminal": false
+}

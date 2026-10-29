@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import subprocess
 import tarfile
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -37,6 +38,40 @@ def file_hash(path):
     return h.hexdigest()
 
 
+def verified_local_image(root):
+    """Use the actual pinned image when the historical archive is unavailable."""
+    try:
+        runtime=json.loads((Path(root)/'config/runtime.json').read_text())
+        if runtime.get('image_content_sha256'):
+            from check_container_image import inspect_and_verify
+            result=inspect_and_verify(runtime)
+        else:
+            actual=subprocess.check_output(['docker','image','inspect',runtime['image'],'--format','{{.Id}}'],text=True).strip()
+            if actual != runtime['image_id']:
+                raise ValueError('Pinned local image identity mismatch; refusing export')
+            result={'tag':runtime['image'],'image_id':actual}
+    except (OSError,KeyError,subprocess.CalledProcessError) as exc:
+        raise ValueError('Verified fixed image bundle is missing and the pinned local image cannot be verified') from exc
+    return {**result,'method':'docker save of verified pinned local image'}
+
+
+def save_local_image(image, destination):
+    destination=Path(destination);partial=destination.with_name(destination.name+'.partial')
+    try:
+        with partial.open('wb') as output:
+            save=subprocess.Popen(['docker','save',image['tag']],stdout=subprocess.PIPE)
+            try:
+                compressed=subprocess.run(['zstd','-T2','-3','-c'],stdin=save.stdout,stdout=output)
+            finally:
+                save.stdout.close()
+                save_code=save.wait()
+            if compressed.returncode or save_code:
+                raise RuntimeError('Fixed image export failed; no completed image archive produced')
+        partial.rename(destination)
+    finally:
+        partial.unlink(missing_ok=True)
+
+
 def export(root, output, code_only=False):
     root=Path(root).resolve();output=Path(output).resolve()
     if output.exists():raise FileExistsError('Refusing to overwrite delivery directory: '+str(output))
@@ -44,8 +79,13 @@ def export(root, output, code_only=False):
     lock=json.loads((root/'dependencies/sources.json').read_text())
     image=lock['container_rebuild']['portable_image_bundle']
     source_image=root/image['path']
-    if not code_only and (not source_image.is_file() or file_hash(source_image)!=image['sha256']):
-        raise ValueError('Verified fixed image bundle is missing; supply it or explicitly use --code-only')
+    local_image=None
+    if not code_only:
+        if source_image.is_file():
+            if file_hash(source_image)!=image['sha256']:
+                raise ValueError('Fixed image bundle checksum mismatch; refusing export')
+        else:
+            local_image=verified_local_image(root)
     output.mkdir(parents=True)
     archive=output/'project-source.tar.gz'
     with archive.open('wb') as raw, gzip.GzipFile(filename='',fileobj=raw,mode='wb',mtime=0) as compressed:
@@ -57,12 +97,16 @@ def export(root, output, code_only=False):
     artifacts={archive.name:file_hash(archive)}
     if not code_only:
         dest=output/'container-images.tar.zst'
-        try:os.link(source_image,dest)
-        except OSError:shutil.copyfile(source_image,dest)
-        artifacts[dest.name]=image['sha256']
+        if local_image is not None:
+            save_local_image(local_image,dest)
+            artifacts[dest.name]=file_hash(dest)
+        else:
+            try:os.link(source_image,dest)
+            except OSError:shutil.copyfile(source_image,dest)
+            artifacts[dest.name]=image['sha256']
     manifest={'scope':'Local delivery only; no upload or Git operation. Runtime verification is documented separately.',
               'files':{p.relative_to(root).as_posix():file_hash(p) for p in selected},'artifacts_sha256':artifacts,
-              'image_included':not code_only}
+              'image_included':not code_only, 'image_export':local_image or ({'method':'verified existing archive','sha256':image['sha256']} if not code_only else None)}
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
     (output/'SHA256SUMS').write_text(''.join(f'{h}  {name}\n' for name,h in artifacts.items()))
     (output/'README.txt').write_text('Verify: sha256sum -c SHA256SUMS\nLoad environment: zstd -dc container-images.tar.zst | docker load\nExtract: tar -xzf project-source.tar.gz\nThen: cd project; bash tools/project.sh fetch; bash tools/project.sh build\nRead project/README.md before starting simulation.\n'+('CODE ONLY: the fixed image archive is a separate required input.\n' if code_only else ''))

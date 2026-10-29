@@ -1,0 +1,140 @@
+{
+  "schema": "n06-live-ego-curve-pilot/v1",
+  "record_id": 104,
+  "date": "2026-10-23",
+  "goal_mode": "completion",
+  "goal_scope": "N06",
+  "parent_status": {
+    "N06": "in_progress",
+    "S4": "in_progress",
+    "next_goal": "N06"
+  },
+  "run_id": "n06-20261023-wall-r29",
+  "profile": {
+    "path": "config/components/simulation/n06_x_visibility_slow.json",
+    "sha256": "653733f873234da35fb38af4f80771707190bd21df595372c88fa2924234988f",
+    "truth_x_min_m": -2.4055229580003914,
+    "truth_x_final_m": -0.015688494000001905,
+    "truth_yaw_range_deg": [0.0, 0.0]
+  },
+  "health_and_map": {
+    "localization_status_count": 2015,
+    "invalid_localization_status_count": 0,
+    "map_status_count": 441,
+    "map_identity_count": 1,
+    "all_map_status_ready": true,
+    "epoch": "1b31ac63617b40559ec245779e9e7c24",
+    "map_id": "1b31ac63617b40559ec245779e9e7c24-7298214ffdb64675afa4ddad45518c45",
+    "recorder_wall_seconds": 104.133,
+    "depth_pose_pair_count": 3006,
+    "optimized_odometry_count": 1503
+  },
+  "snapshots": [
+    {
+      "snapshot": "snapshot-01",
+      "source_age_s": 0.141,
+      "fusion_age_s": 0.047,
+      "archive_sha256": "44fa5522911ef8b769aacd8b91122e41a6dd38a728f9cdad42e4b97e13ad45bd",
+      "identity_rejections_pass": true
+    },
+    {
+      "snapshot": "snapshot-02",
+      "source_age_s": 0.144,
+      "fusion_age_s": 0.045,
+      "archive_sha256": "a8da21ae501cf08f75c6fa0b0dad3a05b15e3f8c9df8fb00129a31384a61671a",
+      "identity_rejections_pass": true
+    },
+    {
+      "snapshot": "snapshot-03",
+      "source_age_s": 0.113,
+      "fusion_age_s": 0.048,
+      "archive_sha256": "4d8188d08b84bcc5c15869bd16975a582e3321d8a02faebaf90c5900262411e0",
+      "identity_rejections_pass": true
+    }
+  ],
+  "custom_live_probe": {
+    "probe_file": "artifacts/runs/n06-20261023-wall-r29/n06-live-layout-probe-lateral.json",
+    "goal_delta_xyz_m": [0.0, 0.6, 0.0],
+    "actual_start_xyz_m": [
+      0.008255038655634962,
+      -0.0033347766417827825,
+      -0.0032590915758396143
+    ],
+    "target_xyz_m": [
+      0.008255038655634962,
+      0.5966652233582171,
+      -0.0032590915758396143
+    ],
+    "map_ready": true,
+    "source_age_s": 0.076,
+    "fusion_age_s": 0.068,
+    "identity_stable": true,
+    "body_sphere_service_reason": "no_fresh_fused_depth",
+    "goal_id": "6db5e563a93841c9b594eed968f49700",
+    "curve_count": 1,
+    "curve_goal_id_matches": true,
+    "curve_epoch_matches": true,
+    "curve_order": 3,
+    "curve_sha256": "b7a29c00010acbb1a04fea8dedf80e36aba485ec70a5b8f584b41ff5ee68cdea",
+    "certificate_queries": 45,
+    "certificate_wall_ms": 0.43,
+    "certificate_reason": "free",
+    "fault_count": 0,
+    "late_curves_after_fault": 0,
+    "forbidden_nodes": [],
+    "forbidden_control_topics": [],
+    "control_free": true
+  },
+  "default_probe": {
+    "probe_file": "artifacts/runs/n06-20261023-wall-r29/n06-live-layout-probe.json",
+    "goal_delta_xyz_m": [0.5, 0.0, 0.5],
+    "body_sphere_service_reason": "no_fresh_fused_depth",
+    "fault_reason": "full_curve_terminal_hold_occupied",
+    "curve_count": 0,
+    "late_curves_after_fault": 0,
+    "identity_stable": true
+  },
+  "offline_snapshot_replay": {
+    "actual_body_sphere": {
+      "reason": "free",
+      "free": 2219,
+      "unknown": 0,
+      "occupied": 0
+    },
+    "actual_terminal_hold": {
+      "reason": "free",
+      "free": 4862,
+      "unknown": 0,
+      "occupied": 0
+    },
+    "lateral_goal_terminal_hold": {
+      "reason": "free",
+      "free": 4862,
+      "unknown": 0,
+      "occupied": 0
+    },
+    "lateral_straight_body_sweep": {
+      "reason": "free",
+      "queries": 25,
+      "speed_bound_m_s": 0.5
+    }
+  },
+  "artifacts": {
+    "run_inputs_sha256": "b95cd98b38f844eed310f4a161ad976625791ffc84ebf6b0fc14bf317cdb59ca",
+    "motion_sha256": "5bb9afde016af8dc579ee8d6a58df89fc1d44a2fe78748c0bcf93891ea5449b3",
+    "mapping_inputs_sha256": "cd5b0c540e7d0ef93dc9eb4e97c4f7c51d291bb38b87dd6f507802cf7ff66252",
+    "custom_probe_sha256": "8a103f3ccd5c0986e8917703f1a2c21714c59033e35140883b9a5c36a7815454",
+    "default_probe_sha256": "8810cce71e50ba9bdca47178cc1fa8d0f0302c66e7a4e8a485d79c597e7ce2c0"
+  },
+  "runner_exit_code": 0,
+  "cleanup_confirmed": true,
+  "next_hypothesis": {
+    "run_id": "n06-20261023-corridor-r30",
+    "layout_id": "corridor_box_column",
+    "profile": "config/components/simulation/n06_x_visibility_slow.json",
+    "primary_variable": "layout changes from wall_box_column to corridor_box_column",
+    "candidate_target_policy": "Use actual snapshot to choose a rearward target only if the current body sphere, endpoint terminal hold, and complete straight body sweep are all exact raw free; otherwise publish no goal.",
+    "status": "not_run"
+  },
+  "qualification": "A real map-identity-matched EGO B-spline passed the live full-curve certificate in the wall layout. This is one-layout sensor-only evidence and does not close N06 or qualify flight."
+}

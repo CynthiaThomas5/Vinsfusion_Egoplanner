@@ -1,0 +1,51 @@
+{
+  "schema": "n10-live-obstacle-replan-protocol/v1",
+  "subtask_id": "N10.3/#364",
+  "status": "protocol_frozen; run_not_started",
+  "formal_qualification": false,
+  "hypothesis": "A front-visible obstacle inserted after an EGO spline is active will be observed by the single-D435i map, cause a different EGO traj_id for the same goal/epoch, and be followed by PX4/bridge until goal completion.",
+  "single_scenario_variable": "Insert one static visible box at a fixed world pose 12.0 simulation seconds after the first spline for the active goal.",
+  "runtime_contract_sha256_baseline": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+  "inputs": {
+    "spawn": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "planner": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "goal": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "collision_policy": "official_ego",
+    "control_owner": "uav_px4_bridge only",
+    "localization_quality_and_localization_receipt_age_gates": "removed; raw measurements are observational"
+  },
+  "injection": {
+    "model_name": "n10_live_replan_box",
+    "world": "vio_initialization",
+    "static": true,
+    "pose_xyz_m": [0.0, 0.0, 1.4],
+    "size_xyz_m": [0.8, 0.8, 2.8],
+    "yaw_rad": 0.0,
+    "trigger": "NavigationCommand.target.header.stamp plus 12.0 simulated seconds; the first same-goal B-spline must already have been observed",
+    "truth_used_for_trigger": false,
+    "historical_position_at_goal_plus_11_7s_xyz_m": [-4.0, -1.27, 2.64],
+    "planning_horizon_m": 5.0
+  },
+  "success_observations": [
+    "run identity matches the frozen runtime and the initial goal/spline are observed",
+    "Gazebo acknowledges box creation",
+    "new obstacle has sensor/raw-map evidence",
+    "same goal_id and epoch publish a different EGO traj_id after injection",
+    "PX4/bridge show execution following the replacement path and the original position/yaw dwell completes",
+    "zero prohibited contacts and terminal observation coverage from planner, bridge, truth and contact observers",
+    "independent final readback is landed, disarmed, control disabled and zero control before stopping the project container"
+  ],
+  "diagnostic_abort": {
+    "if_no_replacement_after_sim_s": 1.0,
+    "action": "caller-cancel through the existing mission path; bridge-owned landing; preserve the run as failed/partial",
+    "is_final_acceptance_threshold": false,
+    "is_new_localization_health_gate": false
+  },
+  "not_frozen_by_this_protocol": [
+    "final replan deadline",
+    "final minimum-clearance threshold",
+    "raw VIO error/drift limit",
+    "localization/map age limit"
+  ],
+  "next_run_id": "n10-20261027-365-live-obstacle-replan-current"
+}

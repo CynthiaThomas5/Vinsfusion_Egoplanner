@@ -1,0 +1,42 @@
+{
+  "schema": "n08-continuous-reference-tube-check/v1",
+  "subtask": "N08.266",
+  "result": "focused_geometry_regression_passed_live_sitl_pending",
+  "changes": [
+    "tools/n08_trial_gate.py",
+    "tools/run_n08_braking_trial.py",
+    "tools/test_n08_trial_gate.py"
+  ],
+  "tube": {
+    "forward_x_bounds_relative_to_start_m": [-0.05, 0.65],
+    "lateral_vertical_radius_m": 0.05,
+    "maximum_spatial_sample_spacing_m": 0.001,
+    "continuous_bound_method": "derivative control polygon maximum vector speed times half the parameter-time sample interval",
+    "fail_closed_if_continuous_margin_unproven": true
+  },
+  "recorded_n08_265_curve": {
+    "passed": true,
+    "sample_count": 1153,
+    "maximum_sample_spacing_m": 0.0009991436411898721,
+    "derivative_control_speed_bound_m_s": 0.08093063493637963,
+    "between_sample_displacement_bound_m": 0.0004995718205949361,
+    "continuous_required_sample_clearance_m": 0.0004995728205949361,
+    "minimum_sample_clearance_m": 0.002419837138883059,
+    "limiting_boundary": "lateral_vertical",
+    "curve_x_delta_min_m": 0.0014847669293468445,
+    "curve_x_delta_max_m": 0.6000000000000001,
+    "curve_lateral_vertical_deviation_max_m": 0.047580162861116944,
+    "old_control_hull_max_lateral_vertical_deviation_m": 0.0507214764942035
+  },
+  "verification": {
+    "command": "PYTHONPATH=tools python3 -m unittest tools.test_n08_trial_gate",
+    "result": "6 tests passed",
+    "py_compile": "passed for tools/n08_trial_gate.py, tools/run_n08_braking_trial.py, tools/test_n08_trial_gate.py",
+    "git_diff_check": "passed",
+    "ros_package_build": "not applicable; no ROS package or EGO C++ sources changed",
+    "live_sitl": "pending fresh N05 / #267"
+  },
+  "acceptance_limits_changed": false,
+  "n08_status": "in_progress",
+  "next_subtask": "#267: new fresh N05 SITL with the unchanged low-speed profile, run mission and verify the live spline certificate before proceeding to braking, stationary 180-degree yaw, and forward-only EGO return."
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "n08-motion-cancel-runner-fix/v1",
+  "parent_goal": "N08",
+  "subtask": "#294 stable terminal reference window at high EGO command rate",
+  "status": "implementation_verified_runtime_pending",
+  "root_cause_evidence": {
+    "failed_run_id": "n08-cancel-translation-prescan-20261026-293",
+    "terminal_publication_period_ms": 8.0,
+    "previous_required_adjacent_period_ms": 50.0,
+    "post_end_terminal_commands": 3578,
+    "position_stable": true,
+    "derivatives_zero": true
+  },
+  "implementation": {
+    "file": "tools/run_n08_braking_trial.py",
+    "rule": "Inspect the most recent >=50 ms window of source-time-ordered commands for one goal/epoch/trajectory; accept only stable endpoint position with zero velocity and acceleration and allowed terminal flags.",
+    "health_map_speed_hold_and_landing_thresholds_changed": false
+  },
+  "tests": {
+    "new_regressions": [
+      "stable 8 ms command stream spanning >=50 ms is accepted",
+      "motion anywhere in the recent 50 ms window is rejected"
+    ],
+    "command": "bash tools/project.sh test",
+    "result": "356 tests passed; navigation-adapter integration passed"
+  },
+  "source_sha256": {
+    "tools/run_n08_braking_trial.py": "a29b6a8bd1614e4167d82842f4e3e186bb3aa0a9d3af6ec2d6294e14a63903ab",
+    "tools/test_run_n08_braking_trial.py": "4bcbca5a1f52c6da0766410d64d4096b970212987697b023e90a0892d51dcbf0"
+  },
+  "next_step": "Fresh cold start #294; repeat full N05 and mission preflight/current-area gates, then execute the same motion_cancel 0.04-0.06 m/s protocol."
+}

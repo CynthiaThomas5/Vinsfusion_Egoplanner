@@ -1,0 +1,54 @@
+{
+  "schema": "uav-n10-capture/v1",
+  "classification": "read-only offline evidence capture; no flight decision",
+  "sensor_config": "config/components/localization/vins_sim.json",
+  "sensor_streams": {
+    "stereo_left_image": "image0_topic",
+    "stereo_right_image": "image1_topic",
+    "camera_imu": "imu_topic"
+  },
+  "payload": {
+    "format": "rosbag2 mcap",
+    "compression": "lossless zstd_fast MCAP chunks",
+    "rosbag_max_cache_bytes": 104857600,
+    "receipt_metadata": "JSONL, keyed by topic/source stamp/frame and receipt monotonic ns"
+  },
+  "receipt_observer": {
+    "sensor_subscription_qos": "best_effort, volatile, keep_last",
+    "sensor_subscription_depth": 100,
+    "flush_every_messages": 32,
+    "runtime_effect": false
+  },
+  "identity": {
+    "required_fields": [
+      "run_id",
+      "runtime_contract_sha256",
+      "goal_id",
+      "epoch",
+      "map_id"
+    ],
+    "source": "run manifest + runtime-contract.json + session manifest + live NavigationCommand and MapStatus",
+    "split_on_identity_change": true
+  },
+  "capture_window": {
+    "start": "before flight task submission and before prestream",
+    "end": "verified safe session terminal plus 3 wall seconds, or bounded observer timeout",
+    "safe_terminal_source": "safe-to-stop.json or explicit emergency-disarm-safe-terminal.json"
+  },
+  "capacity_planning": {
+    "camera_resolution_px": [640, 480],
+    "camera_encoding": "L8 / mono8",
+    "camera_rate_hz_each": 30,
+    "camera_stream_count": 2,
+    "imu_rate_hz": 250,
+    "imu_serialized_size_budget_bytes_per_message": 1024,
+    "planning_duration_sim_s": 700,
+    "safety_factor": 1.25,
+    "recommended_free_bytes": 18000000000,
+    "receipt_queue_depth": 100,
+    "receipt_queue_memory_budget_bytes": 61542400,
+    "is_runtime_admission_gate": false,
+    "basis": "Worst-case uncompressed camera payload plus bounded IMU/message allowance, 700 simulated seconds and 25% reserve. Zstd can reduce size but no compression ratio is assumed. Receipt queues are independently bounded and observational."
+  },
+  "missing_data": "Record the error and report INSUFFICIENT offline; recorder state must not refuse, cancel, pause, or land a task."
+}

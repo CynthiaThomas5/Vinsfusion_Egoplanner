@@ -1,0 +1,148 @@
+{
+  "schema": "n10-integrated-calibration-result/v1",
+  "subtask": "N10.3/#412",
+  "status": "INSUFFICIENT",
+  "classification": "one current-candidate integrated diagnostic calibration; not an N11-N16 formal result",
+  "run_id": "n10-20261028-412-speed040-yaw-lookahead-calibration",
+  "runtime_contract_sha256": "0bf84419cc3f81d1cf22645f56e74358e60bbc74c1dbe09793900d81733057f2",
+  "goal_id": "72d50119d40343f8932799e563c4bae3",
+  "epoch": "0b4b77dc9f8147119b68383999093457",
+  "map_id": "0b4b77dc9f8147119b68383999093457-2e6f0d8d36594efb82c1cf4d100fa797",
+  "experiment": {
+    "route": "16 m EGO speed040 path with one-second path-heading lookahead",
+    "dynamic_obstacle": "static 0.8 x 0.8 x 2.8 m box inserted 12.004 simulated seconds after goal start",
+    "post_goal_active_hold_sim_s": 20.0,
+    "calibration_only": true,
+    "formal_n15_n16_credit": false
+  },
+  "mission": {
+    "native_action_success": true,
+    "independent_arrival_status": "PASS",
+    "joint_dwell_sim_s": 3.056,
+    "joint_dwell_max_position_error_m": 0.2998695145,
+    "joint_dwell_max_yaw_error_rad": 0.1818569114,
+    "safe_terminal": "LANDED, disarmed, control disabled, zero control",
+    "safe_to_stop": true,
+    "stale_bridge_reason_string": "px4_preflight_failed",
+    "stale_reason_interpretation": "early DISABLED history sample only; preflight/takeoff/action/final readback independently passed"
+  },
+  "observations": {
+    "raw_vio_goal_position_p95_max_m": [
+      0.1640311741,
+      0.2358846649
+    ],
+    "raw_vio_goal_absolute_yaw_p95_max_deg": [
+      0.3926974479,
+      0.7207509515
+    ],
+    "raw_vio_goal_rpe10_translation_p95_m": 0.2634833656,
+    "raw_vio_goal_rpe10_rotation_p95_deg": 0.1789112057,
+    "raw_vio_goal_velocity_error_p95_max_m_s": [
+      0.0473982874,
+      0.3364475165
+    ],
+    "tracking_error_p95_max_m": [
+      0.414677151,
+      0.4901065464
+    ],
+    "tracking_translation_bound_negative_samples": 0,
+    "tracking_translation_bound_min_m": 0.0143879684,
+    "sampled_full_body_clearance_min_m": 0.4235069287,
+    "prohibited_contacts": 0,
+    "solver_step_s": 0.004,
+    "model_bounded_free_flight_clearance_min_m": 0.4105437075,
+    "model_bounded_clearance_identity_status": "AIRBORNE_MODEL_BOUND_POSITIVE_CONTACT_PHASE_SEPARATE_HOST_REPLAY",
+    "post_box_roi_fully_contained_known_free_voxels": 39,
+    "post_box_roi_inflated_cells": 1792,
+    "post_box_snapshot_source_coverage": "no_roi_cloud_observed",
+    "observed_surface_faces": [
+      "x_negative",
+      "y_positive",
+      "z_negative"
+    ],
+    "replan_create_ack_wall_s": 0.1193216441,
+    "resource_wall_s": 184.267942878,
+    "resource_samples_1hz": 183,
+    "rtf_min_median_p95_max": [
+      0.5157087337,
+      0.8904467625,
+      0.9176819739,
+      1.1724462855
+    ],
+    "container_memory_peak_gib": 3.2470207214,
+    "cgroup_oom_kill_count": 0,
+    "cgroup_cpu_throttled_periods": 0,
+    "mapping_depth_queue_high_water_capacity": [
+      8,
+      8
+    ],
+    "mapping_depth_drops": 26,
+    "mapping_keyframe_drops": 21,
+    "vins_estimator_queue_high_water": {
+      "acc": 90,
+      "gyr": 90,
+      "feature": 2
+    },
+    "sensor_capture_integrity": "PASS",
+    "model_bounded_free_flight_interval_count": 27461,
+    "model_bounded_nonpositive_interval_count": 0,
+    "model_identity_checks": "all 19 locked PX4/Gazebo/model/plugin/contact checks passed in host replay",
+    "post_box_roi_known_free_voxel_nearest_face_counts": {
+      "y_positive": 35,
+      "x_negative": 4
+    },
+    "post_box_roi_nearest_face_interior_margin_m": {
+      "min": 0.0005621574,
+      "max": 0.00139136
+    }
+  },
+  "acceptance_evaluation": {
+    "arrival_position_yaw_dwell": "PASS",
+    "raw_vio_absolute_error": "PASS_PROVISIONAL_ONLY",
+    "raw_vio_rpe_10s": "FAIL",
+    "raw_vio_velocity_error": "FAIL",
+    "map_source_and_update_age": "PASS_PROVISIONAL_ONLY",
+    "ego_tracking_error": "INSUFFICIENT",
+    "ego_tracking_clearance_budget": "INSUFFICIENT",
+    "full_body_clearance_and_contact": "PASS_DISCRETE_AND_INTERVAL_SITL_ONLY",
+    "raw_map_surface_geometry": "INSUFFICIENT",
+    "raw_map_classification": "FAIL_NO_ROI_WATERMARK_OR_VOXEL_UPDATE_HISTORY",
+    "dynamic_replanning": "INSUFFICIENT",
+    "fault_exit_to_terminal_px4_state": "INSUFFICIENT_NOT_INJECTED",
+    "resource_and_queue_behavior": "INSUFFICIENT_BASIS",
+    "observer_identity_binding": "PASS"
+  },
+  "artifact_sha256": {
+    "runtime-contract.json": "23a3a1b81b61327e34964293bae2814074d30338f635d3e1114f6d23300c27d2",
+    "flight.json": "60cddc369542ac56ec01a47e9a7f89eb9519acbd0b8580064d925a73bde3934e",
+    "n10-acceptance-evaluation.json": "f47ac16cd4ba1b11375f9f81800cd8c3ae1620c463068b1109102dd572dcad16",
+    "n10-map-snapshot-pair-analysis.json": "d44d6b4ad1d2aa664810035841161be14aae16723d4cfa8776d22773408296fe",
+    "n10-live-obstacle-analysis.json": "c2062bba8d7c74c5327cffc4f1ec3e8e18d112bce7efa1f91bafbb830672ac78",
+    "n10-interval-clearance-bound.json": "13eaaa545854a5d19c6f0bc6538fc266ab9cb127957824b14f04d28a296684dd",
+    "n10-resource-observation.json": "e3c52a9d40ec473a3729cf1bb9c9bb7b7eb5b82236e093df2ba29134dc431157",
+    "n10-sensor-capture-evaluation.json": "857135b0a45f740c2ae356de3a121f7e4681d977283a31f91bd9c54caad0bf61",
+    "n10-interval-clearance-bound-host-replay.json": "a58f7186ab7b6f1340464c4cae557d4cb4792262b715979c628554b03b5ca27f"
+  },
+  "thresholds_changed": false,
+  "runtime_gates_added": false,
+  "emergency_disarm_used": false,
+  "evaluator_correction": {
+    "original_report": "artifacts/runs/n10-20261028-412-speed040-yaw-lookahead-calibration/n10-interval-clearance-bound.json",
+    "original_report_status": "INSUFFICIENT_MODEL_IDENTITY",
+    "host_replay": "artifacts/runs/n10-20261028-412-speed040-yaw-lookahead-calibration/n10-interval-clearance-bound-host-replay.json",
+    "host_replay_status": "AIRBORNE_MODEL_BOUND_POSITIVE_CONTACT_PHASE_SEPARATE",
+    "cause": "original /workspace execution could not read the Git source identity; the same raw run and evaluator on the locked host checkout passed all source checks",
+    "formal_qualification": false
+  },
+  "post_box_snapshot_observer_limitations": {
+    "observer_path": "artifacts/n10-prepared/n10-20261028-412-speed040-yaw-lookahead-calibration/n10_live_obstacle_injector.py",
+    "cloud_sampling": "every tenth occupancy PointCloud2 callback",
+    "roi_window_relative_to_injection_s": [
+      -0.5,
+      5.0
+    ],
+    "no_roi_fallback_snapshot_s": 8.0,
+    "interpretation": "no_roi_cloud_observed means no positive ROI point was found in the sampled subset before the fallback snapshot; it does not establish that no ROI cloud or voxel update existed",
+    "per_voxel_vote_history": "not captured"
+  }
+}

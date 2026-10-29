@@ -1,0 +1,173 @@
+{
+  "schema": "n07-retreat-observation-diagnostic/v1",
+  "task_id": "N07.1 #155",
+  "run_id": "n07-20261023-155-01",
+  "scope": "DISARMED physical support scan; N05 result below was captured while the fixture remained attached; no flight qualification",
+  "candidate_profile": "n06_full_airframe_retreat_240_translation_only",
+  "runtime_spawn_pose": "-6.5,0,0.3,0,0,0",
+  "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+  "world_scene": "current PX4 SITL scene plus selected N04 geometry, shifted +1.5 m along spawn yaw",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true
+  },
+  "scan": {
+    "completed_stages": 6,
+    "expected_stages": 6,
+    "stage_records": [
+      {
+        "leg_index": 0,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 16.056,
+        "end_sim_s": 19.168,
+        "target": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "leg_index": 1,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 19.168,
+        "end_sim_s": 31.248,
+        "target": [
+          0,
+          1.0,
+          0,
+          0
+        ]
+      },
+      {
+        "leg_index": 2,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 31.248,
+        "end_sim_s": 131.308,
+        "target": [
+          -2.4,
+          1.0,
+          0,
+          0
+        ]
+      },
+      {
+        "leg_index": 3,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 131.308,
+        "end_sim_s": 231.316,
+        "target": [
+          0,
+          1.0,
+          0,
+          0
+        ]
+      },
+      {
+        "leg_index": 4,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 231.316,
+        "end_sim_s": 246.396,
+        "target": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "leg_index": 5,
+        "label": null,
+        "cycle": null,
+        "begin_sim_s": 246.396,
+        "end_sim_s": 251.528,
+        "target": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "trace_rows": 10177,
+    "all_localization_samples_valid": true,
+    "localization_reasons": [
+      "fresh_inputs_and_usable_solver"
+    ],
+    "epoch_ids": [
+      "7d94df7f0b304e33bbd9bda82c62d50b"
+    ],
+    "normalized_cost_min_max": [
+      0.07332125391929749,
+      0.6039084885227297
+    ],
+    "body_x_min_max_m": [
+      -2.4000066961856352,
+      2.516824116495668e-05
+    ],
+    "max_abs_fixture_yaw_rad": 1.0966379102635148e-18,
+    "max_abs_fixture_pitch_rad": 0.0008945725742337742
+  },
+  "attached_n05": {
+    "accepted": true,
+    "reason": "all_entry_phases_known_and_clear",
+    "online_offline_identical": true,
+    "offline_replay_matches": true,
+    "phase_maximum_unknown_cells": {
+      "TAKEOFF_CONTACT": 0,
+      "ASCENT": 0,
+      "HOLD": 0,
+      "DESCENT": 0,
+      "LANDING_CONTACT": 0
+    },
+    "phase_maximum_occupied_cells": {
+      "TAKEOFF_CONTACT": 0,
+      "ASCENT": 0,
+      "HOLD": 0,
+      "DESCENT": 0,
+      "LANDING_CONTACT": 0
+    },
+    "fixture_was_still_attached": true
+  },
+  "post_release": {
+    "fresh_gate_captured": false,
+    "reason": "run_n05_preflight_layout exits before post-release gate when fixture helper returns nonzero",
+    "fixture_removed": true,
+    "scene_model_absent": true,
+    "remove_service_acknowledged": true,
+    "fixture_may_remain_attached": false,
+    "fixture_helper_error": "localization changed or became invalid during physical scan",
+    "fixture_exit_code": 1,
+    "last_localization_valid": true,
+    "last_localization_reason": "fresh_inputs_and_usable_solver",
+    "px4_vehicle_states": [
+      1
+    ],
+    "container_status": "Exited (0)"
+  },
+  "qualification": {
+    "n07_hover_run_count": 0,
+    "n05_released_entry_accepted": false,
+    "flight_allowed_from_this_evidence": false
+  },
+  "sha256": {
+    "n05-run-inputs.json": "1ecc9ae24a70fdb92c30f1574483b227fc76215c5e689853635c3811191b7d72",
+    "n05-before/n05-live-entry-check.json": "f1e2bc07e29389d3eb81b4ea36264196999db1d59703144a4a382fb0e46c2a6d",
+    "n05-before/n05-offline-entry-replay.json": "f65fcca545b127514730d063f9333ebfe5bebce17c42d7ee7a80bfefecadcb6c",
+    "fixture-result.json": "06db6f082a7a4819c98944c76fdf725c3303531336fce8f134b23eb7db93322a",
+    "fixture-stages.json": "90d9db85a69154c2942be88f50d188e971acd9fee2178e064159d0e4ddadb105",
+    "fixture-trace.jsonl": "a89e9950b630eac1084c9eac746550f47dece1e5d485355d6482d0daf11d2659",
+    "fixture-vins.jsonl": "a0e3e495236ae61e2f531ac523c850dce04748534263f4912bfa7d37892348ad",
+    "fixture-odometry.jsonl": "56d15c74b88ce6128d3961a92e45a444d2ebe374dada04b688421185c8e5c040",
+    "n05-after/n05-live-entry-check.json": "96aaf6d8bc1973196099cd8a2e69d92696c8d4f575ca484dc147c3fa54eca069",
+    "n05-after/n05-offline-entry-replay.json": "c47f22157dda313a4b3cea4aaaf5d28d21baaa90fb2cc2f72d9c7758c6189e98",
+    "n05-fixture.log": "3afed94a72adbeaec8604508b80aeeb1795d6eb8117818143ac44ba7a8de1d9e",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+  }
+}

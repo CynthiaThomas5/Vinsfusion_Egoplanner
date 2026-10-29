@@ -1,0 +1,124 @@
+{
+  "task": "110-ego-rviz-views",
+  "date": "2026-10-23",
+  "passed": true,
+  "scope": "Optional read-only GUI views; synthetic ROS and Xvfb configuration load only. No flight, SITL navigation acceptance, hardware or target GPU qualification. N06 status unchanged.",
+  "checks": {
+    "build": "uav_navigation + uav_px4_bridge: 2 packages passed",
+    "unit": "python3 -m unittest tools.test_visualization_geometry tools.test_vio_ego_bringup_config -v: 13 passed",
+    "syntax": "Python compile(source) and bash -n tools/sim_runtime.sh passed",
+    "ros": {
+      "passed": true,
+      "type": "synthetic_ROS_display_integration",
+      "checks": {
+        "actual_curve_path_target_and_diagnostic_frame": true,
+        "foreign_epoch_ignored": true,
+        "cancel_clears_and_late_curve_ignored": true,
+        "localization_loss_clears_paths_and_remains_visible": true,
+        "display_only_publishers": true
+      },
+      "scope": "No Gazebo, PX4, flight or GUI rendering",
+      "publishers": [
+        [
+          "/parameter_events",
+          [
+            "rcl_interfaces/msg/ParameterEvent"
+          ]
+        ],
+        [
+          "/rosout",
+          [
+            "rcl_interfaces/msg/Log"
+          ]
+        ],
+        [
+          "/visualization/ego/actual_path",
+          [
+            "nav_msgs/msg/Path"
+          ]
+        ],
+        [
+          "/visualization/ego/astar",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ],
+        [
+          "/visualization/ego/control_polygon",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ],
+        [
+          "/visualization/ego/envelope",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ],
+        [
+          "/visualization/ego/global_reference",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ],
+        [
+          "/visualization/ego/goal",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ],
+        [
+          "/visualization/ego/hold_envelope",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ],
+        [
+          "/visualization/ego/initial_candidates",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ],
+        [
+          "/visualization/ego/planned_path",
+          [
+            "nav_msgs/msg/Path"
+          ]
+        ],
+        [
+          "/visualization/ego/status",
+          [
+            "visualization_msgs/msg/Marker"
+          ]
+        ]
+      ]
+    },
+    "rviz": {
+      "passed": true,
+      "scope": "RViz configuration/plugin load under Xvfb software OpenGL; synthetic ROS display integration, no flight or target GPU qualification",
+      "fixed_frame": "odom_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "debug_default_enabled": false,
+      "rviz_log": "rviz.log"
+    }
+  },
+  "sha256": {
+    "config/components/navigation/visualization.json": "00a4476c5fad62f119379be02dfd99cf7ab93abe3cffb5ea9d08358088280f2e",
+    "config/rviz/mapping.rviz": "603e2788b88fc633cd5e76a85b296f05ee913dbd6fb50c6927bce76071a12de9",
+    "src/own/uav_navigation/uav_navigation/visualization.py": "2075b648c77ff9e45a1654882a7d5e1b98a952d87fa481597704b3ec590c2994",
+    "src/own/uav_navigation/uav_navigation/visualization_geometry.py": "3ee127b968e356c6c0e428e8370b63b1bff3ec41312a31f3937e19b63b3741c1",
+    "src/own/uav_navigation/setup.py": "308cc13045ff3b1a2e62393f8021e82d4778374b0eb1967c0fc951387b79f421",
+    "src/own/uav_navigation/package.xml": "bed656cc6a8de6092db9aa9f474ae5d43bed07a39b328c7c053147e12bc0dfe0",
+    "src/own/uav_px4_bridge/launch/vio_closed_loop_ego_px4.launch.py": "66582d2eec055b291d15bd9cf6d004e8a84e60994b7c6b8956fa3632b70e10dd",
+    "tools/sim_runtime.sh": "2a112e626f8ed300fc323e39a4d4c8789bf9871ee3888c03ece437339e6e134a",
+    "tools/test_visualization_geometry.py": "6eb5f490f8ab74111c3c8b486c2c27086b544140a7368cf1ef09a763e50c63b7",
+    "tools/probe_navigation_visualization.py": "fa95dac55a4c80c336b0dd875c74d38253212c2c1c766e5998d0cb5f648760f5",
+    "artifacts/runs/rviz-20261023-099/build.log": "0ee0aadf7defe7355145f96feb612a6f86b71fcdcf6bb89b5907cf70d3b69870",
+    "artifacts/runs/rviz-20261023-099/gui-config.json": "8b606b3ada2ba8fb2a06a60b86aff1f4c8f1eafa4195974cb3f42174b00c194f",
+    "artifacts/runs/rviz-20261023-099/integration-gui.json": "f28dbb8afcd1e407951fe59f56ff014b56c11fe3b8bf83acd24a185afc20ac4a",
+    "artifacts/runs/rviz-20261023-099/integration-gui.log": "f28dbb8afcd1e407951fe59f56ff014b56c11fe3b8bf83acd24a185afc20ac4a",
+    "artifacts/runs/rviz-20261023-099/integration.json": "f28dbb8afcd1e407951fe59f56ff014b56c11fe3b8bf83acd24a185afc20ac4a",
+    "artifacts/runs/rviz-20261023-099/mapping.rviz": "cf1c3695dcae19f149510c625db5e949c65642c5633face8c81010ed68b61546",
+    "artifacts/runs/rviz-20261023-099/rviz.log": "d4491c48b0b3ada3b7c9f0ce180248728d19e8dff2b274110bd93be4af50a1ff",
+    "artifacts/runs/rviz-20261023-099/xvfb.log": "f172a1b0f5cf2a0d462c51dfc335af1a1dfc8e873cb66f61d018c8b1b35fe416"
+  }
+}

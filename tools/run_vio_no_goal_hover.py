@@ -10,7 +10,7 @@ import time
 import rclpy
 from rosgraph_msgs.msg import Clock
 from run_vio_ego_flight import (EgoFlightProbe, call_enable,
-                                localization_tracking_fresh, spin_until,
+                                localization_tracking_current_epoch, spin_until,
                                 telemetry_sources_fresh)
 from uav_interfaces.msg import LocalizationStatus
 
@@ -94,7 +94,7 @@ def main():
             rclpy.spin_once(node, timeout_sec=0.05)
             now = time.monotonic()
             if (telemetry_sources_fresh(node.latest_bridge_detail or {})
-                    and localization_tracking_fresh(node, result['localization_epoch'])):
+                    and localization_tracking_current_epoch(node, result['localization_epoch'])):
                 if stability_start is None:
                     stability_start = now
                 if now - stability_start >= args.px4_fresh_stability_s:
@@ -104,7 +104,7 @@ def main():
         stable = (
             stability_start is not None
             and time.monotonic() - stability_start >= args.px4_fresh_stability_s
-            and localization_tracking_fresh(node, result['localization_epoch'])
+            and localization_tracking_current_epoch(node, result['localization_epoch'])
             and telemetry_sources_fresh(node.latest_bridge_detail or {})
         )
         result['px4_telemetry_stability_required_s'] = args.px4_fresh_stability_s
@@ -121,8 +121,8 @@ def main():
         active = spin_until(node, lambda: (
             node.bridge is not None and node.bridge.phase == 'ACTIVE'
             and node.bridge.armed and not node.bridge.landed
-            and localization_tracking_fresh(node, result['localization_epoch'])
-        ), args.flight_timeout_s, abort_predicate=lambda: not localization_tracking_fresh(
+            and localization_tracking_current_epoch(node, result['localization_epoch'])
+        ), args.flight_timeout_s, abort_predicate=lambda: not localization_tracking_current_epoch(
             node, result['localization_epoch']))
         result['takeoff_active_observed'] = active
         if not active:
@@ -152,7 +152,7 @@ def main():
             bridge = node.bridge
             if bridge is None or bridge.phase != 'ACTIVE' or not bridge.armed:
                 break
-            if not localization_tracking_fresh(node, result['localization_epoch']):
+            if not localization_tracking_current_epoch(node, result['localization_epoch']):
                 break
             if node.clock_regressions:
                 break
@@ -184,7 +184,7 @@ def main():
             and not clock_stalled and node.clock_regressions == 0
             and node.bridge is not None
             and node.bridge.phase == 'ACTIVE' and node.bridge.armed
-            and localization_tracking_fresh(node, result['localization_epoch']))
+            and localization_tracking_current_epoch(node, result['localization_epoch']))
 
         if (node.bridge is not None and node.bridge.armed
                 and node.bridge.phase in ('TAKEOFF', 'ACTIVE')):
@@ -221,6 +221,7 @@ def main():
                 and node.bridge.landed and not node.bridge.armed
             ), args.landing_timeout_s)
     finally:
+        result['wall_monotonic_origin_s'] = node.started_wall
         result['counts'] = dict(node.counts)
         result['stream_diagnostics'] = node.streams
         result['localization_quality_history'] = node.localization_quality_history

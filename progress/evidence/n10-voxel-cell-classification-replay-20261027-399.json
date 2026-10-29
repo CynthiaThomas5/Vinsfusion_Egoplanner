@@ -1,0 +1,163 @@
+{
+  "schema": "n10-voxel-cell-classification-replay/v1",
+  "subtask": "N10.3/#399",
+  "classification": "offline re-evaluation of successful calibration run #398; no runtime gate or flight control changes",
+  "run_id": "n10-20261027-398-speed040-integrated-calibration",
+  "runtime_contract_sha256": "01c674db1c9af1ae2e8fb20c0cb8fb9b75a46e83c7947a95ad300364e5119bc9",
+  "flight": {
+    "action_outcome": "succeeded",
+    "action_reason": "position_yaw_tolerance_held",
+    "goal_id": "00c2771cd5534b98b7b8a7d8731b5980",
+    "epoch": "26a9d1edcc27473a8258d967adca08af",
+    "arrival_joint_dwell_sim_s": 3.344,
+    "diagnostic_hold_sim_s": 15.0,
+    "landed_and_disarmed": true,
+    "clock_regression_count": 0
+  },
+  "tracking": {
+    "paired_samples": 11920,
+    "maximum_truth_bracket_gap_sim_s": 0.004,
+    "tracking_p95_m": 0.32678534762802963,
+    "tracking_max_m": 0.3403254755094711,
+    "negative_translation_only_bound_samples": 583,
+    "negative_translation_only_bound_fraction": 0.048909395973154364,
+    "worst_translation_only_bound_m": -0.13878911522260906,
+    "acceptance_threshold": null,
+    "runtime_gate_added": false
+  },
+  "discrete_clearance": {
+    "truth_states": 25444,
+    "duration_sim_s": 101.772000001,
+    "maximum_gap_sim_s": 0.004,
+    "every_consecutive_physics_state_captured": true,
+    "sampled_minimum_full_body_clearance_m": 0.18603544392904392,
+    "endpoint_motion_adjusted_sampled_margin_m": 0.18301371354765755,
+    "prohibited_contact_count": 0,
+    "continuous_time_certificate": false
+  },
+  "raw_vio_goal_motion": {
+    "position_error_p95_m": 0.0952483435072294,
+    "position_error_max_m": 0.09802879895310712,
+    "yaw_error_p95_deg": 0.16473629605199672,
+    "yaw_error_max_deg": 0.1674083792054995,
+    "rpe_10s_translation_p95_m": 0.03797346042886442,
+    "rpe_10s_rotation_p95_deg": 0.19991831449706057
+  },
+  "map": {
+    "identity_bound": true,
+    "resolution_m": 0.1,
+    "center_inside_counts": {
+      "unknown": 1739,
+      "known_free": 34,
+      "raw_occupied": 19
+    },
+    "all_eight_voxel_corners_inside_truth_solid_counts": {
+      "unknown": 1310,
+      "known_free": 13,
+      "raw_occupied": 0
+    },
+    "center_inside_but_cell_not_fully_contained_counts": {
+      "unknown": 429,
+      "known_free": 21,
+      "raw_occupied": 19
+    },
+    "truth_occluded_known_free_candidate_count": 13,
+    "candidate_threshold_max": 0,
+    "classification_metric_status": "FAIL",
+    "surface_faces_with_support": [
+      "x_negative",
+      "y_negative"
+    ],
+    "surface_faces_without_support": [
+      "x_positive",
+      "y_positive",
+      "z_negative",
+      "z_positive"
+    ],
+    "surface_geometry_metric_status": "INSUFFICIENT",
+    "injection_ack_sim_ns": 124220000000,
+    "first_sampled_box_cloud_header_ns": 127768000000,
+    "snapshot_request_sim_ns": 128520000000,
+    "snapshot_latest_depth_source_ns": 128372000000,
+    "snapshot_fusion_stamp_ns": 128496000000,
+    "point_query_count": 26,
+    "point_queries_accepted_and_identity_bound": true,
+    "point_query_and_snapshot_timestamp_equality_required": false,
+    "same_cloud_absorption_proven": false,
+    "second_sampled_box_cloud_header_ns": 128388000000,
+    "source_stamp_leads_first_sampled_cloud_by_ns": 604000000,
+    "source_stamp_lags_second_sampled_cloud_by_ns": 16000000,
+    "source_stamp_covers_first_sampled_cloud": true,
+    "source_stamp_covers_latest_sampled_cloud_before_snapshot": false,
+    "exact_sampled_cloud_fusion_frame_proven": false
+  },
+  "sensor_capture": {
+    "status": "PASS",
+    "bag_payload_count": 64813,
+    "receipt_count": 64850,
+    "active_identity_tuple_count": 1,
+    "payload_without_receipt_count": 0,
+    "left_boundary_receipt_without_payload": 4,
+    "right_boundary_receipt_without_payload": 4,
+    "imu_boundary_receipt_without_payload": 29
+  },
+  "resources": {
+    "samples": 298,
+    "wall_duration_s": 301.07672141096555,
+    "sample_period_s": 1.0,
+    "observed_memory_peak_bytes": 3491336192,
+    "oom_events": 0,
+    "map_depth_queue_capacity": 8,
+    "map_depth_queue_high_water": 8,
+    "map_depth_queue_dropped": 36,
+    "keyframe_dropped": 31,
+    "vins_internal_queue_capacity": null,
+    "capacity_basis_status": "INSUFFICIENT",
+    "safe_session_terminal_observed": true
+  },
+  "acceptance": {
+    "overall_status": "INSUFFICIENT",
+    "runtime_identity_matches": true,
+    "acceptance_config_status": "draft",
+    "metric_status": {
+      "raw_map_classification": "FAIL",
+      "raw_map_surface_geometry": "INSUFFICIENT",
+      "ego_tracking_clearance_budget": "INSUFFICIENT",
+      "full_body_clearance_and_contact": "PASS",
+      "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+      "resource_and_queue_behavior": "INSUFFICIENT"
+    }
+  },
+  "validation": {
+    "command": "PYTHONPYCACHEPREFIX=/tmp/n10-399-pycache python3 -m unittest tools.test_n10_occupancy_snapshot tools.test_n10_acceptance",
+    "result": "29 tests passed",
+    "py_compile": "passed",
+    "git_diff_check": "passed"
+  },
+  "sha256": {
+    "flight.json": "55c1617cac9326cb3fb880b5e99e193cafa62a54091d003c86aec7fa8d47f2b7",
+    "runtime-contract.json": "136f33660f49f35c291dd4775fc5eadf3ec569957a4d31ce1c1e3f677f5efdea",
+    "map_snapshot_metadata": "003f58ef1e23fd507a3ce98da69fe77b59f76c41b7e62e04ca95103e2fd4006b",
+    "occupancy_snapshot_npz": "292695c1ceb79f63b0db1a6167f186e2e5e4a2c28dec9725c695f4eed7d3ba59",
+    "snapshot_analysis_v3": "07d3e261c73e98edd4569622b56f9d75d8a4a24a4727a66ac1af1eea8c65c454",
+    "acceptance_evaluation_v6": "a822a4b19b527fb9d88a19c3c3ecb21ac0114e4b0ce960af6de2327664d5a99b",
+    "tracking_clearance_relation": "a96478ef4d6504483c19c3bf48762165f5e3f52fc279ee2de5ca108c4b824646",
+    "clearance_evaluation": "6728b35ac8f62598d478e877643470b958b7b803b4184cf54e20d182cea1b042",
+    "resource_observation": "0a8d89b2266ebc844e4a666498679ade27b0a1fa3ddd00c867f4977cdb65416d",
+    "sensor_capture_evaluation": "f56c1f8416d217b657e07431598522ef656b5cf8a3eccc1cfbb6b64dda66a48b",
+    "live_obstacle_observation": "3c1b30d68a2afe45908c88160021acd7b5c5145be3af17eca5b756180a9803f7"
+  },
+  "limitations": [
+    "Classification threshold remains a draft candidate and is not runtime policy.",
+    "The map source stamp is later than the first recorded ROI cloud by 604 ms but earlier than the second recorded cloud by 16 ms; raw occupied clouds are sampled every tenth message, so exact per-cloud fusion cannot be established.",
+    "Only two box faces have occupied point support.",
+    "The sampled solver-state clearance and observed endpoint motion do not form a continuous-time motion certificate.",
+    "No current-version injected-fault-to-terminal-PX4 calibration was obtained in #398.",
+    "Queue capacity for the internal VINS queue remains unexposed."
+  ],
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261027-398-speed040-integrated-calibration",
+    "snapshot_report": "artifacts/runs/n10-20261027-398-speed040-integrated-calibration/n10-box-map-snapshot-analysis-v3.json",
+    "acceptance_report": "artifacts/runs/n10-20261027-398-speed040-integrated-calibration/n10-acceptance-evaluation-v6.json"
+  }
+}

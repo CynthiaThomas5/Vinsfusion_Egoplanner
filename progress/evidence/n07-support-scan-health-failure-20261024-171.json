@@ -1,0 +1,114 @@
+{
+  "schema": "n07-support-scan-health-failure/v1",
+  "task_id": "N07.17 #171",
+  "run_id": "n07-20261024-171-01",
+  "qualification": "failed_before_released_n05_gate_and_no_goal_hover",
+  "consecutive_qualified_hover_count": "0/3",
+  "prior_sequence": "#170 was 1/3; #171 support-scan health failure resets the sequence; #170 remains a valid standalone run, not part of the new consecutive series",
+  "runtime": {
+    "epoch": "58e155bf564f4671bd613d0277585291",
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_early_view",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "health_config_sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "max_accel_bias_m_s2": 0.15
+  },
+  "startup_read_only_probe": {
+    "duration_wall_s": 45.01760601787828,
+    "tracking_wall_s": 2.760924733011052,
+    "telemetry_max_source_age_s": 0.080000001,
+    "telemetry_source_gap_p95_s": 0.068000001,
+    "telemetry_stale_observed": false
+  },
+  "initial_n05_check": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "truth_subscribed": false,
+    "control_or_goal_published": false,
+    "interpretation": "fail-closed raw ground occupancy refusal; no bypass"
+  },
+  "support_scan": {
+    "outcome": "failed",
+    "completed_stages": 7,
+    "expected_stages": 12,
+    "wall_duration_s": 341.3944707971532,
+    "error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "accel_bias_norm_exceeded",
+      "normalized_cost": 0.5366211918961712
+    },
+    "first_bias_over_health_limit": {
+      "stamp_s": 277.3,
+      "accel_bias_norm": 0.1509816823910172
+    },
+    "max_bias": {
+      "stamp_s": 283.043999999,
+      "accel_bias_norm": 0.18914380811587944
+    },
+    "last_fixture_trace": {
+      "sim_s": 277.42,
+      "localization": {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.5359141182629257
+      }
+    },
+    "released_n05_gate_started": false,
+    "no_goal_hover_started": false,
+    "flight_started": false
+  },
+  "comparison": {
+    "run_id": "n07-20261024-170-01",
+    "same_profile": true,
+    "completed_stages": 12,
+    "max_accel_bias_norm": 0.08040090312554402,
+    "interpretation": "different cold-start outcomes; upstream cause of #171 bias rise remains unknown"
+  },
+  "safety_shutdown": {
+    "fixture_detached": true,
+    "fixture_removed": true,
+    "final_landed": true,
+    "final_land_detector_landed": true,
+    "vehicle_states": [
+      1
+    ],
+    "direct_bridge_readback": {
+      "phase": "DISABLED",
+      "reason": "localization_not_tracking",
+      "armed": false,
+      "landed": true
+    },
+    "direct_px4_readback": {
+      "arming_state": 1,
+      "landed": true
+    },
+    "stop_command": "bash tools/project.sh stop n07-20261024-171-01",
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "remaining_matching_project_container": false
+  },
+  "threshold_or_control_changes": false,
+  "diagnosis": {
+    "confirmed": "VINS accel_bias_norm crossed the existing 0.15 m/s² localization health bound during return translation and the adapter failed closed.",
+    "not_confirmed": "The upstream reason for the bias increase and why the independent #170 run remained below the bound."
+  },
+  "artifact_sha256": {
+    "n05-run-inputs.json": "a59992a3066aca1472ccdac92000d52515ec57d03dd539500c0d6e5804a03048",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-before/n05-live-entry-check.json": "376cb1ee9ede3e6ba056711ba4f43b75d9dc14c332f45accee1cdf3e79456b4e",
+    "n07-vio-stream-diagnostic.json": "cf75b3f1f0ce4c7a48b588c622fab3c94ab34ff6372ce110dd5c509bbd1a54a4",
+    "fixture-result.json": "90d408fb7837cc0cfe307ce86a1e82836ce35c0c67b65563c5111b108265ea91",
+    "fixture-stages.json": "47def40e69ab365e73ec369147e5611091ee2e0b1b5ea91ce00b8c825e8ed768",
+    "fixture-trace.jsonl": "220a973d6960f096ae11628b83b2c458cdbff6df42820c0965fc569a815ab7f9",
+    "fixture-vins.jsonl": "3be967d1fa578f04e570b86082a20a9f59f90174e9c6c0d074ef9d771f825875",
+    "failure-safety-readback.log": "aef0f609ec1f7913a2d3c9d721d64e1b989c3d89277dbf15553b0005aa5eeefa",
+    "n05-fixture.log": "40154bd707114a3b279b339b9e28136f19e2cdec0b502336e6eb4652696e3851",
+    "px4.log": "03700cf6120c13c7a1beab81f841016d3b8d0b6d01c688b8c3e766b47d73bf07"
+  },
+  "next_step": "#172 repeats the same fixed protocol in an independent cold-start epoch while retaining fixture-vins bias telemetry. If the same-route threshold crossing recurs, stop repeated qualification attempts and investigate the movement-related failure before continuing."
+}

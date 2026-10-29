@@ -1,0 +1,63 @@
+{
+  "schema": "n08-negative-y-coverage-lockout/v1",
+  "run_id": "n08-20261024-247-negative-y-coverage",
+  "goal": "N08",
+  "child": "N08.2aj",
+  "profile": "n08_overhead_free_sector_view_decoupled_slow_vertical_return_negative_side",
+  "hypothesis": "A negative-Y observation at x=0,z=1.0m will reduce the above-ground unknown band in the current start-hold sphere.",
+  "variable": "Added one negative-Y view, dwell and return; all planner, goal, speed and geometry thresholds unchanged.",
+  "profile_stages": 19,
+  "completed_stages": 16,
+  "negative_y_view_and_return_completed": true,
+  "n05_prescan": {
+    "online_offline_agree": true,
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels"
+  },
+  "lockout": {
+    "stage": "first z=1.0m to 0.5m descent, stage 17",
+    "clock_stamp_s": 460.068,
+    "normalized_cost": 1.000494384682518,
+    "limit": 1.0,
+    "reason": "normalized_cost_exceeded",
+    "stale_observation": null,
+    "optimized_source_age_s": 0.064,
+    "telemetry_source_age_s": 0.068,
+    "prior_evaluation_ok": true,
+    "prior_spectrum_ok": true
+  },
+  "post_scan_same_identity_map_available": false,
+  "negative_y_unknown_reduction_determined": false,
+  "post_release_n05_gate_run": false,
+  "compute_only_run": false,
+  "curve_certificate_run": false,
+  "xy_executed": false,
+  "braking_measured": false,
+  "px4_clock_readback": {
+    "bridge_detail_samples": 39,
+    "all_time_domain_valid": true,
+    "px4_ros_clock_gap_s": [-0.004, 0.008]
+  },
+  "final_safety": {
+    "vehicle_arming_state": "DISARMED",
+    "landed": true,
+    "fixture_detached": true,
+    "fixture_absent": true,
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "control_topic_samples_zero": true,
+    "stop_command_exit_code": 0,
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "container_finished_at": "2026-10-24T14:35:14.204771567Z"
+  },
+  "artifacts": {
+    "run_dir": "artifacts/runs/n08-20261024-247-negative-y-coverage",
+    "fixture_result_sha256": "3d30df037bb67f6b0163d9750ca3d93d2cda2f96a40eb232c120355e2049b470",
+    "fixture_stages_sha256": "d739671f4892a186d6e33db64bbabd60a152412195ddfbb7a4cfe445b1d5d526",
+    "fixture_trace_sha256": "3b19fad38a439c2d2143c1ab18ea6779136ad9e01c0e34f464f2d75fe67de081",
+    "n05_prescan_sha256": "73fd3dfca0fb5f2f101c3e80059f8fdabcc59706565a70a899839b552a6b9d83",
+    "final_safety_live_sha256": "e50669ec4e8727eccaaba18b2ce76409ec153249e54b3ebe72a1ad364068093a"
+  },
+  "next_step": "N08.2ak #248: keep the negative-Y observation and all other stages fixed; extend only the first z=1.0m to 0.5m descent from 8s to 20s."
+}

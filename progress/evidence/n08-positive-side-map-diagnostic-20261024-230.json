@@ -1,0 +1,436 @@
+{
+  "schema": "n08-positive-side-map-diagnostic/v1",
+  "task": "N08.2t #230",
+  "run_id": "n08-20261024-230-positive-side-view-01",
+  "status": "compute-only rejected before B-spline; no XY; stop envelope unproven",
+  "scope": "one-sided positive-yaw support scan, fresh N05 admission, compute-only attempt, read-only same-identity raw map diagnosis",
+  "experiment": {
+    "physical_variable": "Add +pi/2 horizontal view and return neutral after #228 overhead scan",
+    "profile": "n08_overhead_positive_side_view",
+    "completed_stages": 19,
+    "total_stages": 19,
+    "health_thresholds_changed": false,
+    "xy_execution_authorized": false
+  },
+  "support_scan": {
+    "helper_outcome": "failed",
+    "helper_error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 1,
+      "valid": true,
+      "reason": "fresh_inputs_and_usable_solver",
+      "normalized_cost": 0.7580649358442748
+    },
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "fixture_removed": true,
+    "final_landed": true,
+    "independent_n05_diagnostic_pass": true,
+    "checks": {
+      "layout_identity_consistent": true,
+      "same_epoch_before_after": true,
+      "same_map_id_before_after": true,
+      "scan_identity_matches_after_snapshot": true,
+      "vehicle_disarmed_for_all_recorded_states": true,
+      "support_detached_and_fixture_absent": true,
+      "fixture_runner_profile_completed": true,
+      "online_and_offline_checks_identical": true,
+      "post_release_check_recorded": true,
+      "post_release_same_identity": true,
+      "post_release_pose_within_budget": true,
+      "post_release_entry_accepted": true,
+      "control_and_navigation_goal_absent": true,
+      "debug_truth_absent_from_online_inputs": true
+    }
+  },
+  "n05": {
+    "post_release_accepted": true,
+    "current_area_accepted": true,
+    "post_release_current_same_identity": true,
+    "online_offline_identical": true,
+    "epoch": "64b0353771b849b488b37d02917f6cef",
+    "map_id": "64b0353771b849b488b37d02917f6cef-e1dd9d22d50e43fd904ea80de7fa4d5f",
+    "raw_map_sha256": "fd3e34032b51945b2af4b2220b06dbae554afc099d705022973addeb262363b7",
+    "maximum_unknown_cells": 0
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00315464800224,
+    "max_optimized_odom_receipt_gap_wall_s": 0.08336808509193361,
+    "guard_overrun_count": 0
+  },
+  "localization_timeline": {
+    "duration_wall_s": 40.239336562,
+    "localization_status_valid_count": 806,
+    "localization_status_count": 806,
+    "map_status_ready_count": 175,
+    "map_status_count": 175,
+    "streams": {
+      "localization_status": {
+        "count": 806,
+        "first_wall_elapsed_s": 0.155697598,
+        "last_wall_elapsed_s": 40.39503416,
+        "max_positive_source_gap_s": 0.056000001,
+        "negative_source_gap_count": 0,
+        "max_receipt_gap_wall_s": 0.355233531,
+        "source_clock_age_at_receipt_s": {
+          "minimum": 0.0,
+          "maximum": 0.260000001
+        }
+      },
+      "map_status": {
+        "count": 175,
+        "first_wall_elapsed_s": 0.550818,
+        "last_wall_elapsed_s": 40.21538337,
+        "max_positive_source_gap_s": 0.3,
+        "negative_source_gap_count": 0,
+        "max_receipt_gap_wall_s": 0.2527893899999998,
+        "source_clock_age_at_receipt_s": {
+          "minimum": 0.06,
+          "maximum": 0.344
+        }
+      }
+    }
+  },
+  "compute_only": {
+    "runner_result": "FAIL",
+    "failure": "navigation_action_terminal_before_ready:aborted:planner_full_curve_unknown",
+    "trajectory_ready_seen": false,
+    "position_command_samples": 0,
+    "cancel_accepted": false,
+    "bridge_hold_confirmed_after_cancel": false,
+    "landed_and_disarmed": true,
+    "final_bridge_status": {
+      "phase": "LANDED",
+      "reason": "px4_preflight_failed",
+      "armed": false,
+      "landed": true
+    },
+    "clock_regressions": 0,
+    "evaluator_passed": false,
+    "truth_used_for_control": false
+  },
+  "failure_map": {
+    "status": "captured",
+    "capture_mode": "goal_only_after_runner_failure",
+    "goal_id": "20d7a8ce20f04142aa7d37b4a554140d",
+    "epoch_matches": true,
+    "map_id_matches": true,
+    "frame_id_matches": true,
+    "goal_stamp_ns": 573332000000,
+    "snapshot_stamp_ns": 579400000000,
+    "snapshot_minus_goal_s": 6.068,
+    "bspline_observed": false
+  },
+  "raw_map_geometry": {
+    "centers_qualification": "start inferred as goal minus configured [0.5,0.2,0] m; no B-spline was produced",
+    "inferred_start_m": [
+      0.5880445036082742,
+      -0.16823868859177307,
+      0.9647065729484379
+    ],
+    "target_m": [
+      1.0880445036082742,
+      0.03176131140822694,
+      0.9647065729484379
+    ],
+    "body_radius_m": 0.7306179170842027,
+    "hold_radius_m": 0.9806179170842027,
+    "same_map_results_current_area_and_post_failure": {
+      "current_area": {
+        "start_body": {
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 2172,
+          "occupied_count": 0
+        },
+        "start_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 309,
+          "free_count": 4609,
+          "occupied_count": 0
+        },
+        "target_body": {
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 2172,
+          "occupied_count": 0
+        },
+        "target_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 42,
+          "free_count": 4876,
+          "occupied_count": 0
+        },
+        "straight_line_sweep": {
+          "free": false,
+          "reason": "unknown",
+          "queries": 1,
+          "continuous_cover_radius_m": 0.7428569280095083,
+          "first_failure": {
+            "sample_index": 0,
+            "time_s": 0.16318681233740925,
+            "center_xyz_m": [
+              0.5994081399719106,
+              -0.16369323404631853,
+              0.9647065729484379
+            ],
+            "accepted": true,
+            "reason": "unknown",
+            "unknown_count": 6,
+            "free_count": 2273,
+            "occupied_count": 0
+          }
+        }
+      },
+      "post_failure_capture": {
+        "start_body": {
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 2172,
+          "occupied_count": 0
+        },
+        "start_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 309,
+          "free_count": 4609,
+          "occupied_count": 0
+        },
+        "target_body": {
+          "accepted": true,
+          "reason": "free",
+          "unknown_count": 0,
+          "free_count": 2172,
+          "occupied_count": 0
+        },
+        "target_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown_count": 42,
+          "free_count": 4876,
+          "occupied_count": 0
+        },
+        "straight_line_sweep": {
+          "free": false,
+          "reason": "unknown",
+          "queries": 1,
+          "continuous_cover_radius_m": 0.7428569280095083,
+          "first_failure": {
+            "sample_index": 0,
+            "time_s": 0.16318681233740925,
+            "center_xyz_m": [
+              0.5994081399719106,
+              -0.16369323404631853,
+              0.9647065729484379
+            ],
+            "accepted": true,
+            "reason": "unknown",
+            "unknown_count": 6,
+            "free_count": 2273,
+            "occupied_count": 0
+          }
+        }
+      }
+    },
+    "unknown_voxels_above_ground_plane_z_m": -0.35
+  },
+  "px4_boot_maximum_limits_only": {
+    "MPC_ACC_HOR": 3.0,
+    "MPC_ACC_HOR_MAX": 5.0,
+    "MPC_JERK_AUTO": 4.0,
+    "MPC_XY_VEL_MAX": 12.0
+  },
+  "stopping_envelope": {
+    "proven": false,
+    "execute_authorized": false,
+    "minimum_usable_deceleration_m_s2": null,
+    "response_delay_upper_bound_s": null,
+    "measured_stopping_distance_m": null
+  },
+  "evidence_files": {
+    "fixture-result.json": "eadc69c1c08713c60318c5a0ee98642a36066a56aff26cd5d2115b8e550a913b",
+    "fixture-stages.json": "286cda6ab0bcabb7f2e25be5728b7e46a8bd34f8be279f0cf93c395a8baed745",
+    "n05-run-summary.json": "114fc1bf482a2adab53dacb3549265bd29e16cc3ae131a6fbaecace41e6013d9",
+    "n05-current-area/n05-live-entry-check.json": "afa981f872e1afe719eed75fa510e5479ccf2cb77989841e7ae65a7723c39ac8",
+    "n05-current-area/n05-offline-entry-replay.json": "539585bb6b3f69feafe9e62b326e61d11c3735a0a2db7581e9ccd39d7d556d92",
+    "n05-current-area/n05-live-raw-map.npz": "fd3e34032b51945b2af4b2220b06dbae554afc099d705022973addeb262363b7",
+    "n05-post-release/n05-live-entry-check.json": "2a8211f587bfe0c7f6d3c1fe1501ebd743c38eaddd1aefaa1d3afdc00717cb19",
+    "n05-post-release/n05-offline-entry-replay.json": "7fed589116976c4b083c53e9cd15046ebaa0c5ebc271ad8d133749b23e9a151a",
+    "n05-post-release/n05-live-raw-map.npz": "fd3e34032b51945b2af4b2220b06dbae554afc099d705022973addeb262363b7",
+    "preflight.json": "df64e3d7cbd6955445ac35ad71b13f0db278b1f8b25f2bc7990ec2b704f9fe2c",
+    "flight.json": "c7581cf22963d1285efdf99e26716e36ed0adee191fa6a44acc3a1d7941a2034",
+    "n08-compute-only-evaluation.json": "d7a1c971423bac85352a3eb9d0dd46dbf0cde674c57d469c39c78a4127304336",
+    "n08-curve-certificate.json": "97dd516ca9bced8aa87902f64dd305e257d0ba7ef9dbc9cf4e39d46c0acd65f0",
+    "n08-live-curve-map.json": "74e6a4e13949fffc73fe1aa6775506344f1d23847bbabf8abbf17736217712d6",
+    "n08-live-curve-map.npz": "c1f9daf4b7126de631b2b97e3504b0f4ee8bdc69c081c7a1e5fb146bcb0e667a",
+    "n08-localization-source-timeline.json": "faee5f688b3b6ea8d768366b9deb8ad7ef74dc6555d6987e911607121795b628",
+    "px4-boot-parameters.json": "e849d7d7992e9670220be64a20cb15171c0e6ff508e84ad2beb5cd7d41542688",
+    "planner-observation.json": "99ba91558fd7c398ef26c409ae6c1ed493617a6439e17960eb7dbf0fec70ff87"
+  },
+  "source_hashes": {
+    "config/components/simulation/preflight_scan.json": "06881dac81432115b34224d3ae89148c071aa7e7381507e7cdd305c61e64f872",
+    "config/components/navigation/n08_compute_only_fresh_map_goal.json": "b17c49df19987de4c3b209e4581dfe58d8857f67b7599095eee1c916779829f1",
+    "config/components/mapping/n08_low_speed_vector_cap.json": "7ceedc425bd0317abacddfb00eaa4f954a392b42a1521cc75d9779323c9271aa",
+    "config/components/navigation/vehicle_envelope.json": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+    "tools/probe_n06_live_layout.py": "8c90741621fcac95680891d7c22526810b9c84a588d7c4ab38beb1993a67a11a",
+    "tools/probe_preflight_scan.py": "fe54c6f6891f5357582392a4966099095d933664328c28d9a16caf3292c1cbf5",
+    "tools/run_n05_preflight_layout.sh": "c825f8f63bcfbb14dd49c66bfed168e8a67de64cf792945065e7fc49e17b95cf",
+    "tools/run_n08_compute_only.py": "7abef2ca41e77c24bdaf92fb344fe7ed0ecb8191cb2665f62d7cbda818df6032",
+    "tools/diagnostics/capture_n08_curve_map.py": "9464510ca16f3ea5d289fde4d58fd043660dfd68fa2620802089bce28b997d26"
+  },
+  "next": "N08.2u #231: keep the #230 release pose and select target offset [+0.10,+0.25,0] m. Re-run fresh N05 with the same support profile, then isolated compute-only and same-run curve/map capture. Revalidate start hold, actual B-spline, terminal hold and 0.50 m forward corridor; no XY while dynamic stop envelope remains unproven.",
+  "unselected_counterfactual_release_shift_candidate": {
+    "qualification": "counterfactual offline candidate only; not selected because the N05 fixture has no lateral y axis and this run made no spawn/layout change",
+    "release_shift_from_inferred_start_enu_m": [
+      0.0,
+      0.3,
+      0.0
+    ],
+    "compute_only_goal_offset_enu_m": [
+      0.3,
+      0.0,
+      0.0
+    ],
+    "forward_known_corridor_m": 0.5,
+    "start_body": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 2172,
+      "occupied_count": 0
+    },
+    "start_hold": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 4918,
+      "occupied_count": 0
+    },
+    "goal_body": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 2172,
+      "occupied_count": 0
+    },
+    "goal_hold": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 4918,
+      "occupied_count": 0
+    },
+    "start_to_goal_sweep": {
+      "free": true,
+      "reason": "free",
+      "queries": 13,
+      "continuous_cover_radius_m": 0.7421563786226641,
+      "first_failure": null
+    },
+    "goal_to_stop_sweep": {
+      "free": true,
+      "reason": "free",
+      "queries": 20,
+      "continuous_cover_radius_m": 0.7431179170842026,
+      "first_failure": null
+    },
+    "stop_hold": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 4918,
+      "occupied_count": 0
+    },
+    "unimplementable_with_current_support_fixture": "tools/probe_preflight_scan.py defines fixture axes x,z,yaw,pitch; no y translation"
+  },
+  "next_candidate_offline_only": {
+    "qualification": "offline same-identity #230 map only; candidate for a new compute-only run, not execution authorization",
+    "release_pose_change_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "goal_offset_enu_m": [
+      0.1,
+      0.25,
+      0.0
+    ],
+    "target_displacement_m": 0.26925824035672524,
+    "post_goal_forward_corridor_m": 0.5,
+    "inferred_start_m": [
+      0.5880445036082742,
+      -0.16823868859177307,
+      0.9647065729484379
+    ],
+    "candidate_goal_m": [
+      0.6880445036082742,
+      0.08176131140822693,
+      0.9647065729484379
+    ],
+    "post_corridor_endpoint_m": [
+      0.873739841785326,
+      0.5459996568508565,
+      0.9647065729484379
+    ],
+    "body_radius_m": 0.7306179170842027,
+    "terminal_hold_radius_m": 0.9806179170842027,
+    "start_body": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 2172,
+      "occupied_count": 0
+    },
+    "start_hold": {
+      "accepted": true,
+      "reason": "unknown",
+      "unknown_count": 309,
+      "free_count": 4609,
+      "occupied_count": 0
+    },
+    "goal_body": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 2177,
+      "occupied_count": 0
+    },
+    "goal_terminal_hold": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 4909,
+      "occupied_count": 0
+    },
+    "start_to_goal_production_mirror_sweep": {
+      "free": true,
+      "reason": "free",
+      "queries": 11,
+      "continuous_cover_radius_m": 0.7428569280095083,
+      "first_failure": null
+    },
+    "goal_to_0p5m_forward_stop_corridor": {
+      "free": true,
+      "reason": "free",
+      "queries": 20,
+      "continuous_cover_radius_m": 0.7431179170842026,
+      "first_failure": null
+    },
+    "stop_terminal_hold": {
+      "accepted": true,
+      "reason": "free",
+      "unknown_count": 0,
+      "free_count": 4922,
+      "occupied_count": 0
+    },
+    "limitation": "start hold sphere still has unknown cells; no B-spline was generated in #230; all geometry must be rechecked against a fresh same-run map"
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "schema": "n08-compute-only-run/v1",
+  "subtask": "N08.2o #225",
+  "date": "2026-10-24",
+  "run_id": "n08-20261024-225-camera-cone-compute-only-01",
+  "result": "PASS_WITH_RECORDED_WRAPPER_DIAGNOSTIC",
+  "scope": "same-run map admission and bridge-input-isolated EGO compute-only; no horizontal command execution and no braking measurement",
+  "commands": {
+    "scan": "N05_KEEP_SIM=1 D435I_N08_MODE=compute_only D435I_PLANNER_CONFIG=config/components/mapping/n08_low_speed_calibration.json bash tools/run_n05_preflight_layout.sh n08-20261024-225-camera-cone-compute-only-01 n08_overhead_calibration n08_overhead_free_sector_view",
+    "mission": "bash tools/project.sh mission n08-20261024-225-camera-cone-compute-only-01 config/components/navigation/n08_compute_only_fresh_map_goal.json",
+    "stop": "bash tools/project.sh stop n08-20261024-225-camera-cone-compute-only-01"
+  },
+  "scan": {
+    "layout": "n08_overhead_calibration",
+    "base_layout": "wall_box_column",
+    "profile": "n08_overhead_free_sector_view",
+    "stages_completed": 15,
+    "stages_expected": 15,
+    "summary_diagnostic_pass": true,
+    "fixture_helper_outcome": "failed",
+    "fixture_helper_error": "fresh DISARMED status is required for every fixture command",
+    "landed": true,
+    "fixture_removed": true,
+    "scene_fixture_model_absent": true,
+    "px4_disarmed_states": [
+      1
+    ],
+    "interpretation": "Retain helper failure; fresh post-release and mission-time readbacks below independently passed."
+  },
+  "n05": {
+    "post_release": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "online_offline_identical": true,
+      "epoch": "024773bb488b4d53b6db8accb47ce6f4",
+      "map_id": "024773bb488b4d53b6db8accb47ce6f4-018c28519743459f81cfeb18107eb189",
+      "raw_map_archive_sha256": "2d7fec586fa7d3873b36f2d2fa5611178b73b963ba7663c2f2b95183c1b29de1",
+      "raw_map_file_sha256": "2d7fec586fa7d3873b36f2d2fa5611178b73b963ba7663c2f2b95183c1b29de1"
+    },
+    "current_area": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "online_offline_identical": true,
+      "offline_matches_online": true,
+      "same_epoch_as_post_release": true,
+      "same_map_id_as_post_release": true,
+      "epoch": "024773bb488b4d53b6db8accb47ce6f4",
+      "map_id": "024773bb488b4d53b6db8accb47ce6f4-018c28519743459f81cfeb18107eb189"
+    },
+    "post_release_offline_matches_online": true
+  },
+  "raw_candidate_queries": {
+    "map_id": "024773bb488b4d53b6db8accb47ce6f4-018c28519743459f81cfeb18107eb189",
+    "map_sha256": "2d7fec586fa7d3873b36f2d2fa5611178b73b963ba7663c2f2b95183c1b29de1",
+    "query_implementation": "AST-extracted raw_sphere_query and raw_line_sweep mirrors from tools/probe_n06_live_layout.py",
+    "body_radius_m": 0.7306179170842027,
+    "terminal_hold_radius_m": 0.9806179170842027,
+    "speed_bound_m_s": 0.15,
+    "camera_horizontal_fov_deg": 87.0,
+    "rejected_candidate": {
+      "offset_enu_m": [
+        0.8,
+        0.3,
+        0.0
+      ],
+      "target_body": "free",
+      "target_terminal_hold_unknown_cells": 2,
+      "start_terminal_hold_unknown_cells": 42,
+      "action": "withheld"
+    },
+    "selected_compute_only_candidate": {
+      "offset_enu_m": [
+        0.5,
+        0.2,
+        0.0
+      ],
+      "length_m": 0.5385164807134504,
+      "start_xyz_m": [
+        0.22364001463802927,
+        -0.06753921802998683,
+        1.0391925270889826
+      ],
+      "start_yaw_rad": 0.02947636155156657,
+      "target_xyz_m": [
+        0.7236400146380293,
+        0.13246078197001318,
+        1.0391925270889826
+      ],
+      "camera_bearing_deg": 20.112538374045347,
+      "fov_edge_margin_deg": 23.387461625954653,
+      "start_body_sphere": {
+        "reason": "free",
+        "unknown_cells": 0,
+        "occupied_cells": 0,
+        "free_cells": 2182
+      },
+      "start_terminal_hold_sphere": {
+        "reason": "unknown",
+        "unknown_cells": 42,
+        "occupied_cells": 0,
+        "free_cells": 4879
+      },
+      "target_body_sphere": {
+        "reason": "free",
+        "unknown_cells": 0,
+        "occupied_cells": 0,
+        "free_cells": 2182
+      },
+      "target_terminal_hold_sphere": {
+        "reason": "free",
+        "unknown_cells": 0,
+        "occupied_cells": 0,
+        "free_cells": 4921
+      },
+      "continuous_line": {
+        "free": true,
+        "queries": 22,
+        "continuous_cover_radius_m": 0.7428569280095083,
+        "reason": "free"
+      },
+      "overhead_panel_observed_roi": {
+        "bounds_xyz_m": [
+          [
+            -0.85,
+            -2.75,
+            2.1
+          ],
+          [
+            4.15,
+            3.95,
+            2.7
+          ]
+        ],
+        "raw_occupied_voxels": 891
+      }
+    },
+    "limitations": [
+      "Candidate sweep is an offline geometric screen on the same-run map, not a stopping-distance certificate.",
+      "The start terminal-hold sphere retains 42 unknown cells and remains explicitly unresolved."
+    ]
+  },
+  "compute_only": {
+    "runner_result": "PASS",
+    "action_goal_sent": true,
+    "ready_seen": true,
+    "ready_samples_for_goal_epoch": 1,
+    "bridge_subscribed_to_position_cmd": false,
+    "bridge_subscribed_to_isolated_input": true,
+    "bridge_control_publishers": {
+      "/fmu/in/vehicle_visual_odometry": 1,
+      "/fmu/in/offboard_control_mode": 1,
+      "/fmu/in/trajectory_setpoint": 1,
+      "/fmu/in/vehicle_command": 1
+    },
+    "cancel_accepted": true,
+    "action_cancel_confirmed": true,
+    "hold_after_cancel_sim_s": 2.0,
+    "bridge_hold_confirmed": true,
+    "clock_regressions": 0,
+    "landed_and_disarmed": true,
+    "latest_bridge_status": {
+      "phase": "LANDED",
+      "reason": "px4_preflight_failed",
+      "armed": false,
+      "landed": true
+    },
+    "evaluator_passed": true,
+    "evaluator_checks": {
+      "runner_completed_successfully": true,
+      "compute_only_launch_mode": true,
+      "bridge_remapped_from_ego_output": true,
+      "one_ready_curve_for_goal_epoch": true,
+      "cancel_acknowledged": true,
+      "action_cancel_confirmed": true,
+      "bridge_remained_in_hold_after_cancel": true,
+      "no_clock_regressions": true,
+      "landed_and_disarmed": true,
+      "n05_online_offline_admission": true,
+      "unique_px4_bridge_control_publishers": true,
+      "truth_not_used_for_control": true
+    }
+  },
+  "odometry_diagnostic": {
+    "report": "progress/evidence/n08-compute-only-odometry-20261024-225.json",
+    "reference_age_sim_s": 0.036,
+    "paired_raw_fraction": 1.0,
+    "truth_grid_support_fraction": 0.9967320261437909,
+    "localization_quality_history_available": false,
+    "invalid_localization_status_samples": null
+  },
+  "wrapper_and_recovery": {
+    "initial_mission_command_exit_code": 1,
+    "initial_failure": "tools/debug_truth/evaluate_odometry.py raised KeyError because compute-only flight.json did not include localization_quality_history; this occurred after runner wrote result PASS.",
+    "posthoc_compute_only_evaluator": "PASS",
+    "posthoc_odometry_replay": "exit 0 on byte-identical inputs in scratch directory; report clearly marks localization status history unavailable rather than reporting zero invalid samples.",
+    "fixes": "N08 runner now saves localization_quality_history for future runs; generic odometry evaluator reports unavailable history as null; mission runtime writes the N08-specific evaluation before the separate odometry evaluation."
+  },
+  "validation": {
+    "commands": [
+      "bash -n tools/mission_runtime.sh",
+      "python3 AST parse of tools/run_n08_compute_only.py and tools/debug_truth/evaluate_odometry.py",
+      "python3 tools/evaluate_n08_compute_only.py artifacts/runs/n08-20261024-225-camera-cone-compute-only-01/flight.json",
+      "python3 tools/debug_truth/evaluate_odometry.py on a scratch copy with byte-identical run inputs",
+      "bash tools/project.sh stop n08-20261024-225-camera-cone-compute-only-01"
+    ],
+    "stop_exit_code": 0,
+    "container_final_state": "Exited (0)"
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/n08-20261024-225-camera-cone-compute-only-01",
+    "flight_json_sha256": "23aae3c6716ed2ae77df05f38ca19f93cd219ad53c9ff4e07d66a34b5445281d",
+    "n08_evaluation_sha256": "3c096312040c06488bac34f5d9e4f0325dc536df5062a26d808a20b90a09a759",
+    "odometry_report_sha256": "a2f9281e9e52c3da2071a7ed352d2de227f4760a539b623bcf07e564ba6ef316",
+    "fresh_map_goal_config_sha256": "b17c49df19987de4c3b209e4581dfe58d8857f67b7599095eee1c916779829f1"
+  },
+  "n08_exit_satisfied": false,
+  "remaining": [
+    "No horizontal trajectory was executed and no braking response/deceleration/stopping distance/tracking deviation was measured.",
+    "No three-independent-cold-start low-speed movement repetitions.",
+    "No motion/stop budget has been fed back into N05/N06."
+  ]
+}

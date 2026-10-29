@@ -1,0 +1,208 @@
+{
+  "abort_timing_inference": {
+    "age_exceeded_limit": true,
+    "first_next_status_wall_elapsed_s": 30.914702786132693,
+    "interpretation": {
+      "best_supported_immediate_trigger": "The no-goal hold loop most likely exited when the last fresh localization-status receipt exceeded the runner 0.2 s age limit; at recorded hover end that status was about 0.353 s old, and the next valid status arrived just after the loop ended. Several independent sensor/odometry streams show a receive gap in the same wall-time window.",
+      "confidence": "evidence-supported inference; the runner does not store an explicit loop-break-reason field.",
+      "not_established": "The underlying cause of the shared callback/receipt pause is not isolated. The terminal failure field px4_preflight_failed is the bridge readiness reason after landing; it does not by itself identify the hold-loop break trigger."
+    },
+    "last_status_age_at_loop_end_s": 0.35302556096576154,
+    "last_status_wall_elapsed_s": 30.561110644135624,
+    "localization_status_receipt_gap_s": 0.3535921419970691,
+    "nearby_stream_gaps": {
+      "depth_health": {
+        "receipt_gap_s": 0.3382484749890864,
+        "stamp_gap_s": 0.296,
+        "stamp_ns": 551136000000,
+        "wall_elapsed_s": 30.91553763509728
+      },
+      "ego_camera_pose": {
+        "receipt_gap_s": 0.3834942851681262,
+        "stamp_gap_s": 0.032,
+        "stamp_ns": 550772000000,
+        "wall_elapsed_s": 30.91547667211853
+      },
+      "localization_status": {
+        "receipt_gap_s": 0.35358639410696924,
+        "stamp_gap_s": 0.172,
+        "stamp_ns": 551004000000,
+        "wall_elapsed_s": 30.914688955061138
+      },
+      "occupancy_cloud": {
+        "receipt_gap_s": 0.3815591239836067,
+        "stamp_gap_s": 0.1,
+        "stamp_ns": 550904000000,
+        "wall_elapsed_s": 30.915084386011586
+      },
+      "optimized_odometry": {
+        "receipt_gap_s": 0.38492124411277473,
+        "stamp_gap_s": 0.063999999,
+        "stamp_ns": 550803999999,
+        "wall_elapsed_s": 30.914833665126935
+      }
+    },
+    "runner_localization_status_max_age_s": 0.2
+  },
+  "artifact_sha256": {
+    "alignment-observation.json": "8ea7624dcc5a55b04f0c40073eb3fd00ced98f3de58aeb6d6bf1d9a0e9732af8",
+    "bridge-alignment-timeline.jsonl": "a06195d5bb689f2f7d9991fe9d56a971efbd2c767d647abe08a2be857ba4c3bb",
+    "debug-truth-evaluation.json": "cd1be14a1f67946b2cf6315c692427b722fc501a6807e6663e8512b957fbaa0b",
+    "fixture-odometry.jsonl": "d03a08f615414d8c7d90fd61a4c885d0f0b72c2b30def64e6230da1f86ee0541",
+    "fixture-result.json": "b016f22fa0b5bb63b4da86d942c3664179809021995bbdd37420968a4fb69c90",
+    "fixture-stages.json": "e171fd4a5f53b9f1158b0cd451ed1b2b213ef8095759b8e7f60619a2f63f3d7e",
+    "fixture-trace.jsonl": "762fcd96a00f0976b5e09f110f2a20403ed85b7938cc634ad7e9cb1c7181c2c3",
+    "fixture-vins.jsonl": "a3db82c03c9744e23865653729a566f4d7fd6f28d41628d4e202ccc351e013ea",
+    "flight-runner.log": "642ad648593b2e7a0e4410cafcbd9554e8b8e33568bd0bc43f5fe59a3745606e",
+    "flight.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "flight.json": "8288d4cb2576195a877572628c960407048e73beff13abdd8df70c3a2494db59",
+    "graph-active-window-launcher.log": "4e7b897168ed674ae125b94edd4956e299192c254dfe560adf1caa66778a802f",
+    "graph-active-window-trigger.json": "df7f27923a7e9467bb599801c32808dbb7e8d5c47d63dfe09005a93ae0e84448",
+    "graph-capture-discovery-manifest.json": "ceca67fa8b4c466fab28ac189410ab9ee7bd51d15088bf180487b1d048bf45ca",
+    "n05-after/n05-live-entry-check.json": "1cf76fb062196375cf12262eee3792915a51582b81fa2fb2795e94ba07ae985d",
+    "n05-after/n05-offline-entry-replay.json": "96e9d0511dbd97740c9bf9f834b36e62095917c3592f961803e25d36184e5fbb",
+    "n05-before/n05-live-entry-check.json": "3301fca5973c672b9382dd5e15e66b3823fc4461bcb362e884081da3194ac4c1",
+    "n05-before/n05-offline-entry-replay.json": "5ff68222450b945d81067753238ccc87c545bb6d58582b46aeefb7c9267c55bd",
+    "n05-current-area/n05-live-entry-check.json": "d264dbf1f8617d7ad7aee7829e3b1c2335a8d5d1a0fc797cb6fb752a2242e59d",
+    "n05-current-area/n05-offline-entry-replay.json": "138dea2faf913de51ae6e3cbce793ca3404bb9c95f5da0d61763846afaeb6426",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "n05-fixture.log": "53190868734f2a7b1c8d2e29596cca0f82139b41b0f82fae6290386c41ce955e",
+    "n05-post-release/n05-live-entry-check.json": "3e56c92bc7ea3ccd1df5988d16cbd740a9dd2512ba0841690c536e1785b65197",
+    "n05-post-release/n05-offline-entry-replay.json": "0c639e7b9cd119c5dc2387df5f92cd5c0c0e65fc7439c89c34de198f18453d7c",
+    "n05-prescan-ready.json": "b7e8bd5d1c5d5a55055ec6dbb774368f49a5327d61cb7e10e508449a5d88ffb0",
+    "n05-release-safety-readback.json": "53598a8e0e0c48cd238dfd68ad8e9e57bfb6f6f493e4405b8e1c025b2b0460fb",
+    "n05-release-safety-readback.log": "ea9ac3793d1d90fb40b353f10f1a783f1516a90997c01a07f01cbac26abe1aa5",
+    "n05-run-inputs.json": "207b209f4b51bb23ec662644542af49b9d9ad29d0e9544ae0812c75f58fcc598",
+    "n05-run-summary.json": "325e8a036efa472968c536d3e98a0981ec4b9f5311e524261d650505c827d43e",
+    "n07-hover-abort-analysis.json": "886c8819747963606ea6aefd9df78f371188be5f76cb316bfb1eed27be20e72b",
+    "n07-hover-evaluation.json": "a09ff104ddf20e583d6da85e72491bf6f046fab0c439aa55a6053379461b9547",
+    "n07-observer-manifest.json": "0fa74c86731d4cfa14ab7d9964cf92f9db7c400944f6fbbd7460b4fe0f72bce0",
+    "postflight-safety-readback-validation.json": "7d8b43adb1f09a1532faa1943de4db81fb7416302cd741160bccd85baa7a5873",
+    "postflight-safety-readback.json": "b0163bd220ca69faab084e3e8657b492c4397955cc621e492f460dac530230f6",
+    "postflight-safety-readback.log": "b0052b5837b6e649718d0e22cbce9b1cf88d8f23e5a8556f750d293a8367c075",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "px4-ulog-analysis.json": "0760c95e4516af4cc9cc1724f9bdfb24a990dfa56b836d6dd6c7b8a0724fb7da",
+    "px4_sitl_default/log/2026-10-24/00_12_01.ulg": "088fb95e2fc3a2b426bc68ddac91ff43478b05103795e3503c6b25942b3c9b18",
+    "ros-graph-audit-reconciled.json": "f58e2c696adb0057befe27340a513635afe36ae54ed305becac875f6fb459817",
+    "ros-graph-audit.json": "f58e2c696adb0057befe27340a513635afe36ae54ed305becac875f6fb459817",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "cleanup": {
+    "active_project_containers": 0,
+    "bridge_final_status": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "container_exit_code": 0,
+    "container_status_after_stop": "exited",
+    "fixture_absent": true,
+    "host_formatter_exception_after_readback_write": true,
+    "land_detector_landed": true,
+    "postflight_readback_revalidation_pass": true,
+    "postflight_safety_checks": {
+      "bridge_final_landed_and_disarmed": true,
+      "fixture_removed_and_absent": true,
+      "flight_and_observer_processes_stopped": true,
+      "flight_runner_recorded_safety_abort": true,
+      "px4_land_detector_landed": true,
+      "px4_vehicle_disarmed": true
+    },
+    "px4_disarmed": true,
+    "saved_postflight_readback_checks_pass": true,
+    "stop_command": "bash tools/project.sh stop n07-20261024-197-01"
+  },
+  "consecutive_passes_after_run": "0/3",
+  "consecutive_passes_before_run": "0/3",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout_id": "wall_box_column",
+    "runtime_config_sha256": "1ddd6838ae2a678f89547ce90eea849582edcc29cddab341667bd2d1d9d3e360",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "thresholds_changed": false
+  },
+  "flight": {
+    "clock_regressions": 0,
+    "clock_stalled": false,
+    "hover_end_wall_elapsed_s": 30.914136205101386,
+    "hover_position_command_count": 0,
+    "hover_start_wall_elapsed_s": 28.125199116999283,
+    "loop_end_bridge_status": {
+      "armed": true,
+      "landed": false,
+      "phase": "ACTIVE",
+      "reason": "takeoff_complete_waiting_for_trajectory"
+    },
+    "measured_hover_sim_s": 2.16,
+    "measured_hover_wall_s": 2.7889370881021023,
+    "no_navigation_goal_sent": true,
+    "preconditions_ready": true,
+    "requested_hover_sim_s": 30.0,
+    "runner_exit_code": 1,
+    "runner_failure_field_after_landing": "px4_preflight_failed",
+    "runner_result": "SAFETY_ABORT",
+    "takeoff_active_observed": true
+  },
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "interpretation": {
+    "below_ground_flight": "No below-ground space was used or admitted as flyable.",
+    "n07_qualifies": false,
+    "px4_preflight_failed_field": "This remained the final bridge readiness reason after landing; it is not direct evidence of the hold-loop break trigger.",
+    "reason": "The no-goal hover ended after 2.16 simulated seconds, below the unchanged 30 second exit. The likely immediate trigger is localization status freshness age over 0.2 seconds during a shared receive-gap interval; the underlying source of the pause is not established."
+  },
+  "limitations": [
+    "This run does not count toward the three consecutive independent N07 passes.",
+    "The fixture helper retains a cleanup status error and missing remove-service acknowledgement; Gazebo absence and independent disarmed/landed/bridge-disabled readbacks pass.",
+    "The hold runner does not persist an explicit loop-break-reason field; freshness trigger is inferred from the recorded time series.",
+    "No underlying cause for the shared callback/receipt pause has been identified."
+  ],
+  "n05": {
+    "current_area_offline_matches": true,
+    "current_area_online_accepted": true,
+    "current_area_online_reason": "all_entry_phases_known_and_clear",
+    "gazebo_scene_model_absent": true,
+    "independent_release_safety_checks_pass": true,
+    "initial_gate_accepted": false,
+    "initial_online_offline_identical": true,
+    "initial_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "invalid_localization_trace_rows": 0,
+    "n05_summary_checks_passed": 14,
+    "n05_summary_checks_total": 14,
+    "n05_summary_diagnostic_pass": true,
+    "post_release_offline_matches": true,
+    "post_release_online_accepted": true,
+    "remove_service_acknowledged": false,
+    "support_fixture_may_remain_attached": false,
+    "support_fixture_removed_flag": true,
+    "support_helper_error": "fresh DISARMED status is required for every fixture command",
+    "support_helper_outcome": "failed",
+    "support_scan_completed_stages": 12,
+    "support_scan_expected_stages": 12,
+    "trace_epoch": "cd2dc4e553b449d4bcab0c6e05304e35",
+    "trace_rows": 13287
+  },
+  "qualification_evidence": {
+    "evaluator_checks_passed": 10,
+    "evaluator_checks_total": 11,
+    "evaluator_failed_checks": [
+      "hover_completed_at_requested_sim_duration"
+    ],
+    "evaluator_result": "FAIL",
+    "graph_discovery_wait_s": 0.40975578501820564,
+    "ros_graph_airborne_snapshot": true,
+    "ros_graph_checks_passed": true,
+    "ros_graph_owner_reconciliation_passed": true,
+    "ros_graph_snapshots": 3,
+    "ulog_checks_passed": 12,
+    "ulog_checks_total": 12,
+    "ulog_passed": true,
+    "ulog_sha256": "088fb95e2fc3a2b426bc68ddac91ff43478b05103795e3503c6b25942b3c9b18"
+  },
+  "result": "FAIL_SAFETY_ABORT",
+  "run_id": "n07-20261024-197-01"
+}

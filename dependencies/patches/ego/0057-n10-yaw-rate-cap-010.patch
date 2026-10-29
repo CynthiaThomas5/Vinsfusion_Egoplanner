@@ -1,0 +1,11 @@
+--- a/planner/plan_manage/src/traj_server.cpp
++++ b/planner/plan_manage/src/traj_server.cpp
+@@ -128,7 +128,7 @@
+                                         rclcpp::Time &time_now, rclcpp::Time &time_last)
+ {
+   constexpr double PI = 3.1415926;
+-  constexpr double YAW_DOT_MAX_PER_SEC = PI;
++  constexpr double YAW_DOT_MAX_PER_SEC = 0.10;
+   // constexpr double YAW_DOT_DOT_MAX_PER_SEC = PI;
+   std::pair<double, double> yaw_yawdot(0, 0);
+   double yaw = 0;

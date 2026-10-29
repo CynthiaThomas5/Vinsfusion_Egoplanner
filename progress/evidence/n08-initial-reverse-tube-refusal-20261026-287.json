@@ -1,0 +1,107 @@
+{
+  "schema": "n08-initial-reverse-tube-refusal/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-287",
+  "result": "FAIL",
+  "failure": "reference_curve_left_certified_trial_tube",
+  "scan": {
+    "diagnostic_pass": true,
+    "post_release_admission": true,
+    "post_release_reason": "all_entry_phases_known_and_clear",
+    "online_offline_identical": true,
+    "fixture_removed_and_landed": true
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.01276367320679,
+    "optimized_odom_gap_over_guard_count": 0
+  },
+  "airborne_corridor": {
+    "passed": true,
+    "reason": "directional_forward_corridor_and_symmetric_terminal_hold_free",
+    "required_queries": 25,
+    "unknown_count": 0,
+    "occupied_count": 0,
+    "remaining_geometry_slack_m": 0.022361218113400305
+  },
+  "goal_sent": true,
+  "goal_id": "e62ccd051d5548949c4f727c069fde1d",
+  "destination_landing_pre_goal_accepted": true,
+  "spline_rejection": {
+    "passed": false,
+    "reason": "sampled_curve_outside_continuous_tube_bound",
+    "forward_x_bounds_relative_to_start_m": [
+      0.0,
+      0.65
+    ],
+    "lateral_vertical_radius_m": 0.05,
+    "sample_count": 1162,
+    "sample_interval_s": 0.012249976074265482,
+    "maximum_sample_spacing_m": 0.0009992847706741105,
+    "derivative_control_speed_bound_m_s": 0.08157442631854515,
+    "between_sample_displacement_bound_m": 0.0004996423853370552,
+    "continuous_required_sample_clearance_m": 0.0004996433853370553,
+    "minimum_sample_clearance_m": -0.0025316247914895854,
+    "limiting_boundary": "rear_x",
+    "limiting_sample_time_s": 0.7962484448272563,
+    "curve_x_delta_min_m": -0.0025316247914895854,
+    "curve_x_delta_max_m": 0.6,
+    "curve_lateral_vertical_deviation_max_m": 0.013681747688779422
+  },
+  "cancel": {
+    "event_observed_by_planner": true,
+    "valid_cancel_stop_trace_present": false,
+    "certified_stop_spline_count": 0,
+    "braking_evaluation": {
+      "report_generated": true,
+      "passed": false,
+      "native_trial_failure": "reference_curve_left_certified_trial_tube",
+      "evaluator_failure": "'post_goal_hold_end_sim_ns'",
+      "measured_metrics_present": false
+    }
+  },
+  "safety": {
+    "landed_and_disarmed_reported": true,
+    "bridge": {
+      "alignment_drift_m": 0.0021842351505459126,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "d26564ad3e474fa4928c7763230707ea",
+      "ev_position_fused": true,
+      "ev_yaw_fused": true,
+      "frame_offset_ned": [
+        0.0019907042947515385,
+        5.4106791902958085e-05,
+        5.6081619757120116e-05
+      ],
+      "frame_yaw_offset_ned": -0.0002172625943863693,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "px4_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 14,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": true
+    },
+    "control_mode_messages_after_landing": 0,
+    "trajectory_setpoint_messages_after_landing": 0,
+    "vehicle_command_messages_after_landing": 0,
+    "vehicle_remained_disarmed": true,
+    "container_stopped": true
+  },
+  "interpretation": "No valid motion-cancel or braking result. A watchdog rejected the first forward goal spline because the measured curve reached 2.532 mm behind the trial origin while the temporary gate required zero backward displacement. The caller-cancel event was cleanup after this watchdog, not the planned measured cancel.",
+  "artifacts": [
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-287/flight.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-287/planner-observation.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-287/n08-trial-airborne-map.npz",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-287/n08-bounded-initial-retreat-replay.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-287/safety-readback/final-px4-bridge-live.json"
+  ]
+}

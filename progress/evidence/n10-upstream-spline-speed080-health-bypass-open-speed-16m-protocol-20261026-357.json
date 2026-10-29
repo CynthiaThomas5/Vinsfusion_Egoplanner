@@ -1,0 +1,52 @@
+{
+  "schema": "n10-calibration-protocol/v1",
+  "protocol_id": 357,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "frozen_before_SITL",
+  "run_id": "n10-20261026-357-upstream-spline-speed080-health-bypass-16m",
+  "hypothesis": "A fresh independent cold start with the same route and planner may distinguish a run-specific EGO inflated-occupancy collision from a repeatable route-feasibility failure. #355 succeeded but lacked complete terminal observers; #356 captured all evidence but EGO repeatedly collided and aborted after 2.60 m.",
+  "sole_changed_factor": {
+    "parameter": "independent SITL cold start and resulting fresh VINS/map epoch",
+    "from_previous_run": "#356 new VINS epoch/map and generated map from an independent Gazebo/PX4 start.",
+    "to": "Another independent Gazebo/PX4/VINS/map start; no flight source, planner, goal, health threshold, or observer behavior change.",
+    "flight_profile_changed": false
+  },
+  "decision_rule": "If target dwell and 600 simulated-second ACTIVE hold complete with all terminal observers, retain the result as a diagnostic calibration sample. If the same planner_full_curve_planning_failed occurs before target, stop repeating this route and switch to a no-flight/read-only inflated-occupancy collision diagnostic. Do not change collision policy or health thresholds.",
+  "held_fixed": {
+    "planner_config": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "max_velocity_m_s_per_axis": 0.8,
+    "max_acceleration_m_s2_per_axis": 0.25,
+    "planning_horizon_m": 5.0,
+    "collision_policy": "official_ego",
+    "spawn_config": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "goal_config": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal": "Same +16.0 m ENU, +0.10 m, +0.20 rad single goal; 3 s arrival dwell; 600 simulated-second ACTIVE hold.",
+    "health_policy_file": "unchanged",
+    "max_normalized_cost": 1.0,
+    "diagnostic_bypass": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES=1, run-scoped",
+    "observer_lifecycle": "terminal flight.json marker, 1500 wall-second upper bound",
+    "px4_control_owner": "uav_px4_bridge only",
+    "ground_truth": "offline evaluation only",
+    "contact_overlay": "read-only; collision geometry unchanged"
+  },
+  "runtime_contract": {
+    "file_count": 659,
+    "sha256": "c8a1ee4f5d91d3db7454a9d4608e6ad7e8e09fced7c4c4e2782547760c702e23",
+    "path": "progress/evidence/n10-upstream-spline-speed080-health-bypass-16m-runtime-contract-prelaunch-20261026-357.json",
+    "planner_config_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+    "goal_config_sha256": "23617388b441e093bbf45f83d19c64fdf69bd77a6ed6c82b2f6d0e6cc1a30aa0",
+    "health_policy_sha256": "54c5a7b83d858f44ca6a8957a1aa96b8b3f25168f11b2fcff016c538d4e348c6",
+    "runtime_driver_sha256": "d1484926cf0b33b212db44fa3d64360569a2e8d8b06e265305235dbec3f8785d",
+    "analyzer_sha256": "f94812ecdc16006513f987952398f8240fb1beab36d452cbee54628864017ba8",
+    "source_head": "fd90f3b73e48101ad35c5a0ed9372865392eca7c"
+  },
+  "previous_run": "n10-20261026-356-upstream-spline-speed080-health-bypass-16m",
+  "analyzer_staging": "The driver copies the prepared analyzer into the run directory and checks its SHA-256 against this frozen protocol before preflight. This addresses the #356 postprocessing staging omission.",
+  "procedure": {
+    "start_command": "D435I_DIAGNOSTIC_BYPASS_HEALTH_GATES=1 D435I_N09_CONTACTS=1 D435I_PLANNER_CONFIG=config/components/mapping/n10_horizon5_speed080_calibration.json D435I_SPAWN_CONFIG=config/components/simulation/n10_long_range_spawn_minus8.json bash tools/project.sh sim n10-20261026-357-upstream-spline-speed080-health-bypass-16m",
+    "driver_inside_container": "bash /workspace/artifacts/n10-prepared/n10-20261026-357-upstream-spline-speed080-health-bypass-16m/n10-runtime-driver.sh",
+    "safe_stop": "Stop only after independent 6 s readback confirms bridge LANDED or DISABLED, landed=true, armed=false, control_enabled=false, vehicle remained disarmed and zero control samples.",
+    "raw_artifacts": "artifacts/runs/n10-20261026-357-upstream-spline-speed080-health-bypass-16m"
+  }
+}

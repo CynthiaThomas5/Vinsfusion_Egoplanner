@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3/#397 single-variable follow-up to #396: reduce only the EGO max_velocity_m_s from 0.8 to 0.4 m/s per axis to test whether lower commanded motion reduces the measured PX4/EGO tracking discrepancy and supports positive route-clearance budget. This is an EGO planner parameter, not a runtime speed guard; actual EGO/PX4 speeds remain observation-only.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.4,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 5.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "#396 held the same 16 m route and obstacle scenario at max_velocity=0.8 m/s, while same-domain PX4 setpoint-to-local-position error P95 was 0.665 m and route EGO tracking P95 was 0.707 m. Test only max_velocity=0.4 m/s; preserve acceleration, horizon, inflation, spawn, target, native dwell, collision policy, obstacle timing/geometry, observers, and every flight decision. Compare actual EGO/PX4 speed, tracking error, route completion, and clearance. This candidate does not add a runtime speed cap or acceptance gate."
+}

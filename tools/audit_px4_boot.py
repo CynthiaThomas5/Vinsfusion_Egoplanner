@@ -2,7 +2,7 @@
 import json,subprocess,re,hashlib
 from pathlib import Path
 import sys
-run=Path(sys.argv[1]).resolve();build=run/'px4_sitl_default';names=['MPC_Z_V_AUTO_DN','MPC_LAND_SPEED','MPC_Z_VEL_MAX_DN','MPC_Z_VEL_MAX_UP','LNDMC_Z_VEL_MAX','MPC_Z_VEL_ALL','EKF2_EV_CTRL','EKF2_GPS_CTRL','UXRCE_DDS_SYNCT','SIM_GZ_EN_ODOM'];values={};outputs={}
+run=Path(sys.argv[1]).resolve();build=run/'px4_sitl_default';names=['MPC_Z_V_AUTO_DN','MPC_LAND_SPEED','MPC_Z_VEL_MAX_DN','MPC_Z_VEL_MAX_UP','LNDMC_Z_VEL_MAX','MPC_Z_VEL_ALL','MPC_ACC_HOR','MPC_ACC_HOR_MAX','MPC_JERK_AUTO','MPC_XY_VEL_MAX','EKF2_EV_CTRL','EKF2_GPS_CTRL','UXRCE_DDS_SYNCT','SIM_GZ_EN_ODOM'];values={};outputs={}
 for name in names:
  p=subprocess.run([str(build/'bin/px4-param'),'show',name],text=True,capture_output=True,check=True);outputs[name]=p.stdout
  match=re.search(r'\]\s*:\s*(-?[0-9.]+)',p.stdout);assert match,name+' missing';values[name]=float(match.group(1))

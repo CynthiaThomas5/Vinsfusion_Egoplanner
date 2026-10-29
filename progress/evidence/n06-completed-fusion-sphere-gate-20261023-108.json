@@ -1,0 +1,215 @@
+{
+  "schema": "n06-completed-fusion-sphere-gate/v1",
+  "task_id": "N06.10",
+  "parent_goal": "N06",
+  "execution_mode": "goal_completion",
+  "result": "subtask_passed; parent_goal_in_progress",
+  "run_id": "n06-20261023-corridor-r33",
+  "run_command": "bash tools/run_n04_map_layout.sh n06-20261023-corridor-r33 corridor_box_column 96 motion_n06 config/components/simulation/n06_x_holdpoint_recorded_slow.json",
+  "experiment": {
+    "primary_variable": "QueryOccupancySphere ignores pending image work and reads the last completed fusion, matching certifyCurve; all freshness, identity, pose, frame, and raw occupancy checks are unchanged.",
+    "coverage_correction": "Record camera poses for 160 wall seconds, based on the measured 4.191-second source-pose gap in r32; sensor-motion parameters and planner goal are unchanged."
+  },
+  "implementation": {
+    "patch": "dependencies/patches/ego/0042-query-last-completed-fusion.patch",
+    "patch_sha256": "52b1485d7fb938550306a76e0efb304b3afe551726e6c1ce913b3d7ed5346dbc",
+    "vendor_file": "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp",
+    "vendor_file_sha256": "02874248ca05baf8c65f2d10c4cdd5dce84e8681b38ad4ca6100f2ae3ff15287",
+    "sources_lock_patch_sha256_verified": true,
+    "clean_patch_reconstruction_command": "python3 tools/fetch_dependencies.py --source ego_planner --target /tmp/ego-planner-n06-r33-20261023",
+    "clean_patch_reconstruction_exit_code": 0,
+    "clean_reconstructed_grid_map_sha256": "02874248ca05baf8c65f2d10c4cdd5dce84e8681b38ad4ca6100f2ae3ff15287",
+    "profile": "config/components/simulation/n06_x_holdpoint_recorded_slow.json",
+    "profile_sha256": "8b71607335a131cd9f0e96fdf95642c43a23db4aa357804dfcab0275c54e0721"
+  },
+  "verification": {
+    "build_command": "bash tools/project.sh build",
+    "build_exit_code": 0,
+    "ros_packages_finished": 17,
+    "unit_test_command": "bash tools/project.sh test",
+    "unit_test_exit_code": 0,
+    "unit_tests_passed": 251,
+    "navigation_adapter_integration": "PASS"
+  },
+  "run": {
+    "runner_exit_code": 0,
+    "simulation_clock_s": [
+      4.984,
+      117.026
+    ],
+    "truth_samples": 11204,
+    "truth_x_min_m": -2.6010798120000933,
+    "truth_x_max_m": 0.0,
+    "truth_final_xyz_m": [
+      -0.8102783789996435,
+      0.0,
+      1.0
+    ],
+    "terminal_velocity_estimate_m_s": [
+      -0.00024,
+      0.0,
+      0.0
+    ],
+    "input_counts": {
+      "depth_frames": 4739,
+      "camera_poses": 4739,
+      "optimized_odometry": 2370,
+      "fusion_trace": {
+        "fused": 2530,
+        "ego_received": 4702
+      },
+      "map_status": 695,
+      "localization_status": 3199,
+      "localization_valid": 3199,
+      "depth_health": 7872,
+      "depth_health_valid": 7872,
+      "end_dropped_depth_count": 41,
+      "end_pending_depth_count": 1,
+      "pending_depth_high_water_count": 4
+    },
+    "map_identity": {
+      "epoch": "139c3e50999144f49c779410ebbe5ae9",
+      "map_id": "139c3e50999144f49c779410ebbe5ae9-60be398034934c168ab75196164d9e75",
+      "frame_id": "odom_139c3e50999144f49c779410ebbe5ae9",
+      "status_identity_stable": true
+    }
+  },
+  "certificate": {
+    "archived_snapshots_passed": true,
+    "snapshot_reason": "all_three_source_matched_snapshots_free",
+    "snapshots": [
+      {
+        "snapshot": "snapshot-01",
+        "source_stamp_ns": 125302000000,
+        "source_pose_unique": true,
+        "source_pose_match_count": 1,
+        "identity_matches": true,
+        "source_age_s": 0.117,
+        "fusion_age_s": 0.049,
+        "body_raw_free": true,
+        "body_unknown_count": 0,
+        "body_occupied_count": 0,
+        "sweep_free": true,
+        "sweep_queries": 10,
+        "hold_raw_free": true,
+        "hold_unknown_count": 0,
+        "hold_occupied_count": 0,
+        "archive_sha256": "42b83907d433b8082a00843ac8e4d0b93bb9598a229f046b4ec9a5dba0d00a1a"
+      },
+      {
+        "snapshot": "snapshot-02",
+        "source_stamp_ns": 132298000000,
+        "source_pose_unique": true,
+        "source_pose_match_count": 1,
+        "identity_matches": true,
+        "source_age_s": 0.113,
+        "fusion_age_s": 0.048,
+        "body_raw_free": true,
+        "body_unknown_count": 0,
+        "body_occupied_count": 0,
+        "sweep_free": true,
+        "sweep_queries": 10,
+        "hold_raw_free": true,
+        "hold_unknown_count": 0,
+        "hold_occupied_count": 0,
+        "archive_sha256": "d461ec352ff46fc61e18c56c1119fac5c8963e143bda8f0999104187a8d3e39e"
+      },
+      {
+        "snapshot": "snapshot-03",
+        "source_stamp_ns": 139525000000,
+        "source_pose_unique": true,
+        "source_pose_match_count": 1,
+        "identity_matches": true,
+        "source_age_s": 0.15,
+        "fusion_age_s": 0.051,
+        "body_raw_free": true,
+        "body_unknown_count": 0,
+        "body_occupied_count": 0,
+        "sweep_free": true,
+        "sweep_queries": 10,
+        "hold_raw_free": true,
+        "hold_unknown_count": 0,
+        "hold_occupied_count": 0,
+        "archive_sha256": "8de964f12cd6b91eda9209702762835970f9c1f5d62e3b4991bd59aa2ba511f2"
+      }
+    ],
+    "live_passed": true,
+    "live_freshness_s": {
+      "source_age_sim_s": 0.083,
+      "fusion_age_sim_s": 0.022,
+      "odometry_age_sim_s": 0.347000001,
+      "limit_sim_s": 0.4
+    },
+    "live_body_query": {
+      "accepted": true,
+      "free": true,
+      "reason": "free",
+      "epoch": "139c3e50999144f49c779410ebbe5ae9",
+      "map_id": "139c3e50999144f49c779410ebbe5ae9-60be398034934c168ab75196164d9e75",
+      "frame_id": "odom_139c3e50999144f49c779410ebbe5ae9",
+      "identity_matches": true,
+      "unknown_count": 0,
+      "occupied_count": 0,
+      "free_count": 2205,
+      "body_center_xyz_m": [
+        -0.7926528311232721,
+        -0.006799140960596562,
+        0.009615233816319912
+      ],
+      "radius_m": 0.7306179170842027
+    },
+    "live_sweep": {
+      "query_count": 10,
+      "queries_completed": 10,
+      "speed_bound_m_s": 0.5,
+      "body_radius_m": 0.7306179170842027,
+      "terminal_hold_radius_m": 0.9806179170842027,
+      "first_failure": null,
+      "failed_query_count": 0
+    },
+    "live_terminal_hold": {
+      "accepted": true,
+      "free": true,
+      "reason": "free",
+      "epoch": "139c3e50999144f49c779410ebbe5ae9",
+      "map_id": "139c3e50999144f49c779410ebbe5ae9-60be398034934c168ab75196164d9e75",
+      "frame_id": "odom_139c3e50999144f49c779410ebbe5ae9",
+      "identity_matches": true,
+      "unknown_count": 0,
+      "occupied_count": 0,
+      "free_count": 4923
+    },
+    "full_curve_certificate_log": "artifacts/runs/n06-20261023-corridor-r33/mapping-stack.log",
+    "full_curve_certificate": "queries=22 wall_ms=0.219 reason=free"
+  },
+  "planner_result": {
+    "goal_published": true,
+    "goal_id": "dbebf27e48f6414493024dd73a1774ed",
+    "target_xyz_m": [
+      -0.7926528311232721,
+      0.24320085903940344,
+      0.009615233816319912
+    ],
+    "goal_event_observed": true,
+    "new_curve_count": 1,
+    "curve_sha256": "30063d2ebd13ea71ff41072a865eb132f40403b2d0793e8ac2e0b4aa80f977c4",
+    "new_fault_count": 0,
+    "late_curves_after_fault": 0,
+    "control_free_graph": true,
+    "forbidden_nodes": [],
+    "forbidden_control_topics": [],
+    "execution_scope": "planner-only; curve generated but not executed; no bridge, traj_server, PX4, or flight"
+  },
+  "artifacts": {
+    "run-inputs.json": "36542f9aa9646b787c7f0312250dab1934a1eaab9acd80c0061690d31e0df150",
+    "motion.json": "b1c6638248fde07f78b397a34b3d90157b71a34cc3fd28b0f2edc86bc1244f4a",
+    "inputs/mapping-inputs.json": "f8b663bb7890f6e65ca697c2ee08760c0062e55fb2c3cc4e3b73013d466d7293",
+    "n06-live-layout-probe.json": "29133cd658d751d0c12375411cdbad0bf95678ebb66f67cebf2ff2326ae482ef"
+  },
+  "unresolved": [
+    "This is one corridor layout and one planner-only curve, not the N06 two-layout, handoff/replanning, or fault-rejection exit.",
+    "The exact pending-depth flag at the sphere request timestamp is not part of the service response; the runtime success after the semantic patch supports the readiness diagnosis but does not record that flag directly.",
+    "The planner-only curve was not executed; dynamic braking and PX4 behavior remain outside this subtask."
+  ],
+  "next_subtask": "N06.2: repeat the fully gated planner-only integration in the second actual layout, then complete N06 curve/hold/handoff and refusal matrix."
+}

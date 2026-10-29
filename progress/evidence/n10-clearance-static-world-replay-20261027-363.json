@@ -1,0 +1,60 @@
+{
+  "schema": "n10-static-clearance-replay/v1",
+  "subtask_id": "N10.3/#363",
+  "classification": "offline simulated geometry measurement; not formal clearance qualification",
+  "run_id": "n10-20261027-361-quality-gates-removed-speed080-16m",
+  "runtime_contract_sha256": "fdf104f5bd7b733128656fc4736af001f9ecdcbe1d93de123b41c7974a511a2f",
+  "metrics": {
+    "goal_to_landed_duration_sim_s": 643.736,
+    "truth_samples": 32187,
+    "truth_max_source_gap_sim_s": 0.02,
+    "non_ground_collision_shapes": 23,
+    "static_box_shapes": 4,
+    "static_cylinder_shapes": 19,
+    "sampled_minimum_clearance_m": 0.35284081019091107,
+    "maximum_observed_inter_sample_envelope_motion_m": 0.014933091909135766,
+    "sampled_continuity_allowance_clearance_m": 0.3379077182817753,
+    "positive_sample_adjusted_clearance": true,
+    "minimum_location_xyz_m": [
+      3.7011422029139855,
+      -0.037697964508941924,
+      1.591910513503484
+    ],
+    "nearest_obstacle": {
+      "name": "unit_cylinder_2_clone/link/collision",
+      "center_xyz_m": [
+        2.51998,
+        -0.204252,
+        0.5
+      ],
+      "radius_m": 0.5,
+      "z_min_m": 0.0,
+      "z_max_m": 1.0
+    }
+  },
+  "identities": {
+    "world_sdf_sha256": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+    "vehicle_envelope_sha256": "2c76dc3e91aee1065e1f7095c29f93cb1bb79bdcaefd019ecfa333ff2a902d7c",
+    "evaluator": "tools/debug_truth/evaluate_n10_clearance.py",
+    "raw_clearance_report": "artifacts/runs/n10-20261027-361-quality-gates-removed-speed080-16m/n10-clearance-evaluation.json"
+  },
+  "scenario_audit": {
+    "static_world_imported_from": "simulation/worlds/ego.sdf",
+    "dynamic_obstacle_tool": "tools/probe_n06_live_layout.py",
+    "dynamic_obstacle_tool_scope": "planner-only; no PX4 bridge, trajectory server, navigation supervisor, control publisher, or trajectory execution",
+    "next_missing_evidence": [
+      "PX4/bridge execution of a live obstacle-triggered EGO replacement trajectory",
+      "current gate-free runtime repeatability for long-range raw VIO error and timing metrics"
+    ]
+  },
+  "limitations": [
+    "Observed inter-sample motion deduction is not a continuous dynamics bound.",
+    "Uses provisional simulation vehicle geometry and does not include unmodeled hardware details.",
+    "Does not freeze a formal minimum-clearance threshold or hardware qualification.",
+    "Does not establish dynamic obstacle replanning; existing N06 injection is planner-only."
+  ],
+  "validation": {
+    "command": "python3 tools/debug_truth/evaluate_n10_clearance.py artifacts/runs/n10-20261027-361-quality-gates-removed-speed080-16m --world-sdf artifacts/runs/n10-20261027-361-quality-gates-removed-speed080-16m/vio_initialization.sdf",
+    "result": "exit 0; offline clearance report generated"
+  }
+}

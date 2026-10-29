@@ -1,0 +1,78 @@
+{
+  "schema": "n12-user-policy-reassessment/v1",
+  "id": "#500",
+  "authorization": "把这个限制取消，然后继续",
+  "run_id": "n12-20261029-498-formal02",
+  "status": "PASS",
+  "formal_count_eligible": true,
+  "formal_pass_count_after_reassessment": 1,
+  "original_report_retained": "artifacts/reanalysis/n12-20261029-498-formal02-evaluation/n12-20261029-498-formal02/n12-scene-acceptance.json",
+  "new_report": "artifacts/reanalysis/n12-20261029-498-user500-evaluation/n12-20261029-498-formal02/n12-scene-acceptance.json",
+  "new_report_sha256": "b438f91d67ee1ff1d5f5b5dc8e55fd25c17b7d0e8061d00054ab48b9a0fc9cda",
+  "runtime_contract_sha256": "90fd8dae10da4240527998d0b513eb5ed1ace917a490bc21531732b64b63be25",
+  "config_sha256": "15322a35a6aba38a6faf7e613ad0ac767eef78256fe397fe17657e02e0824786",
+  "protocol_sha256": "d5f2f99b38b5ddc899858aa6fc24c47b12773d4588e6253f2aa20a80d5a29eb2",
+  "rpe_result": {
+    "id": "raw_vio_rpe_10s",
+    "status": "PASS",
+    "evidence_status": "user_500_translation_rpe_diagnostic_rotation_limit_retained",
+    "comparisons": [
+      {
+        "metric": "goal_motion_rotation_p95_deg",
+        "value": 0.1735251152024037,
+        "threshold": 0.5,
+        "operator": "<=",
+        "unit": "deg"
+      },
+      {
+        "metric": "active_hold_rotation_p95_deg",
+        "value": 0.07107756749877846,
+        "threshold": 0.5,
+        "operator": "<=",
+        "unit": "deg"
+      }
+    ],
+    "translation_measurements": [
+      {
+        "metric": "goal_motion_translation_p95_m",
+        "value": 0.059407373607072045,
+        "unit": "m",
+        "status": "OBSERVED"
+      },
+      {
+        "metric": "active_hold_translation_p95_m",
+        "value": 0.00923321826182625,
+        "unit": "m",
+        "status": "OBSERVED"
+      }
+    ],
+    "translation_numeric_limit_enabled": false,
+    "segment_coverage": {
+      "goal_motion": {
+        "source_segment": "goal_motion_and_arrival_dwell",
+        "status": "OBSERVED",
+        "supported_pairs": 727
+      },
+      "active_hold": {
+        "source_segment": "requested_active_hold",
+        "status": "OBSERVED",
+        "supported_pairs": 152
+      },
+      "landing": {
+        "source_segment": "hold_end_to_landed",
+        "status": "INSUFFICIENT",
+        "supported_pairs": 0
+      },
+      "full_task": {
+        "source_segment": "prestream_to_landed",
+        "status": "OBSERVED",
+        "supported_pairs": 1450
+      }
+    },
+    "full_task_rpe_is_diagnostic_only": true,
+    "required_for_this_scope": true
+  },
+  "change_scope": "Only translation RPE numeric rejection limit removed; rotation/coverage/all other metrics unchanged",
+  "production_vins_iterations": 8,
+  "offline_iterations16_candidate_deployed": false
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "n11-native-queue-audit-evidence/v1",
+  "id": "#479",
+  "status": "diagnostic_complete",
+  "goal_status": "active",
+  "formal_pass_count": 0,
+  "fixed_source": "#477 sensor MCAP",
+  "result": {
+    "schema": "n11-native-queue-replay-result/v1",
+    "native_callbacks_match_bag": true,
+    "all_original_stereo_pairs_processed": true,
+    "processed_pairs": 3598,
+    "dropped_pairs": 0,
+    "unexplained_pairs": 0,
+    "image_queue_conservative_high_water": {
+      "image0": 1,
+      "image1": 1
+    },
+    "queues": {
+      "acc": {
+        "samples": 1799,
+        "first": 19,
+        "last": 26,
+        "max": 29,
+        "median": 27.0,
+        "slope_items_per_sim_s": 0.0034444420186141205
+      },
+      "gyr": {
+        "samples": 1799,
+        "first": 19,
+        "last": 26,
+        "max": 29,
+        "median": 27.0,
+        "slope_items_per_sim_s": 0.0034444420186141205
+      },
+      "feature": {
+        "samples": 1799,
+        "first": 1,
+        "last": 1,
+        "max": 1,
+        "median": 1.0,
+        "slope_items_per_sim_s": 0.0
+      }
+    },
+    "container_exit_code": 0,
+    "qos_scope": "existing traced reliable offline transport, not live best-effort equivalence",
+    "frozen_queue_criterion_changed": false,
+    "formal_count_eligible": false
+  },
+  "source_binding": {
+    "live_estimator_source_sha256": "7d7135714fa72a2791d6609ea2ba1af09cefcd828119446cd9e7f62e0750f8df",
+    "traced_estimator_source_sha256": "7d7135714fa72a2791d6609ea2ba1af09cefcd828119446cd9e7f62e0750f8df",
+    "node_delta": "artifacts/n11-prepared/n11-20261029-479-native-queue/native-input-trace-and-qos.diff",
+    "trace_binary_sha256": "1948f5720bfe14448be2d9dc17d55634a3d2d2dce584df8ddfc9171f54a629e3",
+    "config_sha256": "a1aa630d5103224fb0aadc301528710d353d1d211667804a17f766b9c513a730"
+  },
+  "fixture": {
+    "compiled_actual_function": true,
+    "before_dequeue_counts": [
+      31,
+      51
+    ],
+    "integrated_interval_count": [
+      17,
+      17
+    ],
+    "remaining_future_counts": [
+      14,
+      34
+    ],
+    "log": "artifacts/replays/n11-20261029-479-native-queue/imu-interval-fixture.log"
+  },
+  "pending_decision": "#478 queue-standard definition review; no answer received in this goal turn",
+  "frozen_acceptance_sha256": "7cf226ee4c471d49fec05f25eede1c9c127cd97fc22f0ae371ba13681d599750",
+  "standard_changed": false,
+  "artifacts": "artifacts/replays/n11-20261029-479-native-queue"
+}

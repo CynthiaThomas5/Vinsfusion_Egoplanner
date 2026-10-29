@@ -2,7 +2,8 @@
 """Unit checks for source-timestamp scheduled sensor-drop boundaries."""
 import unittest
 
-from fault_relay import TOPICS, should_drop_source
+from fault_relay import (TOPICS, should_drop_after_goal_source,
+                         should_drop_source)
 
 
 class FaultWindowTests(unittest.TestCase):
@@ -17,6 +18,17 @@ class FaultWindowTests(unittest.TestCase):
         name, message_type, source, output = TOPICS['depth'][0]
         self.assertEqual((name, message_type.__name__, source, output),
                          ('depth', 'Image', '/fault/input/depth', '/sensors/d435i/depth'))
+
+    def test_depth_drop_is_half_open_and_relative_to_active_goal_source_stamp(self):
+        goal_stamp = 70_000_000_000
+        self.assertFalse(should_drop_after_goal_source(
+            goal_stamp + 1_999_999_999, goal_stamp, 2.0, 3.0))
+        self.assertTrue(should_drop_after_goal_source(
+            goal_stamp + 2_000_000_000, goal_stamp, 2.0, 3.0))
+        self.assertTrue(should_drop_after_goal_source(
+            goal_stamp + 4_999_999_999, goal_stamp, 2.0, 3.0))
+        self.assertFalse(should_drop_after_goal_source(
+            goal_stamp + 5_000_000_000, goal_stamp, 2.0, 3.0))
 
 
 if __name__ == '__main__':

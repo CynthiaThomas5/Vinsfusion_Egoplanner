@@ -1,0 +1,195 @@
+{
+  "schema": "n10-cancel-stop-calibration-result/v1",
+  "run_id": "n10-20261027-378-speed060-cancel-calibration",
+  "n10_subtask": "N10.3 high-speed caller-cancel calibration",
+  "status": "diagnostic_sample_complete_not_formal_qualification",
+  "measurement_complete": true,
+  "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+  "planner_profile": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+  "planner_parameters": {
+    "max_vel": 0.8,
+    "max_acc": 0.25,
+    "planning_horizon": 5.0,
+    "official_ego_collision_policy": true
+  },
+  "spawn": [
+    -8.0,
+    0.0,
+    0.3,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "measurement_window_px4_horizontal_m_s": [
+    0.6,
+    0.66
+  ],
+  "braking_metrics": {
+    "requested_trigger_px4_speed_window_m_s": [
+      0.6,
+      0.66
+    ],
+    "trigger_px4_horizontal_speed_m_s": 0.6008665780789427,
+    "trigger_px4_vertical_speed_m_s": 0.04764964431524277,
+    "trigger_ego_reference_speed_m_s": 0.6280636107755809,
+    "cancel_ack_wall_delay_s": 0.000937991077080369,
+    "replacement_trajectory_id": 96,
+    "replacement_trajectory_delay_sim_s": 0.092,
+    "px4_stop_band_entry_delay_sim_s": 4.844,
+    "px4_stop_band_confirmation_delay_sim_s": 5.864,
+    "stop_band_dwell_sim_s": 1.02,
+    "stop_band_px4_sample_count": 52,
+    "stop_band_max_px4_sample_gap_sim_s": 0.028,
+    "truth_cancel_to_stop_distance": {
+      "start_xyz_m": [
+        5.880463295539311,
+        0.03131831080241253,
+        1.002836960119648
+      ],
+      "stop_band_entry_xyz_m": [
+        7.033113937210432,
+        0.046141322317687354,
+        0.9312678497569706
+      ],
+      "horizontal_path_length_m": 1.3767155623496028,
+      "horizontal_endpoint_displacement_m": 1.1527459492079029,
+      "three_dimensional_path_length_m": 1.3789280756746893,
+      "max_source_gap_sim_s": 0.02,
+      "truth_samples_in_interval": 244
+    },
+    "truth_stop_band_1s_max_horizontal_excursion_m": 0.008753359206753185,
+    "px4_observed_max_horizontal_speed_during_cancel_m_s": 0.6223490848831527,
+    "px4_observed_p10_horizontal_deceleration_m_s2": 0.02680982221996535,
+    "px4_time_to_first_10pct_speed_reduction_sim_s": 1.384,
+    "localization_quality_freshness_gates": "removed",
+    "normalized_cost_max_observed": 1.4630445166609845,
+    "contact_prohibited_event_count": 0,
+    "terminal_bridge_phase": "LANDED"
+  },
+  "braking_checks": {
+    "native_cancel_measurement_completed": true,
+    "trigger_speed_in_requested_px4_window": true,
+    "caller_cancel_acknowledged": true,
+    "action_reports_caller_cancel": true,
+    "replacement_ego_trajectory_observed": true,
+    "px4_stop_band_held_one_sim_second": true,
+    "truth_covers_cancel_to_stop_with_bounded_gaps": true,
+    "contact_observer_complete": true,
+    "zero_prohibited_contacts": true,
+    "independent_terminal_readback_safe": true,
+    "localization_quality_freshness_policy_open": true
+  },
+  "raw_vins_diagnostic": {
+    "method": "single pre-enable SE(3) alignment, fixed scale 1, no flight-path fitting",
+    "duration_sim_s": 65.984,
+    "truth_path_length_m": 18.793346586777833,
+    "position_error_m": {
+      "count": 1000,
+      "rmse": 0.04151227681965484,
+      "median": 0.034708329361572324,
+      "p95": 0.06583860675847922,
+      "max": 0.07328809753128054
+    },
+    "absolute_yaw_error_deg": {
+      "count": 1000,
+      "rmse": 0.23993316972456172,
+      "median": 0.14136889462071872,
+      "p95": 0.4621108410400648,
+      "max": 0.492610264780297
+    },
+    "coverage": {
+      "raw_samples_in_interval": 1000,
+      "paired_samples": 1000,
+      "paired_raw_fraction": 1.0,
+      "truth_grid_samples": 3299,
+      "supported_truth_grid_samples": 3297,
+      "truth_grid_support_fraction": 0.9993937556835405,
+      "bounded_time_support_fraction": 0.9992725509062803,
+      "truth_max_gap_sim_s": 0.02,
+      "raw_max_gap_sim_s": 0.068000001,
+      "paired_max_gap_sim_s": 0.068000001,
+      "start_uncovered_sim_s": 0.048,
+      "end_uncovered_sim_s": 1e-09,
+      "truth_interpolation_limit_sim_s": 0.04,
+      "odometry_support_limit_sim_s": 0.2,
+      "note": "Reporting limits only; no extrapolation, timestamp repair or health gate changes.",
+      "rejected_samples": []
+    },
+    "no_acceptance_threshold_declared": true
+  },
+  "contact": {
+    "passed": true,
+    "sensor_topics_ready": true,
+    "ground_contact_event_count": 12910,
+    "prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": true,
+    "first_prohibited_contact": null
+  },
+  "terminal_readback": {
+    "phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "safe_to_stop": true
+  },
+  "evaluator_input_hashes_match": {
+    "flight.json": true,
+    "debug-truth-evaluation.json": true,
+    "planner-observation.json": true,
+    "bridge-observation.json": true,
+    "n09-contact-observation.json": true,
+    "vehicle-contact-evaluation.json": true,
+    "postflight-px4-bridge-readback.json": true,
+    "runtime-contract.json": true,
+    "n10-cancel-run-manifest.json": true
+  },
+  "artifacts": {
+    "flight.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/flight.json",
+      "sha256": "6797456d017b5af757325d7b498e9c4d2ad5df3113267ce8117c9f05bf79e081"
+    },
+    "n10-cancel-braking-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/n10-cancel-braking-evaluation.json",
+      "sha256": "e8f54a9346390df4bf5064cfcc8d47815cb63bae589177672047c4ffe013fe1f"
+    },
+    "debug-truth-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/debug-truth-evaluation.json",
+      "sha256": "5c31d13767e3b3372ab9c46848d1eae80d81e04f138c55e7b79cd6d5ada1967b"
+    },
+    "odometry-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/odometry-evaluation.json",
+      "sha256": "4050afbd9cf1e79825c1374b499f975efc1ec722bca6a820cbe71fd398e0aa53"
+    },
+    "vehicle-contact-evaluation.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/vehicle-contact-evaluation.json",
+      "sha256": "01ff747b2cf87db5ce8e60e263710a9acdd15cd26d0adda0f337c51c26206e6f"
+    },
+    "postflight-px4-bridge-readback.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/postflight-px4-bridge-readback.json",
+      "sha256": "b7a9b15cfc2a636872fcafacdcd75dfc2ea8081d4b9de2d3f3d597e64188ca85"
+    },
+    "safe-to-stop.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/safe-to-stop.json",
+      "sha256": "19d602e2255e9721ce4ed1e61e2891390405c74a46596d30d3e643bf97d279e4"
+    },
+    "n10-runtime-identity-readback.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/n10-runtime-identity-readback.json",
+      "sha256": "7f90aba9cf2b7377aebdff10aeb9bd941ef23a1bc89ebcb0c2b73c8a6b42c022"
+    },
+    "n10-cancel-run-manifest.json": {
+      "path": "artifacts/runs/n10-20261027-378-speed060-cancel-calibration/n10-cancel-run-manifest.json",
+      "sha256": "0528821a45024d2eb86f16aea561ead14b3d166fdc7b7471b24380f9cc19a9e0"
+    }
+  },
+  "limitations": [
+    "One SITL cancellation sample; not a lower bound or general stopping guarantee.",
+    "Localization quality and source/receipt freshness are not runtime gates; raw measurements remain reported for N10 calibration.",
+    "The EGO replacement trajectory uses upstream inflated-occupied collision handling; this is not the removed raw-free whole-curve gate.",
+    "This report does not provide minimum obstacle clearance; contact-free is not a clearance measurement.",
+    "Truth is read-only and is not a navigation or control input.",
+    "One sample does not establish repeatability, a braking bound, obstacle clearance, or an operational speed limit.",
+    "N10.3 still requires evidence synthesis for localization/map error, clearance, replanning, fault boundaries, supported scope, and repeatability."
+  ]
+}

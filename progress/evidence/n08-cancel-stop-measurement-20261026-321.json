@@ -1,0 +1,72 @@
+{
+  "schema": "n08-cancel-stop-measurement/v1",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-321",
+  "status": "passed",
+  "trial_kind": "motion_cancel",
+  "completion_mode": "single_goal",
+  "action_goal_sent": true,
+  "return_action_sent": false,
+  "ordinary_terminal_stop_repeat_count": 0,
+  "runtime_contract_sha256": "75aaa541f7684b38fe0805b958e029fa21f8c6dd6ab00d2ebe1fae92c7e8a772",
+  "target_profile_sha256": "b2aacac43b8e321806387471b6f62e40bbc5c6d32d23b15b314157bed1913108",
+  "planner_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+  "metrics": {
+    "cancel_trigger_px4_horizontal_speed_m_s": 0.04014436484996344,
+    "cancel_trigger_ego_reference_speed_m_s": 0.05848395921967986,
+    "cancel_to_stop_distance_m": 0.30406729982773556,
+    "candidate_cancel_stop_envelope_m": 0.5,
+    "remaining_forward_corridor_at_cancel_m": 0.5547730431324607,
+    "cancel_to_sustained_deceleration_response_s": 2.8759999999999994,
+    "actual_peak_vector_speed_m_s": 0.08584830010113834,
+    "actual_vector_speed_limit_m_s": 0.12,
+    "independent_reference_tracking_error_max_m": 0.0878796067580259,
+    "maximum_tracking_error_m": 0.15,
+    "normal_reference_braking_start_to_actual_stop_m": 0.19645748229918988,
+    "residual_distance_after_reference_zero_m": 0.029040704800190643,
+    "stop_hold_position_excursion_m": 0.010185660703089664,
+    "post_stop_hold_sim_s": 3.0
+  },
+  "checks": {
+    "native_flight_pass": true,
+    "independent_evaluator_pass": true,
+    "replacement_stop_spline_certified": true,
+    "old_trajectory_not_resumed": true,
+    "actual_stop_and_hold_after_cancel": true,
+    "destination_landing_checks": true,
+    "n05_and_airborne_capsules": true,
+    "localization_continuity": true,
+    "bridge_active_through_stop_and_hold": true,
+    "landed_and_disarmed": true,
+    "return_action_or_goal_sent": false,
+    "truth_used_for_control": false
+  },
+  "safety": {
+    "fixture_removed": true,
+    "bridge_state": "LANDED",
+    "bridge_control_enabled": false,
+    "px4_disarmed": true,
+    "land_detected": true,
+    "control_samples_after_mission": 0,
+    "container_exit_code": 0
+  },
+  "wrapper_note": "mission wrapper exited 1 after native PASS because optional matplotlib was absent for unconditional --plot; independent evaluator without --plot passed. No wrapper/source modification.",
+  "artifacts": {
+    "flight": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-321/flight.json",
+    "evaluation": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-321/n08-braking-evaluation.json",
+    "runtime_contract": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-321/runtime-contract.json",
+    "n05_summary": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-321/n05-run-summary.json",
+    "independent_readback": "artifacts/runs/n08-cancel-highspeed-prescan-20261026-321/post-mission-independent-live-readback.json"
+  },
+  "artifact_sha256": {
+    "flight.json": "f7d0fd04c39b039da83636fa40695f4cbb44b0d49d1ca2ef9cbde43378c347f8",
+    "n08-braking-evaluation.json": "c45a47ad2c5b70c2df3ead595274eaa956ccd6b32d5b49f0bd91c185477cb87b",
+    "runtime-contract.json": "fbdcbbd589d9275ae7328a17aa90307dc8acbb29da2b6d34010c4a467d5b31cf",
+    "n05-run-summary.json": "81bd0df20281f245ba64f37fa5f6b77b33b6f138309d6856dd4e01d1294c6ff8",
+    "post-mission-independent-live-readback.json": "0f1dbb69776a89e8273efbbdb193e7fa68aceda289e7cebd24fa75dcba5ccb79"
+  },
+  "limitations": [
+    "motion_cancel is separate from the required three ordinary terminal_stop arrivals",
+    "measured deceleration is finite-sample evidence, not a guaranteed lower bound",
+    "the candidate 0.50 m envelope is scoped to this measured low-speed forward cancellation protocol"
+  ]
+}

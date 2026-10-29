@@ -1,0 +1,59 @@
+{
+  "schema": "n10-project-health-gate-audit/v1",
+  "subtask_id": "N10.3/#374 source audit for #375",
+  "status": "project-added N10 health gates removed; no SITL run in this audit step",
+  "removed": [
+    {
+      "gate": "LocalizationStatus.valid/TRACKING rejection and active abort",
+      "owner": "src/own project code",
+      "paths": [
+        "src/own/uav_navigation/uav_navigation/task_state.py",
+        "src/own/uav_navigation/uav_navigation/node.py",
+        "tools/check_navigation_ready.py",
+        "tools/run_vio_ego_flight.py",
+        "src/own/uav_px4_bridge/uav_px4_bridge/px4_bridge_node.py"
+      ],
+      "change": "Health state is observation only on N10 admission, task execution, active cancel-stop path, and PX4 bridge. Same-epoch status no longer rejects goals or latches a landing fault."
+    },
+    {
+      "gate": "DepthHealth monitor admission and status receipt requirement",
+      "owner": "src/own project code",
+      "paths": [
+        "src/own/uav_mapping/uav_mapping/adapter.py",
+        "src/own/uav_px4_bridge/launch/vio_closed_loop_ego_px4.launch.py",
+        "src/own/uav_px4_bridge/launch/debug_truth_ego_px4.launch.py"
+      ],
+      "change": "Standard VIO/EGO and debug-truth launch no longer start or subscribe to depth_health_monitor; status is not required to forward depth."
+    },
+    {
+      "gate": "Minimum valid depth-pixel count (16 sampled points)",
+      "owner": "src/own project code",
+      "paths": [
+        "src/own/uav_mapping/uav_mapping/adapter.py",
+        "config/components/mapping/ego_input.json"
+      ],
+      "change": "Removed sample-count refusal. Correctly shaped depth frames are forwarded with zero/invalid pixels preserved as unknown by the existing EGO invalid-depth patch."
+    },
+    {
+      "gate": "Removed-age-key report crash",
+      "owner": "src/own project tooling",
+      "paths": [
+        "tools/check_navigation_ready.py"
+      ],
+      "change": "Removed historical comparison fields that indexed deleted age thresholds; receipt gaps remain observational."
+    }
+  ],
+  "retained_integrity_or_upstream_constraints": [
+    "VINS epoch and map_id identity; epoch change abort/reset without session splicing",
+    "frame/body-frame, finite message layout, timestamp monotonicity, ROS clock regression, and map-reset acknowledgement",
+    "PX4 native preflight, current local position validity, external-vision position/yaw fusion, landed/unarmed state, and single uav_px4_bridge control owner",
+    "EGO upstream inflated-occupied collision behavior and depth/odometry watchdog; unknown-space semantics unchanged",
+    "FAST Lab official static AUTO_TAKEOFF speed condition <=0.1 m/s, verified in upstream PX4CtrlFSM"
+  ],
+  "tests_and_build": {
+    "python_compile": "passed",
+    "ros_build": "17 packages passed",
+    "project_test": "415 unit tests passed; navigation-adapter ROS integration passed with LocalizationStatus.DEGRADED/valid=false; official_ego ROS probe passed"
+  },
+  "scope_note": "This is source audit and regression evidence, not SITL or flight evidence. N10 remains in_progress."
+}

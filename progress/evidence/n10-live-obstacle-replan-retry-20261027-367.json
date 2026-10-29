@@ -1,0 +1,115 @@
+{
+  "schema": "n10-live-obstacle-diagnostic-result/v1",
+  "subtask_id": "N10.3/#367",
+  "run_id": "n10-20261027-367-ego-retry-live-obstacle",
+  "classification": "failed single-run diagnostic; no formal N10/N12 qualification",
+  "runtime_contract_sha256": "15d935eb803e76eb378aa4aa566d2d7b46b97168e2c75e7e0ee5d87878ed57a6",
+  "protocol_sha256": "d6d320216385dc231631e20887a4b8c887710dc74a8d44b78ae7cdb411efd149",
+  "inputs_sha256": {
+    "flight.json": "1bad020630ac5d0598d38f08cf144a1e74aeb2040db61c3c4e4e8262dce2a630",
+    "n10-live-obstacle-observation.json": "6fd9027d445949ee929ebb6f7fd42757d89531991f6830de2f2abb37a0d0865a",
+    "n10-live-obstacle-analysis.json": "c12ae0e111e98046d6f0c0774167a476523953a51408ec0e06240c2265098f73",
+    "n10-live-obstacle-box-clearance.json": "f9ba81e37bb4c72d8c4f83331d3d31d6845724695b5efc63dfc474e5dddc35bf",
+    "n10-clearance-evaluation.json": "cda77ac61f3f877fe651d3949e2648a06c8e1df85976e70fe347893e5e135b52",
+    "bridge-alignment-timeline.jsonl": "c19a4e68998c8ae7fc742fe697db6e4ff34037e92c4bbf6e967b18c437bc4732",
+    "n08-localization-source-timeline.json": "64856058e120a2ba0702619fca74e767244a116527043aa334ba50f69bc976a9",
+    "vehicle-contact-evaluation.json": "1640454421dc2f3edc09758da69998dd3738b1aa9ed7e69d8d28e5a36c82932c",
+    "postflight-px4-bridge-readback.json": "f5f719a639c75e76fcd52e1cc58b84ea5fb84224899cd7d8570b8f6a92e36761",
+    "safe-to-stop.json": "cfcabbdb40cd1d6d6f8b35baaf0857f91b0b3587eb2bacdcfe10a2d0360f6c22"
+  },
+  "navigation": {
+    "action_goal_sent": true,
+    "goal_id": "e2fca696c34246cd9c655ad12d24012b",
+    "epoch": "1c1f8843920b4f21a6a490668eb5a861",
+    "target_enu": [
+      15.96701112841507,
+      -0.003140565748990617,
+      1.0063981544975293
+    ],
+    "position_tolerance_m": 0.25,
+    "action_success": false,
+    "action_result": {
+      "final_position": [
+        14.432441109886415,
+        -0.02235719240280022,
+        -0.09189656953188291
+      ],
+      "outcome": "aborted",
+      "reason": "goal_timeout",
+      "status": 6,
+      "success": false
+    },
+    "failure": "navigation_action_not_successful:goal_timeout",
+    "goal_wall_elapsed_s": 360.08885473711416,
+    "goal_sim_elapsed_s": 317.968,
+    "realtime_factor": 0.8830264969798501
+  },
+  "dynamic_obstacle": {
+    "model_name": "n10_live_replan_box",
+    "world": "vio_initialization",
+    "center_xyz_world_m": [
+      0,
+      0,
+      1.4
+    ],
+    "size_xyz_m": [
+      0.8,
+      0.8,
+      2.8
+    ],
+    "create_acknowledged": true,
+    "create_sim_ns": 95840000000,
+    "goal_start_sim_ns": 83812000000,
+    "goal_to_create_sim_s": 12.008,
+    "same_goal_epoch_replacement_trajectory_seen": true,
+    "pre_injection_spline_count": 24,
+    "post_injection_spline_count": 266,
+    "first_post_injection_traj_id": 25,
+    "last_post_injection_traj_id": 290,
+    "occupied_cloud_roi_samples": 7,
+    "occupied_cloud_roi_point_count_max": 398,
+    "first_new_spline_centerline_distance_m": 0.0,
+    "centerline_metric_limitation": "dense sample of the first replacement spline only; it touches the box AABB and is not a body-envelope or continuous collision proof"
+  },
+  "actual_flight_clearance": {
+    "box_sampled_minimum_clearance_m": 1.002371075774133,
+    "max_observed_inter_sample_envelope_motion_m": 0.019878331635948224,
+    "box_adjusted_sampled_lower_bound_m": 0.9824927441381849,
+    "world_sampled_minimum_clearance_m": 0.22524399026540254,
+    "world_adjusted_sampled_lower_bound_m": 0.20536565862945433,
+    "continuous_dynamics_proof": false,
+    "prohibited_contact_count": 0,
+    "landing_ground_contact_observed": true
+  },
+  "bridge_fault": {
+    "first_landing_sim_ns": 129264000000,
+    "wall_elapsed_s": 92.245695684,
+    "reason": "external_odometry_stale",
+    "latest_mapped_odometry_age_wall_s": 0.344802963,
+    "source_stamp_outside_clock_history": "source_stamp_outside_clock_history",
+    "current_px4_sim_ns": 129264000000,
+    "source_odometry_stamp_ns": 128968000000,
+    "source_stamp_lag_sim_s": 0.296,
+    "max_source_age_wall_s": 0.35,
+    "configured_odometry_receipt_age_limit_wall_s": 0.3,
+    "clock_mapping_history_samples": 64,
+    "localized_status_valid_at_sim_ns": 129196000000,
+    "localized_status_state": "TRACKING/valid",
+    "interpretation": "The source stamp was within the configured 0.35s wall-age allowance but older than the 64-sample /clock history, so conversion rejected it and the mapped-odometry receipt-age guard later initiated landing. This is a clock-history sizing mismatch, not an EGO planner abort."
+  },
+  "safe_stop": {
+    "bridge_phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "control_samples_zero": true,
+    "container_exited": true
+  },
+  "evaluator_limitations": [
+    "Arrival evaluator reported false for its landed_and_disarmed field because the flight runner failure record omits that field when the bridge already landed; independent postflight PX4/bridge readback and safe-to-stop are authoritative for terminal state.",
+    "Odometry evaluation did not produce its JSON because it requires an observed PRESTREAM-to-LANDED interval in the flight record; VIO error/drift for this failed run remains unevaluated.",
+    "Calibration summary analyzer stopped at the missing odometry-evaluation.json input; this failed run cannot provide the complete N10.3 calibration bundle."
+  ],
+  "result": "PARTIAL_DIAGNOSTIC_FAIL",
+  "conclusion": "The obstacle was created and sensed; EGO continued publishing/replanning same-goal trajectories and the flown body path cleared the box in sampled geometry. The goal did not complete: PX4 bridge landed after a delayed but in-allowance VIO sample fell outside the 64-entry clock interpolation history. Preserve as failed; N10.3 is not passed."
+}

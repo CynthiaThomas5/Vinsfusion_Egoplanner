@@ -1,0 +1,155 @@
+{
+  "schema": "n06-yaw-microstep-reacquisition/v1",
+  "report_id": "2026-10-23-098",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "parent_status": "in_progress",
+  "subtask": "N06.4",
+  "run_id": "n06-20261023-wall-r23",
+  "hypothesis_result": {
+    "first_zero_feature_count": {
+      "sim_time_s": 11.452,
+      "estimated_yaw_deg": 0.557,
+      "truth_yaw_deg": 0.6160493960032685
+    },
+    "first_step": {
+      "command_start_sim_s": 10.003,
+      "command_rest_sim_s": 12.576,
+      "nominal_step_deg": 1.0
+    },
+    "first_reacquisition_hold": {
+      "sim_interval_s": [
+        12.576,
+        17.747
+      ],
+      "duration_s": 5.171,
+      "feature_count_range_after_recovery": [
+        110,
+        113
+      ],
+      "representative_stable_interval_s": [
+        15.016,
+        17.656
+      ],
+      "evidence": "mapping-stack.log contains n_pts values 111-113 through the end of the first static hold; a transient dip to 2 occurs early in the hold."
+    },
+    "second_step": {
+      "command_start_sim_s": 17.747,
+      "first_gate_pose_sim_s": 18.844,
+      "feature_counts_near_gate": [
+        7,
+        49
+      ]
+    },
+    "first_normalized_cost_mapping_gate_closure": {
+      "sim_time_s": 18.844,
+      "estimated_yaw_deg": 1.9607102206961762,
+      "logger_wall_time_s": 1792733858.6262789
+    },
+    "first_invalid_localization_status": {
+      "stamp_ns": 18910000000,
+      "sim_time_s": 18.91,
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "wall_elapsed_s": 17.448476
+    },
+    "truth_yaw_at_first_invalid_deg": 1.546101596016007,
+    "feature_counts_before_gate": {
+      "sim_interval_s": [
+        18.514,
+        18.844
+      ],
+      "range": [
+        2,
+        7
+      ]
+    },
+    "localization_status_counts": {
+      "valid": 343,
+      "invalid": 1752,
+      "total": 2095
+    },
+    "map_status_after_gate": {
+      "first_reset_acknowledged_sim_s": 19.115,
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "last_depth_source_stamp_ns": 0,
+      "forwarded_depth_count": 528,
+      "dropped_depth_count": 2246
+    },
+    "interpretation": "A fixed-view hold after the first 1-degree increment restored a large VINS feature count, but health failed during the second increment at about 1.55 degrees truth yaw. The one-degree interval is still too coarse to preserve health across the observed failure point; intermittent feature counts alone did not keep localization and mapping ready."
+  },
+  "motion_truth": {
+    "truth_samples": 6701,
+    "imu_samples": 16752,
+    "command_count": 24,
+    "clock_s": [
+      4.99,
+      71.997
+    ],
+    "wall_seconds": 80.37737657083198,
+    "commanded_total_yaw_deg": 8.0,
+    "achieved_unwrapped_yaw_delta_deg": 8.819804396128212,
+    "qualification": "Debug-only sensor-fixture truth; not used by mapping. Truth yaw exceeded the 8-degree commanded total by about 0.82 degrees."
+  },
+  "input_capture": {
+    "requested_wall_seconds": 105.0,
+    "actual_wall_seconds": 105.604,
+    "raw_depth_header_count": 2649,
+    "forwarded_depth_frame_count": 441,
+    "camera_pose_count": 441,
+    "optimized_odometry_count": 221,
+    "fusion_trace_count_by_phase": {
+      "ego_received": 439,
+      "fused": 226,
+      "reset": 1
+    },
+    "last_forwarded_depth_stamp_ns": 18745000000,
+    "qualification": "The raw header/status recorder covered its requested window. Sampled forwarded depth and exact camera pose stopped at sim 18.745 seconds near the first health lock; the input capture is not a full raw-image recording."
+  },
+  "snapshots": {
+    "attempted": true,
+    "captured": 0,
+    "map_ready_at_end": false,
+    "last_map_status_reason": "map_reset_acknowledged",
+    "output_files": [],
+    "runner_exit_code": "not captured after the host session handle was lost"
+  },
+  "cleanup": {
+    "project_container_remaining": false,
+    "matching_project_processes_remaining": false,
+    "px4_or_control_started": false
+  },
+  "source_hashes": {
+    "motion.json": "457a3d821c39b2265f2449727eceae64d9e7e523f290f43122e5fb6924aea2f5",
+    "mapping-stack.log": "49d1b0f0d837657c342311739a001216f62922f95f5e20f69cc11550816e3f48",
+    "inputs/mapping-inputs.json": "65d505a3a5b45d63b18b8813add1ff275d5e08290fdf4716623d70915874f658",
+    "inputs/mapping-depth-pixels.npz": "8d37b79b917e371269e3818dd9d7d7d1f7539e419816d4f3737ad81e4043f55a",
+    "run-inputs.json": "d5fee0647ec1030f16bde37df3bc0fb5858ec7fd9b2212414cb89fc4748c336e",
+    "snapshot-01-capture.log": "599043c274dde9d7da2adbe736bcbaf467f8763e55a0982c25ad17d6f54b427e",
+    "input-recorder.log": "2325e2b40be01b9403dfefb044229e75558c5c8228a1dc13deb3e9cdcb46312d"
+  },
+  "next_experiment": {
+    "run_id": "n06-20261023-wall-r24",
+    "profile_path": "config/components/simulation/n06_yaw_microstep_025deg_pilot.json",
+    "profile_sha256": "5753bf392b2cabecaeeefd7e44fa361d73af908cb1f71cca23b93e15a5d5d191",
+    "primary_variable": "Maximum uninterrupted yaw increment reduced from 1 degree to 0.25 degree. Angular acceleration, 5.164-second fixed-view hold, location and surround stay fixed.",
+    "hypothesis": "More frequent fixed-view reacquisition before the 1.55-degree truth-yaw failure point will keep localization valid through a 2-degree pilot and keep map input ready.",
+    "pilot": {
+      "steps": 8,
+      "step_degrees": 0.25,
+      "phase_seconds": 0.6454972243679028,
+      "hold_seconds_per_step": 5.163977794943222,
+      "commanded_total_yaw_deg": 2.0,
+      "peak_rate_rad_s": 0.006759631126622686,
+      "stop_seconds": 56.63977794943222,
+      "record_wall_seconds": 90
+    },
+    "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r24 wall_box_column 87 motion_n06 config/components/simulation/n06_yaw_microstep_025deg_pilot.json",
+    "success_criterion": "Localization remains valid through achieved truth yaw at least 2.0 degrees, MapStatus remains input_ready with the same epoch/map identity and fresh depth, and a matched snapshot can be captured. Pilot success does not mean full-turn coverage or N06 pass."
+  },
+  "status": "N06 and S4 remain in_progress; next_goal remains N06; no N06 exit criterion changed.",
+  "stop_reason": "The 1-degree pilot recovered features during its first hold but localization failed during the second step. Continue N06 in Goal completion mode with a bounded 0.25-degree reacquisition pilot."
+}

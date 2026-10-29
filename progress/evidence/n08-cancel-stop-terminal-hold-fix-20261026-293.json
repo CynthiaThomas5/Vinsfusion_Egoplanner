@@ -1,0 +1,34 @@
+{
+  "schema": "n08-motion-cancel-runner-fix/v1",
+  "parent_goal": "N08",
+  "subtask": "#293 terminal hold recognition after motion cancel",
+  "status": "implementation_verified_runtime_pending",
+  "root_cause": "EGO traj_server keeps PositionCommand flag READY beyond the B-spline active time domain while publishing the terminal position and zero velocity/acceleration; the native runner waited for an un-emitted COMPLETED flag.",
+  "behavior_change": {
+    "terminal_time_source": "B-spline active knot domain [knots[order], knots[point_count]] plus message start_time in simulation source clock",
+    "reference_terminal_rule": "same goal/epoch/trajectory, source time at or after the spline end, two unique commands at least 50 ms apart, stable endpoint position, zero velocity and acceleration",
+    "measured_stop_rule": "fresh monotonic PX4 local-position samples with horizontal speed <= 0.03 m/s and absolute vertical speed <= 0.05 m/s throughout the existing 3 s post-goal hold",
+    "bridge_state_rule": "bridge remains ACTIVE and armed with fresh telemetry through measured stop hold",
+    "thresholds_changed": false,
+    "evaluator_action_fields": "status=5, outcome=canceled, reason=caller_cancel, success=false checked in their own fields"
+  },
+  "verification": {
+    "command": "bash tools/project.sh test",
+    "result": "354 tests passed; navigation-adapter integration passed",
+    "snapshot_specialized_command": "source /opt/ros/jazzy/setup.bash && source install/local_setup.bash && PYTHONDONTWRITEBYTECODE=1 python3 tools/ros_tests/test_n08_trial_snapshot.py",
+    "snapshot_result": "8 tests passed",
+    "runtime_qualification": "pending fresh N05 scan, preflight, mission admission, real motion-cancel hold, destination landing, and independent braking evaluation"
+  },
+  "source_sha256": {
+    "tools/run_n08_braking_trial.py": "8a63756daedb23b1df044bc0d3ce9ebd6ec9218183dfb903a1a95b8335d5bd33",
+    "tools/debug_truth/evaluate_n08_braking.py": "84d61efcebcb58022a2ba73903244f550bae4f63b4b3ad4d877c4794f8a17842",
+    "tools/test_run_n08_braking_trial.py": "f05ef3078e0475a99a83cc048398b97212f398630a6a82bb60c5f5d969bd5b71",
+    "tools/test_n08_braking_evaluation.py": "73b8d9d491aae455f7ecd5d1cc41a467bcc1c7edc52c7483adb521bebc5b35c9",
+    "tools/ros_tests/test_n08_trial_snapshot.py": "c3f61a0034115d109fb0e2e6ac4312846dc00b41cefec4d6490acff6dd552de1"
+  },
+  "evidence_paths": [
+    "progress/evidence/n08-cancel-stop-ready-status-diagnostic-20261026-292.md",
+    "progress/changes/2026-10-26-293-n08-cancel-stop-terminal-hold.md",
+    "collaboration/dialogues/2026-10-26-293-n08-cancel-stop-terminal-hold.md"
+  ]
+}

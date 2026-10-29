@@ -1,0 +1,26 @@
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -38,20 +38,9 @@
+   {
+     return "depth_pose_gate_closed";
+   }
+-  const double update_age_s = (node_->now() - md_.last_occ_update_time_).seconds();
+-  if (!std::isfinite(update_age_s) || update_age_s < 0.0 ||
+-      update_age_s > mp_.odom_depth_timeout_)
+-  {
+-    return "occupancy_update_stale";
+-  }
+-  const double source_age_s = node_->now().seconds() -
+-                              static_cast<double>(md_.last_fused_depth_source_stamp_ns_) / 1e9;
+-  if (md_.last_fused_depth_source_stamp_ns_ <= 0 || !std::isfinite(source_age_s) ||
+-      source_age_s < 0.0 || source_age_s > mp_.odom_depth_timeout_)
+-  {
+-    return "depth_source_stale";
+-  }
+-
++  // Receipt/source ages remain available in query responses for diagnostics.
++  // Do not add a project-local age cutoff here; the active EGO planner still
++  // owns its native odometry/depth timeout and collision behavior.
+   return "";
+ }
+ 

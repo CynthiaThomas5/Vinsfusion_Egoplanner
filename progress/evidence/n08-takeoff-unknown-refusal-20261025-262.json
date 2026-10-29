@@ -1,0 +1,73 @@
+{
+  "schema": "n08-trial-n05-refusal/v1",
+  "run_id": "n08-20261025-262-yaw-first-return",
+  "result": "not_admitted_no_flight",
+  "qualification": "fresh N05 mission-entry refusal diagnostic only; not takeoff or flight approval",
+  "question_answered": "Current N05 admission can reject vertical takeoff when raw unknown intersects the expanded full-airframe envelope or ascent/hold volume, independent of intended forward-only route translation.",
+  "n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_result_identical": true,
+    "freshness_limit_sim_s": 0.4,
+    "snapshot_age_sim_s": 0.092,
+    "depth_source_age_sim_s": 0.144,
+    "fusion_age_sim_s": 0.032,
+    "map_status_receipt_age_wall_s": 0.16026392905041575,
+    "ground_plane_z_m": -0.3500000000000002,
+    "ground_plane_raw_occupied_voxel_count": 110,
+    "phases": {
+      "TAKEOFF_CONTACT": {
+        "samples": 1,
+        "accepted_samples": 0,
+        "unknown_cells": 436,
+        "occupied_cells": 0,
+        "subground_excluded_cells": 44
+      },
+      "ASCENT": {
+        "samples": 19,
+        "accepted_samples": 0,
+        "maximum_unknown_cells": 592,
+        "occupied_cells": 0
+      },
+      "HOLD": {
+        "samples": 1,
+        "accepted_samples": 0,
+        "unknown_cells": 566,
+        "occupied_cells": 0
+      }
+    }
+  },
+  "read_only_unknown_volume_audit": {
+    "contact_unknown_centers": 436,
+    "contact_x_negative": 331,
+    "contact_x_nonnegative": 105,
+    "hold_unknown_centers": 566,
+    "hold_x_negative": 362,
+    "hold_x_nonnegative": 204,
+    "hold_unknown_xyz_min_m": [-0.6499999999999986, -0.5499999999999972, 0.4500000000000002],
+    "hold_unknown_xyz_max_m": [0.3500000000000014, 0.5500000000000007, 1.25],
+    "debug_truth_used": false,
+    "control_input": false,
+    "rear_sensor_fov_causality_proven": false
+  },
+  "state": {
+    "bridge_phase": "DISABLED",
+    "armed": false,
+    "landed": true,
+    "control_enabled": false,
+    "control_or_goal_published": false,
+    "truth_subscribed": false,
+    "flight_json_present": false,
+    "project_container_stopped": true
+  },
+  "artifacts": {
+    "live_report": "artifacts/runs/n08-20261025-262-yaw-first-return/n05-current-area/n05-live-entry-check.json",
+    "live_report_sha256": "3bc69fdb893f160bc719bc4428a63266a9ae3b2587ea2916c9ba42decd05223d",
+    "raw_map": "artifacts/runs/n08-20261025-262-yaw-first-return/n05-current-area/n05-live-raw-map.npz",
+    "raw_map_sha256": "df7852d4228cef448991cec82db6a979d8c6918b27667ab339262ce8ffa8e4f7",
+    "offline_replay": "artifacts/runs/n08-20261025-262-yaw-first-return/n05-current-area/n05-offline-entry-replay.json",
+    "full_run_directory": "artifacts/runs/n08-20261025-262-yaw-first-return/"
+  },
+  "next_subtask": "#263: fresh n08_overhead_calibration / n08_far_small_pitch_view whole-airframe support scan, detach, fresh post-release N05 admission; execute yaw-first N08 trial only if the fresh same-run mission gate passes.",
+  "parent_n08_status": "in_progress"
+}

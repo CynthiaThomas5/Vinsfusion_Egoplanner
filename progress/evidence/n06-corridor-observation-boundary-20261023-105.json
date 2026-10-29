@@ -1,0 +1,406 @@
+{
+  "schema": "n06-corridor-observation-boundary/v1",
+  "report_id": "2026-10-23-105",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; single D435i sensor-rig simulation; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "parent_status": "in_progress",
+  "next_goal": "N06",
+  "subtask": {
+    "id": "N06.7",
+    "run_id": "n06-20261023-corridor-r30",
+    "result": "diagnostic complete; no custom safe candidate; corridor positive curve not established"
+  },
+  "run": {
+    "layout_id": "corridor_box_column",
+    "motion_profile": "config/components/simulation/n06_x_visibility_slow.json",
+    "motion_profile_sha256": "653733f873234da35fb38af4f80771707190bd21df595372c88fa2924234988f",
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runner_exit_code": 0,
+    "container_and_matching_processes_stopped": true,
+    "motion_truth": {
+      "clock_end_s": 98.021,
+      "wall_seconds": 94.99823312903754,
+      "x_min_m": -2.3983200780003884,
+      "x_end_m": 0.007922351999999806,
+      "yaw_start_end_deg": [
+        0.0,
+        0.0
+      ]
+    },
+    "mapping_input_capture": {
+      "wall_seconds": 104.472,
+      "requested_wall_seconds": 101.0,
+      "depth_frames": 2998,
+      "camera_poses": 2998,
+      "optimized_odometry": 1499,
+      "fused_depth_pairs": 1569,
+      "ego_received_pairs": 2977,
+      "localization_status_count": 2018,
+      "localization_invalid_count": 0,
+      "localization_reasons": [
+        "fresh_inputs_and_usable_solver"
+      ],
+      "map_status_count": 440,
+      "map_status_not_ready_count": 0,
+      "epoch_count": 1,
+      "map_id_count": 1,
+      "frame_count": 1,
+      "pending_depth_high_water": 4,
+      "dropped_depth_count_final": 41
+    },
+    "snapshots": [
+      {
+        "snapshot": "snapshot-01",
+        "epoch": "0e3d604fd3a649e29ed082707f3c8c4a",
+        "map_id": "0e3d604fd3a649e29ed082707f3c8c4a-d7a2031f85c54a0b928caa9065669e79",
+        "frame_id": "odom_0e3d604fd3a649e29ed082707f3c8c4a",
+        "snapshot_stamp_ns": 106512000000,
+        "last_fused_depth_source_stamp_ns": 106426000000,
+        "source_age_s": 0.086,
+        "fusion_age_s": 0.027,
+        "identity_rejection_checks": {
+          "mismatched_epoch_rejected": true,
+          "mismatched_epoch_reason": "epoch_mismatch",
+          "mismatched_map_id_rejected": true,
+          "mismatched_map_id_reason": "map_id_mismatch"
+        },
+        "archive_sha256": "5a5450b60592741437ea1f6bd758843fa5d203b3b57a3b67f38d397d5e494044",
+        "metadata_sha256": "367d17316bd6d2562f7cef2d249347d55ee7f655cc34217d53ecd4dc8b54e82e"
+      },
+      {
+        "snapshot": "snapshot-02",
+        "epoch": "0e3d604fd3a649e29ed082707f3c8c4a",
+        "map_id": "0e3d604fd3a649e29ed082707f3c8c4a-d7a2031f85c54a0b928caa9065669e79",
+        "frame_id": "odom_0e3d604fd3a649e29ed082707f3c8c4a",
+        "snapshot_stamp_ns": 113267000000,
+        "last_fused_depth_source_stamp_ns": 113158000000,
+        "source_age_s": 0.109,
+        "fusion_age_s": 0.028,
+        "identity_rejection_checks": {
+          "mismatched_epoch_rejected": true,
+          "mismatched_epoch_reason": "epoch_mismatch",
+          "mismatched_map_id_rejected": true,
+          "mismatched_map_id_reason": "map_id_mismatch"
+        },
+        "archive_sha256": "5a5450b60592741437ea1f6bd758843fa5d203b3b57a3b67f38d397d5e494044",
+        "metadata_sha256": "5609b3ea39c4f0f1b334fb30641080fc7b11221189830c74fbdd9c9139669b6f"
+      },
+      {
+        "snapshot": "snapshot-03",
+        "epoch": "0e3d604fd3a649e29ed082707f3c8c4a",
+        "map_id": "0e3d604fd3a649e29ed082707f3c8c4a-d7a2031f85c54a0b928caa9065669e79",
+        "frame_id": "odom_0e3d604fd3a649e29ed082707f3c8c4a",
+        "snapshot_stamp_ns": 119984000000,
+        "last_fused_depth_source_stamp_ns": 119890000000,
+        "source_age_s": 0.094,
+        "fusion_age_s": 0.034,
+        "identity_rejection_checks": {
+          "mismatched_epoch_rejected": true,
+          "mismatched_epoch_reason": "epoch_mismatch",
+          "mismatched_map_id_rejected": true,
+          "mismatched_map_id_reason": "map_id_mismatch"
+        },
+        "archive_sha256": "294465adad392e14a219778cc97c3c23bc3e4b4bc5332779a3215b1a457658b2",
+        "metadata_sha256": "8358f614f77de9aef95f88024ed0219d2b8f8b1f67b80d7315b65b44ecb869e7"
+      }
+    ]
+  },
+  "candidate_gate": {
+    "snapshot": "snapshot-01",
+    "source_age_s": 0.086,
+    "fusion_age_s": 0.027,
+    "pose_gap_to_snapshot_s": 3.452,
+    "start_xyz_m": [
+      0.027764062895089703,
+      0.0011431437784416602,
+      -0.00727394639281554
+    ],
+    "body_radius_m": 0.7306179170842027,
+    "terminal_hold_radius_m": 0.9806179170842027,
+    "start_body_query": {
+      "accepted": true,
+      "reason": "free",
+      "unknown": 0,
+      "free": 2196,
+      "occupied": 0
+    },
+    "candidates": [
+      {
+        "delta_xyz_m": [
+          -0.8,
+          0.0,
+          0.0
+        ],
+        "target_xyz_m": [
+          -0.7722359371049103,
+          0.0011431437784416602,
+          -0.00727394639281554
+        ],
+        "terminal_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 1701,
+          "free": 3203,
+          "occupied": 0
+        },
+        "body_sweep_free": false,
+        "body_sweep_reason": "unknown",
+        "body_sweep_first_failure": {
+          "sample_index": 11,
+          "time_s": 0.5750000000000001,
+          "center_xyz_m": [
+            -0.25973593710491033,
+            0.0011431437784416602,
+            -0.00727394639281554
+          ],
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 4,
+          "free": 2283,
+          "occupied": 0
+        }
+      },
+      {
+        "delta_xyz_m": [
+          -1.0,
+          0.0,
+          0.0
+        ],
+        "target_xyz_m": [
+          -0.9722359371049103,
+          0.0011431437784416602,
+          -0.00727394639281554
+        ],
+        "terminal_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 2367,
+          "free": 2537,
+          "occupied": 0
+        },
+        "body_sweep_free": false,
+        "body_sweep_reason": "unknown",
+        "body_sweep_first_failure": {
+          "sample_index": 11,
+          "time_s": 0.5750000000000001,
+          "center_xyz_m": [
+            -0.25973593710491033,
+            0.0011431437784416602,
+            -0.00727394639281554
+          ],
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 4,
+          "free": 2283,
+          "occupied": 0
+        }
+      },
+      {
+        "delta_xyz_m": [
+          -1.2,
+          0.0,
+          0.0
+        ],
+        "target_xyz_m": [
+          -1.1722359371049103,
+          0.0011431437784416602,
+          -0.00727394639281554
+        ],
+        "terminal_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 3034,
+          "free": 1870,
+          "occupied": 0
+        },
+        "body_sweep_free": false,
+        "body_sweep_reason": "unknown",
+        "body_sweep_first_failure": {
+          "sample_index": 11,
+          "time_s": 0.575,
+          "center_xyz_m": [
+            -0.2597359371049103,
+            0.0011431437784416602,
+            -0.00727394639281554
+          ],
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 4,
+          "free": 2283,
+          "occupied": 0
+        }
+      },
+      {
+        "delta_xyz_m": [
+          -1.4,
+          0.0,
+          0.0
+        ],
+        "target_xyz_m": [
+          -1.3722359371049102,
+          0.0011431437784416602,
+          -0.00727394639281554
+        ],
+        "terminal_hold": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 3687,
+          "free": 1217,
+          "occupied": 0
+        },
+        "body_sweep_free": false,
+        "body_sweep_reason": "unknown",
+        "body_sweep_first_failure": {
+          "sample_index": 11,
+          "time_s": 0.575,
+          "center_xyz_m": [
+            -0.2597359371049103,
+            0.0011431437784416602,
+            -0.00727394639281554
+          ],
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 4,
+          "free": 2283,
+          "occupied": 0
+        }
+      }
+    ],
+    "selected_candidate": null,
+    "custom_goal_sent": false,
+    "decision": "fail closed; every tested rearward sweep and terminal hold contained raw unknown"
+  },
+  "runner_default_probe": {
+    "map_ready": true,
+    "freshness": {
+      "source_age_sim_s": 0.111,
+      "fusion_age_sim_s": 0.05,
+      "limit_sim_s": 0.4
+    },
+    "status_identity_stable": true,
+    "actual_body_query": {
+      "accepted": true,
+      "free": true,
+      "reason": "free",
+      "epoch": "0e3d604fd3a649e29ed082707f3c8c4a",
+      "map_id": "0e3d604fd3a649e29ed082707f3c8c4a-d7a2031f85c54a0b928caa9065669e79",
+      "frame_id": "odom_0e3d604fd3a649e29ed082707f3c8c4a",
+      "body_center_xyz_m": [
+        0.02890472518593079,
+        0.0013531636016898786,
+        -0.008404722759994751
+      ],
+      "radius_m": 0.7306179170842027,
+      "unknown_count": 0,
+      "occupied_count": 0,
+      "free_count": 2196
+    },
+    "goal_published": true,
+    "target_xyz_m": [
+      0.5289047251859308,
+      0.0013531636016898786,
+      0.49159527724000524
+    ],
+    "faults": [
+      {
+        "goal_id": "838099e3cf1646508352a9efceadca21",
+        "epoch": "0e3d604fd3a649e29ed082707f3c8c4a",
+        "mode": 0,
+        "reason": "full_curve_planning_failed"
+      }
+    ],
+    "curve_count": 0,
+    "late_curves_after_fault": 0,
+    "control_free": true,
+    "forbidden_nodes": [],
+    "forbidden_control_topics": []
+  },
+  "snapshot03_actual_pose_raw_query": {
+    "body": {
+      "unknown": 0,
+      "free": 2196,
+      "occupied": 0
+    },
+    "terminal_hold": {
+      "unknown": 16,
+      "free": 4863,
+      "occupied": 25
+    },
+    "pose_source_gap_s": 16.924
+  },
+  "offline_diagnosis": {
+    "candidate_coverage_artifact": "artifacts/runs/n06-20261023-corridor-r30/n06-candidate-coverage-incomplete-source.json",
+    "candidate_coverage_sha256": "6c7d0587471fff78dec20f8798e90b15c7b4db00959eb53b52bc40c0059d2a67",
+    "first_sweep_depth_audit_artifact": "artifacts/runs/n06-20261023-corridor-r30/n06-first-sweep-unknown-depth-audit.json",
+    "first_sweep_depth_audit_sha256": "16f2b9a29ee1d425ebf50ef765ea905bcd381ca55154f113dda8fb83baf694c1",
+    "first_sweep_dda_replay_artifact": "artifacts/runs/n06-20261023-corridor-r30/n06-first-sweep-dda-replay.json",
+    "first_sweep_dda_replay_sha256": "e38d1c020c8a246b98d3e67b531555011f59a4adba81b947462f917f858c85ba",
+    "snapshot03_incomplete_source_artifact": "artifacts/runs/n06-20261023-corridor-r30/n06-observation-coverage-incomplete-source.json",
+    "snapshot03_incomplete_source_sha256": "b9ce0d845dadfe51022901e9ec0f9b670330531ff6e5c8d3c1d8c0618751c757",
+    "first_sweep_unknown_cells": 4,
+    "same_stamp_fused_ray_crossings_per_cell": [
+      1174,
+      476,
+      476,
+      476
+    ],
+    "snapshot01_last_recorded_camera_to_map_source_gap_s": 3.366,
+    "inference": "The candidate cells at x=-1.05m fall beyond the final x≈0 local update boundary after the return scan: local_map_margin=10 voxels (1m). clearAndInflateLocalMap resets cells outside that local window to unknown. The offline recorded-ray DDA replay shows historical traversals but does not prove an instantaneous raycast defect; snapshot unknown remains correctly fail-closed.",
+    "limitations": [
+      "The snapshot-01 fused source stamp is 3.366s newer than the last archived camera pose; exact source-pose projection is unavailable.",
+      "The snapshot-03 raw body/hold projection uses a pose 16.924s older than its snapshot because recording ended before the stationary snapshots; raw query counts are exact for that saved pose, but the geometric projection is incomplete.",
+      "Offline DDA replay is a source-level replay, not execution of the C++ map node or occupancy history.",
+      "No map policy, unknown classification, N05 radius, or acceptance threshold was changed."
+    ]
+  },
+  "next_subtask": {
+    "id": "N06.8",
+    "run_id": "n06-20261023-corridor-r31",
+    "hypothesis": "Keep the sensor rig at x≈−0.8m after observing from x≈−3.2m. The open vestibule holds a 0.981m terminal sphere before the corridor walls begin at x≈0.325m, while the 1m plan_env local map margin covers the required hold volume. This tests position/viewpoint with raw queries; it does not enlarge map retention or treat unknown as free.",
+    "motion_profile": "config/components/simulation/n06_x_holdpoint_slow.json",
+    "expected_truth_x_extrema_m": [
+      -3.2,
+      -0.8
+    ],
+    "goal_offset_if_certified_m": [
+      0.0,
+      0.25,
+      0.0
+    ],
+    "gate": "Only submit the custom planner-only goal when the saved current body sphere, full continuous body sweep, and terminal hold are all raw free in a fresh matching map identity. Otherwise submit no custom goal.",
+    "criteria": [
+      "All LocalizationStatus valid during sensor-only motion.",
+      "MapStatus remains one ready epoch/map_id/frame.",
+      "Three snapshots match identity and are fresh; recorder captures their exact fused source poses.",
+      "Exact raw start body, sweep and terminal hold all free before custom EGO goal.",
+      "Control-free graph; if a goal is submitted, record goal-matched curve/fault/certificate and late-curve count."
+    ],
+    "preserved_scope": [
+      "No PX4, bridge, controller, traj_server, setpoint or flight.",
+      "Unknown remains blocked; no map margin or occupancy policy changes.",
+      "Original N06 exits and thresholds remain unchanged."
+    ]
+  },
+  "source_sha256": {
+    "run_inputs": "4f7579ffb3389a7d49175cb9c1ef56ca6a554f92b6647e87eabf46b84b5e9505",
+    "motion": "c0198456435171a7299758a8b15e63d2f44296125c6a5ce165b06625634091b1",
+    "mapping_inputs": "1c532e336f0fd881471f8cf6bb7346479e5a8f7d5b52d7cae8425b04aae76ecc",
+    "depth_pixels": "7ed580ee362d0402ccbb6ee6d56a58a1334607c55b9356dbf1906e2979dd1a21",
+    "input_recorder_log": "04a8bda074020fe18d0a1261263ed3d631abc5822fb46b50f393bc39260d88cf",
+    "mapping_stack_log": "f489484416a5aa4acfd92324b18ef4e7caed935685a073da5155cf28a673a220",
+    "default_probe": "8a8c99c8836b474e0dd885ccd9dd99187c7a8a4d22d7d55b36662d805a7524fd",
+    "candidate_report": "3e82c4dad158f642ae6223eff0abf2f2725a0972d13d7b208897f317ec71486f",
+    "world_manifest": "1771c719d491ce544f5fab61053aca88264b72ffb5cf885f91e604dd4504cf4c",
+    "truth_scene_sdf": "def96b77e3680f0adafb8f105c4d49e7c5276db7e2e3faa992ad48878921b549",
+    "world_sdf": "108bf0424a3152cfd97362f7a4007371b54d69adce250809f9384b1ef10d53ac",
+    "runtime_contract": "676bdae4c0019498220f17f718ab007357c228a7ed068dc79f13c2ce001edfc1",
+    "runtime_plan_env_library": "1e27f06ece65496ef774050fda51f8c110f20d7449e7f4052b2e95d981221d98",
+    "grid_map_cpp": "116f311aa2e17f716272255aa3a7097a1ddb9102888c387a7b608d647d983ce8",
+    "raycast_cpp": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
+    "patch_0038": "1260c9aa72bac8f883f6944ee3923707b72a6fa279fcb91389a959645e94b26d",
+    "probe_tool": "94feeaea8fd0d122255fa831b689c1521fdb4ecf429d434960853405f71c3637",
+    "sweep_analyzer": "c115d9ea6b60591fee798ca1eb4b6c4734380b95078c403c412ac0e62f259461",
+    "coverage_analyzer": "dab5555442bf6e50d0008902d223d0247448fa510403b231bde3a746e564fdaa"
+  }
+}

@@ -1,0 +1,426 @@
+{
+  "schema": "n06-ground-boundary-release-admission/v1",
+  "report_date": "2026-10-23",
+  "task_id": "N06.4 #121",
+  "parent_goal": "N06",
+  "parent_status": "passed",
+  "qualification": "planner integration and unarmed support-release admission evidence only; no flight approval",
+  "ground_boundary_policy": {
+    "plane_source": "fresh raw occupied voxels only; no debug truth or full world geometry",
+    "required_state": "PX4 landed and confirmed; DISARMED for the diagnostic runs; fresh valid plane",
+    "active_phases": [
+      "TAKEOFF_CONTACT",
+      "ASCENT",
+      "DESCENT",
+      "LANDING_CONTACT"
+    ],
+    "whole_cell_rule": "exclude only when the entire voxel cell top face is at/below the conservative lower fitted plane boundary over the full XY cell, including p95 residual and configured half-voxel boundary allowance",
+    "still_rejected": [
+      "cells touching or above the conservative ground boundary",
+      "HOLD unknown",
+      "unconfirmed/expired plane",
+      "out-of-map",
+      "other unknown in physical flight volume"
+    ],
+    "synthetic_free_rays": false,
+    "uncertainty_budget_changed": false,
+    "body_clearance_radius_m": 0.7306179170842027,
+    "terminal_hold_neighborhood_radius_m": 0.25
+  },
+  "archived_replay_145": {
+    "path": "progress/evidence/n05-ground-boundary-offline-replay-20261023-121.json",
+    "offline_accepted": true,
+    "offline_reason": "all_entry_phases_known_and_clear",
+    "historical_online_matches": false,
+    "interpretation": "current-policy offline replay accepts; original online report used the prior policy and remains a mismatch"
+  },
+  "n05_support_release_runs": [
+    {
+      "run_id": "n06-20261023-wall-146",
+      "layout_id": "wall_box_column",
+      "profile": "n06_full_airframe_retreat_240_oblique_early_view",
+      "completed_stages": 12,
+      "diagnostic_pass": true,
+      "post_release_accepted": true,
+      "post_release_reason": "all_entry_phases_known_and_clear",
+      "phase_max_unknown_cells": {
+        "TAKEOFF_CONTACT": 0,
+        "ASCENT": 0,
+        "HOLD": 0,
+        "DESCENT": 0,
+        "LANDING_CONTACT": 0
+      },
+      "online_offline_match": true,
+      "ground_plane_z_m": -0.35000000000000014,
+      "identity": {
+        "epoch_before": "12d73962fb33453b9739a1300689178d",
+        "epoch_after": "12d73962fb33453b9739a1300689178d",
+        "map_id_before": "12d73962fb33453b9739a1300689178d-c7844a9e681540d9a7a6914842a488c6",
+        "map_id_after": "12d73962fb33453b9739a1300689178d-c7844a9e681540d9a7a6914842a488c6",
+        "same_epoch": true,
+        "same_map_id": true,
+        "scan_identity_matches_after_snapshot": true
+      },
+      "state": {
+        "bridge_phase": "DISABLED",
+        "armed": false,
+        "control_enabled": false,
+        "landed": true,
+        "localization_valid": true
+      },
+      "freshness": {
+        "snapshot_age_sim_s": 0.088,
+        "depth_source_age_sim_s": 0.124,
+        "fusion_age_sim_s": 0.032,
+        "map_status_receipt_age_wall_s": 0.05030997400172055,
+        "localization_receipt_age_wall_s": 0.02800770802423358,
+        "odometry_receipt_age_wall_s": 0.04103976092301309,
+        "limit_sim_s": 0.4
+      },
+      "truth_subscribed": false,
+      "control_or_goal_published": false,
+      "fixture_warning": {
+        "outcome": "failed",
+        "error": "localization changed or became invalid during physical scan",
+        "last_localization_valid": true,
+        "fixture_removed": true,
+        "removal_confirmation": {
+          "remove_service_acknowledged": true,
+          "scene_model_absent": true,
+          "method": "gz model --list after detach/removal request",
+          "scene_model_names": [
+            "blank",
+            "ground_plane",
+            "n05_wall_box_column_0",
+            "n05_wall_box_column_1",
+            "unit_cylinder",
+            "unit_cylinder_0",
+            "unit_cylinder_0_0",
+            "unit_cylinder_0_1",
+            "unit_cylinder_0_2",
+            "unit_cylinder_0_2_clone",
+            "unit_cylinder_0_3",
+            "unit_cylinder_0_4",
+            "unit_cylinder_0_5",
+            "unit_cylinder_0_6",
+            "unit_cylinder_0_6_clone",
+            "unit_cylinder_0_6_clone_0",
+            "unit_cylinder_0_6_clone_clone",
+            "unit_cylinder_1",
+            "unit_cylinder_2",
+            "unit_cylinder_2_clone",
+            "unit_cylinder_3",
+            "unit_cylinder_4",
+            "unit_cylinder_4_clone",
+            "x500_d435i_0"
+          ]
+        }
+      },
+      "artifact_sha256": {
+        "run_summary": "ac7ad949e4c63744327240a84f71b625f5888385650624815cfeb491d2c2ed67",
+        "fixture_result": "11af54df655f0d5b40e4d14053ed73240ffd48f93eae6d0070d6cfd741ab4ac8",
+        "post_release_online": "e5ced5e78bce9890fd4039cd8d629965afdf2a15f132ab62b1785a2a9f5a46ff",
+        "post_release_offline": "17137a067ccfcfea29eda72987c276b712b3c2f3eaf2d1c98eab33cae8ea1a74"
+      }
+    },
+    {
+      "run_id": "n06-20261023-corridor-148",
+      "layout_id": "corridor_box_column",
+      "profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+      "completed_stages": 12,
+      "diagnostic_pass": true,
+      "post_release_accepted": true,
+      "post_release_reason": "all_entry_phases_known_and_clear",
+      "phase_max_unknown_cells": {
+        "TAKEOFF_CONTACT": 0,
+        "ASCENT": 0,
+        "HOLD": 0,
+        "DESCENT": 0,
+        "LANDING_CONTACT": 0
+      },
+      "online_offline_match": true,
+      "ground_plane_z_m": -0.3500000000000002,
+      "identity": {
+        "epoch_before": "8a457aa080ee4dd790d5447a00720e76",
+        "epoch_after": "8a457aa080ee4dd790d5447a00720e76",
+        "map_id_before": "8a457aa080ee4dd790d5447a00720e76-748930d7a15248e187f9122b03cb39ee",
+        "map_id_after": "8a457aa080ee4dd790d5447a00720e76-748930d7a15248e187f9122b03cb39ee",
+        "same_epoch": true,
+        "same_map_id": true,
+        "scan_identity_matches_after_snapshot": true
+      },
+      "state": {
+        "bridge_phase": "DISABLED",
+        "armed": false,
+        "control_enabled": false,
+        "landed": true,
+        "localization_valid": true
+      },
+      "freshness": {
+        "snapshot_age_sim_s": 0.112,
+        "depth_source_age_sim_s": 0.088,
+        "fusion_age_sim_s": 0.028,
+        "map_status_receipt_age_wall_s": 0.13583928090520203,
+        "localization_receipt_age_wall_s": 0.026456380961462855,
+        "odometry_receipt_age_wall_s": 0.0019950789865106344,
+        "limit_sim_s": 0.4
+      },
+      "truth_subscribed": false,
+      "control_or_goal_published": false,
+      "fixture_warning": {
+        "outcome": "failed",
+        "error": "localization changed or became invalid during physical scan",
+        "last_localization_valid": true,
+        "fixture_removed": true,
+        "removal_confirmation": {
+          "remove_service_acknowledged": false,
+          "scene_model_absent": true,
+          "method": "gz model --list after detach/removal request",
+          "scene_model_names": [
+            "blank",
+            "ground_plane",
+            "n05_corridor_box_column_0",
+            "n05_corridor_box_column_1",
+            "n05_corridor_box_column_2",
+            "n05_corridor_box_column_3",
+            "unit_cylinder",
+            "unit_cylinder_0",
+            "unit_cylinder_0_0",
+            "unit_cylinder_0_1",
+            "unit_cylinder_0_2",
+            "unit_cylinder_0_2_clone",
+            "unit_cylinder_0_3",
+            "unit_cylinder_0_4",
+            "unit_cylinder_0_5",
+            "unit_cylinder_0_6",
+            "unit_cylinder_0_6_clone",
+            "unit_cylinder_0_6_clone_0",
+            "unit_cylinder_0_6_clone_clone",
+            "unit_cylinder_1",
+            "unit_cylinder_2",
+            "unit_cylinder_2_clone",
+            "unit_cylinder_3",
+            "unit_cylinder_4",
+            "unit_cylinder_4_clone",
+            "x500_d435i_0"
+          ]
+        }
+      },
+      "artifact_sha256": {
+        "run_summary": "ea48d5afe031aacdada9f9cd8f5f147d020f5ed928b61e703f22c5dc5a0ca62a",
+        "fixture_result": "8e38ff68b358df7285f092dc330709e22f5794124fb33b2d292d00f673cbe7ae",
+        "post_release_online": "761b603c8eda13160ca4c44af9efc957759266b00c109e61f6b70d12ba7daf2b",
+        "post_release_offline": "ee4e224cf833f5502f61936c0937c93d47e536200e13191efe9e357ca8634be6"
+      }
+    }
+  ],
+  "n06_planner_runs": [
+    {
+      "run_id": "n06-20261023-wall-151",
+      "layout_id": "wall_box_column",
+      "scope": "actual Gazebo+VINS+plan_env/EGO; compute-only planner goal, optional post-certificate dynamic Gazebo obstacle, and optional gated replacement handoff; no PX4, bridge, traj_server, navigation supervisor, control publisher, or curve execution",
+      "epoch": "889831358a064f6d9baef4b3f2a94664",
+      "map_id": "889831358a064f6d9baef4b3f2a94664-d250533938a6402c84c58fe7a2036eba",
+      "archived_snapshots_passed": true,
+      "snapshot_count": 3,
+      "body_sphere_accepted": true,
+      "live_sweep_passed": true,
+      "live_sweep_queries": 24,
+      "terminal_hold_passed": true,
+      "curve_certificates": [
+        {
+          "queries": 45,
+          "wall_ms": 0.44,
+          "reason": "free"
+        },
+        {
+          "queries": 58,
+          "wall_ms": 0.864,
+          "reason": "free"
+        }
+      ],
+      "trajectory_count": 1,
+      "faults": [],
+      "late_curves_after_fault": 0,
+      "control_free": true,
+      "forbidden_nodes": [],
+      "forbidden_control_topics": [],
+      "probe_source_sha256": "8c90741621fcac95680891d7c22526810b9c84a588d7c4ab38beb1993a67a11a",
+      "probe_json_sha256": "6b794c97578edd041060eb044e6085916a497b652826b430e37b61a6e350443c",
+      "run_inputs_sha256": "d54a7b8e67febce2f9119e1978606b8545a8fed98493b2aaad674b8659925bfe",
+      "handoff_passed": true,
+      "handoff": {
+        "published": true,
+        "snapshot_certificate_passed": true,
+        "live_certificate_passed": true,
+        "curve_count": 1,
+        "control_free_graph": true,
+        "late_curves_after_fault": 0
+      }
+    },
+    {
+      "run_id": "n06-20261023-corridor-123",
+      "layout_id": "corridor_box_column",
+      "scope": "actual Gazebo+VINS+plan_env/EGO; compute-only initial goal and optional gated replacement handoff; no PX4, bridge, traj_server, navigation supervisor, or control publisher",
+      "epoch": "903d628563444004aa80a580447fcd64",
+      "map_id": "903d628563444004aa80a580447fcd64-8ed237b4ac5748e681dc2655895b7857",
+      "archived_snapshots_passed": true,
+      "snapshot_count": 3,
+      "body_sphere_accepted": true,
+      "live_sweep_passed": true,
+      "live_sweep_queries": 10,
+      "terminal_hold_passed": true,
+      "curve_certificates": [
+        {
+          "queries": 22,
+          "wall_ms": 0.219,
+          "reason": "free"
+        }
+      ],
+      "trajectory_count": 1,
+      "faults": [],
+      "late_curves_after_fault": 0,
+      "control_free": true,
+      "forbidden_nodes": [],
+      "forbidden_control_topics": [],
+      "probe_source_sha256": "33e1d51e8fb32af695c8bbb705fc5fc066d14f8d8289621f8b80e0a8af6edef9",
+      "probe_json_sha256": "7232cc74a28cece8cf2c35df4b6c1205a425aa992a2ca7299a7095a92ee04fec",
+      "run_inputs_sha256": "137f069b68cf86d916254fb3faf26dbb239eb017ad6ea15c5886c2d03f935b5a",
+      "handoff_passed": false
+    }
+  ],
+  "planner_source_compatibility": {
+    "core_ego_plan_env_and_patch_hashes": {
+      "dependencies/patches/ego/0039-full-curve-admission.patch": {
+        "corridor_123": "1e591c0bf8796964c04813dfb6ea2843faffa625ad6e9ab0eee2bfa582b10ff1",
+        "wall_151": "1e591c0bf8796964c04813dfb6ea2843faffa625ad6e9ab0eee2bfa582b10ff1",
+        "same": true
+      },
+      "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch": {
+        "corridor_123": "bb18641e1a1f90560d11e0ed197d273dde4918ab7e38d8a9ffb1df3268125e2e",
+        "wall_151": "bb18641e1a1f90560d11e0ed197d273dde4918ab7e38d8a9ffb1df3268125e2e",
+        "same": true
+      },
+      "dependencies/patches/ego/0042-query-last-completed-fusion.patch": {
+        "corridor_123": "52b1485d7fb938550306a76e0efb304b3afe551726e6c1ce913b3d7ed5346dbc",
+        "wall_151": "52b1485d7fb938550306a76e0efb304b3afe551726e6c1ce913b3d7ed5346dbc",
+        "same": true
+      },
+      "dependencies/patches/ego/0043-n06-emergency-hold-fallback.patch": {
+        "corridor_123": "2496219fd45881712b46fa4083f4fc24a52e8353a22f0127b4fa7e4b8b4945d8",
+        "wall_151": "2496219fd45881712b46fa4083f4fc24a52e8353a22f0127b4fa7e4b8b4945d8",
+        "same": true
+      },
+      "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h": {
+        "corridor_123": "0ead4086c5682c298b4945913cd348d96ed3ced32d20eff6ba79f838c723bf16",
+        "wall_151": "0ead4086c5682c298b4945913cd348d96ed3ced32d20eff6ba79f838c723bf16",
+        "same": true
+      },
+      "src/vendor/ego_planner/planner/plan_env/include/plan_env/swept_curve.h": {
+        "corridor_123": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
+        "wall_151": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
+        "same": true
+      },
+      "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp": {
+        "corridor_123": "02874248ca05baf8c65f2d10c4cdd5dce84e8681b38ad4ca6100f2ae3ff15287",
+        "wall_151": "02874248ca05baf8c65f2d10c4cdd5dce84e8681b38ad4ca6100f2ae3ff15287",
+        "same": true
+      },
+      "src/vendor/ego_planner/planner/plan_env/src/raycast.cpp": {
+        "corridor_123": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
+        "wall_151": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
+        "same": true
+      },
+      "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": {
+        "corridor_123": "2e0cca636f4fed64a15c4089148308155510115169b7d40839f1636cb5dd7089",
+        "wall_151": "2e0cca636f4fed64a15c4089148308155510115169b7d40839f1636cb5dd7089",
+        "same": true
+      },
+      "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp": {
+        "corridor_123": "370761479809050ae6cc594e9ea11f2246e7bd71854f79f9b385f0b5fdc73bf6",
+        "wall_151": "370761479809050ae6cc594e9ea11f2246e7bd71854f79f9b385f0b5fdc73bf6",
+        "same": true
+      }
+    },
+    "same_effective_body_and_hold_radii": true,
+    "corridor_probe_difference": "bounded handoff-certificate log capture only; single-goal certificate logic unchanged",
+    "ground_boundary_logic_is_outside_n06_planner_query": true
+  },
+  "negative_diagnostics": [
+    {
+      "run_id": "n06-20261023-corridor-147",
+      "result": "telemetry_stale at stage 4/12; no valid planner exit"
+    },
+    {
+      "run_id": "n06-20261023-corridor-152",
+      "result": "fresh VINS odometry unavailable before goal publication; fail-closed, no planner goal"
+    },
+    {
+      "run_id": "n06-20261023-corridor-153",
+      "result": "normalized_cost_exceeded health latch during translation diagnostic; safely stopped before planner goal"
+    }
+  ],
+  "static_verification": [
+    {
+      "command": "python3 tools/test_n05_entry.py",
+      "result": "10 passed"
+    },
+    {
+      "command": "python3 tools/test_vehicle_envelope.py",
+      "result": "3 passed"
+    },
+    {
+      "command": "python3 tools/test_preflight_scan.py",
+      "result": "19 passed"
+    },
+    {
+      "command": "python3 tools/test_sim_geometry.py",
+      "result": "5 passed"
+    },
+    {
+      "command": "python3 tools/audit_vehicle_envelope.py",
+      "result": "passed"
+    },
+    {
+      "command": "bash -n tools/run_n05_preflight_layout.sh tools/run_n04_map_layout.sh tools/run_n04_map_layout_container.sh",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -m json.tool config/components/navigation/vehicle_envelope.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 tools/project_status.py",
+      "result": "PASS; 80 optional historical artifact links reported absent"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "runtime_cleanup": {
+    "runtime_config_sha256": "a862e521dd738dba71d960cda95458509336f1e2cd845228b46311fd57928221",
+    "project_containers_active": false,
+    "unrelated_active_containers": [
+      "volant-height-route-probe",
+      "natfrp-service"
+    ]
+  },
+  "limits": [
+    "no takeoff or flight occurred",
+    "planner curves were not executed",
+    "physical dynamic braking and stopping distance remain N08",
+    "P6/S4 and A-H final acceptance remain incomplete",
+    "N07 remains not_started"
+  ],
+  "artifacts": {
+    "n05_wall": "artifacts/runs/n06-20261023-wall-146/",
+    "n05_corridor": "artifacts/runs/n06-20261023-corridor-148/",
+    "n06_wall_current": "artifacts/runs/n06-20261023-wall-151/",
+    "n06_corridor_compatible": "artifacts/runs/n06-20261023-corridor-123/",
+    "failed_corridor_diagnostics": [
+      "artifacts/runs/n06-20261023-corridor-152/",
+      "artifacts/runs/n06-20261023-corridor-153/"
+    ]
+  }
+}

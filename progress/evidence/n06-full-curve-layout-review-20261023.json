@@ -1,0 +1,522 @@
+{
+  "schema": "n06-full-curve-layout-review/v1",
+  "report_id": "2026-10-23-n06-full-envelope-sweep",
+  "goal": "N06: full-curve, replanning, stop, and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only",
+  "status": "in_progress",
+  "n06_exit_supported": false,
+  "stop_reason": "The matched current-configuration layouts reject the actual VINS start body/hold spheres as raw unknown; one live EGO probe rejects with planning_failed, the second current-config probe received no fresh odometry. No actual EGO curve can be swept in both layouts.",
+  "current_configuration": {
+    "planner_config_sha256": "ca9a3e53d70512936866a314ce830d008268de8abc07c1e05269f7696b921d45",
+    "vehicle_envelope_sha256": "e16562a8471bfff6d1bda859323caa03a95c81c53b56d8f86cdac5698dc5633d",
+    "body_radius_m": 0.7306179170842027,
+    "terminal_hold_neighborhood_m": 0.25,
+    "terminal_query_radius_m": 0.9806179170842027,
+    "map_bottom_m": -1.0,
+    "unknown_policy": "reject; raw occupancy only"
+  },
+  "matched_current_configuration_maps": {
+    "analysis_path": "artifacts/runs/n06-map-sweep-20261023-r04/report.json",
+    "analysis_sha256": "a4ecbcfe6dae7ecf648698ceac34bb4083cd9bd3b8d268dd19fa1eed9d578503",
+    "source_file_hashes": {
+      "analyzer_sha256": "c115d9ea6b60591fee798ca1eb4b6c4734380b95078c403c412ac0e62f259461",
+      "vehicle_envelope_sha256": "e16562a8471bfff6d1bda859323caa03a95c81c53b56d8f86cdac5698dc5633d",
+      "planner_config_sha256": "ca9a3e53d70512936866a314ce830d008268de8abc07c1e05269f7696b921d45",
+      "sphere_query_header_sha256": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809",
+      "swept_curve_header_sha256": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b"
+    },
+    "all_snapshots_valid": true,
+    "two_layout_offline_candidate_chains": false,
+    "n06_positive_exit_supported_by_analyzer": false,
+    "layouts": [
+      {
+        "run_id": "n06-20261023-wall-r10",
+        "layout_id": "wall_box_column",
+        "epoch": "c320d47a56b94d9690da10866c097add",
+        "map_id": "c320d47a56b94d9690da10866c097add-aec02e2177054dceba90bcd2eb2febef",
+        "frame_id": "odom_c320d47a56b94d9690da10866c097add",
+        "snapshot_sha256": "7788aa86e0df2efd44a5bbe88dff92ac893043da01323d00373c9f08c615acb0",
+        "matching_snapshot_set_valid": true,
+        "source_age_s": 0.12,
+        "fusion_age_s": 0.038,
+        "body_radius_m": 0.7306179170842027,
+        "terminal_hold_radius_m": 0.9806179170842027,
+        "actual_vins_pose_xyz_m": [
+          0.003418075141913648,
+          -0.000503202910378251,
+          -0.005095164026133378
+        ],
+        "actual_pose_body_sphere_query": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 1801,
+          "free": 410,
+          "occupied": 0
+        },
+        "actual_pose_terminal_hold_query": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 4048,
+          "free": 804,
+          "occupied": 0
+        },
+        "candidate_search": {
+          "method": "voxel-distance-transform bound followed by exact closed-cell raw sphere queries; 0.025 m subvoxel candidate grid",
+          "max_free_cell_center_distance_m": 0.7810249675906655,
+          "centers_above_terminal_radius": 0,
+          "exact_candidate_query_count": 0,
+          "exact_terminal_hold_centers": 0,
+          "search_wall_ms": 975.1760519575328
+        },
+        "offline_curve_chain": null
+      },
+      {
+        "run_id": "n06-20261023-corridor-r10",
+        "layout_id": "corridor_box_column",
+        "epoch": "453a54a882ca4aab8b8ebfd137a9c011",
+        "map_id": "453a54a882ca4aab8b8ebfd137a9c011-d3129fe5e92246ee9120e81387a53ff2",
+        "frame_id": "odom_453a54a882ca4aab8b8ebfd137a9c011",
+        "snapshot_sha256": "3800acfa5081e84ca76a19010a80881d0947d844aa6164fda799756f366774c6",
+        "matching_snapshot_set_valid": true,
+        "source_age_s": 0.096,
+        "fusion_age_s": 0.026,
+        "body_radius_m": 0.7306179170842027,
+        "terminal_hold_radius_m": 0.9806179170842027,
+        "actual_vins_pose_xyz_m": [
+          -0.0278556321691022,
+          0.011958491214271708,
+          -0.012584647202037778
+        ],
+        "actual_pose_body_sphere_query": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 1807,
+          "free": 384,
+          "occupied": 0
+        },
+        "actual_pose_terminal_hold_query": {
+          "accepted": true,
+          "reason": "unknown",
+          "unknown": 4085,
+          "free": 836,
+          "occupied": 0
+        },
+        "candidate_search": {
+          "method": "voxel-distance-transform bound followed by exact closed-cell raw sphere queries; 0.025 m subvoxel candidate grid",
+          "max_free_cell_center_distance_m": 0.7000000000000001,
+          "centers_above_terminal_radius": 0,
+          "exact_candidate_query_count": 0,
+          "exact_terminal_hold_centers": 0,
+          "search_wall_ms": 956.3239628914744
+        },
+        "offline_curve_chain": null
+      }
+    ]
+  },
+  "live_planner_probes": [
+    {
+      "run_id": "n06-20261023-wall-r07",
+      "path": "artifacts/runs/n06-20261023-wall-r07/n06-live-layout-probe.json",
+      "sha256": "56bf66aaf56d4c269bd0e2a405dbc20fcd393e0aff1e01597f2117cd3be9865b",
+      "map_ready": true,
+      "epoch": "10cb3f802a714342aba089950f3f2e95",
+      "map_id": "10cb3f802a714342aba089950f3f2e95-0fe9c3158e63452995173b18daf280f5",
+      "freshness": {
+        "source_age_sim_s": 0.073,
+        "fusion_age_sim_s": 0.016,
+        "limit_sim_s": 0.4
+      },
+      "body_sphere_query": {
+        "accepted": true,
+        "free": false,
+        "reason": "unknown",
+        "epoch": "10cb3f802a714342aba089950f3f2e95",
+        "map_id": "10cb3f802a714342aba089950f3f2e95-0fe9c3158e63452995173b18daf280f5",
+        "frame_id": "odom_10cb3f802a714342aba089950f3f2e95",
+        "body_center_xyz_m": [
+          0.0070936389067674235,
+          0.07323904085515569,
+          -0.004494307385221239
+        ],
+        "radius_m": 0.7306179170842027,
+        "unknown_count": 1708,
+        "occupied_count": 0,
+        "free_count": 485
+      },
+      "control_free": true,
+      "goal_published": true,
+      "curves": 0,
+      "fault_reasons": [
+        "full_curve_planning_failed"
+      ],
+      "late_curves_after_fault": 0,
+      "status_identity_stable": true
+    },
+    {
+      "run_id": "n06-20261023-corridor-r08",
+      "path": "artifacts/runs/n06-20261023-corridor-r08/n06-live-layout-probe.json",
+      "sha256": "43d6c28b341fe48bdee284ce2713d6b41af574ecea77905652636f641e7e935c",
+      "map_ready": true,
+      "epoch": "311b102b16204321a481a2db2f3deaec",
+      "map_id": "311b102b16204321a481a2db2f3deaec-90f1a4775cf4486a97e830959f4650b2",
+      "freshness": {
+        "source_age_sim_s": 0.058,
+        "fusion_age_sim_s": 0.072,
+        "limit_sim_s": 0.4
+      },
+      "body_sphere_query": {
+        "accepted": true,
+        "free": false,
+        "reason": "unknown",
+        "epoch": "311b102b16204321a481a2db2f3deaec",
+        "map_id": "311b102b16204321a481a2db2f3deaec-90f1a4775cf4486a97e830959f4650b2",
+        "frame_id": "odom_311b102b16204321a481a2db2f3deaec",
+        "body_center_xyz_m": [
+          -0.043167457270123104,
+          -0.06868200034026739,
+          -0.01956966722554788
+        ],
+        "radius_m": 0.7306179170842027,
+        "unknown_count": 1708,
+        "occupied_count": 0,
+        "free_count": 470
+      },
+      "control_free": true,
+      "goal_published": true,
+      "curves": 0,
+      "fault_reasons": [
+        "full_curve_planning_failed"
+      ],
+      "late_curves_after_fault": 0,
+      "status_identity_stable": true
+    },
+    {
+      "run_id": "n06-20261023-wall-r10",
+      "path": "artifacts/runs/n06-20261023-wall-r10/n06-live-layout-probe.json",
+      "sha256": "e52a18ffa9f162209654dfe891852f4d997816f8eb7511a3efa2c3031ccace8d",
+      "map_ready": true,
+      "epoch": "c320d47a56b94d9690da10866c097add",
+      "map_id": "c320d47a56b94d9690da10866c097add-aec02e2177054dceba90bcd2eb2febef",
+      "freshness": {
+        "source_age_sim_s": 0.106,
+        "fusion_age_sim_s": 0.018,
+        "limit_sim_s": 0.4
+      },
+      "body_sphere_query": {
+        "accepted": false,
+        "free": false,
+        "reason": "no_fresh_fused_depth",
+        "epoch": "",
+        "map_id": "",
+        "frame_id": "",
+        "body_center_xyz_m": [
+          0.0034830639781688794,
+          -0.0005051523245455692,
+          -0.005155146781273422
+        ],
+        "radius_m": 0.7306179170842027,
+        "unknown_count": 0,
+        "occupied_count": 0,
+        "free_count": 0
+      },
+      "control_free": true,
+      "goal_published": true,
+      "curves": 0,
+      "fault_reasons": [
+        "full_curve_planning_failed"
+      ],
+      "late_curves_after_fault": 0,
+      "status_identity_stable": true
+    },
+    {
+      "run_id": "n06-20261023-wall-r26",
+      "path": "artifacts/runs/n06-20261023-wall-r26/n06-live-layout-probe.json",
+      "sha256": "4adcd0d95854ddde45a3c009bc2d767bb11e854563050d849d9cdf6e889969bc",
+      "map_ready": true,
+      "epoch": "0cb03673a84f4841aace46c55352dd84",
+      "map_id": "0cb03673a84f4841aace46c55352dd84-491022296e814dc393737bccaae70d22",
+      "freshness": {
+        "source_age_sim_s": 0.112,
+        "fusion_age_sim_s": 0.017,
+        "limit_sim_s": 0.4
+      },
+      "body_sphere_query": {
+        "accepted": true,
+        "free": false,
+        "reason": "unknown",
+        "epoch": "0cb03673a84f4841aace46c55352dd84",
+        "map_id": "0cb03673a84f4841aace46c55352dd84-491022296e814dc393737bccaae70d22",
+        "body_center_xyz_m": [
+          -0.017887618441150988,
+          -0.012240142713377112,
+          0.0037063232735458558
+        ],
+        "radius_m": 0.7306179170842027,
+        "unknown_count": 1809,
+        "occupied_count": 0,
+        "free_count": 397
+      },
+      "control_free": true,
+      "goal_published": true,
+      "curves": 0,
+      "fault_reasons": [
+        "full_curve_planning_failed"
+      ],
+      "late_curves_after_fault": 0,
+      "status_identity_stable": true
+    }
+  ],
+  "historical_motion_diagnostic_before_map_bottom_correction": {
+    "analysis_path": "artifacts/runs/n06-map-sweep-20261023-r03/report.json",
+    "analysis_sha256": "01bd2d63db0c34f4468c5927c649070be7834a58af19a446fe5a807be9d91f02",
+    "qualification": "older boundary config; diagnostic only, not current-config acceptance evidence",
+    "wall_layout": {
+      "run_id": "n06-20261023-wall-r07",
+      "actual_pose_body_sphere_query": {
+        "accepted": true,
+        "reason": "unknown",
+        "unknown": 1711,
+        "free": 474,
+        "occupied": 0
+      },
+      "candidate_hold_centers": 57,
+      "offline_chain": {
+        "start_xyz_m": [
+          2.000000000000001,
+          1.675000000000002,
+          0.2
+        ],
+        "handoff_xyz_m": [
+          2.000000000000001,
+          1.675000000000002,
+          0.5
+        ],
+        "end_xyz_m": [
+          2.000000000000001,
+          1.7,
+          0.2
+        ],
+        "total_length_m": 0.6010398644698072,
+        "same_handoff_pose": true,
+        "first_curve": {
+          "free": true,
+          "reason": "free",
+          "queries": 13,
+          "wall_ms": 1.1738210450857878,
+          "length_m": 0.3,
+          "duration_s": 0.6,
+          "speed_bound_m_s": 0.5,
+          "body_radius_m": 0.7306179170842027,
+          "continuous_cover_radius_m": 0.7431179170842026,
+          "terminal_hold_radius_m": 0.9806179170842027,
+          "terminal_hold": {
+            "accepted": true,
+            "reason": "free",
+            "unknown": 0,
+            "free": 4908,
+            "occupied": 0
+          },
+          "first_failure": null
+        },
+        "second_curve": {
+          "free": true,
+          "reason": "free",
+          "queries": 14,
+          "wall_ms": 1.2344419956207275,
+          "length_m": 0.3010398644698072,
+          "duration_s": 0.6020797289396144,
+          "speed_bound_m_s": 0.5,
+          "body_radius_m": 0.7306179170842027,
+          "continuous_cover_radius_m": 0.7421963734099645,
+          "terminal_hold_radius_m": 0.9806179170842027,
+          "terminal_hold": {
+            "accepted": true,
+            "reason": "free",
+            "unknown": 0,
+            "free": 4848,
+            "occupied": 0
+          },
+          "first_failure": null
+        },
+        "emergency_hold_envelope_over_first_curve": {
+          "free": false,
+          "reason": "unknown",
+          "queries": 12,
+          "wall_ms": 1.6227629967033863,
+          "length_m": 0.3,
+          "duration_s": 0.6,
+          "speed_bound_m_s": 0.5,
+          "body_radius_m": 0.9806179170842027,
+          "continuous_cover_radius_m": 0.9931179170842026,
+          "terminal_hold_radius_m": null,
+          "terminal_hold": null,
+          "first_failure": {
+            "sample_index": 11,
+            "time_s": 0.575,
+            "center_xyz_m": [
+              2.000000000000001,
+              1.675000000000002,
+              0.4875
+            ],
+            "accepted": true,
+            "reason": "unknown",
+            "unknown": 1,
+            "free": 5083,
+            "occupied": 0
+          }
+        }
+      }
+    },
+    "corridor_layout": {
+      "run_id": "n06-20261023-corridor-r08",
+      "actual_pose_body_sphere_query": {
+        "accepted": true,
+        "reason": "unknown",
+        "unknown": 1728,
+        "free": 449,
+        "occupied": 0
+      },
+      "candidate_hold_centers": 0,
+      "offline_chain": null
+    }
+  },
+  "synthetic_component_checks": [
+    {
+      "path": "artifacts/runs/flight-safety-20261023-093-component/result.json",
+      "sha256": "30d6491f3d4f7caf216a2c32b9b4ba1ad7702fc0faf399abe42e749a75b1fce6",
+      "scope": "synthetic component fixture; no flight, PX4, VINS or world truth",
+      "passed": true,
+      "after_completion": false,
+      "certified_curves": 1,
+      "fault_reasons": [
+        "full_curve_map_id_mismatch",
+        "full_curve_unknown",
+        "full_curve_planning_failed"
+      ],
+      "late_curves_after_fault": 0,
+      "certificate_metrics": [
+        "[ego_planner_node-1] [INFO] [1792727342.793290532] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.000 reason=map_id_mismatch map_id=wrong-map-id",
+        "[ego_planner_node-1] [INFO] [1792727342.823805734] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.528 reason=free map_id=660e56ff1d9e40708911b19941467f09-synthetic-wall"
+      ]
+    },
+    {
+      "path": "artifacts/runs/flight-safety-20261023-093-component-terminal-hold/result.json",
+      "sha256": "962fc7963f3e95e5dbff746a991f07ba59d94b66da4fba308e07a5a5ac8a66b3",
+      "scope": "synthetic component fixture; no flight, PX4, VINS or world truth",
+      "passed": true,
+      "after_completion": true,
+      "certified_curves": 1,
+      "fault_reasons": [
+        "full_curve_map_id_mismatch",
+        "full_curve_terminal_hold_occupied",
+        "full_curve_terminal_hold_occupied"
+      ],
+      "late_curves_after_fault": 0,
+      "certificate_metrics": [
+        "[ego_planner_node-1] [INFO] [1792728791.422734094] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=0 wall_ms=0.001 reason=map_id_mismatch map_id=wrong-map-id",
+        "[ego_planner_node-1] [INFO] [1792728791.451763562] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.567 reason=free map_id=c8dc1b1af66549038ff24f93d7cc0c9b-synthetic-wall",
+        "[ego_planner_node-1] [INFO] [1792728794.854796633] [drone_0_ego_planner_node]: Full-curve certificate metrics: queries=61 wall_ms=0.543 reason=terminal_hold_occupied map_id=c8dc1b1af66549038ff24f93d7cc0c9b-synthetic-wall"
+      ]
+    }
+  ],
+  "failed_or_incomplete_runs": [
+    {
+      "run_id": "n06-20261023-wall-r06",
+      "reason": "planner node was not visible to ROS CLI before parameter capture; no map snapshots; runner cleaned container."
+    },
+    {
+      "run_id": "n06-20261023-wall-r08",
+      "reason": "planner visibility wait expired before the observation sweep started; no map snapshots."
+    },
+    {
+      "run_id": "n06-20261023-wall-r09",
+      "reason": "three-axis observation sweep closed the mapping input freshness gate; snapshot-02 waited on map response; stopped via runner SIGINT; project container/processes confirmed stopped."
+    },
+    {
+      "run_id": "n06-20261023-corridor-r09",
+      "reason": "planner node was not visible to ROS CLI; no snapshots."
+    },
+    {
+      "run_id": "n06-20261023-corridor-r10",
+      "reason": "three matched snapshots were successfully captured, but the live probe received no VINS odometry within 10 seconds and sent no goal."
+    },
+    {
+      "run_id": "n06-20261023-wall-r24",
+      "reason": "0.25-degree segmented yaw still triggered normalized_cost_exceeded at about 1.20 degrees truth yaw; map remained map_reset_acknowledged, snapshot readiness timed out after 120 seconds, runner exit 1, and cleanup was confirmed."
+    },
+    {
+      "run_id": "n06-20261023-wall-r25",
+      "reason": "Quarter angular acceleration segmented yaw still triggered normalized_cost_exceeded at about 0.927 degrees truth yaw; MapStatus remained map_reset_acknowledged and snapshot readiness timed out after 120 seconds. Container/process cleanup confirmed; host runner exit code not captured."
+    },
+    {
+      "run_id": "n06-20261023-wall-r26",
+      "reason": "Continuous 2-degree scan preserved valid localization and fresh same-identity snapshots, but the actual VINS body sphere returned unknown (1809 unknown / 397 free / 0 occupied) and the live EGO goal produced full_curve_planning_failed with zero curves."
+    }
+  ],
+  "verification": {
+    "ros_build": {
+      "command": "bash tools/project.sh build ros",
+      "result": "17 packages finished"
+    },
+    "project_regression": {
+      "command": "bash tools/project.sh test",
+      "result": "243 tests passed; navigation adapter integration checks passed"
+    },
+    "component_active_curve_and_terminal_hold": "both synthetic probes passed; does not replace actual-layout EGO trajectories",
+    "syntax": "Python compile checks, profile shape validation, bash -n, and git diff --check passed",
+    "px4_or_flight": "not run; no PX4/bridge/controller/control topics in the N06 live planner probes",
+    "project_status": {
+      "command": "python3 tools/project_status.py",
+      "result": "PASS; structural consistency only, not SITL qualification"
+    },
+    "r24_microstep_pilot": "Runner exit 1 after snapshot readiness timeout: MapStatus did not become ready within 120s; map_reset_acknowledged. Motion truth and input capture completed; no matched snapshot.",
+    "r25_acceleration_pilot": "Motion and input capture completed. Snapshot readiness failed after 120s with map_reset_acknowledged; no snapshot; container and project processes stopped.",
+    "r26_continuous_pilot": "Runner exit 0; 899 localization statuses valid, MapStatus ready throughout, three same-identity snapshots with source age <=0.152s, live planner probe failed closed on actual body-sphere unknown with zero curves."
+  },
+  "next_action": "N06.4: run wall-r27, extending the same continuous quarter-acceleration yaw sweep from 2 to 15 nominal degrees. Preserve acceleration, peak rate, motion form, position, and wall surround; measure health, fresh map identity, actual body/hold queries, and planner response.",
+  "latest_diagnostic": {
+    "report_id": "n06-continuous-yaw-observation-20261023-101",
+    "path": "progress/evidence/n06-continuous-yaw-observation-20261023-101.json",
+    "sha256": "18ad074cc9e3f7ad20a1863d126c9dbb39af6927bd6da0cce2e8eb36d241c496",
+    "scope": "N06.4 r26 continuous 2-degree yaw and live EGO response",
+    "status": "valid health and fresh same-identity snapshots; actual body sphere still unknown; live EGO produced zero curves"
+  },
+  "addenda": [
+    {
+      "report_id": "n06-observation-coverage-diagnostics-20261023-095",
+      "path": "progress/evidence/n06-observation-coverage-diagnostics-20261023-095.json",
+      "sha256": "272064ae7eb5a606be20ab204b5e421331d1d4ee951dd25a01b1379e8acb15e4"
+    },
+    {
+      "report_id": "n06-observation-scan-diagnostic-20261023-096",
+      "path": "progress/evidence/n06-observation-scan-diagnostic-20261023-096.json",
+      "sha256": "4b759c89b3b359ad873ab017a2515154c79a68b00900f4b8b312458c321de6af"
+    },
+    {
+      "report_id": "n06-observation-scan-reacquisition-20261023-097",
+      "path": "progress/evidence/n06-observation-scan-reacquisition-20261023-097.json",
+      "sha256": "4e75848a44ba7cf09002f82e24533991e96b04da25e60f89d982063176aea62f"
+    },
+    {
+      "report_id": "n06-yaw-microstep-reacquisition-20261023-098",
+      "path": "progress/evidence/n06-yaw-microstep-reacquisition-20261023-098.json",
+      "sha256": "be7b980b206758cc8089d693967aa905f3199b4736e25a2756816527b5d50b4b"
+    },
+    {
+      "report_id": "n06-yaw-microstep-reacquisition-20261023-099",
+      "path": "progress/evidence/n06-yaw-microstep-reacquisition-20261023-099.json",
+      "sha256": "d1729a3fabe5830763d64b73026b69dabe1c62ef549c10bd2620c5b11bc0d9c8"
+    },
+    {
+      "report_id": "n06-yaw-motion-transient-20261023-100",
+      "path": "progress/evidence/n06-yaw-motion-transient-20261023-100.json",
+      "sha256": "67de38d89f39b2c6687f320d62dab0c7d0440e2d7dc277c0e7d19f32c0b69a20"
+    },
+    {
+      "report_id": "n06-continuous-yaw-observation-20261023-101",
+      "path": "progress/evidence/n06-continuous-yaw-observation-20261023-101.json",
+      "sha256": "18ad074cc9e3f7ad20a1863d126c9dbb39af6927bd6da0cce2e8eb36d241c496"
+    }
+  ]
+}

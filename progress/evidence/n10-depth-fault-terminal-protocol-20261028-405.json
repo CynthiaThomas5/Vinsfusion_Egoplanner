@@ -1,0 +1,40 @@
+{
+  "schema": "n10-depth-fault-terminal-protocol/v1",
+  "subtask": "N10.3/#405",
+  "run_id": "n10-20261028-405-depth-timeout-terminal",
+  "classification": "single current-version depth-loss fault calibration; not formal N15 qualification",
+  "variable": {
+    "kind": "depth only",
+    "schedule_domain": "D435i depth source stamp relative to active EGO goal source stamp",
+    "drop_start_after_goal_source_s": 2.0,
+    "drop_duration_source_s": 3.0,
+    "ego_depth_odom_timeout_sim_s": 0.4
+  },
+  "goal_config": "config/components/navigation/n10_long_range_vio_dwell4_capture_calibration_goal.json",
+  "planner_config": "config/components/mapping/n10_horizon5_speed040_calibration.json",
+  "spawn_config": "config/components/simulation/n10_long_range_spawn_minus8.json",
+  "sensor_bridge_config": "config/components/simulation/n03_depth_fault_bridge.yaml",
+  "streams_that_must_remain_direct": [
+    "/sensors/d435i/infra1/image_rect",
+    "/sensors/d435i/infra2/image_rect",
+    "/sensors/d435i/imu"
+  ],
+  "fault_route": {
+    "input": "/fault/input/depth",
+    "output": "/sensors/d435i/depth",
+    "relay": "tools/fault_relay.py"
+  },
+  "required_terminal_chain": [
+    "relay dropped depth in the goal-bound window and resumed forwarding",
+    "EGO observed depth_odom_timeout",
+    "matching navigation action aborted for depth_odom_timeout",
+    "bridge entered native fault LANDING",
+    "PX4 and bridge reached landed/disarmed/control-disabled terminal",
+    "independent readback observed no post-terminal control",
+    "emergency disarm was not used"
+  ],
+  "runtime_effect_of_observers": false,
+  "runtime_threshold_added": false,
+  "formal_n15_n16_qualification": false,
+  "unsafe_terminal_handling": "preserve project container and read-only observers; do not force-stop or emergency-disarm"
+}

@@ -1,0 +1,121 @@
+{
+  "schema": "n08-prescan-health-refusal/v1",
+  "date": "2026-10-26",
+  "subtask": "#312",
+  "run_id": "n08-cancel-highspeed-prescan-20261026-312",
+  "profile": "n08_overhead_free_sector_negative_y_rear_short_hold_slow_return_slow_descent",
+  "profile_stage_count": 17,
+  "profile_sha256_canonical_json": "db77c90fec8c743c7128c300d36c0d7008e7be2296aab11a9f31cc88d8992297",
+  "baseline_profile": "n08_overhead_free_sector_negative_y_rear_short_hold_slow_descent",
+  "profile_change_only": {
+    "stage_index": 7,
+    "duration_sim_s_from": 60,
+    "duration_sim_s_to": 100
+  },
+  "static_checks": {
+    "preflight_scan_unit_tests": "43 passed",
+    "project_status": "Structure/design PASS",
+    "json_parse": true,
+    "shell_syntax": true,
+    "git_diff_check": true
+  },
+  "initial_n05": {
+    "accepted": false,
+    "reason": "ground_plane_insufficient_raw_occupied_voxels",
+    "online_offline_result_identical": true
+  },
+  "scan": {
+    "outcome": "failed",
+    "completed_stages": 14,
+    "configured_stages": 17,
+    "failed_phase": "stage index 14, z=1.0m to 0.5m descent",
+    "stage7_trace": {
+      "samples": 3661,
+      "sim_start_s": 278.06,
+      "sim_end_s": 378.072,
+      "normalized_cost_max": 0.6987370968037142,
+      "final_normalized_cost": 0.6160476881282869
+    },
+    "last_localization": {
+      "state": 3,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.0055601723086094
+    },
+    "fixture_detached": true,
+    "fixture_model_absent": true,
+    "landed": true
+  },
+  "health_lockout": {
+    "sim_s": 456.628,
+    "normalized_cost": 1.0055601723086094,
+    "limit": 1.0,
+    "reason": "normalized_cost_exceeded",
+    "stale_observation": null,
+    "source_ages_ms": {
+      "optimized": 136.0,
+      "telemetry": 72.000001
+    },
+    "prior_evaluation_ok": true,
+    "prior_spectrum_ok": true,
+    "cost_components": {
+      "imu": {
+        "cost": 132.85691052935508,
+        "residual_components": 150
+      },
+      "marginalization": {
+        "cost": 1549.6443342732719,
+        "residual_components": 82
+      },
+      "visual": {
+        "cost": 1071.8747878005338,
+        "residual_components": 5216
+      }
+    }
+  },
+  "post_scan_admission": null,
+  "mission": {
+    "started": false,
+    "goal_sent": false,
+    "enable_requested": false,
+    "flight": false
+  },
+  "independent_readback": {
+    "duration_wall_s": 6.0,
+    "bridge": {
+      "phase": "DISABLED",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true
+    },
+    "px4_arming_state": 1,
+    "landed": true,
+    "control_topic_counts": {
+      "control_mode": 0,
+      "trajectory_setpoint": 0,
+      "vehicle_command": 0
+    },
+    "fixture_model_present": false
+  },
+  "shutdown": {
+    "command": "bash tools/project.sh stop n08-cancel-highspeed-prescan-20261026-312",
+    "command_exit_code": 0,
+    "container_state": "exited",
+    "container_exit_code": 0,
+    "unrelated_containers_untouched": true
+  },
+  "health_or_spatial_thresholds_changed": false,
+  "single_goal_flight_direction_changed": false,
+  "artifacts_sha256": {
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/fixture-result.json": "9f57285def457700c570106042388771a5bece6f71d4551db07b5a2b4c6371d1",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/fixture-stages.json": "a22af2fac5e49ecf39ad5e4fbaa2500d74cde7d6a59f172cbdc5c0411cb4123a",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/fixture-trace.jsonl": "6c498a67c64e97ac8082a157459c00b949302053ec36caf963ce6e034401a72b",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/fixture-vins.jsonl": "b981d1b230be978b7b519efbdf133072fe3c8898f219d4cc78bc00add5bf36ee",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/fixture-odometry.jsonl": "ce1d354e7377ab127b7ff535b266fdcf6f4828870376732091e198daa5eeaa57",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/vio.log": "41da09a0fa8cbba4ff2025cc0a4f35dc046a9e73481699cc3543f304301e5b7e",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/n05-before/n05-live-entry-check.json": "4e8b833511a6004ebcbe908f2e1089c8ff0d3ff0babb1520dc63be6b25894dea",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/post-scan-independent-live-readback.json": "1e92bc37cc335e95a62883218a11f94ecd602924f4784416a601b32906ae1773",
+    "artifacts/runs/n08-cancel-highspeed-prescan-20261026-312/post-scan-gz-model-list.txt": "48cb6a8ad7acbe03296a9079a056ca76c5dbe69df323387a7037ba430d3170a2"
+  },
+  "next_action": "#313: move final z=1→0.5→0 support return before the final rear-facing scan; observe the rear thin slab from z=0 with pitch=-0.20 rad, then return yaw to 0 without further descent. Verify same-identity N05 and forward geometry before any one-way goal."
+}

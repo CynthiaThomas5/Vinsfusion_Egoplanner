@@ -11,10 +11,10 @@ class FlightProfileTests(unittest.TestCase):
         loop_config = json.loads((root/'room_loop_goal.json').read_text())
         with self.assertRaisesRegex(ValueError, 'disabled'):
             legs(loop_config)
-        loop = legs({**single[0], 'goals': [{'target_offset_enu_m':[x,0,0]} for x in [1,0,.5]]})
+        loop = legs({**single[0], 'position_tolerance_m':.07, 'dwell_s':2.5, 'goals': [{'target_offset_enu_m':[x,0,0]} for x in [1,0,.5]]})
         self.assertEqual(len(single), 1)
         self.assertEqual([x['target_offset_enu_m'][0] for x in loop], [1, 0, .5])
-        self.assertTrue(all(x['position_tolerance_m'] == .1 and x['dwell_s'] == 1 for x in loop))
+        self.assertTrue(all(x['position_tolerance_m'] == .07 and x['dwell_s'] == 2.5 for x in loop))
 
     def test_malformed_or_unbounded_profiles_rejected(self):
         for config in [{'goals': []}, {'goals': [{}]*4}, {'target_offset_enu_m': [0, 0]},
@@ -31,3 +31,21 @@ class FlightProfileTests(unittest.TestCase):
         self.assertNotIn('goal_completed_source_ns',result[-1])
         self.assertEqual(result[0],first)
         self.assertEqual(len(attempts({'goal_id':'first','legs':[first]})),1)
+
+    def test_long_mission_requires_explicit_duration_and_remains_bounded(self):
+        from flight_profile import navigation_duration_requirement
+        config={'goals':[{'target_offset_enu_m':[12 if i%2==0 else 0,0,.1]} for i in range(24)],
+                'continuous_navigation_min_sim_s':600}
+        self.assertEqual(len(legs(config)),24)
+        self.assertEqual(navigation_duration_requirement(config),600)
+        with self.assertRaises(ValueError):legs({**config,'goals':config['goals']+[config['goals'][0]]})
+        with self.assertRaises(ValueError):legs({**config,'continuous_navigation_min_sim_s':0})
+        for value in [True,-1,float('nan'),'600']:
+            with self.subTest(value=value),self.assertRaises(ValueError):
+                navigation_duration_requirement({'continuous_navigation_min_sim_s':value})
+
+    def test_navigation_duration_uses_source_time_and_exact_boundary(self):
+        from flight_profile import navigation_elapsed_sim_s
+        self.assertLess(navigation_elapsed_sim_s(10,600000000009),600)
+        self.assertEqual(navigation_elapsed_sim_s(10,600000000010),600)
+        with self.assertRaises(ValueError):navigation_elapsed_sim_s(20,10)

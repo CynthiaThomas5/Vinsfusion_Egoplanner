@@ -1,0 +1,228 @@
+{
+  "schema": "n10-diagnostic-run-result/v1",
+  "run_id": "n10-20261026-356-upstream-spline-speed080-health-bypass-16m",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "classification": "complete_observation_but_planner_aborted_before_goal",
+  "formal_qualification": false,
+  "flight_result": "FAIL",
+  "action_goal_sent": true,
+  "action_result": {
+    "final_position": [
+      2.281372827605936,
+      -1.4136310653653874,
+      1.4552014185703923
+    ],
+    "outcome": "aborted",
+    "reason": "planner_full_curve_planning_failed",
+    "status": 6,
+    "success": false
+  },
+  "planner_failure_evidence": {
+    "navigation_reason": "planner_full_curve_planning_failed",
+    "ego_log": "vio.log records repeated colliding candidate trajectories, plan_success=0/refine_success=0, then planning_failed and REPLAN_TRAJ to WAIT_TARGET.",
+    "collision_policy": "official_ego using upstream inflated occupied layer",
+    "interpretation": "Planner feasibility/collision failure, not localization quality/freshness lockout. Exact map voxels and physical-vs-perception source were not captured."
+  },
+  "localization_diagnostic": {
+    "bypass_requested": true,
+    "bypass_observed_in_status": true,
+    "status_samples_with_bypass": 1047,
+    "localization_status_samples": 1047,
+    "bypassed_policy_reasons": [
+      "vins_initializing",
+      "waiting_for_clock",
+      "waiting_for_left",
+      "waiting_for_optimized",
+      "waiting_for_propagated",
+      "waiting_for_right",
+      "waiting_for_telemetry"
+    ],
+    "normalized_cost_limit_original_provisional": 1.0,
+    "normalized_cost_sample_count": 613,
+    "normalized_cost_max_observed": 0.6444911548963358,
+    "normalized_cost_p95_observed": 0.603146673661107,
+    "first_sample_above_original_limit": null
+  },
+  "task": {
+    "target_world_imu_xyz_m": [
+      8.107632367948884,
+      -0.0010234817025497037,
+      1.0816459242468166
+    ],
+    "goal_minimum_true_position_error_m": 13.74895569509975,
+    "max_true_contiguous_dwell_wall_s": 0.0,
+    "independent_arrival_passed": false,
+    "native_action_success": false,
+    "failure": "navigation_action_not_successful:planner_full_curve_planning_failed",
+    "goal_elapsed_sim_s": 6.5,
+    "goal_elapsed_wall_s": 8.447895844001323,
+    "goal_clock_regressions": 0,
+    "max_forward_world_x_progress_from_goal_start_m": 2.5977592615971297,
+    "observed_goal_motion_path_length_m": 4.713477953034293,
+    "post_goal_active_hold": null
+  },
+  "raw_vio": {
+    "duration_sim_s": 34.976,
+    "paired_truth_path_length_m_including_takeoff_and_landing": 5.644229843417584,
+    "position_error_m": {
+      "count": 530,
+      "rmse": 0.011575720967321453,
+      "median": 0.005846448280455015,
+      "p95": 0.021615314728724414,
+      "max": 0.028529331164132168
+    },
+    "absolute_yaw_error_deg": {
+      "count": 530,
+      "rmse": 0.12355587846534755,
+      "median": 0.006848625160471989,
+      "p95": 0.25434946688659577,
+      "max": 0.2746115122705613
+    },
+    "bounded_time_support_fraction": 0.9982845379688929,
+    "raw_max_gap_sim_s": 0.068000001,
+    "truth_max_gap_sim_s": 0.02,
+    "invalid_localization_status_samples": 0
+  },
+  "tracking": {
+    "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+    "candidate_max_error_m_not_enforced_by_runner": 0.15,
+    "matching_ready_commands": 839,
+    "paired_commands": 839,
+    "error_m": {
+      "median": 0.5034233337434009,
+      "p95": 0.5283695338998501,
+      "max": 0.5331004378771838,
+      "mean": 0.49490929767093644
+    },
+    "max_truth_interpolation_gap_s": 0.02
+  },
+  "map_source_timing": {
+    "source_timeline_requested_wall_s": 1500.0,
+    "source_timeline_stop_reason": "flight_report_written",
+    "source_timeline_clock_regression_events": 0,
+    "map_samples_goal_to_landed": 73,
+    "map_source_age_max_sim_s_goal_to_landed": 0.164,
+    "occupancy_age_max_sim_s_goal_to_landed": 0.112,
+    "candidate_map_age_limit_sim_s_not_a_final_standard": 0.4,
+    "decimated_stream_max_receipt_gaps_wall_s": {
+      "localization_status": 0.15082156400000102,
+      "adapter_optimized": 0.22627621099999962,
+      "map_status": 0.3312811550000001,
+      "clock": 0.14294509499999997
+    },
+    "decimation_note": "The source recorder samples streams at 0.1 wall-second cadence; its gap summary is not used as an exact callback receipt-age measurement."
+  },
+  "speed_observation": {
+    "guard_enabled": false,
+    "sources": [
+      "ego_position_command_reference",
+      "px4_vehicle_local_position"
+    ],
+    "max_vector_speed_m_s": {
+      "ego_position_command_reference": 0.5702412960738835,
+      "px4_vehicle_local_position": 0.5387976056269328
+    },
+    "sample_counts": {
+      "ego_position_command_reference": 839,
+      "px4_vehicle_local_position": 325
+    },
+    "candidate_planner_max_velocity_per_axis_m_s": 0.8,
+    "candidate_planner_max_acceleration_per_axis_m_s2": 0.25
+  },
+  "contact_evaluation": {
+    "passed": true,
+    "sensor_topics_ready": true,
+    "ground_contact_event_count": 14894,
+    "prohibited_contact_event_count": 0,
+    "landing_ground_contact_observed": true,
+    "first_prohibited_contact": null
+  },
+  "observer_completion": {
+    "truth": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 58.83054644102231
+    },
+    "alignment": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 58.49131330684759
+    },
+    "planner": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 58.50896774698049
+    },
+    "bridge": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 58.529846396064386
+    },
+    "contact": {
+      "terminal_flight_record_observed": true,
+      "observation_stop_reason": "flight_terminal_record",
+      "observation_elapsed_wall_s": 58.7160343490541
+    }
+  },
+  "raw_odometry_summary": {
+    "position_error": {
+      "count": 530,
+      "rmse": 0.011575720967321453,
+      "median": 0.005846448280455015,
+      "p95": 0.021615314728724414,
+      "max": 0.028529331164132168
+    },
+    "absolute_yaw_error_deg": {
+      "count": 530,
+      "rmse": 0.12355587846534755,
+      "median": 0.006848625160471989,
+      "p95": 0.25434946688659577,
+      "max": 0.2746115122705613
+    },
+    "coverage": {
+      "raw_samples_in_interval": 530,
+      "paired_samples": 530,
+      "paired_raw_fraction": 1.0,
+      "truth_grid_samples": 1749,
+      "supported_truth_grid_samples": 1746,
+      "truth_grid_support_fraction": 0.9982847341337907,
+      "bounded_time_support_fraction": 0.9982845379688929,
+      "truth_max_gap_sim_s": 0.02,
+      "raw_max_gap_sim_s": 0.068000001,
+      "paired_max_gap_sim_s": 0.068000001,
+      "start_uncovered_sim_s": 0.008,
+      "end_uncovered_sim_s": 0.052,
+      "truth_interpolation_limit_sim_s": 0.04,
+      "odometry_support_limit_sim_s": 0.2,
+      "note": "Reporting limits only; no extrapolation, timestamp repair or health gate changes.",
+      "rejected_samples": []
+    },
+    "invalid_localization_status_samples": 0,
+    "landed_and_disarmed": true
+  },
+  "safe_terminal_readback": {
+    "safe_to_stop_project_container": true,
+    "phase": "LANDED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "container_status": "exited 0"
+  },
+  "analyzer_staging_issue": "The run driver did not copy analyze_n10_calibration.py into the run directory. After safe stop, the exact prepared analyzer was staged and run offline; the report and input hashes are preserved.",
+  "braking_measurement": "not performed",
+  "artifacts_dir": "artifacts/runs/n10-20261026-356-upstream-spline-speed080-health-bypass-16m",
+  "evidence_files": [
+    "flight.json",
+    "arrival-evaluation.json",
+    "vehicle-contact-evaluation.json",
+    "odometry-evaluation.json",
+    "n10-calibration-evaluation.json",
+    "safe-to-stop.json",
+    "vio.log",
+    "alignment-observation.json",
+    "debug-truth-evaluation.json"
+  ]
+}

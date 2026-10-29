@@ -1,0 +1,136 @@
+{
+  "schema": "n07-retreat-observation-result/v1",
+  "task_id": "N07.9 #163",
+  "run_id": "n07-20261024-163-01",
+  "scope": "DISARMED whole-airframe support scan, initial N05 check, and attached N05 attempt; no flight",
+  "profile": "n07_spawn_minus65_retreat_180_pitch045_return_view",
+  "initial_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_identical": true,
+    "offline_replay_matches": true,
+    "identity": {
+      "epoch": "548e951098734a15b8d7b27b03493ef1",
+      "map_id": "548e951098734a15b8d7b27b03493ef1-772a9491fa6c4135b2c1bd08b4a09266",
+      "frame_id": "odom_548e951098734a15b8d7b27b03493ef1",
+      "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+      "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636"
+    }
+  },
+  "ground_boundary_audit": {
+    "path": "progress/evidence/n07-n05-unknown-volume-audit-20261024-163.json",
+    "ground_plane_z_m": -0.3500000000000002,
+    "whole_cell_subground_excluded_takeoff_max": 44,
+    "takeoff_unknown_centers": 436,
+    "takeoff_unknown_centers_below_plane": 0,
+    "takeoff_unknown_centers_on_plane": 52,
+    "takeoff_unknown_centers_above_plane": 436,
+    "hold_unknown_centers": 566,
+    "hold_unknown_centers_below_plane": 0,
+    "hold_unknown_z_extent_m": [
+      0.4500000000000002,
+      1.25
+    ]
+  },
+  "scan": {
+    "configured_stages": 9,
+    "completed_stages": 9,
+    "trace_rows": 11622,
+    "outcome": "failed",
+    "error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "telemetry_stale",
+      "normalized_cost": 0.4729244738475244
+    },
+    "n05_prescan_ready": true,
+    "n05_live_check_completed": false,
+    "attached_n05_error": "timed out waiting for current localization/map/bridge/odom/clock state; missing=['odom']; received=['bridge', 'clock', 'localization', 'map']"
+  },
+  "health_event_history": {
+    "artifact": "artifacts/runs/n07-20261024-163-01/localization-status-history.yaml",
+    "events": 11977,
+    "state_counts": {
+      "TRACKING": 8040,
+      "LOCKED": 3937
+    },
+    "transitions": [
+      {
+        "event_index": 0,
+        "header_sim_s": 27.656,
+        "propagated_source_s": 27.655999999,
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "normalized_cost": 0.08981920977977471,
+        "good_pairs": 294
+      },
+      {
+        "event_index": 8040,
+        "header_sim_s": 335.152,
+        "propagated_source_s": 335.052,
+        "state": 4,
+        "valid": false,
+        "reason": "telemetry_stale",
+        "normalized_cost": 0.4729244738475244,
+        "good_pairs": 4948
+      }
+    ],
+    "max_status_normalized_cost": 0.7186899922088259,
+    "normalized_cost_exceeded_seen": false,
+    "captured_telemetry_rows": 2000,
+    "captured_telemetry_stamp_span_s": [
+      46.003999999,
+      340.432
+    ],
+    "captured_telemetry_derived_normalized_cost_max": 0.7186899922088259,
+    "captured_long_tracks_min": 92,
+    "captured_stereo_features_min": 124,
+    "captured_accel_bias_norm_max_m_s2": 0.04261860236014142,
+    "interpretation": "first recorded lock is telemetry_stale at sim 335.152 s with normalized cost 0.472924; no cost threshold crossing was recorded. Raw telemetry capture continues after the lock, so exact delivery/receipt cause remains unresolved."
+  },
+  "safety": {
+    "fixture_removed": true,
+    "remove_acknowledged": true,
+    "scene_model_absent": true,
+    "fixture_may_remain_attached": false,
+    "land_detected_values": [
+      true
+    ],
+    "fresh_final_landed": true,
+    "final_land_detector_receipt_age_wall_s": 0.4852261790074408,
+    "px4_arming_state_values": [
+      1
+    ],
+    "bridge_after_failure": {
+      "phase": "DISABLED",
+      "control_enabled": false,
+      "armed": false,
+      "landed": true
+    },
+    "container_status": "Exited (0)",
+    "flight_started": false,
+    "released_n05_gate_passed": false,
+    "n07_hover_count": "0/3"
+  },
+  "debug_truth_used": false,
+  "control_or_goal_published": false,
+  "artifact_sha256": {
+    "n05-before/n05-live-entry-check.json": "1e63515192b4f073bf93e35410915a420d6ff836a705304c0a62420c2b69db46",
+    "n05-before/n05-offline-entry-replay.json": "194bc0b6214607010eab8845a8ae0f70bdf06c9253a895bcee3b006f5ed0f7bd",
+    "n05-before/n05-live-raw-map.npz": "17dfe8a999585c9a574da4fd7f828f9e995dda6a92513273a25595e98b8b35fd",
+    "n05-run-inputs.json": "90fb1f0133bcfaf335295e6dae683a8cf2ccbcc4de9d9d5362f0626e69c8c1c9",
+    "fixture-result.json": "4f40d3f44d9ad2ac94b42774900e8ca6e92a76f6537a4652179362592fdc6b27",
+    "fixture-stages.json": "9c4969aeadaf58c7d993d2347490b58ccf8f29e22b4bd2ddaec8d731f31e1884",
+    "fixture-trace.jsonl": "ba2ad5db7925ebdc470a793e1730835f5cab541c1a1051a81e8c844ae1be105c",
+    "fixture-vins.jsonl": "d67f87e9f5ac129caeeeb16924d0b90894fd2c7af5a87ef7307b11e11a7c4d62",
+    "fixture-odometry.jsonl": "093df43a3e6cd61a143b344c8b6a91ffcb84f01366c191f38f6a61de35e4b7fb",
+    "localization-status-history.yaml": "a1178be7d3f5dfeae502e0b7f37141d606dac8ac5b2c608be77e7c5d9dc6f4f2",
+    "n05-attached/n05-live-entry-check-error.json": "136d25bcd9bf88b6f21fb0da4c278a68d2fcde3fef0894bf3e6e3dd1a7d4713e",
+    "unknown-volume-audit.json": "1d88e5c27df2d183cf6230b31112e1736bb758dbc31ced447120bcf4c7971589",
+    "offline-replay-evidence.json": "0c93f6bd1e3514b8fa0582fdfa574164124c61d1253bf8c5bb263e45e455340d"
+  },
+  "decision": "The exact route completed 9/9, but no fresh attached snapshot was obtained after the localization health lock; no released gate or hover evidence exists. The initial refusal remains a real above-ground raw-unknown refusal. Next run should automate attached/released gate calls at the prescan marker with short bounded waits, keeping all thresholds and the route fixed."
+}

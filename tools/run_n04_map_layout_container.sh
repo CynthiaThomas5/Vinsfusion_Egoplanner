@@ -4,7 +4,9 @@ cd /workspace
 RUN_ID=${1:?run id required}
 LAYOUT_ID=${2:?layout id required}
 MODE=${3:-motion}
-[[ "$MODE" == motion || "$MODE" == static ]] || { echo 'Invalid capture mode' >&2; exit 2; }
+N06_PROFILE=${4:-/workspace/config/components/simulation/n06_observation_sweep.json}
+[[ "$MODE" == motion || "$MODE" == static || "$MODE" == motion_n06 ]] || { echo 'Invalid capture mode' >&2; exit 2; }
+[[ "$N06_PROFILE" == /workspace/* && -f "$N06_PROFILE" ]] || { echo 'Invalid workspace N06 profile' >&2; exit 2; }
 WORLD=/workspace/artifacts/runs/$RUN_ID/world.sdf
 RUN=/workspace/artifacts/runs/$RUN_ID
 STACK_ID=${RUN_ID}-stack
@@ -76,18 +78,35 @@ if [[ "$MODE" == static ]]; then
       exit 12
     }
 fi
-ros2 param dump /drone_0_ego_planner_node > "$RUN/ego-runtime-params.yaml"
+ros2 param dump --no-daemon --spin-time 1.0 --timeout 10 \
+  /drone_0_ego_planner_node > "$RUN/ego-runtime-params.yaml"
 
 DEPTH_TOPIC=$(python3 -c 'import json; print(json.load(open("config/components/mapping/ego_input.json"))["ego_depth_topic"])')
 POSE_TOPIC=$(python3 -c 'import json; print(json.load(open("config/components/mapping/ego_input.json"))["ego_pose_topic"])')
-setsid python3 tools/record_n04_mapping_inputs.py --seconds 40 \
+RECORDER_SECONDS=40
+if [[ "$MODE" == motion_n06 ]]; then
+  RECORDER_SECONDS=$(python3 - "$N06_PROFILE" <<'PY'
+import json,math,sys
+profile=json.load(open(sys.argv[1]))
+print(max(40,math.ceil(float(profile.get(
+    'record_wall_seconds', float(profile['stop_seconds'])+8)))) )
+PY
+  )
+fi
+setsid python3 tools/record_n04_mapping_inputs.py --seconds "$RECORDER_SECONDS" \
   --depth-topic "$DEPTH_TOPIC" --pose-topic "$POSE_TOPIC" \
   --output-dir "$RUN/inputs" > "$RUN/input-recorder.log" 2>&1 &
 RECORDER_PID=$!
 sleep 1
-if [[ "$MODE" == motion ]]; then
-  setsid python3 tools/run_sensor_motion.py --output "$RUN/motion.json" \
-    > "$RUN/motion.log" 2>&1 &
+if [[ "$MODE" == motion || "$MODE" == motion_n06 ]]; then
+  if [[ "$MODE" == motion_n06 ]]; then
+    setsid python3 tools/run_sensor_motion.py \
+      --profile "$N06_PROFILE" \
+      --output "$RUN/motion.json" > "$RUN/motion.log" 2>&1 &
+  else
+    setsid python3 tools/run_sensor_motion.py --output "$RUN/motion.json" \
+      > "$RUN/motion.log" 2>&1 &
+  fi
   MOTION_PID=$!
 fi
 
@@ -105,21 +124,29 @@ capture_snapshot() {
     > "$RUN/snapshot-$index-capture.log" 2>&1
 }
 
+# N06 evaluates a stationary map after the no-control scan. Motion profiles
+# finish and clear their wrench before snapshots or the planner-only goal.
+if [[ "$MODE" == motion_n06 ]]; then
+  wait "$MOTION_PID"
+  MOTION_PID=
+  sleep 2
+fi
+
 # Capture three fresh snapshots under one epoch/map_id. Static mode isolates
-# map admission from the physics-driven support-scan motion profile.
+# map admission; motion_n06 captures after the observation scan settles.
 sleep 6
-if [[ "$MODE" == motion ]]; then
-  kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+if [[ "$MODE" == motion || "$MODE" == motion_n06 ]]; then
+  [[ -z "$MOTION_PID" ]] || kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
 fi
 capture_snapshot 01
 sleep 6
-if [[ "$MODE" == motion ]]; then
-  kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+if [[ "$MODE" == motion || "$MODE" == motion_n06 ]]; then
+  [[ -z "$MOTION_PID" ]] || kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
 fi
 capture_snapshot 02
 sleep 6
-if [[ "$MODE" == motion ]]; then
-  kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
+if [[ "$MODE" == motion || "$MODE" == motion_n06 ]]; then
+  [[ -z "$MOTION_PID" ]] || kill -0 "$MOTION_PID" 2>/dev/null || { cat "$RUN/motion.log" >&2; exit 13; }
 fi
 capture_snapshot 03
 
@@ -130,8 +157,42 @@ fi
 wait "$RECORDER_PID"
 RECORDER_PID=
 sleep 1
-ros2 node list > "$RUN/ros-nodes.txt"
-ros2 topic list > "$RUN/ros-topics.txt"
+if [[ "$MODE" == static || "$MODE" == motion_n06 ]]; then
+  PROBE_ARGS=(--run-id "$RUN_ID" --observe-s 2.0
+              --output "$RUN/n06-live-layout-probe.json")
+  if [[ "$MODE" == motion_n06 ]]; then
+    read -r REQUIRE_CERTIFICATE OFFSET_X OFFSET_Y OFFSET_Z HANDOFF_PRESENT HANDOFF_X HANDOFF_Y HANDOFF_Z < <(python3 - "$N06_PROFILE" <<'PY'
+import json,sys
+profile=json.load(open(sys.argv[1]))
+offset=profile.get('planner_goal_offset_xyz_m',[0.5,0.0,0.5])
+if len(offset)!=3:
+    raise SystemExit('planner_goal_offset_xyz_m must contain exactly three values')
+handoff=profile.get('planner_handoff_goal_offset_xyz_m')
+if handoff is not None and len(handoff)!=3:
+    raise SystemExit('planner_handoff_goal_offset_xyz_m must contain exactly three values')
+print('yes' if profile.get('require_snapshot_goal_certificate',False) else 'no',
+      *offset, 'yes' if handoff is not None else 'no', *(handoff or [0,0,0]))
+PY
+    )
+    PROBE_ARGS+=(--target-dx-m "$OFFSET_X" --target-dy-m "$OFFSET_Y"
+                 --target-dz-m "$OFFSET_Z")
+    if [[ "$REQUIRE_CERTIFICATE" == yes ]]; then
+      PROBE_ARGS+=(--require-snapshot-certificate)
+    fi
+    if [[ "$HANDOFF_PRESENT" == yes ]]; then
+      PROBE_ARGS+=(--handoff-target-dx-m "$HANDOFF_X"
+                   --handoff-target-dy-m "$HANDOFF_Y"
+                   --handoff-target-dz-m "$HANDOFF_Z")
+    fi
+  fi
+  python3 tools/probe_n06_live_layout.py "${PROBE_ARGS[@]}" \
+    > "$RUN/n06-live-layout-probe.log" 2>&1 || {
+      cat "$RUN/n06-live-layout-probe.log" >&2
+      exit 16
+    }
+fi
+ros2 node list --no-daemon --spin-time 1.0 > "$RUN/ros-nodes.txt"
+ros2 topic list --no-daemon --spin-time 1.0 > "$RUN/ros-topics.txt"
 if grep -Ein 'px4|controller|debug_truth|truth_bridge' "$RUN/ros-nodes.txt"; then
   echo 'Unexpected PX4/control/truth node in N04 diagnostic graph' >&2
   exit 14

@@ -1,0 +1,34 @@
+{
+  "id": "#481",
+  "schema": "n11-approved-native-work-calibration/v1",
+  "status": "implementation_and_fixed_input_verified",
+  "user_approval": "批准",
+  "formal_pass_count": 0,
+  "tests": {
+    "command": "python3 -m unittest tools.test_n11_native_work_queue tools.test_n10_acceptance tools.test_n10_vins_queue_metrics tools.test_n11_acceptance_contract tools.test_n11_static_map",
+    "passed": 75
+  },
+  "build": {
+    "status": "PASS",
+    "package": "vins",
+    "duration_s": 45.9,
+    "log": "artifacts/n11-prepared/n11-20261029-481-native-work/build.log",
+    "binary_sha256": "4d19e003654b2a1a2ec1996b07701a5ec4c304622e410965a7b9ccaac06f6800"
+  },
+  "native_work_replay": {
+    "schema": "n11-native-work-result/v1",
+    "status": "PASS",
+    "sample_count": 1798,
+    "maximum_native_lag_s": 0.06,
+    "maximum_pending_source_span_s": 0.0,
+    "maximum_waiting_features": 0,
+    "maximum_telemetry_source_gap_s": 0.068000001,
+    "violations": [],
+    "missing_or_inconsistent": [],
+    "runtime_effect": false,
+    "raw_buffer_ols_is_diagnostic_only": true
+  },
+  "caveat": "Observer input coverage verified; production BEST_EFFORT callbacks not traced; not an exact callback-equivalence proof or flight credit.",
+  "revision8_sha256": "7cf226ee4c471d49fec05f25eede1c9c127cd97fc22f0ae371ba13681d599750",
+  "next": "#482 visible GUI full-task calibration; revised standard not yet frozen"
+}

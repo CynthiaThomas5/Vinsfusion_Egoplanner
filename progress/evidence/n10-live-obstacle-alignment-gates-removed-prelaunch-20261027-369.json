@@ -1,0 +1,43 @@
+{
+  "schema": "n10-live-obstacle-replan-prelaunch/v1",
+  "subtask_id": "N10.3/#369",
+  "run_id": "n10-20261027-369-alignment-gates-removed-live-obstacle",
+  "classification": "frozen run identity before SITL; not flight evidence",
+  "runtime_contract_path": "artifacts/n10-prepared/n10-20261027-369-alignment-gates-removed-live-obstacle/runtime-contract.json",
+  "sha256": "5c3cbe4d4621e7c520d323e80911a2fc0ce09ae040c22adbf313c2fc21e45c01",
+  "runtime_contract_file_count": 665,
+  "protocol_path": "progress/evidence/n10-live-obstacle-alignment-gates-removed-protocol-20261027-369.json",
+  "protocol_sha256": "f53aa6ccbbc044024bee54a9d51c46de57d8d60864f896ad1b8f18f32bcd5ea1",
+  "patch_path": "dependencies/patches/ego/0053-remove-custom-full-curve-gates.patch",
+  "patch_sha256": "529fcade428165d4101cdc660b38f1cfd0094f22f0f77d03530e5808de7bb727",
+  "ego_binary_sha256": "25179a8ccdec7489c463f02e662180327bd34f90ef293ab1d0a0a85593d4982b",
+  "bridge_binary_sha256": "6b12e131f2776fbfe4a52a27eb3f194b7b77030d914e323e1e1f0362e0fc7606",
+  "bridge_module_sha256": "bad90f0eea2f6e6336f555add1d7431e9aa1d8d65b1b4746e4bbad1af5926e9f",
+  "ros_build_command": "bash tools/project.sh build ros",
+  "ros_build_result": "PASS: 17 ROS packages finished, including uav_px4_bridge",
+  "tests_command": "bash tools/project.sh test",
+  "tests_result": "PASS: 415 unit tests, navigation-adapter ROS integration, official EGO navigation policy ROS integration",
+  "build_report_path": "progress/evidence/n10-px4-alignment-gate-removal-build-20261027-369.md",
+  "tools": {
+    "injector": "3c19f3c0679583834352abd4990603c081e48f5160c840156c720d048e6607d7",
+    "driver": "d0803296798cd7315d064440ee4fd056e68cce0e23b7b0707c3597d3dacbe600",
+    "analyzer": "8243ec0f569e930e4c59fa420f10c1522def1515f3a872cdfe62e895a18b8773",
+    "dynamic_analyzer": "686e410c49472dc6b5cf66490a776dd879a2bd0a9718eddedd4419ccc74d3453",
+    "clearance_analyzer": "8b2b74b8dc3473ccde413e9d6d85f244600e9d3855fa6644e7a2f7abec946aaf"
+  },
+  "preflight_before_goal": {
+    "runtime_contract_match": true,
+    "alignment_numeric_gate_keys_removed": true,
+    "clock_mapping_max_samples": 128,
+    "clock_mapping_source_age_max_wall_s": 0.35,
+    "mapped_odometry_receipt_age_max_wall_s": 0.3,
+    "targeted_and_project_tests": "passed; see build_report_path",
+    "build_17_ros_packages": "passed; see build_report_path",
+    "python_tools_compile": "passed after freeze",
+    "driver_shell_syntax": "passed after freeze",
+    "gazebo_create_service": "must be acknowledged in SITL before goal",
+    "navigation_cancel_service": "must be available in SITL before goal",
+    "control_owner": "uav_px4_bridge only"
+  },
+  "status": "ready_for_sitl_preflight; no goal sent yet"
+}

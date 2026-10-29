@@ -1,0 +1,66 @@
+{
+  "schema": "n10-rebuild-regression-evidence/v1",
+  "id": "N10.6/#463",
+  "date": "2026-10-28",
+  "status": "incomplete_no_goal_submitted",
+  "candidate_source_export_sha256": "80072761e73a7711debcc862e168de0278e8c01ebd1070a3f03818742d08fe3f",
+  "regression": {
+    "project_unit_tests": {
+      "passed": 596,
+      "failed": 0,
+      "errors_after_fixture_staging": 0
+    },
+    "navigation_adapter_integration": "passed",
+    "official_ego_unknown_policy_probe": "passed",
+    "first_attempt_missing_fixture_errors": 3,
+    "fixture_source_run": "n10-20261027-398-speed040-integrated-calibration",
+    "fixture_sha256": "eb22ce222e701372ff0e87066ea9fa63a6ce660904ea759dc3b80bac1c3e0d94",
+    "fixture_scope": "offline unit-test fixture only; excluded from source export, build and SITL"
+  },
+  "flight_attempt": {
+    "run_id": "n10-20261028-463-clean-build-regression",
+    "command_exit_code": 14,
+    "reason": "n09 runtime expected Subscription count: 1; actual expected graph has two endpoints",
+    "publisher": "uav_navigation",
+    "subscribers": [
+      "drone_0_ego_planner_node",
+      "uav_px4_bridge"
+    ],
+    "preflight_passed": true,
+    "takeoff_admission_passed": true,
+    "goal_submitted": false,
+    "flight_record_written": false,
+    "px4_armed": false,
+    "px4_landed": true,
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "container_stop_exit_code": 0,
+    "emergency_disarm_used": false
+  },
+  "runtime_correction": {
+    "files": [
+      "tools/n09_runtime.sh",
+      "tools/run_n10_cancel_calibration.sh"
+    ],
+    "required_publisher_count": 1,
+    "required_subscriber_count": 2,
+    "required_subscribers": [
+      "drone_0_ego_planner_node",
+      "uav_px4_bridge"
+    ],
+    "retained_owner_and_node_checks": true,
+    "n09_runtime_sha256": "4c717d3b9826e554da4553e5ac240bc5c68cc015118b53b4baaf5f562c3e9158",
+    "run_n10_cancel_calibration_sha256": "b6e89a48e1e5b9b5a4ed549f366f6c522b30a1a9c13c8ca2817f5daa731db79b",
+    "final_candidate_build_and_runtime_test": "pending"
+  },
+  "closeout": {
+    "bash_n": "passed",
+    "git_diff_check": "passed",
+    "project_status": "passed (structure only)",
+    "N10_parent_status": "in_progress",
+    "formal_qualification_credit": false,
+    "fault_calibration": false,
+    "next": "re-export fixed source, redo isolated clean ROS/PX4 build, then repeat full regression and representative PX4 task"
+  },
+  "artifacts": "artifacts/runs/n10-20261028-462-clean-rebuild/"
+}

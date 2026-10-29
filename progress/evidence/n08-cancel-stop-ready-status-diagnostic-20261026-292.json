@@ -1,0 +1,91 @@
+{
+  "schema": "n08-motion-cancel-run/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-292",
+  "parent_goal": "N08",
+  "status": "fail",
+  "native_trial_failure": "cancel_stop_spline_did_not_complete_in_active_hold",
+  "scope": "One forward goal canceled during measured motion; this run did not complete native post-cancel hold or destination landing qualification.",
+  "preconditions": {
+    "n05_fixture_scan_stages_passed": 6,
+    "n05_fixture_scan_stages_total": 6,
+    "post_release_admission_passed": true,
+    "readonly_preflight_duration_sim_s": 40.0145,
+    "mission_current_area_admission_passed": true,
+    "map_status_refresh_after_service_passed": true
+  },
+  "cancel": {
+    "trigger_px4_horizontal_speed_m_s": 0.04001671339118663,
+    "trigger_ego_reference_speed_m_s": 0.057843229426561255,
+    "action_result": {
+      "status": 5,
+      "success": false,
+      "outcome": "canceled",
+      "reason": "caller_cancel"
+    },
+    "old_trajectory_id": 1,
+    "replacement_trajectory_id": 2,
+    "replacement_spline_certified": true,
+    "old_trajectory_resumed": false
+  },
+  "partial_independent_measurement": {
+    "scope": "Read-only truth/PX4 evidence ending when the native runner operator-disabled; not an N08 pass.",
+    "reference_vector_speed_upper_bound_m_s": 0.0871183,
+    "actual_peak_horizontal_speed_m_s": 0.08784598744598023,
+    "actual_peak_vector_speed_m_s": 0.0878567122798466,
+    "cancel_to_stop_distance_m": 0.29849870299414605,
+    "cancel_to_stop_elapsed_sim_s": 4.552,
+    "actual_distance_from_reference_braking_start_m": 0.19269736693239456,
+    "actual_residual_distance_after_reference_zero_m": 0.024354226519625894,
+    "response_delay_to_sustained_deceleration_s": 1.096,
+    "cancel_to_sustained_deceleration_s": 2.932,
+    "independent_reference_tracking_error_max_m": 0.09129967909282011,
+    "actual_stop_dwell_position_excursion_m": 0.01216830811009081,
+    "px4_local_position_stop_gate_observed_until_operator_disable_sim_s": 9.2,
+    "native_three_second_hold_recorded": false,
+    "destination_landing_admission_and_command_recorded": false
+  },
+  "terminal_reference_diagnostic": {
+    "source_stamp_ns": 387864000000,
+    "trajectory_id": 2,
+    "flag": 1,
+    "flag_name": "READY",
+    "position_enu_m": [
+      0.30116221342558547,
+      0.002163622078095437,
+      0.8813338879152357
+    ],
+    "velocity_enu_m_s": [0.0, 0.0, 0.0],
+    "acceleration_enu_m_s2": [0.0, 0.0, 0.0],
+    "root_cause": "EGO traj_server retains READY after the B-spline time domain while publishing the stable terminal position with zero derivatives; the runner waited for COMPLETED."
+  },
+  "final_safety_state": {
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "px4_armed": false,
+    "px4_landed": true,
+    "offboard_control_mode_messages": 0,
+    "trajectory_setpoint_messages": 0,
+    "vehicle_command_messages": 0,
+    "project_simulation_container_stopped": true
+  },
+  "artifact_sha256": {
+    "flight.json": "1c631015ef9cfec1aa5ec4ed08e67bf66759d510e79cb01bc385c47574288d79",
+    "n08-braking-evaluation.json": "4fa9c0a94422d5fb0cc1c65de5e55a94188097340e0a24c02edf7555b1764d0b",
+    "partial_measurement.json": "3fd5b3fbee34392bbcef1dad8a373aec59261edaee30901e47441bf2cf8dba07",
+    "final-px4-bridge-live.json": "d97b113b87237ed9dad2673937ad63139f39d85b0694a3ca9bc75cf1566d7918",
+    "runtime-contract.json": "0cc24b8676e64cd879fd775ac89b1b37164876ab4c7a5b306a5014c35975b5c4",
+    "preflight.json": "30d301f5c8a819f5e50867d42b7bd21ae932b207deea3622356fac768699221a"
+  },
+  "evidence_paths": [
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-292/flight.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-292/n08-braking-evaluation.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-292/diagnostics/pre-disable-cancel-stop-measurement.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-292/safety-readback/final-px4-bridge-live.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-292/runtime-contract.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-292/preflight.json"
+  ],
+  "limitations": [
+    "The cancel-stop figures are partial read-only measurements and cannot qualify the run because the native hold endpoint and destination landing were not completed.",
+    "The final safe landing followed runner operator-disable, not the required checked destination landing after the cancel hold."
+  ]
+}

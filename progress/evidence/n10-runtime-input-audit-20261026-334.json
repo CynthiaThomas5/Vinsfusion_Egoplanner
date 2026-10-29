@@ -1,0 +1,817 @@
+{
+  "schema": "n10-runtime-input-audit/v1",
+  "report_id": 334,
+  "date": "2026-10-26",
+  "parent_goal": "N10",
+  "subtask": "N10.1",
+  "status": "passed_static_input_and_launch_audit",
+  "scope": "Current working-tree source/dependency/config/launch inventory and archived N09 launch identity. Rebuilt candidate live node parameters are reserved for N10.6.",
+  "repository": {
+    "head": "fd90f3b73e48101ad35c5a0ed9372865392eca7c",
+    "branch": "main",
+    "pre_audit_git_status_entries": 1022,
+    "preexisting_changes_preserved": true,
+    "snapshot_path": "artifacts/runs/n10-20261026-334-audit/snapshot-initial",
+    "source_archive_sha256": "405cffd0e0b0e8892bc4769f73932864da54c4fef524254e21e3b54a18460de5",
+    "snapshot_manifest_file_count": 2112,
+    "snapshot_kind": "code-only because the locked portable image archive is absent from its recorded path"
+  },
+  "runtime_identity_at_snapshot": {
+    "current_runtime_manifest_path": "artifacts/runs/n10-20261026-334-audit/runtime-manifest-initial.json",
+    "file_count": 645,
+    "sha256": "6b95d5fe48ea17f41649947547ccab4bf0798e9907a565dbb2dfd65cf0579f30",
+    "matches_n09_332_identity": true,
+    "n09_runtime_sha256": "6b95d5fe48ea17f41649947547ccab4bf0798e9907a565dbb2dfd65cf0579f30",
+    "coverage_limit": "Existing runtime_manifest covers own source, config, simulation, selected tools, selected installed files, PX4 binary and dependencies/sources.json, but does not hash actual vendor source trees, individual dependency patches or all installed launch/share/config files."
+  },
+  "environment": {
+    "configured_image": "d435i-vins:dev",
+    "configured_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "actual_local_image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "image_id_match": true,
+    "locked_portable_bundle_path": "artifacts/runs/p0-container-image-bundle-20261017-01/px4-ros2-gz-and-d435i-vins-images.tar.zst",
+    "locked_portable_bundle_sha256": "da3e5fd0c203c4dec89963b147ae997a64872d18831151760549efd2c488b614",
+    "portable_bundle_exists": false,
+    "docker_engine_clean_import_status": "portable_image_bundle_checksum_and_load_command_passed; fresh_17_package_workspace_build_passed; clean_engine_import_not_tested",
+    "host_gpu": "NVIDIA GeForce RTX 4090 x2; driver 595.91.07",
+    "project_containers_active": false,
+    "unrelated_containers_left_untouched": [
+      "volant-height-route-probe",
+      "natfrp-service"
+    ]
+  },
+  "dependencies": {
+    "patch_file_checks_passed": 48,
+    "patch_file_checks_total": 48,
+    "patch_file_checks": [
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0001-fully-fixed.patch",
+        "expected": "99b286a08f2d55d8da5d1bda9b450ec0d1553386e28577c814861489931f8940",
+        "actual": "99b286a08f2d55d8da5d1bda9b450ec0d1553386e28577c814861489931f8940",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0002-telemetry.patch",
+        "expected": "60cf747645b6fabc5b48aa32fa35beb07c0ff59fb8aecf4851598f79c38ed3f8",
+        "actual": "60cf747645b6fabc5b48aa32fa35beb07c0ff59fb8aecf4851598f79c38ed3f8",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0003-jazzy-cv-bridge.patch",
+        "expected": "334148fb7aa2fd399aa27aca5dda01d9ee270590ac25551331b8d3ecbb621b1d",
+        "actual": "334148fb7aa2fd399aa27aca5dda01d9ee270590ac25551331b8d3ecbb621b1d",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0004-initialize-excitation-sum.patch",
+        "expected": "530091f49e9f6f7ebf03ae4fe5c22e01ca75cc69a8aea5c65c74803dd2bc6f27",
+        "actual": "530091f49e9f6f7ebf03ae4fe5c22e01ca75cc69a8aea5c65c74803dd2bc6f27",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0005-diagnostic-cost-components.patch",
+        "expected": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72",
+        "actual": "b963b0f7708e6a17144264db718707b962609f83d62ba8150bfe3cbf577f3f72",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0009-lm-trust-region-experiment.patch",
+        "expected": "606386c9e262884d1dec4fe2228bede216d1aefa9daa74160e39ed9cb268f376",
+        "actual": "606386c9e262884d1dec4fe2228bede216d1aefa9daa74160e39ed9cb268f376",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0011-opencv-runtime-threads-experiment.patch",
+        "expected": "6126e86035bc1f44b12aa5bda6feaf77c7320f3b7dfd687c7bd1d53f2fc8cb0b",
+        "actual": "6126e86035bc1f44b12aa5bda6feaf77c7320f3b7dfd687c7bd1d53f2fc8cb0b",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0012-temporal-ransac-experiment.patch",
+        "expected": "22acd9d7dcec708672391918ace4566fa77f488d6cb5d608b8d97f3c882b2226",
+        "actual": "22acd9d7dcec708672391918ace4566fa77f488d6cb5d608b8d97f3c882b2226",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0013-stereo-epipolar-experiment.patch",
+        "expected": "44df2603d74e14a0304919010bc7fa0f95f0bb7b0c7f2f681685054d2091d5f1",
+        "actual": "44df2603d74e14a0304919010bc7fa0f95f0bb7b0c7f2f681685054d2091d5f1",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0014-runtime-package-only.patch",
+        "expected": "0963b1310c243ffc693a590517dd00de852e88d2be1e42094fa9e046a61da164",
+        "actual": "0963b1310c243ffc693a590517dd00de852e88d2be1e42094fa9e046a61da164",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0015-loop-observer-transport.patch",
+        "expected": "2d2ad6df832937bceb371879452a08446005a622248d8fe6b7f764c2ca38eeba",
+        "actual": "2d2ad6df832937bceb371879452a08446005a622248d8fe6b7f764c2ca38eeba",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0016-loop-readonly-diagnostics.patch",
+        "expected": "5e049fa8babe7fc27cba2185f8b929fda49f0b2c3c4dd7cf768e3bae609f92d6",
+        "actual": "5e049fa8babe7fc27cba2185f8b929fda49f0b2c3c4dd7cf768e3bae609f92d6",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0017-continuous-cost-diagnostics.patch",
+        "expected": "fdaa70d2f2e1a27477f71a5f9849734acebfba7424926c9b4a07f41990e0a030",
+        "actual": "fdaa70d2f2e1a27477f71a5f9849734acebfba7424926c9b4a07f41990e0a030",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0018-prior-readonly-diagnostics.patch",
+        "expected": "09b88746f6c126b66a5e3410909280c4b1458a284e8121db4c6dd7a3ad2d03b8",
+        "actual": "09b88746f6c126b66a5e3410909280c4b1458a284e8121db4c6dd7a3ad2d03b8",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "path": "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch",
+        "expected": "bcb9af0c3131531decaeabe9c38f7f7d68f4463790dae84ee126b2c4d34d0e71",
+        "actual": "bcb9af0c3131531decaeabe9c38f7f7d68f4463790dae84ee126b2c4d34d0e71",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0001-project-interface-and-license.patch",
+        "expected": "67aec2b58d692084382561b71fee8f82481054b05cb88d2f9aa6cf6fab79009c",
+        "actual": "67aec2b58d692084382561b71fee8f82481054b05cb88d2f9aa6cf6fab79009c",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0002-package-descriptions.patch",
+        "expected": "3febdfcef3d21253ecb8936a479c1f07fdc99214d65ae4d0a345ff0979fd2c15",
+        "actual": "3febdfcef3d21253ecb8936a479c1f07fdc99214d65ae4d0a345ff0979fd2c15",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0003-jazzy-cv-bridge-header.patch",
+        "expected": "74fe30110d95772327a5258a56512a60762a5dd624eb87c5a6e84100287b541f",
+        "actual": "74fe30110d95772327a5258a56512a60762a5dd624eb87c5a6e84100287b541f",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0004-mapping-input-safety.patch",
+        "expected": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+        "actual": "7491d84a61b6ee4a6fe0fcae12c46a301331ac9ecf83b5316898616238cfba87",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0005-occupancy-publication-stamp.patch",
+        "expected": "0ae6beea38db10c16a185147cb01a080d90f627779b043122a69dff1330195b4",
+        "actual": "0ae6beea38db10c16a185147cb01a080d90f627779b043122a69dff1330195b4",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0006-ego-odometry-topic.patch",
+        "expected": "e9c8671ac61d75a90a7da42d7a2ccd47708f67f65ee571a785f640c9d7e51342",
+        "actual": "e9c8671ac61d75a90a7da42d7a2ccd47708f67f65ee571a785f640c9d7e51342",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0007-shutdown-safe-planner.patch",
+        "expected": "36f878b84f6481cf74c2598de79c3c073e753c704d87321d9a3e7c20c91deb00",
+        "actual": "36f878b84f6481cf74c2598de79c3c073e753c704d87321d9a3e7c20c91deb00",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0008-queue-manual-targets-on-fsm.patch",
+        "expected": "c21529e2b42aad6cc4330267cf9045132bae06f92f87f53d23149344903e48d1",
+        "actual": "c21529e2b42aad6cc4330267cf9045132bae06f92f87f53d23149344903e48d1",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0009-recoverable-depth-timeout.patch",
+        "expected": "63c2be9f58293076f7757c2006d7145b5d5ce02d7deed7efa58050cd44520c51",
+        "actual": "63c2be9f58293076f7757c2006d7145b5d5ce02d7deed7efa58050cd44520c51",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0010-grid-map-timeout-diagnostics.patch",
+        "expected": "d07022de2c81acd45788e38a84fc570356c4d94b9ecf956f4f52d902df726134",
+        "actual": "d07022de2c81acd45788e38a84fc570356c4d94b9ecf956f4f52d902df726134",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0011-configurable-map-ground-height.patch",
+        "expected": "1d151ecc1e8ae352d6f67515d2c2db76ede8fbe0c5937ec61f0d894a0dabfd81",
+        "actual": "1d151ecc1e8ae352d6f67515d2c2db76ede8fbe0c5937ec61f0d894a0dabfd81",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0017-task-goal-epoch-and-cancel.patch",
+        "expected": "e82a26df1d5a1113e7b19b3e8556f81ef2bc09cf07db5670f3094e9afad68dc1",
+        "actual": "e82a26df1d5a1113e7b19b3e8556f81ef2bc09cf07db5670f3094e9afad68dc1",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0018-sim-clock-consistency.patch",
+        "expected": "d38f608832fd54e51404731dadb737a27da92d00a279fcd47bceec511daae151",
+        "actual": "d38f608832fd54e51404731dadb737a27da92d00a279fcd47bceec511daae151",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0019-configurable-obstacle-inflation.patch",
+        "expected": "86d88544bdeda3348ba64c2f146f3b291512e7d5128c6596c2e6a98d12fcabe9",
+        "actual": "86d88544bdeda3348ba64c2f146f3b291512e7d5128c6596c2e6a98d12fcabe9",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0021-occupancy-snapshot-service.patch",
+        "expected": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8",
+        "actual": "5b1a8cc3cdda79cc57422c16e5045895a2c0aa1c792cb869e6a851008c9757d8",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0035-yaw-start-boundary-experiment.patch",
+        "expected": "fa069cab747a0c0e02023683d18c7ff2d948ba2b93077c233ed9cc1e67ec65d5",
+        "actual": "fa069cab747a0c0e02023683d18c7ff2d948ba2b93077c233ed9cc1e67ec65d5",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0036-stop-position-boundary-experiment.patch",
+        "expected": "930447b53d376fed617024e22fd6cf655110ca2d47a3c02528793bbdd2be16bf",
+        "actual": "930447b53d376fed617024e22fd6cf655110ca2d47a3c02528793bbdd2be16bf",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0037-readonly-sphere-query.patch",
+        "expected": "ec9252cc79def0f9b75bc7c64b3bf1b1b0e1079f5e2e306fa973d4d905902388",
+        "actual": "ec9252cc79def0f9b75bc7c64b3bf1b1b0e1079f5e2e306fa973d4d905902388",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0038-complete-depth-rays.patch",
+        "expected": "1260c9aa72bac8f883f6944ee3923707b72a6fa279fcb91389a959645e94b26d",
+        "actual": "1260c9aa72bac8f883f6944ee3923707b72a6fa279fcb91389a959645e94b26d",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0039-full-curve-admission.patch",
+        "expected": "1e591c0bf8796964c04813dfb6ea2843faffa625ad6e9ab0eee2bfa582b10ff1",
+        "actual": "1e591c0bf8796964c04813dfb6ea2843faffa625ad6e9ab0eee2bfa582b10ff1",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0040-depth-fusion-continuity-trace.patch",
+        "expected": "415bda74f7b180ad7904825c019c2606395361095dcaeeefd584012526856b2f",
+        "actual": "415bda74f7b180ad7904825c019c2606395361095dcaeeefd584012526856b2f",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0041-n06-terminal-hold-admission.patch",
+        "expected": "bb18641e1a1f90560d11e0ed197d273dde4918ab7e38d8a9ffb1df3268125e2e",
+        "actual": "bb18641e1a1f90560d11e0ed197d273dde4918ab7e38d8a9ffb1df3268125e2e",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0042-query-last-completed-fusion.patch",
+        "expected": "52b1485d7fb938550306a76e0efb304b3afe551726e6c1ce913b3d7ed5346dbc",
+        "actual": "52b1485d7fb938550306a76e0efb304b3afe551726e6c1ce913b3d7ed5346dbc",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0043-n06-emergency-hold-fallback.patch",
+        "expected": "2496219fd45881712b46fa4083f4fc24a52e8353a22f0127b4fa7e4b8b4945d8",
+        "actual": "2496219fd45881712b46fa4083f4fc24a52e8353a22f0127b4fa7e4b8b4945d8",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0044-final-spline-dynamics-check.patch",
+        "expected": "9f6ceb41bc8477d919f94d4ad257dc5f162286170181e1abe2edca796dabd916",
+        "actual": "9f6ceb41bc8477d919f94d4ad257dc5f162286170181e1abe2edca796dabd916",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0045-stationary-yaw-only-return.patch",
+        "expected": "5ad328ac6a48226e4b3a4fdab2cc20f81c20a020d7c851e120077bbdf0279b99",
+        "actual": "5ad328ac6a48226e4b3a4fdab2cc20f81c20a020d7c851e120077bbdf0279b99",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0046-cancel-stop-hold.patch",
+        "expected": "b1f9aa0d69eb1dc9637bc7de51942666fde9c7aab054124344987d6502629d82",
+        "actual": "b1f9aa0d69eb1dc9637bc7de51942666fde9c7aab054124344987d6502629d82",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0047-cancel-stop-reference-anchor.patch",
+        "expected": "6ade25982dfde2a023feba218ea2482859331c9cd0cff0de2645a1cb0d6ab83b",
+        "actual": "6ade25982dfde2a023feba218ea2482859331c9cd0cff0de2645a1cb0d6ab83b",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0048-validated-simple-waypoint-entry.patch",
+        "expected": "6170c99bc3f1b86f8d469d84b69fbc4446a249b4e63d11439fdf41c2b7a30d7a",
+        "actual": "6170c99bc3f1b86f8d469d84b69fbc4446a249b4e63d11439fdf41c2b7a30d7a",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "path": "dependencies/patches/ego/0049-official-ego-collision-policy.patch",
+        "expected": "261062a484f6ceb456a50f9923aed5d252007bb609c91acc4a2cf009dda82ba1",
+        "actual": "261062a484f6ceb456a50f9923aed5d252007bb609c91acc4a2cf009dda82ba1",
+        "passed": true
+      },
+      {
+        "source": "micro_xrce_dds_agent",
+        "path": "dependencies/patches/agent/0001-colcon-build-integration.patch",
+        "expected": "232e46de6fe23be8adc96d633ae172b86babbb73e58ee2a64cacb82114dac05b",
+        "actual": "232e46de6fe23be8adc96d633ae172b86babbb73e58ee2a64cacb82114dac05b",
+        "passed": true
+      },
+      {
+        "source": "spdlog",
+        "path": "dependencies/patches/spdlog/0001-colcon-build-integration.patch",
+        "expected": "618f89ae68f5b07c51d04129546703d25bbd043762c8dbd84676df388bdf4a83",
+        "actual": "618f89ae68f5b07c51d04129546703d25bbd043762c8dbd84676df388bdf4a83",
+        "passed": true
+      },
+      {
+        "source": "ego_world",
+        "path": "dependencies/patches/simulation/0001-ego-harmonic-static-world.patch",
+        "expected": "99e40aeba78939475ebd2075be81416785c1d4d854c3f675d20282289650ab96",
+        "actual": "99e40aeba78939475ebd2075be81416785c1d4d854c3f675d20282289650ab96",
+        "passed": true
+      }
+    ],
+    "patched_import_file_checks_passed": 25,
+    "patched_import_file_checks_total": 25,
+    "patched_import_file_checks": [
+      {
+        "source": "vins_fusion",
+        "upstream_path": "vins/src/estimator/estimator.cpp",
+        "imported_path": "src/vendor/vins_fusion/vins/src/estimator/estimator.cpp",
+        "expected": "6c5860b4003be5a621b256688df573b1b189987976aeefea038d4fb4523eb535",
+        "actual": "6c5860b4003be5a621b256688df573b1b189987976aeefea038d4fb4523eb535",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "vins/src/rosNodeTest.cpp",
+        "imported_path": "src/vendor/vins_fusion/vins/src/rosNodeTest.cpp",
+        "expected": "fbd29ee7af50090f2ed47a52678221736ad8aacd15d424acce1b16f96a4723e8",
+        "actual": "fbd29ee7af50090f2ed47a52678221736ad8aacd15d424acce1b16f96a4723e8",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "vins/src/featureTracker/feature_tracker.cpp",
+        "imported_path": "src/vendor/vins_fusion/vins/src/featureTracker/feature_tracker.cpp",
+        "expected": "701dfdc0a1f600debbed6b4b8a7d59a2ecdc1aa74070d476959d1422e73c3de5",
+        "actual": "701dfdc0a1f600debbed6b4b8a7d59a2ecdc1aa74070d476959d1422e73c3de5",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "vins/src/featureTracker/feature_tracker.h",
+        "imported_path": "src/vendor/vins_fusion/vins/src/featureTracker/feature_tracker.h",
+        "expected": "e0481b7d21ba6b91579a0f41ad5b7fadd0b38e5609f1c0a4754da4d203e1db80",
+        "actual": "e0481b7d21ba6b91579a0f41ad5b7fadd0b38e5609f1c0a4754da4d203e1db80",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "vins/CMakeLists.txt",
+        "imported_path": "src/vendor/vins_fusion/vins/CMakeLists.txt",
+        "expected": "e7b0e692faf377bf81cbe1eee9f5f32eb6e533dea6c16a81b29ad88f5f03cccc",
+        "actual": "e7b0e692faf377bf81cbe1eee9f5f32eb6e533dea6c16a81b29ad88f5f03cccc",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/CMakeLists.txt",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/CMakeLists.txt",
+        "expected": "cab76872baa4532972f3cb977ee6eb2a3712bf151bc622bdc89ef511a0692b9d",
+        "actual": "cab76872baa4532972f3cb977ee6eb2a3712bf151bc622bdc89ef511a0692b9d",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/package.xml",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/package.xml",
+        "expected": "356197ec6f9bdeed66c35a5558174c04a238418605581c608c96524dc0ab8322",
+        "actual": "356197ec6f9bdeed66c35a5558174c04a238418605581c608c96524dc0ab8322",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/src/parameters.h",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/src/parameters.h",
+        "expected": "bfc995f007af5f84c29362270b8d4ba16ad352f7adbddd19b7bbfe154e9cbc10",
+        "actual": "bfc995f007af5f84c29362270b8d4ba16ad352f7adbddd19b7bbfe154e9cbc10",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/src/keyframe.cpp",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/src/keyframe.cpp",
+        "expected": "67777b4e358049e3cf3cd6e62c717a9d11862f1176d7a6595167395353852e32",
+        "actual": "67777b4e358049e3cf3cd6e62c717a9d11862f1176d7a6595167395353852e32",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/src/keyframe.h",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/src/keyframe.h",
+        "expected": "77623c94269c48ce074e10cc49a3648c2e1a331f147a5dcaaedeed147fc6233f",
+        "actual": "77623c94269c48ce074e10cc49a3648c2e1a331f147a5dcaaedeed147fc6233f",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/src/pose_graph.cpp",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/src/pose_graph.cpp",
+        "expected": "d0e117e7a2d5504193d0d17dce33b2e0efef2700d21a3afb23e04e35adf2df22",
+        "actual": "d0e117e7a2d5504193d0d17dce33b2e0efef2700d21a3afb23e04e35adf2df22",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/src/pose_graph.h",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/src/pose_graph.h",
+        "expected": "2ac3ddb22a18af13d062e23103d8477ab6e16fac6075ff1c7480f04276d4bc83",
+        "actual": "2ac3ddb22a18af13d062e23103d8477ab6e16fac6075ff1c7480f04276d4bc83",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/src/pose_graph_node.cpp",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/src/pose_graph_node.cpp",
+        "expected": "62a16d1dce67c5f2a5ad4ef312166ddfc805349ded972b86943dc3e8fe76a7f7",
+        "actual": "62a16d1dce67c5f2a5ad4ef312166ddfc805349ded972b86943dc3e8fe76a7f7",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "support_files/brief_k10L6.bin",
+        "imported_path": "src/vendor/vins_fusion/support_files/brief_k10L6.bin",
+        "expected": "753e7e126c588906ad16197892bdcd914f3a0971037c8f8aeb3c63418458b035",
+        "actual": "753e7e126c588906ad16197892bdcd914f3a0971037c8f8aeb3c63418458b035",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "support_files/brief_pattern.yml",
+        "imported_path": "src/vendor/vins_fusion/support_files/brief_pattern.yml",
+        "expected": "cb9e20bf47d7557cd22f7820524c3cb13b3a315c451d5665955336100177cafd",
+        "actual": "cb9e20bf47d7557cd22f7820524c3cb13b3a315c451d5665955336100177cafd",
+        "passed": true
+      },
+      {
+        "source": "vins_fusion",
+        "upstream_path": "loop_fusion/src/utility/CameraPoseVisualization.cpp",
+        "imported_path": "src/vendor/vins_fusion/loop_fusion/src/utility/CameraPoseVisualization.cpp",
+        "expected": "e40271ea6d3ac1c7f3fe2421fe9d4b6de299bf3948f083217d1751556cbfbb7d",
+        "actual": "e40271ea6d3ac1c7f3fe2421fe9d4b6de299bf3948f083217d1751556cbfbb7d",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_env/src/grid_map.cpp",
+        "imported_path": "src/vendor/ego_planner/planner/plan_env/src/grid_map.cpp",
+        "expected": "a16d50c204103fc3cb3eb895eda83f69985595b92b3051741aeeacb5ce431062",
+        "actual": "a16d50c204103fc3cb3eb895eda83f69985595b92b3051741aeeacb5ce431062",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_env/include/plan_env/grid_map.h",
+        "imported_path": "src/vendor/ego_planner/planner/plan_env/include/plan_env/grid_map.h",
+        "expected": "17fff0b99b30a5da717ba11df9f3e6e4b7fff00f96e9bab31c9cf0c3104aa9a2",
+        "actual": "17fff0b99b30a5da717ba11df9f3e6e4b7fff00f96e9bab31c9cf0c3104aa9a2",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_env/include/plan_env/sphere_query.h",
+        "imported_path": "src/vendor/ego_planner/planner/plan_env/include/plan_env/sphere_query.h",
+        "expected": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809",
+        "actual": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_env/src/raycast.cpp",
+        "imported_path": "src/vendor/ego_planner/planner/plan_env/src/raycast.cpp",
+        "expected": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
+        "actual": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_env/include/plan_env/swept_curve.h",
+        "imported_path": "src/vendor/ego_planner/planner/plan_env/include/plan_env/swept_curve.h",
+        "expected": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
+        "actual": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_manage/src/ego_replan_fsm.cpp",
+        "imported_path": "src/vendor/ego_planner/planner/plan_manage/src/ego_replan_fsm.cpp",
+        "expected": "c17f54fe23439c6f65f2a767234f4a06bc1bcad3eeb62c795430193394fa6d00",
+        "actual": "c17f54fe23439c6f65f2a767234f4a06bc1bcad3eeb62c795430193394fa6d00",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_manage/include/ego_planner/ego_replan_fsm.h",
+        "imported_path": "src/vendor/ego_planner/planner/plan_manage/include/ego_planner/ego_replan_fsm.h",
+        "expected": "2dd351771635563f615b285ea0c68dd1b95271292aaea4c8d1a3e0b87937e8e5",
+        "actual": "2dd351771635563f615b285ea0c68dd1b95271292aaea4c8d1a3e0b87937e8e5",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_manage/launch/advanced_param.launch.py",
+        "imported_path": "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py",
+        "expected": "eff6538a654504021f2a4cd62776757cd7c81620d665fad942eaf9b02bbb4868",
+        "actual": "eff6538a654504021f2a4cd62776757cd7c81620d665fad942eaf9b02bbb4868",
+        "passed": true
+      },
+      {
+        "source": "ego_planner",
+        "upstream_path": "src/planner/plan_manage/src/planner_manager.cpp",
+        "imported_path": "src/vendor/ego_planner/planner/plan_manage/src/planner_manager.cpp",
+        "expected": "5e8bf691b81e083e324afa9e42ce51eff9251827e964a5f422c0fd5eddc205ca",
+        "actual": "5e8bf691b81e083e324afa9e42ce51eff9251827e964a5f422c0fd5eddc205ca",
+        "passed": true
+      }
+    ],
+    "git_checkout_pin_checks": [
+      {
+        "source": "px4",
+        "expected_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+        "actual_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+        "passed": true
+      },
+      {
+        "source": "px4_msgs",
+        "expected_revision": "86d8239e962f6939e05c3737784f60c02fa884db",
+        "actual_revision": "86d8239e962f6939e05c3737784f60c02fa884db",
+        "passed": true
+      },
+      {
+        "source": "micro_xrce_dds_agent",
+        "expected_revision": "73622810d984349b80bbac0ef55fc0b694d62222",
+        "actual_revision": "73622810d984349b80bbac0ef55fc0b694d62222",
+        "passed": true
+      },
+      {
+        "source": "spdlog",
+        "expected_revision": "eb3220622e73a4889eee355ffa37972b3cac3df5",
+        "actual_revision": "eb3220622e73a4889eee355ffa37972b3cac3df5",
+        "passed": true
+      }
+    ],
+    "px4_revision_and_recursive_submodules": {
+      "source": "px4",
+      "expected_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+      "actual_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+      "revision_passed": true,
+      "recursive_submodule_count": 39,
+      "locked_submodule_count": 39,
+      "uninitialized_or_mismatched_count": 0,
+      "manifest_path": "dependencies/manifests/px4-v1.17-recursive-submodules.json",
+      "manifest_sha256_expected": "0b4fb8ba39b317d84b9df627fc251efa2d85a89aa23e8c4754ca5af137365591",
+      "manifest_sha256_actual": "0b4fb8ba39b317d84b9df627fc251efa2d85a89aa23e8c4754ca5af137365591",
+      "manifest_hash_passed": true,
+      "previous_referenced_manifest_missing": {
+        "path": "artifacts/runs/p0-px4-source-20261016-01/submodules.json",
+        "sha256": "d5a27ad5273a5575457650c1096e65d21850d694e82539d92b2b760278c6f577"
+      },
+      "replacement_manifest": "dependencies/manifests/px4-v1.17-recursive-submodules.json",
+      "artifact_copy": "artifacts/runs/n10-20261026-334-audit/px4-submodules.json"
+    },
+    "vendor_package_trees_have_no_git_metadata": [
+      "vins_fusion",
+      "ego_planner"
+    ],
+    "interpretation": "The lock records upstream paths for EGO patched-file hashes; imported packages live under the package_roots destination. Paths were translated before comparing current source bytes."
+  },
+  "effective_launch": {
+    "collision_policy_source": "config/components/navigation/task_supervisor.json = official_ego",
+    "planner_profiles": {
+      "n09": "config/components/mapping/n08_low_speed_trial.json",
+      "normal_default": "config/components/mapping/ego_planner.json"
+    },
+    "n09_current_static_effective_ego_arguments": {
+      "max_vel_m_s": 0.1,
+      "max_acceleration_m_s2": 0.25,
+      "obstacles_inflation_m": 0.7306179170842027,
+      "terminal_hold_neighborhood_m": 0.0,
+      "official_ego_collision_policy": true,
+      "odom_depth_timeout_sim_s": 0.4
+    },
+    "n09_archived_launch_manifests": [
+      {
+        "run_id": "n09-official-331-repeat01-stack",
+        "exists": true,
+        "planner_config": "config/components/mapping/n08_low_speed_trial.json",
+        "planner_source_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+        "ego_launch_arguments": {
+          "drone_id": 0,
+          "map_size_x_": 40.0,
+          "map_size_y_": 40.0,
+          "map_size_z_": 6.0,
+          "odometry_topic": "/localization/optimized_imu_odom",
+          "camera_pose_topic": "camera_pose",
+          "depth_topic": "depth_image",
+          "cloud_topic": "cloud",
+          "cx": 320.0,
+          "cy": 240.0,
+          "fx": 337.20964008990796,
+          "fy": 337.20964008990796,
+          "max_vel": 0.1,
+          "max_acc": 0.25,
+          "planning_horizon": 5.0,
+          "odom_depth_timeout": 0.4,
+          "obstacles_inflation": 0.7306179170842027,
+          "terminal_hold_neighborhood": 0.0,
+          "official_ego_collision_policy": true,
+          "ground_height": -1.0,
+          "flight_type": 1,
+          "point_num": 1,
+          "point0_x": 0.0,
+          "point0_y": 0.0,
+          "point0_z": 0.0,
+          "obj_num_set": 0,
+          "use_distinctive_trajs": true
+        }
+      },
+      {
+        "run_id": "n09-official-331-repeat02-stack",
+        "exists": true,
+        "planner_config": "config/components/mapping/n08_low_speed_trial.json",
+        "planner_source_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+        "ego_launch_arguments": {
+          "drone_id": 0,
+          "map_size_x_": 40.0,
+          "map_size_y_": 40.0,
+          "map_size_z_": 6.0,
+          "odometry_topic": "/localization/optimized_imu_odom",
+          "camera_pose_topic": "camera_pose",
+          "depth_topic": "depth_image",
+          "cloud_topic": "cloud",
+          "cx": 320.0,
+          "cy": 240.0,
+          "fx": 337.20964008990796,
+          "fy": 337.20964008990796,
+          "max_vel": 0.1,
+          "max_acc": 0.25,
+          "planning_horizon": 5.0,
+          "odom_depth_timeout": 0.4,
+          "obstacles_inflation": 0.7306179170842027,
+          "terminal_hold_neighborhood": 0.0,
+          "official_ego_collision_policy": true,
+          "ground_height": -1.0,
+          "flight_type": 1,
+          "point_num": 1,
+          "point0_x": 0.0,
+          "point0_y": 0.0,
+          "point0_z": 0.0,
+          "obj_num_set": 0,
+          "use_distinctive_trajs": true
+        }
+      },
+      {
+        "run_id": "n09-official-331-repeat04-stack",
+        "exists": true,
+        "planner_config": "config/components/mapping/n08_low_speed_trial.json",
+        "planner_source_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+        "ego_launch_arguments": {
+          "drone_id": 0,
+          "map_size_x_": 40.0,
+          "map_size_y_": 40.0,
+          "map_size_z_": 6.0,
+          "odometry_topic": "/localization/optimized_imu_odom",
+          "camera_pose_topic": "camera_pose",
+          "depth_topic": "depth_image",
+          "cloud_topic": "cloud",
+          "cx": 320.0,
+          "cy": 240.0,
+          "fx": 337.20964008990796,
+          "fy": 337.20964008990796,
+          "max_vel": 0.1,
+          "max_acc": 0.25,
+          "planning_horizon": 5.0,
+          "odom_depth_timeout": 0.4,
+          "obstacles_inflation": 0.7306179170842027,
+          "terminal_hold_neighborhood": 0.0,
+          "official_ego_collision_policy": true,
+          "ground_height": -1.0,
+          "flight_type": 1,
+          "point_num": 1,
+          "point0_x": 0.0,
+          "point0_y": 0.0,
+          "point0_z": 0.0,
+          "obj_num_set": 0,
+          "use_distinctive_trajs": true
+        }
+      }
+    ],
+    "control_owner": "uav_px4_bridge; active PX4 setpoints/OffboardControlMode remain bridge-owned",
+    "truth_inputs": "no-truth VINS/EGO/PX4 profile; ground truth is recorded by separate read-only evaluators",
+    "unknown_policy": "raw unknown retained; official EGO collision predicate is inflated occupied; no separate raw-known-free takeoff gate"
+  },
+  "identified_conflicts": [
+    {
+      "id": "N10.1-C1",
+      "severity": "acceptance_blocker",
+      "finding": "N09 goal profile has native 1.0 s dwell; GOAL F default requires at least 3 s."
+    },
+    {
+      "id": "N10.1-C2",
+      "severity": "acceptance_blocker",
+      "finding": "The documented normal 16 m mission defaults to ego_planner.json at 0.5 m/s per-axis and 0.8 m/s^2; measured N08/N09 low-speed evidence uses n08_low_speed_trial.json at 0.1 m/s and 0.25 m/s^2."
+    },
+    {
+      "id": "N10.1-C3",
+      "severity": "acceptance_blocker",
+      "finding": "NavigateToPose goal timeout is evaluated on the simulation clock, while run_vio_ego_flight waits for timeout_s+4 using wall time. At RTF<1 the client can cancel before the server reaches the configured simulation-time deadline. The separate fixed 75 s CLI timeout applies only to post-takeoff ACTIVE confirmation."
+    },
+    {
+      "id": "N10.1-C4",
+      "severity": "documentation",
+      "finding": "ego_planner.json rationale still said unknown and occupied cells remain blocked, contradicting official_ego; corrected during this audit to describe inflated-occupied semantics and the lack of blind-space certification."
+    },
+    {
+      "id": "N10.1-C5",
+      "severity": "metadata_documentation",
+      "finding": "VINS/EGO patch-status strings and dependency README patch-chain summary lagged the active lock and #332; synchronized during this audit."
+    },
+    {
+      "id": "N10.1-C6",
+      "severity": "tool_coverage",
+      "finding": "The locked portable image archive is absent at the path recorded in dependencies/sources.json; full project export fails closed. A code-only source snapshot was produced; the local image ID is correct. N10.7 must create/lock a portable image bundle or otherwise produce a verified handoff image archive."
+    },
+    {
+      "id": "N10.1-C7",
+      "severity": "misleading_unused_config",
+      "finding": "minimum_occupancy_points is present in goal JSON files but is not read by current navigation/admission code. Under official_ego it does not gate takeoff or goal delivery; remove or mark obsolete from active profiles in N10.4."
+    }
+  ],
+  "current_fix_records": [
+    "dependencies/README.md",
+    "dependencies/sources.json",
+    "docs/official-ego-policy.md",
+    "config/components/mapping/ego_planner.json",
+    "progress/CURRENT.md",
+    "progress/milestones.json",
+    "artifacts/runs/n10-20261026-334-audit/px4-submodules.json",
+    "dependencies/manifests/px4-v1.17-recursive-submodules.json"
+  ],
+  "deferred_checks": [
+    "new candidate ROS node effective parameter readback and graph: N10.6",
+    "full pinned source fetch and patch replay: N10.5",
+    "all installed launch/config/output coverage and comprehensive final manifest: N10.4/N10.7"
+  ],
+  "next_subtask": "N10.2 evidence coverage and unresolved risk decisions"
+}

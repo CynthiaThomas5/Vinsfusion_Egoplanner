@@ -1,0 +1,245 @@
+{
+  "schema": "n10-reference-unification-evidence/v1",
+  "task_id": "N10.3/#438",
+  "classification": "offline evidence correction; no new flight, no control or numerical threshold change",
+  "parent_status": "in_progress",
+  "formal_qualification": false,
+  "runs": [
+    {
+      "run_id": "n10-20261027-381-vins-velocity-full-route",
+      "runtime_contract_sha256": "547082a4538a871dd3c3b9b26c0f6b45369fa18bf1b73a8d93f219ef3e537cce",
+      "truth_reference_contract": {
+        "schema": "gazebo-model-to-imu-reference/v1",
+        "conversion_tool_sha256": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+        "raw_pose_reference": "gazebo_model_origin",
+        "output_pose_reference": "d435i_imu",
+        "model_origin_to_imu_m": [
+          0.12,
+          0.0,
+          0.32
+        ],
+        "source_sha256": {
+          "simulation/models/x500_d435i/model.sdf": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+          "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+        },
+        "raw_twist_semantics": "body-frame rolling-mean velocities; not instantaneous endpoint state",
+        "velocity_comparison": "differentiate converted IMU positions at source time; do not use raw twist as world velocity"
+      },
+      "same_anchor_rotation_translation_verified": true,
+      "independent_arrival_status": "FAIL",
+      "joint_dwell_sim_s": 2.319999999999993,
+      "raw_position_p95_m": 0.4471061317201547,
+      "motion_rpe10_translation_p95_m": 0.07117934227691297,
+      "hold_velocity_error_p95_m_s": 0.0069995659298701055,
+      "sampled_full_body_clearance_min_m": 0.3921191710188142,
+      "translation_only_tracking_clearance_min_m": -0.25313490082424694,
+      "negative_translation_only_bound_samples": 409,
+      "acceptance_overall": "FAIL",
+      "reference_binding": "PASS",
+      "runtime_binding": true,
+      "input_hashes_match": true,
+      "metric_statuses": {
+        "arrival_position_yaw_dwell": "FAIL",
+        "raw_vio_absolute_error": "PASS",
+        "raw_vio_rpe_10s": "FAIL",
+        "raw_vio_velocity_error": "PASS",
+        "map_source_and_update_age": "PASS",
+        "ego_tracking_error": "INSUFFICIENT",
+        "ego_tracking_clearance_budget": "INSUFFICIENT",
+        "full_body_clearance_and_contact": "INSUFFICIENT",
+        "raw_map_surface_geometry": "INSUFFICIENT",
+        "raw_map_classification": "INSUFFICIENT",
+        "dynamic_replanning": "INSUFFICIENT",
+        "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+        "resource_and_queue_behavior": "INSUFFICIENT",
+        "observer_identity_binding": "INSUFFICIENT"
+      },
+      "reports_sha256": {
+        "arrival-evaluation.json": "0d8f221c5b602ecab34db7b81df37a27712750dfde34dff552dff694186a54eb",
+        "odometry-evaluation.json": "bed81ec819a61aa7d81440cc91b525bb92db0f88ddc7e6f2f73957e4a2ad51fa",
+        "n10-vins-velocity-evaluation.json": "a3615789ed6f65aab282b061eede4196a47aea104c2948a97909bb41bf6fc7af",
+        "n10-full-route-vio-segmented-metrics.json": "7241d37e5db05d964487916a77e3ee41a4559b9dfe943fd39827b3b23a23e1de",
+        "n10-clearance-evaluation.json": "7eff31e58fe1b7b2b841e3c39e638d8ee47121bf3f5195b132bb33bc097179f6",
+        "n10-tracking-clearance-relation.json": "18e1aeffd4be7a2042a78045a17316d9f1e14b20a55a64e63d5fddaca6984579",
+        "n10-acceptance-evaluation-438.json": "9e9909439273d2d36780dffb875908f07dddd70cc64bc2264e84a0015f714e03"
+      }
+    },
+    {
+      "run_id": "n10-20261027-385-arrival-dwell4-retry",
+      "runtime_contract_sha256": "1afdc44ee760db82af299b27fc6131bcfea7af8f9908fb0abc34c5811eeb143a",
+      "truth_reference_contract": {
+        "schema": "gazebo-model-to-imu-reference/v1",
+        "conversion_tool_sha256": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+        "raw_pose_reference": "gazebo_model_origin",
+        "output_pose_reference": "d435i_imu",
+        "model_origin_to_imu_m": [
+          0.12,
+          0.0,
+          0.32
+        ],
+        "source_sha256": {
+          "simulation/models/x500_d435i/model.sdf": "1e2598053ab427833d9ebe232356a0326d00bf7c1c1fa0d3664f9ec23f55b40b",
+          "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+        },
+        "raw_twist_semantics": "body-frame rolling-mean velocities; not instantaneous endpoint state",
+        "velocity_comparison": "differentiate converted IMU positions at source time; do not use raw twist as world velocity"
+      },
+      "same_anchor_rotation_translation_verified": true,
+      "independent_arrival_status": "PASS",
+      "joint_dwell_sim_s": 3.299999999999997,
+      "raw_position_p95_m": 0.46461951036879473,
+      "motion_rpe10_translation_p95_m": 0.06789025016603811,
+      "hold_velocity_error_p95_m_s": 0.007101066908087483,
+      "sampled_full_body_clearance_min_m": 0.18460470542117413,
+      "translation_only_tracking_clearance_min_m": -0.422000370494773,
+      "negative_translation_only_bound_samples": 772,
+      "acceptance_overall": "INSUFFICIENT",
+      "reference_binding": "PASS",
+      "runtime_binding": true,
+      "input_hashes_match": true,
+      "metric_statuses": {
+        "arrival_position_yaw_dwell": "PASS",
+        "raw_vio_absolute_error": "PASS",
+        "raw_vio_rpe_10s": "FAIL",
+        "raw_vio_velocity_error": "PASS",
+        "map_source_and_update_age": "PASS",
+        "ego_tracking_error": "INSUFFICIENT",
+        "ego_tracking_clearance_budget": "INSUFFICIENT",
+        "full_body_clearance_and_contact": "INSUFFICIENT",
+        "raw_map_surface_geometry": "INSUFFICIENT",
+        "raw_map_classification": "INSUFFICIENT",
+        "dynamic_replanning": "INSUFFICIENT",
+        "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+        "resource_and_queue_behavior": "INSUFFICIENT",
+        "observer_identity_binding": "INSUFFICIENT"
+      },
+      "reports_sha256": {
+        "arrival-evaluation.json": "39366482801e5c170643942d15ffef76da4c794f264386e582b572375f88defd",
+        "odometry-evaluation.json": "9a99a326a74845b4f0b747d187013b3a19d29dbc3877b33405c97b78c7f2d133",
+        "n10-vins-velocity-evaluation.json": "cfd9ceb8e1d2bdbf314bfb4c54da6b5e5d31e26588715578f1847368f9fc18db",
+        "n10-full-route-vio-segmented-metrics.json": "de5c1a4e89fa0f15b4f77421e9835d9caa6d3693ef1cc8defa279613bea81892",
+        "n10-clearance-evaluation.json": "fcf96b5a057e1f27a1f39b44a98ee8015f78eb557ec48607a7880edcef5e8741",
+        "n10-tracking-clearance-relation.json": "ca1a87df050c232ac758e74d138361f0c4aff83b359572147aa17af3632512d8",
+        "n10-acceptance-evaluation-438.json": "f70a14bad75cb8c3d805e840d3ecfd8ff93b2b51c3b6449d9d668a56a8fd4a91"
+      }
+    },
+    {
+      "run_id": "n10-20261028-436-normal-map-halo-calibration",
+      "runtime_contract_sha256": "94c852e3bdeeaaab6cfe823300155c20f27f9f9ccfe3c750f579a48464d8a3ef",
+      "truth_reference_contract": {
+        "schema": "gazebo-model-to-imu-reference/v1",
+        "conversion_tool_sha256": "d25c466cdd5a91dca18e59cc88a695ec5072ad9705aa8659892a48f80decffbf",
+        "raw_pose_reference": "gazebo_model_origin",
+        "output_pose_reference": "d435i_imu",
+        "model_origin_to_imu_m": [
+          0.12,
+          0.0,
+          0.32
+        ],
+        "source_sha256": {
+          "simulation/models/x500_d435i/model.sdf": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+          "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436"
+        },
+        "raw_twist_semantics": "body-frame rolling-mean velocities; not instantaneous endpoint state",
+        "velocity_comparison": "differentiate converted IMU positions at source time; do not use raw twist as world velocity"
+      },
+      "same_anchor_rotation_translation_verified": true,
+      "independent_arrival_status": "PASS",
+      "joint_dwell_sim_s": 3.832000000000022,
+      "raw_position_p95_m": 0.11603898006555113,
+      "motion_rpe10_translation_p95_m": 0.060494721146278,
+      "hold_velocity_error_p95_m_s": 0.015166345837969414,
+      "sampled_full_body_clearance_min_m": 0.4380141302178606,
+      "translation_only_tracking_clearance_min_m": 0.20576266893208112,
+      "negative_translation_only_bound_samples": 0,
+      "acceptance_overall": "INSUFFICIENT",
+      "reference_binding": "PASS",
+      "runtime_binding": true,
+      "input_hashes_match": true,
+      "metric_statuses": {
+        "arrival_position_yaw_dwell": "PASS",
+        "raw_vio_absolute_error": "PASS",
+        "raw_vio_rpe_10s": "FAIL",
+        "raw_vio_velocity_error": "FAIL",
+        "map_source_and_update_age": "PASS",
+        "ego_tracking_error": "INSUFFICIENT",
+        "ego_tracking_clearance_budget": "INSUFFICIENT",
+        "full_body_clearance_and_contact": "PASS",
+        "raw_map_surface_geometry": "PASS",
+        "raw_map_classification": "PASS",
+        "dynamic_replanning": "INSUFFICIENT",
+        "fault_exit_to_terminal_px4_state": "INSUFFICIENT",
+        "resource_and_queue_behavior": "INSUFFICIENT",
+        "observer_identity_binding": "PASS"
+      },
+      "reports_sha256": {
+        "arrival-evaluation.json": "f4fe3afcc93576b3b5d8201a82c78ae3c7c57b1d20a3eb19c0fe1cc29215b59b",
+        "odometry-evaluation.json": "ec59c7c03e35b94482bdb69b000c78eb26d01560469b50adbd7cfe4f88d40878",
+        "n10-vins-velocity-evaluation.json": "bf07d263047e11e43c0dfbead38500b701545c6171060644082e877fa372a5e8",
+        "n10-full-route-vio-segmented-metrics.json": "e32c9dfc78e0a7aaf73230569f874654fc06c6b71fe8813806c964e273e30014",
+        "n10-clearance-evaluation.json": "640c1de11b2080e0a232888b4eaf2e93d82e31f95f65ac9d393f82de8c2cc3d4",
+        "n10-tracking-clearance-relation.json": "261e62e160bce02782f15a5471bfa0d15880a479701d9209d0e8396216320e41",
+        "n10-acceptance-evaluation-438.json": "bc1ae4157f3b2332b6000adf003c610e19b53e1a9cfcb4f5ab1fdb3d7ce35457"
+      }
+    }
+  ],
+  "original_integrity": {
+    "original_archives_unchanged": true,
+    "runs": [
+      {
+        "run_id": "n10-20261027-381-vins-velocity-full-route",
+        "checked_files": 64,
+        "changed_original_files": []
+      },
+      {
+        "run_id": "n10-20261027-385-arrival-dwell4-retry",
+        "checked_files": 72,
+        "changed_original_files": []
+      },
+      {
+        "run_id": "n10-20261028-436-normal-map-halo-calibration",
+        "checked_files": 86,
+        "changed_original_files": []
+      }
+    ]
+  },
+  "interval436_status": "INSUFFICIENT_INSTANTANEOUS_VELOCITY_EVIDENCE",
+  "interval436_bound_verified": false,
+  "gravity_input_audit": {
+    "classification": "read-only physical-input audit; mismatch is not yet a causal explanation or a validated repair",
+    "imu_samples": 1001,
+    "imu_ground_mean_m_s2": [
+      -6.008279892118582e-08,
+      -5.55156469437205e-16,
+      9.799999999999933
+    ],
+    "imu_ground_norm_mean_m_s2": 9.799999999999859,
+    "world_gravity": "0 0 -9.8",
+    "actual_generated_vins_g_norm": 9.80665,
+    "generated_vins_sha256": "2c2fe84d28914e4f5f96dcd98d1a9575b0e9f895c051556dc61e40a42a5d3828",
+    "window_source_ns": [
+      23564000000,
+      27564000000
+    ]
+  },
+  "validation": {
+    "targeted_tests": 81,
+    "full_tests": 576,
+    "ros_integrations": 2,
+    "full_project_tests_passed": true,
+    "code_build_not_needed": "Only offline Python tools/observer metadata changed; no ROS/PX4 library, launch or control change",
+    "no_sitl_started": true
+  },
+  "artifact_root": "artifacts/reanalysis/n10-20261028-438-reference-unification",
+  "tool_freeze_sha256": "ca3043a67c4b6961c9f582cdf0dc4fec15fb5b5c1102f993ebeadd28883e2629",
+  "remaining": [
+    "motion RPE10 and hold velocity remain above original draft",
+    "instantaneous endpoint state or rigorously valid interval motion bound missing",
+    "dynamic replan/resource queue numerical acceptance basis and affected normal-flight cleanup regression pending",
+    "N10.4 draft completion, N10.5 clean rebuild, N10.6 regression and N10.7 freeze remain"
+  ],
+  "next_subtask": "N10.3/#439: isolate measured IMU/world g=9.8 versus actual generated VINS g_norm=9.80665 with one-variable offline VINS replay of the same #436 sensor bag; do not change thresholds or claim the mismatch is the cause before results."
+}

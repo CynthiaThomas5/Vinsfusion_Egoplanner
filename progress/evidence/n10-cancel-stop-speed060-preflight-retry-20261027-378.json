@@ -1,0 +1,65 @@
+{
+  "schema": "n10-cancel-runtime-prelaunch/v1",
+  "run_id": "n10-20261027-378-speed060-cancel-calibration",
+  "status": "prepared_before_first_goal_after_runtime_manifest_driver_fix",
+  "protocol_path": "progress/evidence/n10-cancel-stop-speed060-protocol-20261027-378.json",
+  "protocol_sha256": "ed94789c999dec92159ab2390a0197923b155fa59f22fbb1488dc23adb6b917d",
+  "runtime_contract_sha256": "b4707af345d1cd082dfb1cae3a24f24103134eedfce306205785b44342582ea7",
+  "runtime_contract_file_count": 665,
+  "planner_config_path": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+  "planner_config_sha256": "0f92519ded6f367387998f01e19a27e270b94c7571e12fbe5b80f82b8ed7473e",
+  "spawn_config_path": "config/components/simulation/n10_long_range_spawn_minus8.json",
+  "spawn_config_sha256": "b2534428e59c4b953e49f08a759b5cda8f1f0ea40f3a7d764923a797ff6f4aa2",
+  "spawn_pose_xyzrpy": [
+    -8.0,
+    0.0,
+    0.3,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "goal_profile_path": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+  "goal_profile_sha256": "0e275927089a9d04810d483fc6634717d6f7fcd15472a508601cbd5790600f00",
+  "speed_window_px4_horizontal_m_s": [
+    0.6,
+    0.66
+  ],
+  "project_container_running_before_start": false,
+  "first_flight_goal_prelaunch_allowed_only_after_identity_match": true,
+  "read_only_preflight_checks": [
+    "runtime fingerprint and 665-file count",
+    "loaded planner path and effective max_vel/max_acc/horizon/collision policy",
+    "loaded spawn source/hash/six-pose values",
+    "goal profile hash and one-leg offset/yaw",
+    "read-only contact overlay and Gazebo Contact plugin"
+  ],
+  "source_gates": "project-added localization quality/freshness gates removed; no health threshold added; run-local ROS setup driver inherited #377 nounset fix",
+  "preserved_native_behavior": [
+    "PX4 native preflight/EV fusion",
+    "uav_px4_bridge state machine and unique control ownership",
+    "official EGO inflated-occupied collision behavior",
+    "epoch/frame/time/map identity"
+  ],
+  "tool_sha256": {
+    "driver_sha256": "4cb5b2515d42c97255a78b0e2834dbf6287fe8054a5a3c594a627e6d7ec3b155",
+    "base_runner_sha256": "7511b28c73a79d3b9fb4a857679e646f316a370b9b142059e73ef9d53ce4bac5",
+    "flight_runner_sha256": "05e5502225294db49dea2a76cbdd0fbda3bf04239dcc287fc70fd1a7fb7d902f",
+    "braking_evaluator_sha256": "7060f74ad89569f9d099fd3295e67ea07b471425cc36c9c911d1a92a0f1eee81",
+    "runtime_manifest_tool_sha256": "11e7e3d1d8679f554c998f21365b8e3bad15410dabab855aaac1f9bb47a7faa0"
+  },
+  "safe_stop": "independent PX4/bridge readback must confirm LANDED/disarmed/control-disabled/zero-control before project.sh stop",
+  "previous_prelaunch_path": "progress/evidence/n10-cancel-stop-speed060-prelaunch-20261027-378.json",
+  "project_container_running_before_first_goal": true,
+  "startup_attempts": [
+    {
+      "attempt": 1,
+      "result": "Run-local identity checker exited before preflight/goal because n09-runtime-contract-current.json had not yet been generated."
+    },
+    {
+      "independent_readback": "6 s readback after the failure confirmed DISABLED, landed=true, armed=false, control_enabled=false, remained_disarmed=true, control_samples_zero=true."
+    },
+    {
+      "correction": "After verifying the frozen runtime_manifest.py hash, the run-local driver now generates n09-runtime-contract-current.json before comparing it to runtime-contract.json. No source/install fingerprint or experiment input changed."
+    }
+  ]
+}

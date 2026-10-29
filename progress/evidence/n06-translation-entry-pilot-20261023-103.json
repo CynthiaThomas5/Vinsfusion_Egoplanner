@@ -1,0 +1,157 @@
+{
+  "schema": "n06-translation-entry-pilot/v1",
+  "record_id": 103,
+  "date": "2026-10-23",
+  "goal_mode": "completion",
+  "goal_scope": "N06",
+  "parent_status": {
+    "N06": "in_progress",
+    "S4": "in_progress",
+    "next_goal": "N06"
+  },
+  "run_id": "n06-20261023-wall-r28",
+  "run_command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r28 wall_box_column 91 motion_n06 config/components/simulation/n06_x_visibility_slow.json",
+  "profile": {
+    "path": "config/components/simulation/n06_x_visibility_slow.json",
+    "sha256": "653733f873234da35fb38af4f80771707190bd21df595372c88fa2924234988f",
+    "axis": "world_x",
+    "max_truth_retreat_m": 2.394482958000386,
+    "final_truth_x_m": 0.010559579999998594,
+    "truth_yaw_range_deg": [0.0, 0.0],
+    "textured_surround_included": true
+  },
+  "health_and_map": {
+    "motion_clock_sim_s": [5.021, 98.042],
+    "recorder_requested_wall_s": 101,
+    "recorder_actual_wall_s": 104.087,
+    "localization_status_count": 2019,
+    "invalid_localization_status_count": 0,
+    "map_status_count": 444,
+    "map_identity_count": 1,
+    "all_map_status_ready": true,
+    "epoch": "f959557280b0425caaf8ee8f53d39886",
+    "map_id": "f959557280b0425caaf8ee8f53d39886-1f140b88787042deabf2b84f5eb90af6",
+    "depth_pose_pair_count": 3012,
+    "optimized_odometry_count": 1506
+  },
+  "snapshots": [
+    {
+      "snapshot": "snapshot-01",
+      "source_age_s": 0.116,
+      "fusion_age_s": 0.039,
+      "archive_sha256": "ade556b1577b4a9a191f92f1f1a76203986fa63fabaca591cfa306d219c9d846",
+      "identity_rejections_pass": true
+    },
+    {
+      "snapshot": "snapshot-02",
+      "source_age_s": 0.099,
+      "fusion_age_s": 0.042,
+      "archive_sha256": "ade556b1577b4a9a191f92f1f1a76203986fa63fabaca591cfa306d219c9d846",
+      "identity_rejections_pass": true
+    },
+    {
+      "snapshot": "snapshot-03",
+      "source_age_s": 0.145,
+      "fusion_age_s": 0.041,
+      "archive_sha256": "79ebd7e22ec82ec0f24e5a7343abdf797fba4706781066ccbefcf2a55011eede",
+      "identity_rejections_pass": true
+    }
+  ],
+  "actual_probe_pose": {
+    "position_xyz_m": [
+      0.049815123496675974,
+      -0.0038838250671542575,
+      -0.0067061333757987935
+    ],
+    "body_radius_m": 0.7306179170842027,
+    "terminal_hold_radius_m": 0.9806179170842027,
+    "offline_queries_on_each_snapshot": {
+      "body_sphere": {
+        "accepted": true,
+        "reason": "free",
+        "unknown": 0,
+        "free": 2195,
+        "occupied": 0
+      },
+      "terminal_hold": {
+        "accepted": true,
+        "reason": "free",
+        "unknown": 0,
+        "free": 4923,
+        "occupied": 0
+      }
+    }
+  },
+  "live_probe": {
+    "map_ready": true,
+    "source_age_s": 0.099,
+    "fusion_age_s": 0.002,
+    "status_identity_stable": true,
+    "body_query_reason": "no_fresh_fused_depth",
+    "default_goal_delta_xyz_m": [
+      0.5,
+      0.0,
+      0.5
+    ],
+    "fault_reason": "full_curve_terminal_hold_occupied",
+    "curves": 0,
+    "late_curves_after_fault": 0,
+    "certificate_queries": 55,
+    "certificate_wall_ms": 0.548,
+    "forbidden_nodes": [],
+    "forbidden_control_topics": [],
+    "control_free": true
+  },
+  "offline_goal_checks": {
+    "default_goal_delta_xyz_m": [
+      0.5,
+      0.0,
+      0.5
+    ],
+    "default_goal_terminal_hold": {
+      "reason": "occupied",
+      "unknown": 0,
+      "free": 4918,
+      "occupied": 5
+    },
+    "default_goal_body_sweep": {
+      "free_until_terminal_hold": true,
+      "terminal_hold_failure": "occupied"
+    },
+    "next_candidate_goal_delta_xyz_m": [
+      0.0,
+      0.6,
+      0.0
+    ],
+    "next_candidate_terminal_hold": {
+      "reason": "free",
+      "unknown": 0,
+      "free": 4923,
+      "occupied": 0
+    },
+    "next_candidate_body_sweep": {
+      "free": true,
+      "reason": "free",
+      "queries": 25,
+      "speed_bound_m_s": 0.5
+    }
+  },
+  "artifacts": {
+    "run_inputs_sha256": "e0a80a8af8ee7c40076223e185c0dcab5dc8585fe206f0ba3cfebcec02561fec",
+    "motion_sha256": "12ba1ea408f3be9aae65d46ba517ca070797816c9825393c75cfdedb68d67d79",
+    "mapping_inputs_sha256": "422f555d262f4d2b8414d888a3cdb4e6b08cc563d183726072e47cae05681490",
+    "live_probe_sha256": "c1ce51baad49a82fc3f6d8cbc218b0dc6a8d6c3384be4142abe0229f9cf4a03a",
+    "offline_replay": "artifacts/runs/n06-20261023-wall-r28/n06-body-hold-replay.json",
+    "offline_replay_sha256": "43f49b3f3b816677cf63096b8f11b944ee76ad9081b1ab8b9f56db8e61d3d8a3"
+  },
+  "runner_exit_code": 0,
+  "cleanup_confirmed": true,
+  "next_hypothesis": {
+    "run_id": "n06-20261023-wall-r29",
+    "profile": "config/components/simulation/n06_x_visibility_slow.json",
+    "primary_variable": "planner-only target offset changes from the blocked elevated target to a map-checked lateral target +0.6 m in Y",
+    "acceptance": "Actual EGO emits a matching full-curve certificate on a stable fresh map identity with zero late curves after fault; control graph remains empty.",
+    "status": "not_run"
+  },
+  "qualification": "This is positive raw body/hold entry evidence for one wall-layout unarmed sensor scan. It does not establish a live body-query success, an EGO-generated curve, the corridor layout, the N06 handoff/hold/fault matrix, or flight qualification."
+}

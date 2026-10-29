@@ -1,0 +1,25 @@
+{
+  "qualification": "N10.3 diagnostic only. One-variable contrast against n10_horizon2_speed032_calibration.json; retain the 0.32m/s/axis spline-feasibility allowance and all mission/safety settings while shortening only the local EGO planning horizon to 1.0m. Not a physical speed qualification or N11-N16 formal profile.",
+  "drone_id": 0,
+  "map_size_m": [
+    40.0,
+    40.0,
+    6.0
+  ],
+  "max_velocity_m_s": 0.32,
+  "max_acceleration_m_s2": 0.25,
+  "obstacles_inflation_m": 0.7306179170842027,
+  "planning_horizon_m": 1.0,
+  "startup_waypoint_enu_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "trajectory_time_forward_s": 1.0,
+  "flight_type": 1,
+  "object_count": 0,
+  "use_distinctive_trajectories": true,
+  "odom_depth_timeout_sim_s": 0.4,
+  "ground_height_m": -1.0,
+  "rationale": "Only planning_horizon_m changes from #344 (2.0 to 1.0m). #344 emitted same-goal B-splines, but the first EGO position-command reference exceeded the unchanged 0.12m/s vector guard at 0.120142m/s; the PX4 measured maximum was 0.085965m/s, and the N08-calibrated cancel-stop spline was refused. Shorter local target distance may lower the reference speed enough to keep this conservative guard and its calibrated stop path active while replanning toward the same global +16m goal. This is a single-run diagnostic hypothesis, not a guaranteed outcome. Do not raise the guard or interpret the planner velocity as actual speed."
+}

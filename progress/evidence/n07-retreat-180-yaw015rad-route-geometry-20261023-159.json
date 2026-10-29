@@ -1,0 +1,205 @@
+{
+  "schema": "n07-support-scan-static-geometry/v1",
+  "task_id": "N07.5 #159",
+  "candidate_profile": "n07_spawn_minus65_retreat_180_yaw015rad_view",
+  "qualification": "static non-ground full-airframe reference-sphere route only; no fixture, localization, N05 admission, braking, or flight qualification",
+  "inputs": {
+    "world_sdf": "artifacts/runs/n07-20261023-157-01/vio_initialization.sdf",
+    "world_sdf_sha256": "cb57fdb46eb71dbffe002bc4ae96bebcdcaa774824231d83417aadcc8af9d5ca",
+    "layout_sdf": [
+      "artifacts/runs/n07-20261023-158-01/n05-generated-layout/n05_wall_box_column_0.sdf",
+      "artifacts/runs/n07-20261023-158-01/n05-generated-layout/n05_wall_box_column_1.sdf"
+    ],
+    "layout_sdf_sha256": [
+      "f39d524e6114d66b2b76cd65151b84c771aed52a3ba29a200bc5e4076d305da2",
+      "e93c75895b425887e9d4a433c17a6d5e7b97d726ec3ca0b2f194819e9574667e"
+    ],
+    "layout_id": "wall_box_column",
+    "layout_offset_xy_m": [
+      -5.0,
+      0.0
+    ],
+    "spawn_pose_m_rad": [
+      -6.5,
+      0,
+      0.3,
+      0,
+      0,
+      0
+    ],
+    "retreat_distance_m": 1.8,
+    "yaw_observation_rad": 0.15,
+    "pitch_observation_rad": 0.0,
+    "vehicle_clearance_radius_m": 0.7306179170842027,
+    "vehicle_envelope_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+    "preflight_scan_sha256": "73ccbc97c2c36155f3f7061086b0ad34d0b69e6a500baa07103e4674c4661ae2",
+    "prior_route_geometry": "progress/evidence/n07-retreat-180-route-geometry-20261023-158.json"
+  },
+  "method": {
+    "function": "tools/debug_truth/world_geometry.py::segment_bound",
+    "max_sample_step_m": 0.01,
+    "obstacles_loaded": 25,
+    "ground_plane_omitted": true,
+    "yaw_envelope": "orientation-invariant N05 reference sphere; yaw rotation at a fixed center leaves the checked sphere unchanged",
+    "translation_during_yaw": "none; yaw is reset to zero before return translation"
+  },
+  "results": [
+    {
+      "segment": "vertical_lift",
+      "start_imu_m": [
+        -6.5,
+        0,
+        0.62
+      ],
+      "end_imu_m": [
+        -6.5,
+        0,
+        1.62
+      ],
+      "length_m": 1.0,
+      "samples": 101,
+      "sample_cover_radius_m": 0.005,
+      "sampled_nominal_margin_m": 1.4693527313702879,
+      "continuous_nominal_margin_lower_bound_m": 1.464352731370288,
+      "nearest_sample_xyz": [
+        -6.5,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "backward_translation",
+      "start_imu_m": [
+        -6.5,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -8.3,
+        0,
+        1.62
+      ],
+      "length_m": 1.8000000000000007,
+      "samples": 182,
+      "sample_cover_radius_m": 0.004972375690607737,
+      "sampled_nominal_margin_m": 0.8943820829043281,
+      "continuous_nominal_margin_lower_bound_m": 0.8894097072137204,
+      "nearest_sample_xyz": [
+        -8.3,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "blank/Wall_3/Wall_3_Collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "yaw_view_rotation_at_remote_pose",
+      "start_imu_m": [
+        -8.3,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -8.3,
+        0,
+        1.62
+      ],
+      "length_m": 0.0,
+      "samples": 2,
+      "sample_cover_radius_m": 0.0,
+      "sampled_nominal_margin_m": 0.8943820829043281,
+      "continuous_nominal_margin_lower_bound_m": 0.8943820829043281,
+      "nearest_sample_xyz": [
+        -8.3,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "blank/Wall_3/Wall_3_Collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "yaw_reset_at_remote_pose",
+      "start_imu_m": [
+        -8.3,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -8.3,
+        0,
+        1.62
+      ],
+      "length_m": 0.0,
+      "samples": 2,
+      "sample_cover_radius_m": 0.0,
+      "sampled_nominal_margin_m": 0.8943820829043281,
+      "continuous_nominal_margin_lower_bound_m": 0.8943820829043281,
+      "nearest_sample_xyz": [
+        -8.3,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "blank/Wall_3/Wall_3_Collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "return_translation",
+      "start_imu_m": [
+        -8.3,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -6.5,
+        0,
+        1.62
+      ],
+      "length_m": 1.8000000000000007,
+      "samples": 182,
+      "sample_cover_radius_m": 0.004972375690607737,
+      "sampled_nominal_margin_m": 0.8943820829043281,
+      "continuous_nominal_margin_lower_bound_m": 0.8894097072137204,
+      "nearest_sample_xyz": [
+        -8.3,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "blank/Wall_3/Wall_3_Collision",
+      "static_non_ground_sphere_corridor_clear": true
+    },
+    {
+      "segment": "landing_lower",
+      "start_imu_m": [
+        -6.5,
+        0,
+        1.62
+      ],
+      "end_imu_m": [
+        -6.5,
+        0,
+        0.62
+      ],
+      "length_m": 1.0,
+      "samples": 101,
+      "sample_cover_radius_m": 0.005,
+      "sampled_nominal_margin_m": 1.4693527313702879,
+      "continuous_nominal_margin_lower_bound_m": 1.464352731370288,
+      "nearest_sample_xyz": [
+        -6.5,
+        0.0,
+        1.62
+      ],
+      "nearest_obstacle": "unit_cylinder_0_6_clone/link/collision",
+      "static_non_ground_sphere_corridor_clear": true
+    }
+  ],
+  "minimum_continuous_nominal_margin_m": 0.8894097072137204,
+  "all_static_obstacle_segments_clear": true,
+  "limitations": [
+    "ground plane omitted; N05 raw-ground policy remains unchanged",
+    "support fixture geometry not included",
+    "static clearance is not a flight/braking/localization certificate"
+  ]
+}

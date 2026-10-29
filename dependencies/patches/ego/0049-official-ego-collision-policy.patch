@@ -1,0 +1,158 @@
+--- a/planner/plan_env/include/plan_env/grid_map.h
++++ b/planner/plan_env/include/plan_env/grid_map.h
+@@ -63,6 +63,7 @@
+   double resolution_, resolution_inv_;
+   double obstacles_inflation_;
+   double terminal_hold_neighborhood_;
++  bool official_ego_collision_policy_;
+   string frame_id_;
+   int pose_type_;
+ 
+@@ -262,6 +263,7 @@
+   rclcpp::ServiceBase::SharedPtr reset_map_service_;
+   rclcpp::ServiceBase::SharedPtr occupancy_snapshot_service_;
+   rclcpp::ServiceBase::SharedPtr occupancy_sphere_service_;
++  rclcpp::ServiceBase::SharedPtr planning_occupancy_service_;
+   std::string queryReadiness(const std::string &epoch, const std::string &map_id,
+                              bool require_no_pending = true) const;
+   plan_env::SphereQueryResult queryRawSphere(const std::array<double, 3> &center,
+@@ -389,7 +391,16 @@
+ 
+ inline int GridMap::getInflateOccupancy(Eigen::Vector3d pos)
+ {
+-  // Planning predicate: unknown and outside are blocked. The stored inflation
++  // FAST Lab upstream predicate: the inflated occupied layer alone decides
++  // collision; raw unknown remains unknown. Outside-map keeps upstream -1.
++  if (mp_.official_ego_collision_policy_)
++  {
++    if (!isInMap(pos)) return -1;
++    Eigen::Vector3i id;
++    posToIndex(pos, id);
++    return int(md_.occupancy_buffer_inflate_[toAddress(id)]);
++  }
++  // Legacy known-free diagnostic predicate. The stored inflation
+   // mask returned by the read-only snapshot remains a separate raw layer.
+   if (!isInMap(pos)) return 1;
+   Eigen::Vector3i id;
+--- a/planner/plan_env/src/grid_map.cpp
++++ b/planner/plan_env/src/grid_map.cpp
+@@ -88,6 +88,15 @@
+     result.reason = reason;
+     return finish(result);
+   }
++  if (mp_.official_ego_collision_policy_)
++  {
++    // The native optimizer and checkCollisionCallback use getInflateOccupancy.
++    // Do not add a raw-known-free sweep or a terminal-hold sphere to upstream.
++    plan_env::SweepResult result;
++    result.free = true;
++    result.reason = "upstream_inflated_obstacle_checks";
++    return finish(result);
++  }
+   auto result = plan_env::certifySweep(begin, end, speed_bound, mp_.obstacles_inflation_,
+       mp_.resolution_, evaluate, [this](auto center, double radius) {
+         return queryRawSphere(center, radius);
+@@ -140,6 +149,7 @@
+   node_->declare_parameter("grid_map/local_update_range_z", -1.0);
+   node_->declare_parameter("grid_map/obstacles_inflation", -1.0);
+   node_->declare_parameter("grid_map/terminal_hold_neighborhood", -1.0);
++  node_->declare_parameter("grid_map/official_ego_collision_policy", false);
+   node_->declare_parameter("grid_map/fx", -1.0);
+   node_->declare_parameter("grid_map/fy", -1.0);
+   node_->declare_parameter("grid_map/cx", -1.0);
+@@ -178,6 +188,7 @@
+   node_->get_parameter("grid_map/local_update_range_z", mp_.local_update_range_(2));
+   node_->get_parameter("grid_map/obstacles_inflation", mp_.obstacles_inflation_);
+   node_->get_parameter("grid_map/terminal_hold_neighborhood", mp_.terminal_hold_neighborhood_);
++  node_->get_parameter("grid_map/official_ego_collision_policy", mp_.official_ego_collision_policy_);
+   node_->get_parameter("grid_map/fx", mp_.fx_);
+   node_->get_parameter("grid_map/fy", mp_.fy_);
+   node_->get_parameter("grid_map/cx", mp_.cx_);
+@@ -427,6 +438,53 @@
+         response->unknown_count = result.unknown;
+         response->free_count = result.free;
+         response->occupied_count = result.occupied;
++      });
++
++  // Read-only ROS2 adapter for the upstream *point* collision predicate.
++  // This separate endpoint never changes the raw occupancy/snapshot services.
++  planning_occupancy_service_ = node_->create_service<uav_interfaces::srv::QueryOccupancySphere>(
++      "/mapping/query_planning_occupancy",
++      [this](const std::shared_ptr<uav_interfaces::srv::QueryOccupancySphere::Request> request,
++             std::shared_ptr<uav_interfaces::srv::QueryOccupancySphere::Response> response) {
++        response->reason = queryReadiness(request->expected_epoch, request->expected_map_id, false);
++        if (!response->reason.empty()) return;
++        if (!mp_.official_ego_collision_policy_)
++        {
++          response->reason = "official_policy_inactive";
++          return;
++        }
++        if (request->frame_id != mp_.frame_id_)
++        {
++          response->reason = "frame_mismatch";
++          return;
++        }
++        const Eigen::Vector3d point(request->center.x, request->center.y, request->center.z);
++        if (!point.allFinite() || request->radius_m != 0.0)
++        {
++          response->reason = "invalid_query";
++          return;
++        }
++        if (!isInMap(point))
++        {
++          response->reason = "outside_map";
++          return;
++        }
++        response->accepted = true;
++        response->free = getInflateOccupancy(point) == 0;
++        const bool unknown = isUnknown(point);
++        response->reason = !response->free ? "occupied" :
++            unknown ? "unobserved_not_occupied" : "free";
++        response->occupied_count = response->free ? 0 : 1;
++        response->unknown_count = response->free && unknown ? 1 : 0;
++        response->free_count = response->free && !unknown ? 1 : 0;
++        response->header.frame_id = mp_.frame_id_;
++        response->header.stamp = node_->now();
++        response->epoch = active_epoch_;
++        response->map_id = active_map_id_;
++        response->last_depth_source_stamp = rclcpp::Time(md_.last_fused_depth_source_stamp_ns_);
++        response->last_fusion_stamp = md_.last_occ_update_time_;
++        response->center = request->center;
++        response->radius_m = 0.0;
+       });
+ 
+   md_.occ_need_update_ = false;
+--- a/planner/plan_manage/launch/advanced_param.launch.py
++++ b/planner/plan_manage/launch/advanced_param.launch.py
+@@ -27,6 +27,7 @@
+     odom_depth_timeout = LaunchConfiguration('odom_depth_timeout', default=1.0)
+     obstacles_inflation = LaunchConfiguration('obstacles_inflation', default=0.099)
+     terminal_hold_neighborhood = LaunchConfiguration('terminal_hold_neighborhood', default=-1.0)
++    official_ego_collision_policy = LaunchConfiguration('official_ego_collision_policy', default=False)
+     ground_height = LaunchConfiguration('ground_height', default=-0.01)
+     
+     point_num = LaunchConfiguration('point_num', default=1)
+@@ -70,6 +71,7 @@
+     odom_depth_timeout_arg = DeclareLaunchArgument('odom_depth_timeout', default_value=odom_depth_timeout, description='Depth/odometry freshness timeout in simulation seconds')
+     obstacles_inflation_arg = DeclareLaunchArgument('obstacles_inflation', default_value=obstacles_inflation, description='Obstacle inflation distance in meters')
+     terminal_hold_neighborhood_arg = DeclareLaunchArgument('terminal_hold_neighborhood', default_value=terminal_hold_neighborhood, description='Additional terminal/emergency hold radius outside the N05 body sphere')
++    official_ego_collision_policy_arg = DeclareLaunchArgument('official_ego_collision_policy', default_value=official_ego_collision_policy, description='Use upstream inflated-occupied collision semantics')
+     ground_height_arg = DeclareLaunchArgument('ground_height', default_value=ground_height, description='Lower map boundary in odometry-frame meters')
+     
+     point_num_arg = DeclareLaunchArgument('point_num', default_value=point_num, description='Number of waypoints')
+@@ -157,6 +159,7 @@
+             {'grid_map/local_update_range_z': 4.5},
+             {'grid_map/obstacles_inflation': obstacles_inflation},
+             {'grid_map/terminal_hold_neighborhood': terminal_hold_neighborhood},
++            {'grid_map/official_ego_collision_policy': official_ego_collision_policy},
+             {'grid_map/local_map_margin': 10},
+             {'grid_map/ground_height': ground_height},
+             # camera parameter
+@@ -238,6 +241,7 @@
+     ld.add_action(odom_depth_timeout_arg)
+     ld.add_action(obstacles_inflation_arg)
+     ld.add_action(terminal_hold_neighborhood_arg)
++    ld.add_action(official_ego_collision_policy_arg)
+     ld.add_action(ground_height_arg)
+     
+     ld.add_action(point_num_arg)

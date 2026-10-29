@@ -2,13 +2,29 @@
 import math
 
 
+def navigation_duration_requirement(config):
+    value = config.get('continuous_navigation_min_sim_s', 0.0)
+    if (isinstance(value, bool) or not isinstance(value, (int, float))
+            or not math.isfinite(value) or value < 0):
+        raise ValueError('Finite nonnegative continuous navigation duration required')
+    return float(value)
+
+
+def navigation_elapsed_sim_s(start_ns, end_ns):
+    if (not isinstance(start_ns, int) or not isinstance(end_ns, int)
+            or end_ns < start_ns):
+        raise ValueError('Invalid continuous navigation source-time interval')
+    return (end_ns - start_ns) / 1e9
+
+
 def legs(config):
     if config.get('enabled', True) is not True:
         raise ValueError('Mission profile disabled: '+str(config.get('disabled_reason', 'pending safety review')))
     rows = config.get('goals', [dict(target_offset_enu_m=config.get('target_offset_enu_m'),
                                      yaw_offset_rad=config.get('yaw_offset_rad', 0.0))])
-    if not isinstance(rows, list) or not 1 <= len(rows) <= 3:
-        raise ValueError('Mission needs one to three goals')
+    maximum = 24 if navigation_duration_requirement(config) > 0 else 3
+    if not isinstance(rows, list) or not 1 <= len(rows) <= maximum:
+        raise ValueError(f'Mission needs one to {maximum} goals')
     result = []
     for row in rows:
         offset = row.get('target_offset_enu_m')

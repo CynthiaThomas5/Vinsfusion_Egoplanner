@@ -1,0 +1,42 @@
+{
+  "schema": "n06-admission-scope-audit/v1",
+  "date": "2026-10-23",
+  "task_id": "119",
+  "goal": "N06",
+  "classification": "BLOCKED_SCOPE_CONFLICT",
+  "execution": "read_only_no_runtime",
+  "parent_status": "in_progress",
+  "next_goal": "N06",
+  "next_subtask": "N06.4 full-airframe support-release fresh admission",
+  "scope": {
+    "inherited_restriction": "Do not start PX4, bridge, controller, traj_server, navigation supervisor, or trajectory execution during the current N06 subtask.",
+    "required_n05_process": "Full-airframe support scan followed by fresh released admission using live DISARMED and bridge DISABLED state.",
+    "compatible_path_found": false
+  },
+  "audited_requirements": [
+    {
+      "source": "tools/run_n05_preflight_layout.sh:56",
+      "finding": "The N05 runner starts the project SITL stack."
+    },
+    {
+      "source": "tools/check_n05_entry_live.py:54,72,108-117,166-172",
+      "finding": "The live checker requires a received bridge status, DISARMED/control-disabled state, and fresh bridge receipt during snapshot capture."
+    },
+    {
+      "source": "progress/evidence/n05-entry-20261023.md",
+      "finding": "Existing N05 evidence remains no-go; wall-r05 released admission was refused."
+    }
+  ],
+  "existing_positive_released_admission": {
+    "searched_records": [
+      "progress/evidence/n05-entry-20261023.json",
+      "artifacts/runs/n05-20261023-wall-r05/n05-run-summary.json"
+    ],
+    "transfer_gate_passed_true_count": 0
+  },
+  "active_project_containers": [],
+  "runtime_started": false,
+  "criteria_changed": false,
+  "recovery_condition": "Explicitly authorize the N06.4 PX4 SITL status chain while keeping the vehicle DISARMED and bridge control-disabled, then complete the full-airframe support scan and fresh post-release admission.",
+  "evidence": "progress/evidence/n06-admission-scope-audit-20261023-119.md"
+}

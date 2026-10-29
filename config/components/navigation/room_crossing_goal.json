@@ -1,5 +1,5 @@
 {
-  "qualification": "PROVISIONAL current-room check. Native stop tolerance0.1m provides tracking margin; independent true-position tolerance remains original0.25m, yaw/dwell unchanged. Fresh isolated PX4 parameter state required. Task-level wall timeout180s allows0.5m/s planning under measured slow simulation; original physical tolerances and all health/receipt-age gates unchanged.",
+  "qualification": "N17 delivery candidate: same16m goal; native0.1m and5s dwell, independent frozen0.3m/15deg/3s contract. Default spawn x=-8 keeps endpoint x=8 inside room. Clean-build GUI validation pending.",
   "target_offset_enu_m": [
     16.0,
     0.0,
@@ -8,8 +8,9 @@
   "yaw_offset_rad": 0.0,
   "position_tolerance_m": 0.1,
   "yaw_tolerance_rad": 0.35,
-  "dwell_s": 1.0,
-  "timeout_s": 180.0,
+  "dwell_s": 5.0,
+  "timeout_s": 360.0,
   "minimum_occupancy_points": 50,
-  "verification_position_tolerance_m": 0.25
+  "verification_position_tolerance_m": 0.3,
+  "verification_dwell_sim_s": 3.0
 }

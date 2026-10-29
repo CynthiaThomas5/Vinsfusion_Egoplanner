@@ -1,0 +1,195 @@
+{
+  "schema": "n07-support-scan-postrelease-pass-adapter-stale/v1",
+  "task_id": "N07.22 #176",
+  "run_id": "n07-20261024-176-01",
+  "qualification": "N05 attached/released/current-area gates passed; hover failed before enable on propagated_stale",
+  "consecutive_qualified_hover_count": "0/3",
+  "runtime": {
+    "epoch": "11fbad21e62a415a9d365c483e6003e1",
+    "map_id": "11fbad21e62a415a9d365c483e6003e1-32097c2f7c63471cb13721e9faa6b0d0",
+    "container_image": "sha256:099ab9afecd28b7354f6d6494944b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "runtime_contract_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "layout": "wall_box_column",
+    "scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return",
+    "px4_spawn_pose": "-6.5,0,0.3,0,0,0",
+    "health_threshold_changed": false,
+    "code_or_config_changed": false
+  },
+  "ground_boundary": {
+    "initial_n05": {
+      "accepted": false,
+      "reason": "ground_plane_insufficient_raw_occupied_voxels",
+      "online_offline_identical": true
+    },
+    "confirmed_ground_plane": {
+      "valid": true,
+      "source": "raw occupied only",
+      "z_at_center_m": -0.25,
+      "raw_occupied_voxel_count": 114,
+      "debug_truth_used": false
+    },
+    "subground_is_flight_volume": false,
+    "maximum_subground_excluded_cells_by_phase": {
+      "TAKEOFF_CONTACT": 89,
+      "ASCENT": 75,
+      "HOLD": 0,
+      "DESCENT": 75,
+      "LANDING_CONTACT": 89
+    },
+    "maximum_unknown_cells_by_phase": 0,
+    "maximum_occupied_cells_by_phase": 0
+  },
+  "support_scan": {
+    "completed_stages": 12,
+    "expected_stages": 12,
+    "ready_marker_attachment": "attached",
+    "ready_marker_truth_input_used": false,
+    "ready_marker_control_or_goal_published": false,
+    "trace_samples": 15414,
+    "trace_localization_all_tracking_valid": true,
+    "normalized_cost_max": 0.7541945109879827,
+    "accel_bias_max_m_s2": 0.12733384345446164,
+    "raw_vins_telemetry_samples": 2772,
+    "raw_vins_telemetry_all_solver_usable_current_finite": true,
+    "runner_outcome": "failed",
+    "runner_error": "localization changed or became invalid during physical scan",
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "fixture_removed": true,
+    "fixture_scene_model_absent": true,
+    "final_landed": true
+  },
+  "n05_gates": {
+    "attached": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "online_offline_identical": true
+    },
+    "post_release": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "online_offline_identical": true,
+      "freshness_s": {
+        "snapshot": 0.092,
+        "depth_source": 0.124,
+        "fusion": 0.028,
+        "limit": 0.4
+      }
+    },
+    "current_area_before_hover": {
+      "accepted": true,
+      "reason": "all_entry_phases_known_and_clear",
+      "online_offline_identical": true,
+      "freshness_s": {
+        "snapshot": 0.092,
+        "depth_source": 0.132,
+        "fusion": 0.036,
+        "limit": 0.4
+      }
+    },
+    "same_epoch_and_map": true,
+    "epoch": "11fbad21e62a415a9d365c483e6003e1",
+    "map_id": "11fbad21e62a415a9d365c483e6003e1-32097c2f7c63471cb13721e9faa6b0d0"
+  },
+  "post_release_probe": {
+    "read_only": true,
+    "observed_duration_wall_s": 195.68099214299582,
+    "event_count": 10593,
+    "sim_first_s": 405.508,
+    "sim_last_s": 553.636,
+    "localization_transitions": [
+      {
+        "state": 1,
+        "valid": true,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_s": 405.624
+      }
+    ],
+    "gap_events_by_stream": {
+      "raw_estimator_telemetry": 0,
+      "raw_odometry": 0,
+      "raw_imu_propagation": 0,
+      "adapted_optimized_odometry": 0,
+      "localization_status": 0
+    }
+  },
+  "hover_precondition": {
+    "result": "FAIL",
+    "failure": "vio_bridge_map_preconditions_not_ready",
+    "preconditions_ready": false,
+    "wall_duration_s": 61.25,
+    "localization_status_samples": 1201,
+    "localization_state": 4,
+    "localization_valid": false,
+    "localization_reason": "propagated_stale",
+    "latest_adapter_source_stamp_ns": 626255999999,
+    "status_header_first_ns": 631584000000,
+    "status_header_last_ns": 677384000000,
+    "raw_vins_telemetry_samples": 694,
+    "raw_vins_telemetry_all_solver_usable_current_finite": true,
+    "raw_vins_normalized_cost_min": 0.4616602798248392,
+    "raw_vins_normalized_cost_max": 0.4616604194818704,
+    "raw_vins_odometry_samples": 768,
+    "raw_vins_odometry_source_first_ns": 626772000000,
+    "raw_vins_odometry_source_last_ns": 677392000000,
+    "adapted_optimized_odometry_samples": 0,
+    "depth_health_last_valid": true,
+    "enable_or_arm_service_calls": 0,
+    "navigation_goal_sent": false
+  },
+  "after_failure_probe": {
+    "read_only": true,
+    "observed_duration_wall_s": 20.018235692055896,
+    "localization_reason": "propagated_stale",
+    "raw_imu_propagation_samples": 3843,
+    "raw_imu_propagation_max_source_gap_s": 0.004000001,
+    "raw_imu_propagation_max_receipt_gap_s": 0.03122902987524867,
+    "raw_vins_telemetry_samples": 232,
+    "raw_vins_odometry_samples": 233,
+    "all_observed_gap_event_counts": 0,
+    "recovered_localization": false
+  },
+  "safety_cleanup": {
+    "bridge_phase": "DISABLED",
+    "control_enabled": false,
+    "armed": false,
+    "landed": true,
+    "px4_arming_state": 1,
+    "fixture_removed": true,
+    "container_status": "Exited (0)",
+    "active_project_simulations_after_stop": 0
+  },
+  "scope_limitations": [
+    "No no-goal hover or airborne EKF2/GNSS/ULog evidence was produced.",
+    "The first source gap that caused propagated_stale is not captured; the post-failure sample only shows current raw streams fresh while adapter health remained stale.",
+    "Ground plane admission establishes the N05 ground boundary and below-ground exclusion; it does not grant flight authorization."
+  ],
+  "artifacts_sha256": {
+    "artifacts/runs/n07-20261024-176-01/n05-run-inputs.json": "7eddcb037a3c758f1bf4cf80967f793dcf24b09b68730a03ea9adf66f52e680a",
+    "artifacts/runs/n07-20261024-176-01/runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "artifacts/runs/n07-20261024-176-01/n05-prescan-ready.json": "2863f70171fd43b3bd8919f364cc08cc3db2a93a7f35fc9e3456820c07ba4150",
+    "artifacts/runs/n07-20261024-176-01/fixture-result.json": "a1205de16ce7b99fbf323f11a5ab7d2104b8e8416cb45fa5afa150f1a2084c39",
+    "artifacts/runs/n07-20261024-176-01/fixture-stages.json": "a13df873e715e344d1828bbda7167ab4934d92bfb1c0184f9e0b45fc96bd178f",
+    "artifacts/runs/n07-20261024-176-01/fixture-trace.jsonl": "e8e4d175831a6c56ccc789c41b2d4f8ba740f2cf1c12067e47545d81627da375",
+    "artifacts/runs/n07-20261024-176-01/fixture-vins.jsonl": "a4312b532c4a363ac5923ec861b8a6c9c305777b4b04ee4f653d59491272e00c",
+    "artifacts/runs/n07-20261024-176-01/fixture-odometry.jsonl": "5e5d3e11616500f12ab05af3e91368e9e216d0f39f298ad524ce39fb13f80bfe",
+    "artifacts/runs/n07-20261024-176-01/n05-after/n05-live-entry-check.json": "1032c8fe3f7efd46c1a965bd7235c7aff26743b99097a7ffec2fc7cc889ae73e",
+    "artifacts/runs/n07-20261024-176-01/n05-after/n05-offline-entry-replay.json": "61203be89dbbbe4928bd46ab853b0a54cbe580e27f00c07459208c24de1d90da",
+    "artifacts/runs/n07-20261024-176-01/n05-post-release/n05-live-entry-check.json": "1ab036538ad62ba25d81fbe6f5eda946ec42833e5dd0100b96c5fd0ba8799abd",
+    "artifacts/runs/n07-20261024-176-01/n05-post-release/n05-offline-entry-replay.json": "b31f8654251c3ff3ade2d2b878c2dab1841c5397f8ed47544a284f4052d336dc",
+    "artifacts/runs/n07-20261024-176-01/n05-current-area/n05-live-entry-check.json": "17fad03405c2054b95d6bd70b5dadbc5e5de685f355c46cf3e2838d6207a57aa",
+    "artifacts/runs/n07-20261024-176-01/n05-current-area/n05-offline-entry-replay.json": "b0a813f7ea05b28f6aa4b9f72ef77b528635332e3c0c8f233baff6cf45bb9bdc",
+    "artifacts/runs/n07-20261024-176-01/n07-vio-stream-diagnostic.json": "35653ea62d68f11a7d1b3afec334f88996a362a728ddee1d54bfdc59e19f2f4e",
+    "artifacts/runs/n07-20261024-176-01/n07-vio-stream-events.jsonl": "6cf121c84a1f845f30d848027fa2338aeff7fd38cc7583f216c365ff62ec3a4a",
+    "artifacts/runs/n07-20261024-176-01/flight.json": "009cff1e93cb24589389f634fe419c5fa0fd070c97cd442d708323cd5cb6db47",
+    "artifacts/runs/n07-20261024-176-01/alignment-observation.json": "8bfd68662b95b987783b42a0d0b0ea8527c7893bc817a372a793057ce9116bf0",
+    "artifacts/runs/n07-20261024-176-01/ros-graph-audit.json": "9cef34a7bdd6a8d9755c812ddbd39761a83cc8e349cb5df4956b261f1be0a68e",
+    "artifacts/runs/n07-20261024-176-01/bridge-alignment-timeline.jsonl": "3452f99d26ebd45f5348773846b3678441b92591429acb5f787a2b51fbe52938",
+    "artifacts/runs/n07-20261024-176-01/post-failure-vio-stream-diagnostic.json": "3fc0a170649c3a4758a78107f944cedbe7122f310d93aa155ae1fc7c5ee0c835",
+    "artifacts/runs/n07-20261024-176-01/post-failure-vio-stream-events.jsonl": "0e79bc9c3d0b821d1d7c60873357602e2f2e81e4453fe64dd100268edb6a58f6",
+    "artifacts/runs/n07-20261024-176-01/post-failure-safety-readback.log": "3e6577dd770889b55931e4ad0a11a26e244e6717670f76f0710fbcdf951f3fe4"
+  },
+  "next_step": "N07.23 #177: maintain the post-release read-only source timeline through current-area N05 and the hover precondition; keep all thresholds and flight gates unchanged."
+}

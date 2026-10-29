@@ -1,0 +1,61 @@
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -339,6 +339,7 @@
+ 
+ void Estimator::processMeasurements()
+ {
++    static thread_local uint64_t workObservationSequence = 0;
+     while (rclcpp::ok())
+     {
+         // cout << "[processMeasurements]  loop - start" << endl;
+@@ -347,6 +348,10 @@
+         vector<pair<double, Eigen::Vector3d>> accVector, gyrVector;
+         size_t accQueueSizeSample = 0, gyrQueueSizeSample = 0, featureQueueSizeSample = 0;
+         size_t accQueueHighWaterSample = 0, gyrQueueHighWaterSample = 0, featureQueueHighWaterSample = 0;
++        // Read-only native work/time observations; never used by control or solving.
++        size_t waitingFeatureSample = 0, remainingImuSample = 0;
++        int64_t pendingFeatureSpanNs = -1, intervalEndpointNs = -1;
++        int64_t latestImuBeforeNs = -1, oldestImuAfterNs = -1;
+         if(!featureBuf.empty())
+         {
+             // cout << "1" << endl;
+@@ -376,6 +381,12 @@
+             accQueueHighWaterSample = accBufHighWater;
+             gyrQueueHighWaterSample = gyrBufHighWater;
+             featureQueueHighWaterSample = featureBufHighWater;
++            waitingFeatureSample = featureBuf.size() - 1;
++            pendingFeatureSpanNs = static_cast<int64_t>(std::llround(
++                (featureBuf.back().first - featureBuf.front().first) * 1e9));
++            intervalEndpointNs = static_cast<int64_t>(std::llround(curTime * 1e9));
++            if (!accBuf.empty()) latestImuBeforeNs = static_cast<int64_t>(
++                std::llround(accBuf.back().first * 1e9));
+             if(USE_IMU)
+             {
+                 // cout << "2-1)" << endl;
+@@ -388,6 +399,9 @@
+                 // cout << "2-2)" << endl;
+             }
+ 
++            remainingImuSample = accBuf.size();
++            if (!accBuf.empty()) oldestImuAfterNs = static_cast<int64_t>(
++                std::llround(accBuf.front().first * 1e9));
+             featureBuf.pop();
+             mBuf.unlock();
+ 
+@@ -461,7 +475,15 @@
+                 << ",\"feature_current_before_feature_dequeue\":" << featureQueueSizeSample
+                 << ",\"acc_high_water\":" << accQueueHighWaterSample
+                 << ",\"gyr_high_water\":" << gyrQueueHighWaterSample
+-                << ",\"feature_high_water\":" << featureQueueHighWaterSample << "}}";
++                << ",\"feature_high_water\":" << featureQueueHighWaterSample
++                << ",\"work\":{\"schema\":\"vins-native-pending-work/v1\""
++                << ",\"sequence\":" << ++workObservationSequence
++                << ",\"waiting_features\":" << waitingFeatureSample
++                << ",\"pending_feature_span_ns\":" << pendingFeatureSpanNs
++                << ",\"interval_endpoint_ns\":" << intervalEndpointNs
++                << ",\"latest_imu_before_ns\":" << latestImuBeforeNs
++                << ",\"oldest_imu_after_ns\":" << oldestImuAfterNs
++                << ",\"remaining_imu_after_interval\":" << remainingImuSample << "}}}";
+             pubEstimatorTelemetry(telemetry.str());
+ 
+             pubOdometry(*this, header);

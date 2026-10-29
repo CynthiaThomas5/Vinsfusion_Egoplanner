@@ -1,0 +1,112 @@
+{
+  "schema": "n11-full-rehearsal-evidence/v1",
+  "id": "N11.2c/#476",
+  "classification": "full GUI recording rehearsal; not formal-count eligible",
+  "formal_success_count": 0,
+  "action_success": true,
+  "hold_completed": true,
+  "hold_sim_s": 20.0,
+  "arrival_status": "PASS",
+  "arrival_joint_window": {
+    "start_sim_s": 74.516,
+    "end_sim_s": 78.048,
+    "duration_sim_s": 3.5319999999999965,
+    "start_wall_s": 78.48885297216475,
+    "end_wall_s": 82.68156543304212,
+    "duration_wall_s": 4.192712460877374,
+    "sample_count": 884,
+    "max_position_error_m": 0.29947608354265637,
+    "max_yaw_error_rad": 0.19716272905236912
+  },
+  "prohibited_contacts": 0,
+  "safe_to_stop": true,
+  "container_stopped": true,
+  "static_map_metrics": {
+    "raw_map_surface_geometry": {
+      "status": "PASS",
+      "maximum_observed_error_m": 0.0575887943769966,
+      "threshold_m": 0.1
+    },
+    "raw_map_classification": {
+      "status": "PASS",
+      "fully_solid_known_cells": 0,
+      "fully_solid_free_cells": 0,
+      "fully_occluded_free_cells": 0,
+      "visible_free_controls": 311566,
+      "threshold": 0
+    }
+  },
+  "common_metrics": [
+    {
+      "id": "arrival_position_yaw_dwell",
+      "status": "PASS"
+    },
+    {
+      "id": "raw_vio_absolute_error",
+      "status": "PASS"
+    },
+    {
+      "id": "raw_vio_rpe_10s",
+      "status": "FAIL"
+    },
+    {
+      "id": "raw_vio_velocity_error",
+      "status": "PASS"
+    },
+    {
+      "id": "map_source_and_update_age",
+      "status": "PASS"
+    },
+    {
+      "id": "ego_tracking_error",
+      "status": "PASS"
+    },
+    {
+      "id": "ego_tracking_clearance_budget",
+      "status": "PASS"
+    },
+    {
+      "id": "full_body_clearance_and_contact",
+      "status": "INSUFFICIENT"
+    },
+    {
+      "id": "raw_map_surface_geometry",
+      "status": "INSUFFICIENT"
+    },
+    {
+      "id": "raw_map_classification",
+      "status": "INSUFFICIENT"
+    },
+    {
+      "id": "dynamic_replanning",
+      "status": "INSUFFICIENT"
+    },
+    {
+      "id": "fault_exit_to_terminal_px4_state",
+      "status": "INSUFFICIENT"
+    },
+    {
+      "id": "resource_and_queue_behavior",
+      "status": "FAIL"
+    },
+    {
+      "id": "observer_identity_binding",
+      "status": "PASS"
+    }
+  ],
+  "frozen_thresholds_modified": false,
+  "archive": "artifacts/runs/n11-20261029-476-empty-rehearsal",
+  "reanalysis": "artifacts/reanalysis/n11-20261029-476-full-rehearsal-v2/n11-20261029-476-empty-rehearsal",
+  "remaining": [
+    "pre-SITL source/image declaration missing in external tool-freeze: interval acceptance insufficient despite 4ms instantaneous ledger",
+    "motion 10s translation RPE P95=0.0833339948m exceeds frozen0.05m",
+    "IMU queue OLS trend=0.00500706237items/sim_s exceeds frozen0",
+    "protocol still preparation; no formal credit"
+  ],
+  "next_experiment": {
+    "hypothesis": "The rehearsal selected the short-regression default dynamics rather than the N10 long-motion calibrated profile. Verify the existing calibrated profile under the N11 empty scene and GUI. No single-parameter causal attribution claimed.",
+    "primary_variable": "existing planner profile: default max_vel0.5/max_acc0.8 -> N10 calibrated max_vel0.4/max_acc0.25",
+    "criteria": "same frozen thresholds; preserve all failed/incomplete evidence",
+    "status": "prepared next, not executed"
+  }
+}

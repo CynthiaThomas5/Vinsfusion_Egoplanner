@@ -1,0 +1,29 @@
+{
+  "qualification": "N08 bounded planned-terminal-stop measurement: source final dynamics guard, fresh same-run corridor/landing admission,0.25m extra tracking/hold margin and live tracking watchdog are mandatory. Return is stationary EGO yaw reorientation followed by forward-only EGO planning; reversing is forbidden. Arbitrary moving cancellation braking is not authorized by this protocol.",
+  "target_offset_enu_m": [
+    0.6,
+    0.0,
+    0.0
+  ],
+  "yaw_offset_rad": 0.0,
+  "position_tolerance_m": 0.05,
+  "yaw_tolerance_rad": 0.35,
+  "dwell_s": 2.0,
+  "timeout_s": 40.0,
+  "minimum_occupancy_points": 50,
+  "verification_position_tolerance_m": 0.25,
+  "n08_braking_trial": {
+    "braking_kind": "planned_terminal_stop",
+    "tracking_margin_m": 0.25,
+    "forward_stopping_extension_m": 0,
+    "cancel_stop_distance_envelope_m": 0.5,
+    "actual_vector_speed_limit_m_s": 0.12,
+    "maximum_tracking_error_m": 0.15,
+    "post_goal_hold_sim_s": 3.0,
+    "turn_approach_distance_m": 0.22,
+    "stop_speed_threshold_m_s": 0.03,
+    "stop_dwell_sim_s": 1.0,
+    "prior_basis": "Historical server-room-04/05/06 position-setpoint versus PX4 feedback, at actual horizontal speeds<=0.15m/s, showed max tracking errors0.1291/0.1385/0.1435m. Use0.15m watchdog within unchanged0.25m hold/tracking margin. Planned spline decelerates before its endpoint with zero terminal velocity/acceleration; evaluate independent truth after this controlled terminal stop. Historical model camera mount differed; current measurements are required and this is not a hardware guarantee.",
+    "cancel_stop_distance_envelope_basis": "0.50m finite-sample candidate for the measured forward low-speed caller-cancel trial only. It matches the existing evaluator envelope and is sized against the EGO stop-target cap of 0.45m plus the existing 0.05m forward route-tube allowance; reference-anchor offset means this is not a proven upper bound. The same value is consumed by pre-enable and airborne raw-map corridor admission and the independent evaluator. The exact replacement spline and terminal hold still require EGO's live raw-map certificate. It is not a general braking guarantee or a radial increase to the body clearance."
+  }
+}

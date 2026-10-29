@@ -1,0 +1,187 @@
+{
+  "schema": "n10-horizon-calibration-result/v1",
+  "report_id": 352,
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "run_id": "n10-20261026-352-horizon5-speed120-open-speed-16m",
+  "classification": "failed_calibration_sample; not formal qualification",
+  "protocol": "progress/evidence/n10-horizon5-speed120-open-speed-16m-protocol-20261026-352.json",
+  "runtime_contract_sha256": "e7f46274e9cc72ea757038a0d8f4beaadf4fa9f64cc18aa13ad8274f6dde35b4",
+  "effective_planner_config": {
+    "path": "config/components/mapping/n10_horizon5_speed120_calibration.json",
+    "file_sha256": "1f628fcaec9fcdfbf5989a83d7c5a7bd322899e5af550fa975be4026a90e0481",
+    "ego_launch_arguments": {
+      "max_vel": 1.2,
+      "max_acc": 0.25,
+      "planning_horizon": 5.0,
+      "obstacles_inflation": 0.7306179170842027,
+      "odom_depth_timeout": 0.4
+    }
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00090744998306,
+    "rtf": 0.9124747265890067,
+    "max_optimized_odom_receipt_gap_wall_s": 0.10181336500681937,
+    "optimized_odom_gap_over_guard_count": 0,
+    "takeoff_admission_passed": true,
+    "takeoff_static_odom_speed_m_s": 0.00010411874202579172
+  },
+  "task": {
+    "target_world_imu_xyz_m": [
+      8.08081526737065,
+      -0.0001335896874566892,
+      1.069580797498779
+    ],
+    "goal_minimum_true_position_error_m": 15.998917635913,
+    "max_true_contiguous_dwell_wall_s": 0.0,
+    "independent_arrival_passed": false,
+    "native_action_success": false,
+    "failure": "navigation_action_not_successful:planner_full_curve_planning_failed",
+    "goal_elapsed_sim_s": 0.072,
+    "goal_elapsed_wall_s": 0.07763228402473032,
+    "goal_clock_regressions": 0,
+    "max_forward_world_x_progress_from_goal_start_m": -0.00021679000611651844,
+    "observed_goal_motion_path_length_m": 0.9357724188880029,
+    "post_goal_active_hold": null
+  },
+  "speed_observation_only": {
+    "guard_enabled": false,
+    "sources": [
+      "ego_position_command_reference",
+      "px4_vehicle_local_position"
+    ],
+    "max_vector_speed_m_s": {
+      "px4_vehicle_local_position": 0.04760914895331145
+    },
+    "sample_counts": {
+      "px4_vehicle_local_position": 3
+    },
+    "candidate_planner_max_velocity_per_axis_m_s": 1.2,
+    "candidate_planner_max_acceleration_per_axis_m_s2": 0.25
+  },
+  "raw_vio_pre_enable_aligned_to_truth": {
+    "duration_sim_s": 28.608,
+    "paired_truth_path_length_m_including_takeoff_and_landing": 1.8619348574774433,
+    "position_error_m": {
+      "count": 434,
+      "rmse": 0.012563187702021335,
+      "median": 0.0009073798221656613,
+      "p95": 0.02401698661251356,
+      "max": 0.026133791682569234
+    },
+    "absolute_yaw_error_deg": {
+      "count": 434,
+      "rmse": 0.09498468436243834,
+      "median": 0.0012532606158215018,
+      "p95": 0.20152142503188097,
+      "max": 0.2179249435080353
+    },
+    "bounded_time_support_fraction": 0.9988814317323825,
+    "raw_max_gap_sim_s": 0.068000001,
+    "truth_max_gap_sim_s": 0.02,
+    "invalid_localization_status_samples": 0
+  },
+  "ego_reference_to_truth_tracking": {
+    "definition": "Transform matching READY PositionCommand position to world with the one fixed preflight SE(3); compare with interpolated truth IMU position. No truth feedback or segment refit.",
+    "candidate_max_error_m_not_enforced_by_runner": 0.15,
+    "matching_ready_commands": 0,
+    "paired_commands": 0,
+    "error_m": {
+      "median": null,
+      "p95": null,
+      "max": null,
+      "mean": null
+    },
+    "max_truth_interpolation_gap_s": null
+  },
+  "map_and_source_timing": {
+    "source_timeline_requested_wall_s": 1500.0,
+    "source_timeline_stop_reason": "flight_report_written",
+    "source_timeline_clock_regression_events": 0,
+    "map_samples_goal_to_landed": 29,
+    "map_source_age_max_sim_s_goal_to_landed": 0.16,
+    "occupancy_age_max_sim_s_goal_to_landed": 0.104,
+    "candidate_map_age_limit_sim_s_not_a_final_standard": 0.4,
+    "decimated_stream_max_receipt_gaps_wall_s": {
+      "localization_status": 0.15097237899999882,
+      "adapter_optimized": 0.186805063,
+      "map_status": 0.251955508,
+      "clock": 0.11641169199999979
+    },
+    "decimation_note": "The source recorder samples streams at 0.1 wall-second cadence; its gap summary is not used as an exact callback receipt-age measurement."
+  },
+  "contact_and_px4_terminal_state": {
+    "contact_evaluation_passed": true,
+    "prohibited_contact_event_count": 0,
+    "ground_contact_event_count": 15427,
+    "postflight_readback_wall_s": 6.0,
+    "postflight_control_samples_zero": true,
+    "postflight_vehicle_remained_disarmed": true,
+    "postflight_bridge_phase": "LANDED",
+    "postflight_bridge_armed": false,
+    "postflight_bridge_landed": true,
+    "postflight_bridge_control_enabled": false
+  },
+  "planner_candidate_diagnostic": {
+    "source": "read-only EGO [Check] messages in vio.log; values are derivative control-point bounds, not measured flight speed/acceleration",
+    "feasibility_diagnostic_count": 40,
+    "hard_rejection_count": 10,
+    "maximum_logged_axis_velocity_bound_m_s": 1.3,
+    "maximum_logged_axis_acceleration_bound_m_s2": 1.2,
+    "maximum_logged_normalized_ratio": 2.2,
+    "observed_failure": "planner_full_curve_planning_failed after the project-added three-refinement final dynamics check rejected returned curves"
+  },
+  "cleanup": {
+    "independent_readback_wall_s": 6.0,
+    "vehicle_remained_disarmed": true,
+    "bridge_phase": "LANDED",
+    "bridge_control_enabled": false,
+    "control_samples_zero": true,
+    "prohibited_contact_events": 0,
+    "project_container_stopped": true
+  },
+  "next_experiment": "Remove project patch 0044 hard rejection and restore the upstream single check/one time-reallocation attempt; retain only diagnostic logging. Re-run the same 1.2 m/s/axis, 0.25 m/s^2/axis, 5 m horizon profile to isolate the behavior change.",
+  "artifacts": {
+    "n10-calibration-evaluation.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/n10-calibration-evaluation.json",
+      "sha256": "a37e78660dadb3f3140a052902ae7d73f24791195deb73567e1bc0c7b991aa43"
+    },
+    "flight.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/flight.json",
+      "sha256": "e7059fcbbc3110e338644e9ab3feaf106e4d63f7168a26d423ff9b4d8fded021"
+    },
+    "arrival-evaluation.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/arrival-evaluation.json",
+      "sha256": "210a5b1a1d2a923469e3c5196f80e3508f57fec5d5ca747829c9fc3c231b8e61"
+    },
+    "preflight.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/preflight.json",
+      "sha256": "0b6f6e6fe3fd002c8edcf13e2b25cf4a534850274d9b3422fe14bcd70d3a7827"
+    },
+    "takeoff-admission.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/takeoff-admission.json",
+      "sha256": "45385e0394e973a11863ca2501e38d61f3fae6db15be5766798df050c952163c"
+    },
+    "planner-observation.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/planner-observation.json",
+      "sha256": "9ac8f6b950e13916e647fb10c9aa6b79710b2ad7d2bf6f6841babec05dce0077"
+    },
+    "postflight-px4-bridge-readback.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/postflight-px4-bridge-readback.json",
+      "sha256": "f8169eba741621cf247a3567ca6d3d98df3e32c8b7572e5bb2c2d51d883b3d6c"
+    },
+    "vehicle-contact-evaluation.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/vehicle-contact-evaluation.json",
+      "sha256": "123fb328a063ff1c8ffa02df5f590b2e27dc9dbd703c158a5de11fa107f8d2e9"
+    },
+    "runtime-contract.json": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/runtime-contract.json",
+      "sha256": "3086fe0695eb9d66d4421afb7ed22d4899911a55492982bfb5383ae14f6ec7f8"
+    },
+    "vio.log": {
+      "path": "artifacts/runs/n10-20261026-352-horizon5-speed120-open-speed-16m/vio.log",
+      "sha256": "0f6cf034eb5f125b0b20c9fe1f1398f34aff32f31ed1b7c7bce1162e7ef52473"
+    }
+  }
+}

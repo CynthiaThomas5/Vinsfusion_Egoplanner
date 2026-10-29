@@ -1,33 +1,25 @@
-# 构建、运行与分享
+# 构建、迁移与运行
 
-## 环境与依赖
+当前入口采用 FAST Lab 官方 EGO 碰撞语义：独立垂直起飞后导航，按 inflated occupied layer 判碰撞，raw unknown 保留且不单独拒绝。epoch／frame／源时间完整性、唯一控制桥、PX4 原生 preflight／EV 融合和 EGO 原生输入超时继续生效。旧 N05 known-free 准入及经验质量门不在默认路径。
 
-Linux／Docker／NVIDIA Container Toolkit。项目保持#051同一固定Jazzy/Harmonic镜像；定位和规划仍为CPU。镜像加载及来源见[容器说明](../docker/README.md)。首次干净源码目录：
+## 从空目录重建
+
+按根 README 克隆源码和固定环境分支。环境的准确 commit、约1.48GB归档大小和SHA见 `docker/environment.json`，可先checkout该commit再运行 `git lfs pull`。校验SHA后再解压加载，不能把未下载的LFS指针当镜像。固定环境已在空Docker引擎导入并启动ROS/Gazebo；完整源码已在另一空目录实际fetch和构建。当前实物异机资格与干净环境证据分开记录，不宣称任意设备均已实测。
 
 ```bash
 bash tools/project.sh fetch
 bash tools/project.sh build
 bash tools/project.sh test
+python3 tools/check_container_image.py
 ```
 
-依赖获取拒绝覆盖已有文件；可用`--source vins_fusion`等选择缺失项。唯一源码在`src/vendor`，唯一ROS安装在`install`，PX4在`external/PX4-Autopilot/build/px4_sitl_default`。不需要历史run、旧项目或多个ROS overlay。下载需要网络，版本和补丁由清单固定；PX4子模块按gitlink恢复。
+`fetch`按commit、许可和补丁哈希获取源码，拒绝覆盖已有目标。ROS只使用本目录的 `build/install`；PX4位于 `external/PX4-Autopilot/build/px4_sitl_default`。正常构建／运行不读取旧项目、历史run或其他设备的安装目录。需要网络下载固定上游；镜像归档提供已验证二进制环境，原始基础镜像的完整构建配方尚不可追溯，不承诺仅靠Dockerfile从任意基础系统重新制作完全相同环境。
 
-## 日常启动（已部署机器）
+GitHub 22端口不可达时，可按[GitHub官方SSH443说明](https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port)使用 `ssh.github.com:443`。本次发布已验证该通道；不需要修改项目源码、复制作者私钥或更改仓库可见性。
 
-先登录服务器远程桌面，在项目目录运行：
+## GUI和默认任务
 
-```bash
-./start.sh          # 打开Gazebo和RViz，不起飞
-./start.sh fly      # 一条命令启动界面并执行默认起飞／导航／降落演示
-./start.sh status   # 查看当前会话、日志目录和最近任务结果
-./start.sh stop     # 结束已落地的会话
-```
-
-脚本沿用当前DISPLAY／XAUTHORITY，SSH内未设置时识别当前用户的Xorg／XRDP桌面；不保存认证内容。每次新启动自动生成run id。`fly`使用尚未飞行的当前GUI会话；已有任务结束并确认落地上锁后，会关闭旧会话并从新epoch开始。启动失败不执行起飞，任务失败返回非零；正在前检／飞行或尚未完成评估时拒绝关闭／重启，重复点击不会并行启动另一套栈。`status`在任务运行中也可使用。执行`fly`后保持终端运行，等待结果；任务结束后窗口保留。
-
-脚本只调用下述统一入口，不修改飞行配置，也不调整其他GPU任务或远程桌面设置。若没有可连接的桌面，会明确报错；可从已登录桌面的终端运行，或显式设置DISPLAY和XAUTHORITY。
-
-## 指定run id的仿真与目标
+登录桌面后执行 `./start.sh` 或 `./start.sh fly`。脚本识别当前用户Xorg/XRDP的DISPLAY和XAUTHORITY；无桌面时会明确报告。命令行指定run时：
 
 ```bash
 bash tools/project.sh sim room-demo-01 --gui
@@ -35,146 +27,78 @@ bash tools/project.sh mission room-demo-01
 bash tools/project.sh stop room-demo-01
 ```
 
-仿真启动不会使能或解锁。`mission`是显式飞行请求，前检通过后才起飞；默认执行相对16m目标、驻留、降落上锁。目标与限值仅在`config`修改；坐标和健康门见[接口契约](contracts.md)。每轮使用新ID；同一项目拒绝并行启动第二套控制栈。`--gui`读取当前DISPLAY／XAUTHORITY；无GUI参数仍保留同一GPU传感器渲染路径。
+`sim`保持未武装，`mission`才显式请求飞行。默认房间起点x=-8m，相对目标+16m，正常结束后降落上锁。一个run只执行一次任务，新任务使用新run/epoch。`stop`只在确认落地上锁后执行。脚本只清理本项目会话，不处理其他GPU服务。
 
-导航、定位及PX4只接视觉估计；任务旁路只读记录Gazebo真值作离线到达／采样净空评估，没有控制或真值回馈。评估器位于`tools/debug_truth`，不属于定位／规划输入。任务结果在`artifacts/runs/<id>/qualification.json`，源、参数、binary哈希在`runtime-contract.json`，原生PX4日志在该轮隔离build/log。失败保留，不能只看action的success。
+无GUI的底层入口为 `project.sh sim RUN_ID`，仍使用NVIDIA传感器渲染。当前最终回归包含GUI；实际验证范围见最终验收报告。多GPU服务器可用 `PROJECT_GPU_DEVICE=1 bash tools/project.sh sim RUN_ID --gui` 选择宿主GPU，实际UUID记录在run内。
 
-仿真默认向容器开放所有NVIDIA GPU。共享主机上需要固定渲染设备时，可指定宿主机`nvidia-smi`索引，例如`PROJECT_GPU_DEVICE=1 bash tools/project.sh sim my-run-01`；这也适用于`--gui`启动。该轮`gpu-request.json`记录宿主机请求索引和UUID，`gpu.txt`记录容器实际可见GPU及UUID。容器内部索引可能重新从0编号。
+## 状态、取消与降落
 
-受控传感器故障复测可以在启动前指定运行专用桥配置，例如`D435I_SENSOR_BRIDGE_CONFIG=/workspace/config/components/simulation/n02_stereo_fault_bridge.yaml PROJECT_GPU_DEVICE=1 bash tools/project.sh sim n02-fault-01`。默认留空时仍使用`d435i_bridge.yaml`。N02双目断流配置只把红外图像桥接到`/fault/input/...`，再由`tools/fault_relay.py`按图像源戳转发／丢弃；从启动起保留唯一`/clock`桥，不需要中途重启传感器桥。此诊断运行保持PX4未武装且不发送目标。
+结果与日志在 `artifacts/runs/RUN_ID/`。`qualification.json`给出普通任务的独立到达、接触、正常终态和唯一控制检查，正式场景／连续负载另有专门报告。评估程序不发布控制。
 
-成功任务还生成`odometry-evaluation.json`和`odometry-errors.csv`：评估原始VINS优化位姿在PRESTREAM至LANDED整段的位置／航向误差，与到点最小误差分开。只用起飞前一个位姿对固定坐标变换，尺度为1，不拟合全轨迹；安装偏移来自模型SDF。报告包含数据缺口、时间覆盖率及最后有效样本距落地的时间，没有预设精度通过阈值。离线机器具备NumPy时可重新计算；加`--plot`还需Matplotlib：
-
-```bash
-python3 tools/debug_truth/evaluate_odometry.py artifacts/runs/room-demo-01 --plot
-```
-
-输出`odometry-errors.png`。须保留同轮alignment／truth／bridge timeline／preflight／flight／runtime-contract原始文件；缺失或会话／时间戳异常会拒绝评估，不以补戳或拼接代替。服务器固定运行镜像未包含Matplotlib，图形可在开发电脑离线生成，不必改动仿真镜像。
-
-启动异常用`docker logs d435i-<id>`和该轮各模块log检查；保护锁定后启动新epoch，禁止手动清健康故障继续原目标。只关闭实际不再飞行的会话；本入口仅适用于SITL，不连接实机。
-
-## 可选回环后端观察（不接入控制）
-
-依赖清单已纳入同一锁定上游的`loop_fusion`及BRIEF词袋；新增依赖后的当前ROS构建为17个包，固定容器无需额外安装库。已有部署应按版本更新vendor并重新`build ros`，不能只复制脚本沿用缺少该节点的旧install。
-
-在新仿真启动后，另开终端执行：
+进入运行中的容器查看ROS接口：
 
 ```bash
-bash tools/project.sh loop room-demo-01
+docker exec -it d435i-RUN_ID bash
+source /opt/ros/jazzy/setup.bash
+source /workspace/install/local_setup.bash
+ros2 topic echo /mapping/status
+# 另一个终端可查看定位／导航状态或实际PX4状态
+ros2 topic echo /localization/status
+ros2 topic echo /fmu/out/vehicle_status_v1
 ```
 
-此命令持续运行观察器；飞行仍由另一个终端显式执行`mission room-demo-01`。默认`./start.sh`／`fly`不会自动增加回环负载。观察输出位于`/loop_observer/s_<epoch>/`，包括`pose_graph_path`、`pose_graph`、`point_cloud_loop_rect`、`odometry_rect`和JSON `status`。独立frame为`loop_<epoch>_map`，没有发布到odom的TF或接入控制。当前稀疏云是当前关键帧特征，不是完整持久地图。
+独立导航调用使用 `/navigation/navigate_to_pose`（`uav_interfaces/action/NavigateToPose`），目标frame为当前 `odom_<epoch>`。取消通过标准action客户端或对应CancelGoal服务；只处理当前任务，旧epoch目标与轨迹失效。
 
-同一session的图形配置可离线生成；在已连接桌面、已有ROS环境的终端运行RViz：
+显式请求正常降落由唯一桥接器协调。在上述容器ROS终端执行：
 
 ```bash
-python3 tools/prepare_mapping_rviz.py --loop \
-  --session artifacts/runs/room-demo-01-stack/session/session.json \
-  --output artifacts/runs/room-demo-01/loop.rviz
-rviz2 -d artifacts/runs/room-demo-01/loop.rviz
+ros2 service call /uav_px4_bridge/enable_offboard \
+  uav_interfaces/srv/EnableOffboard '{enable: false}'
 ```
 
-保持与仿真相同ROS domain。此预设单独显示关键帧、顺序边／经过几何验证的回环边和当前稀疏特征；不能把默认占据地图直接放到回环坐标系中。当前外参来自原VINS session固定标定；此上游未实际发布extrinsic，不能等待一个从未出现的话题。
+观察PX4和bridge确实落地、未武装、控制关闭后再停止容器。普通 `fly` 会自动完成该过程。正常降落接口可用范围不代表用户排除的故障退出专项已经验收。
 
-任务完成、确认落地后可用既有`stop`结束整个仿真。若单独结束观察器，向`loop-observer.pid`记录且确认属于该节点的进程发送SIGINT，等待`loop-backend-exit-code`为0；同一epoch禁止重开来伪装保留了图，重新实验需要新仿真。诊断记录器`tools/diagnostics/record_loop.py`只读输出，结束后`tools/check_loop_observation.py RUN_DIRECTORY --plot`可检查和绘图（本机需NumPy／Matplotlib）。这不是实际回环正确率或定位精度验收。
+## 独立接口调用与持久数据回读
 
-## 本地交付包
+已正常落地、仍保持运行的会话可运行独立调用样例：
 
 ```bash
-bash tools/project.sh export artifacts/exports/d435i-project
+python3 tools/probe_handoff_interfaces.py \
+  --output artifacts/runs/RUN_ID/handoff-interface-result.json
 ```
 
-默认输出源码归档、固定镜像归档、逐文件manifest和SHA256SUMS；不会上传、提交或推送。`--code-only`仅导出源码，接收方仍需单独取得固定镜像。源码包不包含vendor下载、external源码、build/install、原始运行日志、本机配置或raw聊天；重建通过固定下载清单恢复。交付包内README提供加载与解压步骤。
+在容器中执行。程序实际查询地图、检查旧epoch拒绝、读取定位和带位姿RGB-D，并提交观察位姿目标、获取到达或明确失败结果；不使能Offboard、不发布PX4控制。#573实际得到 `map_query_occupied` 的明确终态。
 
-完整工程状态与测试范围见[当前状态](../progress/CURRENT.md)。原隔离构建的三连基线和整理后构建／SITL分别记证据，不自动外推到其他机器、多场景或实机。第三方授权现状见[依赖说明](../dependencies/README.md)。
-
-## gpu4090 服务器部署
-
-2026-10-22异机部署、固定镜像加载、16个ROS包与PX4构建、133项回归及SITL结果见[部署证据](../progress/evidence/gpu4090-deployment-20261022-054.md)。服务器工作区为`~/D435i-VINS-EGO-ROS2`；镜像归档在`~/d435i-deployment/container-images.tar.zst`。用户已授权从本机干净提交通过git bundle恢复源码，origin保留GitHub地址；后续直接pull仍需配置Git命令行认证。
-
-在服务器使用相同的`fetch/build/test/sim/mission/stop`入口，无桌面时省略`--gui`。每次使用新run id，例如：
+用ROS原生MCAP保存实际关键帧和地图状态，在同一容器ROS终端执行，若干帧后Ctrl-C停止记录器：
 
 ```bash
-cd ~/D435i-VINS-EGO-ROS2
-bash tools/project.sh sim my-room-01
-bash tools/project.sh mission my-room-01
-bash tools/project.sh stop my-room-01
+ros2 bag record --storage mcap --storage-preset-profile zstd_fast \
+  --output artifacts/runs/RUN_ID/handoff-archive \
+  --topics /mapping/rgbd_keyframes /mapping/status
+python3 tools/inspect_handoff_archive.py \
+  artifacts/runs/RUN_ID/handoff-archive \
+  --output artifacts/runs/RUN_ID/handoff-archive-inspection.json
 ```
 
-导航节点使用固定Jazzy镜像已有的EventsExecutor；等待任务完成的action在独立线程执行，使事件循环持续接收定位与时钟。回归包含等待action期间的250Hz时钟负载；健康阈值、控制唯一出口与定位输入契约保持原配置。运行结果仍只覆盖当前房间和固定目标。
+回读直接反序列化文件，不向在线ROS重放。报告保留完整图像字节哈希、CameraInfo K、图像源时间位姿、epoch、map_id、标定与输入配置身份。#573已有10组真实记录回读通过。
 
-### 短往返回环观察（#059历史试验，#060已禁用）
+三维占据数组服务为 `/mapping/get_occupancy_snapshot`。`tools/capture_live_occupancy_snapshot.py --help`给出模型、输入/规划配置、实际ROS参数dump及源清单绑定方式；它保存同一快照的raw/inflated数组、坐标原点、分辨率、源/融合/快照时间和身份，并实际回读校验。#573在同一epoch/map内完成该路径。未知值仍为unknown，局部快照不提供跨重启重定位。
 
-**以下为历史试验说明。#060离线审计确认4m返回目标落入柱体，旧`room_loop_goal.json`已禁用，入口在前检／起飞前拒绝。不得重新启用该路线；须先解决目标可达性与机体净空。**
-
-历史试验使用独立新会话；这项实验不启用后端控制反馈，也不加载旧地图。依次执行相对同一起飞后里程计原点的`[16,0,0] → [4,0,0] → [8,0,0]`米目标，各段终点yaw与起始一致；末段让固定前视相机重新观察去程区域。规划器途中按轨迹朝向控制yaw，不能把返程自动视为相同视角。
+## 离线误差与证据
 
 ```bash
-bash tools/project.sh sim loop-return-NEW
-bash tools/project.sh loop loop-return-NEW  # 独立终端保持运行
-# 同一容器中另起只读tools/diagnostics/record_loop.py记录，按#058观察步骤设置ROS环境
-bash tools/project.sh mission loop-return-NEW config/components/navigation/room_loop_goal.json
+python3 tools/debug_truth/evaluate_odometry.py artifacts/runs/RUN_ID --plot
 ```
 
-`flight.json`按`legs`记录各段原生action，独立到达／样条边界检查覆盖全部已完成目标。诊断记录保存关键帧／优化修订、回环两端索引及PnP相对位姿；离线`tools/debug_truth/evaluate_loop_revisit.py RUN [--plot]`以隔离真值核对约束，并用原始VINS的同一个起飞前对齐比较修正前后误差。0.25m／5°是此次离线诊断界限，不更改匹配或健康门，不等于真机精度标准。没有真实回环／优化则该检查失败，不能用路径存在代替。
+需同轮raw VINS、真值、状态时间线、模型和运行身份。一次起飞前固定scale=1刚体对齐，不逐段拟合。NumPy/Matplotlib可在分析机安装；它们不进入控制链。位置/yaw/速度/RPE、跟踪、地图、净空与资源保留实测；当前正常功能验收的必要项以冻结配置及用户范围修订为准，不恢复取消的数值否决。
 
-### 返程残差诊断（#060）
-
-用`VINS_DIAGNOSTIC_COST_GROUPS=continuous bash tools/project.sh sim NEW_RUN_ID`启动有界诊断会话；只用于通过目标／净空审查的新任务配置。#059旧复访配置已禁用，不能据此继续飞行。默认不设置环境变量时仍只在首次越界计算分组。有效模式写入该轮`vins-diagnostics.json`。完整遥测保留视觉／IMU／边缘化分组、bias、跟踪数及诊断Evaluate耗时，不新增图像订阅；记录不会改变健康门。
-
-已结束任务可离线执行`python3 tools/debug_truth/evaluate_residual_transition.py artifacts/runs/NEW_RUN_ID --plot`。输出`residual-transition.json`与`residual-transition.png`，校验分组代价／分量数与求解器总数一致，分开比较各组的总占比和触发帧增量，并区分代价增加与残差分量数变化对归一化指标的贡献。分组是已加权／经过鲁棒核的优化代价，不等于像素／米误差；边缘化先验混合历史测量，不能仅凭它占比大就判定IMU或视觉标定有错。物理定位误差仍使用独立真值与同一初始化对齐。
-
-### 离线目标净空审查（#061）
-
-`tools/debug_truth/audit_navigation_goals.py RUN --candidate-offset 13,0,0 --output REPORT.json --plot`读取该run保存世界及原始起飞前对齐。输出端点球、非地面垂直列和直线连接的标称几何下界，不生成可飞配置。13m为相对起飞后原点的目标偏移，不是返程13m；候选静态空旷不代表当前在线地图已知free或可达。旧room_loop_goal仍禁用；本轮没有新增飞行用法。见[证据与复算命令](../progress/evidence/goal-admission-20261022-061.md)。
-
-### 在线目标球准入（#062）
-
-更新后需`bash tools/project.sh build ros`重新生成接口与规划库，再运行`bash tools/project.sh test`。新增原始体素球查询、action拒绝／取消／地图重置和迟到响应测试；服务不使用完整世界地图。目标球触及未知空间现在会拒绝，历史16m飞行通过不能继承；不要通过放宽半径、unknown策略或新鲜度恢复演示。
-
-不解锁检查：`bash tools/project.sh sim NEW_RUN_ID`，在对应容器中source ROS与install后运行`python3 tools/probe_goal_admission.py --output /workspace/artifacts/runs/NEW_RUN_ID/readonly-queries.json`，最后`bash tools/project.sh stop NEW_RUN_ID`。探针仅订阅状态及查询地图，不发送目标、使能或武装；最多等待地图60墙秒，再做24次有界查询，报告实际响应及未解锁状态样本。它可能只观察到unknown和门控拒绝，不应据此声称存在可飞区域。证据见[#062](../progress/evidence/goal-admission-20261022-062.md)。
-
-### 未武装支架先验诊断（#068）
-
-这是有界仿真实验，不是默认起飞／真机手持流程。用`VINS_DIAGNOSTIC_COST_GROUPS=continuous bash tools/project.sh sim NEW_RUN_ID`启动新会话，等待该run的stack-started。在同一容器中source ROS与install后执行`python3 tools/probe_preflight_scan.py --run artifacts/runs/NEW_RUN_ID --profile coverage`。它通过Gazebo关节支撑并移动整个机体，逐步要求新鲜DISARMED及同epoch健康；不发布ROS目标／控制，不调用mission。失败时保留日志，检查是否仍附着，确认DISARMED后停止该仿真，不清锁续飞。
-
-独立终端可先在同一容器中执行`python3 tools/debug_truth/record_fixture_truth.py artifacts/runs/NEW_RUN_ID`；它只订阅隔离真值，收到fixture-result或达到墙钟期限后结束。只读真值文件不能在线回馈定位／控制。测试结束后运行：
+## 导出和版本更新
 
 ```bash
-python3 tools/debug_truth/evaluate_prior_diagnostics.py artifacts/runs/NEW_RUN_ID/fixture-vins.jsonl --output artifacts/runs/NEW_RUN_ID/prior-diagnostics.json
-python3 tools/debug_truth/evaluate_fixture_odometry.py artifacts/runs/NEW_RUN_ID
+bash tools/project.sh export artifacts/exports/my-delivery
+bash tools/project.sh export artifacts/exports/code-only --code-only
 ```
 
-前者验证先验范数分解及窗口特征与视觉因子数量；后者用首段静止期间的一个位姿对齐、尺度1和源时刻真值评估，不伪造飞行阶段或flight.json。未记录对应新字段／真值时明确失败，不能对旧记录补造。成功路径脱离并请求移除支架，仍须检查状态；完成后停止本项目会话。结果只属于该固定仿真和物理支撑运动，不证明自由飞行、完整净空或真实设备性能。
+完整包包含源码、固定镜像、逐文件manifest和SHA256SUMS；排除vendor/external下载、build/install、原始运行日志、本机配置、凭据和raw聊天。历史归档不存在时，导出器先精确校验本地镜像的固定内容再生成归档；已有归档校验失败仍拒绝。GitHub源码和环境分支是分开的交付入口；所有接收方都需要相应访问权限。
 
-静止对照使用另一独立新epoch和同一continuous构建，在对应容器source ROS与install后运行`python3 tools/probe_prior_idle.py artifacts/runs/NEW_IDLE_RUN`。它仅订阅，健康／DISARMED条件下观察200仿真秒、最多600墙秒，不插入支架或发送控制。真值记录器可用`--end-marker idle-result.json --output idle-truth.jsonl`随对照结束；诊断评估器输入改为idle-vins.jsonl。独立初始化和不同运动负载仍是对照的限制，不以两次运行直接作严格因果结论。
-
-### N05 支架扫描与起飞入口门
-
-当前 N05 入口检查仅用于 DISARMED 仿真诊断。运行`bash tools/run_n05_preflight_layout.sh NEW_RUN_ID wall_box_column`或`corridor_box_column`，脚本执行扫描前、支架扫描后和释放后的在线地图检查，并保存同一规则的离线回放。`n05-run-summary.json`中的`diagnostic_pass`只表示身份、回放和安全清理记录相互一致；只有 released admission 为 accepted、map identity 连续、位姿变化在预算内，才表示该诊断转移门条件满足。它不替代后续飞行验收。
-
-若定位／地图状态无效、释放后检查不可用、地图身份或位姿连续性不符，或任一包络相位发现 unknown／occupied／越界，保持 PX4 DISARMED、桥 DISABLED，不发送起飞目标。不得用旧快照、任意起点、清空未知体素或直接运行`./start.sh fly`来绕过入口拒绝。支架扫描和其成功清理均不证明飞行资格。当前 N05 证据见[入口与自身过滤报告](../progress/evidence/n05-entry-20261023.md)。
-
-### N02 健康触发时序记录
-
-在未武装支架运动复测中，让只读流观察器与`probe_preflight_scan.py`并行运行。观察器结束条件应指向`fixture-result.json`，并在结果文件出现后继续记录有限尾段，以保留探针因失效退出时的状态和遥测：
-
-```bash
-python3 tools/probe_vio_stream_freshness.py \
-  --session-manifest artifacts/runs/NEW_RUN-stack/session/session.json \
-  --seconds 900 \
-  --events-output artifacts/runs/NEW_RUN/vio-stream-events.jsonl \
-  --end-marker artifacts/runs/NEW_RUN/fixture-result.json \
-  --post-end-s 2 \
-  --output artifacts/runs/NEW_RUN/vio-stream-summary.json
-```
-
-事件按ROS源戳和单调时钟接收时刻保存VINS遥测、健康状态、原始／适配后优化里程计，以及每条遥测收到时最近一条左右图像和IMU源戳；间隔分布保存在summary中，不在每个事件重复历史输入戳。健康事件分别保存status header戳、传播里程计源戳和回调时最近一条telemetry源戳；`LocalizationStatus.source_stamp`不代表`normalized_cost`的来源时刻。`--seconds`是硬墙钟上限；缺少结束标记会在上限退出并报告`max_duration_end_marker_missing`。该记录器只读，不改变健康门，也不代替独立真值误差评估。
-
-### 局部复访的真实回环检查（#070）
-
-`bash tools/project.sh loop RUN_ID config/components/localization/loop_observer_local_revisit.json`显式选择0.1m观察器取样；省略参数仍使用原0.2m配置。该选择不改变BoW、匹配、PnP或健康门。配置必须来自config/components/localization内的JSON，manifest保存路径与哈希。后端每epoch只允许启动一次，不重启拼接图。
-
-未武装支架`--profile loop_revisit`沿069原路径重复7次，总742仿真秒、上限1500墙秒。先启动`record_fixture_truth.py RUN --max-wall-s 1800`和`record_loop.py RUN --end-marker fixture-result.json --max-wall-s 1800`只读记录；运动结束后等记录完成，SIGINT记录在loop-observer.pid的实际后端，确认其退出码，再运行`tools/debug_truth/evaluate_fixture_loop.py RUN`。不得创建假flight.json绕过检查。真实健康失败仍停止运动并保留结果；确认DISARMED后停止该会话。
-
-该检查分别要求真实候选、验证回环、实际优化／图更新及独立相对约束几何正确，不把候选数或图存在当消漂证明。#070已取得2条验证回环／2次优化，修正是否减小里程计误差尚需下一小目标验证。[完整证据与失败试次](../progress/evidence/real-loop-20261022-070.md)。
+早期实验说明保留在 [历史运行手册](history/running-before-n17-20261029.txt)，其中的旧门禁、参数和未完成状态不适用于当前默认入口。固定版本场景与历史失败在最终验收报告中分别登记；实机、语义/信念/自主探索和故障专项均不在当前完成范围。

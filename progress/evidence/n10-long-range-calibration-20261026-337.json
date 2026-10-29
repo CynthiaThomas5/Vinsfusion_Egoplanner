@@ -1,0 +1,113 @@
+{
+  "schema": "n10-long-range-calibration-run/v1",
+  "report_id": 337,
+  "date": "2026-10-26",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "status": "failed_safely_before_horizontal_goal_motion",
+  "run_id": "n10-20261026-337-long-range-vio",
+  "scope": "Single-D435i official_ego PX4/SITL diagnostic. The requested 16 m goal was dispatched but no horizontal goal motion occurred; this is a retained failed calibration, not N11-N16 evidence.",
+  "hypothesis": "At the N08 low-speed profile (0.10 m/s per axis, 0.25 m/s^2) with the current 5 m EGO planning horizon, the 16 m one-way 3D/yaw task can produce a dynamics-feasible initial local spline, remain under existing health/freshness gates, then hold ACTIVE for 600 simulation seconds.",
+  "inputs": {
+    "goal_profile": "config/components/navigation/n10_long_range_vio_calibration_goal.json",
+    "goal_profile_sha256": "d1e73365f0cc12d4f30a5445fa25ed54e35267eb2ff80a788c5f3d7162212821",
+    "planner_profile": "config/components/mapping/n08_low_speed_trial.json",
+    "planner_config_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce",
+    "collision_policy": "official_ego",
+    "container_image_id": null,
+    "runtime_contract_sha256": "bff8ffdc317f5da18f4c6aad9dbc5c2a8ee024ffad8562f4496706e94abecfe2",
+    "epoch": "4ea0b402d86547a8a8315ab6d5ba2975",
+    "map_id": "4ea0b402d86547a8a8315ab6d5ba2975-972a82a2ba76458ba35acb259256e5a7"
+  },
+  "task": {
+    "target_offset_enu_m": [
+      15.983792234034937,
+      -0.006343994411606397,
+      1.0226580697495233
+    ],
+    "yaw_offset_rad": 0.2,
+    "native_dwell_sim_s": 3.0,
+    "action_timeout_sim_s": 360.0,
+    "requested_post_goal_hold_sim_s": 600.0,
+    "goal_wall_watchdog_s": 1500.0,
+    "hold_not_started": true
+  },
+  "result": {
+    "preflight_passed": true,
+    "preflight_wall_s": 40.00037119910121,
+    "preflight_rtf": 0.9057750502468961,
+    "takeoff_admission_passed": true,
+    "goal_sent": true,
+    "action_success": false,
+    "action_outcome": "aborted",
+    "action_reason": "planner_full_curve_planning_failed",
+    "goal_wall_elapsed_s": 0.09273798600770533,
+    "goal_sim_elapsed_s": 0.08,
+    "ego_refinement_rejections": 10,
+    "ready_trajectory_commands": 0,
+    "horizontal_goal_travel_m": 0.0,
+    "true_3d_position_error_to_goal_m": 16.00043398877069,
+    "native_dwell_passed": false,
+    "post_goal_hold_completed": false,
+    "localization_invalid_samples": 0,
+    "no_prohibited_contact": true,
+    "live_terminal_refusal_passed": true,
+    "landed_disarmed": true,
+    "final_bridge": {
+      "armed": false,
+      "landed": true,
+      "phase": "LANDED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "final_px4_arming_state": 1
+  },
+  "raw_vio_observation": {
+    "scope_limit": "Only 28.624 sim seconds and 1.8805 m path, consisting of takeoff/landing; no horizontal goal leg and no 600 s hold. Descriptive only.",
+    "duration_sim_s": 28.624,
+    "paired_truth_path_m": 1.880483637788074,
+    "position_error_max_m": 0.011658015968025461,
+    "position_error_rmse_m": 0.0035920666276840207,
+    "yaw_error_max_deg": 0.04359577029495331,
+    "paired_truth_support_fraction": 0.9960871995528228,
+    "invalid_localization_samples": 0
+  },
+  "freshness": {
+    "localization_status_max_receipt_gap_wall_s": 0.15087843599999928,
+    "optimized_odom_max_receipt_gap_wall_s": 0.20424158400000025,
+    "map_status_max_receipt_gap_wall_s": 0.25215388099999814,
+    "map_status_max_source_age_sim_s": 0.168,
+    "existing_gates_changed": false
+  },
+  "diagnosis": {
+    "direct_log": "EGO optimizer returned plan_success=1, but the final B-spline failed the existing velocity/acceleration feasibility check after the bounded three refinements. EGO aborted with planner_full_curve_planning_failed before publishing a READY trajectory. This does not isolate whether 5 m local horizon, nonzero local-target velocity, or another spline state term caused the dynamics rejection.",
+    "evidence": "The live node loaded max_vel=0.10 m/s, max_acc=0.25 m/s^2, planning_horizon=5.0 m; the official target was accepted and current localization remained valid. The failure occurred in planning, not the health gate."
+  },
+  "safe_end_state": {
+    "bridge_phase": "LANDED",
+    "bridge_landed": true,
+    "bridge_armed": false,
+    "px4_arming_state": 1,
+    "prohibited_contact_count": null,
+    "project_container_stopped": true,
+    "unrelated_containers_touched": false
+  },
+  "next_experiment": "#338 tests one new hypothesis with one main variable: retain the 16 m goal, low-speed velocity/acceleration, map, camera, and policy; reduce the planner horizon from 5.0 m to 2.0 m to determine whether shorter local B-splines meet the same dynamic feasibility gate. Keep the 600 sim second hold armed only if the full goal succeeds.",
+  "artifacts_sha256": {
+    "flight.json": "fe212b66e6b0865a2afe829f37db86360673b3e6e024121cb3271222eb875d25",
+    "preflight.json": "934b8040638e1f31ce287141dc1bbd53105597286d8aaa7ec3a78ee2f4bba262",
+    "takeoff-admission.json": "eeab52996abfd307eade8e7450a782ca92fba8fd5189f200b500c76e84d119c7",
+    "arrival-evaluation.json": "65f359d7d0df25a105d04faf4cb7fd6d199671162ef0b9a5210df4b2e5dd63b6",
+    "odometry-evaluation.json": "3d80f6a8dcf47298dd7f7e3ca54c60d786e23ea92b71cc0cc7c4e907619e416b",
+    "debug-truth-evaluation.json": "f42f82f5e69b46940e04cf7799b255ce012508c1caa6313d99039dfc4ab4c97e",
+    "n08-localization-source-timeline.json": "85f0af24ca061bdd7e0f070837ebfb074c65148afd48adc58987501703efaa4f",
+    "n09-contact-observation.json": "5a5a8d1de5175d7bf7ac2a04958792278cf3c6ae5dc269c8925ec8a0454695eb",
+    "vehicle-contact-evaluation.json": "ecf241e0a6fd07fb5c55e5d8cf77012d27e397759e470364b6f95f6be96f57a1",
+    "n09-live-refusal.json": "1b12d74dc725d87f4583a7e00db607b3889312ff88bf465d76dc884ba445b953",
+    "planner-observation.json": "da3f95f832126103570cff34dcbc36b4531f48b49b7c2449cb15eea22629c757",
+    "bridge-alignment-timeline.jsonl": "852578f144ce242b8b822cb73cf4aa279678efb4d63b5a87f92aef1be8f3e28c",
+    "vio.log": "446d1ca06f46e6bc360411f92a194b4680093ca34c3ab5b98b11bf5daaba3b3f",
+    "runtime-contract.json": "1dced4858ec074c0df07331be3926216353ef3fb2390815e6cd0408609d66254",
+    "n09-run-manifest.json": "a7be044bba225555a2ca14c185f641c95728d5de25215e8fdfecc652fc4448a0"
+  }
+}

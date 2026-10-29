@@ -1,0 +1,530 @@
+{
+  "schema": "uav-n10-acceptance/v1",
+  "status": "frozen",
+  "revision": 14,
+  "scope": "N14 functional narrow corridor normal flights; blocked/unknown target validation separate and still required",
+  "created": "2026-10-29",
+  "runtime_effect": {
+    "offline_evaluator_only": true,
+    "adds_admission_cancel_or_landing_gate": false,
+    "thresholds_may_change_control_flow": false,
+    "truth_used_online": false
+  },
+  "report_states": [
+    "PASS",
+    "FAIL",
+    "INSUFFICIENT",
+    "DIAGNOSTIC"
+  ],
+  "identity_policy": {
+    "compare_each_run_independently": true,
+    "pool_or_stitch_across_epochs": false,
+    "require_runtime_contract_and_epoch_map_goal_identity": true,
+    "unmatched_identity": "INSUFFICIENT"
+  },
+  "time_domains": {
+    "arrival_vio_rpe_tracking_map": "Gazebo simulated source stamps; wall time is reported separately",
+    "resource_cpu_memory": "wall monotonic samples and cgroup cumulative counters",
+    "faults": "record trigger, source/receipt times, bridge/PX4 transitions, and terminal readback in their native clocks without merging domains"
+  },
+  "reference_points": {
+    "raw_vins_ego_position_command_gazebo_truth": "D435i IMU / d435i_link origin",
+    "px4_base_to_imu_lever_arm": "applied only in the bridge conversion and body-envelope geometry; do not add it to truth a second time",
+    "truth_source": "offline debug_truth observer only"
+  },
+  "segments": {
+    "arrival": "navigation goal source stamp through native goal completion; independent joint position/yaw dwell must occur within this interval",
+    "goal_motion": "goal source stamp through native goal completion",
+    "active_hold": "native goal completion through the runner-recorded requested simulated hold duration",
+    "landing": "active hold end through the first independent LANDED bridge sample",
+    "full_task": "prestream alignment start through independent LANDED sample",
+    "fault": "injection acknowledgement through stable landed/disarmed/control-disabled terminal state; preserve every event timestamp"
+  },
+  "metrics": {
+    "arrival_position_yaw_dwell": {
+      "required": true,
+      "evidence_status": "direct_goal_contract",
+      "thresholds": {
+        "position_error_max_m": 0.3,
+        "absolute_yaw_error_max_deg": 15.0,
+        "continuous_dwell_min_sim_s": 3.0,
+        "maximum_truth_source_gap_sim_s": 0.04
+      },
+      "method": "One fixed scale-one prestream SE(3); compare the same IMU reference point; simultaneously satisfy position and yaw on contiguous simulation source time; no interpolation credit for dwell.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-arrival-dwell-calibration-result-20261027-385.md"
+      ]
+    },
+    "raw_vio_absolute_error": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "segments": [
+        "goal_motion",
+        "active_hold",
+        "landing",
+        "full_task"
+      ],
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: N01 absolute error under the same fixed prestream alignment; show each segment and source-gap support; no segment fit.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-vins-maxcnt220-20261028-457.md",
+        "progress/evidence/n10-reference-unification-20261028-438.md"
+      ],
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "provisional_candidate",
+      "diagnostic_reference_thresholds": {
+        "position_p95_max_m": 0.5,
+        "position_sample_max_m": 0.6,
+        "absolute_yaw_p95_max_deg": 15.0,
+        "absolute_yaw_sample_max_deg": 15.0
+      }
+    },
+    "raw_vio_rpe_10s": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "required_comparison_segments": {
+        "goal_motion": "goal_motion_and_arrival_dwell",
+        "active_hold": "requested_active_hold"
+      },
+      "diagnostic_segments": {
+        "landing": "hold_end_to_landed",
+        "full_task": "prestream_to_landed"
+      },
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: N01 relative-pose calculation at exact 10 simulated-second intervals; report candidate, supported, and rejected pair counts. User#500 removes the translation numeric rejection limit; preserve measured translation, supported/rejected pair coverage, and existing rotation comparison.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-vins-maxcnt220-20261028-457.md",
+        "progress/evidence/n10-reference-unification-20261028-438.md"
+      ],
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "user_500_translation_rpe_diagnostic_rotation_limit_retained",
+      "diagnostic_reference_thresholds": {
+        "rotation_p95_max_deg": 0.5
+      }
+    },
+    "raw_vio_velocity_error": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: Raw VINS world-frame velocity versus centered 0.2 simulated-second truth IMU velocity; no extrapolation; never interpret these as commanded-speed caps.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-vins-maxcnt220-20261028-457.md",
+        "progress/evidence/n10-reference-unification-20261028-438.md"
+      ],
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "provisional_candidate",
+      "diagnostic_reference_thresholds": {
+        "goal_motion_p95_max_m_s": 0.05,
+        "goal_motion_sample_max_m_s": 0.1,
+        "active_hold_p95_max_m_s": 0.01,
+        "active_hold_sample_max_m_s": 0.03
+      }
+    },
+    "raw_map_surface_geometry": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: Use one identity-bound snapshot containing the raw occupancy array and separate inflated mask. Compare occupied voxel centers with the injected SDF surface offline, and report support per observed face; unobserved faces remain explicitly unsupported and are not inferred from missing points. Snapshot identity, source-time coverage, array shape/order and hashes are required. Live point queries remain optional diagnostics and are not repeatedly required when the raw/inflated snapshot already provides the relevant map evidence. User#508: surface-center error is diagnostic without a numeric rejection limit; retain finite observed values and identity/source support. Actual body clearance and classification thresholds are unchanged.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-map-cell-attribution-20261028-407.md"
+      ],
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "user_508_surface_geometry_diagnostic_with_required_support",
+      "diagnostic_reference_thresholds": {}
+    },
+    "raw_map_classification": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: Report visible-free, surface, and truth-occluded ROI counts separately. Unknown remains its own class. This is a diagnostic semantic check, not a raw-known-free flight gate.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-map-cell-attribution-20261028-407.md"
+      ],
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "partial_semantic_support",
+      "diagnostic_reference_thresholds": {
+        "truth_occluded_raw_free_count_max": 0
+      }
+    },
+    "map_source_and_update_age": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "native_behavior": {
+        "ego_occupancy_update_timeout_sim_s": 0.4,
+        "source": "current EGO upstream parameter; retain the native behavior and do not duplicate it as a project-local gate"
+      },
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: Keep source, fusion/update, response/receipt stamps separate; report maximum samples and gaps. These offline candidate values do not trigger launch, cancellation, or landing.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-reference-unification-20261028-438.md"
+      ],
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "provisional_offline_observation",
+      "diagnostic_reference_thresholds": {
+        "offline_source_age_sample_max_sim_s": 0.2,
+        "offline_occupancy_update_age_sample_max_sim_s": 0.2
+      }
+    },
+    "ego_tracking_error": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "diagnostic_candidate": {
+        "position_p95_max_m": 0.6,
+        "position_sample_max_m": 1.2
+      },
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: User#520 removes the minimum body-clearance numeric comparison. Keep finite actual body/spline/interval clearance measurements, run/source identities, complete 4ms physics/command pairing and zero prohibited contact. No replacement zero-metre acceptance threshold and no runtime control gate.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-geometry-error-budget-20261027-393.md"
+      ],
+      "clearance_numeric_limit_enabled": false,
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "user_520_clearance_numeric_limit_removed_measurement_and_coverage_retained",
+      "diagnostic_reference_acceptance_thresholds": {
+        "maximum_truth_bracket_gap_sim_s": 0.004,
+        "all_ready_command_samples_paired": true
+      }
+    },
+    "ego_tracking_clearance_budget": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "formula": "minimum_command_body_clearance_any_obstacle_m - position_tracking_error_m",
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: User#520 removes the minimum body-clearance numeric comparison. Keep finite actual body/spline/interval clearance measurements, run/source identities, complete 4ms physics/command pairing and zero prohibited contact. No replacement zero-metre acceptance threshold and no runtime control gate.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-geometry-error-budget-20261027-393.md"
+      ],
+      "clearance_numeric_limit_enabled": false,
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "user_520_clearance_numeric_limit_removed_measurement_and_coverage_retained",
+      "diagnostic_reference_acceptance_thresholds": {
+        "maximum_truth_bracket_gap_sim_s": 0.004,
+        "all_ready_command_samples_paired": true
+      }
+    },
+    "full_body_clearance_and_contact": {
+      "required": true,
+      "evidence_status": "direct_navigation_contract",
+      "thresholds": {
+        "prohibited_contact_count_max": 0
+      },
+      "method": "Recompute genuine sensor contacts against model manifest and phase timeline; require complete same-run contact observation through safe terminal and independently read-back normal landed/disarmed/control-disabled terminal. Full physics-step geometry remains diagnostic, without a numeric clearance limit.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-instantaneous-kinematics-20261028-444.md"
+      ],
+      "clearance_numeric_limit_enabled": false,
+      "assessment_mode": "contact_and_normal_terminal",
+      "diagnostic_reference_thresholds": {
+        "maximum_truth_gap_sim_s": 0.004
+      }
+    },
+    "dynamic_replanning": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "diagnostic_candidate": {
+        "first_replacement_spline_max_delay_sim_s": 1.0
+      },
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: User#520 removes the minimum body-clearance numeric comparison. Keep finite actual body/spline/interval clearance measurements, run/source identities, complete 4ms physics/command pairing and zero prohibited contact. No replacement zero-metre acceptance threshold and no runtime control gate. Replan deadline uses the previously active spline reaching the body collision boundary with zero ADDITIONAL clearance margin; the first new post-observation replacement is selected without a clearance-margin filter. Timing, actual contact and observation/support requirements remain.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-normal-navigation-calibration-20261028-436.md"
+      ],
+      "clearance_numeric_limit_enabled": false,
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "user_520_clearance_numeric_limit_removed_measurement_and_coverage_retained",
+      "diagnostic_reference_acceptance_thresholds": {
+        "prohibited_contact_count_max": 0,
+        "replacement_must_precede_predicted_clearance_boundary": true,
+        "minimum_identity_bound_surface_raw_occupied_count": 1,
+        "minimum_identity_bound_surface_inflated_count": 1
+      }
+    },
+    "fault_exit_to_terminal_px4_state": {
+      "required": false,
+      "evidence_status": "excluded_from_n10_3_by_explicit_user_scope_decision_434",
+      "thresholds": null,
+      "required_terminal_evidence": [
+        "landed",
+        "disarmed",
+        "control_disabled",
+        "zero_control_after_terminal",
+        "no_old_epoch_goal_or_trajectory"
+      ],
+      "fault_classes": [
+        "stereo_camera_stream_loss",
+        "camera_imu_stream_loss",
+        "depth_stream_loss",
+        "vins_restart",
+        "planner_exit",
+        "simulation_clock_rollback"
+      ],
+      "method": "Derive detection and terminal timing from native mechanisms and one current-version calibration per unsupported class; do not substitute a request to stop or a bridge LAND command for independent PX4 state readback.",
+      "scope_note": "Not required for current N10.3 normal-navigation calibration. This exclusion does not qualify fault response or erase failures."
+    },
+    "resource_and_queue_behavior": {
+      "required": false,
+      "evidence_status": "diagnostic_only",
+      "capacity_source": "identity-bound run cgroup counters and same-workspace host capacity observation; freeze both at N10.7",
+      "unknown_queue_capacity_policy": "Report VINS estimator queue capacity as unknown because upstream source is unbounded; do not infer a cap from observed high-water. N16 separately evaluates 600 simulated seconds for sustained growth.",
+      "formal_n16_duration_sim_s": 600,
+      "method": "N13 diagnostic only; neither numeric breaches nor missing diagnostic coverage determine functional PASS/FAIL. Historical measurement method: Bind CPU and memory comparison limits to cgroup quota or host capacity. Require zero cgroup throttling/OOM and complete one-second observation with no gap over two sample periods. Check finite mapping depth against its configured cap; report drops alongside map freshness and realized clearance. For VINS, record current-depth trend and process high-water but keep capacity explicitly unknown. RTF, CPU, memory, PID, and queue values are offline-only; no runtime refusal is added. N16 remains the separate 600 simulated-second duration test. Revision9 uses native pending feature work and source horizons. Raw IMU/feature current counts, slopes and process high-water remain diagnostics. Lag budget0.2s reserves half the native0.4s EGO input timeout; at30Hz stereo/stride2 processing this permits at most2 waiting features behind the current item. Missing native fields are INSUFFICIENT; stale post-consumption IMU or horizon/backlog violations FAIL. Offline only.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-vins-queue-observer-20261028-408.md",
+        "progress/evidence/n11-native-queue-audit-20261029-479.md",
+        "progress/evidence/n11-approved-native-work-20261029-481.json",
+        "progress/evidence/n11-native-work-full-calibration-20261029-482.json"
+      ],
+      "assessment_role": "diagnostic",
+      "prior_evidence_status": "user_approved_native_pending_work_recalibration_481",
+      "diagnostic_reference_thresholds": {
+        "cgroup_cpu_core_equivalent_must_not_exceed_available_capacity": true,
+        "cgroup_memory_peak_must_not_exceed_available_capacity": true,
+        "cgroup_cpu_throttling_usec_delta_max": 0,
+        "cgroup_oom_event_delta_max": 0,
+        "resource_sample_gap_periods_max": 2,
+        "mapping_pending_depth_must_not_exceed_configured_capacity": true,
+        "native_work_lag_budget_s": 0.2,
+        "native_waiting_features_max": 2,
+        "native_feature_source_span_max_s": 0.2,
+        "native_telemetry_source_gap_max_s": 0.2,
+        "native_remaining_imu_must_not_precede_interval": true
+      }
+    },
+    "observer_identity_binding": {
+      "required": true,
+      "evidence_status": "required_capture_integrity_only",
+      "acceptance_thresholds": null,
+      "required_reports": [
+        "debug-truth-evaluation.json",
+        "alignment-observation.json",
+        "planner-observation.json",
+        "bridge-observation.json",
+        "n09-contact-observation.json"
+      ],
+      "optional_reports": [
+        "n10-map-point-queries.json",
+        "n10-resource-observation.json",
+        "n10-live-obstacle-observation.json",
+        "n10-sensor-capture-evaluation.json"
+      ],
+      "method": "Bind core truth, alignment, planner, bridge and contact observations to one run/runtime/goal/epoch/map identity. Resource, legacy injection and raw payload captures are optional diagnostics. Actual map/replan evidence is separately required by the pending N13 scene protocol.",
+      "supporting_evidence": [
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.md",
+        "progress/evidence/n10-normal-navigation-calibration-closeout-20261028-461.json",
+        "progress/evidence/n10-model-kinematics-startup-result-20261028-459.md"
+      ]
+    },
+    "n14_scene_navigation": {
+      "required": true,
+      "evidence_status": "direct_navigation_contract",
+      "method": "Real full entry-to-exit passage, both walls observed before entry, matched goal/epoch commands, core arrival/contact/normal terminal; no minimum clearance numeric gate.",
+      "acceptance_thresholds": null
+    }
+  },
+  "calibration_observation_contract": {
+    "classification": "offline evidence capture contract only",
+    "read_only": true,
+    "may_publish_vehicle_control": false,
+    "must_not_add_runtime_refusal_cancel_pause_or_landing": true,
+    "sensor_streams": {
+      "capture_config": "config/n10_capture.json",
+      "topic_source": "Resolve image0_topic, image1_topic and imu_topic from config/components/localization/vins_sim.json and record the effective launch-resolved names.",
+      "required_streams": [
+        "stereo_left_image",
+        "stereo_right_image",
+        "camera_imu"
+      ],
+      "required_fields": [
+        "source_stamp",
+        "receipt_monotonic_ns",
+        "frame_id",
+        "sequence_if_available"
+      ],
+      "payload_capture": "tools/diagnostics/record_n10_sensor_streams.py writes rosbag2 MCAP with lossless zstd_fast chunk compression and a separate receipt-monotonic JSONL ledger; tools/debug_truth/evaluate_n10_sensor_capture.py matches every decompressed topic/source-stamp/frame key. Recorder errors never block, cancel or land the task; if payload capture is incomplete, retain receipt metadata and classify visual-content diagnosis as INSUFFICIENT.",
+      "coverage": "Record from prestream through verified safe terminal plus the resource observer's 3 s closeout window; record per-stream count, gaps, out-of-order stamps, and recorder coverage.",
+      "required_for_N13_functional_acceptance": false
+    },
+    "debug_truth": {
+      "source": "Gazebo /debug_truth/base_odometry poses plus optional /debug_truth/model_kinematics instantaneous physics ledger; both outside the production control graph.",
+      "target_rate_hz": 250,
+      "world_physics_step_s": 0.004,
+      "required_evidence": [
+        "basic identity-bound actual path and source-time pairing",
+        "complete contact history through safe terminal"
+      ],
+      "coverage_rule": "Report actual sampling coverage; 4 ms and interval bounds are optional diagnostics for N13 functional navigation.",
+      "optional_diagnostics": [
+        "every solver step",
+        "instantaneous endpoint velocity",
+        "component and interval clearance bounds"
+      ]
+    },
+    "map_and_planner": {
+      "snapshot": "Prefer one identity-bound GetOccupancySnapshot response containing raw and inflated arrays plus source/fusion stamps, frame, epoch and map_id.",
+      "point_queries": "Persist each request/response, query type and radius request/echo; raw occupancy and official planning occupancy verdicts retain their own semantics. Do not require separate RPCs to share an identical timestamp.",
+      "replanning": "Record actual multi-obstacle map observation/update and executed replacement trajectory with source times/identities. Legacy injected box/create ACK not required."
+    },
+    "resource_and_queue": {
+      "fields": [
+        "CPU",
+        "RSS",
+        "cgroup memory",
+        "throttling/OOM",
+        "RTF",
+        "configured queue capacities",
+        "exposed pending/high-water/drop counters",
+        "source/receipt/processing gaps"
+      ],
+      "sampling": "Wall-monotonic sample times with paired sim time; use the shared observer and preserve its complete coverage interval.",
+      "missing_data": "INSUFFICIENT; never feed resource or recorder state into takeoff, cancellation, pause or landing control.",
+      "required_for_N13_functional_acceptance": false
+    },
+    "fault_closeout": "For a fault-calibration run, record trigger ACK, last valid trajectory, EGO/navigation/bridge/PX4 state transitions and an independent landed/disarmed/control-disabled/zero-control terminal window. A LAND request or an emergency closeout is not native fault-to-terminal success.",
+    "missing_or_invalid_evidence": "INSUFFICIENT; evidence capture does not alter runtime behavior."
+  },
+  "post_freeze_formal_work": {
+    "n15_fault_tests": "after_n10_freeze; two independent injections per fault class",
+    "n16_continuous_active_load": "after_n10_freeze; formal continuous 600 simulated seconds"
+  },
+  "missing_data_policy": "Missing core contact/path/map/arrival/terminal or identity evidence: INSUFFICIENT; never impute or stitch epochs. Missing diagnostics: disclose diagnostic INSUFFICIENT without failing core. Actual flight failure/contact remains FAIL.",
+  "formal_freeze_requires": "Bind N14 scene/runtime/evaluator and obtain three qualifying independent GUI cold starts plus separate blocked/unknown-target behavior evidence.",
+  "user_scope_decisions": [
+    {
+      "id": "N10-SCOPE-20261028-434",
+      "instruction": "故障之后的校准，直接跳过这一部",
+      "excluded_from_n10_3": [
+        "fault injection calibration",
+        "post-fault calibration and native-terminal qualification"
+      ],
+      "evidence_policy": "Keep existing FAIL/INSUFFICIENT diagnostic records; no retroactive PASS; no N15 credit.",
+      "decision_record": "progress/changes/2026-10-28-434-n10-skip-fault-calibration.md"
+    },
+    {
+      "id": "N11-QUEUE-20261029-481",
+      "instruction": "批准",
+      "proposal": "docs/protocols/n11-queue-review-proposal.json",
+      "scope": "offline queue metric recalibration; old results retained; freeze before new formal flights"
+    },
+    {
+      "id": "N13-POLICY-20261029-520",
+      "instruction": "取消机体最小净空0.1m限制，核对N13额外规则",
+      "removed_numeric_comparisons": [
+        [
+          "ego_tracking_error",
+          "acceptance_thresholds",
+          "minimum_actual_component_clearance_m",
+          0.1
+        ],
+        [
+          "ego_tracking_clearance_budget",
+          "acceptance_thresholds",
+          "minimum_actual_component_clearance_m",
+          0.1
+        ],
+        [
+          "full_body_clearance_and_contact",
+          "thresholds",
+          "minimum_full_body_clearance_m",
+          0.1
+        ],
+        [
+          "dynamic_replanning",
+          "acceptance_thresholds",
+          "minimum_full_body_clearance_m",
+          0.1
+        ],
+        [
+          "dynamic_replanning",
+          "acceptance_thresholds",
+          "minimum_planner_centerline_body_margin_m",
+          0.1
+        ]
+      ],
+      "retain": [
+        "finite clearance observations",
+        "complete/identity-bound interval and contact evidence",
+        "zero prohibited collisions",
+        "all other revision11 criteria"
+      ],
+      "historical_n12_reports_unchanged": true
+    },
+    {
+      "id": "N13-POLICY-20261029-521",
+      "instruction": "按照你说的设置",
+      "supersedes": "#520 evidence-density/independent numeric gates; clearance numeric gate remains removed",
+      "required": [
+        "functional multi-obstacle bypass and executed replan",
+        "arrival",
+        "zero prohibited contact",
+        "normal landed/disarmed/control-disabled terminal",
+        "trustworthy core evidence",
+        "three independent qualifying cold starts"
+      ],
+      "diagnostics": [
+        "independent VIO/map quality and timing budgets",
+        "tracking and dense interval geometry",
+        "resource and queues",
+        "legacy dynamic injected-box geometry"
+      ],
+      "runtime_effect": false
+    }
+  ],
+  "parent_acceptance_config": {
+    "path": "config/acceptance_n13.json",
+    "sha256": "75098a870798cd2292c72fe88e7007f45b06dc9606b91e39a5b99e86964f0183",
+    "revision": 13
+  },
+  "freeze": {
+    "id": "N14-20261029-540",
+    "classification": "normal-flight evidence pipeline released; actual qualification pending"
+  },
+  "user_amendment": {
+    "id": "#521",
+    "basis": "User authorized the preceding recommendation: retain native behavior, functional navigation, arrival/contact/terminal and trustworthy core evidence; independent numeric quality budgets become diagnostic.",
+    "supersedes_policy": "#520 retained in config/history/acceptance_n13_revision12.json",
+    "runtime_parameters_changed": false,
+    "historical_formal_results_changed": false
+  },
+  "normal_navigation_policy": "functional_navigation_v1",
+  "scene_protocol": {
+    "kind": "n14_corridor",
+    "status": "ready",
+    "required_before_formal_evaluation": true,
+    "world_geometry_sha256": "8e63f82c5182784841f2f674639db4061a181262fc20c288498f985ab5e29157",
+    "evaluator_sha256": "f4e2c86aacadee61cc3f8a05b610402a972d439c05f8f0bcec2f13bd4343cdbc",
+    "required_independent_cold_start_passes": 3
+  },
+  "diagnostic_input_reports": [
+    "odometry-evaluation.json",
+    "odometry-errors.csv",
+    "n08-localization-source-timeline.json",
+    "n10-vins-velocity-evaluation.json",
+    "n10-tracking-clearance-relation.json",
+    "n10-tracking-clearance-diagnostic.json",
+    "n10-clearance-evaluation.json",
+    "n10-interval-clearance-bound.json",
+    "debug-truth-kinematics.jsonl",
+    "n10-resource-observation.json",
+    "n10-platform-capacity.json",
+    "n10-sensor-capture-evaluation.json",
+    "n10-live-obstacle-observation.json",
+    "n10-obstacle-replan-timing-analysis.json",
+    "n10-box-map-snapshot-analysis.json",
+    "n10-map-snapshot-pair-analysis.json"
+  ]
+}

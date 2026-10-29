@@ -1,0 +1,55 @@
+{
+  "schema": "n08-launch-profile-guard-refusal/v1",
+  "run_id": "n08-20261025-270-vertical-settle-retry",
+  "outcome": "safe_refusal_before_n08_runner",
+  "epoch": "5670fae0742a49c68762342ebaec1fca",
+  "n05": {
+    "scan_completed_stages": 15,
+    "scan_warning": "localization changed or became invalid during physical scan",
+    "post_release_accepted": true,
+    "mission_current_area_accepted": true,
+    "offline_replay_matches_online": true,
+    "same_epoch_and_map_id": true,
+    "fixture_removed": true,
+    "diagnostic_pass": true
+  },
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00334334000945,
+    "max_optimized_odom_receipt_gap_wall_s": 0.12253951304592192,
+    "optimized_odom_gap_over_guard_count": 0
+  },
+  "profile_gate": {
+    "passed": false,
+    "reason": "invalid_n08_planner_profile",
+    "manifest_planner_config": "config/components/mapping/ego_planner.json",
+    "manifest_max_vel_m_s": 0.5,
+    "manifest_max_acc_m_s2": 0.8,
+    "required_planner_config": "config/components/mapping/n08_low_speed_trial.json",
+    "required_max_velocity_m_s": 0.1,
+    "required_max_acceleration_m_s2": 0.25,
+    "required_profile_sha256": "f8216372bdeda44f02b891381adbdb806c8866f252698dda87c29d14a6e29cce"
+  },
+  "n08_runner_started": false,
+  "vertical_settle_gate_tested": false,
+  "takeoff_or_goal_sent": false,
+  "final_safety_readback": {
+    "bridge_phase": "DISABLED",
+    "bridge_control_enabled": false,
+    "bridge_armed": false,
+    "bridge_landed": true,
+    "px4_arming_state": 1,
+    "px4_landed": true,
+    "project_stop_exit_code": 0,
+    "container_state_after_stop": "exited",
+    "container_exit_code": 0
+  },
+  "evidence_sha256": {
+    "n05-run-summary.json": "38332fb01b8f064438c29ff8516ff96868c8b096ab24670987a5c60b9566ac23",
+    "preflight.json": "f26df380cc865333782ecf1b2173d1dbe5aa93e7bdce270ecfc888d571e99511",
+    "n05-current-area/n05-live-entry-check.json": "fc98487025788cea5aefad8b600fae854d29a1c76e689bd74be12cc5417468d7",
+    "n05-current-area/n05-offline-entry-replay.json": "998d3258326ab5a0cc65a5ef36e5f47c041880787785e22707e62746d2ce9320",
+    "final-safety-readback.json": "ec63f921e2021a736bd433dd1f8cf3281aa982996b5eb47224db760130d19e17",
+    "launch-manifest.json": "a399136f4dc969c1c0c8a5609d405e2aecb63db41077abe3e6893eab01d9bbb2"
+  }
+}

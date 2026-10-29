@@ -1,0 +1,12 @@
+{
+  "qualification": "N10.3 geometry-diagnostic spawn only; single D435i Gazebo/PX4 SITL, not an N11-N16 run.",
+  "spawn_pose_xyzrpy": [
+    -8.0,
+    0.0,
+    0.3,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rationale": "Relative to #342, change only the initial world spawn x from -6.5m to -8.0m. Preserve the same +16.0m EGO goal, 2m horizon, 0.31m/s per-axis diagnostic planner candidate and 0.12m/s runtime vector-speed guard. At -6.5m, the first 2m local target falls near the observed vertical cylinder centered at x=-4m,y=0; moving the start backward makes that initial local target clear while retaining the same 16m relative route, so the EGO planner can approach and replan around the obstacle under the unchanged live map and inflated-occupied collision checks. This is a one-run diagnostic, not a clearance certification."
+}

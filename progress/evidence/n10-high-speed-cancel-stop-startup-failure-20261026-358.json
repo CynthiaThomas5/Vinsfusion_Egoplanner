@@ -1,0 +1,29 @@
+{
+  "schema": "n10-diagnostic-setup-result/v1",
+  "run_id": "n10-20261026-358-high-speed-cancel-stop",
+  "parent_goal": "N10",
+  "subtask": "N10.3",
+  "result": "SETUP_FAILURE_NO_PREFLIGHT",
+  "failure": "ROS Jazzy setup sourced under bash nounset because the driver used set -u; AMENT_TRACE_SETUP_FILES was unset.",
+  "flight_started": false,
+  "action_goal_sent": false,
+  "offboard_enabled": false,
+  "px4_armed": false,
+  "terminal_readback": {
+    "bridge_phase": "DISABLED",
+    "landed": true,
+    "armed": false,
+    "control_enabled": false,
+    "vehicle_remained_disarmed": true,
+    "control_samples_zero": true,
+    "readback_artifact": "artifacts/runs/n10-20261026-358-high-speed-cancel-stop/preflight-failure-independent-readback.json"
+  },
+  "container": {
+    "stopped_with": "bash tools/project.sh stop n10-20261026-358-high-speed-cancel-stop",
+    "state": "exited",
+    "exit_code": 0
+  },
+  "fix": "Remove bash nounset from the ROS environment orchestration driver; retain errexit and pipefail.",
+  "measurement_valid": false,
+  "formal_qualification": false
+}

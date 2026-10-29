@@ -1,0 +1,80 @@
+{
+  "id": 444,
+  "parent": "N10.3",
+  "status": "implementation_and_physics_smoke_passed_flight_evidence_pending",
+  "build_packages": 18,
+  "unit_tests": 582,
+  "ros_integration_checks": 2,
+  "installed_freefall_smoke": {
+    "classification": "standalone real Gazebo physics observer smoke; rotated offset rigid-body freefall, no PX4/flight qualification",
+    "checks": {
+      "server_exit0": true,
+      "received_at_least100_states": true,
+      "every_received_state_consecutive4ms": true,
+      "metadata_declares_exact_world_model_origin": true,
+      "world_frame_freefall_correct": true,
+      "model_origin_not_offset_link_origin": true,
+      "initial_physics_step_offset_bounded": true,
+      "pose_velocity_consistent_with_solver_step": true
+    },
+    "measurements": {
+      "samples": 500,
+      "first_last_source_ns": [
+        4000000,
+        2000000000
+      ],
+      "max_velocity_z_plus_g_t_m_s": 1.7053025658242404e-13,
+      "max_freefall_acceleration_error_m_s2": 1.5241141682054149e-12,
+      "max_model_origin_xy_m": 2.2343238370581275e-14,
+      "max_world_horizontal_velocity_m_s": 4.907185768843192e-14,
+      "max_angular_velocity_rad_s": 0.0,
+      "max_pose_chord_vs_right_endpoint_velocity_m_s": 5.719869022868806e-13
+    },
+    "passed": true
+  },
+  "actual_wrapper_reference_smoke": {
+    "classification": "actual x500 wrapper unpowered Gazebo reference test; no PX4 or flight",
+    "checks": {
+      "server_exit0": true,
+      "enough_matching_physics_states": true,
+      "metadata_valid": true,
+      "same_model_origin_position": true,
+      "same_model_orientation": true
+    },
+    "raw_samples": 249,
+    "exact_samples": 250,
+    "matched": 249,
+    "max_position_difference_m": 0.0,
+    "max_quaternion_difference": 0.0,
+    "errors": [],
+    "passed": true
+  },
+  "new_navigation_flight": false,
+  "live_vins_parameters_changed": false,
+  "fault_calibration": false,
+  "parent_passed": false,
+  "remaining": "normal-flight instantaneous ledger and positive model-bound evidence; VIO motion RPE, acceptance calibration, clean build/regression/freeze",
+  "offline_acceptance_revision": 5,
+  "final_test_log": "artifacts/n10-prepared/n10-20261028-444-installed-observer-smoke/project-tests-final-r02.log",
+  "rotating_offset_rigid_body_smoke": {
+    "classification": "standalone real Gazebo rotating offset rigid-body test, test SDF wrench only; no UAV/PX4/flight",
+    "checks": {
+      "server_exit0": true,
+      "all500_consecutive4ms_states": true,
+      "metadata_valid": true,
+      "model_origin_world_velocity_correct_under_rotation": true,
+      "actual_world_rotation_matches_isotropic_inertia_torque": true,
+      "COM_translation_correct": true,
+      "rotation_excitation_significant": true
+    },
+    "metrics": {
+      "samples": 500,
+      "max_model_origin_velocity_vs_world_COM_cross_product_error_m_s": 1.1367989882771212e-13,
+      "max_world_angular_velocity_vs_torque_inertia_error_rad_s": 1.0269562977782698e-15,
+      "max_COM_horizontal_drift_m": 4.1772141301521515e-14,
+      "max_nonzero_origin_to_COM_velocity_difference_m_s": 0.04914341896786795
+    },
+    "errors": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "schema": "n06-observation-scan-reacquisition/v1",
+  "report_id": "2026-10-23-097",
+  "goal": "N06 full-curve, replanning, stop and hold integration",
+  "execution_mode": "Goal completion mode",
+  "user_scope": "N06 only; no PX4, bridge, controller, setpoint, real flight or flight task",
+  "parent_status": "in_progress",
+  "run_id": "n06-20261023-wall-r22",
+  "profile": {
+    "path": "config/components/simulation/n06_yaw_360_segmented_15deg.json",
+    "sha256": "26bf9e01cd1a58ea1dec651744d19293570adfec08a1c6bf10ca76e0a33f550c"
+  },
+  "profile_actual_peak_rate_rad_s": 0.0523598776,
+  "profile_commands_360_deg_over_24_rest_to_rest_15deg_steps": true,
+  "hypothesis_result": {
+    "first_zero_feature_count": {
+      "sim_time_s": 11.914,
+      "estimated_yaw_deg": 0.924191419149044,
+      "feature_counts": [
+        0,
+        1
+      ],
+      "logger_wall_time_s": 1792733037.3729532
+    },
+    "first_normalized_cost_mapping_gate_closure": {
+      "logger_wall_time_s": 1792733038.4903295,
+      "pose": {
+        "sim_time_s": 12.97,
+        "estimated_yaw_deg": 2.4140500560762423,
+        "feature_counts": [
+          1,
+          3
+        ],
+        "logger_wall_time_s": 1792733038.4499452
+      }
+    },
+    "first_invalid_localization_status": {
+      "stamp_ns": 13056000000,
+      "epoch": "90b71e2392d74d2f90c2b3f87de71a54",
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "frame_id": "odom_90b71e2392d74d2f90c2b3f87de71a54",
+      "wall_elapsed_s": 8.943132
+    },
+    "truth_yaw_at_first_invalid_deg": 2.627592596202684,
+    "first_stationary_15deg_hold": {
+      "start_sim_s": 20.117,
+      "truth_yaw_deg": 15.059997599446776,
+      "hold_s": 5.0
+    },
+    "health_failed_before_first_hold": true,
+    "elapsed_from_health_gate_to_first_hold_s": 7.147,
+    "feature_counts_at_representative_holds": [
+      {
+        "hold_index": 1,
+        "sim_interval_s": [
+          20.117,
+          25.101
+        ],
+        "min": 0,
+        "max": 2,
+        "zero_count_samples": 149
+      },
+      {
+        "hold_index": 2,
+        "sim_interval_s": [
+          35.107,
+          40.133
+        ],
+        "min": 0,
+        "max": 16,
+        "zero_count_samples": 30
+      },
+      {
+        "hold_index": 6,
+        "sim_interval_s": [
+          95.14,
+          100.09
+        ],
+        "min": 5,
+        "max": 43,
+        "zero_count_samples": 0
+      },
+      {
+        "hold_index": 24,
+        "sim_interval_s": [
+          365.09,
+          370.09
+        ],
+        "min": 0,
+        "max": 85,
+        "zero_count_samples": 57
+      }
+    ],
+    "localization_status_valid_samples": 177,
+    "localization_status_invalid_samples": 8382,
+    "last_localization_status": {
+      "stamp_ns": 410000000000,
+      "epoch": "90b71e2392d74d2f90c2b3f87de71a54",
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "frame_id": "odom_90b71e2392d74d2f90c2b3f87de71a54",
+      "wall_elapsed_s": 427.993174
+    },
+    "last_map_status": {
+      "header_stamp_ns": 409927000000,
+      "input_ready": false,
+      "reason": "map_reset_acknowledged",
+      "last_depth_source_stamp_ns": 0,
+      "forwarded_depth_count": 350,
+      "dropped_depth_count": 12067
+    },
+    "interpretation": "The 15-degree stop was too coarse: health closed at about 2.6 degrees before the first hold. Features were intermittently visible again during some later stationary holds, but the latched localization health stayed invalid and map input_ready stayed false. This run therefore did not test whether a pause before the 2.6-degree failure threshold can preserve health."
+  },
+  "motion_truth": {
+    "truth_samples": 36501,
+    "imu_samples": 91252,
+    "command_count": 72,
+    "motion_clock": [
+      5.089,
+      370.096
+    ],
+    "motion_wall_seconds": 380.0237128119916,
+    "position_first_last_m": [
+      [
+        0.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "commanded_total_yaw_deg": 360.0,
+    "achieved_unwrapped_yaw_delta_deg": 337.75389787167586,
+    "max_unwrapped_yaw_deg": 338.17042447167336,
+    "actual_per_step_delta_deg": {
+      "min": 13.419905402975246,
+      "median": 13.921380003153175,
+      "max": 15.222074403470081
+    },
+    "qualification": "debug-only sensor_fixture truth, not used by mapping; profile scheduled 360 degrees but the physical rig completed about 337.75 degrees."
+  },
+  "input_capture": {
+    "requested_wall_seconds": 428.0,
+    "actual_wall_seconds": 428.319,
+    "depth_frames": 263,
+    "camera_poses": 263,
+    "optimized_odometry": 132,
+    "last_forwarded_depth_stamp_ns": 12871000000,
+    "first_invalid_localization_stamp_ns": 13056000000,
+    "interpretation": "Recorder completed its wall-time window, but the mapping/EGO-forwarded depth and camera-pose streams stopped around the localization health lock; the capture is not a full raw sensor image recording."
+  },
+  "snapshots": {
+    "captured": 0,
+    "failure": "snapshot-01 MapStatus did not become ready within 120 seconds: map_reset_acknowledged"
+  },
+  "live_ego_probe": {
+    "attempted": false,
+    "goal_sent": false
+  },
+  "source_hashes": {
+    "motion.json": "5f536d33e3d40c2d0cb786615396fe515a8e5d75b3c02ceb5d1a1d7bd523295f",
+    "mapping-stack.log": "c216dccd361137c0e95ecaa5dc3ef047f9c5408ae296c256f3bb104273d84c1b",
+    "inputs/mapping-inputs.json": "5b0ab398d7da38ca2e3cd661e49dd95195e8fd806c37ac8fea93cc323e236c69",
+    "inputs/mapping-depth-pixels.npz": "a05f4bde4b10d7961dd18ff2b34d8c494db95e0cdef740005ae192fac03ffc4e",
+    "run-inputs.json": "aeb8d4d2ef19aaa92c3a49fac4a15686fb55ac417b4a9e85075bacea6a3199f5",
+    "snapshot-01-capture.log": "492bc4ffee512d280b6d5e8c7c4077fbc8320b823aa0290890a077b4e59f712c",
+    "input-recorder.log": "30e7edc0946710cfc8a9ba5f2f9c3213c50d161ac8830e5bd4b40d3dd22f2834"
+  },
+  "cleanup": {
+    "runner_exit_code": 1,
+    "processes_remaining": false,
+    "container_remaining": false,
+    "normal_runner_cleanup_completed": true
+  },
+  "code_changes": [
+    "Added explicit SIGINT/SIGTERM handlers to run_sensor_motion.py so a background sensor-motion process can clear its persistent wrench and save partial truth on cooperative stop.",
+    "Added explicit stop handlers to record_n04_mapping_inputs.py so recorder input can be saved on cooperative stop.",
+    "Extended run_n04_map_layout.sh docker stop grace from 15 to 90 seconds.",
+    "Added an eight-step 1-degree pilot profile that stops at each increment and holds the view for 5.16 seconds while retaining the r22 angular acceleration."
+  ],
+  "next_experiment": {
+    "run_id": "n06-20261023-wall-r23",
+    "profile_path": "config/components/simulation/n06_yaw_microstep_1deg_pilot.json",
+    "profile_sha256": "06e4557397b842c156fee2977b7b2b5b5e04cdcd83a6c28f0b16d86e28a9a9b9",
+    "primary_variable": "maximum uninterrupted yaw increment, reduced from 15 degrees to 1 degree; angular acceleration, stationary location and textured surround stay fixed, with fixed-view holds after each microstep.",
+    "hypothesis": "If feature/health loss depends on uninterrupted viewpoint change, a pause before 2.6 degrees will keep localization valid through the first 8 degrees and allow a fresh map to continue receiving data.",
+    "pilot": {
+      "steps": 8,
+      "step_degrees": 1,
+      "phase_seconds": 1.2909944487358056,
+      "hold_seconds_per_step": 5.163977794943222,
+      "commanded_total_yaw_deg": 8,
+      "peak_rate_rad_s": 0.013519262253245371,
+      "stop_seconds": 66.96773353931867,
+      "record_wall_seconds": 105
+    },
+    "health_lock_stop": "Because run_sensor_motion.py and record_n04_mapping_inputs.py now install SIGINT handlers, signal the motion process group in-container; the runner can then stop recorders and mapping in order and persist partial files.",
+    "command": "bash tools/run_n04_map_layout.sh n06-20261023-wall-r23 wall_box_column 86 motion_n06 config/components/simulation/n06_yaw_microstep_1deg_pilot.json",
+    "success_criterion": "Localization health remains valid through all eight microstep holds, map identity/freshness stays current, and the recorder contains forwarded depth and camera poses after the first 2.6-degree boundary. A pilot success is not a full-turn coverage or N06 pass."
+  },
+  "verification": {
+    "project_tests": "bash tools/project.sh test: PASS; 243 tests plus navigation adapter integration passed.",
+    "runner_syntax": "bash -n tools/run_n04_map_layout.sh tools/run_n04_map_layout_container.sh: PASS.",
+    "python_syntax": "PYTHONPYCACHEPREFIX=/tmp/n06-python-cache python3 -m py_compile tools/run_sensor_motion.py tools/record_n04_mapping_inputs.py tools/analyze_n06_observation_coverage.py: PASS.",
+    "project_status": "python3 tools/project_status.py: Structure/design check PASS; not ROS build or SITL.",
+    "diff_check": "git diff --check: PASS.",
+    "pilot_profile": "PASS: eight 1-degree steps, four zero-acceleration phases after each, nominal 8-degree total; per-step 5.164 seconds hold; record horizon 105s."
+  },
+  "status": "N06 and S4 remain in_progress; next_goal remains N06. N06.4 continues; N06.2 not passed.",
+  "stop_reason": "The 15-degree hold was too late to prevent health lock. Continuing Goal mode with a bounded 1-degree reacquisition pilot; N06 incomplete."
+}

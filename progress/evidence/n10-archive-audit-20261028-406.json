@@ -1,0 +1,104 @@
+{
+  "schema": "n10-archive-audit/v1",
+  "subtask": "N10.3/#406",
+  "status": "complete_with_open_findings",
+  "classification": "offline archive reuse; no flight or runtime control effect",
+  "run_id_reviewed": "n10-20261028-404-speed040-integrated-calibration",
+  "overall_n10_status": "in_progress",
+  "replays": {
+    "occupancy_snapshot": {
+      "status": "reproduced",
+      "identity_match": true,
+      "source_coverage": "covered",
+      "watermark_source_ns": 83028000000,
+      "snapshot_source_ns": 83988000000,
+      "source_after_watermark_s": 0.96,
+      "raw_class_center_inside_box": {
+        "unknown": 1731,
+        "known_free": 54,
+        "raw_occupied": 7
+      },
+      "all_voxel_corners_inside_box": {
+        "unknown": 1305,
+        "known_free": 18,
+        "raw_occupied": 0
+      },
+      "semantic_metric_status": "FAIL",
+      "face_support": {
+        "x_negative": 20,
+        "y_negative": 20,
+        "x_positive": 0,
+        "y_positive": 0,
+        "z_negative": 0,
+        "z_positive": 0
+      },
+      "unavailable_optional_queries": 26,
+      "exact_per_voxel_source_attribution": false,
+      "root_cause": "unresolved; stale pre-insertion free votes are plausible but not proven"
+    },
+    "tracking_clearance": {
+      "status": "reproduced_diagnostic_only",
+      "matched_samples": 9381,
+      "maximum_truth_bracket_gap_sim_s": 0.004,
+      "tracking_error_p95_m": 0.333775705213321,
+      "tracking_error_max_m": 0.34220809659717566,
+      "actual_full_body_clearance_min_m": 0.17424597762363225,
+      "model_bounded_airborne_interval_clearance_min_m": 0.162761,
+      "negative_translation_only_bound_count": 434,
+      "negative_translation_only_bound_fraction": 0.04626372454962158,
+      "worst_translation_only_bound_m": -0.1589924511222644,
+      "minimum_clearance_sample_consumed_margin_m": 0.017968484929094863,
+      "global_tracking_acceptance_threshold": null,
+      "status_reason": "actual route clearance is positive; scalar tracking threshold has no scenario-wide geometric justification"
+    },
+    "resource_and_queue": {
+      "status": "INSUFFICIENT",
+      "run_sample_count": 188,
+      "run_wall_duration_s": 189.0280742519535,
+      "rtf_sim_over_wall_p50": 0.8936809231051797,
+      "rtf_sim_over_wall_p95": 0.9159101281666979,
+      "cgroup_cpu_max": "max 100000",
+      "cgroup_memory_max": "max",
+      "cgroup_memory_current_max_bytes": 3058794496,
+      "cgroup_memory_peak_max_bytes": 3381465088,
+      "oom_events": 0,
+      "oom_kill_events": 0,
+      "cpu_throttled_periods": 0,
+      "mapping_pending_depth_limit": 8,
+      "mapping_pending_depth_high_water": 8,
+      "mapping_depth_drops": 21,
+      "mapping_keyframe_drops": 21,
+      "vins_estimator_queue_capacity": "unbounded_by-source; runtime high-water not instrumented"
+    }
+  },
+  "host_inventory": {
+    "cpu_model": "AMD Ryzen Threadripper 7970X 32-Cores",
+    "physical_cores": 32,
+    "logical_cpus": 64,
+    "ram_total_bytes": 66882437120,
+    "gpu_uuids_match_run_404": true,
+    "inventory_artifact": "artifacts/runs/n10-20261028-406-offline-archive-audit/platform-inventory.json",
+    "qualification": "host capacity observed after run; exact GPU UUID match binds the platform, while the inventory is not a direct run-time sample"
+  },
+  "next_subtask": "N10.3/#407: offline cell-level attribution of the 18 #404 raw-free voxels; then prepare read-only VINS estimator queue high-water capture as #408.",
+  "input_sha256": {
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/n10-acceptance-evaluation.json": "13fdd5ba9bcaee21d6d571571048e72796ddb30d204c9858cd976ddb9c3bcbcf",
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/n10-box-map-snapshot-analysis.json": "fe1cf85d1e21ab6a5877c86b6ff00524392c13138d5bdf3c7ade13b2973e5970",
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/n10-map-snapshot/metadata.json": "055a50218c92386bf7a06276512b57de5f01afec88cc3d13e1949c9d8767d3d4",
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/n10-map-snapshot/occupancy_snapshot.npz": "0cd952b0535eed48117d5ab8742a5ee2c8c29d7126398d9b70e3e63b04e8dd81",
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/n10-tracking-clearance-relation.json": "7186e85455332ee225c40b2faa081752c406f59d9a493452132c3db7da18062e",
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/n10-interval-clearance-bound.json": "9932c634584c8ae0a00abe0e5dc06791d7a0ce0b38111070d2ceff0190f76597",
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/n10-resource-observation.json": "4739454ec24bb5ede9e66555a493afccfb47275bfeb5bf7bfda0e7f12a134152",
+    "artifacts/runs/n10-20261028-404-speed040-integrated-calibration/gpu.txt": "d47d1a7d5060266ea424b2356ec5055875f2cff45a7882ead8e381345055a86c",
+    "artifacts/runs/n10-20261028-406-offline-archive-audit/occupancy-snapshot-replay.json": "59ce35e817e37988a48f0a4204dc9bf95f562d1a0e6e678e577157f7def687f2",
+    "artifacts/runs/n10-20261028-406-offline-archive-audit/tracking-clearance-replay.json": "e04aa52cd7c6246e4a6c007c94ef15a45f569be02a5dcdfc0934f4c9d0e648e9",
+    "artifacts/runs/n10-20261028-406-offline-archive-audit/acceptance-replay.json": "accd52d84327d6ee797ca4fab669b1622f7d4b159f42168ddf699fadc412a90b",
+    "tools/debug_truth/evaluate_n10_occupancy_snapshot.py": "eb39d271a5140c6a92ac58fd4727a6c9358f52f371b23609cfe17cf8b88b8cc1",
+    "tools/debug_truth/evaluate_n10_tracking_clearance.py": "cfdc3b5477ffd965ead2a2a66190660373e1f9c370a379f1809d4221e54e3ddf",
+    "tools/debug_truth/evaluate_n10_acceptance.py": "a4c1a1c591300a81dd9ee481ebedd18d038e4e95dbbf85bee2a4f1b00de7e3f8",
+    "artifacts/runs/n10-20261028-406-offline-archive-audit/platform-inventory.json": "23f1410d5acbfacec99809f148855996fd7d040b450f7563538766225452dbce"
+  },
+  "no_emergency_disarm": true,
+  "no_runtime_threshold_changed": true,
+  "no_flight": true
+}

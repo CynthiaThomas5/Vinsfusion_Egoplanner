@@ -1,0 +1,242 @@
+{
+  "goal": "N07 EKF2 EV fusion and no-goal hover",
+  "run_id": "n07-20261024-186-01",
+  "result": "FAIL_NO_FLIGHT",
+  "consecutive_passes_after_reset": "0/3",
+  "fixed_runtime": {
+    "container_image": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout_id": "wall_box_column",
+    "runtime_contract_file_sha256": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "runtime_contract_embedded_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_scan_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "identity": {
+    "epoch": "3d56eed32e9e4f76896ff6a6789061a0",
+    "initial_map_id": "3d56eed32e9e4f76896ff6a6789061a0-4fedace1fc294a9785f73dbfaa5afe60"
+  },
+  "preflight": {
+    "initial_n05_accepted": false,
+    "initial_n05_reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "initial_online_offline_identical": true,
+    "ready_marker_created": false,
+    "attached_gate_run": false,
+    "completed_stages": 6,
+    "total_stages": 12,
+    "helper_error": "localization changed or became invalid during physical scan",
+    "last_localization": {
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "normalized_cost": 1.082783341561447
+    }
+  },
+  "diagnostic_probe": {
+    "tool": "tools/probe_vio_stream_freshness.py",
+    "tool_sha256": "8c0917eea805567ad7978860a84df6e2cc644813c75da6e3905905dd9c3c78ef",
+    "scope": "read-only; started at return leg 6; no control/truth publishing",
+    "stop_reason": "end_marker_tail_complete",
+    "end_marker_seen": true,
+    "event_count": 2225,
+    "localization_transitions": [
+      {
+        "good_pairs": 3440,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 235448000000,
+        "state": 1,
+        "valid": true,
+        "wall_elapsed_s": 0.42321529518812895
+      },
+      {
+        "good_pairs": 3838,
+        "reason": "normalized_cost_exceeded",
+        "source_stamp_ns": 261796000000,
+        "state": 4,
+        "valid": false,
+        "wall_elapsed_s": 29.540299211163074
+      }
+    ],
+    "failed_status_event": {
+      "source_stamp_ns": 261796000000,
+      "normalized_cost": 1.082783341561447,
+      "state": 4,
+      "valid": false,
+      "reason": "normalized_cost_exceeded",
+      "good_pairs": 3838,
+      "accepted_optimized": 3829,
+      "accepted_propagated": 63179,
+      "clock_stamp_ns_at_receipt": 261800000000,
+      "clock_age_s_at_receipt": 0.004
+    },
+    "preceding_telemetry": {
+      "source_stamp_ns": 261692000000,
+      "normalized_cost": 1.082783341561447,
+      "final_cost": 2558.806136595189,
+      "residual_components": 4365,
+      "visual_observations": 1122,
+      "stereo_features": 155,
+      "continued_tracks": 174,
+      "long_tracks": 121,
+      "state_finite": true,
+      "solve_current": true,
+      "solver_usable": true,
+      "termination_type": 1
+    },
+    "post_spike_telemetry_at_261760_s": {
+      "normalized_cost": 0.5090293753461379,
+      "health_recovered_before_end_marker": false
+    },
+    "topic_timing": {
+      "/clock": {
+        "count": 8650,
+        "max_source_gap_s": 0.14800000000000002,
+        "max_receipt_gap_s": 0.1030759010463953,
+        "max_clock_age_s": 0.0,
+        "last_receipt_age_s": 0.004065515007823706
+      },
+      "/localization/imu_odom": {
+        "count": 6540,
+        "max_source_gap_s": 0.132,
+        "max_receipt_gap_s": 0.019972395850345492,
+        "max_clock_age_s": 0.008000001,
+        "last_receipt_age_s": 9.443964877864346
+      },
+      "/localization/optimized_imu_odom": {
+        "count": 399,
+        "max_source_gap_s": 0.068000001,
+        "max_receipt_gap_s": 0.08555786195211112,
+        "max_clock_age_s": 0.14800000100000002,
+        "last_receipt_age_s": 9.519058015896007
+      },
+      "/localization/status": {
+        "count": 775,
+        "max_source_gap_s": 0.056,
+        "max_receipt_gap_s": 0.05123264715075493,
+        "max_clock_age_s": 0.14800000000000002,
+        "last_receipt_age_s": 0.04624672303907573
+      },
+      "/sensors/d435i/imu": {
+        "count": 8618,
+        "max_source_gap_s": 0.004,
+        "max_receipt_gap_s": 0.10415934701450169,
+        "max_clock_age_s": 0.004,
+        "last_receipt_age_s": 0.0037430748343467712
+      },
+      "/sensors/d435i/infra1/image_rect": {
+        "count": 1044,
+        "max_source_gap_s": 0.036000000000000004,
+        "max_receipt_gap_s": 0.12852659705094993,
+        "max_clock_age_s": 0.024,
+        "last_receipt_age_s": 0.03557900991290808
+      },
+      "/sensors/d435i/infra2/image_rect": {
+        "count": 1045,
+        "max_source_gap_s": 0.036000000000000004,
+        "max_receipt_gap_s": 0.12861600401811302,
+        "max_clock_age_s": 0.036000000000000004,
+        "last_receipt_age_s": 0.02198104583658278
+      },
+      "/vins_raw/s_3d56eed32e9e4f76896ff6a6789061a0/estimator_telemetry": {
+        "count": 523,
+        "max_source_gap_s": 0.068000001,
+        "max_receipt_gap_s": 0.16759251500479877,
+        "max_clock_age_s": 0.068000001,
+        "last_receipt_age_s": 0.03452303586527705
+      },
+      "/vins_raw/s_3d56eed32e9e4f76896ff6a6789061a0/imu_propagate": {
+        "count": 8652,
+        "max_source_gap_s": 0.10799999900000001,
+        "max_receipt_gap_s": 0.10422892193309963,
+        "max_clock_age_s": 0.004000001,
+        "last_receipt_age_s": 0.003554327879101038
+      },
+      "/vins_raw/s_3d56eed32e9e4f76896ff6a6789061a0/odometry": {
+        "count": 528,
+        "max_source_gap_s": 0.068000001,
+        "max_receipt_gap_s": 0.1676798569969833,
+        "max_clock_age_s": 0.14800000100000002,
+        "last_receipt_age_s": 0.03433731384575367
+      }
+    },
+    "health_policy_sha256": "c6d5603dd4bbe3f1a04aff9b5101302a0ef72ee862526babb8d7607c7668fe4a",
+    "configured_max_normalized_cost": 1.0
+  },
+  "flight": {
+    "started": false,
+    "flight_json_created": false,
+    "arm_or_goal_command_sent": false
+  },
+  "cleanup": {
+    "attachment_states": [
+      "attached",
+      "detached"
+    ],
+    "helper_cleanup_attempted": true,
+    "verified_detached": true,
+    "fixture_removed": true,
+    "fixture_may_remain_attached": false,
+    "remove_service_acknowledged": true,
+    "scene_model_absent": true,
+    "PX4_all_recorded_states_disarmed": true,
+    "PX4_status_samples": 484,
+    "LandDetected_all_landed": true,
+    "LandDetected_samples": 263,
+    "independent_bridge_phase": "DISABLED",
+    "independent_bridge_reason": "localization_not_tracking",
+    "independent_bridge_armed": false,
+    "independent_bridge_landed": true,
+    "independent_px4_arming_state": 1,
+    "independent_land_detected_landed": true
+  },
+  "container": {
+    "stop_command": "bash tools/project.sh stop n07-20261024-186-01",
+    "final_status": "exited",
+    "exit_code": 0,
+    "active_project_containers": 0
+  },
+  "interpretation": {
+    "health_gate_cause": "A single raw VINS telemetry sample computed normalized_cost 1.082783 at 261.692s; LocalizationStatus changed to state 4 invalid at 261.796s and remained invalid through the end-marker tail. The following raw telemetry returned below 1.0, but health did not recover during the probe.",
+    "stream_timing": "No source or receipt gap above 0.25s was observed for clock, telemetry, localization status, or adapted odometry in this probe; this does not establish the physical cause of the residual outlier.",
+    "root_cause": "The one-frame residual outlier trigger is localized; why it occurred at that support pose remains unknown."
+  },
+  "limitations": [
+    "No ready marker, attached N05 gate, post-release/current-area gate, N05 summary, hover, ULog, or airborne graph evidence.",
+    "N07 consecutive qualification remains 0/3; thresholds unchanged."
+  ],
+  "artifact_sha256": {
+    "gpu-request.json": "408545c45700f62fbe5065ab06e1e2a072d07d4cff8b3226ab9b269ccb7d6743",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb",
+    "n05-run-inputs.json": "50ca6588445310a045745df3a3a0735ccfa5e57e9d5401a4a55d4329a0ce6b95",
+    "px4-boot-parameters.json": "9c958eb53e885196d82985bf7e761b24a3f5f166fcc0a07ed6e58e51e713ed40",
+    "n05-before-check.log": "f99e74b20dd241baf3545b6eadd29fd2ec9068f356ad1bb1ba7d01cb1bd137da",
+    "n05-before-check.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n05-before-replay.log": "6d4e2610bdca391326a9c952f1d7ae793147012edd1184cd4b882b230ff86f52",
+    "n05-before/n05-live-entry-check.json": "c2be1640503d447b4eb1ec93d7e1069f806292816b4b9631e7512d2db42b2f46",
+    "n05-before/n05-offline-entry-replay.json": "9185f890b8c7d71f35b47b81e07a9a6afb9ed934b211276cf0197394f72d4006",
+    "fixture-result.json": "d5b049e92b0d9d5f084e551fc5c88ab0ccad2e2ce9b50099acc9c730b329481b",
+    "fixture-stages.json": "b6cd82e2cf567fa2e757ba83eb4bd4eeae129081c8e7d8f6c375f134fcfea2c5",
+    "fixture-trace.jsonl": "54ae8d5bc8ca614bca142d509ae762e741081ac53132c8ef367e276991a8cce5",
+    "fixture-vins.jsonl": "2b2bb99cb8dbda873b3254fead7beb2745d3f10e9e7768525b98eb78de4ab881",
+    "fixture-odometry.jsonl": "eb32a6da068ff565f75a9400e6b7f4c90f8e78db8379dc334d3c65b9f520e30e",
+    "n05-fixture.log": "02a1a5bb3ed17b623653222214b14379d2b2f69536232391fc580a9d48e335e5",
+    "n05-fixture.exitcode": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "postscan-safety-readback.log": "29fa5990fdfa88048e9824f8d4b7571491a5f9534e7ef1ac0421ac477bdfc72d",
+    "n07-vio-stream-diagnostic.json": "e25db9d69baf555df3faa3af008274fd4c4fcca229a4a2590fe96468adb4e7fb",
+    "n07-vio-stream-events.jsonl": "e7354488c97904d5558c0d721470dac1f931eeaf9c63ead93d7ca9269dd9fd03",
+    "n07-vio-stream-probe.log": "a4a40a52ce7249537018d9f0a482ca901b521c3354fe818a43d1f103715fe0f0",
+    "n07-vio-stream-probe.exitcode": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "n07-20261024-186-01-stack/session/session.json": "3f5203801a01514b98e74785933ef4bd8b9c3bf11d37b626ad4a5490e3b31c14",
+    "n07-20261024-186-01-stack/launch-manifest.json": "7bef3be59661e82d61d65a840828a9bdbf4a1f02094585b7acca59dc85e21b51"
+  },
+  "missing_expected_artifacts": [
+    "n05-prescan-ready.json",
+    "n05-after/n05-live-entry-check.json",
+    "n05-post-release/n05-live-entry-check.json",
+    "n05-current-area/n05-live-entry-check.json",
+    "n05-run-summary.json",
+    "flight.json",
+    "n07-hover-evaluation.json",
+    "px4-ulog-analysis.json",
+    "ros-graph-audit.json"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "n10-sensor-capture-smoke-evidence/v1",
+  "run_id": "n10-20261027-395-capture-smoke-final",
+  "classification": "zero-flight sensor transport smoke only; not a task, calibration, or acceptance result",
+  "status": "PASS",
+  "runtime_control_effect": false,
+  "run_identity": {
+    "runtime_contract_sha256": "c504bc2454e014074deb5baf5d4e547e25cb43d9614f75478a022ef2aeb1fc86",
+    "epoch": "b07389df1c074bc4806882f38847b969",
+    "map_id": "b07389df1c074bc4806882f38847b969-6544f76ba4dc42c5b67b973821a61fd1",
+    "frame_id": "odom_b07389df1c074bc4806882f38847b969",
+    "goal_id": "",
+    "complete": false,
+    "reason_incomplete": "zero-flight smoke has no NavigationCommand/goal"
+  },
+  "topics": {
+    "stereo_left_image": "/sensors/d435i/infra1/image_rect",
+    "stereo_right_image": "/sensors/d435i/infra2/image_rect",
+    "camera_imu": "/sensors/d435i/imu"
+  },
+  "payload": {
+    "format": "rosbag2 MCAP, lossless zstd_fast",
+    "bag_message_count": 9995,
+    "receipt_count": 10034,
+    "streams": {
+      "/sensors/d435i/infra1/image_rect": {
+        "receipts": 979,
+        "payloads": 975,
+        "payload_without_receipt": 0,
+        "receipt_only_boundary": 4,
+        "receipt_only_interior": 0
+      },
+      "/sensors/d435i/infra2/image_rect": {
+        "receipts": 979,
+        "payloads": 975,
+        "payload_without_receipt": 0,
+        "receipt_only_boundary": 4,
+        "receipt_only_interior": 0
+      },
+      "/sensors/d435i/imu": {
+        "receipts": 8076,
+        "payloads": 8045,
+        "payload_without_receipt": 0,
+        "receipt_only_boundary": 31,
+        "receipt_only_interior": 0
+      }
+    },
+    "metadata_write_ok": true,
+    "capture_errors": [],
+    "bag_close_signal": "SIGTERM",
+    "bag_exit_code": 0,
+    "receipt_observer_qos": "best_effort, volatile, keep_last depth 100"
+  },
+  "safe_stop": {
+    "flight_started": false,
+    "preflight_reason": "px4_preflight_failed",
+    "independent_readback_wall_s": 6.0,
+    "bridge_phase": "DISABLED",
+    "armed": false,
+    "landed": true,
+    "control_enabled": false,
+    "control_samples_zero": true,
+    "vehicle_remained_disarmed": true,
+    "project_container": "exited normally"
+  },
+  "artifacts": {
+    "run_directory": "artifacts/runs/n10-20261027-395-capture-smoke-final/",
+    "capture_report_sha256": "3594243505a5379c3ce3669e63aff346e8679a15d165b0b8b3d6bda718ddcdd4",
+    "evaluation_report_sha256": "89d1e525505ee87bb70d1ed975b55fbfd5af4e14932e661988394e9a13fa6c87",
+    "launch_manifest_sha256": "060988d8581370ba00d392646bff3dd60138e4501419205b0deae1d9d9c160ff",
+    "resource_report_sha256": "52ac00845bc7cbd0d59f7034eaca4177167b9addf5a7df947c196b12daa14f79",
+    "pre_stop_readback_sha256": "5c7a10e5ac41e6930ecd7af4333bfabece4296c653728b4c67d0618482a5ba40",
+    "receipts_sha256": "ff0557776f97cb2daa74a040839f135af36f3ceae1af6e7452bf7316229f0455",
+    "bag_metadata_sha256": "4a9abe54b18c3b30b9afcee1327903ce65c3b8abbab783f1b5c104a666215c6b",
+    "mcap_sha256": "26ba4ee709f4db18b63b694931f8a489fadad79d1b1294f5a24cc08b0008062b"
+  },
+  "limitations": [
+    "This is only a no-goal transport/identity smoke; it does not prove task observers, in-flight continuity, map query echo, interval clearance, replanning, resource behavior under flight load, or safe native fault termination.",
+    "Two earlier #395 attempts exposed SIGINT-paused bag closure and close-order receipt gaps; both are retained as failed diagnostics and were corrected before this final smoke.",
+    "VINS internal queue capacity remains unexposed and is recorded as unknown."
+  ]
+}

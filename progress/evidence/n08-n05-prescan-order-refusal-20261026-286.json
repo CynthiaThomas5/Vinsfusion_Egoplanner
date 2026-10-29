@@ -1,0 +1,62 @@
+{
+  "schema": "n08-n05-prescan-order-refusal/v1",
+  "run_id": "n08-cancel-translation-prescan-20261026-286",
+  "classification": "preflight_refusal_before_goal_due_to_missing_support_scan",
+  "mission_command": "bash tools/project.sh mission n08-cancel-translation-prescan-20261026-286 config/components/navigation/n08_forward_braking_trial_goal.json single_goal motion_cancel 0.04 0.06",
+  "preflight": {
+    "passed": true,
+    "observed_wall_s": 40.00802814797498
+  },
+  "current_n05": {
+    "accepted": false,
+    "reason": "TAKEOFF_CONTACT:raw_unknown_in_expanded_vehicle_envelope",
+    "online_offline_result_identical": true,
+    "offline_matches_online": true,
+    "control_or_goal_published": false,
+    "truth_subscribed": false
+  },
+  "goal_sent": false,
+  "flight_runner_started": false,
+  "final_readback": {
+    "bridge": {
+      "alignment_drift_m": 0.0,
+      "armed": false,
+      "control_enabled": false,
+      "epoch": "538253abf89648eaad288dbc303f07e9",
+      "ev_position_fused": true,
+      "ev_yaw_fused": true,
+      "frame_offset_ned": [
+        -0.00021256629887720496,
+        0.0003256175470088646,
+        3.1102694433085554e-05
+      ],
+      "frame_yaw_offset_ned": -0.0002090057441872517,
+      "gnss_aiding_active": false,
+      "landed": true,
+      "local_position_valid": true,
+      "phase": "DISABLED",
+      "ready": false,
+      "reason": "px4_preflight_failed"
+    },
+    "px4_status": {
+      "arming_state": 1,
+      "failsafe": false,
+      "nav_state": 4,
+      "pre_flight_checks_pass": false
+    },
+    "land_detected": {
+      "landed": true
+    },
+    "control_mode_messages": 0,
+    "trajectory_setpoint_messages": 0,
+    "vehicle_command_messages": 0,
+    "vehicle_remained_disarmed": true
+  },
+  "container": "stopped; exit 0",
+  "artifacts": [
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-286/preflight.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-286/n05-current-area/n05-live-entry-check.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-286/n05-current-area/n05-offline-entry-replay.json",
+    "artifacts/runs/n08-cancel-translation-prescan-20261026-286/safety-readback/px4-bridge-live.json"
+  ]
+}

@@ -1,0 +1,430 @@
+{
+  "artifact_sha256": {
+    "alignment-observation.json": "20984eceabbe040522ffeebafcc1ca1c8cc7d4fd8fa9ecce708ac2f1f1c55742",
+    "bridge-alignment-timeline.jsonl": "46ca85116b5b658c87220fd7cfb6dc02dc21d56d06f64b535613d9f477e237ae",
+    "debug-truth-evaluation.json": "5617d22ba48a88c90347ae06b326a7f3e667ae8ec8ac53bac7c9826034620e45",
+    "fixture-result.json": "952b16aba1e98465e52bee1653c4fc93457c4d51fed54775bbfd36f78db9991d",
+    "fixture-stages.json": "c03d1daf5135d6154bc6bb705645e87ebd364bbd4b09a0ed68cccd17277a1437",
+    "flight.json": "a6cd7762ddde628425ebd1804e414d2a69b54b2531d148c50a00953abdf13f3c",
+    "graph-active-window-launcher.py": "ae6fd60317bba41524f0cb6e8f3a2c3e2efec02af58d22073f091191d88f6000",
+    "graph-active-window-trigger.json": "0e2704b7bb13d3cabdd729ca35bf30dfb43584f6d63929975f778502828624bc",
+    "n05-after/n05-live-entry-check.json": "7ae959631734e868efd9af1b3cf2841f109e552bcf67d9ce1cc55271837e4380",
+    "n05-after/n05-offline-entry-replay.json": "be3a0e21abd5d6b2f79c34afd3ea1977d677f2a8a73c9ee37e010f76b169fec3",
+    "n05-attached-settle.json": "f916cb435d3c18c1ea29253b18be856477a152e1995b5ee66b3d5a904ffd50dd",
+    "n05-current-area/n05-live-entry-check.json": "a3343ea5f3c6640546cb14197d53e0071eba27c30c610a9bf2a1426edf3c323f",
+    "n05-current-area/n05-offline-entry-replay.json": "6ab18d5a5892ec50449f38691aa3c73721ecaf358cff3c3792d7228b1f8b621c",
+    "n05-post-release/n05-live-entry-check.json": "32839be27057c846d49217df29e627aebb1f3d009776aa644dec6a42cbb955bd",
+    "n05-post-release/n05-offline-entry-replay.json": "51a491a6192f72dcdd6191230ac5c8fcc36290c0a80257377c6b3a87b453c172",
+    "n05-prescan-ready.json": "25306dd74eb9f1d7dded1e457024312ea85bfe72196d1054939a1fa9b9a60706",
+    "n05-run-inputs.json": "72782ad386008699f401cdf16753e038f691cadef81bda152cb5f4ae4d898fb3",
+    "n05-run-summary.json": "04aed2341530ff769a9f7bd4671b5b6c3b6d3ad1584ea87dfecd0bb657a3ee43",
+    "n07-hover-evaluation.json": "3a63d210149b5d82ed75c9977880f6ab4d01e6879957602f71692f36f9475578",
+    "n07-vio-stream-diagnostic.json": "67626f6a42aaa40357d75cb108d6d609bc3e73f5aa3323c59be162cde9198aa8",
+    "n07-vio-stream-events.jsonl": "54665423708182d82b92f7ab7e16b26d99a8baf3769b3b8fe542c38dac615314",
+    "no-goal-hover.log": "80d5b4450007fed6832438bdd8ad26c2ce03cd14a91b0bba9de459cd5bbe3699",
+    "px4-ulog-analysis.json": "3191c8fd0c5f60dae48ff0c45946df8579315cd593ec114ec3f565982384c649",
+    "ros-graph-audit-reconciled.json": "7e65dfd11135edd534b1005a03a57a9177566c7747ce2fc018d22bd4ce3481b0",
+    "ros-graph-audit.json": "7e65dfd11135edd534b1005a03a57a9177566c7747ce2fc018d22bd4ce3481b0",
+    "runtime-contract.json": "856bf1f2222a5286493813c9702731f7e5166844eb2bfd98c6f525f3f36924eb"
+  },
+  "consecutive_passes_after_run": 0,
+  "consecutive_required": 3,
+  "fixed_conditions": {
+    "hover_sim_s_requested": 30.0,
+    "image_id": "sha256:099ab9afecd28b7354f6d649b3384b1db30c7c67c973e9b93b03f87aca7ad6f8",
+    "layout": "wall_box_column",
+    "runtime_contract_sha256": "12b1c17cccfcb5c9f035516baa3d40c05ab7b8a4d5c32c4e28bef47d15b46233",
+    "spawn_pose": "-6.5,0,0.3,0,0,0",
+    "support_profile": "n06_full_airframe_retreat_240_oblique_separated_return"
+  },
+  "goal": "N07",
+  "graph_capture": {
+    "airborne_snapshot_captured": false,
+    "capture_exit_code": 1,
+    "raw_pass": false,
+    "reason": "The hover auto-landed 2.64 simulated seconds after entering ACTIVE. The graph recorder launched from the ACTIVE/armed trigger but captured no airborne snapshot before landing; pre-enable-labelled snapshot observed zero publishers and final landed snapshot observed one uav_px4_bridge publisher per control topic.",
+    "reconciled_pass": false,
+    "snapshots": [
+      {
+        "bridge_status": null,
+        "checks": {
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_px4_control_topic": false
+        },
+        "control_publisher_counts": {
+          "/fmu/in/offboard_control_mode": 0,
+          "/fmu/in/trajectory_setpoint": 0,
+          "/fmu/in/vehicle_command": 0,
+          "/fmu/in/vehicle_visual_odometry": 0
+        },
+        "control_publisher_nodes": {
+          "/fmu/in/offboard_control_mode": [],
+          "/fmu/in/trajectory_setpoint": [],
+          "/fmu/in/vehicle_command": [],
+          "/fmu/in/vehicle_visual_odometry": []
+        },
+        "label": "pre_enable_or_early_run"
+      },
+      {
+        "bridge_status": {
+          "armed": false,
+          "control_enabled": false,
+          "landed": true,
+          "phase": "LANDED"
+        },
+        "checks": {
+          "no_ros_truth_topic_or_node": true,
+          "one_uav_px4_bridge_publisher_per_px4_control_topic": true
+        },
+        "control_publisher_counts": {
+          "/fmu/in/offboard_control_mode": 1,
+          "/fmu/in/trajectory_setpoint": 1,
+          "/fmu/in/vehicle_command": 1,
+          "/fmu/in/vehicle_visual_odometry": 1
+        },
+        "control_publisher_nodes": {
+          "/fmu/in/offboard_control_mode": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/trajectory_setpoint": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/vehicle_command": [
+            "uav_px4_bridge"
+          ],
+          "/fmu/in/vehicle_visual_odometry": [
+            "uav_px4_bridge"
+          ]
+        },
+        "label": "flight_result_written"
+      }
+    ],
+    "trigger_condition": "/uav_px4_bridge/status phase ACTIVE and armed",
+    "trigger_observed_status": {
+      "active": true,
+      "armed": true,
+      "phase": "ACTIVE",
+      "received_monotonic_ns": 1287569674387803,
+      "stamp_ns": 485416000000
+    }
+  },
+  "hover": {
+    "action_goal_sent": false,
+    "bridge_phase_history": [
+      [
+        "DISABLED",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "PRESTREAM",
+        "px4_preflight_failed",
+        false,
+        true
+      ],
+      [
+        "REQUEST_ARM",
+        "requesting_arm",
+        false,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        true
+      ],
+      [
+        "TAKEOFF",
+        "takeoff_setpoint_active",
+        true,
+        false
+      ],
+      [
+        "ACTIVE",
+        "takeoff_complete_waiting_for_trajectory",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "px4_telemetry_stale",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "external_odometry_stale",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "telemetry_stale",
+        true,
+        false
+      ],
+      [
+        "LANDING",
+        "telemetry_stale",
+        true,
+        true
+      ],
+      [
+        "LANDED",
+        "telemetry_stale",
+        false,
+        true
+      ]
+    ],
+    "failure": "telemetry_stale",
+    "hover_duration_sim_s": 2.64,
+    "hover_requested_sim_s": 30.0,
+    "landed_and_disarmed": true,
+    "position_command_count": 0,
+    "preconditions_ready": true,
+    "result": "SAFETY_ABORT",
+    "service_calls": [
+      {
+        "accepted": true,
+        "enable": true,
+        "reason": "prestreaming_offboard_setpoints"
+      },
+      {
+        "accepted": true,
+        "enable": false,
+        "reason": "px4_telemetry_stale"
+      }
+    ],
+    "takeoff_active_observed": true
+  },
+  "independent_evaluation": {
+    "checks": {
+      "hover_completed_at_requested_sim_duration": false,
+      "independent_localization_and_hold_errors_measured": true,
+      "landed_and_disarmed_by_bridge": true,
+      "n05_current_area_accepted_before_enable": true,
+      "no_navigation_goal_sent": true,
+      "odometry_time_mapping_valid_through_hover": true,
+      "px4_boot_parameters_confirm_vio_no_gnss": true,
+      "read_only_ros_graph_unique_control_owner": false,
+      "same_runtime_contract_recorded": true,
+      "tracking_remained_valid_through_hover": true,
+      "ulog_confirms_ev_fusion_and_no_gnss_truth_aiding": true
+    },
+    "hover_position_error_m": {
+      "count": 40,
+      "endpoint": 0.006700890271141763,
+      "maximum": 0.008919343767527114,
+      "mean": 0.007424274159227362,
+      "p95": 0.008698780722165572,
+      "rms": 0.007456122194996764
+    },
+    "result": "FAIL",
+    "truth_hold_error_m": {
+      "count": 148,
+      "endpoint": 0.04055758480447047,
+      "maximum": 0.04055758480447047,
+      "mean": 0.018326625280730098,
+      "p95": 0.03571873245940926,
+      "rms": 0.021931817807514024
+    }
+  },
+  "interpretation": "N05 14/14 and all three online/offline gates passed. No-goal hover entered ACTIVE but the bridge detected PX4 telemetry freshness failure after 2.64 simulated seconds and initiated landing; final landed/disarmed was confirmed. ULog EV/no-GNSS checks passed. Graph capture did not sample the airborne interval before fail-closed landing, so N07 remains 0/3.",
+  "localization_timeline": {
+    "end_marker_seen": true,
+    "event_count": 7205,
+    "observed_wall_s": 121.85212230705656,
+    "post_end_s": 2.02050939691253,
+    "probe_read_only": true,
+    "probe_status_transitions": [
+      {
+        "good_pairs": 5745,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 387644000000,
+        "state": 1,
+        "valid": true,
+        "wall_elapsed_s": 0.12871679500676692
+      },
+      {
+        "good_pairs": 7267,
+        "reason": "telemetry_stale",
+        "source_stamp_ns": 488444000000,
+        "state": 4,
+        "valid": false,
+        "wall_elapsed_s": 113.51829252601601
+      }
+    ],
+    "status_transitions": [
+      {
+        "normalized_cost": 0.4518491815481886,
+        "reason": "fresh_inputs_and_usable_solver",
+        "source_stamp_ns": 460903999999,
+        "stamp_ns": 460904000000,
+        "state": 1,
+        "valid": true,
+        "wall_elapsed_s": 1.2731744349002838
+      },
+      {
+        "normalized_cost": 0.4637738586678514,
+        "reason": "telemetry_stale",
+        "source_stamp_ns": 488303999999,
+        "stamp_ns": 488444000000,
+        "state": 4,
+        "valid": false,
+        "wall_elapsed_s": 32.22923296596855
+      }
+    ],
+    "stop_reason": "end_marker_tail_complete"
+  },
+  "n05": {
+    "fixture_error": "fresh DISARMED status is required for every fixture command",
+    "fixture_final_landed": true,
+    "fixture_last_localization": {
+      "normalized_cost": 0.451849181157929,
+      "reason": "fresh_inputs_and_usable_solver",
+      "state": 1,
+      "valid": true
+    },
+    "fixture_removed": true,
+    "fixture_scene_absent": true,
+    "fixture_vehicle_states": [
+      1
+    ],
+    "gate_reports": {
+      "n05-after": {
+        "accepted": true,
+        "freshness": {
+          "depth_source_age_sim_s": 0.1,
+          "fusion_age_sim_s": 0.032,
+          "limit_sim_s": 0.4,
+          "localization_receipt_age_wall_s": 0.03818173799663782,
+          "map_status_receipt_age_wall_s": 0.050640403060242534,
+          "odometry_receipt_age_wall_s": 0.01781706209294498,
+          "snapshot_age_sim_s": 0.104
+        },
+        "identity": {
+          "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+          "epoch": "0b528eb8025b488cad04572899529672",
+          "frame_id": "odom_0b528eb8025b488cad04572899529672",
+          "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+          "map_id": "0b528eb8025b488cad04572899529672-d40f0fdd25da4945a016415430948474"
+        },
+        "reason": "all_entry_phases_known_and_clear"
+      },
+      "n05-current-area": {
+        "accepted": true,
+        "freshness": {
+          "depth_source_age_sim_s": 0.144,
+          "fusion_age_sim_s": 0.028,
+          "limit_sim_s": 0.4,
+          "localization_receipt_age_wall_s": 0.034839510917663574,
+          "map_status_receipt_age_wall_s": 0.17905784421600401,
+          "odometry_receipt_age_wall_s": 0.024765871930867434,
+          "snapshot_age_sim_s": 0.108
+        },
+        "identity": {
+          "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+          "epoch": "0b528eb8025b488cad04572899529672",
+          "frame_id": "odom_0b528eb8025b488cad04572899529672",
+          "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+          "map_id": "0b528eb8025b488cad04572899529672-d40f0fdd25da4945a016415430948474"
+        },
+        "reason": "all_entry_phases_known_and_clear"
+      },
+      "n05-post-release": {
+        "accepted": true,
+        "freshness": {
+          "depth_source_age_sim_s": 0.116,
+          "fusion_age_sim_s": 0.048,
+          "limit_sim_s": 0.4,
+          "localization_receipt_age_wall_s": 0.047873707953840494,
+          "map_status_receipt_age_wall_s": 0.19206392811611295,
+          "odometry_receipt_age_wall_s": 0.032161857932806015,
+          "snapshot_age_sim_s": 0.108
+        },
+        "identity": {
+          "calibration_sha256": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+          "envelope_policy_sha256": "48d1cfca87dedf5425d2bbff04dde6b3d6d5a60d91e79bf6be15b0570df58636",
+          "epoch": "0b528eb8025b488cad04572899529672",
+          "frame_id": "odom_0b528eb8025b488cad04572899529672",
+          "input_config_sha256": "6a9c5610e6435be4e7f75c6a21419cbafb32925337f4ca6f91d19209b65a96ba",
+          "map_id": "0b528eb8025b488cad04572899529672-d40f0fdd25da4945a016415430948474"
+        },
+        "reason": "all_entry_phases_known_and_clear"
+      }
+    },
+    "ready_marker": {
+      "attachment": "attached",
+      "completed_stages": 12,
+      "control_or_goal_published": false,
+      "epoch": "0b528eb8025b488cad04572899529672",
+      "map_id": "0b528eb8025b488cad04572899529672-d40f0fdd25da4945a016415430948474",
+      "truth_input_used": false,
+      "vehicle_arming_state": 1
+    },
+    "summary_14_of_14": true
+  },
+  "next_subtask": "N07.38 #192: with all runtime/control and N05 conditions unchanged, remove only the optional full-window freshness probe (N07 qualification is independently covered by the flight quality history); keep truth/alignment/bridge recorders and ACTIVE-window graph wait unchanged to test whether probe load contributes to the PX4 source-time freshness excursion.",
+  "px4_telemetry_staleness": {
+    "attitude": {
+      "max_receipt_age_wall_s": 0.5,
+      "max_source_future_sim_s": 0.065,
+      "receipt_age_wall_s": 0.035724776,
+      "source_age_sim_s": -0.136,
+      "source_stamp_us": 488192000,
+      "source_timestamp_offset_us": 0
+    },
+    "first_bridge_failure_sim_s": 0.0,
+    "first_bridge_failure_source_stamp_ns": null,
+    "first_bridge_failure_wall_elapsed_s": 32.13825370091945,
+    "interpretation": "At the first px4_telemetry_stale bridge detail, local-position and attitude receipt ages were low, but their PX4 source timestamps were about 144/136 ms ahead of the mapped simulation clock, beyond the configured 65 ms future allowance. The bridge failed closed and entered LANDING. This records the gate input; the cause of the offset excursion remains undetermined.",
+    "local_position": {
+      "max_receipt_age_wall_s": 0.5,
+      "max_source_future_sim_s": 0.065,
+      "receipt_age_wall_s": 0.02710965,
+      "source_age_sim_s": -0.144,
+      "source_stamp_us": 488200000,
+      "source_timestamp_offset_us": 0
+    },
+    "phase": "LANDING",
+    "reason": "px4_telemetry_stale",
+    "time_domain_valid": true
+  },
+  "result": "FAIL_TELEMETRY_STALE_BEFORE_30S",
+  "run_id": "n07-20261024-191-01",
+  "safety_stop": {
+    "active_project_containers_after_stop": 0,
+    "container_status_exit": "exited 0",
+    "final_landed_disarmed": true
+  },
+  "schema": "n07-cold-start-evaluation/v1",
+  "ulog": {
+    "checks": {
+      "EKF2_EV_CTRL_is_15": true,
+      "EKF2_GPS_CTRL_is_0": true,
+      "SIM_GZ_EN_ODOM_is_0": true,
+      "UXRCE_DDS_SYNCT_is_0": true,
+      "cs_ev_pos_observed_airborne": true,
+      "cs_ev_yaw_observed_airborne": true,
+      "cs_gnss_pos_never_active": true,
+      "cs_gnss_vel_never_active": true,
+      "cs_gnss_yaw_never_active": true,
+      "cs_gps_hgt_never_active": true,
+      "final_px4_land_detector_landed": true,
+      "final_px4_state_disarmed": true
+    },
+    "parameters": {
+      "EKF2_EV_CTRL": 15,
+      "EKF2_GPS_CTRL": 0,
+      "SIM_GZ_EN_ODOM": 0,
+      "UXRCE_DDS_SYNCT": 0
+    },
+    "passed": true,
+    "pyulog_version": "1.2.4",
+    "sha256": "4d25dfa6bcf0d772ac7511d1c2bfe91e705e88dd41b6f51a3d7f059ce60adadd"
+  }
+}

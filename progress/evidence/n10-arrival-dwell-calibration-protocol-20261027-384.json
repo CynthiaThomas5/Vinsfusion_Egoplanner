@@ -1,0 +1,44 @@
+{
+  "schema": "n10-arrival-dwell-calibration-protocol/v1",
+  "subtask_id": "N10.3/#384",
+  "run_id": "n10-20261027-384-arrival-dwell4",
+  "status": "frozen before SITL; not flight evidence",
+  "formal_qualification": false,
+  "hypothesis": "Extending only the native navigation task dwell from 3.0 to 4.0 simulated seconds will allow the independent truth-referenced joint position/yaw window to reach the unchanged GOAL F minimum of 3.0 simulated seconds, despite previous terminal timing/estimation differences.",
+  "single_scenario_variable": "Native task dwell only: 3.0 -> 4.0 Gazebo simulated seconds. Independent position<=0.30 m, yaw<=15 deg, dwell>=3.0 sim seconds are unchanged; EGO, map, PX4, spawn, route, obstacle injection, active hold, collision policy and all runtime checks stay unchanged.",
+  "runtime_contract_sha256_baseline": "1afdc44ee760db82af299b27fc6131bcfea7af8f9908fb0abc34c5811eeb143a",
+  "inputs": {
+    "spawn": "config/components/simulation/n10_long_range_spawn_minus8.json",
+    "planner": "config/components/mapping/n10_horizon5_speed080_calibration.json",
+    "goal": "config/components/navigation/n10_long_range_vio_dwell4_calibration_goal.json",
+    "collision_policy": "official_ego",
+    "control_owner": "uav_px4_bridge only",
+    "native_goal_dwell_sim_s": 4.0,
+    "independent_arrival_contract": {
+      "position_error_max_m": 0.3,
+      "absolute_yaw_error_max_deg": 15.0,
+      "continuous_dwell_min_sim_s": 3.0,
+      "maximum_truth_sample_gap_sim_s": 0.04
+    },
+    "diagnostic_post_goal_hold_sim_s": 600.0
+  },
+  "conditions": [
+    "Fresh project SITL container; no old run artifacts are reused for mission inputs.",
+    "Single +16m/+0.10m/+0.20rad EGO goal from x=-8m.",
+    "Same frozen EGO max_vel=0.8 m/s/axis, max_acc=0.25 m/s^2/axis, horizon=5m and official_ego policy.",
+    "Same acknowledged dynamic box injection and observer as #381.",
+    "Require continuous truth-referenced joint dwell >=3.0 sim s, with no truth gap >0.04 sim s inside the credited window.",
+    "Require action success, zero prohibited contacts, observer terminal coverage, and independent landed/disarmed/control-disabled/zero-control readback before stopping the project container."
+  ],
+  "stop_conditions": [
+    "No goal or no takeoff if PX4-native preflight or official_ego takeoff admission does not pass.",
+    "If action fails or sim time regresses/stalls, let existing bridge-owned landing behavior complete; do not retry within this run.",
+    "Never stop the project container without independent safe terminal readback."
+  ],
+  "thresholds_changed": false,
+  "thresholds_note": "Only task execution dwell changes. GOAL F independent acceptance values remain unchanged; no runtime speed, age, localization health or raw-free gate is introduced.",
+  "parent_run": "n10-20261027-381-vins-velocity-full-route",
+  "runtime_contract_path": "artifacts/n10-prepared/n10-20261027-384-arrival-dwell4/runtime-contract.json",
+  "runtime_contract_file_count": 668,
+  "contact_and_dynamic_obstacle": "Read-only observation/contact instrumentation from #381; no physical collision geometry changed."
+}
