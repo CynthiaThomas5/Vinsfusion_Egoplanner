@@ -18,7 +18,7 @@ def main():
     planner = json.loads((root / 'config/components/mapping/ego_planner.json').read_text())
     preset = root / ('config/rviz/loop_observer.rviz' if args.loop else 'config/rviz/mapping.rviz')
     args.output.write_text(preset.read_text().replace(
-        '__ODOM_FRAME__', f'odom_{epoch}').replace('__DRONE_ID__', str(planner['drone_id'])).replace(
+        '__ODOM_FRAME__', f'odom_{epoch}').replace('__FOLLOW_FRAME__', f'visualization_follow_{epoch}').replace('__DRONE_ID__', str(planner['drone_id'])).replace(
         '__LOOP_FRAME__', f'loop_{epoch}_map').replace('__LOOP_NAMESPACE__', f'/loop_observer/s_{epoch}'))
 
 

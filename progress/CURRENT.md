@@ -8,3 +8,13 @@
 - 当前工作项：将本工作树已有模型、场景、启动、测试和证据修改整理为可复现的 GitHub 快照；目标标签 `sim-nav-quad250-2026-10-30`。干净独立检出已完成全部依赖恢复、18包ROS构建、PX4完整构建、751单测和3套ROS集成；快照发布入口见README。
 
 用户明确要求将现有工作树整体固化并上传。忽略的 `artifacts/` 运行日志/大文件、`.runtime/` 会话状态和机器本地凭据不作为源码发布；历史报告保留相对引用与哈希。
+
+- 2026-10-31 本机RTX3060 Laptop固定标签88a9d08柱群16m GUI单次复现PASS，独立到达/接触/落地上锁/身份及唯一控制全部通过；仅日常单次资格。见[evidence/2026-10-31-local-quad250-reproduction.md](evidence/2026-10-31-local-quad250-reproduction.md)。GUI已落地上锁，按用户要求保留查看。
+
+- 2026-10-31 RViz默认主视角改为后上方第三人称跟随（位置+yaw，距离6m）。18包构建、5项相关回归及GUI实时TF回读通过，未重飞；当前未解锁GUI保留。见[记录](changes/2026-10-31-rviz-third-person-follow.md)。
+
+- 2026-10-31 柱群起点依用户累计左移5m至(-14,-9)，终点(9,9)，位移(23,18)，地图X扩到60m。GUI单次原生任务成功并落地上锁，独立到达驻留2.908/3sim秒不足，qualification FAIL；其它检查通过。见[记录](changes/2026-10-31-pillars-corner-route.md)。当前已落地GUI保留。
+
+- 2026-10-31 同航线新会话gui-20261031-014754-86595重复完成，运行指纹与前次一致；原生成功/无违规接触/落地上锁，独立联合驻留2.204/3sim秒，qualification FAIL。见[记录](changes/2026-10-31-pillars-corner-repeat.md)。当前已落地GUI保留。
+
+- 2026-10-31 用户要求保存当前代码并冻结RViz第三人称视角：ThirdPersonFollower/6m/Pitch0.6/Yawπ/零焦点偏移；本地标签sim-nav-quad250-follow-2026-10-31，未推送。后续默认保持此视角。见[记录](changes/2026-10-31-freeze-follow-view.md)。

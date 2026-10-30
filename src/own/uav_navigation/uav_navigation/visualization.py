@@ -1,4 +1,4 @@
-"""Observe one VINS/EGO session and publish only /visualization/ego outputs."""
+"""Observe one VINS/EGO session and publish display outputs and a follow TF."""
 from collections import deque
 from copy import deepcopy
 import json
@@ -13,7 +13,8 @@ from rclpy.duration import Duration
 from rclpy.node import Node
 from rclpy.qos import (QoSProfile, DurabilityPolicy, ReliabilityPolicy,
                        qos_profile_sensor_data)
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import PoseStamped, TransformStamped
+from tf2_ros import TransformBroadcaster
 from nav_msgs.msg import Odometry, Path as PathMessage
 from visualization_msgs.msg import Marker
 from traj_utils.msg import Bspline
@@ -32,6 +33,8 @@ class NavigationVisualization(Node):
         if not re.fullmatch('[0-9a-f]{32}', self.epoch):
             raise ValueError('invalid visualization session')
         self.frame = f'odom_{self.epoch}'
+        self.follow_frame = f'visualization_follow_{self.epoch}'
+        self.follow_tf = TransformBroadcaster(self)
         self.policy = json.loads((root / 'config/components/navigation/visualization.json').read_text())
         nav = json.loads((root / 'config/components/navigation/task_supervisor.json').read_text())
         planner = json.loads((root / 'config/components/mapping/ego_planner.json').read_text())
@@ -178,6 +181,18 @@ class NavigationVisualization(Node):
         pose = PoseStamped(header=deepcopy(msg.header), pose=deepcopy(msg.pose.pose))
         self.current_pose = pose
         self.status_pose = pose
+        # Display-only yaw frame keeps the chase camera level during roll/pitch.
+        follow = TransformStamped()
+        follow.header = deepcopy(msg.header)
+        follow.child_frame_id = self.follow_frame
+        follow.transform.translation.x = p.x
+        follow.transform.translation.y = p.y
+        follow.transform.translation.z = p.z
+        yaw = math.atan2(2 * (q.w * q.z + q.x * q.y),
+                         1 - 2 * (q.y * q.y + q.z * q.z))
+        follow.transform.rotation.z = math.sin(yaw / 2)
+        follow.transform.rotation.w = math.cos(yaw / 2)
+        self.follow_tf.sendTransform(follow)
         self.odometry_received = time.monotonic()
         if self.poses:
             last = self.poses[-1]
