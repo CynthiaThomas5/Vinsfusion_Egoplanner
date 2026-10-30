@@ -19,3 +19,16 @@ ROS依赖：VINS只物化camera_models／vins，EGO只物化5个规划包，另�
 7个src/own ROS包的package.xml已经声明Apache-2.0，整理保持这些现有声明，并提供[许可证全文](licenses/Apache-2.0.txt)。旧README“自维护未指定许可”的概括与包级声明不一致，以实际包级声明为准；未据此给所有工具、文档、场景或第三方文件另授一份全仓库许可证。
 
 VINS和EGO的GPL、PX4/px4_msgs的BSD、Micro XRCE-DDS Agent的Apache、spdlog的MIT按sources.json与各自LICENSE保留，补丁的派生版权和应用顺序不变。默认ego世界的锁定上游未声明许可，这一事实仍明确保留，不将其改标为Apache或GPL。发布不改变现有仓库访问权限；接收方需要取得仓库及固定环境分支的访问权限。
+
+## #592 250级仿真派生模型
+
+EGO补丁0061在0060后应用，只开放map_resolution，默认保持旧配置0.1m；当前项目配置显式传0.15m。独立fresh目标已重建全部补丁并校验文件哈希。PX4来源不改写；本地模型派生、许可、网格引用和重生成见[模型说明](../docs/quad250-simulation.md)及`quad250-model-provenance.json`。
+
+## #599 NavRL floorplan2静态场景
+
+`navrl_floorplan2_world`为随源码跟踪的数据资产，不是新增ROS包，不执行NavRL控制代码。原文件`ros1/uav_simulator/worlds/floorplan2/floorplan2_static.world`按commit3725bcc2e7c1be4ecf1455d922299ae85042603a原字节迁入simulation/worlds/navrl，diff为空；SHA256和该子包MIT许可见sources.json与licenses/NavRL-uav_simulator-MIT.txt。运行合成由自维护prepare_px4_vio_bootstrap_world.py完成，原静态碰撞几何保持，材质适配及PX4系统合成的输出SHA256记入run/world.json。不引入其人物mesh、预建PCD、机器人、策略、ROS1节点或真值话题。
+
+
+## #600 NavRL 多柱静态场景
+
+`navrl_pillars_world`从上述NavRL固定commit的`generated_env/generated_env_static.world`原字节迁入，源模型含30圆柱与30方柱，但仅定义视觉、没有柱体碰撞。pillars场景启动时逐个依据视觉primitive添加匹配的静态碰撞几何，并应用自然色材质；登记的源world保持不变。MIT许可沿用`licenses/NavRL-uav_simulator-MIT.txt`，源文件SHA与材质生成记录在sources.json及运行证据中。

@@ -4722,5 +4722,73 @@
       }
     ],
     "current_scope_complete": true
-  }
+  },
+  "post_delivery_changes": [
+    {
+      "id": "592",
+      "title": "250级仿真机体与官方实机地图参数配套适配",
+      "status": "passed",
+      "scope": "Bounded simulation adaptation plus one default16m GUI/SITL regression; historical N17 remains X500-version evidence, not transferred qualification",
+      "evidence": [
+        "progress/evidence/quad250-adaptation-20261030-592.md",
+        "progress/evidence/quad250-adaptation-20261030-592.json"
+      ],
+      "active_run_id": null,
+      "next_subtask": null,
+      "unresolved": "Real hardware identification and full scene/repetition/duration qualification are outside this bounded change."
+    },
+    {
+      "id": "594",
+      "title": "RViz同会话累计观测地图显示",
+      "status": "passed",
+      "scope": "Read-only occupied-observation voxel union; no planner/control/truth changes",
+      "evidence": [
+        "progress/evidence/observed-history-20261030-594.md",
+        "progress/evidence/observed-history-20261030-594.json"
+      ],
+      "active_run_id": null,
+      "next_subtask": null,
+      "gui_session_retained": "gui-20261030-115354-3418835"
+    },
+    {
+      "id": "595",
+      "title": "官方indoor.gif风格累计障碍显示及显示层地面抑制",
+      "status": "passed",
+      "scope": "Display-only floor-band suppression, height coloring and top-down RViz view; raw history and planner unchanged",
+      "evidence": [
+        "progress/evidence/history-display-20261030-595.md",
+        "progress/evidence/history-display-20261030-595.json"
+      ],
+      "active_run_id": null,
+      "next_subtask": null,
+      "gui_session_retained": null,
+      "active_in_current_runtime": false,
+      "reverted_by": "596"
+    },
+    {
+      "id": "596",
+      "title": "按用户要求撤回#595显示调整，恢复#594",
+      "status": "passed",
+      "scope": "Revert#595 only, retain quad250 and observed-history cache",
+      "evidence": [
+        "progress/evidence/revert-display-20261030-596.md",
+        "progress/evidence/revert-display-20261030-596.json"
+      ],
+      "next_subtask": null,
+      "gui_session_retained": "gui-20261030-130612-3599388"
+    },
+    {
+      "id": "599",
+      "title": "NavRL floorplan2可选静态场景接入",
+      "status": "passed",
+      "scope": "world selection/provenance/rendering and one16m GUI task; no formal scene credit",
+      "evidence": [
+        "progress/evidence/floorplan2-integration-20261030-599.md",
+        "progress/evidence/floorplan2-integration-20261030-599.json"
+      ],
+      "active_run_id": null,
+      "next_subtask": null,
+      "gui_session_retained": "gui-20261030-150047-3805409"
+    }
+  ]
 }

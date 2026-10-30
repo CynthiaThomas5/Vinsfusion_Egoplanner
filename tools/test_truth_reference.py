@@ -45,7 +45,7 @@ class TruthReferenceTests(unittest.TestCase):
     def test_actual_sdf_chain_resolves_imu_and_does_not_use_frame_label(self):
         with tempfile.TemporaryDirectory() as d:
             root,run=self.fixture(Path(d));contract=model_to_imu_contract(run,root)
-            self.assertEqual(contract['model_origin_to_imu_m'],[.12,0,.32])
+            self.assertEqual(contract['model_origin_to_imu_m'],[0,0,.2])
             self.assertEqual(contract['raw_pose_reference'],'gazebo_model_origin')
             self.assertEqual(contract['source_sha256'][MODEL],sha256(root/MODEL))
 

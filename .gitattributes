@@ -1,3 +1,5 @@
 
 # Preserve upstream patch context bytes and CRLF; sources.json pins patch hashes.
 dependencies/patches/**/*.patch -text -whitespace
+# Preserve the exact pinned NavRL world bytes, including upstream trailing spaces.
+simulation/worlds/navrl/generated_env_static.world whitespace=-blank-at-eol,-blank-at-eof

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "default_scene": "room",
+  "scenes": {
+    "room": {
+      "geometry": "simulation/worlds/ego.sdf",
+      "spawn_config": "",
+      "goal_profile": "config/components/navigation/room_crossing_goal.json"
+    },
+    "floorplan2": {
+      "geometry": "simulation/worlds/navrl/floorplan2_static.world",
+      "spawn_config": "config/components/simulation/floorplan2_spawn.json",
+      "goal_profile": "config/components/navigation/floorplan2_16m_goal.json"
+    },
+    "pillars": {
+      "geometry": "simulation/worlds/navrl/generated_env_static.world",
+      "spawn_config": "config/components/simulation/pillars_spawn.json",
+      "goal_profile": "config/components/navigation/pillars_16m_goal.json",
+      "physicalize_visuals": true,
+      "material_profile": "natural"
+    }
+  }
+}

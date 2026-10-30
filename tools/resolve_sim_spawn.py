@@ -6,6 +6,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from scene_config import resolve_scene
 
 
 def _validated_pose(values):
@@ -17,8 +18,10 @@ def _validated_pose(values):
     return pose
 
 
-def resolve_spawn_pose(project_root, config_path=None):
+def resolve_spawn_pose(project_root, config_path=None, scene_name=None):
     root = Path(project_root).resolve()
+    if not config_path and scene_name:
+        config_path = resolve_scene(root, scene_name)['spawn_config']
     if config_path:
         candidate = Path(config_path)
         if candidate.is_absolute():
@@ -57,8 +60,9 @@ def main():
     parser.add_argument('--project-root', default='.')
     parser.add_argument('--config', default='')
     parser.add_argument('--report', required=True)
+    parser.add_argument('--scene', default='')
     args = parser.parse_args()
-    record = resolve_spawn_pose(args.project_root, args.config or None)
+    record = resolve_spawn_pose(args.project_root, args.config or None, args.scene or None)
     report = Path(args.report)
     report.parent.mkdir(parents=True, exist_ok=True)
     report.write_text(json.dumps(record, indent=2, allow_nan=False) + '\n',

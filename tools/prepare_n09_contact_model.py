@@ -8,7 +8,7 @@ import shutil
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-X500_BASE = ROOT / 'external/PX4-Autopilot/Tools/simulation/gz/models/x500_base'
+X500_BASE = ROOT / 'simulation/models/x500_base'
 D435I = ROOT / 'simulation/models/d435i'
 WRAPPER = ROOT / 'simulation/models/x500_d435i'
 

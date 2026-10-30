@@ -78,6 +78,10 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
     drone_id = planner.get('drone_id')
     if type(drone_id) is not int or drone_id < 0 or mapping.get('ego_drone_id') != drone_id:
         raise ValueError('EGO planner and mapping drone ids differ')
+    map_resolution = planner.get('map_resolution_m', 0.1)
+    if (type(map_resolution) not in (int, float)
+            or not math.isfinite(map_resolution) or map_resolution <= 0):
+        raise ValueError('map_resolution_m must be finite and positive')
     obstacles_inflation = planner.get('obstacles_inflation_m')
     if (type(obstacles_inflation) not in (int, float)
             or not math.isfinite(obstacles_inflation) or obstacles_inflation < 0):
@@ -149,6 +153,7 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
         'max_acc': planner['max_acceleration_m_s2'],
         'planning_horizon': planner['planning_horizon_m'],
         'odom_depth_timeout': planner['odom_depth_timeout_sim_s'],
+        'map_resolution': map_resolution,
         'obstacles_inflation': obstacles_inflation,
         'terminal_hold_neighborhood': 0.0 if official_ego else hold_neighborhood_radius,
         'official_ego_collision_policy': official_ego,

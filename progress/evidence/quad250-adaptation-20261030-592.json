@@ -1,0 +1,229 @@
+{
+  "id": "592",
+  "date": "2026-10-30",
+  "status": "passed",
+  "scope": "250-class simulation proxy adaptation and one default16m GUI/SITL regression; not a new N17/formal/hardware qualification",
+  "run_id": "quad250-20261030-592-run02",
+  "checks": {
+    "native_mission": true,
+    "independent_arrival": true,
+    "contact": true,
+    "normal_landed_disarmed": true,
+    "terminal_identity": true,
+    "runtime_identity": true,
+    "unique_control_publishers": true
+  },
+  "unit_test_count": 736,
+  "ros_integration_suites": 2,
+  "built_ros_packages": 18,
+  "fresh_ego_reconstruction": "passed, including patch0061 and output hashes",
+  "loaded_map_resolution_m": 0.15,
+  "loaded_obstacles_inflation_m": 0.299,
+  "inflation_steps": 2,
+  "axis_dilation_m": 0.3,
+  "geometry": {
+    "reference_frame": "d435i_imu_frame / d435i_link origin",
+    "mount_pose_base_link_xyzrpy": [
+      0.0,
+      0.0,
+      0.08,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "x500_static_collision_count": 9,
+    "d435i_housing_collision_count": 1,
+    "collision_bounds_xyz_m": [
+      [
+        -0.1569357799240319,
+        0.1569357799240319
+      ],
+      [
+        -0.1569357799240319,
+        0.1569357799240319
+      ],
+      [
+        -0.1935,
+        0.0125
+      ]
+    ],
+    "max_horizontal_radius_level_all_rotor_angles_m": 0.19297235985049116,
+    "max_orientation_invariant_radius_all_rotor_angles_m": 0.21497339951724262,
+    "rotor_sweep_method": "For each revolute Z-axis rotor, the collision rectangle sweeps a disk whose radius is its XY half diagonal; add the rotor-center radius from the IMU origin. Include the box half-thickness in Z.",
+    "rotor_sweeps": [
+      {
+        "name": "rotor_0_collision",
+        "center_d435i_imu_m": [
+          0.087,
+          -0.087,
+          -0.05
+        ],
+        "collision_box_size_m": [
+          0.139615384615,
+          0.00846153846154,
+          0.000423076923077
+        ],
+        "box_half_diagonal_xy_m": 0.06993577992403191,
+        "max_horizontal_radius_from_imu_m": 0.19297235985049116,
+        "max_orientation_invariant_radius_m": 0.19939791939973198
+      },
+      {
+        "name": "rotor_1_collision",
+        "center_d435i_imu_m": [
+          -0.087,
+          0.087,
+          -0.05
+        ],
+        "collision_box_size_m": [
+          0.139615384615,
+          0.00846153846154,
+          0.000423076923077
+        ],
+        "box_half_diagonal_xy_m": 0.06993577992403191,
+        "max_horizontal_radius_from_imu_m": 0.19297235985049116,
+        "max_orientation_invariant_radius_m": 0.19939791939973198
+      },
+      {
+        "name": "rotor_2_collision",
+        "center_d435i_imu_m": [
+          0.087,
+          0.087,
+          -0.05
+        ],
+        "collision_box_size_m": [
+          0.139615384615,
+          0.00846153846154,
+          0.000423076923077
+        ],
+        "box_half_diagonal_xy_m": 0.06993577992403191,
+        "max_horizontal_radius_from_imu_m": 0.19297235985049116,
+        "max_orientation_invariant_radius_m": 0.19939791939973198
+      },
+      {
+        "name": "rotor_3_collision",
+        "center_d435i_imu_m": [
+          -0.087,
+          -0.087,
+          -0.05
+        ],
+        "collision_box_size_m": [
+          0.139615384615,
+          0.00846153846154,
+          0.000423076923077
+        ],
+        "box_half_diagonal_xy_m": 0.06993577992403191,
+        "max_horizontal_radius_from_imu_m": 0.19297235985049116,
+        "max_orientation_invariant_radius_m": 0.19939791939973198
+      }
+    ],
+    "planner_grid_resolution_m": 0.15,
+    "configured_obstacle_inflation_m": 0.299,
+    "inflation_steps": 2,
+    "minimum_grid_steps_to_cover_model_sphere_lower_bound": 2,
+    "objects": [
+      {
+        "name": "base_link_collision_0",
+        "type": "static_box"
+      },
+      {
+        "name": "base_link_collision_1",
+        "type": "static_box"
+      },
+      {
+        "name": "base_link_collision_2",
+        "type": "static_box"
+      },
+      {
+        "name": "base_link_collision_3",
+        "type": "static_box"
+      },
+      {
+        "name": "base_link_collision_4",
+        "type": "static_box"
+      },
+      {
+        "name": "rotor_0_collision",
+        "type": "rotating_box_sweep"
+      },
+      {
+        "name": "rotor_1_collision",
+        "type": "rotating_box_sweep"
+      },
+      {
+        "name": "rotor_2_collision",
+        "type": "rotating_box_sweep"
+      },
+      {
+        "name": "rotor_3_collision",
+        "type": "rotating_box_sweep"
+      },
+      {
+        "name": "d435i_housing_collision",
+        "type": "camera_housing_box"
+      }
+    ],
+    "limitations": [
+      "The D435i box uses nominal external dimensions; mounting bracket, cable, connectors, and manufacturing tolerance are excluded.",
+      "The x500 collision boxes are the simulator's collision model; the propeller sweep is the swept union of its rectangular collision boxes, not a physical blade scan.",
+      "Map, localization, control tracking, latency, stopping distance, and vibration/model uncertainty are not included.",
+      "Grid-cell count is only a geometric lower-bound comparison; EGO's discrete dilation is not itself a validated minimum-clearance guarantee."
+    ],
+    "source_sha256": {
+      "simulation/models/x500_base/model.sdf": "03bf67540581dd669ca6066f5508738b8697ad5fc44e773da0a4fb1f4af3ec00",
+      "simulation/models/x500_d435i/model.sdf": "b08a2d5aad37eee765ea6af38f6b02d99a3ac46ab706fabe58327b2bfdcf4922",
+      "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+      "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "e6a93ec3e669e3d2e42f8292aae8ab144a407178c86e7757825af805b4ae70f7",
+      "config/components/mapping/ego_planner.json": "3d0501a0800476f854cb37104b38cae743ba08fc87f9e37035368e0d88120bc9"
+    }
+  },
+  "independent_dwell_sim_s": 4.792000000000002,
+  "minimum_true_goal_position_error_m": 0.030700568182376042,
+  "prohibited_contact_count": 0,
+  "safe_terminal": true,
+  "project_session_stopped": true,
+  "attempts": [
+    {
+      "run_id": "quad250-20261030-592-smoke",
+      "result": "startup failure; missing model.config corrected; no arming/flight"
+    },
+    {
+      "run_id": "quad250-20261030-592-run01",
+      "result": "model loaded; task refused before flight because runtime sources changed after startup; stopped unarmed"
+    },
+    {
+      "run_id": "quad250-20261030-592-run02",
+      "result": "native + independent arrival + contacts + normal terminal PASS"
+    }
+  ],
+  "exploration": {
+    "hypothesis": "A paired 250-class physical model/allocator/controller candidate can execute the existing16m mission with official real-flight map values.",
+    "primary_variable": "paired airframe configuration (one candidate; no runtime threshold changes)",
+    "criterion": "built/tested model, independent arrival, zero prohibited contact, normal landed/disarmed terminal",
+    "result": "PASS on the first actual flight; setup/integrity failures retained separately"
+  },
+  "limitations": [
+    "Geometry and dynamics are a proxy, not user hardware identification.",
+    "One normal default-room run only; old X500 scene repetition/duration qualification does not transfer.",
+    "Floor remains an occupied surface; reduced inflation does not remove the floor.",
+    "Unallocated margin is not an empirical error bound; historical uncertainty terms remain marked historical."
+  ],
+  "stop_reason": "completed bounded adaptation and regression",
+  "next_step": "No next task automatically started; obtain measured hardware dimensions/mass/propellers/mount before hardware adaptation.",
+  "input_sha256": {
+    "artifacts/runs/quad250-20261030-592-run02/qualification.json": "e5cc594b539c70af552470c439150b79d5668723ffeb64e155c794c0ea8cbe29",
+    "artifacts/runs/quad250-20261030-592-run02/flight.json": "c6b945010cb72daca6f56323ce73124e73b19bb1fcc15f7248055d99ccfb2aee",
+    "artifacts/runs/quad250-20261030-592-run02/arrival-evaluation.json": "de082208be0e0e37945217a72fb6789869bbf196543c530948c7b9a4eb6e4162",
+    "artifacts/runs/quad250-20261030-592-run02/vehicle-contact-evaluation.json": "84c1049b5eb0123128cd0e0d4734ff62a36cf47955325389b59fdfee394bf7d6",
+    "artifacts/runs/quad250-20261030-592-run02/safe-to-stop.json": "ac7a4a2bb30d0b43e6821a327e47b28482080077f48c99fee9edb2e89e7adc2c",
+    "artifacts/runs/quad250-20261030-592-run02/postflight-px4-bridge-readback.json": "788176cbc9decdc07d508b18068fc13e77942fc4c73fc9c8a72b9e0ac2e03f05",
+    "artifacts/runs/quad250-20261030-592-run02/runtime-contract.json": "a50fb23914d40cc4b491a2ecb05f2adcd712bd4c00084a88b6808fadb3edafda",
+    "artifacts/runs/quad250-20261030-592-run02/loaded-ego-parameters.yaml": "963e97db5640df00c5eda9e191d09f875dc1b89beb6d5aaee85603235adc9c1e",
+    "artifacts/runs/quad250-20261030-592-run02/px4-params.json": "e4e16248470ffe0557e119564b916217a7ab4348a50c9d2b854b01934a9e2f74",
+    "artifacts/runs/quad250-20261030-592-checks/build.log": "d44c658dd2b38d118b61e1742a2abe95b728cdcf2272bb34ef0d88aa703bc517",
+    "artifacts/runs/quad250-20261030-592-checks/test.log": "5018f95e5d30a302e4f4bcb93460f8383f4e9d0f33012a2278dbd6745894d781",
+    "artifacts/runs/quad250-20261030-592-checks/fetch.log": "55d273978048d5eef1f7020f17d362ee45eb89a629a08a0563ade0fc3a3f763c",
+    "artifacts/runs/quad250-20261030-592-checks/status.log": "b14743c58a0c6cf2473541c3973345d82b1a8e1cb02dacbb1aac4f3ffc1346cd",
+    "artifacts/runs/quad250-20261030-592-checks/stop.log": "379acef6348a53b7c3c7dd9ef55c86646a7f44feefcfb1910b7c0e4c964275a1",
+    "artifacts/runs/quad250-20261030-592-checks/vehicle-envelope.json": "98664077d8e5b0577fff8825813f3876d9292179b5b47cf3d0f2083e15a776e1"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "navrl-pillars-scene-evidence/v1",
+  "run_id": "gui-20261030-154042-3829973",
+  "scene": "pillars",
+  "scene_source": {
+    "repository": "https://github.com/Zhefan-Xu/NavRL",
+    "revision": "3725bcc2e7c1be4ecf1455d922299ae85042603a",
+    "upstream_path": "ros1/uav_simulator/worlds/generated_env/generated_env_static.world",
+    "project_path": "simulation/worlds/navrl/generated_env_static.world",
+    "sha256": "faf1a73c704fe9d81c30fc897ff8352fbd5485b4f90a5d695ddeb667527d6821"
+  },
+  "scene_composition": {
+    "models_including_ground": 61,
+    "pillars_total": 60,
+    "cylinders": 30,
+    "boxes": 30,
+    "generated_matching_collisions": 60,
+    "material_profile": "natural",
+    "floor_texture_sha256": "84e881d6748159d3ea7d08e71d09118d442699dc5f1a6546136811c0a83bd21f",
+    "floor_tile_size_m": 8,
+    "spawn_xyz_m": [
+      -8.0,
+      0.0,
+      0.3
+    ],
+    "goal_relative_enu_m": [
+      16.0,
+      0.0,
+      0.0
+    ]
+  },
+  "verification": {
+    "ros_build": "PASS: 18 packages",
+    "targeted_scene_tests": "PASS: 2",
+    "project_test": "PASS: 751 unit tests and 3 ROS integration checks",
+    "project_status": "PASS: structure/design check",
+    "git_diff_check": "PASS",
+    "runtime_world_loaded": true,
+    "runtime_collision_adaptation_count": 60
+  },
+  "flight": {
+    "qualification_passed": true,
+    "qualification_checks": {
+      "native_mission": true,
+      "independent_arrival": true,
+      "contact": true,
+      "normal_landed_disarmed": true,
+      "terminal_identity": true,
+      "runtime_identity": true,
+      "unique_control_publishers": true
+    },
+    "formal_count_eligible": false,
+    "native_result": "PASS",
+    "action_result": {
+      "final_position": [
+        15.974100486503536,
+        -3.6243528912536746e-05,
+        0.9243884116224078
+      ],
+      "outcome": "succeeded",
+      "reason": "position_yaw_tolerance_held",
+      "status": 4,
+      "success": true
+    },
+    "landed_and_disarmed": true,
+    "safe_to_stop_project_container": true,
+    "independent_arrival_status": "PASS",
+    "required_dwell_sim_s": 3.0,
+    "minimum_true_position_error_m": 0.04796186584063503,
+    "position_tolerance_m": 0.3,
+    "prohibited_contact_event_count": 0,
+    "offline_truth_only": true
+  },
+  "screenshots": {
+    "gazebo": "scene-gazebo.png",
+    "gazebo_sha256": "c8930748f96f0324989a3db478ed78cb2fd9bdeac597e99c660de738706eedb4",
+    "rviz": "scene-rviz.png",
+    "rviz_sha256": "9c14eb3512c19ec2868771a61083476e02c402c44c52992209bc2fd50429f183"
+  },
+  "qualification_scope": "one GUI 16 m single-goal run; everyday navigation qualification passed, not formal scene/duration repeated qualification; GUI remains active for review."
+}

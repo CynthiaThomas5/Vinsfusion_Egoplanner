@@ -207,7 +207,7 @@ class N05EntryTests(unittest.TestCase):
     def test_candidate_landing_refuses_unknown_or_occupied_air_volume(self):
         for value in (-1, 100):
             snapshot = self.make_candidate_landing_snapshot()
-            snapshot['occupancy'][50, 50, 54] = value
+            snapshot['occupancy'][50, 50, 46] = value
             result = check_candidate_landing_schedule(
                 snapshot, {'center_xyz_m': [0.0, 0.0, 0.32], 'yaw_rad': 0.0},
                 policy=self.policy, primitives=self.primitives)

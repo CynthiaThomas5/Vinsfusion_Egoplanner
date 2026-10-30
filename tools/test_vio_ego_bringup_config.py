@@ -34,6 +34,7 @@ class VioEgoBringupConfigTests(unittest.TestCase):
         planner = resolved['planner']
         k = resolved['rig']['cameras']['depth']['K']
         self.assertEqual(args['drone_id'], planner['drone_id'])
+        self.assertEqual(args['map_resolution'], planner['map_resolution_m'])
         self.assertEqual(args['map_size_x_'], planner['map_size_m'][0])
         self.assertEqual(args['max_vel'], planner['max_velocity_m_s'])
         self.assertEqual(args['max_acc'], planner['max_acceleration_m_s2'])

@@ -7,14 +7,18 @@ ACTION=${1:-start}
 case "$ACTION" in
   start|fly|status|stop) ;;
   -h|--help|help)
-    echo '用法: ./start.sh [start|fly|status|stop]'
+    echo '用法: ./start.sh [start|fly|status|stop] [room|floorplan2|pillars]'
     echo 'start: 打开 Gazebo + RViz（默认，不起飞）'
     echo 'fly:   前检 → 起飞 → 默认16米导航 → 降落上锁'
     echo 'status: 查看当前会话与最近任务结果；stop: 结束已落地的会话'
     exit 0 ;;
   *) echo '未知命令；使用 ./start.sh --help' >&2; exit 2 ;;
 esac
-[[ $# -le 1 ]] || { echo '只接受一个命令；使用 ./start.sh --help' >&2; exit 2; }
+[[ $# -le 2 ]] || { echo '使用 ./start.sh --help' >&2; exit 2; }
+if [[ $# -eq 2 && "$ACTION" != start && "$ACTION" != fly ]]; then
+  echo '只有start/fly接受场景参数' >&2; exit 2
+fi
+SCENE_REQUEST=${2:-${D435I_SCENE:-}}
 if [[ "$ACTION" != status ]]; then
   mkdir -p .runtime
   exec 9>.runtime/start.lock
@@ -24,6 +28,15 @@ docker info >/dev/null 2>&1 || { echo '无法访问 Docker，请检查服务与�
 ACTIVE=$(docker ps --filter "label=d435i.project=$ROOT" --format '{{.Names}}')
 [[ "$ACTIVE" != *$'\n'* ]] || { echo '发现多个本项目会话，请先检查 Docker。' >&2; exit 9; }
 RUN_ID=${ACTIVE#d435i-}
+
+if [[ "$ACTION" == start || "$ACTION" == fly ]]; then
+  ACTIVE_SCENE=room
+  if [[ -n "$ACTIVE" && -f "artifacts/runs/$RUN_ID/world.json" ]]; then
+    ACTIVE_SCENE=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("scene","room"))' "artifacts/runs/$RUN_ID/world.json")
+  fi
+  SCENE=$(python3 tools/scene_config.py --scene "${SCENE_REQUEST:-$ACTIVE_SCENE}" --field scene)
+  export D435I_SCENE=$SCENE
+fi
 
 detect_desktop() {
   command -v xdpyinfo >/dev/null || { echo '缺少 xdpyinfo，请安装 x11-utils。' >&2; return 1; }
@@ -71,6 +84,11 @@ PY
 }
 
 start_gui() {
+  if [[ -n "$ACTIVE" && "$SCENE" != "$ACTIVE_SCENE" ]]; then
+    require_finished_flight
+    bash tools/project.sh stop "$RUN_ID"
+    ACTIVE=''
+  fi
   if [[ -n "$ACTIVE" ]]; then
     [[ "$(docker inspect --format '{{json .Config.Env}}' "$ACTIVE")" == *'"PROJECT_GUI=1"'* ]] || {
       echo '当前是无界面会话；请先结束任务并用 ./start.sh stop 关闭，再启动界面。' >&2; return 1;
@@ -80,7 +98,7 @@ start_gui() {
   fi
   detect_desktop
   RUN_ID="gui-$(date +%Y%m%d-%H%M%S)-$$"
-  echo "启动会话 $RUN_ID，桌面 $DISPLAY"
+  echo "启动会话 $RUN_ID，场景 $SCENE，桌面 $DISPLAY"
   bash tools/project.sh sim "$RUN_ID" --gui
   for ((i=0;i<120;i++)); do
     if [[ "$(docker inspect --format '{{.State.Running}}' "d435i-$RUN_ID")" != true ]]; then

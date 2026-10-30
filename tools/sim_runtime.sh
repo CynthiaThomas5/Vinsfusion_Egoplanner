@@ -68,7 +68,7 @@ python3 tools/stage_px4_debug_params.py --px4-build "$PX4_BUILD" --profile vio_c
 python3 tools/prepare_px4_vio_bootstrap_world.py --project-root /workspace \
   --px4-world /workspace/external/PX4-Autopilot/Tools/simulation/gz/worlds/default.sdf \
   --px4-server-config /workspace/external/PX4-Autopilot/src/modules/simulation/gz_bridge/server.config \
-  --output "$RUN/vio_initialization.sdf" --report "$RUN/world.json"
+  --output "$RUN/vio_initialization.sdf" --report "$RUN/world.json" --scene "${D435I_SCENE:-room}"
 python3 tools/check_imu_physics.py "$RUN"
 cd "$PX4_BUILD"
 source rootfs/gz_env.sh
@@ -146,7 +146,7 @@ for ((i=0;i<40;i++)); do
 done
 [[ "$READY" == 1 ]] || { echo 'Gazebo startup timeout' >&2; exit 10; }
 SPAWN=$(python3 /workspace/tools/resolve_sim_spawn.py --project-root /workspace \
-  --config "${D435I_SPAWN_CONFIG:-}" --report "$RUN/spawn-pose.json")
+  --config "${D435I_SPAWN_CONFIG:-}" --scene "${D435I_SCENE:-room}" --report "$RUN/spawn-pose.json")
 start px4 env PX4_SIMULATOR=gz PX4_SYS_AUTOSTART=5011 PX4_SIM_MODEL=gz_x500_d435i PX4_GZ_WORLD=vio_initialization PX4_GZ_MODEL_POSE="$SPAWN" HEADLESS=1 ./bin/px4 -d -w "$PX4_BUILD"
 start agent /workspace/install/microxrcedds_agent/bin/MicroXRCEAgent udp4 -p 8888
 cd /workspace

@@ -1,0 +1,80 @@
+{
+  "id": "594",
+  "date": "2026-10-30",
+  "status": "passed",
+  "scope": "Read-only session-bound history of raw occupied observations, default RViz display; no cross-process save or planner map change",
+  "run_id": "gui-20261030-115354-3418835",
+  "retention": {
+    "schema": "observed-history-live-retention/v1",
+    "frame_id": "odom_63ac9b7e633248a693bc15119ed348d0",
+    "read_only": true,
+    "runtime_effect": false,
+    "messages": {
+      "local": 1686,
+      "history": 187
+    },
+    "latest_cloud_source_ns": {
+      "local": 136820000000,
+      "history": 136848000000
+    },
+    "initial_local_voxels": 588,
+    "final_local_voxels": 844,
+    "final_history_voxels": 5850,
+    "initial_voxels_retained_in_history": 588,
+    "initial_voxels_still_in_final_local": 0,
+    "historical_voxels_outside_final_local": 5006,
+    "passed": true,
+    "scope": "Observed raw occupied union only; no collision/coverage/global-SLAM claim"
+  },
+  "normal_navigation": {
+    "native_mission": true,
+    "independent_arrival": true,
+    "contact": true,
+    "normal_landed_disarmed": true,
+    "terminal_identity": true,
+    "runtime_identity": true,
+    "unique_control_publishers": true
+  },
+  "unit_tests": 740,
+  "ros_integration_suites": 3,
+  "built_ros_packages": 18,
+  "gui_retained_for_user": true,
+  "landed_disarmed_control_disabled": true,
+  "stop_reason": "bounded feature and validation complete; GUI kept for requested viewing",
+  "unresolved": [
+    "Historical occupied observations may retain ghosts after drift or later free evidence; not a current collision/known-free/global-SLAM map.",
+    "Only points published by plan_env within its bounds/visualization height are accumulated.",
+    "Cache is memory-only and capped at250000 voxels; resets/session restart clear it."
+  ],
+  "attempts": [
+    {
+      "run_id": "gui-20261030-115057-3410852",
+      "outcome": "startup only, stopped unarmed before a reset-boundary improvement; no flight"
+    },
+    {
+      "run_id": "gui-20261030-115224-3415665",
+      "outcome": "task refused before preflight because src/own/uav_mapping/README.md changed after startup; stopped unarmed"
+    },
+    {
+      "run_id": "gui-20261030-115354-3418835",
+      "outcome": "one candidate/one actual16m flight; normal qualification and historical retention PASS"
+    }
+  ],
+  "exploration": {
+    "hypothesis": "A bounded voxel union of local raw occupied clouds can retain old areas without changing planner/control",
+    "primary_variable": "read-only visualization observer enabled",
+    "criterion": "initial voxels absent in final local map but present in final history, normal navigation/terminal preserved",
+    "result": "588/588 initial voxels retained,0/588 in final local; PASS"
+  },
+  "input_sha256": {
+    "artifacts/runs/gui-20261030-115354-3418835/observed-history-retention.json": "91e6ab66f5315525799a29092d144f5531533fa98c65a435f17de99fa73b95c5",
+    "artifacts/runs/gui-20261030-115354-3418835/qualification.json": "7fad824d45052a2cf0dc135001f85dbebf7c4af8698de9e07454d5f1d7eea6d3",
+    "artifacts/runs/gui-20261030-115354-3418835/safe-to-stop.json": "4c03ac63dcb90a0dada79a92cb6a18b0e9ab26e2d1a7ee6a8f5100f124aa42c8",
+    "artifacts/runs/gui-20261030-115354-3418835/runtime-contract.json": "37463edf9273cd3ca141c8da0f30b9801177e2b158bd9bbedaf9ba66b9b6fb15",
+    "artifacts/runs/gui-20261030-115354-3418835/n09-runtime-contract-current.json": "37463edf9273cd3ca141c8da0f30b9801177e2b158bd9bbedaf9ba66b9b6fb15",
+    "artifacts/runs/gui-20261030-115354-3418835/history-node-graph.txt": "fffddf66d25834a1be53be8139ca7430c02c93595d2ef1cfec1fe8c4eda97c77",
+    "artifacts/runs/observed-history-20261030-594-checks/build.log": "bd9eb018cb2c067dd98c6db742148d0508474f62fc8bba7cd44babca7197ce6d",
+    "artifacts/runs/observed-history-20261030-594-checks/test.log": "6bf71fe40896fc422498ace5647cd972d2bbf416dbbe7ff35f31ee0efebab7da",
+    "artifacts/runs/observed-history-20261030-594-checks/live.log": "6b810431708affafefa49c26ee4b188d3b1300b68e639173bcce678dc7330d50"
+  }
+}

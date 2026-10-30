@@ -94,6 +94,13 @@ def start(context):
              ego, trajectory_server, navigation]
     if show_navigation:
         nodes.append(Node(
+            package='uav_mapping', executable='observed_obstacle_history',
+            name='observed_obstacle_history', output='screen',
+            parameters=[{'project_root': str(root),
+                         'session_manifest': str(run['session_manifest']),
+                         'planner_config': planner_config,
+                         'use_sim_time': True}]))
+        nodes.append(Node(
             package='uav_navigation', executable='navigation_visualization',
             name='navigation_visualization', output='screen',
             parameters=[{'project_root': str(root),

@@ -7,18 +7,21 @@ import hashlib
 import json
 from pathlib import Path
 import xml.etree.ElementTree as ET
+from scene_config import resolve_scene
+from scene_materials import physicalize_visuals, natural_materials
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def generate(project_root, px4_world, px4_server_config, output):
+def generate(project_root, px4_world, px4_server_config, output, scene_name=None):
     project_root = Path(project_root).resolve()
     px4_world = Path(px4_world).resolve()
     px4_server_config = Path(px4_server_config).resolve()
     output = Path(output).resolve()
     if output.exists():
         raise FileExistsError(f'Refusing to overwrite bootstrap world: {output}')
-    geometry_source = project_root / 'simulation/worlds/ego.sdf'
+    scene = resolve_scene(project_root, scene_name) if scene_name else None
+    geometry_source = project_root / (scene['geometry'] if scene else 'simulation/worlds/ego.sdf')
     px4_tree = ET.parse(px4_world)
     px4_world_element = px4_tree.getroot().find('world')
     if px4_world_element is None:
@@ -66,23 +69,32 @@ def generate(project_root, px4_world, px4_server_config, output):
         elif target.get('filename') != filename:
             raise ValueError(f'plugin {name} filename conflicts with the project world')
 
-    # These are the exact procedural texture bytes used by the #051 baseline.
+    selected_models = px4_world_element.findall('model')
+    collisions_added = physicalize_visuals(selected_models) if scene and scene.get('physicalize_visuals', False) else []
+    profile = scene.get('material_profile', 'legacy') if scene else 'legacy'
+    if profile not in ('legacy', 'natural'):
+        raise ValueError('unknown scene material profile')
+    # Legacy scenes retain their original verified procedural texture bytes.
     collision_before = b''.join(ET.tostring(c) for c in px4_world_element.findall('.//collision'))
-    for model in px4_world_element.findall('model'):
-        texture = project_root / 'simulation/textures' / ('floor.png' if model.get('name') == 'ground_plane' else 'obstacles.png')
-        if not texture.is_file():
-            raise FileNotFoundError(texture)
-        for visual in model.findall('.//visual'):
-            old = visual.find('material')
-            if old is not None:
-                visual.remove(old)
-            material = ET.SubElement(visual, 'material')
-            ET.SubElement(material, 'ambient').text = '.6 .6 .6 1'
-            ET.SubElement(material, 'diffuse').text = '1 1 1 1'
-            metal = ET.SubElement(ET.SubElement(material, 'pbr'), 'metal')
-            ET.SubElement(metal, 'albedo_map').text = str(texture)
-            ET.SubElement(metal, 'metalness').text = '0'
-            ET.SubElement(metal, 'roughness').text = '1'
+    material_report = {'profile': 'legacy'}
+    if profile == 'natural':
+        material_report = natural_materials(project_root, selected_models)
+    else:
+        for model in px4_world_element.findall('model'):
+            texture = project_root / 'simulation/textures' / ('floor.png' if model.get('name') == 'ground_plane' else 'obstacles.png')
+            if not texture.is_file():
+                raise FileNotFoundError(texture)
+            for visual in model.findall('.//visual'):
+                old = visual.find('material')
+                if old is not None:
+                    visual.remove(old)
+                material = ET.SubElement(visual, 'material')
+                ET.SubElement(material, 'ambient').text = '.6 .6 .6 1'
+                ET.SubElement(material, 'diffuse').text = '1 1 1 1'
+                metal = ET.SubElement(ET.SubElement(material, 'pbr'), 'metal')
+                ET.SubElement(metal, 'albedo_map').text = str(texture)
+                ET.SubElement(metal, 'metalness').text = '0'
+                ET.SubElement(metal, 'roughness').text = '1'
     assert collision_before == b''.join(ET.tostring(c) for c in px4_world_element.findall('.//collision'))
 
     world = px4_world_element
@@ -90,6 +102,10 @@ def generate(project_root, px4_world, px4_server_config, output):
     output.parent.mkdir(parents=True, exist_ok=True)
     px4_tree.write(output, encoding='utf-8', xml_declaration=True)
     return {
+        'collisions_added_from_visuals': collisions_added,
+        'material_profile': material_report,
+        'scene': scene['scene'] if scene else 'room',
+        'scene_registry_sha256': scene['registry_sha256'] if scene else None,
         'px4_world_source': str(px4_world),
         'px4_world_sha256': hashlib.sha256(px4_world.read_bytes()).hexdigest(),
         'px4_server_config_source': str(px4_server_config),
@@ -101,7 +117,7 @@ def generate(project_root, px4_world, px4_server_config, output):
         'world': 'vio_initialization',
         'models': [model.get('name') for model in world.findall('model')],
         'world_plugins': sorted(plugin.get('name') for plugin in world.findall('plugin')),
-        'qualification': 'Imported EGO static navigation scene; no truth or prebuilt map input. '
+        'qualification': 'Selected static navigation scenery; no truth or prebuilt map input. '
                          'World loading does not qualify VINS, planning clearance or flight.',
     }
 
@@ -113,9 +129,10 @@ def main():
     parser.add_argument('--px4-server-config', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--report', type=Path)
+    parser.add_argument('--scene', default='')
     args = parser.parse_args()
     report = generate(args.project_root, args.px4_world,
-                      args.px4_server_config, args.output)
+                      args.px4_server_config, args.output, args.scene or None)
     payload = json.dumps(report, indent=2, sort_keys=True) + '\n'
     if args.report:
         args.report.write_text(payload, encoding='utf-8')

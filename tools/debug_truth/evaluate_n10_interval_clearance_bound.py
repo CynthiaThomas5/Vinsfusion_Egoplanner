@@ -41,7 +41,7 @@ DEFAULTS = {
     "envelope": ROOT / "config/components/navigation/vehicle_envelope.json",
     "world_model": ROOT / "simulation/models/x500_d435i/model.sdf",
     "camera_model": ROOT / "simulation/models/d435i/model.sdf",
-    "base_model": ROOT / "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf",
+    "base_model": ROOT / "simulation/models/x500_base/model.sdf",
     "airframe_model": ROOT / "external/PX4-Autopilot/Tools/simulation/gz/models/x500/model.sdf",
     "motor_source": ROOT / "external/PX4-Autopilot/src/modules/simulation/gz_plugins/generic_motor/GenericMotorModel.cpp",
     "esc_source": ROOT / "external/PX4-Autopilot/src/modules/simulation/gz_bridge/GZMixingInterfaceESC.cpp",
@@ -968,7 +968,7 @@ def evaluate(run, envelope_path, world_sdf, vehicle_model, camera_model,
         ),
         "runtime_contract_vehicle_model_matches": runtime_files.get("simulation/models/x500_d435i/model.sdf") == sha256(vehicle_model),
         "runtime_contract_camera_model_matches": runtime_files.get("simulation/models/d435i/model.sdf") == sha256(camera_model),
-        "contact_manifest_base_model_matches": contact_manifest.get("source_sha256", {}).get("external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf") == sha256(base_model),
+        "contact_manifest_base_model_matches": contact_manifest.get("source_sha256", {}).get("simulation/models/x500_base/model.sdf") == sha256(base_model),
     }
     identity_checks = {
         **source_identity_checks,

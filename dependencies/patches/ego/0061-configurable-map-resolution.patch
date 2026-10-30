@@ -1,0 +1,27 @@
+--- a/planner/plan_manage/launch/advanced_param.launch.py
++++ b/planner/plan_manage/launch/advanced_param.launch.py
+@@ -26,6 +26,7 @@
+     max_acc = LaunchConfiguration('max_acc', default=3.0)
+     planning_horizon = LaunchConfiguration('planning_horizon', default=7.5)
+     odom_depth_timeout = LaunchConfiguration('odom_depth_timeout', default=1.0)
++    map_resolution = LaunchConfiguration('map_resolution', default=0.1)
+     obstacles_inflation = LaunchConfiguration('obstacles_inflation', default=0.099)
+     terminal_hold_neighborhood = LaunchConfiguration('terminal_hold_neighborhood', default=-1.0)
+     official_ego_collision_policy = LaunchConfiguration('official_ego_collision_policy', default=False)
+@@ -164,7 +165,7 @@
+             {'fsm/waypoint4_y': point4_y},
+             {'fsm/waypoint4_z': point4_z},
+             
+-            {'grid_map/resolution': 0.1},
++            {'grid_map/resolution': map_resolution},
+             {'grid_map/odom_depth_timeout': odom_depth_timeout},
+             {'grid_map/map_size_x': map_size_x},
+             {'grid_map/map_size_y': map_size_y},
+@@ -261,6 +262,7 @@
+     ld.add_action(max_acc_arg)
+     ld.add_action(planning_horizon_arg)
+     ld.add_action(odom_depth_timeout_arg)
++    ld.add_action(DeclareLaunchArgument('map_resolution', default_value=map_resolution, description='Map voxel edge in meters'))
+     ld.add_action(obstacles_inflation_arg)
+     ld.add_action(terminal_hold_neighborhood_arg)
+     ld.add_action(official_ego_collision_policy_arg)

@@ -1,17 +1,10 @@
 # 当前状态
 
-更新时间：2026-10-30。执行模式：Goal完成；用户范围：完成N17、整理代码、上传既有GitHub、兼容设备可重建使用、结束当前单D435i仿真项目。
+更新时间：2026-10-30。历史 `sim-nav-v1.0.0` 是已通过 N17 的 X500 版本。当前源码切换到约 250 级仿真近似机体，不能继承旧版的多场景、重复或长时资格，也不代表真实机体标定。
 
-**当前范围完成，N17 passed，无下一必做子任务。** [最终验收](evidence/FINAL_ACCEPTANCE.md)、[里程碑](milestones.json)、[A–H检查表](goal-checklist.json)。N15/fault资格、实机、ARM和语义/信念/探索排除，不标通过；后续扩展需另行明确范围。
+- 当前近似模型与官方地图参数的一次默认房间 16m 任务通过，见[模型适配报告](evidence/quad250-adaptation-20261030-592.md)；NavRL 多柱场景的 16m GUI/SITL 任务也通过，见[柱群报告](evidence/navrl-pillars-20261030-600.md)。两者均为单次日常任务，不计入新的正式 N11–N17 次数。
+- 当前可复现配置含 `room`（默认）、`floorplan2` 和 `pillars` 场景；多柱演示命令为 `./start.sh fly pillars`。RViz 使用 Orbit 三维碰撞地图视角，保留已探索障碍历史层；#603 相机第一视角试验已撤回。
+- 固定容器已单独保存在 `runtime-environment-v1` Git LFS 分支，SHA 和不可变 commit 见 [`docker/environment.json`](../docker/environment.json)。Linux amd64、NVIDIA/Docker/X11 设备要求及不支持范围见 [README](../README.md)。
+- 当前工作项：将本工作树已有模型、场景、启动、测试和证据修改整理为可复现的 GitHub 快照；目标标签 `sim-nav-quad250-2026-10-30`。需完成干净检出构建/测试与最终推送核验后才标记发布。
 
-- #574四场景各3次、#575–#586共12/12当前控制版本冻结评估PASS；失败/中断/兼容别名原记录保留。
-- #589从GitHub独立恢复所有来源/补丁/递归依赖，空build/install完成18ROS包6min44s和PX4 1141步；734单元与2套ROS集成PASS。实际GUI连续325.8sim秒、6段、71.502m、零违规接触、安全正常终态，独立驻留4.216–4.900秒，完整冻结评估PASS。
-- #588原FAIL保留：返程驻留不足3秒；仅将连续任务native位置容差0.25收紧到0.10m后由#589通过，离线0.30m/15度/3秒标准未改。#587为postflight记录IO修复，不新增运行门。
-- #590远端重建版本默认16m GUI及start.sh fly/status/stop PASS，正常落地上锁及独立safe-to-stop全部通过。当前无本项目飞行会话；未动其他容器。
-- #573独立G调用与地图/RGB-D真实持久回读PASS。空Docker引擎镜像导入/ROS/Gazebo、GitHub环境LFS独立下载校验PASS。
-- main源码已独立clone核对全部跟踪字节；发布标记sim-nav-v1.0.0，固定环境runtime-environment-v1身份见docker/environment.json。最终封装/远端tag核对日志在artifacts/runs/n17-20261029-569-audit；过程和实际限制见最终验收。
-- 发布配置只清理两处说明文字及关联源哈希，JSON精确等价证明及8项回归通过，数值/控制字段不变。
-
-迁移入口：README.md / docs/running.md。实际已验证Ubuntu24.04 x86_64+NVIDIA+固定Docker+X11；当前未接入第二物理设备，不宣称任意硬件可用或无限时长稳定。原始大数据留在artifacts，轻量证据/图表随源码。
-
-早期CURRENT原字节保存在docs/history/current-before-n17-close-20261030.txt，仅作历史。恢复不需要任何活动飞行进程；若复跑，从新的run_id开始，不拼接旧epoch。
+用户明确要求将现有工作树整体固化并上传。忽略的 `artifacts/` 运行日志/大文件、`.runtime/` 会话状态和机器本地凭据不作为源码发布；历史报告保留相对引用与哈希。

@@ -14,6 +14,21 @@ Visualization Manager:
     Cell Size: 1.0
     Plane Cell Count: 30
   - Class: rviz_default_plugins/PointCloud2
+    Name: Observed Obstacle History (display only)
+    Enabled: true
+    Topic:
+      Value: /visualization/mapping/observed_history
+      Depth: 1
+      History Policy: Keep Last
+      Reliability Policy: Reliable
+      Durability Policy: Transient Local
+    Size (m): 0.15
+    Style: Boxes
+    Color Transformer: FlatColor
+    Color: 60; 200; 200
+    Alpha: 0.65
+    Decay Time: 0
+  - Class: rviz_default_plugins/PointCloud2
     Name: Inflated Occupancy Map
     Enabled: true
     Topic:
@@ -22,7 +37,7 @@ Visualization Manager:
       History Policy: Keep Last
       Reliability Policy: Best Effort
       Durability Policy: Volatile
-    Size (m): 0.1
+    Size (m): 0.15
     Style: Boxes
     Color Transformer: AxisColor
     Axis: Z

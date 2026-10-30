@@ -15,7 +15,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY_PATH = ROOT / 'config/components/navigation/vehicle_envelope.json'
-X500_PATH = ROOT / 'external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf'
+X500_PATH = ROOT / 'simulation/models/x500_base/model.sdf'
 WRAPPER_PATH = ROOT / 'simulation/models/x500_d435i/model.sdf'
 D435I_PATH = ROOT / 'simulation/models/d435i/model.sdf'
 
@@ -118,9 +118,7 @@ def load_policy(root=ROOT):
     root = Path(root)
     policy = json.loads((root / POLICY_PATH.relative_to(ROOT)).read_text())
     terms = policy['spatial_budget']['terms_m']
-    expected = (terms['localization_10s_rpe_max_observed']
-                + terms['map_surface_error_max_observed']
-                + terms['voxel_half_diagonal'] + terms['sweep_sample_half_step'])
+    expected = sum(terms.values())
     margin = policy['spatial_budget']['combined_uncertainty_margin_m']
     radius = policy['spatial_budget']['body_reference_clearance_radius_m']
     geometry_radius = policy['geometry']['orientation_invariant_rotor_sweep_radius_m']

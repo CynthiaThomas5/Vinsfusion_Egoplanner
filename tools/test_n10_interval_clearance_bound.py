@@ -101,9 +101,9 @@ class N10ModelFrameBoundTests(unittest.TestCase):
             DEFAULTS["camera_model"],
         )
         self.assertEqual(
-            world_step["truth_model_to_base_link_position_m"], [0.0, 0.0, 0.24]
+            world_step["truth_model_to_base_link_position_m"], [0.0, 0.0, 0.12]
         )
-        self.assertGreater(world_step["model_origin_to_com_radius_m"], 0.2)
+        self.assertGreater(world_step["model_origin_to_com_radius_m"], 0.1)
         self.assertEqual(world_step["physics_step_s"], 0.004)
 
     def test_body_radius_is_measured_from_truth_model_origin(self):

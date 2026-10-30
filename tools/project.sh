@@ -15,7 +15,7 @@ require_image() {
 case "$ACTION" in
   fetch) exec python3 tools/fetch_dependencies.py "$@" ;;
   build) require_image; exec docker run --rm -v "$ROOT:/workspace:rw" -w /workspace "$IMAGE" bash tools/build_runtime.sh "$@" ;;
-  test) require_image; exec docker run --rm -v "$ROOT:/workspace:rw" -w /workspace "$IMAGE" bash -c 'source /opt/ros/jazzy/setup.bash; source install/local_setup.bash; python3 -m unittest discover -s tools -p "test_*.py" && python3 tools/test_navigation_adapter.py --project-root /workspace && python3 tools/ros_tests/probe_official_navigation_policy.py --project-root /workspace' ;;
+  test) require_image; exec docker run --rm -v "$ROOT:/workspace:rw" -w /workspace "$IMAGE" bash -c 'source /opt/ros/jazzy/setup.bash; source install/local_setup.bash; python3 -m unittest discover -s tools -p "test_*.py" && python3 tools/test_navigation_adapter.py --project-root /workspace && python3 tools/ros_tests/probe_official_navigation_policy.py --project-root /workspace && python3 tools/ros_tests/probe_observed_history.py --project-root /workspace' ;;
   export) exec python3 tools/export_project.py "$@" ;;
   n09)
     RUN_ID=${1:?Specify the active N09 simulation run id}
@@ -34,10 +34,16 @@ case "$ACTION" in
       case "$COMPLETION_MODE" in single_goal|round_trip) ;; *) echo 'Usage: project.sh mission RUN_ID [GOAL_CONFIG [single_goal|round_trip]]' >&2; exit 2 ;; esac
       TRIAL_KIND=${4:-terminal_stop}
       case "$TRIAL_KIND" in terminal_stop|motion_cancel) ;; *) echo 'Usage: project.sh mission RUN_ID [GOAL_CONFIG [single_goal|round_trip [terminal_stop|motion_cancel [CANCEL_SPEED_MIN CANCEL_SPEED_MAX]]]]' >&2; exit 2 ;; esac
-      exec docker exec "$CONTAINER" bash /workspace/tools/mission_runtime.sh "$RUN_ID" "${2:-config/components/navigation/room_crossing_goal.json}" "$COMPLETION_MODE" "$TRIAL_KIND" "${5:-0.04}" "${6:-0.06}"
+      MISSION_PROFILE=${2:-}
+      if [[ -z "$MISSION_PROFILE" ]]; then
+        ACTIVE_SCENE=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1])).get("scene","room"))' "artifacts/runs/$RUN_ID/world.json")
+        MISSION_PROFILE=$(python3 tools/scene_config.py --scene "$ACTIVE_SCENE" --field goal_profile)
+      fi
+      exec docker exec "$CONTAINER" bash /workspace/tools/mission_runtime.sh "$RUN_ID" "$MISSION_PROFILE" "$COMPLETION_MODE" "$TRIAL_KIND" "${5:-0.04}" "${6:-0.06}"
     fi
     if [[ "$ACTION" == loop ]]; then exec docker exec "$CONTAINER" bash /workspace/tools/loop_runtime.sh "$RUN_ID" "${2:-config/components/localization/loop_observer.json}"; fi
     require_image
+    SCENE=$(python3 tools/scene_config.py --scene "${D435I_SCENE:-}" --field scene)
     [[ ! -e "artifacts/runs/$RUN_ID" ]] || { echo 'Refusing to reuse run directory' >&2; exit 9; }
     [[ -z "$(docker ps -q --filter "label=d435i.project=$ROOT")" ]] || { echo 'Stop the active project simulation first' >&2; exit 9; }
     GUI=()
@@ -120,6 +126,7 @@ PY
       -e "D435I_SENSOR_BRIDGE_CONFIG=${D435I_SENSOR_BRIDGE_CONFIG:-}" \
       -e "D435I_PLANNER_CONFIG=${D435I_PLANNER_CONFIG:-}" \
       -e "D435I_SPAWN_CONFIG=${D435I_SPAWN_CONFIG:-}" \
+      -e "D435I_SCENE=$SCENE" \
       -e "D435I_N08_MODE=$N08_MODE" \
       -e "D435I_N09_CONTACTS=$N09_CONTACTS" \
       -e "D435I_N10_CAPTURE=${D435I_N10_CAPTURE:-0}" \

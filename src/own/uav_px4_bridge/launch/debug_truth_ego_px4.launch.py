@@ -67,6 +67,7 @@ def start(context):
             'max_acc': str(planner_cfg['max_acceleration_m_s2']),
             'planning_horizon': str(planner_cfg['planning_horizon_m']),
             'odom_depth_timeout': str(planner_cfg['odom_depth_timeout_sim_s']),
+            'map_resolution': str(planner_cfg.get('map_resolution_m', 0.1)),
             'obstacles_inflation': str(planner_cfg['obstacles_inflation_m']),
             'terminal_hold_neighborhood': str(envelope_cfg['map_policy']['terminal_hold_neighborhood_radius_m']),
             'ground_height': str(planner_cfg['ground_height_m']),

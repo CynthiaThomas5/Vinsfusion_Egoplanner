@@ -19,3 +19,11 @@
 #295 的第二布局快照显示known voxel增至21,983；raw occupied集合重合和墙面中位体素位置变化约7 cm仍属单轮描述。EGO没有输入timeout，但运行没有导航目标，不能据此评价规划或避障。须在同布局新epoch复测并定义ROI指标。详见 `progress/evidence/p2-map-snapshot-temporal-growth-20261020-295.json`。
 
 #296 在新epoch重复#295障碍布局时，墙面中位体素位置的一个栅格级摆动复现；首帧还有72个占据中心超过10 cm的SDF距离，后续两帧分别2/5个；首帧离群点都分配给大墙且在当前中心采样窗之外，该诊断窗不是验收ROI。墙面前表面x=3.0 m正落在名义地图x栅格边界index150；离线对齐后的边界距离支持单栅格side-selection假设，但不证实成因。应按capture phase与有界可见ROI分析原始深度、格点选择及大墙边缘72个首帧离群点，再讨论ghosting或覆盖标准。当前没有规划目标测试。详见 `progress/evidence/p2-map-snapshot-temporal-repeat-20261020-296.json`。
+
+## 累计观测显示（#594）
+
+默认GUI启动 `observed_obstacle_history`，订阅plan_env的raw占据点云与当前定位/地图身份，仅向 `/visualization/mapping/observed_history` 发布历史体素并集。RViz中的 `Observed Obstacle History (display only)` 为青色、不膨胀；原 `Inflated Occupancy Map` 仍为当前局部规划碰撞层。走过的区域保留在历史层中，局部规划地图的清理/未知空间语义不改变。
+
+使用当前planner配置的网格分辨率和地图边界去重；发布QoS为Reliable/Transient Local，晚打开RViz也能收到完整缓存。默认1Hz、最多250000体素，达到上限保留已有体素并明确告警省略新体素。参数位于 `config/components/mapping/observed_history.json`。epoch/map重置/时间倒退清空并拒绝旧会话。
+
+这是历史观测，不是当前占据真值：原点后来变成free不会删掉历史点，定位漂移可能留下重影；仅限当前会话和原始点云实际发布的高度/范围，不补未知区域，不订阅真值，不参与规划/控制。关闭程序后不保存到磁盘。

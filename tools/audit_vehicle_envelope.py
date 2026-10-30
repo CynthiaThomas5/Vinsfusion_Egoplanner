@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-X500 = ROOT / "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf"
+X500 = ROOT / "simulation/models/x500_base/model.sdf"
 WRAPPER = ROOT / "simulation/models/x500_d435i/model.sdf"
 D435I = ROOT / "simulation/models/d435i/model.sdf"
 PLANNER_LAUNCH = ROOT / "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py"
@@ -176,9 +176,7 @@ def audit():
     max_sphere = max(max_sphere, *(v["max_orientation_invariant_radius_m"] for v in rotor_sweeps))
     planner_text = PLANNER_LAUNCH.read_text(errors="replace")
     config = json.loads(PLANNER_CONFIG.read_text())
-    resolution_m = 0.1
-    if "('grid_map/resolution': 0.1)" not in planner_text and "{'grid_map/resolution': 0.1}" not in planner_text:
-        raise ValueError("Expected the pinned EGO launch resolution to remain 0.1 m")
+    resolution_m = float(config.get('map_resolution_m', 0.1))
     configured_inflation = float(config["obstacles_inflation_m"])
 
     result = {

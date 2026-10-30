@@ -5,6 +5,7 @@ import argparse
 import json
 from pathlib import Path
 import sys
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src/own/uav_sim'))
@@ -87,6 +88,21 @@ def stage(project_root, px4_build, profile='debug_truth'):
             raise ValueError('Invalid validated VIO ascent limit')
         params = {**params, **limits}
 
+    # Keep allocation geometry paired with the selected local simulation body.
+    vehicle = json.loads((project_root / 'config/components/simulation/quad250.json').read_text())
+    vehicle_params = dict(vehicle['px4_parameters'])
+    body_path = project_root / 'simulation/models/x500_base/model.sdf'
+    body = ET.parse(body_path).getroot().find('model')
+    motors = ET.parse(project_root / 'simulation/models/x500/model.sdf').getroot().find('model')
+    for motor in motors.findall('plugin'):
+        i = int(motor.findtext('motorNumber'))
+        rotor = body.find("link[@name='rotor_%d']" % i)
+        position = [float(v) for v in rotor.findtext('pose').split()[:3]]
+        for axis, value in zip(('PX', 'PY', 'PZ'), (position[0], -position[1], -position[2])):
+            vehicle_params['CA_ROTOR%d_%s' % (i, axis)] = value
+        # Gazebo ENU/FLU reaction torque becomes FRD yaw torque.
+        direction = 1 if motor.findtext('turningDirection') == 'ccw' else -1
+        vehicle_params['CA_ROTOR%d_KM' % i] = direction * float(motor.findtext('momentConstant'))
     lines = [
         '# Generated for the ' + profile + ' profile from the shared PX4 SITL parameter source.',
         '# D435i lever arm source SHA256: ' + mount['model_sha256'],
@@ -95,7 +111,7 @@ def stage(project_root, px4_build, profile='debug_truth'):
         'PX4_SIM_MODEL=${PX4_SIM_MODEL:=' + config['sim_model'] + '}',
         '. ${R}etc/init.d-posix/airframes/' + base,
     ]
-    for name, value in params.items():
+    for name, value in {**params, **vehicle_params}.items():
         lines.append('param set %s %s' % (name, _number(value)))
     for name, index in (('EKF2_EV_POS_X', 0), ('EKF2_EV_POS_Y', 1),
                         ('EKF2_EV_POS_Z', 2)):
@@ -108,10 +124,11 @@ def stage(project_root, px4_build, profile='debug_truth'):
         'path': str(destination),
         'profile': profile,
         'autostart_id': autostart_id,
-        'parameters': {**params,
+        'parameters': {**params, **vehicle_params,
                        'EKF2_EV_POS_X': mount['translation_frd_m'][0],
                        'EKF2_EV_POS_Y': mount['translation_frd_m'][1],
                        'EKF2_EV_POS_Z': mount['translation_frd_m'][2]},
+        'vehicle_model_sha256': __import__('hashlib').sha256(body_path.read_bytes()).hexdigest(),
         'mount_model_sha256': mount['model_sha256'],
         'script_sha256': __import__('hashlib').sha256(destination.read_bytes()).hexdigest(),
     }

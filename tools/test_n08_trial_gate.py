@@ -183,12 +183,12 @@ class TrialGateTests(unittest.TestCase):
         start=np.asarray([.05,0.0,.9])
         # This rear cell intersects the symmetric body+0.25m capsule, but is
         # outside the translated forward-only swept envelope.
-        raw['occupancy'][20,30,19]=-1
+        raw['occupancy'][25,30,19]=-1
         symmetric=certify_trial_capsule(raw,start,[.6,0,0],
-                                        .730617917,.25,0)
+                                        .299,.25,0)
         self.assertFalse(symmetric['passed'])
         directional=certify_forward_trial_corridor(
-            raw,start,[.6,0,0],.730617917,.25,.15)
+            raw,start,[.6,0,0],.299,.25,.15)
         self.assertTrue(directional['passed'],directional)
         self.assertEqual(directional['tracking_margin_m'],.25)
         self.assertEqual(directional['start_hold']['reason'],'free')
@@ -197,7 +197,7 @@ class TrialGateTests(unittest.TestCase):
         self.assertEqual(directional['vehicle_geometry'],
                          'locked_x500_d435i_sdf_collision_primitives')
         self.assertAlmostEqual(directional['spatial_uncertainty_margin_m'],
-                               .2486820464,places=8)
+                               .08402660048275737,places=8)
         self.assertGreater(directional['remaining_geometric_slack_m'],.01)
         self.assertTrue(all(q['unknown_count']==0 and q['occupied_count']==0
                             for q in directional['queries']))
@@ -206,7 +206,7 @@ class TrialGateTests(unittest.TestCase):
         raw={'origin_m':[-3,-3,-1],'resolution_m':0.1,
              'occupancy':np.zeros((60,60,40),dtype=np.int8)}
         result=certify_forward_trial_corridor(
-            raw,[.05,0.0,.9],[.6,0,0],.730617917,.25,.15)
+            raw,[.05,0.0,.9],[.6,0,0],.299,.25,.15)
         expected=np.hypot(.075+.0125,.05)+.15
         self.assertTrue(result['passed'],result)
         self.assertEqual(result['initial_reverse_allowance_m'],.005)
@@ -223,7 +223,7 @@ class TrialGateTests(unittest.TestCase):
         # This voxel lies inside the physical base/rotor envelope at the start.
         raw['occupancy'][30,30,19]=-1
         result=certify_forward_trial_corridor(
-            raw,start,[.6,0,0],.730617917,.25,.15)
+            raw,start,[.6,0,0],.299,.25,.15)
         self.assertFalse(result['passed'])
         self.assertEqual(result['start_hold']['reason'],'unknown')
 
@@ -233,7 +233,7 @@ class TrialGateTests(unittest.TestCase):
         start=np.asarray([.05,0.0,.9])
         raw['occupancy'][38,30,19]=-1
         result=certify_forward_trial_corridor(
-            raw,start,[.6,0,0],.730617917,.25,.15)
+            raw,start,[.6,0,0],.299,.25,.15)
         self.assertFalse(result['passed'])
         self.assertTrue(any(query['reason']=='unknown'
                             for query in result['queries']))
@@ -243,7 +243,7 @@ class TrialGateTests(unittest.TestCase):
              'occupancy':np.zeros((60,60,40),dtype=np.int8)}
         raw['occupancy'][38,30,19]=100
         result=certify_forward_trial_corridor(
-            raw,[.05,0.0,.9],[.6,0,0],.730617917,.25,.15)
+            raw,[.05,0.0,.9],[.6,0,0],.299,.25,.15)
         self.assertFalse(result['passed'])
         self.assertTrue(any(query['reason']=='occupied'
                             for query in result['queries']))
@@ -269,14 +269,14 @@ class TrialGateTests(unittest.TestCase):
              'occupancy':np.zeros((60,60,40),dtype=np.int8)}
         with self.assertRaisesRegex(ValueError,'invalid_forward_trial_corridor'):
             certify_forward_trial_corridor(
-                raw,[.05,0.0,.9],[.6,0,0],.730617917,.25,.15,
+                raw,[.05,0.0,.9],[.6,0,0],.299,.25,.15,
                 yaw_deviation_bound_rad=.02)
 
     def test_directional_corridor_rejects_outside_map_reachable_envelope(self):
         raw={'origin_m':[-1,-1,0],'resolution_m':0.1,
              'occupancy':np.zeros((20,20,20),dtype=np.int8)}
         result=certify_forward_trial_corridor(
-            raw,[-.5,0.0,.9],[.6,0,0],.730617917,.25,.15)
+            raw,[-.8,0.0,.9],[.6,0,0],.299,.25,.15)
         self.assertFalse(result['passed'])
         self.assertEqual(result['start_hold']['reason'],'outside_map')
     def test_outside_map_is_not_a_clear_trial(self):
@@ -317,14 +317,14 @@ class TrialGateTests(unittest.TestCase):
     def test_turn_approach_clears_rear_unknown_only_after_raw_capsule_admission(self):
         raw={'origin_m':[-3,-3,-1],'resolution_m':0.1,
              'occupancy':np.zeros((60,60,40),dtype=np.int8)}
-        # A rear-side unknown voxel band, matching the location that refused #267.
-        raw['occupancy'][25,27:33,16:22]=-1
-        start=np.asarray([.603947056,.0,.937042004])
-        turn_radius=.730617917+.25+.05
+        # A rear-side unknown band intersects the small-airframe turn sphere.
+        raw['occupancy'][30,27:33,16:22]=-1
+        start=np.asarray([.65,.0,.937042004])
+        turn_radius=.299+.25+.05
         initial=raw_sphere_query(raw,start,turn_radius)
         self.assertEqual(initial['reason'],'unknown')
         result=certify_trial_turn_approach(
-            raw,start,0.0,.22,.730617917,.25,turn_radius)
+            raw,start,0.0,.22,.299,.25,turn_radius)
         self.assertTrue(result['passed'],result)
         self.assertEqual(result['forward_capsule']['required_queries'],9)
         self.assertEqual(result['candidate_turn_hold']['reason'],'free')
@@ -332,13 +332,13 @@ class TrialGateTests(unittest.TestCase):
     def test_turn_approach_rejects_unknown_in_hop_or_candidate_hold(self):
         raw={'origin_m':[-3,-3,-1],'resolution_m':0.1,
              'occupancy':np.zeros((60,60,40),dtype=np.int8)}
-        raw['occupancy'][25,27:33,16:22]=-1
+        raw['occupancy'][30,27:33,16:22]=-1
         start=np.asarray([.603947056,0.0,.937042004])
-        turn_radius=.730617917+.25+.05
+        turn_radius=.299+.25+.05
         # An unknown ahead intersects the certified approach capsule.
         raw['occupancy'][37,30,19]=-1
         result=certify_trial_turn_approach(
-            raw,start,0.0,.22,.730617917,.25,turn_radius)
+            raw,start,0.0,.22,.299,.25,turn_radius)
         self.assertFalse(result['passed'])
         self.assertNotEqual(result['forward_capsule']['queries'][-1]['reason'],'free')
 

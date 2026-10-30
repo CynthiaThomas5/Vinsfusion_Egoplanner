@@ -1,0 +1,88 @@
+{
+  "id": "595",
+  "date": "2026-10-30",
+  "status": "passed",
+  "scope": "Official-indoor.gif-inspired display style: accumulated obstacles, display-only ground suppression, height coloring, default top-down RViz; no planner/control/acceptance changes",
+  "official_reference": "https://github.com/ZJU-FAST-Lab/ego-planner/blob/master/pictures/indoor.gif",
+  "run_id": "gui-20261030-125353-3586249",
+  "retention_and_display": {
+    "schema": "observed-history-live-retention/v1",
+    "frame_id": "odom_0d903280c7c34359bfd68b514fa5077a",
+    "read_only": true,
+    "runtime_effect": false,
+    "messages": {
+      "local": 1812,
+      "history": 201,
+      "display": 200
+    },
+    "latest_cloud_source_ns": {
+      "local": 156304000000,
+      "history": 156324000000,
+      "display": 155664000000
+    },
+    "initial_local_voxels": 598,
+    "final_local_voxels": 840,
+    "final_history_voxels": 5803,
+    "initial_voxels_retained_in_history": 598,
+    "initial_voxels_still_in_final_local": 0,
+    "historical_voxels_outside_final_local": 4963,
+    "passed": true,
+    "scope": "Observed raw occupied union only; no collision/coverage/global-SLAM claim",
+    "display_status": {
+      "ground_detected": true,
+      "ground_z_m": -0.175,
+      "display_cutoff_z_m": 0.025000000000000022,
+      "raw_history_voxels": 5803,
+      "displayed_obstacle_voxels": 1452,
+      "hidden_ground_band_voxels": 4351,
+      "classification": "display-only flat-floor heuristic; low geometry in the band is hidden too",
+      "epoch": "0d903280c7c34359bfd68b514fa5077a",
+      "map_id": "0d903280c7c34359bfd68b514fa5077a-f6ef95e0115e413b9963492b1b279e6a",
+      "frame_id": "odom_0d903280c7c34359bfd68b514fa5077a"
+    },
+    "final_displayed_voxels": 1452,
+    "ground_suppression_passed": true
+  },
+  "normal_navigation_checks": {
+    "native_mission": true,
+    "independent_arrival": true,
+    "contact": true,
+    "normal_landed_disarmed": true,
+    "terminal_identity": true,
+    "runtime_identity": true,
+    "unique_control_publishers": true
+  },
+  "independent_dwell_sim_s": 5.231999999999999,
+  "built_ros_packages": 18,
+  "unit_tests": 745,
+  "ros_integration_suites": 3,
+  "screenshot_visual_review": "PASS: white-background top-down accumulated pillar/wall contours and traveled path visible; no broad floor voxel slab; local inflated layer disabled by default",
+  "gui_retained_for_user": true,
+  "landed_disarmed_control_disabled": true,
+  "exploration": {
+    "hypothesis": "A supported low horizontal voxel band can suppress the displayed floor while leaving raw historical occupancy and normal navigation intact",
+    "primary_variable": "visualization presentation/filter policy (one candidate)",
+    "criterion": "old raw observations retained, floor band absent from displayed cloud, actual screenshot and normal16m terminal pass",
+    "result": "PASS; one actual GUI/SITL flight, no flight parameter/threshold changes"
+  },
+  "limitations": [
+    "Flat-floor display heuristic, not semantic ground segmentation; sloped terrain/stairs/hardware not validated.",
+    "The hidden display band includes low obstacles too; original raw history and collision map remain unchanged.",
+    "No supported low horizontal slice means no guessed floor; all observations remain visible until support exists.",
+    "Same-identity memory-only history; no cross-process persistence or global-SLAM claim."
+  ],
+  "stop_reason": "bounded feature and regression complete; safe GUI retained for user viewing",
+  "next_step": "No automatic next task; user can inspect retained GUI and use start.sh stop when finished",
+  "input_sha256": {
+    "artifacts/runs/gui-20261030-125353-3586249/observed-history-retention.json": "7438f842368d22524d81a35b908a7394516d4de0adf270231d02e5de9bf64829",
+    "artifacts/runs/gui-20261030-125353-3586249/qualification.json": "e90f6c38456701aef80cfc52289ad1caf0156ec76a355f179b96516e8b1b97b0",
+    "artifacts/runs/gui-20261030-125353-3586249/safe-to-stop.json": "671c2e244dc0b6dd70f76c4964e4aaf41c0a9b97bc0380c1381ce9b144601ba1",
+    "artifacts/runs/gui-20261030-125353-3586249/runtime-contract.json": "94f802dd024eece6e9ab9dc8ab9da27fd184d2ce8712416b9fc5c9ccf4918528",
+    "artifacts/runs/gui-20261030-125353-3586249/n09-runtime-contract-current.json": "94f802dd024eece6e9ab9dc8ab9da27fd184d2ce8712416b9fc5c9ccf4918528",
+    "artifacts/runs/gui-20261030-125353-3586249/rviz-obstacles-ground-hidden.png": "46076383ffc1555f5e7146124f24fca42fe9e0eaabc4c8150f3fdec96a06d268",
+    "artifacts/runs/gui-20261030-125353-3586249/arrival-evaluation.json": "fab85a943bb32b97d98b0d914a1b8826a7da29fe4de0e6354caf4ff185efc646",
+    "artifacts/runs/history-display-20261030-595-checks/build.log": "b255e54918b9c7bc082d9acdcb7bec484a8f9ff138f096a614590ef2b764b435",
+    "artifacts/runs/history-display-20261030-595-checks/test.log": "a6376b430dc9fbdf627eaeb6b95632ff7db99c4e322f6751d2ac5f4a4acb0d80",
+    "artifacts/runs/history-display-20261030-595-checks/live.log": "9c07a9812ff9c4f83275a5ddcd9f551f3b7e04dd1ef9c9edcd09bc03bf3a32ef"
+  }
+}

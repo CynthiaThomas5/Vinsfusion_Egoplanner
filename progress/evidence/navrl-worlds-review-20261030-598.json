@@ -1,0 +1,29 @@
+{
+  "id": "598",
+  "scope": "Read-only NavRL world source/geometry compatibility assessment; no runtime scene switch or flight",
+  "upstream_revision": "3725bcc2e7c1be4ecf1455d922299ae85042603a",
+  "recommended_first_world": "ros1/uav_simulator/worlds/floorplan2/floorplan2_static.world",
+  "recommended_followup_world": "ros1/uav_simulator/worlds/floorplan4/floorplan4_static.world",
+  "sdformat_checks": {
+    "floorplan2": "gz sdf -k: Valid, exit0",
+    "floorplan4": "gz sdf -k: Valid, exit0"
+  },
+  "runtime_validation": "NOT RUN: no Harmonic render/load, D435i/VINS or navigation test of these worlds",
+  "compatibility_notes": [
+    "ROS1 gazebo_ros launch cannot be used as this project ROS2/Harmonic/PX4 entry.",
+    "Selected floorplan worlds have embedded static box scenery, no mesh dependency, sensors or plugins.",
+    "Preserve project PX4/Harmonic systems and0.004s physics/250Hz camera IMU instead of copying NavRL0.001s physics.",
+    "Current generator hardcodes simulation/worlds/ego.sdf; add explicit world selection and provenance before switching.",
+    "Recheck spawn/goals/map bounds; complex partitioned rooms may need intermediate waypoints."
+  ],
+  "license": "Repository MIT (2025) and ros1/uav_simulator MIT (2023); referenced third-party assets need checking if imported",
+  "current_world_changed": false,
+  "source_sha256": {
+    "ros1/uav_simulator/worlds/floorplan2/floorplan2_static.world": "3a4d7e71a3e373b3be560c3b0c77e14ff2569d06799071db653a258da38e86c9",
+    "ros1/uav_simulator/worlds/floorplan4/floorplan4_static.world": "8412b0c83f48c8a685210601a83d8bb44cece23cc5f994587f8c9c7a645e72a5",
+    "ros1/uav_simulator/worlds/room/room_static.world": "e6cb50550e2965df327fe5aeadd4b59cd9fe0f033046b205f4d91d8e3f164f39",
+    "ros1/uav_simulator/launch/start.launch": "bbc5cc3be1d10a9a12406e02db8d5807ad62ed70d0546836d052c5057e0b64c9",
+    "LICENSE": "b1506146105407200a1c46cfee52df8e482ddece5af0b3cfa7b47ea3ca3df5b9"
+  },
+  "preview_sha256": "49fda9c2304996c08eb836c36c473845b35626ddf2da331f393e47d360e7e4c9"
+}

@@ -31,6 +31,36 @@ bash tools/project.sh stop room-demo-01
 
 无GUI的底层入口为 `project.sh sim RUN_ID`，仍使用NVIDIA传感器渲染。当前最终回归包含GUI；实际验证范围见最终验收报告。多GPU服务器可用 `PROJECT_GPU_DEVICE=1 bash tools/project.sh sim RUN_ID --gui` 选择宿主GPU，实际UUID记录在run内。
 
+## RViz保留走过的地图
+
+默认显示青色 `Observed Obstacle History (display only)`：同一定位会话的raw占据体素累计，飞机离开后仍保留。`Inflated Occupancy Map`继续显示当前局部膨胀碰撞层，可分别勾选对比。历史层有去重和容量限制，不靠增大Decay Time叠加整帧。map_id重置/时钟倒退清空；epoch变化清空并等待新的可视化会话。它不是全局SLAM或当前可通行地图，也不自动跨进程保存。#595的地面显示过滤/白底俯视已按用户要求在#596撤回。
+
+### RViz三维碰撞地图视角
+
+默认使用 `Orbit` 斜视三维地图，距离10m、Pitch 0.6、Yaw 3.8，焦点约(1.5,0,0.5)。`Observed Obstacle History`保留本会话探索过的占据体素，`Inflated Occupancy Map`显示当前局部规划碰撞层，两者可分别勾选。鼠标左键旋转、中键平移、滚轮缩放。视角只影响查看方式，地图仍来自在线探索，不载入未探索区域的完整世界地图。
+
+## 场景选择：柱群与 NavRL floorplan2
+
+```bash
+./start.sh start floorplan2   # 打开新房间与RViz，保持未武装
+./start.sh fly floorplan2     # 该场景的16m候选任务，结束自动降落
+./start.sh start room         # 安全结束旧会话后，切回原柱群房间
+```
+
+无场景参数时复用当前会话的场景；没有活动会话时默认room。显式切换场景会先检查任务结束/落地上锁，再开启fresh run/epoch，不能在飞行中替换世界。`./start.sh status`/`stop`不接受场景参数。底层入口为`D435I_SCENE=floorplan2 bash tools/project.sh sim RUN --gui`；`project.sh mission RUN`按该run/world.json的场景选择默认目标，显式给GOAL_CONFIG仍覆盖默认。
+
+`config/components/simulation/scenes.json`统一绑定几何、出生配置和默认目标。`pillars`使用NavRL固定commit `3725bcc2e7c1be4ecf1455d922299ae85042603a` 的generated_env_static：30根圆柱和30根方柱。上游柱子只有visual没有collision；合成时按原visual几何补同形状碰撞体，PX4/Harmonic系统、0.004s物理步长、250Hz相机IMU、250级模型和控制链保持。该场景使用浅暖色细颗粒地面及蓝绿柱身，不改变历史场景的材质。
+
+```bash
+./start.sh start pillars   # 打开多柱场景，保持未武装
+./start.sh fly pillars     # 多柱场景16m候选任务
+./start.sh start floorplan2 # 仍可切回NavRL房间
+```
+
+柱群源文件原字节迁入 `simulation/worlds/navrl/generated_env_static.world`，运行时碰撞/材质变换由prepare_px4_vio_bootstrap_world.py完成。MIT许可、来源哈希和材质生成记录见dependencies及simulation/textures。floorplan2仍使用固定commit中的原始静态world，运行合成与相机纹理流程不变。实际资格结果见对应progress/evidence报告。
+
+候选任务起点(-8,-8)、yaw0，目标相对ENU(+16,0,0)，中途需绕开下侧隔墙。验收位置0.30m/yaw15度/驻留3sim秒保持；此场景不是原room的正式资格次数，实际运行结论见progress/evidence/floorplan2-integration-20261030-599.md。地图仍来自在线D435i深度，不加载NavRL的PCD完整地图或其机器人/控制/真值话题。
+
 ## 状态、取消与降落
 
 结果与日志在 `artifacts/runs/RUN_ID/`。`qualification.json`给出普通任务的独立到达、接触、正常终态和唯一控制检查，正式场景／连续负载另有专门报告。评估程序不发布控制。

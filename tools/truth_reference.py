@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = 'gazebo-model-to-imu-reference/v1'
 MODEL = 'simulation/models/x500_d435i/model.sdf'
 CAMERA = 'simulation/models/d435i/model.sdf'
-BASE = 'external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf'
+BASE = 'simulation/models/x500_base/model.sdf'
 
 
 def sha256(path):

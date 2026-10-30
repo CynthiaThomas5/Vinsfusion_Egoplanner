@@ -4,7 +4,9 @@
 
 定位和规划使用 CPU；Gazebo 相机与 RViz 使用 NVIDIA GPU。默认视觉链路从初始化开始不使用 GNSS、真值定位或完整世界地图；真值记录仅作独立离线评估。
 
-**交付状态：N17及当前仿真范围已完成，发布标记 `sim-nav-v1.0.0`。** GitHub源码独立恢复、18个ROS包/PX4干净构建、734项单元与ROS集成、四场景12次回归、325.8sim秒连续任务及默认16m GUI示例均通过。见[最终验收报告](progress/evidence/FINAL_ACCEPTANCE.md)和[当前状态](progress/CURRENT.md)。
+**历史 X500 验收版本：`sim-nav-v1.0.0`。** N17 的完整通过范围和报告仍保留在[最终验收报告](progress/evidence/FINAL_ACCEPTANCE.md)；这些资格不自动转移到后续机体模型。
+
+**当前可复现快照：`sim-nav-quad250-2026-10-30`。** 它包括约 246 mm 轴距的仿真近似模型、0.15 m 地图分辨率、0.299 m 膨胀、柱群和 floorplan2 场景、历史占据可视化及当前启动/评估工具。250 级模型已完成一次 16 m 默认房间任务和柱群 16 m 单次 GUI/SITL 任务；不代表真实机体标定，也不继承 X500 的多场景/重复/长时 N17 资格。范围与证据见[模型说明](docs/quad250-simulation.md)、[柱群任务报告](progress/evidence/navrl-pillars-20261030-600.md)和[当前状态](progress/CURRENT.md)。
 
 ## 环境
 
@@ -16,11 +18,13 @@
 
 ```bash
 git clone git@github.com:CynthiaThomas5/D435i-VINS-EGO-ROS2.git
-git -C D435i-VINS-EGO-ROS2 checkout sim-nav-v1.0.0
-# 在另外一个目录取得固定运行环境
-git clone --single-branch --branch runtime-environment-v1 \
+git -C D435i-VINS-EGO-ROS2 checkout sim-nav-quad250-2026-10-30
+# 在另外一个目录取得固定运行环境，并检出源码清单中的不可变 commit
+RUNTIME_COMMIT=$(python3 -c 'import json; print(json.load(open("D435i-VINS-EGO-ROS2/docker/environment.json"))["commit"])')
+git clone --no-checkout --single-branch --branch runtime-environment-v1 \
   git@github.com:CynthiaThomas5/D435i-VINS-EGO-ROS2.git d435i-runtime
 git -C d435i-runtime lfs install --local
+git -C d435i-runtime checkout "$RUNTIME_COMMIT"
 git -C d435i-runtime lfs pull
 (cd d435i-runtime && sha256sum -c SHA256SUMS)
 zstd -dc d435i-runtime/container-images.tar.zst | docker load
@@ -39,8 +43,11 @@ bash tools/project.sh test
 ```bash
 ./start.sh          # 打开 Gazebo 与 RViz，保持未武装
 ./start.sh fly      # 起飞、执行默认 16 m 目标、正常降落并独立评估
+./start.sh fly pillars # 多柱场景 16 m 任务，正常降落并独立评估
 ./start.sh status   # 当前会话和最近结果
 ./start.sh stop     # 任务结束、确认落地上锁后停止本项目会话
+./start.sh start floorplan2  # 可选NavRL隔墙房间（未武装）
+./start.sh fly floorplan2    # 可选场景默认任务；结果见各run报告
 ```
 
 默认场景为 20×20 m 房间及 19 个圆柱，默认起点 x=-8 m，目标为起飞后相对 ENU +16 m；规划速度 0.4 m/s、加速度 0.25 m/s²。独立到达标准为位置 ≤0.30 m、yaw ≤15°、连续 ≥3 仿真秒。相机 IMU 的已知零陀螺偏置约束只适用于当前无注入噪声／偏置的仿真模型。

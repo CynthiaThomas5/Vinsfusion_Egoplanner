@@ -66,7 +66,7 @@ class GeometryTest(unittest.TestCase):
         mount = px4_sensor_mount(ROOT / 'simulation/models/x500_d435i/model.sdf')
         self.assertEqual(mount['parent_frame'], 'base_link')
         self.assertEqual(mount['sensor_frame'], 'd435i_imu')
-        self.assertEqual(mount['translation_frd_m'], [0.12, 0.0, -0.08])
+        self.assertEqual(mount['translation_frd_m'], [0.0, 0.0, -0.08])
         self.assertEqual(len(mount['model_sha256']), 64)
 
 

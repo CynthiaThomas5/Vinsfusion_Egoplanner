@@ -61,6 +61,10 @@ class StartLauncherTests(unittest.TestCase):
         shutil.copyfile(ROOT / 'start.sh', self.root / 'start.sh')
         (self.root / 'bin').mkdir()
         (self.root / 'tools').mkdir()
+        (self.root / 'config/components/simulation').mkdir(parents=True)
+        shutil.copyfile(ROOT / 'config/components/simulation/scenes.json',
+                        self.root / 'config/components/simulation/scenes.json')
+        shutil.copyfile(ROOT / 'tools/scene_config.py', self.root / 'tools/scene_config.py')
         Path(authority).touch()
         (self.root / 'fake.py').write_text(FAKE)
         for tool in ['docker', 'ps', 'xdpyinfo', 'project']:
@@ -149,6 +153,27 @@ class StartLauncherTests(unittest.TestCase):
         self.assertNotEqual(self.run_launcher().returncode, 0)
         self.state['active'] = 'd435i-a\nd435i-b'
         self.assertNotEqual(self.run_launcher('fly').returncode, 0)
+        self.assertEqual(self.calls(), [])
+
+    def test_explicit_scene_switch_restarts_unarmed_gui(self):
+        result = self.run_launcher('start', 'floorplan2')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual([c[0] for c in self.calls()], ['stop', 'sim'])
+
+    def test_scene_switch_refuses_unconfirmed_flight(self):
+        (self.old_run()/'flight-probe-ready').touch()
+        self.assertNotEqual(self.run_launcher('start', 'floorplan2').returncode, 0)
+        self.assertEqual(self.calls(), [])
+
+    def test_repeat_fly_without_scene_preserves_active_scene(self):
+        path = self.old_run()
+        (path/'world.json').write_text('{"scene":"floorplan2"}')
+        result = self.run_launcher('fly')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.calls(), [['mission', 'old']])
+
+    def test_unknown_scene_does_not_stop_existing_gui(self):
+        self.assertNotEqual(self.run_launcher('start', 'unknown').returncode, 0)
         self.assertEqual(self.calls(), [])
 
     def test_status_works_while_another_launcher_holds_lock(self):

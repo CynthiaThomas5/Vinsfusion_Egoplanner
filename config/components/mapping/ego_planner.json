@@ -1,5 +1,5 @@
 {
-  "qualification": "Low-speed static-room simulation configuration; qualification evidence and support scope are recorded in progress/evidence/FINAL_ACCEPTANCE.md.",
+  "qualification": "PROVISIONAL quad250 proxy configuration; historical X500 qualification does not cover this version",
   "drone_id": 0,
   "map_size_m": [
     40.0,
@@ -8,7 +8,7 @@
   ],
   "max_velocity_m_s": 0.4,
   "max_acceleration_m_s2": 0.25,
-  "obstacles_inflation_m": 0.7306179170842027,
+  "obstacles_inflation_m": 0.299,
   "planning_horizon_m": 5.0,
   "startup_waypoint_enu_m": [
     0.0,
@@ -21,5 +21,6 @@
   "use_distinctive_trajectories": true,
   "odom_depth_timeout_sim_s": 0.4,
   "ground_height_m": -1.0,
-  "rationale": "Keep current inflated-occupied official_ego policy, map bounds and inflation. Match verified 0.4m/s and 0.25m/s^2 dynamics. This is a planner parameter choice, not an empirical runtime speed gate."
+  "rationale": "Fast-Drone-250 real-flight reference: resolution 0.15 m, inflation 0.299 m; preserve existing 0.4 m/s and 0.25 m/s2 dynamics. Validate this proxy independently.",
+  "map_resolution_m": 0.15
 }

@@ -12,20 +12,23 @@ class VehicleEnvelopeTests(unittest.TestCase):
     def test_mount_geometry_is_relative_to_declared_base_link_mount(self):
         primitives = {item['name']: item for item in collision_primitives()}
         self.assertAlmostEqual(primitives['base_link_collision_3']['center_imu_m'][2],
-                               -0.2995)
+                               -0.18975)
         self.assertAlmostEqual(primitives['base_link_collision_4']['center_imu_m'][2],
-                               -0.2995)
+                               -0.18975)
         self.assertEqual(primitives['d435i_housing_collision']['center_imu_m'],
                          [0.0, 0.0, 0.0])
 
     def test_rotor_sweep_is_included_in_current_model_envelope(self):
         result = audit()
         self.assertEqual(len(result['rotor_sweeps']), 4)
+        self.assertGreaterEqual(result['configured_obstacle_inflation_m'],
+                                1.5 * result['max_horizontal_radius_level_all_rotor_angles_m'])
+        self.assertEqual(result['inflation_steps'], 2)
         self.assertEqual(result['d435i_housing_collision_count'], 1)
         self.assertAlmostEqual(result['max_orientation_invariant_radius_all_rotor_angles_m'],
-                               0.4819358706659999)
+                               0.21497339951724262)
         self.assertGreater(result['max_horizontal_radius_level_all_rotor_angles_m'],
-                           0.4704407665082815)
+                           0.19)
         planner = json.loads((ROOT/'config/components/mapping/ego_planner.json').read_text())
         policy = json.loads((ROOT/'config/components/navigation/vehicle_envelope.json').read_text())
         subground = policy['ground_contact']['subground_voxel_exclusion']

@@ -197,7 +197,8 @@
         "dependencies/patches/ego/0057-n10-yaw-rate-cap-010.patch",
         "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch",
         "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch",
-        "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch"
+        "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch",
+        "dependencies/patches/ego/0061-configurable-map-resolution.patch"
       ],
       "license": "GPL-3.0-only",
       "imported": true,
@@ -253,7 +254,8 @@
         "dependencies/patches/ego/0057-n10-yaw-rate-cap-010.patch": "10253a99a10573a684adaa2d5d183f76234cfef35727122709181ce7239b66a8",
         "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch": "9f847bcef6dd2384c936491971480a12e806d0794f80c6409d27ed269649d203",
         "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch": "88ff95d04db3fa53eb8487b722ad5c6ef1156bd17629bcbdedfb0664d1ad7e06",
-        "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch": "8c09c678c4a7239ad50a1e616857641dd59e4a9c23196c251c6bbf7949cb5344"
+        "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch": "8c09c678c4a7239ad50a1e616857641dd59e4a9c23196c251c6bbf7949cb5344",
+        "dependencies/patches/ego/0061-configurable-map-resolution.patch": "9c86bafa30cc5b7bd4709a71cd78a34816ac5e3ddb8b03f4267d40656b84cc9f"
       },
       "reconstruction_tool": "tools/fetch_dependencies.py",
       "patch_contexts": {
@@ -438,6 +440,11 @@
           "working_directory": "src",
           "strip": 1,
           "binary": false
+        },
+        "dependencies/patches/ego/0061-configurable-map-resolution.patch": {
+          "working_directory": "src",
+          "strip": 1,
+          "binary": true
         }
       },
       "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
@@ -456,7 +463,7 @@
         "src/planner/plan_env/include/plan_env/swept_curve.h": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
         "src/planner/plan_manage/src/ego_replan_fsm.cpp": "cd850f2388526a729e72c9539666775eab8ae78ab39b0c32fe3459c9c34ee208",
         "src/planner/plan_manage/include/ego_planner/ego_replan_fsm.h": "e501479ffbec9c134be7f343d006fe6b54662edf326f26c54df8aabb9f9fafb2",
-        "src/planner/plan_manage/launch/advanced_param.launch.py": "29f4b2b1894c366bf5d6d4ea58426abd40f1175f15f11b53908902f8d66a2149",
+        "src/planner/plan_manage/launch/advanced_param.launch.py": "e6a93ec3e669e3d2e42f8292aae8ab144a407178c86e7757825af805b4ae70f7",
         "src/planner/plan_manage/src/planner_manager.cpp": "ba54b725fe410e2e52fe9c0f09eb42adeeb75c7689031c2057ff43901e2b3908",
         "src/planner/bspline_opt/src/uniform_bspline.cpp": "2dbf2ad5a6526c8b479d6874c89c048a3f028018b99125b3d50dc09db2e77a17",
         "src/planner/plan_manage/src/traj_server.cpp": "d9b01e71a123d938a7e6d2cdaf139f7cb6a3ef55bcc7147bcb2400da1a4d97de"
@@ -555,6 +562,45 @@
       "patch_status": "pinned import and exact patch replay passed; final source/generated SDF valid; x500+D435i raw RGB/left/depth/IMU smoke passed with custom plugins loaded; VINS/map/planning/flight remain unqualified",
       "import_report": "artifacts/runs/ego-world-import-20261021-01/import-report.json",
       "evidence": "progress/evidence/ego-world-import-20261021-01.json"
+    },
+    {
+      "id": "navrl_floorplan2_world",
+      "url": "https://github.com/Zhefan-Xu/NavRL",
+      "reference_revision": "3725bcc2e7c1be4ecf1455d922299ae85042603a",
+      "upstream_path": "ros1/uav_simulator/worlds/floorplan2/floorplan2_static.world",
+      "upstream_file_url": "https://raw.githubusercontent.com/Zhefan-Xu/NavRL/3725bcc2e7c1be4ecf1455d922299ae85042603a/ros1/uav_simulator/worlds/floorplan2/floorplan2_static.world",
+      "upstream_sha256": "3a4d7e71a3e373b3be560c3b0c77e14ff2569d06799071db653a258da38e86c9",
+      "target": "simulation/worlds/navrl/floorplan2_static.world",
+      "target_sha256": "3a4d7e71a3e373b3be560c3b0c77e14ff2569d06799071db653a258da38e86c9",
+      "source_diff": "none: exact upstream bytes; project-owned run-local world composer replaces only material/world systems, retaining collision geometry",
+      "license": "MIT",
+      "license_file": "ros1/uav_simulator/LICENSE",
+      "local_license_file": "dependencies/licenses/NavRL-uav_simulator-MIT.txt",
+      "license_sha256": "edc594807ce28a23e1bd40cf022b7a3cd4b4939ce213c9cc221969a0f61d6103",
+      "role": "optional static scene geometry only; no NavRL robot, policy, control or truth topic",
+      "imported": true,
+      "patches": [],
+      "patch_sha256": {},
+      "validation_status": "Exact upstream source tracked; runtime qualification scope and results are recorded separately, not implied by import.",
+      "evidence": "progress/evidence/floorplan2-integration-20261030-599.md"
+    },
+    {
+      "id": "navrl_pillars_world",
+      "url": "https://github.com/Zhefan-Xu/NavRL",
+      "reference_revision": "3725bcc2e7c1be4ecf1455d922299ae85042603a",
+      "upstream_path": "ros1/uav_simulator/worlds/generated_env/generated_env_static.world",
+      "upstream_file_url": "https://raw.githubusercontent.com/Zhefan-Xu/NavRL/3725bcc2e7c1be4ecf1455d922299ae85042603a/ros1/uav_simulator/worlds/generated_env/generated_env_static.world",
+      "upstream_sha256": "faf1a73c704fe9d81c30fc897ff8352fbd5485b4f90a5d695ddeb667527d6821",
+      "target": "simulation/worlds/navrl/generated_env_static.world",
+      "target_sha256": "faf1a73c704fe9d81c30fc897ff8352fbd5485b4f90a5d695ddeb667527d6821",
+      "source_diff": "none: original world bytes. Runtime composer adds matching collisions to all60 visual-only primitives and natural materials; explicit report records adaptations.",
+      "license": "MIT",
+      "local_license_file": "dependencies/licenses/NavRL-uav_simulator-MIT.txt",
+      "license_sha256": "edc594807ce28a23e1bd40cf022b7a3cd4b4939ce213c9cc221969a0f61d6103",
+      "imported": true,
+      "patches": [],
+      "patch_sha256": {},
+      "evidence": "progress/evidence/navrl-pillars-20261030-600.md"
     }
   ],
   "updated": "2026-10-28",

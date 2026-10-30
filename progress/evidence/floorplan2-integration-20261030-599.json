@@ -1,0 +1,151 @@
+{
+  "id": "599",
+  "date": "2026-10-30",
+  "status": "passed",
+  "scope": "Optional NavRL floorplan2 static world integration plus one16m GUI/SITL task; not formal scene repetition/duration or arbitrary maze qualification",
+  "upstream_commit": "3725bcc2e7c1be4ecf1455d922299ae85042603a",
+  "world_provenance": {
+    "models": [
+      "ground_plane",
+      "floorplan2"
+    ],
+    "output": "/workspace/artifacts/runs/gui-20261030-150047-3805409/vio_initialization.sdf",
+    "output_sha256": "aff5c2ba53f05daad825cbda4676c90ddb45b728b7fcb0640109fe53a2698231",
+    "project_geometry_sha256": "3a4d7e71a3e373b3be560c3b0c77e14ff2569d06799071db653a258da38e86c9",
+    "project_geometry_source": "simulation/worlds/navrl/floorplan2_static.world",
+    "px4_server_config_sha256": "60871c73e32ecde05e008aaf995e1b9c09906ca3dacb143c595522c68d399172",
+    "px4_server_config_source": "/workspace/external/PX4-Autopilot/src/modules/simulation/gz_bridge/server.config",
+    "px4_world_sha256": "457a363a22c437b788a4aaf1e2335aa149efce4e5b988cdc108065663cd879b2",
+    "px4_world_source": "/workspace/external/PX4-Autopilot/Tools/simulation/gz/worlds/default.sdf",
+    "qualification": "Selected static navigation scenery; no truth or prebuilt map input. World loading does not qualify VINS, planning clearance or flight.",
+    "scene": "floorplan2",
+    "scene_registry_sha256": "152534b32467f8a488dcc2ad51f3073cefd2ad631fa603e028d48229f25cff8c",
+    "world": "vio_initialization",
+    "world_plugins": [
+      "custom::GstCameraSystem",
+      "custom::OpticalFlowSystem",
+      "gz::sim::systems::AirPressure",
+      "gz::sim::systems::AirSpeed",
+      "gz::sim::systems::ApplyLinkWrench",
+      "gz::sim::systems::Contact",
+      "gz::sim::systems::Imu",
+      "gz::sim::systems::Magnetometer",
+      "gz::sim::systems::NavSat",
+      "gz::sim::systems::Physics",
+      "gz::sim::systems::SceneBroadcaster",
+      "gz::sim::systems::Sensors",
+      "gz::sim::systems::UserCommands"
+    ]
+  },
+  "run_id": "gui-20261030-150047-3805409",
+  "checks": {
+    "native_mission": true,
+    "independent_arrival": true,
+    "contact": true,
+    "normal_landed_disarmed": true,
+    "terminal_identity": true,
+    "runtime_identity": true,
+    "unique_control_publishers": true
+  },
+  "built_ros_packages": 18,
+  "unit_tests": 749,
+  "ros_integration_suites": 3,
+  "route_world_start_xy": [
+    -8,
+    -8
+  ],
+  "route_world_goal_xy": [
+    8,
+    -8
+  ],
+  "route_diagnostic": {
+    "scope": "Offline geometry/path evidence only, no control feedback",
+    "world_imu_xyz_bounds": [
+      [
+        -7.993086040573422,
+        8.05157454682511
+      ],
+      [
+        -8.03734568048671,
+        -5.86003612547753
+      ],
+      [
+        1.1090913708781196,
+        1.3267618520290696
+      ]
+    ],
+    "pose_nearest_partition_x": {
+      "wall_s": 92.96742013003677,
+      "wall_monotonic_s": 1835009.183227773,
+      "stamp_ns": 116020000000,
+      "xyz": [
+        0.26791682198907274,
+        -5.9517535446237195,
+        1.1532115373485412
+      ],
+      "q_xyzw": [
+        0.0028617601296056566,
+        -0.0007993211566452163,
+        0.17278016122802184,
+        0.9849559316541364
+      ],
+      "pose_reference": "d435i_imu"
+    },
+    "truth_reference_contract": {
+      "schema": "gazebo-model-to-imu-reference/v1",
+      "conversion_tool_sha256": "e2b572143a5c60dd3e5d3d257b34d02d389e84ae52da76c8deac97c590f46685",
+      "raw_pose_reference": "gazebo_model_origin",
+      "output_pose_reference": "d435i_imu",
+      "model_origin_to_imu_m": [
+        0.0,
+        0.0,
+        0.2
+      ],
+      "source_sha256": {
+        "simulation/models/x500_d435i/model.sdf": "b08a2d5aad37eee765ea6af38f6b02d99a3ac46ab706fabe58327b2bfdcf4922",
+        "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
+        "simulation/models/x500_base/model.sdf": "03bf67540581dd669ca6066f5508738b8697ad5fc44e773da0a4fb1f4af3ec00"
+      },
+      "raw_twist_semantics": "body-frame rolling-mean velocities; not instantaneous endpoint state",
+      "velocity_comparison": "differentiate converted IMU positions at source time; do not use raw twist as world velocity"
+    }
+  },
+  "independent_dwell_sim_s": 5.2520000000000095,
+  "minimum_true_goal_error_m": 0.04290251269854689,
+  "prohibited_contact_count": 0,
+  "protected_source_files_unchanged": 62,
+  "protected_source_changes": [],
+  "room_legacy_generator_output": "byte-identical with explicit room selection, tested",
+  "gui_retained": true,
+  "normal_landed_disarmed_control_disabled": true,
+  "hypothesis": {
+    "primary_variable": "selected static scene and its paired task/spawn profile",
+    "assumption": "Textured static geometry can reuse the current D435i/VINS/EGO/PX4 chain and navigate around the south partition",
+    "criterion": "same collision geometry, correct camera/physics pairing, actual map/pose/navigation, independent arrival/zero contact/normal terminal",
+    "result": "first actual navigation task PASS; near partition actual Y=-5.952m versus startY=-8m, actual altitude1.109–1.327m below wall top2.5m; lateral detour demonstrated"
+  },
+  "limitations": [
+    "Only one defined route/one GUI run in floorplan2; all rooms/doorways/maze targets are not qualified.",
+    "Materials use existing project procedural textures, not NavRL original appearance.",
+    "Current defaults retain room when no session exists; explicit floorplan2 command selects new scene; active-scene reuse retains it."
+  ],
+  "stop_reason": "bounded integration and validation complete; safe GUI retained for user viewing",
+  "next_task": null,
+  "input_sha256": {
+    "artifacts/runs/gui-20261030-150047-3805409/world.json": "4063729ec7fe058ab1df0be9db1fe0021ed2ff00b9f0873e8bb2422f0bf9a545",
+    "artifacts/runs/gui-20261030-150047-3805409/spawn-pose.json": "3b21e1b7a9226c2516e5a28f8966cd54eb14b1bc31a5d939be9268f233e68687",
+    "artifacts/runs/gui-20261030-150047-3805409/imu-physics-contract.json": "2229cb3b7038592006b398d18ddce0f25b5c53f6284177daefb4beef61c79523",
+    "artifacts/runs/gui-20261030-150047-3805409/qualification.json": "c076326949efb4868e76a56c0d078d7d0fb08b55792dc833ebf0eca10bedcf43",
+    "artifacts/runs/gui-20261030-150047-3805409/arrival-evaluation.json": "844b47dd8f62fb8cfbaf2087a14718bd22d8ce12dbba266b38ada64ffe43d7f3",
+    "artifacts/runs/gui-20261030-150047-3805409/vehicle-contact-evaluation.json": "63d4b1f22428719d7d5dc8442c9be8b1beff8538d2fc9fd4501d7892162567a2",
+    "artifacts/runs/gui-20261030-150047-3805409/safe-to-stop.json": "4d58fbacbf21547a91b04d0cd51b0f0e427d3b391cb3b8bd4c4c191647ce6eb0",
+    "artifacts/runs/gui-20261030-150047-3805409/runtime-contract.json": "f4daaec459a5c876e2edfe930568438727acc1275cdfb6f49ec7f41022589ed4",
+    "artifacts/runs/gui-20261030-150047-3805409/n09-runtime-contract-current.json": "f4daaec459a5c876e2edfe930568438727acc1275cdfb6f49ec7f41022589ed4",
+    "artifacts/runs/gui-20261030-150047-3805409/scene-route-diagnostic.json": "ce37c010a7751edf407bb34b7464a552341a1f6c8cf6f40fe6872a6c4353b13e",
+    "artifacts/runs/gui-20261030-150047-3805409/scene-rviz.png": "e3e205621890f12a68d69555e94ac5af7b85f3b14caa8bcb9ae4851ba1d5e3cc",
+    "artifacts/runs/gui-20261030-150047-3805409/scene-gazebo.png": "ca8ae5600eb5732405e7199110ff6d3f78b0e344499ecce7bfb22cc38d97277d",
+    "artifacts/runs/floorplan2-20261030-599-checks/build.log": "33c6e3c3fe5b7dac7463858d3b0aca7a20adf5c61dd32776802b0afe64ca2622",
+    "artifacts/runs/floorplan2-20261030-599-checks/test.log": "7f65755b88fb3ce42a86edc0a51f40cfc2857d19823f3e202d72924c1d305063",
+    "artifacts/runs/floorplan2-20261030-599-checks/mission.log": "5a9b45982021ee92697d87b21e41caaba1c8b8d3bd608f1f7068b444d96f7cdb"
+  }
+}

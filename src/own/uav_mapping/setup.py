@@ -4,4 +4,5 @@ setup(name='uav_mapping', version='0.1.0', packages=['uav_mapping'],
       install_requires=['setuptools'], zip_safe=True,
       entry_points={'console_scripts':[
           'depth_health_monitor=uav_mapping.node:main',
-          'mapping_input_adapter=uav_mapping.adapter:main']})
+          'mapping_input_adapter=uav_mapping.adapter:main',
+          'observed_obstacle_history=uav_mapping.observed_history:main']})

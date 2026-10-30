@@ -1,12 +1,12 @@
 {
   "schema": "vehicle-envelope-budget/v1",
-  "qualification": "PROVISIONAL N05 diagnostic entry budget; unarmed simulation only, not a flight clearance",
+  "qualification": "PROVISIONAL quad250 geometry; current flight evidence must be collected separately",
   "reference_frame": "d435i_imu_frame / d435i_link origin",
   "online_frame_template": "odom_<epoch>",
   "geometry": {
-    "airframe_model": "x500_d435i",
+    "airframe_model": "quad250 proxy (x500_d435i compatibility name)",
     "d435i_mount_pose_base_link_xyzrpy_m_rad": [
-      0.12,
+      0.0,
       0.0,
       0.08,
       0.0,
@@ -15,55 +15,58 @@
     ],
     "collision_bounds_xyz_m": [
       [
-        -0.4338715598484476,
-        0.19387155984844762
+        -0.1569357799240319,
+        0.1569357799240319
       ],
       [
-        -0.3138715598484476,
-        0.3138715598484476
+        -0.1569357799240319,
+        0.1569357799240319
       ],
       [
-        -0.307,
+        -0.1935,
         0.0125
       ]
     ],
-    "level_max_horizontal_radius_m": 0.48150294014012984,
-    "orientation_invariant_rotor_sweep_radius_m": 0.4819358706659999,
+    "level_max_horizontal_radius_m": 0.19297235985049116,
+    "orientation_invariant_rotor_sweep_radius_m": 0.21497339951724262,
     "rotor_sweep_method": "Sweep each x500 propeller collision rectangle through its complete revolute-Z range; union is a disk at the measured rotor center and collision half-thickness.",
     "ground_contact_collisions": [
       "base_link_collision_3",
       "base_link_collision_4"
     ],
-    "ground_contact_geometry": "The two 0.25 x 0.015 x 0.015 m skid crossbars at y=+/-0.132 m and z=-0.2195 m in base_link; no other x500 or camera collision may contact ground.",
+    "ground_contact_geometry": "Two 0.125 x 0.0075 x 0.0075 m skid crossbars at y=+/-0.066 m and z=-0.10975 m in base_link.",
     "source_hashes": {
-      "external/PX4-Autopilot/Tools/simulation/gz/models/x500_base/model.sdf": "e807dca3406f7cd5cb3d545898601c3ec17e0e5242e25cf467a69df1812cf436",
-      "simulation/models/x500_d435i/model.sdf": "d129daa244845c383ab96ff498e9c520a497d2d01c3156f4eb983dee33631893",
+      "simulation/models/x500_base/model.sdf": "03bf67540581dd669ca6066f5508738b8697ad5fc44e773da0a4fb1f4af3ec00",
+      "simulation/models/x500_d435i/model.sdf": "b08a2d5aad37eee765ea6af38f6b02d99a3ac46ab706fabe58327b2bfdcf4922",
       "simulation/models/d435i/model.sdf": "54e2cb83044be070cedd87aa03d9f7203cb957aceb04d028d0fcac7b894c0707",
-      "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "29f4b2b1894c366bf5d6d4ea58426abd40f1175f15f11b53908902f8d66a2149",
-      "config/components/mapping/ego_planner.json": "4e54eceb8dc6c0dee80d9435bc009bad66343a47e8c47c7155fb9ca3b2232105"
+      "src/vendor/ego_planner/planner/plan_manage/launch/advanced_param.launch.py": "e6a93ec3e669e3d2e42f8292aae8ab144a407178c86e7757825af805b4ae70f7",
+      "config/components/mapping/ego_planner.json": "3d0501a0800476f854cb37104b38cae743ba08fc87f9e37035368e0d88120bc9"
     }
   },
   "spatial_budget": {
-    "map_resolution_m": 0.1,
-    "terms_m": {
+    "map_resolution_m": 0.15,
+    "body_reference_clearance_radius_m": 0.299,
+    "combination": "Official Fast-Drone-250 parameter 0.299 m, compared with local geometric radius; no claim that historical X500 uncertainty measurements qualify this model.",
+    "limitations": [
+      "The remaining allowance is the difference between the official parameter and geometric radius; it is not a measured localization, mapping or tracking error bound.",
+      "Historical X500 measurements do not qualify quad250.",
+      "Real mounting hardware, cable and manufacturing tolerance are unmeasured."
+    ],
+    "evidence": [
+      "progress/evidence/vio-full-state-baseline-20261022-083.json",
+      "progress/evidence/n04-map-geometry-20261023.json"
+    ],
+    "historical_x500_uncertainty_budget_m": 0.24868204641820268,
+    "historical_x500_terms_m": {
       "localization_10s_rpe_max_observed": 0.04172867921525873,
       "map_surface_error_max_observed": 0.09535082682450007,
       "voxel_half_diagonal": 0.08660254037844387,
       "sweep_sample_half_step": 0.025
     },
-    "combined_uncertainty_margin_m": 0.24868204641820268,
-    "body_reference_clearance_radius_m": 0.7306179170842027,
-    "combination": "linear sum; measured N01 10 s RPE maximum + N04 cross-layout maximum surface residual + half a 0.1 m voxel diagonal + 0.025 m sweep sampling allowance",
-    "limitations": [
-      "N01 RPE maximum and N04 residual maximum are observed finite-sample values under low-speed unarmed support motion, not hard bounds.",
-      "The additive sum is intentionally conservative and may double-count localization effects already present in N04 map residuals.",
-      "Mount bracket, cable, connectors, manufacturing tolerance, control tracking, latency, braking distance, vibration, and tilted-flight geometry are not measured or included.",
-      "A pass is only an observation/map-entry diagnostic for a stationary or vertically swept low-speed unarmed pose; it does not authorize flight."
-    ],
-    "evidence": [
-      "progress/evidence/vio-full-state-baseline-20261022-083.json",
-      "progress/evidence/n04-map-geometry-20261023.json"
-    ]
+    "combined_uncertainty_margin_m": 0.08402660048275737,
+    "terms_m": {
+      "official_parameter_unallocated_allowance": 0.08402660048275737
+    }
   },
   "map_policy": {
     "required_map_bottom_m": -1.0,
