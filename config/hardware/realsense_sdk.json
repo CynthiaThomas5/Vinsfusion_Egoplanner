@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "version": "2.58.1",
+  "library_dir": "install-hardware-sdk-clock/lib",
+  "library_sha256": "315cb61bf1ed172535f79c5880cec2a35d19afbd2a6d9e88ce00f5ebc3409850",
+  "base_commit": "bf2778061d5dd29776e9aca8765f75852671760b",
+  "base_runtime_sha256": "a72cc3c5030be54ee532347d10a40b3839535bc79b2b4709d10d452c370b69f9",
+  "clock_patch": "dependencies/patches/realsense/0002-robust-global-clock-fit.patch",
+  "clock_patch_sha256": "da9303ad234469cf8a6635b9e4bb028ef08b8fca74863431d995807b2c2a937c",
+  "deployment": {
+    "ros_overlay": "/home/jetson/realsense_debug/ros2_hid_hold_ws/install/local_setup.bash",
+    "wrapper_source_dir": "/home/jetson/realsense_debug/ros2_hid_hold_ws/src/realsense-ros",
+    "wrapper_install_prefix": "/home/jetson/realsense_debug/ros2_hid_hold_ws/install/realsense2_camera",
+    "wrapper_version": "3.2.3",
+    "wrapper_source_commit": "b30a25b400bddf28292058968fb69d96f9e1af9b",
+    "wrapper_library_sha256": "dcc3573a6d8e8e5b144d1fc2aa104268ad44411d4c71698cf654317b474643d9",
+    "sdk_source_dir": "/home/jetson/realsense_debug/librealsense-v2.58.1",
+    "hid_sensitivity_patch": "/home/jetson/realsense_debug/hid-hold-sensitivity-sdk2581/hid-hold.patch",
+    "hid_sensitivity_patch_sha256": "57e25c0f8ddfce20ac82d86dde4ac445af5f50a6a27bc71b8e9e0f30887cc457"
+  },
+  "qualification": "HW10 candidate; real SDK steady 295s future>1ms=0; perception/EV validation pending"
+}

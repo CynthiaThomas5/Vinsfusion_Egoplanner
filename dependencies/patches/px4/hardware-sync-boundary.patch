@@ -1,0 +1,222 @@
+diff --git a/msg/CMakeLists.txt b/msg/CMakeLists.txt
+index 7eda1cc316..ae5b6c84a3 100644
+--- a/msg/CMakeLists.txt
++++ b/msg/CMakeLists.txt
+@@ -216,6 +216,7 @@ set(msg_files
+ 	TelemetryStatus.msg
+ 	TiltrotorExtraControls.msg
+ 	TimesyncStatus.msg
++	UxrceDdsSyncTrace.msg
+ 	TrajectorySetpoint6dof.msg
+ 	TransponderReport.msg
+ 	TuneControl.msg
+diff --git a/src/modules/logger/logged_topics.cpp b/src/modules/logger/logged_topics.cpp
+index bdca16eae3..872486df04 100644
+--- a/src/modules/logger/logged_topics.cpp
++++ b/src/modules/logger/logged_topics.cpp
+@@ -166,6 +166,7 @@ void LoggedTopics::add_default_topics()
+ 	add_optional_topic_multi("sensor_hygrometer", 500, 4);
+ 	add_optional_topic_multi("rpm", 200);
+ 	add_topic_multi("timesync_status", 1000, 3);
++	add_topic("uxrce_dds_sync_trace", 0); // diagnostic candidate only
+ 	add_optional_topic_multi("telemetry_status", 1000, 4);
+ 
+ 	// EKF multi topics
+diff --git a/src/modules/uxrce_dds_client/CMakeLists.txt b/src/modules/uxrce_dds_client/CMakeLists.txt
+index e5fc481543..5a4757b0e3 100644
+--- a/src/modules/uxrce_dds_client/CMakeLists.txt
++++ b/src/modules/uxrce_dds_client/CMakeLists.txt
+@@ -141,6 +141,7 @@ else()
+ 		SRCS
+ 			${CMAKE_CURRENT_BINARY_DIR}/dds_topics.h
+ 			uxrce_dds_client.cpp
++			sync_trace.cpp
+ 			uxrce_dds_client.h
+ 			vehicle_command_srv.cpp
+ 			vehicle_command_srv.h
+diff --git a/src/modules/uxrce_dds_client/uxrce_dds_client.cpp b/src/modules/uxrce_dds_client/uxrce_dds_client.cpp
+index d5f2b57042..5500920ac1 100644
+--- a/src/modules/uxrce_dds_client/uxrce_dds_client.cpp
++++ b/src/modules/uxrce_dds_client/uxrce_dds_client.cpp
+@@ -42,6 +42,7 @@
+ 
+ #include <uxr/client/client.h>
+ #include <uxr/client/util/ping.h>
++#include <uxr/client/util/px4_sync_trace.h>
+ #include <ucdr/microcdr.h>
+ 
+ #include <termios.h>
+@@ -64,6 +65,8 @@ static void on_time(uxrSession *session, int64_t current_time, int64_t client_tr
+ 
+ 		session->time_offset = -timesync->offset() * 1000; // us -> ns
+ 	}
++	px4_sync_trace_reply(current_time / 1000, originate_timestamp / 1000,
++			     client_transmit_timestamp / 1000, agent_receive_timestamp / 1000);
+ }
+ 
+ static void on_time_no_sync(uxrSession *session, int64_t current_time, int64_t client_transmit_timestamp,
+@@ -113,6 +116,7 @@ UxrceddsClient::UxrceddsClient(Transport transport, const char *device, int baud
+ 
+ bool UxrceddsClient::init()
+ {
++	px4_sync_trace_enable(_transport == Transport::Serial);
+ 	deinit();
+ 
+ 	if (_transport == Transport::Serial) {
+diff --git a/msg/UxrceDdsSyncTrace.msg b/msg/UxrceDdsSyncTrace.msg
+new file mode 100644
+index 0000000000..628b90af57
+--- /dev/null
++++ b/msg/UxrceDdsSyncTrace.msg
+@@ -0,0 +1,23 @@
++# Diagnostic only. FC boundary fields are HRT microseconds; Agent fields use Agent epoch.
++uint64 timestamp # callback's FC receive timestamp, captured before Timesync::update
++uint64 request_timestamp # exact TIMESTAMP originate key, FC HRT us
++uint64 agent_rx_timestamp # Agent receive timestamp, epoch us
++uint64 agent_tx_timestamp # exact DDS timesync_status.remote_timestamp key, epoch us
++uint64 submit_begin
++uint64 submit_end # framed send_message returned; NOT physical UART completion
++uint64 uart_write_begin
++uint64 uart_write_end # last transport write syscall returned; NOT physical TX completion
++uint64 reply_poll_begin # before optional FIONREAD plus poll; includes check overhead
++uint64 reply_poll_end # poll returned readiness; NOT UART interrupt or wire arrival
++uint64 reply_read_begin
++uint64 reply_read_end # last successful serial read before callback
++uint32 sequence
++uint32 serial_bytes_written
++uint32 serial_bytes_read
++int32 reply_bytes_available # -1: not measured; >=0: FIONREAD just before poll
++uint8 flags
++uint8 REQUEST_MATCHED = 1
++uint8 SEND_SUCCEEDED = 2
++uint8 READ_OBSERVED = 4
++uint8 WRITE_OBSERVED = 8
++uint8 ORB_QUEUE_LENGTH = 8
+diff --git a/src/modules/uxrce_dds_client/sync_trace.cpp b/src/modules/uxrce_dds_client/sync_trace.cpp
+new file mode 100644
+index 0000000000..ec9ca6552f
+--- /dev/null
++++ b/src/modules/uxrce_dds_client/sync_trace.cpp
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: BSD-3-Clause
++// Diagnostic candidate: single XRCE task owns all hooks; never publishes controls.
++#include <uxr/client/util/px4_sync_trace.h>
++#include <uORB/Publication.hpp>
++#include <uORB/topics/uxrce_dds_sync_trace.h>
++
++namespace
++{
++struct Request {
++	uint64_t key{0}, begin{0}, end{0}, write_begin{0}, write_end{0};
++	uint32_t bytes{0};
++	bool sent{false}, write_seen{false};
++};
++struct Read {
++	uint64_t poll_begin{0}, poll_end{0}, begin{0}, end{0};
++	uint32_t bytes{0};
++	int32_t available{-1};
++};
++Request requests[8] {};
++Request *active{nullptr};
++Read last_read{};
++unsigned next_request{0};
++uint32_t sequence{0};
++bool enabled{false};
++bool waiting{false};
++uORB::Publication<uxrce_dds_sync_trace_s> publication{ORB_ID(uxrce_dds_sync_trace)};
++Request *find(uint64_t key)
++{
++	for (auto &request : requests) {
++		if (request.key == key && key != 0) { return &request; }
++	}
++
++	return nullptr;
++}
++}
++extern "C" void px4_sync_trace_enable(uint8_t value)
++{
++	enabled = value != 0;
++	waiting = false;
++
++	for (auto &request : requests) { request = {}; }
++
++	last_read = {};
++	active = nullptr;
++	next_request = 0;
++}
++extern "C" void px4_sync_trace_begin(uint64_t key, uint64_t begin)
++{
++	if (!enabled) { return; }
++
++	waiting = true;
++	active = &requests[next_request++ % 8];
++	*active = {};
++	active->key = key;
++	active->begin = begin;
++}
++extern "C" uint8_t px4_sync_trace_waiting() { return enabled && waiting; }
++extern "C" void px4_sync_trace_finish() { waiting = false; }
++extern "C" void px4_sync_trace_sent(uint64_t key, uint64_t end, uint8_t sent)
++{
++	if (!enabled) { return; }
++
++	if (Request *request = find(key)) { request->end = end; request->sent = sent != 0; }
++
++	active = nullptr;
++}
++extern "C" void px4_sync_trace_write(uint64_t begin, uint64_t end, int32_t bytes)
++{
++	if (!enabled || !active) { return; }
++
++	if (!active->write_seen) { active->write_begin = begin; }
++
++	active->write_seen = true;
++	active->write_end = end;
++
++	if (bytes > 0) { active->bytes += static_cast<uint32_t>(bytes); }
++}
++extern "C" void px4_sync_trace_read(uint64_t poll_begin, uint64_t poll_end,
++				    uint64_t begin, uint64_t end, int32_t bytes, int32_t available)
++{
++	if (!enabled || bytes <= 0) { return; }
++
++	last_read = {poll_begin, poll_end, begin, end, static_cast<uint32_t>(bytes), available};
++}
++extern "C" void px4_sync_trace_reply(uint64_t now, uint64_t key, uint64_t agent_rx, uint64_t agent_tx)
++{
++	if (!enabled) { return; }
++
++	uxrce_dds_sync_trace_s message{};
++	message.timestamp = now;
++	message.request_timestamp = key;
++	message.agent_rx_timestamp = agent_rx;
++	message.agent_tx_timestamp = agent_tx;
++	message.sequence = ++sequence;
++	message.reply_bytes_available = -1;
++
++	if (Request *request = find(key)) {
++		message.flags |= uxrce_dds_sync_trace_s::REQUEST_MATCHED;
++
++		if (request->sent) { message.flags |= uxrce_dds_sync_trace_s::SEND_SUCCEEDED; }
++
++		if (request->write_seen) { message.flags |= uxrce_dds_sync_trace_s::WRITE_OBSERVED; }
++
++		message.submit_begin = request->begin;
++		message.submit_end = request->end;
++		message.uart_write_begin = request->write_begin;
++		message.uart_write_end = request->write_end;
++		message.serial_bytes_written = request->bytes;
++	}
++
++	if (last_read.end != 0 && last_read.end >= key && last_read.end <= now) {
++		message.flags |= uxrce_dds_sync_trace_s::READ_OBSERVED;
++		message.reply_poll_begin = last_read.poll_begin;
++		message.reply_poll_end = last_read.poll_end;
++		message.reply_read_begin = last_read.begin;
++		message.reply_read_end = last_read.end;
++		message.serial_bytes_read = last_read.bytes;
++		message.reply_bytes_available = last_read.available;
++	}
++
++	publication.publish(message);
++}

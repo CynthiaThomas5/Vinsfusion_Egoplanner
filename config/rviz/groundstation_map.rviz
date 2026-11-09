@@ -1,0 +1,85 @@
+Panels:
+- Class: rviz_common/Displays
+  Name: Displays
+Preferences:
+  PromptSaveOnExit: false
+Visualization Manager:
+  Class: ''
+  Global Options:
+    Fixed Frame: hardware_display
+    Background Color: 20; 20; 20
+    Frame Rate: 15
+  Displays:
+  - Class: rviz_default_plugins/Marker
+    Name: Live validity and map reception
+    Enabled: true
+    Topic:
+      Value: /groundstation/status
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+  - Class: rviz_default_plugins/Grid
+    Name: Metric grid
+    Enabled: true
+    Cell Size: 1
+    Plane Cell Count: 30
+  - Class: rviz_default_plugins/PointCloud2
+    Name: Measured occupied voxels
+    Enabled: true
+    Topic:
+      Value: /groundstation/map
+      Depth: 1
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+    Style: Boxes
+    Size (m): 0.1
+    Color Transformer: FlatColor
+    Color: 80; 200; 255
+  - Class: rviz_default_plugins/PointCloud2
+    Name: Planner inflated occupancy
+    Enabled: true
+    Topic:
+      Value: /groundstation/inflated
+      Depth: 1
+      Reliability Policy: Best Effort
+      Durability Policy: Volatile
+    Style: Boxes
+    Size (Pixels): 2
+    Color Transformer: FlatColor
+    Color: 255; 160; 60
+    Size (m): 0.1
+    Alpha: 0.18
+  - Class: rviz_default_plugins/Path
+    Name: Planner reference samples (not complete future curve)
+    Enabled: false
+    Topic:
+      Value: /groundstation/reference_samples
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+    Line Style: Lines
+    Line Width: 0.03
+    Color: 255; 80; 170
+  - Class: rviz_default_plugins/Path
+    Name: VINS estimated trajectory
+    Enabled: true
+    Topic:
+      Value: /hardware_view/vins_path
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+    Line Style: Billboards
+    Line Width: 0.025
+    Color: 255; 80; 170
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 5
+      Pitch: 0.6
+      Yaw: 3.14
+      Target Frame: hardware_display
+  Tools:
+  - Class: rviz_default_plugins/MoveCamera
+  - Class: rviz_default_plugins/Interact
+  - Class: rviz_default_plugins/Select
+  - Class: rviz_default_plugins/FocusCamera

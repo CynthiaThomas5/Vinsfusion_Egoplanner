@@ -1,0 +1,16 @@
+[Unit]
+Description=PX4 Micro XRCE-DDS Agent over CH340 TELEM1 serial
+After=dev-ttyUSB0.device
+Wants=dev-ttyUSB0.device
+
+[Service]
+Type=simple
+User=jetson
+SupplementaryGroups=dialout
+Environment=LD_LIBRARY_PATH=/home/jetson/D435i-VINS-EGO-ROS2-hardware/install-hardware-agent-framing/lib
+ExecStart=/usr/local/bin/MicroXRCEAgent serial --dev /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0 -b 1000000 -v 4
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

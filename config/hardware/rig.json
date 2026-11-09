@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "status": "PROVISIONAL",
+  "identity": {
+    "api_serial": "243622073269",
+    "asic_usb_serial": "243323065857",
+    "firmware": "05.17.03.10",
+    "ros_distribution": "foxy",
+    "factory_eeprom_reader_sdk": "2.50"
+  },
+  "body_frame": "camera_b_imu_optical_frame",
+  "transform_convention": "T_imu_optical maps a point expressed in an optical frame into camera_b_imu_optical_frame using column vectors; rotation and translation follow the candidate VINS body_T_cam convention.",
+  "imu": {
+    "frame": "camera_b_imu_optical_frame",
+    "translation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "axes": {
+      "x": "optical right",
+      "y": "optical down",
+      "z": "optical forward"
+    },
+    "correction_chain": [
+      {
+        "input_topic": "/camera_b/imu",
+        "wrapper_method": "realsense2_camera unite_imu_method=linear_interpolation",
+        "output_topic": "/sensors/d435i/imu",
+        "timestamp": "gyro sample timestamp; accelerometer linearly interpolated to gyro times"
+      },
+      {
+        "project_correction": "none; no second corrected-IMU stream, axis rotation, bias subtraction, or zero-bias assumption"
+      }
+    ],
+    "static_rest_observation_m_s2": [
+      0.046724,
+      -9.863085,
+      -0.190142
+    ],
+    "static_rest_observation_scope": "one tabletop pose from HW02; supports gravity direction only, not calibrated bias or airframe alignment"
+  },
+  "streams": {
+    "infra1": {
+      "image_topic": "/sensors/d435i/infra1/image_rect_raw",
+      "camera_info_topic": "/sensors/d435i/infra1/camera_info",
+      "encoding": "mono8",
+      "rectified": true
+    },
+    "infra2": {
+      "image_topic": "/sensors/d435i/infra2/image_rect_raw",
+      "camera_info_topic": "/sensors/d435i/infra2/camera_info",
+      "encoding": "mono8",
+      "rectified": true,
+      "observed_message_frame_note": "Driver image and CameraInfo headers both use camera_b_infra1_optical_frame; retain this observed ID while optical geometry uses camera_b_infra2_optical_frame."
+    },
+    "depth": {
+      "input_topic": "/sensors/d435i/depth/image_rect_raw",
+      "camera_info_topic": "/sensors/d435i/depth/camera_info",
+      "input_encoding": "16UC1",
+      "input_unit": "millimetres",
+      "metres_per_input_unit": 0.001,
+      "output_topic": "/sensors/d435i/depth",
+      "output_encoding": "32FC1",
+      "output_unit": "metres",
+      "depth_aligned_to_color": false
+    },
+    "color": {
+      "enabled": false,
+      "reason": "HW02 kept RGB disabled; color intrinsics and image timing were not observed in this session"
+    }
+  },
+  "cameras": {
+    "infra1": {
+      "frame": "camera_b_infra1_optical_frame",
+      "image_frame": "camera_b_infra1_optical_frame",
+      "camera_info_frame": "camera_b_infra1_optical_frame",
+      "width": 640,
+      "height": 480,
+      "rectified": true,
+      "distortion_model": "plumb_bob",
+      "K": [
+        386.6713562011719,
+        0.0,
+        322.17462158203125,
+        0.0,
+        386.6713562011719,
+        241.46707153320312,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "D": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "R": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "P": [
+        386.6713562011719,
+        0.0,
+        322.17462158203125,
+        0.0,
+        0.0,
+        386.6713562011719,
+        241.46707153320312,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "T_imu_optical": [
+        0.9998419646264827,
+        -0.001529757735976671,
+        -0.017711736592559143,
+        -0.005905562188295553,
+        0.0015387335286625576,
+        0.9999986945482321,
+        0.000493154092329457,
+        0.004072239410594851,
+        0.017710959064453524,
+        -0.0005203297994840846,
+        0.9998430132705417,
+        0.014406693964278421,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "intrinsics_source": "HW02 live CameraInfo, 640x480 rectified stream",
+      "transform_source": "same-serial PROVISIONAL VINS candidate body_T_cam0; candidate body axes identified with the IMU optical axes"
+    },
+    "infra2": {
+      "frame": "camera_b_infra2_optical_frame",
+      "image_frame": "camera_b_infra1_optical_frame",
+      "camera_info_frame": "camera_b_infra1_optical_frame",
+      "width": 640,
+      "height": 480,
+      "rectified": true,
+      "distortion_model": "plumb_bob",
+      "K": [
+        386.6713562011719,
+        0.0,
+        322.17462158203125,
+        0.0,
+        386.6713562011719,
+        241.46707153320312,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "D": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "R": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "P": [
+        386.6713562011719,
+        0.0,
+        322.17462158203125,
+        -19.302404403686523,
+        0.0,
+        386.6713562011719,
+        241.46707153320312,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "T_imu_optical": [
+        0.9998419646264827,
+        -0.001529757735976671,
+        -0.017711736592559143,
+        0.04400595286948424,
+        0.0015387335286625576,
+        0.9999986945482321,
+        0.000493154092329457,
+        0.004149052071398143,
+        0.017710959064453524,
+        -0.0005203297994840846,
+        0.9998430132705417,
+        0.015290814486628598,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "intrinsics_source": "HW02 live CameraInfo, 640x480 rectified stream",
+      "transform_source": "same-serial PROVISIONAL VINS candidate body_T_cam1; candidate body axes identified with the IMU optical axes"
+    },
+    "depth": {
+      "frame": "camera_b_depth_optical_frame",
+      "image_frame": "camera_b_depth_optical_frame",
+      "camera_info_frame": "camera_b_depth_optical_frame",
+      "width": 640,
+      "height": 480,
+      "rectified": true,
+      "distortion_model": "plumb_bob",
+      "K": [
+        386.6713562011719,
+        0.0,
+        322.17462158203125,
+        0.0,
+        386.6713562011719,
+        241.46707153320312,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "D": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "R": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "P": [
+        386.6713562011719,
+        0.0,
+        322.17462158203125,
+        0.0,
+        0.0,
+        386.6713562011719,
+        241.46707153320312,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "T_imu_optical": [
+        0.9998419646264827,
+        -0.001529757735976671,
+        -0.017711736592559143,
+        -0.005905562188295553,
+        0.0015387335286625576,
+        0.9999986945482321,
+        0.000493154092329457,
+        0.004072239410594851,
+        0.017710959064453524,
+        -0.0005203297994840846,
+        0.9998430132705417,
+        0.014406693964278421,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "intrinsics_source": "HW02 live CameraInfo, 640x480 depth stream",
+      "transform_source": "same-serial candidate IMU-to-infra1 transform composed with factory Depth-to-Infrared1 identity extrinsic; PROVISIONAL"
+    }
+  },
+  "stereo_baseline_m": 0.04991940408945083,
+  "stereo_baseline_camera_info_m": 0.04991940596097359,
+  "camera_imu_time_offset": {
+    "vins_td_s": -0.009338100822726176,
+    "sign_definition": "VINS Estimator::processMeasurements uses feature time plus td; candidate records this as Kalibr-sign camera/IMU offset",
+    "sign_definition_source": "src/vendor/vins_fusion/vins/src/estimator/estimator.cpp:343 at pinned VINS revision 72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "source": "same-serial candidate config_manifest.json and d435i_243622073269_PROVISIONAL.yaml",
+    "source_stream": "/camera_b/imu_corrected",
+    "current_stream": "/sensors/d435i/imu (wrapper linear_interpolation at gyro timestamps)",
+    "current_stream_equivalence_validated": false
+  },
+  "calibration_candidate": {
+    "status": "PROVISIONAL_CONFIGURATION_NOT_YET_RUN",
+    "source_path": "/home/jetson/realsense_debug/vins_integration/config",
+    "source_vins_commit": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
+    "candidate_files_sha256": {
+      "d435i_243622073269_PROVISIONAL.yaml": "e0f998f17437456c66081bd8d7ff5effed8a2047b172484f98ac09153141b91c",
+      "left.yaml": "949ccf5d1fa581dca081136b201d94ff0a4d4a2130ee091c36a31e608e58213f",
+      "right.yaml": "f88132c73484ab3f8945a630d90fb0aeda910134e0aeff1332fb49b390883689",
+      "config_manifest.json": "cc49b671331c739a1fc52951c621fa38ae13d469d593d6f2ebc722e12a5388df"
+    },
+    "candidate_limitations": [
+      "Calibration board physical dimensions were conditional and have not been independently confirmed.",
+      "Noise values are upstream VINS discrete trial defaults rather than measured sensor noise.",
+      "No held-out trajectory validation has been performed.",
+      "Candidate references /camera_b/imu_corrected; the current project stream uses wrapper gyro-stamp interpolation without that correction stage."
+    ],
+    "vins_noise_parameters": {
+      "acc_n": 0.1,
+      "gyr_n": 0.01,
+      "acc_w": 0.001,
+      "gyr_w": 0.0001,
+      "source_note": "same-serial candidate's retained upstream VINS discrete trial defaults; not measured noise and not Kalibr density units"
+    }
+  },
+  "factory_calibration": {
+    "source": "read-only rs-enumerate-devices -c query for this serial; binary linked librealsense 2.50 despite the separate 2.58.1 runtime",
+    "device_depth_to_infra1_translation_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "device_depth_to_infra1_rotation": [
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "device_depth_to_infra2_translation_m": [
+      -0.0499194040894508,
+      0.0,
+      0.0
+    ],
+    "comparison": "factory and candidate baseline agree with HW02 right CameraInfo projection within 1.9e-9 m; EEPROM IMU lever arm was not substituted for the candidate extrinsic"
+  },
+  "airframe_mount": {
+    "status": "UNMEASURED",
+    "T_airframe_imu": null,
+    "propeller_envelope_measured": false,
+    "control_usable": false,
+    "required_before": "HW08",
+    "bench_observation": {
+      "fixed_on_board": true,
+      "flight_controller_arrow_parallel_camera_forward": true,
+      "imu_chip_in_fc_frd_m": [
+        0.2,
+        0.01,
+        0.0
+      ],
+      "source": "User tape measurement 2026-11-03; rightward offset confirmed",
+      "reference_point": "camera IMU chip position; explicitly clarified by user",
+      "final_airframe_installed": false,
+      "qualification": "Measured bench IMU translation; full rotation/transform validation and final propeller envelope pending",
+      "approximate_transform": {
+        "status": "USER_ACCEPTED_APPROXIMATE_BENCH",
+        "T_fc_imu_candidate": [
+          0.0016153553708361764,
+          0.028072890516901646,
+          0.9996045735414839,
+          0.2,
+          0.9983485894106027,
+          -0.05744644481480089,
+          0.0,
+          0.01,
+          0.057423728970573434,
+          0.9979538159635275,
+          -0.028119327071394074,
+          0.0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "direction": "p_fc_frd = R_fc_imu * p_imu_optical + t_fc_imu; row-major 4x4, metres",
+        "source": "artifacts/runs/hw08-board-20261103-11/static-fit.json; all four static gravity directions fitted; tape translation confirmed earlier",
+        "user_acceptance": "2026-11-03: no rigid support available; user accepts approximate board result",
+        "rigid_validation_passed": false,
+        "all_static_fit_gravity_residual_deg": {
+          "baseline": 0.2153349295266169,
+          "static_pitch_hold": 2.6614472074559665,
+          "static_roll_hold": 3.1541418035585984,
+          "static_level_hold": 0.2633291533725988
+        },
+        "independent_roll_holdout_residual_deg": 3.1597423096434274,
+        "limitations": [
+          "Flexible board has pose-dependent relative motion; this is an average approximation, not a fixed measured airframe transform.",
+          "All four static poses used for candidate fitting; no independent holdout pass.",
+          "Translation from user cm-resolution board measurement; final assembly must be remeasured.",
+          "Not promoted to airframe_mount.T_airframe_imu or control_usable.",
+          "Translation reuses the earlier chip-endpoint tape measurement; it was not remeasured after the user refastened the flexible board."
+        ],
+        "yaw_constraint": "relative yaw fixed at parallel-forward nominal declared by user; gravity excitation insufficient for a reliable independent yaw fit",
+        "roll_pitch_correction_deg": [
+          3.2932518725856594,
+          1.6113311571959446
+        ]
+      }
+    }
+  },
+  "source_artifacts": {
+    "sensor_capture": "artifacts/runs/hw02-20261102-imu-reset01/sensors-after-60s.json",
+    "candidate_copy": "artifacts/runs/hw03-20261102-real-rig/source-candidate",
+    "factory_query": "artifacts/runs/hw03-20261102-real-rig/source-candidate/rs-enumerate-devices.txt",
+    "factory_query_linkage": "artifacts/runs/hw03-20261102-real-rig/source-candidate/rs-enumerate-devices-ldd.txt",
+    "sha256": {
+      "sensor_capture": "07ed44d1c8dfa24725670fe460adb004e173e5eec4f979b896337c6c087cd5c0",
+      "factory_query": "4c3f67705ee277b6d82120db384a8c2288cb4caf9c65ee9a35e42d49568bbbea",
+      "factory_query_linkage": "dca31bf04ab42d6c66a6a09cc505c151120287a26ce11115d7d16e8dfa3e9412"
+    }
+  }
+}

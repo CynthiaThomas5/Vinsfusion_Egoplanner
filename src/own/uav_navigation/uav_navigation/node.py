@@ -17,11 +17,19 @@ from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.clock import Clock as RclpyClock, ClockType, JumpThreshold
 from rclpy.duration import Duration
 from rclpy.executors import ExternalShutdownException
-from rclpy.experimental.events_executor import EventsExecutor
-from rclpy._rclpy_pybind11 import RCLError
+try:
+    from rclpy.experimental.events_executor import EventsExecutor as NavigationExecutor
+except ImportError:  # Foxy has no EventsExecutor.
+    from rclpy.executors import SingleThreadedExecutor as NavigationExecutor
+from rclpy.task import Future
+from rclpy.impl.implementation_singleton import rclpy_implementation
+RCLError = rclpy_implementation.RCLError
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
-from rclpy.signals import SignalHandlerOptions
+try:
+    from rclpy.signals import SignalHandlerOptions
+except ImportError:
+    SignalHandlerOptions = None
 from uav_interfaces.action import NavigateToPose
 from uav_interfaces.msg import LocalizationStatus, MapStatus, NavigationCommand, TrajectoryCancel, Px4BridgeStatus
 
@@ -61,12 +69,19 @@ class NavigationNode(Node):
         project_root = self.get_parameter('project_root').get_parameter_value().string_value
         if not project_root:
             raise RuntimeError('project_root is required to read the canonical task supervisor config')
-        config_path = Path(project_root) / 'config/components/navigation/task_supervisor.json'
+        self.declare_parameter('supervisor_config', 'config/components/navigation/task_supervisor.json')
+        relative = Path(self.get_parameter('supervisor_config').value)
+        config_path = (Path(project_root) / relative).resolve()
+        if relative.is_absolute() or Path(project_root).resolve() not in config_path.parents:
+            raise ValueError('supervisor_config must be inside project_root')
         self.config = json.loads(config_path.read_text())
         if self.config.get('schema') != 1:
             raise RuntimeError(f'unsupported navigation supervisor config schema: {config_path}')
         mapping = json.loads((Path(project_root) /
                               'config/components/mapping/ego_planner.json').read_text())
+        self.compute_only = self.config.get('compute_only', False)
+        if type(self.compute_only) is not bool:
+            raise ValueError('compute_only must be boolean')
         self.collision_policy = self.config.get('collision_policy', 'known_free')
         if self.collision_policy not in ('known_free', 'official_ego'):
             raise RuntimeError('unsupported collision_policy')
@@ -146,6 +161,14 @@ class NavigationNode(Node):
             0.05, self._on_timer, callback_group=self._callbacks,
             clock=RclpyClock(clock_type=ClockType.STEADY_TIME))
 
+    def destroy_node(self):
+        # Foxy does not destroy action waitables with the node's services.
+        server = getattr(self, '_action_server', None)
+        if server is not None:
+            server.destroy()
+            self._action_server = None
+        return super().destroy_node()
+
     def _on_bridge(self, message):
         with self._lock:
             self._bridge_status = message
@@ -183,6 +206,8 @@ class NavigationNode(Node):
                     rejection_reason = 'navigation node is stopping'
                 elif not self.core.localization_ready or not expected_frame:
                     rejection_reason = 'localization is not ready'
+                elif self.compute_only and not self._last_status_valid:
+                    rejection_reason = 'hardware localization is invalid'
                 elif self._last_status_epoch != self.core.epoch:
                     rejection_reason = 'localization status epoch does not match current epoch'
                 elif self._last_localization_received is None:
@@ -246,7 +271,8 @@ class NavigationNode(Node):
     def _map_ready(self, now):
         status = self._map_status
         return bool(status is not None and status.epoch == self.core.epoch
-                    and status.map_id and status.reset_acknowledged)
+                    and status.map_id and status.reset_acknowledged
+                    and (not self.compute_only or status.input_ready))
 
     def _on_map(self, msg):
         with self._lock:
@@ -289,10 +315,22 @@ class NavigationNode(Node):
             request.center = copy.deepcopy(goal_handle.request.target.pose.position)
             request.radius_m = self.query_radius_m
         future = None
+
+        def map_context_is_current():
+            with self._lock:
+                status = self._map_status
+                return bool(
+                    self._map_revision == revision
+                    and self._map_ready(time.monotonic())
+                    and status is not None
+                    and status.epoch == request.expected_epoch
+                    and status.map_id == request.expected_map_id)
+
         try:
             if not self._map_query.service_is_ready():
                 return 'map_query_unavailable', None
             deadline = time.monotonic() + self.query_timeout_s
+            retry_delay = 0.02
             while True:
                 if self._stopping or not rclpy.ok():
                     return 'navigation_node_shutdown', None
@@ -314,8 +352,20 @@ class NavigationNode(Node):
                 response = future.result()
                 if (not response.accepted and response.reason in
                         ('no_fresh_fused_depth', 'occupancy_update_stale', 'depth_source_stale')):
-                    # Wait for a newly completed fusion within the original wall deadline.
-                    time.sleep(0.005)
+                    if not map_context_is_current():
+                        return 'map_context_changed_or_stale', None
+                    # The query API has no fusion-change event. Back off under
+                    # the original deadline and keep cancellation responsive.
+                    wait_until = min(deadline, time.monotonic() + retry_delay)
+                    while time.monotonic() < wait_until:
+                        if self._stopping or not rclpy.ok():
+                            return 'navigation_node_shutdown', None
+                        if goal_handle.is_cancel_requested:
+                            return 'caller_cancel', None
+                        time.sleep(min(0.005, wait_until-time.monotonic()))
+                    if not map_context_is_current():
+                        return 'map_context_changed_or_stale', None
+                    retry_delay = min(0.1, retry_delay * 2.0)
                     continue
                 reason = query_rejection(response, request, self.collision_policy)
                 return reason, (revision, request.expected_map_id, response)
@@ -338,7 +388,7 @@ class NavigationNode(Node):
 
     async def _execute_goal(self, goal_handle):
         goal_id = self._action_goal_id(goal_handle)
-        completion = self.executor.create_future()
+        completion = Future(executor=self.executor)
         with self._action_callback_condition:
             self._executing_goal_ids.add(goal_id)
 
@@ -377,6 +427,7 @@ class NavigationNode(Node):
                 query_reason = 'caller_cancel'
             context_valid = bool(
                 not self._stopping and epoch and epoch == self.core.epoch
+                and (not self.compute_only or self._last_status_valid)
                 and self.core.localization_ready
                 and self._last_status_epoch == epoch
                 and self._last_localization_received is not None
@@ -387,7 +438,7 @@ class NavigationNode(Node):
             if query_reason:
                 outcome = Outcome.CANCELED if query_reason == 'caller_cancel' else Outcome.REJECTED
                 events = (TaskEvent(outcome, goal_id, query_reason),)
-            elif self.official_ego and not self._airborne_ready(now):
+            elif self.official_ego and not self.compute_only and not self._airborne_ready(now):
                 events = (TaskEvent(Outcome.REJECTED, goal_id, "vehicle_not_airborne"),)
             elif not context_valid:
                 events = (TaskEvent(Outcome.REJECTED, goal_id,
@@ -517,6 +568,11 @@ class NavigationNode(Node):
                 msg.epoch, msg.state == LocalizationStatus.TRACKING,
                 bool(msg.valid), msg.reason)
             self._process_events(events)
+            if self.compute_only and not self._last_status_valid:
+                if self.core.active_goal is not None:
+                    self._process_events(self.core.abort(self.core.active_goal.goal_id,
+                                                         'hardware_localization_invalid'))
+                self._clear_forwarded('hardware_localization_invalid')
             if self._last_status_epoch != self.core.epoch:
                 self._clear_forwarded('localization_epoch_changed')
             for goal_id, epoch in tuple(self._forwarded_goals.items()):
@@ -543,7 +599,8 @@ class NavigationNode(Node):
             self._latest_pose = pose
             self._latest_pose_epoch = epoch
             self._latest_pose_received = now
-            events = self.core.update_pose(epoch, position, yaw, now, fresh=True)
+            events = (() if self.compute_only else
+                      self.core.update_pose(epoch, position, yaw, now, fresh=True))
             self._process_events(events)
 
     def _on_clock_jump(self, time_jump):
@@ -579,7 +636,7 @@ class NavigationNode(Node):
                     cancel.epoch = self._goal_epochs.get(event.goal_id, self.core.epoch or '')
                     cancel.mode = (TrajectoryCancel.MODE_STOP_HOLD
                                    if event.outcome == Outcome.CANCELED
-                                   and event.reason == 'caller_cancel'
+                                   and event.reason == 'caller_cancel' and not self.compute_only
                                    else TrajectoryCancel.MODE_ABORT)
                     cancel.reason = event.reason
                     self._trajectory_cancel_pub.publish(cancel)
@@ -651,9 +708,13 @@ def main(args=None):
         shutdown_requested.set()
 
     signal.signal(signal.SIGINT, request_shutdown)
-    rclpy.init(args=args, signal_handler_options=SignalHandlerOptions.NO)
+    if SignalHandlerOptions is None:
+        rclpy.init(args=args)
+        signal.signal(signal.SIGINT, request_shutdown)
+    else:
+        rclpy.init(args=args, signal_handler_options=SignalHandlerOptions.NO)
     node = NavigationNode()
-    executor = EventsExecutor()
+    executor = NavigationExecutor()
     executor.add_node(node)
 
     def finish_shutdown():
@@ -663,7 +724,7 @@ def main(args=None):
             node.get_logger().error('action callback did not finish within 5 seconds during shutdown')
         # Keep the executor and action server alive briefly so the aborted result can be served.
         time.sleep(1.0)
-        if not executor.shutdown(timeout_sec=5.0):
+        if executor.shutdown(timeout_sec=5.0) is False:
             node.get_logger().error('executor did not stop within 5 seconds')
 
     shutdown_thread = threading.Thread(

@@ -62,7 +62,9 @@ def start(context):
     mapping = Node(
         package='uav_mapping', executable='mapping_input_adapter',
         name='mapping_input_adapter', output='screen',
-        parameters=[{'project_root': str(root), 'use_sim_time': True}])
+        parameters=[{'project_root': str(root),
+                     'session_manifest': str(run['session_manifest']),
+                     'use_sim_time': True}])
     ego = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(str(ego_share / 'launch/advanced_param.launch.py')),
         launch_arguments=ego_args.items())

@@ -1,0 +1,16 @@
+{
+  "qualification": "HW06 candidate computation only; native per-axis velocity parameter 0.15 m/s, 0.2 m/s2 acceleration, approximately 1 m goals. Actual vector peaks are reported from generated curves. HW05 tabletop map/inflation reused as provisional observation volume, not measured airframe clearance; HW08 must qualify physical envelope before control.",
+  "parameters": {
+    "manager/max_vel": 0.15,
+    "optimization/max_vel": 0.15,
+    "bspline/limit_vel": 0.15,
+    "fsm/planning_horizon": 1.5,
+    "manager/planning_horizon": 1.5,
+    "manager/max_acc": 0.2,
+    "optimization/max_acc": 0.2,
+    "bspline/limit_acc": 0.2,
+    "grid_map/official_ego_collision_policy": true
+  },
+  "depth_output_rate_hz": 3.0,
+  "depth_rate_rationale": "HW06 5 Hz metric-depth full compute attempts locked on source freshness with near CPU saturation. Trial 3 Hz conversion/fusion only; native stereo/IMU and fixed age budgets unchanged."
+}

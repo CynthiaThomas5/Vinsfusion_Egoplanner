@@ -1,0 +1,35 @@
+--- a/include/uxr/client/util/px4_sync_trace.h
++++ b/include/uxr/client/util/px4_sync_trace.h
+@@ -11,7 +11,8 @@
+ uint8_t px4_sync_trace_waiting(void);
+ void px4_sync_trace_finish(void);
+ void px4_sync_trace_sent(uint64_t originate_us, uint64_t end_us, uint8_t sent);
+-void px4_sync_trace_write(uint64_t begin_us, uint64_t end_us, int32_t bytes);
++uint8_t px4_sync_trace_writing(void);
++void px4_sync_trace_write(uint64_t begin_us, uint64_t end_us, int32_t bytes, int32_t queued_before);
+ void px4_sync_trace_read(uint64_t poll_begin_us, uint64_t poll_end_us,
+                          uint64_t read_begin_us, uint64_t read_end_us, int32_t bytes, int32_t available_before_poll);
+ void px4_sync_trace_reply(uint64_t callback_us, uint64_t originate_us,
+--- a/src/c/profile/transport/serial/serial_transport_posix.c
++++ b/src/c/profile/transport/serial/serial_transport_posix.c
+@@ -41,10 +41,19 @@
+     size_t rv = 0;
+     struct uxrSerialPlatform* platform = (struct uxrSerialPlatform*) args;
+ 
++    int trace_queued = -1;
++    if (px4_sync_trace_writing())
++    {
++        int pending = 0;
++        if (ioctl(platform->poll_fd.fd, FIONWRITE, (unsigned long)&pending) == 0)
++        {
++            trace_queued = pending;
++        }
++    }
+     uint64_t trace_begin = (uint64_t)(uxr_nanos() / 1000);
+     ssize_t bytes_written = write(platform->poll_fd.fd, (void*)buf, (size_t)len);
+     uint64_t trace_end = (uint64_t)(uxr_nanos() / 1000);
+-    px4_sync_trace_write(trace_begin, trace_end, (int32_t)bytes_written);
++    px4_sync_trace_write(trace_begin, trace_end, (int32_t)bytes_written, trace_queued);
+     if (-1 != bytes_written)
+     {
+         rv = (size_t)bytes_written;

@@ -27,3 +27,21 @@
 使用当前planner配置的网格分辨率和地图边界去重；发布QoS为Reliable/Transient Local，晚打开RViz也能收到完整缓存。默认1Hz、最多250000体素，达到上限保留已有体素并明确告警省略新体素。参数位于 `config/components/mapping/observed_history.json`。epoch/map重置/时间倒退清空并拒绝旧会话。
 
 这是历史观测，不是当前占据真值：原点后来变成free不会删掉历史点，定位漂移可能留下重影；仅限当前会话和原始点云实际发布的高度/范围，不补未知区域，不订阅真值，不参与规划/控制。关闭程序后不保存到磁盘。
+
+## HW05 hardware map-only workflow
+
+The hardware profile is `config/hardware/mapping.json`; input identity/timing policy is `config/hardware/mapping_input.json`. K and optical geometry come from the session-bound `config/hardware/rig.json`. The owned launch directly starts the existing EGO map owner and this adapter; it starts neither sensors/VINS nor a trajectory server/PX4 bridge. Existing map-owner/adapter processes cause startup refusal.
+
+On the Nano, generate a fresh real session using `tools/generate_vins_config.py --rig-config config/hardware/rig.json --settings-config config/components/localization/vins_hardware.json --output <fresh-run>/session`. Start the owned sensor layer with `HW_DEPTH_OUTPUT_HZ` read from the hardware mapping profile (currently 5.0) and a fresh `HW02_RUN_ID`. Zero/unset output cap retains the older sensor-interface behavior; the native stereo/depth/IMU driver settings do not change.
+
+Source `tools/hardware-env.bash`, use the same `FASTRTPS_DEFAULT_PROFILES_FILE` as the sensor/adapter layer (tested `/home/jetson/realsense_debug/fastdds_rgbd.xml`), and run:
+
+```bash
+ros2 launch tools/hardware_mapping.launch.py session_manifest:=/absolute/fresh-run/session/session.json
+```
+
+Start `python3 tools/diagnostics/record_hw05_mapping.py --directory <fresh-run>` before starting VINS/localization, with `OPENBLAS_NUM_THREADS=1`. This persistent observer avoids temporary ROS CLI startup during a heavily loaded tracking interval. Then use `bash tools/hardware-localization.sh start <fresh-run>/session`; save/temporarily adjust/restore `net.core.rmem_max` as required by that helper's tested VINS UDP profile.
+
+The observer reads `<fresh-run>/capture-command.json`, for example `{"name":"after-scan","wait_ready":true,"epoch":"<current epoch>"}`. It writes the actual snapshot response, raw/inflated NPZ arrays, source/fusion timestamps, map/epoch identity and before/after map/localization/pose observations. Rejections stay explicit. `MapStatus.input_ready` is an input-gate indication; use accepted snapshot responses and their completed-fusion stamps for actual fused-map evidence. With RGB disabled the keyframe count stays zero.
+
+After ground capture: stop the owned localization helper first, record invalidation/reset, stop observer and mapping launch with their terminal interrupts, then stop `tools/hardware.sh sensors stop` and restore the saved rmem value. Only owned sessions are stopped. HW05 evidence and current limitations: `progress/evidence/hw05-depth-map-20261103.md`. This workflow is a ground mapping profile; it does not provide navigation or complete-load qualification.

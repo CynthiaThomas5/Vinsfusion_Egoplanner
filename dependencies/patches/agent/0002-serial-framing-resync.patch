@@ -1,0 +1,68 @@
+--- a/src/cpp/transport/stream_framing/StreamFramingProtocol.cpp
++++ b/src/cpp/transport/stream_framing/StreamFramingProtocol.cpp
+@@ -159,6 +159,10 @@
+                     {
+                         state_ = InputState::UXR_FRAMING_READING_DST_ADDR;
+                     }
++                    else if (framing_begin_flag == remote_addr_)
++                    {
++                        state_ = InputState::UXR_FRAMING_READING_SRC_ADDR;
++                    }
+                     else if(0 < transport_read(timeout, transport_rc, 4))
+                     {
+ 
+@@ -180,6 +184,10 @@
+                                 ? InputState::UXR_FRAMING_READING_LEN_LSB
+                                 : InputState::UXR_FRAMING_UNINITIALIZED;
+                     }
++                    else if (framing_begin_flag == octet)
++                    {
++                        state_ = InputState::UXR_FRAMING_READING_SRC_ADDR;
++                    }
+                     else if(0 < transport_read(timeout, transport_rc, 3))
+                     {
+ 
+@@ -203,6 +211,10 @@
+                     {
+                         msg_len_ = octet;
+                         state_ = InputState::UXR_FRAMING_READING_LEN_MSB;
++                    }
++                    else if (framing_begin_flag == octet)
++                    {
++                        state_ = InputState::UXR_FRAMING_READING_SRC_ADDR;
+                     }
+                     else if(0 < transport_read(timeout, transport_rc, 2))
+                     {
+@@ -238,6 +250,10 @@
+                             state_ = InputState::UXR_FRAMING_READING_PAYLOAD;
+                         }
+                     }
++                    else if (framing_begin_flag == octet)
++                    {
++                        state_ = InputState::UXR_FRAMING_READING_SRC_ADDR;
++                    }
+                     else if(0 < transport_read(timeout, transport_rc, 1))
+                     {
+ 
+@@ -292,6 +308,10 @@
+                         msg_crc_ = octet;
+                         state_ = InputState::UXR_FRAMING_READING_CRC_MSB;
+                     }
++                    else if (framing_begin_flag == octet)
++                    {
++                        state_ = InputState::UXR_FRAMING_READING_SRC_ADDR;
++                    }
+                     else if(0 < transport_read(timeout, transport_rc, 2))
+                     {
+ 
+@@ -320,6 +340,10 @@
+                             rv = msg_len_;
+                         }
+                         exit_cond = true;
++                    }
++                    else if (framing_begin_flag == octet)
++                    {
++                        state_ = InputState::UXR_FRAMING_READING_SRC_ADDR;
+                     }
+                     else if(0 < transport_read(timeout, transport_rc, 1))
+                     {

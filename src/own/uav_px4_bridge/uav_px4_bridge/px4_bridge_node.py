@@ -1,4 +1,4 @@
-"""ROS 2 PX4 bridge, restricted to the guarded debug_truth SITL profile."""
+"""Sole PX4 bridge: guarded simulation control and hardware EV-only candidate."""
 
 import json
 import math
@@ -16,6 +16,7 @@ from px4_msgs.msg import (EstimatorStatusFlags, OffboardControlMode,
 from rclpy.clock import Clock, ClockType
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
+from rclpy.serialization import deserialize_message
 from rclpy.qos import (QoSProfile, ReliabilityPolicy, DurabilityPolicy,
                        HistoryPolicy)
 from rosgraph_msgs.msg import Clock as ClockMessage
@@ -24,13 +25,13 @@ from uav_interfaces.msg import (LocalizationStatus, NavigationCommand,
                                 PositionCommand, Px4BridgeStatus,
                                 TrajectoryCancel)
 from uav_interfaces.srv import EnableOffboard
-from uav_sim.geometry import px4_sensor_mount
+from uav_sim.geometry import load_rig, px4_sensor_mount
 
 from .control_state import (OffboardSupervisor, matching_planner_abort_reason,
                             readiness_failure)
 from .process_watch import (find_process_identities,
                             process_identity_is_running)
-from .time_mapping import (RosClockMapper, TimeMappingError,
+from .time_mapping import (RosClockMapper, SystemClockMapper, TimeMappingError, retain_hardware_sync,
                            fallback_agent_timestamp_us,
                            px4_clock_age_sim_s,
                            px4_ros_source_gap_sim_s,
@@ -65,12 +66,18 @@ def _quaternion_yaw_xyzw(q):
 class Px4BridgeNode(Node):
     """Single owner of the PX4 control input topics in this project."""
 
+    hardware_runtime = False
+    hardware_mount = None
+
     def __init__(self):
         super().__init__('uav_px4_bridge')
         self.declare_parameter('profile_path', '')
         self.declare_parameter('bridge_config_path', '')
         self.declare_parameter('frame_contract_path', '')
         self.declare_parameter('mount_model_sdf', '')
+        self.declare_parameter('rig_config', '')
+        self.declare_parameter('runtime_mode', '')
+        self.declare_parameter('allow_approximate_bench_ev', False)
         profile_path = self.get_parameter('profile_path').value
         config_path = self.get_parameter('bridge_config_path').value
         frame_path = self.get_parameter('frame_contract_path').value
@@ -83,6 +90,29 @@ class Px4BridgeNode(Node):
         if profile_config.get('profile') != profile_name:
             raise ValueError('PX4 bridge config does not match the selected profile')
         validate_px4_runtime_profile(self.profile, self.frame_contract)
+        self.runtime_mode = (self.get_parameter('runtime_mode').value
+                             or profile_config.get('runtime_mode', 'control'))
+        if self.runtime_mode not in ('ev_only', 'control', 'compute_only'):
+            raise ValueError('runtime_mode must be ev_only, control or compute_only')
+        self.hardware_runtime = profile_config.get('px4_clock_domain') == 'hardware_system'
+        self.hardware_mount = None
+        if self.hardware_runtime and (profile_name != 'vio_closed_loop'
+                or self.profile.get('ground_truth_online_allowed') is not False):
+            raise ValueError('Hardware bridge requires the isolated VINS profile')
+        if self.runtime_mode == 'compute_only':
+            if not self.hardware_runtime or self.get_parameter('use_sim_time').value:
+                raise ValueError('Compute-only is a hardware ground mode')
+            from .hardware_compute import HardwareComputePath
+            self.hardware_path = HardwareComputePath(self, profile_config, self.profile,
+                self.frame_contract, self.get_parameter('rig_config').value)
+            return
+        if self.hardware_runtime and self.runtime_mode == 'ev_only':
+            from .hardware_ev import HardwareEVPath
+            self.hardware_path = HardwareEVPath(self, profile_config, self.profile,
+                self.frame_contract, self.get_parameter('rig_config').value, self.runtime_mode)
+            return
+        if self.runtime_mode != 'control':
+            raise ValueError('EV-only requires the explicit hardware system-time configuration')
         if profile_name == 'debug_truth':
             self.config = profile_config
             self.clock_topic = self.config['debug_truth_clock_topic']
@@ -95,7 +125,9 @@ class Px4BridgeNode(Node):
                 raise ValueError('VIO bridge config contains debug_truth inputs')
             if profile_config.get('shared_control_config') != 'debug_truth.json':
                 raise ValueError('VIO bridge must use the shared control configuration')
-            shared_path = Path(config_path).resolve().parent / 'debug_truth.json'
+            shared_path = (Path(config_path).resolve().parents[1] / 'components/px4_bridge/debug_truth.json'
+                           if self.hardware_runtime else
+                           Path(config_path).resolve().parent / 'debug_truth.json')
             shared_config = _read_json(shared_path)
             if shared_config.get('profile') != 'debug_truth':
                 raise ValueError('VIO shared control configuration is invalid')
@@ -107,20 +139,26 @@ class Px4BridgeNode(Node):
             self.config = dict(shared_config)
             self.config.update({key: value for key, value in profile_config.items()
                                 if key != 'shared_control_config'})
-            self.clock_topic = self.config['clock_topic']
-            self.odometry_topic = self.config['optimized_odometry_topic']
+            self.clock_topic = self.config.get('clock_topic', '')
+            self.odometry_topic = (self.config.get('ev_odometry_topic', self.config['optimized_odometry_topic'])
+                                   if self.hardware_runtime else self.config['optimized_odometry_topic'])
             self.localization_topic = self.config['localization_status_topic']
-            if (self.clock_topic != '/clock'
+            if ((not self.hardware_runtime and self.clock_topic != '/clock')
                     or self.localization_topic != '/localization/status'
-                    or self.odometry_topic != '/localization/optimized_imu_odom'):
+                    or self.config['optimized_odometry_topic'] != '/localization/optimized_imu_odom'
+                    or self.odometry_topic not in (('/localization/optimized_imu_odom', '/localization/imu_odom')
+                         if self.hardware_runtime else ('/localization/optimized_imu_odom',))):
                 raise ValueError('VIO bridge inputs must use the canonical localization topics')
             variance_prefix = ''
-        if self.config.get('px4_clock_domain') != 'gazebo_lockstep':
+        if not self.hardware_runtime and self.config.get('px4_clock_domain') != 'gazebo_lockstep':
             raise ValueError('PX4 bridge requires the configured Gazebo lockstep clock domain')
         self.uxrce_dds_time_sync_enabled = self.config.get(
             'uxrce_dds_time_sync_enabled')
         if type(self.uxrce_dds_time_sync_enabled) is not bool:
             raise ValueError('uxrce_dds_time_sync_enabled must be boolean')
+        if self.hardware_runtime and (not self.uxrce_dds_time_sync_enabled
+                or self.config['px4_ros_clock_offset_us'] != 0):
+            raise ValueError('Hardware control requires Agent epoch synchronization without a manual offset')
         if (not self.uxrce_dds_time_sync_enabled
                 and self.config['px4_ros_clock_offset_us'] != 0):
             raise ValueError('direct Gazebo lockstep timestamps require zero PX4/ROS offset')
@@ -130,19 +168,45 @@ class Px4BridgeNode(Node):
             self.config[variance_prefix + 'velocity_variance_m2_s2'],
         )
 
-        model_path = self.get_parameter('mount_model_sdf').value
-        if not model_path:
-            model_path = str(Path(get_package_share_directory('uav_sim')) /
-                             'models/x500_d435i/model.sdf')
-        self.sensor_mount = px4_sensor_mount(model_path)
+        rig_config = self.get_parameter('rig_config').value
+        if not rig_config and self.profile.get('sensor_profile') != 'sim_d435i':
+            raise ValueError('Non-simulation PX4 profiles require an explicit hardware rig_config')
+        if rig_config:
+            if self.get_parameter('mount_model_sdf').value:
+                raise ValueError('Select either a simulation mount SDF or a hardware rig config')
+            hardware_rig = load_rig(rig_config)
+            mount = hardware_rig.get('airframe_mount', {})
+            if (mount.get('status') != 'MEASURED'
+                    or mount.get('control_usable') is not True
+                    or not mount.get('T_airframe_imu')):
+                raise ValueError('Hardware PX4 control is blocked until HW08 measures the airframe mount')
+            if not self.hardware_runtime or self.get_parameter('use_sim_time').value:
+                raise ValueError('Hardware control requires hardware_system and use_sim_time=False')
+            from .rigid_body import mount_rotation_translation
+            self.hardware_mount = mount['T_airframe_imu']
+            _, lever = mount_rotation_translation(self.hardware_mount)
+            self.sensor_mount = {'translation_frd_m': lever,
+                                 'model_sha256': hardware_rig['source_sha256']}
+        if self.hardware_runtime:
+            if self.hardware_mount is None:
+                raise ValueError('Hardware control requires a measured rig')
+            self.clock_mapper = SystemClockMapper(self.config['source_age_budget_s'],
+                self.config['max_future_s'], self.config['max_clock_step_s'], self.config.get('enforce_source_age', True))
+        else:
+            model_path = self.get_parameter('mount_model_sdf').value
+            if not model_path:
+                model_path = str(Path(get_package_share_directory('uav_sim')) /
+                                 'models/x500_d435i/model.sdf')
+            self.sensor_mount = px4_sensor_mount(model_path)
+            self.sensor_leverarm_frd = tuple(self.sensor_mount['translation_frd_m'])
+            self.clock_mapper = RosClockMapper(
+                self.config['clock_mapping_min_samples'],
+                self.config['clock_mapping_max_samples'],
+                self.config['clock_mapping_max_future_wall_s'],
+                self.config['clock_mapping_min_sim_rate'],
+                self.config['clock_mapping_max_sim_rate'],
+                lockstep=True)
         self.sensor_leverarm_frd = tuple(self.sensor_mount['translation_frd_m'])
-        self.clock_mapper = RosClockMapper(
-            self.config['clock_mapping_min_samples'],
-            self.config['clock_mapping_max_samples'],
-            self.config['clock_mapping_max_future_wall_s'],
-            self.config['clock_mapping_min_sim_rate'],
-            self.config['clock_mapping_max_sim_rate'],
-            lockstep=True)
         self.supervisor = OffboardSupervisor(
             self.profile, self.frame_contract,
             self.config['prestream_wall_s'], self.config['takeoff_altitude_m'],
@@ -154,6 +218,15 @@ class Px4BridgeNode(Node):
         self.localization = None
         self.localization_receipt_ns = None
         self.odom = None
+        from .ev_reference import EVNEDReference
+        reference_mode=self.config.get('ev_reference_mode','local_frd')
+        if reference_mode not in ('local_frd','px4_local_ned'):raise ValueError('Unknown EV reference mode')
+        self.ev_reference=EVNEDReference() if self.hardware_runtime and reference_mode=='px4_local_ned' else None
+        self.hardware_ev_attempt_ns = None
+        if self.hardware_runtime and (not math.isfinite(self.config.get('ev_rate_hz', 30.))
+                or self.config.get('ev_rate_hz', 30.) <= 0):
+            raise ValueError('Hardware EV rate must be finite and positive')
+        self.last_hardware_stamp = None
         self.odom_receipt_ns = None
         self.odom_mapped_receipt_ns = None
         self.odom_time_error = 'clock_mapping_not_converged'
@@ -233,10 +306,13 @@ class Px4BridgeNode(Node):
         self.planner_fault_pub = self.create_publisher(
             TrajectoryCancel, '/navigation/planner_fault', reliable_qos)
 
+        if not self.hardware_runtime:
+            self.create_subscription(
+                ClockMessage, self.clock_topic, self._on_clock, sensor_qos)
         self.create_subscription(
-            ClockMessage, self.clock_topic, self._on_clock, sensor_qos)
-        self.create_subscription(
-            Odometry, self.odometry_topic, self._on_odometry, sensor_qos)
+            Odometry, self.odometry_topic,
+            self._on_serialized_hardware_odometry if self.hardware_runtime else self._on_odometry,
+            sensor_qos, raw=self.hardware_runtime)
         self.create_subscription(
             LocalizationStatus, self.localization_topic, self._on_localization,
             transient_qos)
@@ -302,11 +378,19 @@ class Px4BridgeNode(Node):
         self.localization = msg
         self.localization_receipt_ns = now
 
+    def _on_serialized_hardware_odometry(self, data):
+        now = self._now_ns()
+        if (self.hardware_ev_attempt_ns is not None
+                and now-self.hardware_ev_attempt_ns < 1e9/self.config.get('ev_rate_hz', 30.)):
+            return
+        self.hardware_ev_attempt_ns = now
+        self._on_odometry(deserialize_message(data, Odometry))
+
     def _on_odometry(self, msg):
         now_mono = self._now_ns()
         self.odom = msg
         self.odom_receipt_ns = now_mono
-        match = msg.header.frame_id.removeprefix('odom_')
+        match = (msg.header.frame_id[5:] if msg.header.frame_id.startswith('odom_') else msg.header.frame_id)
         if not self.epoch:
             self.epoch = match
         elif match != self.epoch:
@@ -318,16 +402,28 @@ class Px4BridgeNode(Node):
             self.cached_trajectory_body = None
             return
         try:
+            if self.hardware_runtime:
+                stamp = msg.header.stamp.sec*1_000_000_000+msg.header.stamp.nanosec
+                if self.last_hardware_stamp is not None and stamp <= self.last_hardware_stamp:
+                    self.bridge_fault = 'odometry_stamp_not_increasing'
+                    raise ValueError(self.bridge_fault)
+                self.last_hardware_stamp = stamp
+            if self.hardware_runtime and (self.localization is None or not self.localization.valid
+                    or _receipt_age(self.localization_receipt_ns, now_mono) > self.config['health_receipt_budget_s']):
+                raise ValueError('localization_invalid_or_stale')
             mapped = self._map_source_time(msg.header.stamp, now_mono)
             values = odometry_to_px4_values(
                 msg, self.profile, self.frame_contract,
                 mapped.now_us, *self.odometry_variances,
                 self.config['source_quality'], expected_epoch=self.epoch,
-                timestamp_sample_us=mapped.sample_us)
+                timestamp_sample_us=mapped.sample_us, T_body_imu=self.hardware_mount)
+            if self.ev_reference is not None:
+                values=self.ev_reference.apply(values,time.time_ns(),now_mono)
             output = VehicleOdometry()
             output.timestamp = values.timestamp
             output.timestamp_sample = values.timestamp_sample
-            output.pose_frame = VehicleOdometry.POSE_FRAME_NED
+            output.pose_frame = (VehicleOdometry.POSE_FRAME_FRD if self.hardware_runtime and self.ev_reference is None
+                                 else VehicleOdometry.POSE_FRAME_NED)
             output.position = list(values.position_ned)
             output.q = list(values.quaternion_ned_frd_wxyz)
             output.velocity_frame = VehicleOdometry.VELOCITY_FRAME_BODY_FRD
@@ -338,15 +434,25 @@ class Px4BridgeNode(Node):
             output.velocity_variance = list(values.velocity_variance)
             output.reset_counter = 0
             output.quality = values.quality
+            if self.hardware_runtime:
+                send_system, send_mono = time.time_ns(), time.monotonic_ns()
+                self.clock_mapper.observe(send_system, send_mono)
+                output.timestamp = send_system//1000
             self.odom_pub.publish(output)
             self.odom_mapped_receipt_ns = now_mono
             self.odom_time_error = ''
         except (ValueError, TimeMappingError) as exc:
             self.odom_time_error = str(exc)
-            if self.clock_mapper.locked:
+            if (bool(self.clock_mapper.reason) if self.hardware_runtime
+                    else self.clock_mapper.locked):
                 self.bridge_fault = self.clock_mapper.reason
 
     def _map_source_time(self, stamp, receipt_mono_ns):
+        if self.hardware_runtime:
+            return self.clock_mapper.to_px4(
+                stamp.sec*1_000_000_000+stamp.nanosec, time.time_ns(), receipt_mono_ns,
+                self.timesync, self.timesync_receipt_ns, self.config['timesync_max_age_s'],
+                self.config['timesync_max_rtt_us'])
         if self.uxrce_dds_time_sync_enabled:
             if self.timesync is None or self.timesync_receipt_ns is None:
                 raise TimeMappingError('px4_timesync_stale')
@@ -372,10 +478,18 @@ class Px4BridgeNode(Node):
             timestamp_sync_enabled=self.uxrce_dds_time_sync_enabled)
 
     def _on_timesync(self, msg):
-        self.timesync = msg
-        self.timesync_receipt_ns = self._now_ns()
+        self.latest_timesync = msg
+        if self.hardware_runtime:
+            self.timesync, self.timesync_receipt_ns = retain_hardware_sync(
+                self.timesync, self.timesync_receipt_ns, msg, self._now_ns(), time.time_ns(), self.config)
+        else:
+            self.timesync = msg
+            self.timesync_receipt_ns = self._now_ns()
 
     def _timesync_age_sim_s(self):
+        if self.hardware_runtime:
+            return (None if self.timesync is None else
+                    (time.time_ns()-int(self.timesync.timestamp)*1000)/1e9)
         if (not self.uxrce_dds_time_sync_enabled or self.timesync is None
                 or self.latest_clock_ns <= 0):
             return None
@@ -390,6 +504,10 @@ class Px4BridgeNode(Node):
         if not self.uxrce_dds_time_sync_enabled:
             return False
         age_s = self._timesync_age_sim_s()
+        if self.hardware_runtime and (self.timesync is None
+                or self.timesync.source_protocol != 2
+                or _receipt_age(self.timesync_receipt_ns, self._now_ns()) > self.config['timesync_max_age_s']):
+            return False
         return (age_s is not None
                 and age_s >= -self.config['timesync_max_future_sim_s']
                 and age_s <= self.config['timesync_max_age_sim_s']
@@ -401,16 +519,19 @@ class Px4BridgeNode(Node):
         self._capture_px4_source_offset('vehicle_status')
 
     def _on_local_position(self, msg):
+        if self.ev_reference is not None:self.ev_reference.update('local',msg,self._now_ns())
         self.local_position = msg
         self.local_position_receipt_ns = self._now_ns()
         self._capture_px4_source_offset('local_position')
 
     def _on_attitude(self, msg):
+        if self.ev_reference is not None:self.ev_reference.update('attitude',msg,self._now_ns())
         self.attitude = msg
         self.attitude_receipt_ns = self._now_ns()
         self._capture_px4_source_offset('attitude')
 
     def _on_estimator_flags(self, msg):
+        if self.ev_reference is not None:self.ev_reference.update('flags',msg,self._now_ns())
         self.estimator_flags = msg
         self.estimator_flags_receipt_ns = self._now_ns()
         self._capture_px4_source_offset('estimator_flags')
@@ -421,6 +542,9 @@ class Px4BridgeNode(Node):
         self._capture_px4_source_offset('land_detected')
 
     def _capture_px4_source_offset(self, source):
+        if self.hardware_runtime:
+            self.px4_source_offsets_us[source] = 0
+            return
         self.px4_source_offsets_us[source] = (
             int(self.timesync.estimated_offset)
             if self.uxrce_dds_time_sync_enabled and self.timesync is not None else
@@ -564,6 +688,11 @@ class Px4BridgeNode(Node):
             age_s = self._px4_source_age_sim_s(source, message, now_ns)
             if age_s is not None and age_s < -max_future_s:
                 return False
+            if self.hardware_runtime:
+                budget = self.config['telemetry_age_budget_s'][source]
+                receipt = getattr(self, source+'_receipt_ns')
+                if age_s is None or age_s > budget or _receipt_age(receipt, now_ns) > budget:
+                    return False
         return True
 
     def _px4_time_reference_us(self):
@@ -583,6 +712,8 @@ class Px4BridgeNode(Node):
         return max(references)
 
     def _px4_current_time_us(self):
+        if self.hardware_runtime:
+            return time.time_ns()//1000
         """Use the newest value from PX4 HRT or Gazebo's shared sim clock."""
         candidates = []
         if self.latest_clock_ns > 0:
@@ -647,6 +778,11 @@ class Px4BridgeNode(Node):
     def _source_yaw_enu(self, odometry=None):
         odometry = self.odom if odometry is None else odometry
         q = odometry.pose.pose.orientation
+        if self.hardware_runtime:
+            from .rigid_body import imu_to_body_flu
+            _, body_q, _, _ = imu_to_body_flu((0,0,0), (q.x,q.y,q.z,q.w),
+                (0,0,0), (0,0,0), self.hardware_mount)
+            return _quaternion_yaw_xyzw(body_q)
         return _quaternion_yaw_xyzw((q.x, q.y, q.z, q.w))
 
     def _capture_alignment_pair(self, now_ns):
@@ -756,6 +892,13 @@ class Px4BridgeNode(Node):
         return True
 
     def _trajectory_is_ready(self, now_ns):
+        if (self.hardware_runtime and self.position_command is not None
+                and self.position_command.trajectory_flag == PositionCommand.TRAJECTORY_STATUS_READY):
+            stamp = self.position_command.header.stamp
+            source_age = (time.time_ns()-stamp.sec*1_000_000_000-stamp.nanosec)/1e9
+            if (not -self.config['max_future_s'] <= source_age <= self.config['command_source_age_budget_s']
+                    or _receipt_age(self.position_command_receipt_ns, now_ns) > self.config['command_receipt_age_budget_s']):
+                self.trajectory_fault = 'trajectory_stale_or_future'
         if self.trajectory_fault:
             return False
         if self.trajectory_completed:
@@ -771,6 +914,9 @@ class Px4BridgeNode(Node):
                      and not self.epoch_fault)
         odom_fresh = (self.odom is not None and self.odom_mapped_receipt_ns is not None
                       )
+        if self.hardware_runtime:
+            loc_fresh = loc_fresh and _receipt_age(self.localization_receipt_ns, now_ns) <= self.config['health_receipt_budget_s']
+            odom_fresh = odom_fresh and _receipt_age(self.odom_receipt_ns, now_ns) <= self.config['source_age_budget_s']
         clock_fresh = (self.latest_clock_ns > 0
                        and self.clock_mapper.reason != 'ros_clock_regression')
         clock_domain_valid = (not self.uxrce_dds_time_sync_enabled
@@ -833,6 +979,17 @@ class Px4BridgeNode(Node):
         }
 
     def _px4_now_us(self, now_ns):
+        if self.hardware_runtime:
+            try:
+                system = time.time_ns()
+                mapped = self.clock_mapper.to_px4(system, system, now_ns, self.timesync,
+                    self.timesync_receipt_ns, self.config['timesync_max_age_s'],
+                    self.config['timesync_max_rtt_us'])
+                self.px4_timestamp_error = ''
+                return mapped.now_us
+            except TimeMappingError as exc:
+                self.px4_timestamp_error = str(exc)
+                return 0
         if (self.uxrce_dds_time_sync_enabled
                 and (self.timesync is None or self.timesync_receipt_ns is None)):
             self.px4_timestamp_error = 'px4_timesync_stale'
@@ -1044,6 +1201,7 @@ class Px4BridgeNode(Node):
             'clock_progress_age_wall_s': _receipt_age(
                 self.clock_progress_receipt_ns, now_ns),
             'odometry_time_error': self.odom_time_error,
+            'ev_reference': self.ev_reference.alignment if self.ev_reference is not None else None,
             'timesync_age_sim_s': self._timesync_age_sim_s(),
             'px4_telemetry_freshness': self._px4_telemetry_freshness_detail(now_ns),
             'alignment_pair_gap_sim_s': self._alignment_pair_gap_sim_s(),
@@ -1063,6 +1221,12 @@ class Px4BridgeNode(Node):
 
     def _on_control_tick(self):
         now = self._now_ns()
+        if self.hardware_runtime:
+            self.latest_clock_ns = time.time_ns()
+            try:
+                self.clock_mapper.observe(self.latest_clock_ns, now)
+            except TimeMappingError as exc:
+                self.bridge_fault = str(exc)
         self._check_planner_process(now)
         snapshot = self._snapshot(now)
         previous_phase = self.supervisor.phase
@@ -1108,9 +1272,10 @@ def main(args=None):
             raise
     finally:
         if node is not None:
-            if node.supervisor.phase not in (OffboardSupervisor.DISABLED,
-                                             OffboardSupervisor.LANDED,
-                                             OffboardSupervisor.LOCKED):
+            if (node.runtime_mode == 'control'
+                    and node.supervisor.phase not in (OffboardSupervisor.DISABLED,
+                                                      OffboardSupervisor.LANDED,
+                                                      OffboardSupervisor.LOCKED)):
                 node.supervisor.disable({})
             node.destroy_node()
         if rclpy.ok():

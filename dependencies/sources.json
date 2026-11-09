@@ -61,7 +61,7 @@
       "url": "https://github.com/zinuok/VINS-Fusion-ROS2",
       "reference_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
       "target_revision": "72023bc5d2abb14faa4c02a5c040d84f996b587a",
-      "patch_status": "0022 default-off calibrated ideal-simulator zero gyro bias; actual production build/math and #566 continuous mission qualified; hardware bias not constrained",
+      "patch_status": "0022 default-off calibrated ideal-simulator zero gyro bias; actual production build/math and #566 continuous mission qualified; hardware bias not constrained; hardware compatibility patch 0023 adds cv_bridge.hpp/cv_bridge.h fallback for both VINS and loop_fusion.",
       "target": "src/vendor/vins_fusion",
       "imported": true,
       "patches": [
@@ -82,7 +82,8 @@
         "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch",
         "dependencies/patches/vins/0020-readonly-estimator-queue-high-water.patch",
         "dependencies/patches/vins/0021-readonly-native-work-queue.patch",
-        "dependencies/patches/vins/0022-calibrated-zero-gyro-bias.patch"
+        "dependencies/patches/vins/0022-calibrated-zero-gyro-bias.patch",
+        "dependencies/patches/vins/0023-foxy-cv-bridge-header.patch"
       ],
       "license": "GPL-3.0",
       "evidence": "progress/evidence/p0-source-audit.json; progress/evidence/n16-final-completion-20261029-568.md",
@@ -97,18 +98,18 @@
       },
       "patched_files_sha256": {
         "vins/src/estimator/estimator.cpp": "afa23e7cef47ecfa1b202aabe27097507c566577e9f7a5bad1c9d2a82aa0bc4e",
-        "vins/src/rosNodeTest.cpp": "fbd29ee7af50090f2ed47a52678221736ad8aacd15d424acce1b16f96a4723e8",
+        "vins/src/rosNodeTest.cpp": "eb50552e43c878b015373ae67cf6c0d6983bf29603c05e1c0e873c55380a88bd",
         "vins/src/featureTracker/feature_tracker.cpp": "701dfdc0a1f600debbed6b4b8a7d59a2ecdc1aa74070d476959d1422e73c3de5",
         "vins/src/featureTracker/feature_tracker.h": "e0481b7d21ba6b91579a0f41ad5b7fadd0b38e5609f1c0a4754da4d203e1db80",
         "vins/CMakeLists.txt": "e7b0e692faf377bf81cbe1eee9f5f32eb6e533dea6c16a81b29ad88f5f03cccc",
         "loop_fusion/CMakeLists.txt": "cab76872baa4532972f3cb977ee6eb2a3712bf151bc622bdc89ef511a0692b9d",
         "loop_fusion/package.xml": "356197ec6f9bdeed66c35a5558174c04a238418605581c608c96524dc0ab8322",
-        "loop_fusion/src/parameters.h": "bfc995f007af5f84c29362270b8d4ba16ad352f7adbddd19b7bbfe154e9cbc10",
+        "loop_fusion/src/parameters.h": "fead1fec8e471c00eacde6bae354c89b06caa43643b5aad55ae7f3a2359dd5ed",
         "loop_fusion/src/keyframe.cpp": "67777b4e358049e3cf3cd6e62c717a9d11862f1176d7a6595167395353852e32",
         "loop_fusion/src/keyframe.h": "77623c94269c48ce074e10cc49a3648c2e1a331f147a5dcaaedeed147fc6233f",
         "loop_fusion/src/pose_graph.cpp": "d0e117e7a2d5504193d0d17dce33b2e0efef2700d21a3afb23e04e35adf2df22",
         "loop_fusion/src/pose_graph.h": "2ac3ddb22a18af13d062e23103d8477ab6e16fac6075ff1c7480f04276d4bc83",
-        "loop_fusion/src/pose_graph_node.cpp": "62a16d1dce67c5f2a5ad4ef312166ddfc805349ded972b86943dc3e8fe76a7f7",
+        "loop_fusion/src/pose_graph_node.cpp": "34c5628f247e83ca038bddc80b8084f71b6cdd65f571b502c15c58dd1cba367c",
         "support_files/brief_k10L6.bin": "753e7e126c588906ad16197892bdcd914f3a0971037c8f8aeb3c63418458b035",
         "support_files/brief_pattern.yml": "cb9e20bf47d7557cd22f7820524c3cb13b3a315c451d5665955336100177cafd",
         "loop_fusion/src/utility/CameraPoseVisualization.cpp": "e40271ea6d3ac1c7f3fe2421fe9d4b6de299bf3948f083217d1751556cbfbb7d",
@@ -117,7 +118,8 @@
         "vins/src/estimator/parameters.cpp": "efc5530a822a44da31eef0c27f5cafafc65659a17ea2bc64b4c0e54a9ff049bd",
         "vins/src/estimator/parameters.h": "1f419cd9217c9a814d1c7ad6852a6b79c20fe0d64b92976da9451533aec325dc",
         "vins/src/factor/marginalization_factor.cpp": "312895a5fcab3d5cd6e11912560b121e5d2ea121be9425a3e31dc1b81a8c35c6",
-        "vins/src/factor/marginalization_factor.h": "1615606fab498e43a5dac4ff86d380c2de2464081f9f0ed19d075d2acfa72616"
+        "vins/src/factor/marginalization_factor.h": "1615606fab498e43a5dac4ff86d380c2de2464081f9f0ed19d075d2acfa72616",
+        "vins/src/utility/visualization.h": "42ab664555a5c799863b86fe05297b9dc80e0380db91d294df252acce3b7a4c2"
       },
       "patch_sha256": {
         "dependencies/patches/vins/0001-fully-fixed.patch": "99b286a08f2d55d8da5d1bda9b450ec0d1553386e28577c814861489931f8940",
@@ -137,7 +139,8 @@
         "dependencies/patches/vins/0019-loop-candidate-diagnostics.patch": "bcb9af0c3131531decaeabe9c38f7f7d68f4463790dae84ee126b2c4d34d0e71",
         "dependencies/patches/vins/0020-readonly-estimator-queue-high-water.patch": "a3223b52b5216dab648797a23f4f49a648c1792b0791307ca6218c63ec417778",
         "dependencies/patches/vins/0021-readonly-native-work-queue.patch": "f07f9763fb139d6572a447b9733c823462692b22f5278acce29083f409eee4fd",
-        "dependencies/patches/vins/0022-calibrated-zero-gyro-bias.patch": "0dd98c1185220101dec5ab6b0275a23cee6b6fa941caa4d0bb49b6c78a1a6dfa"
+        "dependencies/patches/vins/0022-calibrated-zero-gyro-bias.patch": "0dd98c1185220101dec5ab6b0275a23cee6b6fa941caa4d0bb49b6c78a1a6dfa",
+        "dependencies/patches/vins/0023-foxy-cv-bridge-header.patch": "0a406112f5c8be319e8fd746ecb8442ad76a3db397ebaad52ed49c8ba7b30776"
       },
       "packaging_note": "0014 removes unneeded KITTI test executable targets and upstream config/launch install; project generates its own calibrated session. Estimator/tracker numerical source unchanged. 0015 adds the same pinned upstream loop_fusion and BRIEF assets with bounded single-session observer transport, Jazzy headers and orderly worker shutdown; no estimator/tracker or loop matching/optimization numerical changes. 0020 adds read-only estimator queue current/high-water fields to existing telemetry, with no runtime cap, drop, admission, or controller behavior."
     },
@@ -156,7 +159,7 @@
         "plan_manage",
         "traj_utils"
       ],
-      "patch_status": "Through0060: rebuild inflation from occupied sources in a source halo around cleared region; reject per-axis out-of-map inflation targets before flat addressing. Current N10.3 normal-navigation calibration excludes fault calibration by user #434.",
+      "patch_status": "Through0066: Foxy compatibility plus full-duration spline time reallocation; canonical upstream revision retained. HW06 ground validation only; prior simulation flight qualifications do not cover this numeric fix.",
       "patches": [
         "dependencies/patches/ego/0001-project-interface-and-license.patch",
         "dependencies/patches/ego/0002-package-descriptions.patch",
@@ -198,7 +201,12 @@
         "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch",
         "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch",
         "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch",
-        "dependencies/patches/ego/0061-configurable-map-resolution.patch"
+        "dependencies/patches/ego/0061-configurable-map-resolution.patch",
+        "dependencies/patches/ego/0062-foxy-cv-bridge-header.patch",
+        "dependencies/patches/ego/0063-foxy-traj-utils-rosidl-deps.patch",
+        "dependencies/patches/ego/0064-foxy-rclcpp-callback-shared-ptr.patch",
+        "dependencies/patches/ego/0065-traj-utils-header-install-path.patch",
+        "dependencies/patches/ego/0066-full-duration-time-reallocation.patch"
       ],
       "license": "GPL-3.0-only",
       "imported": true,
@@ -255,7 +263,12 @@
         "dependencies/patches/ego/0058-n10-readonly-voxel-update-trace.patch": "9f847bcef6dd2384c936491971480a12e806d0794f80c6409d27ed269649d203",
         "dependencies/patches/ego/0059-n10-compact-voxel-trace.patch": "88ff95d04db3fa53eb8487b722ad5c6ef1156bd17629bcbdedfb0664d1ad7e06",
         "dependencies/patches/ego/0060-inflation-source-halo-and-bounds.patch": "8c09c678c4a7239ad50a1e616857641dd59e4a9c23196c251c6bbf7949cb5344",
-        "dependencies/patches/ego/0061-configurable-map-resolution.patch": "9c86bafa30cc5b7bd4709a71cd78a34816ac5e3ddb8b03f4267d40656b84cc9f"
+        "dependencies/patches/ego/0061-configurable-map-resolution.patch": "9c86bafa30cc5b7bd4709a71cd78a34816ac5e3ddb8b03f4267d40656b84cc9f",
+        "dependencies/patches/ego/0062-foxy-cv-bridge-header.patch": "41627b4abb2534168ac46e894bd775bf136bd0c3decbd9205a9ebf9e219126ae",
+        "dependencies/patches/ego/0063-foxy-traj-utils-rosidl-deps.patch": "65a085c4b23802ee177b03d2d42d01acf468e1e4e5ee86fa0f43a71c90886b74",
+        "dependencies/patches/ego/0064-foxy-rclcpp-callback-shared-ptr.patch": "fbdf720f24b31822b1a369fd8a1b31b39e7a2c678d3448c83a1e53bc598b96c4",
+        "dependencies/patches/ego/0065-traj-utils-header-install-path.patch": "f98ac9bf25d6c89a09199dd7c8e678419e23a21637f8a14898dfd8afc7fa874f",
+        "dependencies/patches/ego/0066-full-duration-time-reallocation.patch": "edddbc6baf5a84d67db7ce10818eebcac1e260d52fbddcfbbb779c03ad8e07a3"
       },
       "reconstruction_tool": "tools/fetch_dependencies.py",
       "patch_contexts": {
@@ -445,6 +458,27 @@
           "working_directory": "src",
           "strip": 1,
           "binary": true
+        },
+        "dependencies/patches/ego/0063-foxy-traj-utils-rosidl-deps.patch": {
+          "working_directory": ".",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0062-foxy-cv-bridge-header.patch": {
+          "working_directory": "src",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0064-foxy-rclcpp-callback-shared-ptr.patch": {
+          "working_directory": ".",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0065-traj-utils-header-install-path.patch": {
+          "working_directory": ".",
+          "strip": 1
+        },
+        "dependencies/patches/ego/0066-full-duration-time-reallocation.patch": {
+          "working_directory": ".",
+          "strip": 1,
+          "binary": true
         }
       },
       "license_sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
@@ -456,17 +490,20 @@
         "src/planner/traj_utils": "planner/traj_utils"
       },
       "patched_files_sha256": {
-        "src/planner/plan_env/src/grid_map.cpp": "5f3ef8bd72022c822c1b2fe9c22d3133897e789aa02b2530afcbb49998b161b8",
-        "src/planner/plan_env/include/plan_env/grid_map.h": "2d4d457b7ffb3fd22a84d2982576147cae8cada41693c869d7196b1aac33fe8a",
+        "src/planner/plan_env/src/grid_map.cpp": "2049d31962940caa4cc136983588d9fd0cc41942ed3c3efb0ee590f2da3612bc",
+        "src/planner/plan_env/include/plan_env/grid_map.h": "cde1721ccef36d78c671e90f98f4c8f4a49c12f728880b31229bbccf4445a510",
         "src/planner/plan_env/include/plan_env/sphere_query.h": "ca2439917c1a3f979f4591a9316221fde3551f010442a9117c7ea308742f1809",
         "src/planner/plan_env/src/raycast.cpp": "b99cc51e1d485fde0b7e24c3ff0dc67a18be6096010b7e0cb92644cc2ac35fa0",
         "src/planner/plan_env/include/plan_env/swept_curve.h": "7b5c84834d52e44d5e6353665335ae2bea2ac9de49ea889556aca66eda05050b",
-        "src/planner/plan_manage/src/ego_replan_fsm.cpp": "cd850f2388526a729e72c9539666775eab8ae78ab39b0c32fe3459c9c34ee208",
+        "src/planner/plan_manage/src/ego_replan_fsm.cpp": "45cf7d74ea74a5601dda2238aee460a4dd8c2093523a2295054208819d56fe55",
         "src/planner/plan_manage/include/ego_planner/ego_replan_fsm.h": "e501479ffbec9c134be7f343d006fe6b54662edf326f26c54df8aabb9f9fafb2",
         "src/planner/plan_manage/launch/advanced_param.launch.py": "e6a93ec3e669e3d2e42f8292aae8ab144a407178c86e7757825af805b4ae70f7",
         "src/planner/plan_manage/src/planner_manager.cpp": "ba54b725fe410e2e52fe9c0f09eb42adeeb75c7689031c2057ff43901e2b3908",
-        "src/planner/bspline_opt/src/uniform_bspline.cpp": "2dbf2ad5a6526c8b479d6874c89c048a3f028018b99125b3d50dc09db2e77a17",
-        "src/planner/plan_manage/src/traj_server.cpp": "d9b01e71a123d938a7e6d2cdaf139f7cb6a3ef55bcc7147bcb2400da1a4d97de"
+        "src/planner/bspline_opt/src/uniform_bspline.cpp": "7319fc4bebce9d3876a1061e5a8047b3e5adac617ec299d8458dc7e313ee0d02",
+        "src/planner/plan_manage/src/traj_server.cpp": "d9b01e71a123d938a7e6d2cdaf139f7cb6a3ef55bcc7147bcb2400da1a4d97de",
+        "src/planner/traj_utils/CMakeLists.txt": "64ee67a8b5fc731b0702e7141dae56556dff91bb51e0bae56ed9f6f7aafcb7d7",
+        "src/planner/plan_env/include/plan_env/obj_predictor.h": "6a9bd70430b350cf8a511fbbb1d887af86abe2e6ccb251adbd9955ec16c97d6c",
+        "src/planner/plan_env/src/obj_predictor.cpp": "babbc475a9226ca514e6d8f356b33239d7668edb968d07bdfaddec9a2306e60a"
       }
     },
     {
@@ -603,6 +640,6 @@
       "evidence": "progress/evidence/navrl-pillars-20261030-600.md"
     }
   ],
-  "updated": "2026-10-28",
+  "updated": "2026-11-02",
   "runtime_baseline_evidence": "progress/evidence/cpu-navigation-convergence-20261021-051.json"
 }

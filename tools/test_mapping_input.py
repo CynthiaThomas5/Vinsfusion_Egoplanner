@@ -2,13 +2,12 @@
 """Pure tests for depth-time pose interpolation and camera extrinsics."""
 import math
 from pathlib import Path
-import struct
 import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src/own/uav_mapping'))
-from uav_mapping.mapping_input import (depth_camera_pose, depth_layout_valid, pose_at,
-                                       valid_depth_sample_count)
+from uav_mapping.mapping_input import (camera_info_matches, depth_camera_pose,
+                                       depth_layout_valid, pose_at)
 
 
 class MappingInputTests(unittest.TestCase):
@@ -42,25 +41,6 @@ class MappingInputTests(unittest.TestCase):
         self.assertAlmostEqual(orientation[2], 0.5, places=6)
         self.assertAlmostEqual(orientation[3], -0.5, places=6)
 
-    def test_depth_sample_validation_counts_only_finite_positive_values(self):
-        class Header:
-            frame_id = 'depth_optical_frame'
-
-        class Message:
-            header = Header()
-            encoding = '32FC1'
-            width = 4
-            height = 2
-            step = 20  # Two bytes of row padding.
-            is_bigendian = False
-            data = (struct.pack('<4f', 1.0, 0.0, float('nan'), 2.5) + b'\0' * 4
-                    + struct.pack('<4f', float('inf'), -1.0, 0.5, 3.0) + b'\0' * 4)
-
-        self.assertEqual(valid_depth_sample_count(
-            Message(), 4, 2, 'depth_optical_frame', 1), 4)
-        self.assertEqual(valid_depth_sample_count(
-            Message(), 4, 2, 'wrong_frame', 1), 0)
-
     def test_depth_layout_accepts_zero_valid_pixels_without_a_project_health_threshold(self):
         class Header:
             frame_id = 'depth_optical_frame'
@@ -75,6 +55,36 @@ class MappingInputTests(unittest.TestCase):
 
         self.assertTrue(depth_layout_valid(
             Message(), 4, 2, 'depth_optical_frame'))
+
+    def test_live_camera_info_must_match_real_rig_frame_size_and_intrinsics(self):
+        camera = {
+            'frame': 'depth_optical',
+            'image_frame': 'depth_optical',
+            'camera_info_frame': 'depth_optical',
+            'width': 640,
+            'height': 480,
+            'K': [386.7, 0.0, 322.1, 0.0, 386.7, 241.5, 0.0, 0.0, 1.0],
+        }
+
+        class Header:
+            frame_id = 'depth_optical'
+
+        class Message:
+            header = Header()
+            width = 640
+            height = 480
+            k = list(camera['K'])
+
+        self.assertTrue(camera_info_matches(Message(), camera))
+        Message.k[2] += 0.01
+        self.assertFalse(camera_info_matches(Message(), camera))
+        Message.k = list(camera['K'])
+        Message.header.frame_id = 'other_optical'
+        self.assertFalse(camera_info_matches(Message(), camera))
+        Message.header.frame_id = 'depth_optical'
+        Message.width = 320
+        self.assertFalse(camera_info_matches(Message(), camera))
+        self.assertFalse(camera_info_matches(None, camera))
 
 
 if __name__ == '__main__':

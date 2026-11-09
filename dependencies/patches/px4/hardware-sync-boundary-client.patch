@@ -1,0 +1,102 @@
+diff --git a/src/c/core/session/session.c b/src/c/core/session/session.c
+index 45900b1..42a09d0 100644
+--- a/src/c/core/session/session.c
++++ b/src/c/core/session/session.c
+@@ -1,5 +1,6 @@
+ #include <uxr/client/core/session/session.h>
+ #include <uxr/client/util/time.h>
++#include <uxr/client/util/px4_sync_trace.h>
+ #include <uxr/client/core/communication/communication.h>
+ #include <uxr/client/core/type/xrce_types.h>
+ #include <uxr/client/config.h>
+@@ -543,8 +544,11 @@ bool uxr_sync_session(
+     (void) uxr_serialize_TIMESTAMP_Payload(&ub, &timestamp);
+ 
+     uxr_stamp_session_header(&session->info, 0, 0, ub.init);
+-    send_message(session, timestamp_buffer, ucdr_buffer_length(&ub));
++    px4_sync_trace_begin((uint64_t)(nanos / 1000), (uint64_t)(uxr_nanos() / 1000));
++    bool trace_sent = send_message(session, timestamp_buffer, ucdr_buffer_length(&ub));
++    px4_sync_trace_sent((uint64_t)(nanos / 1000), (uint64_t)(uxr_nanos() / 1000), trace_sent);
+     bool ret = run_session_until_sync(session, timeout);
++    px4_sync_trace_finish();
+     UXR_UNLOCK_SESSION(session);
+ 
+     return ret;
+diff --git a/src/c/profile/transport/serial/serial_transport_posix.c b/src/c/profile/transport/serial/serial_transport_posix.c
+index 6e7e885..07bc34a 100644
+--- a/src/c/profile/transport/serial/serial_transport_posix.c
++++ b/src/c/profile/transport/serial/serial_transport_posix.c
+@@ -1,6 +1,9 @@
+ #include <uxr/client/profile/transport/serial/serial_transport_posix.h>
+ #include <uxr/client/profile/transport/serial/serial_transport_platform.h>
+ 
++#include <uxr/client/util/time.h>
++#include <uxr/client/util/px4_sync_trace.h>
++#include <sys/ioctl.h>
+ #include <unistd.h>
+ #include <errno.h>
+ 
+@@ -38,7 +41,10 @@ size_t uxr_write_serial_data_platform(
+     size_t rv = 0;
+     struct uxrSerialPlatform* platform = (struct uxrSerialPlatform*) args;
+ 
++    uint64_t trace_begin = (uint64_t)(uxr_nanos() / 1000);
+     ssize_t bytes_written = write(platform->poll_fd.fd, (void*)buf, (size_t)len);
++    uint64_t trace_end = (uint64_t)(uxr_nanos() / 1000);
++    px4_sync_trace_write(trace_begin, trace_end, (int32_t)bytes_written);
+     if (-1 != bytes_written)
+     {
+         rv = (size_t)bytes_written;
+@@ -61,10 +67,24 @@ size_t uxr_read_serial_data_platform(
+     size_t rv = 0;
+     struct uxrSerialPlatform* platform = (struct uxrSerialPlatform*) args;
+ 
++    uint64_t trace_poll_begin = (uint64_t)(uxr_nanos() / 1000);
++    int trace_available = -1;
++    if (px4_sync_trace_waiting())
++    {
++        int available = 0;
++        if (ioctl(platform->poll_fd.fd, FIONREAD, (unsigned long)&available) == 0)
++        {
++            trace_available = available;
++        }
++    }
+     int poll_rv = poll(&platform->poll_fd, 1, timeout);
++    uint64_t trace_poll_end = (uint64_t)(uxr_nanos() / 1000);
+     if (0 < poll_rv)
+     {
++        uint64_t trace_read_begin = (uint64_t)(uxr_nanos() / 1000);
+         ssize_t bytes_read = read(platform->poll_fd.fd, buf, len);
++        uint64_t trace_read_end = (uint64_t)(uxr_nanos() / 1000);
++        px4_sync_trace_read(trace_poll_begin, trace_poll_end, trace_read_begin, trace_read_end, (int32_t)bytes_read, trace_available);
+         if (-1 != bytes_read)
+         {
+             rv = (size_t)bytes_read;
+diff --git a/include/uxr/client/util/px4_sync_trace.h b/include/uxr/client/util/px4_sync_trace.h
+new file mode 100644
+index 0000000..5ebd157
+--- /dev/null
++++ b/include/uxr/client/util/px4_sync_trace.h
+@@ -0,0 +1,22 @@
++// SPDX-License-Identifier: Apache-2.0
++// Diagnostic-only PX4 hooks. Linked by the paired PX4 boundary-trace patch.
++#ifndef UXR_CLIENT_UTIL_PX4_SYNC_TRACE_H
++#define UXR_CLIENT_UTIL_PX4_SYNC_TRACE_H
++#include <stdint.h>
++#ifdef __cplusplus
++extern "C" {
++#endif
++void px4_sync_trace_enable(uint8_t enabled);
++void px4_sync_trace_begin(uint64_t originate_us, uint64_t begin_us);
++uint8_t px4_sync_trace_waiting(void);
++void px4_sync_trace_finish(void);
++void px4_sync_trace_sent(uint64_t originate_us, uint64_t end_us, uint8_t sent);
++void px4_sync_trace_write(uint64_t begin_us, uint64_t end_us, int32_t bytes);
++void px4_sync_trace_read(uint64_t poll_begin_us, uint64_t poll_end_us,
++                         uint64_t read_begin_us, uint64_t read_end_us, int32_t bytes, int32_t available_before_poll);
++void px4_sync_trace_reply(uint64_t callback_us, uint64_t originate_us,
++                          uint64_t agent_rx_us, uint64_t agent_tx_us);
++#ifdef __cplusplus
++}
++#endif
++#endif

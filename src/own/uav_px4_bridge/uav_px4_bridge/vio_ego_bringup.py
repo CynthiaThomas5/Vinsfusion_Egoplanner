@@ -27,14 +27,15 @@ def _read_json(root, relative):
     return json.loads(path.read_text())
 
 
-def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANNER_CONFIG):
+def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANNER_CONFIG,
+                                  rig_config=None, settings_config=None):
     root = Path(project_root).resolve()
     planner_path = Path(planner_config)
     if planner_path.is_absolute():
         raise ValueError('Planner config must be relative to the project root')
     planner_config = planner_path.as_posix()
     planner_file = (root / planner_path).resolve()
-    if not planner_file.is_relative_to(root):
+    if root not in planner_file.parents:
         raise ValueError('Planner config must be inside the project root')
     profile = _read_json(root, 'config/profiles/vio_closed_loop.json')
     px4 = _read_json(root, 'config/components/px4_bridge/vio_closed_loop.json')
@@ -47,7 +48,26 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
     if collision_policy not in ('known_free', 'official_ego'):
         raise ValueError('Unsupported collision_policy')
     official_ego = collision_policy == 'official_ego'
-    vins_settings = _read_json(root, 'config/components/localization/vins_sim.json')
+    rig_relative = (rig_config or 'simulation/models/d435i/model.sdf')
+    rig_path = Path(rig_relative)
+    if rig_path.is_absolute() or '..' in rig_path.parts:
+        raise ValueError('Rig config must be relative to the project root')
+    rig_relative = rig_path.as_posix()
+    rig_file = root / rig_path
+    if root not in rig_file.parents or not rig_file.is_file():
+        raise ValueError('Rig config must exist inside the project root')
+    if settings_config is None:
+        settings_config = ('config/components/localization/vins_hardware.json'
+                           if rig_file.suffix.lower() == '.json'
+                           else 'config/components/localization/vins_sim.json')
+    settings_path = Path(settings_config)
+    if settings_path.is_absolute() or '..' in settings_path.parts:
+        raise ValueError('VINS settings config must be relative to the project root')
+    settings_relative = settings_path.as_posix()
+    settings_file = root / settings_path
+    if root not in settings_file.parents or not settings_file.is_file():
+        raise ValueError('VINS settings config must exist inside the project root')
+    vins_settings = json.loads(settings_file.read_text())
 
     if profile.get('name') != 'vio_closed_loop':
         raise ValueError('Expected the vio_closed_loop runtime profile')
@@ -102,19 +122,15 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
         if not topic.startswith(prefix) or topic == prefix:
             raise ValueError(f'EGO {name} topic must match drone id {drone_id}')
 
-    sim_model = root / 'simulation/models/d435i/model.sdf'
-    if not sim_model.is_file():
-        raise FileNotFoundError(sim_model)
-    # Import the model reader from the project's source package so launch-time
-    # intrinsics always come from the same SDF used to generate VINS calibration.
+    # The explicit hardware path uses the same rig loader as VINS and localization.
     sim_source = str(root / 'src/own/uav_sim')
     if sim_source not in sys.path:
         sys.path.insert(0, sim_source)
-    from uav_sim.geometry import calibration
+    from uav_sim.geometry import load_rig
 
-    rig = calibration(sim_model)
+    rig = load_rig(rig_file)
     k = rig['cameras']['depth']['K']
-    relative_topics = {name: topic.removeprefix(prefix) for name, topic in topics.items()}
+    relative_topics = {name: topic[len(prefix):] for name, topic in topics.items()}
     startup_waypoint = planner.get('startup_waypoint_enu_m', [0.0, 0.0, 0.0])
     if (not isinstance(startup_waypoint, list) or len(startup_waypoint) != 3
             or not all(isinstance(value, (int, float)) and math.isfinite(value)
@@ -175,8 +191,7 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
     }
     source_files = [
         'config/profiles/vio_closed_loop.json',
-        'config/components/simulation/d435i_bridge.yaml',
-        'config/components/localization/vins_sim.json',
+        settings_relative,
         'config/components/localization/health.json',
         'config/components/navigation/vehicle_envelope.json',
         'config/components/mapping/ego_input.json',
@@ -184,8 +199,10 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
         'config/components/navigation/task_supervisor.json',
         'config/components/px4_bridge/vio_closed_loop.json',
         'config/components/px4_bridge/frames_vio_closed_loop.json',
-        'simulation/models/d435i/model.sdf',
+        rig_relative,
     ]
+    if rig['source_kind'] == 'simulation_sdf':
+        source_files.append('config/components/simulation/d435i_bridge.yaml')
     return {
         'project_root': root,
         'profile': profile,
@@ -194,6 +211,13 @@ def resolve_vio_ego_configuration(project_root, planner_config=DEFAULT_EGO_PLANN
         'mapping': mapping,
         'navigation': navigation,
         'rig': rig,
+        'rig_config': rig_relative,
+        'settings_config': settings_relative,
+        'bridge_installation': {
+            'airframe_mount': rig.get('airframe_mount'),
+            'control_usable': (rig.get('airframe_mount', {}).get('control_usable', True)
+                               if rig['source_kind'] == 'hardware_json' else True),
+        },
         'ego_launch_arguments': ego_arguments,
         'source_files': source_files,
     }

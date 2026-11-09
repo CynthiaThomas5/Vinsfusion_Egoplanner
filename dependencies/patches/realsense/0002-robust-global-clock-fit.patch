@@ -1,0 +1,131 @@
+--- a/src/global_timestamp_reader.cpp
++++ b/src/global_timestamp_reader.cpp
+@@ -2,6 +2,9 @@
+ // Copyright(c) 2015 RealSense, Inc. All Rights Reserved.
+ #include "global_timestamp_reader.h"
+ #include <chrono>
++#include <algorithm>
++#include <vector>
++#include <cmath>
+ 
+ using namespace std::chrono;
+ 
+@@ -56,10 +59,50 @@
+         }
+     }
+ 
++    static bool robust_clock_fit(const std::deque<CSample>& values, const CSample& base_sample, double& a, double& b)
++    {
++        static const double min_dx_ms = 1e-6; // Guard degenerate/near-duplicate x pairs (would blow up the slope estimate).
++        std::vector<CSample> centered;
++        centered.reserve(values.size());
++        for (auto& s : values)
++        {
++            CSample c(s);
++            c -= base_sample;
++            centered.push_back(c);
++        }
++        size_t n = centered.size();
++        if (n < 2)
++            return false;
++        std::vector<double> slopes;
++        slopes.reserve(n * (n - 1) / 2);
++        for (size_t i = 0; i < n; ++i)
++        {
++            for (size_t j = i + 1; j < n; ++j)
++            {
++                double dx = centered[j]._x - centered[i]._x;
++                if (std::fabs(dx) < min_dx_ms)
++                    continue;
++                slopes.push_back((centered[j]._y - centered[i]._y) / dx);
++            }
++        }
++        if (slopes.empty())
++            return false;
++        std::sort(slopes.begin(), slopes.end());
++        size_t mid = slopes.size() / 2;
++        a = (slopes.size() % 2) ? slopes[mid] : (slopes[mid - 1] + slopes[mid]) / 2.0;
++
++        std::vector<double> intercepts;
++        intercepts.reserve(n);
++        for (auto& c : centered)
++            intercepts.push_back(c._y - a * c._x);
++        std::sort(intercepts.begin(), intercepts.end());
++        size_t imid = intercepts.size() / 2;
++        b = (intercepts.size() % 2) ? intercepts[imid] : (intercepts[imid - 1] + intercepts[imid]) / 2.0;
++        return true;
++    }
++
+     void CLinearCoefficients::calc_linear_coefs()
+     {
+-        // Calculate linear coefficients, based on calculus described in: https://www.statisticshowto.datasciencecentral.com/probability-and-statistics/regression-analysis/find-a-linear-regression-equation/
+-        // Calculate Std
+         double n(static_cast<double>(_last_values.size()));
+         double a(1);
+         double b(0);
+@@ -75,34 +118,12 @@
+         }
+         else
+         {
+-            double sum_x(0);
+-            double sum_y(0);
+-            double sum_xy(0);
+-            double sum_x2(0);
+-            for (auto sample = _last_values.begin(); sample != _last_values.end(); sample++)
+-            {
+-                CSample crnt_sample(*sample);
+-                crnt_sample -= _base_sample;
+-                sum_x += crnt_sample._x;
+-                sum_y += crnt_sample._y;
+-                sum_xy += (crnt_sample._x * crnt_sample._y);
+-                sum_x2 += (crnt_sample._x * crnt_sample._x);
+-            }
+-            double denom = n * sum_x2 - sum_x * sum_x;
+-            if( denom > std::numeric_limits< double >::epsilon() )
+-            {
+-                b = (sum_y * sum_x2 - sum_x * sum_xy) / denom;
+-                a = (n * sum_xy - sum_x * sum_y) / denom;
+-            }
+-            else
++            if (!robust_clock_fit(_last_values, _base_sample, a, b))
+             {
+                 a = _dest_a;
+                 b = _dest_b;
+             }
+-            if( _last_request_time - _prev_time < _time_span_ms )
+-            {
+-                dt = (_last_request_time - _prev_time) / _time_span_ms;
+-            }
++            dt = std::min( 1., std::max( 0., ( _last_request_time - _prev_time ) / _time_span_ms ) );
+         }
+         _prev_a = _dest_a * dt + _prev_a * (1 - dt);
+         _prev_b = _dest_b * dt + _prev_b * (1 - dt);
+@@ -113,14 +134,11 @@
+ 
+     void CLinearCoefficients::get_a_b(double x, double& a, double& b) const
+     {
+-        a = _dest_a;
+-        b = _dest_b;
+-        if (x - _prev_time < _time_span_ms)
+-        {
+-            double dt((x - _prev_time) / _time_span_ms);
+-            a = _dest_a * dt + _prev_a * (1 - dt);
+-            b = _dest_b * dt + _prev_b * (1 - dt);
+-        }
++        // Blend from the previous to the current coefficients over the second following the last
++        // recompute; clamp so a query before that time can't extrapolate.
++        double dt = std::min( 1., std::max( 0., ( x - _prev_time ) / _time_span_ms ) );
++        a = _dest_a * dt + _prev_a * (1 - dt);
++        b = _dest_b * dt + _prev_b * (1 - dt);
+     }
+ 
+     double CLinearCoefficients::calc_value(double x) const
+@@ -225,6 +243,8 @@
+             double command_delay = (system_time_finish-system_time_start)/2;
+ 
+             std::lock_guard<std::recursive_mutex> lock(_read_mtx);
++            if (!_is_ready && _min_command_delay == 1000. && command_delay > 10.)
++                return false;
+             if (command_delay < _min_command_delay)
+             {
+                 _coefs.add_const_y_coefs(command_delay - _min_command_delay);

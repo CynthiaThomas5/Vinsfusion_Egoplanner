@@ -15,3 +15,20 @@ ENU `PositionCommand` 到 PX4 NED 的转换要求 READY、匹配 epoch/frame/goa
 P3 #34 已完成 debug_truth 深度建图→EGO action/READY轨迹→PX4 Offboard 目标飞行闭环：plan_env 峰值2,047点，938条匹配 goal_id/epoch 的 READY 命令，目标动作以 position+yaw dwell 成功，PX4 随后降落并解除武装。PX4 ULog确认808条外部视觉里程计和 EKF2 EV aid 融合；GPS EKF控制关闭且无 GNSS aiding。P3 阶段据此通过；该 run 没有专门放置障碍，不能证明避障净空，也不代表最终视觉无真值 profile。完整数据和 SHA-256 见 [`p3-px4-ego-flight.json`](../../../progress/evidence/p3-px4-ego-flight.json) 与 [`p3-stage-exit-audit.json`](../../../progress/evidence/p3-stage-exit-audit.json)。
 
 回归命令：`python3 tools/test_px4_bridge_control.py`、`python3 tools/test_px4_bridge_frames.py`、`python3 tools/test_px4_bridge_time_mapping.py`、`python3 tools/test_px4_debug_params.py`、`python3 tools/test_px4_bridge_vio_profile.py`；Jazzy 节点加载探针为 `tools/probe_px4_bridge_profile_load.py`。
+
+HW08 的硬件候选由同一节点加载 `config/hardware/px4_profile.json`、`px4_bridge_ev.json` 和 `rig.json`。`runtime_mode=ev_only` 不创建三个 PX4 控制发布者或启用服务，也不订阅 `/clock`、加载 SDF；硬件 `control` 使用 `px4_bridge_control.json`，复用相同OffboardSupervisor和显式使能服务；未通过安装准入的真实rig仍拒绝加载。EV 使用任意初始航向的 `POSE_FRAME_FRD`、BODY_FRD 速度；系统 epoch 的原始 source stamp 直接作为 timestamp_sample，发送时间独立记录，不重复补偿 DDS offset。
+
+```bash
+source tools/hardware-env.bash
+ros2 run uav_px4_bridge px4_bridge --ros-args \
+  -p profile_path:="$PWD/config/hardware/px4_profile.json" \
+  -p bridge_config_path:="$PWD/config/hardware/px4_bridge_ev.json" \
+  -p frame_contract_path:="$PWD/config/components/px4_bridge/frames_vio_closed_loop.json" \
+  -p rig_config:="$PWD/config/hardware/rig.json"
+```
+
+当前真实安装仍为 UNMEASURED，上述入口只报告门控状态、输出0 EV；用户已确认板上IMU芯片平移为FRD(0.20,0.01,0)m，完整安装旋转仍待验证。HW08整体未通过，详见[软件/安装审计](../../../progress/evidence/hw08-body-time-20261103.md)。定向检查为 `python3 tools/test_hw08_transforms_time.py`；真实融合与飞行未测。
+
+硬件control的局部配准先把完整IMU姿态转换为body姿态，再对齐任意初始yaw/原点，避免将光学IMU的右轴当机头。PX4同步消息已在Agent系统epoch中，硬件遥测不重复加offset；分别保留源龄和单调接收龄。现有规划PositionCommand只给yaw/yaw_dot，杆臂转换仍是低倾角候选，完整加速度等价尚未资格化。原控制器目前发布位置/yaw设定点。隔离节点检查：`ROS_DOMAIN_ID=83 python3 tools/test_hw08_control_node.py`，合成安装配置仅用于测试；不连接Agent或真实PX4。
+
+板上柔性底板的近似数值保存在rig的`bench_observation.approximate_transform`，未提升为`T_airframe_imu`。用户接受板上近似交付，严格刚性检验未通过；当前真实rig仍阻止EV和control输出。详细残差与增加订阅后的时效失败见[板上证据](../../../progress/evidence/hw08-board-20261103.md)。

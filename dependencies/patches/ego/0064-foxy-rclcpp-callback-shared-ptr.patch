@@ -1,0 +1,128 @@
+--- a/src/planner/plan_env/include/plan_env/grid_map.h
++++ b/src/planner/plan_env/include/plan_env/grid_map.h
+@@ -225,9 +225,9 @@
+   // get depth image and camera pose
+   void depthPoseCallback(const sensor_msgs::msg::Image::ConstPtr &img,
+                          const geometry_msgs::msg::PoseStamped::ConstPtr &pose);
+-  void extrinsicCallback(const nav_msgs::msg::Odometry::ConstPtr &odom);
++  void extrinsicCallback(nav_msgs::msg::Odometry::ConstSharedPtr odom);
+   void depthOdomCallback(const sensor_msgs::msg::Image::ConstPtr &img, const nav_msgs::msg::Odometry::ConstPtr &odom);
+-  void cloudCallback(const sensor_msgs::msg::PointCloud2::ConstPtr &img);
++  void cloudCallback(sensor_msgs::msg::PointCloud2::ConstSharedPtr img);
+   void odomCallback(const nav_msgs::msg::Odometry::SharedPtr odom);
+ 
+   // update occupancy by raycasting
+--- a/src/planner/plan_env/src/grid_map.cpp
++++ b/src/planner/plan_env/src/grid_map.cpp
+@@ -1077,7 +1077,7 @@
+   md_.has_odom_ = true;
+ }
+ 
+-void GridMap::cloudCallback(const sensor_msgs::msg::PointCloud2::ConstPtr &img)
++void GridMap::cloudCallback(sensor_msgs::msg::PointCloud2::ConstSharedPtr img)
+ {
+ 
+   pcl::PointCloud<pcl::PointXYZ> latest_cloud;
+@@ -1308,7 +1308,7 @@
+   ori = mp_.map_origin_, size = mp_.map_size_;
+ }
+ 
+-void GridMap::extrinsicCallback(const nav_msgs::msg::Odometry::ConstPtr &odom)
++void GridMap::extrinsicCallback(nav_msgs::msg::Odometry::ConstSharedPtr odom)
+ {
+   Eigen::Quaterniond cam2body_q = Eigen::Quaterniond(odom->pose.pose.orientation.w,
+                                                      odom->pose.pose.orientation.x,
+--- a/src/planner/plan_env/include/plan_env/obj_predictor.h
++++ b/src/planner/plan_env/include/plan_env/obj_predictor.h
+@@ -123,7 +123,7 @@
+ 
+     void init(int id, int skip_num, int queue_size, rclcpp::Time global_start_time);
+ 
+-    void poseCallback(const geometry_msgs::msg::PoseStamped::ConstPtr &msg);
++    void poseCallback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg);
+ 
+     void clear()
+     {
+@@ -160,7 +160,7 @@
+     ObjScale obj_scale_;
+     vector<bool> scale_init_;
+ 
+-    void markerCallback(const visualization_msgs::msg::Marker::ConstPtr &msg);
++    void markerCallback(visualization_msgs::msg::Marker::ConstSharedPtr msg);
+ 
+     void predictCallback(); // ROS2 的定时器回调不需要 TimerEvent
+     void predictPolyFit();
+--- a/src/planner/plan_env/src/obj_predictor.cpp
++++ b/src/planner/plan_env/src/obj_predictor.cpp
+@@ -42,7 +42,7 @@
+     global_start_time_ = global_start_time;
+   }
+ 
+-  void ObjHistory::poseCallback(const geometry_msgs::msg::PoseStamped::ConstPtr &msg)
++  void ObjHistory::poseCallback(geometry_msgs::msg::PoseStamped::ConstSharedPtr msg)
+   {
+     ++skip_;
+     if (skip_ < skip_num_)
+@@ -200,7 +200,7 @@
+     predictConstVel();
+   }
+ 
+-  void ObjPredictor::markerCallback(const visualization_msgs::msg::Marker::ConstPtr &msg)
++  void ObjPredictor::markerCallback(visualization_msgs::msg::Marker::ConstSharedPtr msg)
+   {
+     int idx = msg->id;
+     (*obj_scale_)[idx](0) = msg->scale.x;
+--- a/src/planner/plan_manage/src/ego_replan_fsm.cpp
++++ b/src/planner/plan_manage/src/ego_replan_fsm.cpp
+@@ -69,7 +69,7 @@
+     odom_sub_ = node_->create_subscription<nav_msgs::msg::Odometry>(
+         "odom_world",
+         1,
+-        [this](const std::shared_ptr<const nav_msgs::msg::Odometry> &msg)
++        [this](std::shared_ptr<const nav_msgs::msg::Odometry> msg)
+         {
+           this->odometryCallback(msg);
+         });
+@@ -81,7 +81,7 @@
+       swarm_trajs_sub_ = node_->create_subscription<traj_utils::msg::MultiBsplines>(
+           sub_topic_name,
+           10,
+-          [this](const std::shared_ptr<const traj_utils::msg::MultiBsplines> &msg)
++          [this](std::shared_ptr<const traj_utils::msg::MultiBsplines> msg)
+           {
+             this->swarmTrajsCallback(msg);
+           });
+@@ -105,7 +105,7 @@
+     broadcast_bspline_sub_ = node_->create_subscription<traj_utils::msg::Bspline>(
+         "planning/broadcast_bspline_to_planner",
+         100,
+-        [this](const std::shared_ptr<const traj_utils::msg::Bspline> &msg)
++        [this](std::shared_ptr<const traj_utils::msg::Bspline> msg)
+         {
+           this->BroadcastBsplineCallback(msg);
+         });
+@@ -130,7 +130,7 @@
+       trigger_sub_ = node_->create_subscription<geometry_msgs::msg::PoseStamped>(
+           "/traj_start_trigger",
+           1,
+-          [this](const std::shared_ptr<const geometry_msgs::msg::PoseStamped> &msg)
++          [this](std::shared_ptr<const geometry_msgs::msg::PoseStamped> msg)
+           {
+             this->triggerCallback(msg);
+           });
+@@ -158,13 +158,13 @@
+ 
+     navigation_goal_sub_ = node_->create_subscription<uav_interfaces::msg::NavigationCommand>(
+         "/navigation/ego_goal", 10,
+-        [this](const std::shared_ptr<const uav_interfaces::msg::NavigationCommand> &msg)
++        [this](std::shared_ptr<const uav_interfaces::msg::NavigationCommand> msg)
+         {
+           this->navigationGoalCallback(msg);
+         });
+     trajectory_cancel_sub_ = node_->create_subscription<uav_interfaces::msg::TrajectoryCancel>(
+         "/navigation/trajectory_cancel", 10,
+-        [this](const std::shared_ptr<const uav_interfaces::msg::TrajectoryCancel> &msg)
++        [this](std::shared_ptr<const uav_interfaces::msg::TrajectoryCancel> msg)
+         {
+           this->trajectoryCancelCallback(msg);
+         });

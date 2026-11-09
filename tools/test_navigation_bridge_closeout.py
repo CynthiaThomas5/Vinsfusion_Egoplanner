@@ -16,12 +16,44 @@ class BridgeCloseoutTests(unittest.TestCase):
         core=TaskSupervisor();core.update_localization('epoch-a',True,True,'tracking')
         if active:
             core.submit(NavigationGoal('goal-a','epoch-a',(1.,0.,1.),0.,.2,.2,1.,60.),1.)
-        n=SimpleNamespace(_lock=threading.RLock(),core=core,
+        n=SimpleNamespace(_lock=threading.RLock(),core=core,compute_only=False,
             _forwarded_goals={'goal-a':'epoch-a'},_goal_epochs={'goal-a':'epoch-a'},
             _terminal_events={},_trajectory_cancel_pub=SimpleNamespace(publish=published.append))
         n._clear_forwarded=lambda reason:NavigationNode._clear_forwarded(n,reason)
         n._process_events=lambda events:NavigationNode._process_events(n,events)
         return n,published
+
+    def test_compute_cancel_aborts_reference_instead_of_generating_stop_hold(self):
+        n,p=self.node(active=True);n.compute_only=True
+        NavigationNode._process_events(n,n.core.cancel('goal-a','caller_cancel'))
+        self.assertEqual(p[0].mode,TrajectoryCancel.MODE_ABORT)
+
+    def test_compute_odometry_cannot_report_arrival(self):
+        from nav_msgs.msg import Odometry
+        n,p=self.node();n.compute_only=True
+        epoch='a'*32;n.core.update_localization(epoch,True,True,'tracking')
+        n.core.submit(NavigationGoal('compute',epoch,(1.,0.,1.),0.,.2,.2,0.,60.),__import__('time').monotonic())
+        msg=Odometry();msg.header.frame_id='odom_'+epoch
+        msg.pose.pose.position.x=1.;msg.pose.pose.position.z=1.;msg.pose.pose.orientation.w=1.
+        NavigationNode._on_odometry(n,msg)
+        self.assertEqual(n.core.active_goal.goal_id,'compute')
+        self.assertFalse(n._terminal_events)
+
+    def test_compute_invalid_localization_retires_running_goal(self):
+        from uav_interfaces.msg import LocalizationStatus
+        n,p=self.node(active=True);n.compute_only=True
+        msg=LocalizationStatus();msg.epoch='epoch-a';msg.state=LocalizationStatus.TRACKING
+        msg.valid=False;msg.reason='lost'
+        NavigationNode._on_localization(n,msg)
+        self.assertIsNone(n.core.active_goal)
+        self.assertFalse(n._forwarded_goals)
+        self.assertEqual(p[0].reason,'hardware_localization_invalid')
+
+    def test_only_compute_profile_requires_ready_map_input(self):
+        n,p=self.node();n._map_status=SimpleNamespace(epoch='epoch-a',map_id='map',reset_acknowledged=True,input_ready=False)
+        self.assertTrue(NavigationNode._map_ready(n,0.))
+        n.compute_only=True
+        self.assertFalse(NavigationNode._map_ready(n,0.))
 
     def test_completed_goal_hold_survives_active_and_takeoff(self):
         for phase in ('ACTIVE','TAKEOFF'):

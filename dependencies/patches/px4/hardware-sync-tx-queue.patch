@@ -1,0 +1,51 @@
+--- a/src/modules/uxrce_dds_client/sync_trace.cpp
++++ b/src/modules/uxrce_dds_client/sync_trace.cpp
+@@ -9,6 +9,7 @@
+ struct Request {
+ 	uint64_t key{0}, begin{0}, end{0}, write_begin{0}, write_end{0};
+ 	uint32_t bytes{0};
++	int32_t queued{-1};
+ 	bool sent{false}, write_seen{false};
+ };
+ struct Read {
+@@ -64,11 +65,12 @@
+ 
+ 	active = nullptr;
+ }
+-extern "C" void px4_sync_trace_write(uint64_t begin, uint64_t end, int32_t bytes)
++extern "C" uint8_t px4_sync_trace_writing() { return enabled && active != nullptr; }
++extern "C" void px4_sync_trace_write(uint64_t begin, uint64_t end, int32_t bytes, int32_t queued)
+ {
+ 	if (!enabled || !active) { return; }
+ 
+-	if (!active->write_seen) { active->write_begin = begin; }
++	if (!active->write_seen) { active->write_begin = begin; active->queued = queued; }
+ 
+ 	active->write_seen = true;
+ 	active->write_end = end;
+@@ -93,6 +95,7 @@
+ 	message.agent_tx_timestamp = agent_tx;
+ 	message.sequence = ++sequence;
+ 	message.reply_bytes_available = -1;
++	message.uart_tx_queued_before = -1;
+ 
+ 	if (Request *request = find(key)) {
+ 		message.flags |= uxrce_dds_sync_trace_s::REQUEST_MATCHED;
+@@ -106,6 +109,7 @@
+ 		message.uart_write_begin = request->write_begin;
+ 		message.uart_write_end = request->write_end;
+ 		message.serial_bytes_written = request->bytes;
++		message.uart_tx_queued_before = request->queued;
+ 	}
+ 
+ 	if (last_read.end != 0 && last_read.end >= key && last_read.end <= now) {
+--- a/msg/UxrceDdsSyncTrace.msg
++++ b/msg/UxrceDdsSyncTrace.msg
+@@ -15,6 +15,7 @@
+ uint32 serial_bytes_written
+ uint32 serial_bytes_read
+ int32 reply_bytes_available # -1: not measured; >=0: FIONREAD just before poll
++int32 uart_tx_queued_before # -1 unavailable; software TX ring bytes before first sync write
+ uint8 flags
+ uint8 REQUEST_MATCHED = 1
+ uint8 SEND_SUCCEEDED = 2

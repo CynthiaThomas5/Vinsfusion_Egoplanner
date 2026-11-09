@@ -1,5 +1,7 @@
 """Convert epoch-bound ROS ENU odometry into PX4 VehicleOdometry values."""
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 import math
 import re
@@ -44,11 +46,14 @@ def odometry_to_px4_values(odometry, profile, frame_contract, timestamp_us,
                             expected_epoch=None,
                             timestamp_sample_us=None,
                             origin_offset_ned=(0.0, 0.0, 0.0),
-                            yaw_offset_ned=0.0):
-    """Convert D435i IMU-frame ENU odometry to PX4 NED/FRD fields.
+                            yaw_offset_ned=0.0,
+                            T_body_imu=None):
+    """Convert IMU odometry with an optional measured hardware body mount.
 
     Variances are explicit profile configuration. VINS covariance is currently
     unavailable from the localization adapter, so VIO variances stay provisional.
+    Legacy source axes are FLU; with T_body_imu they are the IMU axes declared
+    by that transform. Numerical world-axis conversion does not establish North.
     """
     from .trajectory import validate_px4_runtime_profile
     validate_px4_runtime_profile(profile, frame_contract)
@@ -80,13 +85,17 @@ def odometry_to_px4_values(odometry, profile, frame_contract, timestamp_us,
     origin_offset_ned = _finite(origin_offset_ned, 'NED origin offset')
     if len(origin_offset_ned) != 3:
         raise ValueError('NED origin offset must contain three values')
-    orientation = apply_ned_yaw_offset(
-        ros_enu_flu_quaternion_to_px4_ned_frd(
-            (pose.orientation.x, pose.orientation.y, pose.orientation.z,
-             pose.orientation.w)), yaw_offset_ned)
+    quaternion = (pose.orientation.x, pose.orientation.y, pose.orientation.z,
+                  pose.orientation.w)
     twist = odometry.twist.twist
     velocity_flu = _finite((twist.linear.x, twist.linear.y, twist.linear.z), 'linear velocity')
     angular_flu = _finite((twist.angular.x, twist.angular.y, twist.angular.z), 'angular velocity')
+    if T_body_imu is not None:
+        from .rigid_body import imu_to_body_flu
+        position, quaternion, velocity_flu, angular_flu = imu_to_body_flu(
+            position, quaternion, velocity_flu, angular_flu, T_body_imu)
+    orientation = apply_ned_yaw_offset(
+        ros_enu_flu_quaternion_to_px4_ned_frd(quaternion), yaw_offset_ned)
     return PX4VisualOdometry(
         timestamp=timestamp_us,
         timestamp_sample=timestamp_sample_us,

@@ -1,0 +1,170 @@
+Panels:
+- Class: rviz_common/Displays
+  Name: Displays
+Preferences:
+  PromptSaveOnExit: false
+Visualization Manager:
+  Class: ''
+  Global Options:
+    Fixed Frame: hardware_display
+    Background Color: 0; 0; 0
+    Frame Rate: 15
+  Displays:
+  - Class: rviz_common/Group
+    Name: Frames
+    Enabled: true
+    Displays:
+    - Class: rviz_default_plugins/Axes
+      Name: Odom Frame
+      Enabled: true
+      Reference Frame: hardware_display
+      Length: 1.0
+      Radius: 0.06
+    - Class: rviz_default_plugins/Axes
+      Name: Vehicle Body FLU
+      Enabled: true
+      Reference Frame: hardware_view/vins_body
+      Length: 0.5
+      Radius: 0.035
+  - Class: rviz_common/Group
+    Name: VINS Odometry
+    Enabled: true
+    Displays:
+    - Class: rviz_default_plugins/Odometry
+      Name: VINS Current Body Pose (display only)
+      Enabled: true
+      Keep: 1
+      Position Tolerance: 0
+      Angle Tolerance: 0
+      Covariance:
+        Value: false
+      Shape: Axes
+      Axes Length: 0.45
+      Axes Radius: 0.045
+      Color: 255; 80; 80
+      Topic:
+        Value: /hardware_view/vins_odom
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/Path
+      Name: Trajectory Path
+      Enabled: true
+      Line Style: Billboards
+      Line Width: 0.005
+      Color: 255; 80; 170
+      Pose Style: None
+      Topic:
+        Value: /hardware_view/vins_path
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+  - Class: rviz_common/Group
+    Name: VINS visual features
+    Enabled: true
+    Displays:
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Camera frustum
+      Enabled: true
+      Topic:
+        Value: /hardware_view/camera
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/PointCloud
+      Name: Current sparse features
+      Enabled: true
+      Topic:
+        Value: /hardware_view/points
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+      Color Transformer: FlatColor
+      Color: 255; 255; 255
+      Size (Pixels): 3
+      Size (m): 0.01
+      Style: Points
+      Decay Time: 0
+    - Class: rviz_default_plugins/PointCloud
+      Name: Historical marginal features
+      Enabled: true
+      Topic:
+        Value: /hardware_view/history
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+      Color Transformer: FlatColor
+      Color: 0; 255; 0
+      Size (Pixels): 2
+      Size (m): 0.01
+      Style: Points
+      Decay Time: 100
+    - Class: rviz_default_plugins/Image
+      Name: Feature tracking - live stereo
+      Enabled: true
+      Topic:
+        Value: /hardware_view/image
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+      Normalize Range: false
+  - Class: rviz_common/Group
+    Name: PX4 comparison - separate world (+3m)
+    Enabled: false
+    Displays:
+    - Class: rviz_default_plugins/Pose
+      Name: PX4 BODY FLU pose
+      Enabled: true
+      Color: 255; 170; 30
+      Topic:
+        Value: /hardware_view/px4_pose
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+    - Class: rviz_default_plugins/Path
+      Name: PX4 local trajectory
+      Enabled: true
+      Color: 255; 170; 30
+      Line Style: Billboards
+      Line Width: 0.04
+      Topic:
+        Value: /hardware_view/px4_path
+        Depth: 1
+        Reliability Policy: Reliable
+        Durability Policy: Volatile
+  - Class: rviz_default_plugins/TF
+    Name: TF
+    Enabled: true
+    Frame Timeout: 15
+    Marker Scale: 0.3
+    Show Arrows: true
+    Show Axes: true
+    Show Names: false
+    Update Interval: 0
+  - Class: rviz_default_plugins/MarkerArray
+    Name: Recorded or live source status
+    Enabled: true
+    Topic:
+      Value: /hardware_view/status
+      Depth: 1
+      Reliability Policy: Reliable
+      Durability Policy: Volatile
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 5.0
+      Pitch: 0.8
+      Yaw: 3.9
+      Target Frame: hardware_display
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 1
+  Tools:
+  - Class: rviz_default_plugins/MoveCamera
+  - Class: rviz_default_plugins/Interact
+  - Class: rviz_default_plugins/Select
+  - Class: rviz_default_plugins/FocusCamera
+Window Geometry:
+  Width: 1600
+  Height: 940

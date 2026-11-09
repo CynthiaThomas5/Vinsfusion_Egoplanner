@@ -14,14 +14,14 @@ from action_msgs.msg import GoalStatus
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Odometry
 from rclpy.action import ActionClient
-from rclpy.experimental.events_executor import EventsExecutor
 from rclpy.node import Node
+from rclpy.task import Future
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from rosgraph_msgs.msg import Clock
 from uav_interfaces.action import NavigateToPose
 from uav_interfaces.msg import LocalizationStatus, MapStatus, NavigationCommand, TrajectoryCancel
 
-from uav_navigation.node import NavigationNode
+from uav_navigation.node import NavigationNode, NavigationExecutor
 from uav_interfaces.srv import QueryOccupancySphere
 
 
@@ -66,7 +66,7 @@ def main():
     navigation = NavigationNode(
         parameter_overrides=[root_parameter, simulated_time_parameter])
     peer = Node('navigation_adapter_probe')
-    executor = EventsExecutor()
+    executor = NavigationExecutor()
     executor.add_node(navigation)
     executor.add_node(peer)
 
@@ -103,7 +103,7 @@ def main():
             reason = 'no_fresh_fused_depth'
             query_mode['transient_remaining'] -= 1
         if delay:
-            future = executor.create_future()
+            future = Future(executor=executor)
             threading.Timer(delay, lambda: future.set_result(True)).start()
             await future
         response.accepted = reason != 'no_fresh_fused_depth'
@@ -240,10 +240,14 @@ def main():
             goals.clear()
             cancels.clear()
             query_mode.update(reason='no_fresh_fused_depth', delay=0.)
+            requests_before_wait = query_mode['requests']
             handle = wait_future(action_client.send_goal_async(make_goal(5.0)), 'fusion wait response')
             result = wait_future(handle.get_result_async(), 'bounded fusion wait result')
             if result.result.reason != 'map_query_timeout' or goals:
                 raise RuntimeError('persistent pending fusion did not fail within the wall deadline')
+            wait_requests = query_mode['requests'] - requests_before_wait
+            if wait_requests > 6:
+                raise RuntimeError(f'stale fusion response caused {wait_requests} repeated queries')
             query_mode.update(reason='free', delay=.15)
             handle = wait_future(action_client.send_goal_async(make_goal(5.0)), 'map reset response')
             wait_for(lambda: navigation._pending_admission is not None, 'pending map reset query')
@@ -274,6 +278,13 @@ def main():
             busy_result = wait_future(busy.get_result_async(), 'concurrent admission result')
             if busy_result.result.reason != 'map_query_busy' or goals:
                 raise RuntimeError('concurrent admission did not fail closed')
+            # Foxy/Nano can spend the 0.25s deadline serving the busy request.
+            # Check that timeout separately, then cancel a newly pending query.
+            expired = wait_future(handle.get_result_async(), 'busy-phase query timeout')
+            if expired.result.reason != 'map_query_timeout' or goals or cancels:
+                raise RuntimeError('busy-phase query did not time out without forwarding')
+            handle = wait_future(action_client.send_goal_async(make_goal(5.0)), 'fresh pending cancel response')
+            wait_for(lambda: navigation._pending_admission is not None, 'fresh pending query')
             wait_future(handle.cancel_goal_async(), 'pending query cancel acknowledgement')
             result = wait_future(handle.get_result_async(), 'pending query cancel result')
             if result.status != GoalStatus.STATUS_CANCELED or goals or cancels:

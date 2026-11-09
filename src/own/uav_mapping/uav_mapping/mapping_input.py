@@ -1,6 +1,5 @@
 """Time-aligned depth and pose helpers for the single-camera mapping input."""
 import math
-import struct
 
 
 def normalize_quaternion(q):
@@ -97,23 +96,6 @@ def depth_camera_pose(position, orientation, imu_translation, camera_translation
     return camera_position, quaternion_multiply(orientation, rotation)
 
 
-def valid_depth_sample_count(msg, expected_width, expected_height, expected_frame, stride):
-    if (msg.header.frame_id != expected_frame or msg.encoding != '32FC1'
-            or msg.width != expected_width or msg.height != expected_height
-            or msg.step < msg.width * 4 or len(msg.data) < msg.step * msg.height
-            or stride <= 0):
-        return 0
-    byte_order = '>' if msg.is_bigendian else '<'
-    count = 0
-    for row in range(0, msg.height, stride):
-        row_offset = row * msg.step
-        for col in range(0, msg.width, stride):
-            value = struct.unpack_from(byte_order + 'f', msg.data, row_offset + col * 4)[0]
-            if math.isfinite(value) and value > 0:
-                count += 1
-    return count
-
-
 def depth_layout_valid(msg, expected_width, expected_height, expected_frame):
     """Check the ROS image layout without requiring a minimum valid-pixel count."""
     return (msg.header.frame_id == expected_frame
@@ -122,3 +104,16 @@ def depth_layout_valid(msg, expected_width, expected_height, expected_frame):
             and msg.height == expected_height
             and msg.step >= msg.width * 4
             and len(msg.data) >= msg.step * msg.height)
+
+
+def camera_info_matches(msg, camera):
+    """Check that live CameraInfo describes the calibrated native image stream."""
+    expected_frame = camera.get('camera_info_frame', camera.get('image_frame', camera['frame']))
+    if (msg is None or msg.header.frame_id != expected_frame
+            or msg.width != camera['width'] or msg.height != camera['height']
+            or len(msg.k) != 9):
+        return False
+    expected = camera['K']
+    return all(math.isfinite(msg.k[index])
+               and abs(msg.k[index] - expected[index]) <= 1e-3
+               for index in (0, 2, 4, 5, 8))

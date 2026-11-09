@@ -1,0 +1,77 @@
+{
+  "status_period_wall_s": 0.05,
+  "solver_usable_required": true,
+  "freshness": {
+    "mode": "gate",
+    "measurement_run": "hw04-static-20261102; fixed-camera steady-state samples after the first 5 seconds",
+    "budget_rule": "source_age_budget_s = maximum measured steady-state source age + maximum measured source interval + one 0.05s status timer period; receipt_age_budget_s = maximum measured steady-state receipt interval + median receipt interval + one 0.05s status timer period. Budgets are fixed before the motion route and never auto-widen.",
+    "streams": {
+      "left": {
+        "topic": "/sensors/d435i/infra1/image_rect_raw",
+        "measured_source_period_median_s": 0.066669,
+        "measured_source_interval_max_s": 0.066734,
+        "measured_source_age_max_s": 0.068745,
+        "measured_receipt_period_median_s": 0.066522,
+        "measured_receipt_interval_max_s": 0.11675,
+        "source_age_budget_s": 0.185479,
+        "receipt_age_budget_s": 0.233272
+      },
+      "right": {
+        "topic": "/sensors/d435i/infra2/image_rect_raw",
+        "measured_source_period_median_s": 0.066669,
+        "measured_source_interval_max_s": 0.066734,
+        "measured_source_age_max_s": 0.070603,
+        "measured_receipt_period_median_s": 0.06666,
+        "measured_receipt_interval_max_s": 0.116446,
+        "source_age_budget_s": 0.187337,
+        "receipt_age_budget_s": 0.233106
+      },
+      "imu": {
+        "topic": "/sensors/d435i/imu",
+        "measured_source_period_median_s": 0.005001,
+        "measured_source_interval_max_s": 0.06503,
+        "measured_source_age_max_s": 0.052544,
+        "measured_receipt_period_median_s": 0.004584,
+        "measured_receipt_interval_max_s": 0.083725,
+        "source_age_budget_s": 0.167574,
+        "receipt_age_budget_s": 0.138309,
+        "future_source_tolerance_s": 0.001
+      },
+      "telemetry": {
+        "topic": "/vins_raw/<epoch>/estimator_telemetry",
+        "measurement_source": "paired one-to-one with optimized odometry timestamp within 1 microsecond",
+        "measured_source_period_median_s": 0.200001,
+        "measured_source_interval_max_s": 0.33365,
+        "measured_source_age_max_s": 0.484656,
+        "measured_receipt_period_median_s": 0.193448,
+        "measured_receipt_interval_max_s": 0.37255,
+        "source_age_budget_s": 0.868306,
+        "receipt_age_budget_s": 0.615998,
+        "enforce_source_age": false
+      },
+      "optimized": {
+        "topic": "/vins_raw/<epoch>/odometry",
+        "measured_source_period_median_s": 0.200001,
+        "measured_source_interval_max_s": 0.33365,
+        "measured_source_age_max_s": 0.484656,
+        "measured_receipt_period_median_s": 0.193448,
+        "measured_receipt_interval_max_s": 0.37255,
+        "source_age_budget_s": 0.868306,
+        "receipt_age_budget_s": 0.615998,
+        "enforce_source_age": false
+      },
+      "propagated": {
+        "topic": "/vins_raw/<epoch>/imu_propagate",
+        "measured_source_period_median_s": 0.005001,
+        "measured_source_interval_max_s": 0.06503,
+        "measured_source_age_max_s": 0.086763,
+        "measured_receipt_period_median_s": 0.004612,
+        "measured_receipt_interval_max_s": 0.081687,
+        "source_age_budget_s": 0.201793,
+        "receipt_age_budget_s": 0.136299
+      }
+    }
+  },
+  "startup_fresh_window_s": 1.0,
+  "source_age_policy_revision": "2026-11-04 user removes optimized/telemetry 0.868306s veto; measurements and receipt/future gates retained"
+}

@@ -32,3 +32,15 @@ EGO补丁0061在0060后应用，只开放map_resolution，默认保持旧配置0
 ## #600 NavRL 多柱静态场景
 
 `navrl_pillars_world`从上述NavRL固定commit的`generated_env/generated_env_static.world`原字节迁入，源模型含30圆柱与30方柱，但仅定义视觉、没有柱体碰撞。pillars场景启动时逐个依据视觉primitive添加匹配的静态碰撞几何，并应用自然色材质；登记的源world保持不变。MIT许可沿用`licenses/NavRL-uav_simulator-MIT.txt`，源文件SHA与材质生成记录在sources.json及运行证据中。
+
+### HW06 ARM/Foxy 2026-11-03
+
+硬件链仍以EGO commit `23a8d5a191711dd65633df689bd00f55d4dea8f9`为基准、保留GPL-3.0-only。
+0062修正前序cstddef新增后的patch上下文；0064删除已经被0048移除的waypoint订阅修改段。
+0066在0065后应用，修正原生时间重分配只延长中间knots、短轨迹完整时长倍率不足的问题；
+完整knot时间轴同比缩放，manager原有端点导数重拟合保留。未恢复0044或新增曲线硬拒绝门。
+6/9/20控制点的实际C++回归验证完整时长、几何对应、导数缩放与原生可行性条件；Nano安装库也通过。
+基准、应用顺序、补丁和最终文件SHA256均以sources.json为准。
+这是数值行为变化，当前只推进HW06地面计算验证，不把历史SITL/飞行资格继承到新补丁。
+
+硬件TELEM1串口帧重同步补丁与只读基线重链接入口见[Agent硬件补丁说明](patches/agent/HARDWARE.md)。该配置独立于冻结仿真Agent默认补丁列表；真实时效验证和局限以DDS-LATENCY-006证据为准。

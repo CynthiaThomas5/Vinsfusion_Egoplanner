@@ -1,0 +1,56 @@
+--- a/vins/src/rosNodeTest.cpp
++++ b/vins/src/rosNodeTest.cpp
+@@ -16,7 +16,11 @@
+ #include <thread>
+ #include <mutex>
+ #include <rclcpp/rclcpp.hpp>
++#if __has_include(<cv_bridge/cv_bridge.hpp>)
+ #include <cv_bridge/cv_bridge.hpp>
++#else
++#include <cv_bridge/cv_bridge.h>
++#endif
+ #include <opencv2/opencv.hpp>
+ #include "estimator/estimator.h"
+ #include "estimator/parameters.h"
+--- a/vins/src/utility/visualization.h
++++ b/vins/src/utility/visualization.h
+@@ -18,7 +18,11 @@
+ #include <sensor_msgs/msg/image.hpp>
+ // #include <sensor_msgs/image_encodings.h>
+ #include "image_encodings.hpp"
++#if __has_include(<cv_bridge/cv_bridge.hpp>)
+ #include <cv_bridge/cv_bridge.hpp>
++#else
++#include <cv_bridge/cv_bridge.h>
++#endif
+ #include <nav_msgs/msg/path.hpp>
+ #include <nav_msgs/msg/odometry.hpp>
+ #include <geometry_msgs/msg/point_stamped.h>
+--- a/loop_fusion/src/pose_graph_node.cpp
++++ b/loop_fusion/src/pose_graph_node.cpp
+@@ -8,7 +8,11 @@
+ #include <rclcpp/rclcpp.hpp>
+ #include <nav_msgs/msg/odometry.hpp>
+ #include <ament_index_cpp/get_package_share_directory.hpp>
++#if __has_include(<cv_bridge/cv_bridge.hpp>)
+ #include <cv_bridge/cv_bridge.hpp>
++#else
++#include <cv_bridge/cv_bridge.h>
++#endif
+ #include <std_msgs/msg/string.hpp>
+ #include <sensor_msgs/image_encodings.hpp>
+ #include <deque>
+--- a/loop_fusion/src/parameters.h
++++ b/loop_fusion/src/parameters.h
+@@ -20,7 +20,11 @@
+ #include <sensor_msgs/msg/point_cloud.hpp>
+ // #include <sensor_msgs/image_encodings.h>
+ #include "image_encodings.hpp"
++#if __has_include(<cv_bridge/cv_bridge.hpp>)
+ #include <cv_bridge/cv_bridge.hpp>
++#else
++#include <cv_bridge/cv_bridge.h>
++#endif
+ 
+ extern camodocal::CameraPtr m_camera;
+ extern Eigen::Vector3d tic;

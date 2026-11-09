@@ -1,5 +1,7 @@
 """Pure conversion from the debug ENU trajectory contract to PX4 NED."""
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 import math
 import re
@@ -252,6 +254,8 @@ def position_command_to_ned(command, profile, frame_contract, expected_epoch=Non
     if not math.isfinite(yaw_speed):
         raise ValueError('yaw_dot must be finite')
     px4_yaw = angle_difference(yaw_enu_to_ned(command.yaw) + float(yaw_offset_ned), 0.0)
+    # shortcut: planner supplies yaw/yaw rate only; measure tilt/lever-arm error
+    # on the final hardware mount before qualifying this path for control.
     leverarm_ned = rotate_frd_to_ned_yaw(sensor_leverarm_body_frd, px4_yaw)
     sensor_position_ned = tuple(a + b for a, b in zip(
         rotate_ned_yaw(enu_to_ned((point.x, point.y, point.z)), yaw_offset_ned),

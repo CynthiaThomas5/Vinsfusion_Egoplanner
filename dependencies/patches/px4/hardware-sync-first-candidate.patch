@@ -1,0 +1,57 @@
+--- a/src/modules/uxrce_dds_client/uxrce_dds_client.cpp
++++ b/src/modules/uxrce_dds_client/uxrce_dds_client.cpp
+@@ -662,6 +662,27 @@
+ 			/* Wait for topic updates for max 10 ms */
+ 			int poll = px4_poll(_subs->fds, (sizeof(_subs->fds) / sizeof(_subs->fds[0])), orb_poll_timeout_ms);
+ 
++			// time sync session
++			if (_synchronize_timestamps && hrt_elapsed_time(&last_sync_session) > 1_s) {
++
++				if (uxr_sync_session(&session, 10) && _timesync.sync_converged()) {
++					last_sync_session = hrt_absolute_time();
++
++					if (_param_uxrce_dds_syncc.get() > 0) {
++						syncSystemClock(&session);
++					}
++				}
++
++				if (!_timesync_converged && _timesync.sync_converged()) {
++					PX4_DEBUG("time sync converged");
++
++				} else if (_timesync_converged && !_timesync.sync_converged()) {
++					PX4_DEBUG("time sync no longer converged");
++				}
++
++				_timesync_converged = _timesync.sync_converged();
++			}
++
+ 			/* Handle the poll results */
+ 			if (poll > 0) {
+ 				_subs->update(&session, _reliable_out, _best_effort_out, _participant_id, _client_namespace);
+@@ -684,26 +705,6 @@
+ 			// check if there are available replies
+ 			process_replies();
+ 
+-			// time sync session
+-			if (_synchronize_timestamps && hrt_elapsed_time(&last_sync_session) > 1_s) {
+-
+-				if (uxr_sync_session(&session, 10) && _timesync.sync_converged()) {
+-					last_sync_session = hrt_absolute_time();
+-
+-					if (_param_uxrce_dds_syncc.get() > 0) {
+-						syncSystemClock(&session);
+-					}
+-				}
+-
+-				if (!_timesync_converged && _timesync.sync_converged()) {
+-					PX4_DEBUG("time sync converged");
+-
+-				} else if (_timesync_converged && !_timesync.sync_converged()) {
+-					PX4_DEBUG("time sync no longer converged");
+-				}
+-
+-				_timesync_converged = _timesync.sync_converged();
+-			}
+ 
+ 			handleMessageFormatRequest();
+ 

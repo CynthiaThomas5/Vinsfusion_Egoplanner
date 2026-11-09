@@ -1,0 +1,30 @@
+{
+  "scope": "Current TELEM1 DDS UART; USB remains MAVLink maintenance; no EV/control qualification",
+  "px4": {
+    "firmware_revision": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+    "device": "/dev/ttyS1",
+    "UXRCE_DDS_CFG": 101,
+    "SER_TEL1_BAUD": 1000000,
+    "SYS_USB_AUTO": 2
+  },
+  "nano": {
+    "device": "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0",
+    "agent": "/usr/local/bin/MicroXRCEAgent",
+    "baud": 1000000,
+    "service": "microxrce-agent.service",
+    "unit_source": "config/hardware/microxrce-agent.service",
+    "framing_patch": {
+      "base_revision": "73622810d984349b80bbac0ef55fc0b694d62222",
+      "source_path": "/home/jetson/Micro-XRCE-DDS-Agent",
+      "source_file_sha256": "a22d5164bf6af6f69b749e2442466af22e7fbf5ad0cb55ac1168fa1197f866f4",
+      "installed_baseline_sha256": "cb802f0a2f3e2bdf5af83d9fa64fb56e84bbcbbd515020d5e40eef7052585651",
+      "patch": "dependencies/patches/agent/0002-serial-framing-resync.patch",
+      "patch_sha256": "1c52b510c149ed3923208ffd2aea986df376127825820f7ea54afd4822d32eea",
+      "candidate_sha256": "6fc2ac97b3eb083244d890df936a0e3f402de66b022b7c4be122eda214275ceb",
+      "prefix": "install-hardware-agent-framing",
+      "status": "ARM build/asserted framing regressions and final180s UART verified; strict RTT remains incomplete"
+    }
+  },
+  "qualification": "PROVISIONAL: framing fix and 180s telemetry verified; no ~1s attitude/position gap in final window, RTT33/169 above10ms; no EV/control/flight",
+  "evidence": "progress/evidence/dds-latency-20261105-007.md"
+}

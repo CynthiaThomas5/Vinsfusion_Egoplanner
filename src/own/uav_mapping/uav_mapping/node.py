@@ -7,7 +7,8 @@ import rclpy
 from rclpy.clock import Clock, ClockType
 from rclpy.node import Node
 from rclpy.executors import ExternalShutdownException
-from rclpy._rclpy_pybind11 import RCLError
+from rclpy.impl.implementation_singleton import rclpy_implementation
+RCLError = rclpy_implementation.RCLError
 from rclpy.qos import qos_profile_sensor_data, QoSProfile, DurabilityPolicy, ReliabilityPolicy
 from sensor_msgs.msg import Image
 from uav_interfaces.msg import DepthHealth

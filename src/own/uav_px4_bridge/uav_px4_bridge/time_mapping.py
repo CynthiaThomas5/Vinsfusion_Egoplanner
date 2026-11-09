@@ -56,6 +56,72 @@ class PX4Time:
     sample_age_wall_s: float
 
 
+def retain_hardware_sync(previous, previous_receipt, incoming, receipt_ns, system_ns, config):
+    """Reject a noisy measurement without renewing the last accepted sample."""
+    age = (system_ns-int(incoming.timestamp)*1000)/1e9
+    if incoming.source_protocol != 2 or age < -config['max_future_s']:
+        return None, None
+    if age > config['timesync_max_age_s']:
+        return previous, previous_receipt
+    if not 0 <= incoming.round_trip_time <= config['timesync_max_rtt_us']:
+        return previous, previous_receipt
+    if previous is not None and incoming.timestamp < previous.timestamp:
+        return None, None
+    return incoming, receipt_ns
+
+
+class SystemClockMapper:
+    """Hardware stamps already use the Agent's system epoch; never add offset.
+
+    Monotonic/system disagreement latches a fault instead of silently joining
+    clock epochs. Timesync's offset is only used to validate recovered HRT.
+    """
+
+    def __init__(self, max_source_age_s, max_future_s, max_clock_step_s, enforce_source_age=True):
+        self.enforce_source_age = enforce_source_age
+        self.max_source_age_s = float(max_source_age_s)
+        self.max_future_s = float(max_future_s)
+        self.max_clock_step_s = float(max_clock_step_s)
+        if any(not math.isfinite(x) or x <= 0 for x in (
+                self.max_source_age_s, self.max_future_s, self.max_clock_step_s)):
+            raise ValueError('Hardware clock budgets must be finite and positive')
+        self.previous = None
+        self.reason = ''
+
+    def observe(self, system_ns, monotonic_ns):
+        if self.reason:
+            raise TimeMappingError(self.reason)
+        if system_ns <= 0 or monotonic_ns <= 0:
+            raise TimeMappingError('timestamps_must_be_positive')
+        if self.previous is not None:
+            old_system, old_mono = self.previous
+            if (system_ns < old_system or monotonic_ns < old_mono
+                    or abs((system_ns-old_system)-(monotonic_ns-old_mono))
+                    > self.max_clock_step_s * 1e9):
+                self.reason = 'hardware_system_clock_changed'
+                raise TimeMappingError(self.reason)
+        self.previous = (int(system_ns), int(monotonic_ns))
+
+    def to_px4(self, source_ns, system_ns, monotonic_ns, timesync,
+               timesync_receipt_ns, max_timesync_age_s, max_rtt_us):
+        self.observe(system_ns, monotonic_ns)
+        if timesync is None or timesync_receipt_ns is None:
+            raise TimeMappingError('px4_timesync_stale')
+        ages = ((monotonic_ns-timesync_receipt_ns)/1e9,
+                (system_ns-timesync.timestamp*1000)/1e9)
+        if (timesync.source_protocol != 2 or any(
+                not -self.max_future_s <= age <= max_timesync_age_s for age in ages)):
+            raise TimeMappingError('px4_timesync_stale')
+        if not 0 <= timesync.round_trip_time <= max_rtt_us:
+            raise TimeMappingError('px4_timesync_rtt_high')
+        age = (system_ns-int(source_ns))/1e9
+        if source_ns <= 0 or age < -self.max_future_s or (self.enforce_source_age and age > self.max_source_age_s):
+            raise TimeMappingError('hardware_source_stamp_stale_or_future')
+        if int(source_ns)//1000 + int(timesync.estimated_offset) <= 0:
+            raise TimeMappingError('mapped_px4_time_invalid')
+        return PX4Time(system_ns//1000, int(source_ns)//1000, max(0., age))
+
+
 class RosClockMapper:
     """Fit /clock to monotonic time for freshness checks and map lockstep stamps.
 

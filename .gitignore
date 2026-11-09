@@ -2,6 +2,9 @@
 /build/
 /build-*/
 /install/
+/install-hardware-agent/
+/hardware_install
+/.hardware_install.next.*
 /log/
 **/__pycache__/
 **/.pytest_cache/
@@ -15,6 +18,7 @@
 # Large evidence stays local
 /artifacts/*
 !/artifacts/README.md
+!/artifacts/COLCON_IGNORE
 /collaboration/dialogues/raw/
 # Local settings and credentials
 /config/local/*
@@ -42,3 +46,12 @@ auth.json
 
 # Run-local safety records belong in artifacts, not the source release
 /final-safety-readback-archive.json
+
+# Crash dumps, local credentials and workstation-only CAD references
+/core
+/core.*
+/.ssh/
+/.aws/
+/.codex/
+/.agents/
+/小型无人机-IX35PRO/

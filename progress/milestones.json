@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30",
+  "updated": "2026-11-07",
   "bootstrap": {
     "status": "passed",
     "scope": "structure_only",
@@ -4666,8 +4666,237 @@
       }
     ],
     "hardware_followup": {
-      "scope": "H0-H5 planning only; real-device changes/flights are outside the current simulation goal",
-      "document": "docs/simulation-to-hardware-roadmap.md"
+      "scope": "HW09 bounded ground pass; HW10 static unarmed EV aiding evidenced, dynamic/timing/control exits incomplete; explicit HW08 exception only, no flight",
+      "document": "docs/hardware-migration-plan-20261102.md",
+      "task_document": "docs/hardware-agent-workbook.md",
+      "next_module": "HW10",
+      "modules": [
+        {
+          "id": "HW01",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw01-arm-foxy-20261102.md"
+          ]
+        },
+        {
+          "id": "HW02",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw02-d435i-20261102.md",
+            "progress/changes/2026-11-02-hw02-d435i-sensors.md",
+            "progress/evidence/hw02-historical-imu-recovery-20261102.md",
+            "progress/evidence/hw02-imu-reset-test-20261102.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "完成HW02全部出口",
+            "active_subtask": "HW02 complete: measured target range approximately 0.320m; 20s center ROI depth median 0.324m with 65.09% valid pixels. Difference is approximately 4mm; known-plane magnitude/order check passes. All other HW02 exits have prior evidence",
+            "next_subtask": "HW03 is next by dependency and remains not_started; outside the user's HW02-only scope for this turn",
+            "allowed_scope": "HW02 sensor interface and ground capture; latest user authorized one target SDK hardware_reset recovery trial, now completed; old workspaces read-only; no physical replug, Nano reboot, firmware changes, repeated resets or PX4/Gazebo/SITL/control"
+          }
+        },
+        {
+          "id": "HW03",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw03-real-rig-20261102.md",
+            "progress/changes/2026-11-02-hw03-real-rig.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "按 docs/hardware-agent-workbook.md 完成 HW03 全部出口",
+            "parent_goal": "HW03 real rig, calibration and session generation",
+            "active_subtask": "HW03 complete: serial-specific PROVISIONAL rig/settings, shared reader, all requested consumers, fresh hash-bound session and affected checks passed",
+            "deliverables": [
+              "config/hardware/rig.json",
+              "config/components/localization/vins_hardware.json",
+              "shared rig reader and affected consumer paths",
+              "fresh VINS session with rig/settings/generated-file hashes",
+              "HW03 evidence and change record"
+            ],
+            "completion_criteria": "Real session generation and the existing simulation generator regression pass; verify stereo baseline, transform inverse/composition and optical forward direction; all perception consumers use the same real rig identity; unmeasured airframe mount is visibly control-ineligible.",
+            "allowed_scope": "HW03 deliverables complete; no VINS runtime, PX4, Gazebo, SITL, flight or HW04 execution in this turn",
+            "session_epoch": "67e1b6fb7a684859a2cb904fe8ff55bc",
+            "calibration_id": "c8c42778007c28a05acbeeca7533fb56ce67af175c3da337441f1d69ee2a9865",
+            "next_subtask": "HW04 starts from the accepted session and verifies real VINS/localization behavior; outside the user's HW03-only scope for this turn"
+          }
+        },
+        {
+          "id": "HW04",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw04-vins-static-and-stop-20261102.md",
+            "progress/evidence/hw04-vins-dynamic-route-20261103.md",
+            "progress/changes/2026-11-03-001-hw04-startup-admission-and-route.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "按 docs/hardware-agent-workbook.md 完成 HW04 全部出口；用户接受近似地面路线结果后继续下一模块",
+            "parent_goal": "HW04 VINS and real localization adapter",
+            "active_subtask": "HW04 complete: static tracking, user-accepted approximate hand-held translation/lift/yaw/return route, stream ages/rates, VINS-stop invalidation, new epoch, and owned-process cleanup are evidenced",
+            "deliverables": [
+              "hardware VINS/localization launch or entrypoint",
+              "updated localization real-time freshness path and targeted checks",
+              "fresh Nano session manifest and short raw evidence in artifacts/runs",
+              "HW04 evidence and change record"
+            ],
+            "completion_criteria": "On actual sensor input, VINS initializes and produces continuous direction/scale-correct local odometry without known jumps or sustained backlog; report optimization/propagation frequency, source age, route displacement/return error; stopping VINS invalidates old localization and next session starts a fresh epoch.",
+            "allowed_scope": "HW04 localization/VINS hardware launch and ground handheld route only; camera/VINS/localization may run; no mapping, planner, PX4, Gazebo, SITL, control or flight",
+            "next_subtask": "HW05 is next by dependency; HW04 is not a precision per-axis calibration, and the installed VINS binary exposes no native queue high-water metric"
+          }
+        },
+        {
+          "id": "HW05",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw05-depth-map-20261103.md",
+            "progress/changes/2026-11-03-002-hw05-map-only-launch.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "继续吧，完成HW05全部出口",
+            "parent_goal": "HW05 depth mapping and map lifecycle",
+            "active_subtask": "HW05 complete: measured same-map scan/readback, corrected stale localization installation with actual imported-source equality, final two-epoch affected runtime/reset/rejection, fingerprints and clean owned shutdown verified",
+            "deliverables": [
+              "owned hardware map-only launch and explicit hardware map/input profiles",
+              "real CameraInfo/localization gating, bounded source-time interpolation and metric-depth conversion cap",
+              "lossless hardware image metadata health reads and stricter startup admission",
+              "corrected localization installation/cache with actual-import preflight guard",
+              "measured raw/inflated scan snapshots, final two-epoch reset/rejection evidence, source/binary hashes and normal shutdown",
+              "HW05 evidence/change/dialogue records"
+            ],
+            "completion_criteria": "All bounded HW05 map exits evidenced on real sensors. 0.10m grid/tabletop target only; no navigation, flight, full-room reconstruction or complete-load reliability qualification.",
+            "allowed_scope": "Completed HW05 ground sensor/VINS/map scope. All owned runtime stopped and rmem restored. No HW06/PX4/navigation/flight execution in this turn.",
+            "next_subtask": "HW06.1 deployed planning-source audit and compute-only interface work; HW06 not started"
+          }
+        },
+        {
+          "id": "HW06",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw06-plan-interface-20261103.md",
+            "progress/changes/2026-11-03-003-hw06-plan.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "HW06全部出口，仅受影响验证",
+            "active_subtask": "HW06 complete: measured-blocked 3D upward detour, valid latest whole curve/reference prefixes, action cancel/replace, epoch retirement/new map, zero PX4 publishers, clean process/rmem terminal",
+            "allowed_scope": "bounded real ground computation only; no PX4 bridge/control/SITL/flight; low fixed-height cases and long-load/source-age limits retained",
+            "next_subtask": "HW07.1 read actual firmware/hardware and DDS message revision; HW07 not started"
+          }
+        },
+        {
+          "id": "HW07",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw07-px4-dds-20261103.md",
+            "progress/changes/2026-11-03-004-hw07-dds.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "HW07全部出口，仅受影响验证",
+            "active_subtask": "HW07 complete: actual identity/backups, isolated ARM Agent build, 60.005 s five-topic decoding/QoS/time/zero-input-publisher evidence, exact native parameter restoration and owned cleanup",
+            "allowed_scope": "Completed disarmed ground communication only. No EV/mode/control/arming/flight/flashing. Online stop path unqualified; one-shot boot USB path passed.",
+            "next_subtask": "HW08.1 real body/camera reference point measurements and hardware time/ev-only path; not started"
+          }
+        },
+        {
+          "id": "HW08",
+          "status": "in_progress",
+          "evidence": [
+            "progress/evidence/hw08-body-time-20261103.md",
+            "progress/evidence/hw08-board-20261103.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "HW08前三项持续完成；用户最终接受柔性板近似候选/软件验证收口，原严格安装标准保留未通过，最终包络单列",
+            "active_subtask": "User-accepted approximate bench scope delivered: two low-overhead tracking runs, documented approximate T and failed rigid holdout, same-bridge hardware control software and isolated reference checks; not a strict installation pass",
+            "allowed_scope": "Actual ground sensor/IMU/VINS plus read-only MAVLink attitude/TIMESYNC; no Agent, EV/control/mode/arming/flight/parameter writes",
+            "next_subtask": "HW08 final rigid assembly: remeasure full mount and propeller envelope, validate installed alignment/error; current airframe mount remains unmeasured/control blocked",
+            "scope_result": "approximate_bench_delivered; strict rigid transform and added-subscriber/full-load stability remain unpassed"
+          }
+        },
+        {
+          "id": "HW09",
+          "status": "passed",
+          "evidence": [
+            "progress/evidence/hw09-full-load-20261104.md"
+          ],
+          "execution": {
+            "mode": "goal_completion",
+            "user_requested_scope": "完成HW09，明确跳过HW08装机依赖；取消0.868306s源龄否决",
+            "active_subtask": "HW09 complete: unified isolated ground session, 300.020s real full load and clean stop",
+            "next_subtask": "HW10 prerequisite audit: installed HW08 remeasurement and explicit on-site propeller removal/power/RC facts"
+          }
+        },
+        {
+          "id": "HW10",
+          "status": "in_progress",
+          "evidence": [
+            "progress/evidence/hw10-ev-static-20261104.md",
+            "progress/evidence/hw103-timing-20261104.md",
+            "progress/evidence/hw103b-clock-20261104.md",
+            "progress/evidence/hw10-fc-recovery-20261104.md",
+            "progress/evidence/px4-dds-recheck-20261105.md",
+            "progress/evidence/dds-latency-20261105-004.md",
+            "progress/evidence/dds-latency-20261105-005.md",
+            "progress/evidence/dds-latency-20261105-006.md",
+            "progress/evidence/dds-latency-20261105-007.md",
+            "progress/evidence/hw10-sync-20261105-008.md",
+            "progress/evidence/hw10-sync-20261105-009.md",
+            "progress/evidence/hw10-sync-20261105-010.md",
+            "progress/evidence/hw10-stage-20261105-011.md",
+            "progress/evidence/hw10-ev-20261105-012.md",
+            "progress/evidence/hw10-ev-20261105-013.md",
+            "progress/evidence/hw10-ev-20261105-015.md",
+            "progress/evidence/hw10-headless-20261105-016.md",
+            "progress/evidence/hw10-sync-20261105-017.md",
+            "progress/evidence/hw10-sync-20261105-018.md",
+            "progress/evidence/hw10-sync-20261105-019.md",
+            "progress/evidence/hw10-sync-20261105-020.md",
+            "progress/evidence/hw10-sync-20261105-021.md",
+            "progress/evidence/hw10-sync-20261105-022.md",
+            "progress/evidence/hw10-sync-20261105-023.md",
+            "progress/evidence/hw10-ev-20261105-024.md",
+            "progress/evidence/hw10-ready-20261105-025.md",
+            "progress/evidence/hw10-ev-dynamic-20261105-026.md",
+            "progress/evidence/hw10-ev-height-20261105-027.md",
+            "progress/evidence/hw10-height-bench-acceptance-20261105-027a.md",
+            "progress/evidence/hw10-circle-view-20261105-029.md",
+            "progress/evidence/hw10-vins-native-view-20261105-030.md"
+          ],
+          "execution": {
+            "mode": "ordinary_bounded_validation",
+            "user_requested_scope": "Usercancelledmapviewafter031;freshpureVINSnativevisualswiththinnertrajectoryandnewcircle",
+            "active_subtask": "HW10-VIEW-032 live:pureperception,0.005mline,no map/planner/bridge;stationary baseline frozen before user movement;awaitreturn",
+            "next_subtask": "Save/reviewusercircle;mainHW10-EV-028unchanged,no implicitflightqualification",
+            "stop_reason": "User-requestedliveview/circle ongoing",
+            "runtime_note": "032perception+2visualrelays,PCview335692/RViz335693/circlerecorder335920;031mapstopped;noEV/control/paramchanges"
+          },
+          "height_bench_acceptance": {
+            "status": "passed",
+            "scope": "027 current flexible-board height function accepted by user;not metrological accuracy,full HW10 orflight",
+            "evidence": "progress/evidence/hw10-height-bench-acceptance-20261105-027a.md",
+            "retest": "After final assembly;do not repeat current-board height test as a new prerequisite"
+          }
+        }
+      ],
+      "requested_execution": {
+        "mode": "goal_completion",
+        "user_requested_scope": "Complete GS02.1-4: freeze current worktree/Nano deployment, migrate project context and launcher to Debian, reproduce VINS-only circle; no arming or flight qualification.",
+        "active_subtask": "GS02.3 dynamic RViz continuity and GS02.2 Debian Codex context recheck completed. Dynamic run hw10-groundstation-20261106T104050Z: user observed no freeze; 27/27 Nano motion-window localization observations TRACKING; five Debian readers max receive interval <=0.806s and max send-to-reader <=0.372s; direct X11 capture 5Hz/174.8s/874 frames, all unique, with stereo and 3D ROI changing in all 143 motion-window adjacent pairs. 31-item RUN-SHA256SUMS verified. Earlier 13.2-20.6s send-to-reader lag did not recur; trigger/root cause remains unknown and is retained as a historical intermittent observation, not claimed fixed. GS02 scope passed; no source, dependency, PX4 firmware/parameter or threshold changes.",
+        "next_subtask": "GS02 complete. Hardware mainline remains HW10-EV-028 after its own prerequisites; no control or flight qualification is granted by GS02.",
+        "stop_reason": "GS02.1-4 acceptance evidence complete: freeze/migration/context, Debian launch and stop, user-observed dynamic RViz continuity, reader/resource/window evidence, and safe cleanup. Historical long-reader-lag anomaly did not recur and has an explicit unresolved disposition.",
+        "runtime_note": "Debian viewer and Nano VINS/localization/relay sessions stopped; no unified session; rmem_max=212992; microxrce-agent.service active on CH340/TELEM1. PX4 outputs not_started; no EV/control/arm/flight or firmware/parameter changes. Historical lag root cause unknown."
+      },
+      "planned_user_task": {
+        "id": "GS02",
+        "status": "passed",
+        "document": "docs/tasks/GS02-freeze-debian-migration.md",
+        "freeze_id": "gs02-20261106-freeze01",
+        "next_subtask": "GS02 complete. Continue separately at HW10-EV-028 and post-install checks; no arming or flight qualification.",
+        "scope": "Freeze current worktree and actual Nano deployment, migrate repository context and launchers, reproduce VINS-only circle from Debian; flight qualification remains separate"
+      }
     },
     "implementation_review": {
       "date": "2026-10-23",

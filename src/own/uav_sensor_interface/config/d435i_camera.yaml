@@ -1,0 +1,11 @@
+/camera_b/camera_b:
+  ros__parameters:
+    # Preserve the already exercised global-time, gyro-time IMU interpolation,
+    # optical IMU frame and emitter setting from the Nano candidate config.
+    stereo_module.global_time_enabled: true
+    rgb_camera.global_time_enabled: true
+    motion_module.global_time_enabled: true
+    unite_imu_method: linear_interpolation
+    imu_qos: SENSOR_DATA
+    imu_optical_frame_id: camera_b_imu_optical_frame
+    stereo_module.emitter_enabled: 0

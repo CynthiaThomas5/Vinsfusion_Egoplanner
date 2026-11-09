@@ -19,9 +19,10 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import CameraInfo, Image, PointCloud2
 from uav_interfaces.msg import LocalizationStatus, MapStatus, RGBDKeyframe
 from uav_interfaces.srv import GetMapStatus, ResetMapping
-from uav_sim.geometry import calibration
+from uav_sim.geometry import load_session_rig
 
-from .mapping_input import depth_camera_pose, depth_layout_valid, pose_at
+from .mapping_input import (camera_info_matches, depth_camera_pose,
+                            depth_layout_valid, pose_at)
 
 
 def stamp_ns(header):
@@ -32,10 +33,18 @@ class MappingInputAdapter(Node):
     def __init__(self):
         super().__init__('mapping_input_adapter')
         root = Path(self.declare_parameter('project_root', '').value).resolve()
-        policy_path = root / 'config/components/mapping/ego_input.json'
+        policy_relative = self.declare_parameter(
+            'policy_config', 'config/components/mapping/ego_input.json').value
+        policy_path = (root / policy_relative).resolve()
+        if root not in policy_path.parents:
+            raise ValueError('Mapping policy must be inside project_root')
         self.policy = json.loads(policy_path.read_text())
         self.policy_sha256 = hashlib.sha256(policy_path.read_bytes()).hexdigest()
-        self.rig = calibration(root / 'simulation/models/d435i/model.sdf')
+        session_path = self.declare_parameter('session_manifest', '').value.strip()
+        rig_override = self.declare_parameter('rig_config', '').value.strip()
+        session = json.loads(Path(session_path).read_text()) if session_path else {}
+        self.rig = load_session_rig(root, session, rig_override or None)
+        self.rgb_enabled = bool(self.rig.get('rgb_enabled', 'color' in self.rig['cameras']))
         self.max_bracket_ns = int(self.policy['max_pose_bracket_s'] * 1e9)
         self.odom_history = deque(maxlen=self.policy['odom_history_size'])
         self.pending_depth = deque()
@@ -86,10 +95,6 @@ class MappingInputAdapter(Node):
             GetMapStatus, self.policy['map_status_service'], self.on_get_map_status)
         self.subscriptions_owned = [
             self.create_subscription(Image, self.policy['depth_topic'], self.on_depth, sensor_qos),
-            self.create_subscription(Image, self.policy['color_topic'], self.on_color, sensor_qos),
-            self.create_subscription(
-                CameraInfo, self.policy['color_camera_info_topic'],
-                self.on_color_camera_info, sensor_qos),
             self.create_subscription(
                 CameraInfo, self.policy['depth_camera_info_topic'],
                 self.on_depth_camera_info, sensor_qos),
@@ -99,6 +104,13 @@ class MappingInputAdapter(Node):
                 PointCloud2, self.policy['ego_occupancy_topic'],
                 self.on_occupancy, qos_profile_sensor_data),
         ]
+        if self.rgb_enabled:
+            self.subscriptions_owned.extend([
+                self.create_subscription(Image, self.policy['color_topic'], self.on_color, sensor_qos),
+                self.create_subscription(
+                    CameraInfo, self.policy['color_camera_info_topic'],
+                    self.on_color_camera_info, sensor_qos),
+            ])
         self.last_status_publish_wall = 0.0
         self.timer = self.create_timer(0.05, self.on_timer,
                                        clock=Clock(clock_type=ClockType.STEADY_TIME))
@@ -195,9 +207,12 @@ class MappingInputAdapter(Node):
         self.loc_receipt_wall = time.monotonic()
         valid = (msg.header.frame_id == f'odom_{epoch}'
                  and msg.body_frame == f'd435i_imu_{epoch}')
+        if self.rig.get('source_kind') == 'hardware_json':
+            valid = valid and msg.valid and msg.state == LocalizationStatus.TRACKING
         was_valid = self.loc_ok
         self.loc_ok = valid and not self.latched
         if not self.loc_ok:
+            self.reason = msg.reason or 'localization_invalid'
             if was_valid or self.map_dirty:
                 self.invalidate(msg.reason or 'localization_invalid')
             return
@@ -240,7 +255,7 @@ class MappingInputAdapter(Node):
         self.last_depth_stamp = stamp
         rig_depth = self.rig['cameras']['depth']
         if not depth_layout_valid(msg, rig_depth['width'], rig_depth['height'],
-                                  rig_depth['frame']):
+                                  rig_depth.get('image_frame', rig_depth['frame'])):
             self.depth_layout_ok = False
             if self.map_dirty:
                 self.invalidate('depth_layout_invalid')
@@ -249,10 +264,11 @@ class MappingInputAdapter(Node):
         # Invalid pixels stay invalid/unknown in EGO; do not add a project
         # minimum-valid-pixel health gate before forwarding a valid image.
         self.depth_layout_ok = True
-        self.pending_keyframe_depth.append((msg, time.monotonic()))
-        while len(self.pending_keyframe_depth) > 8:
-            self.pending_keyframe_depth.popleft()
-            self.keyframe_dropped += 1
+        if self.rgb_enabled:
+            self.pending_keyframe_depth.append((msg, time.monotonic()))
+            while len(self.pending_keyframe_depth) > 8:
+                self.pending_keyframe_depth.popleft()
+                self.keyframe_dropped += 1
         if not self._inputs_ready(time.monotonic()):
             self.dropped += 1
             return
@@ -265,8 +281,11 @@ class MappingInputAdapter(Node):
         self._flush()
 
     def on_color(self, msg):
+        if not self.rgb_enabled:
+            return
         camera = self.rig['cameras']['color']
-        if (msg.header.frame_id != camera['frame'] or msg.width != camera['width']
+        if (msg.header.frame_id != camera.get('image_frame', camera['frame'])
+                or msg.width != camera['width']
                 or msg.height != camera['height'] or msg.encoding.lower() not in ('rgb8', 'bgr8')):
             self.keyframe_dropped += 1
             return
@@ -278,14 +297,7 @@ class MappingInputAdapter(Node):
         self._flush_keyframes()
 
     def _camera_info_matches(self, msg, camera):
-        if (msg is None or msg.header.frame_id != camera['frame']
-                or msg.width != camera['width'] or msg.height != camera['height']
-                or len(msg.k) != 9):
-            return False
-        expected = camera['K']
-        return all(math.isfinite(msg.k[index])
-                   and abs(msg.k[index] - expected[index]) <= 1e-3
-                   for index in (0, 2, 4, 5, 8))
+        return camera_info_matches(msg, camera)
 
     def on_color_camera_info(self, msg):
         self.color_camera_info = msg if self._camera_info_matches(
@@ -293,8 +305,19 @@ class MappingInputAdapter(Node):
         self._flush_keyframes()
 
     def on_depth_camera_info(self, msg):
-        self.depth_camera_info = msg if self._camera_info_matches(
-            msg, self.rig['cameras']['depth']) else None
+        was_valid = self.depth_camera_info is not None
+        matches = self._camera_info_matches(msg, self.rig['cameras']['depth'])
+        self.depth_camera_info = msg if matches else None
+        if self.rig.get('source_kind') != 'hardware_json':
+            self._flush_keyframes()
+            return
+        if not matches:
+            if was_valid and self.map_dirty:
+                self.invalidate('depth_camera_info_mismatch')
+            else:
+                self.reason = 'depth_camera_info_mismatch'
+            return
+        self._flush()
         self._flush_keyframes()
 
     def on_occupancy(self, msg):
@@ -313,6 +336,10 @@ class MappingInputAdapter(Node):
         status.map_id = self.map_id
         status.reset_acknowledged = bool(self.map_ready)
         status.input_ready = self._inputs_ready(time.monotonic())
+        if self.rig.get('source_kind') == 'hardware_json' and self.last_map_source_stamp_ns is None:
+            status.input_ready = False
+            if self.loc_ok:
+                self.reason = 'waiting_for_first_map_input'
         status.reason = 'ready' if status.input_ready else self.reason
         for value, target in (
                 (self.last_map_source_stamp_ns, status.last_depth_source_stamp),
@@ -327,7 +354,7 @@ class MappingInputAdapter(Node):
         status.pending_depth_high_water_count = self.pending_depth_high_water_count
         status.dropped_depth_count = self.dropped
         status.last_depth_forward_monotonic_ns = self.last_depth_forward_monotonic_ns
-        status.calibration_sha256 = self.rig['model_sha256']
+        status.calibration_sha256 = self.rig['calibration_sha256']
         status.input_config_sha256 = self.policy_sha256
         status.keyframe_count = self.keyframe_count
         status.keyframe_dropped_count = self.keyframe_dropped
@@ -349,7 +376,7 @@ class MappingInputAdapter(Node):
         return response
 
     def _flush_keyframes(self):
-        if not self.pending_keyframe_depth:
+        if not self.rgb_enabled or not self.pending_keyframe_depth:
             return
         if not (self._inputs_ready(time.monotonic()) and self.map_dirty and self.map_id):
             return
@@ -402,7 +429,7 @@ class MappingInputAdapter(Node):
             keyframe.depth = depth
             keyframe.color_camera_info = self.color_camera_info
             keyframe.depth_camera_info = self.depth_camera_info
-            keyframe.calibration_sha256 = self.rig['model_sha256']
+            keyframe.calibration_sha256 = self.rig['calibration_sha256']
             for output, image, camera in (
                     (keyframe.color_pose, color, color_calibration),
                     (keyframe.depth_pose, depth, depth_calibration)):
@@ -425,6 +452,8 @@ class MappingInputAdapter(Node):
 
     def _inputs_ready(self, wall):
         return (self.map_ready and self.loc_ok and self.depth_layout_ok
+                and (self.rig.get('source_kind') != 'hardware_json'
+                     or self.depth_camera_info is not None)
                 and not self.latched
                 and self.loc_receipt_wall is not None)
 

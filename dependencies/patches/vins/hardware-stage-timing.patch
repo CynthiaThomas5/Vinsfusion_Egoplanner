@@ -1,0 +1,77 @@
+--- a/vins/src/estimator/estimator.cpp
++++ b/vins/src/estimator/estimator.cpp
+@@ -12,6 +12,20 @@
+ #include <iomanip>
+ #include <cstdlib>
+ #include <chrono>
++#include <cstdio>
++namespace {
++using HWStageClock = std::chrono::steady_clock;
++void hwStage(const char *name, double stamp, HWStageClock::time_point start) {
++    static const bool enabled = [] { const char *v = std::getenv("VINS_STAGE_TIMING"); return v && std::string(v) == "1"; }();
++    if (enabled) {
++        const auto end = HWStageClock::now();
++        std::fprintf(stderr, "HW_STAGE %s %.9f %.6f %.9f\n", name, stamp,
++            std::chrono::duration<double, std::milli>(end-start).count(),
++            std::chrono::duration<double>(end.time_since_epoch()).count());
++    }
++}
++}
++
+ #include "../utility/visualization.h"
+ 
+ namespace
+@@ -212,12 +226,13 @@
+     inputImageCnt++;
+     map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> featureFrame;
+     TicToc featureTrackerTime;
++    const auto hw_track = HWStageClock::now();
+ 
+     if(_img1.empty())
+         featureFrame = featureTracker.trackImage(t, _img);
+     else
+         featureFrame = featureTracker.trackImage(t, _img, _img1);
+-    //printf("featureTracker time: %f\n", featureTrackerTime.toc());
++    hwStage("tracking", t, hw_track);
+ 
+     if (SHOW_TRACK)
+     {
+@@ -392,8 +407,13 @@
+             }
+             // cout << "4" << endl;
+ 
++            const auto hw_wait = HWStageClock::now();
+             mProcess.lock();
++            hwStage("process_lock", feature.first, hw_wait);
++            const auto hw_image = HWStageClock::now();
+             processImage(feature.second, feature.first);
++            hwStage("process_image", feature.first, hw_image);
++            const auto hw_publish = HWStageClock::now();
+             prevTime = curTime;
+ 
+             // cout << "5" << endl;
+@@ -451,6 +471,7 @@
+             pubKeyframe(*this);
+             // cout << "5-5" << endl;
+             pubTF(*this, header);
++            hwStage("publication", feature.first, hw_publish);
+             // cout << "5-6" << endl;
+             mProcess.unlock();
+ 
+@@ -1397,6 +1418,7 @@
+         return;
+     
+     TicToc t_whole_marginalization;
++    const auto hw_margin = HWStageClock::now();
+     if (marginalization_flag == MARGIN_OLD)
+     {
+         MarginalizationInfo *marginalization_info = new MarginalizationInfo();
+@@ -1588,7 +1610,7 @@
+             
+         }
+     }
+-    //printf("whole marginalization costs: %f \n", t_whole_marginalization.toc());
++    hwStage("marginalization", Headers[frame_count], hw_margin);
+     //printf("whole time for ceres: %f \n", t_whole.toc());
+ }
+ 
