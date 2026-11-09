@@ -4,6 +4,8 @@
 
 仓库：<https://github.com/CynthiaThomas5/Vinsfusion_Egoplanner>
 
+当前为 `explore` 探索分支；`main` 与 `demo-baseline-2026-11-09` 保留现有演示源码。目录隔离、环境边界与晋级方法见 [分支工作流](docs/branch-workflow.md)。
+
 ## 功能与数据链
 
 ```text

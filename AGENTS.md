@@ -1,5 +1,9 @@
 # 项目协作约定
 
+## 探索分支与演示保护
+
+本目录为独立探索 worktree，默认分支 `explore`。稳定演示目录 `/home/work/D435i-groundstation/project` 保留在 `main`；未获用户明确晋级授权，不修改其源码、安装或桌面入口。固定源码恢复点为 `demo-baseline-2026-11-09`。探索前阅读 [分支工作流](docs/branch-workflow.md)，共享 Nano/容器/运行状态并未被 Git 自动隔离；不得用探索构建覆盖演示安装或镜像。
+
 ## 每次开始
 
 读取 README.md、GOAL.md、progress/CURRENT.md、progress/milestones.json，再按任务读取相关 docs 与配置。先运行 `git status --short --branch`；已有修改属于用户，不回滚或混入本轮任务。

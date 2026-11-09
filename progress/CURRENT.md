@@ -1,5 +1,7 @@
 # 当前状态
 
+- 2026-11-09 BRANCH-ISOLATION-001：当前为独立 `explore` worktree，后续开发默认在此进行；原 `project/` 保留 main 与既有演示入口。固定基线 `demo-baseline-2026-11-09` 指向 `61a707f`，另有离线 Git bundle。仅完成源码与工作目录隔离，未隔离或改动 Nano/镜像/运行状态；未重新进行演示或飞行验收。见[分支工作流](../docs/branch-workflow.md)及[变更记录](changes/2026-11-09-003-branch-isolation.md)。
+
 - 2026-11-09 REPO-PUBLISH-001：整理当前工作树用于 GitHub 发布，更新 README、忽略规则与[发布说明](../docs/github-publishing.md)，本地 origin 指向 `CynthiaThomas5/Vinsfusion_Egoplanner`。网络恢复后已合并远程初始提交，通过 GitHub 官方设备登录认证并使用 HTTPS 成功上传 main；不改变 GS02、HW08/HW10 与硬件下一项。详见[发布记录](changes/2026-11-09-002-github-publishing.md)。
 
 - 2026-11-08 SYSTEM-AUDIT-001：批次1状态/启动修复、批次2profile/设备身份收敛、批次3fresh安装入口与清单及批次4导航减负已改。43项可运行的本地定向回归通过，含假colcon成功/失败安装激活、安装后源码变化触发清单失效、启动故障注入、构建/启动互斥、停止无启动依赖、同设备记录身份匹配及安装launch/config核对；ROS深度率测试缺 `ament_index_python`、导航集成测试缺 `rclpy`，均在导入阶段退出。当前x86_64工作站无ROS Foxy，Nano SSH连接被本地网络沙箱拒绝，故Nano ARM/Foxy fresh build和地面链路尚未验证。工作树还混有大量本任务外改动，四批未形成独立 Git 提交，提交级单独回退未完成。GS02完成，HW08/HW10资格状态不变；硬件主线仍为HW10-EV-028。计划见[实施计划](../docs/tasks/SYSTEM-AUDIT-001-remediation-plan.md)，报告见[系统审查](../docs/reviews/system-audit-20261108.md)。Nano 2026-11-09 重连复核见[重试记录](changes/2026-11-09-001-nano-connectivity-retry.md)。
