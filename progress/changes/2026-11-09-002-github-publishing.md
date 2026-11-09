@@ -31,3 +31,11 @@
 - 网络已恢复，通过 HTTPS 读取目标仓库，远程 main 为 `2a6ab273983c2c3b6f7d458b00a89a7013008d95`，只含初始 README 标题。
 - 已保留远程初始提交并合并进本地项目历史，解决 README add/add 冲突时保留本轮完整项目说明，不强制推送。
 - GitHub SSH 返回 `Permission denied (publickey)`；启动官方 GitHub CLI 设备登录，等待用户完成账号认证后推送与验证。
+
+## 上传完成
+
+- 用户完成官方 GitHub 设备授权，登录账号 `CynthiaThomas5`。本机 GitHub CLI 安装在 `~/.local/bin/gh`，凭据未纳入项目。
+- origin 使用 `https://github.com/CynthiaThomas5/Vinsfusion_Egoplanner.git`，等价于用户指定目标仓库。
+- `git push -u origin main` 成功，远程从 `2a6ab27` 更新到 `657a73d`，已建立 main 对 origin/main 的跟踪。
+- 本完成记录随后作为独立文档提交再次推送，并以远程 main 与本地 HEAD 相同及 GitHub 内容 API 回读 README 验证。
+- 停止原因：完成；硬件/仿真资格及下一项不变。

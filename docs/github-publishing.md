@@ -1,6 +1,6 @@
 # GitHub 源码发布与更新
 
-目标远程为 `git@github.com:CynthiaThomas5/Vinsfusion_Egoplanner.git`，本地名为 `origin`。
+目标远程为 `git@github.com:CynthiaThomas5/Vinsfusion_Egoplanner.git`，本地名为 `origin`。完成 GitHub 官方设备登录后，当前实际推送使用等价的 HTTPS 地址 `https://github.com/CynthiaThomas5/Vinsfusion_Egoplanner.git`。
 本地仓库根目录是 `/home/work/D435i-groundstation/project`，不是外层部署目录。
 该路径当前是指向 `releases/gs02-20261106-freeze01/project` 的符号链接；Git 配置和提交存放在实际源码目录内。
 
@@ -47,4 +47,4 @@ git push -u origin main
 
 提升执行权限后网络已恢复，已通过 HTTPS 读取远程 `main`：原远程初始提交为 `2a6ab273983c2c3b6f7d458b00a89a7013008d95`，仅含标题 README。已将该初始提交合并到本地项目历史，README 保留完整项目说明，没有强制覆盖远程历史。
 
-本机现有 SSH 密钥未被 GitHub 接受。上传需要具有仓库写权限的 GitHub 身份；使用官方 GitHub CLI 的设备登录流程完成认证后继续正常推送，并核对远程 main 与本地 HEAD 一致。
+本机现有 SSH 密钥未被 GitHub 接受，随后通过官方 GitHub CLI 设备登录认证为 `CynthiaThomas5`，改用 HTTPS，首次推送已成功（远程从 `2a6ab27` 更新至 `657a73d`）。本记录随后随完成提交同步到远程。后续可在仓库目录直接使用 `git push`；本机认证由 GitHub CLI 管理，凭据不入仓库。
