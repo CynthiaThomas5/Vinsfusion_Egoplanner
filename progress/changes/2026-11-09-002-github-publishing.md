@@ -25,3 +25,9 @@
 ## 产物与下一步
 
 产物：根 README、忽略规则、发布说明和当前源码快照提交。网络恢复后先检查远程分支，再执行 `git push -u origin main`；若被拒绝先审查远程历史。
+
+## 权限恢复后的继续执行
+
+- 网络已恢复，通过 HTTPS 读取目标仓库，远程 main 为 `2a6ab273983c2c3b6f7d458b00a89a7013008d95`，只含初始 README 标题。
+- 已保留远程初始提交并合并进本地项目历史，解决 README add/add 冲突时保留本轮完整项目说明，不强制推送。
+- GitHub SSH 返回 `Permission denied (publickey)`；启动官方 GitHub CLI 设备登录，等待用户完成账号认证后推送与验证。
